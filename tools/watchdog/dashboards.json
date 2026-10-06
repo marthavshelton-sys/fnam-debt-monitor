@@ -1,5 +1,5 @@
 {
-  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routine runs at 19:58, so 5 h); lagSessions lets a publisher that posts late (FRED) trail by that many sessions. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue.",
+  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path; name {es, en}), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routine runs at 19:58, so 5 h). Every feed must carry that session (the S&P 500 included: the runner tops it up from Yahoo/Stooq the same evening); lagSessions N would let a feed trail by N sessions and no feed uses it. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue; a date the exchange calendar (scripts/watchdog/lib.mjs) does not cover → unverified.",
   "graceHours": 3,
   "heartbeatHours": 11,
   "sections": {
@@ -21,9 +21,9 @@
     { "id": "gentera", "section": "companies", "name": { "es": "Gentera", "en": "Gentera" }, "url": "/gentera/", "workflows": ["gentera-refresh.yml"], "alertLabels": [] },
     { "id": "oracle", "section": "companies", "name": { "es": "Oracle", "en": "Oracle" }, "url": "/oracle/", "workflows": ["oracle-refresh.yml"], "alertLabels": [],
       "prices": { "exchange": "NYSE", "settleHours": 5, "series": [
-        { "name": "ORCL close (FactSet Global Prices)", "file": "tools/oracle/data/prices_orcl_factset.csv", "kind": "csv" },
-        { "name": "ORCL and peers snapshot (FactSet)", "file": "tools/oracle/data/factset.json", "kind": "json", "field": "price_date" },
-        { "name": "S&P 500 (FRED SP500)", "file": "tools/oracle/data/prices_spx_daily.csv", "kind": "csv", "lagSessions": 1 }
+        { "name": { "es": "Cierre de ORCL (FactSet Global Prices)", "en": "ORCL close (FactSet Global Prices)" }, "file": "tools/oracle/data/prices_orcl_factset.csv", "kind": "csv" },
+        { "name": { "es": "Precios de ORCL y comparables (FactSet)", "en": "ORCL and peers prices (FactSet)" }, "file": "tools/oracle/data/factset.json", "kind": "json", "field": "price_date" },
+        { "name": { "es": "S&P 500 (FRED SP500)", "en": "S&P 500 (FRED SP500)" }, "file": "tools/oracle/data/prices_spx_daily.csv", "kind": "csv" }
       ] } },
     { "id": "hyperscalers", "section": "companies", "name": { "es": "Centro de Hiperescaladores", "en": "Hyperscaler Hub" }, "url": "/hiperescaladores/", "workflows": ["hyperscalers-refresh.yml"], "alertLabels": ["hyperscalers-health"] }
   ]

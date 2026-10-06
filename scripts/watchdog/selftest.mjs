@@ -57,6 +57,9 @@ assert.throws(() => isSession('BMV', '2026-10-05'), /no session calendar/);
 // New York clock → UTC (EDT in October, EST in December)
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-10-05', '16:00')).toISOString(), '2026-10-05T20:00:00.000Z');
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-12-07', '16:00')).toISOString(), '2026-12-07T21:00:00.000Z');
+assert.equal(new Date(zonedToUtc('America/New_York', '2026-03-08', '03:00')).toISOString(), '2026-03-08T07:00:00.000Z');  // spring-forward day: 03:00 is EDT
+assert.equal(new Date(zonedToUtc('America/New_York', '2026-11-01', '03:00')).toISOString(), '2026-11-01T08:00:00.000Z');  // fall-back day: 03:00 is EST
+assert.equal(new Date(zonedToUtc('America/New_York', '2026-03-08', '16:00')).toISOString(), '2026-03-08T20:00:00.000Z');
 // required session with 5 h settle (the nightly routine runs at 19:58 New York): Monday's close is required from 21:00 ET
 const rq = (iso) => requiredSession({ exchange: 'NYSE', now: t(iso), settleHours: 5 });
 assert.equal(rq('2026-10-05T23:50:00Z').session, '2026-10-02');            // Monday 19:50 ET: still Friday's
@@ -67,7 +70,10 @@ assert.equal(rq('2026-10-06T15:50:00Z').next.requiredFrom, '2026-10-07T01:00:00Z
 assert.equal(rq('2026-10-11T03:50:00Z').session, '2026-10-09');            // Saturday: Friday's
 assert.equal(rq('2026-11-27T03:50:00Z').session, '2026-11-25');            // Thanksgiving night: Wednesday's
 assert.equal(rq('2026-10-06T15:50:00Z').covered, true);
-assert.equal(rq('2029-01-02T15:50:00Z').covered, false);                   // next session in 2029: calendar not maintained that far
+assert.deepEqual(rq('2029-01-02T15:50:00Z'), { session: null, requiredFrom: null, next: null, covered: false });  // 2029: calendar not maintained that far, no guessed session
+assert.equal(rq('2029-01-01T15:50:00Z').covered, false);                   // the first check whose next session is in 2029
+assert.equal(rq('2028-12-29T15:50:00Z').covered, true);
+assert.equal(rq('2025-12-26T15:00:00Z').covered, false);                   // before the calendar's first year (2025-12-25 would pass as a session)
 // price verdict: every feed at the required session → ok; one behind → stale; a lagging publisher gets its sessions
 const px = (now, series) => priceVerdict({ exchange: 'NYSE', now: t(now), settleHours: 5, series });
 assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-05' }, { name: 'b', date: '2026-10-05' }]).status, 'ok');
@@ -76,7 +82,8 @@ assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-02', lagSes
 assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-01', lagSessions: 1 }]).status, 'stale');
 assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: null }]).status, 'stale');
 assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-06' }]).status, 'ok');   // ahead is never stale
-assert.equal(px('2029-01-02T15:50:00Z', [{ name: 'a', date: '2028-12-29' }]).status, 'unverified');
+const un = px('2029-01-02T15:50:00Z', [{ name: 'a', date: '2028-12-29' }]);
+assert.equal(un.status, 'unverified'); assert.equal(un.expected, null); assert.equal(un.next, null); assert.deepEqual(un.series[0], { name: 'a', date: '2028-12-29', needed: null, ok: null });
 assert.deepEqual(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-02' }]).series[0], { name: 'a', date: '2026-10-02', needed: '2026-10-05', ok: false });
 // readers
 assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n'), '2026-10-05');

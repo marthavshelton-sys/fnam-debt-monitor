@@ -91,10 +91,11 @@ export function cdmx(t) {
 // (New Year's Day, Martin Luther King Jr. Day, Presidents' Day, Good Friday, Memorial Day, Juneteenth, Independence Day,
 // Labor Day, Thanksgiving, Christmas; a Saturday holiday closes the preceding Friday unless that Friday ends a
 // month or year, a Sunday holiday closes the following Monday; early closes are still sessions). Extend the list
-// before the last year runs out: past `through`, the check reports "unverified" instead of guessing.
+// before the last year runs out: outside `from`..`through`, the check reports "unverified" instead of guessing,
+// and publishes no session the pages could act on.
 export const EXCHANGES = {
   NYSE: {
-    timeZone: 'America/New_York', close: '16:00', through: 2028,
+    timeZone: 'America/New_York', close: '16:00', from: 2026, through: 2028,
     holidays: [
       '2026-01-01', '2026-01-19', '2026-02-16', '2026-04-03', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07', '2026-11-26', '2026-12-25',
       '2027-01-01', '2027-01-18', '2027-02-15', '2027-03-26', '2027-05-31', '2027-06-18', '2027-07-05', '2027-09-06', '2027-11-25', '2027-12-24',
@@ -121,14 +122,19 @@ export function localParts(timeZone, t) {
   return { date: `${p.year}-${p.month}-${p.day}`, hm: `${p.hour}:${p.minute}` };
 }
 
-// The UTC instant at which the exchange's clock reads `date` `hm` (one offset correction is exact except in the
-// hour a daylight-saving change repeats, which no close time touches).
+// The UTC instant at which the exchange's clock reads `date` `hm`. Two offset corrections: the first lands on the right
+// day, the second uses the offset in force at that instant, so a time on a daylight-saving change day is exact too
+// (only a clock time that does not exist or repeats on such a day, 02:00-03:00, stays ambiguous; no close is there).
 export function zonedToUtc(timeZone, date, hm) {
   const [h, m] = hm.split(':').map(Number);
-  const guess = dayUtc(date) + (h * 60 + m) * 6e4;
-  const local = localParts(timeZone, guess);
-  const localAsUtc = dayUtc(local.date) + (+local.hm.slice(0, 2) * 60 + +local.hm.slice(3)) * 6e4;
-  return guess - (localAsUtc - guess);
+  const target = dayUtc(date) + (h * 60 + m) * 6e4;
+  let t = target;
+  for (let pass = 0; pass < 2; pass++) {
+    const local = localParts(timeZone, t);
+    const localAsUtc = dayUtc(local.date) + (+local.hm.slice(0, 2) * 60 + +local.hm.slice(3)) * 6e4;
+    t -= localAsUtc - target;
+  }
+  return t;
 }
 
 export function isSession(exchange, date) {
@@ -153,7 +159,8 @@ export function sessionAfter(exchange, date) {
 // The session whose close a price feed must carry at instant `now`: the latest session whose close plus
 // `settleHours` (the time the nightly routine needs after the close) has already passed. Also the next session
 // and the instant from which it becomes required, so a page can judge its own data between two watchdog
-// checks. `covered` is false when the calendar does not reach the year in question.
+// checks. When the calendar does not cover the year of the required or the next session, `covered` is false and
+// no session is returned at all: a guessed session must never reach the status file or the pages.
 export function requiredSession({ exchange = 'NYSE', now, settleHours = 0 }) {
   const x = exchangeOf(exchange);
   const requiredAt = (s) => zonedToUtc(x.timeZone, s, x.close) + Math.round(settleHours * 3600) * 1000;
@@ -161,15 +168,19 @@ export function requiredSession({ exchange = 'NYSE', now, settleHours = 0 }) {
   let session = isSession(exchange, local.date) ? local.date : sessionBefore(exchange, local.date, 1);
   while (requiredAt(session) > now) session = sessionBefore(exchange, session, 1);
   const next = sessionAfter(exchange, session);
-  const covered = +next.slice(0, 4) <= x.through;
+  const covered = +session.slice(0, 4) >= (x.from || 0) && +next.slice(0, 4) <= x.through;
+  if (!covered) return { session: null, requiredFrom: null, next: null, covered: false };
   return { session, requiredFrom: isoSeconds(requiredAt(session)), next: { session: next, requiredFrom: isoSeconds(requiredAt(next)) }, covered };
 }
 
 // One verdict for a dashboard's price feeds. series: [{ name, date | null, lagSessions? }]. A feed with
-// lagSessions N (a publisher that posts a day late, e.g. FRED) may trail the required session by N sessions.
+// lagSessions N (a publisher that only ever posts late) may trail the required session by N sessions; none of
+// the Oracle feeds uses it. Outside the calendar: status 'unverified', no expected or next session, every row
+// with needed and ok null.
 export function priceVerdict({ exchange = 'NYSE', now, settleHours = 0, series }) {
   const req = requiredSession({ exchange, now, settleHours });
   const rows = series.map((s) => {
+    if (!req.covered) return { name: s.name, date: s.date || null, needed: null, ok: null };
     const needed = s.lagSessions ? sessionBefore(exchange, req.session, s.lagSessions) : req.session;
     const ok = !!(s.date && ISO_DATE.test(s.date) && s.date >= needed);
     return { name: s.name, date: s.date || null, needed, ok };
