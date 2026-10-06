@@ -51,3 +51,11 @@ In a Claude session the GitHub API answers only through the egress proxy: prefix
 
 Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels). For a company
 page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`.
+
+### What the landing page shows beside the verdict (6-Oct-2026)
+
+The watchdog's `lastSuccess` lags up to 12 hours, so the landing page's status grid now reads each dashboard's OWN data stamp
+from the first bytes of its data file (`STAMPS` in `site/assets/data-status.js`: `generatedAt` of the market or data file,
+`runAt` of `/macro/status.json`, `REFRESHED_AT` of the MX macro page) and prints it as "datos del <time>", keeping the
+watchdog verdict (up to date / late / alert) beside it. The company pages set `data-status-time` on their header dot, so
+the tooltip there shows the same time as the header. A new dashboard needs a `STAMPS` entry too.

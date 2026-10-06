@@ -598,6 +598,9 @@
     .kpi-foot, .mstat-sub, .note-sm, .donut-center .s, .stable th, .cat-subset-tag,
     .manual-badge, .tooltip, .tooltip .t-date, .comp-foot-item, .soon-pill { font-size: 11px; }
   }
+
+.skip{position:absolute; left:-9999px; top:8px; z-index:1000; background:var(--accent, #1b4332); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
 </style>
 
 <div class="mobilebar" id="mobileBar">
@@ -606,8 +609,9 @@
   <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
   <select id="mobileNav" aria-label="Secciones"></select>
 </div>
+<a class="skip" href="#main"><span data-i18n="skipLink">Saltar al contenido</span></a>
 <div class="shell">
-  <nav class="rail" id="rail" aria-label="Secciones">
+  <nav class="rail" id="rail" aria-label="Secciones" role="navigation">
     <a class="rail-home" href="/" data-i18n="railHome">← FNAM · All dashboards</a>
     <div class="rail-brand" data-i18n="brand">Macro Monitor</div>
     <div class="rail-sub" data-i18n="railSub">U.S. economic indicators</div>
@@ -2418,6 +2422,7 @@ const I18N = {
     fiUnitsNote: "Unidades: mmd = miles de millones de dólares (10⁹); billones = millones de millones de dólares (10¹²).",
 
     brand: "Monitor Macro",
+    skipLink: "Saltar al contenido",
     railSub: "Indicadores económicos de Estados Unidos",
     railHome: "← FNAM · Todos los paneles",
     groupPrices: "Inflación",
@@ -2447,7 +2452,7 @@ const I18N = {
 
     dataAsOf: m => "Datos a " + m,
     nextRelease: (d, m) => "Próxima publicación: " + d + " (datos de " + m + ")",
-    nextReleaseWas: (d, m) => "La publicación fue el " + d + " (datos de " + m + ")",
+    nextReleaseWas: (d, m) => "Publicación programada el " + d + " (datos de " + m + "); la página se actualiza cuando llegan las cifras",
     nextReleaseEst: m => "Próxima publicación: ~mediados de " + m + " (el BLS publica ~6 semanas después del cierre del mes)",
     nextReleaseEstPCE: m => "Próxima publicación: ~finales de " + m + " (BEA, junto con el PIB)",
     liveFrom: (agency, time) => "En vivo desde " + agency + " · consultado " + time,
@@ -2545,9 +2550,9 @@ const I18N = {
 
     annPandemicLabel: "Pico pospandemia/guerra en Ucrania",
     annPandemicDetail: "la inflación general del CPI alcanzó 9.1% anual, la más alta en cuatro décadas, impulsada por las disrupciones en las cadenas de suministro durante la pandemia, cerca de 5 billones de dólares en estímulo fiscal, la demanda contenida por la reapertura y el choque global de precios de energía y alimentos tras la invasión rusa de Ucrania en febrero de 2022. La subyacente tocó techo por separado, cerca de 6.6% en septiembre de 2022. La Fed respondió con el ciclo de alzas más rápido desde los años ochenta.",
-    annIranLabel: "Choque petrolero por la guerra con Irán",
+    annIranLabel: "Choque petrolero: ataques de EE. UU. e Israel contra Irán (marzo 2026)",
     annIranDetail: "la gasolina subió cerca de 21% en un solo mes (AE) después de que los ataques de EE. UU. e Israel contra Irán alteraran los mercados petroleros: el mayor incremento mensual de gasolina que el BLS ha registrado desde 1967. El salto de la energía por sí solo agregó un estimado de 0.7 a 0.8 puntos porcentuales a la lectura general del CPI de ese mes (la energía pesa ~6.4% de la canasta); como las medidas subyacentes excluyen la energía, apenas se movieron.",
-    annIranPceLabel: "Choque petrolero por la guerra con Irán",
+    annIranPceLabel: "Choque petrolero: ataques de EE. UU. e Israel contra Irán (marzo 2026)",
     annIranPceDetail: "el mismo choque petrolero de marzo de 2026 (ataques de EE. UU. e Israel contra Irán) también aparece aquí, aunque la energía pesa menos en el PCE (~3.8%) que en el CPI (~6.4%): agregó un estimado de 0.4 puntos porcentuales a la lectura general del PCE de ese mes, frente a alrededor de 0.7 a 0.8 pp en el CPI.",
 
     contribFoot: (weightsMonth, sum, headline) => "Ponderación × variación anual de la categoría, usando los pesos de " + weightsMonth + ". Suma de contribuciones: " + sum + " pp, frente a la inflación general observada de " + headline + " — la diferencia es redondeo, capitalización y desfase en la vigencia de los pesos, no un error.",
@@ -2572,7 +2577,7 @@ const I18N = {
     gdpDesc: "Crecimiento trimestral del producto y de dónde viene: consumo, inversión, gobierno y comercio exterior. Tasa anualizada, ajustada por estacionalidad.",
     sourceGDP: "Fuente: cuentas nacionales del BEA ↗",
     gdpNextRelease: (d, what) => "Próxima publicación del PIB: " + d + (what ? " (" + what + ")" : ""),
-    gdpNextReleaseWas: d => "La publicaci\u00f3n del PIB fue el " + d,
+    gdpNextReleaseWas: d => "Publicaci\u00f3n del PIB programada el " + d + "; la página se actualiza cuando llegan las cifras",
     gdpVintage: "Estimación sujeta a revisión",
     beaRevLead: "Historia revisada.",
     beaRevGdp: (d, from, n, ex) => "La actualización anual del BEA del " + d + " revisó el PIB desde el " + from + " y cambió el crecimiento de " + n + " trimestres; las gráficas muestran las cifras revisadas." + (ex.length ? " Mayores cambios en el crecimiento anualizado: " + ex.join("; ") + "." : ""),
@@ -3087,7 +3092,7 @@ const I18N = {
     ppiMstatCore6m: "Subyacente, 6 m anualizado",
     annPandemicPpiLabel: "Pico pospandemia/guerra en Ucrania",
     annPandemicPpiDetail: (pk, corePk) => "el PPI de demanda final alcanzó " + pk + " anual, su máximo desde que la serie de demanda final comenzó a finales de 2009, y la subyacente " + corePk + ". La presión llegó primero a los productores: cuellos de botella en cadenas de suministro, fletes y energía tras la invasión rusa de Ucrania en febrero de 2022. El CPI general tocó techo tres meses después, en junio de 2022 (9.1%).",
-    annIranPpiLabel: "Choque petrolero por la guerra con Irán",
+    annIranPpiLabel: "Choque petrolero: ataques de EE. UU. e Israel contra Irán (marzo 2026)",
     annIranPpiDetail: (eMom, contrib) => "la energía de demanda final subió " + eMom + " en un solo mes tras los ataques de EE. UU. e Israel contra Irán, unos " + contrib + " puntos porcentuales del avance mensual de la demanda final (la energía pesa ~5.1% del índice). En el PPI el choque se transmite más rápido y con más fuerza que en el CPI, porque los productores venden combustible a precios de mercado sin el amortiguador de los márgenes minoristas.",
     ppiCmpLine1: (ppi, cpi, m) => "El PPI de demanda final corre a " + ppi + " frente a un CPI general de " + cpi + " (" + m + ").",
     ppiCmpLine2: (dir, gap) => dir === "above"
@@ -3442,6 +3447,7 @@ const I18N = {
     fiUnitsNote: "Units: B = billions of dollars (10⁹); T = trillions (10¹²).",
 
     brand: "Macro Monitor",
+    skipLink: "Skip to content",
     railSub: "U.S. economic indicators",
     railHome: "← FNAM · All dashboards",
     groupPrices: "Inflation",
@@ -3471,7 +3477,7 @@ const I18N = {
 
     dataAsOf: m => "Data as of " + m,
     nextRelease: (d, m) => "Next release: " + d + " (" + m + " data)",
-    nextReleaseWas: (d, m) => "Next release was " + d + " (" + m + " data)",
+    nextReleaseWas: (d, m) => "Scheduled release " + d + " (" + m + " data); the page updates once the figures are in",
     nextReleaseEst: m => "Next release: ~mid " + m + " (BLS publishes ~6 weeks after month end)",
     nextReleaseEstPCE: m => "Next release: ~late " + m + " (BEA, alongside GDP)",
     liveFrom: (agency, time) => "Live from " + agency + " · fetched " + time,
@@ -3569,9 +3575,9 @@ const I18N = {
 
     annPandemicLabel: "Post-pandemic/Ukraine war peak",
     annPandemicDetail: "headline CPI peaked at 9.1% YoY — the worst U.S. inflation in four decades — driven by pandemic-era supply-chain disruptions, roughly $5 trillion in fiscal stimulus, pent-up demand as the economy reopened, and a global energy and food price shock after Russia's February 2022 invasion of Ukraine. Core CPI peaked separately a few months later, near 6.6% in September 2022. The Fed responded with its fastest rate-hiking cycle since the 1980s.",
-    annIranLabel: "Iran war oil shock",
+    annIranLabel: "Oil shock: U.S.–Israel strikes on Iran (March 2026)",
     annIranDetail: "gasoline rose roughly 21% in one month (SA) after U.S.–Israel strikes on Iran disrupted oil markets — the largest one-month gasoline increase BLS has recorded since 1967. Energy's jump alone added an estimated 0.7–0.8 percentage points to that month's headline CPI reading (energy is ~6.4% of the CPI basket); because core inflation measures exclude energy, they barely moved.",
-    annIranPceLabel: "Iran war oil shock",
+    annIranPceLabel: "Oil shock: U.S.–Israel strikes on Iran (March 2026)",
     annIranPceDetail: "the same March 2026 oil-market shock (U.S.–Israel strikes on Iran) shows up here too, though energy is a smaller slice of PCE (~3.8%) than of CPI (~6.4%) — it added an estimated 0.4 percentage points to that month's headline PCE reading, versus roughly 0.7–0.8pp for CPI.",
 
     contribFoot: (weightsMonth, sum, headline) => "Weight × category YoY, using " + weightsMonth + " weights. Sum of contributions: " + sum + "pp, vs. actual headline " + headline + " — the gap is rounding, compounding, and weight-vintage drift, not an error.",
@@ -3596,7 +3602,7 @@ const I18N = {
     gdpDesc: "Quarterly output growth and where it comes from — consumption, investment, government and trade. Annualized rate, seasonally adjusted.",
     sourceGDP: "Source: BEA national accounts ↗",
     gdpNextRelease: (d, what) => "Next GDP release: " + d + (what ? " (" + what + ")" : ""),
-    gdpNextReleaseWas: d => "Next GDP release was " + d,
+    gdpNextReleaseWas: d => "Scheduled GDP release " + d + "; the page updates once the figures are in",
     gdpVintage: "Estimate subject to revision",
     beaRevLead: "History revised.",
     beaRevGdp: (d, from, n, ex) => "BEA's annual update of " + d + " revised GDP back to " + from + ", changing growth in " + n + " quarters; the charts show the revised figures." + (ex.length ? " Largest changes to annualized growth: " + ex.join("; ") + "." : ""),
@@ -4108,7 +4114,7 @@ const I18N = {
     ppiMstatCore6m: "Core, 6-mo annualized",
     annPandemicPpiLabel: "Post-pandemic/Ukraine war peak",
     annPandemicPpiDetail: (pk, corePk) => "final demand PPI peaked at " + pk + " YoY, the highest since the final-demand series began in late 2009, with core at " + corePk + ". The pressure hit producers first — supply-chain bottlenecks, freight, and energy after Russia's February 2022 invasion of Ukraine. Headline CPI peaked three months later, in June 2022 (9.1%).",
-    annIranPpiLabel: "Iran war oil shock",
+    annIranPpiLabel: "Oil shock: U.S.–Israel strikes on Iran (March 2026)",
     annIranPpiDetail: (eMom, contrib) => "final demand energy rose " + eMom + " in a single month after U.S.–Israel strikes on Iran, roughly " + contrib + " percentage points of that month's final-demand move (energy is ~5.1% of the index). The shock passes through faster and harder in PPI than in CPI, because producers sell fuel at market prices without the cushion of retail margins.",
     ppiCmpLine1: (ppi, cpi, m) => "Final demand PPI is running " + ppi + " against headline CPI of " + cpi + " (" + m + ").",
     ppiCmpLine2: (dir, gap) => dir === "above"
@@ -4446,7 +4452,7 @@ function detectLang() {
   if (q === "en" || q === "es") return q;
   if (/\/en\/?$/.test(location.pathname)) return "en";
   try {
-    const saved = localStorage.getItem("macrodash-lang");
+    const saved = localStorage.getItem("fnam-lang") || localStorage.getItem("macrodash-lang");
     if (saved === "en" || saved === "es") return saved;
   } catch (e) { /* private mode; fall through to the default */ }
   return "es";
@@ -4465,7 +4471,7 @@ function setLang(lang) {
   if (lang !== "es" && lang !== "en") return;
   LANG = lang;
   T = I18N[lang];
-  try { localStorage.setItem("macrodash-lang", lang); } catch (e) { /* ignore */ }
+  try { localStorage.setItem("fnam-lang", lang); } catch (e) { /* ignore */ }
   document.documentElement.setAttribute("lang", T.htmlLang);
   const url = new URL(location.href);
   url.searchParams.set("lang", lang);
@@ -8701,13 +8707,15 @@ function renderConfidence() {
     ], {fmt: v => v.toFixed(1) + "%", labelFmt: d => fmtMonthYear(d)});
   const p1 = last(px1), p5 = last(px5);
   if (p1 && p5) {
-    const cpiHere = cpiYoY[p1.d] !== undefined ? cpiYoY[p1.d]
-                  : cpiYoY[UMICH.px1[UMICH.px1.length-1].d];
+    // the survey month (p1.d) can run ahead of the latest CPI print: fall back to the latest CPI month available and name it
+    const cpiMonths = Object.keys(cpiYoY).filter(k => cpiYoY[k] !== undefined && cpiYoY[k] !== null).sort();
+    const cpiMonthHere = cpiYoY[p1.d] !== undefined && cpiYoY[p1.d] !== null ? p1.d : (cpiMonths.length ? cpiMonths[cpiMonths.length - 1] : null);
+    const cpiHere = cpiMonthHere ? cpiYoY[cpiMonthHere] : undefined;
     const px5decade = px5.slice(-120);
     const px5avg = px5decade.reduce((a,b) => a + b.v, 0) / px5decade.length;
     document.getElementById("confInflCallout").innerHTML =
       "<div>" + T.confInflNote(p1.v.toFixed(1)+"%", p5.v.toFixed(1)+"%",
-                  cpiHere === undefined ? "—" : cpiHere.toFixed(1)+"%",
+                  cpiHere === undefined ? "—" : cpiHere.toFixed(1)+"%" + (cpiMonthHere && cpiMonthHere !== p1.d ? " (" + fmtMonthYear(cpiMonthHere) + ")" : ""),
                   fmtMonthYear(p1.d)) + "</div>" +
       "<div>" + T.confInflAnchor(p5.v.toFixed(1)+"%", (p5.v - px5avg).toFixed(1)) + "</div>";
   }
@@ -9083,4 +9091,16 @@ showView(new URLSearchParams(location.search).get("view") || DEFAULT_VIEW, false
     fetch("status.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(s => { if (s && s.runAt) { STATUS = s; renderFileDateLines(); } }).catch(() => {});
   } catch (e) { /* file: or no fetch */ }
 })();
+
+// Accessible names for the SVG charts: each takes the heading of its panel (or section) in the language on screen.
+function nameChartSvgs() {
+  document.querySelectorAll("svg:not([aria-label])").forEach(svg => {
+    if (svg.closest("button, a, .legend, .rail, .brand, .topbar, header, .skip")) return;
+    const box = svg.closest(".panel, .card, section, .view"); const h = box ? box.querySelector("h2, h3, h1, .panel-title, .card-title") : null;
+    const txt = h ? h.textContent.replace(/\s+/g, " ").trim() : "";
+    if (!txt) return; svg.setAttribute("role", "img"); svg.setAttribute("aria-label", txt);
+  });
+}
+if (window.MutationObserver) new MutationObserver(() => { clearTimeout(window.__svgNameT); window.__svgNameT = setTimeout(nameChartSvgs, 150); }).observe(document.body, { childList: true, subtree: true });
+document.addEventListener("DOMContentLoaded", nameChartSvgs);
 </script>

@@ -1,9 +1,9 @@
 // Research-only figures with no machine-readable primary source. Everything else the page shows
 // (debt, rates and the FOMC target range, holders, revenue/outlays, interest, maturity, TIC, GDP, the
 // Fed balance sheet, the macro readings in the CBO table) is fetched from Treasury, the Fed and FRED
-// twice a day into data.js by scripts/fetch-data.mjs, and data.js always wins.
+// twice a day into data.js by the data refresh, and data.js always wins.
 //
-// This file is maintained by the cloud routine "FNAM US Fiscal: CBO / FedWatch research", which
+// This file is maintained by the automated research routine "FNAM US Fiscal: CBO / FedWatch research", which
 // commits directly to main on Mondays, Wednesdays and Fridays (Friday is the first run after a
 // Wednesday FOMC decision), only when
 // it can cite the primary publisher (or, for CBO figures, two independent reputable outlets quoting
@@ -249,25 +249,25 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        78,
-        13
+        77.9,
+        11.4
       ],
       [
-        22,
-        87
-      ],
-      [
-        0,
-        0
+        22.1,
+        62.3
       ],
       [
         0,
-        0
+        24.3
+      ],
+      [
+        0,
+        2.1
       ]
     ],
-    "sourceName": "CNBC (quoting CME FedWatch)",
-    "sourceNameEs": "CNBC (citando CME FedWatch)",
-    "sourceUrl": "https://www.cnbc.com/2026/10/05/gold-gains-as-october-fed-rate-hike-prospects-fade.html",
+    "sourceName": "Phemex News (quoting CME FedWatch)",
+    "sourceNameEs": "Phemex News (citando CME FedWatch)",
+    "sourceUrl": "https://phemex.com/news/article/cme-fedwatch-779-probability-fed-holds-rates-in-october-98766",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -292,7 +292,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "CNBC, \"Gold gains as October Fed rate hike prospects fade\", 2026-10-05 (https://www.cnbc.com/2026/10/05/gold-gains-as-october-fed-rate-hike-prospects-fade.html): \"Traders now see a 22% probability of a Fed rate hike in October, down from 64% a week ago, while still pricing in an 87% chance of a Federal Reserve rate hike in December, according to the CME FedWatch Tool.\" The article gives only a binary hike-vs-hold reading for each meeting, not a full five-bucket distribution, so per the research routine's rule for this case: October's 22% is placed in the bucket above the current 3.75-4.00% target range (4.00-4.25%), with the remaining 78% as no change; December's 87% is placed the same way (4.00-4.25% = 87, 3.75-4.00% = 13), i.e. both columns are read relative to today's range, not sequentially. Replaces the 2026-10-02 CNBC snapshot (17% October hike / 82.8% hold), which is now stale. Previous snapshot: CNBC, 2026-09-30, 37% for an October raise. CME's tool and Investing.com's Fed Rate Monitor answer 403 to scripts.",
+    "fedWatch": "Phemex News, \"CME FedWatch: 77.9% Chance Fed Holds Rates in October\", 2026-10-05 (https://phemex.com/news/article/cme-fedwatch-779-probability-fed-holds-rates-in-october-98766): October, \"77.9% probability that the Federal Reserve will maintain current interest rates through October, with a 22.1% chance of a cumulative 25 basis point hike\"; December, \"only an 11.4% probability of rates remaining unchanged, while a cumulative 25 basis point hike carries a 62.3% likelihood. A 50 basis point cumulative increase is priced at 24.3%, with a 75 basis point hike at just 2.1%.\" The article gives cumulative moves from the current 3.75-4.00% target range, so they map one to one onto the buckets: unchanged = 3.75-4.00%, +25 bp = 4.00-4.25%, +50 bp = 4.25-4.50%, +75 bp = 4.50-4.75% (the December column sums to 100.1 as printed). Cross-check: Investing.com's Fed Rate Monitor (CME 30-day fed fund futures, 2026-10-03) put the December 4.25-4.50% bucket at 18.4%. Replaces the CNBC 2026-10-05 snapshot (binary 22% October hike / 87% December hike reading, which this file had placed entirely in the 4.00-4.25% bucket; now superseded by the full distribution). CME's tool and Investing.com answer 403 to scripts.",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };

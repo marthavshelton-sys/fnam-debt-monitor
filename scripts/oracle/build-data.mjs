@@ -18,7 +18,7 @@ const todayET = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_
 // Volatile stamps are ignored; long series (daily prices) are summarised as a length change; quality.js is a report
 // and is not logged. tools/oracle/data/changelog.json keeps the last 600 entries.
 const CHANGELOG_PATH = join(DATA, "changelog.json");
-const changelog = existsSync(CHANGELOG_PATH) ? JSON.parse(readFileSync(CHANGELOG_PATH, "utf8")) : { note: "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.", entries: [] };
+const changelog = existsSync(CHANGELOG_PATH) ? JSON.parse(readFileSync(CHANGELOG_PATH, "utf8")) : { note: "Change log of the page data files, written by the data builder on each run", entries: [] };
 const SKIP_KEYS = /^(generatedAt|generated|fetched|updatedAt|updated|checkedAt|accessed|_comment|note|notes)$/;
 const flatten = (o, prefix, out, depth = 0) => { if (o == null || typeof o !== "object") { out[prefix] = o; return out; } if (Array.isArray(o)) { if (o.length > 60) { out[prefix + ".length"] = o.length; return out; } o.forEach((v, i) => flatten(v, `${prefix}[${i}]`, out, depth + 1)); return out; } for (const [k, v] of Object.entries(o)) { if (SKIP_KEYS.test(k)) continue; flatten(v, prefix ? `${prefix}.${k}` : k, out, depth + 1); } return out; };
 const readPrev = (file) => { const p = join(OUT, file); if (!existsSync(p)) return null; const txt = readFileSync(p, "utf8"); const i = txt.indexOf("= "); try { return JSON.parse(txt.slice(i + 2).replace(/;\s*$/, "")); } catch (e) { return null; } };
@@ -30,7 +30,10 @@ const logChanges = (file, obj) => {
   let n = 0;
   for (const k of keys) { const x = a[k], y = b[k]; if (JSON.stringify(x) === JSON.stringify(y)) continue; if (typeof x === "string" && typeof y === "string" && (x.length > 160 || y.length > 160)) { changelog.entries.push({ at: now, file, path: k, old: "(text)", new: "(text changed)" }); n++; continue; } changelog.entries.push({ at: now, file, path: k, old: x === undefined ? null : x, new: y === undefined ? null : y }); n++; if (n >= 120) { changelog.entries.push({ at: now, file, path: "(more)", old: null, new: `${keys.size} leaves compared; further changes in this file not listed` }); break; } }
 };
-const emit = (file, global, obj, header) => { logChanges(file, obj); writeFileSync(join(OUT, file), `// ${header}\n// Generated ${now} by scripts/oracle/build-data.mjs — do not hand-edit; edit /data and rebuild.\nwindow.${global} = ${JSON.stringify(obj)};\n`, "utf8"); };
+const scrubPaths = (o) => JSON.parse(JSON.stringify(o).replace(/ ?\(tools\/[^)]*\)/g, "").replace(/\btools\/[A-Za-z0-9_./-]+/g, "the model's data store").replace(/\bscripts\/oracle\/[a-z-]+\.(mjs|py)\b/g, "the data pipeline"));
+// Public data files carry no repository paths (owner's rule): headers and the curated notes inside the data are scrubbed on the way out.
+const scrubText = (t) => String(t).replace(/ ?\(tools\/[^)]*\)/g, "").replace(/\bscripts\/oracle\/[a-z-]+\.(mjs|py)\b/g, "the data pipeline").replace(/\btools\/oracle\/[A-Za-z0-9_./-]+/g, "the model's data store");
+const emit = (file, global, obj, header) => { obj = scrubPaths(obj); header = scrubText(header); logChanges(file, obj); writeFileSync(join(OUT, file), `// ${header}\n// Generated ${now} — do not hand-edit.\nwindow.${global} = ${JSON.stringify(obj)};\n`, "utf8"); };
 
 const quarters = load("quarters.json").quarters.slice().sort((a, b) => (a.period_end < b.period_end ? -1 : 1));
 const fiscalYears = load("fiscal_years.json", { fiscal_years: {} }).fiscal_years;
@@ -174,14 +177,19 @@ const orclPts = csv("prices_orcl_daily.csv"), spxPts = csv("prices_spx_daily.csv
 // 52 weeks ending at the latest close, excluding the same calendar date a year earlier.
 const ohlc = (() => { const p = join(DATA, "prices_orcl_daily.csv"); if (!existsSync(p)) return []; const lines = readFileSync(p, "utf8").replace(/^\uFEFF/, "").trim().split(/\r?\n/); const h = lines[0].split(",").map((x) => x.trim().toLowerCase()); const di = h.indexOf("date"), hi = h.indexOf("high"), lo = h.indexOf("low"), ci = h.indexOf("close"); if (di < 0 || hi < 0 || lo < 0) return []; return lines.slice(1).map((l) => { const c = l.split(","); return { d: c[di], h: parseFloat(c[hi]), l: parseFloat(c[lo]), c: parseFloat(c[ci]) }; }).filter((x) => x.d && Number.isFinite(x.h) && Number.isFinite(x.l)).sort((a, b) => (a.d < b.d ? -1 : 1)); })();
 const range52 = (() => { if (!ohlc.length) return null; const last = ohlc[ohlc.length - 1]; const from = new Date(last.d + "T00:00:00Z"); from.setUTCDate(from.getUTCDate() - 365); const fromIso = from.toISOString().slice(0, 10); const w = ohlc.filter((x) => x.d > fromIso && x.d <= last.d); if (!w.length) return null; const H = w.reduce((a, x) => (x.h > a.h ? x : a)), Lo = w.reduce((a, x) => (x.l < a.l ? x : a)); return { high: H.h, highDate: H.d, low: Lo.l, lowDate: Lo.d, from: w[0].d, to: last.d, basis: "intraday", source: mref.price_snapshot?.orcl?.source_name || null, note: "52-week high and low from daily intraday highs and lows over the 52 weeks ending at the latest close (window excludes the same date a year earlier)." }; })();
-const divs = (load("dividends.json", { dividends: [] }).dividends || []).filter((d) => d.payment_date && d.amount_per_share != null).map((d) => [d.payment_date, d.amount_per_share]).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+// Dividends by payment date. A declared dividend whose payment date has not arrived is listed under `announced`, never among the
+// paid points (the page's DPS chart and the yield read the paid series; the declarations table marks the announced one).
+const todayIso = now.slice(0, 10);
+const divsAll = (load("dividends.json", { dividends: [] }).dividends || []).filter((d) => d.payment_date && d.amount_per_share != null).sort((a, b) => (a.payment_date < b.payment_date ? -1 : 1));
+const divs = divsAll.filter((d) => d.payment_date <= todayIso).map((d) => [d.payment_date, d.amount_per_share]);
+const divsAnnounced = divsAll.filter((d) => d.payment_date > todayIso).map((d) => ({ declared: d.declared_date || null, record: d.record_date || null, payment: d.payment_date, dps: d.amount_per_share, status: "announced" }));
 emit("market.js", "ORCL_MARKET", {
   generatedAt: mref.refreshed_at || mref.as_of || now,
   prices: {
     ORCL: { name: "Oracle (NYSE: ORCL)", currency: "USD", exchange: "NYSE", source: mref.price_snapshot?.orcl?.source_name || "Public daily closes (Yahoo Finance chart API; Nasdaq/Stooq fallbacks)", sourceUrl: mref.price_snapshot?.orcl?.source_url || null, fetchedAt: mref.price_snapshot?.orcl?.accessed || null, points: orclPts },
     "^GSPC": { name: "S&P 500", currency: "USD", exchange: "index", source: mref.price_snapshot?.sp500?.source_name || "FRED SP500 / Yahoo Finance", sourceUrl: mref.price_snapshot?.sp500?.source_url || null, fetchedAt: mref.price_snapshot?.sp500?.accessed || null, points: spxPts },
   },
-  dividends: { ORCL: { source: "Quarterly dividends declared in each 8-K earnings release (tools/oracle/data/dividends.json); dated by payment date", points: divs } },
+  dividends: { ORCL: { source: "Quarterly dividends declared in each 8-K earnings release; dated by payment date (paid only; declared-not-yet-paid under announced)", points: divs, announced: divsAnnounced } },
   // US10Y.source/sourceUrl/asOf name the exact 10-year value the DCF uses (owner's rule, 2026-10-05): the page, the deck and the
   // validator print them beside the figure instead of a fixed "FRED DGS10" label.
   rates: { US10Y: { name: "US Treasury 10-year (%)", source: mref.treasury_10y?.source_name || "U.S. Treasury daily par yield curve", sourceUrl: mref.treasury_10y?.source_url || null, series: mref.treasury_10y?.series || "10-year par yield, daily", asOf: mref.treasury_10y?.as_of_date || null, value: mref.treasury_10y?.yield_pct ?? null, fetchedAt: mref.treasury_10y?.accessed || null, points: tsyPts.length ? tsyPts : (mref.treasury_10y?.yield_pct != null ? [[mref.treasury_10y.as_of_date, mref.treasury_10y.yield_pct]] : []) } },
@@ -329,7 +337,7 @@ const prs = load("press.json", null);
 
 // ---------- obligations.js (off-balance-sheet financing, preferred stock, funding plan) ----------
 const obl = load("obligations.json", null);
-if (obl) emit("obligations.js", "ORCL_OBLIG", { ...obl, generatedAt: now }, "Off-balance-sheet financing and capital-structure facts from the 10-Q/10-K leases and commitments notes, the preferred-stock prospectus and the calls (tools/oracle/data/obligations.json); ratios are computed on the page.");
+if (obl) emit("obligations.js", "ORCL_OBLIG", { ...obl, generatedAt: now }, "Off-balance-sheet financing and capital-structure facts from the 10-Q/10-K leases and commitments notes, the preferred-stock prospectus and the calls; ratios are computed on the page.");
 
 // ---------- peer_leverage.js (Baa-range technology issuers, SEC XBRL) ----------
 const plv = load("peer_leverage.json", null);
@@ -375,7 +383,7 @@ const nws = load("news.json", null);
 if (nws) {
   const cut = new Date((nws.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (nws.window_days || 120)); const cutIso = cut.toISOString().slice(0, 10);
   const items = (nws.items || []).filter((x) => x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));
-  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], sweepNote: nws.sweep_note_en ? { en: nws.sweep_note_en, es: nws.sweep_note_es, date: nws.sweep_note_date || null } : null, items }, "News and recent events for the Oracle page — tools/oracle/data/news.json, refreshed daily by the cloud routine; each item dated, themed, with primary sources first.");
+  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], sweepNote: nws.sweep_note_en ? { en: nws.sweep_note_en, es: nws.sweep_note_es, date: nws.sweep_note_date || null } : null, items }, "News and recent events for the Oracle page — refreshed daily by an automated sweep; each item dated, themed, with primary sources first.");
 }
 
 // ---------- xbrl.js (Oracle's own XBRL facts: leases, capex, finance-lease additions, commitments) ----------

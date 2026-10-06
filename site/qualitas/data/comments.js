@@ -3,9 +3,9 @@
 // Sources: Quálitas' quarterly results reports (IR site) and the FactSet CallStreet transcripts of the
 // earnings calls (4Q23–2Q26) supplied by the repo owner. Keys: quarter id (2026Q2 = 2Q26 vs 2Q25), YTD id
 // (2026M6 = 6M26 vs 6M25) or fiscal year (FY2025 vs FY2024).
-//   lines  income-statement keys (written … netIncome) and the ratio rows (acqRatio, lossRatio, opRatio, combined)
-//   bs     balance-sheet keys (period-end vs a year earlier)      cf  cash-flow keys (YTD / FY statements)
-//   ops    operating-metrics keys (unitsTotal, unitsMx, unitsIntl, premInd, premFleet, premFin, premIntl, wpPerUnit, claimsPerUnit)
+//  lines income-statement keys (written … netIncome) and the ratio rows (acqRatio, lossRatio, opRatio, combined)
+//  bs   balance-sheet keys (period-end vs a year earlier)   cf cash-flow keys (YTD / FY statements)
+//  ops  operating-metrics keys (unitsTotal, unitsMx, unitsIntl, premInd, premFleet, premFin, premIntl, wpPerUnit, claimsPerUnit)
 //   call   the earnings call used for colour.
 // Percentages quoted are as printed by Quálitas; where the prior-year base was restated, the table (as
 // originally reported) can differ slightly. New quarters: drafted from the new report, reviewed, then the

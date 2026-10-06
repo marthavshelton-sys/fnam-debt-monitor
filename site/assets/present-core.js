@@ -46,12 +46,20 @@
     if (!M) { alert('Model not ready'); return; }
     const btn = document.getElementById('btnPrint'); const label = btn ? btn.innerHTML : '';
     if (btn) { btn.disabled = true; btn.innerHTML = M.LANG === 'es' ? '⏳ Generando PDF…' : '⏳ Building PDF…'; }
+    // What is happening, for a reader who arrived through a deck link (?present=1): the PDF is built in the browser from the
+    // figures on the page and downloads by itself; the notice goes away when the build ends.
+    let note = document.getElementById('presentNote');
+    if (!note) { note = document.createElement('div'); note.id = 'presentNote'; note.setAttribute('role', 'status'); note.style.cssText = 'position:fixed; left:50%; top:72px; transform:translateX(-50%); z-index:60; max-width:min(560px, calc(100% - 32px)); padding:12px 16px; border-radius:10px; background:var(--surface, #fff); color:var(--text-primary, #0b0b0b); border:1px solid var(--border, #ccc); box-shadow:0 6px 24px rgba(0,0,0,.18); font:14px/1.45 Inter, system-ui, sans-serif;'; document.body.appendChild(note); }
+    note.innerHTML = M.LANG === 'es'
+      ? '<b>Generando la presentación en PDF…</b> Se arma en su navegador con las cifras que muestra esta página (unos segundos) y la descarga empieza sola; la página sigue disponible mientras tanto.'
+      : '<b>Building the PDF presentation…</b> It is assembled in your browser from the figures on this page (a few seconds) and the download starts by itself; the page stays usable meanwhile.';
+    note.hidden = false;
     try {
       for (const v of VENDOR) await loadScript(v);
       for (const s of extraScripts || []) { try { await loadScript(s); } catch (e) { console.warn('presentation: optional script not loaded', s); } }
       await buildFn();
     } catch (e) { console.error(e); alert((M.LANG === 'es' ? 'No se pudo generar el PDF: ' : 'The PDF could not be built: ') + (e.message || e)); }
-    finally { if (btn) { btn.disabled = false; btn.innerHTML = label; } }
+    finally { if (btn) { btn.disabled = false; btn.innerHTML = label; } const n2 = document.getElementById('presentNote'); if (n2) n2.hidden = true; }
   }
 
   // Deep link: /<slug>/?present=1[&lang=es|en] opens the page, sets the language and builds the PDF at once

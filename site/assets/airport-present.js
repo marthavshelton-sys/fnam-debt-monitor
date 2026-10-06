@@ -118,6 +118,9 @@
       if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M  ·  ${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
       if (nd && L) R(this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`), this.x(nd.net / L.is.ebitda, 1), 'bold');
       if (L) R(this.T(`VE / ${this.ebitdaL} UDM  ·  P/U UDM`, `EV / LTM ${this.ebitdaL}  ·  LTM P/E`), `${this.x(ev / L.is.ebitda)}  ·  ${M.niCtrl(L.is) ? this.x(mc / 1000 / M.niCtrl(L.is)) : '—'}`);
+      // pro-forma perimeter (REF.proForma, ASUR with Motiva/CPC): the page's DCF and multiples use it while it is on; the deck prints it beside the reported figures
+      if (nd && L && M.PF && M.proFormaOn && M.proFormaOn()) { const PFo = M.PF, eb = L.is.ebitda + PFo.ebitdaM * 1000, evPf = mc / 1000 + PFo.netDebtM * 1000 + M.nciOf(lastQ);
+        R(this.T(`Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, ilustrativo): deuda neta / EBITDA UDM  ·  VE / EBITDA UDM`, `Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, illustrative): net debt / LTM EBITDA  ·  EV / LTM EBITDA`), `${this.x(PFo.netDebtM * 1000 / eb, 1)}  ·  ${this.x(evPf / eb)}  ·  ${this.T('deuda neta', 'net debt')} Ps. ${this.n(PFo.netDebtM, 0)} M`); }
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
       if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
@@ -291,7 +294,12 @@
       } else push(this.T(`Total ${this.cfg.short} (${AIR.length} aeropuertos)`, `Total ${this.cfg.short} (${AIR.length} airports)`), totNow, prev && prev.total.TOTAL, ytdOf(lastM.ym, 'TOTAL'), prev ? ytdOf(prev.ym, 'TOTAL') : null, lastM.dom.TOTAL, lastM.intl.TOTAL, totNow, 'bold');
       y = this.heading(this.T(`Último mes: ${M.ymLabel(lastM.ym)}`, `Latest month: ${M.ymLabel(lastM.ym)}`), this.cur.x0, y, 10.5);
       const nt = this.nextTraffic();
-      const nextLine = nt ? this.T(`Próximo reporte: tráfico de ${new Date(Date.UTC(+lastM.ym.slice(0, 4), +lastM.ym.slice(5, 7), 1)).toLocaleDateString('es-MX', { month: 'long', year: 'numeric', timeZone: 'UTC' })}, esperado hacia el ${this.date(nt.date)} (${this.cfg.short} publica alrededor del día ${nt.day}, mediana de los últimos doce reportes).`, `Next report: ${new Date(Date.UTC(+lastM.ym.slice(0, 4), +lastM.ym.slice(5, 7), 1)).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })} traffic report expected around ${this.date(nt.date)} (${this.cfg.short} publishes around the ${nt.day}${this.es ? '' : 'th'}, median of the last twelve reports).`) : '';
+      // an expected date already past (the report is late, or the deck is built before the harvest ran) is said to be pending, never "expected" in the past tense
+      const todayIso = new Date().toISOString().slice(0, 10), overdue = nt && nt.date < todayIso;
+      const nextMonthName = new Date(Date.UTC(+lastM.ym.slice(0, 4), +lastM.ym.slice(5, 7), 1)).toLocaleDateString(this.es ? 'es-MX' : 'en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+      const nextLine = nt ? (overdue
+        ? this.T(`Próximo reporte: tráfico de ${nextMonthName}, aún no publicado al ${this.date(todayIso)} (${this.cfg.short} suele publicar alrededor del día ${nt.day}, mediana de los últimos doce reportes; se esperaba hacia el ${this.date(nt.date)}).`, `Next report: ${nextMonthName} traffic, not yet published as of ${this.date(todayIso)} (${this.cfg.short} usually publishes around the ${nt.day}th, median of the last twelve reports; it was expected around ${this.date(nt.date)}).`)
+        : this.T(`Próximo reporte: tráfico de ${nextMonthName}, esperado hacia el ${this.date(nt.date)} (${this.cfg.short} publica alrededor del día ${nt.day}, mediana de los últimos doce reportes).`, `Next report: ${nextMonthName} traffic report expected around ${this.date(nt.date)} (${this.cfg.short} publishes around the ${nt.day}th, median of the last twelve reports).`)) : '';
       const i = ms.length - 1; const win = ms.slice(i - 11, i + 1), pwin = ms.slice(i - 23, i - 11);
       const half = win.length === 12 ? (this.cur.y1 - y) / 2 - 10 : this.cur.y1 - y - 40;
       y = this.fitTable({ y, head: [M.t('airport'), M.ymLabel(lastM.ym), M.t('yoy'), M.t('dom'), M.t('intl'), `${M.t('ytdShort')} ${lastM.ym.slice(0, 4)}`, M.t('yoy'), M.t('share')], body: rows, meta, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: rows.map((r) => (r[1] === '' ? 8 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], y + half);
@@ -375,7 +383,7 @@
         options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, min: levMin, ticks: { precision: 1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
-      const bl = [M.L(CFG.debtNote) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemised balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
+      const bl = [M.L(CFG.debtNote) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemized balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
       // Post-quarter events (reference.js debt.events) go under the right-hand tables when they fit there, else in this column.
       const evs = (D2.events || []).map((e) => `**${this.date(e.date)}.** ${M.L(e.deck || e)}`), evH = this.T('Después del cierre del trimestre', 'After the quarter-end');
       const blL = evs.length ? [...bl, evs.map((e) => e.replace(/\*\*/g, '')).join(' ')] : bl;

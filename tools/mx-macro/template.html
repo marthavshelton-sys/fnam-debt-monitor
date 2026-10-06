@@ -120,7 +120,7 @@
     .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
     main { padding: 16px 14px 48px; }
     .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
-    .page-header h1 { font-size: 20px; }
+    .page-header h2.view-title { font-size: 20px; }
     .meta-block { text-align: left; }
     .panel { padding: 14px 12px; }
     .kpi-value { font-size: 22px; }
@@ -270,7 +270,7 @@
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border);
   }
-  .page-header h1 {
+  .page-header h2.view-title {
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.01em;
@@ -572,16 +572,20 @@
     .cat-card { min-width: 0; }
     .cat-card-head { flex-wrap: wrap; gap: 2px 8px; }
   }
+
+.skip{position:absolute; left:-9999px; top:8px; z-index:1000; background:var(--accent, #1b4332); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
 </style>
 
 <div class="mobilebar" id="mobileBar">
   <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
-  <div class="brand" data-i18n="brand">Monitor Macro México</div>
+  <h1 class="brand" data-i18n="brand">Monitor Macro México</h1>
   <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">English</span></button>
 </div>
+<a class="skip" href="#main"><span data-i18n="skipLink">Saltar al contenido</span></a>
 <div class="shell">
-  <nav class="rail">
+  <nav class="rail" id="rail" aria-label="Secciones" role="navigation">
     <a class="rail-home" href="/" data-i18n="railHome">← FNAM · Todos los paneles</a>
     <div class="rail-brand" data-i18n="brand">Monitor Macro México</div>
     <div class="rail-sub" data-i18n="railSub">Indicadores económicos de México</div>
@@ -614,12 +618,12 @@
     <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsFiscal">Deuda fiscal de EE. UU.</span></span><span class="ext-mark">↗</span></a>
   </nav>
 
-  <main>
+  <main id="main">
   <!-- ================= INPC ================= -->
   <div class="view active" id="view-inpc">
     <div class="page-header">
       <div>
-        <h1 data-i18n="inpcTitle">Inflación al consumidor (INPC)</h1>
+        <h2 class="view-title" data-i18n="inpcTitle">Inflación al consumidor (INPC)</h2>
         <div class="desc" data-i18n="inpcDesc">Índice general, subyacente y los componentes detrás de cada dato.</div>
       </div>
       <div class="meta-block">
@@ -716,7 +720,7 @@
   <div class="view" id="view-activity">
     <div class="page-header">
       <div>
-        <h1 data-i18n="acTitle">Actividad económica: PIB e IGAE</h1>
+        <h2 class="view-title" data-i18n="acTitle">Actividad económica: PIB e IGAE</h2>
         <div class="desc" data-i18n="acDesc">Crecimiento trimestral del PIB y el pulso mensual de la actividad.</div>
       </div>
       <div class="meta-block">
@@ -798,7 +802,7 @@
   <div class="view" id="view-labor">
     <div class="page-header">
       <div>
-        <h1 data-i18n="lbTitle">Empleo</h1>
+        <h2 class="view-title" data-i18n="lbTitle">Empleo</h2>
         <div class="desc" data-i18n="lbDesc">Tasa de desocupación y puestos formales registrados ante el IMSS.</div>
       </div>
       <div class="meta-block">
@@ -856,7 +860,7 @@
   <div class="view" id="view-confidence">
     <div class="page-header">
       <div>
-        <h1 data-i18n="ccTitle">Confianza del consumidor</h1>
+        <h2 class="view-title" data-i18n="ccTitle">Confianza del consumidor</h2>
         <div class="desc" data-i18n="ccDesc">Cómo ven los hogares su situación y la del país.</div>
       </div>
       <div class="meta-block">
@@ -901,7 +905,7 @@
   <div class="view" id="view-external">
     <div class="page-header">
       <div>
-        <h1 data-i18n="exTitle">Sector externo: remesas, comercio y tipo de cambio</h1>
+        <h2 class="view-title" data-i18n="exTitle">Sector externo: remesas, comercio y tipo de cambio</h2>
         <div class="desc" data-i18n="exDesc">Los dólares que entran y salen, y el precio del peso.</div>
       </div>
       <div class="meta-block">
@@ -962,7 +966,7 @@
   <div class="view" id="view-banxico">
     <div class="page-header">
       <div>
-        <h1 data-i18n="bxTitle">Banxico y mercados</h1>
+        <h2 class="view-title" data-i18n="bxTitle">Banxico y mercados</h2>
         <div class="desc" data-i18n="bxDesc">Tasa de política, tasas de mercado, tasa real y reservas internacionales.</div>
       </div>
       <div class="meta-block">
@@ -1072,6 +1076,7 @@ const I18N = {
     switchTo: "Change to English",
     switchAria: "Cambiar el idioma de la página",
     brand: "Monitor Macro México",
+    skipLink: "Saltar al contenido",
     railSub: "Indicadores económicos de México",
     railHome: "← FNAM · Todos los paneles",
     groupPrices: "Precios",
@@ -1147,9 +1152,9 @@ const I18N = {
     sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
     sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
     sumBxNoChange: "sin cambios",
-    sumBxDriverAbove: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por arriba del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno restrictivo.",
-    sumBxDriverWithin: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ", dentro del rango neutral que estima Banxico (1.8–3.4%).",
-    sumBxDriverBelow: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por debajo del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno acomodaticio.",
+    sumBxDriverAbove: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por arriba del rango neutral que estima Banxico (1.8–3.6%), es decir, terreno restrictivo.",
+    sumBxDriverWithin: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ", dentro del rango neutral que estima Banxico (1.8–3.6%).",
+    sumBxDriverBelow: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por debajo del rango neutral que estima Banxico (1.8–3.6%), es decir, terreno acomodaticio.",
     sumBxDriverPost: (v) => "La tasa real ex post (tasa menos inflación observada) es de " + v + ".",
     sumBxWhy: "Esa distancia define qué tan restrictiva es la política monetaria: guía el costo del crédito y el atractivo del peso.",
     sumBxNext: (w) => "Las decisiones siguen el calendario de Banxico. La señal: si la inflación converge al 3% y da espacio para " + w + ".",
@@ -1170,7 +1175,7 @@ const I18N = {
     inpcMomCoreTitle: "Subyacente, variación mensual",
     inpcSecCategory: "Inflación por componente",
     inpcSecDerby: "Componentes ordenados de mayor a menor inflación anual",
-    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base segunda quincena de julio de 2018 = 100. La inflación subyacente excluye agropecuarios, energéticos y tarifas autorizadas por el gobierno. Serie mensual (no quincenal) tomada del SIE de Banxico. Variaciones calculadas sobre los índices publicados, con cifras originales: INEGI no publica una serie desestacionalizada del INPC (no la hay en su Banco de Información Económica ni en el SIE de Banxico; verificado el 1-oct-2026), así que las variaciones mensuales y las tasas anualizadas de 3 y 6 meses conservan la estacionalidad; la variación anual no se ve afectada. Objetivo de Banxico: 3% con intervalo de variabilidad de ±1 punto porcentual.",
+    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base segunda quincena de julio de 2018 = 100. La inflación subyacente excluye agropecuarios, energéticos y tarifas autorizadas por el gobierno. Serie mensual (no quincenal) tomada del SIE de Banxico. Variaciones calculadas sobre los índices publicados, con cifras originales (sin ajuste estacional): las variaciones mensuales y las tasas anualizadas de 3 y 6 meses conservan la estacionalidad; la variación anual no se ve afectada. Objetivo de Banxico: 3% con intervalo de variabilidad de ±1 punto porcentual.",
     kpiHeadline: "Inflación general",
     kpiCore: "Subyacente",
     kpiGoods: "Mercancías",
@@ -1352,6 +1357,7 @@ const I18N = {
     bxSecPolicy: "Tasa objetivo vs. inflación anual",
     bxSecPolicyNote: "%, mensual (tasa al cierre de cada mes)",
     bxSecReal: "Tasa real ex post y ex ante",
+    mtdSuffix: " (promedio al día, mes en curso)",
     bxSecRealNote: "Tasa objetivo menos inflación observada (barras) y menos inflación esperada a 12 meses (línea), puntos porcentuales",
     bxSecCurve: "Tasas de mercado: Cetes 28, TIIE 28 y Bono M a 10 años",
     bxSecCurveNote: "%, promedio mensual",
@@ -1378,7 +1384,7 @@ const I18N = {
     legBono: "Bono M 10 años",
     legReserves: "Reservas (miles de millones de dólares)",
     bxPolicyCallout: (d, r, m, i) => "Tasa objetivo " + r + " (" + d + "); inflación anual " + i + " (" + m + ").",
-    bxRealCallout: (m, v, a, am) => m + ": tasa real ex post de " + v + (a ? "; ex ante de " + a + " (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico" + (am ? "; con la mediana, " + am : "") + ")" : "") + ".",
+    bxRealCallout: (m, v, a, am, lm, la, lam) => m + ": tasa real ex post de " + v + (a ? "; ex ante de " + a + " (tasa menos la media de la inflación esperada a 12 meses en la encuesta de Banxico de " + m + ", como la calcula Banxico" + (am ? "; con la mediana, " + am : "") + ")" : "") + (lm && la ? ". Con la encuesta de " + lm + ", la más reciente: ex ante de " + la + (lam ? " (mediana: " + lam + ")" : "") : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
     legYcNow: "Última subasta de cada plazo",
@@ -1412,6 +1418,7 @@ const I18N = {
     switchTo: "Cambiar a español",
     switchAria: "Switch the page language",
     brand: "Mexico Macro Monitor",
+    skipLink: "Skip to content",
     railSub: "Mexican economic indicators",
     railHome: "← FNAM · All dashboards",
     groupPrices: "Prices",
@@ -1487,9 +1494,9 @@ const I18N = {
     sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
     sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
     sumBxNoChange: "unchanged",
-    sumBxDriverAbove: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": above the neutral range Banxico estimates (1.8–3.4%), i.e., restrictive territory.",
-    sumBxDriverWithin: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ", inside the neutral range Banxico estimates (1.8–3.4%).",
-    sumBxDriverBelow: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": below the neutral range Banxico estimates (1.8–3.4%), i.e., accommodative territory.",
+    sumBxDriverAbove: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": above the neutral range Banxico estimates (1.8–3.6%), i.e., restrictive territory.",
+    sumBxDriverWithin: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ", inside the neutral range Banxico estimates (1.8–3.6%).",
+    sumBxDriverBelow: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": below the neutral range Banxico estimates (1.8–3.6%), i.e., accommodative territory.",
     sumBxDriverPost: (v) => "The ex post real rate (policy rate minus observed inflation) is " + v + ".",
     sumBxWhy: "That distance defines how restrictive monetary policy is: it drives the cost of credit and the peso's carry appeal.",
     sumBxNext: (w) => "Decisions follow Banxico's calendar. Watch whether inflation converges to 3% and makes room for " + w + ".",
@@ -1510,7 +1517,7 @@ const I18N = {
     inpcMomCoreTitle: "Core, MoM",
     inpcSecCategory: "Inflation by component",
     inpcSecDerby: "Components ranked from highest to lowest 12-month inflation",
-    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base second half of July 2018 = 100. Core inflation excludes agricultural products, energy and government-set tariffs. Monthly series (not the first-half-month index), taken from Banxico's SIE. Changes are computed from the published indices, original figures: INEGI does not publish a seasonally adjusted INPC (there is none in INEGI's Economic Information Bank or in Banxico's SIE; checked 1-Oct-2026), so month-over-month changes and the 3- and 6-month annualized rates keep their seasonality; the year-over-year change is not affected. Banxico's target: 3% with a ±1 percentage point variability band.",
+    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base second half of July 2018 = 100. Core inflation excludes agricultural products, energy and government-set tariffs. Monthly series (not the first-half-month index), taken from Banxico's SIE. Changes are computed from the published indices, original figures (not seasonally adjusted): monthly changes and the 3- and 6-month annualized rates keep their seasonality; the annual change is unaffected.",
     kpiHeadline: "Headline inflation",
     kpiCore: "Core",
     kpiGoods: "Goods",
@@ -1692,6 +1699,7 @@ const I18N = {
     bxSecPolicy: "Policy rate vs. headline inflation",
     bxSecPolicyNote: "%, monthly (rate at each month-end)",
     bxSecReal: "Ex post and ex ante real rates",
+    mtdSuffix: " (month-to-date average)",
     bxSecRealNote: "Policy rate minus observed inflation (bars) and minus expected 12-month inflation (line), percentage points",
     bxSecCurve: "Market rates: 28-day Cetes, 28-day TIIE and 10-year M bond",
     bxSecCurveNote: "%, monthly average",
@@ -1718,7 +1726,7 @@ const I18N = {
     legBono: "10-year M bond",
     legReserves: "Reserves (US$ billion)",
     bxPolicyCallout: (d, r, m, i) => "Policy rate " + r + " (" + d + "); headline inflation " + i + " (" + m + ").",
-    bxRealCallout: (m, v, a, am) => m + ": ex post real rate of " + v + (a ? "; ex ante " + a + " (policy rate minus the mean 12-month expected inflation, Banxico's own definition" + (am ? "; with the median, " + am : "") + ")" : "") + ".",
+    bxRealCallout: (m, v, a, am, lm, la, lam) => m + ": ex post real rate of " + v + (a ? "; ex ante " + a + " (policy rate minus the mean 12-month expected inflation in Banxico's " + m + " survey, Banxico's own definition" + (am ? "; with the median, " + am : "") + ")" : "") + (lm && la ? ". On the " + lm + " survey, the latest: ex ante " + la + (lam ? " (median: " + lam + ")" : "") : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
     legYcNow: "Latest auction of each tenor",
@@ -1753,7 +1761,7 @@ function detectLang() {
   const q = new URLSearchParams(location.search).get("lang");
   if (q === "en" || q === "es") return q;
   if (/\/en\/?$/.test(location.pathname)) return "en";
-  try { const saved = localStorage.getItem("mxmacro-lang"); if (saved === "en" || saved === "es") return saved; } catch (e) {}
+  try { const saved = localStorage.getItem("fnam-lang") || localStorage.getItem("mxmacro-lang"); if (saved === "en" || saved === "es") return saved; } catch (e) {}
   return "es";
 }
 let LANG = detectLang();
@@ -1763,7 +1771,7 @@ function nameOf(key) { return (T.names && T.names[key]) || key; }
 function setLang(lang) {
   if (lang !== "es" && lang !== "en") return;
   LANG = lang; T = I18N[lang];
-  try { localStorage.setItem("mxmacro-lang", lang); } catch (e) {}
+  try { localStorage.setItem("fnam-lang", lang); } catch (e) {}
   document.documentElement.setAttribute("lang", T.htmlLang);
   document.title = T.brand;
   const url = new URL(location.href); url.searchParams.set("lang", lang); history.replaceState(null, "", url);
@@ -1802,9 +1810,13 @@ function atOrBefore(pts, d) { let r = null; for (const p of pts) { if (p.d <= d)
 // Daily/weekly -> monthly: last value of each month, or the average.
 function monthEnd(pts) { const m = new Map(); pts.forEach(p => m.set(p.d.slice(0, 7), p.v)); return [...m.entries()].map(([d, v]) => ({d, v})); }
 function monthAvg(pts) {
-  const m = new Map(); pts.forEach(p => { const k = p.d.slice(0, 7); const a = m.get(k) || {s: 0, n: 0}; a.s += p.v; a.n++; m.set(k, a); });
-  return [...m.entries()].map(([d, a]) => ({d, v: r2(a.s / a.n)}));
+  const m = new Map(); pts.forEach(p => { const k = p.d.slice(0, 7); const a = m.get(k) || {s: 0, n: 0, last: ""}; a.s += p.v; a.n++; if (p.d > a.last) a.last = p.d; m.set(k, a); });
+  // the last month of a daily series is usually still running: its average is month-to-date, and the label says so
+  return [...m.entries()].map(([d, a]) => ({d, v: r2(a.s / a.n), partial: !isMonthComplete(d, a.last)}));
 }
+function isMonthComplete(ym, lastDay) { const [y, mo] = ym.split("-").map(Number); const end = new Date(Date.UTC(y, mo, 0)).toISOString().slice(0, 10); const lastWeekday = (() => { const dd = new Date(end + "T12:00:00Z"); while (dd.getUTCDay() === 0 || dd.getUTCDay() === 6) dd.setUTCDate(dd.getUTCDate() - 1); return dd.toISOString().slice(0, 10); })(); return !!lastDay && lastDay >= lastWeekday; }
+const PARTIAL_MONTHS = new Set();
+function fmtMonthYearMtd(d) { return fmtMonthYear(d) + (PARTIAL_MONTHS.has(d) ? T.mtdSuffix : ""); }
 function rolling(pts, n, mode) {
   return pts.map((p, i) => { if (i < n - 1) return {d: p.d, v: null}; let s = 0; for (let k = i - n + 1; k <= i; k++) s += pts[k].v; return {d: p.d, v: mode === "sum" ? s : s / n}; });
 }
@@ -1814,10 +1826,10 @@ function nextQuarterOf(d) { const y = +d.slice(0, 4), q = +d.slice(6); return q 
 function quarterToMonth(d) { const y = d.slice(0, 4), q = +d.slice(6); return y + "-" + String(q * 3 - 1).padStart(2, "0"); }
 
 // ---------- formatting ----------
-function fmtPct(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; digits = digits === undefined ? 1 : digits; return (v > 0 ? "+" : "") + v.toFixed(digits) + "%"; }
+function fmtPct(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; digits = digits === undefined ? 1 : digits; return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(digits) + "%"; }
 function fmtLevelPct(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return v.toFixed(digits === undefined ? 2 : digits) + "%"; }
-function fmtPP(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return (v >= 0 ? "+" : "") + v.toFixed(digits === undefined ? 1 : digits) + " pp"; }
-function fmtNum(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return v.toLocaleString(T.dateLocale, {minimumFractionDigits: digits || 0, maximumFractionDigits: digits || 0}); }
+function fmtPP(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(digits === undefined ? 1 : digits) + " pp"; }
+function fmtNum(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return v.toLocaleString(T.dateLocale, {minimumFractionDigits: digits || 0, maximumFractionDigits: digits || 0}).replace(/^-/, "−"); }
 function fmtSigned(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toLocaleString(T.dateLocale, {minimumFractionDigits: digits || 0, maximumFractionDigits: digits || 0}); }
 function fmtMonthYear(d) {
   if (!d) return "";
@@ -1926,7 +1938,7 @@ function kpiTile(row, def) {
 function deltaText(v, unitLabel, digits, fmt) {
   if (v === null || v === undefined || isNaN(v)) return "";
   const f = fmt || (x => Math.abs(x).toFixed(digits === undefined ? 1 : digits));
-  return (v >= 0 ? "▲" : "▼") + " " + f(v) + " " + unitLabel;
+  return (v > 0 ? "▲" : v < 0 ? "▼" : "±") + " " + f(v) + " " + unitLabel;
 }
 
 // Multi-series line chart on a shared date axis. series: [{pts:[{d,v}], color, label, dashed, width}]
@@ -2577,16 +2589,21 @@ function renderBanxico() {
     const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea), em = last(exAnteMedian(pm));
     columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8", overlay: ea});
     document.getElementById("bxRealLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-9)"></span>${esc(T.kpiReal)}</div>` + (el ? `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.kpiRealExAnte)}</div>` : "");
-    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), el ? fmtPP(el.v, 2) : null, el && em && em.d === el.d ? fmtPP(em.v, 2) : null))}</div>`;
+    // the ex ante figure printed beside the ex post one belongs to the SAME month (the survey of that month); the latest survey,
+    // usually one month newer than the last inflation print, is named separately so the two are never mixed up
+    const eaSame = ea.find(p => p.d === rl.d) || null, emAll = exAnteMedian(pm), emSame = emAll.find(p => p.d === rl.d) || null;
+    const eaNewer = el && el.d > rl.d ? el : null, emNewer = eaNewer && em && em.d === el.d ? em : null;
+    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), eaSame ? fmtPP(eaSame.v, 2) : null, eaSame && emSame ? fmtPP(emSame.v, 2) : null, eaNewer ? fmtMonthYear(eaNewer.d) : null, eaNewer ? fmtPP(eaNewer.v, 2) : null, emNewer ? fmtPP(emNewer.v, 2) : null))}</div>`;
   }
   showSec("bxCurveSec", !!(CE || TI || BO));
   if (CE || TI || BO) {
     const mo = pts => pts ? (pts[0].d.length === 10 ? monthAvg(pts) : pts).filter(p => p.d >= "2012-01") : null;
     const c = mo(CE), t = mo(TI), b = mo(BO); const lm = last(c || t || b);
+    [c, t, b].forEach(ss => (ss || []).forEach(p => { if (p.partial) PARTIAL_MONTHS.add(p.d); }));
     lineChart("bxCurveChart", [
       c ? {pts: c, color: "--cat-3", label: T.legCetes} : null, t ? {pts: t, color: "--cat-7", label: T.legTiie} : null, b ? {pts: b, color: "--cat-5", label: T.legBono} : null
-    ].filter(Boolean), {legendId: "bxCurveLegend", tooltipId: "bxCurveTooltip", calloutId: "bxCurveCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), labelFmt: fmtMonthYear,
-        calloutLines: [T.bxCurveCallout(fmtMonthYear(lm.d), c ? fmtLevelPct(last(c).v, 2) : "—", t ? fmtLevelPct(last(t).v, 2) : "—", b ? fmtLevelPct(last(b).v, 2) : "—")]});
+    ].filter(Boolean), {legendId: "bxCurveLegend", tooltipId: "bxCurveTooltip", calloutId: "bxCurveCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), labelFmt: fmtMonthYearMtd,
+        calloutLines: [T.bxCurveCallout(fmtMonthYearMtd(lm.d), c ? fmtLevelPct(last(c).v, 2) : "—", t ? fmtLevelPct(last(t).v, 2) : "—", b ? fmtLevelPct(last(b).v, 2) : "—")]});
   }
   showSec("bxYcSec", !!YC);
   if (YC) {
@@ -2636,7 +2653,7 @@ function renderBanxico() {
     let drvLine = null, realV = null;
     if (H) {
       const eaPts = exAnteSeries(monthEnd(PR)), eaL = last(eaPts), emL = last(exAnteMedian(monthEnd(PR)));
-      if (eaL) { realV = eaL.v; drvLine = [T.sumDriver, (realV > 3.4 ? T.sumBxDriverAbove : realV < 1.8 ? T.sumBxDriverBelow : T.sumBxDriverWithin)(fmtLevelPct(realV, 1), emL && emL.d === eaL.d ? fmtLevelPct(emL.v, 1) : null)]; }
+      if (eaL) { realV = eaL.v; drvLine = [T.sumDriver, (realV > 3.6 ? T.sumBxDriverAbove : realV < 1.8 ? T.sumBxDriverBelow : T.sumBxDriverWithin)(fmtLevelPct(realV, 1), emL && emL.d === eaL.d ? fmtLevelPct(emL.v, 1) : null)]; }
       else { const rp = last(realSeries(monthEnd(PR))); if (rp) drvLine = [T.sumDriver, T.sumBxDriverPost(fmtLevelPct(rp.v, 1))]; }
     }
     const moveWord = bp !== null && bp < 0 ? T.sumBxMoveCuts : bp !== null && bp > 0 ? T.sumBxMoveHikes : T.sumBxMoveAny;
@@ -2699,4 +2716,16 @@ document.querySelectorAll(".lang-switch").forEach(b => b.addEventListener("click
 applyStaticStrings();
 buildMobileNav();
 renderAll();
+
+// Accessible names for the SVG charts: each takes the heading of its panel (or section) in the language on screen.
+function nameChartSvgs() {
+  document.querySelectorAll("svg:not([aria-label])").forEach(svg => {
+    if (svg.closest("button, a, .legend, .rail, .brand, .topbar, header, .skip")) return;
+    const box = svg.closest(".panel, .card, section, .view"); const h = box ? box.querySelector("h2, h3, h1, .panel-title, .card-title") : null;
+    const txt = h ? h.textContent.replace(/\s+/g, " ").trim() : "";
+    if (!txt) return; svg.setAttribute("role", "img"); svg.setAttribute("aria-label", txt);
+  });
+}
+if (window.MutationObserver) new MutationObserver(() => { clearTimeout(window.__svgNameT); window.__svgNameT = setTimeout(nameChartSvgs, 150); }).observe(document.body, { childList: true, subtree: true });
+document.addEventListener("DOMContentLoaded", nameChartSvgs);
 </script>

@@ -20,23 +20,34 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 `functions/_middleware.js` is a Cloudflare Pages Function that gates every address on fnam.mx behind one shared
 password. It is dormant until the password exists, so the site stays public until the owner sets it.
 
-To turn it on (the only step needed):
+To turn it on:
 
 1. Cloudflare dashboard → Workers & Pages → the fnam.mx Pages project → Settings → Variables and Secrets →
    Add `SITE_PASSWORD` (type Secret) with the chosen password, for both Production and Preview.
-2. Deployments → latest deployment → Retry deployment (or push anything to `main`).
+2. Add `SITE_SESSION_SECRET` (type Secret): a random string of 32+ characters that signs the session cookies
+   (`openssl rand -hex 32` makes one). Without it the secret is derived from the password, so sessions can only be
+   revoked by changing the password. Rotating this value ends every session at once.
+3. Deployments → latest deployment → Retry deployment (or push anything to `main`).
 
 From then on every page, data file, PDF and quality page needs a session: visitors get one bilingual login form
-(HTTP 401), sessions last 30 days (`?logout` ends one), `robots.txt` answers `Disallow: /` and every response
-carries `noindex`. Remove the variable and redeploy to turn it off. Optional: `SITE_SESSION_SECRET` (random
-string that signs the session cookies; without it, changing the password ends every session) and
-`SITE_SESSION_DAYS` (default 30).
+(HTTP 401; a `#section` deep link survives the login), sessions last 7 days by default, `/logout` ends one,
+`robots.txt` answers `Disallow: /` and every response carries `noindex`. The password is accepted only through the
+login form (never in a header or a query string). Wrong passwords are throttled per client address (8 in 15 minutes,
+then HTTP 429 until the window ends; counters live in the data center's cache, or globally in a KV namespace bound
+as `FNAM_RATE`). Remove `SITE_PASSWORD` and redeploy to turn the gate off. Optional variables:
+`SITE_SESSION_DAYS` (default 7, maximum 30), `SITE_SESSION_VERSION` (change it to revoke every session without
+touching the password or the secret), `SITE_LOGIN_ATTEMPTS` and `SITE_LOGIN_WINDOW_MIN` (the throttle).
+
+Gate on or off, the same middleware redirects `www.fnam.mx` to `fnam.mx` (so nobody logs in twice), sets the
+security headers (HSTS, Content-Security-Policy with `frame-ancestors 'none'`, Permissions-Policy, nosniff,
+Referrer-Policy; `site/_headers` carries the same set for static assets) and serves a page in the language of its
+`?lang=en|es` query in the HTML itself, before any script runs.
 
 Also add the same password as the GitHub repository secret `SITE_PASSWORD` (Settings → Secrets and variables →
-Actions): `macro-live-check.yml` reads the live site after every US macro refresh and logs in with it; without
-the secret that check reports the 401 and fails. One password for everything: the section gates under
-`functions/<section>/` (GAP, Oracle, OMA, ASUR, Quálitas) stand down automatically while `SITE_PASSWORD` is set,
-whatever their own `*_PASSWORD` variables hold; those only matter while the site gate is off.
+Actions): `macro-live-check.yml` reads the live site after every US macro refresh and logs in with it (POST
+`/login`, cookie kept); without the secret that check reports the 401 and fails. One password for everything: the
+section gates under `functions/<section>/` (GAP, Oracle, OMA, ASUR, Quálitas) stand down automatically while
+`SITE_PASSWORD` is set, whatever their own `*_PASSWORD` variables hold; those only matter while the site gate is off.
 
 ## Mexico fiscal monitor (`site/mx/fiscal/`)
 

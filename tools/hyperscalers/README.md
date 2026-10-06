@@ -268,3 +268,10 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - `www.sec.gov/Archives` answered 403 to this session on 2026-10-04 (it answered on 2026-10-03), so the page recheck used
   the harvested text (`raw/notes/`) rather than the documents; the quote check is the mechanical substitute.
 - Amazon reports its AWS backlog only as an amount and a weighted-average life (6.4 years), not a 12-month share.
+
+### Reviewer notes never reach the page (6-Oct-2026)
+
+The FactSet debt snapshot's per-ticker `notes` are copied into `financials.js → debt.notes`; `build.mjs` drops any sentence
+that is a reviewer's instruction to itself ("needs review…", "verify in…", "pending…", `publicNote()`) before publishing,
+so the facts stay and the working notes stay in the raw file. Every hub page carries `noindex` and Open Graph tags, and its
+scripts load with `defer` (the methodology page keeps two blocking scripts: its inline scope-notes script needs them first).

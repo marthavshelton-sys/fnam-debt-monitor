@@ -232,3 +232,16 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   1Q27 10-Q (flagged needs review).
 - VIE / guarantees: text readings; the routine should grep the archived 10-K/10-Q for "variable interest" and
   "special purpose" once `HARVEST_FULL_REPORTS` archives them.
+
+## 2026-10-06 (institutional review follow-up)
+- Price feed: Nasdaq's historical API had not posted the 5-Oct bar at the 21:45 UTC run, so the page showed the 2-Oct close
+  all evening. `fetch-market.mjs` now tops the primary series up from Yahoo/Stooq when it ends before the latest completed NYSE
+  session (`latestCompletedSession`, `topUp`); the source name records the top-up.
+- The third `<style>` block of `site/oracle/index.html` was never closed, so the phone-only compact header and "More figures"
+  button showed on desktop and the compact line ran two stamps together ("2 oct 20261T27"). Closed; `render-check.mjs` passes.
+- Summary meta now says "summary text written <date>" and prints the market close and refresh stamp beside it.
+- Spanish view: ratings translated (`RATING_ES`), the analysts' source line translated (`anSrc`: library note and dates);
+  "management target" renamed to the fourth scenario on management's targets (page and deck).
+- `market.js → dividends`: paid points only; the declared 23-Oct-2026 dividend sits in `announced` (the declarations table marks
+  it). `validate-data.mjs` counts the ratings object (the quality line printed "undefined ratings").
+- All scripts load with `defer` (26 tags, no inline scripts); canonical tag; skip link; column headings carry `scope="col"`.

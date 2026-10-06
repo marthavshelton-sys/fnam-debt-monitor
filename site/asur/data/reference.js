@@ -139,6 +139,24 @@ window.ASUR_REF = {
       { date: "2026-09-28", es: "Evento relevante de ASUR en la BMV (pasajeros de CPC, minoritarios)", en: "ASUR evento relevante at the BMV (CPC passengers, minorities)", url: "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591573_1.pdf" }
     ]
   },
+  // Pro-forma perimeter for the valuation blocks (owner's request, 5-Oct-2026). Until ASUR consolidates CPC, the DCF, the
+  // multiples table and the header's valuation tiles use ASUR's own pro-forma balance sheet at 30-Jun-2026 with CPC and the
+  // bridge (evento relevante 28-Sep-2026: total debt Ps. 68,989 M, cash Ps. 18,100 M, FNAM sum of the pro-forma lines, so net
+  // debt Ps. 50,889 M) and the CPC figures ASUR published at signing (18-Nov-2025: ≈45 M annual passengers; proportionate
+  // LTM Sep-2025 EBITDA R$1,300 M ≈ US$243 M, converted at the FIX of the balance-sheet date). CPC's revenue, D&A, capex
+  // and minorities are not published: the model adds CPC's EBITDA at the group's own margin (an FNAM calculation, labeled
+  // on the page) and keeps the reported minorities. The overlay switches itself off once the latest balance sheet is dated
+  // on or after consolidatedFrom (the 3Q26 balance sheet carries CPC); the reported perimeter stays one click away.
+  proForma: {
+    name: { es: "Motiva/CPC", en: "Motiva/CPC" },
+    label: { es: "Pro forma con Motiva/CPC (ilustrativo)", en: "Pro forma with Motiva/CPC (illustrative)" },
+    asOf: "2026-06-30", consolidatedFrom: "2026-09-30",
+    totalDebtMxnM: 68989, cashMxnM: 18100, paxM: 45, ebitdaUsdM: 243, ebitdaBrlM: 1300, fxUsdMxn: 17.47,
+    sources: [
+      { date: "2026-09-28", es: "Evento relevante de ASUR en la BMV: balance pro forma al 30-jun-2026 con CPC y el crédito puente (deuda total Ps. 68,989 M, efectivo Ps. 18,100 M)", en: "ASUR evento relevante at the BMV: pro-forma balance sheet at 30-Jun-2026 with CPC and the bridge (total debt Ps. 68,989 M, cash Ps. 18,100 M)", url: "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591573_1.pdf" },
+      { date: "2025-11-18", es: "Comunicado de ASUR: firma (≈45 M de pasajeros anuales; EBITDA proporcional UDM sep-25 R$1,300 M ≈ US$243 M)", en: "ASUR release: signing (≈45 M annual passengers; proportionate LTM Sep-25 EBITDA R$1,300 M ≈ US$243 M)", url: "https://www.prnewswire.com/news-releases/asur-signs-deal-to-acquire-motivas-stake-in-airport-business-in-brazil-ecuador-costa-rica-and-curacao-302619317.html" }
+    ]
+  },
   explainer: {
     rows: [
       { label: { es: "Aerostar Airport Holdings (Puerto Rico)", en: "Aerostar Airport Holdings (Puerto Rico)" }, value: { es: "ASUR 60%; opera el aeropuerto Luis Muñoz Marín de San Juan bajo un arrendamiento de 40 años (2013–2053), única APP concluida bajo el programa piloto de la FAA. Se consolida al 100%; el 40% aparece como participación no controladora.", en: "ASUR 60%; operates San Juan's Luis Muñoz Marín airport under a 40-year lease (2013–2053), the only completed PPP under the FAA pilot program. Fully consolidated; the 40% appears as non-controlling interest." } },
@@ -156,7 +174,7 @@ window.ASUR_REF = {
     trafficGrowthPct: [0.5, 3, 3.5, 3.5, 3], revPerPaxGrowthPct: 5, ebitdaMarginPct: null,
     capexMxnM: [7500, 7500, 6500, 6000, 6000], daPctRevenue: null, taxRatePct: 30, nwcPctDeltaRevenue: 5,
     riskFreePct: null, erpPct: 5, beta: 0.85, costOfDebtPct: 9.5, targetDebtPct: 25, terminalGrowthPct: 4, exitMultiple: 11,
-    note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 0.5% in 2026 after −0.3% in 6M26, then 3–3.5%; capex from the 2Q26 run-rate (Ps. 1,950 M in the quarter); cost of debt ≈ TIIE de fondeo + 1.25 pp. Beta and the risk-free rate are derived from market data at render time. Motiva's airports are not in the base (consolidated from 3Q26).", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 0.5% en 2026 tras −0.3% en 6M26, luego 3–3.5%; capex según el ritmo del 2T26 (Ps. 1,950 M en el trimestre); costo de deuda ≈ TIIE de fondeo + 1.25 pp. La beta y la tasa libre de riesgo se derivan del mercado al renderizar. Los aeropuertos de Motiva no están en la base (consolidan desde el 3T26)." }
+    note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 0.5% in 2026 after −0.3% in 6M26, then 3–3.5%; capex from the 2Q26 run-rate (Ps. 1,950 M in the quarter); cost of debt ≈ TIIE de fondeo + 1.25 pp. Beta and the risk-free rate are derived from market data at render time. The base perimeter follows the switch above the inputs: pro forma with Motiva/CPC (REF.proForma) until ASUR consolidates it, or as reported.", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 0.5% en 2026 tras −0.3% en 6M26, luego 3–3.5%; capex según el ritmo del 2T26 (Ps. 1,950 M en el trimestre); costo de deuda ≈ TIIE de fondeo + 1.25 pp. La beta y la tasa libre de riesgo se derivan del mercado al renderizar. El perímetro de la base sigue el selector sobre los supuestos: pro forma con Motiva/CPC (REF.proForma) hasta que ASUR lo consolide, o reportado." }
   },
   peers: ["GAP", "OMA", "AENA", "Fraport", "Flughafen Zürich", "Auckland International"]
 };

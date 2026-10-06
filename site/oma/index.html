@@ -6,24 +6,25 @@
 <meta name="robots" content="noindex,nofollow">
 <title>OMA · Modelo Financiero Interactivo | Grupo Aeroportuario del Centro Norte</title>
 <meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Centro Norte (OMA): estados financieros comparables por trimestre, tráfico de pasajeros en 13 aeropuertos, acción, DCF y valuación relativa. Datos públicos.">
+<link rel="canonical" href="https://fnam.mx/oma/">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous" defer></script>
 <!-- Data files. Each is refreshed on its own cadence by the scheduled refresh
      (market: daily · financials/traffic: after each release) or by the reviewing routine (reference, comments, summary). -->
-<script src="data/market.js"></script>
-<script src="data/financials.js"></script>
-<script src="data/traffic.js"></script>
-<script src="data/reference.js"></script>
-<script src="data/guidance.js"></script>
-<script src="data/comments.js"></script>
-<script src="data/summary.js"></script>
-<script src="data/peers.js"></script>
-<script src="config.js"></script>
+<script src="data/market.js" defer></script>
+<script src="data/financials.js" defer></script>
+<script src="data/traffic.js" defer></script>
+<script src="data/reference.js" defer></script>
+<script src="data/guidance.js" defer></script>
+<script src="data/comments.js" defer></script>
+<script src="data/summary.js" defer></script>
+<script src="data/peers.js" defer></script>
+<script src="config.js" defer></script>
 
 <style>
 :root{
@@ -110,7 +111,7 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
 nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; padding-right:300px;}
-@media (max-width:640px){nav.jump .wrap{padding-right:110px;} .lang-btn .print-btn{display:none;}}
+
 @media (max-width:640px){table.stack-sm, table.stack-sm tbody, table.stack-sm tr, table.stack-sm td{display:block; width:100%; box-sizing:border-box;} table.stack-sm thead{display:none;} table.stack-sm tr{padding:8px 0; border-bottom:1px solid var(--border);} table.stack-sm td{border:none; padding:2px 0; text-align:left !important;} table.stack-sm td:first-child{font-weight:600; color:var(--text-primary);}}
 #instrTable table{min-width:760px;} #instrTable td:first-child{min-width:220px;}
 nav.jump .wrap::-webkit-scrollbar{display:none;}
@@ -361,9 +362,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   a[target="_blank"], .guide-quote a, .chart-src a, .cap a{padding:8px 0;}
   .gl{border-bottom:none;}
 }
+
+/* Skip link for keyboard and screen-reader users */
+.skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
+/* Language pill + PDF button: fixed inside the band the sticky jump-nav occupies, so it never covers content once the page
+   scrolls; the nav keeps that band's right end free (owner's review, 2026-10-05). On phones the PDF button stays. */
+.lang-btn{top:6px;} .lang-btn button{min-height:35px; padding:7px 14px;}
+nav.jump .wrap{padding-right:300px;}
+nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--page); pointer-events:none;}
+@media (max-width:640px){ .lang-btn{position:absolute; top:8px; right:8px;} body{position:relative;} .lang-btn button{min-height:33px; padding:6px 10px; font-size:11.5px;} nav.jump .wrap{padding-right:16px;} nav.jump::after{display:none;} .lang-btn .print-btn{display:inline-flex;} }
 </style>
 </head>
 <body>
+<a class="skip" href="#summary"><span class="es">Saltar al contenido</span><span class="en" hidden>Skip to content</span></a>
 
 <div class="lang-btn">
   <button type="button" id="btnLangEs" class="active">ES</button>
@@ -791,9 +803,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   </div>
 </footer>
 
-<script src="../assets/airport-model.js"></script>
-<script src="/assets/present-core.js"></script>
-<script src="/assets/airport-present.js"></script>
+<script src="../assets/airport-model.js" defer></script>
+<script src="/assets/present-core.js" defer></script>
+<script src="/assets/airport-present.js" defer></script>
 <script src="/assets/data-status.js" defer></script>
 </body>
 </html>

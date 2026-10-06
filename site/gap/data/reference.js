@@ -1,6 +1,6 @@
 // Hand-curated, slow-moving facts for the GAP model. Every block carries its source.
 // Update by PR when a shareholders' meeting, a corporate transaction or a tariff/MDP review changes
-// something (see tools/gap/README.md "Reference data"). Numbers here are NEVER derived from the
+// something (see the GAP runbook, "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
   updatedAt: "2026-09-29",

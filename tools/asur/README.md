@@ -200,3 +200,18 @@ material change in ASUR data today."
 - `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
 - Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.
 - Leverage: the page's 0.8× (shown to one decimal, as every leverage ratio on the page and in the deck) divides net debt by consolidated LTM EBITDA; ASUR's Table 6 prints 0.9× on the same net debt with a denominator it does not itemize, and its evento relevante of 28-Sep-2026 prints 0.8× on adjusted LTM EBITDA of Ps. 19,449 M; all are noted. The country-review passenger figures include transit and general aviation (the report's own note), the traffic tables do not; the page footnotes both bases. Motiva: only ASUR's filings feed the page (R$5.1 bn price; CPC Bridge Facility US$1,299 M signed 14-Aug-2026, US$1,230 M drawn at closing, per the 28-Sep-2026 evento relevante; the US$936.0 M JPMorgan figure of the 2Q26 report was the facility arranged with the offer); press-only figures are named in the status text and not used.
+
+### Valuation perimeter: pro forma with Motiva / CPC (5-Oct-2026)
+
+Owner's request after the 5-Oct-2026 review: the DCF, the multiples table (section 06) and the header's leverage and
+EV/EBITDA tiles use `reference.js → proForma` while ASUR has not consolidated CPC: net debt = total debt Ps. 68,989 M − cash
+Ps. 18,100 M (ASUR's pro-forma balance sheet at 30-Jun-2026 with CPC and the bridge, evento relevante 28-Sep-2026; FNAM sum
+of the lines); base passengers +45 M a year and EBITDA +R$1,300 M ≈ US$243 M (proportionate LTM Sep-2025, signing release
+18-Nov-2025) converted at the FIX of the balance-sheet date; CPC revenue = that EBITDA at the group's margin (FNAM
+calculation, labeled). Minorities stay as reported. The page prints the caveat on both blocks (`pfCaveat()` in
+`site/assets/airport-model.js`), the multiples table shows the reported figure beside each pro-forma one, the peers table
+carries both ASUR rows, and the deck's tear sheet prints the pro-forma leverage beside the reported one. A "Perimeter"
+select above the DCF inputs switches back to the reported figures (header tiles and multiples follow). The overlay switches
+itself off once the latest balance sheet is dated on or after `proForma.consolidatedFrom` (2026-09-30, the 3Q26 balance
+sheet): when 3Q26 lands, decide whether the LTM EBITDA still needs CPC's missing months (one month of CPC in 3Q26) and
+either keep an EBITDA-only overlay or retire the block.

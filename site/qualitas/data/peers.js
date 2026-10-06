@@ -4,8 +4,8 @@
 // "pending" notice. Quálitas' own row is computed live in the page from market.js + financials.js.
 //
 // Field contract (one object per peer; currency = trading currency; multiples dimensionless):
-//   ticker, name, exchange, currency, asOf, price, mktCapUsdM,
-//   peLtm, peNtm, pbv, divYieldPct, roePct, combinedRatioPct, premiumGrowthPct
+//  ticker, name, exchange, currency, asOf, price, mktCapUsdM,
+//  peLtm, peNtm, pbv, divYieldPct, roePct, combinedRatioPct, premiumGrowthPct
 window.Q_PEERS = {
   updatedAt: null,
   source: "FactSet (pending authorisation)",

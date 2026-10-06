@@ -25,6 +25,7 @@ window.MX_AIRPORTS_REG = {
     oma2q26: { label: { es: "OMA, informe 2T26, 27-jul-2026", en: "OMA 2Q26 report, Jul 27, 2026" }, url: "https://miranda-newswire.com/wp-content/uploads/2026/07/Results_2Q26_vf.pdf" },
     asur4q23:{ label: { es: "ASUR, informe 4T23, 26-feb-2024, pp. 8–9: PMD y tarifas máximas 2024–2028", en: "ASUR 4Q23 report, Feb 26, 2024, pp. 8–9: MDP and maximum tariffs 2024–2028" }, url: "https://www.asur.com.mx/media/Informes%20Financieros/2023/4/ASUR-Airport-Cancun-Mexico-Earnings-Release-4Q23.pdf" },
     asur1q24:{ label: { es: "ASUR, informe 1T24, 22-abr-2024", en: "ASUR 1Q24 report, Apr 22, 2024" }, url: "https://www.asur.com.mx/media/Informes%20Financieros/2024/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q24.pdf" },
+    // the ".pdf.pdf" ending is ASUR's own file name (the ".pdf" address answers 404; checked 2026-10-06)
     asur2q26:{ label: { es: "ASUR, informe 2T26, 23-jul-2026, pp. 13, 15 y 18", en: "ASUR 2Q26 report, Jul 23, 2026, pp. 13, 15 and 18" }, url: "https://www.asur.com.mx/media/Informes%20Financieros/2026/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q26.pdf.pdf" }
   },
   rows: [

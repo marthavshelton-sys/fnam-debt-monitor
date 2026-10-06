@@ -5,9 +5,9 @@
 // of the quarter that closes the period: `es`/`en` note, `date`, `file` (converted transcript under
 // tools/gentera/raw/text/transcripts) and `quotes` keyed by the same row keys ({who, en, es}; en = transcript
 // wording, es = our translation). Gentera publishes no transcripts: the calls are hand-supplied FactSet CallStreet
-// files converted by scripts/gentera/ingest-transcripts.py. The page shows `lines` only when period A is compared
+// files converted by the data refresh The page shows `lines` only when period A is compared
 // with the same period a year earlier (mechanical driver comments otherwise) and the quotes whenever the period
-// has a call block. Add a block for each new quarter by reviewed commit (see tools/gentera/README.md).
+// has a call block. Add a block for each new quarter by reviewed commit (see the Gentera runbook).
 window.G_COMMENTS = (function () {
 const CALLS = {
  "2023Q3": {
