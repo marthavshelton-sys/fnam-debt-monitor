@@ -59,9 +59,12 @@ dashboards, everything built from public data by GitHub Actions.
   (JS validators through `scripts/lib/quality-report.mjs`; Quálitas and Gentera in Python). The JS builders leave
   parse warnings in `tools/<slug>/raw/build-log.json`. Write new checks in the record/identity form so they show up.
 - FactSet is available only as a connector inside a Claude session (no credentials in GitHub Actions).
-  Peer multiples and consensus for GAP are a dated snapshot: save the pull as
-  `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
-  Forward multiples (NTM EV/EBITDA, NTM P/E) go first; the owner asked for them.
+  Airport peers (GAP, ASUR, OMA share one snapshot, `tools/gap/raw/factset/latest.json`) are refreshed every night at
+  19:52 New York time by the cloud routine "FNAM Airports: FactSet peers refresh" (prompt
+  `tools/gap/FACTSET-PEERS-PROMPT.md`; `scripts/lib/factset-peers.mjs ingest` + `build`); never hand-edit `peers.js`.
+  The tables show NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages plus ADTV in US$ M, prices at the last
+  completed close (owner, 2026-10-06); no trailing multiples. The connector cannot run FQL (FE_VALUATION etc.): the
+  ratios are assembled from consensus_rolling NTMA, prices, shares_outstanding and FF_NET_DEBT / FF_MIN_INT_ACCUM.
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
