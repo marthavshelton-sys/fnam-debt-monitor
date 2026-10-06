@@ -102,7 +102,7 @@
       R(this.T(`Precio ${CFG.homeLabel}`, `${CFG.homeLabel} share price`), `Ps. ${this.n(px[1], 2)}  ·  ${this.date(px[0])}`);
       if (ads) R(this.T(`ADS ${M.ADS} · 1 ADS = ${ratio} acciones`, `${M.ADS} ADS · 1 ADS = ${ratio} shares`), `US$ ${this.n(ads[1], 2)}  ·  ${this.date(ads[0])}`);
       R(this.T('Capitalización de mercado', 'Market capitalization'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
-      if (fx) R(this.T('Tipo de cambio usado (Fed H.10)', 'FX rate used (Fed H.10)'), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted');
+      if (fx) { const fxSrc = String((M.MK.fx && M.MK.fx.USDMXN && M.MK.fx.USDMXN.source) || ''); const fxLab = /banxico/i.test(fxSrc) ? 'Banxico FIX' : /fred|dexmxus/i.test(fxSrc) ? 'FRED DEXMXUS' : fxSrc.split(' (')[0]; R(this.T(`Tipo de cambio usado (${fxLab})`, `FX rate used (${fxLab})`), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted'); }
       R(this.T('Acciones en circulación', 'Shares outstanding'), `${this.n(M.sharesNow)}  ·  ${M.REF.shares ? this.date(M.REF.shares.asOf) : ''}`, 'muted');
       R(this.T(`Variación en el año (${this.cfg.short} B · IPC)`, `Year-to-date change (${this.cfg.short} B · IPC)`), `${pm(chg(px, yStart))}  ·  IPC ${pm(chg(ipcLast, ipcStart))}`, this.cls(chg(px, yStart)));
       R(this.T(`Variación 12 meses (${this.cfg.short} B · IPC)`, `12-month change (${this.cfg.short} B · IPC)`), `${pm(chg(px, yAgo))}  ·  IPC ${pm(chg(ipcLast, ipcAgo))}`, this.cls(chg(px, yAgo)));
@@ -522,7 +522,7 @@
         [this.T('Guía de la administración', 'Management guidance'), this.T('misma corrida', 'same run'), M.L(CFG.methodGuidance), d(M.GD.generatedAt)],
         [this.T('Comentarios del estado de resultados', 'Income-statement comments'), this.T('por trimestre (revisados)', 'per quarter (reviewed)'), this.T('informes y transcripciones de conferencias', 'reports and earnings-call transcripts'), d(M.CM.updatedAt)],
         [this.T('Resumen ejecutivo', 'Executive summary'), this.T('con cada reporte', 'with each report'), this.T('redactado a partir de los datos y comunicados', 'written from the data files and releases'), d(M.SUM.updatedAt)],
-        [this.T('Precios, dividendos, tipo de cambio, tasas', 'Prices, dividends, FX, yields'), this.T('diario, tras el cierre de la BMV y a las 20:00 de Nueva York (FactSet)', 'daily, after the BMV close and at 8 PM New York time (FactSet)'), `${M.priceSources([M.HOME, M.ADS]).factset.length ? 'FactSet Global Prices · ' : ''}Yahoo Finance · Banxico SIE · FRED`, d(M.MK.generatedAt)],
+        [this.T('Precios, dividendos, tipo de cambio, tasas', 'Prices, dividends, FX, yields'), M.marketCadence(Object.keys(M.MK.prices || {})), `${M.priceSources([M.HOME, M.ADS]).factset.length ? 'FactSet Global Prices · ' : ''}Yahoo Finance · Banxico SIE · FRED`, d(M.MK.generatedAt)],
         [this.T('Referencia: acciones, concesiones, deuda, eventos', 'Reference: shares, concessions, debt, events'), this.T('por evento', 'event-driven'), this.T(`comunicados de ${short}, revisados a mano`, `${short} releases, hand-reviewed`), d(M.REF.updatedAt)],
         [this.T('Tráfico nacional (comparación con México)', 'National traffic (Mexico comparison)'), this.T('diario', 'daily'), this.T('AFAC, estadística operativa de aeropuertos', 'AFAC airport operating statistics'), this.MX ? d(this.MX.generatedAt) : '—'],
       ];

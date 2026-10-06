@@ -18,7 +18,7 @@
 
 import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(here, '../..');
@@ -44,7 +44,7 @@ export const SOURCE_NAME = 'FactSet Global Prices';
 
 const r2 = (x) => Math.round(x * 100) / 100;
 const todayET = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-function args(argv) { const o = { _: [] }; for (let i = 0; i < argv.length; i++) { const a = argv[i]; if (a.startsWith('--')) { const k = a.slice(2); const v = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true; o[k] = v; } else o._.push(a); } return o; }
+function args(argv) { const o = { _: [] }; for (let i = 0; i < argv.length; i++) { const a = argv[i]; if (a.startsWith('--')) { const eq = a.indexOf('='); if (eq > 0) { o[a.slice(2, eq)] = a.slice(eq + 1); continue; } const k = a.slice(2); const v = argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[++i] : true; o[k] = v; } else o._.push(a); } return o; }
 
 // ---------------------------------------------------------------- ingest
 export function ingest({ pull = PULL_DIR, out = PRICES_FILE, date, replace = false } = {}) {
@@ -55,6 +55,8 @@ export function ingest({ pull = PULL_DIR, out = PRICES_FILE, date, replace = fal
   const series = {};
   for (const [fsId, meta] of Object.entries(SERIES)) series[meta.id] = { factsetId: fsId, currency: meta.currency, exchange: meta.exchange, points: new Map((prev && prev.series && prev.series[meta.id] ? prev.series[meta.id].points : []).map((p) => [p[0], p[1]])) };
   let added = 0, replaced = 0;
+  const pulled = Object.fromEntries(Object.keys(SERIES).map((k) => [k, 0]));
+  const disagree = Object.fromEntries(Object.keys(SERIES).map((k) => [k, { overlap: 0, differ: 0 }]));
   for (const f of files) {
     const txt = readFileSync(join(pull, f), 'utf8');
     const rows = JSON.parse(txt.slice(txt.indexOf('{'))).data;
@@ -63,9 +65,19 @@ export function ingest({ pull = PULL_DIR, out = PRICES_FILE, date, replace = fal
       const meta = SERIES[x.requestId]; if (!meta) continue;
       if (x.price == null || !Number.isFinite(x.price) || !x.date || x.date > runDate) continue; // a session not yet closed comes back null
       if (x.currency && x.currency !== meta.currency) throw new Error(`${f}: ${x.requestId} ${x.date} in ${x.currency}, expected ${meta.currency}`);
-      const s = series[meta.id]; if (s.points.has(x.date)) replaced++; else added++;
-      s.points.set(x.date, r2(x.price));
+      const s = series[meta.id]; pulled[x.requestId]++;
+      const v = r2(x.price);
+      if (s.points.has(x.date)) { replaced++; const d = disagree[x.requestId]; d.overlap++; if (Math.abs(v / s.points.get(x.date) - 1) > 0.005) d.differ++; } else added++;
+      s.points.set(x.date, v);
     }
+  }
+  // every listing must have come back in this pull (a missing or empty prices-daily file must never pass as "nothing new")
+  const missing = Object.keys(SERIES).filter((k) => !pulled[k]);
+  if (missing.length) throw new Error(`no closes pulled for ${missing.join(', ')} (pull files: ${files.join(', ')}); the routine must retry steps n/o, never ingest a partial pull`);
+  // the pull is split-adjusted at pull time while the stored history is not re-adjusted: a level break on most overlapping
+  // dates means a split or a restatement, and the whole history has to be re-pulled (steps n/o from 2015-01-01, then --replace)
+  for (const [k, d] of Object.entries(disagree)) {
+    if (d.overlap >= 5 && d.differ > d.overlap / 2) throw new Error(`${k}: ${d.differ} of ${d.overlap} overlapping closes differ by more than 0.5% from the stored history (split or restatement?); re-pull the full history from 2015-01-01 and run ingest --replace`);
   }
   const seriesOut = Object.fromEntries(Object.entries(series).map(([id, s]) => { const pts = [...s.points.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)); return [id, { factsetId: s.factsetId, currency: s.currency, exchange: s.exchange, from: pts[0] ? pts[0][0] : null, to: pts.length ? pts[pts.length - 1][0] : null, points: pts }]; }));
   const outObj = {
@@ -93,17 +105,18 @@ export function loadFactSetPrices(file = PRICES_FILE) {
 // entry: a data/market.js price entry ({ name, currency, exchange, source, fetchedAt, points: [[date, close]], ... }).
 // Returns the entry with FactSet's closes overlaid, or the entry untouched when FactSet has no series for it.
 // Rule: inside FactSet's date range only FactSet's closes are shown (a Yahoo bar on a date FactSet does not carry is
-// dropped too); the runner's series fills only the history before the range and the sessions after it. The fill points
-// kept in `provenance.fill.points` are just those outside the range, so a later overlay (the routine's `apply`, or a
-// run whose Yahoo fetch failed and kept the previous entry) needs nothing else and the file does not double in size.
+// dropped too); the runner's series fills only the history before the range and the sessions after it. `provenance.fill`
+// keeps the fill feed, its stamp and the points outside the range (few), so the file does not double in size.
 export function overlayFactSet(entry, seriesId, fs) {
   const s = fs && fs.series && fs.series[seriesId];
   if (!entry || !s || !s.points || !s.points.length) return entry;
   if (entry.currency && entry.currency !== s.currency) throw new Error(`${seriesId}: market.js series in ${entry.currency}, FactSet in ${s.currency}`);
   const prevFill = entry.provenance && entry.provenance.fill;
-  // the runner's own series and stamp, whether this entry is fresh or already carries an earlier overlay
+  // the runner's own stamp, whether this entry is fresh or already carries an earlier overlay; the base series is always the
+  // entry's own points (an earlier overlay included), so a FactSet file whose range is narrower than before (a rebuilt
+  // prices.json) can never discard history the page already shows
   const fill = prevFill ? { source: prevFill.source, fetchedAt: prevFill.fetchedAt, note: prevFill.note } : { source: entry.source || null, fetchedAt: entry.fetchedAt || null, note: entry.note || null };
-  const runnerPts = prevFill ? (prevFill.points || []) : (entry.points || []);
+  const runnerPts = entry.points || [];
   const beforePts = runnerPts.filter((p) => p[0] < s.from), afterPts = runnerPts.filter((p) => p[0] > s.to);
   const points = beforePts.concat(s.points, afterPts);
   const after = afterPts.map((p) => p[0]);
@@ -142,7 +155,7 @@ export function applyAll({ prices = PRICES_FILE } = {}) {
     // the close the page prints, in the first bytes of the file (the watchdog and the page-side status check read it there)
     const homePts = (mk.prices[page.home] || {}).points || [];
     mk = { generatedAt: mk.generatedAt, latestClose: homePts.length ? homePts[homePts.length - 1][0] : null, ...mk };
-    mk.priceAuthority = { source: SOURCE_NAME, pulledAt: fs.pulledAt, appliedAt: mk.generatedAt, series: Object.keys(fs.series).filter((id) => mk.prices && mk.prices[id]) };
+    delete mk.priceAuthority; // (written by apply until 2026-10-06; nothing reads it, the pages use each series' provenance)
     const head2 = head.replace(/\/\/ Last refreshed: .*\n/, `// Last refreshed: ${mk.generatedAt} (FactSet closes applied by the nightly FactSet routine)\n`);
     writeFileSync(file, head2 + `window.${page.prefix}_MARKET = ` + JSON.stringify(mk) + ';\n');
     written.push({ file: file.replace(ROOT + '/', ''), series: n, last: Object.fromEntries(Object.keys(fs.series).filter((id) => mk.prices[id]).map((id) => [id, mk.prices[id].points[mk.prices[id].points.length - 1]])) });
@@ -155,11 +168,11 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const a = args(process.argv.slice(2));
   const cmd = a._[0];
   if (cmd === 'ingest') {
-    const res = ingest({ pull: a.pull ? join(process.cwd(), a.pull) : PULL_DIR, out: a.out ? join(process.cwd(), a.out) : PRICES_FILE, date: a.date, replace: !!a.replace });
+    const res = ingest({ pull: a.pull ? resolve(a.pull) : PULL_DIR, out: a.out ? resolve(a.out) : PRICES_FILE, date: a.date, replace: !!a.replace });
     console.log(`ingest: ${res.files.join(', ')} → ${res.added} closes added, ${res.replaced} replaced; run ${res.runDate}`);
-    for (const [id, s] of Object.entries(res.series)) console.log(`${id.padEnd(9)} ${s.currency} ${s.from} → ${s.to}  ${s.points.length} closes  last ${s.points[s.points.length - 1][1]}`);
+    for (const [id, s] of Object.entries(res.series)) console.log(`${id.padEnd(9)} ${s.currency} ${s.from} → ${s.to}  ${s.points.length} closes  last ${s.points.length ? s.points[s.points.length - 1][1] : '—'}`);
   } else if (cmd === 'apply') {
-    const written = applyAll({ prices: a.prices ? join(process.cwd(), a.prices) : PRICES_FILE });
+    const written = applyAll({ prices: a.prices ? resolve(a.prices) : PRICES_FILE });
     for (const w of written) console.log(`${w.file}: ${w.series} series overlaid; ${Object.entries(w.last).map(([id, p]) => `${id} ${p[0]} ${p[1]}`).join(', ')}`);
   } else {
     console.error('usage: node scripts/lib/factset-prices.mjs ingest [--pull DIR] [--out FILE] [--date YYYY-MM-DD] [--replace] | apply [--prices FILE]');

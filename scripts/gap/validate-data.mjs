@@ -124,13 +124,17 @@ const mk = await load('../../site/gap/data/market.js');
 const rf = await loadJs('../../site/gap/data/reference.js', 'GAP_REF');
 const TODAY_ISO = new Date().toISOString().slice(0, 10);
 Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: {} });
-// FactSet closes (the share-price authority since 2026-10-06, nightly routine): the home series must carry them and they must be recent
+// FactSet closes (the share-price authority since 2026-10-06, nightly routine): every share series (the index stays on Yahoo)
+// must carry them and they must be recent; the oldest FactSet end date is the row's date, a series without FactSet closes warns
 {
-  const pv = ((mk.prices || {})['GAPB.MX'] || {}).provenance, f = pv && pv.factset;
-  const after = (pv && pv.fill && pv.fill.after) || [];
-  Q.stale('FactSet closes (market.js)', f ? f.to : null, 5, f
-    ? { es: `${pv.authority} hasta ${f.to} (${f.points} cierres, descargados ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance cubre ${after.length} sesión(es) posterior(es)` : ''}`, en: `${pv.authority} through ${f.to} (${f.points} closes, pulled ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance fills ${after.length} later session(s)` : ''}` }
-    : { es: 'market.js sin cierres de FactSet: la serie es sólo Yahoo Finance', en: 'market.js carries no FactSet closes: Yahoo Finance only' });
+  const rows = Object.keys(mk.prices || {}).filter((id) => id !== '^MXX').map((id) => { const pv = (mk.prices[id] || {}).provenance; return { id, f: pv && pv.factset, after: (pv && pv.fill && pv.fill.after) || [] }; });
+  const withFs = rows.filter((r) => r.f), without = rows.filter((r) => !r.f);
+  const oldest = withFs.reduce((a, r) => (a == null || r.f.to < a ? r.f.to : a), null);
+  const list = (es) => withFs.map((r) => `${r.id} ${es ? 'hasta' : 'through'} ${r.f.to}${r.after.length ? ` (+${r.after.length} ${es ? 'sesión(es) de respaldo' : 'fallback session(s)'})` : ''}`).join(', ');
+  Q.stale('FactSet closes (market.js)', without.length ? null : oldest, 5, {
+    es: `${withFs.length ? `${withFs[0].f && mk.prices[withFs[0].id].provenance.authority}: ${list(true)}` : 'ninguna serie con cierres de FactSet'}${without.length ? `; SIN FactSet (sólo Yahoo): ${without.map((r) => r.id).join(', ')}` : ''}`,
+    en: `${withFs.length ? `${withFs[0].f && mk.prices[withFs[0].id].provenance.authority}: ${list(false)}` : 'no series carries FactSet closes'}${without.length ? `; NO FactSet (Yahoo only): ${without.map((r) => r.id).join(', ')}` : ''}`,
+  });
 }
 // Dividends: the exchange record is compared with the latest AGM resolution, so an instalment not yet paid
 // inside its 12-month window reads as an outstanding balance, not as a stalled feed.
