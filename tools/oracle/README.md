@@ -132,7 +132,7 @@ served page (Playwright clicks the PDF button), saves the PDFs and fails when th
 deck with an unresolved `{{token}}`), when any drawn string carries `{{`, `undefined`, `NaN` or `null`, when the English deck
 carries Spanish words or a repository path, when the deck's price, DCF value or delta against the price (and Bear and Bull
 while the DCF section is in the deck) differ from the page's, when a bullet or sub-heading of the page's executive summary is
-missing from the deck, or when the deck's pages are not in the registry's order. With PyMuPDF installed (`pip install pymupdf`)
+missing from the deck, when the page's verdict is not drawn whole, or when the deck's pages are not in the registry's order. With PyMuPDF installed (`pip install pymupdf`)
 it also reads the saved PDF as a second layer: its text, the contents page's internal links (at least one per deck section,
 every target inside the document) and the box of every word (none past the right margin or below the footer rule, so no text
 spilled out of a tile, box or page) and, with `--shots`, rasterises every page. Run it with the render check before pushing a
@@ -271,8 +271,11 @@ Pages (22 on the 2026-10-06 data), in the page's story order: cover (landscape, 
 confidentiality notice: the footer line reads "Source: public filings, FactSet consensus; not investment advice" and the cover
 carries the page's refresh time in ET) · executive summary (`data/summary.js`, the same text as the page's summary block: "What
 to watch" on the left with its sub-headed items, Operations, Guidance and why it changed, and Debt and ratios on the right,
-auto-fitted to one page under the six-number chain strip; bullets without `**markers**` get their lead clause emphasised;
-owner's layout, 2026-10-06) · contents (one page: every deck section with the website's number or label and its first page,
+then the page's verdict (its two headed blocks, `verdictHtml()` read through the model, `<b>` as bold runs) under them,
+auto-fitted to one page under the six-number chain strip (the engine also moves the column split towards the longer column,
+50/50 to 62/38, so the text stays as large as the page allows: 8.25 pt in English, 7.5 pt in Spanish on the 2026-10-06 data;
+across the full width the verdict pushed everything to 7.5 pt and Spanish overflowed); bullets without `**markers**` get their
+lead clause emphasised; owner's layout, 2026-10-06) · contents (one page: every deck section with the website's number or label and its first page,
 an indented row per page where a section spans several, each row an internal link; `Doc.contents()` reserves the page right
 after the summary and `drawContents()` fills it once every page exists) · tear sheet (ORCL price with the page's refresh time in ET,
 market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP

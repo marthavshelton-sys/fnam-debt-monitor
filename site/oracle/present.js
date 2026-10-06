@@ -131,16 +131,25 @@
 
     // ================= 2. EXECUTIVE SUMMARY =================
     // The same text as the page's summary block (data/summary.js): "What to watch" on the left with its sub-headed items, as
-    // the page prints them; Operations, Guidance and why it changed, and Debt and ratios on the right (owner, 2026-10-06).
+    // the page prints them; Operations, Guidance and why it changed, and Debt and ratios on the right (owner, 2026-10-06), then
+    // the page's verdict under them (its two headed blocks as paragraphs; owner, 2026-10-06). Across the full width the verdict
+    // pushed the whole page to 7.5 pt and Spanish still overflowed; in the right column's free space the text stays larger.
     execSummary() {
       const M = this.M, all = M.SUM.sections || [];
       const sec = (s) => (s.k === 'watch'
         ? { title: M.L(s.title), items: [], groups: (s['items_' + M.LANG] || s.items_en || []).map((it) => ({ h: it.h, items: (it.lines || []).map((x) => this.xref(x)) })) }
         : { title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(this.xref(x))) });
-      const watch = all.filter((s) => s.k === 'watch').map(sec), rest = all.filter((s) => s.k !== 'watch').map(sec);
+      const watch = all.filter((s) => s.k === 'watch').map(sec), rest = [...all.filter((s) => s.k !== 'watch').map(sec), ...this.verdictBlocks().map((b) => ({ title: b.h, paras: [b.text] }))];
       const chain = typeof M.chainBoxes === 'function' ? M.chainBoxes() : [];
       const strip = chain.length ? (y) => this.tiles(chain.map((b) => { const v = tx(b.v); return { v, l: `${tx(b.k)} · ${tx(b.d)}`, size: v.length > 20 ? 9.5 : v.length > 14 ? 11 : 13 }; }), y, 54) : null;
       super.execSummary([...watch, ...rest], this.summaryLine(), strip, [watch, rest]);
+    }
+    // The page's verdict (app.js verdictHtml: one composed paragraph per headed block, every figure from the data files) as
+    // [{ h, text }] with **bold** runs: the <span class="vh"> headings become block headings, <b> becomes bold, links keep
+    // their text (owner, 2026-10-06: the deck's summary page carries the verdict too).
+    verdictBlocks() {
+      const M = this.M, html = typeof M.verdictHtml === 'function' ? M.verdictHtml() : ''; if (!html) return [];
+      return html.split(/<span class="vh">/).filter((p) => p.trim()).map((p) => { const m = p.match(/^([\s\S]*?)<\/span>([\s\S]*)$/); const body = (m ? m[2] : p).replace(/<\/?b>/g, '**'); return { h: m ? tx(m[1]) : '', text: tx(body) }; });
     }
 
     // ================= NEWS AND RECENT EVENTS (dated, themed, primary sources first) =================

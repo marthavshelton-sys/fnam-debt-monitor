@@ -2774,1433 +2774,1433 @@
    "new": null
   },
   {
-   "at": "2026-10-06T10:16:44.785Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "reference.js",
    "path": "rpo.caution.en",
    "old": "(text)",
    "new": "(text changed)"
   },
   {
-   "at": "2026-10-06T10:16:44.785Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "reference.js",
    "path": "glossary[21].en",
    "old": "(text)",
    "new": "(text changed)"
   },
   {
-   "at": "2026-10-06T10:16:44.785Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[0].first_revenue_en",
    "old": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, 30 Sep 2025)",
    "new": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, Sep 30, 2025)"
   },
   {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].developer",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].energized_text_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].power_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].tenant_en",
-   "old": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, 23 Sep 2025); Oracle has not named the customer",
-   "new": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, Sep 23, 2025); Oracle has not named the customer"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].first_revenue_en",
-   "old": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, 24 Sep 2026)",
-   "new": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, Sep 24, 2026)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[1].en",
-   "old": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR 28 Jul 2026)",
-   "new": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR Jul 28, 2026)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[2].en",
-   "old": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, 24 Sep 2026)",
-   "new": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, Sep 24, 2026)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "sites[4].mw_series[0].en",
-   "old": "contracted September 2025, announced 22 Oct 2025; close to a gigawatt across four data centers (Vantage)",
-   "new": "contracted September 2025, announced Oct 22, 2025; close to a gigawatt across four data centers (Vantage)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "rpoSchedule.note_en",
-   "old": "Share of RPO Oracle expects to recognise in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total.",
-   "new": "Share of RPO Oracle expects to recognize in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total."
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "rpoRecognition.note_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.gpu_list_prices.note_en",
-   "old": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realised GPU-hour prices.",
-   "new": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realized GPU-hour prices."
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.third_party_text_en",
-   "old": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, 9 Jul 2026).",
-   "new": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, Jul 9, 2026)."
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.arr_text_en",
-   "old": "annualized revenue past US$40 bn (Quartz, 29 Sep 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn",
-   "new": "annualized revenue past US$40 bn (Quartz, Sep 29, 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.seeking_text_en",
-   "old": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, 29 Sep 2026; early talks, terms could change)",
-   "new": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, Sep 29, 2026; early talks, terms could change)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "obligations.js",
-   "path": "leases.cost.ltm_note_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "obligations.js",
-   "path": "lookthrough.lease_adjusted_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "cds.js",
-   "path": "source",
-   "old": "FactSet (pending authorisation)",
-   "new": "FactSet (pending authorization)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.y1",
-   "old": null,
-   "new": 21.72
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.y3",
-   "old": null,
-   "new": 23.31
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.y5",
-   "old": null,
-   "new": 20.53
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 15.09
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 13.13
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 14.92
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 13.87
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "factset.js",
-   "path": "oracle.hist_multiples.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 9.31
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "hist.asOf",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y1",
-   "old": null,
-   "new": 24.15
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y3",
-   "old": null,
-   "new": 28.41
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y5",
-   "old": null,
-   "new": 28.12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 24.8
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 14.79
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 18.14
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 18.49
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 15.11
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.y1",
-   "old": null,
-   "new": 23.34
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.y3",
-   "old": null,
-   "new": 30.87
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.y5",
-   "old": null,
-   "new": 26.26
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 22.87
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 14.7
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 19.34
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 17.08
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 14.62
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y1",
-   "old": null,
-   "new": 15.3
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y3",
-   "old": null,
-   "new": 21.94
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y5",
-   "old": null,
-   "new": 27.14
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 14.08
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 10.61
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 14.09
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 15.75
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 10.84
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.y1",
-   "old": null,
-   "new": 29.41
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.y3",
-   "old": null,
-   "new": 45.63
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.y5",
-   "old": null,
-   "new": 50.88
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 28.04
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 21.15
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 32.96
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 34.84
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[3].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 19.65
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.y1",
-   "old": null,
-   "new": 21.16
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.y3",
-   "old": null,
-   "new": 20.41
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.y5",
-   "old": null,
-   "new": 17.58
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 17
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 15.2
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 14.89
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 13.08
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[4].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 12.92
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.y1",
-   "old": null,
-   "new": 15.44
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.y3",
-   "old": null,
-   "new": 26.06
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.y5",
-   "old": null,
-   "new": 34.68
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 15.21
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 9.13
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 14.8
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 17.71
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[5].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 9.46
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.y1",
-   "old": null,
-   "new": 27.52
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.y3",
-   "old": null,
-   "new": 32.37
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.y5",
-   "old": null,
-   "new": 44.69
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 22.3
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 12.09
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 12.95
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 14.09
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[6].hist.ev_ebitda_ntm.spot_month_end",
-   "old": null,
-   "new": 10.52
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.as_of",
-   "old": null,
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.y1",
-   "old": null,
-   "new": 25.25
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.y3",
-   "old": null,
-   "new": 21.72
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.y5",
-   "old": null,
-   "new": 21.18
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.pe_ntm.spot_month_end",
-   "old": null,
-   "new": 20.82
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.y1",
-   "old": null,
-   "new": 7.94
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.y3",
-   "old": null,
-   "new": 6.36
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.y5",
-   "old": null,
-   "new": 5.77
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.n1",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.n3",
-   "old": null,
-   "new": 35
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "peers[7].hist.ev_ebitda_ntm.n5",
-   "old": null,
-   "new": 59
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "peers.js",
-   "path": "(more)",
-   "old": null,
-   "new": "314 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "libraryNote.en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[0].basis_short_en",
-   "old": "Out-year revenue and operating-income forecasts; FY2030 EPS x P/E discounted at a 12% cost of equity (7 Aug note)",
-   "new": "Out-year revenue and operating-income forecasts; FY2030 EPS x P/E discounted at a 12% cost of equity (Aug 7 note)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[0].method_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[0].thesis_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[1].thesis_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[1].risks_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[2].method_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[6].thesis_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[7].method_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "analysts.js",
-   "path": "houses[7].thesis_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "news.js",
-   "path": "sweepNote.en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "news.js",
-   "path": "items[5].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:16:44.785Z",
-   "file": "news.js",
-   "path": "items[10].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[0].issues[0].source.title",
    "old": "TIME, 25 Jun 2026: Inside the worker safety concerns at Stargate data center",
    "new": "TIME, Jun 25, 2026: Inside the worker safety concerns at Stargate data center"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[0].issues[1].source.title",
    "old": "AP via WSLS, 27 Mar 2026: Microsoft takes over a Texas AI data center expansion after OpenAI backs away",
    "new": "AP via WSLS, Mar 27, 2026: Microsoft takes over a Texas AI data center expansion after OpenAI backs away"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[1].sources[2].title",
    "old": "DigitalBridge / Business Wire: Vantage launches US$25 bn Texas Frontier mega campus (18 Aug 2025)",
    "new": "DigitalBridge / Business Wire: Vantage launches US$25 bn Texas Frontier mega campus (Aug 18, 2025)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].developer",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[2].title",
    "old": "Oracle press release: Project Jupiter powered by Bloom Energy fuel cells (27 Apr 2026)",
    "new": "Oracle press release: Project Jupiter powered by Bloom Energy fuel cells (Apr 27, 2026)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[3].title",
    "old": "Oracle press release: Project Jupiter economic impact (28 Jul 2026)",
    "new": "Oracle press release: Project Jupiter economic impact (Jul 28, 2026)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[5].title",
    "old": "Bloomberg, 24 Sep 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
    "new": "Bloomberg, Sep 24, 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[6].title",
    "old": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
    "new": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[7].title",
    "old": "Albuquerque Journal, 24 Sep 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track",
    "new": "Albuquerque Journal, Sep 24, 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[8].title",
    "old": "Albuquerque Journal, 23 Sep 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)",
    "new": "Albuquerque Journal, Sep 23, 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[9].title",
    "old": "Financial Times via Reuters, 18 Sep 2026: Oracle’s $18 billion data center debt under pressure",
    "new": "Financial Times via Reuters, Sep 18, 2026: Oracle’s $18 billion data center debt under pressure"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].sources[10].title",
    "old": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods",
    "new": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].energized_text_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].power_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].tenant_en",
+   "old": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, 23 Sep 2025); Oracle has not named the customer",
+   "new": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, Sep 23, 2025); Oracle has not named the customer"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].first_revenue_en",
+   "old": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, 24 Sep 2026)",
+   "new": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, Sep 24, 2026)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].issues[0].source.title",
    "old": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods",
    "new": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].issues[1].source.title",
    "old": "Bloomberg, 24 Sep 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
    "new": "Bloomberg, Sep 24, 2026: Oracle cites 'force majeure' to shield itself on controversial data center"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].issues[2].source.title",
    "old": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
    "new": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].issues[3].source.title",
    "old": "TechCrunch, 24 Sep 2026",
    "new": "TechCrunch, Sep 24, 2026"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[2].issues[4].source.title",
    "old": "Financial Times via Reuters, 18 Sep 2026: Oracle's $18 billion data center debt under pressure",
    "new": "Financial Times via Reuters, Sep 18, 2026: Oracle's $18 billion data center debt under pressure"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].en",
+   "old": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR 28 Jul 2026)",
+   "new": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR Jul 28, 2026)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].en",
+   "old": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, 24 Sep 2026)",
+   "new": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, Sep 24, 2026)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[3].sources[1].title",
    "old": "Oracle press release: construction of the Stargate campus in Saline Township (1 Jun 2026)",
    "new": "Oracle press release: construction of the Stargate campus in Saline Township (Jun 1, 2026)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[3].sources[2].title",
    "old": "Related Digital: OpenAI, Oracle and Related Digital announce Stargate site in Michigan (30 Oct 2025)",
    "new": "Related Digital: OpenAI, Oracle and Related Digital announce Stargate site in Michigan (Oct 30, 2025)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[3].sources[3].title",
    "old": "CNBC: Stargate updates — OpenAI, Oracle building Michigan data center (1 Jun 2026)",
    "new": "CNBC: Stargate updates — OpenAI, Oracle building Michigan data center (Jun 1, 2026)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[3].issues[0].source.title",
    "old": "Michigan Department of Attorney General, 7 Aug 2026: AG Nessel briefs appeal over MPSC approval of DTE's Saline data center contracts",
    "new": "Michigan Department of Attorney General, Aug 7, 2026: AG Nessel briefs appeal over MPSC approval of DTE's Saline data center contracts"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[3].issues[1].source.title",
    "old": "Fortune, 6 May 2026: A Michigan farm town voted down plans for a giant OpenAI-Oracle data center. Weeks later, construction began",
    "new": "Fortune, May 6, 2026: A Michigan farm town voted down plans for a giant OpenAI-Oracle data center. Weeks later, construction began"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].sources[2].title",
    "old": "Business Wire: OpenAI, Oracle and Vantage announce Stargate site in Wisconsin (22 Oct 2025)",
    "new": "Business Wire: OpenAI, Oracle and Vantage announce Stargate site in Wisconsin (Oct 22, 2025)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].sources[4].title",
    "old": "Oracle press release, 2 Oct 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)",
    "new": "Oracle press release, Oct 2, 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].sources[5].title",
    "old": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)",
    "new": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].issues[0].source.title",
    "old": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter",
    "new": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].issues[1].source.title",
    "old": "Oracle press release, 2 Oct 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
    "new": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].issues[2].source.title",
    "old": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers",
    "new": "WPR, Aug 17, 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "sites[4].issues[3].source.title",
    "old": "E&E News, 13 Jul 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review",
    "new": "E&E News, Jul 13, 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].en",
+   "old": "contracted September 2025, announced 22 Oct 2025; close to a gigawatt across four data centers (Vantage)",
+   "new": "contracted September 2025, announced Oct 22, 2025; close to a gigawatt across four data centers (Vantage)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "rpoSchedule.note_en",
+   "old": "Share of RPO Oracle expects to recognise in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total.",
+   "new": "Share of RPO Oracle expects to recognize in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total."
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "rpoRecognition.note_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "unitEconomics.gpu_list_prices.note_en",
+   "old": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realised GPU-hour prices.",
+   "new": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realized GPU-hour prices."
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "unitEconomics.concentration.third_party_text_en",
+   "old": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, 9 Jul 2026).",
+   "new": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, Jul 9, 2026)."
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.source.title",
    "old": "S&P Global Ratings, Oracle Corp. downgraded to BBB-/A-3, 9 July 2026",
    "new": "S&P Global Ratings, Oracle Corp. downgraded to BBB-/A-3, July 9, 2026"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.named_customers.source.title",
    "old": "Oracle free writing prospectus (Form FWP), filed 1 Feb 2026: equity and debt financing plan for calendar 2026",
    "new": "Oracle free writing prospectus (Form FWP), filed Feb 1, 2026: equity and debt financing plan for calendar 2026"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.press_contracts[0].source.title",
    "old": "Wall Street Journal, 10 Sep 2025 (as reported by Reuters / U.S. News): OpenAI, Oracle sign $300 billion computing deal",
    "new": "Wall Street Journal, Sep 10, 2025 (as reported by Reuters / U.S. News): OpenAI, Oracle sign $300 billion computing deal"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.press_contracts[1].source.title",
    "old": "CNBC, 16 Oct 2025: Oracle stock rises as company confirms Meta cloud deal",
    "new": "CNBC, Oct 16, 2025: Oracle stock rises as company confirms Meta cloud deal"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "unitEconomics.concentration.counterparty_capacity.openai.arr_text_en",
+   "old": "annualized revenue past US$40 bn (Quartz, 29 Sep 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn",
+   "new": "annualized revenue past US$40 bn (Quartz, Sep 29, 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "buildout.js",
+   "path": "unitEconomics.concentration.counterparty_capacity.openai.seeking_text_en",
+   "old": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, 29 Sep 2026; early talks, terms could change)",
+   "new": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, Sep 29, 2026; early talks, terms could change)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[0].title",
    "old": "Quartz, 29 Sep 2026 (citing Bloomberg): OpenAI targets $30 billion funding round at $1.4 trillion valuation",
    "new": "Quartz, Sep 29, 2026 (citing Bloomberg): OpenAI targets $30 billion funding round at $1.4 trillion valuation"
   },
   {
-   "at": "2026-10-06T10:23:04.372Z",
+   "at": "2026-10-06T10:24:45.340Z",
    "file": "buildout.js",
    "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[1].title",
    "old": "Reuters via Investing.com, 29 Sep 2026: OpenAI targets $30 billion funding at $1.4 trillion valuation, Bloomberg News reports",
    "new": "Reuters via Investing.com, Sep 29, 2026: OpenAI targets $30 billion funding at $1.4 trillion valuation, Bloomberg News reports"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "obligations.js",
+   "path": "leases.cost.ltm_note_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "obligations.js",
+   "path": "lookthrough.lease_adjusted_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "cds.js",
+   "path": "source",
+   "old": "FactSet (pending authorisation)",
+   "new": "FactSet (pending authorization)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.y1",
+   "old": null,
+   "new": 21.72
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.y3",
+   "old": null,
+   "new": 23.31
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.y5",
+   "old": null,
+   "new": 20.53
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 15.09
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 13.13
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 14.92
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 13.87
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "factset.js",
+   "path": "oracle.hist_multiples.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 9.31
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "hist.asOf",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.y1",
+   "old": null,
+   "new": 24.15
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.y3",
+   "old": null,
+   "new": 28.41
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.y5",
+   "old": null,
+   "new": 28.12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 24.8
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 14.79
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 18.14
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 18.49
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[0].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 15.11
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.y1",
+   "old": null,
+   "new": 23.34
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.y3",
+   "old": null,
+   "new": 30.87
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.y5",
+   "old": null,
+   "new": 26.26
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 22.87
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 14.7
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 19.34
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 17.08
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[1].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 14.62
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.y1",
+   "old": null,
+   "new": 15.3
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.y3",
+   "old": null,
+   "new": 21.94
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.y5",
+   "old": null,
+   "new": 27.14
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 14.08
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 10.61
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 14.09
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 15.75
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[2].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 10.84
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.y1",
+   "old": null,
+   "new": 29.41
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.y3",
+   "old": null,
+   "new": 45.63
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.y5",
+   "old": null,
+   "new": 50.88
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 28.04
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 21.15
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 32.96
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 34.84
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[3].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 19.65
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.y1",
+   "old": null,
+   "new": 21.16
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.y3",
+   "old": null,
+   "new": 20.41
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.y5",
+   "old": null,
+   "new": 17.58
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 17
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 15.2
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 14.89
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 13.08
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[4].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 12.92
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.y1",
+   "old": null,
+   "new": 15.44
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.y3",
+   "old": null,
+   "new": 26.06
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.y5",
+   "old": null,
+   "new": 34.68
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 15.21
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 9.13
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 14.8
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 17.71
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[5].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 9.46
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.y1",
+   "old": null,
+   "new": 27.52
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.y3",
+   "old": null,
+   "new": 32.37
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.y5",
+   "old": null,
+   "new": 44.69
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 22.3
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 12.09
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 12.95
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 14.09
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[6].hist.ev_ebitda_ntm.spot_month_end",
+   "old": null,
+   "new": 10.52
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.as_of",
+   "old": null,
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.y1",
+   "old": null,
+   "new": 25.25
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.y3",
+   "old": null,
+   "new": 21.72
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.y5",
+   "old": null,
+   "new": 21.18
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.pe_ntm.spot_month_end",
+   "old": null,
+   "new": 20.82
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.y1",
+   "old": null,
+   "new": 7.94
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.y3",
+   "old": null,
+   "new": 6.36
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.y5",
+   "old": null,
+   "new": 5.77
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.n1",
+   "old": null,
+   "new": 12
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.n3",
+   "old": null,
+   "new": 35
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "peers[7].hist.ev_ebitda_ntm.n5",
+   "old": null,
+   "new": 59
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "peers.js",
+   "path": "(more)",
+   "old": null,
+   "new": "314 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "libraryNote.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[0].basis_short_en",
+   "old": "Out-year revenue and operating-income forecasts; FY2030 EPS x P/E discounted at a 12% cost of equity (7 Aug note)",
+   "new": "Out-year revenue and operating-income forecasts; FY2030 EPS x P/E discounted at a 12% cost of equity (Aug 7 note)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[0].method_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[0].thesis_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[1].thesis_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[1].risks_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[2].method_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[6].thesis_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[7].method_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "analysts.js",
+   "path": "houses[7].thesis_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "news.js",
+   "path": "sweepNote.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "news.js",
+   "path": "items[5].why_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T10:24:45.340Z",
+   "file": "news.js",
+   "path": "items[10].summary_en",
+   "old": "(text)",
+   "new": "(text changed)"
   }
  ],
- "generated": "2026-10-06T10:23:04.372Z"
+ "generated": "2026-10-06T10:24:45.340Z"
 }

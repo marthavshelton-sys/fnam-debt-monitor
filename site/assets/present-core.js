@@ -126,17 +126,18 @@
       if (line.length) lines.push(line);
       return { lines, sp };
     }
+    // opts.marker === false draws the items as plain paragraphs with **bold** runs (no bullet, no indent)
     bullets(items, x, y, w, size, opts = {}) {
-      const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap;
+      const ind = opts.indent == null ? (opts.marker === false ? 0 : 9) : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap;
       for (const it of items) {
         const { lines, sp } = this.richLines(it, w - ind, size, opts.style);
-        this.font(opts.style || 'normal', size, opts.color || INK); this.pdf.text('•', x, y + size * 0.85);
+        this.font(opts.style || 'normal', size, opts.color || INK); if (opts.marker !== false) this.pdf.text('•', x, y + size * 0.85);
         lines.forEach((ln, li) => { let cx = x + ind; const yy = y + size * 0.85 + li * size * lh; for (const r of ln) { this.pdf.setFont('helvetica', r.b ? 'bold' : opts.style || 'normal'); this.pdf.setFontSize(size); this.pdf.setTextColor(...(r.b ? INK : opts.color || INK)); this.pdf.text(r.t, cx, yy); cx += this.tw(r.t); if (r.tail) { this.pdf.setFont('helvetica', opts.style || 'normal'); this.pdf.setTextColor(...(opts.color || INK)); this.pdf.text(r.tail, cx, yy); cx += this.tw(r.tail); } cx += sp; } });
         y += lines.length * size * lh + gap;
       }
       return y;
     }
-    measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
+    measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? (opts.marker === false ? 0 : 9) : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
     heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(titleCase(str, this.es)), x, y + size * 0.85); return y + size * 1.5; }
     note(str, y, size = 7.5, x, w) { return this.text(str, x == null ? this.cur.x0 : x, y, w == null ? this.width() : w, size, 'normal', MUTED, 1.25); }
     measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w - 4).length * size * (lh || 1.3) + 1; }
@@ -297,26 +298,41 @@
       return String(text).replace(/\{\{nextResults\}\}/g, v);
     }
     // `pre(y)` (optional) draws a strip under the page title (e.g. the Oracle deck's six-number chain) and returns the new y.
-    // A section is { title, items: [...] } or, for a sub-grouped block such as "What to watch", { title, groups: [{ h, items }] }
+    // A section is { title, items: [...] }, { title, paras: [...] } (plain paragraphs with **bold** runs, e.g. the Oracle verdict)
+    // or, for a sub-grouped block such as "What to watch", { title, groups: [{ h, items }] }
     // (each group prints its own sub-heading, as the page does). `columns` (optional) assigns the sections to the two columns
-    // explicitly ([[left...], [right...]]); without it the list is split in half.
-    execSummary(sections, subtitle, pre, columns) {
-      const prep = (sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)), groups: (sec.groups || []).map((g) => ({ h: g.h, items: (g.items || []).map((x) => this.tokens(x)) })) });
+    // explicitly ([[left...], [right...]]); without it the list is split in half. `lead` (optional) is a list of full-width
+    // blocks [{ h, text }] drawn under the strip and above the columns (the Oracle verdict); their height is part of the fit.
+    execSummary(sections, subtitle, pre, columns, lead) {
+      const prep = (sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)), paras: (sec.paras || []).map((x) => this.tokens(x)), groups: (sec.groups || []).map((g) => ({ h: g.h, items: (g.items || []).map((x) => this.tokens(x)) })) });
       const cols = columns ? columns.map((c) => c.map(prep)) : (() => { const all = sections.map(prep), half = Math.ceil(all.length / 2); return [all.slice(0, half), all.slice(half)]; })();
+      lead = (lead || []).map((b) => ({ h: b.h, text: this.tokens(b.text) }));
       let y = this.page('L', this.T('Resumen ejecutivo', 'Executive Summary'), subtitle);
       if (typeof pre === 'function') y = pre(y);
-      const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4, ind = 6;
+      const gap = 22, W = this.width(), ind = 6;
       const opts = (s) => ({ lh: 1.32, gap: s * 0.5 });
-      const secH = (sec, s) => { let h = s * 1.5 + 2 + this.measureBullets(sec.items, colW, s, opts(s)); for (const g of sec.groups) { if (g.h) h += s * 1.32 + 1; h += this.measureBullets(g.items, colW - ind, s, opts(s)); } return h + s * 0.9; };
-      const colH = (col, s) => col.reduce((h, sec) => h + secH(sec, s), 0);
-      let size;
-      for (size = 13; size >= 8; size -= 0.25) { if (Math.max(...cols.map((c) => colH(c, size))) <= availH) break; }
-      const hs = size;
+      const para = (s) => ({ lh: 1.3, gap: 0, marker: false });
+      const leadH = (s) => lead.reduce((h, b) => h + (b.h ? (s + 1) * 1.5 + 1 : 0) + this.measureBullets([b.text], W, s, para(s)) + s * 0.7, 0) + (lead.length ? s * 0.4 : 0);
+      const secH = (sec, s, cw) => { let h = s * 1.5 + 2 + this.measureBullets(sec.items, cw, s, opts(s)) + (sec.paras.length ? this.measureBullets(sec.paras, cw, s, para(s)) + s * 0.5 : 0); for (const g of sec.groups) { if (g.h) h += s * 1.32 + 1; h += this.measureBullets(g.items, cw - ind, s, opts(s)); } return h + s * 0.9; };
+      const colH = (col, s, cw) => col.reduce((h, sec) => h + secH(sec, s, cw), 0);
+      // the largest size that fits; with explicit columns the split moves from 50/50 towards 62/38 either way so the longer
+      // column gets the room (the two are rarely equal), which keeps the text larger and the page balanced
+      const splits = columns ? [0.5, 0.53, 0.56, 0.59, 0.62, 0.47, 0.44, 0.41, 0.38] : [0.5];
+      const widths = (sp) => [(W - gap) * sp, (W - gap) * (1 - sp)];
+      let size, split = 0.5;
+      outer: for (size = 13; size >= 7.5; size -= 0.25) {
+        const room = this.cur.y1 - y - 4 - leadH(size);
+        for (const sp of splits) { const cw = widths(sp); if (Math.max(...cols.map((c, i) => colH(c, size, cw[i]))) <= room) { split = sp; break outer; } }
+      }
+      const hs = size, cw = widths(split);
+      for (const b of lead) { if (b.h) y = this.heading(b.h, this.cur.x0, y, hs + 1) + 1; y = this.bullets([b.text], this.cur.x0, y, W, hs, para(hs)) + hs * 0.7; }
+      if (lead.length) { this.rule(y); y += hs * 0.4; }
       cols.forEach((col, i) => {
-        let yy = y; const x = this.cur.x0 + i * (colW + gap);
+        let yy = y; const x = this.cur.x0 + (i ? cw[0] + gap : 0), colW = cw[i];
         for (const sec of col) {
           yy = this.heading(sec.title, x, yy, hs + 1) + 2;
           if (sec.items.length) yy = this.bullets(sec.items, x, yy, colW, hs, opts(hs));
+          if (sec.paras.length) yy = this.bullets(sec.paras, x, yy, colW, hs, para(hs)) + hs * 0.5;
           for (const g of sec.groups) {
             // the group's sub-heading prints as the page prints it (no Title Case: it is a topic label, not a section heading)
             if (g.h) { this.font('bold', hs, INK); this.pdf.text(tx(g.h), x, yy + hs * 0.85); yy += hs * 1.32 + 1; }
@@ -325,7 +341,7 @@
           yy += hs * 0.9;
         }
       });
-      this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.5); this.pdf.line(this.cur.x0 + colW + gap / 2, y, this.cur.x0 + colW + gap / 2, this.cur.y1 - 6);
+      this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.5); this.pdf.line(this.cur.x0 + cw[0] + gap / 2, y, this.cur.x0 + cw[0] + gap / 2, this.cur.y1 - 6);
     }
     // ----- contents page: reserved early, filled once every page exists -----
     // contents() adds the page (right after the executive summary) and remembers its number; drawContents(entries, note)
