@@ -167,14 +167,14 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .spoke{fill:none; stroke:var(--muted); stroke-opacity:.45; stroke-dasharray:4 3; stroke-linecap:round;}
 .spoke.on{stroke:var(--c); stroke-opacity:.95; stroke-dasharray:none;}
 .spoke.off{stroke-opacity:.08;}
-.spoke-label{font-family:var(--sans); font-size:calc(10.5px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round; pointer-events:none;}
+.spoke-label{font-family:var(--sans); font-size:calc(14px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round; pointer-events:none;}
 .spoke-label.off{opacity:.15;}
 .ap circle.dot{fill:var(--muted); fill-opacity:.55; stroke:var(--surface); stroke-width:1; transition:fill-opacity .15s;}
 .ap.on circle.dot{fill:var(--c); fill-opacity:.9;}
 .ap.hub circle.ring{fill:none; stroke:var(--c); stroke-width:calc(2px * var(--k, 1));}
 .ap.off circle.dot{fill-opacity:.12;}
 .ap.hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
-.ap-label{font-family:var(--sans); font-size:calc(11px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
+.ap-label{font-family:var(--sans); font-size:calc(14.5px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
 .ap-label.off{opacity:.2;}
 .rt.net{stroke-opacity:.8;}
 .rt.est, .spoke.est{stroke-dasharray:3 3; stroke-opacity:.65;}
@@ -451,6 +451,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   var KEY = "fnam-lang", root = document.documentElement, buttons = document.querySelectorAll(".lang-switch button");
   function apply(lang){ var es = lang === "es"; root.setAttribute("lang", es ? "es" : "en"); document.title = es ? "Tráfico Aéreo de México por Aerolínea — FNAM | Mexican Airport Traffic by Airline" : "Mexican Airport Traffic by Airline — FNAM | Tráfico Aéreo de México por Aerolínea"; buttons.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); }); }
   var lang = "es"; try { if (localStorage.getItem(KEY) === "en") lang = "en"; } catch (e) {}
+  try { var q = new URLSearchParams(location.search).get("lang"); if (q === "en" || q === "es") { lang = q; localStorage.setItem(KEY, q); } } catch (e) {}
   apply(lang);
   buttons.forEach(function(b){ b.addEventListener("click", function(){ lang = b.getAttribute("data-lang"); try { localStorage.setItem(KEY, lang); } catch (e) {} apply(lang); }); });
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -945,7 +946,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var netSrc = Object.keys(A.networks || {}).filter(function(k){ return k !== "AMG"; }).map(function(k){ var n = A.networks[k], c = byId[k]; return (c ? c.short : k) + ": " + n.source + ""; });
     li.push("<li>" + T("Redes por aerolínea (publicadas por la propia aerolínea; Aeroméxico, que no publica la suya: rutas con EE. UU. del DOT de EE. UU.) — ", "Airline networks (published by the airline itself; Aeroméxico, which publishes none: US routes from the US DOT) — ") + esc(netSrc.join("; ")) + ".</li>");
     if (s.t100) li.push("<li>" + '<a href="' + esc(s.t100.url) + '" target="_blank" rel="noopener">' + T("DOT de EE. UU., BTS — T-100 International Segment (todas las aerolíneas)", "US DOT, BTS — T-100 International Segment (All Carriers)") + "</a>" + T(": segmentos sin escala operados por Aeroméxico y Aeroméxico Connect desde o hacia EE. UU., datos hasta ", ": nonstop segments flown by Aeroméxico and Aeroméxico Connect to or from the US, data through ") + monthLabel(s.t100.lastMonth) + T(" (consultado el ", " (retrieved ") + esc(s.t100.fetchedAt) + ").</li>");
-    var amReg = (GROUPS.AMG && GROUPS.AMG.reported) || null; if (amReg) li.push("<li>" + '<a href="' + esc(amReg.url) + '" target="_blank" rel="noopener">' + T("Grupo Aeroméxico, Form 20-F del ejercicio 2025", "Grupo Aeroméxico, Form 20-F for fiscal year 2025") + "</a>" + T(" (SEC, 30-abr-2026): destinos atendidos al 31-dic-2025.", " (SEC, April 30, 2026): destinations served as of December 31, 2025.") + "</li>");
+    var amReg = (GROUPS.AMG && GROUPS.AMG.reported) || null; if (amReg) li.push("<li>" + '<a href="' + esc(amReg.url) + '" target="_blank" rel="noopener">' + T("Grupo Aeroméxico, Form 20-F del ejercicio 2025", "Grupo Aeroméxico, Form 20-F for fiscal year 2025") + "</a>" + T(" (SEC, 30-abr-2026): destinos atendidos al 31-dic-2025.", " (SEC, 30-Apr-2026): destinations served at 31-Dec-2025.") + "</li>");
     document.getElementById("srclist").innerHTML = li.join("");
     document.getElementById("defs").innerHTML =
       "<dt>" + T("Pasajeros por aerolínea (AFAC)", "Passengers by airline (AFAC)") + "</dt><dd>" + T("Pasajeros transportados en servicio regular por cada aerolínea, contados una vez por vuelo. No coinciden exactamente con los pasajeros por aeropuerto del panel vecino, que cuentan llegadas y salidas en cada aeropuerto.", "Passengers carried on scheduled service by each airline, counted once per flight. They do not exactly match the by-airport dashboard, which counts arrivals and departures at each airport.") + "</dd>" +

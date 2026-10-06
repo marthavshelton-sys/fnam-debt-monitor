@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
 <title>Otras Empresas Mexicanas — FNAM | Other Mexican Companies</title>
 <meta name="description" content="Modelos financieros interactivos de otras emisoras mexicanas: Quálitas (BMV: Q*) y Gentera (BMV: GENTERA). Interactive financial models for other Mexican listed companies: Quálitas and Gentera.">
 <link rel="canonical" href="https://fnam.mx/otras-empresas/">
@@ -336,7 +337,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="decks-label"><span class="en">Board presentations (PDF)</span><span class="es">Presentaciones para el consejo (PDF)</span></span>
           <a data-base="/qualitas/" href="/qualitas/?present=1">Quálitas</a>
           <a data-base="/gentera/" href="/gentera/?present=1">Gentera</a>
-          <p class="hint"><span class="en">Each link opens the model and builds a 15–16 page Letter PDF in the current language: cover, executive summary, tear sheet, statements, guidance, sections 07–10 and sources. Figures are the ones on the page at that moment.</span><span class="es">Cada enlace abre el modelo y genera un PDF tamaño carta de 15–16 páginas en el idioma actual: portada, resumen ejecutivo, ficha técnica, estados financieros, guía, secciones 07–10 y fuentes. Las cifras son las de la página en ese momento.</span></p>
+          <p class="hint"><span class="en">Each link opens the model and builds its Letter-size PDF in the current language (cover, executive summary, tear sheet, statements, guidance, the debt, dividend and special sections, sources; about 15 pages for the airports, Quálitas and Gentera, about 22 for Oracle). Figures are the ones on the page at that moment.</span><span class="es">Cada enlace abre el modelo y genera su PDF tamaño carta en el idioma actual (portada, resumen ejecutivo, ficha técnica, estados financieros, guía, las secciones de deuda, dividendos y especiales, fuentes; unas 15 páginas para los aeropuertos, Quálitas y Gentera, unas 22 para Oracle). Las cifras son las que la página muestra en ese momento.</span></p>
         </div>
     </div>
   </section>
@@ -383,6 +384,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   // Same key as the landing page, so the choice carries across the site.
   var lang = "es";
   try { var stored = localStorage.getItem(KEY); if (stored === "en") lang = "en"; } catch (e) {}
+  try { var q = new URLSearchParams(location.search).get("lang"); if (q === "en" || q === "es") { lang = q; localStorage.setItem(KEY, q); } } catch (e) {}
   apply(lang);
 
   buttons.forEach(function(b){

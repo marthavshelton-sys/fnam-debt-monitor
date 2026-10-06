@@ -15,7 +15,7 @@
   };
   var MON = { es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'], en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] };
   var LANG = 'es';
-  try { var saved = localStorage.getItem('hyp-lang'); if (saved === 'en' || saved === 'es') LANG = saved; } catch (e) { /* storage blocked */ }
+  try { var saved = localStorage.getItem('fnam-lang') || localStorage.getItem('hyp-lang'); if (saved === 'en' || saved === 'es') LANG = saved; } catch (e) { /* storage blocked */ }
   var q = new URLSearchParams(location.search).get('lang');
   if (q === 'en' || q === 'es') LANG = q;
   var listeners = [];
@@ -504,7 +504,7 @@
   }
 
   // ---- heat-map cell: a single-hue scale (light → dark) of how strongly a metric points to risk, 0..1; the value is
-  // always printed in the cell, so the colour never carries the information alone
+  // always printed in the cell, so the color never carries the information alone
   function heat(level) { if (level == null || !isFinite(level)) return ''; var l = Math.max(0, Math.min(1, level)); return ' data-heat="' + Math.round(l * 4) + '"'; }
   function heatLegend() { return '<span class="heat-legend"><span>' + t('menor', 'lower') + '</span>' + [0, 1, 2, 3, 4].map(function (k) { return '<i data-heat="' + k + '"></i>'; }).join('') + '<span>' + t('mayor riesgo o presión', 'higher risk or strain') + '</span></span>'; }
 
@@ -652,7 +652,7 @@
     host.innerHTML = '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ' + t(pctAll + '% de las ' + T.all + ' cifras de los ocho módulos está verificado o cotejado, con los ' + T.ex + ' huecos explicados y los ' + T.nt + ' sin explicar en el denominador; ' + pctVal + '% de las ' + T.shown + ' cifras con valor. ', pctAll + '% of all ' + T.all + ' figures across the eight modules are verified or matched, with the ' + T.ex + ' explained gaps and ' + T.nt + ' unexplained in the denominator; ' + pctVal + '% of the ' + T.shown + ' figures with a value. ') + t('Del total cotejado: ' + T.q + ' con cita cotejada, ' + T.tg + ' con etiqueta XBRL cotejada, ' + T.pr + ' valores presentes (cálculo FNAM). ', 'Of those: ' + T.q + ' quote-matched, ' + T.tg + ' XBRL tag-matched, ' + T.pr + ' values present (FNAM calculation). ') +
       t('El módulo más débil es ', 'The weakest module is ') + '<a href="/hiperescaladores/' + w.id + '/#dq">' + esc(modLabel(w.m)) + '</a>: ' + t(w.P.pctAll + '% de ' + w.P.all + ' cifras, ' + w.D.review.length + ' por revisar, ' + w.D.nt.length + ' sin etiqueta XBRL sin explicar', w.P.pctAll + '% of ' + w.P.all + ' figures, ' + (w.D.review.length === 1 ? '1 needs review, ' : w.D.review.length + ' need review, ') + w.D.nt.length + ' not tagged in XBRL and unexplained') + '. ' +
       t((T.rev === 1 ? '1 partida por revisar' : T.rev + ' partidas por revisar') + ' en total; revisadas por analista: ' + T.cr + ' de ' + T.cn + ' partidas curadas' + (T.tc ? '; ' + T.tc + ' huecos con etiqueta cotejada (control de concepto, no verificados)' : '') + '. Verificado significa ' + VERIF.es + '.', (T.rev === 1 ? '1 item needs review' : T.rev + ' items need review') + ' in total; analyst-reviewed: ' + T.cr + ' of ' + T.cn + ' curated items' + (T.tc ? '; ' + T.tc + ' gaps tag-checked (concept check, not verified)' : '') + '. Verified means ' + VERIF.en + '.') +
-      '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th class="l">' + t('Módulo', 'Module') + '</th><th>' + t('Verificado, todas las cifras', 'Verified, all figures') + '</th><th>' + t('Verificado, con valor', 'Verified, with a value') + '</th><th>' + t('Cita', 'Quote') + '</th><th>' + t('Etiqueta', 'Tag') + '</th><th>' + t('Presente', 'Present') + '</th><th>' + t('Por revisar', 'Needs review') + '</th><th>' + t('Sin etiqueta', 'Not tagged') + '</th><th>' + t('Explicados', 'Explained') + '</th><th>' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
+      '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th scope="col" class="l">' + t('Módulo', 'Module') + '</th><th scope="col">' + t('Verificado, todas las cifras', 'Verified, all figures') + '</th><th scope="col">' + t('Verificado, con valor', 'Verified, with a value') + '</th><th scope="col">' + t('Cita', 'Quote') + '</th><th scope="col">' + t('Etiqueta', 'Tag') + '</th><th scope="col">' + t('Presente', 'Present') + '</th><th scope="col">' + t('Por revisar', 'Needs review') + '</th><th scope="col">' + t('Sin etiqueta', 'Not tagged') + '</th><th scope="col">' + t('Explicados', 'Explained') + '</th><th scope="col">' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
       rows.map(function (r, i) { var c = function (l, v) { return '<td data-l="' + esc(l) + '">' + v + '</td>'; }; return '<tr' + (i === 0 ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td>' + c(t('Todas', 'All'), r.P.pctAll + '% · ' + r.P.all) + c(t('Con valor', 'With value'), r.P.pct + '% · ' + r.P.shown) + c(t('Cita', 'Quote'), r.D.quote) + c(t('Etiqueta', 'Tag'), r.D.tag) + c(t('Presente', 'Present'), r.D.present) + c(t('Por revisar', 'Needs review'), link(r, 'review', r.D.review.length)) + c(t('Sin etiqueta', 'Not tagged'), link(r, 'nt', r.D.nt.length)) + c(t('Explicados', 'Explained'), link(r, 'explained', r.D.explained.length)) + c(t('Analista', 'Analyst'), r.D.curated.reviewed + ' / ' + r.D.curated.n) + '</tr>'; }).join('') + '</tbody></table></div>';
   }
   var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
@@ -731,7 +731,7 @@
   var moTimer = null;
   if (window.MutationObserver) (MO = new MutationObserver(function () { if (busy) return; clearTimeout(moTimer); moTimer = setTimeout(function () { try { decorate(); glossify(); } catch (e) { console.error(e); } }, 30); })).observe(document.documentElement, { childList: true, subtree: true });
   function setLang(l) {
-    LANG = l; try { localStorage.setItem('hyp-lang', l); } catch (e) { /* ignore */ }
+    LANG = l; try { localStorage.setItem('fnam-lang', l); } catch (e) { /* ignore */ }
     var u = new URL(location.href); u.searchParams.set('lang', l); history.replaceState(null, '', u);
     applyLang();
   }

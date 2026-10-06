@@ -3,9 +3,9 @@
 // or LSEG) is authorised for this workspace. The page renders the schema with a "pending" notice.
 //
 // Field contract (one object per fiscal year; MXN millions unless stated):
-//   fy                 fiscal year
-//   writtenMxnM        consensus written premiums (mean)          writtenGrowthPct  implied growth vs prior FY
-//   netIncomeMxnM      consensus net income (mean)                eps               consensus EPS (Ps.)
+//  fy         fiscal year
+//  writtenMxnM    consensus written premiums (mean)     writtenGrowthPct implied growth vs prior FY
+//  netIncomeMxnM   consensus net income (mean)        eps        consensus EPS (Ps.)
 //   lossRatioPct       consensus loss ratio                       combinedPct       consensus combined ratio
 //   roePct             consensus ROE                              dpsMxn            consensus dividend per share
 //   nAnalysts          number of estimates

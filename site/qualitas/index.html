@@ -6,28 +6,29 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Quálitas · Modelo financiero interactivo | Quálitas Controladora (Q*)</title>
 <meta name="description" content="Modelo financiero interactivo de Quálitas Controladora (BMV: Q*): estados financieros comparables por trimestre bajo criterios CNSF, unidades aseguradas y primas por línea, acción, valuación por ingreso residual, capital y solvencia. Datos públicos.">
+<link rel="canonical" href="https://fnam.mx/qualitas/">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f9f9f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%23f9f9f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous" defer></script>
 <!-- Data files. Each is refreshed on its own cadence by the scheduled refresh
      (market: daily · financials/operations: after each report) or by reviewed commit (reference, guidance,
      comments, summary, peers). -->
-<script src="data/market.js"></script>
-<script src="data/financials.js"></script>
-<script src="data/operations.js"></script>
-<script src="data/reference.js"></script>
-<script src="data/guidance.js"></script>
-<script src="data/comments.js"></script>
-<script src="data/summary.js"></script>
-<script src="data/peers.js"></script>
-<script src="data/glossary.js"></script>
-<script src="data/consensus.js"></script>
-<script src="data/alerts.js"></script>
-<script src="data/review.js"></script>
+<script src="data/market.js" defer></script>
+<script src="data/financials.js" defer></script>
+<script src="data/operations.js" defer></script>
+<script src="data/reference.js" defer></script>
+<script src="data/guidance.js" defer></script>
+<script src="data/comments.js" defer></script>
+<script src="data/summary.js" defer></script>
+<script src="data/peers.js" defer></script>
+<script src="data/glossary.js" defer></script>
+<script src="data/consensus.js" defer></script>
+<script src="data/alerts.js" defer></script>
+<script src="data/review.js" defer></script>
 
 <style>
 :root{
@@ -401,6 +402,13 @@ body.nav-stuck .lang-btn{top:6px;}
   a[target="_blank"], .guide-quote a, .chart-src a, .cap a{padding:8px 0;}
   .gl{border-bottom:none;}
 }
+
+/* Language pill + PDF button: fixed inside the band the sticky jump-nav occupies, so it never covers content once the page
+   scrolls; the nav keeps that band's right end free (owner's review, 2026-10-05). On phones the PDF button stays. */
+.lang-btn{top:6px;} .lang-btn button{min-height:35px; padding:7px 14px;}
+nav.jump .wrap{padding-right:300px;}
+nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--page); pointer-events:none;}
+@media (max-width:640px){ .lang-btn{position:absolute; top:8px; right:8px;} body{position:relative;} .lang-btn button{min-height:33px; padding:6px 10px; font-size:11.5px;} nav.jump .wrap{padding-right:16px;} nav.jump::after{display:none;} .lang-btn .print-btn{display:inline-flex;} }
 </style>
 </head>
 <body>
@@ -901,15 +909,15 @@ body.nav-stuck .lang-btn{top:6px;}
     <h3><span class="es">Fuentes</span><span class="en" hidden>Sources</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
-      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, reportes SIFIC, eventos relevantes y transcripciones de conferencias de Quálitas; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. La valuación es ilustrativa y depende de los supuestos elegidos por la persona usuaria; no constituye una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span id="genStamp"></span>. Preparado por Talipot.</span>
-      <span class="en" hidden>This model is built exclusively from public information (Quálitas' quarterly reports, SIFIC filings, material-event releases and earnings-call transcripts; market prices; FRED series). It contains, and must not be fed, any material non-public information. The valuation is illustrative and depends on the user's assumptions; it is not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span id="genStamp"></span>. Prepared by Talipot.</span>
+      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, reportes SIFIC, eventos relevantes y transcripciones de conferencias de Quálitas; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. La valuación es ilustrativa y depende de los supuestos elegidos por la persona usuaria; no constituye una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span id="genStamp"></span>.</span>
+      <span class="en" hidden>This model is built exclusively from public information (Quálitas' quarterly reports, SIFIC filings, material-event releases and earnings-call transcripts; market prices; FRED series). It contains, and must not be fed, any material non-public information. The valuation is illustrative and depends on the user's assumptions; it is not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span class="genStamp"></span>.</span>
     </p>
   </div>
 </footer>
 
-<script src="app.js"></script>
-<script src="/assets/present-core.js"></script>
-<script src="present.js"></script>
+<script src="app.js" defer></script>
+<script src="/assets/present-core.js" defer></script>
+<script src="present.js" defer></script>
 <script src="/assets/data-status.js" defer></script>
 </body>
 </html>

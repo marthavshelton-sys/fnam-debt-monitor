@@ -253,9 +253,14 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   .card, .card-foot .cta svg, .lang-switch{transition:none;}
   a.card:hover{transform:none;}
 }
+
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+.skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent, #1b4332); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
 </style>
 </head>
 <body>
+<a class="skip" href="#main"><span class="en">Skip to content</span><span class="es">Saltar al contenido</span></a>
 
 <header class="topbar">
   <div class="wrap">
@@ -272,7 +277,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   </div>
 </header>
 
-<main>
+<main id="main">
+  <h1 class="sr-only"><span class="en">FNAM: Macro and Fiscal Dashboards and Company Models</span><span class="es">FNAM: Paneles Macro y Fiscales y Modelos de Empresas</span></h1>
 
   <!-- ================= United States ================= -->
   <section class="section" id="us">
@@ -291,8 +297,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <span class="es">Economía</span>
           </span>
           <h3>
-            <span class="en">U.S. Macro Dashboard</span>
-            <span class="es">Panel Macro de EE. UU.</span>
+            <span class="en">U.S. Macro Monitor</span>
+            <span class="es">Monitor Macro de EE. UU.</span>
           </h3>
           <p>
             <span class="en">Inflation, jobs, GDP, consumer spending and sentiment.</span>
@@ -332,8 +338,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <span class="es">Finanzas públicas</span>
           </span>
           <h3>
-            <span class="en">Fiscal Deficit</span>
-            <span class="es">Déficit Fiscal</span>
+            <span class="en">U.S. Fiscal Deficit</span>
+            <span class="es">Déficit Fiscal de EE. UU.</span>
           </h3>
           <p>
             <span class="en">Federal receipts, outlays and the deficit by fiscal year.</span>
@@ -369,8 +375,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <span class="es">Economía</span>
           </span>
           <h3>
-            <span class="en">Mexico Macro Dashboard</span>
-            <span class="es">Panel Macro de México</span>
+            <span class="en">Mexico Macro Monitor</span>
+            <span class="es">Monitor Macro México</span>
           </h3>
           <p>
             <span class="en">Inflation, activity, jobs, remittances, trade, the peso and Banxico's rates.</span>
@@ -489,7 +495,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <a data-base="/qualitas/" href="/qualitas/?present=1">Quálitas</a>
           <a data-base="/gentera/" href="/gentera/?present=1">Gentera</a>
           <a data-base="/oracle/" href="/oracle/?present=1">Oracle</a>
-          <p class="hint"><span class="en">Each link opens the model and builds a 15–16 page Letter PDF in the current language: cover, executive summary, tear sheet, statements, guidance, sections 07–10 and sources. Figures are the ones on the page at that moment.</span><span class="es">Cada enlace abre el modelo y genera un PDF tamaño carta de 15–16 páginas en el idioma actual: portada, resumen ejecutivo, ficha técnica, estados financieros, guía, secciones 07–10 y fuentes. Las cifras son las de la página en ese momento.</span></p>
+          <p class="hint"><span class="en">Each link opens the model and builds its Letter-size PDF in the current language (cover, executive summary, tear sheet, statements, guidance, the debt, dividend and special sections, sources; about 15 pages for the airports, Quálitas and Gentera, about 22 for Oracle). Figures are the ones on the page at that moment.</span><span class="es">Cada enlace abre el modelo y genera su PDF tamaño carta en el idioma actual (portada, resumen ejecutivo, ficha técnica, estados financieros, guía, las secciones de deuda, dividendos y especiales, fuentes; unas 15 páginas para los aeropuertos, Quálitas y Gentera, unas 22 para Oracle). Las cifras son las que la página muestra en ese momento.</span></p>
         </div>
     </div>
   </section>
@@ -554,6 +560,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   // Spanish by default; only an explicit choice (stored) switches to English.
   var lang = "es";
   try { var stored = localStorage.getItem(KEY); if (stored === "en") lang = "en"; } catch (e) {}
+  try { var q = new URLSearchParams(location.search).get("lang"); if (q === "en" || q === "es") { lang = q; localStorage.setItem(KEY, q); } } catch (e) {}
   apply(lang);
 
   buttons.forEach(function(b){
@@ -596,18 +603,26 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       return;
     }
     checked.innerHTML = s.fresh
-      ? both("Revisado " + S.when(s.checkedAt, "es"), "Checked " + S.when(s.checkedAt, "en"))
+      ? both("Verificado por el vigilante " + S.when(s.checkedAt, "es") + " · hora de cada tablero = su última actualización de datos", "Verified by the watchdog " + S.when(s.checkedAt, "en") + " · each dashboard's time = its last data refresh")
       : both("El vigilante no reporta desde " + S.when(s.checkedAt, "es"), "No watchdog report since " + S.when(s.checkedAt, "en"));
     checked.classList.toggle("warn", !s.fresh);
-    grid.innerHTML = s.dashboards.map(function(d){
+    // Each card shows the dashboard's own data stamp (read from its data file) and falls back to the refresh the watchdog
+    // verified while the stamp is loading or unavailable.
+    function card(d, when){
       var label = S.labels[d.state];
       var name = d.name || { es: d.id, en: d.id };
+      var t = when || d.lastSuccess || "";
+      var src = when ? both("datos del ", "data of ") : both("verificado ", "verified ");
       return '<li class="st ' + esc(d.state) + '">' +
         '<a class="st-name" href="' + esc(d.url || "/") + '">' + both(esc(name.es), esc(name.en)) + '</a>' +
         '<span class="st-meta"><span class="st-state">' + both(label.es, label.en) + '</span>' +
-        '<time datetime="' + esc(d.lastSuccess || "") + '">' + both(S.when(d.lastSuccess, "es"), S.when(d.lastSuccess, "en")) + '</time></span>' +
+        '<time datetime="' + esc(t) + '">' + src + both(S.when(t, "es"), S.when(t, "en")) + '</time></span>' +
       '</li>';
-    }).join("");
+    }
+    grid.innerHTML = s.dashboards.map(function(d){ return card(d, null); }).join("");
+    S.stamps(s.dashboards.map(function(d){ return d.id; })).then(function(st){
+      grid.innerHTML = s.dashboards.map(function(d){ return card(d, st[d.id]); }).join("");
+    });
   });
 })();
 </script>

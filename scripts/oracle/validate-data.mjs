@@ -392,7 +392,7 @@ fresh("EDGAR submissions snapshot", edg?.fetched, 4, "filings harvest, weekdays 
 fresh("Oracle IR press-release snapshot", irf?.fetched, 4, "filings harvest");
 fresh("Investor calendar", cal?.generated, 10, "calendar fetch");
 fresh("Peer leverage (SEC XBRL)", plv?.fetched, 10, "peer-leverage fetch");
-fresh("FactSet consensus snapshot", fsj?.fetched, 7, "cloud routine FactSet refresh, weekdays 14:20 UTC");
+fresh("FactSet consensus snapshot", fsj?.fetched, 7, "automated FactSet refresh, weekdays 14:20 UTC");
 fresh("Implied equity risk premium (Damodaran, monthly)", mref?.erp?.as_of, 45, "the market fetch reads Damodaran's home page; he posts on the first of each month");
 fresh("Market concerns (press sweep)", prs?.as_of, 10, "desktop task, Mondays");
 fresh("Sell-side research sweep (analyst opinions)", anj?.as_of, anj?.window_days || 60, "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt");
@@ -411,7 +411,7 @@ cur("buildout.json", !!(bo && bo.promises?.as_of === latestId), bo ? `promises t
 cur("obligations.json", !!(ob && latest && ob.as_of === latest.period_end), ob ? `as of ${ob.as_of} (10-Q notes); updated ${ob.updated}` : "missing");
 const fyKeys = Object.keys(fyj?.fiscal_years || {}).sort(); const lastFy = fyKeys[fyKeys.length - 1] || null; const expFy = latest ? `FY${latest.fiscal_quarter === 4 ? latest.fiscal_year : latest.fiscal_year - 1}` : null;
 cur("fiscal_years.json", !!(lastFy && lastFy === expFy), `${fyKeys[0] || "—"} to ${lastFy || "—"}; expected through ${expFy || "—"}`);
-cur("market_reference.json", !!(mref?.price_snapshot?.orcl?.shares_outstanding_millions && daysSince(mref?.price_snapshot?.orcl?.close_date) <= 5), mref ? `shares ${mref.price_snapshot?.orcl?.shares_outstanding_millions} M; price ${mref.price_snapshot?.orcl?.close_date}; ${(mref.credit_ratings || []).length} ratings; ${(mref.debt_instruments || []).length} debt instruments` : "missing");
+cur("market_reference.json", !!(mref?.price_snapshot?.orcl?.shares_outstanding_millions && daysSince(mref?.price_snapshot?.orcl?.close_date) <= 5), mref ? `shares ${mref.price_snapshot?.orcl?.shares_outstanding_millions} M; price ${mref.price_snapshot?.orcl?.close_date}; ${Array.isArray(mref.credit_ratings) ? mref.credit_ratings.length : Object.keys(mref.credit_ratings || {}).length} ratings; ${(mref.debt_instruments || []).length} debt instruments` : "missing");
 cur("calendar.json", !!cal, cal ? `${(cal.events || []).length} events; next results ${nextRes || (est ? `estimated ${est.window_start} to ${est.window_end}` : "—")}; ${(cal.manual_events || []).length} manual` : "missing");
 cur("press.json", !!(prs && (prs.items || []).length && daysSince(prs.as_of) <= 10), prs ? `${(prs.items || []).length} items, as of ${prs.as_of}` : "missing");
 cur("factset.json", !!(fsj && daysSince(fsj.fetched) <= 7), fsj ? `consensus ${fsj.as_of}; prices ${fsj.price_date}; ${(fsj.peers || []).length} peers; fetched ${fsj.fetched}` : "missing");

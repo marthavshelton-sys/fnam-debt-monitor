@@ -4,90 +4,6 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
-   "path": "sites[0].mw_series[3].kind",
-   "old": null,
-   "new": "expected"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[3].mw",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[3].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[3].src",
-   "old": null,
-   "new": "Crusoe PR"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[3].en",
-   "old": null,
-   "new": "generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[3].es",
-   "old": null,
-   "new": "genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].tenant_openai",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].tenant_basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].when",
-   "old": null,
-   "new": "2025-08"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].kind",
-   "old": null,
-   "new": "contracted"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].mw",
-   "old": null,
-   "new": 1400
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
    "path": "sites[1].mw_series[0].src",
    "old": null,
    "new": "Vantage/DigitalBridge PR 18 Aug 2025"
@@ -4200,7 +4116,91 @@
    "path": "basisNotes.extraction_notes.supplement.method",
    "old": "(text)",
    "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.source",
+   "old": "Quarterly dividends declared in each 8-K earnings release; dated by payment date",
+   "new": "Quarterly dividends declared in each 8-K earnings release; dated by payment date (paid only; declared-not-yet-paid under announced)"
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.points[19][0]",
+   "old": "2026-10-23",
+   "new": null
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.points[19][1]",
+   "old": 0.5,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.announced[0].declared",
+   "old": null,
+   "new": "2026-09-10"
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.announced[0].record",
+   "old": null,
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.announced[0].payment",
+   "old": null,
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.announced[0].dps",
+   "old": null,
+   "new": 0.5
+  },
+  {
+   "at": "2026-10-06T00:47:13.229Z",
+   "file": "market.js",
+   "path": "dividends.ORCL.announced[0].status",
+   "old": null,
+   "new": "announced"
+  },
+  {
+   "at": "2026-10-06T01:20:34.580Z",
+   "file": "financials.js",
+   "path": "basisNotes.normalization_note_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T01:20:34.580Z",
+   "file": "financials.js",
+   "path": "basisNotes.normalization_note_es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T01:20:34.580Z",
+   "file": "obligations.js",
+   "path": "peers_note_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T01:20:34.580Z",
+   "file": "obligations.js",
+   "path": "peers_note_es",
+   "old": "(text)",
+   "new": "(text changed)"
   }
  ],
- "generated": "2026-10-05T22:57:34.621Z"
+ "generated": "2026-10-06T01:20:34.580Z"
 }

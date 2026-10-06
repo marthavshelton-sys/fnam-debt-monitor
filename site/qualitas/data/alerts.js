@@ -1,8 +1,8 @@
 // Alert thresholds for the Quálitas model. One source for two consumers:
-//   * the page: evaluates them at load (share move, latest-quarter ratios, solvency, ROE, expectation tracking,
-//     10-year yield) and shows a banner; the reader can override them locally in section 11 (browser only);
-//   * the weekday reviewing routine (tools/qualitas/ROUTINE.md): emails the owner when one is crossed, in
-//     addition to the calendar events (new quarter, new expectations, corporate events).
+//  * the page: evaluates them at load (share move, latest-quarter ratios, solvency, ROE, expectation tracking,
+//   10-year yield) and shows a banner; the reader can override them locally in section 11 (browser only);
+//  * the weekday reviewing routine : emails the owner when one is crossed, in
+//   addition to the calendar events (new quarter, new expectations, corporate events).
 // Owner-set; edit by reviewed commit and bump updatedAt.
 window.Q_ALERTS = {
   updatedAt: "2026-09-22",

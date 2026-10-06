@@ -80,7 +80,38 @@
   var TARIFF_LAST = '2025';
   var _dateOf = dateOf; dateOf = function(id){ return id === 'tariffs' ? TARIFF_LAST : _dateOf(id); };
 
-  function prov(ids, note){ return ids.filter(function(id){ return SRC[id]; }).map(function(id, i){ return { src:SRC[id].s, url:SRC[id].u, date:dateOf(id), note:i === 0 ? note : null }; }); }
+  // Spanish names of the same sources, for the Spanish view (the ⓘ cards, the tooltips and the source lines this layer adds).
+  var SRC_ES = {
+    debt:'Tesoro de EE. UU., Deuda diaria (Debt to the Penny)',
+    holders:'Boletín del Tesoro, cuadro OFS-2 (tenencia de valores del Tesoro)',
+    foreignHolders:'Sistema de Capital Internacional del Tesoro (TIC), principales tenedores extranjeros (cuadro 5)',
+    debtComposition:'Tesoro de EE. UU., Estado Mensual de la Deuda Pública, cuadro 1',
+    avgMaturity:'Tesoro de EE. UU., Estado Mensual de la Deuda Pública, cuadro 3 (por valor)',
+    avgRate:'Tesoro de EE. UU., Tasas de interés promedio de los valores del Tesoro',
+    mts:'Tesoro de EE. UU., Estado Mensual del Tesoro',
+    accruedInterest:'Tesoro de EE. UU., Gasto por intereses de la deuda pendiente',
+    gdp:'BEA, PIB nominal vía FRED (GDP)',
+    debtGdpAnnual:'FRED GFDGDPA188S, deuda federal bruta como % del PIB',
+    debtGdpQuarterly:'FRED GFDEGDQ188S, deuda federal en manos del público como % del PIB (trimestral)',
+    m2:'Reserva Federal H.6 vía FRED (M2SL)',
+    walcl:'Reserva Federal H.4.1 vía FRED (WALCL)',
+    fedBalanceSheet:'Reserva Federal H.4.1, factores que afectan los saldos de reservas',
+    effr:'Fed de Nueva York, tasa efectiva de fondos federales vía FRED',
+    targetRange:'Junta de la Reserva Federal, DFEDTARU/DFEDTARL vía FRED',
+    iorb:'Junta de la Reserva Federal, IORB vía FRED',
+    onrrp:'Fed de Nueva York, tasa de las operaciones ON RRP vía FRED',
+    discount:'Junta de la Reserva Federal, tasa de crédito primario (descuento) vía FRED',
+    rrpVolume:'Fed de Nueva York, saldo de operaciones ON RRP vía FRED',
+    tenYear:'Rendimiento del Tesoro a 10 años vía FRED (DGS10)',
+    cpi:'BLS, IPC vía FRED (CPIAUCSL)',
+    unemployment:'BLS, tasa de desempleo vía FRED (UNRATE)',
+    realGdp:'BEA, crecimiento del PIB real vía FRED (A191RL1Q225SBEA)',
+    cbo:'Oficina de Presupuesto del Congreso (CBO), escenario base',
+    fedWatch:'CME FedWatch, según lo reporta la prensa',
+    tariffs:'BEA, derechos aduaneros vía FRED (B235RC1A027NBEA), serie anual guardada en la página'
+  };
+  function srcName(id){ if(lang() === 'es' && SRC_ES[id]) return (id === 'fedWatch' && MD.fedWatch && MD.fedWatch.sourceNameEs) ? MD.fedWatch.sourceNameEs+' (CME FedWatch)' : SRC_ES[id]; return SRC[id].s; }
+  function prov(ids, note){ return ids.filter(function(id){ return SRC[id]; }).map(function(id, i){ return { src:srcName(id), url:SRC[id].u, date:dateOf(id), note:i === 0 ? note : null }; }); }
 
   // Card anchors (an element id inside the card, or the card's data-block) -> data points, kind, method note,
   // and per-figure kinds keyed by the data-bind name of the figure's value.
@@ -115,7 +146,7 @@
     { at:'chartFedComposition', ids:['fedBalanceSheet'], k:'R' },
     { at:'tacctAssets', ids:['fedBalanceSheet'], k:'R' },
     { at:'chartFundsRate', ids:['effr'], k:'R', note:T('cierre de año (promedio mensual de diciembre de FEDFUNDS), años seleccionados; el último punto es la EFFR diaria más reciente','year-end (December FEDFUNDS monthly average), selected years; the last point is the latest daily EFFR') },
-    { at:'corridorWrap', ids:['targetRange','iorb','onrrp','discount','effr'], k:'R' },
+    { at:'corridorWrap', ids:['effr','targetRange','iorb','onrrp','discount'], k:'R', note:T('un solo corte para el bloque: la fecha de la tasa efectiva; las tasas administradas rigen desde la última decisión','one as-of date for the block, the effective rate\'s; the administered rates stand since the latest decision') },
     { at:'chartFedWatch', ids:['fedWatch'], k:'R', note:T('probabilidades implícitas en futuros calculadas por CME y reportadas por la prensa','futures-implied probabilities computed by CME and reported by the press') }
   ]; }
   var CHART_PROV = {};
@@ -198,7 +229,7 @@
     Chart.defaults.plugins.tooltip.callbacks.footer = function(items){
       var it = items && items[0]; if(!it) return ''; var b = CHART_PROV[it.chart.canvas.id]; if(!b) return '';
       var kind = { R:T('Reportado','Reported'), C:T('Cálculo FNAM','FNAM calculation'), E:T('Estimación FNAM','FNAM estimate') }[b.k];
-      return [kind+' — '+SRC[b.ids[0]].s+' · '+PV.through(dateOf(b.ids[0]), lang())];
+      return [kind+' — '+srcName(b.ids[0])+' · '+PV.through(dateOf(b.ids[0]), lang())];
     };
   }
   function run(){ try{ apply(); }catch(e){ if(window.console) console.error('blocks.js', e); } }

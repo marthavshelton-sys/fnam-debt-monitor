@@ -6,23 +6,24 @@
 <meta name="robots" content="noindex,nofollow">
 <title>GAP · Modelo Financiero Interactivo | Grupo Aeroportuario del Pacífico</title>
 <meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Pacífico (GAP): estados financieros comparables por trimestre, tráfico de pasajeros, acción, DCF y valuación relativa. Datos públicos.">
+<link rel="canonical" href="https://fnam.mx/gap/">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous" defer></script>
 <!-- Data files. Each is refreshed on its own cadence by the scheduled refresh
      (market: daily · financials/traffic: after each release) or by reviewed PR (reference, peers). -->
-<script src="data/market.js"></script>
-<script src="data/financials.js"></script>
-<script src="data/traffic.js"></script>
-<script src="data/reference.js"></script>
-<script src="data/guidance.js"></script>
-<script src="data/comments.js"></script>
-<script src="data/summary.js"></script>
-<script src="data/peers.js"></script>
+<script src="data/market.js" defer></script>
+<script src="data/financials.js" defer></script>
+<script src="data/traffic.js" defer></script>
+<script src="data/reference.js" defer></script>
+<script src="data/guidance.js" defer></script>
+<script src="data/comments.js" defer></script>
+<script src="data/summary.js" defer></script>
+<script src="data/peers.js" defer></script>
 
 <style>
 :root{
@@ -363,9 +364,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   a[target="_blank"], .guide-quote a, .chart-src a, .cap a{padding:8px 0;}
   .gl{border-bottom:none;}
 }
+
+/* Skip link for keyboard and screen-reader users */
+.skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
+/* Language pill + PDF button: fixed inside the band the sticky jump-nav occupies, so it never covers content once the page
+   scrolls; the nav keeps that band's right end free (owner's review, 2026-10-05). On phones the PDF button stays. */
+.lang-btn{top:6px;} .lang-btn button{min-height:35px; padding:7px 14px;}
+nav.jump .wrap{padding-right:300px;}
+nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--page); pointer-events:none;}
+@media (max-width:640px){ .lang-btn{position:absolute; top:8px; right:8px;} body{position:relative;} .lang-btn button{min-height:33px; padding:6px 10px; font-size:11.5px;} nav.jump .wrap{padding-right:16px;} nav.jump::after{display:none;} .lang-btn .print-btn{display:inline-flex;} }
 </style>
 </head>
 <body>
+<a class="skip" href="#summary"><span class="es">Saltar al contenido</span><span class="en" hidden>Skip to content</span></a>
 
 <div class="lang-btn">
   <button type="button" id="btnLangEs" class="active">ES</button>
@@ -813,14 +825,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
       <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, comunicados de eventos relevantes y Formas 20-F de GAP; precios de mercado; series de Banxico y FRED). No contiene ni debe alimentarse con información privilegiada. Las proyecciones del DCF son ilustrativas y dependen de los supuestos elegidos por la persona usuaria; no constituyen una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span id="genStamp"></span>.</span>
-      <span class="en" hidden>This model is built exclusively from public information (GAP's quarterly reports, material-event releases and Forms 20-F; market prices; Banxico and FRED series). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span id="genStamp"></span>.</span>
+      <span class="en" hidden>This model is built exclusively from public information (GAP's quarterly reports, material-event releases and Forms 20-F; market prices; Banxico and FRED series). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span class="genStamp"></span>.</span>
     </p>
   </div>
 </footer>
 
-<script src="app.js"></script>
-<script src="/assets/present-core.js"></script>
-  <script src="present.js"></script>
+<script src="app.js" defer></script>
+<script src="/assets/present-core.js" defer></script>
+  <script src="present.js" defer></script>
 <script src="/assets/data-status.js" defer></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 // The share prices of these placeholder peers are already pulled daily by fetch-market.mjs for the rebased chart.
 //
 // Field contract (one object per peer; currency = trading currency; multiples dimensionless):
-//   ticker, name, exchange, currency, asOf, price, mktCapUsdM, peLtm, peNtm, pbv, divYieldPct, roePct,
+//  ticker, name, exchange, currency, asOf, price, mktCapUsdM, peLtm, peNtm, pbv, divYieldPct, roePct,
 //   nplPct (stage-3 / NPL ratio), loanGrowthPct
 // Consensus contract (Gentera): asOf, epsFY1, epsFY2, bvpsFY1, dpsFY1, netIncomeFY1MxnM, loanGrowthFY1Pct,
 //   targetPrice, rating, nAnalysts — rendered next to management guidance in section 02.

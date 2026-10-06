@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 import { ROOT, DATA, RAW } from "./paths.mjs";
-import { completedSessions } from "../lib/completed-sessions.mjs";
+import { completedSessions, localNow } from "../lib/completed-sessions.mjs";
 const today = new Date().toISOString().slice(0, 10);
 const UA = "oracle-board-model/1.0 (public market data refresh)";
 
@@ -98,6 +98,36 @@ async function damodaranErp() {
   return { ...e, source_url: url, source_name: "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)", accessed: today };
 }
 
+// The latest NYSE session whose close has passed: today in New York after 16:15, else the previous weekday (a market holiday
+// makes the top-up below ask one more source for nothing, which is harmless).
+export function latestCompletedSession(at = new Date()) {
+  const n = localNow("America/New_York", at); const d = new Date(n.date + "T12:00:00Z");
+  if (n.hm < "16:15") d.setUTCDate(d.getUTCDate() - 1);
+  while (d.getUTCDay() === 0 || d.getUTCDay() === 6) d.setUTCDate(d.getUTCDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+// Nasdaq's historical API posts a session's bar some hours after the close, so the evening run can still find the series ending
+// on the previous session (5-Oct-2026: the page showed the 2-Oct close all evening). When the primary source ends before the
+// latest completed session, the next sources are asked and the newer completed bars they carry are appended, with the source
+// named beside the primary one.
+export async function topUp(series, attempts, { exchange = "NYSE", at = new Date() } = {}) {
+  if (!series || !series.rows.length) return series;
+  const want = latestCompletedSession(at); const have = series.rows[series.rows.length - 1].date;
+  if (have >= want) return series;
+  for (const [name, fn] of attempts) {
+    try {
+      const rows = completedSessions((await fn()).rows, { exchange, at }).filter((r) => r.date > have && r.date <= want && r.close != null);
+      if (!rows.length) continue;
+      series.rows = series.rows.concat(rows).sort((a, b) => (a.date < b.date ? -1 : 1));
+      series.via = `${series.via} + ${name} (${rows.map((r) => r.date).join(", ")})`;
+      console.log(`     ${name}: added ${rows.length} newer session(s) after ${have}: ${rows.map((r) => r.date).join(", ")}`);
+      return series;
+    } catch (e) { console.error(`     ${name}: no top-up (${e.message})`); }
+  }
+  console.error(`WARN ${series.via} ends at ${have}; the ${want} session was not available from any source yet`);
+  return series;
+}
+
 async function firstThatWorks(label, attempts) {
   const errors = [];
   for (const [i, [name, fn]] of attempts.entries()) {
@@ -133,6 +163,8 @@ async function main() {
 
   // closes only: the 13:30 UTC run is at the NYSE open, so a bar dated today is dropped until 16:15 New York time
   for (const x of [orcl, spx]) if (x) x.rows = completedSessions(x.rows, { exchange: "NYSE" });
+  if (orcl) await topUp(orcl, [["Yahoo Finance", () => yahoo("ORCL")], ["Stooq", () => stooq("orcl.us")]].filter(([n]) => !orcl.via.startsWith(n)));
+  if (spx) await topUp(spx, [["Yahoo Finance", () => yahoo("^GSPC")], ["Stooq", () => stooq("^spx")]].filter(([n]) => !spx.via.startsWith(n)));
   const orclM = mergeFallback(orcl, join(DATA, "prices_orcl_daily.csv")), spxM = mergeFallback(spx, join(DATA, "prices_spx_daily.csv")), tsyM = mergeFallback(tsy, join(DATA, "treasury_10y.csv"));
   if (orclM) { orcl.rows = orclM.rows; writeFileSync(join(DATA, "prices_orcl_daily.csv"), toCSV(orcl.rows), "utf8"); }
   if (spxM) { spx.rows = spxM.rows; writeFileSync(join(DATA, "prices_spx_daily.csv"), toCSV(spx.rows), "utf8"); }

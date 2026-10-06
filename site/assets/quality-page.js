@@ -8,7 +8,8 @@
 (function () {
   const CFG = window.QUALITY_PAGE || {};
   const Q = window[CFG.key] || null;
-  let LANG = 'es'; try { LANG = localStorage.getItem(CFG.lang || 'q-lang') || 'es'; } catch (e) { /* ignore */ }
+  let LANG = 'es'; try { LANG = localStorage.getItem('fnam-lang') || localStorage.getItem(CFG.lang || 'q-lang') || 'es'; } catch (e) { /* ignore */ }
+  { let qp = null; try { qp = new URLSearchParams(location.search).get('lang'); } catch (e) { /* ignore */ } if (qp === 'en' || qp === 'es') LANG = qp; }
   const T = { ok: { es: 'OK', en: 'OK' }, warn: { es: 'Aviso', en: 'Warning' }, fail: { es: 'Falla', en: 'Fail' }, all: { es: 'Todos', en: 'All' } };
   const t = (k) => (T[k] ? T[k][LANG] : k);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
@@ -36,19 +37,19 @@
       ...((Q.cards || []).map((x) => [x.v, L(x.l)])),
     ];
     set('cards', cards.map(([v, l]) => `<div class="card"><div class="v">${v == null ? '—' : esc(v)}</div><div class="l">${esc(l)}</div></div>`).join(''));
-    set('stale', `<table><thead><tr><th>${es ? 'Serie' : 'Series'}</th><th>${es ? 'Última fecha' : 'Last date'}</th><th>${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th>${es ? 'Límite' : 'Limit'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${(Q.stale || []).map((s) => `<tr><td>${esc(s.series)}</td><td>${esc(dateish(s.lastDate))}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${esc(L(s.note))}</td></tr>`).join('')}</tbody></table>`);
-    set('curated', `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(Q.curated || []).map((s) => `<tr><td>${esc(s.file)}</td><td>${st(s.status)}</td><td>${esc(L(s.detail))}</td></tr>`).join('')}</tbody></table>`);
+    set('stale', `<table><thead><tr><th scope="col">${es ? 'Serie' : 'Series'}</th><th scope="col">${es ? 'Última fecha' : 'Last date'}</th><th scope="col">${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th scope="col">${es ? 'Límite' : 'Limit'}</th><th scope="col">${es ? 'Estado' : 'Status'}</th><th scope="col">${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${(Q.stale || []).map((s) => `<tr><td>${esc(s.series)}</td><td>${esc(dateish(s.lastDate))}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${esc(L(s.note))}</td></tr>`).join('')}</tbody></table>`);
+    set('curated', `<table><thead><tr><th scope="col">${es ? 'Archivo' : 'File'}</th><th scope="col">${es ? 'Estado' : 'Status'}</th><th scope="col">${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(Q.curated || []).map((s) => `<tr><td>${esc(s.file)}</td><td>${st(s.status)}</td><td>${esc(L(s.detail))}</td></tr>`).join('')}</tbody></table>`);
     // origin of every quarter (newest first; the last 12 by default)
     const og = (Q.origins || []).slice().reverse();
     if (el('origins')) {
       const rows = showAllOrigins ? og : og.slice(0, 12);
       const pill = (o) => `<span class="pill ${esc(o)}">${esc(o)}</span>`;
-      set('origins', og.length ? `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>${es ? 'Origen' : 'Origin'}</th><th>${es ? 'Fuente' : 'Source'}</th><th>${es ? 'Fecha' : 'Date'}</th><th>${es ? 'Partes' : 'Parts'}</th></tr></thead><tbody>${rows.map((o) => `<tr><td>${esc(o.id)}</td><td>${pill(o.origin)}</td><td>${o.url ? `<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title || o.url)}</a>` : esc(o.title || '—')}${o.page ? ` · p. ${esc(o.page)}` : ''}</td><td>${esc(dateish(o.date))}</td><td>${esc(o.parts || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`);
+      set('origins', og.length ? `<table><thead><tr><th scope="col">${es ? 'Trimestre' : 'Quarter'}</th><th scope="col">${es ? 'Origen' : 'Origin'}</th><th scope="col">${es ? 'Fuente' : 'Source'}</th><th scope="col">${es ? 'Fecha' : 'Date'}</th><th scope="col">${es ? 'Partes' : 'Parts'}</th></tr></thead><tbody>${rows.map((o) => `<tr><td>${esc(o.id)}</td><td>${pill(o.origin)}</td><td>${o.url ? `<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.title || o.url)}</a>` : esc(o.title || '—')}${o.page ? ` · p. ${esc(o.page)}` : ''}</td><td>${esc(dateish(o.date))}</td><td>${esc(o.parts || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`);
       set('originsMore', og.length > 12 ? `<button type="button" id="btnOrigins">${showAllOrigins ? (es ? 'Mostrar sólo los últimos 12' : 'Show only the last 12') : (es ? `Mostrar los ${og.length} trimestres` : `Show all ${og.length} quarters`)}</button>` : '');
       const b = el('btnOrigins'); if (b) b.addEventListener('click', () => { showAllOrigins = !showAllOrigins; render(); });
     }
     const p = Q.parse || [];
-    set('parse', p.length ? `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Aviso' : 'Warning'}</th></tr></thead><tbody>${p.map((w) => `<tr><td>${esc(w.file || '')}</td><td>${esc(w.msg)}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">${es ? 'Sin avisos en el último parseo.' : 'No warnings in the last parse.'}</div>`);
+    set('parse', p.length ? `<table><thead><tr><th scope="col">${es ? 'Archivo' : 'File'}</th><th scope="col">${es ? 'Aviso' : 'Warning'}</th></tr></thead><tbody>${p.map((w) => `<tr><td>${esc(w.file || '')}</td><td>${esc(w.msg)}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">${es ? 'Sin avisos en el último parseo.' : 'No warnings in the last parse.'}</div>`);
     set('tolNote', esc(L(Q.tolerances)));
     const checks = Q.checks || [];
     const counts = { all: checks.length, fail: checks.filter((x) => x.status === 'fail').length, warn: checks.filter((x) => x.status === 'warn').length, ok: checks.filter((x) => x.status === 'ok').length };
@@ -57,9 +58,9 @@
     const order = { fail: 0, warn: 1, ok: 2 };
     const rows = checks.filter((x) => filter === 'all' || x.status === filter).slice().sort((a, b) => (order[a.status] - order[b.status]) || String(b.tag).localeCompare(String(a.tag)));
     const unit = L(Q.diffUnit) || (es ? 'Diferencia' : 'Difference');
-    set('checks', rows.length ? `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Cuadre' : 'Check'}</th><th>${esc(unit)}</th><th>${es ? 'Tolerancia' : 'Tolerance'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${esc(x.tag)}</td><td>${esc(x.check)}</td><td class="n">${x.diff == null ? '—' : Number(x.diff).toLocaleString(es ? 'es-MX' : 'en-US', { maximumFractionDigits: 3 })}</td><td class="n">${x.tol == null ? '—' : x.tol}</td><td>${st(x.status)}</td><td>${esc(L(x.note))}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`);
+    set('checks', rows.length ? `<table><thead><tr><th scope="col">${es ? 'Periodo' : 'Period'}</th><th scope="col">${es ? 'Cuadre' : 'Check'}</th><th scope="col">${esc(unit)}</th><th scope="col">${es ? 'Tolerancia' : 'Tolerance'}</th><th scope="col">${es ? 'Estado' : 'Status'}</th><th scope="col">${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${esc(x.tag)}</td><td>${esc(x.check)}</td><td class="n">${x.diff == null ? '—' : Number(x.diff).toLocaleString(es ? 'es-MX' : 'en-US', { maximumFractionDigits: 3 })}</td><td class="n">${x.tol == null ? '—' : x.tol}</td><td>${st(x.status)}</td><td>${esc(L(x.note))}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`);
   }
-  el('es').addEventListener('click', () => { LANG = 'es'; try { localStorage.setItem(CFG.lang || 'q-lang', 'es'); } catch (e) { /* ignore */ } render(); });
-  el('en').addEventListener('click', () => { LANG = 'en'; try { localStorage.setItem(CFG.lang || 'q-lang', 'en'); } catch (e) { /* ignore */ } render(); });
+  el('es').addEventListener('click', () => { LANG = 'es'; try { localStorage.setItem('fnam-lang', 'es'); } catch (e) { /* ignore */ } render(); });
+  el('en').addEventListener('click', () => { LANG = 'en'; try { localStorage.setItem('fnam-lang', 'en'); } catch (e) { /* ignore */ } render(); });
   render();
 })();

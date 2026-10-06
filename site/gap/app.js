@@ -262,7 +262,8 @@
     if (nd && lastLTM && lastLTM.is) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} Ps. ${fmtM(nd.net)} M` });
     if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + (lastQ.bs.nci || 0); k.push({ l: evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.comprehensiveControlling ? `${peL()} ${fmtX(lastPx[1] * sharesNow / 1000 / lastLTM.is.comprehensiveControlling)}` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
-    el('genStamp').textContent = genParts.join(' · ');
+    document.querySelectorAll('#genStamp, .genStamp').forEach((e) => { e.textContent = genParts.join(' · '); });
+    { const latest = [FIN.generatedAt, MK.generatedAt].filter(Boolean).sort().pop(); if (latest) document.querySelectorAll('[data-status-dot]').forEach((e) => e.setAttribute('data-status-time', latest)); }
   }
   function addDays(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 
@@ -369,7 +370,7 @@
       rows.push(`<tr class="${isCosHead ? 'grp-head ' : ''}${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}">${first}<td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtPct(pct, 1, true)}</td>${cmt}</tr>`);
     }
     const la = A ? A.label : '—', lb = B ? B.label : '—';
-    html('stmtTable', `<table class="stmt-table"><thead><tr><th>${t('line')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th>${withCmt ? `<th class="cmt">${t('comments')}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('stmtTable', `<table class="stmt-table"><thead><tr><th scope="col">${t('line')}</th><th scope="col">${la}</th><th scope="col">${lb}</th><th scope="col">${t('change')}</th><th scope="col">${t('changePct')}</th>${withCmt ? `<th scope="col" class="cmt">${t('comments')}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('stmtTitle').textContent = tc(`${t(st.stmt)} · ${la} vs ${lb}`);
     const unit = st.usd ? t('usdM') : t('mxnM');
     el('stmtCap').textContent = `${unit}${st.stmt === 'is' ? ' · ' + (st.exIfric ? t('exIfric') : t('reported')) : ''}${st.usd ? (LANG === 'es' ? ' · convertido con el tipo de cambio promedio (flujos) o de cierre (balance) de la Fed H.10' : ' · converted at the Fed H.10 average (flows) or period-end (balance sheet) rate') : ''}${(A && A.derived) || (B && B.derived) ? (LANG === 'es' ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''}`;
@@ -456,7 +457,7 @@
     row(t('aeroPerWlu'), 'aeroPerWlu', { money: true });
     row(t('costPerWlu'), 'costPerWlu', { money: true });
     const la = A ? A.label : '—', lb = B ? B.label : '—';
-    html('opsTable', `<table class="stmt-table"><thead><tr><th>${t('metric')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th><th class="cmt">${t('comments')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('opsTable', `<table class="stmt-table"><thead><tr><th scope="col">${t('metric')}</th><th scope="col">${la}</th><th scope="col">${lb}</th><th scope="col">${t('change')}</th><th scope="col">${t('changePct')}</th><th scope="col" class="cmt">${t('comments')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('opsTitle').textContent = tc(`${t('ops')} · ${la} vs ${lb}`);
     const from = REF.cbx && REF.cbx.consolidatedFrom;
     const fromLabel = from ? new Date(Date.UTC(+from.slice(0, 4), +from.slice(5, 7) - 1, 1)).toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }) : '';
@@ -641,7 +642,7 @@
     el('trafficChartTitle').textContent = tc(`${t(tr.seg)} · ${LANG === 'es' ? 'serie' : 'series'} ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')}`);
     el('trafficChartCap').textContent = LANG === 'es' ? 'Miles de pasajeros terminales; periodos incompletos se omiten en la vista trimestral/anual' : 'Thousand terminal passengers; incomplete periods are omitted in the quarterly/annual view';
     // series table
-    html('trafficSeriesTable', `<table><thead><tr><th>${t('period')}</th>${series.map((s) => `<th>${s.label}</th>`).join('')}</tr></thead><tbody>${labels.map((l, i) => `<tr><td>${l}</td>${series.map((s) => `<td>${fmtN(s.points[i][1], 1)}</td>`).join('')}</tr>`).reverse().slice(0, 60).join('')}</tbody></table>`);
+    html('trafficSeriesTable', `<table><thead><tr><th scope="col">${t('period')}</th>${series.map((s) => `<th scope="col">${s.label}</th>`).join('')}</tr></thead><tbody>${labels.map((l, i) => `<tr><td>${l}</td>${series.map((s) => `<td>${fmtN(s.points[i][1], 1)}</td>`).join('')}</tr>`).reverse().slice(0, 60).join('')}</tbody></table>`);
     const lastM = TR.months[TR.months.length - 1];
     html('trafficSrc', `${t('src')}: <a href="${lastM.source.url}" target="_blank" rel="noopener">${LANG === 'es' ? 'reporte mensual de tráfico de GAP' : 'GAP monthly traffic report'} (${fmtDate(lastM.source.date)}) ↗</a>`);
     // latest-month table by airport
@@ -653,7 +654,7 @@
       const yoy = p ? 100 * (v / p - 1) : null, yoyY = yp ? 100 * (y / yp - 1) : null;
       return `<tr class="${code === 'TOTAL' ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtPct(yoy, 1, true)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td>${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtPct(yoyY, 1, true)}</td><td>${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`;
     });
-    html('trafficTable', `<table><thead><tr><th>${t('airport')}</th><th>${ymLabel(lastM.ym)}</th><th>${t('yoy')}</th><th>${t('dom')}</th><th>${t('intl')}</th><th>${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th>${t('yoy')}</th><th>${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('trafficTable', `<table><thead><tr><th scope="col">${t('airport')}</th><th scope="col">${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('dom')}</th><th scope="col">${t('intl')}</th><th scope="col">${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)}`);
     el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '');
     html('trafficMeta', LANG === 'es' ? `Cobertura mensual: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} meses). Cifras preliminares publicadas cada mes; la vista por defecto empieza en 2019 para incluir la base prepandemia.` : `Monthly coverage: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} months). Preliminary figures released monthly; the default view starts in 2019 to include the pre-pandemic base.`);
@@ -694,7 +695,7 @@
     const idx = dec(dates.map((_, i) => i));
     mkChart('chartRebased', { type: 'line', data: { labels: idx.map((i) => dates[i]), datasets: ds.map((d) => ({ ...d, data: idx.map((i) => d.data[i]) })) },
       options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)}` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => (idx[i] != null ? dates[idx[i]].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
-    html('rebasedTable', `<table><thead><tr><th>${t('period')}: ${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}</th><th>${t('ret')}</th></tr></thead><tbody>${ds.map((d) => { const last = [...d.data].reverse().find((v) => v != null); return `<tr><td>${d.label}</td><td class="${cls(last - 100)}">${fmtPct(last - 100, 1, true)}</td></tr>`; }).join('')}</tbody></table>`);
+    html('rebasedTable', `<table><thead><tr><th scope="col">${t('period')}: ${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}</th><th scope="col">${t('ret')}</th></tr></thead><tbody>${ds.map((d) => { const last = [...d.data].reverse().find((v) => v != null); return `<tr><td>${d.label}</td><td class="${cls(last - 100)}">${fmtPct(last - 100, 1, true)}</td></tr>`; }).join('')}</tbody></table>`);
     html('rebasedSrc', `${t('src')}: Yahoo Finance (${LANG === 'es' ? 'cierres diarios' : 'daily closes'}) · ${LANG === 'es' ? 'precio, sin dividendos reinvertidos' : 'price only, dividends not reinvested'}`);
     html('shareMeta', LANG === 'es' ? `1 ADS (PAC) = ${REF.company ? REF.company.adsRatio : 10} acciones serie B. Acciones en circulación: ${fmtN(sharesNow)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}).` : `1 ADS (PAC) = ${REF.company ? REF.company.adsRatio : 10} series B shares. Shares outstanding: ${fmtN(sharesNow)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}).`);
   }
@@ -834,7 +835,7 @@
     const gs = s.method === 'multiple' ? [-2, -1, 0, 1, 2].map((d) => s.mult + d) : [-1, -0.5, 0, 0.5, 1].map((d) => s.g + d);
     const cell = (w, g) => { const over = s.method === 'multiple' ? { mult: g } : { g }; // solve for the rf that yields this wacc: shift rf by delta/(1-dw)
       const deltaW = w / 100 - r.wacc; over.rf = s.rf + 100 * deltaW / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
-    html('dcfSens', `<table class="sens"><thead><tr><th>WACC ↓ / ${s.method === 'multiple' ? (LANG === 'es' ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gs.map((g) => `<th>${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gs.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
+    html('dcfSens', `<table class="sens"><thead><tr><th scope="col">WACC ↓ / ${s.method === 'multiple' ? (LANG === 'es' ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gs.map((g) => `<th scope="col">${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gs.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
     el('sensCap').textContent = LANG === 'es' ? `Ps. por acción; sombreado = por encima del precio actual (Ps. ${fmtN(price, 2)}); recuadro = caso base` : `Ps. per share; shaded = above the current price (Ps. ${fmtN(price, 2)}); outlined = base case`;
   }
 
@@ -860,7 +861,7 @@
       if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), nd.basis === 'bs' ? (LANG === 'es' ? 'balance del trimestre' : "quarter's balance sheet") : (LANG === 'es' ? 'referencia (informe trimestral PDF / 20-F)' : 'reference (PDF quarterly report / 20-F)')]);
       rows.push([t('ebitdaMarginEx'), fmtPct(ltm.ebitdaMarginExIfric), LANG === 'es' ? 'UDM' : 'LTM']);
     }
-    html('multTable', `<table><thead><tr><th>${t('metric')}</th><th>${t('value')}</th><th>${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
+    html('multTable', `<table><thead><tr><th scope="col">${t('metric')}</th><th scope="col">${t('value')}</th><th scope="col">${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
     el('multCap').textContent = lastPx ? `${t('price')} GAP B ${fmtDate(lastPx[0])} · ${LANG === 'es' ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
     // historical EV/EBITDA
     const hist = Q.slice(-12).map((q) => { const l = ltmFor(q); const p = pointAtOrBefore(gapPx, qEndDate(q)); const nd2 = netDebt(q); if (!l || !p || !nd2 || !l.is.ebitda) return null; const sh2 = (q.shares && q.shares.current) || sharesAt(qEndDate(q)); const ev = p[1] * sh2 / 1000 + nd2.net + (q.bs.nci || 0); return { q, v: ev / l.is.ebitda, est: nd2.basis === 'est', pe: l.is.comprehensiveControlling ? p[1] * sh2 / 1000 / l.is.comprehensiveControlling : null }; }).filter(Boolean);
@@ -907,7 +908,7 @@
       { name: LANG === 'es' ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
       medRow(LANG === 'es' ? 'Mediana México' : 'Median, Mexico', M.mexico), medRow(LANG === 'es' ? 'Mediana internacional' : 'Median, international', M.international), medRow(LANG === 'es' ? 'Mediana de pares' : 'Peer median', M.all),
     ].filter(Boolean);
-    html('peersTable', `<table class="peers"><thead><tr>${cols.map((c) => `<th>${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
+    html('peersTable', `<table class="peers"><thead><tr>${cols.map((c) => `<th scope="col">${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
       ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
       : `<tr class="${p.cls || ''}">${cols.map((c) => `<td>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
     const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
@@ -950,7 +951,7 @@
       if (eb != null) prevE = eb;
     }
     if (gE && y25 && y25.is) body.push(`<tr class="total"><td>${LANG === 'es' ? 'Guía 2026' : '2026 guidance'} (${fmtDate(gv.date)})</td><td>—</td><td>${fmtM(y25.is.ebitda * (1 + gE.lo / 100))} – ${fmtM(y25.is.ebitda * (1 + gE.hi / 100))}</td><td>${fmtPct(gE.lo, 0, true)} – ${fmtPct(gE.hi, 0, true)}</td><td>—</td><td>—</td></tr>`);
-    html('consTable', `<table><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`);
+    html('consTable', `<table><thead><tr>${head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`);
     const c26 = G.fy && G.fy['2026'] && G.fy['2026'].ebitda ? G.fy['2026'].ebitda.mean : null;
     const vsG = c26 != null && gE && y25 && y25.is ? 100 * (c26 / (y25.is.ebitda / 1000) - 1) : null;
     html('consNote', LANG === 'es'
@@ -988,7 +989,7 @@
       + sub(LANG === 'es' ? 'Total instrumentos (principal)' : 'Total instruments (principal)', sum(cbs) + sum(loans))
       + (ndLast ? sub(LANG === 'es' ? `Deuda bruta en balance, ${qLabel(lastQ)} (con intereses devengados)` : `Gross debt on the balance sheet, ${qLabel(lastQ)} (incl. accrued interest)`, ndLast.gross / 1000) : '');
     const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td colspan="4">${r.rating} (${LS(r.outlook)}) · ${LS(r.scope)}</td><td class="muted small">${LS(r.source)}</td></tr>`).join('');
-    html('instrTable', `<table><thead><tr><th>${t('instrument')}</th><th class="col-type">${LANG === 'es' ? 'Tipo' : 'Type'}</th><th>${LANG === 'es' ? 'Emisión' : 'Issued'}</th><th>${t('matures')}</th><th>${t('principal')}</th><th>${t('rate')} · ${LANG === 'es' ? 'fuente' : 'source'}</th></tr></thead><tbody>${instr}<tr class="head"><td colspan="6">${t('rating')}</td></tr>${ratings}</tbody></table>`);
+    html('instrTable', `<table><thead><tr><th scope="col">${t('instrument')}</th><th scope="col" class="col-type">${LANG === 'es' ? 'Tipo' : 'Type'}</th><th scope="col">${LANG === 'es' ? 'Emisión' : 'Issued'}</th><th scope="col">${t('matures')}</th><th scope="col">${t('principal')}</th><th scope="col">${t('rate')} · ${LANG === 'es' ? 'fuente' : 'source'}</th></tr></thead><tbody>${instr}<tr class="head"><td colspan="6">${t('rating')}</td></tr>${ratings}</tbody></table>`);
     el('instrCap').textContent = LANG === 'es'
       ? `Fuente: FactSet Debt Capital Structure (GAPB-MX) al ${asOfI}; nombres de serie, cupones y vencimientos cotejados con los comunicados de GAP (6-K). * = nombre de serie inferido del patrón de emisión. Referencia actualizada el ${fmtDate(REF.updatedAt)}.`
       : `Source: FactSet Debt Capital Structure (GAPB-MX) at ${asOfI}; series names, coupons and maturities checked against GAP's releases (6-K). * = series name inferred from the issuance pattern. Reference updated ${fmtDate(REF.updatedAt)}.`;
@@ -1009,7 +1010,7 @@
       const cf = fy && fy.cf; const paid = cf ? -(cf.dividendsPaid || 0) / 1000 : null; const capred = cf && cf.capitalReduction != null ? -cf.capitalReduction / 1000 : 0; const buy = cf && cf.buybacks != null ? -cf.buybacks / 1000 : 0;
       const dist = paid != null ? paid + capred + buy : null;
       return `<tr><td>${y}</td><td>${fmtN(byYear[y], 2)}</td><td>${paid != null ? fmtN(paid) : '—'}</td><td>${paid != null ? fmtN(capred) : '—'}</td><td>${paid != null ? fmtN(buy) : '—'}</td><td>${dist != null ? fmtN(dist) : '—'}</td><td>${eps ? fmtPct(100 * byYear[y] / eps, 0) : '—'}</td><td>${pEnd && byYear[y] ? fmtPct(100 * byYear[y] / pEnd[1]) : '—'}</td></tr>`; });
-    html('dpsTable', `<table><thead><tr><th>${LANG === 'es' ? 'Año' : 'Year'}</th><th>${t('dps')}</th><th>${LANG === 'es' ? 'Dividendos (Ps. M)' : 'Dividends (Ps. M)'}</th><th>${LANG === 'es' ? 'Reembolsos de capital' : 'Capital reductions'}</th><th>${LANG === 'es' ? 'Recompras' : 'Buybacks'}</th><th>${LANG === 'es' ? 'Distribuciones' : 'Distributions'}</th><th>${t('payout')}</th><th>${t('yield')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('dpsTable', `<table><thead><tr><th scope="col">${LANG === 'es' ? 'Año' : 'Year'}</th><th scope="col">${t('dps')}</th><th scope="col">${LANG === 'es' ? 'Dividendos (Ps. M)' : 'Dividends (Ps. M)'}</th><th scope="col">${LANG === 'es' ? 'Reembolsos de capital' : 'Capital reductions'}</th><th scope="col">${LANG === 'es' ? 'Recompras' : 'Buybacks'}</th><th scope="col">${LANG === 'es' ? 'Distribuciones' : 'Distributions'}</th><th scope="col">${t('payout')}</th><th scope="col">${t('yield')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('dpsCap').textContent = LANG === 'es' ? 'DPS = efectivo por acción registrado en bolsa (incluye reembolsos de capital, que GAP ha usado en lugar de dividendos en 2021 y 2024). Flujos en Ps. millones del estado de flujos anual. Razón de pago = DPS / utilidad por acción del año fiscal; rendimiento sobre el cierre del año.' : 'DPS = exchange-recorded cash per share (includes capital reductions, which GAP used instead of dividends in 2021 and 2024). Flows in Ps. million from the annual cash-flow statement. Payout = DPS / EPS of the fiscal year; yield on the year-end close.';
     const ag = (REF.dividends || []).map((d) => `<b>${t('agm')} ${d.agmYear}</b> (${fmtDate(d.agmDate)}): Ps. ${fmtN(d.dps, 2)} ${LANG === 'es' ? 'por acción' : 'per share'}. ${LS(d.note)} <span class="muted">(${LS(d.source)})</span>`).join('<br>') + `<br><span class="muted">${LANG === 'es' ? 'Las exhibiciones aparecen en la tabla cuando la bolsa las registra (Yahoo Finance, cotejado con FactSet); el saldo pendiente de la última asamblea se indica arriba.' : 'Installments appear in the table once the exchange records them (Yahoo Finance, cross-checked with FactSet); the balance outstanding from the latest AGM is stated above.'}</span>`;
     const agmLast = (REF.dividends || []).slice(-1)[0];
@@ -1049,7 +1050,7 @@
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Pares, múltiplos y consenso' : 'Peers, multiples and consensus', LANG === 'es' ? 'a solicitud (foto fechada del conector FactSet)' : 'on request (dated snapshot from the FactSet connector)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
-    html('refreshTable', `<table><thead><tr><th>${t('block')}</th><th>${t('cadence')}</th><th>${t('mechanism')}</th><th>${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
+    html('refreshTable', `<table><thead><tr><th scope="col">${t('block')}</th><th scope="col">${t('cadence')}</th><th scope="col">${t('mechanism')}</th><th scope="col">${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     const srcs = [
       { t: LANG === 'es' ? 'GAP — informes trimestrales y comunicados' : 'GAP — quarterly reports and releases', d: LANG === 'es' ? 'Distribuidos por GlobeNewswire y presentados como Form 6-K ante la SEC; base de todos los estados financieros y del tráfico.' : 'Distributed via GlobeNewswire and furnished as Form 6-K to the SEC; the basis of every statement and traffic figure.', u: 'https://www.globenewswire.com/search/keyword/Grupo%20Aeroportuario%20del%20Pacifico' },
       { t: 'SEC EDGAR — Grupo Aeroportuario del Pacífico (CIK 1347557)', d: LANG === 'es' ? 'Formas 20-F (anuales auditadas) y 6-K.' : 'Forms 20-F (audited annual) and 6-K.', u: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001347557' },
@@ -1075,7 +1076,7 @@
     document.documentElement.setAttribute('lang', lang === 'es' ? 'es-MX' : 'en');
     document.title = `${'GAP'} · ${lang === 'es' ? 'Modelo Financiero Interactivo' : 'Interactive Financial Model'} | ${TITLE_TAIL}`;
     document.querySelectorAll('.es').forEach((e) => { e.hidden = lang !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = lang !== 'en'; });
-    try { localStorage.setItem('gap-lang', lang); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('fnam-lang', lang); } catch (e) { /* ignore */ }
     fillSelects(); renderAll();
   }
   el('btnLangEs').addEventListener('click', () => setLang('es')); el('btnLangEn').addEventListener('click', () => setLang('en'));
@@ -1151,7 +1152,8 @@
     betaFromMarket, kdFromDebt, PEERS,
   };
 
-  let initial = 'es'; try { initial = localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }
+    let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }
+  { const qp = new URLSearchParams(location.search).get('lang'); if (qp === 'en' || qp === 'es') initial = qp; } // ?lang=en|es wins over the stored choice
   { const qp = new URLSearchParams(location.search).get('lang'); if (qp === 'en' || qp === 'es') initial = qp; } // ?lang=en|es wins over the stored choice
   fillSelects('yoy');
   setLang(initial);

@@ -401,7 +401,11 @@ for (const i of offItems) {
   delete i.readBy; delete i.verifiedBy;
 }
 out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [] };
-out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: debtSnap.notes, tranches: debtSnap.tranches, deals } : null;
+// FactSet snapshot notes: the facts stay; a sentence that is a reviewer's instruction to itself ("needs review…", "verify in…",
+// "pending…") is working material, never page copy (owner's review, 2026-10-05).
+const publicNote = (n) => { if (!n) return n; const kept = String(n).split(/(?<=[.;])\s+/).filter((x) => !/\b(needs? review|to be reviewed|verify in|to verify|pending (review|confirmation)|check against)\b/i.test(x)); return kept.join(' ').trim() || null; };
+const publicNotes = (o) => { if (!o || typeof o !== 'object') return o; const out = {}; for (const [k, v] of Object.entries(o)) { const pv = publicNote(v); if (pv) out[k] = pv; } return out; };
+out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: publicNotes(debtSnap.notes), tranches: debtSnap.tranches, deals } : null;
 
 // change log: new periods and revised values against the previous build
 const entries = [];
@@ -427,7 +431,7 @@ await writeJson(TOOLS + 'data/metrics.json', { generated: stamp.iso, values: fla
 await writeJson(TOOLS + 'data/changelog.json', log);
 await writeJson(TOOLS + 'data/derivations.json', { generated: stamp.iso, warnings, restated });
 
-const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} by scripts/hyperscalers/build.mjs — do not hand-edit.\nwindow.${key} = ${JSON.stringify(scrubProvenance(obj))};\n`);
+const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} — do not hand-edit.\nwindow.${key} = ${JSON.stringify(scrubProvenance(obj))};\n`);
 await js('financials', 'HYP_FIN', out, 'Hyperscaler Hub financials: XBRL-tagged values from SEC companyfacts (T1), quarters derived from year-to-date facts, ratios computed (FNAM calculation).');
 await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200), curated: (curatedLog.entries || []).slice().sort((a, b) => String(b.at).localeCompare(String(a.at))) }, 'Hyperscaler Hub change log: what each refresh added or revised, restatements found in later filings, and the log of curated edits.');
 await js('status', 'HYP_STATUS', { generated: stamp.iso, refreshedET: stamp.et, lastEdgarRun: state.lastRun || null, lastEdgarRunET: state.lastRun ? etOf(state.lastRun) : null, lastEdgarSuccess: state.lastSuccess || null, lastEdgarSuccessET: state.lastSuccess ? etOf(state.lastSuccess) : null, edgarErrors: state.errors || [], consecutiveFailures: state.consecutiveFailures || 0 }, 'Hyperscaler Hub refresh status (EDGAR poll).');

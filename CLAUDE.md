@@ -28,10 +28,17 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
 5. Never disable TLS verification or unset `HTTPS_PROXY`. Egress 403s are policy; report, do not retry.
 6. Site-wide password gate: `functions/_middleware.js` (dormant until the Cloudflare variable `SITE_PASSWORD` is set;
    README → "Password protection"). One password for everything (owner, 2026-10-05): the section gates stand down while it
-   is set. Once it is on, every request to fnam.mx needs a session: in-session curl checks send
-   `Authorization: Bearer <password>` (never commit the password), and `macro-live-check.yml` logs in with the GitHub
-   secret `SITE_PASSWORD`. Public copy carries no repository paths, workflow names, GitHub links or the owner's email
-   (`tools/audit-public-copy.mjs` renders every page in both languages and lists any leftover); keep new pages that way.
+   is set. Once it is on, every request to fnam.mx needs a session, and the password is accepted ONLY through the login form
+   (POST `/login`; the Bearer header was removed 2026-10-06): an in-session check cannot read protected pages, so give her the
+   URLs to click; `macro-live-check.yml` logs in with the GitHub secret `SITE_PASSWORD`. Sessions: 7 days, `/logout`,
+   `SITE_SESSION_SECRET` (own secret; ask her to set it) and `SITE_SESSION_VERSION` (revokes all); wrong passwords throttled
+   per address. The same middleware redirects www → apex, sets the security headers (HSTS, CSP with `frame-ancestors
+   'none'`, Permissions-Policy; `site/_headers` carries the same set) and serves `?lang=en|es` in the HTML (`<html lang>`,
+   plus the es/en spans on the pages that toggle `hidden`). A new page must load everything from its own origin or Google
+   Fonts (the CSP allows nothing else); Cloudflare's Web Analytics beacon is the one exception until it is switched off in
+   the Pages project. Public copy carries no repository paths, workflow names, GitHub links or the owner's email
+   (`tools/audit-public-copy.mjs` renders every page in both languages and lists any leftover); keep new pages that way, and
+   keep generated data-file headers free of script paths too (owner, 2026-10-05).
 
 ## What the site is
 
@@ -71,10 +78,21 @@ dashboards, everything built from public data by GitHub Actions.
   `tools/<slug>/raw/bmv-events.json`; a BMV outage never fails a run. Added after ASUR's 28-Sep-2026 offering
   disclosure was missed. Press-only facts (e.g. ASUR's 1-Oct-2026 notes) go in `debt.events` labeled as press and enter
   no figure until the company files them.
+- ASUR valuation perimeter (owner, 2026-10-05): until ASUR consolidates CPC, the DCF, the multiples table and the header's
+  leverage and EV/EBITDA tiles run on the pro-forma perimeter in `site/asur/data/reference.js → proForma` (net debt Ps. 68,989 M
+  − Ps. 18,100 M from the 28-Sep-2026 evento relevante; +45 M passengers and R$1,300 M ≈ US$243 M of CPC EBITDA from the
+  18-Nov-2025 signing release; CPC revenue = its EBITDA at the group margin, an FNAM calculation), with the caveat printed on both
+  blocks and a switch back to the reported figures above the DCF inputs. The overlay turns itself off once the latest balance sheet
+  is dated on or after `proForma.consolidatedFrom` (2026-09-30); decide then whether the LTM EBITDA still needs CPC's missing months.
 - ASUR traffic perimeter (Motiva / CPC airports, closed 1-Sep-2026; ASUR reports them from September 2026 traffic): facts in
   `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
   validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
   Runbook: `tools/asur/README.md` → "Traffic perimeter change".
+- Oracle market data: Nasdaq's historical API posts a session's bar hours after the close, so `fetch-market.mjs` tops the
+  primary series up from Yahoo/Stooq when it ends before the latest completed NYSE session (`latestCompletedSession`, `topUp`;
+  5-Oct-2026 the page showed the 2-Oct close all evening). Dividends: paid points only in `market.js → dividends.points`; a
+  declared-not-yet-paid one sits in `announced`. The compact header and the "More figures" button are phone-only; the third
+  `<style>` block must stay closed (an unclosed one let them show on desktop and ran the stamps together, 2026-10-05).
 - Oracle page (rebuilt 2026-10-03): sections, figure/table numbers, navigation and cross-references are generated from
   `tools/oracle/data/sections.json` (`ref('id')`, `{{sec:id}}`); never type a section number (the validator fails).
   Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
@@ -166,6 +184,9 @@ dashboards, everything built from public data by GitHub Actions.
   monthly comunicados via web search of imss.gob.mx, each figure reconciled against IMSS's own printed
   monthly/YTD/12-month changes; derived months are labeled. Never fetch imss.gob.mx from a script or
   the runner or work around its WAF. Monthly update: Claude Routine, prompt in `tools/mx-macro/imss-task-prompt.md`.
+- MX macro: Banxico's neutral real-rate range is 1.8–3.6% (text and the threshold in the summary driver, owner 2026-10-05);
+  the real-rate caption pairs the ex post month with the SAME month's survey and names the newer survey separately; a monthly
+  average of a daily series carries "(promedio al día, mes en curso)" while the month runs (`monthAvg` → `partial`).
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
@@ -242,7 +263,15 @@ dashboards, everything built from public data by GitHub Actions.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
   release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
   `present-core.js`), never a hand-written date.
-- `?lang=en|es` on a model page overrides the stored language; `document.title` follows the language.
+- One language setting for the whole site (owner, 2026-10-05): every page reads and writes `localStorage["fnam-lang"]`
+  (legacy keys such as `gap-lang`, `orcl-lang`, `fiscal-lang`, `macrodash-lang`, `mxmacro-lang`, `hyp-lang` are read once as a
+  fallback) and honors `?lang=en|es`, which wins over the stored choice; `document.title` follows the language.
+- Model pages: the language pill (ES/EN/PDF) is fixed inside the band the sticky jump-nav occupies (pill ≤ 37 px tall at
+  `top:6px`; `nav.jump .wrap::after` is a sticky spacer that keeps the band's right end free), so it never covers the nav,
+  charts or DCF inputs once the page scrolls; the PDF button stays on phones. The second "Data last generated" stamp is
+  `class="genStamp"` (never a duplicate id). Each model sets `data-status-time` on its status dot (the header's data time), and
+  `assets/data-status.js` prints it in the tooltip before the watchdog's verdict; the landing page's status grid reads each
+  dashboard's own stamp from the first bytes of its data file (`STAMPS` in that script) and shows the watchdog verdict beside it.
 - OMA's net debt includes lease liabilities (`debtExtraItems` in `site/oma/config.js`), matching OMA's own definition.
 - GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a
   FactSet Debt Capital Structure snapshot (`REF.debt.instrumentsAsOf`) with series names from the 6-Ks, refreshed
@@ -259,6 +288,11 @@ dashboards, everything built from public data by GitHub Actions.
   fallback dates) may render; INPC variants (monthly vs. first-half-month, original vs. seasonally adjusted) are
   always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny and the policy rates: amber after 2 U.S. business days) and
   `tools/mx-fiscal/freshness.json`; details in each page's runbook/MEMORY.
+- US fiscal monitor: the FedWatch snapshot carries the FULL distribution per meeting (every bucket the outlet quotes; a
+  "hike vs hold" reading is never collapsed into one bucket) and the callout lists every bucket priced at 1% or more for the
+  last meeting; the Spanish view names its sources in Spanish (`SRC_ES` in `blocks.js`); the rate corridor's "Data through"
+  is the effective rate's date (one date for the block); no typed fallback values remain for RRP, composition or balance-sheet
+  dates (missing data prints "—"); the Chart.js and data scripts sit just before the page script, not in `<head>`.
 - US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
   (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
   runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's
