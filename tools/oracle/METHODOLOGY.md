@@ -335,6 +335,11 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   cross-check (they differ by under 1% for every peer on 2026-10-05). Spot prices are the latest completed session's close
   (the validator requires price_date within four days of the consensus date). The validator requires both blocks for Oracle
   and every peer (at least 48 / 140 / 230 weeks per window; at least 55 trading days for ADTV).
+* **Share price.** Every ORCL price on the page (header, price chart, 52-week range, multiples, DCF price, dividend yields, beta
+  regression, analysts' chart) comes from FactSet Global Prices (`prices_orcl_factset.csv`, daily OHLC and volume, USD,
+  split-adjusted, from 2015), refreshed nightly after the close; the runner's Nasdaq/Yahoo feed fills only a date FactSet has not
+  posted yet and is named beside FactSet when it does. The S&P 500 in the relative-performance chart stays on FRED SP500 (the
+  connector takes no index identifiers).
 * **Nightly refresh.** The Claude Routine "FNAM Oracle: FactSet nightly refresh" runs every night at 7:58 PM New York time
   (owner, 2026-10-06), after the NYSE close, so the page shows that day's close and the consensus of the run date; a run
   that finds nothing changed (weekend, holiday) commits nothing.

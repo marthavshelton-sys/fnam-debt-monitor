@@ -278,11 +278,23 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   Deck page updated the same way (13 columns through `fitTable`). The connector exposes no FDS formula and no FE_VALUATION or
   quant-factor series (`eyNtm`, `ebitdaevNtm`, `adt63D` exist in FactSet's quant library but no connector tool serves them; the
   screener rejects the Global Prices content set), so the ratios are rebuilt from prices, shares, net debt and consensus.
+- ORCL daily prices (owner, 2026-10-06, "all other price data as of the last close, from FactSet"): `prices_orcl_factset.csv` (FactSet
+  Global Prices OHLC + volume, 2015-) is the page's price authority; the builder merges it over the runner's Nasdaq/Yahoo file, which only
+  fills dates FactSet lacks; `prices.ORCL.source/sourceShort/sourceUrl/provenance` label every price source line (`pxUrl()`/`pxName()`).
+  The S&P 500 stays on FRED (the connector rejects index ids). The two feeds matched to the cent on every overlapping date.
 - FactSet refresh moved to a nightly Claude Routine at 7:58 PM New York time (owner, 2026-10-06: prices as of the prior close,
-  no involvement): the weekday 14:20 UTC routine `trig_01QQ7kxnQVSPQTZnzviJCwUq` carries the new prompt and schedule if the
-  update went through (see the session note), otherwise a new routine was created and the old one must be disabled by the owner.
+  no involvement): routine "FNAM Oracle: FactSet nightly refresh" (`trig_01CNz7N4EvEViw5rbnp1ANKB`, fresh session per fire, the
+  FactSet connector attached by the owner; the old weekday routine was deleted). A session fired from an agent-created routine starts
+  with no repository, so the prompt's STEP 1 attaches and clones it itself (`add_repo`) before anything else; its prompt is the text of
+  `FACTSET-PROMPT.md` and both must change together (`update_trigger`).
   A rate-limited call ("API rate limit exceeded") succeeds on a retry a minute later; weekly 5-year consensus pulls are ~1 MB
   each and must be parsed from the saved tool-result file.
 - Circular flow map: `renderCircularMap()` (SVG, `svg.figmap` counts as a Figure in `numberSections`); loads the hub's `circular.js`.
   Pitfall: SVG text and `.figmap-ctl .lbl` must stay at 12 px or the phone render check fails.
 - `fetch-market.mjs` was not run; the price on the page is the stored series' latest close.
+- Price provenance rules (review of the FactSet-authority change, 2026-10-06): `prices.ORCL.fetchedAt` is the stamp of the feed that
+  supplied the latest close (the runner's `accessed` when it filled a date FactSet has not posted yet), so the footer never says
+  "fetched" before the close it shows; every source line that quotes the latest close uses `pxLink()` (source + fill-in dates), the
+  deck reads `M.MK.prices.ORCL.source/sourceUrl` in its DCF note, multiples note and Sources table (no typed "Nasdaq"); the validator
+  ties the price file's last row to ORCL's own `oracle.price_date` (not the cross-peer common date), tolerates an empty OHLC cell,
+  and the freshness row reads the same validated rows as the tie-out.
