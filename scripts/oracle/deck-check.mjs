@@ -37,6 +37,8 @@ for (const lang of ["es", "en"]) {
   const pageFacts = await page.evaluate(() => { const M = window.ORCL_MODEL; const d = M.dcfNow(); const sr = M.scenarioRange(d.s); const price = M.dcfPrice(); const txt = (e) => e.textContent.replace(/\s+/g, " ").trim(); return { price: M.fmtN(price, 2), base: M.fmtN(d.r.perShare, 0), bear: M.fmtN(sr.bear, 0), bull: M.fmtN(sr.bull, 0), mgmt: M.fmtN(sr.mgmt, 0), delta: M.fmtPct(100 * (d.r.perShare / price - 1), 0, true), hero: document.getElementById("dcfHero").textContent.trim(), chain: [...document.querySelectorAll("#sumChain .box .v")].map((e) => e.textContent.trim()),
     // the executive summary as the page prints it (every bullet of the three cards and of the watch block, with its sub-headings)
     summary: [...document.querySelectorAll("#sumGrid li, #sumWatch h4, #sumWatch li")].map(txt),
+    // the verdict paragraph(s), compared whole (the deck reads the same composed HTML, so the text must be identical)
+    verdict: [...document.querySelectorAll("#sumVerdict .vt")].map(txt),
     // the deck's sections in registry order and whether the DCF is among them
     deck: M.deckList().map((s) => ({ id: s.id, num: M.secNum(s.id), title: M.secTitle(s.id) })), dcfInDeck: M.deckList().some((s) => s.id === "dcf") }; });
   const [download] = await Promise.all([page.waitForEvent("download", { timeout: 120000 }).catch(() => null), page.click("#btnPrint")]);
@@ -67,6 +69,8 @@ for (const lang of ["es", "en"]) {
   const deckNorm = norm(drawn.join(" "));
   const missing = pageFacts.summary.map(norm).filter((s) => s.length >= 12 && !deckNorm.includes(s.slice(0, 50)));
   if (missing.length) f(`executive-summary text missing from the deck (${missing.length}): ${missing.slice(0, 2).map((s) => s.slice(0, 40)).join(" | ")}`);
+  const vMissing = pageFacts.verdict.map(norm).filter((s) => s && !deckNorm.includes(s));
+  if (vMissing.length) f(`the page's verdict is not drawn whole in the deck (${vMissing.map((s) => s.length).join(", ")} chars)`);
   // the deck's pages follow the registry (the page's story order): each section's first page title carries its number, in order
   const titles = drawn.filter((t) => /^(\d\d|R\d) · /.test(t)).map((t) => t.split(" · ")[0]);
   const order = pageFacts.deck.map((s) => s.num).filter((n) => titles.includes(n)), seen = [...new Set(titles)];

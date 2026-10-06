@@ -103,7 +103,8 @@ dashboards, everything built from public data by GitHub Actions.
   (Start here → Contracts → … → DCF → Risks → News → Calendar) with a collapsed Reference appendix (R1–R3); every section
   carries a composed lead and is collapsed by default except the Summary. The deck follows the page's story order (owner,
   2026-10-06; `deck_order` is gone), opens with the executive summary (the page's text: "What to watch" left, Operations /
-  Guidance / Debt right) and a linked contents page, and excludes the DCF (page-only) while keeping the multiples and peers.
+  Guidance / Debt then the verdict right) and a linked contents page, and excludes the DCF (page-only) while keeping the
+  multiples and peers.
   Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
   :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures).
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
