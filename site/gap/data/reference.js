@@ -3,7 +3,7 @@
 // something (see the GAP runbook, "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-09-29",
+  updatedAt: "2026-10-06",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -167,22 +167,33 @@ window.GAP_REF = {
     certificates: 101950000,
     priceMxn: 100,
     stakePct: 4.2,
-    status_en: "Not yet placed as of 29-Sep-2026. Announced 8-May-2026 (GAP release of 9-May-2026, Form 6-K; the 2Q26 report repeats the date). GAP filed no completion or pricing notice in its releases harvested through 29-Sep-2026 (latest filing 11-Sep-2026); the 2Q26 report says the approval process with the authorities continues. Press only (not confirmed by a filing): the placement planned for 25-Jun-2026 on BIVA was postponed on 25-Jun-2026, and on 22-Sep-2026 GAP was reported to expect it in October 2026 (FGAP 26, about Ps. 10,200 M for 4.2% of each of the 12 Mexican concessionaires; roughly Ps. 3,680 M, 36% of the proceeds, for Guadalajara).",
-    status_es: "Aún no colocada al 29-Sep-2026. Anunciada el 8-May-2026 (comunicado de GAP del 9-may-2026, Forma 6-K; el informe del 2T26 repite la fecha). GAP no presentó aviso de cierre ni de precio en sus comunicados recopilados hasta el 29-sep-2026 (último comunicado del 11-sep-2026); el informe del 2T26 dice que continúa el proceso de autorización ante las autoridades. Solo prensa (sin confirmar en un comunicado): la colocación prevista para el 25-jun-2026 en BIVA se pospuso el 25-jun-2026 y el 22-sep-2026 se informó que GAP la espera para octubre de 2026 (FGAP 26, unos Ps. 10,200 M por el 4.2% de cada una de las 12 concesionarias mexicanas; cerca de Ps. 3,680 M, 36% de los recursos, para Guadalajara).",
+    // statusAsOf: date of the last check of GAP's releases and the BMV eventos relevantes list (not a claim about EDGAR).
+    // timeline: newest first; kind "filing" (GAP release / BMV notice), "press" (not confirmed by a filing), "check" (FNAM's harvest).
+    statusAsOf: "2026-10-06",
+    timeline: [
+      { date: "2026-10-06", kind: "check", en: "No pricing or completion notice in GAP's releases or BMV material events through 6-Oct-2026 (latest notice 18-Sep-2026).", es: "Sin aviso de precio ni de cierre en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 6-oct-2026 (último aviso del 18-sep-2026)." },
+      { date: "2026-09-21", kind: "press", en: "GAP expects the placement in October 2026 (Axis Negocios; Yahoo Noticias 22-Sep-2026). Not confirmed by a filing.", es: "GAP espera la colocación en octubre de 2026 (Axis Negocios; Yahoo Noticias 22-sep-2026). Sin confirmar en un comunicado." },
+      { date: "2026-07-14", kind: "filing", en: "2Q26 report (Form 6-K): the approval process with the authorities continues.", es: "Informe 2T26 (Forma 6-K): continúa el proceso de autorización ante las autoridades." },
+      { date: "2026-06-25", kind: "press", en: "Placement planned for 25-Jun-2026 on BIVA postponed (Yahoo Noticias).", es: "Se pospone la colocación prevista para el 25-jun-2026 en BIVA (Yahoo Noticias)." },
+      { date: "2026-06-12", kind: "press", en: "Terms reported: FGAP 26 on BIVA, 101.95 M CBFEs at Ps. 100 (about Ps. 10,195 M) for 4.2% of each of the 12 Mexican concessionaires; 36.1% (about Ps. 3,680 M) for Guadalajara; BBVA and Santander as underwriters (Axis Negocios).", es: "Términos reportados: FGAP 26 en BIVA, 101.95 M de CBFEs a Ps. 100 (unos Ps. 10,195 M) por el 4.2% de cada una de las 12 concesionarias mexicanas; 36.1% (unos Ps. 3,680 M) para Guadalajara; BBVA y Santander como colocadores (Axis Negocios)." },
+      { date: "2026-05-08", kind: "filing", en: "Announced: GAP starts the process to set up a FIBRA (BMV material event 1558742; GAP release 9-May-2026, Form 6-K).", es: "Anuncio: GAP inicia el proceso para constituir una FIBRA (evento relevante BMV 1558742; comunicado de GAP del 9-may-2026, Forma 6-K)." },
+    ],
     sources: {
       en: [
         "GAP release 9-May-2026 (Form 6-K), initiation of the process to establish a FIBRA; BMV material event 1558742 (May-2026)",
         "GAP 2Q26 report, 14-Jul-2026 (Form 6-K): status of the CBFE approval process",
         "El Cronista, Axis Negocios and El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
+        "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-Jun-2026) and 'GAP perfila para octubre colocación de fibra E' (21-Sep-2026)",
         "Financial press via Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-Jun-2026) and 'En octubre saldrá la Fibra E de GAP' (22-Sep-2026)",
-        "GAP releases harvested for this model through 29-Sep-2026 (latest 11-Sep-2026): no completion notice",
+        "GAP releases and BMV material events checked for this model through 6-Oct-2026 (latest notice 18-Sep-2026): no pricing or completion notice",
       ],
       es: [
         "Comunicado de GAP del 9-may-2026 (Forma 6-K), inicio del proceso para constituir una FIBRA; evento relevante BMV 1558742 (may-2026)",
         "Informe 2T26 de GAP, 14-jul-2026 (Forma 6-K): estado del proceso de autorización de los CBFE",
         "El Cronista, Axis Negocios y El CEO, cobertura de la oferta de FGAP 26 (jun–jul 2026)",
+        "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-jun-2026) y 'GAP perfila para octubre colocación de fibra E' (21-sep-2026)",
         "Prensa financiera vía Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-jun-2026) y 'En octubre saldrá la Fibra E de GAP' (22-sep-2026)",
-        "Comunicados de GAP recopilados para este modelo hasta el 29-sep-2026 (último del 11-sep-2026): sin aviso de cierre",
+        "Comunicados de GAP y eventos relevantes de la BMV revisados para este modelo hasta el 6-oct-2026 (último aviso del 18-sep-2026): sin aviso de precio ni de cierre",
       ],
     },
   },
