@@ -1,7 +1,8 @@
 # Data-refresh watchdog
 
-Answers one question every 12 hours: has each dashboard's scheduled refresh landed on time? Its verdict is the
-only basis on which the site shows a dashboard as up to date ("Al día"); the site calls nothing "live".
+Answers two questions every 12 hours: has each dashboard's scheduled refresh landed on time, and does every price
+feed a page shows carry the exchange's last completed session? Its verdict is the only basis on which the site shows a
+dashboard as up to date ("Al día"); the site calls nothing "live".
 
 ## Pieces
 
@@ -10,7 +11,7 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
 | `.github/workflows/data-watchdog.yml` | Every 12 hours, 03:50 and 15:50 UTC (21:50 and 09:50 in Mexico City), each just after a batch of refreshes; also by hand, with a `dry_run` input. Read-only on every other workflow. |
 | `scripts/watchdog/check.mjs` | Reads the Actions run history and open issues through the GitHub API, writes the verdicts, opens/closes alert issues. |
 | `scripts/watchdog/lib.mjs`, `selftest.mjs` | Cron matching and the rules; the self-test runs before every check. |
-| `tools/watchdog/dashboards.json` | Dashboard → workflow(s) and the alert labels of its own pipeline; grace and heartbeat hours. |
+| `tools/watchdog/dashboards.json` | Dashboard → workflow(s) and the alert labels of its own pipeline; its price feeds (`prices`); grace and heartbeat hours. |
 | `site/status/refresh.json` | The verdicts, served with `Cache-Control: no-store`. |
 | `site/assets/data-status.js` | Reads the verdicts for the landing page panel ("Last successful data refresh") and the status dot in each company page's header. |
 
@@ -33,16 +34,20 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
   is required from 21:00 New York). A feed with `lagSessions` N (FRED posts a day late) may trail by N sessions. Any
   feed behind → `stale`, which outranks the refresh verdict (`refreshStatus` keeps it). Sessions = weekdays minus the
   exchange's published holidays (`EXCHANGES` in `lib.mjs`: NYSE 2026–2028 from the NYSE's calendar; BMV 2026 from the BMV's
-  "Calendario de días festivos", which the BMV publishes one year at a time, so extend it every December; past the last year
-  the price check reports `unverified` rather than guess). A series may carry its own `exchange`: the airport pages (GAP,
-  ASUR, OMA, added 6-Oct-2026) watch, on the BMV calendar with 5 h settle (close 15:00 Mexico City, the FactSet routine runs
-  at 19:52 New York), the listing's FactSet close in `tools/gap/raw/factset/prices.json` (`latestClose.<FactSet id>`), the
+  "Calendario de días festivos", which the BMV publishes one year at a time, so extend it every December); outside those
+  years the check reports `unverified` (the dashboard too, never "up to date"), names no session the pages could act on,
+  and leaves an open alarm open: extend the calendar. A series may carry its own `exchange`: the airport pages (GAP, ASUR,
+  OMA, added 6-Oct-2026) watch, on the BMV calendar with 5 h settle (close 15:00 Mexico City, the FactSet routine runs at
+  19:52 New York), the listing's FactSet close in `tools/gap/raw/factset/prices.json` (`latestClose.<FactSet id>`), the
   ADS's FactSet close on the NYSE calendar, and the close the page prints (`latestClose` in `site/<slug>/data/market.js`,
-  `kind: "js"`), so a stopped FactSet pull shows even while Yahoo keeps the page current. The status row carries `prices.expected`, `prices.next` (the next session and the
-  instant it becomes required) and one line per feed, so the pages can judge their own data between two checks:
-  `data-status.js` reads the page's own latest close (`latestClose` in the first bytes of `market.js`, `OWN_CLOSE`) and
-  turns the dot red on its own once `prices.next.requiredFrom` has passed and the page still shows an older close; a page
-  never turns itself green. Alarm: one `SOURCE DOWN: watchdog - <dashboard> prices stale` issue (marker `<id>:prices`),
+  `kind: "js"`), so a stopped FactSet pull shows even while Yahoo keeps the page current. Feed names may be bilingual
+  (`{ es, en }`); the published status file carries no file paths (they go to the console line and the alarm issue). The
+  status row carries `prices.expected`, `prices.next` (the next session and the instant it becomes required) and one line
+  per feed, so the pages can judge their own data between two checks: `data-status.js` paints the watchdog's verdict
+  first, then (a second pass, 8 s fetch limit) reads the page's own latest close (`latestClose` in the first bytes of
+  `market.js`, `OWN_CLOSE`) and turns the dot red on its own once `prices.next.requiredFrom` has passed and the page
+  still shows an older close; a page never turns itself green. The Oracle phone header (which replaces the eyebrow below
+  760 px) carries the dot too. Alarm: one `SOURCE DOWN: watchdog - <dashboard> prices stale` issue (marker `<id>:prices`),
   closed at the first check that finds every feed current.
 - The pages treat a status file whose `checkedAt` is more than 14 hours old as **unverified** for every dashboard
   (the watchdog rewrites it at every check: `heartbeatHours` is 11), so a stopped watchdog can never leave a stale
@@ -51,7 +56,9 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
 
 ## Alarm
 
-A late dashboard whose own pipeline has no alert open gets one issue titled
+A dashboard with a stale price feed gets one issue titled `SOURCE DOWN: watchdog - <dashboard> prices stale` (label
+`data-watchdog`, one table row per feed with its file, latest date and the session needed), closed by the first check
+that finds every feed current. A late dashboard whose own pipeline has no alert open gets one issue titled
 `SOURCE DOWN: watchdog - <dashboard> refresh late`, label `data-watchdog`, opened by github-actions[bot]. The
 owner's email routine ("FNAM US Macro: email material changes") sends every `SOURCE DOWN: ` issue of its window
 (`tools/macro/README.md`). The first on-time check comments and closes the issue.
