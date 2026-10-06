@@ -199,6 +199,8 @@ const divs = divsAll.filter((d) => d.payment_date <= todayIso).map((d) => [d.pay
 const divsAnnounced = divsAll.filter((d) => d.payment_date > todayIso).map((d) => ({ declared: d.declared_date || null, record: d.record_date || null, payment: d.payment_date, dps: d.amount_per_share, status: "announced" }));
 emit("market.js", "ORCL_MARKET", {
   generatedAt: mref.refreshed_at || mref.as_of || now,
+  // the latest close on the page (the merged FactSet + runner series), in the first bytes of the file so the site's status script can read it with a Range request
+  latestClose: ohlc.length ? ohlc[ohlc.length - 1].d : null,
   prices: {
     ORCL: { name: "Oracle (NYSE: ORCL)", currency: "USD", exchange: "NYSE", source: pxProv.name, sourceShort: pxProv.short, sourceUrl: pxProv.url, fetchedAt: pxProv.fetchedAt, provenance: { latestFrom: pxProv.latestFrom, factset: pxProv.factset, fill: pxProv.fill }, points: orclPts },
     "^GSPC": { name: "S&P 500", currency: "USD", exchange: "index", source: mref.price_snapshot?.sp500?.source_name || "FRED SP500 / Yahoo Finance", sourceUrl: mref.price_snapshot?.sp500?.source_url || null, fetchedAt: mref.price_snapshot?.sp500?.accessed || null, points: spxPts },

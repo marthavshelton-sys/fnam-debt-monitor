@@ -295,6 +295,12 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - Circular flow map: `renderCircularMap()` (SVG, `svg.figmap` counts as a Figure in `numberSections`); loads the hub's `circular.js`.
   Pitfall: SVG text and `.figmap-ctl .lbl` must stay at 12 px or the phone render check fails.
 - `fetch-market.mjs` was not run; the price on the page is the stored series' latest close.
+- Price freshness watchdog (owner, 2026-10-06: "if any prices are not updated, the watchdogs should flash red"): the Oracle entry in
+  `tools/watchdog/dashboards.json` lists the FactSet ORCL file, `factset.json → price_date` and the S&P 500 file; the watchdog
+  (every 12 h) marks the dashboard `stale` (red, pulsing dot and landing card, `SOURCE DOWN: watchdog - Oracle prices stale`
+  issue) when any of them is behind the last completed NYSE session (required from 21:00 New York, 5 h after the close for the
+  19:58 routine); `market.js` now carries `latestClose` in its first bytes so `data-status.js` can turn the dot red between
+  checks. Runbook `tools/watchdog/README.md`.
 - Price provenance rules (review of the FactSet-authority change, 2026-10-06): `prices.ORCL.fetchedAt` is the stamp of the feed that
   supplied the latest close (the runner's `accessed` when it filled a date FactSet has not posted yet), so the footer never says
   "fetched" before the close it shows; every source line that quotes the latest close uses `pxLink()` (source + fill-in dates), the

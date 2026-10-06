@@ -1,7 +1,7 @@
 // Offline checks of the watchdog's rules (scripts/watchdog/lib.mjs). Run before every check:
 //   node scripts/watchdog/selftest.mjs
 import assert from 'node:assert/strict';
-import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, verdict, cdmx } from './lib.mjs';
+import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, verdict, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, lastCsvDate, jsonDate } from './lib.mjs';
 
 const t = (s) => Date.parse(s);
 const H = 36e5;
@@ -42,5 +42,48 @@ assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreate
 
 // Mexico City time (UTC-6, no daylight saving since 2022)
 assert.equal(cdmx('2026-10-01T15:12:00Z'), '01-Oct-2026 09:12 CDMX');
+
+// NYSE sessions: weekends and the exchange's holidays are not sessions; early closes are
+assert.equal(isSession('NYSE', '2026-10-05'), true);    // Monday
+assert.equal(isSession('NYSE', '2026-10-03'), false);   // Saturday
+assert.equal(isSession('NYSE', '2026-11-26'), false);   // Thanksgiving
+assert.equal(isSession('NYSE', '2026-11-27'), true);    // the early close after it is a session
+assert.equal(isSession('NYSE', '2027-12-24'), false);   // Christmas 2027 falls on Saturday: closed the Friday before
+assert.equal(isSession('NYSE', '2027-12-31'), true);    // New Year 2028 falls on Saturday: year-end Friday stays open
+assert.equal(sessionBefore('NYSE', '2026-10-05'), '2026-10-02');
+assert.equal(sessionBefore('NYSE', '2026-10-05', 2), '2026-10-01');
+assert.equal(sessionAfter('NYSE', '2026-11-25'), '2026-11-27');
+assert.throws(() => isSession('BMV', '2026-10-05'), /no session calendar/);
+// New York clock → UTC (EDT in October, EST in December)
+assert.equal(new Date(zonedToUtc('America/New_York', '2026-10-05', '16:00')).toISOString(), '2026-10-05T20:00:00.000Z');
+assert.equal(new Date(zonedToUtc('America/New_York', '2026-12-07', '16:00')).toISOString(), '2026-12-07T21:00:00.000Z');
+// required session with 5 h settle (the nightly routine runs at 19:58 New York): Monday's close is required from 21:00 ET
+const rq = (iso) => requiredSession({ exchange: 'NYSE', now: t(iso), settleHours: 5 });
+assert.equal(rq('2026-10-05T23:50:00Z').session, '2026-10-02');            // Monday 19:50 ET: still Friday's
+assert.equal(rq('2026-10-06T01:00:00Z').session, '2026-10-05');            // Monday 21:00 ET: Monday's
+assert.equal(rq('2026-10-06T15:50:00Z').session, '2026-10-05');            // Tuesday 11:50 ET: Monday's
+assert.equal(rq('2026-10-06T15:50:00Z').next.session, '2026-10-06');
+assert.equal(rq('2026-10-06T15:50:00Z').next.requiredFrom, '2026-10-07T01:00:00Z');
+assert.equal(rq('2026-10-11T03:50:00Z').session, '2026-10-09');            // Saturday: Friday's
+assert.equal(rq('2026-11-27T03:50:00Z').session, '2026-11-25');            // Thanksgiving night: Wednesday's
+assert.equal(rq('2026-10-06T15:50:00Z').covered, true);
+assert.equal(rq('2029-01-02T15:50:00Z').covered, false);                   // next session in 2029: calendar not maintained that far
+// price verdict: every feed at the required session → ok; one behind → stale; a lagging publisher gets its sessions
+const px = (now, series) => priceVerdict({ exchange: 'NYSE', now: t(now), settleHours: 5, series });
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-05' }, { name: 'b', date: '2026-10-05' }]).status, 'ok');
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-05' }, { name: 'b', date: '2026-10-02' }]).status, 'stale');
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-02', lagSessions: 1 }]).status, 'ok');
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-01', lagSessions: 1 }]).status, 'stale');
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: null }]).status, 'stale');
+assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-06' }]).status, 'ok');   // ahead is never stale
+assert.equal(px('2029-01-02T15:50:00Z', [{ name: 'a', date: '2028-12-29' }]).status, 'unverified');
+assert.deepEqual(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-02' }]).series[0], { name: 'a', date: '2026-10-02', needed: '2026-10-05', ok: false });
+// readers
+assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n'), '2026-10-05');
+assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n2026-10-\n'), '2026-10-05');  // partial trailing line ignored
+assert.equal(lastCsvDate('Date,Close\n'), null);
+assert.equal(jsonDate({ price_date: '2026-10-05' }, 'price_date'), '2026-10-05');
+assert.equal(jsonDate({ a: { b: '2026-10-05T12:00:00Z' } }, 'a.b'), '2026-10-05');
+assert.equal(jsonDate({ a: {} }, 'a.b'), null);
 
 console.log('watchdog selftest: all checks passed');
