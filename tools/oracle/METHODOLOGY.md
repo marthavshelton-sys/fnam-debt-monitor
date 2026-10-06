@@ -319,16 +319,25 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
 ## 12. Historical averages of the forward multiples, flow map and page conventions (2026-10-06, owner's review)
 
 * **Peers table (Multiples section).** EV and EV/Sales were dropped. Beside each spot forward multiple (NTM EV/EBITDA, NTM P/E)
-  the table prints its trailing **1-, 3- and 5-year averages** for Oracle and every peer. Method (`factset.json →
-  hist_multiples_note`, computed in-session from the FactSet connector, step k of `FACTSET-PROMPT.md`): month-end
-  observations over the last 60 months; for each month-end, NTM P/E = FactSet month-end close ÷ the NTM EPS consensus mean
-  sampled that month (FactSet Estimates, NTMA rolling, monthly frequency); NTM EV/EBITDA = (close × FactSet shares
-  outstanding + FactSet Fundamentals `FF_NET_DEBT` of the latest fiscal quarter ended on or before that month-end) ÷ the NTM
-  EBITDA consensus mean. Averages are simple means of the last 12 / 36 / 60 month-ends (`y1/y3/y5`, with the months counted
-  in `n1/n3/n5`); a month is skipped when an input is missing or the denominator is not positive. Same basis as the spot
-  columns (broker-majority EPS, broker-adjusted EBITDA, lease-inclusive net debt). Assumption stated on the page: the series
-  is not point-in-time restated (shares and net debt as later reported, not as first published). The validator requires
-  the block for Oracle and every peer with at least 10 / 30 / 50 months per window.
+  the table prints its trailing **1-, 3- and 5-year averages** for Oracle and every peer, plus **ADTV**. The owner's reference
+  is her Excel: `FE_VALUATION(PE | FFEV_EBITDA, MEAN, NTM4_ROLL, , -1AY|-3AY|-5AY, NOW)` averaged, and
+  `P_VOLUME_AVG(-3AM,0) × AVERAGE(XP_PRICE_VWAP(0,-3AM,,,,USD))` for ADTV. The connector exposes neither FDS formula, so the
+  model rebuilds them (`factset.json → hist_multiples_note`, `adtv_note`; routine steps g and k in `FACTSET-PROMPT.md`):
+  weekly observations over the last five years (last trading day of each week); for each week, NTM P/E = FactSet close ÷ the
+  NTM EPS consensus mean in force that week (FactSet Estimates, NTMA rolling, weekly frequency); NTM EV/EBITDA = (close ×
+  FactSet shares outstanding + FactSet Fundamentals `FF_NET_DEBT` of the latest fiscal quarter ended on or before that week) ÷
+  the NTM EBITDA consensus mean. Averages are simple means of the last 52 / 156 / 260 weeks (`y1/y3/y5`, weeks counted in
+  `n1/n3/n5`); a week is skipped when an input is missing or the denominator is not positive. Same basis as the spot columns
+  (broker-majority EPS, broker-adjusted EBITDA, lease-inclusive net debt). Stated differences from the Excel formulas: weekly
+  instead of daily sampling, EV from FactSet net debt rather than FactSet's own enterprise-value series, and no point-in-time
+  restatement (shares and net debt as later reported). ADTV = the mean of FactSet's daily turnover (volume × VWAP, USD) over
+  the trading days of the last three months, in US$ million; the file also stores the owner's product-of-averages figure as a
+  cross-check (they differ by under 1% for every peer on 2026-10-05). Spot prices are the latest completed session's close
+  (the validator requires price_date within four days of the consensus date). The validator requires both blocks for Oracle
+  and every peer (at least 48 / 140 / 230 weeks per window; at least 55 trading days for ADTV).
+* **Nightly refresh.** The Claude Routine "FNAM Oracle: FactSet nightly refresh" runs every night at 7:58 PM New York time
+  (owner, 2026-10-06), after the NYSE close, so the page shows that day's close and the consensus of the run date; a run
+  that finds nothing changed (weekend, holiday) commits nothing.
 * **Header.** Under the reported net debt / LTM EBITDA tile: the lease-adjusted net debt / EBITDAR (recognized operating and
   finance lease liabilities, EBITDA plus operating lease cost: `obligStats().leaseAdj`) linked to the off-balance-sheet
   section, and the commitment-inclusive ratio with the signed-but-uncommenced leases (`commit`), labeled exposure.

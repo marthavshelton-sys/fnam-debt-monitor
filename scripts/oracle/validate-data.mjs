@@ -187,8 +187,11 @@ if (fsj) {
   check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
   // trailing averages of the forward multiples (owner's request 2026-10-06): every peer and Oracle carry y1/y3/y5 for both ratios, positive, dated
   const hm = [fsj.oracle?.hist_multiples, ...(fsj.peers || []).map((p) => p.hist_multiples)];
-  check("factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer", hm.length > 1 && hm.every((h) => h && /^\d{4}-\d{2}-\d{2}$/.test(h.as_of) && ["pe_ntm", "ev_ebitda_ntm"].every((k) => h[k] && ["y1", "y3", "y5"].every((w) => h[k][w] > 0) && h[k].n1 >= 10 && h[k].n3 >= 30 && h[k].n5 >= 50)));
-  check("factset: historical multiple averages are dated and the note states the method", /^\d{4}-\d{2}-\d{2}$/.test(fsj.hist_multiples_as_of || "") && /month-end/.test(fsj.hist_multiples_note || ""));
+  check("factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer", hm.length > 1 && hm.every((h) => h && /^\d{4}-\d{2}-\d{2}$/.test(h.as_of) && ["pe_ntm", "ev_ebitda_ntm"].every((k) => h[k] && ["y1", "y3", "y5"].every((w) => h[k][w] > 0) && (h.sampling === "weekly" ? h[k].n1 >= 48 && h[k].n3 >= 140 && h[k].n5 >= 230 : h[k].n1 >= 10 && h[k].n3 >= 30 && h[k].n5 >= 50))));
+  const ad = [fsj.oracle?.adtv, ...(fsj.peers || []).map((p) => p.adtv)];
+  check("factset: ADTV (3-month average daily traded value, US$ M) present and positive for Oracle and every peer", ad.length > 1 && ad.every((a) => a && a.usd_m > 0 && a.days >= 55 && /^\d{4}-\d{2}-\d{2}$/.test(a.end || "")));
+  check("factset: prices are dated no earlier than the day before the consensus date (prior close rule)", (() => { const d = (x) => Date.UTC(+x.slice(0, 4), +x.slice(5, 7) - 1, +x.slice(8, 10)); return fsj.price_date && fsj.as_of && (d(fsj.as_of) - d(fsj.price_date)) / 864e5 <= 4; })());
+  check("factset: historical multiple averages are dated and the note states the method", /^\d{4}-\d{2}-\d{2}$/.test(fsj.hist_multiples_as_of || "") && /(month-end|weekly)/.test(fsj.hist_multiples_note || ""));
 }
 
 // ---------- xbrl_facts.json: machine check of the figures transcribed from the leases and commitments notes ----------

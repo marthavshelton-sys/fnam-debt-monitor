@@ -364,9 +364,11 @@ if (fsd) {
       fy1: f1, fy2: f2, epsGrowthFy2Pct: f1.eps > 0 && f2.eps != null ? 100 * (f2.eps / f1.eps - 1) : null,
       iadUsd: p.iad_usd ?? null, divYieldPct: p.iad_usd != null && p.price ? 100 * p.iad_usd / p.price : null,
       // trailing 1-, 3- and 5-year averages of the two forward multiples (month-end observations; method in factset.json → hist_multiples_note)
-      hist: p.hist_multiples || null };
+      hist: p.hist_multiples || null,
+      // average daily traded value, US$ million, last three months (factset.json → adtv_note)
+      adtvUsdM: p.adtv && p.adtv.usd_m != null ? p.adtv.usd_m : null, adtv: p.adtv || null };
   });
-  emit("peers.js", "ORCL_PEERS", { updatedAt: fsd.as_of, priceDate: fsd.price_date, source: fsd.source, groups: fsd.peer_groups || null, hist: fsd.hist_multiples_as_of ? { asOf: fsd.hist_multiples_as_of, fetched: fsd.hist_multiples_fetched || null, note: fsd.hist_multiples_note || null } : null, peers }, "Peer forward multiples — FactSet consensus (NTM EPS, EBITDA, sales; FY1/FY2 EPS) with FactSet prices, market values and latest reported net debt, plus trailing 1/3/5-year averages of NTM EV/EBITDA and P/E; Oracle's own row is computed live in the page.");
+  emit("peers.js", "ORCL_PEERS", { updatedAt: fsd.as_of, priceDate: fsd.price_date, source: fsd.source, groups: fsd.peer_groups || null, hist: fsd.hist_multiples_as_of ? { asOf: fsd.hist_multiples_as_of, fetched: fsd.hist_multiples_fetched || null, sampling: (fsd.oracle && fsd.oracle.hist_multiples && fsd.oracle.hist_multiples.sampling) || null, note: fsd.hist_multiples_note || null } : null, adtvNote: fsd.adtv_note || null, peers }, "Peer forward multiples — FactSet consensus (NTM EPS, EBITDA, sales; FY1/FY2 EPS) with FactSet prices, market values and latest reported net debt, plus trailing 1/3/5-year averages of NTM EV/EBITDA and P/E; Oracle's own row is computed live in the page.");
 } else {
   emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until a FactSet snapshot exists.");
 }

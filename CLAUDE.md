@@ -108,8 +108,9 @@ dashboards, everything built from public data by GitHub Actions.
   Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
   :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures).
   Headings are Title Cased at render time (`titleCaseHeadings()`, both languages) and the English copy is American English
-  (owner, 2026-10-06); the peers table carries 1/3/5-year averages of the forward multiples from `factset.json → hist_multiples`
-  (computed in-session, step k of `tools/oracle/FACTSET-PROMPT.md`).
+  (owner, 2026-10-06); the peers table carries 1/3/5-year averages of the forward multiples (weekly observations) and ADTV from
+  `factset.json → hist_multiples` / `adtv`, refreshed by the nightly FactSet routine at 7:58 PM New York time (steps g and k of
+  `tools/oracle/FACTSET-PROMPT.md`); every FactSet price on the page is the latest completed session's close.
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
   `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, 8 `retorno/` (payoff and
   cost of money, curated `payoff.json`; ratings from SEC-filed term sheets), `metodologia/`,
