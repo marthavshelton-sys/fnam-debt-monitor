@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06T11:12:38.292Z",
+  "generated": "2026-10-06T11:43:50.647Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -2853,7 +2853,7 @@
     },
     {
       "tag": "factset",
-      "check": "the price file's last close is the snapshot's ORCL price on the same date",
+      "check": "the price file's last close is the snapshot's ORCL price on ORCL's own price date",
       "status": "ok",
       "diff": null,
       "tol": null,
@@ -5229,7 +5229,7 @@
     "factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer",
     "factset: ADTV (3-month average daily traded value, US$ M) present and positive for Oracle and every peer",
     "factset: ORCL daily price file (FactSet Global Prices) present, ascending, with intraday highs and lows",
-    "factset: the price file's last close is the snapshot's ORCL price on the same date",
+    "factset: the price file's last close is the snapshot's ORCL price on ORCL's own price date",
     "factset: prices are dated no earlier than the day before the consensus date (prior close rule)",
     "factset: historical multiple averages are dated and the note states the method",
     "obligations/XBRL: balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
