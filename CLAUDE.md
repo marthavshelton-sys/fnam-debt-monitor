@@ -88,8 +88,11 @@ dashboards, everything built from public data by GitHub Actions.
   `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
   validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
   Runbook: `tools/asur/README.md` → "Traffic perimeter change".
-- Oracle market data: Nasdaq's historical API posts a session's bar hours after the close, so `fetch-market.mjs` tops the
-  primary series up from Yahoo/Stooq when it ends before the latest completed NYSE session (`latestCompletedSession`, `topUp`;
+- Oracle market data: since 2026-10-06 the ORCL price authority is FactSet Global Prices (`tools/oracle/data/prices_orcl_factset.csv`,
+  written by the nightly FactSet routine at 7:58 PM New York time); `build-data.mjs` merges it over the runner's Nasdaq/Yahoo series,
+  which only fills dates FactSet has not posted yet (owner: every price as of the last close, from FactSet). The S&P 500 stays on
+  FRED (the connector rejects index ids). Nasdaq's historical API posts a session's bar hours after the close, so `fetch-market.mjs`
+  tops the runner series up from Yahoo/Stooq when it ends before the latest completed NYSE session (`latestCompletedSession`, `topUp`;
   5-Oct-2026 the page showed the 2-Oct close all evening). Dividends: paid points only in `market.js → dividends.points`; a
   declared-not-yet-paid one sits in `announced`. The compact header and the "More figures" button are phone-only; the third
   `<style>` block must stay closed (an unclosed one let them show on desktop and ran the stamps together, 2026-10-05).

@@ -278,6 +278,10 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   Deck page updated the same way (13 columns through `fitTable`). The connector exposes no FDS formula and no FE_VALUATION or
   quant-factor series (`eyNtm`, `ebitdaevNtm`, `adt63D` exist in FactSet's quant library but no connector tool serves them; the
   screener rejects the Global Prices content set), so the ratios are rebuilt from prices, shares, net debt and consensus.
+- ORCL daily prices (owner, 2026-10-06, "all other price data as of the last close, from FactSet"): `prices_orcl_factset.csv` (FactSet
+  Global Prices OHLC + volume, 2015-) is the page's price authority; the builder merges it over the runner's Nasdaq/Yahoo file, which only
+  fills dates FactSet lacks; `prices.ORCL.source/sourceShort/sourceUrl/provenance` label every price source line (`pxUrl()`/`pxName()`).
+  The S&P 500 stays on FRED (the connector rejects index ids). The two feeds matched to the cent on every overlapping date.
 - FactSet refresh moved to a nightly Claude Routine at 7:58 PM New York time (owner, 2026-10-06: prices as of the prior close,
   no involvement): the weekday 14:20 UTC routine `trig_01QQ7kxnQVSPQTZnzviJCwUq` carries the new prompt and schedule if the
   update went through (see the session note), otherwise a new routine was created and the old one must be disabled by the owner.

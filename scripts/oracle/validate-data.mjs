@@ -190,6 +190,10 @@ if (fsj) {
   check("factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer", hm.length > 1 && hm.every((h) => h && /^\d{4}-\d{2}-\d{2}$/.test(h.as_of) && ["pe_ntm", "ev_ebitda_ntm"].every((k) => h[k] && ["y1", "y3", "y5"].every((w) => h[k][w] > 0) && (h.sampling === "weekly" ? h[k].n1 >= 48 && h[k].n3 >= 140 && h[k].n5 >= 230 : h[k].n1 >= 10 && h[k].n3 >= 30 && h[k].n5 >= 50))));
   const ad = [fsj.oracle?.adtv, ...(fsj.peers || []).map((p) => p.adtv)];
   check("factset: ADTV (3-month average daily traded value, US$ M) present and positive for Oracle and every peer", ad.length > 1 && ad.every((a) => a && a.usd_m > 0 && a.days >= 55 && /^\d{4}-\d{2}-\d{2}$/.test(a.end || "")));
+  // ORCL daily prices from FactSet (owner, 2026-10-06): the file is the page's price authority, so its last row must be the snapshot's close
+  const fsPx = (() => { const p = join(DATA, "prices_orcl_factset.csv"); if (!existsSync(p)) return []; return readFileSync(p, "utf8").trim().split(/\r?\n/).slice(1).map((l) => l.split(",")).filter((c) => /^\d{4}-\d{2}-\d{2}$/.test(c[0]) && Number.isFinite(parseFloat(c[4]))).map((c) => ({ date: c[0], close: parseFloat(c[4]), high: parseFloat(c[2]), low: parseFloat(c[3]) })); })();
+  check("factset: ORCL daily price file (FactSet Global Prices) present, ascending, with intraday highs and lows", fsPx.length > 1000 && fsPx.every((r, i, a) => i === 0 || a[i - 1].date < r.date) && fsPx.slice(-30).every((r) => r.high >= r.close && r.low <= r.close));
+  check("factset: the price file's last close is the snapshot's ORCL price on the same date", fsPx.length > 0 && fsPx[fsPx.length - 1].date === fsj.price_date && Math.abs(fsPx[fsPx.length - 1].close - (fsj.oracle?.price ?? NaN)) < 0.006);
   check("factset: prices are dated no earlier than the day before the consensus date (prior close rule)", (() => { const d = (x) => Date.UTC(+x.slice(0, 4), +x.slice(5, 7) - 1, +x.slice(8, 10)); return fsj.price_date && fsj.as_of && (d(fsj.as_of) - d(fsj.price_date)) / 864e5 <= 4; })());
   check("factset: historical multiple averages are dated and the note states the method", /^\d{4}-\d{2}-\d{2}$/.test(fsj.hist_multiples_as_of || "") && /(month-end|weekly)/.test(fsj.hist_multiples_note || ""));
 }
@@ -391,7 +395,8 @@ const latestId = latest ? latest.id : null;
 const nextRes = cal?.nextResults?.date || null, est = (cal?.estimates || [])[0] || null;
 const freshness = [];
 const fresh = (series, lastDate, limitDays, note) => { const age = daysSince(lastDate); freshness.push({ series, lastDate: lastDate ? String(lastDate).slice(0, 10) : null, ageDays: age, limitDays, status: lastDate == null || age > limitDays ? "warn" : "ok", note: note || null }); };
-fresh("Share price (ORCL close)", mref?.price_snapshot?.orcl?.close_date, 5, "market fetch, weekdays 13:30 and 21:45 UTC");
+fresh("Share price (ORCL close, FactSet Global Prices)", (() => { const p = join(DATA, "prices_orcl_factset.csv"); if (!existsSync(p)) return null; const l = readFileSync(p, "utf8").trim().split(/\r?\n/); return l.length > 1 ? l[l.length - 1].split(",")[0] : null; })(), 5, "nightly FactSet routine, 7:58 PM New York time; the page's price authority");
+fresh("Share price (ORCL close, runner feed)", mref?.price_snapshot?.orcl?.close_date, 5, "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet");
 fresh(`10-year Treasury (${mref?.treasury_10y?.source_name || "U.S. Treasury daily par yield curve"})`, mref?.treasury_10y?.as_of_date, 5, "market fetch");
 fresh("BBB corporate OAS proxy (FRED BAMLC0A4CBBB)", mref?.credit_spread_proxy?.as_of_date, 7, "market fetch; credit card proxy while no CDS source exists");
 fresh("Latest quarter release", latest?.release_date, 100, latest ? `${latest.id}${nextRes ? `; next results confirmed for ${nextRes}` : est ? `; next results estimated ${est.window_start} to ${est.window_end}` : ""}` : null);

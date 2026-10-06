@@ -47,7 +47,8 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `buildout.json` | Capacity delivered (MW) per quarter and fiscal year, capacity secured, GPU utilization / renewals / deliveries, named sites, RPO recognition schedule, funding items; each with source key or URL, page and speaker; `derived: true` marks figures computed from ratios management gave; each free-text site field (`capacity_text`, `customer`, `developer`, `financing`, `oracle_status`, `contracted`, `first_delivery`) has an `_es` counterpart | Curated after each call from the transcript; partner releases and wire reports only for site details Oracle has not disclosed. |
 | `dividends.json` | Each declaration: declared, amount, record, payment, source | Board declares quarterly; no AGM step. |
 | `market_reference.json` | Price snapshot, 10-year Treasury, `erp` (Damodaran's implied equity risk premium, monthly), credit ratings, `debt_instruments` (58 lines from the 10-K footnote) | `price_snapshot`, `treasury_10y`, `erp` and `refreshed_at` are rewritten by `fetch-market.mjs` (a failed ERP read keeps the stored value); ratings and instruments are curated from agency releases and the 10-K/8-K; a rating action older than 12 months is flagged on the page. |
-| `prices_orcl_daily.csv`, `prices_spx_daily.csv`, `treasury_10y.csv` | Daily series | Overwritten by `fetch-market.mjs`. |
+| `prices_orcl_factset.csv` | ORCL daily OHLC and volume, FactSet Global Prices (2015-) | Written by the nightly FactSet routine (step g); the page's price authority for every date it covers (owner, 2026-10-06). |
+| `prices_orcl_daily.csv`, `prices_spx_daily.csv`, `treasury_10y.csv` | Daily series | Overwritten by `fetch-market.mjs`; the ORCL file only fills dates the FactSet file lacks. |
 | `guidance.json` | Every vintage (initial, revised) per metric and period | Non-GAAP EPS and growth as Oracle states them; USD and constant currency kept separate; free-text notes bilingual (`_note`/`_note_es`, `fy_capex_note`/`fy_capex_note_es`, `multi_year_targets.note`/`note_es`). |
 | `transcripts.json` | Per call: date, quantified guidance from the CFO's remarks, short attributed quotes | Built by `merge-transcripts.mjs` from the owner-supplied PDFs, which live only in the private `oracle-model` repository (licensed material). Without the raw extractions the merge keeps the existing file. |
 | `comments.json` | Comments per quarter (`by_quarter.FY2027Q1.comments.<key>.{en,es,src}`), executive summary, headline | Merged from `_raw_comments_*.json` by `merge-comments.mjs`; reviewed before publishing. |
@@ -365,6 +366,19 @@ Oracle's evening run (21:45 UTC) often finds no new close because Nasdaq's histo
 Since round 4 (2026-10-04) a fallback source (Yahoo for the S&P 500, the Treasury's yearly CSV for the 10-year) is merged into the stored CSV, adding only the dates it brings: a one-day FRED outage can no longer truncate the committed history (FRED answers the runner; it does not answer the sandbox).
 
 The 10-year series (2026-10-05, owner's choice): the U.S. Treasury daily par yield curve CSV is the primary source and FRED `DGS10` (the same series, republished by the St. Louis Fed one day later) the fallback. The Treasury CSV holds one calendar year, so the fetcher always merges it into the stored `treasury_10y.csv` (history from 1962 via FRED). `market_reference.json → treasury_10y` records `source_name`, `source_url`, `series` and `as_of_date`; `build-data.mjs` copies them into `ORCL_MARKET.rates.US10Y` (`source`, `sourceUrl`, `asOf`, `value`) and the page, the deck and the validator print the value, source and date beside the figure (DCF inputs, DCF sources line, cost-of-debt row, refresh table, source grid, deck sources). Never hard-code "FRED DGS10" again.
+
+## ORCL price source: FactSet (2026-10-06)
+
+The owner wants every price on the page as of the last close and sourced from FactSet. `build-data.mjs` merges the two daily
+ORCL files: `prices_orcl_factset.csv` (FactSet Global Prices, USD, split-adjusted, OHLC and volume from 2015-01-02, merged by
+the nightly routine at 7:58 PM New York time) wins for every date it carries; the runner's `prices_orcl_daily.csv` fills only
+the history before 2015 (none today) and a close the 21:45 UTC run has posted before the routine (the two agree to the cent: on
+2026-10-06 the 1,254 overlapping closes matched exactly). `market.js → prices.ORCL` carries `source`, `sourceShort`, `sourceUrl`
+and `provenance` (which file supplied the latest point, FactSet's range, the dates the runner filled); the page's source lines
+and the methodology table print them (`pxUrl()`/`pxName()` in `app.js`). The 52-week range uses the merged intraday highs and
+lows. The validator requires the FactSet file (ascending, intraday range consistent) and that its last row equals
+`factset.json → oracle.price` on `price_date`; the freshness table lists both feeds. The S&P 500 stays on FRED/Yahoo: the FactSet
+connector rejects index identifiers. A FactSet row never changes the runner's file.
 
 ## Timestamps (round 4)
 
