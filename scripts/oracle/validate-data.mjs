@@ -185,6 +185,10 @@ if (fsj) {
   check("factset: NTM history is dated and ascending", Array.isArray(o.ntm_history) && o.ntm_history.length > 4 && o.ntm_history.every((h, i, a) => /^\d{4}-\d{2}-\d{2}$/.test(h.date) && (i === 0 || a[i - 1].date < h.date)));
   check("factset: rating counts add up to the total", !r || r.buy + r.overweight + r.hold + r.underweight + r.sell === r.total);
   check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
+  // trailing averages of the forward multiples (owner's request 2026-10-06): every peer and Oracle carry y1/y3/y5 for both ratios, positive, dated
+  const hm = [fsj.oracle?.hist_multiples, ...(fsj.peers || []).map((p) => p.hist_multiples)];
+  check("factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer", hm.length > 1 && hm.every((h) => h && /^\d{4}-\d{2}-\d{2}$/.test(h.as_of) && ["pe_ntm", "ev_ebitda_ntm"].every((k) => h[k] && ["y1", "y3", "y5"].every((w) => h[k][w] > 0) && h[k].n1 >= 10 && h[k].n3 >= 30 && h[k].n5 >= 50)));
+  check("factset: historical multiple averages are dated and the note states the method", /^\d{4}-\d{2}-\d{2}$/.test(fsj.hist_multiples_as_of || "") && /month-end/.test(fsj.hist_multiples_note || ""));
 }
 
 // ---------- xbrl_facts.json: machine check of the figures transcribed from the leases and commitments notes ----------

@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-06T09:46:37.671Z",
+  "generated": "2026-10-06T10:23:04.098Z",
   "summary": {
-    "checks": 455,
+    "checks": 457,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -2828,6 +2828,22 @@
       "note": null
     },
     {
+      "tag": "factset",
+      "check": "historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "historical multiple averages are dated and the note states the method",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
       "tag": "obligations/XBRL",
       "check": "balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
       "status": "ok",
@@ -5170,6 +5186,8 @@
     "factset: NTM history is dated and ascending",
     "factset: rating counts add up to the total",
     "factset: at least six peers with price, market cap and NTM EPS",
+    "factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer",
+    "factset: historical multiple averages are dated and the note states the method",
     "obligations/XBRL: balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
     "obligations/XBRL: balance_sheet.notes_payable_noncurrent = LongTermNotesPayable | LongTermNotesAndLoans (2026-08-31)",
     "obligations/XBRL: balance_sheet.notes_payable_total = notes_payable_current + notes_payable_noncurrent (2026-08-31)",

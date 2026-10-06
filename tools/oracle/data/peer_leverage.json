@@ -1,5 +1,5 @@
 {
-  "_comment": "Lease-adjusted leverage inputs for Baa-range technology issuers from SEC XBRL company facts (scripts/oracle/fetch-peer-leverage.mjs). Stocks at each company's latest balance-sheet date; flows for its latest fiscal year; a tag is accepted only when its period matches that date. Ratios (net debt / EBITDA; lease-adjusted net debt / EBITDAR) are computed on the page and labelled derived. EBIT basis is operating income, or pre-tax income + interest expense where the company does not report operating income. Ratings are not in XBRL.",
+  "_comment": "Lease-adjusted leverage inputs for Baa-range technology issuers from SEC XBRL company facts (scripts/oracle/fetch-peer-leverage.mjs). Stocks at each company's latest balance-sheet date; flows for its latest fiscal year; a tag is accepted only when its period matches that date. Ratios (net debt / EBITDA; lease-adjusted net debt / EBITDAR) are computed on the page and labeled derived. EBIT basis is operating income, or pre-tax income + interest expense where the company does not report operating income. Ratings are not in XBRL.",
   "fetched": "2026-10-06",
   "peers": [
     {

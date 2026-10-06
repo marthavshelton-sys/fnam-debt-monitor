@@ -197,7 +197,7 @@
    "power_es": "No divulgado por Oracle ni en el comunicado de Crusoe",
    "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
    "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
-   "first_revenue_en": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, 30 Sep 2025)",
+   "first_revenue_en": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, Sep 30, 2025)",
    "first_revenue_es": "Genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe, 30 sep 2025)",
    "status_date": "2026-09-10",
    "issues": [
@@ -209,7 +209,7 @@
      "en": "Worker-injury lawsuits against site contractors (Kiewit and MMR Group; DPR Construction in April 2026) and 14 emergency calls from the site since December 2024 (Taylor County Sheriff records). The claims are against the contractors, not Oracle.",
      "es": "Demandas por lesiones de trabajadores contra contratistas del sitio (Kiewit y MMR Group; DPR Construction en abril de 2026) y 14 llamadas de emergencia desde el sitio desde diciembre de 2024 (registros del Sheriff del condado de Taylor). Las demandas son contra los contratistas, no contra Oracle.",
      "source": {
-      "title": "TIME, 25 Jun 2026: Inside the worker safety concerns at Stargate data center",
+      "title": "TIME, Jun 25, 2026: Inside the worker safety concerns at Stargate data center",
       "url": "https://time.com/article/2026/06/24/ai-data-center-stargate-abilene-texas-injuries/"
      }
     },
@@ -221,7 +221,7 @@
      "en": "OpenAI chose not to expand the campus beyond the contracted ~1.2 GW (OpenAI's Sachin Katti: it 'chose to put that additional capacity in other locations'); Microsoft is taking the adjacent 900 MW expansion with Crusoe. No change to the contracted capacity.",
      "es": "OpenAI decidió no ampliar el campus más allá de los ~1.2 GW contratados (Sachin Katti, de OpenAI: 'decidió poner esa capacidad adicional en otras ubicaciones'); Microsoft toma la ampliación contigua de 900 MW con Crusoe. Sin cambio en la capacidad contratada.",
      "source": {
-      "title": "AP via WSLS, 27 Mar 2026: Microsoft takes over a Texas AI data center expansion after OpenAI backs away",
+      "title": "AP via WSLS, Mar 27, 2026: Microsoft takes over a Texas AI data center expansion after OpenAI backs away",
       "url": "https://www.wsls.com/business/2026/03/27/microsoft-takes-over-a-texas-ai-data-center-expansion-after-openai-backs-away/"
      }
     }
@@ -245,7 +245,7 @@
      "mw": null,
      "basis": "company",
      "src": "Crusoe PR",
-     "en": "first NVIDIA GB200 racks delivered June 2025; the campus is live and generating revenue since 2025 (Crusoe, 30 Sep 2025); MW of that first delivery not disclosed",
+     "en": "first NVIDIA GB200 racks delivered June 2025; the campus is live and generating revenue since 2025 (Crusoe, Sep 30, 2025); MW of that first delivery not disclosed",
      "es": "primeros racks NVIDIA GB200 entregados en junio de 2025; el campus opera y genera ingresos desde 2025 (Crusoe, 30 sep 2025); MW de esa primera entrega no divulgados"
     },
     {
@@ -292,7 +292,7 @@
      "short": "1Q27 call p.6 and Q&A"
     },
     {
-     "title": "DigitalBridge / Business Wire: Vantage launches US$25 bn Texas Frontier mega campus (18 Aug 2025)",
+     "title": "DigitalBridge / Business Wire: Vantage launches US$25 bn Texas Frontier mega campus (Aug 18, 2025)",
      "url": "https://secure.businesswire.com/news/home/20250818389101/en/DigitalBridge-Backed-Portfolio-Company-Vantage-Data-Centers-Launches-%2425-Billion-Texas-Frontier-Mega-Campus",
      "short": "Vantage/DigitalBridge PR 18 Aug 2025"
     },
@@ -367,7 +367,7 @@
    "capacity_mw": 1000,
    "capacity_text": "About 1 GW per Oracle ('around 1 gigawatt a piece'); four buildings on ~1,400 acres, powered by up to 2.45 GW of Bloom Energy fuel cells in a single microgrid (Oracle press release)",
    "customer": "Not disclosed by Oracle",
-   "developer": "BorderPlex Digital Assets with Stack Infrastructure (a Blue Owl Capital unit); financed with US$18 bn of loans (FT, 18 Sep 2026) under a US$165 bn industrial revenue bond authorisation",
+   "developer": "BorderPlex Digital Assets with Stack Infrastructure (a Blue Owl Capital unit); financed with US$18 bn of loans (FT, Sep 18, 2026) under a US$165 bn industrial revenue bond authorization",
    "financing": "Not disclosed by Oracle; press reports describe a project loan facility. Oracle reports nearly US$1 bn of contracts with New Mexico suppliers and ~US$100 m of gross-receipts taxes paid (Jul 2026)",
    "oracle_status": "Contracted September 2025; power design switched from gas turbines to Bloom fuel cells (Apr 2026); construction 26% complete (Jul 2026); Oracle: 'some sites are ahead of schedule, some are more difficult' — no impact on FY2027 guidance (1Q27 Q&A)",
    "contracted": "September 2025",
@@ -384,12 +384,12 @@
      "short": "1Q27 call Q&A p.9-10"
     },
     {
-     "title": "Oracle press release: Project Jupiter powered by Bloom Energy fuel cells (27 Apr 2026)",
+     "title": "Oracle press release: Project Jupiter powered by Bloom Energy fuel cells (Apr 27, 2026)",
      "url": "https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/",
      "short": "Oracle PR 27 Apr 2026"
     },
     {
-     "title": "Oracle press release: Project Jupiter economic impact (28 Jul 2026)",
+     "title": "Oracle press release: Project Jupiter economic impact (Jul 28, 2026)",
      "url": "https://www.oracle.com/news/announcement/project-jupiter-2026-07-28/",
      "short": "Oracle PR 28 Jul 2026"
     },
@@ -399,32 +399,32 @@
      "short": "DCD"
     },
     {
-     "title": "Bloomberg, 24 Sep 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
+     "title": "Bloomberg, Sep 24, 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
      "short": "Bloomberg 24 Sep 2026",
      "url": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
     },
     {
-     "title": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
+     "title": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
      "short": "TechCrunch 24 Sep 2026",
      "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
     },
     {
-     "title": "Albuquerque Journal, 24 Sep 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track",
+     "title": "Albuquerque Journal, Sep 24, 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track",
      "short": "ABQ Journal 24 Sep 2026",
      "url": "https://www.abqjournal.com/business/oracle-invokes-force-majeure-on-project-jupiter-but-says-data-center-still-on-track/3127907"
     },
     {
-     "title": "Albuquerque Journal, 23 Sep 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)",
+     "title": "Albuquerque Journal, Sep 23, 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)",
      "short": "ABQ Journal 23 Sep 2025",
      "url": "https://www.abqjournal.com/business/doa-ana-countys-project-jupiter-joins-500-billion-stargate-initiative-led-by-openai-oracle/493927"
     },
     {
-     "title": "Financial Times via Reuters, 18 Sep 2026: Oracle’s $18 billion data center debt under pressure",
+     "title": "Financial Times via Reuters, Sep 18, 2026: Oracle’s $18 billion data center debt under pressure",
      "short": "FT 18 Sep 2026",
      "url": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
     },
     {
-     "title": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods",
+     "title": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods",
      "url": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/",
      "short": "Oracle PR 30 Sep 2026"
     }
@@ -446,13 +446,13 @@
    "generation_mw": 2450,
    "energized_mw": 0,
    "energized_as_of": "FY2027Q1",
-   "energized_text_en": "Under construction; nothing energized yet. Oracle, 1Q27 Q&A: \"some sites are ahead of schedule, some are more difficult\"; construction 26% complete in July 2026; 3,600+ workers on site (Albuquerque Journal, 24 Sep 2026)",
+   "energized_text_en": "Under construction; nothing energized yet. Oracle, 1Q27 Q&A: \"some sites are ahead of schedule, some are more difficult\"; construction 26% complete in July 2026; 3,600+ workers on site (Albuquerque Journal, Sep 24, 2026)",
    "energized_text_es": "En construcción; nada energizado aún. Oracle, Q&A 1T27: \"algunos sitios van adelantados, otros son más difíciles\"; obra 26% completa en julio de 2026; más de 3,600 trabajadores en sitio (Albuquerque Journal, 24 sep 2026)",
-   "power_en": "Bloom Energy gas-fed fuel cells, up to 2.45 GW in a single microgrid (Oracle release, 27 Apr 2026; design changed from gas turbines). Gas supply: Energy Transfer pipeline delayed to Feb 1, 2027 after repeated permit denials and an August reroute; air-quality permit for the fuel cells pending, decision due Nov 23, 2026 (TechCrunch, 24 Sep 2026)",
+   "power_en": "Bloom Energy gas-fed fuel cells, up to 2.45 GW in a single microgrid (Oracle release, Apr 27, 2026; design changed from gas turbines). Gas supply: Energy Transfer pipeline delayed to Feb 1, 2027 after repeated permit denials and an August reroute; air-quality permit for the fuel cells pending, decision due Nov 23, 2026 (TechCrunch, Sep 24, 2026)",
    "power_es": "Celdas de combustible a gas de Bloom Energy, hasta 2.45 GW en una sola microrred (comunicado de Oracle, 27 abr 2026; diseño cambiado desde turbinas de gas). Suministro de gas: gasoducto de Energy Transfer pospuesto al 1 feb 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto; permiso de calidad del aire de las celdas pendiente, decisión el 23 nov 2026 (TechCrunch, 24 sep 2026)",
-   "tenant_en": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, 23 Sep 2025); Oracle has not named the customer",
+   "tenant_en": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, Sep 23, 2025); Oracle has not named the customer",
    "tenant_es": "Oracle Cloud Infrastructure, arrendamiento a 18 años, con OpenAI como cliente principal (Albuquerque Journal, 23 sep 2025); Oracle no ha nombrado al cliente",
-   "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, 24 Sep 2026)",
+   "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, Sep 24, 2026)",
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26); objetivo de operación plena en 2028 (Bloomberg, 24 sep 2026)",
    "status_date": "2026-09-24",
    "issues": [
@@ -464,7 +464,7 @@
      "en": "Floods in southern New Mexico reached the campus. Oracle's statement: 'No critical infrastructure was damaged, and we are working with our partners and insurers to address any impacts at the site. Project Jupiter remains on our planned schedule.' (company statement, not audited).",
      "es": "Las inundaciones del sur de Nuevo México llegaron al campus. Declaración de Oracle: 'ninguna infraestructura crítica resultó dañada y trabajamos con nuestros socios y aseguradoras para atender cualquier impacto en el sitio. Project Jupiter sigue en el calendario previsto' (declaración de la empresa, no auditada).",
      "source": {
-      "title": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods",
+      "title": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods",
       "url": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
      }
     },
@@ -476,7 +476,7 @@
      "en": "Force majeure notice from Oracle to the developer (Stack Infrastructure, a Blue Owl unit): it would let Oracle delay payments if the campus misses its 2028 online date. Oracle: the project 'remains on our planned schedule' (company statement, not audited).",
      "es": "Aviso de fuerza mayor de Oracle al desarrollador (Stack Infrastructure, unidad de Blue Owl): le permitiría diferir pagos si el campus no entra en operación en 2028. Oracle: el proyecto 'sigue en el calendario previsto' (declaración de la empresa, no auditada).",
      "source": {
-      "title": "Bloomberg, 24 Sep 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
+      "title": "Bloomberg, Sep 24, 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
       "url": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
      }
     },
@@ -489,7 +489,7 @@
      "en": "Gas supply: the Energy Transfer pipeline to the site is delayed to February 1, 2027 after repeated permit denials and an August reroute.",
      "es": "Suministro de gas: el gasoducto de Energy Transfer al sitio se pospuso al 1 de febrero de 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto.",
      "source": {
-      "title": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
+      "title": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
       "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
      }
     },
@@ -502,7 +502,7 @@
      "en": "Air-quality permit for the on-site fuel cells is pending; the decision is due November 23, 2026.",
      "es": "El permiso de calidad del aire de las celdas de combustible en sitio está pendiente; la decisión se espera el 23 de noviembre de 2026.",
      "source": {
-      "title": "TechCrunch, 24 Sep 2026",
+      "title": "TechCrunch, Sep 24, 2026",
       "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
      }
     },
@@ -514,7 +514,7 @@
      "en": "About US$18 bn of project loans were quoted at 89–91 cents on the dollar by syndicate banks; selling the debt to a wider pool of investors stalled. The loans are the developer's, not Oracle's.",
      "es": "Unos US$18 mil millones de préstamos del proyecto cotizaban a 89–91 centavos por dólar entre los bancos del sindicato; la venta de esa deuda a más inversionistas se estancó. Los préstamos son del desarrollador, no de Oracle.",
      "source": {
-      "title": "Financial Times via Reuters, 18 Sep 2026: Oracle's $18 billion data center debt under pressure",
+      "title": "Financial Times via Reuters, Sep 18, 2026: Oracle's $18 billion data center debt under pressure",
       "url": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
      }
     }
@@ -538,7 +538,7 @@
      "mw": 0,
      "basis": "company",
      "src": "1Q27 call Q&A p.9-10",
-     "en": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR 28 Jul 2026)",
+     "en": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR Jul 28, 2026)",
      "es": "nada energizado todavía; construcción 26% completa en julio de 2026 (comunicado de Oracle, 28 jul 2026)"
     },
     {
@@ -547,7 +547,7 @@
      "mw": null,
      "basis": "company",
      "src": "4Q26 call p.7",
-     "en": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, 24 Sep 2026)",
+     "en": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, Sep 24, 2026)",
      "es": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); objetivo de campus completo en 2028 (Bloomberg, 24 sep 2026)"
     }
    ]
@@ -570,17 +570,17 @@
      "short": "4Q26 call p.7"
     },
     {
-     "title": "Oracle press release: construction of the Stargate campus in Saline Township (1 Jun 2026)",
+     "title": "Oracle press release: construction of the Stargate campus in Saline Township (Jun 1, 2026)",
      "url": "https://www.oracle.com/news/announcement/related-digital-oracle-openai-walbridge-and-governor-whitmer-celebrate-construction-of-stargate-campus-in-saline-township-2026-06-01/",
      "short": "Oracle PR 1 Jun 2026"
     },
     {
-     "title": "Related Digital: OpenAI, Oracle and Related Digital announce Stargate site in Michigan (30 Oct 2025)",
+     "title": "Related Digital: OpenAI, Oracle and Related Digital announce Stargate site in Michigan (Oct 30, 2025)",
      "url": "https://www.related.com/press-releases/2025-10-30/openai-oracle-and-related-digital-announce-stargate-data-center-site",
      "short": "Related PR 30 Oct 2025"
     },
     {
-     "title": "CNBC: Stargate updates — OpenAI, Oracle building Michigan data center (1 Jun 2026)",
+     "title": "CNBC: Stargate updates — OpenAI, Oracle building Michigan data center (Jun 1, 2026)",
      "url": "https://www.cnbc.com/2026/06/01/stargate-project-michigan-live-updates.html",
      "short": "CNBC 1 Jun 2026"
     }
@@ -617,7 +617,7 @@
      "en": "Michigan's Attorney General filed her brief in the Michigan Court of Appeals against the Public Service Commission's December 2025 conditional approval of DTE's two special contracts to supply 1.4 GW to the campus, seeking a contested case; Earthjustice, Sierra Club, the Michigan Environmental Council and NRDC filed a parallel brief.",
      "es": "La Fiscal General de Michigan presentó su escrito ante la Corte de Apelaciones de Michigan contra la aprobación condicional de diciembre de 2025 de la Comisión de Servicios Públicos a los dos contratos especiales de DTE para suministrar 1.4 GW al campus, y pide un caso contencioso; Earthjustice, Sierra Club, el Michigan Environmental Council y NRDC presentaron un escrito paralelo.",
      "source": {
-      "title": "Michigan Department of Attorney General, 7 Aug 2026: AG Nessel briefs appeal over MPSC approval of DTE's Saline data center contracts",
+      "title": "Michigan Department of Attorney General, Aug 7, 2026: AG Nessel briefs appeal over MPSC approval of DTE's Saline data center contracts",
       "url": "https://www.michigan.gov/ag/news/press-releases/2026/08/07/ag-nessel-briefs-appeal-over-mpsc-approval-of-dte-saline-data-center-contracts"
      }
     },
@@ -629,7 +629,7 @@
      "en": "The township board voted 4–1 against the rezoning; Related Digital sued for exclusionary zoning on September 12, 2025 and the township settled weeks later, which let construction start.",
      "es": "La junta del municipio votó 4–1 contra la rezonificación; Related Digital demandó por zonificación excluyente el 12 de septiembre de 2025 y el municipio llegó a un acuerdo semanas después, lo que permitió iniciar la obra.",
      "source": {
-      "title": "Fortune, 6 May 2026: A Michigan farm town voted down plans for a giant OpenAI-Oracle data center. Weeks later, construction began",
+      "title": "Fortune, May 6, 2026: A Michigan farm town voted down plans for a giant OpenAI-Oracle data center. Weeks later, construction began",
       "url": "https://fortune.com/2026/05/06/ai-data-center-michigan-saline-politics-farmland/"
      }
     }
@@ -690,7 +690,7 @@
      "short": "1Q27 call Q&A p.9-10"
     },
     {
-     "title": "Business Wire: OpenAI, Oracle and Vantage announce Stargate site in Wisconsin (22 Oct 2025)",
+     "title": "Business Wire: OpenAI, Oracle and Vantage announce Stargate site in Wisconsin (Oct 22, 2025)",
      "url": "https://www.businesswire.com/news/home/20251022873578/en/OpenAI-Oracle-and-Vantage-Data-Centers-Announce-Stargate-Data-Center-Site-in-Wisconsin",
      "short": "Business Wire 22 Oct 2025"
     },
@@ -700,12 +700,12 @@
      "short": "Construction Dive"
     },
     {
-     "title": "Oracle press release, 2 Oct 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)",
+     "title": "Oracle press release, Oct 2, 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)",
      "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
      "short": "Oracle PR 2 Oct 2026"
     },
     {
-     "title": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)",
+     "title": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)",
      "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832",
      "short": "The Register 2 Oct 2026"
     }
@@ -742,7 +742,7 @@
      "en": "Aterio sees a material risk the campus misses Oracle's 2H 2027 target: the ATC interconnection awaits PSC approval (first application returned in August); base case partial power Dec 2027, full supply Oct 2028. The Register adds Oracle could face more than US$100 million a year to guarantee the power commitments (Oracle's own figure, June 2026 court filing).",
      "es": "Aterio ve un riesgo material de que el campus no cumpla el 2S 2027 fijado por Oracle: la interconexión de ATC espera la aprobación de la PSC (primera solicitud devuelta en agosto); caso base energía parcial dic 2027, suministro completo oct 2028. The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía (cifra de la propia Oracle, escrito judicial de junio de 2026).",
      "source": {
-      "title": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter",
+      "title": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter",
       "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832"
      }
     },
@@ -754,7 +754,7 @@
      "en": "Oracle commits to subscribe to a portion of the Point Beach nuclear plant's output, which it expects to save Wisconsin utility customers about US$300 million in fuel costs, and says it will fully fund the campus's energy costs; subject to approval by the Public Service Commission of Wisconsin (company statement, not audited).",
      "es": "Oracle se compromete a suscribir una parte de la generación de la planta nuclear Point Beach, lo que espera ahorre unos US$300 millones en costos de combustible a los usuarios de Wisconsin, y dice que financiará por completo los costos de energía del campus; sujeto a la aprobación de la Comisión de Servicios Públicos de Wisconsin (declaración de la empresa, no auditada).",
      "source": {
-      "title": "Oracle press release, 2 Oct 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
+      "title": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
       "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
      }
     },
@@ -766,7 +766,7 @@
      "en": "Oracle dropped its court challenge (filed June 2026) to the Wisconsin PSC's April 2026 rule that data-center customers rated below A-/A3 post cash or letters of credit for new power infrastructure; Oracle had said the requirement could exceed US$100 million a year for this campus. The rule stands.",
      "es": "Oracle desistió de su impugnación judicial (presentada en junio de 2026) contra la regla de abril de 2026 de la PSC de Wisconsin que obliga a los clientes de centros de datos con calificación inferior a A-/A3 a depositar efectivo o cartas de crédito por la nueva infraestructura eléctrica; Oracle había dicho que el requisito podría superar US$100 millones al año para este campus. La regla sigue vigente.",
      "source": {
-      "title": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers",
+      "title": "WPR, Aug 17, 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers",
       "url": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
      }
     },
@@ -778,7 +778,7 @@
      "en": "The Sierra Club sued the Wisconsin Department of Natural Resources to overturn the construction permit, issued without an environmental impact statement.",
      "es": "Sierra Club demandó al Departamento de Recursos Naturales de Wisconsin para anular el permiso de construcción, emitido sin una declaración de impacto ambiental.",
      "source": {
-      "title": "E&E News, 13 Jul 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review",
+      "title": "E&E News, Jul 13, 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review",
       "url": "https://www.eenews.net/articles/lawsuit-15b-wisconsin-data-center-lacks-required-environmental-review/"
      }
     }
@@ -793,7 +793,7 @@
      "mw": 1000,
      "basis": "company",
      "src": "Business Wire 22 Oct 2025",
-     "en": "contracted September 2025, announced 22 Oct 2025; close to a gigawatt across four data centers (Vantage)",
+     "en": "contracted September 2025, announced Oct 22, 2025; close to a gigawatt across four data centers (Vantage)",
      "es": "contratado en septiembre de 2025, anunciado el 22 oct 2025; cerca de un gigavatio en cuatro centros de datos (Vantage)"
     },
     {
@@ -845,7 +845,7 @@
    }
   ],
   "source": "S-CALL-FY2027Q1",
-  "note_en": "Share of RPO Oracle expects to recognise in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total.",
+  "note_en": "Share of RPO Oracle expects to recognize in each window, as stated on the 1Q27 call; amounts are the percentages applied to the US$664 bn total.",
   "note_es": "Porción del RPO que Oracle espera reconocer en cada ventana, según la llamada del 1T27; los montos son los porcentajes aplicados al total de US$664 mil M."
  },
  "funding": {
@@ -953,7 +953,7 @@
   "mw_series": "mw_series: dated megawatt points per campus (kind contracted | energized | expected; mw null when the point is a date, not a figure; derived = computed from a ratio management gave). `src` names the `short` of one of the site's own sources, so each point links to a source already on the record. Drawn in the Capacity section's timeline panel."
  },
  "rpo_recognition": {
-  "note_en": "Share of remaining performance obligations Oracle expects to recognise as revenue over the next twelve months, months 13–36 and months 37–60, as stated in each 10-Q and 10-K. The implied 12-month revenue is RPO × the 12-month share (derived).",
+  "note_en": "Share of remaining performance obligations Oracle expects to recognize as revenue over the next twelve months, months 13–36 and months 37–60, as stated in each 10-Q and 10-K. The implied 12-month revenue is RPO × the 12-month share (derived).",
   "note_es": "Porción del RPO que Oracle espera reconocer como ingreso en los próximos doce meses, en los meses 13–36 y en los meses 37–60, según cada 10-Q y 10-K. El ingreso implícito a 12 meses es RPO × la porción a 12 meses (derivado).",
   "series": [
    {
@@ -1120,7 +1120,7 @@
      "sku": "B95907"
     }
    ],
-   "note_en": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realised GPU-hour prices.",
+   "note_en": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realized GPU-hour prices.",
    "note_es": "Precios de lista públicos; los grandes contratos de IA se negocian y Oracle no divulga precios realizados por GPU-hora."
   },
   "gpu_life": {
@@ -1146,10 +1146,10 @@
   "concentration": {
    "oracle_text_en": "No single customer accounted for 10% or more of total revenues in fiscal 2026, 2025 or 2024 (FY2026 10-K). Oracle does not disclose customer concentration within RPO.",
    "oracle_text_es": "Ningún cliente representó 10% o más de los ingresos totales en los AF2026, 2025 o 2024 (10-K AF2026). Oracle no divulga la concentración de clientes dentro del RPO.",
-   "third_party_text_en": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, 9 Jul 2026).",
+   "third_party_text_en": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, Jul 9, 2026).",
    "third_party_text_es": "S&P Global Ratings estima que cerca de la mitad de los US$638 mil millones de RPO al 31 de mayo de 2026 corresponde a OpenAI (acción de calificación, 9 jul 2026).",
    "source": {
-    "title": "S&P Global Ratings, Oracle Corp. downgraded to BBB-/A-3, 9 July 2026",
+    "title": "S&P Global Ratings, Oracle Corp. downgraded to BBB-/A-3, July 9, 2026",
     "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609"
    },
    "named_customers": {
@@ -1165,7 +1165,7 @@
     "text_es": "Oracle levanta capital para construir capacidad adicional que atienda la demanda contratada de sus mayores clientes de Oracle Cloud Infrastructure, entre ellos AMD, Meta, NVIDIA, OpenAI, TikTok y xAI (cita del prospecto en inglés).",
     "basis": "sec",
     "source": {
-     "title": "Oracle free writing prospectus (Form FWP), filed 1 Feb 2026: equity and debt financing plan for calendar 2026",
+     "title": "Oracle free writing prospectus (Form FWP), filed Feb 1, 2026: equity and debt financing plan for calendar 2026",
      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526032650/d36096dfwp.htm",
      "accession": "0001193125-26-032650",
      "date": "2026-02-01"
@@ -1182,7 +1182,7 @@
      "basis": "press",
      "date": "2025-09-10",
      "source": {
-      "title": "Wall Street Journal, 10 Sep 2025 (as reported by Reuters / U.S. News): OpenAI, Oracle sign $300 billion computing deal",
+      "title": "Wall Street Journal, Sep 10, 2025 (as reported by Reuters / U.S. News): OpenAI, Oracle sign $300 billion computing deal",
       "url": "https://money.usnews.com/investing/news/articles/2025-09-10/openai-oracle-sign-300-billion-computing-deal-wsj-reports"
      }
     },
@@ -1194,7 +1194,7 @@
      "basis": "press",
      "date": "2025-10-16",
      "source": {
-      "title": "CNBC, 16 Oct 2025: Oracle stock rises as company confirms Meta cloud deal",
+      "title": "CNBC, Oct 16, 2025: Oracle stock rises as company confirms Meta cloud deal",
       "url": "https://www.cnbc.com/2025/10/16/oracle-confirms-meta-cloud-deal-.html"
      }
     }
@@ -1204,21 +1204,21 @@
     "label_es": "Estimación FNAM a partir de reportes de prensa; no es una cifra de Oracle",
     "openai": {
      "arr_usd_bn": 40,
-     "arr_text_en": "annualized revenue past US$40 bn (Quartz, 29 Sep 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn",
+     "arr_text_en": "annualized revenue past US$40 bn (Quartz, Sep 29, 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn",
      "arr_text_es": "ingresos anualizados por encima de US$40 mil millones (Quartz, 29 sep 2026, citando a Bloomberg); otros medios citan un ritmo cercano a US$70 mil millones",
      "raised_usd_bn": 122,
      "raised_text_en": "US$122 bn round closed March 2026 at a US$852 bn post-money valuation",
      "raised_text_es": "ronda de US$122 mil millones cerrada en marzo de 2026 a una valuación post-money de US$852 mil millones",
      "seeking_usd_bn": 30,
-     "seeking_text_en": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, 29 Sep 2026; early talks, terms could change)",
+     "seeking_text_en": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, Sep 29, 2026; early talks, terms could change)",
      "seeking_text_es": "busca al menos US$30 mil millones a unos US$1.4 billones (Bloomberg, 29 sep 2026; negociaciones preliminares, términos sujetos a cambio)",
      "sources": [
       {
-       "title": "Quartz, 29 Sep 2026 (citing Bloomberg): OpenAI targets $30 billion funding round at $1.4 trillion valuation",
+       "title": "Quartz, Sep 29, 2026 (citing Bloomberg): OpenAI targets $30 billion funding round at $1.4 trillion valuation",
        "url": "https://qz.com/openai-funding-round-30-billion-valuation-092926"
       },
       {
-       "title": "Reuters via Investing.com, 29 Sep 2026: OpenAI targets $30 billion funding at $1.4 trillion valuation, Bloomberg News reports",
+       "title": "Reuters via Investing.com, Sep 29, 2026: OpenAI targets $30 billion funding at $1.4 trillion valuation, Bloomberg News reports",
        "url": "https://www.investing.com/news/stock-market-news/openai-targets-30-billion-funding-at-14-trillion-valuation-bloomberg-news-reports-4923324"
       }
      ]

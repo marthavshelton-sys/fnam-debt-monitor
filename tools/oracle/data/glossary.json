@@ -172,7 +172,7 @@
     "prepayment_unwind": {
       "term_en": "Prepayment unwind",
       "term_es": "Reversión de prepagos",
-      "en": "Cash a customer pays in advance is booked as deferred revenue and recognised as revenue over the contract term without new cash; in the DCF the cash counts when received and the later revenue is removed so it is not counted twice.",
+      "en": "Cash a customer pays in advance is booked as deferred revenue and recognized as revenue over the contract term without new cash; in the DCF the cash counts when received and the later revenue is removed so it is not counted twice.",
       "es": "El efectivo que un cliente paga por adelantado se registra como ingreso diferido y se reconoce como ingreso a lo largo del contrato sin nuevo efectivo; en el DCF el efectivo cuenta al recibirse y el ingreso posterior se descuenta para no contarlo dos veces.",
       "match_en": "\\b[Pp]repayment unwind\\b|\\b[Uu]nwind(?:s|ing)?\\b",
       "match_es": "\\b[Rr]eversión de (?:los )?prepagos\\b"
