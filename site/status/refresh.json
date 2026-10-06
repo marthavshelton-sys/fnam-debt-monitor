@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-06T15:39:07Z",
+  "checkedAt": "2026-10-06T16:00:00Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time), no alert of the pipeline is open and every price feed of the page carries the exchange's last completed session (stale otherwise); checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -32,7 +32,7 @@
         "at": "2026-10-06T14:21:50Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-05T14:05:00Z",
+      "requiredSince": "2026-10-05T20:05:00Z",
       "alerts": 0
     },
     {
