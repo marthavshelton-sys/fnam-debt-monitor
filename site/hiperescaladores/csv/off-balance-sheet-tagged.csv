@@ -1,342 +1,342 @@
 ticker,company,fiscal_quarter,period_end,calendar_quarter,metric,value_usd,basis,method,xbrl_tag,accessions,tier,needs_review,refreshed_et
-MSFT,Microsoft,FY2022Q4,2022-06-30,2022-Q2,revenue,51865000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-087843 0000950170-23-014423,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2022Q4,2022-06-30,2022-Q2,rpo,193000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-026876,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q1,2022-09-30,2022-Q3,revenue,50122000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-054855,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q1,2022-09-30,2022-Q3,rpo,183000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-035087,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q2,2022-12-31,2022-Q4,revenue,52747000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-008814,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q2,2022-12-31,2022-Q4,rpo,193000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-23-000733,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q3,2023-03-31,2023-Q1,revenue,52857000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-048288,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q3,2023-03-31,2023-Q1,rpo,201000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-014423,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q4,2023-06-30,2023-Q2,revenue,56189000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-100235 0000950170-24-048288,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2023Q4,2023-06-30,2023-Q2,rpo,229000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-035122,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q1,2023-09-30,2023-Q3,revenue,56517000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-118967,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q1,2023-09-30,2023-Q3,rpo,216000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-054855,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q2,2023-12-31,2023-Q4,revenue,62020000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-010491,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q2,2023-12-31,2023-Q4,rpo,229000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-008814,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q3,2024-03-31,2024-Q1,revenue,61858000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-061046,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q3,2024-03-31,2024-Q1,rpo,242000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-048288,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,revenue,64727000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0000950170-25-061046,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,rpo,275000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-087843,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,equity_method,6000000000,instant,reported,EquityMethodInvestments,0000950170-25-100235,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,revenue,65585000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-256321,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,rpo,266000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-118967,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-24-118967,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,revenue,69632000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-027207,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,rpo,304000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-010491,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-25-010491,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,revenue,70066000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,rpo,321000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-061046,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-25-061046,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,revenue,76441000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,rpo,375000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-100235,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,equity_method,6000000000,instant,reported,EquityMethodInvestments,0001193125-26-323660,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,revenue,77673000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-256321,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,rpo,398000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-256321,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,equity_method,1800000000,instant,reported,EquityMethodInvestments,0001193125-25-256321,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,revenue,81273000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-027207,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,rpo,631000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-027207,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,equity_method,11500000000,instant,reported,EquityMethodInvestments,0001193125-26-027207,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,revenue,82886000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,rpo,633000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,equity_method,11100000000,instant,reported,EquityMethodInvestments,0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,revenue,90007000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0001193125-26-191507,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,rpo,684000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-323660,T1 (XBRL),no,2026-10-06 09:34 ET
-MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,equity_method,12000000000,instant,reported,EquityMethodInvestments,0001193125-26-323660,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,revenue,69685000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,rpo,51200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-22-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,vie_max_loss,2400000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-22-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,equity_method,1400000000,instant,reported,EquityMethodInvestments,0001652044-22-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,nci_vie,4100000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-22-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,revenue,69092000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,rpo,52400000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-22-000090,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,vie_max_loss,2600000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-22-000090,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,equity_method,1300000000,instant,reported,EquityMethodInvestments,0001652044-22-000090,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,nci_vie,3900000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-22-000090,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,revenue,76048000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,rpo,64300000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000016,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,purchase_oblig,12300000000,instant,reported,PurchaseObligation,0001652044-23-000016,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,vie_max_loss,2800000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000022,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-24-000022,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,nci_vie,3800000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000022,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,revenue,69787000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,rpo,61700000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000045,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,purchase_oblig,11900000000,instant,reported,PurchaseObligation,0001652044-23-000045,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,vie_max_loss,2700000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000045,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,equity_method,1600000000,instant,reported,EquityMethodInvestments,0001652044-23-000045,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,nci_vie,3700000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000045,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,revenue,74604000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,rpo,60600000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,purchase_oblig,11500000000,instant,reported,PurchaseObligation,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,vie_max_loss,3000000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,nci_vie,3600000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000070,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,revenue,76693000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,rpo,64900000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,purchase_oblig,11100000000,instant,reported,PurchaseObligation,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,vie_max_loss,5500000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000094,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,revenue,86310000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,rpo,74100000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000022,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,purchase_oblig,10600000000,instant,reported,PurchaseObligation,0001652044-24-000022,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,vie_max_loss,5700000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,equity_method,1700000000,instant,reported,EquityMethodInvestments,0001652044-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,revenue,80539000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000043,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,rpo,72500000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,purchase_oblig,10100000000,instant,reported,PurchaseObligation,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,vie_max_loss,6900000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,nci_vie,3200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000053,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,revenue,84742000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,rpo,78800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,purchase_oblig,9700000000,instant,reported,PurchaseObligation,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,vie_max_loss,6900000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,equity_method,2100000000,instant,reported,EquityMethodInvestments,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,nci_vie,3300000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000079,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,revenue,88268000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,rpo,86800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,purchase_oblig,9200000000,instant,reported,PurchaseObligation,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,revenue,96469000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-24-000118,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,rpo,93200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,purchase_oblig,8800000000,instant,reported,PurchaseObligation,0001652044-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,nci_vie,4200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,revenue,90234000000,quarter,reported,Revenues,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,rpo,92400000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000043,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,8600000000,instant,reported,PurchaseObligation,0001652044-25-000043,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-25-000043,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,nci_vie,4400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000043,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,revenue,96428000000,quarter,reported,Revenues,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,rpo,108200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,8200000000,instant,reported,PurchaseObligation,0001652044-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,equity_method,2300000000,instant,reported,EquityMethodInvestments,0001652044-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,nci_vie,4300000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,revenue,102346000000,quarter,reported,Revenues,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,rpo,157700000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,42600000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,equity_method,2300000000,instant,reported,EquityMethodInvestments,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,nci_vie,3900000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,revenue,113829000000,quarter,fy_minus_9m,Revenues,0001652044-26-000018 0001652044-25-000091,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,rpo,242800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,7700000000,instant,reported,PurchaseObligation,0001652044-26-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,guarantees_max,5700000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,revenue,109896000000,quarter,reported,Revenues,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,rpo,467600000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,75600000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,guarantees_max,9000000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,nci_vie,7200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000048,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,revenue,119796000000,quarter,reported,Revenues,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,rpo,519500000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,guarantees_max,7600000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,nci_vie,7100000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000071,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q2,2022-06-30,2022-Q2,revenue,121234000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-23-000012,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q2,2022-06-30,2022-Q2,purchase_oblig,35079000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-22-000019,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q3,2022-09-30,2022-Q3,revenue,127101000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-23-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q3,2022-09-30,2022-Q3,purchase_oblig,33843000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-22-000023,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q4,2022-12-31,2022-Q4,revenue,149204000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000004 0001018724-23-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2022Q4,2022-12-31,2022-Q4,purchase_oblig,34776000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000004,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q1,2023-03-31,2023-Q1,revenue,127358000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000083,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q1,2023-03-31,2023-Q1,purchase_oblig,33661000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000008,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q2,2023-06-30,2023-Q2,revenue,134383000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000130,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q2,2023-06-30,2023-Q2,purchase_oblig,33136000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000012,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q3,2023-09-30,2023-Q3,revenue,143083000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000161,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q3,2023-09-30,2023-Q3,purchase_oblig,31870000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000018,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,revenue,169961000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-24-000161,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,purchase_oblig,35484000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000008,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,equity_method,614000000,instant,reported,EquityMethodInvestments,0001018724-25-000004,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q1,2024-03-31,2024-Q1,revenue,143313000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000036,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q1,2024-03-31,2024-Q1,purchase_oblig,39869000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000083,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q2,2024-06-30,2024-Q2,revenue,147977000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000086,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q2,2024-06-30,2024-Q2,purchase_oblig,32408000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000130,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q3,2024-09-30,2024-Q3,revenue,158877000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000123,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q4,2024-12-31,2024-Q4,revenue,187792000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-25-000123,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2024Q4,2024-12-31,2024-Q4,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-26-000004,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q1,2025-03-31,2025-Q1,revenue,155667000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q1,2025-03-31,2025-Q1,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-25-000036,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q2,2025-06-30,2025-Q2,revenue,167702000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q2,2025-06-30,2025-Q2,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-25-000086,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q3,2025-09-30,2025-Q3,revenue,180169000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000123,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q3,2025-09-30,2025-Q3,equity_method,1100000000,instant,reported,EquityMethodInvestments,0001018724-25-000123,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q4,2025-12-31,2025-Q4,revenue,213386000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-25-000123,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2025Q4,2025-12-31,2025-Q4,equity_method,659000000,instant,reported,EquityMethodInvestments,0001018724-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2026Q1,2026-03-31,2026-Q1,revenue,181519000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2026Q1,2026-03-31,2026-Q1,equity_method,923000000,instant,reported,EquityMethodInvestments,0001018724-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2026Q2,2026-06-30,2026-Q2,revenue,200606000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-AMZN,Amazon,FY2026Q2,2026-06-30,2026-Q2,equity_method,395000000,instant,reported,EquityMethodInvestments,0001018724-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q2,2022-06-30,2022-Q2,revenue,28822000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-23-000093,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q2,2022-06-30,2022-Q2,equity_method,34000000,instant,reported,EquityMethodInvestments,0001326801-22-000082,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q3,2022-09-30,2022-Q3,revenue,27714000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-23-000103,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q3,2022-09-30,2022-Q3,equity_method,33000000,instant,reported,EquityMethodInvestments,0001326801-22-000108,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q4,2022-12-31,2022-Q4,revenue,32165000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-25-000017 0001326801-23-000103,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2022Q4,2022-12-31,2022-Q4,equity_method,17000000,instant,reported,EquityMethodInvestments,0001326801-24-000012,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q1,2023-03-31,2023-Q1,revenue,28645000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000049,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q1,2023-03-31,2023-Q1,equity_method,18000000,instant,reported,EquityMethodInvestments,0001326801-23-000067,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q2,2023-06-30,2023-Q2,revenue,31999000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000069,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q2,2023-06-30,2023-Q2,equity_method,59000000,instant,reported,EquityMethodInvestments,0001326801-23-000093,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q3,2023-09-30,2023-Q3,revenue,34146000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q3,2023-09-30,2023-Q3,equity_method,59000000,instant,reported,EquityMethodInvestments,0001326801-23-000103,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q4,2023-12-31,2023-Q4,revenue,40111000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001326801-24-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2023Q4,2023-12-31,2023-Q4,equity_method,58000000,instant,reported,EquityMethodInvestments,0001326801-25-000017,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q1,2024-03-31,2024-Q1,revenue,36455000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-25-000054,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q1,2024-03-31,2024-Q1,equity_method,57000000,instant,reported,EquityMethodInvestments,0001326801-24-000049,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q2,2024-06-30,2024-Q2,revenue,39071000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-036791,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q2,2024-06-30,2024-Q2,equity_method,56000000,instant,reported,EquityMethodInvestments,0001326801-24-000069,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q3,2024-09-30,2024-Q3,revenue,40589000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q3,2024-09-30,2024-Q3,equity_method,53000000,instant,reported,EquityMethodInvestments,0001326801-24-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q4,2024-12-31,2024-Q4,revenue,48385000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q4,2024-12-31,2024-Q4,purchase_oblig,34120000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001326801-25-000017,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2024Q4,2024-12-31,2024-Q4,equity_method,52000000,instant,reported,EquityMethodInvestments,0001628280-26-003942,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q1,2025-03-31,2025-Q1,revenue,42314000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-028526,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,35270000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001326801-25-000054,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q1,2025-03-31,2025-Q1,equity_method,49000000,instant,reported,EquityMethodInvestments,0001326801-25-000054,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q2,2025-06-30,2025-Q2,revenue,47516000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,52560000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-036791,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q2,2025-06-30,2025-Q2,vie_max_loss,1980000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-25-036791,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q2,2025-06-30,2025-Q2,equity_method,2022000000,instant,reported,EquityMethodInvestments,0001628280-25-036791,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q3,2025-09-30,2025-Q3,revenue,51242000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,58140000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q3,2025-09-30,2025-Q3,vie_max_loss,5010000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q3,2025-09-30,2025-Q3,equity_method,5057000000,instant,reported,EquityMethodInvestments,0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q4,2025-12-31,2025-Q4,revenue,59893000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001628280-25-047240,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,103770000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-003942,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q4,2025-12-31,2025-Q4,vie_max_loss,5580000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2025Q4,2025-12-31,2025-Q4,equity_method,7448000000,instant,reported,EquityMethodInvestments,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q1,2026-03-31,2026-Q1,revenue,56311000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-028526,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,182880000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-028526,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q1,2026-03-31,2026-Q1,vie_max_loss,5790000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-028526,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q1,2026-03-31,2026-Q1,equity_method,8235000000,instant,reported,EquityMethodInvestments,0001628280-26-028526,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q2,2026-06-30,2026-Q2,revenue,60801000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q2,2026-06-30,2026-Q2,purchase_oblig,278990000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q2,2026-06-30,2026-Q2,vie_max_loss,6410000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-META,Meta,FY2026Q2,2026-06-30,2026-Q2,equity_method,9406000000,instant,reported,EquityMethodInvestments,0001628280-26-050705,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q1,2022-08-31,2022-Q3,revenue,11445000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-047713,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q1,2022-08-31,2022-Q3,rpo,60700000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-031545,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q2,2022-11-30,2022-Q4,revenue,12275000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-069682,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q2,2022-11-30,2022-Q4,rpo,61200000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-039278,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q3,2023-02-28,2023-Q1,revenue,12398000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-029904,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q3,2023-02-28,2023-Q1,rpo,62300000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-23-003413,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,revenue,13836000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-087926 0000950170-24-029904,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,rpo,67900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-028914,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,purchase_oblig,2771000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-23-028914,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q1,2023-08-31,2023-Q3,revenue,12453000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-104905,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q1,2023-08-31,2023-Q3,rpo,64900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-047713,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q2,2023-11-30,2023-Q4,revenue,12941000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-134973,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q2,2023-11-30,2023-Q4,rpo,65500000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-069682,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q3,2024-02-29,2024-Q1,revenue,13280000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-037143,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q3,2024-02-29,2024-Q1,rpo,80200000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-029904,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,revenue,14287000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0000950170-25-037143,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,rpo,97900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-075605,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,purchase_oblig,1587000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-24-075605,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q1,2024-08-31,2024-Q3,revenue,13307000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-200095,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q1,2024-08-31,2024-Q3,rpo,99100000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-104905,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q2,2024-11-30,2024-Q4,revenue,14059000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-315925,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q2,2024-11-30,2024-Q4,rpo,97300000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-134973,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q3,2025-02-28,2025-Q1,revenue,14130000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q3,2025-02-28,2025-Q1,rpo,130200000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-037143,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,revenue,15903000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,rpo,137800000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-087926,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,purchase_oblig,2226000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-25-087926,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q1,2025-08-31,2025-Q3,revenue,14926000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-389274,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q1,2025-08-31,2025-Q3,rpo,455300000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-200095,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,revenue,16058000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-315925,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,rpo,523300000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-315925,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,purchase_oblig,10000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-25-315925,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,revenue,17190000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,rpo,552600000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,purchase_oblig,11000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,revenue,19184000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0001193125-26-101045,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,rpo,638000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-277521,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,purchase_oblig,13309000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-277521,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,revenue,19345000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-389274,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,rpo,664000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-389274,T1 (XBRL),no,2026-10-06 09:34 ET
-ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,purchase_oblig,34150000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-389274,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2024Q1,2024-03-31,2024-Q1,revenue,188684000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2024Q2,2024-06-30,2024-Q2,revenue,395371000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000041,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2024Q3,2024-09-30,2024-Q3,revenue,583941000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2024Q4,2024-12-31,2024-Q4,revenue,747004000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000104 0001769628-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2024Q4,2024-12-31,2024-Q4,equity_method,0,instant,reported,EquityMethodInvestments,0001769628-26-000104,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q1,2025-03-31,2025-Q1,revenue,982000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000222,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q1,2025-03-31,2025-Q1,rpo,14700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,revenue,1212000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000366,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,rpo,30100000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000041,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,equity_method,56947000,instant,reported,EquityMethodInvestments,0001769628-25-000041,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q3,2025-09-30,2025-Q3,revenue,1364676000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q3,2025-09-30,2025-Q3,rpo,50000000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,revenue,1571904000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000104 0001769628-25-000062,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,rpo,60700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000104,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,equity_method,51000000,instant,reported,EquityMethodInvestments,0001769628-26-000104,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2026Q1,2026-03-31,2026-Q1,revenue,2078000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000222,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2026Q1,2026-03-31,2026-Q1,rpo,98800000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000222,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,revenue,2575000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000366,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,rpo,103700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000366,T1 (XBRL),no,2026-10-06 09:34 ET
-CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,vie_max_loss,1800000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001769628-26-000366,T1 (XBRL),no,2026-10-06 09:34 ET
-NBIS,Nebius,FY2025Q4,2025-12-31,2025-Q4,rpo,21333000000,instant,reported,RevenueRemainingPerformanceObligation,0001104659-26-052948,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2025Q1,2024-09-30,2024-Q3,revenue,52764000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-25-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2025Q2,2024-12-31,2024-Q4,revenue,116144000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000015,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2025Q3,2025-03-31,2025-Q1,revenue,144823000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2025Q4,2025-06-30,2025-Q2,revenue,187292000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000052 0001878848-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,revenue,240295000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-25-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,rpo,195027000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-25-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,purchase_oblig,198000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001878848-25-000081,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q2,2025-12-31,2025-Q4,revenue,184692000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000015,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q2,2025-12-31,2025-Q4,rpo,289411000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000015,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q3,2026-03-31,2026-Q1,revenue,144795000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q3,2026-03-31,2026-Q1,rpo,710272000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q4,2026-06-30,2026-Q2,revenue,137225000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000052 0001878848-26-000026,T1 (XBRL),no,2026-10-06 09:34 ET
-IREN,IREN,FY2026Q4,2026-06-30,2026-Q2,rpo,5100000000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000052,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q1,2022-08-31,2022-Q3,revenue,6924000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001898844-23-000006,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q1,2022-08-31,2022-Q3,rpo,19200000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-22-000052,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q2,2022-11-30,2022-Q4,revenue,12340000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000010,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q2,2022-11-30,2022-Q4,rpo,29400000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000028,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q3,2023-02-28,2023-Q1,revenue,14090000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000078,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q3,2023-02-28,2023-Q1,rpo,47600000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000101,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q4,2023-05-31,2023-Q2,revenue,22038000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001144879-24-000078,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2023Q4,2023-05-31,2023-Q2,rpo,48700000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000176,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2024Q1,2023-08-31,2023-Q3,revenue,36323000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000253,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2024Q2,2023-11-30,2023-Q4,revenue,42203000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000006,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2024Q3,2024-02-29,2024-Q1,revenue,43348000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-017684,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2024Q4,2024-05-31,2024-Q2,revenue,14742000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001628280-25-017684,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q1,2024-08-31,2024-Q3,revenue,34849000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000069,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q1,2024-08-31,2024-Q3,purchase_oblig,18900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-24-000253,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q2,2024-11-30,2024-Q4,revenue,36163000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000006,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q2,2024-11-30,2024-Q4,purchase_oblig,18900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000006,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q3,2025-02-28,2025-Q1,revenue,52921000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000030,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q3,2025-02-28,2025-Q1,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-017684,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q4,2025-05-31,2025-Q2,revenue,-33300000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001144879-26-000030,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2025Q4,2025-05-31,2025-Q2,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000021,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2026Q1,2025-08-31,2025-Q3,revenue,64216000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000069,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2026Q1,2025-08-31,2025-Q3,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000069,T1 (XBRL),no,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2026Q2,2025-11-30,2025-Q4,revenue,126589000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000006,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2026Q3,2026-02-28,2026-Q1,revenue,126637000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000030,T1 (XBRL),yes,2026-10-06 09:34 ET
-APLD,Applied Digital,FY2026Q4,2026-05-31,2026-Q2,revenue,258749000,quarter,fy_minus_9m,Revenues − RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000048 0001144879-26-000030,T1 (XBRL),yes,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,revenue,163972000,quarter,reported,Revenues,0001628280-23-027559,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,rpo,900800000,instant,reported,RevenueRemainingPerformanceObligation,0001628280-22-023382,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,purchase_oblig,192400000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-22-023382,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,revenue,162572000,quarter,reported,Revenues,0001628280-23-036849,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,rpo,440700000,instant,reported,RevenueRemainingPerformanceObligation,0001628280-22-030600,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,purchase_oblig,49900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-22-030600,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2022Q4,2022-12-31,2022-Q4,revenue,121250000,quarter,fy_minus_9m,Revenues,0001628280-26-013232 0001628280-23-036849,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2023Q1,2023-03-31,2023-Q1,revenue,120655000,quarter,reported,Revenues,0001628280-24-021848,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2023Q2,2023-06-30,2023-Q2,revenue,126912000,quarter,reported,Revenues,0001628280-24-035714,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2023Q3,2023-09-30,2023-Q3,revenue,112904000,quarter,reported,Revenues,0001628280-24-045811,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2023Q4,2023-12-31,2023-Q4,revenue,141929000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-24-045811,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2024Q1,2024-03-31,2024-Q1,revenue,179291000,quarter,reported,Revenues,0001628280-26-013286,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2024Q2,2024-06-30,2024-Q2,revenue,141102000,quarter,reported,Revenues,0001628280-26-013294,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2024Q3,2024-09-30,2024-Q3,revenue,95354000,quarter,reported,Revenues,0001628280-26-013301,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2024Q4,2024-12-31,2024-Q4,revenue,94925000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-26-013301,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q1,2025-03-31,2025-Q1,revenue,79525000,quarter,reported,Revenues,0001628280-26-031396,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,10000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013286,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q2,2025-06-30,2025-Q2,revenue,78628000,quarter,reported,Revenues,0001839341-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,9830000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013294,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q3,2025-09-30,2025-Q3,revenue,81103000,quarter,reported,Revenues,0001628280-26-013301,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,9550000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013301,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q4,2025-12-31,2025-Q4,revenue,79763000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-26-013301,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,8170000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013305,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2026Q1,2026-03-31,2026-Q1,revenue,115244000,quarter,reported,Revenues,0001628280-26-031396,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,5800000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-031396,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2026Q2,2026-06-30,2026-Q2,revenue,164201000,quarter,reported,Revenues,0001839341-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
-CORZ,Core Scientific,FY2026Q2,2026-06-30,2026-Q2,purchase_oblig,3100000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001839341-26-000014,T1 (XBRL),no,2026-10-06 09:34 ET
+MSFT,Microsoft,FY2022Q4,2022-06-30,2022-Q2,revenue,51865000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-087843 0000950170-23-014423,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2022Q4,2022-06-30,2022-Q2,rpo,193000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-026876,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q1,2022-09-30,2022-Q3,revenue,50122000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-054855,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q1,2022-09-30,2022-Q3,rpo,183000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-035087,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q2,2022-12-31,2022-Q4,revenue,52747000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-008814,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q2,2022-12-31,2022-Q4,rpo,193000000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-23-000733,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q3,2023-03-31,2023-Q1,revenue,52857000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-048288,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q3,2023-03-31,2023-Q1,rpo,201000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-014423,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q4,2023-06-30,2023-Q2,revenue,56189000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-100235 0000950170-24-048288,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2023Q4,2023-06-30,2023-Q2,rpo,229000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-035122,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q1,2023-09-30,2023-Q3,revenue,56517000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-118967,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q1,2023-09-30,2023-Q3,rpo,216000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-054855,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q2,2023-12-31,2023-Q4,revenue,62020000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-010491,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q2,2023-12-31,2023-Q4,rpo,229000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-008814,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q3,2024-03-31,2024-Q1,revenue,61858000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-061046,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q3,2024-03-31,2024-Q1,rpo,242000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-048288,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,revenue,64727000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0000950170-25-061046,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,rpo,275000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-087843,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2024Q4,2024-06-30,2024-Q2,equity_method,6000000000,instant,reported,EquityMethodInvestments,0000950170-25-100235,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,revenue,65585000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-256321,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,rpo,266000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-118967,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q1,2024-09-30,2024-Q3,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-24-118967,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,revenue,69632000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-027207,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,rpo,304000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-010491,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q2,2024-12-31,2024-Q4,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-25-010491,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,revenue,70066000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,rpo,321000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-061046,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q3,2025-03-31,2025-Q1,equity_method,6800000000,instant,reported,EquityMethodInvestments,0000950170-25-061046,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,revenue,76441000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,rpo,375000000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-100235,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2025Q4,2025-06-30,2025-Q2,equity_method,6000000000,instant,reported,EquityMethodInvestments,0001193125-26-323660,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,revenue,77673000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-256321,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,rpo,398000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-256321,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q1,2025-09-30,2025-Q3,equity_method,1800000000,instant,reported,EquityMethodInvestments,0001193125-25-256321,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,revenue,81273000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-027207,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,rpo,631000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-027207,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q2,2025-12-31,2025-Q4,equity_method,11500000000,instant,reported,EquityMethodInvestments,0001193125-26-027207,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,revenue,82886000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,rpo,633000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q3,2026-03-31,2026-Q1,equity_method,11100000000,instant,reported,EquityMethodInvestments,0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,revenue,90007000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-323660 0001193125-26-191507,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,rpo,684000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-323660,T1 (XBRL),no,2026-10-06 16:04 ET
+MSFT,Microsoft,FY2026Q4,2026-06-30,2026-Q2,equity_method,12000000000,instant,reported,EquityMethodInvestments,0001193125-26-323660,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,revenue,69685000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,rpo,51200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-22-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,vie_max_loss,2400000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-22-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,equity_method,1400000000,instant,reported,EquityMethodInvestments,0001652044-22-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q2,2022-06-30,2022-Q2,nci_vie,4100000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-22-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,revenue,69092000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,rpo,52400000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-22-000090,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,vie_max_loss,2600000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-22-000090,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,equity_method,1300000000,instant,reported,EquityMethodInvestments,0001652044-22-000090,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q3,2022-09-30,2022-Q3,nci_vie,3900000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-22-000090,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,revenue,76048000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,rpo,64300000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000016,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,purchase_oblig,12300000000,instant,reported,PurchaseObligation,0001652044-23-000016,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,vie_max_loss,2800000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000022,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-24-000022,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2022Q4,2022-12-31,2022-Q4,nci_vie,3800000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000022,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,revenue,69787000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,rpo,61700000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000045,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,purchase_oblig,11900000000,instant,reported,PurchaseObligation,0001652044-23-000045,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,vie_max_loss,2700000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000045,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,equity_method,1600000000,instant,reported,EquityMethodInvestments,0001652044-23-000045,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q1,2023-03-31,2023-Q1,nci_vie,3700000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000045,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,revenue,74604000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,rpo,60600000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,purchase_oblig,11500000000,instant,reported,PurchaseObligation,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,vie_max_loss,3000000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q2,2023-06-30,2023-Q2,nci_vie,3600000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000070,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,revenue,76693000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,rpo,64900000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,purchase_oblig,11100000000,instant,reported,PurchaseObligation,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,vie_max_loss,5500000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,equity_method,1500000000,instant,reported,EquityMethodInvestments,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q3,2023-09-30,2023-Q3,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-23-000094,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,revenue,86310000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,rpo,74100000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000022,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,purchase_oblig,10600000000,instant,reported,PurchaseObligation,0001652044-24-000022,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,vie_max_loss,5700000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,equity_method,1700000000,instant,reported,EquityMethodInvestments,0001652044-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2023Q4,2023-12-31,2023-Q4,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,revenue,80539000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000043,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,rpo,72500000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,purchase_oblig,10100000000,instant,reported,PurchaseObligation,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,vie_max_loss,6900000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q1,2024-03-31,2024-Q1,nci_vie,3200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000053,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,revenue,84742000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,rpo,78800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,purchase_oblig,9700000000,instant,reported,PurchaseObligation,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,vie_max_loss,6900000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,equity_method,2100000000,instant,reported,EquityMethodInvestments,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q2,2024-06-30,2024-Q2,nci_vie,3300000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000079,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,revenue,88268000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,rpo,86800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,purchase_oblig,9200000000,instant,reported,PurchaseObligation,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q3,2024-09-30,2024-Q3,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,revenue,96469000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001652044-25-000014 0001652044-24-000118,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,rpo,93200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,purchase_oblig,8800000000,instant,reported,PurchaseObligation,0001652044-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2024Q4,2024-12-31,2024-Q4,nci_vie,4200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,revenue,90234000000,quarter,reported,Revenues,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,rpo,92400000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000043,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,8600000000,instant,reported,PurchaseObligation,0001652044-25-000043,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,equity_method,2000000000,instant,reported,EquityMethodInvestments,0001652044-25-000043,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q1,2025-03-31,2025-Q1,nci_vie,4400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000043,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,revenue,96428000000,quarter,reported,Revenues,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,rpo,108200000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,8200000000,instant,reported,PurchaseObligation,0001652044-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,equity_method,2300000000,instant,reported,EquityMethodInvestments,0001652044-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q2,2025-06-30,2025-Q2,nci_vie,4300000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,revenue,102346000000,quarter,reported,Revenues,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,rpo,157700000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,42600000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,equity_method,2300000000,instant,reported,EquityMethodInvestments,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q3,2025-09-30,2025-Q3,nci_vie,3900000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,revenue,113829000000,quarter,fy_minus_9m,Revenues,0001652044-26-000018 0001652044-25-000091,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,rpo,242800000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,7700000000,instant,reported,PurchaseObligation,0001652044-26-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,guarantees_max,5700000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2025Q4,2025-12-31,2025-Q4,nci_vie,3400000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,revenue,109896000000,quarter,reported,Revenues,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,rpo,467600000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,75600000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,guarantees_max,9000000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q1,2026-03-31,2026-Q1,nci_vie,7200000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000048,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,revenue,119796000000,quarter,reported,Revenues,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,rpo,519500000000,instant,reported,RevenueRemainingPerformanceObligation,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,guarantees_max,7600000000,instant,reported,GuaranteeObligationsMaximumExposure,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+GOOGL,Alphabet,FY2026Q2,2026-06-30,2026-Q2,nci_vie,7100000000,instant,reported,NoncontrollingInterestInVariableInterestEntity,0001652044-26-000071,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q2,2022-06-30,2022-Q2,revenue,121234000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-23-000012,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q2,2022-06-30,2022-Q2,purchase_oblig,35079000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-22-000019,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q3,2022-09-30,2022-Q3,revenue,127101000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-23-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q3,2022-09-30,2022-Q3,purchase_oblig,33843000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-22-000023,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q4,2022-12-31,2022-Q4,revenue,149204000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000004 0001018724-23-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2022Q4,2022-12-31,2022-Q4,purchase_oblig,34776000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000004,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q1,2023-03-31,2023-Q1,revenue,127358000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000083,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q1,2023-03-31,2023-Q1,purchase_oblig,33661000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000008,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q2,2023-06-30,2023-Q2,revenue,134383000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000130,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q2,2023-06-30,2023-Q2,purchase_oblig,33136000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000012,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q3,2023-09-30,2023-Q3,revenue,143083000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-24-000161,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q3,2023-09-30,2023-Q3,purchase_oblig,31870000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-23-000018,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,revenue,169961000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-24-000161,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,purchase_oblig,35484000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000008,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2023Q4,2023-12-31,2023-Q4,equity_method,614000000,instant,reported,EquityMethodInvestments,0001018724-25-000004,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q1,2024-03-31,2024-Q1,revenue,143313000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000036,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q1,2024-03-31,2024-Q1,purchase_oblig,39869000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000083,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q2,2024-06-30,2024-Q2,revenue,147977000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000086,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q2,2024-06-30,2024-Q2,purchase_oblig,32408000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001018724-24-000130,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q3,2024-09-30,2024-Q3,revenue,158877000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000123,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q4,2024-12-31,2024-Q4,revenue,187792000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-25-000123,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2024Q4,2024-12-31,2024-Q4,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-26-000004,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q1,2025-03-31,2025-Q1,revenue,155667000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q1,2025-03-31,2025-Q1,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-25-000036,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q2,2025-06-30,2025-Q2,revenue,167702000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q2,2025-06-30,2025-Q2,equity_method,1200000000,instant,reported,EquityMethodInvestments,0001018724-25-000086,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q3,2025-09-30,2025-Q3,revenue,180169000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-25-000123,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q3,2025-09-30,2025-Q3,equity_method,1100000000,instant,reported,EquityMethodInvestments,0001018724-25-000123,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q4,2025-12-31,2025-Q4,revenue,213386000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000004 0001018724-25-000123,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2025Q4,2025-12-31,2025-Q4,equity_method,659000000,instant,reported,EquityMethodInvestments,0001018724-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2026Q1,2026-03-31,2026-Q1,revenue,181519000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2026Q1,2026-03-31,2026-Q1,equity_method,923000000,instant,reported,EquityMethodInvestments,0001018724-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2026Q2,2026-06-30,2026-Q2,revenue,200606000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001018724-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+AMZN,Amazon,FY2026Q2,2026-06-30,2026-Q2,equity_method,395000000,instant,reported,EquityMethodInvestments,0001018724-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q2,2022-06-30,2022-Q2,revenue,28822000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-23-000093,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q2,2022-06-30,2022-Q2,equity_method,34000000,instant,reported,EquityMethodInvestments,0001326801-22-000082,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q3,2022-09-30,2022-Q3,revenue,27714000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-23-000103,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q3,2022-09-30,2022-Q3,equity_method,33000000,instant,reported,EquityMethodInvestments,0001326801-22-000108,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q4,2022-12-31,2022-Q4,revenue,32165000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-25-000017 0001326801-23-000103,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2022Q4,2022-12-31,2022-Q4,equity_method,17000000,instant,reported,EquityMethodInvestments,0001326801-24-000012,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q1,2023-03-31,2023-Q1,revenue,28645000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000049,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q1,2023-03-31,2023-Q1,equity_method,18000000,instant,reported,EquityMethodInvestments,0001326801-23-000067,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q2,2023-06-30,2023-Q2,revenue,31999000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000069,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q2,2023-06-30,2023-Q2,equity_method,59000000,instant,reported,EquityMethodInvestments,0001326801-23-000093,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q3,2023-09-30,2023-Q3,revenue,34146000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-24-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q3,2023-09-30,2023-Q3,equity_method,59000000,instant,reported,EquityMethodInvestments,0001326801-23-000103,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q4,2023-12-31,2023-Q4,revenue,40111000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001326801-24-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2023Q4,2023-12-31,2023-Q4,equity_method,58000000,instant,reported,EquityMethodInvestments,0001326801-25-000017,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q1,2024-03-31,2024-Q1,revenue,36455000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001326801-25-000054,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q1,2024-03-31,2024-Q1,equity_method,57000000,instant,reported,EquityMethodInvestments,0001326801-24-000049,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q2,2024-06-30,2024-Q2,revenue,39071000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-036791,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q2,2024-06-30,2024-Q2,equity_method,56000000,instant,reported,EquityMethodInvestments,0001326801-24-000069,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q3,2024-09-30,2024-Q3,revenue,40589000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q3,2024-09-30,2024-Q3,equity_method,53000000,instant,reported,EquityMethodInvestments,0001326801-24-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q4,2024-12-31,2024-Q4,revenue,48385000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q4,2024-12-31,2024-Q4,purchase_oblig,34120000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001326801-25-000017,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2024Q4,2024-12-31,2024-Q4,equity_method,52000000,instant,reported,EquityMethodInvestments,0001628280-26-003942,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q1,2025-03-31,2025-Q1,revenue,42314000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-028526,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,35270000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001326801-25-000054,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q1,2025-03-31,2025-Q1,equity_method,49000000,instant,reported,EquityMethodInvestments,0001326801-25-000054,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q2,2025-06-30,2025-Q2,revenue,47516000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,52560000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-036791,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q2,2025-06-30,2025-Q2,vie_max_loss,1980000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-25-036791,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q2,2025-06-30,2025-Q2,equity_method,2022000000,instant,reported,EquityMethodInvestments,0001628280-25-036791,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q3,2025-09-30,2025-Q3,revenue,51242000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,58140000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q3,2025-09-30,2025-Q3,vie_max_loss,5010000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q3,2025-09-30,2025-Q3,equity_method,5057000000,instant,reported,EquityMethodInvestments,0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q4,2025-12-31,2025-Q4,revenue,59893000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-003942 0001628280-25-047240,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,103770000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-003942,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q4,2025-12-31,2025-Q4,vie_max_loss,5580000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2025Q4,2025-12-31,2025-Q4,equity_method,7448000000,instant,reported,EquityMethodInvestments,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q1,2026-03-31,2026-Q1,revenue,56311000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-028526,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,182880000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-028526,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q1,2026-03-31,2026-Q1,vie_max_loss,5790000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-028526,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q1,2026-03-31,2026-Q1,equity_method,8235000000,instant,reported,EquityMethodInvestments,0001628280-26-028526,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q2,2026-06-30,2026-Q2,revenue,60801000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q2,2026-06-30,2026-Q2,purchase_oblig,278990000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q2,2026-06-30,2026-Q2,vie_max_loss,6410000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+META,Meta,FY2026Q2,2026-06-30,2026-Q2,equity_method,9406000000,instant,reported,EquityMethodInvestments,0001628280-26-050705,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q1,2022-08-31,2022-Q3,revenue,11445000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-047713,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q1,2022-08-31,2022-Q3,rpo,60700000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-031545,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q2,2022-11-30,2022-Q4,revenue,12275000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-23-069682,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q2,2022-11-30,2022-Q4,rpo,61200000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-22-039278,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q3,2023-02-28,2023-Q1,revenue,12398000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-029904,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q3,2023-02-28,2023-Q1,rpo,62300000000,instant,reported,RevenueRemainingPerformanceObligation,0001564590-23-003413,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,revenue,13836000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-087926 0000950170-24-029904,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,rpo,67900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-028914,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2023Q4,2023-05-31,2023-Q2,purchase_oblig,2771000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-23-028914,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q1,2023-08-31,2023-Q3,revenue,12453000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-104905,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q1,2023-08-31,2023-Q3,rpo,64900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-047713,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q2,2023-11-30,2023-Q4,revenue,12941000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-24-134973,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q2,2023-11-30,2023-Q4,rpo,65500000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-23-069682,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q3,2024-02-29,2024-Q1,revenue,13280000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0000950170-25-037143,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q3,2024-02-29,2024-Q1,rpo,80200000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-029904,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,revenue,14287000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0000950170-25-037143,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,rpo,97900000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-075605,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2024Q4,2024-05-31,2024-Q2,purchase_oblig,1587000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-24-075605,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q1,2024-08-31,2024-Q3,revenue,13307000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-200095,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q1,2024-08-31,2024-Q3,rpo,99100000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-104905,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q2,2024-11-30,2024-Q4,revenue,14059000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-315925,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q2,2024-11-30,2024-Q4,rpo,97300000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-24-134973,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q3,2025-02-28,2025-Q1,revenue,14130000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q3,2025-02-28,2025-Q1,rpo,130200000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-037143,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,revenue,15903000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,rpo,137800000000,instant,reported,RevenueRemainingPerformanceObligation,0000950170-25-087926,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2025Q4,2025-05-31,2025-Q2,purchase_oblig,2226000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0000950170-25-087926,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q1,2025-08-31,2025-Q3,revenue,14926000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-389274,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q1,2025-08-31,2025-Q3,rpo,455300000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-200095,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,revenue,16058000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-25-315925,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,rpo,523300000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-25-315925,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q2,2025-11-30,2025-Q4,purchase_oblig,10000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-25-315925,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,revenue,17190000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,rpo,552600000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q3,2026-02-28,2026-Q1,purchase_oblig,11000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,revenue,19184000000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-277521 0001193125-26-101045,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,rpo,638000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-277521,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2026Q4,2026-05-31,2026-Q2,purchase_oblig,13309000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-277521,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,revenue,19345000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001193125-26-389274,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,rpo,664000000000,instant,reported,RevenueRemainingPerformanceObligation,0001193125-26-389274,T1 (XBRL),no,2026-10-06 16:04 ET
+ORCL,Oracle,FY2027Q1,2026-08-31,2026-Q3,purchase_oblig,34150000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001193125-26-389274,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2024Q1,2024-03-31,2024-Q1,revenue,188684000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2024Q2,2024-06-30,2024-Q2,revenue,395371000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000041,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2024Q3,2024-09-30,2024-Q3,revenue,583941000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2024Q4,2024-12-31,2024-Q4,revenue,747004000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000104 0001769628-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2024Q4,2024-12-31,2024-Q4,equity_method,0,instant,reported,EquityMethodInvestments,0001769628-26-000104,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q1,2025-03-31,2025-Q1,revenue,982000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000222,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q1,2025-03-31,2025-Q1,rpo,14700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,revenue,1212000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000366,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,rpo,30100000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000041,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q2,2025-06-30,2025-Q2,equity_method,56947000,instant,reported,EquityMethodInvestments,0001769628-25-000041,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q3,2025-09-30,2025-Q3,revenue,1364676000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q3,2025-09-30,2025-Q3,rpo,50000000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,revenue,1571904000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000104 0001769628-25-000062,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,rpo,60700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000104,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2025Q4,2025-12-31,2025-Q4,equity_method,51000000,instant,reported,EquityMethodInvestments,0001769628-26-000104,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2026Q1,2026-03-31,2026-Q1,revenue,2078000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000222,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2026Q1,2026-03-31,2026-Q1,rpo,98800000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000222,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,revenue,2575000000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001769628-26-000366,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,rpo,103700000000,instant,reported,RevenueRemainingPerformanceObligation,0001769628-26-000366,T1 (XBRL),no,2026-10-06 16:04 ET
+CRWV,CoreWeave,FY2026Q2,2026-06-30,2026-Q2,vie_max_loss,1800000000,instant,reported,VariableInterestEntityEntityMaximumLossExposureAmount,0001769628-26-000366,T1 (XBRL),no,2026-10-06 16:04 ET
+NBIS,Nebius,FY2025Q4,2025-12-31,2025-Q4,rpo,21333000000,instant,reported,RevenueRemainingPerformanceObligation,0001104659-26-052948,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2025Q1,2024-09-30,2024-Q3,revenue,52764000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-25-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2025Q2,2024-12-31,2024-Q4,revenue,116144000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000015,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2025Q3,2025-03-31,2025-Q1,revenue,144823000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2025Q4,2025-06-30,2025-Q2,revenue,187292000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000052 0001878848-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,revenue,240295000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-25-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,rpo,195027000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-25-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q1,2025-09-30,2025-Q3,purchase_oblig,198000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001878848-25-000081,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q2,2025-12-31,2025-Q4,revenue,184692000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000015,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q2,2025-12-31,2025-Q4,rpo,289411000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000015,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q3,2026-03-31,2026-Q1,revenue,144795000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q3,2026-03-31,2026-Q1,rpo,710272000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q4,2026-06-30,2026-Q2,revenue,137225000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001878848-26-000052 0001878848-26-000026,T1 (XBRL),no,2026-10-06 16:04 ET
+IREN,IREN,FY2026Q4,2026-06-30,2026-Q2,rpo,5100000000,instant,reported,RevenueRemainingPerformanceObligation,0001878848-26-000052,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q1,2022-08-31,2022-Q3,revenue,6924000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001898844-23-000006,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q1,2022-08-31,2022-Q3,rpo,19200000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-22-000052,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q2,2022-11-30,2022-Q4,revenue,12340000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000010,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q2,2022-11-30,2022-Q4,rpo,29400000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000028,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q3,2023-02-28,2023-Q1,revenue,14090000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000078,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q3,2023-02-28,2023-Q1,rpo,47600000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000101,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q4,2023-05-31,2023-Q2,revenue,22038000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001144879-24-000078,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2023Q4,2023-05-31,2023-Q2,rpo,48700000,instant,reported,RevenueRemainingPerformanceObligation,0001144879-23-000176,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2024Q1,2023-08-31,2023-Q3,revenue,36323000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-24-000253,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2024Q2,2023-11-30,2023-Q4,revenue,42203000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000006,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2024Q3,2024-02-29,2024-Q1,revenue,43348000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001628280-25-017684,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2024Q4,2024-05-31,2024-Q2,revenue,14742000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001628280-25-017684,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q1,2024-08-31,2024-Q3,revenue,34849000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000069,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q1,2024-08-31,2024-Q3,purchase_oblig,18900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-24-000253,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q2,2024-11-30,2024-Q4,revenue,36163000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000006,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q2,2024-11-30,2024-Q4,purchase_oblig,18900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000006,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q3,2025-02-28,2025-Q1,revenue,52921000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000030,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q3,2025-02-28,2025-Q1,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-25-017684,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q4,2025-05-31,2025-Q2,revenue,-33300000,quarter,fy_minus_9m,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000021 0001144879-26-000030,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2025Q4,2025-05-31,2025-Q2,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000021,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2026Q1,2025-08-31,2025-Q3,revenue,64216000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-25-000069,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2026Q1,2025-08-31,2025-Q3,purchase_oblig,16600000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001144879-25-000069,T1 (XBRL),no,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2026Q2,2025-11-30,2025-Q4,revenue,126589000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000006,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2026Q3,2026-02-28,2026-Q1,revenue,126637000,quarter,reported,RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000030,T1 (XBRL),yes,2026-10-06 16:04 ET
+APLD,Applied Digital,FY2026Q4,2026-05-31,2026-Q2,revenue,258749000,quarter,fy_minus_9m,Revenues − RevenueFromContractWithCustomerExcludingAssessedTax,0001144879-26-000048 0001144879-26-000030,T1 (XBRL),yes,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,revenue,163972000,quarter,reported,Revenues,0001628280-23-027559,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,rpo,900800000,instant,reported,RevenueRemainingPerformanceObligation,0001628280-22-023382,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q2,2022-06-30,2022-Q2,purchase_oblig,192400000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-22-023382,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,revenue,162572000,quarter,reported,Revenues,0001628280-23-036849,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,rpo,440700000,instant,reported,RevenueRemainingPerformanceObligation,0001628280-22-030600,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q3,2022-09-30,2022-Q3,purchase_oblig,49900000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-22-030600,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2022Q4,2022-12-31,2022-Q4,revenue,121250000,quarter,fy_minus_9m,Revenues,0001628280-26-013232 0001628280-23-036849,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2023Q1,2023-03-31,2023-Q1,revenue,120655000,quarter,reported,Revenues,0001628280-24-021848,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2023Q2,2023-06-30,2023-Q2,revenue,126912000,quarter,reported,Revenues,0001628280-24-035714,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2023Q3,2023-09-30,2023-Q3,revenue,112904000,quarter,reported,Revenues,0001628280-24-045811,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2023Q4,2023-12-31,2023-Q4,revenue,141929000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-24-045811,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2024Q1,2024-03-31,2024-Q1,revenue,179291000,quarter,reported,Revenues,0001628280-26-013286,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2024Q2,2024-06-30,2024-Q2,revenue,141102000,quarter,reported,Revenues,0001628280-26-013294,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2024Q3,2024-09-30,2024-Q3,revenue,95354000,quarter,reported,Revenues,0001628280-26-013301,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2024Q4,2024-12-31,2024-Q4,revenue,94925000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-26-013301,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q1,2025-03-31,2025-Q1,revenue,79525000,quarter,reported,Revenues,0001628280-26-031396,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q1,2025-03-31,2025-Q1,purchase_oblig,10000000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013286,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q2,2025-06-30,2025-Q2,revenue,78628000,quarter,reported,Revenues,0001839341-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q2,2025-06-30,2025-Q2,purchase_oblig,9830000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013294,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q3,2025-09-30,2025-Q3,revenue,81103000,quarter,reported,Revenues,0001628280-26-013301,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q3,2025-09-30,2025-Q3,purchase_oblig,9550000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013301,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q4,2025-12-31,2025-Q4,revenue,79763000,quarter,fy_minus_9m,Revenues,0001628280-26-013305 0001628280-26-013301,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2025Q4,2025-12-31,2025-Q4,purchase_oblig,8170000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-013305,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2026Q1,2026-03-31,2026-Q1,revenue,115244000,quarter,reported,Revenues,0001628280-26-031396,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2026Q1,2026-03-31,2026-Q1,purchase_oblig,5800000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001628280-26-031396,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2026Q2,2026-06-30,2026-Q2,revenue,164201000,quarter,reported,Revenues,0001839341-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET
+CORZ,Core Scientific,FY2026Q2,2026-06-30,2026-Q2,purchase_oblig,3100000000,instant,reported,UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount,0001839341-26-000014,T1 (XBRL),no,2026-10-06 16:04 ET

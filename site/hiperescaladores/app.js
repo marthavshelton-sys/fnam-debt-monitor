@@ -295,6 +295,11 @@
   }
 
   // ---- C7. what changed in the latest filings, in plain language (the technical diff log sits below it, folded)
+  // the pages a curated edit touched, in the hub's order (summary, modules 1–8, methodology, glossary), each module with its number
+  function modList(list) {
+    var order = H.MODS.map(function (x) { return x.p || 'home'; }), k = function (m) { var i = order.indexOf(m); return i < 0 ? order.length : i; };
+    return list.slice().sort(function (a, b) { return k(a) - k(b); }).map(function (m) { var x = H.MODS[order.indexOf(m)]; return x ? (x.n ? x.n + ' · ' : '') + x[H.lang] : m; }).join(', ');
+  }
   function changed() {
     set('changedDesc', t('Lo que trajo la presentación más reciente de cada empresa (últimos 100 días), en palabras. Debajo, plegado, el registro técnico de cada valor XBRL nuevo, revisado o reexpresado.', 'What each company\'s most recent filing brought (last 100 days), in words. Below, folded, the technical log of every new, revised or restated XBRL value.'));
     var lim = new Date(Date.now() - 100 * 864e5).toISOString().slice(0, 10), items = [];
@@ -317,7 +322,7 @@
     // curated edits (wording, structure, review counts, explained gaps, thesis changes): one entry per edit, time in ET
     var cur = (LOG.curated || []).slice(0, 12);
     set('curH', cur.length ? t('Cambios en la curación y la redacción del centro (hora del Este)', 'Curated and editorial changes to the hub (Eastern time)') : '');
-    set('curatedList', cur.map(function (e) { return '<li><b>' + esc(H.etTime(e.at)) + '</b>' + (e.modules && e.modules.length ? ' <span class="small muted">' + esc(e.modules.map(function (m) { return m === 'home' ? t('inicio', 'home') : m; }).join(', ')) + '</span>' : '') + ' — ' + esc(e[H.lang] || e.en) + '</li>'; }).join(''));
+    set('curatedList', cur.map(function (e) { return '<li><b>' + esc(H.etTime(e.at)) + '</b>' + (e.modules && e.modules.length ? ' <span class="small muted">' + esc(modList(e.modules)) + '</span>' : '') + ' — ' + esc(e[H.lang] || e.en) + '</li>'; }).join(''));
     // technical log
     set('logDesc', t('Cada actualización compara los valores nuevos con los anteriores y anota periodos nuevos, cifras revisadas y reexpresiones que la empresa hizo en una presentación posterior (el valor viejo y su presentación quedan registrados).', 'Each refresh diffs new values against the previous ones and records new periods, revised figures and restatements the company made in a later filing (the old value and its filing are kept).'));
     var KIND = { 'new': t('nuevo', 'new'), revised: t('revisado', 'revised'), removed: t('retirado', 'removed'), initial: t('carga inicial', 'initial load'), metric_added: t('métrica agregada', 'metric added') };
