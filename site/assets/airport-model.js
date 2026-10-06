@@ -1001,14 +1001,77 @@
     const c = SERIES(); const alpha = (hex, a) => hex + (a < 1 ? Math.round(a * 255).toString(16).padStart(2, '0') : '');
     if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: evL() + '/EBITDA', data: hist.map((h) => h.v), backgroundColor: hist.map((h) => alpha(c[0], h.est ? 0.45 : 1)) }, { label: 'P/U', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}${hist[x.dataIndex].est && x.dataset.label !== 'P/U' ? ' (' + estTag() + ')' : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 1, callback: (v) => fmtX(v, Number.isInteger(v) ? 0 : 1) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     html('evSrc', LANG === 'es' ? `Cierre del trimestre × acciones vigentes + deuda neta + minoritarios, sobre EBITDA UDM; P/U sobre utilidad neta controladora UDM. Barras translúcidas: deuda neta estimada (véase la sección Deuda).` : `Quarter-end close × shares then outstanding + net debt + minorities, over LTM EBITDA; P/E on LTM net income to the controlling interest. Translucent bars: estimated net debt (see the Debt section).`);
-    const cols = [['name', LANG === 'es' ? 'Empresa' : 'Company'], ['evEbitdaLtm', evL() + '/EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM')], ['evEbitdaNtm', evL() + '/EBITDA ' + (LANG === 'es' ? 'PDM' : 'NTM')], ['peLtm', peL() + ' ' + (LANG === 'es' ? 'UDM' : 'LTM')], ['peNtm', peL() + ' ' + (LANG === 'es' ? 'PDM' : 'NTM')], ['divYieldPct', LANG === 'es' ? 'Div. %' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin']];
-    const fmtCell = (k, v) => (v == null ? `<span class="muted">${t('na')}</span>` : /Pct/.test(k) ? fmtPct(v) : fmtX(v));
-    const own = price && sharesNow && ltm && nd ? { name: `${CFG.short} (${LANG === 'es' ? 'calculado' : 'computed'}${usePF() ? '' : ''})`, evEbitdaLtm: (price * sharesNow / 1e6 + nd.net / 1000 + nciOf(lastQ) / 1000) / (ltm.ebitda / 1000), peLtm: price * sharesNow / 1e6 / (niCtrl(ltm) / 1000), divYieldPct: (REF.dividends || []).length ? 100 * REF.dividends.slice(-1)[0].dps / price : null, netDebtEbitda: nd.net / ltm.ebitda, ebitdaMarginPct: ltm.ebitdaMarginExIfric } : null;
-    const ownPf = own && usePF() ? { ...own, name: `${CFG.short} (${LANG === 'es' ? 'pro forma' : 'pro forma'} ${L(PF.name)}, ${LANG === 'es' ? 'calculado' : 'computed'})`, evEbitdaLtm: (price * sharesNow / 1e6 + PF.netDebtM + nciOf(lastQ) / 1000) / (ltm.ebitda / 1000 + PF.ebitdaM), netDebtEbitda: PF.netDebtM * 1000 / (ltm.ebitda + PF.ebitdaM * 1000), peLtm: null } : null;
-    if (own && ownPf) own.name = `${CFG.short} (${LANG === 'es' ? 'reportado' : 'reported'} ${lastQ ? qLabel(lastQ) : ''}, ${LANG === 'es' ? 'calculado' : 'computed'})`;
-    const all = [ownPf, own, ...PEERS.peers].filter(Boolean);
-    html('peersTable', `<table><thead><tr>${cols.map((c2) => `<th scope="col">${c2[1]}</th>`).join('')}</tr></thead><tbody>${all.map((p) => `<tr class="${p === own || p === ownPf ? 'bold' : ''}">${cols.map((c2) => `<td>${c2[0] === 'name' ? p.name : fmtCell(c2[0], p[c2[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
-    txt('peersCap', PEERS.updatedAt ? `${t('src')}: ${PEERS.source} · ${fmtDate(PEERS.updatedAt)}` : `${t('pending')} · ${LANG === 'es' ? 'estructura lista en data/peers.js; autorice el conector FactSet para poblarla' : 'schema ready in data/peers.js; authorise the FactSet connector to populate it'}`);
+    // peers: FactSet snapshot in data/peers.js (refreshed nightly by the cloud routine); own row from this model's price and net debt
+    renderPeers(price, sharesNow, ltm, nd);
+  }
+  function renderPeers(price, shares, ltm, nd) {
+    if (!el('peersTable')) return;
+    const O = PEERS.own, ps = PEERS.peers || [], M = PEERS.medians || {}, es = LANG === 'es';
+    if (!PEERS.updatedAt || !ps.length || !O) { html('peersTable', ''); txt('peersCap', `${t('pending')} · ${es ? 'estructura lista en data/peers.js' : 'schema ready in data/peers.js'}`); return; }
+    const ntmLbl = es ? 'PDM' : 'NTM';
+    const cur = es ? 'Actual' : 'Current', a1 = es ? 'Prom. 1 a' : '1-yr avg', a3 = es ? 'Prom. 3 a' : '3-yr avg', a5 = es ? 'Prom. 5 a' : '5-yr avg'; // the group header names the multiple
+    // two header rows: each NTM multiple carries its 1-, 3- and 5-year averages to the right (owner, 2026-10-06); blanks one per column so the phone rule hides the same columns in both rows
+    const groups = [['', 1], ['', 1], ['', 1], ['', 1], [evL() + '/EBITDA ' + ntmLbl, 4], [peL() + ' ' + ntmLbl, 4], ['', 1], ['', 1], ['', 1]];
+    const cols = [
+      ['name', es ? 'Empresa' : 'Company'], ['price', es ? 'Precio' : 'Price'], ['mktCapUsdM', es ? 'Cap. US$ M' : 'Mkt cap US$ M'], ['adtvUsdM', 'ADTV US$ M'],
+      ['evEbitdaNtm', cur], ['evEbitdaNtmAvg1y', a1], ['evEbitdaNtmAvg3y', a3], ['evEbitdaNtmAvg5y', a5],
+      ['peNtm', cur], ['peNtmAvg1y', a1], ['peNtmAvg3y', a3], ['peNtmAvg5y', a5],
+      ['divYieldPct', es ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', es ? 'Margen EBITDA' : 'EBITDA margin'],
+    ];
+    const cell = (k, p) => {
+      const v = p[k];
+      if (k === 'name') return p.ticker && !p.blank ? `${p.short} <span class="muted small">${p.ticker}</span>` : p.name;
+      if (k === 'price') return v == null ? '' : `<span class="muted small">${p.currency}</span> <span title="${fmtDate(p.priceDate)}">${fmtN(v, 2)}</span>`;
+      if (v == null) return p.cls === 'total' || p.blank ? '' : `<span class="muted">${t('na')}</span>`;
+      if (k === 'mktCapUsdM') return fmtN(v, 0);
+      if (k === 'adtvUsdM') return fmtN(v, 1);
+      return /Pct/.test(k) ? fmtPct(v) : fmtX(v);
+    };
+    // own row: FactSet's own row, computed exactly like the peers (owner, 2026-10-06: every price from FactSet, one close date);
+    // only the dividend yield uses the AGM amount in this model over that close
+    const dps0 = (REF.dividends || []).slice(-1)[0];
+    const own = { ...O, cls: 'bold', divYieldPct: dps0 ? 100 * dps0.dps / O.price : O.divYieldPct };
+    // pro-forma perimeter (ASUR with CPC, while the switch is on): FactSet market cap + pro-forma net debt + minorities over consensus NTM
+    // EBITDA plus CPC's EBITDA, an FNAM calculation that assumes the consensus still excludes CPC; no P/E and no history on that perimeter
+    const ownPf = usePF() && ltm && O.ntm && O.ntm.ebitda ? (() => {
+      const evPf = O.mktCapM + PF.netDebtM + nciOf(lastQ) / 1000;
+      return { ...own, blank: true, name: `${CFG.short} (${es ? 'pro forma con' : 'pro forma with'} ${L(PF.name)})`, ticker: null, evEbitdaNtm: evPf / (O.ntm.ebitda.mean + PF.ebitdaM), peNtm: null, evEbitdaNtmAvg1y: null, evEbitdaNtmAvg3y: null, evEbitdaNtmAvg5y: null, peNtmAvg1y: null, peNtmAvg3y: null, peNtmAvg5y: null, netDebtEbitda: PF.netDebtM * 1000 / (ltm.ebitda + PF.ebitdaM * 1000) };
+    })() : null;
+    if (ownPf) { own.name = `${CFG.short} (${es ? 'reportado' : 'reported'})`; own.ticker = null; }
+    const medRow = (name, m) => (m ? { name, ...m, cls: 'total' } : null);
+    const mx = ps.filter((p) => p.group === 'mexico'), intl = ps.filter((p) => p.group !== 'mexico');
+    const rows = [
+      ownPf, own,
+      { name: es ? 'México' : 'Mexico', cls: 'head' }, ...mx,
+      { name: es ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
+      medRow(es ? 'Mediana México' : 'Median, Mexico', M.mexico), medRow(es ? 'Mediana internacional' : 'Median, international', M.international), medRow(es ? 'Mediana de pares' : 'Peer median', M.all),
+    ].filter(Boolean);
+    html('peersTable', `<table class="peers"><thead><tr class="grp">${groups.map((g) => `<th colspan="${g[1]}"${g[0] ? ' scope="colgroup"' : ''}>${g[0]}</th>`).join('')}</tr><tr>${cols.map((c) => `<th scope="col">${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
+      ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
+      : `<tr class="${p.cls || ''}">${cols.map((c) => `<td>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+    const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
+    const vsOwn = (v, m) => (Math.abs(100 * (v / m - 1)) < 0.5 ? (es ? 'en línea con' : 'in line with') : prem(v, m) + (es ? ' frente a' : ' versus'));
+    const ownTxt = own && own.evEbitdaNtmAvg3y != null && own.evEbitdaNtmAvg5y != null
+      ? (es ? ` (${vsOwn(own.evEbitdaNtm, own.evEbitdaNtmAvg3y)} su promedio de 3 años (${fmtX(own.evEbitdaNtmAvg3y)}) y ${vsOwn(own.evEbitdaNtm, own.evEbitdaNtmAvg5y)} su promedio de 5 años (${fmtX(own.evEbitdaNtmAvg5y)}))`
+        : ` (${vsOwn(own.evEbitdaNtm, own.evEbitdaNtmAvg3y)} its own 3-year average (${fmtX(own.evEbitdaNtmAvg3y)}) and ${vsOwn(own.evEbitdaNtm, own.evEbitdaNtmAvg5y)} its 5-year average (${fmtX(own.evEbitdaNtmAvg5y)}))`)
+      : '';
+    const mxNames = mx.map((p) => p.short).join(es ? ' y ' : ' and ');
+    const lead = own && own.evEbitdaNtm != null && M.mexico && M.international
+      ? (es
+        ? `${CFG.short} cotiza a <b>${fmtX(own.evEbitdaNtm)} VE/EBITDA PDM</b>${ownPf ? ` reportado, ${fmtX(ownPf.evEbitdaNtm)} pro forma` : ''}${ownTxt}: ${prem(own.evEbitdaNtm, M.mexico.evEbitdaNtm)} frente a la mediana de ${mxNames} (${fmtX(M.mexico.evEbitdaNtm)}) y ${prem(own.evEbitdaNtm, M.international.evEbitdaNtm)} frente a la mediana internacional (${fmtX(M.international.evEbitdaNtm)}); P/U PDM ${fmtX(own.peNtm)} contra ${fmtX(M.mexico.peNtm)} y ${fmtX(M.international.peNtm)}.`
+        : `${CFG.short} trades at <b>${fmtX(own.evEbitdaNtm)} NTM EV/EBITDA</b>${ownPf ? ` reported, ${fmtX(ownPf.evEbitdaNtm)} pro forma` : ''}${ownTxt}: ${prem(own.evEbitdaNtm, M.mexico.evEbitdaNtm)} versus the ${mxNames} median (${fmtX(M.mexico.evEbitdaNtm)}) and ${prem(own.evEbitdaNtm, M.international.evEbitdaNtm)} versus the international median (${fmtX(M.international.evEbitdaNtm)}); NTM P/E ${fmtX(own.peNtm)} against ${fmtX(M.mexico.peNtm)} and ${fmtX(M.international.peNtm)}.`)
+      : '';
+    if (el('peersLead')) html('peersLead', lead);
+    const pd = PEERS.priceDates || {}; const main = PEERS.pricesAsOf;
+    const shortOf = (id) => ((ps.find((p) => p.ticker === id) || (O.ticker === id ? O : null) || {}).short || id);
+    const otherDates = Object.entries(pd).filter(([, d]) => d && d !== main).map(([id, d]) => `${shortOf(id)} ${fmtDate(d)}`);
+    const bsDates = [...new Set(Object.values(PEERS.balanceSheetsAt || {}))].map((d) => fmtDate(d)).join(' / ');
+    const H = PEERS.history || {}, A = PEERS.adtvWindow || {};
+    txt('peersCap', `${t('src')}: FactSet · ${es ? 'cierres al' : 'closes of'} ${fmtDate(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · ${es ? 'consenso al' : 'consensus as of'} ${fmtDate(PEERS.estimateDate)} · ${es ? 'balances al' : 'balance sheets at'} ${bsDates}${H.from ? ` · ${es ? 'promedios semanales de' : 'weekly averages from'} ${fmtDate(H.from)} ${es ? 'a' : 'to'} ${fmtDate(H.to)}` : ''}${A.from ? ` · ADTV ${fmtDate(A.from)} – ${fmtDate(A.to)}` : ''} · ${es ? 'se actualiza cada noche' : 'refreshed nightly'}`);
+    const dpsLatest = (REF.dividends || []).slice(-1)[0];
+    if (el('peersNote')) html('peersNote', es
+      ? `VE = capitalización (todas las series) + deuda neta + minoritarios al último balance publicado. PDM = próximos doce meses, media del consenso de FactSet. Promedios de 1, 3 y 5 años: media aritmética del múltiplo PDM semanal (cada viernes con su cierre, las acciones vigentes, el último balance publicado y el consenso de ese día) en las últimas 52, 156 y 260 semanas; en Auckland las semanas de 2021–22, con UPA de consenso cercana a cero por la pandemia, elevan el promedio de 5 años del P/U. ADTV: valor promedio diario operado en los últimos tres meses (volumen diario × precio promedio ponderado, en dólares). Rendimiento por dividendo: dividendo anual indicado por FactSet entre el precio${dpsLatest ? ` (${CFG.short}: Ps. ${fmtN(dpsLatest.dps, 2)} de la asamblea ${dpsLatest.agmYear})` : ''}. Deuda neta / EBITDA sobre EBITDA de los últimos doce meses${CFG.debtExtraItems && CFG.debtExtraItems.length ? ` (${CFG.short}: deuda neta de este modelo, con arrendamientos)` : ''}. Margen EBITDA en base FactSet (ingresos totales, con los ingresos por construcción IFRIC 12 en los grupos mexicanos). Renglón de ${CFG.short}: calculado igual que los pares, con el precio, la capitalización y el balance de FactSet (solo el rendimiento por dividendo usa el monto de la asamblea).${ownPf ? ` Renglón pro forma: capitalización de FactSet + deuda neta pro forma + minoritarios sobre el consenso PDM más el EBITDA de CPC (supone que el consenso aún no incluye CPC), cálculo FNAM; sin P/U ni promedios en ese perímetro.` : ''} Zúrich: balances semestrales; Auckland: año fiscal a junio de 2026, balances semestrales.`
+      : `EV = market cap (all share classes) + net debt + minorities at the latest balance sheet published. NTM = next twelve months, FactSet consensus mean. 1-, 3- and 5-year averages: arithmetic mean of the weekly NTM multiple (each Friday with that week's close, the shares then outstanding, the latest balance sheet published and the consensus sampled that day) over the last 52, 156 and 260 weeks; Auckland's 2021–22 weeks, with consensus EPS near zero in the pandemic, lift its 5-year P/E average. ADTV: average daily traded value over the last three months (daily volume × volume-weighted average price, in US dollars). Dividend yield: FactSet indicated annual dividend over price${dpsLatest ? ` (${CFG.short}: Ps. ${fmtN(dpsLatest.dps, 2)} from the ${dpsLatest.agmYear} AGM)` : ''}. Net debt / EBITDA on last-twelve-month EBITDA${CFG.debtExtraItems && CFG.debtExtraItems.length ? ` (${CFG.short}: this model's net debt, leases included)` : ''}. EBITDA margin on FactSet's basis (total revenue, IFRIC 12 construction revenue included for the Mexican groups). ${CFG.short} row: computed like the peers, with FactSet's price, market cap and balance sheet (only the dividend yield uses the AGM amount).${ownPf ? ` Pro-forma row: FactSet market cap + pro-forma net debt + minorities over consensus NTM EBITDA plus CPC's EBITDA (assumes the consensus does not yet include CPC), an FNAM calculation; no P/E and no averages on that perimeter.` : ''} Zurich: semi-annual balance sheets; Auckland: fiscal year to June 2026, semi-annual balance sheets.`);
   }
 
   // ================= 07 DEBT =================
@@ -1094,7 +1157,7 @@
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
       [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · Banxico SIE (SF43718, SF44071) · FRED (DGS10)', fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, eventos, supuestos DCF' : 'Reference: shares, concessions, debt, events, DCF defaults', LANG === 'es' ? 'por evento (rutina)' : 'event-driven (routine)', 'data/reference.js', fmtDate(REF.updatedAt)],
-      [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
+      [LANG === 'es' ? 'Pares y consenso FactSet' : 'FactSet peers and consensus', LANG === 'es' ? 'cada noche, 20:00 hora de Nueva York (rutina en la nube)' : 'nightly, 8 PM New York time (cloud routine)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th scope="col">${t('block')}</th><th scope="col">${t('cadence')}</th><th scope="col">${t('mechanism')}</th><th scope="col">${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     html('srcGrid', CFG.sources.map((s) => `<div class="item"><div class="t"><a href="${s.u}" target="_blank" rel="noopener">${L(s.t)} ↗</a></div><div class="d">${L(s.d)}</div></div>`).join(''));

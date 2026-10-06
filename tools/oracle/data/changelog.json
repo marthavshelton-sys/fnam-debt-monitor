@@ -4,6 +4,13 @@
   {
    "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
+   "path": "sections[15].en",
+   "old": "Methodology, Sources, Provenance, Glossary and Change Log",
+   "new": "Analyst Opinions: Sell-Side Research and Consensus"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
    "path": "sections[15].es",
    "old": "Metodología, fuentes, procedencia, glosario y bitácora de cambios",
    "new": "Opiniones de analistas: investigación del lado vendedor y consenso"
@@ -4118,89 +4125,82 @@
    "new": "404 leaves compared; further changes in this file not listed"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.source",
    "old": "Nasdaq",
-   "new": "FactSet Global Prices (daily closes)"
+   "new": "FactSet Global Prices"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.sourceUrl",
    "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-06&todate=2026-10-06&limit=10000",
    "new": "https://www.factset.com/"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.points.length",
    "old": 1254,
    "new": 2956
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "range52.source",
    "old": "Nasdaq",
    "new": "FactSet Global Prices"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.sourceShort",
    "old": null,
    "new": "FactSet Global Prices"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.latestFrom",
    "old": null,
    "new": "factset"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.factset.from",
    "old": null,
    "new": "2015-01-02"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.factset.to",
    "old": null,
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.factset.n",
    "old": null,
    "new": 2956
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.fill.name",
    "old": null,
    "new": "Nasdaq"
   },
   {
-   "at": "2026-10-06T11:09:20.980Z",
+   "at": "2026-10-06T11:48:06.444Z",
    "file": "market.js",
    "path": "prices.ORCL.provenance.fill.before",
    "old": null,
    "new": 0
-  },
-  {
-   "at": "2026-10-06T11:12:38.563Z",
-   "file": "market.js",
-   "path": "prices.ORCL.source",
-   "old": "FactSet Global Prices (daily closes)",
-   "new": "FactSet Global Prices"
   }
  ],
- "generated": "2026-10-06T11:43:50.921Z"
+ "generated": "2026-10-06T11:48:06.444Z"
 }
