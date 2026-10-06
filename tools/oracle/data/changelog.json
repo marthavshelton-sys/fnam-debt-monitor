@@ -4,20 +4,6 @@
   {
    "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
-   "path": "sections[15].es",
-   "old": "Metodología, fuentes, procedencia, glosario y bitácora de cambios",
-   "new": "Opiniones de analistas: investigación del lado vendedor y consenso"
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
-   "path": "sections[15].nav_en",
-   "old": "Methodology",
-   "new": "Analysts"
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
    "path": "sections[15].nav_es",
    "old": "Metodología",
    "new": "Analistas"
@@ -4200,7 +4186,21 @@
    "path": "latestClose",
    "old": null,
    "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-06T14:31:27.276Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-02",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-06T14:31:27.276Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 787,
+   "new": 788
   }
  ],
- "generated": "2026-10-06T14:30:55.521Z"
+ "generated": "2026-10-06T14:31:27.276Z"
 }
