@@ -4,41 +4,6 @@
   {
    "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
-   "path": "sections[15].nav_es",
-   "old": "Metodología",
-   "new": "Analistas"
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
-   "path": "sections[15].deck",
-   "old": true,
-   "new": false
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
-   "path": "sections[15].deck_order",
-   "old": 15,
-   "new": null
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
-   "path": "sections[15].modules[0]",
-   "old": "quality",
-   "new": "analysts"
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
-   "path": "sections[15].modules[1]",
-   "old": "changelog",
-   "new": "factset"
-  },
-  {
-   "at": "2026-10-05T14:03:31.734Z",
-   "file": "sections.js",
    "path": "sections[15].modules[2]",
    "old": "obligations",
    "new": "market"
@@ -4200,7 +4165,42 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 787,
    "new": 788
+  },
+  {
+   "at": "2026-10-06T21:53:09.244Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-06)"
+  },
+  {
+   "at": "2026-10-06T21:53:09.244Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2512,
+   "new": 2513
+  },
+  {
+   "at": "2026-10-06T21:53:09.244Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-06T21:53:09.244Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.31,
+   "new": 5.27
+  },
+  {
+   "at": "2026-10-06T21:53:09.244Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16175,
+   "new": 16176
   }
  ],
- "generated": "2026-10-06T15:33:23.135Z"
+ "generated": "2026-10-06T21:53:09.244Z"
 }

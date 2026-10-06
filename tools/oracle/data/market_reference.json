@@ -18,18 +18,18 @@
       "source_name": "Nasdaq"
     },
     "sp500": {
-      "close": 7773.95,
-      "close_date": "2026-10-05",
-      "one_day_change_pct": 0.66,
-      "one_year_change_pct": 15.76,
+      "close": 7818.93017578125,
+      "close_date": "2026-10-06",
+      "one_day_change_pct": 0.58,
+      "one_year_change_pct": 16,
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-      "source_name": "FRED SP500",
+      "source_name": "FRED SP500 + Yahoo Finance (2026-10-06)",
       "accessed": "2026-10-06"
     }
   },
   "treasury_10y": {
-    "yield_pct": 5.31,
-    "as_of_date": "2026-10-05",
+    "yield_pct": 5.27,
+    "as_of_date": "2026-10-06",
     "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
     "source_name": "U.S. Treasury daily par yield curve",
     "series": "10-year par yield, daily",
@@ -556,7 +556,7 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-06"
   },
-  "refreshed_at": "2026-10-06T15:33:16.050Z",
+  "refreshed_at": "2026-10-06T21:53:08.910Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",

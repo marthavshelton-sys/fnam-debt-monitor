@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06T15:33:22.937Z",
+  "generated": "2026-10-06T21:53:09.060Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -3791,8 +3791,8 @@
     },
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
-      "lastDate": "2026-10-05",
-      "ageDays": 2,
+      "lastDate": "2026-10-06",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
