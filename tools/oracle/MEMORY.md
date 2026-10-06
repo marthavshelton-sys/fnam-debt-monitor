@@ -285,8 +285,11 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - FactSet refresh moved to a nightly Claude Routine at 7:58 PM New York time (owner, 2026-10-06: prices as of the prior close,
   no involvement): routine "FNAM Oracle: FactSet nightly refresh" (`trig_01CNz7N4EvEViw5rbnp1ANKB`, fresh session per fire, the
   FactSet connector attached by the owner; the old weekday routine was deleted). A session fired from an agent-created routine starts
-  with no repository, so the prompt's STEP 1 attaches and clones it itself (`add_repo`) before anything else; its prompt is the text of
-  `FACTSET-PROMPT.md` and both must change together (`update_trigger`).
+  with no repository and has no `add_repo` tool (both test runs of 2026-10-06 stopped there), while routines created on the
+  claude.ai/code Routines page fire with the repository attached and push to `main` (the weekday review does): the repository must
+  be attached to the routine on that page, or the routine recreated there with repository and connector. The prompt is the text of
+  `FACTSET-PROMPT.md` and both change together (`update_trigger`). The daily news sweep routine (`trig_01UrRS8yehhzptXyHsSyWqZo`,
+  agent-created 2026-10-03) fired its 2026-10-05 run without the repository too and no commit of its author exists on `main`.
   A rate-limited call ("API rate limit exceeded") succeeds on a retry a minute later; weekly 5-year consensus pulls are ~1 MB
   each and must be parsed from the saved tool-result file.
 - Circular flow map: `renderCircularMap()` (SVG, `svg.figmap` counts as a Figure in `numberSections`); loads the hub's `circular.js`.
