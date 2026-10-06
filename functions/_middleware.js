@@ -59,14 +59,14 @@ const SESSION_FORMAT = 'v2';
 
 // Content-Security-Policy for the pages: self-hosted scripts and data files, inline scripts and styles (every page
 // composes its markup in-page), Google Fonts, data: URIs for the icons, blob: for the PDFs the decks build in the
-// browser, and Cloudflare's Web Analytics beacon (injected by Pages; drop the two insights entries once it is off).
+// browser. Nothing third-party: Cloudflare's Web Analytics beacon was switched off in the Pages project on 2026-10-06.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com",
+  "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com data:",
   "img-src 'self' data: blob:",
-  "connect-src 'self' https://cloudflareinsights.com",
+  "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -260,7 +260,7 @@ ${error ? `<div class="err">${error}</div>` : ''}
 (function(){try{var h=location.hash,n=document.getElementById('next');if(h&&h.length>1&&h.length<200&&/^#[A-Za-z0-9_:.-]+$/.test(h)&&n&&n.value.indexOf('#')<0)n.value+=h;}catch(e){}})();
 </script></body></html>`;
   const headers = withSecurity(new Headers({ 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' }), {
-    'content-security-policy': CSP.replace("script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com", `script-src 'nonce-${nonce}' https://static.cloudflareinsights.com`),
+    'content-security-policy': CSP.replace("script-src 'self' 'unsafe-inline'", `script-src 'nonce-${nonce}'`),
   });
   if (retryAfter) headers.set('retry-after', String(retryAfter));
   return new Response(html, { status, headers });

@@ -102,12 +102,12 @@
 # Security headers on every response (the gate middleware, functions/_middleware.js, sets the same set on the
 # responses it builds: the login form, redirects, robots.txt). HSTS one year with subdomains; a Content-Security-Policy
 # that allows only this origin, inline scripts and styles (every page composes its markup in-page), Google Fonts, data:
-# icons, blob: for the PDFs the decks build in the browser and Cloudflare's Web Analytics beacon (drop the two
-# insights entries once the beacon is turned off in the Pages project); no framing anywhere (frame-ancestors 'none'
+# icons and blob: for the PDFs the decks build in the browser, nothing third-party (Cloudflare's Web Analytics beacon
+# was switched off in the Pages project on 6-Oct-2026 and its two insights entries dropped); no framing anywhere (frame-ancestors 'none'
 # and X-Frame-Options); browser features the pages never use are switched off (Permissions-Policy).
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
