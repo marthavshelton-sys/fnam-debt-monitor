@@ -132,13 +132,17 @@ while (months.length && cur <= months.at(-1)) {
 const mk = await load(`../../site/${COMPANY}/data/market.js`);
 const main = { asur: 'ASURB.MX', oma: 'OMAB.MX' }[COMPANY];
 Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: { [main]: 400 } });
-// FactSet closes (the share-price authority since 2026-10-06, nightly routine): the home series must carry them and they must be recent
+// FactSet closes (the share-price authority since 2026-10-06, nightly routine): every share series (the index stays on Yahoo)
+// must carry them and they must be recent; the oldest FactSet end date is the row's date, a series without FactSet closes warns
 {
-  const pv = ((mk.prices || {})[main] || {}).provenance, f = pv && pv.factset;
-  const after = (pv && pv.fill && pv.fill.after) || [];
-  Q.stale('FactSet closes (market.js)', f ? f.to : null, 5, f
-    ? { es: `${pv.authority} hasta ${f.to} (${f.points} cierres, descargados ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance cubre ${after.length} sesión(es) posterior(es)` : ''}`, en: `${pv.authority} through ${f.to} (${f.points} closes, pulled ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance fills ${after.length} later session(s)` : ''}` }
-    : { es: 'market.js sin cierres de FactSet: la serie es sólo Yahoo Finance', en: 'market.js carries no FactSet closes: Yahoo Finance only' });
+  const rows = Object.keys(mk.prices || {}).filter((id) => id !== '^MXX').map((id) => { const pv = (mk.prices[id] || {}).provenance; return { id, f: pv && pv.factset, after: (pv && pv.fill && pv.fill.after) || [] }; });
+  const withFs = rows.filter((r) => r.f), without = rows.filter((r) => !r.f);
+  const oldest = withFs.reduce((a, r) => (a == null || r.f.to < a ? r.f.to : a), null);
+  const list = (es) => withFs.map((r) => `${r.id} ${es ? 'hasta' : 'through'} ${r.f.to}${r.after.length ? ` (+${r.after.length} ${es ? 'sesión(es) de respaldo' : 'fallback session(s)'})` : ''}`).join(', ');
+  Q.stale('FactSet closes (market.js)', without.length ? null : oldest, 5, {
+    es: `${withFs.length ? `${withFs[0].f && mk.prices[withFs[0].id].provenance.authority}: ${list(true)}` : 'ninguna serie con cierres de FactSet'}${without.length ? `; SIN FactSet (sólo Yahoo): ${without.map((r) => r.id).join(', ')}` : ''}`,
+    en: `${withFs.length ? `${withFs[0].f && mk.prices[withFs[0].id].provenance.authority}: ${list(false)}` : 'no series carries FactSet closes'}${without.length ? `; NO FactSet (Yahoo only): ${without.map((r) => r.id).join(', ')}` : ''}`,
+  });
 }
 const expQ = expectedQuarter(35), expM = expectedMonth(12);
 if (last) Q.period('latest quarter (financials.js)', last.id, expQ, ageDays(((last.sources || {}).is || {}).date));

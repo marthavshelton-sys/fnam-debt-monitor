@@ -38,7 +38,7 @@ page can be traced to a line in one of these files.
 ## Pipeline (`.github/workflows/gap-refresh.yml`)
 
 ```
-scripts/gap/fetch-market.mjs      Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; BANXICO_TOKEN; FRED fallbacks) + FRED (US 10y) -> site/gap/data/market.js
+scripts/gap/fetch-market.mjs      Yahoo Finance (Stooq fallback) overlaid with FactSet closes (tools/gap/raw/factset/prices.json) + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; BANXICO_TOKEN; FRED fallbacks) + FRED (US 10y) -> site/gap/data/market.js
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit; also writes site/gap/data/quality.js for the hidden data-quality page
@@ -144,17 +144,20 @@ in-session on 2026-10-06; a session still open comes back null and is skipped; o
 scripts/lib/factset-prices.mjs apply` overlays the closes on the three `data/market.js` in place, and both market fetchers
 (`scripts/gap/fetch-market.mjs`, `scripts/airports/fetch-market.mjs`) import `overlayFactSet()` and do the same on every Actions
 run: inside FactSet's date range only FactSet's closes are shown; Yahoo/Stooq fill the history before it and the sessions after
-it (the 22:40 UTC run sees a close about an hour before the 23:52 UTC routine), and the entry says so in `source` and
+it (the 22:40 UTC run sees a close an hour or two before the routine, 19:52 New York time), and the entry says so in `source` and
 `provenance` (`authority`, `latestFrom`, `factset.{from,to,points,pulledAt}`, `fill.{source,fetchedAt,before,after,points}`).
 `fetchedAt` is the stamp of the feed that supplied the latest close, so the header's "fetched" time is the routine's pull when
 FactSet has the latest session. The S&P/BMV IPC stays on Yahoo (the connector rejects index ids), as does the dividend record.
 Pages and decks compose every price-source label from `provenance` (`priceSrcLabel`, `priceSources`, `marketSrcNote` in the
-model); the validators warn when the home series carries no FactSet closes or they are older than five days, and the
+model); the validators warn when any share series (the IPC excepted) carries no FactSet closes or the oldest FactSet end
+date is more than five days old, and the
 watchdog (`tools/watchdog/dashboards.json` → `prices`, since 6-Oct-2026) turns the page's dot red when `prices.json` or the
 page's own `latestClose` (first bytes of `market.js`, written by the fetchers and by `apply`) is behind the BMV's (NYSE's for
 the ADS) last completed session plus five hours. Yahoo's BMV closes
 differed from FactSet's by more than 0.2% on about a sixth of the dates since 2015 (and the 6-Oct-2026 morning run printed
-377.57 for GAPB.MX's 5-Oct close where FactSet, and the previous evening's Yahoo, had 379.01); the ADS series matched exactly.
+377.57 for GAPB.MX's 5-Oct close where FactSet, and the previous evening's Yahoo, had 379.01); the ADS series matched within 0.1% on every date. `ingest` refuses a partial pull (a listing with no rows) and a pull whose
+closes disagree with the stored history on most overlapping dates (a split or restatement: re-pull from 2015-01-01 and run
+`ingest --replace`); the overlay never discards points the page already shows when FactSet's range is narrower than before.
 
 What the table shows (owner, 2026-10-06): every price is a FactSet close on one common date (the latest date on or
 before the run with a close for every company, printed in the caption; a company closed that day takes its last close

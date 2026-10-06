@@ -668,7 +668,7 @@
   // Prices (nightly routine); Yahoo Finance keeps the S&P/BMV IPC, the dividend record and fills only the sessions
   // FactSet has not posted yet. Every label below is composed from market.js's own provenance, never typed.
   function priceSrcLabel(meta) {
-    const pv = meta && meta.provenance; if (!pv || !pv.factset) return (meta && meta.source) || '';
+    const pv = meta && meta.provenance; if (!pv || !pv.factset) return String((meta && meta.source) || '').replace(/ chart API$/, '');
     const es = LANG === 'es', f = pv.factset, fill = pv.fill || {}, fillName = String(fill.source || 'Yahoo Finance').replace(/ chart API$/, '');
     let s = `${pv.authority} (${es ? 'cierres diarios' : 'daily closes'} ${fmtDate(f.from)} → ${fmtDate(f.to)})`;
     if (fill.before) s += es ? `; ${fillName} antes del ${fmtDate(f.from)}` : `; ${fillName} before ${fmtDate(f.from)}`;
@@ -679,16 +679,29 @@
   function priceSources(ids) {
     const fs = [], other = [];
     for (const id of ids) { const m = MK.prices[id]; if (!m) continue; (m.provenance && m.provenance.factset ? fs : other).push(id === '^MXX' ? 'S&P/BMV IPC' : id); }
-    const auth = fs.length ? (MK.prices[ids.find((id) => MK.prices[id] && MK.prices[id].provenance && MK.prices[id].provenance.factset)].provenance.authority) : null;
-    return { factset: fs, other, authority: auth };
+    const first = fs.length ? MK.prices[ids.find((id) => MK.prices[id] && MK.prices[id].provenance && MK.prices[id].provenance.factset)].provenance : null;
+    const fillName = String((first && first.fill && first.fill.source) || 'Yahoo Finance').replace(/ chart API$/, '');
+    return { factset: fs, other, authority: first ? first.authority : null, fillName };
   }
   // one-line market-data note for the page and the deck: "FactSet Global Prices (cierres diarios GAPB.MX, PAC), Yahoo Finance (^MXX; dividendos)"
   function marketSrcNote(ids) {
-    const es = LANG === 'es', ps = priceSources(ids);
+    const es = LANG === 'es', ps = priceSources(ids), dc = es ? 'cierres diarios' : 'daily closes', fb = es ? 'cierres de respaldo' : 'fallback closes';
     const parts = [];
-    if (ps.factset.length) parts.push(`${ps.authority} (${es ? 'cierres diarios' : 'daily closes'} ${ps.factset.join(', ')})`);
-    parts.push(`Yahoo Finance (${ps.other.length ? ps.other.join(', ') + '; ' : ''}${es ? 'dividendos' : 'dividends'}${ps.factset.length ? (es ? '; respaldo de cierres' : '; close fallback') : ''})`);
+    if (ps.factset.length) parts.push(`${ps.authority} (${dc} ${ps.factset.join(', ')})`);
+    const yahoo = [];
+    if (ps.other.length) yahoo.push(`${dc} ${ps.other.join(', ')}`);
+    yahoo.push(es ? 'dividendos' : 'dividends');
+    if (ps.factset.length && ps.fillName === 'Yahoo Finance') yahoo.push(fb);
+    parts.push(`Yahoo Finance (${yahoo.join('; ')})`);
+    if (ps.factset.length && ps.fillName !== 'Yahoo Finance') parts.push(`${ps.fillName} (${fb})`);
     return parts.join(', ');
+  }
+  // the refresh table's cadence for the market row, composed from the same provenance (page and deck)
+  function marketCadence(ids) {
+    const es = LANG === 'es';
+    return priceSources(ids).factset.length
+      ? (es ? 'diario, tras el cierre de la BMV; cierres de FactSet a las 20:00, hora de Nueva York' : 'daily after the BMV close; FactSet closes at 8 PM New York time')
+      : (es ? 'diario, después del cierre de la BMV' : 'daily after the BMV close');
   }
   function renderShare() {
     const pts = px(sh.listing); if (!pts.length) return;
@@ -1091,7 +1104,7 @@
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'tabla de guía en los comunicados (enero, 4T, revisiones)' : 'guidance table in the releases (January, 4Q, revisions)', fmtDate((GD.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
-      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario: tras el cierre de la BMV y a las 20:00 hora de Nueva York (cierres FactSet)' : 'daily: after the BMV close and at 8 PM New York time (FactSet closes)', `${marketSrcNote(['GAPB.MX', 'PAC', 'ASURB.MX', 'OMAB.MX', '^MXX'])} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', marketCadence(Object.keys(MK.prices || {})), `${marketSrcNote(['GAPB.MX', 'PAC', 'ASURB.MX', 'OMAB.MX', '^MXX'])} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Pares y consenso FactSet' : 'FactSet peers and consensus', LANG === 'es' ? 'cada noche, 20:00 hora de Nueva York (rutina en la nube)' : 'nightly, 8 PM New York time (cloud routine)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
@@ -1194,7 +1207,7 @@
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
-    betaFromMarket, kdFromDebt, PEERS, priceSrcLabel, priceSources, marketSrcNote,
+    betaFromMarket, kdFromDebt, PEERS, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
   };
 
     let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }

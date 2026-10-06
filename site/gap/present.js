@@ -95,7 +95,7 @@
       R(this.T('Precio GAP B (BMV)', 'GAP B share price (BMV)'), `Ps. ${this.n(px[1], 2)}  ·  ${this.date(px[0])}`);
       if (ads) R(this.T('ADS PAC (NYSE) · 1 ADS = 10 acciones', 'PAC ADS (NYSE) · 1 ADS = 10 shares'), `US$ ${this.n(ads[1], 2)}  ·  ${this.date(ads[0])}`);
       R(this.T('Capitalización de mercado', 'Market capitalization'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
-      if (fx) R(this.T('Tipo de cambio usado (Fed H.10)', 'FX rate used (Fed H.10)'), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted');
+      if (fx) { const fxSrc = String((M.MK.fx && M.MK.fx.USDMXN && M.MK.fx.USDMXN.source) || ''); const fxLab = /banxico/i.test(fxSrc) ? 'Banxico FIX' : /fred|dexmxus/i.test(fxSrc) ? 'FRED DEXMXUS' : fxSrc.split(' (')[0]; R(this.T(`Tipo de cambio usado (${fxLab})`, `FX rate used (${fxLab})`), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted'); }
       R(this.T('Acciones en circulación', 'Shares outstanding'), `${this.n(M.sharesNow)}  ·  ${M.REF.shares ? this.date(M.REF.shares.asOf) : ''}`, 'muted');
       R(this.T('Variación en el año (GAP B · IPC)', 'Year-to-date change (GAP B · IPC)'), `${pm(chg(px, yStart))}  ·  IPC ${pm(chg(ipcLast, ipcStart))}`, this.cls(chg(px, yStart)));
       R(this.T('Variación 12 meses (GAP B · IPC)', '12-month change (GAP B · IPC)'), `${pm(chg(px, yAgo))}  ·  IPC ${pm(chg(ipcLast, ipcAgo))}`, this.cls(chg(px, yAgo)));
@@ -524,7 +524,7 @@
         [this.T('Guía de la administración', 'Management guidance'), this.T('misma corrida', 'same run'), this.T('tabla de guía en los comunicados', 'guidance table in the releases'), d(M.GD.generatedAt)],
         [this.T('Comentarios del estado de resultados', 'Income-statement comments'), this.T('por trimestre', 'per quarter'), this.T('informes y transcripciones de conferencias (revisados)', 'reports and earnings-call transcripts (reviewed)'), d(M.CM.updatedAt)],
         [this.T('Resumen ejecutivo', 'Executive summary'), this.T('con cada reporte', 'with each report'), this.T('redactado a partir de los datos y comunicados', 'written from the data files and releases'), d(M.SUM.updatedAt)],
-        [this.T('Precios, dividendos, tipo de cambio, tasas', 'Prices, dividends, FX, yields'), this.T('diario, tras el cierre de la BMV y a las 20:00 de Nueva York (FactSet)', 'daily, after the BMV close and at 8 PM New York time (FactSet)'), `${M.priceSources(['GAPB.MX', 'PAC']).factset.length ? 'FactSet Global Prices · ' : ''}Yahoo Finance · Banxico SIE · FRED`, d(M.MK.generatedAt)],
+        [this.T('Precios, dividendos, tipo de cambio, tasas', 'Prices, dividends, FX, yields'), M.marketCadence(Object.keys(M.MK.prices || {})), `${M.priceSources(['GAPB.MX', 'PAC']).factset.length ? 'FactSet Global Prices · ' : ''}Yahoo Finance · Banxico SIE · FRED`, d(M.MK.generatedAt)],
         [this.T('Referencia: acciones, concesiones, deuda, CBX, FIBRA', 'Reference: shares, concessions, debt, CBX, FIBRA'), this.T('por evento', 'event-driven'), this.T('comunicados de GAP, revisados a mano', 'GAP releases, hand-reviewed'), d(M.REF.updatedAt)],
         [this.T('Tráfico nacional (comparación con México)', 'National traffic (Mexico comparison)'), this.T('diario', 'daily'), this.T('AFAC, estadística operativa de aeropuertos', 'AFAC airport operating statistics'), this.MX ? d(this.MX.generatedAt) : '—'],
       ];
