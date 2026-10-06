@@ -135,18 +135,20 @@ Auckland, saves each raw result under `tools/gap/raw/factset/pull/` (gitignored)
 `site/oma/data/peers.js`), validates and pushes to `main` with `[skip actions]`. `scripts/gap/build-peers.mjs` is a
 wrapper over `build`. The calls, file names and every definition are listed at the top of the library.
 
-What the table shows (owner, 2026-10-06): closes of the last completed session (the price date is printed in the
-caption; Auckland trades a day ahead), market cap and ADTV in US$ millions, NTM EV/EBITDA and NTM P/E with their 1-, 3-
-and 5-year averages, dividend yield, net debt / EBITDA and the EBITDA margin. The trailing multiples and the USD return
-left the table. The connector cannot run FactSet's FQL items (`FE_VALUATION(PE|FFEV_EBITDA, MEAN, NTM4_ROLL, ...)`,
+What the table shows (owner, 2026-10-06): every price is a FactSet close on one common date (the latest date on or
+before the run with a close for every company, printed in the caption; a company closed that day takes its last close
+before it and is named), market cap restated at that close and ADTV in US$ millions, NTM EV/EBITDA and NTM P/E with
+their 1-, 3- and 5-year averages, dividend yield, net debt / EBITDA and the EBITDA margin. The company's own row is
+FactSet's row computed exactly like the peers (only the dividend yield uses the AGM amount in `reference.js`); the
+model's own price and net debt stay in the multiples table on the left. The trailing multiples and the USD return left
+the table. The connector cannot run FactSet's FQL items (`FE_VALUATION(PE|FFEV_EBITDA, MEAN, NTM4_ROLL, ...)`,
 `P_VOLUME_AVG`, `XP_PRICE_VWAP`; its screener lists `FE_VALUATION_PE_MEAN` but returns no values, checked 2026-10-06),
 so the figures are assembled from the series it does expose: price / consensus NTM EPS mean and (market value + net
 debt + minorities) / consensus NTM EBITDA mean for the current columns; for the averages, the same ratio each Friday
 over the last 52 / 156 / 260 weeks (weekly consensus, weekly close, shares then outstanding scaled to FactSet's
 all-class market value — GAP from `reference.js` — and the latest balance sheet already reported); ADTV = mean of the
 daily turnover (volume × VWAP, USD) over the last three months, with the product-of-averages variant kept in the
-snapshot as `adtv.productUsdM`. The page computes the company's own current multiples from its own price, shares and
-net debt with the FactSet consensus as the denominator; its averages and ADTV come from the snapshot. If the routine
+snapshot as `adtv.productUsdM`. If the routine
 fails, it pushes a `peers-failed-<date>` branch and writes `notify-state.json → lastPeersFailure`; the quality page
 flags `peers.js` once its prices are older than 45 days.
 
