@@ -35,8 +35,8 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
    per address. The same middleware redirects www → apex, sets the security headers (HSTS, CSP with `frame-ancestors
    'none'`, Permissions-Policy; `site/_headers` carries the same set) and serves `?lang=en|es` in the HTML (`<html lang>`,
    plus the es/en spans on the pages that toggle `hidden`). A new page must load everything from its own origin or Google
-   Fonts (the CSP allows nothing else); Cloudflare's Web Analytics beacon is the one exception until it is switched off in
-   the Pages project. Public copy carries no repository paths, workflow names, GitHub links or the owner's email
+   Fonts (the CSP allows nothing else: Cloudflare's Web Analytics was switched off in the Pages project on 2026-10-06 and
+   its two cloudflareinsights entries left the CSP, so no third-party script runs). Public copy carries no repository paths, workflow names, GitHub links or the owner's email
    (`tools/audit-public-copy.mjs` renders every page in both languages and lists any leftover); keep new pages that way, and
    keep generated data-file headers free of script paths too (owner, 2026-10-05).
 
