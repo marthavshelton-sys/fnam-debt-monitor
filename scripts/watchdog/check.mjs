@@ -6,6 +6,8 @@
 // finds the last scheduled run whose data refresh landed and judges it against that workflow's own cron
 // schedule (rules and tests in lib.mjs / selftest.mjs):
 //
+//   stale  a price feed of the page (dashboards.json → prices) is behind the exchange's last completed session,
+//          judged from the data files in main (the owner's rule, 6-Oct-2026: any price not updated turns the dot red);
 //   late   two scheduled refreshes in a row failed or never ran (3 h grace after each due time);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
@@ -16,7 +18,8 @@
 //
 // Alarm: a late dashboard whose own pipeline has no alert open gets one issue titled
 // "SOURCE DOWN: watchdog - <dashboard> refresh late" (label data-watchdog), which the owner's email routine
-// sends like every "SOURCE DOWN: " issue. The first on-time check comments and closes it.
+// sends like every "SOURCE DOWN: " issue; a dashboard with a stale price feed gets "SOURCE DOWN: watchdog -
+// <dashboard> prices stale". The first check that finds the dashboard on time (or its prices current) closes it.
 //
 //   node scripts/watchdog/check.mjs [--dry-run] [--no-issues] [--now <ISO time>]
 //
@@ -24,7 +27,7 @@
 // In Actions: GITHUB_TOKEN (actions: read, issues: write) and GITHUB_REPOSITORY. Exits 1 only when GitHub
 // cannot be read: an unverifiable state is never written as a verdict.
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
-import { verdict, cronsInWorkflow, refreshLandedBySteps, isoSeconds, cdmx } from './lib.mjs';
+import { verdict, cronsInWorkflow, refreshLandedBySteps, priceVerdict, lastCsvDate, jsonDate, isoSeconds, cdmx } from './lib.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const argv = process.argv.slice(2);
@@ -83,6 +86,23 @@ async function runsOf(file) {
   return { attempt: runs[0] || null, landed };
 }
 
+// Price feeds (dashboards.json → prices): each series names a file in main and how to read its latest date;
+// the verdict compares every date with the exchange's last completed session (lib.mjs priceVerdict).
+async function priceCheck(cfg) {
+  const series = [];
+  for (const s of cfg.series) {
+    let date = null;
+    try {
+      const text = await readFile(new URL(s.file, ROOT), 'utf8');
+      date = s.kind === 'json' ? jsonDate(JSON.parse(text), s.field) : lastCsvDate(text);
+    } catch (e) { console.warn(`${s.name}: ${s.file} unreadable (${e.message})`); }
+    series.push({ name: s.name, date, lagSessions: s.lagSessions || 0, file: s.file });
+  }
+  const v = priceVerdict({ exchange: cfg.exchange || 'NYSE', now: NOW, settleHours: cfg.settleHours || 0, series });
+  v.series.forEach((r, i) => { r.file = series[i].file; if (series[i].lagSessions) r.lagSessions = series[i].lagSessions; });
+  return v;
+}
+
 const issues = await openIssues();
 const rows = [], notes = {};
 for (const d of CONFIG.dashboards) {
@@ -97,19 +117,24 @@ for (const d of CONFIG.dashboards) {
   if (!crons.length) throw new Error(`${d.id}: no schedule in ${d.workflows.join(', ')}`);
   const alerts = issues.filter((i) => i.labels.some((l) => (d.alertLabels || []).includes(l.name)));
   const v = verdict({ crons, now: NOW, graceMs: GRACE, lookbackMs: LOOKBACK, lastLandedCreatedAt: landed ? landed.run.created_at : null, openAlerts: alerts.length });
+  const prices = d.prices ? await priceCheck(d.prices) : null;
   rows.push({
     id: d.id, section: d.section, name: d.name, url: d.url,
-    status: v.status,
+    // stale (a price feed behind the last completed session) outranks the refresh verdict: it is what the reader sees
+    status: prices && prices.status === 'stale' ? 'stale' : v.status,
+    refreshStatus: v.status,
     lastSuccess: landed ? isoSeconds(landed.run.updated_at) : null,
     lastAttempt: attempt ? { at: isoSeconds(attempt.updated_at), result: attempt.conclusion } : null,
     requiredSince: v.requiredSince !== null ? isoSeconds(v.requiredSince) : null,
     alerts: alerts.length,
+    ...(prices ? { prices } : {}),
   });
-  notes[d.id] = { d, landed, attempt, alerts };
+  notes[d.id] = { d, landed, attempt, alerts, prices };
 }
 
 // ---- report ----
-const line = (r) => `${r.id.padEnd(16)} ${r.status.padEnd(5)}  landed ${r.lastSuccess ? cdmx(r.lastSuccess) : 'never'}  ·  needed since ${r.requiredSince ? cdmx(r.requiredSince) : '—'}  ·  last attempt ${r.lastAttempt ? r.lastAttempt.result : '—'}${r.alerts ? `  ·  ${r.alerts} alert issue(s) open` : ''}${notes[r.id].landed && notes[r.id].landed.afterCommitFailure ? '  ·  (run failed after its commit step)' : ''}`;
+const pxLine = (p) => p ? `  ·  prices ${p.status} (session ${p.expected}${p.series.filter((x) => !x.ok).length ? `; behind: ${p.series.filter((x) => !x.ok).map((x) => `${x.name} ${x.date || 'none'} < ${x.needed}`).join(', ')}` : ''})` : '';
+const line = (r) => `${r.id.padEnd(16)} ${r.status.padEnd(5)}  landed ${r.lastSuccess ? cdmx(r.lastSuccess) : 'never'}  ·  needed since ${r.requiredSince ? cdmx(r.requiredSince) : '—'}  ·  last attempt ${r.lastAttempt ? r.lastAttempt.result : '—'}${r.alerts ? `  ·  ${r.alerts} alert issue(s) open` : ''}${notes[r.id].landed && notes[r.id].landed.afterCommitFailure ? '  ·  (run failed after its commit step)' : ''}${pxLine(r.prices)}`;
 console.log(`Watchdog at ${cdmx(NOW)}\n` + rows.map(line).join('\n'));
 if (process.env.GITHUB_STEP_SUMMARY) {
   await appendFile(process.env.GITHUB_STEP_SUMMARY, ['| Dashboard | Status | Last landed refresh | Needed since | Last attempt | Open alerts |', '|---|---|---|---|---|---|',
@@ -119,7 +144,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours',
+  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time), no alert of the pipeline is open and every price feed of the page carries the exchange\'s last completed session (stale otherwise); checked every 12 hours',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,
@@ -142,9 +167,27 @@ else {
 const own = issues.filter((i) => i.labels.some((l) => l.name === LABEL));
 const actions = [];
 for (const r of rows) {
-  const { d, landed, attempt } = notes[r.id];
+  const { d, landed, attempt, prices } = notes[r.id];
   const mine = own.find((i) => (i.body || '').includes(mark(r.id)));
-  if (r.status === 'late' && !mine && r.alerts === 0) {
+  // a stale price feed has its own issue (marker <id>:prices), independent of the refresh-late one
+  const minePx = own.find((i) => (i.body || '').includes(mark(`${r.id}:prices`)));
+  if (prices && prices.status === 'stale' && !minePx) {
+    const behind = prices.series.filter((x) => !x.ok);
+    actions.push({ kind: 'open', id: `${r.id}:prices`, title: `SOURCE DOWN: watchdog - ${d.name.en} prices stale`, body: [
+      `A price feed of **${d.name.en}** (https://fnam.mx${d.url}) is behind the last completed ${prices.exchange} session (${prices.expected}, required from ${cdmx(prices.requiredFrom)}). The page shows the dashboard as "Prices out of date" (Precios desactualizados) until every feed carries that session.`,
+      '',
+      '| Feed | Latest date in main | Needed | |', '|---|---|---|---|',
+      ...prices.series.map((x) => `| ${x.name} | ${x.date || 'none'} | ${x.needed}${x.lagSessions ? ` (${x.lagSessions} session${x.lagSessions > 1 ? 's' : ''} of lag allowed)` : ''} | ${x.ok ? 'ok' : '**behind**'} |`),
+      '',
+      `Behind: ${behind.map((x) => x.name).join(', ')}. Check the feed's own refresh (the nightly FactSet routine for FactSet feeds, the refresh workflow for the runner feeds) and re-run it; this issue closes itself at the first check that finds every feed current.`,
+      'Checked every 12 hours by `scripts/watchdog/check.mjs` (`.github/workflows/data-watchdog.yml`); runbook `tools/watchdog/README.md`.',
+      '',
+      mark(`${r.id}:prices`),
+    ].join('\n') });
+  } else if (prices && prices.status !== 'stale' && minePx) {
+    actions.push({ kind: 'close', id: `${r.id}:prices`, number: minePx.number, comment: `Recovered: every price feed carries the ${prices.expected} session at the ${cdmx(NOW)} check. Closing.` });
+  }
+  if (r.refreshStatus === 'late' && !mine && r.alerts === 0) {
     actions.push({ kind: 'open', id: r.id, title: `SOURCE DOWN: watchdog - ${d.name.en} refresh late`, body: [
       `The scheduled refresh of **${d.name.en}** (https://fnam.mx${d.url}) has not landed since ${cdmx(r.requiredSince)}: the last two scheduled runs failed or did not run.`,
       '',
@@ -158,7 +201,7 @@ for (const r of rows) {
       '',
       mark(r.id),
     ].join('\n') });
-  } else if (r.status !== 'late' && mine) {
+  } else if (r.refreshStatus !== 'late' && mine) {
     actions.push({ kind: 'close', id: r.id, number: mine.number, comment: `Recovered: a scheduled refresh landed at ${cdmx(r.lastSuccess)}. Closing.` });
   }
 }
