@@ -462,24 +462,33 @@
       const M = this.M, F = M.REF.fibra || {}, R = M.REF.regulation || {};
       const placedTag = F.placed ? '' : this.T(' (aún no colocada)', ' (Not Yet Placed)');
       let y = this.page('L', this.T('10 · FIBRA GAP explicada' + placedTag, '10 · FIBRA GAP Explained' + placedTag), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
-      const gap = 24, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
+      const gap = 24, wl = this.width() * 0.38, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap; // 38%: the right column's bullets set the height; keeps the status timeline and the diagram on one page in both languages
       const rows = [[this.T('Vehículo', 'Vehicle'), F.name], [this.T('Clave', 'Ticker'), F.ticker], [this.T('Bolsa', 'Exchange'), F.exchange], [this.T('Monto objetivo', 'Target size'), 'Ps. ' + this.n(F.targetMxnM) + ' M'], ['CBFEs', this.n(F.certificates) + ' × Ps. ' + this.n(F.priceMxn)], [this.T('Participación en cada concesionaria mexicana', 'Stake in each Mexican concessionaire'), this.pct(F.stakePct)], [this.T('Uso de recursos', 'Use of proceeds'), this.T(`PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), principalmente Guadalajara`, `2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), mainly Guadalajara`)]];
       let yl = this.heading(this.T('Ficha', 'Fact sheet'), this.cur.x0, y, 10.5);
       yl = this.table({ y: yl, w: wl, head: null, body: rows.map((r) => [r[0], r[1] || '—']), meta: rows.map(() => ['left muted', 'left bold']), size: 9.6, cols: { 0: { cellWidth: wl * 0.42, halign: 'left' }, 1: { halign: 'left' } }, pad: { top: 4, bottom: 4, left: 4, right: 4 } });
-      yl = this.heading(this.T('Estatus', 'Status'), this.cur.x0, yl + 10, 10.5);
-      yl = this.text(this.es ? F.status_es : F.status_en, this.cur.x0, yl, wl, 9.4);
       const b = [
         this.T('Qué es una Fibra E: fideicomiso de inversión en energía e infraestructura listado en bolsa, fiscalmente transparente, que emite certificados bursátiles fiduciarios (CBFEs) y cuyo activo son participaciones en sociedades que operan infraestructura con flujos estables; diseñado para que las Afores y otros institucionales financien infraestructura con ingresos regulados. Distribuye la mayor parte del flujo que recibe como dividendos.', 'What a Fibra E is: a listed, tax-transparent energy-and-infrastructure investment trust that issues trust certificates (CBFEs) and whose assets are stakes in companies operating infrastructure with stable cash flows; designed so that Afores and other institutions fund regulated-revenue infrastructure. It distributes most of the cash it receives as dividends.'),
         this.T(`Estructura: fideicomiso irrevocable que suscribe ~${this.pct(F.stakePct)} del capital de cada una de las 12 concesionarias mexicanas (no de Jamaica ni de CBX). GAP sigue controlando y operando los aeropuertos; la Fibra recibe su parte proporcional de los dividendos de las concesionarias. Primera emisión: ${this.n(F.certificates / 1e6, 2)} M de CBFEs a Ps. ${this.n(F.priceMxn)} (≈ Ps. ${this.n(F.targetMxnM)} M), clave ${F.ticker} en BIVA; BBVA y Santander colocadores, Actinver fiduciario.`, `Structure: an irrevocable trust subscribing ~${this.pct(F.stakePct)} of the equity of each of the 12 Mexican concessionaires (not Jamaica nor CBX). GAP keeps controlling and operating the airports; the trust receives its proportional share of the concessionaires' dividends. First issue: ${this.n(F.certificates / 1e6, 2)} M CBFEs at Ps. ${this.n(F.priceMxn)} (≈ Ps. ${this.n(F.targetMxnM)} M), ticker ${F.ticker} on BIVA; BBVA and Santander as underwriters, Actinver as trustee.`),
         this.T('Para qué sirve: los recursos complementan el PMD 2025–2029 sin emitir deuda a nivel GAP ni diluir a los accionistas de la controladora. En los estados consolidados la participación de la Fibra aparece como participación no controladora: el EBITDA consolidado no cambia, pero ~4.2% de la utilidad de las concesionarias mexicanas pasa a los tenedores de CBFEs. Puede repetirse con emisiones subsecuentes conforme avance el capex.', 'Purpose: the proceeds top up the 2025–2029 MDP without issuing debt at GAP level or diluting the parent\'s shareholders. In the consolidated statements the trust\'s stake appears as non-controlling interest: consolidated EBITDA is unchanged, but ~4.2% of the Mexican concessionaires\' profit goes to CBFE holders. It can be repeated with subsequent issues as capex progresses.'),
       ];
       let yr = this.heading(this.T('Qué es, cómo se estructura y qué implica', 'What it is, how it is structured and what it implies'), xr, y, 10.5);
-      yr = this.bullets(b, xr, yr, wr, 9.6, { gap: 6 });
+      yr = this.bullets(b, xr, yr, wr, 9.0, { gap: 4 });
+      // status: headline composed from placed / statusAsOf, then the timeline newest first in two columns across the page
+      // (full width so the structure diagram below still fits; owner asked for a bulleted timeline, 2026-10-06)
+      const kindL = { filing: this.T('comunicado', 'filing'), press: this.T('prensa', 'press'), check: this.T('revisión FNAM', 'FNAM check') };
+      const headline = F.placed ? this.T(`Colocada el ${this.date(F.placedDate)}.`, `Placed on ${this.date(F.placedDate)}.`) : this.T(`Aún no colocada al ${this.date(F.statusAsOf)}.`, `Not yet placed as of ${this.date(F.statusAsOf)}.`);
+      const tl = (F.timeline || []).slice().sort((a, b) => (a.date < b.date ? 1 : -1));
+      const items = tl.map((e) => `**${this.date(e.date)}** · ${this.es ? e.es : e.en}${kindL[e.kind] ? ` (${kindL[e.kind]})` : ''}`);
+      let ys = this.heading(this.T('Estatus', 'Status'), this.cur.x0, Math.max(yl, yr) + 4, 10.5);
+      ys = this.text(headline, this.cur.x0, ys, this.width(), 9.4, 'bold');
+      const nCols = items.length > 4 ? 3 : 2, per = Math.ceil(items.length / nCols), wc = (this.width() - gap * (nCols - 1)) / nCols;
+      let yStatus = ys;
+      for (let c = 0; c < nCols; c++) yStatus = Math.max(yStatus, this.bullets(items.slice(c * per, (c + 1) * per), this.cur.x0 + c * (wc + gap), ys + 1, wc, 8.0, { gap: 2 }));
       // structure diagram (drawn, not data): who owns what and where the money flows
       const srcStr = this.T('Fuentes: ', 'Sources: ') + (M.LS(F.sources) || []).join(' · ');
       const srcH = this.measureText(srcStr, this.width(), 7.2, 1.25);
-      const top = Math.max(yl, yr) + 12, availH = this.cur.y1 - top - srcH - 10; let yEnd = top;
-      if (availH > 95) {
+      const top = yStatus + 10, availH = this.cur.y1 - top - srcH - 10; let yEnd = top;
+      if (availH > 85) { // heading 16 + 10 + boxes 52 + 12 = 90 in the compact case (the sources sit at most 8 below yEnd)
         const dy = this.heading(this.T('Estructura: quién es dueño de qué y hacia dónde fluye el dinero', 'Structure: who owns what and where the money flows'), this.cur.x0, top, 10.5);
         const W = this.width(), bh = 52, y0 = dy + 10, bw = W * 0.175, pad = (W - 4 * bw) / 3;
         const boxes = [
@@ -494,7 +503,7 @@
         arrow(cx(0) + bw + 2, cx(1) - 2, mid - 8, this.T('capital', 'equity'), true); arrow(cx(1) - 2, cx(0) + bw + 2, mid + 8, this.T('dividendos', 'dividends'), false);
         arrow(cx(1) + bw + 2, cx(2) - 2, mid - 8, this.T(`~${this.pct(100 - F.stakePct)} del capital`, `~${this.pct(100 - F.stakePct)} of equity`), true); arrow(cx(2) - 2, cx(1) + bw + 2, mid + 8, this.T('dividendos', 'dividends'), false);
         arrow(cx(3) - 2, cx(2) + bw + 2, mid - 8, this.T(`~${this.pct(F.stakePct)} del capital: Ps. ${this.n(F.targetMxnM)} M`, `~${this.pct(F.stakePct)} of equity: Ps. ${this.n(F.targetMxnM)} M`), true); arrow(cx(2) + bw + 2, cx(3) - 2, mid + 8, this.T('dividendos (~4.2%)', 'dividends (~4.2%)'), false);
-        yEnd = y0 + bh + 22;
+        yEnd = y0 + bh + (availH > 110 ? 22 : 12);
         if (availH > 150) {
         const yy2 = y0 + bh + 34; this.font('normal', 8.4, MUTED);
         const capLines = this.pdf.splitTextToSize(tx(this.T(`Los recursos que la Fibra aporta a las concesionarias financian el PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). En los estados consolidados de GAP la participación de la Fibra es participación no controladora: el EBITDA no cambia, ~${this.pct(F.stakePct)} de la utilidad de las concesionarias mexicanas pasa a los tenedores de CBFEs.`, `The cash the trust puts into the concessionaires funds the 2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). In GAP's consolidated statements the trust's stake is non-controlling interest: EBITDA is unchanged, ~${this.pct(F.stakePct)} of the Mexican concessionaires' profit goes to CBFE holders.`)), W); this.pdf.text(capLines, this.cur.x0, yy2); yEnd = yy2 + capLines.length * 8.4 * 1.15;

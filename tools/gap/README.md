@@ -117,10 +117,13 @@ run; the data-quality page shows the line "BMV eventos relevantes" and turns it 
 * `noGuidance[]` lists fiscal years for which GAP published no guidance (2020, 2021: nothing in its GlobeNewswire
   feed, which the harvester keeps in full for "guidance" titles, and no guidance table in the 4Q19 / 4Q20 reports);
   the track-record table prints them as rows so the gap is explained rather than silent;
-* CBX or FIBRA GAP milestones → `cbx.timeline[]`, `fibra.status_es/en`. Quote one revenue basis in the CBX
-  timeline (ex-IFRIC 12, as the summary does; total in parentheses). In the FIBRA status, facts from filings come
-  first and anything press-only is labelled as such; the "not placed as of" date is the date of the last harvested
-  release check, not a claim about EDGAR (blocked from the session);
+* CBX or FIBRA GAP milestones → `cbx.timeline[]`, `fibra.timeline[]` (one short bullet per event, newest first,
+  `kind` = `filing` / `press` / `check`; the page and the deck print them as a bulleted timeline under a headline
+  composed from `placed` / `placedDate` / `statusAsOf`). Quote one revenue basis in the CBX timeline (ex-IFRIC 12,
+  as the summary does; total in parentheses). In the FIBRA timeline, anything press-only is tagged `press`; the
+  `check` entry and `statusAsOf` carry the date of the last check of GAP's releases and the BMV eventos relevantes
+  list, not a claim about EDGAR (blocked from the session). Bump both on every check that finds nothing new; when
+  the offering prices or closes, set `placed`, `placedDate` and add the `filing` entry;
 * the PMD / maximum-tariff cycle is renewed → `regulation`, and the DCF `capexMxnM` profile.
 
 **`site/gap/data/peers.js`** — never hand-edit. To refresh (a Claude session with the FactSet
@@ -134,6 +137,20 @@ FY2026–FY2028). Write the values into `tools/gap/raw/factset/<YYYY-MM-DD>.json
 previous file, then `node scripts/gap/build-peers.mjs` (it takes the newest snapshot by name).
 The page computes GAP's own row live and uses the FactSet consensus only as the NTM denominator;
 the peer rows, medians and the consensus cards come from the snapshot.
+
+The table's 3- and 5-year averages of NTM EV/EBITDA and NTM P/E (owner, 2026-10-06; the trailing
+multiples and the USD return left the table) come from `history[]` in the snapshot: one row per
+month-end over five years with `price` (GlobalPrices `prices`, frequency AM, local currency; a closed
+market day takes the last close before it), `sharesM` (GlobalPrices `shares_outstanding`, AM; GAP = B + BB
+from `reference.js → shares.history`, because FactSet lists the series B only), `ntmEbitda` / `ntmEps`
+(EstimatesConsensus `consensus_rolling`, periodicity NTMA, frequency AM, currency ESTIMATE, startDate/
+endDate spanning the five years) and `netDebt` / `minority` of the latest balance sheet already reported
+at that month-end (Fundamentals `FF_NET_DEBT`, `FF_MIN_INT_ACCUM`, periodicity QTR; SEMI for Zürich and
+Auckland; `epsReportDate` on or before the month-end). `build-peers.mjs` turns the rows into monthly
+multiples, averages the last 36 and 60 (null if a window is incomplete) and keeps the series in
+`peers.js → history` for audits. To refresh, pull the same series again (the saved tool results are large:
+parse them with a script, never by hand) and extend the previous snapshot's `history[]`; the first pull is
+`tools/gap/raw/factset/2026-10-06.json`.
 
 ## Access (password)
 
