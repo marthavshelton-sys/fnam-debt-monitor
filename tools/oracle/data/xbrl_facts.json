@@ -1,7 +1,7 @@
 {
   "note": "Oracle XBRL facts from the SEC company-facts API (us-gaap taxonomy). US$ millions unless the unit says otherwise. Latest-filed value per period wins; superseded accessions listed. Discrete quarters for duration concepts are derived by subtraction within the fiscal year and flagged. Written by scripts/oracle/fetch-xbrl-facts.mjs.",
   "cik": "0001341439",
-  "fetched": "2026-10-06T14:31:20.582Z",
+  "fetched": "2026-10-06T15:33:16.923Z",
   "source": {
     "title": "SEC EDGAR XBRL company facts, Oracle Corporation (CIK 1341439)",
     "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001341439.json"
