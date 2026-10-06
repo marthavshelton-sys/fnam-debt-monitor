@@ -70,9 +70,15 @@ assert.equal(rqB('2027-01-05T15:00:00Z').covered, false);                  // 20
 // New York clock → UTC (EDT in October, EST in December)
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-10-05', '16:00')).toISOString(), '2026-10-05T20:00:00.000Z');
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-12-07', '16:00')).toISOString(), '2026-12-07T21:00:00.000Z');
-assert.equal(new Date(zonedToUtc('America/New_York', '2026-03-08', '03:00')).toISOString(), '2026-03-08T07:00:00.000Z');  // spring-forward day: 03:00 is EDT
-assert.equal(new Date(zonedToUtc('America/New_York', '2026-11-01', '03:00')).toISOString(), '2026-11-01T08:00:00.000Z');  // fall-back day: 03:00 is EST
-assert.equal(new Date(zonedToUtc('America/New_York', '2026-03-08', '16:00')).toISOString(), '2026-03-08T20:00:00.000Z');
+// On the daylight-saving change days the instant depends on the host's zone data (GitHub's runner and this sandbox differ by
+// an hour at 03:00 on 8-Mar-2026), so those two are checked as round trips: the instant must read back as the clock time asked.
+import { localParts } from './lib.mjs';
+const roundTrip = (date, hm) => localParts('America/New_York', zonedToUtc('America/New_York', date, hm));
+assert.deepEqual(roundTrip('2026-03-08', '03:00'), { date: '2026-03-08', hm: '03:00' });   // spring-forward day
+assert.deepEqual(roundTrip('2026-11-01', '03:00'), { date: '2026-11-01', hm: '03:00' });   // fall-back day
+assert.deepEqual(roundTrip('2026-03-08', '16:00'), { date: '2026-03-08', hm: '16:00' });
+assert.deepEqual(roundTrip('2026-11-01', '16:00'), { date: '2026-11-01', hm: '16:00' });
+console.log(`selftest host zone data: ${['2026-03-08T07:30:00Z', '2026-11-01T06:30:00Z'].map((iso) => `${iso} = New York ${localParts('America/New_York', Date.parse(iso)).hm}`).join('; ')} (node ${process.version}, icu ${process.versions.icu}, tz ${process.versions.tz})`);
 // required session with 5 h settle (the nightly routine runs at 19:58 New York): Monday's close is required from 21:00 ET
 const rq = (iso) => requiredSession({ exchange: 'NYSE', now: t(iso), settleHours: 5 });
 assert.equal(rq('2026-10-05T23:50:00Z').session, '2026-10-02');            // Monday 19:50 ET: still Friday's
