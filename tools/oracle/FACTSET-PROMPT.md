@@ -5,12 +5,15 @@ should automatically be refreshed each night at 8 PM ET"; after the NYSE close, 
 prior close for a page read the next morning). It rewrites `tools/oracle/data/factset.json` (consensus, prices, market values,
 net debt, price target, ratings, the trailing averages of the forward multiples and ADTV) from the FactSet AI-Ready Data
 connector, rebuilds the page data and pushes to `main`. It edits nothing else. Routine id `trig_01CNz7N4EvEViw5rbnp1ANKB`
-(created from a session on 2026-10-06; an agent cannot attach a connector or a repository source to a routine, so the owner
-attached the FactSet connector in the routines UI; the prompt's step 0 makes a run without the connector stop harmlessly, and
-step 1 provisions the repository itself through the session's `add_repo` tool when the routine carries no checkout: the first
-test run on 2026-10-06 11:02 UTC stopped with "the repo isn't checked out" for that reason). The earlier weekday
-routine `trig_01QQ7kxnQVSPQTZnzviJCwUq` (14:20 UTC, old prompt) is superseded and should be disabled by the owner. If the
-routine has to be recreated, attach the FactSet connector and paste the block below as the prompt.
+(created from a session on 2026-10-06 with the session's routine tool). A routine created that way carries neither a
+connector nor a repository source, and a session it fires has no tool to attach one (verified 2026-10-06: the test runs at
+11:02 and 11:49 UTC both stopped at step 1 with no checkout, no `add_repo` tool and no valid token), whereas routines created
+on the claude.ai/code Routines page fire sessions with the repository attached and push to `main` (the weekday review and the
+superseded FactSet routine did). The owner attached the FactSet connector on that page on 2026-10-06; the repository
+`marthavshelton-sys/fnam-debt-monitor` has to be attached there too, or the routine recreated there with both (every day at
+7:58 PM New York, model and prompt as below). Step 0 stops a run without the connector harmlessly; step 1 stops a run without
+the repository before any FactSet call. The earlier weekday routine `trig_01QQ7kxnQVSPQTZnzviJCwUq` was deleted by the owner
+on 2026-10-06. If the routine has to be recreated, paste the block below as the prompt.
 
 ---
 
@@ -18,7 +21,7 @@ This is a fully autonomous nightly task for the Oracle financial model at https:
 
 STEP 0 — Preflight: if no FactSet connector tool (a tool whose name starts with mcp__FactSet) is available in this session, stop immediately, change nothing, and make your one-line final message "FactSet connector not attached to this routine: nothing refreshed". Never substitute web searches, other data sources or remembered figures for FactSet.
 
-STEP 1 — Repository: if the working directory holds no checkout of marthavshelton-sys/fnam-debt-monitor (no `.git` whose origin names that repository), call the claude-code-remote `add_repo` tool (owner marthavshelton-sys, repo fnam-debt-monitor, access "push"), run the clone command its result gives, `cd` into the clone and, if a `register_repo_root` tool is available, call it with that path. If `add_repo` is unavailable or fails, stop, change nothing, and make your one-line final message "Repository not available to this routine: nothing refreshed" (never clone by other means, never use remembered credentials). Then sync: `git fetch origin main && git checkout -b factset-$(date +%Y%m%d%H%M) origin/main` (a fresh branch from origin/main; never reset or fast-forward the checkout's own main, which may be a stale snapshot); `git config user.name "Oracle routine" && git config user.email "oracle-routine@users.noreply.github.com"`. Read tools/oracle/data/factset.json: keep its exact schema and field names, including hist_multiples and adtv on oracle and on every peer.
+STEP 1 — Repository: the routine must carry the repository marthavshelton-sys/fnam-debt-monitor as a source (attached on the claude.ai/code Routines page; a session fired by a routine has no tool to attach one itself). If the working directory holds no checkout of it (no `.git` whose origin names that repository), stop immediately, change nothing, and make your one-line final message "Repository not attached to this routine: nothing refreshed (attach marthavshelton-sys/fnam-debt-monitor to the routine on the Routines page)". Never clone by other means and never use remembered credentials. Otherwise sync: `git fetch origin main && git checkout -b factset-$(date +%Y%m%d%H%M) origin/main` (a fresh branch from origin/main; never reset or fast-forward the checkout's own main, which may be a stale snapshot); `git config user.name "Oracle routine" && git config user.email "oracle-routine@users.noreply.github.com"`. Read tools/oracle/data/factset.json: keep its exact schema and field names, including hist_multiples and adtv on oracle and on every peer.
 
 STEP 2 — FactSet calls (generate one request_id uuid and reuse it; ids for peers: MSFT-US, SAP-US, CRM-US, NOW-US, IBM-US, WDAY-US, AMZN-US, GOOGL-US; currency USD everywhere; TODAY = today's date in New York):
 a) FactSet_EstimatesConsensus consensus_rolling, periodicity NTMA, relativeFiscalStart 1, relativeFiscalEnd 1, ids ORCL-US plus the peers, one call per metric: EPS, EBITDA, SALES; for ORCL-US also FCF. Take mean/median/high/low/standardDeviation for Oracle (oracle.ntm) and the mean for each peer (peers[].ntm).
