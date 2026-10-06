@@ -14,7 +14,7 @@
       { "bucket_en": "Months 37–60", "bucket_es": "Meses 37–60", "pct": 34, "amount_bn": 226 },
       { "bucket_en": "Beyond 60 months", "bucket_es": "Más allá de 60 meses", "pct": 16, "amount_bn": 106 }
     ],
-    "caution_en": "RPO is a useful leading indicator of demand, not a guarantee: contracts can be modified or, in rare cases, cancelled, and the conversion pace depends on Oracle actually building and energizing enough data-center capacity to deliver the workloads — which is precisely why capital expenditure ({{sec:capex}}) is the metric to watch alongside it.",
+    "caution_en": "RPO is a useful leading indicator of demand, not a guarantee: contracts can be modified or, in rare cases, canceled, and the conversion pace depends on Oracle actually building and energizing enough data-center capacity to deliver the workloads — which is precisely why capital expenditure ({{sec:capex}}) is the metric to watch alongside it.",
     "caution_es": "El RPO es un buen indicador adelantado de la demanda, no una garantía: los contratos pueden modificarse o, en casos excepcionales, cancelarse, y el ritmo de conversión depende de que Oracle efectivamente construya y energice suficiente capacidad de centros de datos para entregar las cargas de trabajo — precisamente por eso el gasto de capital ({{sec:capex}}) es la métrica que hay que vigilar junto con esta.",
     "source": "S-10Q-FY2027Q1"
   }

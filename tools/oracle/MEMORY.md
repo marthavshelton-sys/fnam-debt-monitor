@@ -258,3 +258,23 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - `market.js → dividends`: paid points only; the declared 23-Oct-2026 dividend sits in `announced` (the declarations table marks
   it). `validate-data.mjs` counts the ratings object (the quality line printed "undefined ratings").
 - All scripts load with `defer` (26 tags, no inline scripts); canonical tag; skip link; column headings carry `scope="col"`.
+
+## 2026-10-06 (owner's layout and language review)
+- American English and Title Case page-wide: `tc()` + `titleCaseHeadings()` run after `renderAll()` and on heading mutations
+  (`TC_SEL`: section h2, card h3, `h3.sub-h`, watch-item h4); markup and render functions keep sentence case. British spellings
+  and day-month dates were rewritten in the English copy of `index.html`, `app.js`, `present.js` and the narrative JSON (FT headline
+  in `news.json` kept verbatim). Method: `METHODOLOGY.md` §12.
+- Header leverage tile: lease-adjusted ND / EBITDAR (`obligStats().leaseAdj`) linked to `#obligations`, plus the commitment-inclusive
+  ratio labeled exposure.
+- Layouts: Funding = net debt and leverage charts side by side, the funding-plan table beneath at full width, dividends detail with a
+  pinned first column (`.tblwrap.pin1`, every width); Credit = maturity and spread charts side by side, then ratings, the maturity
+  table (own card, `schedSrc2` mirrors `schedSrc`) and the instruments at full width; Circularity = the flow map first, concentration
+  and deferred-revenue charts side by side, the two tables at full width; Methodology = prose, then each status table at full width,
+  provenance pinned, change log inside a closed `<details id="changelogWrap">`. The capital-deployed table wraps its headings
+  (`#capexTable th{white-space:normal}`) and fits its card.
+- Peers table: EV and EV/Sales out; 1-, 3- and 5-year averages of NTM EV/EBITDA and P/E per company from `factset.json →
+  hist_multiples` (computed in-session; routine step k in `FACTSET-PROMPT.md`; validator requires it). Deck page updated the same way
+  (12 columns through `fitTable`).
+- Circular flow map: `renderCircularMap()` (SVG, `svg.figmap` counts as a Figure in `numberSections`); loads the hub's `circular.js`.
+  Pitfall: SVG text and `.figmap-ctl .lbl` must stay at 12 px or the phone render check fails.
+- `fetch-market.mjs` was not run; the price on the page is the stored series' latest close.

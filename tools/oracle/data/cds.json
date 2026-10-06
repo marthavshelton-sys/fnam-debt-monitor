@@ -1,11 +1,11 @@
 {
-  "_comment": "Credit-default-swap contract for the financing section. PLACEHOLDER until the FactSet connector is authorised: points is empty and the page shows the schema with a 'pending FactSet' notice. Field contract: tenor (years), currency, docClause, recoveryPct (market convention for the implied default probability), points [[date, spread_bp]] daily or weekly mid spreads, source, updatedAt.",
+  "_comment": "Credit-default-swap contract for the financing section. PLACEHOLDER until the FactSet connector is authorized: points is empty and the page shows the schema with a 'pending FactSet' notice. Field contract: tenor (years), currency, docClause, recoveryPct (market convention for the implied default probability), points [[date, spread_bp]] daily or weekly mid spreads, source, updatedAt.",
   "issuer": "Oracle Corporation",
   "tenor": 5,
   "currency": "USD",
   "docClause": "XR14 (senior unsecured)",
   "recoveryPct": 40,
-  "source": "FactSet (pending authorisation)",
+  "source": "FactSet (pending authorization)",
   "updatedAt": null,
   "points": [],
   "notes": {

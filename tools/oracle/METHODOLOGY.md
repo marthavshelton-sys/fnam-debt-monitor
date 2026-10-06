@@ -315,3 +315,31 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
 * **Reading it.** The lead counts how many targets sit above the model's DCF base and sends the reader to the DCF's "what
   has to be true" box: the houses capitalise FY2028–FY2030 earnings on P/E multiples (or, at Goldman, 2030 net income
   discounted back), while the DCF discounts the cash the buildout consumes first. The page endorses no house.
+
+## 12. Historical averages of the forward multiples, flow map and page conventions (2026-10-06, owner's review)
+
+* **Peers table (Multiples section).** EV and EV/Sales were dropped. Beside each spot forward multiple (NTM EV/EBITDA, NTM P/E)
+  the table prints its trailing **1-, 3- and 5-year averages** for Oracle and every peer. Method (`factset.json →
+  hist_multiples_note`, computed in-session from the FactSet connector, step k of `FACTSET-PROMPT.md`): month-end
+  observations over the last 60 months; for each month-end, NTM P/E = FactSet month-end close ÷ the NTM EPS consensus mean
+  sampled that month (FactSet Estimates, NTMA rolling, monthly frequency); NTM EV/EBITDA = (close × FactSet shares
+  outstanding + FactSet Fundamentals `FF_NET_DEBT` of the latest fiscal quarter ended on or before that month-end) ÷ the NTM
+  EBITDA consensus mean. Averages are simple means of the last 12 / 36 / 60 month-ends (`y1/y3/y5`, with the months counted
+  in `n1/n3/n5`); a month is skipped when an input is missing or the denominator is not positive. Same basis as the spot
+  columns (broker-majority EPS, broker-adjusted EBITDA, lease-inclusive net debt). Assumption stated on the page: the series
+  is not point-in-time restated (shares and net debt as later reported, not as first published). The validator requires
+  the block for Oracle and every peer with at least 10 / 30 / 50 months per window.
+* **Header.** Under the reported net debt / LTM EBITDA tile: the lease-adjusted net debt / EBITDAR (recognized operating and
+  finance lease liabilities, EBITDA plus operating lease cost: `obligStats().leaseAdj`) linked to the off-balance-sheet
+  section, and the commitment-inclusive ratio with the signed-but-uncommenced leases (`commit`), labeled exposure.
+* **Circularity flow map.** An SVG map in the Hyperscaler Hub's module-7 reading, centered on Oracle (`circularFlows()` /
+  `renderCircularMap()`): customers named in the FWP (no amount per customer; press sizes dashed and labeled press), the
+  aggregate prepayments and deferred revenue (10-Q, XBRL), the executed funding plan (bonds, preferred, ATM equity), the
+  purchase obligations (10-K), the signed leases to the named developers (10-Q total, nothing per site) and their project
+  financing (press), plus the hub's filing-cited flows between Oracle's counterparties and their funders (Microsoft and
+  Amazon with OpenAI). Width = the largest single amount on an arrow on a log scale, never a sum. The hub's data file
+  (`/hiperescaladores/data/circular.js`) is loaded by the page; the map degrades to Oracle's own flows if it is missing.
+* **Conventions.** Every heading is Title Case in both languages, applied at render time by `titleCaseHeadings()` (headings
+  stay sentence case in the markup and render functions; a MutationObserver re-applies it when a heading is rewritten).
+  English copy is American English (recognize, labeled, canceled, normalized, gray; dates as "May 31, 2026"); verbatim
+  external headlines keep their original spelling.
