@@ -131,7 +131,10 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   stays); a contents page with internal links follows the executive summary (`Doc.contents()` / `drawContents()` in
   `present-core.js`, entries collected by `OracleDoc.page()`); the executive summary prints the page's own summary text with
   "What to watch" (sub-headed items from `items_<lang>`) on the left and Operations, Guidance and why it changed, Debt and ratios
-  on the right (`execSummary(sections, subtitle, pre, columns)` in the engine). Text fits its box by construction: `tiles()`
+  on the right, followed by the page's verdict (`verdictBlocks()`, two headed paragraphs; owner's follow-up the same day; placed
+  in the right column's free space because across the full width it forced 7.5 pt and Spanish still overflowed; the engine now
+  balances the column split 50/50 → 62/38 towards the longer column) (`execSummary(sections, subtitle, pre, columns, lead)` in
+  the engine; sections take `items`, `paras` or `groups`). Text fits its box by construction: `tiles()`
   (value and label shrink, row grows), `box()`, `page()` titles, paragraphs 4 pt short of their width; the chain's verification
   badge is page-only (`badge`). `deck-check.mjs` now also checks the summary text against the page, the page order, the contents
   links and every word's box (PyMuPDF: none past the right margin or below the footer rule).
@@ -216,8 +219,9 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 
 ## Open items
 
-- Deck: the executive-summary page carries the six-number chain (since round 4) but not the verdict paragraph (page-only);
-  the owner decides (the page is full at ~9.5 pt with the summary text alone).
+- Deck: the executive-summary page carries the chain, the summary text and the verdict (2026-10-06) at 8.25 pt (EN) / 7.5 pt
+  (ES); if the summary or the verdict grows, the page hits the 7.5 pt floor and the deck check fails on the overflow, so the
+  summary routine should keep the watch block to about five items of three or four lines.
 - Bull case (round 4): built as "levers at plan", capped at management's FY2030 target, with one capex rule shared with the Bear.
   Two choices the owner may want to revisit: capex at the terminal intensity on the revenue difference (holding each year's
   consensus capex/revenue would put the Bull at US$107, below the Base), and the Bear's capex now falling with its revenue
