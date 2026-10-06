@@ -4,7 +4,10 @@ Cloud routine **"FNAM Airports: FactSet peers refresh (cloud)"**, every night at
 8 PM ET; the minute is jittered off the hour as the scheduler recommends). It pulls the FactSet AI-Ready Data
 connector for GAP, ASUR, OMA and the four international peers, writes `tools/gap/raw/factset/latest.json`, rebuilds
 `site/gap/data/peers.js`, `site/asur/data/peers.js` and `site/oma/data/peers.js` and pushes to `main`. It edits nothing
-else. If the routine has to be recreated, attach the FactSet connector and paste the block below as the prompt. The
+else. Routine id `trig_011SAh4eYS2gCw8LKP551Wkj` (created 2026-10-06 from a Claude Code session, which cannot attach
+connectors: the FactSet connector has to be attached to the Routine once on the claude.ai Routines page, as the Oracle
+FactSet routine has it; until then a run stops at STEP 2 and pushes a `peers-failed-<date>` branch). If the routine has
+to be recreated, create it on that page with the FactSet connector attached and paste the block below as the prompt. The
 calls, file names and definitions are documented at the top of `scripts/lib/factset-peers.mjs`.
 
 ---
