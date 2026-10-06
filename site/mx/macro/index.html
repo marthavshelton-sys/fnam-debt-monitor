@@ -2170,7 +2170,11 @@ const INPC_COMPONENTS = [
 function renderInpc() {
   const optional = ["inpcCore", "inpcGoods", "inpcServices", "inpcNonCore", "inpcEnergyTariffs"];
   if (!gate("inpc", ["inpc"], optional)) return;
-  const C = {}; ["inpc"].concat(optional, INPC_COMPONENTS.map(c => c.key)).forEach(k => { if (S(k)) C[k] = withChanges(P(k)); });
+  // A subindex can never run ahead of the headline index: the SIE posts the government-set tariffs subindex (SP74639) for a
+  // month before INEGI publishes that month's INPC (6-Oct-2026: a September point beside an August headline), so every
+  // component is cut at the headline's latest month and the whole view speaks of the same month.
+  const headline = P("inpc"), headlineLast = headline.length ? headline[headline.length - 1].d : null;
+  const C = {}; ["inpc"].concat(optional, INPC_COMPONENTS.map(c => c.key)).forEach(k => { if (S(k)) C[k] = withChanges(headlineLast ? P(k).filter(p => p.d <= headlineLast) : P(k)); });
   const H = C.inpc, hL = lastWith(H, "yoy");
   const inpcNx = nextMonthOf(hL.d);
   headerMeta("inpc", fmtMonthYear(hL.d), T.inpcNext(fmtMonthYear(inpcNx), T.estOn(9, fmtMonthYear(nextMonthOf(inpcNx)))), ["inpc"].concat(S("inpcCore") && S("inpcCore").provider !== S("inpc").provider ? ["inpcCore"] : []));

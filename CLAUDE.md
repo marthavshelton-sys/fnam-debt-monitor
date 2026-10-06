@@ -184,6 +184,10 @@ dashboards, everything built from public data by GitHub Actions.
   monthly comunicados via web search of imss.gob.mx, each figure reconciled against IMSS's own printed
   monthly/YTD/12-month changes; derived months are labeled. Never fetch imss.gob.mx from a script or
   the runner or work around its WAF. Monthly update: Claude Routine, prompt in `tools/mx-macro/imss-task-prompt.md`.
+- MX macro: an INPC subindex never runs ahead of the headline: the SIE posts the government-set tariffs subindex (SP74639)
+  for a month before INEGI publishes that month's INPC (6-Oct-2026: a September point beside an August headline, so the
+  component table printed 7.8% while the August-based figure is 7.7%); `renderInpc` cuts every component at the headline's
+  latest month.
 - MX macro: Banxico's neutral real-rate range is 1.8–3.6% (text and the threshold in the summary driver, owner 2026-10-05);
   the real-rate caption pairs the ex post month with the SAME month's survey and names the newer survey separately; a monthly
   average of a daily series carries "(promedio al día, mes en curso)" while the month runs (`monthAvg` → `partial`).
