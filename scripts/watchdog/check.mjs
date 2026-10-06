@@ -87,16 +87,20 @@ async function runsOf(file) {
 }
 
 // Price feeds (dashboards.json → prices): each series names a file in main and how to read its latest date;
-// the verdict compares every date with the exchange's last completed session (lib.mjs priceVerdict).
+// the verdict compares every date with the exchange's last completed session (lib.mjs priceVerdict); a series with its
+// own `exchange` (an ADS beside a BMV listing) is judged on that exchange's calendar.
 async function priceCheck(cfg) {
   const series = [];
   for (const s of cfg.series) {
     let date = null;
     try {
       const text = await readFile(new URL(s.file, ROOT), 'utf8');
-      date = s.kind === 'json' ? jsonDate(JSON.parse(text), s.field) : lastCsvDate(text);
+      // kind json: a dotted path in a JSON file; kind js: the same in a `window.X = {...};` data file; csv: the last dated row
+      date = s.kind === 'json' ? jsonDate(JSON.parse(text), s.field)
+        : s.kind === 'js' ? jsonDate(JSON.parse(text.slice(text.indexOf('{')).replace(/;\s*$/, '')), s.field)
+        : lastCsvDate(text);
     } catch (e) { console.warn(`${s.name}: ${s.file} unreadable (${e.message})`); }
-    series.push({ name: s.name, date, lagSessions: s.lagSessions || 0, file: s.file });
+    series.push({ name: s.name, date, lagSessions: s.lagSessions || 0, file: s.file, ...(s.exchange ? { exchange: s.exchange } : {}) });
   }
   const v = priceVerdict({ exchange: cfg.exchange || 'NYSE', now: NOW, settleHours: cfg.settleHours || 0, series });
   v.series.forEach((r, i) => { r.file = series[i].file; if (series[i].lagSessions) r.lagSessions = series[i].lagSessions; });

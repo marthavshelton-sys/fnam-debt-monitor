@@ -149,7 +149,10 @@ it (the 22:40 UTC run sees a close about an hour before the 23:52 UTC routine), 
 `fetchedAt` is the stamp of the feed that supplied the latest close, so the header's "fetched" time is the routine's pull when
 FactSet has the latest session. The S&P/BMV IPC stays on Yahoo (the connector rejects index ids), as does the dividend record.
 Pages and decks compose every price-source label from `provenance` (`priceSrcLabel`, `priceSources`, `marketSrcNote` in the
-model); the validators warn when the home series carries no FactSet closes or they are older than five days. Yahoo's BMV closes
+model); the validators warn when the home series carries no FactSet closes or they are older than five days, and the
+watchdog (`tools/watchdog/dashboards.json` → `prices`, since 6-Oct-2026) turns the page's dot red when `prices.json` or the
+page's own `latestClose` (first bytes of `market.js`, written by the fetchers and by `apply`) is behind the BMV's (NYSE's for
+the ADS) last completed session plus five hours. Yahoo's BMV closes
 differed from FactSet's by more than 0.2% on about a sixth of the dates since 2015 (and the 6-Oct-2026 morning run printed
 377.57 for GAPB.MX's 5-Oct close where FactSet, and the previous evening's Yahoo, had 379.01); the ADS series matched exactly.
 

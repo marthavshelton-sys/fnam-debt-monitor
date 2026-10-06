@@ -36,9 +36,9 @@ export const SERIES = {
   'OMAB-US': { id: 'OMAB', currency: 'USD', exchange: 'NASDAQ' },
 };
 const PAGES = [
-  { slug: 'gap', prefix: 'GAP' },
-  { slug: 'asur', prefix: 'ASUR' },
-  { slug: 'oma', prefix: 'OMA' },
+  { slug: 'gap', prefix: 'GAP', home: 'GAPB.MX' },
+  { slug: 'asur', prefix: 'ASUR', home: 'ASURB.MX' },
+  { slug: 'oma', prefix: 'OMA', home: 'OMAB.MX' },
 ];
 export const SOURCE_NAME = 'FactSet Global Prices';
 
@@ -67,15 +67,18 @@ export function ingest({ pull = PULL_DIR, out = PRICES_FILE, date, replace = fal
       s.points.set(x.date, r2(x.price));
     }
   }
+  const seriesOut = Object.fromEntries(Object.entries(series).map(([id, s]) => { const pts = [...s.points.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)); return [id, { factsetId: s.factsetId, currency: s.currency, exchange: s.exchange, from: pts[0] ? pts[0][0] : null, to: pts.length ? pts[pts.length - 1][0] : null, points: pts }]; }));
   const outObj = {
     pulledAt: new Date().toISOString(), runDate,
+    // latest close per FactSet id (hyphenated, so the watchdog can read `latestClose.GAPB-MX` as a dotted path)
+    latestClose: Object.fromEntries(Object.values(seriesOut).map((s) => [s.factsetId, s.to])),
     source: 'FactSet AI-Ready Data connector (MCP): GlobalPrices prices, frequency D, adjust SPLIT (default), currency LOCAL for the BMV series and USD for the ADS; pulled nightly by the cloud routine "FNAM Airports: FactSet peers refresh"',
     notes: [
       'points = [date, close] in the listing currency, completed sessions only (a session still open comes back null and is skipped); split-adjusted, dividends not reinvested, like the Yahoo series it replaces.',
       'The market fetchers and `apply` overlay these closes on data/market.js: FactSet wins on every date it carries; Yahoo/Stooq only fill dates FactSet has not posted yet and the history before this file starts.',
       'The S&P/BMV IPC (^MXX) is not here: the connector rejects index ids, so the index stays on Yahoo Finance.',
     ],
-    series: Object.fromEntries(Object.entries(series).map(([id, s]) => { const pts = [...s.points.entries()].sort((a, b) => (a[0] < b[0] ? -1 : 1)); return [id, { factsetId: s.factsetId, currency: s.currency, exchange: s.exchange, from: pts[0] ? pts[0][0] : null, to: pts.length ? pts[pts.length - 1][0] : null, points: pts }]; })),
+    series: seriesOut,
   };
   writeFileSync(out, JSON.stringify(outObj));
   return { ...outObj, added, replaced, files };
@@ -132,10 +135,13 @@ export function applyAll({ prices = PRICES_FILE } = {}) {
     const txt = readFileSync(file, 'utf8');
     const head = txt.slice(0, txt.indexOf('window.'));
     const i = txt.indexOf('{');
-    const mk = JSON.parse(txt.slice(i).replace(/;\s*$/, ''));
+    let mk = JSON.parse(txt.slice(i).replace(/;\s*$/, ''));
     let n = 0;
     for (const id of Object.keys(mk.prices || {})) { if (fs.series[id]) { mk.prices[id] = overlayFactSet(mk.prices[id], id, fs); n++; } }
     mk.generatedAt = new Date().toISOString();
+    // the close the page prints, in the first bytes of the file (the watchdog and the page-side status check read it there)
+    const homePts = (mk.prices[page.home] || {}).points || [];
+    mk = { generatedAt: mk.generatedAt, latestClose: homePts.length ? homePts[homePts.length - 1][0] : null, ...mk };
     mk.priceAuthority = { source: SOURCE_NAME, pulledAt: fs.pulledAt, appliedAt: mk.generatedAt, series: Object.keys(fs.series).filter((id) => mk.prices && mk.prices[id]) };
     const head2 = head.replace(/\/\/ Last refreshed: .*\n/, `// Last refreshed: ${mk.generatedAt} (FactSet closes applied by the nightly FactSet routine)\n`);
     writeFileSync(file, head2 + `window.${page.prefix}_MARKET = ` + JSON.stringify(mk) + ';\n');
