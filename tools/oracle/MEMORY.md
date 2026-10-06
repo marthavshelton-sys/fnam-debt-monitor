@@ -273,8 +273,16 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   provenance pinned, change log inside a closed `<details id="changelogWrap">`. The capital-deployed table wraps its headings
   (`#capexTable th{white-space:normal}`) and fits its card.
 - Peers table: EV and EV/Sales out; 1-, 3- and 5-year averages of NTM EV/EBITDA and P/E per company from `factset.json →
-  hist_multiples` (computed in-session; routine step k in `FACTSET-PROMPT.md`; validator requires it). Deck page updated the same way
-  (12 columns through `fitTable`).
+  hist_multiples` (weekly observations, the model's equivalent of the owner's `FE_VALUATION(..., NTM4_ROLL, , -NAY, NOW)` averages;
+  routine step k in `FACTSET-PROMPT.md`; validator requires it) and ADTV (3-month mean of daily turnover, `adtv`, routine step g).
+  Deck page updated the same way (13 columns through `fitTable`). The connector exposes no FDS formula and no FE_VALUATION or
+  quant-factor series (`eyNtm`, `ebitdaevNtm`, `adt63D` exist in FactSet's quant library but no connector tool serves them; the
+  screener rejects the Global Prices content set), so the ratios are rebuilt from prices, shares, net debt and consensus.
+- FactSet refresh moved to a nightly Claude Routine at 7:58 PM New York time (owner, 2026-10-06: prices as of the prior close,
+  no involvement): the weekday 14:20 UTC routine `trig_01QQ7kxnQVSPQTZnzviJCwUq` carries the new prompt and schedule if the
+  update went through (see the session note), otherwise a new routine was created and the old one must be disabled by the owner.
+  A rate-limited call ("API rate limit exceeded") succeeds on a retry a minute later; weekly 5-year consensus pulls are ~1 MB
+  each and must be parsed from the saved tool-result file.
 - Circular flow map: `renderCircularMap()` (SVG, `svg.figmap` counts as a Figure in `numberSections`); loads the hub's `circular.js`.
   Pitfall: SVG text and `.figmap-ctl .lbl` must stay at 12 px or the phone render check fails.
 - `fetch-market.mjs` was not run; the price on the page is the stored series' latest close.
