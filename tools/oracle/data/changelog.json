@@ -2970,1237 +2970,1237 @@
    "new": "(text changed)"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "asOf",
    "old": "2026-10-05",
    "new": "2026-10-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.price",
    "old": 142.3,
    "new": 142.48
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.price_date",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.market_cap_usd_m",
    "old": 430278,
    "new": 430822
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.eps.mean",
    "old": 9.14,
    "new": 9.148
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.eps.median",
    "old": 9.103,
    "new": 9.111
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.eps.high",
    "old": 10.087,
    "new": 10.101
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.eps.low",
    "old": 8.762,
    "new": 8.768
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.eps.sd",
    "old": 0.263,
    "new": 0.264
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.ebitda.mean",
    "old": 59104,
    "new": 59165
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.ebitda.median",
    "old": 60405,
    "new": 60469
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.ebitda.high",
    "old": 71763,
    "new": 71841
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.ebitda.low",
    "old": 48630,
    "new": 48665
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.ebitda.sd",
    "old": 5530,
    "new": 5540
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.sales.mean",
    "old": 104700,
    "new": 104812
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.sales.median",
    "old": 104722,
    "new": 104834
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.sales.high",
    "old": 108374,
    "new": 108505
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.sales.low",
    "old": 99127,
    "new": 99206
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.sales.sd",
    "old": 1673,
    "new": 1682
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.fcf.mean",
    "old": -36442,
    "new": -36436
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.fcf.median",
    "old": -34536,
    "new": -34526
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.fcf.high",
    "old": -20386,
    "new": -20341
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.fcf.low",
    "old": -76602,
    "new": -76596
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.ntm.fcf.sd",
    "old": 13233,
    "new": 13247
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.fiscal[0].da.as_of",
    "old": "2026-10-05",
    "new": "2026-10-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.fiscal[1].da.as_of",
    "old": "2026-10-05",
    "new": "2026-10-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.fiscal[2].da.as_of",
    "old": "2026-10-05",
    "new": "2026-10-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.fiscal[3].da.as_of",
    "old": "2026-10-05",
    "new": "2026-10-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.price_target.mean",
    "old": 242.84,
    "new": 242.838
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.as_of",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.y1",
    "old": 21.72,
    "new": 23.74
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.y3",
    "old": 23.31,
    "new": 23.51
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.y5",
    "old": 20.53,
    "new": 20.78
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.spot_month_end",
    "old": 15.09,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.y1",
    "old": 13.13,
    "new": 14.25
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.y3",
    "old": 14.92,
    "new": 15.11
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.y5",
    "old": 13.87,
    "new": 14.02
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.spot_month_end",
    "old": 9.31,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.sampling",
    "old": null,
    "new": "weekly"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.pe_ntm.spot_last_week",
    "old": null,
    "new": 15.61
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.hist_multiples.ev_ebitda_ntm.spot_last_week",
    "old": null,
    "new": 9.54
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.usd_m",
    "old": null,
    "new": 4554
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.product_of_averages_usd_m",
    "old": null,
    "new": 4580
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.days",
    "old": null,
    "new": 65
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.start",
    "old": null,
    "new": "2026-07-06"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.end",
    "old": null,
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.avg_volume_m",
    "old": null,
    "new": 32.42
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "factset.js",
    "path": "oracle.adtv.avg_vwap_usd",
    "old": null,
    "new": 141.28
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "hist.asOf",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].price",
    "old": 517.53,
    "new": 525.18
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].marketCapUsdM",
    "old": 3842943,
    "new": 3899748
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].evUsdM",
    "old": 3894913,
    "new": 3951718
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].ntmEps",
    "old": 20.742,
    "new": 20.753
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].ntmEbitda",
    "old": 256463,
    "new": 256712
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].ntmSales",
    "old": 411074,
    "new": 411342
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].peNtm",
    "old": 24.95082441423199,
    "new": 25.306220787356043
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].evEbitdaNtm",
    "old": 15.18703672654535,
    "new": 15.39358502913771
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].evSalesNtm",
    "old": 9.474968010625824,
    "new": 9.606891588994072
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].fy1.eps",
    "old": 19.741,
    "new": 19.744
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].fy2.eps",
    "old": 23.507,
    "new": 23.503
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].epsGrowthFy2Pct",
    "old": 19.077047768603418,
    "new": 19.038695299837926
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].divYieldPct",
    "old": 0.7574440129074643,
    "new": 0.7464107544080125
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.as_of",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.y1",
    "old": 24.15,
    "new": 24.85
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.y3",
    "old": 28.41,
    "new": 28.79
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.y5",
    "old": 28.12,
    "new": 28.27
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.spot_month_end",
    "old": 24.8,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.y1",
    "old": 14.79,
    "new": 15.19
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.y3",
    "old": 18.14,
    "new": 18.47
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.y5",
    "old": 18.49,
    "new": 18.6
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[0].hist.ev_ebitda_ntm.spot_month_end",
    "old": 15.11,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].price",
    "old": 208.57,
    "new": 207.74
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].marketCapUsdM",
    "old": 240732,
    "new": 239774
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].evUsdM",
    "old": 240078,
    "new": 239120
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].ntmEps",
    "old": 9.131,
    "new": 9.133
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].ntmEbitda",
    "old": 16507,
    "new": 16425
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].ntmSales",
    "old": 50142,
    "new": 50083
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].peNtm",
    "old": 22.84196692585697,
    "new": 22.746085623562905
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].evEbitdaNtm",
    "old": 14.544011631429091,
    "new": 14.558295281582954
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].evSalesNtm",
    "old": 4.787962187387818,
    "new": 4.774474372541581
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].fy1.eps",
    "old": 8.072,
    "new": 8.066
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].epsGrowthFy2Pct",
    "old": 17.220019821605547,
    "new": 17.30721547235308
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].divYieldPct",
    "old": 1.4100781512202136,
    "new": 1.415711947626841
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.as_of",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.y1",
    "old": 23.34,
    "new": 24.57
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.y3",
    "old": 30.87,
    "new": 30.67
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.y5",
    "old": 26.26,
    "new": 26.42
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.pe_ntm.spot_month_end",
    "old": 22.87,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.y1",
    "old": 14.7,
    "new": 15.43
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.y3",
    "old": 19.34,
    "new": 19.29
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.y5",
    "old": 17.08,
    "new": 17.21
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[1].hist.ev_ebitda_ntm.spot_month_end",
    "old": 14.62,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].price",
    "old": 234.69,
    "new": 229.79
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].marketCapUsdM",
    "old": 193150,
    "new": 189117
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].evUsdM",
    "old": 224123,
    "new": 220090
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].ntmEps",
    "old": 16.292,
    "new": 16.29
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].ntmEbitda",
    "old": 20297,
    "new": 20300
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].ntmSales",
    "old": 49387,
    "new": 49400
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].peNtm",
    "old": 14.4052295605205,
    "new": 14.106200122774709
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].evEbitdaNtm",
    "old": 11.042173720254224,
    "new": 10.841871921182266
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].evSalesNtm",
    "old": 4.5380970700791705,
    "new": 4.455263157894737
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].divYieldPct",
    "old": 0.7499254335506412,
    "new": 0.7659167065581618
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.as_of",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.y1",
    "old": 15.3,
    "new": 15.73
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.y3",
    "old": 21.94,
    "new": 22.45
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.y5",
    "old": 27.14,
    "new": 27.25
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.pe_ntm.spot_month_end",
    "old": 14.08,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.y1",
    "old": 10.61,
    "new": 10.77
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.y3",
    "old": 14.09,
    "new": 14.33
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.y5",
    "old": 15.75,
    "new": 15.81
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.spot_month_end",
    "old": 10.84,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].price",
    "old": 134.38,
    "new": 136.08
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].marketCapUsdM",
    "old": 138930,
    "new": 140688
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].evUsdM",
    "old": 142710,
    "new": 144468
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].ntmEps",
    "old": 4.792,
    "new": 4.794
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].ntmEbitda",
    "old": 7261,
    "new": 7264
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].ntmSales",
    "old": 18524,
    "new": 18532
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].peNtm",
    "old": 28.042570951585976,
    "new": 28.3854818523154
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].evEbitdaNtm",
    "old": 19.654317587109215,
    "new": 19.888215859030836
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].evSalesNtm",
    "old": 7.704059598358886,
    "new": 7.7955968055255775
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.as_of",
    "old": "2026-09-30",
    "new": "2026-10-02"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.y1",
    "old": 29.41,
    "new": 30.95
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.y3",
    "old": 45.63,
    "new": 46.53
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.y5",
    "old": 50.88,
    "new": 51.09
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.pe_ntm.spot_month_end",
    "old": 28.04,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.y1",
    "old": 21.15,
    "new": 22.33
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.y3",
    "old": 32.96,
    "new": 33.5
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.y5",
    "old": 34.84,
    "new": 34.95
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.n1",
    "old": 12,
    "new": 52
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.n3",
    "old": 35,
    "new": 156
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[3].hist.ev_ebitda_ntm.spot_month_end",
    "old": 19.65,
    "new": null
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].priceDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].price",
    "old": 222.64,
    "new": 221.58
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].marketCapUsdM",
    "old": 209757,
    "new": 208758
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].evUsdM",
    "old": 266852,
    "new": 265853
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].ntmEps",
    "old": 12.946,
    "new": 12.949
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].ntmEbitda",
    "old": 20467,
    "new": 20470
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].ntmSales",
    "old": 72424,
    "new": 72432
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].peNtm",
    "old": 17.197589989185847,
    "new": 17.11174608077844
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].evEbitdaNtm",
    "old": 13.038158987638639,
    "new": 12.987445041524182
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "peers[4].evSalesNtm",
    "old": 3.6845796973378993,
    "new": 3.6703804948089243
   },
   {
-   "at": "2026-10-06T10:50:48.857Z",
+   "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
    "path": "(more)",
    "old": null,
    "new": "404 leaves compared; further changes in this file not listed"
   }
  ],
- "generated": "2026-10-06T10:50:48.857Z"
+ "generated": "2026-10-06T10:56:16.528Z"
 }

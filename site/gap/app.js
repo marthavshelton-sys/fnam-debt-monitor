@@ -878,27 +878,30 @@
   function renderPeers(price, shares, ltm, nd) {
     const G = PEERS.gap, ps = PEERS.peers || [], M = PEERS.medians || {};
     if (!PEERS.updatedAt || !ps.length) { html('peersTable', ''); el('peersCap').textContent = t('pending'); return; }
+    const cur = LANG === 'es' ? 'Actual' : 'Current', avg3 = LANG === 'es' ? 'Prom. 3 años' : '3-yr avg.', avg5 = LANG === 'es' ? 'Prom. 5 años' : '5-yr avg.';
+    // two header rows: the NTM multiples carry their 3- and 5-year averages to the right (owner, 2026-10-06; trailing multiples and the USD return left the table)
+    const groups = [['', 1], ['', 1], ['', 1], [evL() + '/EBITDA ' + ntmLbl(), 3], [peL() + ' ' + ntmLbl(), 3], ['', 1], ['', 1], ['', 1]]; // blanks one per column so the phone rule hides the same columns in both header rows
     const cols = [
       ['name', LANG === 'es' ? 'Empresa' : 'Company'], ['price', LANG === 'es' ? 'Precio' : 'Price'], ['mktCapUsdM', LANG === 'es' ? 'Cap. US$ M' : 'Mkt cap US$ M'],
-      ['evEbitdaNtm', evL() + '/EBITDA ' + ntmLbl()], ['evEbitdaLtm', evL() + '/EBITDA ' + ltmLbl()], ['peNtm', peL() + ' ' + ntmLbl()], ['peLtm', peL() + ' ' + ltmLbl()],
-      ['divYieldPct', LANG === 'es' ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin'], ['retYtd', LANG === 'es' ? 'Ret. US$ 2026' : 'US$ ret. YTD'],
+      ['evEbitdaNtm', cur], ['evEbitdaNtmAvg3y', avg3], ['evEbitdaNtmAvg5y', avg5],
+      ['peNtm', cur], ['peNtmAvg3y', avg3], ['peNtmAvg5y', avg5],
+      ['divYieldPct', LANG === 'es' ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin'],
     ];
     const cell = (k, p) => {
-      const v = k === 'retYtd' ? (p.returnsUsdPct ? p.returnsUsdPct.ytd : null) : p[k];
+      const v = p[k];
       if (k === 'name') return p.ticker ? `${p.short} <span class="muted small">${p.ticker}</span>` : p.name;
       if (k === 'price') return v == null ? '' : `<span class="muted small">${p.currency}</span> ${fmtN(v, 2)}`;
       if (v == null) return p.cls === 'total' ? '' : `<span class="muted">${t('na')}</span>`;
       if (k === 'mktCapUsdM') return fmtN(v, 0);
-      if (k === 'retYtd') return fmtPct(v, 1, true);
       return /Pct/.test(k) ? fmtPct(v) : fmtX(v);
     };
     const gapRow = price && shares && ltm && nd && G ? (() => {
       const mc = price * shares / 1e6, ev = mc + nd.net / 1000 + (lastQ.bs.nci || 0) / 1000;
       const fx = fxAt(lastPx[0]);
       return { name: 'GAP (' + (LANG === 'es' ? 'este modelo' : 'this model') + ')', currency: 'MXN', price, mktCapUsdM: fx ? mc / fx : G.mktCapUsdM,
-        evEbitdaLtm: ev / (ltm.ebitda / 1000), evEbitdaNtm: G.ntm && G.ntm.ebitda ? ev / G.ntm.ebitda.mean : null,
-        peLtm: mc / ((ltm.comprehensiveControlling || ltm.netIncome) / 1000), peNtm: G.ntm && G.ntm.eps ? price / G.ntm.eps.mean : null,
-        divYieldPct: (REF.dividends || []).length ? 100 * REF.dividends.slice(-1)[0].dps / price : null, netDebtEbitda: nd.net / ltm.ebitda, ebitdaMarginPct: G.ebitdaMarginPct, returnsUsdPct: G.returnsUsdPct };
+        evEbitdaNtm: G.ntm && G.ntm.ebitda ? ev / G.ntm.ebitda.mean : null, peNtm: G.ntm && G.ntm.eps ? price / G.ntm.eps.mean : null,
+        evEbitdaNtmAvg3y: G.evEbitdaNtmAvg3y, evEbitdaNtmAvg5y: G.evEbitdaNtmAvg5y, peNtmAvg3y: G.peNtmAvg3y, peNtmAvg5y: G.peNtmAvg5y, // snapshot history (GAP's own month-ends)
+        divYieldPct: (REF.dividends || []).length ? 100 * REF.dividends.slice(-1)[0].dps / price : null, netDebtEbitda: nd.net / ltm.ebitda, ebitdaMarginPct: G.ebitdaMarginPct };
     })() : null;
     const medRow = (name, m) => (m ? { name, ...m, cls: 'total' } : null);
     const mx = ps.filter((p) => p.currency === 'MXN'), intl = ps.filter((p) => p.currency !== 'MXN');
@@ -908,20 +911,30 @@
       { name: LANG === 'es' ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
       medRow(LANG === 'es' ? 'Mediana México' : 'Median, Mexico', M.mexico), medRow(LANG === 'es' ? 'Mediana internacional' : 'Median, international', M.international), medRow(LANG === 'es' ? 'Mediana de pares' : 'Peer median', M.all),
     ].filter(Boolean);
-    html('peersTable', `<table class="peers"><thead><tr>${cols.map((c) => `<th scope="col">${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
+    html('peersTable', `<table class="peers"><thead><tr class="grp">${groups.map((g) => `<th colspan="${g[1]}"${g[0] ? ' scope="colgroup"' : ''}>${g[0]}</th>`).join('')}</tr><tr>${cols.map((c) => `<th scope="col">${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
       ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
       : `<tr class="${p.cls || ''}">${cols.map((c) => `<td>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
     const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
+    const H = PEERS.history || {};
+    const monthLbl = (ym) => (ym ? fmtDate(ym + '-15').replace(/\b15,? ?\b/, '').trim() : '');
+    // own history: "in line with" inside ±0.5%, otherwise the signed premium/discount
+    const vsOwn = (v, m) => (Math.abs(100 * (v / m - 1)) < 0.5 ? (LANG === 'es' ? 'en línea con' : 'in line with') : prem(v, m) + (LANG === 'es' ? ' frente a' : ' versus'));
+    const own = gapRow && gapRow.evEbitdaNtmAvg3y != null && gapRow.evEbitdaNtmAvg5y != null
+      ? (LANG === 'es'
+        ? ` (${vsOwn(gapRow.evEbitdaNtm, gapRow.evEbitdaNtmAvg3y)} su promedio de 3 años (${fmtX(gapRow.evEbitdaNtmAvg3y)}) y ${vsOwn(gapRow.evEbitdaNtm, gapRow.evEbitdaNtmAvg5y)} su promedio de 5 años (${fmtX(gapRow.evEbitdaNtmAvg5y)}))`
+        : ` (${vsOwn(gapRow.evEbitdaNtm, gapRow.evEbitdaNtmAvg3y)} its own 3-year average (${fmtX(gapRow.evEbitdaNtmAvg3y)}) and ${vsOwn(gapRow.evEbitdaNtm, gapRow.evEbitdaNtmAvg5y)} its 5-year average (${fmtX(gapRow.evEbitdaNtmAvg5y)}))`)
+      : '';
     const lead = gapRow && gapRow.evEbitdaNtm != null && M.mexico && M.international
       ? (LANG === 'es'
-        ? `GAP cotiza a <b>${fmtX(gapRow.evEbitdaNtm)} VE/EBITDA PDM</b>: ${prem(gapRow.evEbitdaNtm, M.mexico.evEbitdaNtm)} frente a la mediana de ASUR y OMA (${fmtX(M.mexico.evEbitdaNtm)}) y ${prem(gapRow.evEbitdaNtm, M.international.evEbitdaNtm)} frente a la mediana internacional (${fmtX(M.international.evEbitdaNtm)}); P/U PDM ${fmtX(gapRow.peNtm)} contra ${fmtX(M.mexico.peNtm)} y ${fmtX(M.international.peNtm)}.`
-        : `GAP trades at <b>${fmtX(gapRow.evEbitdaNtm)} NTM EV/EBITDA</b>: ${prem(gapRow.evEbitdaNtm, M.mexico.evEbitdaNtm)} versus the ASUR/OMA median (${fmtX(M.mexico.evEbitdaNtm)}) and ${prem(gapRow.evEbitdaNtm, M.international.evEbitdaNtm)} versus the international median (${fmtX(M.international.evEbitdaNtm)}); NTM P/E ${fmtX(gapRow.peNtm)} against ${fmtX(M.mexico.peNtm)} and ${fmtX(M.international.peNtm)}.`)
+        ? `GAP cotiza a <b>${fmtX(gapRow.evEbitdaNtm)} VE/EBITDA PDM</b>${own}: ${prem(gapRow.evEbitdaNtm, M.mexico.evEbitdaNtm)} frente a la mediana de ASUR y OMA (${fmtX(M.mexico.evEbitdaNtm)}) y ${prem(gapRow.evEbitdaNtm, M.international.evEbitdaNtm)} frente a la mediana internacional (${fmtX(M.international.evEbitdaNtm)}); P/U PDM ${fmtX(gapRow.peNtm)} contra ${fmtX(M.mexico.peNtm)} y ${fmtX(M.international.peNtm)}.`
+        : `GAP trades at <b>${fmtX(gapRow.evEbitdaNtm)} NTM EV/EBITDA</b>${own}: ${prem(gapRow.evEbitdaNtm, M.mexico.evEbitdaNtm)} versus the ASUR/OMA median (${fmtX(M.mexico.evEbitdaNtm)}) and ${prem(gapRow.evEbitdaNtm, M.international.evEbitdaNtm)} versus the international median (${fmtX(M.international.evEbitdaNtm)}); NTM P/E ${fmtX(gapRow.peNtm)} against ${fmtX(M.mexico.peNtm)} and ${fmtX(M.international.peNtm)}.`)
       : '';
     html('peersLead', lead);
-    el('peersCap').textContent = `${t('src')}: FactSet · ${LANG === 'es' ? 'precios al' : 'prices as of'} ${fmtDate(PEERS.pricesAsOf)} · ${LANG === 'es' ? 'consenso al' : 'consensus as of'} ${fmtDate(PEERS.estimateDate)} · ${LANG === 'es' ? 'balances al 30-jun-2026' : 'balance sheets at 30-Jun-2026'}`;
+    const histCap = H.from && H.to ? ` · ${LANG === 'es' ? 'promedios con cierres mensuales de' : 'averages over month-ends from'} ${monthLbl(H.from)} ${LANG === 'es' ? 'a' : 'to'} ${monthLbl(H.to)}` : '';
+    el('peersCap').textContent = `${t('src')}: FactSet · ${LANG === 'es' ? 'precios al' : 'prices as of'} ${fmtDate(PEERS.pricesAsOf)} · ${LANG === 'es' ? 'consenso al' : 'consensus as of'} ${fmtDate(PEERS.estimateDate)} · ${LANG === 'es' ? 'balances al 30-jun-2026' : 'balance sheets at 30-Jun-2026'}${histCap}`;
     html('peersNote', LANG === 'es'
-      ? `VE = capitalización (todas las series) + deuda neta + minoritarios al último balance. PDM = próximos doce meses, media del consenso de FactSet; UDM = últimos doce meses reportados. Rendimiento por dividendo: dividendo anual indicado por FactSet entre el precio (GAP: Ps. ${fmtN(REF.dividends.slice(-1)[0].dps, 2)} de la asamblea 2026). Margen EBITDA en base FactSet (ingresos totales; en los grupos mexicanos incluye los ingresos por construcción IFRIC 12, por eso el margen de GAP aquí es menor que el margen sin IFRIC 12 de la tabla izquierda). Retorno total en dólares desde el 31-dic-2025. Renglón de GAP: capitalización y VE de este modelo con el consenso de FactSet como denominador. Zúrich: UDM a junio con reportes semestrales; Auckland: año fiscal a junio de 2026.`
-      : `EV = market cap (all share classes) + net debt + minorities at the latest balance sheet. NTM = next twelve months, FactSet consensus mean; LTM = last twelve months reported. Dividend yield: FactSet indicated annual dividend over price (GAP: Ps. ${fmtN(REF.dividends.slice(-1)[0].dps, 2)} from the 2026 AGM). EBITDA margin on FactSet's basis (total revenue; for the Mexican groups this includes IFRIC 12 construction revenue, which is why GAP's margin here is below the ex-IFRIC 12 margin in the left-hand table). Total return in US dollars since 31-Dec-2025. GAP row: this model's market cap and EV with FactSet consensus as the denominator. Zurich: LTM to June from semi-annual reports; Auckland: fiscal year to June 2026.`);
+      ? `VE = capitalización (todas las series) + deuda neta + minoritarios al último balance. PDM = próximos doce meses, media del consenso de FactSet. Promedios de 3 y 5 años: media aritmética del múltiplo PDM al cierre de cada uno de los últimos 36 y 60 meses, cada cierre con su precio y acciones, el consenso de ese día y el último balance ya publicado (GAP con acciones B + BB); en Auckland los cierres de 2021–22, con UPA de consenso cercana a cero por la pandemia, elevan el promedio de 5 años del P/U. Rendimiento por dividendo: dividendo anual indicado por FactSet entre el precio (GAP: Ps. ${fmtN(REF.dividends.slice(-1)[0].dps, 2)} de la asamblea 2026). Deuda neta / EBITDA sobre EBITDA de los últimos doce meses. Margen EBITDA en base FactSet (ingresos totales; en los grupos mexicanos incluye los ingresos por construcción IFRIC 12, por eso el margen de GAP aquí es menor que el margen sin IFRIC 12 de la tabla izquierda). Renglón de GAP: capitalización y VE de este modelo con el consenso de FactSet como denominador. Zúrich: balances semestrales; Auckland: año fiscal a junio de 2026, balances semestrales.`
+      : `EV = market cap (all share classes) + net debt + minorities at the latest balance sheet. NTM = next twelve months, FactSet consensus mean. 3- and 5-year averages: arithmetic mean of the NTM multiple at each of the last 36 and 60 month-ends, each with that day's price and share count, the consensus sampled that day and the latest balance sheet already published (GAP with B + BB shares); Auckland's 2021–22 month-ends, with consensus EPS near zero in the pandemic, lift its 5-year P/E average. Dividend yield: FactSet indicated annual dividend over price (GAP: Ps. ${fmtN(REF.dividends.slice(-1)[0].dps, 2)} from the 2026 AGM). Net debt / EBITDA on last-twelve-month EBITDA. EBITDA margin on FactSet's basis (total revenue; for the Mexican groups this includes IFRIC 12 construction revenue, which is why GAP's margin here is below the ex-IFRIC 12 margin in the left-hand table). GAP row: this model's market cap and EV with FactSet consensus as the denominator. Zurich: semi-annual balance sheets; Auckland: fiscal year to June 2026, semi-annual balance sheets.`);
   }
   function renderConsensus(price) {
     const G = PEERS.gap;
@@ -1034,7 +1047,13 @@
     const F2 = REF.fibra || {};
     const rows = [[LANG === 'es' ? 'Vehículo' : 'Vehicle', F2.name], [LANG === 'es' ? 'Clave' : 'Ticker', F2.ticker], [LANG === 'es' ? 'Bolsa' : 'Exchange', F2.exchange], [LANG === 'es' ? 'Monto objetivo' : 'Target size', 'Ps. ' + fmtN(F2.targetMxnM) + ' M'], ['CBFEs', fmtN(F2.certificates) + ' × Ps. ' + fmtN(F2.priceMxn)], [LANG === 'es' ? 'Participación en cada concesionaria' : 'Stake in each concessionaire', fmtPct(F2.stakePct)], [LANG === 'es' ? 'Uso de recursos' : 'Use of proceeds', LANG === 'es' ? 'Programa Maestro de Desarrollo 2025–2029 (> Ps. 52,000 M), principalmente Guadalajara' : 'Master Development Program 2025–2029 (> Ps. 52,000 M), mainly Guadalajara']];
     html('fibraTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1] || '—'}</td></tr>`).join('')}</tbody></table>`);
-    html('fibraStatus', `<b>${LANG === 'es' ? 'Estatus' : 'Status'}.</b> ${LANG === 'es' ? F2.status_es : F2.status_en}`);
+    // Status: one headline composed from placed/statusAsOf, then the timeline newest first (owner, 2026-10-06). Tags tell filings from press.
+    const kindL = { filing: LANG === 'es' ? 'comunicado' : 'filing', press: LANG === 'es' ? 'prensa' : 'press', check: LANG === 'es' ? 'revisión FNAM' : 'FNAM check' };
+    const headline = F2.placed
+      ? (LANG === 'es' ? `Colocada el ${fmtDate(F2.placedDate)}.` : `Placed on ${fmtDate(F2.placedDate)}.`)
+      : (LANG === 'es' ? `Aún no colocada al ${fmtDate(F2.statusAsOf)}.` : `Not yet placed as of ${fmtDate(F2.statusAsOf)}.`);
+    const tl = (F2.timeline || []).slice().sort((a, b) => (a.date < b.date ? 1 : -1));
+    html('fibraStatus', `<b>${LANG === 'es' ? 'Estatus' : 'Status'}.</b> ${headline}<ul class="status-tl">${tl.map((e) => `<li><b>${fmtDate(e.date)}</b> · ${L(e)}${kindL[e.kind] ? ` <span class="muted small">(${kindL[e.kind]})</span>` : ''}</li>`).join('')}</ul>`);
     html('fibraSrc', `${t('src')}: ${(LS(F2.sources) || []).join(' · ')}`);
   }
 
