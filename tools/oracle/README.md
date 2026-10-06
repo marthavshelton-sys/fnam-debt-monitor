@@ -74,8 +74,9 @@ and current deferred revenue). 338 checks across the 13 archived quarters; any m
 
 ## DCF section (2026-10-03; round 2 on 2026-10-04)
 
-The DCF is its own registered section (`dcf`, after the multiples; since round 4, 2026-10-04, `deck: true` with `deck_order`
-12: the board deck carries one DCF page with the value per share, WACC, the four scenario rows, the lease sensitivity, the
+The DCF is its own registered section (`dcf`, after the multiples). Since 2026-10-06 it is page-only (`deck: false`, the owner's
+decision): the board deck carries the multiples and peer comparison but no DCF page (`dcfPage` in `present.js` stays, unused,
+should she flip the flag back; it printed the value per share, WACC, the four scenario rows, the lease sensitivity, the
 bridge and the "what has to be true" test, all read from `window.ORCL_MODEL`). Inputs and
 method: `ASSUMPTIONS.md` (DCF defaults) and `METHODOLOGY.md` §8. Its defaults read `factset.json` (fiscal-year sales,
 EBITDA, `da` = DEP_AMORT_EXP, capex), the capex guidance text, `quarters.json` (stub year, SBC, customer prepayments),
@@ -129,16 +130,21 @@ scenario to Custom. `--shots <dir>` saves screenshots. Run it before pushing a p
 `node scripts/oracle/deck-check.mjs [--out <dir>] [--shots <dir>]` builds the board presentation in both languages from the
 served page (Playwright clicks the PDF button), saves the PDFs and fails when the build throws (the builder refuses to save a
 deck with an unresolved `{{token}}`), when any drawn string carries `{{`, `undefined`, `NaN` or `null`, when the English deck
-carries Spanish words or a repository path, or when the deck's price, DCF value, Bear, Bull or delta against the price differ
-from the page's. With PyMuPDF installed it also reads the saved PDF's text as a second layer and, with `--shots`, rasterises
-every page. Run it with the render check before pushing a change to `present.js`, `present-core.js` or the DCF.
+carries Spanish words or a repository path, when the deck's price, DCF value or delta against the price (and Bear and Bull
+while the DCF section is in the deck) differ from the page's, when a bullet or sub-heading of the page's executive summary is
+missing from the deck, or when the deck's pages are not in the registry's order. With PyMuPDF installed (`pip install pymupdf`)
+it also reads the saved PDF as a second layer: its text, the contents page's internal links (at least one per deck section,
+every target inside the document) and the box of every word (none past the right margin or below the footer rule, so no text
+spilled out of a tile, box or page) and, with `--shots`, rasterises every page. Run it with the render check before pushing a
+change to `present.js`, `present-core.js` or the DCF.
 
 ## Numbering, cross-references and stamps (2026-10-03)
 
 `sections.json` is the only place a section is defined. `app.js numberSections()` numbers the sections (the summary is
 labeled "Start here"; the Reference appendix is R1, R2…), the figures (cards with a chart) and the tables (cards with a
-table) in DOM order, builds the navigation (and the phone menu) and labels every card "Figure n / Table n". The deck orders
-its pages by `deck_order` (the board order: summary, statements, guidance, …), independent of the page's story order. Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
+table) in DOM order, builds the navigation (and the phone menu) and labels every card "Figure n / Table n". The deck's pages
+follow the registry order, i.e. the page's story order (owner, 2026-10-06; `deck_order` is gone: `deck` alone decides whether a
+section gets a page). Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
 the JSON narrative (resolved by `html()`); the deck titles its pages with `secHead(id)`. `validate-data.mjs` fails when a
 reference does not resolve, when the `<section data-sec>` order differs from the registry, or when a literal "section NN"
 remains in the page, deck or data. Each section head gets an as-of / refreshed (ET) / STALE stamp from the section's
@@ -261,21 +267,31 @@ calculation the page shows. Language follows the ES/EN toggle; the file is named
 
 Deep link: `/oracle/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (22 on the 2026-10-04 data): cover (landscape, unnumbered; since round 4 without the "Powered by" credits and the
+Pages (22 on the 2026-10-06 data), in the page's story order: cover (landscape, unnumbered; since round 4 without the "Powered by" credits and the
 confidentiality notice: the footer line reads "Source: public filings, FactSet consensus; not investment advice" and the cover
-carries the page's refresh time in ET) · executive summary (`data/summary.js`, two columns auto-fitted to one page under the
-six-number chain strip; bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with the page's refresh time in ET,
+carries the page's refresh time in ET) · executive summary (`data/summary.js`, the same text as the page's summary block: "What
+to watch" on the left with its sub-headed items, Operations, Guidance and why it changed, and Debt and ratios on the right,
+auto-fitted to one page under the six-number chain strip; bullets without `**markers**` get their lead clause emphasised;
+owner's layout, 2026-10-06) · contents (one page: every deck section with the website's number or label and its first page,
+an indented row per page where a section spans several, each row an internal link; `Doc.contents()` reserves the page right
+after the summary and `drawContents()` fills it once every page exists) · tear sheet (ORCL price with the page's refresh time in ET,
 market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
 margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
-500 rebased and 3-year price) · operating metrics, income statement of the latest quarter, LTM and latest fiscal year
-(portrait, GAAP with the Non-GAAP and EBITDA blocks, revenue lines on the FY2026 basis via Oracle's recast, with the
-`data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
-FY targets initial vs latest, track record and vintages (landscape) · RPO, capex and cash flow by quarter (portrait) ·
-AI buildout sites and capacity (portrait, `data/buildout.js`) · leverage, dividends and cash
-generation (ten fiscal years), AI buildout (five-step flow and tracker), RPO explained, debt detail and
-credit risk (landscape) · multiples · DCF (round 4) · news · risks · sources and methodology. The share-price view is excluded
-on purpose. Every page after the cover carries the source footer and "Page X of Y". Narrative cells may carry `{{sec:id}}` and
-`{{fact:id}}` tokens: `OracleDoc.xref()` resolves them and `finish()` refuses to save a deck in which any `{{` was drawn.
+500 rebased and 3-year price) · RPO explained · sites and capacity (portrait, `data/buildout.js`) and the AI buildout
+(five-step flow and tracker) · RPO, capex and cash flow by quarter (portrait) · leverage and debt profile, dividends and cash
+generation (ten fiscal years) · off-balance-sheet financing and leases · debt detail and credit risk · circularity ·
+multiples and peers · risks · news · then the Reference appendix: operating metrics, income statement of the latest quarter,
+LTM and latest fiscal year (portrait, GAAP with the Non-GAAP and EBITDA blocks, revenue lines on the FY2026 basis via Oracle's
+recast, with the `data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in
+force, FY targets initial vs latest, track record and vintages (landscape) · sources and methodology. The DCF (page-only since
+2026-10-06) and the share-price view are excluded on purpose. Every page after the cover carries the source footer and "Page X of Y".
+Narrative cells may carry `{{sec:id}}` and `{{fact:id}}` tokens: `OracleDoc.xref()` resolves them and `finish()` refuses to
+save a deck in which any `{{` was drawn. Text fits its box by construction (2026-10-06, after "text · second reading" spilled
+out of the Funding tile): `tiles()` shrinks the value and the label and grows the row when a label still needs more room,
+`box()` shrinks title and subtitle, `page()` shrinks a title that would run off the page, and paragraphs wrap 4 pt short of
+their width (jsPDF measures with kerning the written page does not apply); the deck check reads every word's box with PyMuPDF
+and fails on any word past the right margin or below the footer rule. The chain's verification badge ("text · second
+reading") is page-only (`chainBoxes()[].badge`); the deck prints the tile label without it.
 
 The estimate written when Oracle has not announced the date (`calendar.json → estimates[]`) carries the window
 (`window_start`/`window_end`), the `median` of the prior three years' dates and that `history`; the page shows the median

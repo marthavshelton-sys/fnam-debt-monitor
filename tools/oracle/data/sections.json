@@ -1,6 +1,6 @@
 {
-  "_comment": "Section registry for site/oracle (the single source of section order, numbering, titles, module staleness and deck inclusion). The page numbers sections, figures, tables and cross-references from this list at render time (app.js numberSections); present.js titles its pages from it; validate-data.mjs fails when a cross-reference (ref('id') in app.js / present.js, data-ref in index.html, {{sec:id}} in the JSON narrative) names an id that is not here. Never type a section number anywhere else. `modules` lists the data files that feed the section (keys of freshness.modules), so every chart footer can show the period end, the ET refresh time and a stale flag of the right module. `deck` = the board presentation builds a page for it; `deck_order` = the order of the deck pages (the page follows the story order below; the deck keeps the board order). `group: reference` = the section lives in the collapsed Reference appendix and is numbered R1, R2… `label_*` = a label shown instead of a number (the Summary is 'Start here'). `path` = which reading paths open the section by default (5 = five minutes, 20 = twenty minutes; the full path opens everything).",
-  "updated": "2026-10-05",
+  "_comment": "Section registry for site/oracle (the single source of section order, numbering, titles, module staleness and deck inclusion). The page numbers sections, figures, tables and cross-references from this list at render time (app.js numberSections); present.js titles its pages from it; validate-data.mjs fails when a cross-reference (ref('id') in app.js / present.js, data-ref in index.html, {{sec:id}} in the JSON narrative) names an id that is not here. Never type a section number anywhere else. `modules` lists the data files that feed the section (keys of freshness.modules), so every chart footer can show the period end, the ET refresh time and a stale flag of the right module. `deck` = the board presentation builds a page for it, in this list's order (the deck follows the page's story order, owner 2026-10-06; the DCF stays on the page only). `group: reference` = the section lives in the collapsed Reference appendix and is numbered R1, R2… `label_*` = a label shown instead of a number (the Summary is 'Start here'). `path` = which reading paths open the section by default (5 = five minutes, 20 = twenty minutes; the full path opens everything).",
+  "updated": "2026-10-06",
   "sections": [
     {
       "id": "summary",
@@ -12,7 +12,6 @@
       "label_es": "Empiece aquí",
       "numbered": false,
       "deck": true,
-      "deck_order": 1,
       "path": [
         5,
         20
@@ -31,7 +30,6 @@
       "nav_en": "Contracts",
       "nav_es": "Contratos",
       "deck": true,
-      "deck_order": 4,
       "path": [
         20
       ],
@@ -49,7 +47,6 @@
       "nav_en": "Capacity",
       "nav_es": "Capacidad",
       "deck": true,
-      "deck_order": 6,
       "path": [
         20
       ],
@@ -65,7 +62,6 @@
       "nav_en": "Capex",
       "nav_es": "Capex",
       "deck": true,
-      "deck_order": 5,
       "path": [
         20
       ],
@@ -82,7 +78,6 @@
       "nav_en": "Funding",
       "nav_es": "Financiamiento",
       "deck": true,
-      "deck_order": 7,
       "path": [
         20
       ],
@@ -100,7 +95,6 @@
       "nav_en": "Off-balance-sheet",
       "nav_es": "Fuera de balance",
       "deck": true,
-      "deck_order": 8,
       "path": [],
       "modules": [
         "obligations",
@@ -114,7 +108,6 @@
       "nav_en": "Credit",
       "nav_es": "Crédito",
       "deck": true,
-      "deck_order": 9,
       "path": [
         20
       ],
@@ -133,7 +126,6 @@
       "nav_en": "Circularity",
       "nav_es": "Circularidad",
       "deck": true,
-      "deck_order": 10,
       "path": [],
       "modules": [
         "obligations",
@@ -148,7 +140,6 @@
       "nav_en": "Multiples",
       "nav_es": "Múltiplos",
       "deck": true,
-      "deck_order": 11,
       "path": [],
       "modules": [
         "market",
@@ -162,7 +153,7 @@
       "es": "Valuación por flujos descontados (DCF)",
       "nav_en": "DCF",
       "nav_es": "DCF",
-      "deck": true,
+      "deck": false,
       "path": [
         20
       ],
@@ -172,8 +163,7 @@
         "financials",
         "xbrl",
         "obligations"
-      ],
-      "deck_order": 12
+      ]
     },
     {
       "id": "risks",
@@ -182,7 +172,6 @@
       "nav_en": "Risks",
       "nav_es": "Riesgos",
       "deck": true,
-      "deck_order": 14,
       "path": [],
       "modules": [
         "risks",
@@ -196,7 +185,6 @@
       "nav_en": "News",
       "nav_es": "Noticias",
       "deck": true,
-      "deck_order": 13,
       "path": [],
       "modules": [
         "news"
@@ -222,7 +210,6 @@
       "nav_es": "Estados financieros",
       "group": "reference",
       "deck": true,
-      "deck_order": 2,
       "path": [],
       "modules": [
         "financials",
@@ -237,7 +224,6 @@
       "nav_es": "Guía",
       "group": "reference",
       "deck": true,
-      "deck_order": 3,
       "path": [],
       "modules": [
         "guidance",
@@ -267,7 +253,6 @@
       "nav_es": "Metodología",
       "group": "reference",
       "deck": true,
-      "deck_order": 15,
       "path": [],
       "modules": [
         "quality",

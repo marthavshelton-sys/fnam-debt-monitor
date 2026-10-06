@@ -1966,7 +1966,8 @@
   // main sections are numbered 01, 02…; the Reference appendix (group: reference) R1, R2…; an unnumbered section may carry a label ("Start here")
   const secIndex = () => { let n = 0, r = 0; const m = {}; for (const s of secList()) { const label = L({ es: s.label_es, en: s.label_en }) || null; if (s.numbered === false) { m[s.id] = { n: null, label, s }; continue; } if (s.group === 'reference') { r++; m[s.id] = { n: r, num: 'R' + r, group: 'reference', s }; continue; } n++; m[s.id] = { n, num: String(n).padStart(2, '0'), s }; } return m; };
   const secNum = (id) => { const e = secIndex()[id]; return e ? (e.num || e.label || '') : ''; };
-  const deckList = () => secList().filter((s) => s.deck).slice().sort((a, b) => (a.deck_order || 99) - (b.deck_order || 99));
+  // the deck's pages follow the registry order, i.e. the page's story order (owner, 2026-10-06); `deck` alone decides inclusion
+  const deckList = () => secList().filter((s) => s.deck);
   const secTitle = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.es, en: e.s.en }) : id; };
   const secNav = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.nav_es, en: e.s.nav_en }) : id; };
   const ref = (id) => { const e = secIndex()[id]; if (!e) return `<a class="xref" href="#${id}">${id}</a>`; return `<a class="xref" href="#${id}">${e.n != null ? '§' + secNum(id) + ' ' : ''}${secNav(id)}</a>`; };
@@ -2373,13 +2374,14 @@
       { k: es ? 'Contratos' : 'Contracts', v: lastQ.kpi.rpo != null ? fmtBn(lastQ.kpi.rpo, 0) : '—', d: `RPO ${qLabel(lastQ)}${rr ? ` · ${rr.m12_pct}% ${es ? 'en 12 meses' : 'within 12 months'}` : ''}`, r: 'rpo' },
       { k: es ? 'Capacidad' : 'Capacity', v: `${fmtN(mw.live)} MW ${es ? 'de' : 'of'} ${fmtN(mw.plan / 1000, 1)} GW`, d: es ? `energizados en los ${mw.n} campus nombrados` : `energized at the ${mw.n} named campuses`, r: 'sites' },
       { k: 'Capex', v: cg ? `US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} ${es ? 'mil M' : 'bn'}` : '—', d: cg ? (es ? `bruto ${fyLabel(cg.fy)} · neto ≤ US$ ${fmtN(cg.netMax)} mil M (guía)` : `gross ${fyLabel(cg.fy)} · net ≤ US$ ${fmtN(cg.netMax)} bn (guide)`) : '', r: 'capex' },
-      { k: es ? 'Financiamiento' : 'Funding', v: fp.remaining_fy27_usd_bn != null ? `US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} ${es ? 'mil M' : 'bn'}` : '—', d: `${es ? 'brecha por levantar (empresa)' : 'gap still to raise (company)'}${un.usd_bn != null ? ` · US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M de arrendamientos no iniciados' : 'bn of uncommenced leases'} ${uncBadge()}` : ''}`, r: 'financing' },
+      // the verification badge is page-only (`badge`, appended by renderChain): the deck prints the text of `d` alone
+      { k: es ? 'Financiamiento' : 'Funding', v: fp.remaining_fy27_usd_bn != null ? `US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} ${es ? 'mil M' : 'bn'}` : '—', d: `${es ? 'brecha por levantar (empresa)' : 'gap still to raise (company)'}${un.usd_bn != null ? ` · US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M de arrendamientos no iniciados' : 'bn of uncommenced leases'}` : ''}`, badge: un.usd_bn != null ? uncBadge() : '', r: 'financing' },
       { k: es ? 'Crédito' : 'Credit', v: sp ? sp.rating : '—', d: `${sp ? `S&P · ${fmtDate(sp.date)}` : ''}${S ? ` · ${fmtX(S.leaseAdj, 1)} ${es ? 'ajustado por arrendamientos' : 'lease-adjusted'}` : ''}`, r: 'credit' },
       { k: es ? 'Valuación' : 'Valuation', v: d && d.r && d.r.perShare != null ? `US$ ${fmtN(d.r.perShare, 0)} ${es ? 'vs' : 'vs'} US$ ${fmtN(price, 2)}` : '—', d: d ? `DCF ${presetLabel(d.s.preset)} · ${d.r && d.r.perShare != null && price ? `${fmtPct(100 * (d.r.perShare / price - 1), 0, true)} ` : ''}${es ? 'vs cierre' : 'vs close'} ${fmtDate(lastPx[0])}` : '', r: 'dcf' },
     ];
     return boxes;
   }
-  function renderChain() { if (!el('sumChain')) return; html('sumChain', chainBoxes().map((x) => `<a class="box" href="#${x.r}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}</div></a>`).join('')); }
+  function renderChain() { if (!el('sumChain')) return; html('sumChain', chainBoxes().map((x) => `<a class="box" href="#${x.r}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}${x.badge ? ` ${x.badge}` : ''}</div></a>`).join('')); }
   // ---- the verdict: one paragraph composed from the same figures as the chain
   function verdictHtml() {
     if (!lastQ) return ''; const es = LANG === 'es';

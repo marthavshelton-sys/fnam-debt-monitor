@@ -20,10 +20,10 @@
     await P.run(M, ['/assets/us-map.js'], async () => {
       const doc = new OracleDoc(M);
       // Pages follow the section registry (data/sections.js): a section is in the deck when its registry entry says
-      // deck: true, in the deck order the registry gives (deck_order; the page itself follows the story order);
-      // sections are addressed by id, never by number.
+      // deck: true, in the registry's own order, i.e. the page's story order (owner, 2026-10-06: the deck reads like the
+      // website); sections are addressed by id, never by number. The contents page sits right after the executive summary.
       const PAGES = {
-        summary: () => { doc.execSummary(); doc.tearSheet(); },
+        summary: () => { doc.execSummary(); doc.contents(); doc.tearSheet(); },
         statements: () => { doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy'); },
         guidance: () => doc.guidancePage(),
         rpo: () => doc.rpoPage(),
@@ -40,7 +40,9 @@
         method: () => doc.sourcesPage(),
       };
       doc.cover();
-      for (const sec of (M.deckList ? M.deckList() : M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) PAGES[sec.id]();
+      for (const sec of (M.deckList ? M.deckList() : M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) { doc.sec = sec.id; PAGES[sec.id](); }
+      doc.sec = null;
+      doc.drawContents(doc.tocEntries(), doc.T('Cada fila es un enlace a su página. La numeración de las secciones es la de fnam.mx/oracle; el DCF (valuación por flujos descontados) se consulta en la página y no forma parte de esta presentación.', 'Every row links to its page. Sections are numbered as on fnam.mx/oracle; the DCF (discounted cash flow valuation) is read on the page and is not part of this presentation.'));
       doc.finish();
     });
   }
@@ -55,11 +57,26 @@
       if (M.REFRESHED_AT && M.fmtET) this.cfg.coverLines = [this.T(`Datos actualizados: ${M.fmtET(M.REFRESHED_AT)}`, `Data refreshed: ${M.fmtET(M.REFRESHED_AT)}`)];
       // every string drawn is checked for an unresolved {{token}} (and recorded when a check asks for it); finish() refuses to
       // save a deck that would print one, so a placeholder can never reach the owner (round 4)
+      // every page records its section and number, so the contents page can list them with links once the deck is built
+      this.toc = []; this.sec = null;
       const origText = this.pdf.text.bind(this.pdf); this.unresolved = []; this.drawn = window.ORCL_DECK_CAPTURE ? [] : null;
       this.pdf.text = (str, ...rest) => { for (const x of (Array.isArray(str) ? str : [str])) { const v = String(x == null ? '' : x); if (/\{\{[^}]*\}\}/.test(v)) this.unresolved.push(v.slice(0, 100)); if (this.drawn) this.drawn.push(v); } return origText(str, ...rest); };
     }
     // Eastern Time for every timestamp in the deck (the page's only time zone)
     stamp(iso) { return this.M.fmtET ? this.M.fmtET(iso) : super.stamp(iso); }
+    page(orient, title, subtitle) { const y = super.page(orient, title, subtitle); this.toc.push({ sec: this.sec, title: title || '', n: this.pdf.getNumberOfPages() }); return y; }
+    // Contents rows: one per section in deck order (the website's number or label, the section's full title, its first page),
+    // plus one indented row per page when a section spans several (the page's own title without the section prefix).
+    tocEntries() {
+      const M = this.M, bySec = new Map();
+      for (const p of this.toc) { if (!p.sec || p.n === this.tocPage) continue; if (!bySec.has(p.sec)) bySec.set(p.sec, []); bySec.get(p.sec).push(p); }
+      const out = [];
+      for (const [id, pages] of bySec) {
+        out.push({ label: M.secNum(id), title: M.secTitle(id), page: pages[0].n });
+        if (pages.length > 1) for (const p of pages) out.push({ sub: true, title: p.title.replace(/^[^·]*·\s*/, '').replace(new RegExp(`^${M.secNav(id).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:\\s*`), ''), page: p.n });
+      }
+      return out;
+    }
     finish() {
       if (this.unresolved.length) throw new Error(this.T(`marcadores sin resolver en la presentación: ${[...new Set(this.unresolved)].slice(0, 4).join(' | ')}`, `unresolved placeholders in the deck: ${[...new Set(this.unresolved)].slice(0, 4).join(' | ')}`));
       if (this.drawn) window.__deckText = this.drawn.slice();
@@ -85,6 +102,13 @@
       return this.T(`Base: resultados del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · guía del ${gv ? this.date(gv.date) : '—'} · mercado al cierre del ${this.date(M.lastPx[0])}`,
         `Basis: ${this.qlab(lastQ)} results (${this.date(this.rel(lastQ))}) · guidance of ${gv ? this.date(gv.date) : '—'} · market close ${this.date(M.lastPx[0])}`);
     }
+    // the executive-summary page's subtitle: the basis line plus the summary's own dates, as the page's meta line prints them
+    summaryLine() {
+      const S = this.M.SUM; let s = this.basisLine();
+      if (S.updatedAt) s += this.T(` · redactado el ${this.date(S.updatedAt)}`, ` · written ${this.date(S.updatedAt)}`);
+      if (S.eventsThrough) s += this.T(`, con eventos hasta el ${this.date(S.eventsThrough)}`, `, events through ${this.date(S.eventsThrough)}`);
+      return s;
+    }
     // Emphasis for management wording that carries no **markers**: amounts with their qualifier ("at least $90 billion",
     // "$90 billion to $95 billion"), percentages, and the decisive words (raised, lowered, Investor Day…).
     boldKeys(text) {
@@ -106,11 +130,17 @@
     }
 
     // ================= 2. EXECUTIVE SUMMARY =================
+    // The same text as the page's summary block (data/summary.js): "What to watch" on the left with its sub-headed items, as
+    // the page prints them; Operations, Guidance and why it changed, and Debt and ratios on the right (owner, 2026-10-06).
     execSummary() {
-      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(this.xref(x))) }));
+      const M = this.M, all = M.SUM.sections || [];
+      const sec = (s) => (s.k === 'watch'
+        ? { title: M.L(s.title), items: [], groups: (s['items_' + M.LANG] || s.items_en || []).map((it) => ({ h: it.h, items: (it.lines || []).map((x) => this.xref(x)) })) }
+        : { title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(this.xref(x))) });
+      const watch = all.filter((s) => s.k === 'watch').map(sec), rest = all.filter((s) => s.k !== 'watch').map(sec);
       const chain = typeof M.chainBoxes === 'function' ? M.chainBoxes() : [];
       const strip = chain.length ? (y) => this.tiles(chain.map((b) => { const v = tx(b.v); return { v, l: `${tx(b.k)} · ${tx(b.d)}`, size: v.length > 20 ? 9.5 : v.length > 14 ? 11 : 13 }; }), y, 54) : null;
-      super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''), strip);
+      super.execSummary([...watch, ...rest], this.summaryLine(), strip, [watch, rest]);
     }
 
     // ================= NEWS AND RECENT EVENTS (dated, themed, primary sources first) =================

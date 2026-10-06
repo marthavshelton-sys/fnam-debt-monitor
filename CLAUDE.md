@@ -101,9 +101,11 @@ dashboards, everything built from public data by GitHub Actions.
   section (not in the deck; method in METHODOLOGY.md §8: Bear / Base = consensus / Bull presets, tax normalization, lease
   treatment, "what has to be true" instead of a bracketing test). Since 2026-10-04 the page follows the story order
   (Start here → Contracts → … → DCF → Risks → News → Calendar) with a collapsed Reference appendix (R1–R3); every section
-  carries a composed lead and is collapsed by default except the Summary; the deck keeps the board order (`deck_order`).
+  carries a composed lead and is collapsed by default except the Summary. The deck follows the page's story order (owner,
+  2026-10-06; `deck_order` is gone), opens with the executive summary (the page's text: "What to watch" left, Operations /
+  Guidance / Debt right) and a linked contents page, and excludes the DCF (page-only) while keeping the multiples and peers.
   Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
-  :8123) and build the PDF in both languages.
+  :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures).
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
   `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, 8 `retorno/` (payoff and
   cost of money, curated `payoff.json`; ratings from SEC-filed term sheets), `metodologia/`,

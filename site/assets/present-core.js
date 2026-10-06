@@ -96,7 +96,9 @@
       this.pages.push(this.cur);
       let y = this.cur.y0;
       if (title) {
-        this.font('bold', 17, ACCENT); this.pdf.text(tx(titleCase(title, this.es)), this.cur.x0, y + 15);
+        // the title shrinks (17 → 12 pt) until it fits the page width: a long portrait-page title used to run off the edge
+        const tt = tx(titleCase(title, this.es)); let ts = 17; this.font('bold', ts, ACCENT); while (ts > 12 && this.tw(tt) > this.cur.x1 - this.cur.x0) { ts -= 0.5; this.font('bold', ts, ACCENT); }
+        this.pdf.text(tt, this.cur.x0, y + 15);
         y += 21;
         if (subtitle) { this.font('normal', 9.5, MUTED); const lines = this.pdf.splitTextToSize(tx(subtitle), this.cur.x1 - this.cur.x0); this.pdf.text(lines, this.cur.x0, y + 10); y += 12 * lines.length + 1; }
         this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.8); this.pdf.line(this.cur.x0, y + 5, this.cur.x1, y + 5); y += 14;
@@ -108,9 +110,10 @@
     // written page does not, so word-by-word placement must add up glyph advances instead.
     tw(str) { let w = 0; for (const ch of String(str)) w += this.pdf.getTextWidth(ch); return w; }
     width() { return this.cur.x1 - this.cur.x0; }
-    // Paragraph. Returns the y after the block.
+    // Paragraph. Returns the y after the block. Lines wrap 4 pt short of `w`: jsPDF measures with kerning pairs the written
+    // page does not apply, so a line measured to fit exactly can end a few points past the box (seen on the note paragraphs).
     text(str, x, y, w, size, style, color, lh) {
-      this.font(style, size, color); const lines = this.pdf.splitTextToSize(tx(str), w); this.pdf.text(lines, x, y + size * 0.85); return y + lines.length * size * (lh || 1.3) + 1;
+      this.font(style, size, color); const lines = this.pdf.splitTextToSize(tx(str), w - 4); this.pdf.text(lines, x, y + size * 0.85); return y + lines.length * size * (lh || 1.3) + 1;
     }
     // Word-wrap text that may contain **bold** runs into lines of [{ t, b }] words.
     richLines(text, w, size, style) {
@@ -136,7 +139,7 @@
     measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
     heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(titleCase(str, this.es)), x, y + size * 0.85); return y + size * 1.5; }
     note(str, y, size = 7.5, x, w) { return this.text(str, x == null ? this.cur.x0 : x, y, w == null ? this.width() : w, size, 'normal', MUTED, 1.25); }
-    measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w).length * size * (lh || 1.3) + 1; }
+    measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w - 4).length * size * (lh || 1.3) + 1; }
     // A note that must sit above the footer: placed at `y`, or higher if it would not fit.
     noteAbove(str, y, size = 7.5, x, w) { const h = this.measureText(str, w == null ? this.width() : w, size, 1.25); return this.note(str, Math.min(y, this.cur.y1 - h), size, x, w); }
     rule(y) { this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.5); this.pdf.line(this.cur.x0, y, this.cur.x1, y); }
@@ -185,17 +188,32 @@
       const ch = new Chart(cv, cfg); const url = cv.toDataURL('image/png'); ch.destroy(); holder.remove(); return url;
     }
     image(url, x, y, w, h) { if (url) this.pdf.addImage(url, 'PNG', x, y, w, h, undefined, 'FAST'); return y + h; }
-    // Row of figure tiles: [{ v, l, size? }]
+    // Row of figure tiles: [{ v, l, size? }]. Text fits by construction (2026-10-06, after a label spilled out of a tile): the
+    // value shrinks until it fits the tile's width, the label shrinks from 7.6 to 6.4 pt until its lines fit under the value,
+    // and when a label still needs more room every tile in the row grows to the tallest one. Returns the y under the row.
     tiles(items, y, h = 50) {
-      const n = items.length, gap = 10, tw = (this.width() - (n - 1) * gap) / n;
-      items.forEach((f, i) => { const x = this.cur.x0 + i * (tw + gap); this.pdf.setFillColor(...HEAD); this.pdf.roundedRect(x, y, tw, h, 4, 4, 'F'); this.font('bold', f.size || 14, ACCENT); this.pdf.text(tx(f.v), x + 8, y + 21); this.font('normal', 7.6, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(f.l), tw - 14), x + 8, y + 33); });
-      return y + h + 14;
+      const n = items.length, gap = 10, tw = (this.width() - (n - 1) * gap) / n, pad = 8, inner = tw - 2 * pad;
+      const fit = items.map((f) => {
+        const v = tx(f.v), l = tx(f.l); let vs = f.size || 14; this.font('bold', vs); while (vs > 8 && this.tw(v) > inner) { vs -= 0.5; this.font('bold', vs); }
+        let ls = 7.6, lines; for (;;) { this.font('normal', ls); lines = this.pdf.splitTextToSize(l, inner); if (ls <= 6.4 || 33 + (lines.length - 1) * ls * 1.3 + ls * 0.3 + 3 <= h) break; ls = Math.round((ls - 0.4) * 10) / 10; }
+        return { v, vs, ls, lines, need: 33 + (lines.length - 1) * ls * 1.3 + ls * 0.3 + 3 };
+      });
+      const hh = Math.max(h, ...fit.map((f) => f.need));
+      fit.forEach((f, i) => { const x = this.cur.x0 + i * (tw + gap); this.pdf.setFillColor(...HEAD); this.pdf.roundedRect(x, y, tw, hh, 4, 4, 'F'); this.font('bold', f.vs, ACCENT); this.pdf.text(f.v, x + pad, y + 21); this.font('normal', f.ls, MUTED); this.pdf.text(f.lines, x + pad, y + 33); });
+      return y + hh + 14;
     }
-    // Rounded box with a bold title and a muted subtitle.
+    // Rounded box with a bold title and a muted subtitle; both shrink (title 9.2 → 7.4 pt, subtitle 7.4 → 6 pt) until they fit
+    // inside the box, so a long status never runs past its bottom edge.
     box(x, y, w, h, title, sub, fill) {
       this.pdf.setFillColor(...(fill || HEAD)); this.pdf.setDrawColor(...GRID); this.pdf.roundedRect(x, y, w, h, 4, 4, 'FD');
-      this.font('bold', 9.2, ACCENT); const tl = this.pdf.splitTextToSize(tx(title), w - 12); this.pdf.text(tl, x + 6, y + 13);
-      this.font('normal', 7.4, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(sub), w - 12), x + 6, y + 13 + tl.length * 10.5 + 2);
+      let ts = 9.2, ss = 7.4, tl, sl, subY;
+      for (;;) {
+        this.font('bold', ts); tl = this.pdf.splitTextToSize(tx(title), w - 12); this.font('normal', ss); sl = this.pdf.splitTextToSize(tx(sub), w - 12);
+        subY = 13 + tl.length * ts * 1.14 + 2; const need = subY + (sl.length - 1) * ss * 1.3 + ss * 0.3 + 3;
+        if (need <= h || (ts <= 7.4 && ss <= 6)) break; ts = Math.max(7.4, ts - 0.4); ss = Math.max(6, ss - 0.3);
+      }
+      this.font('bold', ts, ACCENT); this.pdf.text(tl, x + 6, y + 13);
+      this.font('normal', ss, MUTED); this.pdf.text(sl, x + 6, y + subY);
     }
     arrow(x1, x2, yy, label, above, color) {
       this.pdf.setDrawColor(...(color || ACCENT)); this.pdf.setLineWidth(0.9); this.pdf.line(x1, yy, x2, yy);
@@ -279,21 +297,62 @@
       return String(text).replace(/\{\{nextResults\}\}/g, v);
     }
     // `pre(y)` (optional) draws a strip under the page title (e.g. the Oracle deck's six-number chain) and returns the new y.
-    execSummary(sections, subtitle, pre) {
-      sections = sections.map((sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)) }));
+    // A section is { title, items: [...] } or, for a sub-grouped block such as "What to watch", { title, groups: [{ h, items }] }
+    // (each group prints its own sub-heading, as the page does). `columns` (optional) assigns the sections to the two columns
+    // explicitly ([[left...], [right...]]); without it the list is split in half.
+    execSummary(sections, subtitle, pre, columns) {
+      const prep = (sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)), groups: (sec.groups || []).map((g) => ({ h: g.h, items: (g.items || []).map((x) => this.tokens(x)) })) });
+      const cols = columns ? columns.map((c) => c.map(prep)) : (() => { const all = sections.map(prep), half = Math.ceil(all.length / 2); return [all.slice(0, half), all.slice(half)]; })();
       let y = this.page('L', this.T('Resumen ejecutivo', 'Executive Summary'), subtitle);
       if (typeof pre === 'function') y = pre(y);
-      const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4;
-      const half = Math.ceil(sections.length / 2), cols = [sections.slice(0, half), sections.slice(half)];
+      const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4, ind = 6;
+      const opts = (s) => ({ lh: 1.32, gap: s * 0.5 });
+      const secH = (sec, s) => { let h = s * 1.5 + 2 + this.measureBullets(sec.items, colW, s, opts(s)); for (const g of sec.groups) { if (g.h) h += s * 1.32 + 1; h += this.measureBullets(g.items, colW - ind, s, opts(s)); } return h + s * 0.9; };
+      const colH = (col, s) => col.reduce((h, sec) => h + secH(sec, s), 0);
       let size;
-      const colH = (col, s) => col.reduce((h, sec) => h + s * 1.5 + 2 + this.measureBullets(sec.items, colW, s, { lh: 1.32, gap: s * 0.5 }) + s * 0.9, 0);
       for (size = 13; size >= 8; size -= 0.25) { if (Math.max(...cols.map((c) => colH(c, size))) <= availH) break; }
       const hs = size;
       cols.forEach((col, i) => {
         let yy = y; const x = this.cur.x0 + i * (colW + gap);
-        for (const sec of col) { yy = this.heading(sec.title, x, yy, hs + 1) + 2; yy = this.bullets(sec.items, x, yy, colW, hs, { lh: 1.32, gap: hs * 0.5 }) + hs * 0.9; }
+        for (const sec of col) {
+          yy = this.heading(sec.title, x, yy, hs + 1) + 2;
+          if (sec.items.length) yy = this.bullets(sec.items, x, yy, colW, hs, opts(hs));
+          for (const g of sec.groups) {
+            // the group's sub-heading prints as the page prints it (no Title Case: it is a topic label, not a section heading)
+            if (g.h) { this.font('bold', hs, INK); this.pdf.text(tx(g.h), x, yy + hs * 0.85); yy += hs * 1.32 + 1; }
+            yy = this.bullets(g.items, x + ind, yy, colW - ind, hs, opts(hs));
+          }
+          yy += hs * 0.9;
+        }
       });
       this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.5); this.pdf.line(this.cur.x0 + colW + gap / 2, y, this.cur.x0 + colW + gap / 2, this.cur.y1 - 6);
+    }
+    // ----- contents page: reserved early, filled once every page exists -----
+    // contents() adds the page (right after the executive summary) and remembers its number; drawContents(entries, note)
+    // prints one row per entry ({ label, title, page, sub }: sub rows are indented and smaller) with a dotted leader, the page
+    // number and an internal link over the whole row, sized so the list stays on that one page.
+    contents(title) { this.page('L', title || this.T('Contenido', 'Contents')); this.tocPage = this.pdf.getNumberOfPages(); this.tocY = this.y; return this.tocPage; }
+    drawContents(entries, note) {
+      if (!this.tocPage || !entries.length) return;
+      const saved = this.cur, last = this.pdf.getNumberOfPages(), pg = this.pages[this.tocPage - 1]; this.pdf.setPage(this.tocPage); this.cur = pg;
+      const x0 = pg.x0, x1 = pg.x1, noteH = note ? this.measureText(note, x1 - x0, 7.5, 1.25) + 8 : 0, avail = pg.y1 - this.tocY - noteH - 6;
+      const rowH = Math.min(21, Math.max(10, avail / entries.length)), numW = 30, mainSize = Math.min(11, rowH * 0.58);
+      // the label column is as wide as the widest label ("01", "R1", "Start here"…) plus a gutter
+      this.font('bold', mainSize); const labW = Math.max(...entries.map((e) => (!e.sub && e.label ? this.tw(tx(e.label)) : 0))) + 10;
+      let y = this.tocY + 4;
+      for (const e of entries) {
+        const main = !e.sub, size = main ? mainSize : Math.min(9.4, rowH * 0.5), x = x0 + (main ? 0 : labW + 14), base = y + rowH * 0.68;
+        if (main && e.label) { this.font('bold', size, MUTED); this.pdf.text(tx(e.label), x, base); }
+        this.font(main ? 'bold' : 'normal', size, main ? ACCENT : INK);
+        const title = tx(titleCase(e.title, this.es)), tw = x1 - numW - 8 - (x + (main && e.label ? labW : 0)), tl = this.pdf.splitTextToSize(title, tw)[0]; this.pdf.text(tl, x + (main && e.label ? labW : 0), base);
+        const tEnd = x + (main && e.label ? labW : 0) + this.tw(tl) + 4;
+        this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.6); this.pdf.setLineDashPattern([0.6, 2.4], 0); this.pdf.line(tEnd, base - 1, x1 - numW - 4, base - 1); this.pdf.setLineDashPattern([], 0);
+        this.font(main ? 'bold' : 'normal', size, INK); this.pdf.text(String(e.page), x1, base, { align: 'right' });
+        this.pdf.link(x0, y, x1 - x0, rowH, { pageNumber: e.page });
+        y += rowH;
+      }
+      if (note) this.note(note, pg.y1 - noteH + 4);
+      this.cur = saved; this.pdf.setPage(last);
     }
     // ----- footers and download -----
     finish() {
