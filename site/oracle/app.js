@@ -245,7 +245,7 @@
     html('asofRow', asof.join(''));
     // phones: title, price and one status line; the as-of row and the KPI strip sit behind a "More" toggle (round 4)
     { const es = LANG === 'es'; const chg1 = orclPx && orclPx.length > 1 ? 100 * (orclPx[orclPx.length - 1][1] / orclPx[orclPx.length - 2][1] - 1) : null; const relD = lastQ ? fmtDate(lastQ.releaseDate || (lastQ.sources && lastQ.sources.is && lastQ.sources.is.date)) : '';
-      html('hdrCompact', lastPx ? `<span class="px">US$ ${fmtN(lastPx[1], 2)}</span>${chg1 != null ? ` <span class="${cls(chg1)}">${fmtPct(chg1, 1, true)}</span>` : ''} <span class="muted">· ${es ? 'cierre' : 'close'} ${fmtDate(lastPx[0])}</span><span class="st">${lastQ ? `${qLabel(lastQ)} · ${relD}` : ''}${gv ? ` · ${es ? 'guía' : 'guidance'} ${fmtDate(gv.date)}` : ''}${REFRESHED_AT ? ` · ${es ? 'actualizado' : 'refreshed'} ${fmtET(REFRESHED_AT)}` : ''}</span>` : '');
+      html('hdrCompact', lastPx ? `<span class="live" data-status-dot="oracle"${(() => { const t = [FIN.generatedAt, MK.generatedAt].filter(Boolean).sort().pop(); return t ? ` data-status-time="${t}"` : ''; })()}></span><span class="px">US$ ${fmtN(lastPx[1], 2)}</span>${chg1 != null ? ` <span class="${cls(chg1)}">${fmtPct(chg1, 1, true)}</span>` : ''} <span class="muted">· ${es ? 'cierre' : 'close'} ${fmtDate(lastPx[0])}</span><span class="st">${lastQ ? `${qLabel(lastQ)} · ${relD}` : ''}${gv ? ` · ${es ? 'guía' : 'guidance'} ${fmtDate(gv.date)}` : ''}${REFRESHED_AT ? ` · ${es ? 'actualizado' : 'refreshed'} ${fmtET(REFRESHED_AT)}` : ''}</span>` : '');
       const more = el('hdrMore'), hd = document.querySelector('header.top'); if (more && hd) { more.textContent = hd.classList.contains('more') ? (es ? '− Menos cifras' : '− Fewer figures') : (es ? '+ Más cifras' : '+ More figures'); more.setAttribute('aria-expanded', String(hd.classList.contains('more'))); if (!more.dataset.wired) { more.dataset.wired = '1'; more.addEventListener('click', () => { hd.classList.toggle('more'); renderHeader(); }); } } }
     const notice = el('dataNotice');
     const pend = pendingUpdates();
@@ -2332,7 +2332,7 @@
     // meaningful = a data value a reader would act on: statements, guidance, buildout, obligations, consensus, reference facts, news,
     // risks and the summary; not XBRL re-tags, registry edits, stamps, URLs, accession strings or "(more)" markers
     const FILES = { 'financials.js': 1, 'guidance.js': 1, 'buildout.js': 1, 'obligations.js': 1, 'factset.js': 1, 'reference.js': 1, 'news.js': 1, 'risks.js': 1, 'summary.js': 1, 'market.js': 1, 'peers.js': 1, 'calendar.js': 1 };
-    const noise = /(^|\.)(generatedAt|generated|fetched|updated|updatedAt|asOf|as_of|priceDate|price_date|accessed|issues_checked|_comment|url|accn|accession|form|filed|superseded|sourceRef|short|title|text|note|notes|key|id)(\[|\.|$)|\(more\)|\(file\)|\.length$|_en$|_es$|\.(en|es)$/;
+    const noise = /(^|\.)(generatedAt|generated|fetched|updated|updatedAt|asOf|as_of|priceDate|price_date|latestClose|accessed|issues_checked|_comment|url|accn|accession|form|filed|superseded|sourceRef|short|title|text|note|notes|key|id)(\[|\.|$)|\(more\)|\(file\)|\.length$|_en$|_es$|\.(en|es)$/;
     const meaningful = all.filter((e) => FILES[e.file] && !noise.test(e.path) && !(typeof e.new === 'string' && /^\(text/.test(e.new)));
     const byBuild = new Map(); for (const e of meaningful) { const k = e.at; if (!byBuild.has(k)) byBuild.set(k, []); byBuild.get(k).push(e); }
     const builds = [...byBuild.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, 25);

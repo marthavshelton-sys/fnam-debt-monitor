@@ -102,11 +102,13 @@ header.top{padding:54px 0 26px; border-bottom:1px solid var(--border); backgroun
 .fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
 .fnam-back svg{width:13px; height:13px; flex:none;}
 .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink);}
-.eyebrow .live{width:8px; height:8px; border-radius:50%; background:var(--muted); opacity:.45;}
-/* status dot: green only while the hourly watchdog verifies the refresh (assets/data-status.js) */
-.eyebrow .live.is-ok{background:var(--good); opacity:1; box-shadow:0 0 0 3px rgba(12,163,12,.18);}
-.eyebrow .live.is-alert{background:#c27c0e; opacity:1;}
-.eyebrow .live.is-late{background:#c0392b; opacity:1;}
+.eyebrow .live, .hdr-compact .live{width:8px; height:8px; border-radius:50%; background:var(--muted); opacity:.45;}
+/* status dot: green only while the watchdog verifies the refresh (assets/data-status.js); the phone header, which replaces
+   the eyebrow below 760px, carries the same dot so a stale price shows there too */
+.hdr-compact .live{display:inline-block; margin-right:6px; vertical-align:middle; position:relative; top:-1px;}
+.eyebrow .live.is-ok, .hdr-compact .live.is-ok{background:var(--good); opacity:1; box-shadow:0 0 0 3px rgba(12,163,12,.18);}
+.eyebrow .live.is-alert, .hdr-compact .live.is-alert{background:#c27c0e; opacity:1;}
+.eyebrow .live.is-late, .hdr-compact .live.is-late{background:#c0392b; opacity:1;}
 header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; line-height:1.08; overflow-wrap:anywhere;}
 .asof-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:20px; font-size:12.5px; color:var(--muted);}
 .asof-row b{color:var(--text-secondary); font-weight:600;}

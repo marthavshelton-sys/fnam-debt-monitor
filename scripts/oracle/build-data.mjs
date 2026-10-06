@@ -19,7 +19,7 @@ const todayET = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_
 // and is not logged. tools/oracle/data/changelog.json keeps the last 600 entries.
 const CHANGELOG_PATH = join(DATA, "changelog.json");
 const changelog = existsSync(CHANGELOG_PATH) ? JSON.parse(readFileSync(CHANGELOG_PATH, "utf8")) : { note: "Change log of the page data files, written by the data builder on each run", entries: [] };
-const SKIP_KEYS = /^(generatedAt|generated|fetched|updatedAt|updated|checkedAt|accessed|_comment|note|notes)$/;
+const SKIP_KEYS = /^(generatedAt|generated|fetched|updatedAt|updated|checkedAt|accessed|latestClose|_comment|note|notes)$/;
 const flatten = (o, prefix, out, depth = 0) => { if (o == null || typeof o !== "object") { out[prefix] = o; return out; } if (Array.isArray(o)) { if (o.length > 60) { out[prefix + ".length"] = o.length; return out; } o.forEach((v, i) => flatten(v, `${prefix}[${i}]`, out, depth + 1)); return out; } for (const [k, v] of Object.entries(o)) { if (SKIP_KEYS.test(k)) continue; flatten(v, prefix ? `${prefix}.${k}` : k, out, depth + 1); } return out; };
 const readPrev = (file) => { const p = join(OUT, file); if (!existsSync(p)) return null; const txt = readFileSync(p, "utf8"); const i = txt.indexOf("= "); try { return JSON.parse(txt.slice(i + 2).replace(/;\s*$/, "")); } catch (e) { return null; } };
 const logChanges = (file, obj) => {

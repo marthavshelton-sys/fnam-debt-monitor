@@ -8,7 +8,9 @@
 # A dashboard whose last two scheduled refreshes both failed or never ran is late. If its own pipeline has
 # no alert open, one "SOURCE DOWN: watchdog - <dashboard> refresh late" issue (label data-watchdog) is
 # opened, which the owner's email routine sends like every "SOURCE DOWN: " issue; the first on-time check
-# comments and closes it.
+# comments and closes it. A dashboard with price feeds listed in dashboards.json (Oracle) is "stale" when
+# any of them is behind the exchange's last completed session (red, pulsing on the site) and gets one
+# "SOURCE DOWN: watchdog - <dashboard> prices stale" issue, closed when every feed is current again.
 #
 # Read-only on every other workflow. Commits only site/status/refresh.json, rewritten at every check (it
 # changes, or its time stamp is 11 hours old), about two deploys a day; the pages treat a stamp older than

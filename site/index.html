@@ -620,7 +620,9 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       '</li>';
     }
     grid.innerHTML = s.dashboards.map(function(d){ return card(d, null); }).join("");
-    S.stamps(s.dashboards.map(function(d){ return d.id; })).then(function(st){
+    // second pass: each dashboard's own data stamp, and the page-side price check (a close behind the required session turns a card stale)
+    Promise.all([S.stamps(s.dashboards.map(function(d){ return d.id; })), S.ownCloses(s)]).then(function(r){
+      var st = r[0];
       grid.innerHTML = s.dashboards.map(function(d){ return card(d, st[d.id]); }).join("");
     });
   });
