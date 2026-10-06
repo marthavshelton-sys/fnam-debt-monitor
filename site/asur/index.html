@@ -167,6 +167,13 @@ section.block:first-of-type{border-top:none;}
 .card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
 .grid-2 > *, .grid-3 > *, .dcf-grid > *{min-width:0;}
 .tblwrap{min-width:0;}
+.lead{font-size:13.5px; line-height:1.5; margin-top:8px;}
+table.peers th, table.peers td{padding:5px 5px; white-space:nowrap; font-size:12px;}
+table.peers th{font-size:10.5px;}
+table.peers tr.head td{padding-top:12px; font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em;}
+table.peers tr.grp th{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
+table.peers tr.grp th:empty{border-bottom:0;}
+@media (max-width:640px){ table.peers th:nth-child(2), table.peers td:nth-child(2), table.peers th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:var(--sans);}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
@@ -725,9 +732,11 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
+      <h3><span class="es">Pares: Múltiplos a Futuro, Sus Promedios y Liquidez</span><span class="en" hidden>Peers: Forward Multiples, Their Averages and Liquidity</span></h3>
       <p class="cap" id="peersCap"></p>
+      <p class="lead" id="peersLead"></p>
       <div class="tblwrap" id="peersTable"></div>
+      <p class="chart-src" id="peersNote"></p>
     </div>
   </section>
 

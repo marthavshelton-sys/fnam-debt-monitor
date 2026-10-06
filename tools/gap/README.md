@@ -13,7 +13,7 @@ one of five data files in `site/gap/data/`; nothing is hard-coded in the page.
 | `summary.js` (`window.GAP_SUMMARY`) | Executive summary at the top of the page: operations, guidance and why it changed, debt ratios, what to watch; four bilingual bullet sections plus the basis periods | **Rewritten by the alert routine** when results, traffic, guidance or an event land |
 | `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX; GAPB cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC) |
 | `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF fallback assumptions | **Automatic via the alert routine.** Each weekday it reads any new event release (dividends, bond issuances or repayments, credit facilities, ratings, CBX / FIBRA GAP milestones, share-count changes) and edits this file on `main`, describing the change in the alert email. Shares outstanding also come from the latest results release once it is newer. Beta and cost of debt in the DCF are derived at render time (two years of weekly GAPB vs IPC returns; latest fixed-rate bond coupon); the values here are fallbacks. |
-| `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland): prices, USD market caps, EV, LTM and NTM EV/EBITDA and P/E, dividend yield, leverage, USD returns; GAP consensus (NTM, FY2026–28, price targets, ratings) | **On request** from the FactSet connector in a Claude session: the pull is saved as `tools/gap/raw/factset/<date>.json` and `scripts/gap/build-peers.mjs` writes the file. No FactSet credentials in GitHub Actions, so it does not refresh on a schedule; every figure carries its snapshot dates |
+| `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland): last closes, USD market caps and ADTV, EV, NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages, dividend yield, leverage; GAP consensus (NTM, FY2026–28, price targets, ratings) | **Nightly** (19:52 New York time) by the cloud routine "FNAM Airports: FactSet peers refresh" through the FactSet connector: `tools/gap/raw/factset/latest.json` → `scripts/lib/factset-peers.mjs build` (same snapshot feeds ASUR's and OMA's tables). No FactSet credentials in GitHub Actions |
 
 The **operating metrics** card at the top of section 01 (domestic / international / total terminal
 passengers, CBX users, aeronautical and non-aeronautical revenue per passenger, CBX revenue per CBX user)
@@ -42,7 +42,7 @@ scripts/gap/fetch-market.mjs      Yahoo Finance + Banxico SIE (USD/MXN FIX SF437
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit; also writes site/gap/data/quality.js for the hidden data-quality page
-scripts/gap/build-peers.mjs       tools/gap/raw/factset/*.json (FactSet snapshot, on request) -> site/gap/data/peers.js
+scripts/gap/build-peers.mjs       tools/gap/raw/factset/latest.json (FactSet snapshot, nightly routine) -> site/{gap,asur,oma}/data/peers.js (wrapper over scripts/lib/factset-peers.mjs)
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the marker keeps GitHub Actions from re-running
 ```
 
@@ -126,31 +126,29 @@ run; the data-quality page shows the line "BMV eventos relevantes" and turns it 
   the offering prices or closes, set `placed`, `placedDate` and add the `filing` entry;
 * the PMD / maximum-tariff cycle is renewed → `regulation`, and the DCF `capexMxnM` profile.
 
-**`site/gap/data/peers.js`** — never hand-edit. To refresh (a Claude session with the FactSet
-AI-Ready Data connector): pull, for GAPB-MX and the six peers, GlobalPrices (`prices` in local and
-USD for the last close, `market_value`, `annualized_dividends`, `returns_range` YTD and 1-year in
-USD), Fundamentals (`FF_SALES`, `FF_EBITDA_OPER`, `FF_NET_INC`, `FF_EBITDA_OPER_MGN`, `FF_PE`
-with periodicity LTM — LTM_SEMI for Zürich, ANN for Auckland — and `FF_NET_DEBT`,
-`FF_MIN_INT_ACCUM` at the latest balance sheet) and EstimatesConsensus (`consensus_rolling`
-NTMA for SALES, EBITDA, EPS; `PRICE_TGT` FY1; `ratings`; for GAP also `consensus_fixed`
-FY2026–FY2028). Write the values into `tools/gap/raw/factset/<YYYY-MM-DD>.json` following the
-previous file, then `node scripts/gap/build-peers.mjs` (it takes the newest snapshot by name).
-The page computes GAP's own row live and uses the FactSet consensus only as the NTM denominator;
-the peer rows, medians and the consensus cards come from the snapshot.
+**`site/gap/data/peers.js`** — never hand-edit. Written every night (19:52 New York time) by the cloud routine
+"FNAM Airports: FactSet peers refresh (cloud)" (prompt in `FACTSET-PEERS-PROMPT.md`; owner asked for 8 PM ET,
+2026-10-06): the routine calls the FactSet AI-Ready Data connector for GAP, ASUR, OMA, Aena, Fraport, Zürich and
+Auckland, saves each raw result under `tools/gap/raw/factset/pull/` (gitignored), runs
+`node scripts/lib/factset-peers.mjs ingest` (→ `tools/gap/raw/factset/latest.json`, the committed snapshot) and
+`node scripts/lib/factset-peers.mjs build` (→ `site/gap/data/peers.js`, `site/asur/data/peers.js`,
+`site/oma/data/peers.js`), validates and pushes to `main` with `[skip actions]`. `scripts/gap/build-peers.mjs` is a
+wrapper over `build`. The calls, file names and every definition are listed at the top of the library.
 
-The table's 3- and 5-year averages of NTM EV/EBITDA and NTM P/E (owner, 2026-10-06; the trailing
-multiples and the USD return left the table) come from `history[]` in the snapshot: one row per
-month-end over five years with `price` (GlobalPrices `prices`, frequency AM, local currency; a closed
-market day takes the last close before it), `sharesM` (GlobalPrices `shares_outstanding`, AM; GAP = B + BB
-from `reference.js → shares.history`, because FactSet lists the series B only), `ntmEbitda` / `ntmEps`
-(EstimatesConsensus `consensus_rolling`, periodicity NTMA, frequency AM, currency ESTIMATE, startDate/
-endDate spanning the five years) and `netDebt` / `minority` of the latest balance sheet already reported
-at that month-end (Fundamentals `FF_NET_DEBT`, `FF_MIN_INT_ACCUM`, periodicity QTR; SEMI for Zürich and
-Auckland; `epsReportDate` on or before the month-end). `build-peers.mjs` turns the rows into monthly
-multiples, averages the last 36 and 60 (null if a window is incomplete) and keeps the series in
-`peers.js → history` for audits. To refresh, pull the same series again (the saved tool results are large:
-parse them with a script, never by hand) and extend the previous snapshot's `history[]`; the first pull is
-`tools/gap/raw/factset/2026-10-06.json`.
+What the table shows (owner, 2026-10-06): closes of the last completed session (the price date is printed in the
+caption; Auckland trades a day ahead), market cap and ADTV in US$ millions, NTM EV/EBITDA and NTM P/E with their 1-, 3-
+and 5-year averages, dividend yield, net debt / EBITDA and the EBITDA margin. The trailing multiples and the USD return
+left the table. The connector cannot run FactSet's FQL items (`FE_VALUATION(PE|FFEV_EBITDA, MEAN, NTM4_ROLL, ...)`,
+`P_VOLUME_AVG`, `XP_PRICE_VWAP`; its screener lists `FE_VALUATION_PE_MEAN` but returns no values, checked 2026-10-06),
+so the figures are assembled from the series it does expose: price / consensus NTM EPS mean and (market value + net
+debt + minorities) / consensus NTM EBITDA mean for the current columns; for the averages, the same ratio each Friday
+over the last 52 / 156 / 260 weeks (weekly consensus, weekly close, shares then outstanding scaled to FactSet's
+all-class market value — GAP from `reference.js` — and the latest balance sheet already reported); ADTV = mean of the
+daily turnover (volume × VWAP, USD) over the last three months, with the product-of-averages variant kept in the
+snapshot as `adtv.productUsdM`. The page computes the company's own current multiples from its own price, shares and
+net debt with the FactSet consensus as the denominator; its averages and ADTV come from the snapshot. If the routine
+fails, it pushes a `peers-failed-<date>` branch and writes `notify-state.json → lastPeersFailure`; the quality page
+flags `peers.js` once its prices are older than 45 days.
 
 ## Access (password)
 
