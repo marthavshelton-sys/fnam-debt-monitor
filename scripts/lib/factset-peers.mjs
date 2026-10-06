@@ -13,7 +13,9 @@
 // `ingest` and `build`, and pushes the result.
 //
 // Pull files (all in DIR; `data` = the connector's rows):
-//   prices-recent-local.json   GlobalPrices prices, D, LOCAL, last ~7 days: price, volume   → price, priceDate (last close on or before the run date)
+//   prices-recent-local.json   GlobalPrices prices, D, LOCAL, last ~7 days: price, volume   → price at the common close date (the latest
+//                              date on or before the run date with a close for every company; a company closed that day takes its last
+//                              close before it and priceDate says so)
 //   prices-usd-3m.json         GlobalPrices prices, D, USD, last 3 months: price, volume, vwap, turnover → priceUsd, ADTV
 //   market-value.json          GlobalPrices market_value (currentMarketValue, local millions, all share classes)
 //   dividends.json             GlobalPrices annualized_dividends, LOCAL (iadDefTradingAdj)
@@ -28,7 +30,8 @@
 //   ratings.json               EstimatesConsensus ratings
 //
 // Definitions (company currency, millions, except per-share and ratios):
-//   mktCapM        FactSet currentMarketValue (all share classes) at the price date.
+//   mktCapM        FactSet currentMarketValue (all share classes) restated at the common close: currentMarketValue / close on its own
+//                  date = all-class share count, x the close at the common date.
 //   evM            mktCapM + FF_NET_DEBT + FF_MIN_INT_ACCUM of the latest balance sheet already reported.
 //   evEbitdaNtm    evM / consensus NTM EBITDA mean;  peNtm = price / consensus NTM EPS mean.   (FactSet's FE_VALUATION(FFEV_EBITDA|PE, MEAN, NTM4_ROLL) equivalents)
 //   *Avg1y/3y/5y   arithmetic mean of the weekly series of that multiple over the last 52 / 156 / 260 weeks: for each
@@ -111,13 +114,17 @@ export function ingest({ pull = PULL_DIR, out = SNAPSHOT, date } = {}) {
   const rat = byId(readPull(pull, 'ratings.json', false));
   const gapShares = gapSharesHistory();
   const adtvFrom = addMonths(runDate, -3);
+  // one close date for the whole table: the latest date on or before the run date on which every company has a close
+  const closesOf = (id) => (recent[id] || []).filter((x) => x.price != null && x.date <= runDate).map((x) => x.date);
+  const commonDate = IDS.map(closesOf).reduce((acc, ds) => acc.filter((d) => ds.includes(d)), closesOf(IDS[0])).sort().pop();
+  if (!commonDate) throw new Error('no date on which every company has a close');
   const companies = {};
   for (const id of IDS) {
     const meta = COMPANIES[id];
     const need = (m, what) => { if (!m[id] || !m[id].length) throw new Error(`${id}: no ${what}`); return m[id]; };
     // latest completed close on or before the run date (ET); a row dated later or with a null price is skipped
-    const closes = need(recent, 'recent prices').filter((x) => x.price != null && x.date <= runDate).sort((a, b) => (a.date < b.date ? -1 : 1));
-    const last = closes[closes.length - 1];
+    const closes = need(recent, 'recent prices').filter((x) => x.price != null && x.date <= commonDate).sort((a, b) => (a.date < b.date ? -1 : 1));
+    const last = closes[closes.length - 1]; // the common date, or the last close before it
     const usdRows = need(usd, 'USD prices').filter((x) => x.price != null && x.date <= runDate).sort((a, b) => (a.date < b.date ? -1 : 1));
     const usdLast = usdRows.filter((x) => x.date <= last.date).pop();
     const adtvRows = usdRows.filter((x) => x.date >= adtvFrom && x.turnover != null && x.volume != null && x.vwap != null);
@@ -132,7 +139,9 @@ export function ingest({ pull = PULL_DIR, out = SNAPSHOT, date } = {}) {
     const lt = need(ltm, 'LTM fundamentals'); const lv = (k) => { const x = lt.find((y) => y.metric === k); return x ? x.value : null; };
     const ntmOf = (k) => { const x = ntm[k][id] && ntm[k][id][0]; return x ? stat(x) : null; };
     // shares behind the market value (all classes), and the monthly single-class series scaled to it
-    const sharesNowM = m.currentMarketValue / last.price;
+    const closeAt = (d) => { const x = closes.filter((c) => c.date <= d).pop(); return x ? x.price : null; };
+    const sharesNowM = m.currentMarketValue / (closeAt(m.date) || last.price); // all-class count behind FactSet's market value
+    const mktCapAtClose = sharesNowM * last.price;
     const shRows = need(shM, 'shares').filter((x) => x.totalOutstanding != null).sort((a, b) => (a.date < b.date ? -1 : 1));
     const shLatest = shRows[shRows.length - 1].totalOutstanding;
     const scale = sharesNowM / shLatest;
@@ -153,7 +162,7 @@ export function ingest({ pull = PULL_DIR, out = SNAPSHOT, date } = {}) {
     companies[id] = {
       ...meta, ticker: id, asOf: last.date, priceDate: last.date, price: last.price, volume: last.volume ?? null,
       priceUsd: usdLast ? usdLast.price : null, priceUsdDate: usdLast ? usdLast.date : null,
-      mktCapM: r(m.currentMarketValue, 3), mktCapDate: m.date, sharesM: r(sharesNowM, 4),
+      mktCapM: r(mktCapAtClose, 3), mktCapFactSet: { value: r(m.currentMarketValue, 3), date: m.date }, sharesM: r(sharesNowM, 4),
       sharesNote: id === 'GAPB-MX' ? 'B + BB from site/gap/data/reference.js (FactSet shares_outstanding lists the series B only)' : `shares_outstanding ${r(shLatest, 3)} M scaled x${r(scale, 4)} to the all-class count behind currentMarketValue`,
       adtv: adtvRows.length ? { from: adtvRows[0].date, to: adtvRows[adtvRows.length - 1].date, days: adtvRows.length, usdM: r(mean(adtvRows.map((x) => x.turnover)) / 1000, 3), avgVolume: r(mean(adtvRows.map((x) => x.volume)), 0), avgVwapUsd: r(mean(adtvRows.map((x) => x.vwap)), 4) } : null,
       ltm: { period: lt[0].fiscalEndDate, basis: meta.ltm, sales: lv('FF_SALES'), ebitda: lv('FF_EBITDA_OPER'), netIncome: lv('FF_NET_INC'), ebitdaMarginPct: lv('FF_EBITDA_OPER_MGN'), ffPe: lv('FF_PE') },
@@ -169,12 +178,12 @@ export function ingest({ pull = PULL_DIR, out = SNAPSHOT, date } = {}) {
   }
   const snap = {
     pulledAt: runDate, runDate, source: 'FactSet AI-Ready Data connector (MCP): GlobalPrices, Fundamentals, EstimatesConsensus',
-    pricesAsOf: companies['GAPB-MX'].priceDate, estimateDate: companies['GAPB-MX'].ntm.estimateDate,
+    pricesAsOf: commonDate, estimateDate: companies['GAPB-MX'].ntm.estimateDate,
     history: { frequency: 'weekly', windows: WINDOWS, from: companies['GAPB-MX'].history[0] && companies['GAPB-MX'].history[0][0], to: companies['GAPB-MX'].history.slice(-1)[0] && companies['GAPB-MX'].history.slice(-1)[0][0] },
     adtvWindow: { from: adtvFrom, to: runDate },
     notes: [
-      'price = last completed close on or before the run date (ET), local currency; priceDate per company (Auckland trades a day ahead).',
-      'mktCapM = FactSet currentMarketValue (all share classes); sharesM = mktCapM / price.',
+      'pricesAsOf = the latest date on or before the run date (ET) with a close for every company; price = that close in local currency (a company closed that day takes its last close before it, and priceDate says so).',
+      'sharesM = FactSet currentMarketValue (all share classes) / the close on its own date; mktCapM = sharesM x the close at pricesAsOf (mktCapFactSet keeps the value FactSet reported).',
       'history = weekly rows [date, price, sharesM, ntmEbitda, ntmEps, netDebt, minority]: consensus_rolling NTMA sampled on Fridays (frequency W) joined with the close of the same week (prices, frequency W; a holiday Friday carries the previous week\'s close), the shares then outstanding (shares_outstanding AM scaled to the all-class count; GAP from reference.js) and the latest balance sheet already reported (epsReportDate on or before the Friday).',
       'adtv = daily turnover (volume x VWAP, USD thousands in FactSet) averaged over the last three months, in US$ millions; avgVolume and avgVwapUsd kept for the product-of-averages variant.',
     ],
@@ -236,7 +245,7 @@ export function build({ snapshot = SNAPSHOT } = {}) {
     const peers = IDS.filter((id) => id !== ownId).map((id) => rows[id]);
     const medians = { all: med(peers), mexico: med(peers.filter((p) => p.group === 'mexico')), international: med(peers.filter((p) => p.group === 'international')) };
     const out = {
-      updatedAt: snap.pulledAt, runDate: snap.runDate, pricesAsOf: own.priceDate, priceDates: Object.fromEntries(IDS.map((id) => [id, rows[id].priceDate])),
+      updatedAt: snap.pulledAt, runDate: snap.runDate, pricesAsOf: snap.pricesAsOf, priceDates: Object.fromEntries(IDS.map((id) => [id, rows[id].priceDate])),
       estimateDate: snap.estimateDate, balanceSheetsAt: Object.fromEntries(IDS.map((id) => [id, rows[id].bsPeriod])),
       source: 'FactSet', sourceDetail: snap.source, rawFile: 'tools/gap/raw/factset/' + file.split('/').pop(),
       history: { ...snap.history, from: own.history && own.history.from, to: own.history && own.history.to, points: own.history && own.history.points },
@@ -244,7 +253,7 @@ export function build({ snapshot = SNAPSHOT } = {}) {
       own, ...(slug === 'gap' ? { gap: own } : {}), peers, medians,
     };
     const prefix = COMPANIES[ownId].prefix;
-    const header = `// AUTO-GENERATED by scripts/lib/factset-peers.mjs from ${out.rawFile} — do not hand-edit.\n// FactSet pull of ${snap.pulledAt}: closes through ${own.priceDate}, consensus of ${snap.estimateDate}; refreshed nightly by the cloud routine.\n`;
+    const header = `// AUTO-GENERATED by scripts/lib/factset-peers.mjs from ${out.rawFile} — do not hand-edit.\n// FactSet pull of ${snap.pulledAt}: closes of ${snap.pricesAsOf}, consensus of ${snap.estimateDate}; refreshed nightly by the cloud routine.\n`;
     const line = (k, v) => `  ${JSON.stringify(k)}: ${Array.isArray(v) ? '[\n' + v.map((x) => '    ' + JSON.stringify(x)).join(',\n') + '\n  ]' : JSON.stringify(v)}`;
     const target = join(ROOT, `site/${slug}/data/peers.js`);
     writeFileSync(target, header + `window.${prefix}_PEERS = {\n` + Object.entries(out).map(([k, v]) => line(k, v)).join(',\n') + '\n};\n');
