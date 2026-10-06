@@ -25,6 +25,20 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.
+- **Prices stale** (`stale`, shown red and pulsing as "Precios desactualizados / Prices out of date"; owner's rule,
+  6-Oct-2026: if any price is not updated, the watchdog flashes red): a dashboard with a `prices` block in
+  `dashboards.json` has every listed feed read from the files in `main` (last dated CSV row, or a JSON field) and
+  compared with the exchange's **last completed session**: the latest session whose close plus `settleHours` has
+  passed (NYSE closes 16:00 New York; the nightly FactSet routine runs at 19:58, so Oracle uses 5 h and a day's close
+  is required from 21:00 New York). A feed with `lagSessions` N (FRED posts a day late) may trail by N sessions. Any
+  feed behind → `stale`, which outranks the refresh verdict (`refreshStatus` keeps it). Sessions = weekdays minus the
+  exchange's published holidays (`EXCHANGES` in `lib.mjs`, NYSE 2026–2028; past the last year the price check reports
+  `unverified` rather than guess). The status row carries `prices.expected`, `prices.next` (the next session and the
+  instant it becomes required) and one line per feed, so the pages can judge their own data between two checks:
+  `data-status.js` reads the page's own latest close (`latestClose` in the first bytes of `market.js`, `OWN_CLOSE`) and
+  turns the dot red on its own once `prices.next.requiredFrom` has passed and the page still shows an older close; a page
+  never turns itself green. Alarm: one `SOURCE DOWN: watchdog - <dashboard> prices stale` issue (marker `<id>:prices`),
+  closed at the first check that finds every feed current.
 - The pages treat a status file whose `checkedAt` is more than 14 hours old as **unverified** for every dashboard
   (the watchdog rewrites it at every check: `heartbeatHours` is 11), so a stopped watchdog can never leave a stale
   "Al día" behind. The owner chose the 12-hour cadence (1-Oct-2026) to keep Cloudflare deploys to about two a day;
@@ -50,7 +64,10 @@ In a Claude session the GitHub API answers only through the egress proxy: prefix
 ## Adding a dashboard
 
 Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels). For a company
-page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`.
+page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`. To watch its prices, add a
+`prices` block (`exchange`, `settleHours`, `series` of `{ name, file, kind: "csv" | "json", field?, lagSessions? }`),
+and, for the page-side check, an `OWN_CLOSE` entry in `data-status.js` plus a `latestClose` stamp in the first bytes of
+the file it names. A new exchange needs its holiday calendar in `EXCHANGES` (the BMV has none yet).
 
 ### What the landing page shows beside the verdict (6-Oct-2026)
 

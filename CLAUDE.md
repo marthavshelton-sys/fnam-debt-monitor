@@ -160,7 +160,12 @@ dashboards, everything built from public data by GitHub Actions.
   (`site/assets/data-status.js`) read it. A late dashboard whose pipeline has not alerted gets a
   "SOURCE DOWN: watchdog - ..." issue (emailed). Nothing on the site is called "live": a dashboard shows as
   "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
-  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`.
+  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Prices (owner, 2026-10-06): a dashboard
+  with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 with one
+  session of lag) has each feed compared with the exchange's last completed session (NYSE calendar in
+  `scripts/watchdog/lib.mjs`, close + 5 h for the 19:58 New York routine); any feed behind → status `stale`, red and
+  pulsing on the dot and the landing panel, plus a "SOURCE DOWN: watchdog - <name> prices stale" issue; between checks
+  `data-status.js` compares the page's own `latestClose` with the next required session and can turn red on its own.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
