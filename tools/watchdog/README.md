@@ -32,8 +32,13 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
   passed (NYSE closes 16:00 New York; the nightly FactSet routine runs at 19:58, so Oracle uses 5 h and a day's close
   is required from 21:00 New York). A feed with `lagSessions` N (FRED posts a day late) may trail by N sessions. Any
   feed behind → `stale`, which outranks the refresh verdict (`refreshStatus` keeps it). Sessions = weekdays minus the
-  exchange's published holidays (`EXCHANGES` in `lib.mjs`, NYSE 2026–2028; past the last year the price check reports
-  `unverified` rather than guess). The status row carries `prices.expected`, `prices.next` (the next session and the
+  exchange's published holidays (`EXCHANGES` in `lib.mjs`: NYSE 2026–2028 from the NYSE's calendar; BMV 2026 from the BMV's
+  "Calendario de días festivos", which the BMV publishes one year at a time, so extend it every December; past the last year
+  the price check reports `unverified` rather than guess). A series may carry its own `exchange`: the airport pages (GAP,
+  ASUR, OMA, added 6-Oct-2026) watch, on the BMV calendar with 5 h settle (close 15:00 Mexico City, the FactSet routine runs
+  at 19:52 New York), the listing's FactSet close in `tools/gap/raw/factset/prices.json` (`latestClose.<FactSet id>`), the
+  ADS's FactSet close on the NYSE calendar, and the close the page prints (`latestClose` in `site/<slug>/data/market.js`,
+  `kind: "js"`), so a stopped FactSet pull shows even while Yahoo keeps the page current. The status row carries `prices.expected`, `prices.next` (the next session and the
   instant it becomes required) and one line per feed, so the pages can judge their own data between two checks:
   `data-status.js` reads the page's own latest close (`latestClose` in the first bytes of `market.js`, `OWN_CLOSE`) and
   turns the dot red on its own once `prices.next.requiredFrom` has passed and the page still shows an older close; a page
@@ -65,9 +70,9 @@ In a Claude session the GitHub API answers only through the egress proxy: prefix
 
 Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels). For a company
 page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`. To watch its prices, add a
-`prices` block (`exchange`, `settleHours`, `series` of `{ name, file, kind: "csv" | "json", field?, lagSessions? }`),
-and, for the page-side check, an `OWN_CLOSE` entry in `data-status.js` plus a `latestClose` stamp in the first bytes of
-the file it names. A new exchange needs its holiday calendar in `EXCHANGES` (the BMV has none yet).
+`prices` block (`exchange`, `settleHours`, `series` of `{ name, file, kind: "csv" | "json" | "js", field?, lagSessions?,
+exchange? }`), and, for the page-side check, an `OWN_CLOSE` entry in `data-status.js` plus a `latestClose` stamp in the
+first bytes of the file it names. A new exchange needs its holiday calendar in `EXCHANGES` (NYSE and BMV so far).
 
 ### What the landing page shows beside the verdict (6-Oct-2026)
 

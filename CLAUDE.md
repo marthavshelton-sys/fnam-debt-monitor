@@ -162,8 +162,10 @@ dashboards, everything built from public data by GitHub Actions.
   "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
   A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Prices (owner, 2026-10-06): a dashboard
   with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 with one
-  session of lag) has each feed compared with the exchange's last completed session (NYSE calendar in
-  `scripts/watchdog/lib.mjs`, close + 5 h for the 19:58 New York routine); any feed behind → status `stale`, red and
+  session of lag; GAP, ASUR, OMA since 6-Oct-2026: the listing's and the ADS's FactSet close in `tools/gap/raw/factset/prices.json`
+  and the page's own `latestClose` in `market.js`, the ADS judged on the NYSE calendar through the series' `exchange`) has each
+  feed compared with the exchange's last completed session (NYSE 2026–2028 and BMV 2026 calendars in `scripts/watchdog/lib.mjs`;
+  the BMV publishes one year at a time, extend it every December; close + 5 h for the nightly FactSet routines); any feed behind → status `stale`, red and
   pulsing on the dot and the landing panel, plus a "SOURCE DOWN: watchdog - <name> prices stale" issue; between checks
   `data-status.js` compares the page's own `latestClose` with the next required session and can turn red on its own.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers

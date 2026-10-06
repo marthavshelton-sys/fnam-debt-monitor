@@ -101,6 +101,17 @@ export const EXCHANGES = {
       '2028-01-17', '2028-02-21', '2028-04-14', '2028-05-29', '2028-06-19', '2028-07-04', '2028-09-04', '2028-11-23', '2028-12-25',
     ],
   },
+  // Bolsa Mexicana de Valores: continuous trading ends 15:00 Mexico City (no daylight saving since 2022). Holidays from the
+  // BMV's own "Calendario de días festivos" (bmv.com.mx → Grupo BMV), which lists one year at a time: 2026 copied on
+  // 6-Oct-2026 and matched against the sessions FactSet carries for GAPB.MX through September; extend it every December
+  // when the BMV publishes the next year (until then the price check reports `unverified` past 2026 rather than guess).
+  BMV: {
+    timeZone: 'America/Mexico_City', close: '15:00', through: 2026,
+    holidays: [
+      '2026-01-01', '2026-02-02', '2026-03-16', '2026-04-02', '2026-04-03', '2026-05-01', '2026-09-16', '2026-11-02', '2026-11-16', '2026-12-25',
+      // 12-Dec-2026 (Día del empleado bancario) is a Saturday
+    ],
+  },
 };
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -167,14 +178,22 @@ export function requiredSession({ exchange = 'NYSE', now, settleHours = 0 }) {
 
 // One verdict for a dashboard's price feeds. series: [{ name, date | null, lagSessions? }]. A feed with
 // lagSessions N (a publisher that posts a day late, e.g. FRED) may trail the required session by N sessions.
+// A series may name its own `exchange` (a dashboard that mixes a BMV listing with its NYSE ADS): its required session
+// then follows that exchange's calendar and close, with the same settleHours.
 export function priceVerdict({ exchange = 'NYSE', now, settleHours = 0, series }) {
   const req = requiredSession({ exchange, now, settleHours });
+  const reqOf = {};
+  const reqFor = (x) => (reqOf[x] || (reqOf[x] = requiredSession({ exchange: x, now, settleHours })));
+  let covered = req.covered;
   const rows = series.map((s) => {
-    const needed = s.lagSessions ? sessionBefore(exchange, req.session, s.lagSessions) : req.session;
+    const ex = s.exchange ? String(s.exchange).toUpperCase() : null;
+    const r = ex && ex !== String(exchange).toUpperCase() ? reqFor(ex) : req;
+    if (!r.covered) covered = false;
+    const needed = s.lagSessions ? sessionBefore(ex || exchange, r.session, s.lagSessions) : r.session;
     const ok = !!(s.date && ISO_DATE.test(s.date) && s.date >= needed);
-    return { name: s.name, date: s.date || null, needed, ok };
+    return { name: s.name, date: s.date || null, needed, ok, ...(ex ? { exchange: ex } : {}) };
   });
-  const status = !req.covered ? 'unverified' : rows.every((r) => r.ok) ? 'ok' : 'stale';
+  const status = !covered ? 'unverified' : rows.every((r) => r.ok) ? 'ok' : 'stale';
   return { status, exchange: String(exchange).toUpperCase(), expected: req.session, requiredFrom: req.requiredFrom, next: req.next, series: rows };
 }
 

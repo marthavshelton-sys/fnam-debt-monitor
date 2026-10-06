@@ -94,7 +94,10 @@
   }
   // Each price-checked dashboard's own latest close (the date the page prints), from the first bytes of its market file.
   var OWN_CLOSE = {
-    'oracle': { url: '/oracle/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ }
+    'oracle': { url: '/oracle/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'gap': { url: '/gap/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'asur': { url: '/asur/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'oma': { url: '/oma/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ }
   };
   function ownClose(id) {
     var d = OWN_CLOSE[id]; if (!d) return Promise.resolve(null);
