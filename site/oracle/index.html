@@ -1467,7 +1467,7 @@ table.mw td{white-space:normal; vertical-align:top;}
   <!-- METHODOLOGY, SOURCES AND CHANGE LOG -->
   <section class="block" id="method" data-sec="method">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
-    <!-- Owner's review 2026-10-06: the method prose at full width, then each status table across the whole width -->
+    <!-- Owner's review 2026-10-06: the method prose at full width, then each status table across the whole width, collapsed like the change log -->
     <div style="margin-top:16px">
       <div class="prose">
         <p><span class="es"><b>GAAP y No-GAAP.</b> Oracle reporta bajo US GAAP y, en el mismo comunicado, cifras No-GAAP que excluyen la compensación basada en acciones, la amortización de intangibles adquiridos y los costos de reestructura y adquisición, con su efecto fiscal. Ambas bases aparecen conciliadas en cada reporte; el interruptor de la sección de estados financieros cambia entre ellas sin alterar los ingresos. El EBITDA no lo publica Oracle: aquí es utilidad de operación GAAP + depreciación y amortización del estado de flujos.</span><span class="en" hidden><b>GAAP and Non-GAAP.</b> Oracle reports under US GAAP and, in the same release, Non-GAAP figures that exclude stock-based compensation, amortization of acquired intangibles and restructuring and acquisition costs, with their tax effect. Both bases are reconciled in every release; the switch in the statements section flips between them without changing revenue. Oracle does not publish EBITDA: here it is GAAP operating income + depreciation and amortization from the cash-flow statement.</span></p>
@@ -1481,24 +1481,24 @@ table.mw td{white-space:normal; vertical-align:top;}
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Estado de cada módulo de datos</span><span class="en" hidden>Status of each data module</span></h3>
       <p class="cap"><span class="es">Fecha de corte, última actualización (ET) y si está vigente o desactualizado según la regla de la siguiente fecha esperada de reporte + 7 días</span><span class="en" hidden>As-of date, last refresh (ET) and whether it is current or stale under the next-expected-filing + 7 days rule</span></p>
-      <div class="tblwrap" id="modulesTable"></div>
+      <details class="tbl" id="modulesWrap"><summary><span class="es">Mostrar el estado de los módulos</span><span class="en" hidden>Show the module status</span></summary><div class="tblwrap" id="modulesTable"></div></details>
       <p class="chart-src" id="modulesSrc"></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
-      <div class="tblwrap" id="refreshTable"></div>
+      <details class="tbl" id="refreshWrap"><summary><span class="es">Mostrar cómo se actualiza cada bloque</span><span class="en" hidden>Show how each block is refreshed</span></summary><div class="tblwrap" id="refreshTable"></div></details>
       <p class="chart-src"><span class="es">Flujo de datos: cosecha diaria de SEC EDGAR y de las demás fuentes, cuadres y pruebas del analizador, publicación solo si todo pasa; el detalle técnico (scripts, flujo de trabajo, runbook) está en la <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: daily harvest from SEC EDGAR and the other sources, tie-outs and parser tests, publication only when everything passes; the technical detail (scripts, workflow, runbook) is on the <a href="quality.html">data-quality page</a>.</span></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Procedencia de cada cifra: reporte, nota, página, número de acceso y verificación</span><span class="en" hidden>Provenance of every figure: filing, note, page, accession number and verification</span></h3>
       <p class="cap" id="obProvCap"></p>
-      <div class="tblwrap pin1" id="obProvenance"></div>
+      <details class="tbl" id="obProvWrap"><summary><span class="es">Mostrar la procedencia</span><span class="en" hidden>Show the provenance</span></summary><div class="tblwrap pin1" id="obProvenance"></div></details>
       <p class="chart-src" id="obProvSrc"></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Glosario</span><span class="en" hidden>Glossary</span></h3>
       <p class="cap"><span class="es">Cada término muestra su definición al pasar el cursor (o tocar) la primera vez que aparece en la página; aquí está la lista completa.</span><span class="en" hidden>Each term shows its definition on hover (or tap) the first time it appears on the page; the full list is here.</span></p>
-      <div class="tblwrap" id="glossaryTable"></div>
+      <details class="tbl" id="glossaryWrap"><summary><span class="es">Mostrar el glosario</span><span class="en" hidden>Show the glossary</span></summary><div class="tblwrap" id="glossaryTable"></div></details>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Bitácora de cambios: qué cambió en cada actualización</span><span class="en" hidden>Change log: what changed in each refresh</span></h3>
