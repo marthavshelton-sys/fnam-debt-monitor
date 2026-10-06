@@ -146,7 +146,8 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - **Data-quality counts come from the data, not the DOM** (`HUB.dqModule`): per module, the figures shown, those that are
   verified or matched, those that need review, those not tagged in XBRL and unexplained, the explained gaps, the T2 statements
   and the T4 secondary sources, each with the list of items (`#dq` → "Item list"). The summary page rolls the eight modules up
-  (`HUB.dqRollup`): the weakest module first, hub-wide totals, and a table with every count linked to that module's list.
+  (`HUB.dqRollup`): hub-wide totals, the weakest module named and highlighted, and a table in module order (1 to 8; owner,
+  2026-10-06) with every count linked to that module's list.
   The home line can never read 100% while a module carries an unresolved item.
 - **Explained XBRL gaps** (`data/not-tagged.json`, 108 records, one per company × metric): `none` (the line does not exist
   for the company), `text` (figure read from the filing, shown from it with its date), `fy_only` / `ytd_only` (tagged only
@@ -275,3 +276,11 @@ The FactSet debt snapshot's per-ticker `notes` are copied into `financials.js �
 that is a reviewer's instruction to itself ("needs review…", "verify in…", "pending…", `publicNote()`) before publishing,
 so the facts stay and the working notes stay in the raw file. Every hub page carries `noindex` and Open Graph tags, and its
 scripts load with `defer` (the methodology page keeps two blocking scripts: its inline scope-notes script needs them first).
+
+### Module order on the home page (6-Oct-2026)
+
+The data-quality roll-up table in the header lists the modules 1 to 8 (it opened with the weakest module, so the reader saw
+6, 3, 8, 1, 2, 4…; owner's request); the weakest module is still named in the sentence above it and its row stays bold
+(`.worst`). The curated change log prints the pages an edit touched in the hub's order with their module numbers
+(`modList()` in `app.js`) instead of the raw slugs in the order they were typed. The rest of the page (navigation, the five
+"What to know" lines, the reading path, the module tiles) was already sequential; filings and the calendar sort by date.
