@@ -126,6 +126,15 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   Stanley credit/accounting (no rating); via StreetAccount: Citi 330, KeyBanc 300, Wells 280, Piper 225, BMO 195, RBC Sector
   Perform 165. Rules in `METHODOLOGY.md` §11 and the README (licensed material: summaries only, no PDF in the repository; a
   target is null only when the report states none; the page endorses no house). Refresh prompt: `ANALYSTS-SWEEP-PROMPT.md`.
+- **2026-10-06 deck reads like the website (owner's list).** Pages follow the registry order (the page's story order; `deck_order`
+  removed, `deckList()` = registry order filtered by `deck`); the DCF is page-only (`deck: false`; the multiples and peers page
+  stays); a contents page with internal links follows the executive summary (`Doc.contents()` / `drawContents()` in
+  `present-core.js`, entries collected by `OracleDoc.page()`); the executive summary prints the page's own summary text with
+  "What to watch" (sub-headed items from `items_<lang>`) on the left and Operations, Guidance and why it changed, Debt and ratios
+  on the right (`execSummary(sections, subtitle, pre, columns)` in the engine). Text fits its box by construction: `tiles()`
+  (value and label shrink, row grows), `box()`, `page()` titles, paragraphs 4 pt short of their width; the chain's verification
+  badge is page-only (`badge`). `deck-check.mjs` now also checks the summary text against the page, the page order, the contents
+  links and every word's box (PyMuPDF: none past the right margin or below the footer rule).
 
 ## Pitfalls
 
@@ -207,8 +216,8 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 
 ## Open items
 
-- Deck: the executive-summary page could carry the verdict paragraph and the six-number chain (page-only today); the
-  owner decides (one-page auto-fit may need a layout pass).
+- Deck: the executive-summary page carries the six-number chain (since round 4) but not the verdict paragraph (page-only);
+  the owner decides (the page is full at ~9.5 pt with the summary text alone).
 - Bull case (round 4): built as "levers at plan", capped at management's FY2030 target, with one capex rule shared with the Bear.
   Two choices the owner may want to revisit: capex at the terminal intensity on the revenue difference (holding each year's
   consensus capex/revenue would put the Bull at US$107, below the Base), and the Bear's capex now falling with its revenue

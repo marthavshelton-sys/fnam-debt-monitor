@@ -306,7 +306,7 @@ emit("summary.js", "ORCL_SUMMARY", {
     { k: "ops", title: { es: "Operación", en: "Operations" }, es: sum.operations?.es || [], en: sum.operations?.en || [] },
     { k: "guidance", title: { es: "Guía y por qué cambió", en: "Guidance and why it changed" }, es: sum.guidance?.es || [], en: sum.guidance?.en || [] },
     { k: "debt", title: { es: "Deuda y razones", en: "Debt and ratios" }, es: sum.debt?.es || [], en: sum.debt?.en || [] },
-    // watch items are { h, lines[] } (short lines); the deck reads the flattened strings, the page the items
+    // watch items are { h, lines[] } (short lines); the page and the deck read the items (the flattened strings stay for other readers)
     { k: "watch", title: { es: "Qué observar", en: "What to watch" }, items_es: (sum.watch?.es || []).map((x) => (typeof x === "string" ? { h: null, lines: [x] } : x)), items_en: (sum.watch?.en || []).map((x) => (typeof x === "string" ? { h: null, lines: [x] } : x)), es: (sum.watch?.es || []).map((x) => (typeof x === "string" ? x : `**${x.h}:** ${x.lines.join(" ")}`)), en: (sum.watch?.en || []).map((x) => (typeof x === "string" ? x : `**${x.h}:** ${x.lines.join(" ")}`)) },
   ] : [],
 }, "Executive summary — rewritten by the reviewing routine when new results, guidance or events land.");

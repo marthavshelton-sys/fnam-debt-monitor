@@ -32,7 +32,7 @@ states every assumption and is never added to debt or a ratio.
 ## 2. Organization, numbering and reader flow
 
 `tools/oracle/data/sections.json` is the single registry of sections: order, bilingual titles, the data modules behind
-each section, whether the board deck builds a page for it (`deck`, in `deck_order`) and, since 2026-10-04, the
+each section, whether the board deck builds a page for it (`deck`; the deck follows this list's order since 2026-10-06) and, since 2026-10-04, the
 `group` (`reference` = the collapsed Reference appendix), an optional `label` instead of a number (the Summary is
 "Start here") and the reading `path`s that open the section (5 = five minutes, 20 = twenty minutes; the full path
 opens everything). The page follows the story order — Start here, Contracts, Capacity, Capex, Funding,
@@ -40,8 +40,8 @@ Off-balance-sheet, Credit, Circularity, Multiples, DCF, Risks, News, Calendar �
 Guidance, Analyst opinions, Methodology / provenance / glossary / change log, numbered R1–R4). `app.js` numbers sections, figures
 (cards with a chart) and tables (cards with a table) from the DOM order at render time, builds the navigation and
 the phone menu, and resolves every cross-reference (`ref('id')` in code, `{{sec:id}}` in the JSON narrative) to
-"§NN Title". `present.js` titles its pages from the same registry and orders them by `deck_order` (the board order),
-choosing pages by section id, never by number. The validator fails the build when a reference does not resolve, when
+"§NN Title". `present.js` titles its pages from the same registry, in the registry's order (the page's story order; the DCF
+is page-only), choosing pages by section id, never by number, and opens with a contents page whose rows link to each section. The validator fails the build when a reference does not resolve, when
 the DOM order differs from the registry, or when a hand-typed "section NN" remains.
 
 Every section opens with a **lead**: a headline that states the takeaway and one line on what it means for

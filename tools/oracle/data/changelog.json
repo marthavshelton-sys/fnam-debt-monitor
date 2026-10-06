@@ -4,118 +4,6 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
-   "path": "sites[1].mw_series[1].es",
-   "old": null,
-   "new": "115 MW de capacidad eléctrica en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].when",
-   "old": null,
-   "new": "2027-H1"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].kind",
-   "old": null,
-   "new": "expected"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].mw",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].src",
-   "old": null,
-   "new": "4Q26 call p.7"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].en",
-   "old": null,
-   "new": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); first facility in service 2H 2026, completion 2028 (Vantage)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[2].es",
-   "old": null,
-   "new": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); primera instalación en servicio en el 2S 2026, terminación en 2028 (Vantage)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].tenant_openai",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].tenant_basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].when",
-   "old": null,
-   "new": "2025-09"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].kind",
-   "old": null,
-   "new": "contracted"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].mw",
-   "old": null,
-   "new": 1000
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].src",
-   "old": null,
-   "new": "4Q26 call p.7"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[2].mw_series[0].en",
-   "old": null,
-   "new": "contracted September 2025; about 1 GW (\"around 1 gigawatt a piece\", Oracle, 4Q26 call p.7)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
    "path": "sites[2].mw_series[0].es",
    "old": null,
    "new": "contratado en septiembre de 2025; cerca de 1 GW (\"around 1 gigawatt a piece\", Oracle, llamada 4T26 p.7)"
@@ -4200,7 +4088,119 @@
    "path": "basis.marketDate",
    "old": "2026-10-02",
    "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[0].deck_order",
+   "old": 1,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[1].deck_order",
+   "old": 4,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[2].deck_order",
+   "old": 6,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[3].deck_order",
+   "old": 5,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[4].deck_order",
+   "old": 7,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[5].deck_order",
+   "old": 8,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[6].deck_order",
+   "old": 9,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[7].deck_order",
+   "old": 10,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[8].deck_order",
+   "old": 11,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[9].deck",
+   "old": true,
+   "new": false
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[9].deck_order",
+   "old": 12,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[10].deck_order",
+   "old": 14,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[11].deck_order",
+   "old": 13,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[13].deck_order",
+   "old": 2,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[14].deck_order",
+   "old": 3,
+   "new": null
+  },
+  {
+   "at": "2026-10-06T09:37:42.539Z",
+   "file": "sections.js",
+   "path": "sections[16].deck_order",
+   "old": 15,
+   "new": null
   }
  ],
- "generated": "2026-10-06T01:21:36.409Z"
+ "generated": "2026-10-06T09:37:42.539Z"
 }
