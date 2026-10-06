@@ -11,7 +11,7 @@ one of five data files in `site/gap/data/`; nothing is hard-coded in the page.
 | `guidance.js` (`window.GAP_GUIDANCE`) | Management guidance vintages: full-year growth ranges (traffic, aero / non-aero / total revenue, EBITDA, EBITDA margin) and capex, one entry per release that printed a guidance table, with the intro and assumption text GAP wrote | **Automatic.** `build-data.mjs` scans every archived release for the guidance table (January guidance release, 4Q results, mid-year revisions) |
 | `comments.js` (`window.GAP_COMMENTS`) | One-line explanations per income-statement line (`lines`) and per operating metric (`ops`) for year-over-year comparisons (quarter, YTD, fiscal year), ES and EN, written from the results release and the earnings-call transcript; keyed `2026Q2`, `2026M6`, `FY2025` | **Drafted by the alert routine** when a new quarter lands (from the release), then reviewed; transcripts are folded in by hand when supplied |
 | `summary.js` (`window.GAP_SUMMARY`) | Executive summary at the top of the page: operations, guidance and why it changed, debt ratios, what to watch; four bilingual bullet sections plus the basis periods | **Rewritten by the alert routine** when results, traffic, guidance or an event land |
-| `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX; GAPB cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC) |
+| `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX (FactSet Global Prices, the share-price authority since 2026-10-06; Yahoo/Stooq only for the sessions FactSet has not posted yet) and ^MXX (Yahoo); GAPB cash dividends (Yahoo); USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC, overlays `tools/gap/raw/factset/prices.json`; the nightly FactSet routine re-pulls the closes at 19:52 New York time and applies them with `scripts/lib/factset-prices.mjs apply`) |
 | `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF fallback assumptions | **Automatic via the alert routine.** Each weekday it reads any new event release (dividends, bond issuances or repayments, credit facilities, ratings, CBX / FIBRA GAP milestones, share-count changes) and edits this file on `main`, describing the change in the alert email. Shares outstanding also come from the latest results release once it is newer. Beta and cost of debt in the DCF are derived at render time (two years of weekly GAPB vs IPC returns; latest fixed-rate bond coupon); the values here are fallbacks. |
 | `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland): last closes, USD market caps and ADTV, EV, NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages, dividend yield, leverage; GAP consensus (NTM, FY2026–28, price targets, ratings) | **Nightly** (19:52 New York time) by the cloud routine "FNAM Airports: FactSet peers refresh" through the FactSet connector: `tools/gap/raw/factset/latest.json` → `scripts/lib/factset-peers.mjs build` (same snapshot feeds ASUR's and OMA's tables). No FactSet credentials in GitHub Actions |
 
@@ -43,6 +43,7 @@ scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.tx
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit; also writes site/gap/data/quality.js for the hidden data-quality page
 scripts/gap/build-peers.mjs       tools/gap/raw/factset/latest.json (FactSet snapshot, nightly routine) -> site/{gap,asur,oma}/data/peers.js (wrapper over scripts/lib/factset-peers.mjs)
+scripts/lib/factset-prices.mjs    tools/gap/raw/factset/pull/prices-daily-*.json (FactSet GlobalPrices, nightly routine) -> tools/gap/raw/factset/prices.json (ingest) -> site/{gap,asur,oma}/data/market.js (apply; the fetchers overlay the same file)
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the marker keeps GitHub Actions from re-running
 ```
 
@@ -134,6 +135,23 @@ Auckland, saves each raw result under `tools/gap/raw/factset/pull/` (gitignored)
 `node scripts/lib/factset-peers.mjs build` (→ `site/gap/data/peers.js`, `site/asur/data/peers.js`,
 `site/oma/data/peers.js`), validates and pushes to `main` with `[skip actions]`. `scripts/gap/build-peers.mjs` is a
 wrapper over `build`. The calls, file names and every definition are listed at the top of the library.
+
+Daily closes (owner, 2026-10-06: "switch the header price to FactSet too"): the same routine pulls FactSet GlobalPrices
+`prices` (frequency D, fields price + volume) for GAPB-MX, ASURB-MX, OMAB-MX in local currency and PAC-US, ASR-US, OMAB-US
+in USD for the last three months (`prices-daily-local.json`, `prices-daily-ads.json`), and `node scripts/lib/factset-prices.mjs
+ingest --date $RUN` merges them into the committed `tools/gap/raw/factset/prices.json` (history since 2015-01-02, pulled once
+in-session on 2026-10-06; a session still open comes back null and is skipped; overlapping dates take the newer pull). `node
+scripts/lib/factset-prices.mjs apply` overlays the closes on the three `data/market.js` in place, and both market fetchers
+(`scripts/gap/fetch-market.mjs`, `scripts/airports/fetch-market.mjs`) import `overlayFactSet()` and do the same on every Actions
+run: inside FactSet's date range only FactSet's closes are shown; Yahoo/Stooq fill the history before it and the sessions after
+it (the 22:40 UTC run sees a close about an hour before the 23:52 UTC routine), and the entry says so in `source` and
+`provenance` (`authority`, `latestFrom`, `factset.{from,to,points,pulledAt}`, `fill.{source,fetchedAt,before,after,points}`).
+`fetchedAt` is the stamp of the feed that supplied the latest close, so the header's "fetched" time is the routine's pull when
+FactSet has the latest session. The S&P/BMV IPC stays on Yahoo (the connector rejects index ids), as does the dividend record.
+Pages and decks compose every price-source label from `provenance` (`priceSrcLabel`, `priceSources`, `marketSrcNote` in the
+model); the validators warn when the home series carries no FactSet closes or they are older than five days. Yahoo's BMV closes
+differed from FactSet's by more than 0.2% on about a sixth of the dates since 2015 (and the 6-Oct-2026 morning run printed
+377.57 for GAPB.MX's 5-Oct close where FactSet, and the previous evening's Yahoo, had 379.01); the ADS series matched exactly.
 
 What the table shows (owner, 2026-10-06): every price is a FactSet close on one common date (the latest date on or
 before the run with a close for every company, printed in the caption; a company closed that day takes its last close
@@ -257,7 +275,7 @@ click `#btnPrint`, save the download and rasterise it (PyMuPDF) — see the sess
 
 ## Conventions and pipeline notes (29-Sep-2026)
 
-- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). FactSet is available only inside a Claude session, not in Actions.
+- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). Since 2026-10-06 FactSet's closes (pulled by the nightly routine, committed in `tools/gap/raw/factset/prices.json`) win on every date they carry; see "Daily closes" above.
 - Headings are Title Case in both languages; the English view uses American English and EV / P/E / ND.
 - The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
 - `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
