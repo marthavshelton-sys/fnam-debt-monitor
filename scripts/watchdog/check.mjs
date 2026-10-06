@@ -8,7 +8,6 @@
 //
 //   stale  a price feed of the page (dashboards.json → prices) is behind the exchange's last completed session,
 //          judged from the data files in main (the owner's rule, 6-Oct-2026: any price not updated turns the dot red);
-//          'unverified' when the exchange calendar in lib.mjs does not cover the date (extend it);
 //   late   two scheduled refreshes in a row failed or never ran (3 h grace after each due time);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
@@ -88,25 +87,25 @@ async function runsOf(file) {
 }
 
 // Price feeds (dashboards.json → prices): each series names a file in main and how to read its latest date;
-// the verdict compares every date with the exchange's last completed session (lib.mjs priceVerdict). Feed names
-// are bilingual ({ es, en }); the file paths stay out of the published status file (public copy carries no
-// repository paths) and go only to the console line and the alarm issue.
+// the verdict compares every date with the exchange's last completed session (lib.mjs priceVerdict); a series with its
+// own `exchange` (an ADS beside a BMV listing) is judged on that exchange's calendar.
 async function priceCheck(cfg) {
-  const series = [], files = [];
+  const series = [];
   for (const s of cfg.series) {
     let date = null;
     try {
       const text = await readFile(new URL(s.file, ROOT), 'utf8');
-      date = s.kind === 'json' ? jsonDate(JSON.parse(text), s.field) : lastCsvDate(text);
-    } catch (e) { console.warn(`${nameOf(s.name)}: ${s.file} unreadable (${e.message})`); }
-    series.push({ name: s.name, date, lagSessions: s.lagSessions || 0 });
-    files.push(s.file);
+      // kind json: a dotted path in a JSON file; kind js: the same in a `window.X = {...};` data file; csv: the last dated row
+      date = s.kind === 'json' ? jsonDate(JSON.parse(text), s.field)
+        : s.kind === 'js' ? jsonDate(JSON.parse(text.slice(text.indexOf('{')).replace(/;\s*$/, '')), s.field)
+        : lastCsvDate(text);
+    } catch (e) { console.warn(`${s.name}: ${s.file} unreadable (${e.message})`); }
+    series.push({ name: s.name, date, lagSessions: s.lagSessions || 0, file: s.file, ...(s.exchange ? { exchange: s.exchange } : {}) });
   }
-  const verdict = priceVerdict({ exchange: cfg.exchange || 'NYSE', now: NOW, settleHours: cfg.settleHours || 0, series });
-  verdict.series.forEach((r, i) => { if (series[i].lagSessions) r.lagSessions = series[i].lagSessions; });
-  return { verdict, files };
+  const v = priceVerdict({ exchange: cfg.exchange || 'NYSE', now: NOW, settleHours: cfg.settleHours || 0, series });
+  v.series.forEach((r, i) => { r.file = series[i].file; if (series[i].lagSessions) r.lagSessions = series[i].lagSessions; });
+  return v;
 }
-const nameOf = (n) => (n && typeof n === 'object' ? n.en : String(n));
 
 const issues = await openIssues();
 const rows = [], notes = {};
@@ -122,12 +121,11 @@ for (const d of CONFIG.dashboards) {
   if (!crons.length) throw new Error(`${d.id}: no schedule in ${d.workflows.join(', ')}`);
   const alerts = issues.filter((i) => i.labels.some((l) => (d.alertLabels || []).includes(l.name)));
   const v = verdict({ crons, now: NOW, graceMs: GRACE, lookbackMs: LOOKBACK, lastLandedCreatedAt: landed ? landed.run.created_at : null, openAlerts: alerts.length });
-  const px = d.prices ? await priceCheck(d.prices) : null, prices = px ? px.verdict : null;
+  const prices = d.prices ? await priceCheck(d.prices) : null;
   rows.push({
     id: d.id, section: d.section, name: d.name, url: d.url,
-    // stale (a price feed behind the last completed session) outranks the refresh verdict: it is what the reader sees;
-    // a price check the calendar cannot judge leaves the dashboard unverified rather than up to date
-    status: prices && prices.status === 'stale' ? 'stale' : prices && prices.status === 'unverified' ? 'unverified' : v.status,
+    // stale (a price feed behind the last completed session) outranks the refresh verdict: it is what the reader sees
+    status: prices && prices.status === 'stale' ? 'stale' : v.status,
     refreshStatus: v.status,
     lastSuccess: landed ? isoSeconds(landed.run.updated_at) : null,
     lastAttempt: attempt ? { at: isoSeconds(attempt.updated_at), result: attempt.conclusion } : null,
@@ -135,17 +133,16 @@ for (const d of CONFIG.dashboards) {
     alerts: alerts.length,
     ...(prices ? { prices } : {}),
   });
-  notes[d.id] = { d, landed, attempt, alerts, prices, priceFiles: px ? px.files : [] };
+  notes[d.id] = { d, landed, attempt, alerts, prices };
 }
 
 // ---- report ----
-const behindOf = (p) => (p ? p.series.filter((x) => x.ok === false) : []);
-const pxLine = (p) => p ? `  ·  prices ${p.status}${p.expected ? ` (session ${p.expected}${behindOf(p).length ? `; behind: ${behindOf(p).map((x) => `${nameOf(x.name)} ${x.date || 'none'} < ${x.needed}`).join(', ')}` : ''})` : ' (calendar not maintained for this date)'}` : '';
+const pxLine = (p) => p ? `  ·  prices ${p.status} (session ${p.expected}${p.series.filter((x) => !x.ok).length ? `; behind: ${p.series.filter((x) => !x.ok).map((x) => `${x.name} ${x.date || 'none'} < ${x.needed}`).join(', ')}` : ''})` : '';
 const line = (r) => `${r.id.padEnd(16)} ${r.status.padEnd(5)}  landed ${r.lastSuccess ? cdmx(r.lastSuccess) : 'never'}  ·  needed since ${r.requiredSince ? cdmx(r.requiredSince) : '—'}  ·  last attempt ${r.lastAttempt ? r.lastAttempt.result : '—'}${r.alerts ? `  ·  ${r.alerts} alert issue(s) open` : ''}${notes[r.id].landed && notes[r.id].landed.afterCommitFailure ? '  ·  (run failed after its commit step)' : ''}${pxLine(r.prices)}`;
 console.log(`Watchdog at ${cdmx(NOW)}\n` + rows.map(line).join('\n'));
 if (process.env.GITHUB_STEP_SUMMARY) {
-  await appendFile(process.env.GITHUB_STEP_SUMMARY, ['| Dashboard | Status | Last landed refresh | Needed since | Last attempt | Open alerts | Prices |', '|---|---|---|---|---|---|---|',
-    ...rows.map((r) => `| ${r.name.en} | ${r.status === 'ok' ? 'ok' : `**${r.status}**`} | ${r.lastSuccess ? cdmx(r.lastSuccess) : 'never'} | ${r.requiredSince ? cdmx(r.requiredSince) : '—'} | ${r.lastAttempt ? r.lastAttempt.result : '—'} | ${r.alerts} | ${r.prices ? `${r.prices.status}${r.prices.expected ? ` (session ${r.prices.expected})` : ''}${behindOf(r.prices).length ? `: ${behindOf(r.prices).map((x) => `${nameOf(x.name)} ${x.date || 'none'}`).join(', ')} behind` : ''}` : '—'} |`), ''].join('\n'));
+  await appendFile(process.env.GITHUB_STEP_SUMMARY, ['| Dashboard | Status | Last landed refresh | Needed since | Last attempt | Open alerts |', '|---|---|---|---|---|---|',
+    ...rows.map((r) => `| ${r.name.en} | ${r.status === 'ok' ? 'ok' : `**${r.status}**`} | ${r.lastSuccess ? cdmx(r.lastSuccess) : 'never'} | ${r.requiredSince ? cdmx(r.requiredSince) : '—'} | ${r.lastAttempt ? r.lastAttempt.result : '—'} | ${r.alerts} |`), ''].join('\n'));
 }
 
 // ---- status file ----
@@ -174,25 +171,24 @@ else {
 const own = issues.filter((i) => i.labels.some((l) => l.name === LABEL));
 const actions = [];
 for (const r of rows) {
-  const { d, landed, attempt, prices, priceFiles } = notes[r.id];
+  const { d, landed, attempt, prices } = notes[r.id];
   const mine = own.find((i) => (i.body || '').includes(mark(r.id)));
   // a stale price feed has its own issue (marker <id>:prices), independent of the refresh-late one
   const minePx = own.find((i) => (i.body || '').includes(mark(`${r.id}:prices`)));
   if (prices && prices.status === 'stale' && !minePx) {
-    const behind = behindOf(prices);
+    const behind = prices.series.filter((x) => !x.ok);
     actions.push({ kind: 'open', id: `${r.id}:prices`, title: `SOURCE DOWN: watchdog - ${d.name.en} prices stale`, body: [
       `A price feed of **${d.name.en}** (https://fnam.mx${d.url}) is behind the last completed ${prices.exchange} session (${prices.expected}, required from ${cdmx(prices.requiredFrom)}). The page shows the dashboard as "Prices out of date" (Precios desactualizados) until every feed carries that session.`,
       '',
-      '| Feed | File in main | Latest date | Needed | |', '|---|---|---|---|---|',
-      ...prices.series.map((x, i) => `| ${nameOf(x.name)} | \`${priceFiles[i] || '—'}\` | ${x.date || 'none'} | ${x.needed}${x.lagSessions ? ` (${x.lagSessions} session${x.lagSessions > 1 ? 's' : ''} of lag allowed)` : ''} | ${x.ok ? 'ok' : '**behind**'} |`),
+      '| Feed | Latest date in main | Needed | |', '|---|---|---|---|',
+      ...prices.series.map((x) => `| ${x.name} | ${x.date || 'none'} | ${x.needed}${x.lagSessions ? ` (${x.lagSessions} session${x.lagSessions > 1 ? 's' : ''} of lag allowed)` : ''} | ${x.ok ? 'ok' : '**behind**'} |`),
       '',
-      `Behind: ${behind.map((x) => nameOf(x.name)).join(', ')}. Check the feed's own refresh (the nightly FactSet routine for FactSet feeds, the refresh workflow for the runner feeds) and re-run it; this issue closes itself at the first check that finds every feed current.`,
+      `Behind: ${behind.map((x) => x.name).join(', ')}. Check the feed's own refresh (the nightly FactSet routine for FactSet feeds, the refresh workflow for the runner feeds) and re-run it; this issue closes itself at the first check that finds every feed current.`,
       'Checked every 12 hours by `scripts/watchdog/check.mjs` (`.github/workflows/data-watchdog.yml`); runbook `tools/watchdog/README.md`.',
       '',
       mark(`${r.id}:prices`),
     ].join('\n') });
-  } else if (prices && prices.status === 'ok' && minePx) {
-    // only a verified recovery closes it: an 'unverified' check (calendar not maintained) leaves the issue open
+  } else if (prices && prices.status !== 'stale' && minePx) {
     actions.push({ kind: 'close', id: `${r.id}:prices`, number: minePx.number, comment: `Recovered: every price feed carries the ${prices.expected} session at the ${cdmx(NOW)} check. Closing.` });
   }
   if (r.refreshStatus === 'late' && !mine && r.alerts === 0) {

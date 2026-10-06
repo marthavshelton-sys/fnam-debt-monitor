@@ -2763,7 +2763,7 @@
     if (!a) return; e.preventDefault(); const g = GLOSS.find((x) => x.id === a.dataset.gl); if (!g) return; const es = LANG === 'es';
     const pop = document.createElement('div'); pop.className = 'gl-pop'; pop.innerHTML = `<b>${es ? g.term_es : g.term_en}</b>${es ? g.es : g.en} <a href="#gl-${g.id}">${es ? 'Glosario →' : 'Glossary →'}</a>`;
     document.body.appendChild(pop); const r = a.getBoundingClientRect(); const w = pop.offsetWidth; pop.style.top = `${window.scrollY + r.bottom + 6}px`; pop.style.left = `${Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - w - 8))}px`;
-    pop.querySelector('a').addEventListener('click', () => { openSection('method'); pop.remove(); });
+    pop.querySelector('a').addEventListener('click', () => { openSection('method'); const gw = el('glossaryWrap'); if (gw) gw.open = true; if (!keyRowsOpen.has('glossaryTable')) { keyRowsOpen.add('glossaryTable'); limitRows(); } pop.remove(); });
   });
   // ---- sticky section menu (phones): the same list as the top navigation, reachable from the thumb
   function renderMobileMenu() {

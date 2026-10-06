@@ -62,13 +62,10 @@
   function head(url, bytes) {
     var key = url + '#' + bytes;
     if (!HEAD[key]) {
-      var ctl = window.AbortController ? new AbortController() : null;
-      var timer = ctl ? setTimeout(function () { ctl.abort(); }, 8000) : null;   // a hung file never holds a verdict back
-      HEAD[key] = fetch(url, { cache: 'no-store', headers: { Range: 'bytes=0-' + (bytes - 1) }, signal: ctl ? ctl.signal : undefined })
+      HEAD[key] = fetch(url, { cache: 'no-store', headers: { Range: 'bytes=0-' + (bytes - 1) } })
         .then(function (r) { return r.ok ? r.text() : ''; })
         .then(function (t) { return t.slice(0, bytes); })
-        .catch(function () { return ''; })
-        .then(function (t) { if (timer) clearTimeout(timer); return t; });
+        .catch(function () { return ''; });
     }
     return HEAD[key];
   }
@@ -97,7 +94,10 @@
   }
   // Each price-checked dashboard's own latest close (the date the page prints), from the first bytes of its market file.
   var OWN_CLOSE = {
-    'oracle': { url: '/oracle/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ }
+    'oracle': { url: '/oracle/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'gap': { url: '/gap/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'asur': { url: '/asur/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ },
+    'oma': { url: '/oma/data/market.js', re: /"latestClose":"(\d{4}-\d{2}-\d{2})"/ }
   };
   function ownClose(id) {
     var d = OWN_CLOSE[id]; if (!d) return Promise.resolve(null);
@@ -106,17 +106,14 @@
   // The session the page must carry right now: the one the watchdog found required, or the next one once its
   // required-from instant (close + the routine's settle time) has passed.
   function neededSession(p, now) {
-    // only a verified verdict names sessions; an 'unverified' one (exchange calendar not maintained) carries none
-    if (!p || (p.status !== 'ok' && p.status !== 'stale')) return null;
+    if (!p) return null;
     if (p.next && p.next.session && p.next.requiredFrom && now >= Date.parse(p.next.requiredFrom)) return p.next.session;
     return p.expected || null;
   }
   // Apply the page-side price check: a dashboard whose own close is behind the needed session turns stale here, before
-  // the watchdog's next look; nothing here ever clears a stale verdict the watchdog wrote. A second pass after load():
-  // the watchdog's verdict paints first and never waits for this fetch.
+  // the watchdog's next look; nothing here ever clears a stale verdict the watchdog wrote.
   function applyOwnCloses(s) {
     var now = Date.now();
-    if (!s || !s.dashboards) return Promise.resolve(s);
     // only for the dashboards this page shows: its own header dot, or every card on the landing page's status grid
     var onLanding = !!document.getElementById('statusGrid');
     var targets = s.dashboards.filter(function (d) { return d.prices && OWN_CLOSE[d.id] && (onLanding || document.querySelector('[data-status-dot="' + d.id + '"]')); });
@@ -145,21 +142,19 @@
         var fresh = !!(checked && Date.now() - checked < STALE_HOURS * 36e5);
         var list = (j && Array.isArray(j.dashboards)) ? j.dashboards : [];
         list.forEach(function (d) { d.state = fresh && LABELS[d.status] ? d.status : 'unverified'; });
-        return { ok: !!j, fresh: fresh, checkedAt: j ? j.checkedAt : null, dashboards: list };
+        return applyOwnCloses({ ok: !!j, fresh: fresh, checkedAt: j ? j.checkedAt : null, dashboards: list });
       });
     return pending;
   }
 
   // "ORCL close 05-oct-2026, session 06-oct-2026 required · " for a stale dashboard: which feed is behind and what it needs.
-  function feedName(n, lg) { return n && typeof n === 'object' ? (n[lg] || n.en || n.es || '') : String(n || ''); }
   function staleDetail(d, lg) {
     if (!d || d.state !== 'stale') return '';
     var parts = [];
-    // the page's own reading first, then every feed the watchdog found behind (both when both apply)
     if (d.staleOwn) parts.push((lg === 'es' ? 'cierre en la página ' : 'close on the page ') + dmy(d.ownClose, lg) + (lg === 'es' ? ', se requiere la sesión del ' : ', session of ') + dmy(d.needed, lg) + (lg === 'es' ? '' : ' required'));
-    if (d.prices && d.prices.series) {
-      d.prices.series.filter(function (x) { return x.ok === false; }).forEach(function (x) {
-        parts.push(feedName(x.name, lg) + ' ' + (x.date ? dmy(x.date, lg) : (lg === 'es' ? 'sin fecha' : 'no date')) + (lg === 'es' ? ', se requiere ' : ', needs ') + dmy(x.needed, lg));
+    else if (d.prices && d.prices.series) {
+      d.prices.series.filter(function (x) { return !x.ok; }).forEach(function (x) {
+        parts.push(x.name + ' ' + (x.date ? dmy(x.date, lg) : (lg === 'es' ? 'sin fecha' : 'no date')) + (lg === 'es' ? ', se requiere ' : ', needs ') + dmy(x.needed, lg));
       });
     }
     return parts.length ? parts.join(' · ') + ' · ' : '';
@@ -170,18 +165,17 @@
   }
 
   function wireDots() {
-    if (!document.querySelector('[data-status-dot]')) return;
+    var dots = document.querySelectorAll('[data-status-dot]');
+    if (!dots.length) return;
     load().then(function (s) {
       function paint() {
         var lg = pageLang();
-        // queried at each paint: a page may rebuild its dot (the Oracle phone header is re-rendered on every toggle)
-        Array.prototype.forEach.call(document.querySelectorAll('[data-status-dot]'), function (el) {
+        Array.prototype.forEach.call(dots, function (el) {
           var id = el.getAttribute('data-status-dot');
           var d = s.dashboards.filter(function (x) { return x.id === id; })[0] || null;
           var state = d ? d.state : 'unverified';
-          el.classList.remove('is-ok', 'is-alert', 'is-late', 'is-stale', 'is-unverified');
+          el.classList.remove('is-ok', 'is-alert', 'is-late', 'is-unverified');
           el.classList.add('is-' + state);
-          el.setAttribute('data-status-painted', '1');
           // The page's own data time (data-status-time, the stamp its header prints) comes first; the watchdog checks only
           // every 12 hours, so its verdict names the refresh it verified and when it looked.
           var own = el.getAttribute('data-status-time');
@@ -197,20 +191,14 @@
         });
       }
       paint();
-      applyOwnCloses(s).then(paint);
-      // The pages switch language in place, set their data time once their data has rendered, and may rebuild a dot;
-      // repaint on each (a dot without data-status-painted is a rebuilt one).
+      // The pages switch language in place, and set their data time once their data has rendered; repaint on both.
       if (window.MutationObserver) {
         new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
-        new MutationObserver(function (muts) {
-          for (var i = 0; i < muts.length; i++) {
-            if (muts[i].type === 'attributes' || document.querySelector('[data-status-dot]:not([data-status-painted])')) { paint(); return; }
-          }
-        }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-status-time'] });
+        Array.prototype.forEach.call(dots, function (el) { new MutationObserver(paint).observe(el, { attributes: true, attributeFilter: ['data-status-time'] }); });
       }
     });
   }
 
-  window.FNAM_STATUS = { load: load, when: when, dmy: dmy, labels: LABELS, stamps: stamps, ownCloses: applyOwnCloses, staleDetail: staleDetail };
+  window.FNAM_STATUS = { load: load, when: when, dmy: dmy, labels: LABELS, stamps: stamps, staleDetail: staleDetail };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wireDots); else wireDots();
 })();

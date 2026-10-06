@@ -65,6 +65,12 @@ dashboards, everything built from public data by GitHub Actions.
   The tables show NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages plus ADTV in US$ M, prices at the last
   completed close (owner, 2026-10-06); no trailing multiples. The connector cannot run FQL (FE_VALUATION etc.): the
   ratios are assembled from consensus_rolling NTMA, prices, shares_outstanding and FF_NET_DEBT / FF_MIN_INT_ACCUM.
+  The same routine pulls the daily closes of GAPB.MX, PAC, ASURB.MX, ASR, OMAB.MX and OMAB (last three months, merged
+  into the committed `tools/gap/raw/factset/prices.json`, history from 2015) and overlays them on the three `data/market.js`
+  (`scripts/lib/factset-prices.mjs ingest` + `apply`; both market fetchers apply the same overlay on every Actions run):
+  since 2026-10-06 FactSet Global Prices is the share-price authority of the airport pages (header, charts, EV, multiples,
+  DCF, decks); Yahoo/Stooq fill only the sessions FactSet has not posted yet, the S&P/BMV IPC (the connector rejects
+  index ids) and the dividend record. Page and deck source labels are composed from `provenance` in market.js.
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
@@ -155,12 +161,13 @@ dashboards, everything built from public data by GitHub Actions.
   "SOURCE DOWN: watchdog - ..." issue (emailed). Nothing on the site is called "live": a dashboard shows as
   "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
   A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Prices (owner, 2026-10-06): a dashboard
-  with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 file) has
-  each feed compared with the exchange's last completed session (NYSE calendar 2026–2028 in `scripts/watchdog/lib.mjs`,
-  close + 5 h for the 19:58 New York routine; outside the calendar → `unverified`, so extend it); any feed behind →
-  status `stale`, red and pulsing on the dot (the Oracle phone header has one too) and the landing panel, plus a
-  "SOURCE DOWN: watchdog - <name> prices stale" issue; between checks `data-status.js` compares the page's own
-  `latestClose` with the next required session and can turn red on its own (never green).
+  with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 with one
+  session of lag; GAP, ASUR, OMA since 6-Oct-2026: the listing's and the ADS's FactSet close in `tools/gap/raw/factset/prices.json`
+  and the page's own `latestClose` in `market.js`, the ADS judged on the NYSE calendar through the series' `exchange`) has each
+  feed compared with the exchange's last completed session (NYSE 2026–2028 and BMV 2026 calendars in `scripts/watchdog/lib.mjs`;
+  the BMV publishes one year at a time, extend it every December; close + 5 h for the nightly FactSet routines); any feed behind → status `stale`, red and
+  pulsing on the dot and the landing panel, plus a "SOURCE DOWN: watchdog - <name> prices stale" issue; between checks
+  `data-status.js` compares the page's own `latestClose` with the next required session and can turn red on its own.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
@@ -282,7 +289,8 @@ dashboards, everything built from public data by GitHub Actions.
   `scripts/lib/completed-sessions.mjs`: a bar dated today counts only after that exchange's close in its own time zone
   (BMV 15:30 CDMX, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid), so a morning run never publishes
   an intraday quote as a "close". The header shows the close date and the fetch time in CDMX. FactSet cannot run in
-  GitHub Actions, so it is only an in-session cross-check.
+  GitHub Actions: the airport pages (GAP, ASUR, OMA) and Oracle get FactSet closes from their nightly cloud routines
+  (files committed to the repository and overlaid by the fetchers); for Quálitas and Gentera it is only an in-session cross-check.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
   release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
   `present-core.js`), never a hand-written date.

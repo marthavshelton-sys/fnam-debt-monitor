@@ -12,9 +12,24 @@
     { "id": "us-fiscal", "section": "us", "name": { "es": "Deuda Fiscal EE.\u00a0UU.", "en": "U.S. Fiscal Debt" }, "url": "/fiscal/", "workflows": ["refresh-data.yml"], "alertLabels": ["fiscal-health"] },
     { "id": "mx-macro", "section": "mx", "name": { "es": "Macro México", "en": "Mexico Macro" }, "url": "/mx/macro/", "workflows": ["mx-macro-refresh.yml"], "alertLabels": ["mx-macro-health"] },
     { "id": "mx-fiscal", "section": "mx", "name": { "es": "Fiscal México", "en": "Mexico Fiscal" }, "url": "/mx/fiscal/", "workflows": ["refresh-mx-data.yml"], "alertLabels": ["mx-fiscal-health"] },
-    { "id": "gap", "section": "companies", "name": { "es": "GAP", "en": "GAP" }, "url": "/gap/", "workflows": ["gap-refresh.yml"], "alertLabels": [] },
-    { "id": "oma", "section": "companies", "name": { "es": "OMA", "en": "OMA" }, "url": "/oma/", "workflows": ["oma-refresh.yml"], "alertLabels": [] },
-    { "id": "asur", "section": "companies", "name": { "es": "ASUR", "en": "ASUR" }, "url": "/asur/", "workflows": ["asur-refresh.yml"], "alertLabels": [] },
+    { "id": "gap", "section": "companies", "name": { "es": "GAP", "en": "GAP" }, "url": "/gap/", "workflows": ["gap-refresh.yml"], "alertLabels": [],
+      "prices": { "exchange": "BMV", "settleHours": 5, "series": [
+        { "name": "GAPB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.GAPB-MX" },
+        { "name": "PAC close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.PAC-US", "exchange": "NYSE" },
+        { "name": "Page close GAPB.MX (market.js)", "file": "site/gap/data/market.js", "kind": "js", "field": "latestClose" }
+      ] } },
+    { "id": "oma", "section": "companies", "name": { "es": "OMA", "en": "OMA" }, "url": "/oma/", "workflows": ["oma-refresh.yml"], "alertLabels": [],
+      "prices": { "exchange": "BMV", "settleHours": 5, "series": [
+        { "name": "OMAB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.OMAB-MX" },
+        { "name": "OMAB close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.OMAB-US", "exchange": "NYSE" },
+        { "name": "Page close OMAB.MX (market.js)", "file": "site/oma/data/market.js", "kind": "js", "field": "latestClose" }
+      ] } },
+    { "id": "asur", "section": "companies", "name": { "es": "ASUR", "en": "ASUR" }, "url": "/asur/", "workflows": ["asur-refresh.yml"], "alertLabels": [],
+      "prices": { "exchange": "BMV", "settleHours": 5, "series": [
+        { "name": "ASURB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.ASURB-MX" },
+        { "name": "ASR close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.ASR-US", "exchange": "NYSE" },
+        { "name": "Page close ASURB.MX (market.js)", "file": "site/asur/data/market.js", "kind": "js", "field": "latestClose" }
+      ] } },
     { "id": "airport-traffic", "section": "companies", "name": { "es": "Tráfico por Aeropuerto", "en": "Traffic by Airport" }, "url": "/aeropuertos/trafico/", "workflows": ["aeropuertos-refresh.yml"], "alertLabels": [] },
     { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },
     { "id": "qualitas", "section": "companies", "name": { "es": "Quálitas", "en": "Quálitas" }, "url": "/qualitas/", "workflows": ["qualitas-refresh.yml"], "alertLabels": [] },

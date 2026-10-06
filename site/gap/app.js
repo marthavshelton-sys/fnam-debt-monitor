@@ -664,6 +664,32 @@
   const sh = { range: '3y', listing: 'GAPB.MX' };
   function rangeStart(pts) { const last = lastPoint(pts); if (!last) return null; const n = { '1y': 365, '3y': 365 * 3, '5y': 365 * 5 }[sh.range]; return n ? addDays(last[0], -n) : pts[0][0]; }
   function decimate(pts, max = 900) { if (pts.length <= max) return pts; const step = Math.ceil(pts.length / max); return pts.filter((_, i) => i % step === 0 || i === pts.length - 1); }
+  // Share-price sources. Since 2026-10-06 the closes of GAPB.MX, PAC, ASURB.MX and OMAB.MX come from FactSet Global
+  // Prices (nightly routine); Yahoo Finance keeps the S&P/BMV IPC, the dividend record and fills only the sessions
+  // FactSet has not posted yet. Every label below is composed from market.js's own provenance, never typed.
+  function priceSrcLabel(meta) {
+    const pv = meta && meta.provenance; if (!pv || !pv.factset) return (meta && meta.source) || '';
+    const es = LANG === 'es', f = pv.factset, fill = pv.fill || {}, fillName = String(fill.source || 'Yahoo Finance').replace(/ chart API$/, '');
+    let s = `${pv.authority} (${es ? 'cierres diarios' : 'daily closes'} ${fmtDate(f.from)} → ${fmtDate(f.to)})`;
+    if (fill.before) s += es ? `; ${fillName} antes del ${fmtDate(f.from)}` : `; ${fillName} before ${fmtDate(f.from)}`;
+    const a = fill.after || [];
+    if (a.length) s += es ? `; ${fillName} para ${a.length === 1 ? 'la sesión del ' + fmtDate(a[0]) : a.length + ' sesiones posteriores'}` : `; ${fillName} for ${a.length === 1 ? 'the ' + fmtDate(a[0]) + ' session' : a.length + ' later sessions'}`;
+    return s;
+  }
+  function priceSources(ids) {
+    const fs = [], other = [];
+    for (const id of ids) { const m = MK.prices[id]; if (!m) continue; (m.provenance && m.provenance.factset ? fs : other).push(id === '^MXX' ? 'S&P/BMV IPC' : id); }
+    const auth = fs.length ? (MK.prices[ids.find((id) => MK.prices[id] && MK.prices[id].provenance && MK.prices[id].provenance.factset)].provenance.authority) : null;
+    return { factset: fs, other, authority: auth };
+  }
+  // one-line market-data note for the page and the deck: "FactSet Global Prices (cierres diarios GAPB.MX, PAC), Yahoo Finance (^MXX; dividendos)"
+  function marketSrcNote(ids) {
+    const es = LANG === 'es', ps = priceSources(ids);
+    const parts = [];
+    if (ps.factset.length) parts.push(`${ps.authority} (${es ? 'cierres diarios' : 'daily closes'} ${ps.factset.join(', ')})`);
+    parts.push(`Yahoo Finance (${ps.other.length ? ps.other.join(', ') + '; ' : ''}${es ? 'dividendos' : 'dividends'}${ps.factset.length ? (es ? '; respaldo de cierres' : '; close fallback') : ''})`);
+    return parts.join(', ');
+  }
   function renderShare() {
     const pts = px(sh.listing); if (!pts.length) return;
     const start = rangeStart(pts); const win = pts.filter((p) => p[0] >= start);
@@ -673,7 +699,7 @@
       options: { parsing: true, plugins: { tooltip: { callbacks: { title: (x) => fmtDate(x[0].raw.x), label: (x) => `${meta.currency} ${fmtN(x.parsed.y, 2)}` } } }, scales: { x: { type: 'category', ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i, ticks) => { const d = win[Math.round(i * (win.length - 1) / Math.max(1, ticks.length - 1))]; return d ? d[0].slice(0, 7) : ''; } }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     el('priceChartTitle').textContent = tc(`${meta.name} · ${meta.currency}`);
     el('priceChartCap').textContent = `${t('close')} ${fmtDate(win[0][0])} → ${fmtDate(cur[0])}`;
-    html('priceSrc', `${t('src')}: ${meta.source}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
+    html('priceSrc', `${t('src')}: ${priceSrcLabel(meta)}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
     // stats
     const yAgo = pointAtOrBefore(pts, addDays(cur[0], -365)); const yStart = pointAtOrBefore(pts, `${cur[0].slice(0, 4)}-01-01`);
     const w52 = pts.filter((p) => p[0] >= addDays(cur[0], -365)); const hi = Math.max(...w52.map((p) => p[1])), lo = Math.min(...w52.map((p) => p[1]));
@@ -696,7 +722,7 @@
     mkChart('chartRebased', { type: 'line', data: { labels: idx.map((i) => dates[i]), datasets: ds.map((d) => ({ ...d, data: idx.map((i) => d.data[i]) })) },
       options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)}` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => (idx[i] != null ? dates[idx[i]].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     html('rebasedTable', `<table><thead><tr><th scope="col">${t('period')}: ${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}</th><th scope="col">${t('ret')}</th></tr></thead><tbody>${ds.map((d) => { const last = [...d.data].reverse().find((v) => v != null); return `<tr><td>${d.label}</td><td class="${cls(last - 100)}">${fmtPct(last - 100, 1, true)}</td></tr>`; }).join('')}</tbody></table>`);
-    html('rebasedSrc', `${t('src')}: Yahoo Finance (${LANG === 'es' ? 'cierres diarios' : 'daily closes'}) · ${LANG === 'es' ? 'precio, sin dividendos reinvertidos' : 'price only, dividends not reinvested'}`);
+    { const ps = priceSources(ids); html('rebasedSrc', `${t('src')}: ${ps.factset.length ? `${ps.authority} (${LANG === 'es' ? 'cierres diarios' : 'daily closes'} ${ps.factset.join(', ')})` : ''}${ps.factset.length && ps.other.length ? '; ' : ''}${ps.other.length ? `Yahoo Finance (${LANG === 'es' ? 'cierres diarios' : 'daily closes'} ${ps.other.join(', ')})` : ''} · ${LANG === 'es' ? 'precio, sin dividendos reinvertidos' : 'price only, dividends not reinvested'}`); }
     html('shareMeta', LANG === 'es' ? `1 ADS (PAC) = ${REF.company ? REF.company.adsRatio : 10} acciones serie B. Acciones en circulación: ${fmtN(sharesNow)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}).` : `1 ADS (PAC) = ${REF.company ? REF.company.adsRatio : 10} series B shares. Shares outstanding: ${fmtN(sharesNow)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}).`);
   }
 
@@ -1065,18 +1091,17 @@
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'tabla de guía en los comunicados (enero, 4T, revisiones)' : 'guidance table in the releases (January, 4Q, revisions)', fmtDate((GD.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
-      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · Banxico SIE (SF43718, SF44071) · FRED (DGS10)', fmtDate((MK.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario: tras el cierre de la BMV y a las 20:00 hora de Nueva York (cierres FactSet)' : 'daily: after the BMV close and at 8 PM New York time (FactSet closes)', `${marketSrcNote(['GAPB.MX', 'PAC', 'ASURB.MX', 'OMAB.MX', '^MXX'])} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Pares y consenso FactSet' : 'FactSet peers and consensus', LANG === 'es' ? 'cada noche, 20:00 hora de Nueva York (rutina en la nube)' : 'nightly, 8 PM New York time (cloud routine)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
-      [LANG === 'es' ? 'Pares, múltiplos y consenso' : 'Peers, multiples and consensus', LANG === 'es' ? 'a solicitud (foto fechada del conector FactSet)' : 'on request (dated snapshot from the FactSet connector)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th scope="col">${t('block')}</th><th scope="col">${t('cadence')}</th><th scope="col">${t('mechanism')}</th><th scope="col">${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     const srcs = [
       { t: LANG === 'es' ? 'GAP — informes trimestrales y comunicados' : 'GAP — quarterly reports and releases', d: LANG === 'es' ? 'Distribuidos por GlobeNewswire y presentados como Form 6-K ante la SEC; base de todos los estados financieros y del tráfico.' : 'Distributed via GlobeNewswire and furnished as Form 6-K to the SEC; the basis of every statement and traffic figure.', u: 'https://www.globenewswire.com/search/keyword/Grupo%20Aeroportuario%20del%20Pacifico' },
       { t: 'SEC EDGAR — Grupo Aeroportuario del Pacífico (CIK 1347557)', d: LANG === 'es' ? 'Formas 20-F (anuales auditadas) y 6-K.' : 'Forms 20-F (audited annual) and 6-K.', u: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001347557' },
       { t: LANG === 'es' ? 'GAP — Relación con inversionistas' : 'GAP — Investor relations', d: LANG === 'es' ? 'Reportes trimestrales en PDF, eventos relevantes, asambleas, PMD y tarifas máximas.' : 'PDF quarterly reports, material events, shareholder meetings, PMD and maximum tariffs.', u: 'https://www.aeropuertosgap.com.mx/en/investors' },
-      { t: 'Yahoo Finance', d: LANG === 'es' ? 'Cierres diarios GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX y dividendos en efectivo.' : 'Daily closes for GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX and cash dividends.', u: 'https://finance.yahoo.com/quote/GAPB.MX/' },
-      { t: 'FactSet', d: LANG === 'es' ? 'Precios y capitalización de los pares, fundamentales UDM, deuda neta, consenso de estimaciones (PDM y por año fiscal), precios objetivo y recomendaciones; conector FactSet AI-Ready Data.' : 'Peer prices and market caps, LTM fundamentals, net debt, consensus estimates (NTM and by fiscal year), price targets and ratings; FactSet AI-Ready Data connector.', u: 'https://www.factset.com/' },
+      { t: 'FactSet', d: LANG === 'es' ? 'Cierres diarios GAPB.MX, PAC, ASURB.MX y OMAB.MX (Global Prices, cada noche a las 20:00 hora de Nueva York); precios y capitalización de los pares, fundamentales UDM, deuda neta, consenso de estimaciones (PDM y por año fiscal), precios objetivo y recomendaciones; conector FactSet AI-Ready Data.' : 'Daily closes for GAPB.MX, PAC, ASURB.MX and OMAB.MX (Global Prices, nightly at 8 PM New York time); peer prices and market caps, LTM fundamentals, net debt, consensus estimates (NTM and by fiscal year), price targets and ratings; FactSet AI-Ready Data connector.', u: 'https://www.factset.com/' },
+      { t: 'Yahoo Finance', d: LANG === 'es' ? 'Índice S&P/BMV IPC (^MXX) y dividendos en efectivo registrados en bolsa; cierres de respaldo sólo para las sesiones que FactSet aún no publica.' : 'S&P/BMV IPC index (^MXX) and exchange-recorded cash dividends; fallback closes only for the sessions FactSet has not posted yet.', u: 'https://finance.yahoo.com/quote/GAPB.MX/' },
       { t: LANG === 'es' ? 'Banxico — tipo de cambio FIX y bono M' : 'Banxico — FIX exchange rate and M bond', d: LANG === 'es' ? 'USD/MXN diario (SIE SF43718) y bono M a 10 años, rendimiento de la subasta primaria (SIE SF44071); FRED como respaldo.' : 'Daily USD/MXN (SIE SF43718) and the 10-year M bond primary-auction yield (SIE SF44071); FRED as the fallback.', u: 'https://www.banxico.org.mx/SieAPIRest/service/v1/' },
       { t: 'FRED — Federal Reserve Bank of St. Louis', d: 'US 10-yr (DGS10); USD/MXN (DEXMXUS) and México 10-yr (IRLTLT01MXM156N, OECD) only as fallbacks.', u: 'https://fred.stlouisfed.org/series/DGS10' },
       { t: LANG === 'es' ? 'BMV / BIVA — eventos relevantes' : 'BMV / BIVA — material events', d: LANG === 'es' ? 'Constitución de FIBRA GAP, emisiones de certificados bursátiles, asambleas.' : 'FIBRA GAP constitution, certificados bursátiles issuances, shareholder meetings.', u: 'https://www.bmv.com.mx/' },
@@ -1169,7 +1194,7 @@
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
-    betaFromMarket, kdFromDebt, PEERS,
+    betaFromMarket, kdFromDebt, PEERS, priceSrcLabel, priceSources, marketSrcNote,
   };
 
     let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }

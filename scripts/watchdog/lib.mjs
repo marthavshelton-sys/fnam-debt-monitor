@@ -91,15 +91,25 @@ export function cdmx(t) {
 // (New Year's Day, Martin Luther King Jr. Day, Presidents' Day, Good Friday, Memorial Day, Juneteenth, Independence Day,
 // Labor Day, Thanksgiving, Christmas; a Saturday holiday closes the preceding Friday unless that Friday ends a
 // month or year, a Sunday holiday closes the following Monday; early closes are still sessions). Extend the list
-// before the last year runs out: outside `from`..`through`, the check reports "unverified" instead of guessing,
-// and publishes no session the pages could act on.
+// before the last year runs out: past `through`, the check reports "unverified" instead of guessing.
 export const EXCHANGES = {
   NYSE: {
-    timeZone: 'America/New_York', close: '16:00', from: 2026, through: 2028,
+    timeZone: 'America/New_York', close: '16:00', through: 2028,
     holidays: [
       '2026-01-01', '2026-01-19', '2026-02-16', '2026-04-03', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07', '2026-11-26', '2026-12-25',
       '2027-01-01', '2027-01-18', '2027-02-15', '2027-03-26', '2027-05-31', '2027-06-18', '2027-07-05', '2027-09-06', '2027-11-25', '2027-12-24',
       '2028-01-17', '2028-02-21', '2028-04-14', '2028-05-29', '2028-06-19', '2028-07-04', '2028-09-04', '2028-11-23', '2028-12-25',
+    ],
+  },
+  // Bolsa Mexicana de Valores: continuous trading ends 15:00 Mexico City (no daylight saving since 2022). Holidays from the
+  // BMV's own "Calendario de días festivos" (bmv.com.mx → Grupo BMV), which lists one year at a time: 2026 copied on
+  // 6-Oct-2026 and matched against the sessions FactSet carries for GAPB.MX through September; extend it every December
+  // when the BMV publishes the next year (until then the price check reports `unverified` past 2026 rather than guess).
+  BMV: {
+    timeZone: 'America/Mexico_City', close: '15:00', through: 2026,
+    holidays: [
+      '2026-01-01', '2026-02-02', '2026-03-16', '2026-04-02', '2026-04-03', '2026-05-01', '2026-09-16', '2026-11-02', '2026-11-16', '2026-12-25',
+      // 12-Dec-2026 (Día del empleado bancario) is a Saturday
     ],
   },
 };
@@ -122,19 +132,14 @@ export function localParts(timeZone, t) {
   return { date: `${p.year}-${p.month}-${p.day}`, hm: `${p.hour}:${p.minute}` };
 }
 
-// The UTC instant at which the exchange's clock reads `date` `hm`. Two offset corrections: the first lands on the right
-// day, the second uses the offset in force at that instant, so a time on a daylight-saving change day is exact too
-// (only a clock time that does not exist or repeats on such a day, 02:00-03:00, stays ambiguous; no close is there).
+// The UTC instant at which the exchange's clock reads `date` `hm` (one offset correction is exact except in the
+// hour a daylight-saving change repeats, which no close time touches).
 export function zonedToUtc(timeZone, date, hm) {
   const [h, m] = hm.split(':').map(Number);
-  const target = dayUtc(date) + (h * 60 + m) * 6e4;
-  let t = target;
-  for (let pass = 0; pass < 2; pass++) {
-    const local = localParts(timeZone, t);
-    const localAsUtc = dayUtc(local.date) + (+local.hm.slice(0, 2) * 60 + +local.hm.slice(3)) * 6e4;
-    t -= localAsUtc - target;
-  }
-  return t;
+  const guess = dayUtc(date) + (h * 60 + m) * 6e4;
+  const local = localParts(timeZone, guess);
+  const localAsUtc = dayUtc(local.date) + (+local.hm.slice(0, 2) * 60 + +local.hm.slice(3)) * 6e4;
+  return guess - (localAsUtc - guess);
 }
 
 export function isSession(exchange, date) {
@@ -159,8 +164,7 @@ export function sessionAfter(exchange, date) {
 // The session whose close a price feed must carry at instant `now`: the latest session whose close plus
 // `settleHours` (the time the nightly routine needs after the close) has already passed. Also the next session
 // and the instant from which it becomes required, so a page can judge its own data between two watchdog
-// checks. When the calendar does not cover the year of the required or the next session, `covered` is false and
-// no session is returned at all: a guessed session must never reach the status file or the pages.
+// checks. `covered` is false when the calendar does not reach the year in question.
 export function requiredSession({ exchange = 'NYSE', now, settleHours = 0 }) {
   const x = exchangeOf(exchange);
   const requiredAt = (s) => zonedToUtc(x.timeZone, s, x.close) + Math.round(settleHours * 3600) * 1000;
@@ -168,24 +172,28 @@ export function requiredSession({ exchange = 'NYSE', now, settleHours = 0 }) {
   let session = isSession(exchange, local.date) ? local.date : sessionBefore(exchange, local.date, 1);
   while (requiredAt(session) > now) session = sessionBefore(exchange, session, 1);
   const next = sessionAfter(exchange, session);
-  const covered = +session.slice(0, 4) >= (x.from || 0) && +next.slice(0, 4) <= x.through;
-  if (!covered) return { session: null, requiredFrom: null, next: null, covered: false };
+  const covered = +next.slice(0, 4) <= x.through;
   return { session, requiredFrom: isoSeconds(requiredAt(session)), next: { session: next, requiredFrom: isoSeconds(requiredAt(next)) }, covered };
 }
 
 // One verdict for a dashboard's price feeds. series: [{ name, date | null, lagSessions? }]. A feed with
-// lagSessions N (a publisher that only ever posts late) may trail the required session by N sessions; none of
-// the Oracle feeds uses it. Outside the calendar: status 'unverified', no expected or next session, every row
-// with needed and ok null.
+// lagSessions N (a publisher that posts a day late, e.g. FRED) may trail the required session by N sessions.
+// A series may name its own `exchange` (a dashboard that mixes a BMV listing with its NYSE ADS): its required session
+// then follows that exchange's calendar and close, with the same settleHours.
 export function priceVerdict({ exchange = 'NYSE', now, settleHours = 0, series }) {
   const req = requiredSession({ exchange, now, settleHours });
+  const reqOf = {};
+  const reqFor = (x) => (reqOf[x] || (reqOf[x] = requiredSession({ exchange: x, now, settleHours })));
+  let covered = req.covered;
   const rows = series.map((s) => {
-    if (!req.covered) return { name: s.name, date: s.date || null, needed: null, ok: null };
-    const needed = s.lagSessions ? sessionBefore(exchange, req.session, s.lagSessions) : req.session;
+    const ex = s.exchange ? String(s.exchange).toUpperCase() : null;
+    const r = ex && ex !== String(exchange).toUpperCase() ? reqFor(ex) : req;
+    if (!r.covered) covered = false;
+    const needed = s.lagSessions ? sessionBefore(ex || exchange, r.session, s.lagSessions) : r.session;
     const ok = !!(s.date && ISO_DATE.test(s.date) && s.date >= needed);
-    return { name: s.name, date: s.date || null, needed, ok };
+    return { name: s.name, date: s.date || null, needed, ok, ...(ex ? { exchange: ex } : {}) };
   });
-  const status = !req.covered ? 'unverified' : rows.every((r) => r.ok) ? 'ok' : 'stale';
+  const status = !covered ? 'unverified' : rows.every((r) => r.ok) ? 'ok' : 'stale';
   return { status, exchange: String(exchange).toUpperCase(), expected: req.session, requiredFrom: req.requiredFrom, next: req.next, series: rows };
 }
 

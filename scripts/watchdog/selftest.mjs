@@ -53,7 +53,20 @@ assert.equal(isSession('NYSE', '2027-12-31'), true);    // New Year 2028 falls o
 assert.equal(sessionBefore('NYSE', '2026-10-05'), '2026-10-02');
 assert.equal(sessionBefore('NYSE', '2026-10-05', 2), '2026-10-01');
 assert.equal(sessionAfter('NYSE', '2026-11-25'), '2026-11-27');
-assert.throws(() => isSession('BMV', '2026-10-05'), /no session calendar/);
+assert.throws(() => isSession('B3', '2026-10-05'), /no session calendar/);
+// BMV sessions (calendar 2026 from the BMV's published holidays)
+assert.equal(isSession('BMV', '2026-09-16'), false);    // Independence Day (NYSE open)
+assert.equal(isSession('BMV', '2026-11-16'), false);    // Revolution Day observed (third Monday)
+assert.equal(isSession('BMV', '2026-11-02'), false);    // Día de muertos
+assert.equal(isSession('BMV', '2026-11-26'), true);     // US Thanksgiving: BMV open
+assert.equal(isSession('BMV', '2026-12-11'), true);     // 12-Dec-2026 is a Saturday
+assert.equal(sessionBefore('BMV', '2026-09-17'), '2026-09-15');
+// BMV close 15:00 Mexico City (UTC-6 all year) + 5 h settle: Monday's close is required from 02:00 UTC
+const rqB = (iso) => requiredSession({ exchange: 'BMV', now: t(iso), settleHours: 5 });
+assert.equal(rqB('2026-10-06T01:00:00Z').session, '2026-10-02');
+assert.equal(rqB('2026-10-06T02:00:00Z').session, '2026-10-05');
+assert.equal(rqB('2026-10-06T02:00:00Z').next.requiredFrom, '2026-10-07T02:00:00Z');
+assert.equal(rqB('2027-01-05T15:00:00Z').covered, false);                  // 2027 calendar not published yet
 // New York clock → UTC (EDT in October, EST in December)
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-10-05', '16:00')).toISOString(), '2026-10-05T20:00:00.000Z');
 assert.equal(new Date(zonedToUtc('America/New_York', '2026-12-07', '16:00')).toISOString(), '2026-12-07T21:00:00.000Z');
@@ -85,6 +98,16 @@ assert.equal(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-06' }]).sta
 const un = px('2029-01-02T15:50:00Z', [{ name: 'a', date: '2028-12-29' }]);
 assert.equal(un.status, 'unverified'); assert.equal(un.expected, null); assert.equal(un.next, null); assert.deepEqual(un.series[0], { name: 'a', date: '2028-12-29', needed: null, ok: null });
 assert.deepEqual(px('2026-10-06T15:50:00Z', [{ name: 'a', date: '2026-10-02' }]).series[0], { name: 'a', date: '2026-10-02', needed: '2026-10-05', ok: false });
+// a BMV dashboard with its NYSE ADS as a second feed: on a Mexican holiday (16-Sep-2026, Wednesday) the ADS still needs
+// Wednesday's close while the listing needs Tuesday's; the row records the series' own exchange
+const pxB = (now, series) => priceVerdict({ exchange: 'BMV', now: t(now), settleHours: 5, series });
+assert.equal(pxB('2026-09-17T15:00:00Z', [{ name: 'home', date: '2026-09-15' }, { name: 'ads', date: '2026-09-16', exchange: 'NYSE' }]).status, 'ok');
+assert.equal(pxB('2026-09-17T15:00:00Z', [{ name: 'home', date: '2026-09-15' }, { name: 'ads', date: '2026-09-15', exchange: 'NYSE' }]).status, 'stale');
+assert.deepEqual(pxB('2026-09-17T15:00:00Z', [{ name: 'ads', date: '2026-09-15', exchange: 'nyse' }]).series[0], { name: 'ads', date: '2026-09-15', needed: '2026-09-16', ok: false, exchange: 'NYSE' });
+// on the US Independence Day holiday (3-Jul-2026 observed, a Friday) the ADS may trail while the BMV listing needs Friday's close
+assert.equal(pxB('2026-07-04T15:00:00Z', [{ name: 'home', date: '2026-07-03' }, { name: 'ads', date: '2026-07-02', exchange: 'NYSE' }]).status, 'ok');
+assert.equal(pxB('2027-01-05T15:00:00Z', [{ name: 'home', date: '2027-01-04' }, { name: 'ads', date: '2027-01-04', exchange: 'NYSE' }]).status, 'unverified');
+assert.equal(jsonDate({ latestClose: { 'GAPB-MX': '2026-10-05' } }, 'latestClose.GAPB-MX'), '2026-10-05');
 // readers
 assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n'), '2026-10-05');
 assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n2026-10-\n'), '2026-10-05');  // partial trailing line ignored
