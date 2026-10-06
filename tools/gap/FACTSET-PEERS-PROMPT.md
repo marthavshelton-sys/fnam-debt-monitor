@@ -4,9 +4,11 @@ Cloud routine **"FNAM Airports: FactSet peers refresh (cloud)"**, every night at
 8 PM ET; the minute is jittered off the hour as the scheduler recommends). It pulls the FactSet AI-Ready Data
 connector for GAP, ASUR, OMA and the four international peers, writes `tools/gap/raw/factset/latest.json`, rebuilds
 `site/gap/data/peers.js`, `site/asur/data/peers.js` and `site/oma/data/peers.js` and pushes to `main`. It edits nothing
-else. Routine id `trig_011SAh4eYS2gCw8LKP551Wkj` (created 2026-10-06 from a Claude Code session, which cannot attach
-connectors: the FactSet connector has to be attached to the Routine once on the claude.ai Routines page, as the Oracle
-FactSet routine has it; until then a run stops at STEP 2 and pushes a `peers-failed-<date>` branch). If the routine has
+else. Routine id `trig_011SAh4eYS2gCw8LKP551Wkj` (created 2026-10-06 from a Claude Code session, which can attach neither
+connectors nor repositories to a Routine: the FactSet connector was attached on the claude.ai Routines page the same
+day, and the repository `marthavshelton-sys/fnam-debt-monitor` has to be added there too; the first manual run
+(2026-10-06 11:10 UTC) pulled, built and validated everything but GitHub refused the push with 403 because the
+repository was not among the session's sources. STEP 1 carries a clone and an `add_repo` fallback for that case). If the routine has
 to be recreated, create it on that page with the FactSet connector attached and paste the block below as the prompt. The
 calls, file names and definitions are documented at the top of `scripts/lib/factset-peers.mjs`.
 
@@ -14,7 +16,7 @@ calls, file names and definitions are documented at the top of `scripts/lib/fact
 
 This is a fully autonomous nightly task for the airport models at https://fnam.mx/gap, /asur and /oma (repository marthavshelton-sys/fnam-debt-monitor, checked out in your working directory as a configured source, so pushes to main are authorised). No user is present; do not ask questions. Your final message must be one line. Use only the FactSet connector tools, the repository's scripts and git; never type a number into a data file yourself.
 
-STEP 1 — Sync: if the working directory holds no checkout of the repository, clone it first (`git clone https://github.com/marthavshelton-sys/fnam-debt-monitor.git && cd fnam-debt-monitor`); then `git fetch origin main && git checkout -b peers-$(date +%Y%m%d%H%M) origin/main` (a fresh branch from origin/main; never reset or fast-forward the checkout's own main). `git config user.name "Peers routine" && git config user.email "peers-routine@users.noreply.github.com"`. Set RUN=$(TZ=America/New_York date +%F) and FIVE=$(date -d "$RUN -5 years -6 weeks" +%F), THREE=$(date -d "$RUN -3 months -3 days" +%F), WEEK=$(date -d "$RUN -8 days" +%F). Empty the pull directory: `rm -rf tools/gap/raw/factset/pull && mkdir -p tools/gap/raw/factset/pull` (it is gitignored).
+STEP 1 — Sync: if the working directory holds no checkout of the repository, clone it first (`git clone https://github.com/marthavshelton-sys/fnam-debt-monitor.git && cd fnam-debt-monitor`); if the clone, the fetch or a later push is refused with 403 (the repository is not among this session's sources), call the add_repo tool once (owner marthavshelton-sys, repo fnam-debt-monitor, access push) and retry that command; then `git fetch origin main && git checkout -b peers-$(date +%Y%m%d%H%M) origin/main` (a fresh branch from origin/main; never reset or fast-forward the checkout's own main). `git config user.name "Peers routine" && git config user.email "peers-routine@users.noreply.github.com"`. Set RUN=$(TZ=America/New_York date +%F) and FIVE=$(date -d "$RUN -5 years -6 weeks" +%F), THREE=$(date -d "$RUN -3 months -3 days" +%F), WEEK=$(date -d "$RUN -8 days" +%F). Empty the pull directory: `rm -rf tools/gap/raw/factset/pull && mkdir -p tools/gap/raw/factset/pull` (it is gitignored).
 
 STEP 2 — FactSet calls. Generate one request_id uuid and reuse it. IDS = ["GAPB-MX","ASURB-MX","OMAB-MX","AENA-ES","FRA-DE","FHZN-CH","AIA-NZ"]. Every result must end up as a file in tools/gap/raw/factset/pull/ with exactly the name given: when the tool returns the JSON inline, write it to that file verbatim with the Write tool (the whole `{"data": [...]}` object); when the tool says the result was saved to a file, copy that file there with `cp`. Never retype or summarise a result. If a call fails with a rate limit, wait a minute and repeat it once.
 a) FactSet_GlobalPrices prices, ids IDS, startDate WEEK, endDate RUN, frequency D, currency LOCAL, fields ["price","volume"] → prices-recent-local.json
