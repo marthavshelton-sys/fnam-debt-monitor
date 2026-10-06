@@ -132,6 +132,14 @@ while (months.length && cur <= months.at(-1)) {
 const mk = await load(`../../site/${COMPANY}/data/market.js`);
 const main = { asur: 'ASURB.MX', oma: 'OMAB.MX' }[COMPANY];
 Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: { [main]: 400 } });
+// FactSet closes (the share-price authority since 2026-10-06, nightly routine): the home series must carry them and they must be recent
+{
+  const pv = ((mk.prices || {})[main] || {}).provenance, f = pv && pv.factset;
+  const after = (pv && pv.fill && pv.fill.after) || [];
+  Q.stale('FactSet closes (market.js)', f ? f.to : null, 5, f
+    ? { es: `${pv.authority} hasta ${f.to} (${f.points} cierres, descargados ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance cubre ${after.length} sesión(es) posterior(es)` : ''}`, en: `${pv.authority} through ${f.to} (${f.points} closes, pulled ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance fills ${after.length} later session(s)` : ''}` }
+    : { es: 'market.js sin cierres de FactSet: la serie es sólo Yahoo Finance', en: 'market.js carries no FactSet closes: Yahoo Finance only' });
+}
 const expQ = expectedQuarter(35), expM = expectedMonth(12);
 if (last) Q.period('latest quarter (financials.js)', last.id, expQ, ageDays(((last.sources || {}).is || {}).date));
 const lastM = traffic.months.at(-1);

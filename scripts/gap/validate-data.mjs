@@ -124,6 +124,14 @@ const mk = await load('../../site/gap/data/market.js');
 const rf = await loadJs('../../site/gap/data/reference.js', 'GAP_REF');
 const TODAY_ISO = new Date().toISOString().slice(0, 10);
 Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: {} });
+// FactSet closes (the share-price authority since 2026-10-06, nightly routine): the home series must carry them and they must be recent
+{
+  const pv = ((mk.prices || {})['GAPB.MX'] || {}).provenance, f = pv && pv.factset;
+  const after = (pv && pv.fill && pv.fill.after) || [];
+  Q.stale('FactSet closes (market.js)', f ? f.to : null, 5, f
+    ? { es: `${pv.authority} hasta ${f.to} (${f.points} cierres, descargados ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance cubre ${after.length} sesión(es) posterior(es)` : ''}`, en: `${pv.authority} through ${f.to} (${f.points} closes, pulled ${(f.pulledAt || '').slice(0, 16)}Z)${after.length ? `; Yahoo Finance fills ${after.length} later session(s)` : ''}` }
+    : { es: 'market.js sin cierres de FactSet: la serie es sólo Yahoo Finance', en: 'market.js carries no FactSet closes: Yahoo Finance only' });
+}
 // Dividends: the exchange record is compared with the latest AGM resolution, so an instalment not yet paid
 // inside its 12-month window reads as an outstanding balance, not as a stalled feed.
 {
@@ -160,7 +168,7 @@ const ra = ageDays(rf.updatedAt);
 Q.curated('reference.js', ra != null && ra <= 120, { es: `referencia revisada el ${rf.updatedAt || '?'} (hace ${ra} días)`, en: `reference facts last reviewed ${rf.updatedAt || '?'} (${ra} days ago)` });
 const pr = await loadJs('../../site/gap/data/peers.js', 'GAP_PEERS');
 const pa = ageDays(pr.pricesAsOf);
-Q.curated('peers.js', pa != null && pa <= 45, { es: `pares y consenso FactSet con precios al ${pr.pricesAsOf || '?'} (hace ${pa} días); se refresca a solicitud`, en: `FactSet peers and consensus with prices as of ${pr.pricesAsOf || '?'} (${pa} days ago); refreshed on request` });
+Q.curated('peers.js', pa != null && pa <= 45, { es: `pares y consenso FactSet con precios al ${pr.pricesAsOf || '?'} (hace ${pa} días); rutina nocturna`, en: `FactSet peers and consensus with prices as of ${pr.pricesAsOf || '?'} (${pa} days ago); nightly routine` });
 
 Q.card((fin.coverage || {}).releasesParsed, 'informes parseados', 'releases parsed');
 Q.card(traffic.months.length, 'meses de tráfico', 'traffic months');

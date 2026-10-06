@@ -2,6 +2,9 @@
 // Writes site/<company>/data/market.js as `window.<PREFIX>_MARKET = {...}`:
 //   prices     home listing (BMV, MXN), the US ADS, the two Mexican airport peers, the S&P/BMV IPC — Yahoo
 //              Finance chart API with a Stooq fallback; dividends = cash dividends per home share (Yahoo).
+//              Since 2026-10-06 FactSet's daily closes (tools/gap/raw/factset/prices.json, pulled nightly by the FactSet
+//              routine; scripts/lib/factset-prices.mjs) are overlaid on every share series: FactSet wins on every date it
+//              carries, Yahoo/Stooq fill only the sessions it has not posted yet. The index stays on Yahoo.
 //   fx         USD/MXN — Banxico SIE SF43718 (FIX rate, needs BANXICO_TOKEN; scripts/lib/banxico-fx.mjs), FRED DEXMXUS as fallback.
 //   rates      Mexico 10-year M bono (Banxico SIE SF44071 auction yield, FRED/OECD monthly as fallback; scripts/lib/banxico-mx10y.mjs)
 //              and US 10-year (FRED DGS10) — DCF inputs.
@@ -11,6 +14,7 @@ import { existsSync } from 'node:fs';
 import { fetchUsdMxn } from '../lib/banxico-fx.mjs';
 import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
 import { completedSessions } from '../lib/completed-sessions.mjs';
+import { loadFactSetPrices, overlayFactSet } from '../lib/factset-prices.mjs';
 
 const COMPANY = (process.argv.find((a) => a.startsWith('--company=')) || '').split('=')[1];
 const CONFIG = {
@@ -89,6 +93,8 @@ async function loadPrevious() {
 }
 async function main() {
   const prev = await loadPrevious();
+  const fsPrices = loadFactSetPrices(); // FactSet daily closes (the share-price authority since 2026-10-06): they win on every date they carry
+  if (fsPrices) console.log(`FactSet closes: ${Object.entries(fsPrices.series).map(([id, x]) => `${id} to ${x.to}`).join(', ')} (pulled ${fsPrices.pulledAt})`); else console.warn('FactSet closes: file missing, Yahoo/Stooq only');
   const out = { generatedAt: new Date().toISOString(), prices: {}, dividends: {}, fx: {}, rates: {} };
   let ok = 0, failed = 0;
   for (const s of cfg.prices) {
@@ -98,13 +104,15 @@ async function main() {
     if (data && data.points.length > 50) {
       ok++;
       data.points = completedSessions(data.points, { exchange: s.exchange }); // closes only: a bar dated today counts once that exchange has closed
-      out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, sessions: 'completed', points: data.points };
+      const entry = overlayFactSet({ name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, sessions: 'completed', points: data.points }, s.id, fsPrices);
+      out.prices[s.id] = entry;
       if (s.dividends) out.dividends[s.id] = { source: data.source, points: data.dividends };
-      console.log(`${s.id}: ${data.points.length} points via ${data.source} (last ${data.points.at(-1)})`);
+      console.log(`${s.id}: ${entry.points.length} points via ${entry.source} (last ${entry.points.at(-1)})`);
     } else {
       failed++;
       const stale = prev?.prices?.[s.id];
-      out.prices[s.id] = stale ? { ...stale, error: err || 'too few points', staleSince: stale.fetchedAt } : { name: s.name, currency: s.currency, exchange: s.exchange, error: err || 'too few points', points: [] };
+      const staleAt = stale && ((stale.provenance && stale.provenance.fill && stale.provenance.fill.fetchedAt) || stale.fetchedAt);
+      out.prices[s.id] = overlayFactSet(stale ? { ...stale, error: err || 'too few points', staleSince: staleAt } : { name: s.name, currency: s.currency, exchange: s.exchange, error: err || 'too few points', points: [] }, s.id, fsPrices);
       if (s.dividends) out.dividends[s.id] = prev?.dividends?.[s.id] || { points: [] };
       console.error(`${s.id}: FAILED ${err || 'too few points'}${stale ? ' (kept previous points)' : ''}`);
     }

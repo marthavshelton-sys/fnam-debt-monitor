@@ -65,6 +65,12 @@ dashboards, everything built from public data by GitHub Actions.
   The tables show NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages plus ADTV in US$ M, prices at the last
   completed close (owner, 2026-10-06); no trailing multiples. The connector cannot run FQL (FE_VALUATION etc.): the
   ratios are assembled from consensus_rolling NTMA, prices, shares_outstanding and FF_NET_DEBT / FF_MIN_INT_ACCUM.
+  The same routine pulls the daily closes of GAPB.MX, PAC, ASURB.MX, ASR, OMAB.MX and OMAB (last three months, merged
+  into the committed `tools/gap/raw/factset/prices.json`, history from 2015) and overlays them on the three `data/market.js`
+  (`scripts/lib/factset-prices.mjs ingest` + `apply`; both market fetchers apply the same overlay on every Actions run):
+  since 2026-10-06 FactSet Global Prices is the share-price authority of the airport pages (header, charts, EV, multiples,
+  DCF, decks); Yahoo/Stooq fill only the sessions FactSet has not posted yet, the S&P/BMV IPC (the connector rejects
+  index ids) and the dividend record. Page and deck source labels are composed from `provenance` in market.js.
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
@@ -281,7 +287,8 @@ dashboards, everything built from public data by GitHub Actions.
   `scripts/lib/completed-sessions.mjs`: a bar dated today counts only after that exchange's close in its own time zone
   (BMV 15:30 CDMX, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid), so a morning run never publishes
   an intraday quote as a "close". The header shows the close date and the fetch time in CDMX. FactSet cannot run in
-  GitHub Actions, so it is only an in-session cross-check.
+  GitHub Actions: the airport pages (GAP, ASUR, OMA) and Oracle get FactSet closes from their nightly cloud routines
+  (files committed to the repository and overlaid by the fetchers); for Quálitas and Gentera it is only an in-session cross-check.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
   release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
   `present-core.js`), never a hand-written date.
