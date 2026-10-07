@@ -1,0 +1,3 @@
+# Prefixes the link check skips (scripts/check-links.mjs): endpoints and identifiers that are not reader-facing links.
+# XML namespace URIs of the .xlsx container written by site/assets/xlsx-lite.js (identifiers, not pages).
+http://schemas.openxmlformats.org/

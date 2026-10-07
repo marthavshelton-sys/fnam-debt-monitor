@@ -227,6 +227,41 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   Since round 3 the Summary verdict and this box read the same helper (`priceNeeds()`): "the price needs a WACC of about
   X% (beta b)" plus the beta estimates on file whose value reaches about the price (within 3%: at 2026-10-04 the two
   Blume-adjusted betas, US$137 and US$141), never "justified only with".
+* **Projections first, every explicit year editable (owner, 2026-10-07).** The section opens with the cash-flow
+  projection table; its assumption rows are the inputs (one per fiscal year; stock-based compensation as one value) and the
+  cash flow, discounting and earnings bridge follow as functions of them. The fade rules for the years after the lever
+  years (growth halves to g, margin and D&A hold, capex intensity converges to k × D&A, customer funding fades to zero)
+  fill the table once when a scenario is built and are then just numbers the reader can change. Scenario buttons: FactSet
+  consensus, Management targets (the fourth row of the scenarios table), Bull, Bear, Base case, Reset assumptions. Base
+  case = FactSet consensus as it stands, by construction (the rule of 2026-10-04), so the first and last buttons load the
+  same figures; the note under the bar says so. Any edit makes the scenario Custom; Reset returns every input, the cost of
+  capital included, to the Base case. The scenario range, lease note and verdict still read the four presets.
+* **Earnings bridge and the consensus comparison (2026-10-07; FNAM calculation).** Beside the projections the page compares
+  revenue, adjusted EBITDA before stock-based compensation and non-GAAP EPS, for every fiscal year FactSet covers, with the
+  consensus mean and its number of estimates. EPS on the brokers' basis = [adjusted EBIT (adjusted EBITDA before SBC − D&A)
+  × (1 − the year's tax rate) − X] ÷ diluted shares, where X, the consensus-implied below-EBIT items after tax (net interest,
+  non-GAAP adjustments, tax-basis and share-count differences), is back-solved in each consensus year from FactSet's EPS,
+  EBITDA and D&A means (the model's D&A ratio on consensus revenue where FactSet has no D&A) on the model's share count and
+  tax path, and scales with revenue after the consensus years. The Base therefore reproduces consensus EPS to the rounding
+  of its inputs, and any other projection moves EPS by its after-tax adjusted-EBIT difference per share; no interest or
+  share-count path is invented. Labeled "FNAM calculation" wherever EPS is printed.
+* **DCF-implied target and the multiples it implies (2026-10-07).** The hero is labeled "DCF-implied target"; beneath it,
+  "Target-implied multiples": P/E = the target ÷ FactSet's NTM EPS mean, EV/EBITDA = the enterprise value behind the target
+  ÷ FactSet's NTM EBITDA mean (the same figure the outputs showed as the implied EV / NTM EBITDA).
+* **Excel export (2026-10-07).** "Download Excel" writes `oracle-dcf-<date>-<scenario>.xlsx` with two sheets, Projections and
+  DCF; every figure is a formula of the blue input cells and the file carries no cached values (Excel and LibreOffice
+  recalculate on open). The formulas mirror `dcfCompute`: the period mid-point is `ROUNDUP((start + end) / 2, 0)`, which
+  reproduces the page's calendar-day midpoint; the prepayment unwind is a `SUMPRODUCT` over the inflow table (projected
+  full-year prepayments plus the prior fiscal years reported) with the age test 1…L; the post-horizon unwind rows are
+  written for the L on screen; the terminal year, the bridge and the per-share value follow the page. The iterative
+  solutions (implied WACC, implied g, the margin shift and growth multiplier) are not reproduced. `scripts/oracle/
+  xlsx-check.mjs` recalculates a download with LibreOffice and compares 131 figures with the page (0 differences on
+  2026-10-07 for Base, Bear, Bull and the management target).
+* **Nothing typed that a new quarter would date (2026-10-07).** Quarter, fiscal-year, filing and long-range-target labels in
+  the page and the deck are composed from the data (`filingLabel` reads the EDGAR file name's date; `tenKInfo` the debt
+  book's 10-K; `TAX_FY` the key of `tax.json`; `lrTarget` the in-force revenue target; `prepayFact` and `prefDivPaid` the
+  period in the obligations keys; `nextQLabel` the quarter after the latest one); the instrument count and the
+  sources-and-uses years in the static copy are filled at render time.
 
 ## 9. Summary, sites and targets
 

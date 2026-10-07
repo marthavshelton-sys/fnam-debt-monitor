@@ -89,6 +89,36 @@ grid brackets it. Round 4: the Bull is the Bear's three levers at plan, capped a
 rule (contracted plan ± revenue difference × terminal intensity) applies to both cases; the recipes sit in a closed panel
 under the scenarios table; a manual edit of an operating input turns the scenario Custom.
 
+**2026-10-07 (owner's request: projections first, scenario buttons, consensus comparison, DCF-implied target, Excel).** The
+section opens with the `Cash-flow projections` card: every operating assumption by fiscal year is an input in the table
+itself (revenue growth, adjusted EBITDA margin before stock-based compensation, SBC as one input, D&A, gross capex,
+customer-funded share), for every explicit year. The fade rules that used to run inside the engine for years 6–N now fill the
+arrays once when a scenario is built (`extendPath`, same arithmetic; growth rounded to 0.1 pp), and `dcfCompute` reads the
+arrays as they stand, so any cell can be edited. `renderDcfTable` builds the table once per scenario and `updateDcfTable`
+refreshes the computed cells in place after every edit (typing never loses focus); the cash flow, discounting and an
+earnings bridge sit beneath the inputs. Scenario bar (`renderScenarioBar`): FactSet consensus · Management targets · Bull ·
+Bear · Base case · Reset assumptions; the Base case is FactSet consensus as it stands (the owner's rule of 2026-10-04), so
+the first and last buttons load the same figures and the note under the bar says so; every scenario is built on the
+consensus basis and carries the cost-of-capital, tax, lease and terminal inputs on screen; Reset returns everything to the
+Base case. The inputs card keeps the frame (basis, explicit years, unwind, leases), taxes, cost of capital and terminal
+value. Beside the projections: `Projection against FactSet consensus` (`renderDcfCons`: revenue, adjusted EBITDA before SBC
+and non-GAAP EPS for the fiscal years FactSet covers, the consensus mean with its number of estimates, the difference) and
+the `DCF-implied target` card (hero + "Target-implied multiples: P/E on FactSet NTM EPS · EV / NTM EBITDA", the output
+tiles, the acceptance statement). EPS comes from the earnings bridge (METHODOLOGY.md §8: adjusted EBIT after tax less the
+consensus-implied below-EBIT items, an FNAM calculation labeled as such). `Download Excel` (`dcfWorkbook` +
+`site/assets/xlsx-lite.js`, a dependency-free .xlsx writer: the CSP allows no third-party script) writes two sheets,
+Projections and DCF, every figure a live formula of the blue input cells (no cached values; Excel and LibreOffice
+recalculate on open). `scripts/oracle/xlsx-check.mjs` downloads the file in both languages, recalculates it with LibreOffice
+headless and compares 131 figures (every year's revenue, taxes, prepayments, unwind, FCF, tax rate, bridge items, EPS,
+discount factors and PV; terminal year; WACC; PV totals; EV; equity; target; implied multiples) with the page's model;
+`--preset bear|bull|mgmt` checks another scenario. The heading of the "what has to be true" table's needed-margin column
+wraps inside a 230 px span (about half its former width). Nothing on the page names a quarter, fiscal year, filing or
+long-range target by hand any more: `fyLab`, `qIdLabel`, `qLabelOfDate`, `nextQLabel`, `lrTarget`/`lrFyLabel`,
+`filingLabel` (from the EDGAR file name's date), `latestObSrc`, `tenKInfo`/`tenKLabel`, `TAX_FY`/`taxFyLabel` (from the key
+of `tax.json`), `prepayFact`, `prefDivPaid`, `atmQuarter`, `fundingWindow`, `cmtNoteText`; the static copy's instrument count
+and sources-and-uses years are filled at render time (`#instrCountEs/En`, `#suYearsEs/En`, `#suRangeEs/En`). The deck's
+source lines read the same helpers through `window.ORCL_MODEL`.
+
 ## Analyst opinions (Reference R3, 2026-10-05)
 
 The section shows what the sell side publishes on Oracle, by research house: the reports dated inside a 60-day window in
@@ -126,7 +156,16 @@ count exceeds the ceiling (the owner's rule: it must not grow by more than 3%; t
 count, so new material goes into collapsed panels; baselines measured 2026-10-04 before round 4: EN 26,557, ES 29,710). Round 4
 added the phone rules: every control at least 44 px tall, DCF inputs at 16 px or more, nothing fixed over the sticky nav, the
 verdict and the six-box chain inside the first screen at 390 and 360 px, and a manual edit of an operating input switching the
-scenario to Custom. `--shots <dir>` saves screenshots. Run it before pushing a page change.
+scenario to Custom. `--shots <dir>` saves screenshots. Run it before pushing a page change. Since 2026-10-07 it also checks that the projections
+card is the first card of the DCF section with an input per assumption and explicit year, six scenario-bar buttons, the
+consensus comparison (twelve rows with estimate counts), the DCF-implied target with its multiples, the Excel button and writer,
+the needed-margin heading at about half its former width, and that the manual edit it makes in the projection table turns the
+scenario Custom.
+
+`node scripts/oracle/xlsx-check.mjs [--base …] [--out <dir>] [--preset bear|bull|mgmt]` (2026-10-07) downloads the DCF
+workbook from the served page in both languages, recalculates it with LibreOffice headless (`soffice`, own profile
+directory) and compares every figure with the page's model through Python/openpyxl; it fails on any difference beyond
+rounding. Run it with the render check before pushing a change to the DCF engine, the projection table or the writer.
 
 `node scripts/oracle/deck-check.mjs [--out <dir>] [--shots <dir>]` builds the board presentation in both languages from the
 served page (Playwright clicks the PDF button), saves the PDFs and fails when the build throws (the builder refuses to save a

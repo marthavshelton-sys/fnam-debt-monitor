@@ -72,7 +72,7 @@ for (const c of configs) {
     if (window.innerWidth <= 760) {
       const ctl = [...document.querySelectorAll("button, select, input:not(label.switch input), summary, nav.jump a, .chip, #secMenu a, .sec-toggle, label.switch")].filter(visible);
       out.smallCtl = ctl.filter((e) => e.getBoundingClientRect().height < 43.5).map((e) => `${e.tagName.toLowerCase()}${e.id ? "#" + e.id : ""}.${[...e.classList].slice(0, 2).join(".")} ${Math.round(e.getBoundingClientRect().height)}px`).slice(0, 5);
-      out.smallInputs = [...document.querySelectorAll("#dcfInputs input, #dcfInputs select")].filter((e) => parseFloat(getComputedStyle(e).fontSize) < 16).length;
+      out.smallInputs = [...document.querySelectorAll("#dcfInputs input, #dcfInputs select, #dcfTable input")].filter((e) => parseFloat(getComputedStyle(e).fontSize) < 16).length;
       const nav = document.querySelector("nav.jump").getBoundingClientRect();
       out.overNav = [...document.querySelectorAll("*")].filter((e) => getComputedStyle(e).position === "fixed" && visible(e) && e !== document.querySelector("nav.jump") && !e.closest("nav.jump")).filter((e) => { const r2 = e.getBoundingClientRect(); return r2.bottom > nav.top && r2.top < nav.bottom && r2.width > 0; }).map((e) => `${e.tagName.toLowerCase()}#${e.id}.${[...e.classList].join(".")}`);
     }
@@ -118,15 +118,25 @@ for (const c of configs) {
     await page.click('#dcf .sec-toggle');
     // the Bear preset changes the value and the on-screen label
     const before = await page.evaluate(() => document.getElementById("dcfHero").textContent);
-    await page.click('#dcfInputs button.preset[data-preset="bear"]'); await page.waitForTimeout(300);
+    await page.click('#dcf button.preset[data-preset="bear"]'); await page.waitForTimeout(300);
     const after = await page.evaluate(() => ({ v: document.getElementById("dcfHero").textContent, l: document.getElementById("dcfHeroLbl").textContent }));
     if (after.v === before || !/Bear|Pesimista/.test(after.l)) f(`bear preset did not apply (${before} → ${after.v})`);
-    await page.click('#dcfInputs button.preset[data-preset="base"]'); await page.waitForTimeout(200);
-    // a manual edit of an operating input turns the scenario Custom: no highlighted preset, a Custom badge, the hero label says so
-    await page.fill('#dcfInputs input[data-k="margin"][data-i="1"]', '55'); await page.waitForTimeout(250);
-    const custom = await page.evaluate(() => ({ primary: document.querySelectorAll('#dcfInputs button.preset.primary').length, badge: (document.querySelector('#dcfInputs .presets .badge') || {}).textContent || '', lbl: document.getElementById('dcfHeroLbl').textContent }));
+    await page.click('#dcf button.preset[data-preset="base"]'); await page.waitForTimeout(200);
+    // a manual edit of an operating input (in the projection table since 2026-10-07) turns the scenario Custom: no highlighted preset, a Custom badge, the hero label says so
+    await page.fill('#dcfTable input[data-k="margin"][data-i="1"]', '55'); await page.waitForTimeout(250);
+    const custom = await page.evaluate(() => ({ primary: document.querySelectorAll('#dcf button.preset.primary').length, badge: (document.querySelector('#dcf .presets .badge') || {}).textContent || '', lbl: document.getElementById('dcfHeroLbl').textContent }));
     if (custom.primary !== 0 || !/Custom|Personalizado/.test(custom.badge) || !/Custom|Personalizado/.test(custom.lbl)) f(`manual edit did not switch the scenario to Custom: ${JSON.stringify(custom)}`);
-    await page.click('#dcfInputs button.preset[data-preset="base"]'); await page.waitForTimeout(200);
+    await page.click('#dcf button.preset[data-preset="base"]'); await page.waitForTimeout(200);
+    // 2026-10-07: the projections open the section with every explicit year editable, the consensus comparison carries three
+    // metrics with estimate counts, the hero is the DCF-implied target with its implied multiples, the Excel button is wired
+    const top = await page.evaluate(() => { const M = window.ORCL_MODEL; const d = M.dcfNow(); return { inputs: document.querySelectorAll('#dcfTable input').length, N: d.s.N, buttons: document.querySelectorAll('#dcfScenarioBar button').length, cons: document.querySelectorAll('#dcfCons tbody tr').length, est: (document.querySelector('#dcfCons') || {}).textContent || '', heroK: (document.getElementById('dcfHeroK') || {}).textContent || '', mult: (document.getElementById('dcfHeroMult') || {}).textContent || '', xlsx: !!document.getElementById('dcfXlsx') && !!window.FNAM_XLSX, firstCard: (document.querySelector('#dcf .card') || {}).id, truthW: (() => { const th = document.querySelector('#dcfTruth thead th:nth-child(3)'); return th ? Math.round(th.getBoundingClientRect().width) : 0; })() }; });
+    if (top.inputs < 5 * top.N + 1) f(`projection table has ${top.inputs} inputs for ${top.N} years`);
+    if (top.buttons !== 6) f(`${top.buttons} scenario buttons (expected 5 scenarios + reset)`);
+    if (top.cons !== 12 || !/est\./.test(top.est)) f(`consensus comparison incomplete (${top.cons} rows)`);
+    if (!/DCF-implied target|Objetivo implícito por el DCF/.test(top.heroK) || !/NTM EPS|UPA NTM/.test(top.mult)) f(`hero is not the DCF-implied target with its multiples (${top.heroK} / ${top.mult})`);
+    if (!top.xlsx) f('Excel export button or writer missing');
+    if (top.firstCard !== 'dcfProjCard') f(`the projections are not the first card of the DCF section (${top.firstCard})`);
+    if (c.vp[0] >= 1280 && (top.truthW < 150 || top.truthW > 270)) f(`needed-margin heading width ${top.truthW}px (expected about half the former 469px)`);
     await page.evaluate(() => window.scrollTo(0, 4000)); await page.waitForTimeout(250);
     if (!(await page.evaluate(() => document.getElementById("toTop").classList.contains("show")))) f("back-to-top control not shown after scrolling");
   }

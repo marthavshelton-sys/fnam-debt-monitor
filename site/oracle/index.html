@@ -172,7 +172,7 @@ section.block:first-of-type{border-top:none;}
 @media (max-width:900px){.grid-2,.grid-2.rev,.grid-2.eq{grid-template-columns:1fr;} .grid-3{grid-template-columns:1fr;}}
 
 .card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
-.grid-2 > *, .grid-3 > *, .dcf-grid > *{min-width:0;}
+.grid-2 > *, .grid-3 > *, .dcf-grid > *, .dcf-top > *, .dcf-side > *{min-width:0;}
 .tblwrap{min-width:0;}
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:var(--sans);}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
@@ -275,6 +275,23 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .callout.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}}
 #dcfTable td, #dcfTable th{white-space:nowrap;}
 #dcfTable table{font-size:12px;} #dcfTable td, #dcfTable th{padding:5px 6px;}
+/* DCF rework (owner, 2026-10-07): the projections open the section, the consensus comparison and the DCF-implied target sit beside them */
+.dcf-top{display:grid; grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr); gap:20px; margin-top:22px;}
+@media (max-width:1100px){.dcf-top{grid-template-columns:1fr;}}
+.dcf-top .out-grid{grid-template-columns:repeat(2,1fr);}
+.hero .hk{font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:4px;}
+.hero .l.mult{color:var(--text-secondary); font-weight:600;}
+#dcfTable tr.inp-row td{background:var(--surface-2);}
+#dcfTable td.in{padding:3px 4px;}
+#dcfTable input[type=number]{width:66px; min-width:0; padding:3px 4px; font-size:11.5px; text-align:right; border:1px solid var(--border-strong); border-radius:5px; background:var(--surface); color:var(--text-primary); font-variant-numeric:tabular-nums;}
+#dcfTable td.ro{color:var(--muted);}
+#dcfTable td:first-child{white-space:normal; min-width:210px; max-width:300px; line-height:1.3;}
+#dcfTable td .sub{white-space:normal;}
+.dcf-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+#dcfCons td:first-child{white-space:normal; min-width:120px;}
+/* "What has to be true": the needed-margin heading wraps to about half its former width (owner, 2026-10-07) */
+#dcfTruth th{vertical-align:bottom;}
+#dcfTruth th .thwrap{display:inline-block; max-width:230px; white-space:normal; line-height:1.3; text-align:right;}
 .inp select{max-width:190px;}
 
 /* ---------- Summary / guidance / timeline ---------- */
@@ -358,8 +375,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   .sec-desc, .prose, .prose p, .sum-grid ul, .callout, .fact-grid, .timeline li{font-size:14pt !important; max-width:none !important; line-height:1.5;}
   .cap{font-size:12pt !important;} .small{font-size:11.5pt !important;}
   .card{break-inside:avoid; page-break-inside:avoid; box-shadow:none !important; border:1px solid #bbb; padding:12pt 14pt 10pt; margin-top:10pt;}
-  .grid-2, .grid-3, .sum-grid, .fact-grid, .dcf-grid, .src-grid{display:block !important;}
-  .grid-2 > *, .grid-3 > *, .sum-grid > *, .dcf-grid > *{margin-top:10pt;}
+  .grid-2, .grid-3, .sum-grid, .fact-grid, .dcf-grid, .dcf-top, .src-grid{display:block !important;}
+  .grid-2 > *, .grid-3 > *, .sum-grid > *, .dcf-grid > *, .dcf-top > *{margin-top:10pt;}
   .fact-grid{display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10pt;} .fact .v{font-size:22pt;} .fact .l{font-size:11.5pt;}
   .stat-row{gap:16pt 28pt;} .stat .v{font-size:24pt;} .stat .l{font-size:11.5pt;}
   .chart-wrap{height:2.6in !important; margin-top:6pt;} canvas{max-width:100% !important;}
@@ -623,6 +640,9 @@ table.mw td{white-space:normal; vertical-align:top;}
   nav.jump a{padding:0 13px;} .seg button{padding:0 12px;} .chip{padding:0 12px;} .sec-toggle{padding:0 12px;} details.tbl summary{display:flex;} #secMenu a{display:flex;}
   select, input[type=number], input[type=text], .inp select, .inp input[type=number], .controls select{min-height:44px; font-size:16px; padding:6px 10px;}
   .inp.years .row5 input{font-size:16px; padding:6px 2px; min-height:44px;}
+  #dcfTable input[type=number]{width:88px; font-size:16px; padding:6px 4px; min-height:44px;}
+  .hero .hk{font-size:12px;} .dcf-actions .btn{white-space:normal; text-align:left; line-height:1.3; max-width:100%; padding-top:6px; padding-bottom:6px;} #dcfScenarioBar .btn{white-space:normal; text-align:left; line-height:1.3;}
+  #dcfTable td:first-child{min-width:150px; max-width:190px;} #dcfCons td:first-child{min-width:96px;}
   .inp.years .row5{gap:3px;}
   .inp{grid-template-columns:1fr;} .inp .name{margin-bottom:2px;} .inp select{max-width:100%; width:100%;} .inp input[type=number]{width:100%; text-align:left;}
   .switch input{width:44px; height:26px;} .switch input:after{width:22px; height:22px;} .switch input:checked:after{left:20px;}
@@ -916,8 +936,8 @@ table.mw td{white-space:normal; vertical-align:top;}
   <section class="block" id="financing" data-sec="financing">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Cómo se paga la expansión. Deuda neta (deuda total menos efectivo e inversiones) frente al EBITDA de los últimos doce meses; el plan de financiamiento anunciado y lo ejecutado (bonos, preferentes convertibles, emisión de capital); una tabla de <b>fuentes y usos</b> AF2027–AF2030 construida con el consenso de FactSet, los dividendos y los vencimientos, conciliada con la brecha de US$ 20 mil millones que Oracle dijo que falta por levantar; y los dividendos. Las calificaciones, los vencimientos y el apalancamiento frente a pares están en la sección de crédito.</span>
-      <span class="en" hidden>How the buildout is paid for. Net debt (total debt less cash and investments) against last-twelve-month EBITDA; the funding plan announced and executed (bonds, mandatory convertible preferred, equity issuance); a <b>sources and uses</b> table for FY2027–FY2030 built from FactSet consensus, dividends and maturities, reconciled to the US$ 20 bn gap Oracle said it still has to raise; and the dividends. Ratings, maturities and leverage against peers are in the credit section.</span>
+      <span class="es">Cómo se paga la expansión. Deuda neta (deuda total menos efectivo e inversiones) frente al EBITDA de los últimos doce meses; el plan de financiamiento anunciado y lo ejecutado (bonos, preferentes convertibles, emisión de capital); una tabla de <b>fuentes y usos</b> <span id="suYearsEs">AF2027–AF2030</span> construida con el consenso de FactSet, los dividendos y los vencimientos, conciliada con la brecha de US$ 20 mil millones que Oracle dijo que falta por levantar; y los dividendos. Las calificaciones, los vencimientos y el apalancamiento frente a pares están en la sección de crédito.</span>
+      <span class="en" hidden>How the buildout is paid for. Net debt (total debt less cash and investments) against last-twelve-month EBITDA; the funding plan announced and executed (bonds, mandatory convertible preferred, equity issuance); a <b>sources and uses</b> table for <span id="suYearsEn">FY2027–FY2030</span> built from FactSet consensus, dividends and maturities, reconciled to the US$ 20 bn gap Oracle said it still has to raise; and the dividends. Ratings, maturities and leverage against peers are in the credit section.</span>
     </p>
     <p class="sec-meta" id="fundingMeta"></p>
     <!-- Owner's review 2026-10-06: the two charts side by side, the funding-plan table beneath them at full width -->
@@ -941,7 +961,7 @@ table.mw td{white-space:normal; vertical-align:top;}
       <p class="chart-src" id="dpsCapitalSrc"></p>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Fuentes y usos de efectivo, AF2027–AF2030 (consenso y compromisos conocidos)</span><span class="en" hidden>Sources and uses of cash, FY2027–FY2030 (consensus and known commitments)</span></h3>
+      <h3><span class="es">Fuentes y usos de efectivo, <span id="suRangeEs">AF2027–AF2030</span> (consenso y compromisos conocidos)</span><span class="en" hidden>Sources and uses of cash, <span id="suRangeEn">FY2027–FY2030</span> (consensus and known commitments)</span></h3>
       <p class="cap" id="suCap"></p>
       <div class="tblwrap" id="suTable"></div>
       <div class="callout" id="suNote"></div>
@@ -1025,8 +1045,8 @@ table.mw td{white-space:normal; vertical-align:top;}
   <section class="block" id="credit" data-sec="credit">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Lo que ven los acreedores. Las calificaciones de las tres agencias con la fecha de su última acción; el calendario de vencimientos frente al efectivo; los 58 instrumentos de la nota de deuda del último 10-K; el CDS a 5 años cuando exista una serie; el apalancamiento ajustado por arrendamientos frente a los emisores tecnológicos del rango Baa/BBB y frente a los hiperescaladores del hub, con las mismas definiciones y niveles de fuente que usa el hub.</span>
-      <span class="en" hidden>What creditors see. The three agencies' ratings with the date of their latest action; the maturity schedule against cash; the 58 instruments of the latest 10-K debt footnote; the 5-year CDS once a series exists; lease-adjusted leverage against the Baa/BBB-range technology issuers and against the hyperscalers on the hub, with the same definitions and source tiers the hub uses.</span>
+      <span class="es">Lo que ven los acreedores. Las calificaciones de las tres agencias con la fecha de su última acción; el calendario de vencimientos frente al efectivo; los <span id="instrCountEs">58</span> instrumentos de la nota de deuda del último 10-K; el CDS a 5 años cuando exista una serie; el apalancamiento ajustado por arrendamientos frente a los emisores tecnológicos del rango Baa/BBB y frente a los hiperescaladores del hub, con las mismas definiciones y niveles de fuente que usa el hub.</span>
+      <span class="en" hidden>What creditors see. The three agencies' ratings with the date of their latest action; the maturity schedule against cash; the <span id="instrCountEn">58</span> instruments of the latest 10-K debt footnote; the 5-year CDS once a series exists; lease-adjusted leverage against the Baa/BBB-range technology issuers and against the hyperscalers on the hub, with the same definitions and source tiers the hub uses.</span>
     </p>
     <p class="sec-meta" id="creditMeta"></p>
     <!-- Owner's review 2026-10-06: the two charts side by side, the tables beneath them at full width -->
@@ -1193,23 +1213,42 @@ table.mw td{white-space:normal; vertical-align:top;}
     </div>
   </section>
 
-  <!-- DISCOUNTED CASH FLOW (own section since 2026-10-03; not in the board deck) -->
+  <!-- DISCOUNTED CASH FLOW (own section since 2026-10-03; not in the board deck; the projections open it since 2026-10-07) -->
   <section class="block" id="dcf" data-sec="dcf">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Flujo libre a la firma por año fiscal de Oracle. Cuatro filas de escenario (pesimista, base = consenso, optimista con tope en el objetivo de la administración, y el objetivo de la administración como variante aparte), una tasa de impuestos normalizada, el tratamiento de los arrendamientos no iniciados y una prueba que dice qué tiene que ser cierto para justificar el precio. Ingresos, EBITDA, D&amp;A y capex siguen el <b>consenso de FactSet</b> (o los objetivos de la administración); el EBITDA ajustado de los brokers se reduce por la <b>compensación en acciones</b>. Los <b>prepagos de clientes</b> compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato. El año en curso es un <b>periodo parcial</b>: excluye los trimestres ya reportados, cuyo efectivo está en la deuda neta. Los flujos se descuentan a <b>mitad de periodo</b> a la fecha del último cierre; el capex terminal se normaliza a un múltiplo de la D&amp;A. Todo es editable y el escenario queda en la URL.</span>
-      <span class="en" hidden>Unlevered free cash flow by Oracle fiscal year. Four scenario rows (Bear, Base = consensus, Bull capped at management's target, and the management target as a separate variant), a normalized tax rate, the treatment of the uncommenced leases and a test that says what has to be true to justify the price. Revenue, EBITDA, D&amp;A and capex follow <b>FactSet consensus</b> (or management's targets); the brokers' adjusted EBITDA is reduced by <b>stock-based compensation</b>. <b>Customer prepayments</b> offset capex when received and unwind as revenue without cash over the contract term. The current year is a <b>stub</b>: it excludes the quarters already reported, whose cash is in net debt. Flows are discounted at <b>mid-period</b> to the latest close; terminal capex is normalized to a multiple of D&amp;A. Everything is editable and the scenario is kept in the URL.</span>
+      <span class="es">Flujo libre a la firma por año fiscal de Oracle. La sección abre con la <b>proyección de flujos</b>: cada supuesto por año (crecimiento, margen, compensación en acciones, D&amp;A, capex, financiamiento de clientes) es editable, los botones cargan el consenso de FactSet, los objetivos de la administración, el optimista, el pesimista o el caso base, y "Restablecer supuestos" vuelve al caso base; todo alimenta el DCF. A su derecha, la proyección frente al <b>consenso de FactSet</b> (ingresos, EBITDA y UPA, con el número de estimaciones) y el <b>objetivo implícito por el DCF</b> con los múltiplos que implica. Debajo: el costo de capital, los impuestos (tasa normalizada), el tratamiento de los arrendamientos no iniciados, el puente al valor por acción, las betas, los escenarios y la prueba que dice qué tiene que ser cierto para justificar el precio. El EBITDA ajustado de los brokers se reduce por la <b>compensación en acciones</b>; los <b>prepagos de clientes</b> compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato; el año en curso es un <b>periodo parcial</b> que excluye los trimestres ya reportados; los flujos se descuentan a <b>mitad de periodo</b> a la fecha del último cierre; el capex terminal se normaliza a un múltiplo de la D&amp;A. El escenario queda en la URL y se descarga en Excel con sus fórmulas.</span>
+      <span class="en" hidden>Unlevered free cash flow by Oracle fiscal year. The section opens with the <b>cash-flow projections</b>: every assumption by year (growth, margin, stock-based compensation, D&amp;A, capex, customer funding) is editable, the buttons load FactSet consensus, management's targets, Bull, Bear or the Base case, and "Reset assumptions" returns to the Base case; everything feeds the DCF. Beside it, the projection against <b>FactSet consensus</b> (revenue, EBITDA and EPS, with the number of estimates) and the <b>DCF-implied target</b> with the multiples it implies. Below: the cost of capital, taxes (normalized rate), the treatment of the uncommenced leases, the bridge to value per share, the betas, the scenarios and the test that says what has to be true to justify the price. The brokers' adjusted EBITDA is reduced by <b>stock-based compensation</b>; <b>customer prepayments</b> offset capex when received and unwind as revenue without cash over the contract term; the current year is a <b>stub</b> that excludes the quarters already reported; flows are discounted at <b>mid-period</b> to the latest close; terminal capex is normalized to a multiple of D&amp;A. The scenario is kept in the URL and downloads to Excel with its formulas.</span>
     </p>
-    <div class="dcf-grid">
-      <div class="card inputs" id="dcfInputs"></div>
-      <div>
+    <div class="dcf-top">
+      <div class="card" id="dcfProjCard">
+        <h3><span class="es">Proyección de flujos: supuestos editables por año fiscal</span><span class="en" hidden>Cash-flow projections: editable assumptions by fiscal year</span></h3>
+        <p class="cap" id="dcfTableCap"></p>
+        <div class="presets" id="dcfScenarioBar"></div>
+        <p class="small muted" id="dcfScenarioNote" style="margin:6px 0 0"></p>
+        <div class="tblwrap pin1" id="dcfTable"></div>
+        <div class="dcf-actions"><button type="button" class="btn" id="dcfXlsx"><span class="es">Descargar Excel (proyección + DCF, con fórmulas)</span><span class="en" hidden>Download Excel (projections + DCF, with formulas)</span></button><button type="button" class="btn" id="dcfCopy"><span class="es">Copiar enlace del escenario</span><span class="en" hidden>Copy scenario link</span></button></div>
+        <p class="chart-src" id="dcfTableSrc"></p>
+      </div>
+      <div class="dcf-side">
         <div class="card">
-          <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
+          <h3><span class="es">Proyección frente al consenso de FactSet</span><span class="en" hidden>Projection against FactSet consensus</span></h3>
+          <p class="cap" id="dcfConsCap"></p>
+          <div class="tblwrap" id="dcfCons"></div>
+          <p class="chart-src" id="dcfConsSrc"></p>
+        </div>
+        <div class="card" style="margin-top:20px">
+          <div class="hero"><div class="hk" id="dcfHeroK"></div><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div><div class="l mult" id="dcfHeroMult"></div></div>
           <div class="out-grid" id="dcfOutputs"></div>
           <div class="callout" id="dcfCheck"></div>
           <p class="chart-src" id="dcfOutSrc"></p>
         </div>
-        <div class="card" style="margin-top:20px">
+      </div>
+    </div>
+    <div class="dcf-grid">
+      <div class="card inputs" id="dcfInputs"></div>
+      <div>
+        <div class="card">
           <h3><span class="es">Del valor de la empresa al valor por acción</span><span class="en" hidden>From enterprise value to value per share</span></h3>
           <p class="cap"><span class="es">US$ millones salvo acciones y valor por acción</span><span class="en" hidden>US$ million except shares and value per share</span></p>
           <div class="tblwrap" id="dcfBridge"></div>
@@ -1243,11 +1282,6 @@ table.mw td{white-space:normal; vertical-align:top;}
         <div id="dcfLeaseNote"></div>
         <p class="chart-src" id="dcfLeaseSrc"></p>
       </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Proyección de flujos</span><span class="en" hidden>Cash-flow projection</span></h3>
-      <p class="cap" id="dcfTableCap"></p>
-      <div class="tblwrap" id="dcfTable"></div>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
@@ -1531,6 +1565,7 @@ table.mw td{white-space:normal; vertical-align:top;}
 <button type="button" id="toTop" aria-label="Back to top / Volver arriba">↑ <span class="es">Arriba</span><span class="en" hidden>Top</span></button>
 
 <script src="/assets/data-status.js" defer></script>
+<script src="/assets/xlsx-lite.js" defer></script>
 <script src="app.js" defer></script>
 <script src="/assets/present-core.js" defer></script>
 <script src="present.js" defer></script>
