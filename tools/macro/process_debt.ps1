@@ -8,7 +8,7 @@
 #   sector's debt securities alone (its loans are the remainder).
 #   Nominal GDP (BEA, $ billions, SAAR) for the ratios, as the Z.1's own table D.3 does.
 # Every id is checked against its FRED title before it is used (common.ps1,
-# Get-FredChecked), and the sector sums are checked against the Z.1's own identities.
+# Get-FredChecked), and the sector totals are checked against the sum of their components.
 . "$PSScriptRoot\common.ps1"
 $from = "1952-01-01"   # the Z.1's quarterly series start here; earlier points are annual
 
@@ -48,16 +48,21 @@ foreach ($q in $quarters) {
 $last = $rows[$rows.Count - 1]
 Write-Output ("Z.1 debt: {0} quarters, {1} .. {2}; households {3}B, nonfinancial corporate {4}B, domestic nonfinancial {5}B, GDP {6}B" -f $rows.Count, $rows[0].d, $last.d, $last.hh, $last.nfc, $last.dnf, $last.gdp)
 
-# ---- the Z.1's own identities (table D.3): business = corporate + noncorporate; domestic
-# nonfinancial = households + business + federal + state and local. Tolerance covers the
-# rounding of each component to $0.1 billion.
-$bad1 = @($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb -and [math]::Abs($_.bus - ($_.nfc + $_.nnb)) -gt 0.5 })
-$bad2 = @($rows | Where-Object { $null -ne $_.dnf -and $null -ne $_.hh -and $null -ne $_.bus -and $null -ne $_.fed -and $null -ne $_.sl -and [math]::Abs($_.dnf - ($_.hh + $_.bus + $_.fed + $_.sl)) -gt 0.5 })
+# ---- plausibility bands on the Z.1's sector totals (table D.3): business ~ corporate +
+# noncorporate; domestic nonfinancial ~ households + business + federal + state and local.
+# The published totals are not exact sums of the FRED component series (the Fed's
+# consolidation leaves gaps of up to 0.05% for business and 0.4% for the domestic
+# nonfinancial total, 7-Oct-2026), so the bands are 0.2% and 1%: wide enough for that,
+# far too narrow for a wrong series. Corporate debt securities must not exceed corporate debt.
+$bad1 = @($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb -and [math]::Abs($_.bus - ($_.nfc + $_.nnb)) -gt [math]::Max(0.5, 0.002 * $_.bus) })
+$bad2 = @($rows | Where-Object { $null -ne $_.dnf -and $null -ne $_.hh -and $null -ne $_.bus -and $null -ne $_.fed -and $null -ne $_.sl -and [math]::Abs($_.dnf - ($_.hh + $_.bus + $_.fed + $_.sl)) -gt [math]::Max(0.5, 0.01 * $_.dnf) })
 $bad3 = @($rows | Where-Object { $null -ne $_.nfcSec -and $null -ne $_.nfc -and $_.nfcSec -gt $_.nfc })
-if ($bad1.Count) { throw ("Z.1 identity business = corporate + noncorporate fails for {0} quarters (first {1}: {2} vs {3} + {4})" -f $bad1.Count, $bad1[0].d, $bad1[0].bus, $bad1[0].nfc, $bad1[0].nnb) }
-if ($bad2.Count) { throw ("Z.1 identity domestic nonfinancial = households + business + governments fails for {0} quarters (first {1})" -f $bad2.Count, $bad2[0].d) }
+if ($bad1.Count) { throw ("Z.1 business debt differs from corporate + noncorporate by more than 0.2% in {0} quarters (first {1}: {2} vs {3} + {4})" -f $bad1.Count, $bad1[0].d, $bad1[0].bus, $bad1[0].nfc, $bad1[0].nnb) }
+if ($bad2.Count) { throw ("Z.1 domestic nonfinancial debt differs from households + business + governments by more than 1% in {0} quarters (first {1})" -f $bad2.Count, $bad2[0].d) }
 if ($bad3.Count) { throw ("nonfinancial corporate debt securities exceed total debt in {0} quarters" -f $bad3.Count) }
-Write-Output ("identities: business = corporate + noncorporate and domestic nonfinancial = sectors: OK for all {0} quarters" -f $rows.Count)
+$gap1 = ($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb } | ForEach-Object { [math]::Abs($_.bus - ($_.nfc + $_.nnb)) / $_.bus * 100 } | Measure-Object -Maximum).Maximum
+$gap2 = ($rows | Where-Object { $null -ne $_.dnf -and $null -ne $_.hh -and $null -ne $_.bus -and $null -ne $_.fed -and $null -ne $_.sl } | ForEach-Object { [math]::Abs($_.dnf - ($_.hh + $_.bus + $_.fed + $_.sl)) / $_.dnf * 100 } | Measure-Object -Maximum).Maximum
+Write-Output ("sector totals: business within {0:F3}% of corporate + noncorporate, domestic nonfinancial within {1:F3}% of its sectors, all {2} quarters" -f $gap1, $gap2, $rows.Count)
 # The latest quarter with the full private-sector set (the Z.1 comes out as one release).
 $complete = @($rows | Where-Object { $null -ne $_.hh -and $null -ne $_.nfc -and $null -ne $_.nnb -and $null -ne $_.fin })
 $asOf = $complete[$complete.Count - 1].d

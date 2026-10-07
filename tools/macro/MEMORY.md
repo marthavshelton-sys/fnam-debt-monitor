@@ -114,6 +114,12 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   `HHD_C_Report_YYYYQn.xlsx` and a missing quarter answers 200 with an HTML page, hence the
   "is it a zip" check. Sheet titles sit in the first rows (a stray number can occupy A4), so
   `hhdc_xlsx.py` locates sheets by title and columns by header text.
+- **The Z.1's sector totals are not exact sums of the FRED component series** (business vs
+  corporate + noncorporate: up to 0.05%; domestic nonfinancial vs households + business +
+  governments: up to 0.4%, 7-Oct-2026), and BLS's catalog title for an index series names the
+  program ("Index/Level and Office of Productivity And Technology...") with the measure in another
+  field: both tripped the first runner run. The checks are now bands (0.2% / 1%) and the catalog
+  test searches every descriptive field.
 - **FRED's TDSP (debt service ratio) starts in 2005** on FRED although the Fed's series is
   dated from 1980; the page shows what FRED carries.
 - Cloud sessions have no access to BLS/FRED/BEA. Build and check with

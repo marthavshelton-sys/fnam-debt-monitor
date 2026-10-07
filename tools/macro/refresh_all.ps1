@@ -63,7 +63,7 @@ CheckQuarterly "hhdebt_processed.json" { param($j) $j.nyfed.asOf } 45 "NY Fed ho
 CheckQuarterly "banks_processed.json" { param($j) $j.asOf } 60 "FDIC bank capital"
 try {
   $hh = Get-Content (Join-Path $data "hhdebt_processed.json") -Raw | ConvertFrom-Json
-  $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(2).AddDays(10)   # the G.19 posts a month about five weeks after it ends
+  $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(14)   # the G.19 posts a month about five weeks after it ends (July on the 5th business day of September), so the next month is overdue two weeks into the third month
   if ((Get-Date).Date -gt $g19) { Warn "G.19 consumer credit is still at $($hh.g19.asOf); the next month was due by $($g19.ToString('yyyy-MM-dd'))" } else { Write-Output ("G.19: {0} OK" -f $hh.g19.asOf) }
   $bk = Get-Content (Join-Path $data "banks_processed.json") -Raw | ConvertFrom-Json
   $wk = $bk.h8.weekly[-1].d

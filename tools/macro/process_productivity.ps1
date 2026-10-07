@@ -59,15 +59,18 @@ for ($y0 = 1947; $y0 -le $thisYear; $y0 += $span) {
 foreach ($id in $ids) {
   $m = $measures[$idMap[$id].key]
   if ($catalog.ContainsKey($id)) {
-    # The catalog describes a series across several fields (title, sector, measure); the
-    # measure's words must be in the title and the sector in any of them.
-    $t = [string]$catalog[$id].series_title
-    $blob = (@($catalog[$id].PSObject.Properties | ForEach-Object { [string]$_.Value }) -join ' | ')
-    if ($t -notmatch $m.title -or $blob -notmatch $m.sectorRe) { throw ("BLS {0}: catalog '{1}' does not describe {2} / {3}" -f $id, $blob, $idMap[$id].key, $m.sectorRe) }
+    # The catalog describes a series across several fields; BLS's title of an index series
+    # names the program ("Index/Level and Office of Productivity And Technology and Unit
+    # Profits and Costs : Nonfarm Business") and the measure sits in another field, so the
+    # measure's words and the sector are looked for in every descriptive field, leaving out
+    # the id and the survey's name ("Major Sector Productivity and Costs"), which would match
+    # "productivity" for every series.
+    $blob = (@($catalog[$id].PSObject.Properties | Where-Object { $_.Name -notmatch '^(series_id|survey_name|survey_abbreviation)$' } | ForEach-Object { [string]$_.Value }) -join ' | ')
+    if ($blob -notmatch $m.title -or $blob -notmatch $m.sectorRe) { throw ("BLS {0}: catalog '{1}' does not describe {2} / {3}" -f $id, $blob, $idMap[$id].key, $m.sectorRe) }
   }
   if (-not $pts[$id].Count) { throw "BLS $id returned no quarterly data" }
 }
-if ($catalog.Count) { Write-Output ("catalog titles: OK for {0} series" -f $catalog.Count) } else { Write-Output "catalog titles: not available without a BLS key (checked by the data tests below)" }
+if ($catalog.Count) { Write-Output ("catalog titles: OK for {0} series (e.g. {1}: {2})" -f $catalog.Count, $ids[0], ((@($catalog[$ids[0]].PSObject.Properties | ForEach-Object { $_.Name + "=" + [string]$_.Value }) -join '; '))) } else { Write-Output "catalog titles: not available without a BLS key (checked by the data tests below)" }
 # Durations, from the data itself: the index averages 100 over 2017; the yearly change is
 # the index's change on the same quarter a year earlier; the quarterly change is the
 # index's quarter-on-quarter change compounded to an annual rate (BLS rounds to 0.1).
