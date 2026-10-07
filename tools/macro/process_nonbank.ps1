@@ -106,17 +106,26 @@ foreach ($k in $z1.Keys) {
   $desc = [string]$dict[$code].desc
   if ($desc -notmatch $z1[$k][1]) { throw "Z.1: $code is described as '$desc', not /$($z1[$k][1])/" }
   $t = [string]$dict[$code].table
+  # Many tables repeat a column (Import-Csv refuses duplicate headers); the files carry plain
+  # numbers, "ND" and dates, never quoted commas, so a split on commas is exact.
   if (-not $tables.ContainsKey($t)) {
     $csvPath = Join-Path $csvDir ($t + ".csv")
     if (-not (Test-Path $csvPath)) { throw "Z.1: table file $t.csv is missing" }
-    $tables[$t] = @(Import-Csv $csvPath)
+    $txt = [System.IO.File]::ReadAllLines($csvPath)
+    if ($txt.Count -lt 2) { throw "Z.1: table file $t.csv is empty" }
+    $hdr = @($txt[0].Trim() -split ',' | ForEach-Object { $_.Trim() })
+    $body = New-Object System.Collections.ArrayList
+    for ($i = 1; $i -lt $txt.Count; $i++) { if ($txt[$i].Trim()) { [void]$body.Add(@($txt[$i].Trim() -split ',')) } }
+    $tables[$t] = @{ hdr = $hdr; rows = $body }
   }
+  $ci = [array]::IndexOf($tables[$t].hdr, $code)
+  if ($ci -lt 0) { throw "Z.1: $code is not a column of $t.csv" }
   $m = @{}
-  foreach ($row in $tables[$t]) {
-    $d = [string]$row.date
-    if ($d -notmatch '^\d{4}:Q[1-4]$' -or $d -lt "1952:Q1") { continue }
-    $v = [string]$row.$code
-    if ($null -eq $v -or $v -eq "" -or $v -eq "ND" -or $v -eq "NA") { continue }
+  foreach ($row in $tables[$t].rows) {
+    $d = [string]$row[0]
+    if ($d -notmatch '^\d{4}:Q[1-4]$' -or $d -lt "1952:Q1" -or $row.Count -le $ci) { continue }
+    $v = ([string]$row[$ci]).Trim()
+    if ($v -eq "" -or $v -eq "ND" -or $v -eq "NA") { continue }
     $m[($d -replace ':', '-')] = [math]::Round([double]$v / 1000, 1)
   }
   if ($m.Count -lt 40) { throw "Z.1: only $($m.Count) quarterly observations for $code in $t" }
