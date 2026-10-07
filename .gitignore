@@ -8,3 +8,5 @@ tools/oracle/transcripts/
 tools/oracle/data/_raw_transcripts_*.json
 # raw FactSet connector results of the nightly peers pull (the snapshot latest.json is what is committed)
 tools/gap/raw/factset/pull/
+__pycache__/
+*.pyc

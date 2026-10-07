@@ -133,6 +133,52 @@ foreach ($k in $z1.Keys) {
   Write-Host ("  {0,-13} {1,-15} {2,4} qtrs  {3}" -f $k, $code, $m.Count, $desc)
 }
 $quarters = @($byQ["fin"].Keys | Sort-Object)
+$sizeKeys = @("dep", "pc", "life", "pens", "mmf", "mf", "cef", "etf", "gse", "pools", "abs", "finco", "mreit", "bd", "hold", "other")
+$newKeys = @("hf", "pdf", "bdc", "ivf")   # in the Z.1's financial-sector total from 2012-Q4 (0 or absent before)
+$rows = New-Object System.Collections.ArrayList
+foreach ($q in $quarters) {
+  $row = [ordered]@{ d = $q }
+  foreach ($k in $z1.Keys) { if ($byQ[$k].ContainsKey($q)) { $row[$k] = $byQ[$k][$q] } else { $row[$k] = $null } }
+  if ($q -lt "2012-Q4") { foreach ($k in $newKeys) { $row[$k] = $null } }
+  [void]$rows.Add($row)
+}
+if ($rows.Count -lt 200) { throw "Z.1: only $($rows.Count) quarters" }
+# The latest quarter must carry every series (the Z.1 posts them together).
+$last = $rows[$rows.Count - 1]
+foreach ($k in $z1.Keys) { if ($null -eq $last[$k]) { throw "Z.1: $k is missing for $($last.d)" } }
+# Identity 1: the sectors add up to the financial-sector total less the central bank (exactly,
+# within rounding; the four sectors the Z.1 added from 2012-Q4 count from then on). Credit unions are
+# part of private depository institutions and are kept only as a memo item.
+$maxGap = 0.0
+foreach ($r in $rows) {
+  if ($null -eq $r.fin -or $null -eq $r.fed) { continue }
+  $sum = 0.0; $ok = $true
+  foreach ($k in $sizeKeys) { if ($null -eq $r[$k]) { $ok = $false; break }; $sum += [double]$r[$k] }
+  if ($r.d -ge "2012-Q4") { foreach ($k in $newKeys) { if ($null -eq $r[$k]) { $ok = $false; break }; $sum += [double]$r[$k] } }
+  if (-not $ok) { continue }
+  $gap = [math]::Abs(([double]$r.fin - [double]$r.fed) - $sum)
+  if ($gap -gt $maxGap) { $maxGap = $gap }
+  if ($gap -gt [math]::Max(2.0, 0.0005 * [double]$r.fin)) { throw ("Z.1: sectors sum to {0:N1}B but the financial total less the central bank is {1:N1}B in {2} (gap {3:N1}B)" -f $sum, ([double]$r.fin - [double]$r.fed), $r.d, $gap) }
+}
+# Identity 2: private + state and local + federal defined benefit = all defined benefit (funded assets and entitlements).
+foreach ($r in $rows) {
+  if ($null -eq $r.dbAllFunded -or $null -eq $r.dbPrivFunded -or $null -eq $r.dbSlFunded -or $null -eq $r.dbFedFunded) { continue }
+  $g1 = [math]::Abs([double]$r.dbPrivFunded + [double]$r.dbSlFunded + [double]$r.dbFedFunded - [double]$r.dbAllFunded)
+  $g2 = [math]::Abs([double]$r.dbPrivEnt + [double]$r.dbSlEnt + [double]$r.dbFedEnt - [double]$r.dbAllEnt)
+  if ($g1 -gt 1.0 -or $g2 -gt 1.0) { throw ("Z.1: defined benefit pension components do not add up in {0} (funded gap {1:N1}B, entitlements gap {2:N1}B)" -f $r.d, $g1, $g2) }
+}
+# Equity = total liabilities and equity - total liabilities; every sector's share must be sane in the latest quarter.
+foreach ($k in @("dep", "life", "pc", "bd", "gse", "finco")) {
+  $eq = [double]$last["${k}LE"] - [double]$last["${k}TL"]; $share = $eq / [double]$last["${k}LE"] * 100
+  if ($eq -le 0 -or $share -gt 60) { throw ("Z.1: implausible equity for {0} in {1}: {2:N1}B ({3:F1}% of the balance sheet)" -f $k, $last.d, $eq, $share) }
+}
+$nonbank = (1 - [double]$last.dep / ([double]$last.fin - [double]$last.fed)) * 100
+if ($nonbank -lt 50 -or $nonbank -gt 95) { throw "Z.1: implausible nonbank share $nonbank%" }
+Write-Output ("Z.1: {0} quarters, {1} .. {2}; financial assets ex-Fed {3:N0}B, depositories {4:N0}B (nonbank share {5:F1}%); equity/balance sheet: depositories {6:F1}%, life (GA) {7:F1}%, P&C {8:F1}%, broker-dealers {9:F1}%, GSEs {10:F1}%, finance cos {11:F1}%; DB funded: private {12:F1}%, state/local {13:F1}%, federal {14:F1}%; max sector gap {15:N2}B" -f $rows.Count, $rows[0].d, $last.d, ([double]$last.fin - [double]$last.fed), $last.dep, $nonbank,
+  (([double]$last.depLE - [double]$last.depTL) / [double]$last.depLE * 100), (([double]$last.lifeLE - [double]$last.lifeTL) / [double]$last.lifeLE * 100), (([double]$last.pcLE - [double]$last.pcTL) / [double]$last.pcLE * 100),
+  (([double]$last.bdLE - [double]$last.bdTL) / [double]$last.bdLE * 100), (([double]$last.gseLE - [double]$last.gseTL) / [double]$last.gseLE * 100), (([double]$last.fincoLE - [double]$last.fincoTL) / [double]$last.fincoLE * 100),
+  ([double]$last.dbPrivFunded / [double]$last.dbPrivEnt * 100), ([double]$last.dbSlFunded / [double]$last.dbSlEnt * 100), ([double]$last.dbFedFunded / [double]$last.dbFedEnt * 100), $maxGap)
+
 # ---- OFR Hedge Fund Monitor (SEC Form PF aggregates), dollars -> $ billions ----
 $ofr = [ordered]@{
   gne   = @("FPF-ALLQHF_GNE_SUM", 'Qualifying Hedge Funds: gross notional exposure')
