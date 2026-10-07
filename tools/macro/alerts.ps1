@@ -6,7 +6,9 @@
 #
 # What counts as a release: a new period in any tracked series (CPI, PPI, jobs,
 # PCE, GDP, retail, sentiment prelim/final, Treasury statement, Challenger,
-# CAPE) and a weekly SPR move of 3 million barrels or more. The body is the
+# CAPE, BLS productivity, NIPA corporate profits, the Z.1 debt accounts, the New
+# York Fed's household debt report, the G.19 and the FDIC's bank aggregates) and a
+# weekly SPR move of 3 million barrels or more. The body is the
 # page's own "At a glance" text for each affected section (read out of the
 # built page under Node), so the email says exactly what the dashboard says.
 # Thresholds below decide whether the subject is marked MATERIAL.
@@ -21,7 +23,13 @@
 # 0.5 pp); CPI, PPI and PCE y/y 0.1 pp (MATERIAL from 0.2 pp); payroll change 10K
 # (MATERIAL from 50K, also for the net of the months revised); unemployment rate
 # 0.1 pp (MATERIAL from 0.2 pp); retail level 0.3% (MATERIAL from 1%) and m/m
-# 0.2 pp (MATERIAL from 0.5 pp).
+# 0.2 pp (MATERIAL from 0.5 pp); productivity q/q 0.3 pp (MATERIAL from 1 pp) and
+# unit labor costs q/q 0.5 pp (from 1.5 pp); the corporate profit margin 0.1 pp
+# (from 0.5 pp); nonfinancial corporate debt as % of GDP 0.3 pp (from 1.5 pp);
+# household debt 1% (from 3%); the banks' Tier 1 leverage ratio 0.05 pp (from 0.25 pp).
+#
+# A release missing from the state (a section added to the page) is seeded from the
+# current data without sending anything, like a missing state file.
 #
 # State (the last period reported per release, and those figures) lives next to
 # the data and is committed with it. A missing state file, or a release missing
@@ -35,6 +43,8 @@ function LoadJson([string]$f) { $p = Join-Path $data $f; if (Test-Path $p) { Get
 $cpi = LoadJson "bls_cpi_processed3.json"; $ppi = LoadJson "ppi_processed.json"; $labor = LoadJson "labor_processed.json"; $ls = LoadJson "labor_static.json"
 $pce = LoadJson "pce_processed.json"; $gdp = LoadJson "gdp_processed.json"; $retail = LoadJson "retail_processed.json"; $umich = LoadJson "umich_processed.json"
 $fiscal = LoadJson "fiscal_processed.json"; $spr = LoadJson "spr_processed.json"; $cape = LoadJson "cape_processed.json"
+$prod = LoadJson "productivity_processed.json"; $profits = LoadJson "profits_processed.json"; $debt = LoadJson "debt_processed.json"
+$hh = LoadJson "hhdebt_processed.json"; $banks = LoadJson "banks_processed.json"
 
 function Pts($series) { if ($series -and $series.points) { @($series.points | Where-Object { $null -ne $_.v -or $null -ne $_.yoy -or $null -ne $_.idx }) } else { @() } }
 function Last($arr, [int]$back = 0) { if ($arr.Count -gt $back) { $arr[$arr.Count - 1 - $back] } else { $null } }
@@ -55,12 +65,22 @@ if ($fiscal) { $cur.fiscal = $fiscal.statementDate }
 if ($ls -and $ls.challenger) { $cur.cuts = $ls.challenger.asOfMonth }
 if ($spr -and $spr.weekly) { $cur.spr = $spr.weekly[$spr.weekly.Count - 1].d }
 if ($cape) { $cur.cape = $cape.asOfMonth }
+if ($prod -and $prod.asOf) { $cur.productivity = $prod.asOf }
+if ($profits -and $profits.asOf) { $cur.profits = $profits.asOf }
+if ($debt -and $debt.asOf) { $cur.debt = $debt.asOf }
+if ($hh -and $hh.nyfed -and $hh.nyfed.asOf) { $cur.hhdebt = $hh.nyfed.asOf }
+if ($hh -and $hh.g19 -and $hh.g19.asOf) { $cur.g19 = $hh.g19.asOf }
+if ($banks -and $banks.asOf) { $cur.banks = $banks.asOf }
+# Quarterly rows ("2026-Q2") of the quarterly sections: the last $n with a value in $field.
+function QRows($rows, [string]$field, [int]$n = 3) { $a = @($rows | Where-Object { $null -ne $_.$field }); if ($a.Count -gt $n) { $a[($a.Count - $n)..($a.Count - 1)] } else { $a } }
 
 # ---- the revisable figures of the last three periods, per release ----
-$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail")
-$revTitle = @{ cpi = "Consumer Price Index"; ppi = "Producer Price Index"; jobs = "Jobs report"; pce = "PCE prices, income and spending"; gdp = "Real GDP"; retail = "Retail sales" }
-$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail" }
-$revViews = @{ cpi = @("cpi"); ppi = @("ppi"); jobs = @("payrolls", "unemployment"); pce = @("pce", "income"); gdp = @("gdp"); retail = @("retail") }
+$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail", "productivity", "profits", "debt", "hhdebt", "banks")
+$revTitle = @{ cpi = "Consumer Price Index"; ppi = "Producer Price Index"; jobs = "Jobs report"; pce = "PCE prices, income and spending"; gdp = "Real GDP"; retail = "Retail sales"
+  productivity = "Productivity and costs"; profits = "Corporate profits and labor share"; debt = "Private sector debt (Z.1)"; hhdebt = "Household debt (New York Fed)"; banks = "Bank capital (FDIC)" }
+$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail"; productivity = "Productivity"; profits = "Profit margin"; debt = "Corporate debt"; hhdebt = "Household debt"; banks = "Bank capital" }
+$revViews = @{ cpi = @("cpi"); ppi = @("ppi"); jobs = @("payrolls", "unemployment"); pce = @("pce", "income"); gdp = @("gdp"); retail = @("retail")
+  productivity = @("productivity"); profits = @("profits"); debt = @("debt"); hhdebt = @("hhdebt"); banks = @("banks") }
 function PeriodLabel([string]$d) { if ($d -match '^(\d{4})-Q(\d)$') { "Q{0} {1}" -f $Matches[2], $Matches[1] } else { Mon $d } }
 function YoyPairs($a, $b, [string]$fa, [string]$fb) {
   $out = [ordered]@{}; $byB = @{}; foreach ($q in (Pts $b)) { $byB[$q.d] = $q.yoy }
@@ -88,6 +108,11 @@ function Get-RevValues([string]$k) {
       }
     }
     "retail" { $t = Pts $retail.marts.'44X72'; for ($i = [math]::Max(0, $t.Count - 3); $i -lt $t.Count; $i++) { $out[$t[$i].d] = [ordered]@{ lvl = [math]::Round([double]$t[$i].v, 0); mom = $(if ($null -ne $t[$i].mom) { [math]::Round([double]$t[$i].mom, 2) } else { $null }) } } }
+    "productivity" { foreach ($r in (QRows $prod.quarterly "prodQ")) { $out[$r.d] = [ordered]@{ q = [math]::Round([double]$r.prodQ, 1); ulc = $(if ($null -ne $r.ulcQ) { [math]::Round([double]$r.ulcQ, 1) } else { $null }) } } }
+    "profits" { foreach ($r in (QRows $profits.quarterly "profits")) { $out[$r.d] = [ordered]@{ margin = [math]::Round([double]$r.profits / [double]$r.gva * 100, 2) } } }
+    "debt" { foreach ($r in (QRows ($debt.quarterly | Where-Object { $null -ne $_.gdp }) "nfc")) { $out[$r.d] = [ordered]@{ nfcGdp = [math]::Round([double]$r.nfc / [double]$r.gdp * 100, 2) } } }
+    "hhdebt" { foreach ($r in (QRows $hh.nyfed.balances "total")) { $out[$r.d] = [ordered]@{ total = [math]::Round([double]$r.total, 3) } } }
+    "banks" { foreach ($r in (QRows $banks.quarterly "t1")) { $out[$r.d] = [ordered]@{ lev = [math]::Round([double]$r.t1 / [double]$r.avgAssets * 100, 2) } } }
   }
   return $out
 }
@@ -102,6 +127,12 @@ function RevField([string]$k, [string]$f, [double]$old, [double]$now) {
     "jobs/ur" { return @{ note = [math]::Abs($d) -ge 0.05; mat = [math]::Abs($d) -ge 0.15; text = ("unemployment {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
     "retail/lvl" { $pc = $(if ($old -ne 0) { ($now / $old - 1) * 100 } else { 0 }); return @{ note = [math]::Abs($pc) -ge 0.3; mat = [math]::Abs($pc) -ge 1.0; text = ("`${0}B (was `${1}B, {2}%)" -f ($now / 1000).ToString("F1"), ($old / 1000).ToString("F1"), (Sg $pc)) } }
     "retail/mom" { return @{ note = [math]::Abs($d) -ge 0.2; mat = [math]::Abs($d) -ge 0.5; text = ("m/m {0}% (was {1}%)" -f (Sg $now 2), (Sg $old 2)) } }
+    "productivity/q" { return @{ note = [math]::Abs($d) -ge 0.25; mat = [math]::Abs($d) -ge 0.95; text = ("productivity {0}% q/q ann. (was {1}%)" -f (Sg $now), (Sg $old)) } }
+    "productivity/ulc" { return @{ note = [math]::Abs($d) -ge 0.45; mat = [math]::Abs($d) -ge 1.45; text = ("unit labor costs {0}% q/q ann. (was {1}%)" -f (Sg $now), (Sg $old)) } }
+    "profits/margin" { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.45; text = ("margin {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "debt/nfcGdp" { return @{ note = [math]::Abs($d) -ge 0.25; mat = [math]::Abs($d) -ge 1.45; text = ("corporate debt {0}% of GDP (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "hhdebt/total" { $pc = $(if ($old -ne 0) { ($now / $old - 1) * 100 } else { 0 }); return @{ note = [math]::Abs($pc) -ge 1.0; mat = [math]::Abs($pc) -ge 3.0; text = ("`${0}T (was `${1}T, {2}%)" -f $now.ToString("F2"), $old.ToString("F2"), (Sg $pc)) } }
+    "banks/lev" { return @{ note = [math]::Abs($d) -ge 0.045; mat = [math]::Abs($d) -ge 0.245; text = ("Tier 1 leverage {0}% (was {1}%)" -f $now.ToString("F2"), $old.ToString("F2")) } }
   }
   return $null
 }
@@ -116,8 +147,10 @@ if (-not (Test-Path $statePath)) {
   return
 }
 $state = Get-Content $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
-$isNew = { param($k) $c = $cur[$k]; $s = $state.$k; if (-not $c) { return $false }; if (-not $s) { return $true }; ($c -ne $s) -and ($c.TrimEnd('p') -ge $s.TrimEnd('p')) }
+$isNew = { param($k) $c = $cur[$k]; $s = $state.$k; if (-not $c -or -not $s) { return $false }; ($c -ne $s) -and ($c.TrimEnd('p') -ge $s.TrimEnd('p')) }
 $new = @($cur.Keys | Where-Object { & $isNew $_ })
+# Releases the state has never seen (a section added to the page): recorded now, reported from the next period on.
+$unseen = @($cur.Keys | Where-Object { -not $state.PSObject.Properties[$_] })
 
 # ---- revisions: figures that moved since they were last reported ----
 $stored = if ($state.PSObject.Properties["values"]) { $state.values } else { $null }
@@ -157,13 +190,13 @@ function Save-State {
     if ($nowVals.Contains($k) -and ($k -in $new -or $revisions.Contains($k) -or $k -in $seedOnly)) { $vals[$k] = $nowVals[$k] }
     elseif ($stored -and $stored.PSObject.Properties[$k]) { $vals[$k] = $stored.$k }
   }
-  foreach ($k in $new) { if ($state.PSObject.Properties[$k]) { $state.$k = $cur[$k] } else { $state | Add-Member -NotePropertyName $k -NotePropertyValue $cur[$k] } }
+  foreach ($k in (@($new) + @($unseen))) { if ($state.PSObject.Properties[$k]) { $state.$k = $cur[$k] } else { $state | Add-Member -NotePropertyName $k -NotePropertyValue $cur[$k] } }
   if ($state.PSObject.Properties["values"]) { $state.values = $vals } else { $state | Add-Member -NotePropertyName values -NotePropertyValue $vals }
   [System.IO.File]::WriteAllText($statePath, ($state | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($false)))
 }
 
 if (-not $new.Count -and -not $revOnly.Count) {
-  if ($seedOnly.Count) { Save-State; Write-Output "alerts: nothing new; revision figures seeded for $($seedOnly -join ', ')" }
+  if ($seedOnly.Count -or $unseen.Count) { Save-State; Write-Output "alerts: nothing new; seeded $((@($unseen) + @($seedOnly) | Sort-Object -Unique) -join ', ')" }
   else { Write-Output "alerts: nothing new (state matches the data)" }
   return
 }
@@ -250,6 +283,46 @@ foreach ($k in $new) {
         $Pm = $cape.monthly; $L = $Pm[$Pm.Count - 1]; $P = $Pm[$Pm.Count - 2]
         $mat = [math]::Abs($L.cape - $P.cape) -ge 1.0
         AddItem $k "Shiller CAPE" (Mon $L.d) ("CAPE {0} {1} ({2} vs prior month)" -f (Mon $L.d), $L.cape.ToString("F1"), (Sg ($L.cape - $P.cape))) $mat @("cape")
+      }
+      "productivity" {
+        $R = @(QRows $prod.quarterly "prodQ" 2); $L = $R[-1]; $P = $R[-2]
+        $mat = ([math]::Abs([double]$L.prodQ) -ge 3.0) -or ([math]::Abs([double]$L.prodQ - [double]$P.prodQ) -ge 2.0) -or ($null -ne $L.ulcQ -and [math]::Abs([double]$L.ulcQ) -ge 4.0)
+        AddItem $k "Productivity and costs" (PeriodLabel $L.d) ("Productivity {0} {1}% q/q ann., {2}% y/y; unit labor costs {3}% q/q" -f (PeriodLabel $L.d), (Sg $L.prodQ), (Sg $L.prodY), (Sg $L.ulcQ)) $mat @("productivity")
+      }
+      "profits" {
+        $R = @(QRows $profits.quarterly "profits" 5); $L = $R[-1]; $P = $R[-2]; $Y = $(if ($R.Count -ge 5) { $R[-5] } else { $null })
+        $m = [double]$L.profits / [double]$L.gva * 100; $mp = [double]$P.profits / [double]$P.gva * 100
+        $yoy = $(if ($Y) { ([double]$L.profits / [double]$Y.profits - 1) * 100 } else { 0 })
+        $mat = ([math]::Abs($m - $mp) -ge 0.5) -or ([math]::Abs($yoy) -ge 10)
+        AddItem $k "Corporate profits and labor share" (PeriodLabel $L.d) ("Corporate profits {0}: margin {1}% ({2} pp), profits {3}% y/y, labor share {4}%" -f (PeriodLabel $L.d), $m.ToString("F1"), (Sg ($m - $mp)), (Sg $yoy), ([double]$L.comp / [double]$L.gva * 100).ToString("F1")) $mat @("profits")
+      }
+      "debt" {
+        $R = @(QRows ($debt.quarterly | Where-Object { $null -ne $_.gdp -and $null -ne $_.hh -and $null -ne $_.bus }) "nfc" 5); $L = $R[-1]; $P = $R[-2]; $Y = $(if ($R.Count -ge 5) { $R[-5] } else { $null })
+        $nfcY = $(if ($Y) { ([double]$L.nfc / [double]$Y.nfc - 1) * 100 } else { 0 })
+        $priv = ([double]$L.hh + [double]$L.bus) / [double]$L.gdp * 100; $privP = ([double]$P.hh + [double]$P.bus) / [double]$P.gdp * 100
+        $mat = ($nfcY -ge 8) -or ($nfcY -le 0) -or ([math]::Abs($priv - $privP) -ge 2)
+        AddItem $k "Private sector debt (Z.1)" (PeriodLabel $L.d) ("Z.1 {0}: corporate debt `${1}T ({2}% y/y), private nonfinancial debt {3}% of GDP ({4} pp q/q)" -f (PeriodLabel $L.d), ([double]$L.nfc / 1000).ToString("F1"), (Sg $nfcY), [math]::Round($priv), (Sg ($priv - $privP))) $mat @("debt")
+      }
+      "hhdebt" {
+        $B = @(QRows $hh.nyfed.balances "total" 5); $L = $B[-1]; $P = $B[-2]; $Y = $(if ($B.Count -ge 5) { $B[-5] } else { $null })
+        $D = @(QRows $hh.nyfed.delinq90 "all" 2); $dL = $D[-1]; $dP = $D[-2]
+        $yoy = $(if ($Y) { ([double]$L.total / [double]$Y.total - 1) * 100 } else { 0 }); $cardY = $(if ($Y) { ([double]$L.card / [double]$Y.card - 1) * 100 } else { 0 })
+        $mat = ([math]::Abs([double]$dL.all - [double]$dP.all) -ge 0.3) -or ($cardY -ge 10) -or ([math]::Abs([double]$L.total - [double]$P.total) -ge 0.3)
+        AddItem $k "Household debt (New York Fed)" (PeriodLabel $L.d) ("Household debt {0} `${1}T ({2}% y/y), 90+ day delinquency {3}% ({4} pp q/q)" -f (PeriodLabel $L.d), ([double]$L.total).ToString("F2"), (Sg $yoy), ([double]$dL.all).ToString("F2"), (Sg ([double]$dL.all - [double]$dP.all) 2)) $mat @("hhdebt")
+      }
+      "g19" {
+        $G = @($hh.g19.monthly); $L = $G[-1]; $P = $G[-2]; $Y = $(if ($G.Count -ge 13) { $G[-13] } else { $null })
+        $mm = [double]$L.total - [double]$P.total; $yoy = $(if ($Y) { ([double]$L.total / [double]$Y.total - 1) * 100 } else { 0 }); $yoyP = $(if ($G.Count -ge 14) { ([double]$P.total / [double]$G[-14].total - 1) * 100 } else { $yoy })
+        $mat = ([math]::Abs($mm) -ge 30) -or ([math]::Abs($yoy - $yoyP) -ge 1.0)
+        AddItem $k "Consumer credit (G.19)" (Mon $L.d) ("Consumer credit {0} `${1}B ({2}B m/m, {3}% y/y)" -f (Mon $L.d), (N0 $L.total), (Sg $mm 0), (Sg $yoy)) $mat @("hhdebt")
+      }
+      "banks" {
+        $R = @(QRows $banks.quarterly "t1" 2); $L = $R[-1]; $P = $R[-2]
+        $lev = [double]$L.t1 / [double]$L.avgAssets * 100; $levP = [double]$P.t1 / [double]$P.avgAssets * 100
+        $un = ([double]$L.afsFair - [double]$L.afsCost) + ([double]$L.htmFair - [double]$L.htmCost); $unP = ([double]$P.afsFair - [double]$P.afsCost) + ([double]$P.htmFair - [double]$P.htmCost)
+        $nc = [double]$L.noncurrent / [double]$L.loans * 100; $ncP = [double]$P.noncurrent / [double]$P.loans * 100
+        $mat = ([math]::Abs($lev - $levP) -ge 0.25) -or ([math]::Abs($un - $unP) -ge 100) -or ([math]::Abs($nc - $ncP) -ge 0.2)
+        AddItem $k "Bank capital (FDIC)" (PeriodLabel $L.d) ("FDIC {0}: Tier 1 leverage {1}% ({2} pp q/q), unrealized securities {3}`${4}B, noncurrent loans {5}%" -f (PeriodLabel $L.d), $lev.ToString("F2"), (Sg ($lev - $levP) 2), $(if ($un -lt 0) { "-" } else { "+" }), (N0 ([math]::Abs($un))), $nc.ToString("F2")) $mat @("banks")
       }
     }
   } catch { Write-Output "alerts: could not evaluate $k ($($_.Exception.Message)); it will be reported without a materiality flag"; AddItem $k $k $cur[$k] "$k $($cur[$k])" $false @($k) }

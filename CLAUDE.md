@@ -205,7 +205,13 @@ dashboards, everything built from public data by GitHub Actions.
   `macro-live-check.yml` loads https://fnam.mx/macro/ in Chromium (the deploy is main's page; every section, ES and
   EN, desktop and phone) and a failure opens one "LIVE CHECK FAILED: US macro - ..." issue, emailed the same way.
   An unknown `?view=` shows "Section not found" and answers 404 through `functions/macro/_middleware.js`, whose
-  section list both builders check against the page. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
+  section list both builders check against the page. Since 7-Oct-2026 the page has five quarterly sections
+  (productivity from BLS; corporate profits and labor share from BEA table 1.14 via FRED; private-sector debt
+  from the Z.1 via FRED; household debt from the New York Fed workbook plus Z.1/G.19; bank capitalization from
+  FDIC API aggregates plus H.8), each with a title-checked processor (`Get-FredChecked` in `common.ps1`),
+  identity checks and staleness warnings; `tools/macro/README.md` → "The quarterly sections". The workflow's
+  `branch` input runs the whole refresh on a feature branch (data and page committed there, no alerts) to test
+  processors before merging; a session cannot reach FRED from PowerShell, so seed data comes from the runner. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
   from the publishers' calendars and are always the release after the one shown; extra refresh runs on Wednesdays
   (14:45, 15:45 UTC) and Thursdays (17:20 UTC) catch EIA's and Freddie Mac's releases.
 - The MX page's yield curve (Banxico view) is Cetes 28d–728d and Bonos M 3–30y from Banxico's primary auctions (SIE

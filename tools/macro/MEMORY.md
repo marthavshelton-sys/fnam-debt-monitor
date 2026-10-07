@@ -66,12 +66,62 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
 - **Email routine windows follow the scheduled slot** (09:20 / 16:45 New York time since
   2-Oct-2026; 14:45 / 20:45 UTC before), not the
   hour a run starts: a late run on 29-Sep-2026 re-sent an alert under the old rule.
-- **Published page = `build-page.mjs`** (packed data, no comments, ~1.0 MB);
-  `build.ps1` builds the unpacked page itself only without Node or on a builder
-  failure, which the run flags with a `::warning::`.
+- **Published page = `build-page.mjs`** (packed data, no comments, ~1.0 MB; ~1.35 MB
+  since the five quarterly sections of 7-Oct-2026); `build.ps1` builds the unpacked page
+  itself only without Node or on a builder failure, which the run flags with a `::warning::`.
+- **Five quarterly sections (7-Oct-2026, owner's request):** productivity (BLS), corporate
+  profits and labor share (BEA table 1.14 via FRED), private-sector debt (Z.1 via FRED),
+  household debt (New York Fed workbook + Z.1 + G.19 + debt service ratio) and bank
+  capitalization (FDIC API aggregates + H.8). Groups: productivity under Growth & Spending,
+  profits under a new "Corporate Sector", household debt under Households, debt and banks
+  under a new "Credit & Banking". Every FRED id is title-checked (`Get-FredChecked`), the
+  NIPA and Z.1 identities are verified, BLS duration codes are verified from the data
+  (index averages 100 in 2017; the percent changes are the index's own), and the FDIC filter
+  `INSFDIC:1 AND NOT BKCLASS:OI` reproduces the QBP universe exactly. README has the table.
+- **"Capitalización del sistema financiero" was read as capital adequacy of the banking
+  system** (FDIC-insured institutions: equity/assets, Tier 1 leverage, CET1, total risk-based,
+  unrealized losses, asset quality, deposits), not market capitalization; the page's static
+  panel says who is counted. Credit unions, insurers and nonbanks are out.
+- **Margin and labor share are both over gross value added of nonfinancial corporate
+  business** (BEA's own perimeter for unit profits); economy-wide after-tax profits/GDP
+  (CPATAX/GDP) is shown beside them. Profits arrive with BEA's second GDP estimate, so the
+  profits header names which estimate the next GDP release is.
+- **Debt-to-GDP uses the same quarter's nominal GDP at an annual rate**, the Z.1 table D.3
+  method; debt in years of profits and the interest share of operating surplus are FNAM
+  calculations from table 1.14 and are labeled so.
+- **Rail spacing was tightened** (item padding 6px, group margin 14px) when the list grew to
+  20 sections and 9 groups; on a 900 px window the rail still scrolls a little (it has
+  `overflow-y: auto`), which is accepted.
 
 ## Pitfalls
 
+- **Sessions and the new sources (7-Oct-2026):** `curl` reaches fred.stlouisfed.org (keyless
+  `fredgraph.csv` and series pages), api.fdic.gov, newyorkfed.org and the BLS API (keyless
+  POST, 25 series / 10 years per call, a shared daily quota that runs out), but PowerShell's
+  `Invoke-WebRequest` in the sandbox times out against FRED while reaching the FDIC and the New
+  York Fed fine. So the FRED-based processors cannot be run end to end in a session; seed or
+  test data comes from the runner (workflow input `branch`) or from a throwaway Node script over
+  the CSV mirror. The runner, with the keys, is the only canonical path.
+- **BLS duration codes in PRS ids are 1 = y/y, 2 = q/q annual rate, 3 = index** (not 1 = index).
+  FRED mirrors the percent changes (PRS85006091/092) but not the indexes (PRS85006093 is 404
+  there); the processor proves the codes from the data on every run.
+- **FDIC CET1 (RBCT1C) is a partial sum in 2014** (advanced-approaches banks only, ~7% of RWA);
+  all institutions report it from 2015Q1, so the processor nulls it before then. The API's
+  `financials` universe includes insured branches of foreign banks (BKCLASS OI, no equity) and
+  noninsured trust companies (NC): both must be excluded to match the QBP.
+- **The New York Fed's HHDC page links its workbook through a JavaScript template**
+  (`{{data_url}}`), so nothing can be scraped from the HTML; the workbook URL follows
+  `HHD_C_Report_YYYYQn.xlsx` and a missing quarter answers 200 with an HTML page, hence the
+  "is it a zip" check. Sheet titles sit in the first rows (a stray number can occupy A4), so
+  `hhdc_xlsx.py` locates sheets by title and columns by header text.
+- **The Z.1's sector totals are not exact sums of the FRED component series** (business vs
+  corporate + noncorporate: up to 0.05%; domestic nonfinancial vs households + business +
+  governments: up to 0.4% recently and 1.5% in the 1950s, 7-Oct-2026), and BLS's catalog title for an index series names the
+  program ("Index/Level and Office of Productivity And Technology...") with the measure in another
+  field: both tripped the first runner run. The checks are now bands (0.3% / 2%, never under $1 billion) and the catalog
+  test searches every descriptive field.
+- **FRED's TDSP (debt service ratio) starts in 2005** on FRED although the Fed's series is
+  dated from 1980; the page shows what FRED carries.
 - Cloud sessions have no access to BLS/FRED/BEA. Build and check with
   `node tools/macro/build-page.mjs`; the runner rebuilds on merge. `pwsh` installs
   from packages.microsoft.com: parse-check every script and run processors against a
@@ -146,6 +196,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   mislabel the FRED-lag window. Proper fix: anchor on the data shown, as the weekly lines
   do (month M is published in M+1, so next = the first date on or after the first day of
   M+2; GDP and income have BEA's own release date in `vintage`).
-- Page weight is now ~1.0 MB raw (~290 KB gzip), mostly packed data. The next step
+- Page weight is now ~1.35 MB raw, mostly packed data. The next step
   would be per-section data files loaded on demand, which changes the build,
   `exec_extract.js` and `alerts.ps1` together.
+- After the first runner run with the five quarterly processors: confirm in the log that the
+  BLS catalog titles passed (`catalog titles: OK for 22 series`), that `process_calendar.ps1`
+  lists `productivity`, `z1`, `g19` and `h8` with next dates, and that the committed data files no
+  longer carry the session's `"seed":"fred-mirror"` marker (the runner's files have none).
+- Open question for the owner: whether "capitalización del sistema financiero" should also
+  cover nonbank finance (insurers, broker-dealers, money funds); the Z.1 financial-sector
+  debt line in the debt section is the only nonbank figure today.

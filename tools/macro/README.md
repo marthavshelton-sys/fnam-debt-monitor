@@ -1,8 +1,9 @@
 # Macro Monitor — fnam.mx/macro
 
-Bilingual (EN / es-MX) US macro dashboard: CPI, PCE, PPI, labor, GDP, income,
-retail, consumer sentiment, financial conditions, supply chain, fiscal deficit,
-the Strategic Petroleum Reserve and the Shiller CAPE ratio.
+Bilingual (EN / es-MX) US macro dashboard: CPI, PCE, PPI, labor, GDP, productivity,
+income, retail, corporate profits and the labor share, consumer sentiment, household
+debt, private-sector debt, bank capitalization, financial conditions, supply chain,
+fiscal deficit, the Strategic Petroleum Reserve and the Shiller CAPE ratio.
 One page, two languages; the page is served at `site/macro/index.html`.
 
 ## How it stays current
@@ -16,8 +17,8 @@ on Thursdays for EIA's holiday weeks and Freddie Mac's mortgage survey (both
 12:00 ET). It:
 
 1. runs every `process_*.ps1` here, pulling fresh data from BLS, BEA, FRED,
-   Census, Treasury FiscalData, the University of Michigan, and the New York
-   Fed, into `tools/macro/data/`;
+   Census, Treasury FiscalData, the University of Michigan, the New York Fed and
+   the FDIC, into `tools/macro/data/`;
 2. runs `build.ps1`, which bakes that data into the page template and writes
    `site/macro/index.html`;
 3. commits the page only if the data actually changed. Cloudflare Pages
@@ -29,7 +30,16 @@ data; one bad feed never takes the page down.
 **Required repository secrets** (Settings → Secrets and variables → Actions):
 `BLS_API_KEY`, `BEA_API_KEY`, `FRED_API_KEY`, `CENSUS_API_KEY`. All four are free
 registrations. Keys are read from the environment inside the job and never
-written to the repo or the page.
+written to the repo or the page. The FDIC API and the New York Fed workbook need no key.
+
+**Testing a pipeline change before merging.** The workflow's `branch` input (Actions →
+"Refresh macro dashboard" → Run workflow) checks out that branch, runs every processor
+with the real keys on the Windows runner, builds the page and commits the data and the
+page to that branch; the alert step and the source-down issue are skipped off main, and
+the live check does not run for a branch run. That is how the five quarterly sections of
+7-Oct-2026 were seeded: a session cannot reach BLS with a key (and PowerShell in the
+sandbox cannot reach FRED at all), so the data files were first written from FRED's
+keyless CSV mirror and then replaced by the runner's own output on the branch.
 
 ## What is automatic
 
@@ -143,6 +153,56 @@ and state nonfarm employment behind the job-cut maps.
   renders at 11 px) and axis margins, tick spacing and annotation labels adapt to
   the width. The phone `@media` blocks sit at the end of the stylesheet; placed
   earlier, later base rules silently override them.
+
+## The quarterly sections: productivity, profits, debt, household debt, bank capital
+
+Added 7-Oct-2026 (owner's request). One processor each; all five verify their series
+before writing anything and fail (keeping the committed file) rather than publish a wrong
+figure. Every FRED pull goes through `Get-FredChecked` in `common.ps1`: a list of candidate
+ids with the title the series must carry; the first id whose FRED title matches wins, so a
+renamed or discontinued series never reaches the page. With `FRED_API_KEY` set the API is
+used; without it the public series page and `fredgraph.csv` serve the same title and data,
+so the FRED-based processors can run in a session too (PowerShell in the sandbox times out
+against fred.stlouisfed.org, though; `curl` works).
+
+| Section (`?view=`) | Processor → file | Source and series |
+|---|---|---|
+| `productivity` | `process_productivity.ps1` → `productivity_processed.json` | BLS Productivity and Costs via the BLS API: nonfarm business (sector 8500) output per hour (measure 09), unit labor costs (11), hourly compensation (10), real hourly compensation (15), output (04), hours (03), labor share (17) and manufacturing (3000) output per hour, each as index 2017=100 (duration 3), q/q at an annual rate (2) and y/y (1), 1947 on. Pulled in 20-year windows with the key (10 without). Checks: catalog titles (with the key) and, always, that each index averages 100 in 2017 and that the two percent changes are the index's own changes. |
+| `profits` | `process_profits.ps1` → `profits_processed.json` | BEA NIPA table 1.14 via FRED (BEA's own series codes, e.g. A455RC1Q027SBEA = gross value added of nonfinancial corporate business, A460RC = compensation, A463RC = profits with IVA and CCAdj, W328RC = after tax, B471RC = net interest), table 1.12 (CPROFIT, CPATAX) and GDP, quarterly SAAR $ bn since 1947. Checks: the table's five identities (GVA = CFC + net value added; net value added = compensation + production taxes + net operating surplus; NOS = net interest + transfers + profits; profits = taxes + after tax; after tax = dividends + undistributed). Margin = profits ÷ GVA and labor share = compensation ÷ GVA are computed on the page. BEA publishes profits with the second and third GDP estimates, so `asOf` can trail GDP by a quarter. |
+| `debt` | `process_debt.ps1` → `debt_processed.json` | Federal Reserve Z.1 via FRED: debt securities and loans, liability, level, by sector (CMDEBT households, BCNSDODNS nonfinancial corporate, TCMILBSNNB noncorporate, TBSDODNS business, FGSDODNS federal, SLGSDODNS state and local, TCMDODNS domestic nonfinancial, DODFS financial, TCMDO all) plus NCBDBIQ027S (corporate debt securities), $ millions → $ bn, 1952 on; GDP for the ratios (the Z.1's table D.3 method). Checks: business within 0.3% of corporate + noncorporate and domestic nonfinancial within 2% of households + business + governments (the Fed's published totals are not exact sums of the component series: gaps up to 0.35% for business and 1.5% for the total in the 1950s). |
+| `hhdebt` | `process_hhdebt.ps1` + `hhdc_xlsx.py` → `hhdebt_processed.json` | New York Fed Quarterly Report on Household Debt and Credit: the data workbook is named for its quarter (`…/householdcredit/data/xls/HHD_C_Report_2026Q2.xlsx`); the processor tries the current quarter and the five before it and keeps the newest that is a real workbook, and `hhdc_xlsx.py` (openpyxl) finds the sheets by title ("Total Debt Balance and Its Composition", "Percent of Balance 90+ Days Delinquent by Loan Type"), checks that every balance row adds up and writes 2003Q1 on. Plus, via FRED: Z.1 household liabilities (CMDEBT, HHMSDODNS mortgages, HCCSDODNS consumer credit; other = the remainder) since 1952, G.19 consumer credit (TOTALSL, REVOLSL, NONREVSL, monthly, revolving + nonrevolving = total is checked), the debt service ratio (TDSP) and disposable income (DSPI, quarterly average) for debt/income. |
+| `banks` | `process_banks.ps1` → `banks_processed.json` | FDIC BankFind Suite API (`api.fdic.gov/banks/financials`), aggregated by report date (`agg_by=REPDTE`, `agg_sum_fields`) over `INSFDIC:1 AND NOT BKCLASS:OI`: that filter reproduces the Quarterly Banking Profile's "all insured institutions" universe exactly (17,885 institutions in 1984Q1, 5,177 in 2019Q4, 4,238 in 2026Q2, and total assets to the million; the API's other records are insured branches of foreign banks and noninsured trust companies). Fields: ASSET, EQ, DEP, DEPDOM, DEPINS, DEPUNINS, LNLS, NCLNLS, LNATRES, SC, SCAA/SCAF/SCHA/SCHF (amortized cost and fair value of AFS and HTM securities, 1994 on), RBCT1, RBC, RWAJT (1990 on), AVASSETJ, RBCT1C (CET1, kept from 2015Q1 when every institution reports it), NETINCQ, NETINC; $ thousands → $ bn; a zero sum is a field that did not exist yet and is stored as null. The page forms the ratios from the sums, as the QBP does (its 2Q 2026 time-series workbook was used to cross-check: equity 2,624.8 vs 2,624,826 $M, Tier 1 2,322.8 vs 2,322,821, unrealized AFS −109.8 vs −109,817). Plus the Fed's weekly H.8 via FRED (TLAACBW027SBOG, DPSACBW027SBOG, RALACBW027SBOG) since 2000. |
+
+Release dates: `process_calendar.ps1` carries FRED releases 47 (Productivity and Costs → `productivity`),
+52 (Z.1 → `z1`), 14 (G.19 → `g19`) and 22 (H.8 → `h8`, weekly); every release id's FRED name is
+now checked against the name it should have, and a release whose name no longer matches is left
+out (the page falls back to its "expected" wording). The New York Fed and the FDIC publish no
+machine-readable calendar: the page says "expected early <month>" (report ~5 weeks after the
+quarter) and "expected late <month>" (QBP ~8 weeks after the quarter). Corporate profits take
+the GDP calendar and say whether the next release is an advance estimate (profits follow with
+the second).
+
+Staleness: `refresh_all.ps1` warns when a quarterly file's next quarter is overdue (quarter end
++ publisher lag + 30 days: BLS 40, BEA 60, Z.1 75, New York Fed 45, FDIC 60 days), when the G.19
+month is more than ~5 weeks late or the H.8 week more than three weeks old; three runs in a row
+turn that into the SOURCE DOWN issue like any other stuck source.
+
+Alerts: `alerts.ps1` tracks the six new releases (`productivity`, `profits`, `debt`, `hhdebt`,
+`g19` monthly, `banks`), with MATERIAL thresholds in the script (productivity |q/q| ≥ 3 pp, a
+2 pp swing or unit labor costs ≥ 4%; margin ±0.5 pp q/q or profits ±10% y/y; corporate debt
+≥ 8% or ≤ 0% y/y or private debt/GDP ±2 pp q/q; 90+ delinquency ±0.3 pp q/q, card balances
+≥ 10% y/y or ±$300 bn q/q; G.19 ±$30 bn m/m or a 1 pp swing in y/y growth; Tier 1 leverage
+±0.25 pp q/q, unrealized securities ±$100 bn or noncurrent rate ±0.2 pp) and revision bands
+(productivity q/q 0.3 / 1 pp, unit labor costs 0.5 / 1.5 pp, margin 0.1 / 0.5 pp, corporate
+debt/GDP 0.3 / 1.5 pp, household debt 1% / 3%, Tier 1 leverage 0.05 / 0.25 pp). A release the
+state has never seen is seeded silently (the first run after adding a section sends nothing).
+The existing email routine delivers them: it emails every "MATERIAL: " issue, so its prompt
+needs no change.
+
+Page conventions for these sections: quarterly labels through `fmtQuarter` ("Q2 2026" / "T2
+2026"), dollar levels in $ trillions with `fmtTn` (Spanish "billones"), every chart through
+`plotSeries` with year ticks, KPI tiles through `kpiTiles`, and the "At a glance" cards composed
+from the data like every other section (the alert emails reuse them).
 
 ## The Challenger report (no API, handled on the runner)
 
@@ -390,6 +450,9 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `process_cape.ps1` — Shiller's ie_data.xls from shillerdata.com (the link
   carries a version token, so the page is read first); CAPE since 1881 plus
   Shiller's excess CAPE yield and ten-year subsequent real returns
+- `process_productivity.ps1`, `process_profits.ps1`, `process_debt.ps1`,
+  `process_hhdebt.ps1` (+ `hhdc_xlsx.py`), `process_banks.ps1` — the quarterly
+  sections (see above); `Get-FredChecked` in `common.ps1` is their FRED reader
 - `xlsx_to_rows.ps1` — reads the PPI weights workbook without Excel
 - `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
   runner (no Excel there); locally `common.ps1` uses Excel COM first

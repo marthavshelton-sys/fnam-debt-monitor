@@ -37,8 +37,9 @@ permissions:
 jobs:
   live:
     # A refresh that failed may still have published a page; only a cancelled or
-    # skipped one is left alone.
-    if: github.event_name == 'workflow_dispatch' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    # skipped one is left alone. A refresh dispatched on a feature branch (its "branch"
+    # input) publishes nothing, so there is nothing to check.
+    if: github.event_name == 'workflow_dispatch' || (contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion) && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
