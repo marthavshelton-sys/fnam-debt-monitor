@@ -51,13 +51,14 @@ Write-Output ("Z.1 debt: {0} quarters, {1} .. {2}; households {3}B, nonfinancial
 # ---- plausibility bands on the Z.1's sector totals (table D.3): business ~ corporate +
 # noncorporate; domestic nonfinancial ~ households + business + federal + state and local.
 # The published totals are not exact sums of the FRED component series (the Fed's
-# consolidation leaves gaps of up to 0.05% for business and 0.4% for the domestic
-# nonfinancial total, 7-Oct-2026), so the bands are 0.2% and 1%: wide enough for that,
-# far too narrow for a wrong series. Corporate debt securities must not exceed corporate debt.
-$bad1 = @($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb -and [math]::Abs($_.bus - ($_.nfc + $_.nnb)) -gt [math]::Max(0.5, 0.002 * $_.bus) })
-$bad2 = @($rows | Where-Object { $null -ne $_.dnf -and $null -ne $_.hh -and $null -ne $_.bus -and $null -ne $_.fed -and $null -ne $_.sl -and [math]::Abs($_.dnf - ($_.hh + $_.bus + $_.fed + $_.sl)) -gt [math]::Max(0.5, 0.01 * $_.dnf) })
+# consolidation leaves gaps of up to $5 billion / 0.05% for business, 0.26% in the 1960s
+# when the levels were small, and 0.4% for the domestic nonfinancial total, 7-Oct-2026), so
+# the bands are 0.3% and 1% (never under $1 billion): wide enough for that, far too narrow
+# for a wrong series. Corporate debt securities must not exceed corporate debt.
+$bad1 = @($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb -and [math]::Abs($_.bus - ($_.nfc + $_.nnb)) -gt [math]::Max(1.0, 0.003 * $_.bus) })
+$bad2 = @($rows | Where-Object { $null -ne $_.dnf -and $null -ne $_.hh -and $null -ne $_.bus -and $null -ne $_.fed -and $null -ne $_.sl -and [math]::Abs($_.dnf - ($_.hh + $_.bus + $_.fed + $_.sl)) -gt [math]::Max(1.0, 0.01 * $_.dnf) })
 $bad3 = @($rows | Where-Object { $null -ne $_.nfcSec -and $null -ne $_.nfc -and $_.nfcSec -gt $_.nfc })
-if ($bad1.Count) { throw ("Z.1 business debt differs from corporate + noncorporate by more than 0.2% in {0} quarters (first {1}: {2} vs {3} + {4})" -f $bad1.Count, $bad1[0].d, $bad1[0].bus, $bad1[0].nfc, $bad1[0].nnb) }
+if ($bad1.Count) { throw ("Z.1 business debt differs from corporate + noncorporate by more than 0.3% in {0} quarters (first {1}: {2} vs {3} + {4})" -f $bad1.Count, $bad1[0].d, $bad1[0].bus, $bad1[0].nfc, $bad1[0].nnb) }
 if ($bad2.Count) { throw ("Z.1 domestic nonfinancial debt differs from households + business + governments by more than 1% in {0} quarters (first {1})" -f $bad2.Count, $bad2[0].d) }
 if ($bad3.Count) { throw ("nonfinancial corporate debt securities exceed total debt in {0} quarters" -f $bad3.Count) }
 $gap1 = ($rows | Where-Object { $null -ne $_.bus -and $null -ne $_.nfc -and $null -ne $_.nnb } | ForEach-Object { [math]::Abs($_.bus - ($_.nfc + $_.nnb)) / $_.bus * 100 } | Measure-Object -Maximum).Maximum
