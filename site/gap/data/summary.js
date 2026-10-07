@@ -3,19 +3,19 @@
 // or events land. Write the next-results date as the token {{nextResults}}: the page fills it from the same
 // release-lag rule the deck uses, so the two never disagree. Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
 window.GAP_SUMMARY = {
-  updatedAt: "2026-09-29",
-  basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-08", guidanceDate: "2026-07-14" },
+  updatedAt: "2026-10-07",
+  basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-09", guidanceDate: "2026-07-14" },
   sections: [
     {
       k: "ops", title: { es: "Operación", en: "Operations" },
       es: [
         "2T26: **ingresos sin IFRIC 12 +4.9% y EBITDA +8.4%** (margen 69.3%, +2.2 pp) pese a un **tráfico −5.6%**. Lo explican las tarifas máximas 2025–29, los negocios operados por GAP (+17%) y dos meses de CBX (Ps. 468 M de ingresos, Ps. 316 M de EBITDA); desde mayo ya no se paga la cuota de asistencia técnica a AMP.",
-        "**Tráfico enero–agosto −3.9%** (nacional −0.4%, internacional −8.4%); **julio +1.2% y agosto +0.5%** ya en terreno positivo. Guadalajara +10.5% en agosto; Puerto Vallarta −10% y Montego Bay −23% aún por la percepción de seguridad y el huracán Melissa; usuarios de CBX +8% a/a en agosto.",
+        "**Tráfico enero–septiembre −4.2%** (nacional −1.3%, internacional −8.0%); **septiembre −7.3%** (nacional −9.5%, internacional −3.2%) por menos asientos de las aerolíneas (−7.2%), sobre todo nacionales, y el huracán Polo a fin de mes. Tijuana −12.1%, Puerto Vallarta −10.4%, Los Cabos −7.5%, Montego Bay −16.6%, Guadalajara −0.9%; usuarios de CBX +1.4% a/a.",
         "**Carga +8.3%** en el 2T26 (electrónica de alto valor hacia Guadalajara); ingreso no aeronáutico por pasajero Ps. 202 (+31%), ingreso aero + no aero por pasajero Ps. 574 (+11%)."
       ],
       en: [
         "2Q26: **revenue ex-IFRIC 12 +4.9% and EBITDA +8.4%** (margin 69.3%, +2.2 pp) despite **traffic −5.6%**. Drivers: the 2025–29 maximum tariffs, GAP-operated businesses (+17%) and two months of CBX (Ps. 468 M revenue, Ps. 316 M EBITDA); the technical-assistance fee to AMP stopped in May.",
-        "**Traffic January–August −3.9%** (domestic −0.4%, international −8.4%); **July +1.2% and August +0.5%**, back in positive territory. Guadalajara +10.5% in August; Puerto Vallarta −10% and Montego Bay −23%, still hit by security perception and Hurricane Melissa; CBX users +8% y/y in August.",
+        "**Traffic January–September −4.2%** (domestic −1.3%, international −8.0%); **September −7.3%** (domestic −9.5%, international −3.2%) on lower airline seat capacity (−7.2%), mainly domestic, and Hurricane Polo at month-end. Tijuana −12.1%, Puerto Vallarta −10.4%, Los Cabos −7.5%, Montego Bay −16.6%, Guadalajara −0.9%; CBX users +1.4% y/y.",
         "**Cargo +8.3%** in 2Q26 (high-value electronics into Guadalajara); non-aero revenue per passenger Ps. 202 (+31%), aero + non-aero revenue per passenger Ps. 574 (+11%)."
       ]
     },
@@ -48,12 +48,12 @@ window.GAP_SUMMARY = {
     {
       k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
       es: [
-        "**Tráfico mensual** (≈día 5): **si se sostiene el giro de julio–agosto**; Puerto Vallarta internacional, la recuperación de asientos en Montego Bay para el invierno y Tijuana/CBX.",
+        "**Tráfico de octubre** (≈5 nov): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
         "**3T26** ({{nextResults}}): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
         "**FIBRA GAP: colocación prevista para octubre de 2026** según la prensa (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
       ],
       en: [
-        "**Monthly traffic** (≈5th): **whether the July–August turn holds**; Puerto Vallarta international, seat recovery at Montego Bay for the winter, and Tijuana/CBX.",
+        "**October traffic** (≈5 Nov): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
         "**3Q26** ({{nextResults}}): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
         "**FIBRA GAP: placement expected in October 2026** per the press (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
       ]
