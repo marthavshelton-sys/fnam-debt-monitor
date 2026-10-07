@@ -4262,7 +4262,7 @@ const I18N = {
     nbPrivate: "Fondos de cobertura, deuda privada, BDC e intervalo",
     nbBd: "Casas de bolsa",
     nbHoldOther: "Controladoras y otros",
-    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from) => "Los fondos mutuos, ETF y fondos cerrados tienen " + funds + " (los ETF solos " + etf + ") y los fondos de mercado de dinero " + mmf + " en " + q + "; las GSE y los pools de agencias " + gse + ", las casas de bolsa " + bd + ", los fondos de cobertura, de deuda privada, BDC y de intervalo " + priv + (from ? " (en las cuentas desde " + from + ")" : "") + ". Las cooperativas de crédito tienen " + cu + ", el " + cuPct + " del total.",
+    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from, ivfFrom) => "Los fondos mutuos, ETF y fondos cerrados tienen " + funds + " (los ETF solos " + etf + ") y los fondos de mercado de dinero " + mmf + " en " + q + "; las GSE y los pools de agencias " + gse + ", las casas de bolsa " + bd + ", los fondos de cobertura, de deuda privada, BDC y de intervalo " + priv + (from ? " (en las cuentas desde " + from + (ivfFrom ? ", los de intervalo desde " + ivfFrom : "") + ")" : "") + ". Las cooperativas de crédito tienen " + cu + ", el " + cuPct + " del total.",
     nbfSecEquity: "Colchones de capital por sector",
     nbfSecEquityNote: "Capital contable como % de pasivos y capital totales, del balance de cada sector en la Z.1, desde 1952 · una medida de balance, no capital regulatorio",
     legEqDep: "Bancos y cooperativas de crédito",
@@ -5644,7 +5644,7 @@ const I18N = {
     nbPrivate: "Hedge, private debt, BDC and interval funds",
     nbBd: "Broker-dealers",
     nbHoldOther: "Holding companies and other",
-    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from) => "Mutual funds, ETFs and closed-end funds hold " + funds + " (ETFs alone " + etf + ") and money market funds " + mmf + " in " + q + "; GSEs and agency pools " + gse + ", broker-dealers " + bd + ", hedge, private debt, BDC and interval funds " + priv + (from ? " (in the accounts since " + from + ")" : "") + ". Credit unions hold " + cu + ", " + cuPct + " of the total.",
+    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from, ivfFrom) => "Mutual funds, ETFs and closed-end funds hold " + funds + " (ETFs alone " + etf + ") and money market funds " + mmf + " in " + q + "; GSEs and agency pools " + gse + ", broker-dealers " + bd + ", hedge, private debt, BDC and interval funds " + priv + (from ? " (in the accounts since " + from + (ivfFrom ? ", interval funds since " + ivfFrom : "") + ")" : "") + ". Credit unions hold " + cu + ", " + cuPct + " of the total.",
     nbfSecEquity: "Equity Cushions by Sector",
     nbfSecEquityNote: "Equity as % of total liabilities and equity, from each sector's Z.1 balance sheet, since 1952 · a balance-sheet measure, not regulatory capital",
     legEqDep: "Banks and credit unions",
@@ -9572,8 +9572,8 @@ function renderNonbank() {
     { name: T.nbPrivate, v: n0("hf") + n0("pdf") + n0("bdc") + n0("ivf"), color: "--cat-5" }, { name: T.nbBd, v: n0("bd"), color: "--cat-5" }, { name: T.nbHoldOther, v: n0("hold") + n0("other"), color: "--cat-5" }
   ].sort((a, b) => b.v - a.v);
   renderBarList("nbfSectorList", sectors.map(s => ({ name: s.name, value: s.v / 1000, color: s.color })), v => T.nbfBarValue(v));
-  const cuPct = n0("cu") / gc.total * 100, privTn = n0("hf") + n0("pdf") + n0("bdc") + n0("ivf");
-  document.getElementById("nbfSectorCallout").innerHTML = "<div>" + T.nbfSectorNote(fmtQuarter(q), fmtTn(n0("mf") + n0("etf") + n0("cef")), fmtTn(n0("etf")), fmtTn(n0("mmf")), fmtTn(n0("gse") + n0("pools")), fmtTn(n0("bd")), fmtTn(privTn), fmtTn(n0("cu")), pct1(cuPct), NONBANK.z1.newSectorsFrom ? fmtQuarter(NONBANK.z1.newSectorsFrom) : null) + "</div>";
+  const cuPct = n0("cu") / gc.total * 100, privTn = n0("hf") + n0("pdf") + n0("bdc") + n0("ivf"), ivfFrom = (R.find(r => r.ivf > 0) || {}).d;
+  document.getElementById("nbfSectorCallout").innerHTML = "<div>" + T.nbfSectorNote(fmtQuarter(q), fmtTn(n0("mf") + n0("etf") + n0("cef")), fmtTn(n0("etf")), fmtTn(n0("mmf")), fmtTn(n0("gse") + n0("pools")), fmtTn(n0("bd")), fmtTn(privTn), fmtTn(n0("cu")), pct1(cuPct), NONBANK.z1.newSectorsFrom ? fmtQuarter(NONBANK.z1.newSectorsFrom) : null, ivfFrom ? fmtQuarter(ivfFrom) : null) + "</div>";
 
   const eq = { dep: nbfEquityPts(R, "dep"), life: nbfEquityPts(R, "life"), pc: nbfEquityPts(R, "pc"), bd: nbfEquityPts(R, "bd"), gse: nbfEquityPts(R, "gse"), finco: nbfEquityPts(R, "finco") };
   plotSeries("nbfEquityChart", "nbfEquityTooltip", "nbfEquityLegend", labels, [

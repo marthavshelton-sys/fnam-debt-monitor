@@ -226,10 +226,23 @@ Write-Output ("OFR hedge funds: {0} quarters, {1} .. {2}; GNE {3:N0}B, GAV {4:N0
 $secUa = "fnam.mx macro monitor (https://fnam.mx)"
 $secPage = "https://www.sec.gov/data-research/investment-management-data/money-market-fund-statistics"
 $html = (Invoke-Retry { Invoke-WebRequest -Uri $secPage -UseBasicParsing -UserAgent $secUa -TimeoutSec 120 }).Content
-# Candidates in page order: the SEC lists the newest workbook first and names the files
-# irregularly, so the order and each workbook's own last month decide, never the name.
-$links = @([regex]::Matches($html, 'href="([^"]*(?:supporting-data|mmf-statistics|money-market-fund-statistics)[^"]*\.xlsx)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+# Candidates in page order: each entry reads "<a>August 2026</a> (<a href="...xlsx">Supporting Data</a>)".
+# The SEC lists the newest month first and names the files irregularly, so the list order and the
+# entry's own month label decide; the workbook read must end in the month the newest label says.
+$monthNo = @{ january = 1; february = 2; march = 3; april = 4; may = 5; june = 6; july = 7; august = 8; september = 9; october = 10; november = 11; december = 12 }
+$links = New-Object System.Collections.ArrayList; $expected = $null
+foreach ($li in [regex]::Matches($html, '(?is)<li[^>]*>(.*?)</li>')) {
+  $inner = $li.Groups[1].Value
+  $hm = [regex]::Match($inner, 'href="([^"]*\.xlsx)"')
+  if (-not $hm.Success) { continue }
+  if (-not $links.Contains($hm.Groups[1].Value)) { [void]$links.Add($hm.Groups[1].Value) }
+  if (-not $expected) {
+    $lm = [regex]::Match($inner, '>\s*([A-Za-z]+)(?:&nbsp;|\s)+(\d{4})\s*<')
+    if ($lm.Success -and $monthNo.ContainsKey($lm.Groups[1].Value.ToLower())) { $expected = "{0}-{1:D2}" -f $lm.Groups[2].Value, [int]$monthNo[$lm.Groups[1].Value.ToLower()] }
+  }
+}
 if (-not $links.Count) { throw "SEC: no statistics workbook linked from $secPage" }
+if (-not $expected) { throw "SEC: the newest entry on $secPage carries no month label" }
 $mmfXlsx = Join-Path $scratch "mmf.xlsx"; $mmfJson = Join-Path $scratch "mmf.json"
 $mmf = $null; $secUrl = $null; $tried = 0
 foreach ($l in $links) {
@@ -249,6 +262,7 @@ foreach ($l in $links) {
   } catch { Write-Host ("  {0}: {1}" -f $u, $_.Exception.Message.Split([char]10)[0]) }
 }
 if (-not $mmf) { throw "SEC: none of the first $tried workbooks linked from $secPage could be read, or all end before the committed month" }
+if ($mmf.asOf -ne $expected) { throw "SEC: the workbook read ends at $($mmf.asOf) but the page's newest entry is $expected" }
 $mmfDate = $null
 try { $h = Invoke-WebRequest -Uri $secUrl -Method Head -UseBasicParsing -UserAgent $secUa -TimeoutSec 60; $lm = $h.Headers["Last-Modified"]; if ($lm) { $mmfDate = ([datetime]$lm).ToUniversalTime().ToString("yyyy-MM-dd") } } catch { }
 Write-Output ("SEC MMF: {0} ({1}), data through {2}" -f $secUrl, $(if ($mmfDate) { $mmfDate } else { "undated" }), $mmf.asOf)
