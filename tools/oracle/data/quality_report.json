@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07T13:41:03.907Z",
+  "generated": "2026-10-07T14:56:11.234Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -4134,14 +4134,14 @@
       "label_en": "News and events",
       "label_es": "Noticias y eventos",
       "cadence": "daily",
-      "asOf": "2026-10-04",
-      "lastRefresh": "2026-10-04",
+      "asOf": "2026-10-07",
+      "lastRefresh": "2026-10-07",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
       "maxAgeDays": 3,
-      "stale": true,
-      "reason": "last refresh 2026-10-04, 4 days ago (limit 3)",
+      "stale": false,
+      "reason": null,
       "textDerived": false
     },
     {
