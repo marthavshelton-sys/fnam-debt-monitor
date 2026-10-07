@@ -143,9 +143,13 @@ section.block:first-of-type{border-top:none;}
 table.peers th, table.peers td{padding:5px 5px; white-space:nowrap; font-size:12px;}
 table.peers th{font-size:10.5px;}
 table.peers tr.head td{padding-top:12px; font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em;}
-table.peers tr.grp th{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
-table.peers tr.grp th:empty{border-bottom:0;}
-@media (max-width:640px){ table.peers th:nth-child(2), table.peers td:nth-child(2), table.peers th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
+/* peers table (same design as the Oracle page): each forward multiple with its 1-, 3- and 5-year averages under one group heading,
+   the current column in bold and a dividing line after each group */
+table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
+table.peers thead tr:nth-child(2) th{padding-top:4px;}
+table.peers td.now{font-weight:700;}
+table.peers td.gsep, table.peers th.gsep{border-right:1px solid var(--grid);}
+@media (max-width:640px){ table.peers thead tr:first-child th:nth-child(2), table.peers td:nth-child(2), table.peers thead tr:first-child th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers thead tr:first-child th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:var(--sans);}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
@@ -674,7 +678,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación Relativa</span><span class="en" hidden>Relative Valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de OMA calculados con el precio más reciente, las 386.2 millones de acciones en circulación y las cifras de los últimos doce meses (EBITDA ajustado). La tabla de pares (GAP, ASUR, Aena, Fraport, Zúrich, Auckland) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span><span class="en" hidden>OMA multiples computed from the latest price, the 386.2 million shares outstanding and last-twelve-month figures (Adjusted EBITDA). The peer table (GAP, ASUR, Aena, Fraport, Zurich, Auckland) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
+      <span class="es">Múltiplos de OMA calculados con el precio más reciente, las 386.2 millones de acciones en circulación y las cifras de los últimos doce meses (EBITDA ajustado). La tabla de pares (GAP, ASUR, Aena, Fraport, Zúrich, Auckland) proviene de FactSet (precios, capitalización, balances y consenso), actualizada cada noche a las 20:00 hora de Nueva York; muestra primero los múltiplos a futuro (VE/EBITDA y P/U PDM), cada uno con sus promedios de 1, 3 y 5 años, y la fecha de los precios bajo la capitalización.</span><span class="en" hidden>OMA multiples computed from the latest price, the 386.2 million shares outstanding and last-twelve-month figures (Adjusted EBITDA). The peer table (GAP, ASUR, Aena, Fraport, Zurich, Auckland) comes from FactSet (prices, market caps, balance sheets and consensus), refreshed nightly at 8 PM New York time; it shows the forward multiples (NTM EV/EBITDA and P/E) first, each with its 1-, 3- and 5-year averages, and the pricing date under the market cap.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">

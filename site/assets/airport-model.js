@@ -1049,14 +1049,17 @@
     if (!PEERS.updatedAt || !ps.length || !O) { html('peersTable', ''); txt('peersCap', `${t('pending')} · ${es ? 'estructura lista en data/peers.js' : 'schema ready in data/peers.js'}`); return; }
     const ntmLbl = es ? 'PDM' : 'NTM';
     const cur = es ? 'Actual' : 'Current', a1 = es ? 'Prom. 1 a' : '1-yr avg', a3 = es ? 'Prom. 3 a' : '3-yr avg', a5 = es ? 'Prom. 5 a' : '5-yr avg'; // the group header names the multiple
-    // two header rows: each NTM multiple carries its 1-, 3- and 5-year averages to the right (owner, 2026-10-06); blanks one per column so the phone rule hides the same columns in both rows
-    const groups = [['', 1], ['', 1], ['', 1], ['', 1], [evL() + '/EBITDA ' + ntmLbl, 4], [peL() + ' ' + ntmLbl, 4], ['', 1], ['', 1], ['', 1]];
-    const cols = [
-      ['name', es ? 'Empresa' : 'Company'], ['price', es ? 'Precio' : 'Price'], ['mktCapUsdM', es ? 'Cap. US$ M' : 'Mkt cap US$ M'], ['adtvUsdM', 'ADTV US$ M'],
-      ['evEbitdaNtm', cur], ['evEbitdaNtmAvg1y', a1], ['evEbitdaNtmAvg3y', a3], ['evEbitdaNtmAvg5y', a5],
-      ['peNtm', cur], ['peNtmAvg1y', a1], ['peNtmAvg3y', a3], ['peNtmAvg5y', a5],
-      ['divYieldPct', es ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', es ? 'Margen EBITDA' : 'EBITDA margin'],
-    ];
+    // two header rows, the Oracle page's design (owner, 2026-10-07): the single columns span both rows, each NTM multiple heads a group of
+    // four (current in bold, then its 1-, 3- and 5-year averages) closed by a dividing line, and the pricing date sits under the market cap
+    const priced = PEERS.pricesAsOf ? `<span class="sub">${es ? 'al' : 'as of'} ${fmtDate(PEERS.pricesAsOf)}</span>` : '';
+    const head = [['name', es ? 'Empresa' : 'Company'], ['price', es ? 'Precio' : 'Price'], ['mktCapUsdM', (es ? 'Cap. US$ M' : 'Mkt cap US$ M') + priced], ['adtvUsdM', 'ADTV US$ M']];
+    const grp = (pre) => [[pre + 'Ntm', cur, 'now'], [pre + 'NtmAvg1y', a1], [pre + 'NtmAvg3y', a3], [pre + 'NtmAvg5y', a5, 'gsep']];
+    const evCols = grp('evEbitda'), peCols = grp('pe');
+    const tail = [['divYieldPct', es ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', es ? 'Margen EBITDA' : 'EBITDA margin']];
+    const cols = [...head, ...evCols, ...peCols, ...tail];
+    const th1 = (c) => `<th scope="col" rowspan="2">${c[1]}</th>`;
+    const th2 = (c) => `<th scope="col"${c[2] === 'gsep' ? ' class="gsep"' : ''}>${c[1]}</th>`;
+    const thead = `<tr>${head.map(th1).join('')}<th scope="colgroup" colspan="4" class="grp">${evL() + '/EBITDA ' + ntmLbl}</th><th scope="colgroup" colspan="4" class="grp">${peL() + ' ' + ntmLbl}</th>${tail.map(th1).join('')}</tr><tr>${[...evCols, ...peCols].map(th2).join('')}</tr>`;
     const cell = (k, p) => {
       const v = p[k];
       if (k === 'name') return p.ticker && !p.blank ? `${p.short} <span class="muted small">${p.ticker}</span>` : p.name;
@@ -1085,9 +1088,9 @@
       { name: es ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
       medRow(es ? 'Mediana México' : 'Median, Mexico', M.mexico), medRow(es ? 'Mediana internacional' : 'Median, international', M.international), medRow(es ? 'Mediana de pares' : 'Peer median', M.all),
     ].filter(Boolean);
-    html('peersTable', `<table class="peers"><thead><tr class="grp">${groups.map((g) => `<th colspan="${g[1]}"${g[0] ? ' scope="colgroup"' : ''}>${g[0]}</th>`).join('')}</tr><tr>${cols.map((c) => `<th scope="col">${c[1]}</th>`).join('')}</tr></thead><tbody>${rows.map((p) => p.cls === 'head'
+    html('peersTable', `<table class="peers"><thead>${thead}</thead><tbody>${rows.map((p) => p.cls === 'head'
       ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
-      : `<tr class="${p.cls || ''}">${cols.map((c) => `<td>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+      : `<tr class="${p.cls || ''}">${cols.map((c) => `<td${c[2] ? ` class="${c[2]}"` : ''}>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
     const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
     const vsOwn = (v, m) => (Math.abs(100 * (v / m - 1)) < 0.5 ? (es ? 'en línea con' : 'in line with') : prem(v, m) + (es ? ' frente a' : ' versus'));
     const ownTxt = own && own.evEbitdaNtmAvg3y != null && own.evEbitdaNtmAvg5y != null
