@@ -16,8 +16,19 @@
     const M = window[PREFIX + '_MODEL'];
     await P.run(M, window.MX_AIRPORTS ? [] : [MX_TRAFFIC], async () => {
       const doc = new AirportDoc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.trafficTables(); doc.trafficCharts(); doc.debtPage(); doc.dividendPage(); doc.eventPage(); doc.explainerPage(); doc.sourcesPage();
+      // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
+      // executive summary) can list the sections with the page's numbers and link each row; the relative valuation (06)
+      // sits just before Sources and Methodology (owner, 2026-10-07)
+      doc.cover();
+      doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
+      doc.at('tear'); doc.tearSheet();
+      doc.at('statements'); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
+      doc.at('guidance'); doc.guidancePage();
+      doc.at('traffic'); doc.trafficTables(); doc.trafficCharts();
+      doc.at('debt'); doc.debtPage(); doc.at('dividends'); doc.dividendPage(); doc.at('event'); doc.eventPage(); doc.at('explainer'); doc.explainerPage();
+      doc.at('relative'); doc.relativePages();
+      doc.at('method'); doc.sourcesPage(); doc.at(null);
+      doc.contentsPage();
       doc.finish();
     });
   }
@@ -32,6 +43,28 @@
       this.next = this.nextResults();
       this.ebitdaL = M.L(CFG.ebitdaLabel || { es: 'EBITDA', en: 'EBITDA' });
       this.marginL = M.L(CFG.marginLabel || { es: 'Margen EBITDA (sin IFRIC 12)', en: 'EBITDA margin (ex-IFRIC 12)' });
+      this.trackPages = true; // page() records every page for the contents page
+    }
+    at(sec) { this.sec = sec; }
+    // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
+    // naming the sections of the page the deck does not carry (share-price performance, DCF), composed from the same headings.
+    contentsPage() {
+      const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta), url = this.cfg.url;
+      const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
+      this.drawContents(this.tocEntries(meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${url}${out.length ? `; ${out.length > 1 ? 'las secciones' : 'la sección'} ${list} se ${out.length > 1 ? 'consultan' : 'consulta'} en la página y no ${out.length > 1 ? 'forman' : 'forma'} parte de esta presentación` : ''}.`, `Every row links to its page. Sections are numbered as on ${url}${out.length ? `; ${out.length > 1 ? 'sections' : 'section'} ${list} ${out.length > 1 ? 'are' : 'is'} read on the page and ${out.length > 1 ? 'are' : 'is'} not part of this presentation` : ''}.`));
+    }
+    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // The peers table as the page prints it (the company's rows through the model, incl. the pro-forma row while ASUR's overlay
+    // is on; lead sentence and method note read from the page) and the weekly history of the company's NTM EV/EBITDA and NTM P/E
+    // beside the other Mexican groups'; both pages live in the shared engine.
+    relativePages() {
+      const M = this.M, P = M.PEERS, L = M.lastLTM, short = this.cfg.short; const { own, ownPf } = M.peersOwnRows(L && L.is); if (!own) return;
+      const sec = this.pageSectionMeta().relative || {}; const title = (tail) => `${sec.label ? sec.label + ' · ' : ''}${sec.title || this.T('Valuación relativa', 'Relative valuation')} · ${tail}`;
+      // the pro-forma caveat the page prints on its multiples block goes under the table while the overlay is on
+      // (the caveat's closing sentence about the page's perimeter switch has no meaning on paper and is dropped)
+      const note = [this.richTextOf('peersNote'), ownPf && M.pfCaveat ? M.pfCaveat().replace(/;\s*(el selector|the switch)[^.]*\./, '.') : ''].filter(Boolean).join(' ');
+      this.peersPage({ P, own, ownPf, title: title(this.T('pares: múltiplos a futuro, sus promedios y liquidez', 'peers: forward multiples, their averages and liquidity')), lead: this.richTextOf('peersLead'), note });
+      this.multiplesHistoryPage({ P, own, title: title(this.T('múltiplos a doce meses, historial semanal', 'forward multiples, weekly history')) });
     }
     // ----- shared pieces -----
     rel(q) { return q && q.sources && q.sources.is && q.sources.is.date; }

@@ -252,8 +252,12 @@ dashboards, everything built from public data by GitHub Actions.
 - Deep link `/<slug>/?present=1&lang=es|en` builds the PDF on arrival; the landing pages link to it.
 - Text measurement: jsPDF applies kerning that the written PDF does not, so the engine sums per-glyph widths.
 - Chart conventions the owner asked for: y/y and margin lines in front of bars (red, white-filled points);
-  two-axis charts say which series is on which axis; bold only a few key words per bullet; sections 04–06 of the
-  pages are excluded from decks; 07–10 are one landscape page each; final page is sources and methodology;
+  two-axis charts say which series is on which axis; bold only a few key words per bullet; sections 04–05 of the
+  pages are excluded from decks; 07–10 are one landscape page each; the airport decks carry 06 (relative valuation) as two
+  landscape pages right before the sources page (the FactSet peers table with the consensus tiles, then the weekly NTM
+  EV/EBITDA and NTM P/E of the company beside the other Mexican groups; `peersPage` / `multiplesHistoryPage` in the engine,
+  owner 2026-10-07) and a linked contents page after the executive summary (`trackPages`, `tocEntries`, `pageSectionMeta`:
+  the page's own section numbers and titles, with a note naming the sections the deck does not carry); final page is sources and methodology;
   timestamps in CDMX time; market cap in USD only where she asked.
 - The Oracle deck will need a builder pass when that dashboard changes structurally; data changes flow through.
 

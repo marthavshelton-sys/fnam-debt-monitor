@@ -914,6 +914,9 @@
   }
   const ntmLbl = () => (LANG === 'es' ? 'PDM' : 'NTM');
   const ltmLbl = () => (LANG === 'es' ? 'UDM' : 'LTM');
+  // GAP's row of the peers table: FactSet's own row, computed exactly like the peers; only the dividend yield uses the latest
+  // AGM amount over FactSet's close. The deck prints the same row (read through the model API).
+  function peersOwnRow() { const G = PEERS.gap; return G ? { ...G, cls: 'bold', divYieldPct: (REF.dividends || []).length ? 100 * REF.dividends.slice(-1)[0].dps / G.price : G.divYieldPct } : null; }
   function renderPeers(price, shares, ltm, nd) {
     const G = PEERS.gap, ps = PEERS.peers || [], M = PEERS.medians || {};
     if (!PEERS.updatedAt || !ps.length) { html('peersTable', ''); el('peersCap').textContent = t('pending'); return; }
@@ -941,7 +944,7 @@
     };
     // GAP row: FactSet's own row, computed exactly like the peers (owner, 2026-10-06: every price from FactSet, one close date);
     // only the dividend yield uses the AGM amount in this model over that close
-    const gapRow = G ? { ...G, cls: 'bold', divYieldPct: (REF.dividends || []).length ? 100 * REF.dividends.slice(-1)[0].dps / G.price : G.divYieldPct } : null;
+    const gapRow = peersOwnRow();
     const medRow = (name, m) => (m ? { name, ...m, cls: 'total' } : null);
     const mx = ps.filter((p) => p.currency === 'MXN'), intl = ps.filter((p) => p.currency !== 'MXN');
     const rows = [
@@ -1210,7 +1213,7 @@
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
-    betaFromMarket, kdFromDebt, PEERS, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
+    betaFromMarket, kdFromDebt, PEERS, peersOwnRow, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
   };
 
     let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }

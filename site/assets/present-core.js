@@ -83,9 +83,12 @@
       this.pdf = new jsPDF({ unit: 'pt', format: 'letter', orientation: 'landscape', compress: true });
       this.pdf.setLineHeightFactor(1.3);
       this.first = true; this.pages = []; this.cur = null;
+      // contents page support: with trackPages on, page() records { sec, title, n } for every page (sec = the section the
+      // builder sets before drawing it), and tocEntries() turns the list into the rows drawContents() prints
+      this.toc = []; this.sec = null; this.trackPages = false;
       this.today = new Date();
       this.todayIso = this.today.toISOString().slice(0, 10);
-      this.debug = false;
+      this.debug = !!window.FNAM_DECK_DEBUG; // set before building to log fitTable's measurements
     }
     // ----- page management -----
     page(orient, title, subtitle) {
@@ -94,6 +97,7 @@
       if (this.first) { this.first = false; } else this.pdf.addPage('letter', orient === 'L' ? 'landscape' : 'portrait');
       this.cur = { orient, w: g.w, h: g.h, x0: MARGIN.left, x1: g.w - MARGIN.right, y0: MARGIN.top, y1: g.h - MARGIN.bottom, title };
       this.pages.push(this.cur);
+      if (this.trackPages) this.toc.push({ sec: this.sec, title: title || '', n: this.pdf.getNumberOfPages() });
       let y = this.cur.y0;
       if (title) {
         // the title shrinks (17 → 12 pt) until it fits the page width: a long portrait-page title used to run off the edge
@@ -148,7 +152,8 @@
     table(o) {
       const opt = {
         startY: o.y, margin: { left: o.x != null ? o.x : this.cur.x0, right: o.x != null ? this.cur.w - o.x - o.w : MARGIN.right, top: MARGIN.top, bottom: MARGIN.bottom },
-        tableWidth: o.w || this.width(), theme: 'plain', head: o.head ? [o.head.map(tx)] : undefined, body: o.body.map((r) => r.map(tx)),
+        // o.headRows: several header rows whose cells may be { content, colSpan, rowSpan } (a group header over its columns)
+        tableWidth: o.w || this.width(), theme: 'plain', head: o.headRows ? o.headRows.map((r) => r.map((c) => (c && typeof c === 'object' ? { ...c, content: tx(c.content) } : tx(c)))) : o.head ? [o.head.map(tx)] : undefined, body: o.body.map((r) => r.map(tx)),
         styles: { font: 'helvetica', fontSize: o.size || 8.5, cellPadding: o.pad || { top: 2.2, bottom: 2.2, left: 3.5, right: 3.5 }, textColor: INK, lineColor: GRID, lineWidth: { bottom: 0.35 }, halign: 'right', valign: 'middle', overflow: 'linebreak' },
         headStyles: { fillColor: HEAD, textColor: ACCENT, fontStyle: 'bold', fontSize: (o.size || 8.5) - 0.5, halign: 'right', lineWidth: { bottom: 0.8 }, lineColor: ACCENT },
         alternateRowStyles: { fillColor: ALT }, columnStyles: o.cols || {}, pageBreak: o.pageBreak || 'avoid', rowPageBreak: 'avoid',
@@ -156,6 +161,7 @@
           const m = o.meta && d.section === 'body' && o.meta[d.row.index] ? o.meta[d.row.index][d.column.index] : null;
           if (m) { if (m.includes('pos')) d.cell.styles.textColor = POS; if (m.includes('neg')) d.cell.styles.textColor = NEG; if (m.includes('bold')) d.cell.styles.fontStyle = 'bold'; if (m.includes('muted')) d.cell.styles.textColor = MUTED; if (m.includes('sub')) d.cell.styles.cellPadding = { top: 2.2, bottom: 2.2, left: 12, right: 3.5 }; if (m.includes('head')) { d.cell.styles.fillColor = [242, 244, 242]; d.cell.styles.fontStyle = 'bold'; d.cell.styles.textColor = ACCENT; } if (m.includes('small')) d.cell.styles.fontSize = (o.size || 8.5) - 1; if (m.includes('left')) d.cell.styles.halign = 'left'; }
           if (d.section === 'head' && o.cols && o.cols[d.column.index] && o.cols[d.column.index].halign) d.cell.styles.halign = o.cols[d.column.index].halign;
+          if (d.section === 'head' && d.cell.colSpan > 1) d.cell.styles.halign = 'center';
           if (d.section === 'body' && o.rowSpan && o.rowSpan[d.row.index] && d.column.index === 0) d.cell.colSpan = o.rowSpan[d.row.index];
         },
       };
@@ -369,6 +375,132 @@
       }
       if (note) this.note(note, pg.y1 - noteH + 4);
       this.cur = saved; this.pdf.setPage(last);
+    }
+    // Section numbers and titles as the page prints them (every `section.block` with a `.sec-num`), in the deck's language, so
+    // the contents page carries the same labels as fnam.mx. Used by the decks whose pages share that markup (the airports).
+    // Text of a page element with its <b> runs as **bold**, so a sentence the page composes prints in the deck unchanged.
+    richTextOf(id) {
+      const el = document.getElementById(id); if (!el) return '';
+      let out = ''; for (const n of el.childNodes) { const t = (n.textContent || '').replace(/\s+/g, ' '); out += n.nodeType === 1 && n.tagName === 'B' ? `**${t.trim()}** ` : t; }
+      return out.replace(/\s+/g, ' ').trim();
+    }
+    pageSectionMeta() {
+      const out = {}, lang = this.es ? 'es' : 'en';
+      for (const s of document.querySelectorAll('section.block[id]')) { const num = s.querySelector('.sec-head .sec-num'), h = s.querySelector(`.sec-head h2 .${lang}`); if (num && h) out[s.id] = { label: num.textContent.trim(), title: h.textContent.replace(/\s+/g, ' ').trim() }; }
+      return out;
+    }
+    // Contents rows from the pages page() recorded (trackPages): one row per section in deck order, labeled with the page's
+    // section number when `meta` (pageSectionMeta()) knows the section. A section drawn on one page is listed under that
+    // page's title (its "NN · " prefix dropped); one spanning several pages is listed under the page's section title with one
+    // indented row per page. Pages without a section (the cover, the contents page itself) are skipped.
+    tocEntries(meta) {
+      meta = meta || {}; const bySec = new Map();
+      for (const p of this.toc) { if (!p.sec || p.n === this.tocPage) continue; if (!bySec.has(p.sec)) bySec.set(p.sec, []); bySec.get(p.sec).push(p); }
+      const strip = (t) => String(t).replace(/^\s*[0-9A-Z]{1,3}\s*·\s*/, '');
+      // a sub row drops the section's own title when the page title starts with it ("Relative valuation · peers…" → "peers…")
+      const sub = (t, m) => { const x = strip(t); return m.title && x.toLowerCase().startsWith(m.title.toLowerCase() + ' · ') ? x.slice(m.title.length + 3) : x; };
+      const out = [];
+      for (const [id, pages] of bySec) {
+        const m = meta[id] || {};
+        if (pages.length === 1) { out.push({ label: m.label || '', title: strip(pages[0].title), page: pages[0].n }); continue; }
+        out.push({ label: m.label || '', title: m.title || strip(pages[0].title), page: pages[0].n });
+        for (const p of pages) out.push({ sub: true, title: sub(p.title, m), page: p.n });
+      }
+      return out;
+    }
+    // The page's sections the deck does not carry ("04 · Share-Price Performance, 05 · …"), for the contents note.
+    sectionsNotInDeck(meta) { const inDeck = new Set(this.toc.map((p) => p.sec)); return Object.entries(meta || {}).filter(([id]) => !inDeck.has(id)).map(([, m]) => `${m.label} · ${titleCase(m.title, this.es)}`); }
+
+    // ----- relative valuation (the airport decks): the FactSet peers table and the weekly NTM multiples -----
+    // Both pages read the peers snapshot the airport pages share (data/peers.js, written by the nightly FactSet routine): the
+    // company's row, the peers (group 'mexico' | 'international'), the medians and each company's weekly history of NTM
+    // EV/EBITDA and NTM P/E. o: { P: snapshot, own: the company's row as the page prints it, ownPf: the pro-forma row or null,
+    // title, lead: the page's lead sentence (plain text with **bold** runs), note: the page's method note }. The company's
+    // FactSet consensus (price target, ratings, NTM EBITDA and EPS) prints as a row of tiles under the lead, as on the page.
+    // Returns false (no page) while the snapshot is empty.
+    peersPage(o) {
+      const P = o.P || {}, own = o.own, ps = P.peers || [], MD = P.medians || {}; if (!P.updatedAt || !ps.length || !own) return false;
+      const M = this.M, es = this.es, short = this.cfg.short;
+      const pd = P.priceDates || {}, main = P.pricesAsOf;
+      const shortOf = (id) => ((ps.find((p) => p.ticker === id) || (own.ticker === id ? own : null) || {}).short || id);
+      const otherDates = Object.entries(pd).filter(([, d]) => d && d !== main).map(([id, d]) => `${shortOf(id)} ${this.date(d)}`);
+      const bsDates = [...new Set(Object.values(P.balanceSheetsAt || {}))].map((d) => this.date(d)).join(' / ');
+      const H = P.history || {}, A = P.adtvWindow || {};
+      const sub = this.T(`FactSet · cierres del ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consenso al ${this.date(P.estimateDate)} · balances al ${bsDates}${H.from ? ` · promedios semanales de ${this.date(H.from)} a ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · se actualiza cada noche`,
+        `FactSet · closes of ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consensus as of ${this.date(P.estimateDate)} · balance sheets at ${bsDates}${H.from ? ` · weekly averages from ${this.date(H.from)} to ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · refreshed nightly`);
+      let y = this.page('L', o.title, sub);
+      const W = this.width();
+      if (o.lead) y = this.bullets([o.lead], this.cur.x0, y, W, 9.2, { marker: false, lh: 1.32, gap: 6 });
+      const ntm = es ? 'PDM' : 'NTM', evL = es ? 'VE' : 'EV', peL = es ? 'P/U' : 'P/E', ndL = es ? 'DN' : 'ND';
+      // consensus tiles (the page's "Analyst consensus" block): mean target and its upside on FactSet's close, range and analyst
+      // count, buy / hold / sell, NTM EBITDA and EPS; sell-side consensus compiled by FactSet, not a recommendation
+      const tg = own.target, ra = own.ratings, fn = own.ntm || {};
+      if (tg && ra && ra.total) {
+        y = this.heading(this.T(`Consenso de analistas sobre ${short} (FactSet, al ${this.date(P.estimateDate)})`, `Analyst consensus on ${short} (FactSet, as of ${this.date(P.estimateDate)})`), this.cur.x0, y + 2, 10);
+        y = this.tiles([
+          { v: `Ps. ${M.fmtN(tg.mean, 0)}`, l: this.T(`Precio objetivo medio · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} frente al cierre de Ps. ${M.fmtN(own.price, 2)}`, `Mean price target · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} versus the Ps. ${M.fmtN(own.price, 2)} close`) },
+          { v: `Ps. ${M.fmtN(tg.low, 0)} – ${M.fmtN(tg.high, 0)}`, l: this.T(`Rango de objetivos · ${tg.count} analistas`, `Target range · ${tg.count} analysts`) },
+          { v: `${ra.buy + (ra.overweight || 0)} / ${ra.hold} / ${ra.sell + (ra.underweight || 0)}`, l: this.T(`Compra / mantener / venta (${ra.total} recomendaciones)`, `Buy / hold / sell (${ra.total} ratings)`) },
+          fn.ebitda ? { v: `Ps. ${M.fmtN(fn.ebitda.mean, 0)} M`, l: this.T(`EBITDA ${ntm} · media del consenso`, `${ntm} EBITDA · consensus mean`) } : null,
+          fn.eps ? { v: `Ps. ${M.fmtN(fn.eps.mean, 2)}`, l: this.T(`UPA ${ntm} · media del consenso`, `${ntm} EPS · consensus mean`) } : null,
+        ].filter(Boolean), y, 44) - 4;
+      }
+      y = this.heading(this.T('Pares: múltiplos a futuro, sus promedios de 1, 3 y 5 años y liquidez', 'Peers: forward multiples, their 1-, 3- and 5-year averages and liquidity'), this.cur.x0, y, 10);
+      const cur = es ? 'Actual' : 'Current', a1 = es ? 'Prom. 1 a' : '1-yr avg', a3 = es ? 'Prom. 3 a' : '3-yr avg', a5 = es ? 'Prom. 5 a' : '5-yr avg';
+      const headRows = [
+        [{ content: es ? 'Empresa' : 'Company', rowSpan: 2 }, { content: es ? 'Precio' : 'Price', rowSpan: 2 }, { content: `${es ? 'Cap. US$ M' : 'Mkt cap US$ M'}${main ? ` (${es ? 'al' : 'as of'} ${this.date(main)})` : ''}`, rowSpan: 2 }, { content: 'ADTV US$ M', rowSpan: 2 },
+          { content: `${evL}/EBITDA ${ntm}`, colSpan: 4 }, { content: `${peL} ${ntm}`, colSpan: 4 },
+          { content: es ? 'Rend. div.' : 'Div. yield', rowSpan: 2 }, { content: `${ndL}/EBITDA`, rowSpan: 2 }, { content: es ? 'Margen EBITDA' : 'EBITDA margin', rowSpan: 2 }],
+        [cur, a1, a3, a5, cur, a1, a3, a5],
+      ];
+      const x = (v) => (v == null ? '—' : M.fmtX(v)), pc = (v) => (v == null ? '—' : M.fmtPct(v));
+      const name = (p) => (p.cls === 'total' || p.blank || !p.ticker ? p.name : `${p.short}  ·  ${p.ticker}`);
+      const row = (p) => [name(p), p.price == null ? '' : `${p.currency} ${M.fmtN(p.price, 2)}`, p.mktCapUsdM == null ? '' : M.fmtN(p.mktCapUsdM, 0), p.adtvUsdM == null ? '' : M.fmtN(p.adtvUsdM, 1),
+        x(p.evEbitdaNtm), x(p.evEbitdaNtmAvg1y), x(p.evEbitdaNtmAvg3y), x(p.evEbitdaNtmAvg5y), x(p.peNtm), x(p.peNtmAvg1y), x(p.peNtmAvg3y), x(p.peNtmAvg5y), pc(p.divYieldPct), x(p.netDebtEbitda), pc(p.ebitdaMarginPct)];
+      const medRow = (nm, m) => (m ? { name: nm, ...m, cls: 'total' } : null);
+      const mx = ps.filter((p) => p.group === 'mexico'), intl = ps.filter((p) => p.group !== 'mexico');
+      const items = [o.ownPf, { ...own, cls: 'bold' }, { name: es ? 'México' : 'Mexico', cls: 'head' }, ...mx, { name: es ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
+        medRow(es ? 'Mediana México' : 'Median, Mexico', MD.mexico), medRow(es ? 'Mediana internacional' : 'Median, international', MD.international), medRow(es ? 'Mediana de pares' : 'Peer median', MD.all)].filter(Boolean);
+      const body = items.map((p) => (p.cls === 'head' ? [p.name, ...Array(14).fill('')] : row(p)));
+      const meta = items.map((p) => (p.cls === 'head' ? ['head left', ...Array(14).fill('')] : p.cls === 'bold' ? ['bold left', ...Array(14).fill('bold')] : p.cls === 'total' ? ['bold left muted', ...Array(14).fill('muted bold')] : p.blank ? ['left small', ...Array(14).fill('')] : ['left', ...Array(14).fill('')]));
+      const rowSpan = {}; items.forEach((p, i) => { if (p.cls === 'head') rowSpan[i] = 15; });
+      const cols = { 0: { halign: 'left', cellWidth: W * 0.165 }, 1: { cellWidth: W * 0.08 }, 2: { cellWidth: W * 0.085 } };
+      [4, 8].forEach((i) => { cols[i] = { fontStyle: 'bold' }; });
+      // the table and the notes under it share the page: the method note is measured first so the table shrinks to leave it room
+      const notes = [o.note, this.T('Consenso del lado vendedor compilado por FactSet; no constituye una recomendación de inversión.', 'Sell-side consensus compiled by FactSet; not investment advice.')].filter(Boolean);
+      const noteH = notes.reduce((h, n) => h + this.measureText(n, W, 7) + 3, 0);
+      y = this.fitTable({ y, headRows, body, meta, rowSpan, cols, pad: { top: 2.8, bottom: 2.8, left: 3, right: 3 } }, [9.4, 9, 8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - 6);
+      let yn = Math.min(y + 6, this.cur.y1 - noteH);
+      for (const n of notes) yn = this.note(n, yn, 7) + 3;
+      return true;
+    }
+    // Weekly NTM EV/EBITDA and NTM P/E of the company (bold) beside the other Mexican groups, with the company's 5-year average
+    // as a dashed line, one chart above the other so five years of weekly points keep the page's full width.
+    multiplesHistoryPage(o) {
+      const P = o.P || {}, own = o.own; const hist = own && own.history && own.history.series; if (!hist || !hist.length) return false;
+      const es = this.es, short = this.cfg.short, ntm = es ? 'PDM' : 'NTM', evL = es ? 'VE' : 'EV', peL = es ? 'P/U' : 'P/E';
+      const H = P.history || {};
+      let y = this.page('L', o.title, this.T(`FactSet · observaciones semanales (cada viernes) de ${this.date(H.from || hist[0][0])} a ${this.date(H.to || hist[hist.length - 1][0])} · múltiplo = cierre de la semana × acciones vigentes + último balance publicado, sobre el consenso de ese día · promedios de la tabla de pares`, `FactSet · weekly observations (each Friday) from ${this.date(H.from || hist[0][0])} to ${this.date(H.to || hist[hist.length - 1][0])} · multiple = that week's close × shares then outstanding + the latest balance sheet published, over the consensus sampled that day · averages as in the peers table`));
+      const labels = hist.map((p) => p[0]);
+      const tick = (v, i) => (labels[i] && labels[i].slice(5, 7) === '01' && (!labels[i - 1] || labels[i - 1].slice(0, 4) !== labels[i].slice(0, 4)) ? labels[i].slice(0, 4) : '');
+      const peers = (P.peers || []).filter((p) => p.group === 'mexico' && p.history && p.history.series);
+      const W = this.width(), h = Math.floor((this.cur.y1 - y - 2 * 18 - 22) / 2);
+      const draw = (k, label, avgKey, yy) => {
+        const ownAvg = own[avgKey];
+        const last = hist[hist.length - 1][k];
+        const sets = [{ label: this.T(`${short} · última semana ${this.x(last)} (${this.date(labels[labels.length - 1])})`, `${short} · latest week ${this.x(last)} (${this.date(labels[labels.length - 1])})`), data: hist.map((p) => p[k]), borderColor: PALETTE[0], backgroundColor: PALETTE[0], borderWidth: 2.6, order: 0 }];
+        peers.forEach((p, i) => { const map = new Map(p.history.series.map((r) => [r[0], r[k]])); sets.push({ label: p.short, data: labels.map((d) => (map.has(d) ? map.get(d) : null)), borderColor: [PALETTE[2], PALETTE[1], PALETTE[3]][i % 3], backgroundColor: [PALETTE[2], PALETTE[1], PALETTE[3]][i % 3], borderWidth: 1.3, order: 1, spanGaps: true }); });
+        if (ownAvg != null) sets.push({ label: this.T(`${short} · promedio 5 años (${this.x(ownAvg)})`, `${short} · 5-year average (${this.x(ownAvg)})`), data: labels.map(() => ownAvg), borderColor: '#7f8c8d', backgroundColor: '#7f8c8d', borderWidth: 1.2, borderDash: [5, 4], order: 2 });
+        const others = peers.map((p) => p.short); const vs = others.length ? ` ${this.T('frente a', 'versus')} ${others.length > 1 ? others.slice(0, -1).join(', ') + this.T(' y ', ' and ') + others[others.length - 1] : others[0]}` : '';
+        yy = this.heading(`${label} · ${short}${vs}`, this.cur.x0, yy, 10);
+        // the chart is drawn at 1.6× and scaled down: 14 / 13 px fonts print at about 9 / 8 pt, legible on paper
+        const img = this.chart({ type: 'line', data: { labels, datasets: sets }, options: { plugins: { legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 22, boxHeight: 3, font: { size: 14 } } } }, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 13 }, callback: tick } }, y: { ticks: { font: { size: 13 }, callback: (v) => this.x(v, 0) } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+        return this.image(img, this.cur.x0, yy, W, h) + 6;
+      };
+      y = draw(1, `${evL}/EBITDA ${ntm}`, 'evEbitdaNtmAvg5y', y);
+      y = draw(2, `${peL} ${ntm}`, 'peNtmAvg5y', y);
+      this.noteAbove(this.T(`Línea gruesa: ${short}; líneas delgadas: los otros grupos aeroportuarios mexicanos de la tabla de pares, calculados igual; línea punteada: promedio de 5 años de ${short} (la misma cifra de la tabla). Fuente: FactSet (precios, balances y consenso); cálculo de fnam.mx.`, `Thick line: ${short}; thin lines: the other Mexican airport groups in the peers table, computed the same way; dashed line: ${short}'s 5-year average (the figure in the table). Source: FactSet (prices, balance sheets and consensus); fnam.mx calculation.`), y, 7);
+      return true;
     }
     // ----- footers and download -----
     finish() {
