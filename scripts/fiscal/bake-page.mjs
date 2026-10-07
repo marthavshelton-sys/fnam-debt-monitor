@@ -34,7 +34,7 @@ const PW = [arg('--playwright', null), process.env.PLAYWRIGHT_MODULE, '/opt/node
 
 const FILL_CLASSES = ['fyn-en', 'fyn-es', 'fyr-short-en', 'fyr-short-es', 'fyr-long-en', 'fyr-long-es'];
 const LINK_IDS = ['fedWatchSrcEn', 'fedWatchSrcEs'];
-const HTML_IDS = ['kpiStrip', 'asofRow', 'debtGdpNoteEn', 'debtGdpNoteEs', 'netIntNoteEn', 'netIntNoteEs', 'outNetNoteEn', 'outNetNoteEs',
+const HTML_IDS = ['kpiStrip', 'asofRow', 'debtGdpNoteEn', 'debtGdpNoteEs', 'netIntNoteEn', 'netIntNoteEs', 'fyEndNoteEn', 'fyEndNoteEs', 'outNetNoteEn', 'outNetNoteEs',
   'fedWatchCalloutEn', 'fedWatchCalloutEs', 'tblDebtTrend', 'tblHolders', 'tblForeign', 'tblComposition', 'tblRevenues', 'tblOutlays',
   'tblCboProjection', 'tblInterestBridge', 'tacctAssets', 'tacctLiab', 'corridorWrap', 'srcGrid'];
 
