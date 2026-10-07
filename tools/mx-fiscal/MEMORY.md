@@ -23,8 +23,14 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
 - Until 2026-10-01 `fetch.mjs` could not read the previous `data.js` (it parsed from the first `{`, which is in the
   header comment) and swallowed the error, so a failed series was dropped instead of kept as stale. Fixed; an
   unreadable `data.js` now fails the run.
-- Banxico SG406/SG407 (gross and net liquid SPEA debt, quarterly) stopped at 2025-Q4; not shown on the page, listed
-  by the freshness test.
+- Banxico's quarterly debt block (SG406–SG421: gross and net liquid debt of the sector público económico amplio and of
+  the consolidated sector, total/internal/external, plus IPAB, FARAC, UDI and debtor-support lines) stopped at 2025-Q4;
+  no quarterly series is left in any public-finance table of SIE sector 9 (checked via the SIE API, 2026-10-07). SG406/SG407
+  were replaced on 2026-10-07 (owner's decision) by SHCP's own monthly totals in pesos from deuda_publica.csv: `deudaBrutaSPF`
+  (XET30, "Saldo de la deuda bruta del Sector Público Federal en pesos") and `deudaNetaSPF` (XET10, net). Perimeter caveat:
+  SHCP's Sector Público Federal is narrower than Banxico's económico amplio (no IPAB, FARAC or debtor programs): at Dec-2025
+  SG406 was 26.7 bn MXN against about 19.7 bn for SHCP's gross stock; SHRFSP (18.6 bn) is the closest live measure to SG407
+  (19.0 bn). Neither new series is shown on the page yet; label the perimeter when one is.
 - Banxico republishes SHCP's monthly debt stocks (SG193 net SPEA debt, SG194/SG195 its domestic and external parts,
   SG199 consolidated net debt; SIE table CG7) about a month after SHCP's own release, which comes 30 days after month
   end: the Jul-2026 point landed on 28-Sep-2026, 59 days after period end and 31 days after SHCP's 28-Aug release, so

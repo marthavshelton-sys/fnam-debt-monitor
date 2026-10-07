@@ -27,8 +27,6 @@
     "inflExp12m": { "days": 25, "why": "Banxico publishes the monthly survey of forecasters on the first business days of the following month" },
     "inflExp12mMean": { "days": 25 },
     "vgPlazoPromedio": { "days": 45, "why": "monthly, published early in the following month" },
-    "deudaBrutaSPEA": { "days": 120, "why": "quarterly, SHCP's quarterly report 30 days after the quarter, republished by Banxico" },
-    "deudaNetaLiquidaSPEA": { "days": 120 },
     "deudaNetaSPEA": { "days": 100, "why": "Banxico republishes SHCP's monthly debt stocks (SIE table CG7) about a month after SHCP's own release, which is 30 days after month end: the Jul-2026 point appeared on 28-Sep-2026, 59 days after period end, so the latest point is about 90 days old by the time the next one lands; 66 days opened a false alert on 6-Oct-2026" },
     "deudaNetaSPEAInterna": { "days": 100 }, "deudaNetaSPEAExterna": { "days": 100 }, "deudaNetaConsolidada": { "days": 100 }
   }
