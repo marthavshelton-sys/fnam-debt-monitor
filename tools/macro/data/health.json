@@ -1,5 +1,5 @@
 ﻿{
-    "runAt":  "2026-10-07T11:50:08Z",
+    "runAt":  "2026-10-07T11:59:46Z",
     "failed":  [
 
                ],
@@ -7,7 +7,7 @@
 
                     },
     "warnings":  [
-                     "staleness check for Z.1 nonbank financial sectors could not run: no quarter in nonbank_processed.json"
+
                  ],
-    "warnStreak":  1
+    "warnStreak":  0
 }
