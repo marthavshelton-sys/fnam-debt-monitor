@@ -1,14 +1,14 @@
 # The nonbank financial system: who holds the financial sector's assets beyond the banks
 # and how much cushion stands behind them, from four official sources.
-#   Federal Reserve Z.1 Financial Accounts, via FRED (quarterly since 1952, $ millions ->
-#     $ billions): total financial assets of every domestic financial sector (the sum of the
+#   Federal Reserve Z.1 Financial Accounts, from the Board's release package of CSV tables
+#     (quarterly since 1952, $ millions -> $ billions): total financial assets of every domestic financial sector (the sum of the
 #     sectors must equal the published "domestic financial sectors" total less the central
 #     bank, exactly - the processor fails otherwise); the balance sheet of the sectors whose
 #     equity the Z.1 publishes (total liabilities and equity, total liabilities; equity is the
 #     difference: depositories, life insurers' general accounts, property-casualty insurers,
 #     broker-dealers, GSEs, finance companies); and defined benefit pension funds' funded
 #     assets and entitlements (private, state and local, federal; their sum must equal the
-#     all-DB series, exactly). Every id is title-checked through Get-FredChecked.
+#     all-DB series, exactly). Every series' description is checked against the data dictionary.
 #   OFR Hedge Fund Monitor API (data.financialresearch.gov/hf/v1, SEC Form PF aggregates for
 #     qualifying hedge funds, quarterly since 2013): gross notional exposure, gross and net
 #     assets, borrowing by type, fund count, top-10 leverage. Each series' name is checked.
@@ -24,107 +24,106 @@ $prevPath = Join-Path $data "nonbank_processed.json"
 $prev = $null
 if (Test-Path $prevPath) { try { $prev = Get-Content $prevPath -Raw -Encoding UTF8 | ConvertFrom-Json } catch { $prev = $null } }
 
-# ---- Z.1 via FRED ----
-# Name -> candidate ids and the title the series must carry (FRED titles the Z.1 series
-# "<Sector>; <Instrument>, Level"; -match is case-insensitive).
+# ---- Z.1: the Board's release package (every table as CSV, with a data dictionary) ----
+# FRED carries most but not all of these series (the three sectors the Z.1 added last -
+# private debt funds, business development companies, interval funds - have no FRED id, and
+# the financial-sector total is FBTFASQ027S there), so the Z.1 is read from the Board's own
+# package: the data dictionary gives each series' description (checked against the pattern
+# below, as Get-FredChecked checks FRED titles) and the table file that carries it.
+$z1Url = "https://www.federalreserve.gov/releases/z1/current/z1_csv_files.zip"
+$z1Zip = Join-Path $scratch "z1_csv_files.zip"; $z1Dir = Join-Path $scratch "z1_csv"
+Invoke-Retry { Invoke-WebRequest -Uri $z1Url -OutFile $z1Zip -UseBasicParsing -UserAgent $ua -TimeoutSec 300 } | Out-Null
+$head = [System.IO.File]::ReadAllBytes($z1Zip)[0..1]
+if ($head[0] -ne 0x50 -or $head[1] -ne 0x4B) { throw "Z.1: $z1Url is not a zip file" }
+if (Test-Path $z1Dir) { Remove-Item $z1Dir -Recurse -Force }
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+[System.IO.Compression.ZipFile]::ExtractToDirectory($z1Zip, $z1Dir)
+$z1Date = Get-RemoteFileDate $z1Url
+$dictDir = Join-Path $z1Dir "data_dictionary"; $csvDir = Join-Path $z1Dir "csv"
+if (-not (Test-Path $dictDir) -or -not (Test-Path $csvDir)) { throw "Z.1: the package no longer has data_dictionary and csv folders" }
+# Series -> description and table (a series is listed in every table that shows it; the first will do).
+$dict = @{}
+foreach ($f in (Get-ChildItem $dictDir -Filter *.txt)) {
+  foreach ($line in [System.IO.File]::ReadAllLines($f.FullName)) {
+    $p = $line -split "`t"
+    if ($p.Count -lt 2) { continue }
+    $sid = $p[0].Trim()
+    if ($sid -and -not $dict.ContainsKey($sid)) { $dict[$sid] = @{ desc = $p[1].Trim(); table = [System.IO.Path]::GetFileNameWithoutExtension($f.Name) } }
+  }
+}
+if ($dict.Count -lt 5000) { throw "Z.1: only $($dict.Count) series in the data dictionary" }
+# Name -> Z.1 series and the description it must carry (-match is case-insensitive). "Total
+# liabilities" patterns end at the line so they can never take the liabilities-and-equity line.
 $z1 = [ordered]@{
-  fin   = @(@("BOGZ1FL794090005Q"), 'Domestic Financial Sectors; Total Financial Assets')
-  fed   = @(@("BOGZ1FL714090005Q"), '^(Central Bank|Monetary Authority); Total Financial Assets')
-  dep   = @(@("BOGZ1FL704090005Q"), 'Private Depository Institutions; Total Financial Assets')
-  cu    = @(@("BOGZ1FL474090005Q"), '^Credit Unions; Total Financial Assets')
-  pc    = @(@("BOGZ1FL514090005Q"), 'Property-Casualty Insurance Companies; Total Financial Assets')
-  life  = @(@("BOGZ1FL544090005Q"), '^Life Insurance Companies; Total Financial Assets')
-  pens  = @(@("BOGZ1FL594090005Q"), '^Pension Funds; Total Financial Assets')
-  mmf   = @(@("BOGZ1FL634090005Q", "MMMFFAQ027S"), '^Money Market Funds; Total Financial Assets')
-  mf    = @(@("BOGZ1LM654090000Q", "BOGZ1FL654090000Q"), '^Mutual Funds; Total Financial Assets')
-  cef   = @(@("BOGZ1LM554090005Q", "BOGZ1FL554090005Q"), '^Closed-End Funds; Total Financial Assets')
-  etf   = @(@("BOGZ1LM564090005Q", "BOGZ1FL564090005Q"), '^Exchange-Traded Funds; Total Financial Assets')
-  gse   = @(@("BOGZ1FL404090005Q"), '^Government-Sponsored Enterprises; Total Financial Assets')
-  pools = @(@("BOGZ1FL413065005Q"), 'GSE-Backed Mortgage Pools; Total Mortgages; Asset')
-  abs   = @(@("BOGZ1FL674090005Q"), 'Issuers of Asset-Backed Securities; Total Financial Assets')
-  finco = @(@("BOGZ1FL614090005Q"), '^Finance Companies; Total Financial Assets')
-  mreit = @(@("BOGZ1FL644090075Q"), 'Mortgage Real Estate Investment Trusts; Total Financial Assets')
-  bd    = @(@("BOGZ1FL664090005Q"), 'Security Brokers and Dealers; Total Financial Assets')
-  hold  = @(@("BOGZ1FL734090005Q"), '^Holding Companies; Total Financial Assets')
-  other = @(@("BOGZ1FL504090005Q"), '^(Other Financial Business|Funding Corporations); Total Financial Assets')
-  hf    = @(@("BOGZ1FL624090005Q"), 'Hedge Funds \(Domestic\); Total Assets Net of Short Sales')
-  pdf   = @(@("BOGZ1FL444090000Q"), 'Private Debt Funds; Total Financial Assets')
-  bdc   = @(@("BOGZ1FL454090003Q"), 'Business Development Companies; Total Financial Assets')
-  ivf   = @(@("BOGZ1FL464090005Q"), 'Interval Funds and Tender Offer Funds; Total Financial Assets')
-  depLE   = @(@("BOGZ1FL704194005Q"), 'Private Depository Institutions; Total Liabilities and Equity')
-  depTL   = @(@("BOGZ1FL704190005Q"), 'Private Depository Institutions; Total Liabilities')
-  lifeLE  = @(@("BOGZ1FL544194075Q"), 'Life Insurance Companies, General Accounts; Total Liabilities and Equity')
-  lifeTL  = @(@("BOGZ1FL544190075Q"), 'Life Insurance Companies, General Accounts; Total Liabilities')
-  pcLE    = @(@("BOGZ1FL514194005Q"), 'Property-Casualty Insurance Companies; Total Liabilities and Equity')
-  pcTL    = @(@("BOGZ1FL514190005Q"), 'Property-Casualty Insurance Companies; Total Liabilities')
-  bdLE    = @(@("BOGZ1FL664194005Q"), 'Security Brokers and Dealers; Total Liabilities and Equity')
-  bdTL    = @(@("BOGZ1FL664190005Q"), 'Security Brokers and Dealers; Total Liabilities')
-  gseLE   = @(@("BOGZ1FL404194005Q"), 'Government-Sponsored Enterprises; Total Liabilities and Equity')
-  gseTL   = @(@("BOGZ1FL404190005Q"), 'Government-Sponsored Enterprises; Total Liabilities')
-  fincoLE = @(@("BOGZ1FL614194005Q"), '^Finance Companies; Total Liabilities and Equity')
-  fincoTL = @(@("BOGZ1FL614190005Q"), '^Finance Companies; Total Liabilities')
-  dbPrivFunded = @(@("BOGZ1FL572000075Q"), 'Private Defined Benefit Pension Funds; Total Funded Assets')
-  dbPrivEnt    = @(@("BOGZ1FL574190043Q"), 'Private Defined Benefit Pension Funds; Pension Entitlements')
-  dbSlFunded   = @(@("BOGZ1FL222000075Q"), 'State and Local Government Employee Defined Benefit Pension Funds; Total Funded Assets')
-  dbSlEnt      = @(@("BOGZ1FL224190043Q"), 'State and Local Government Employee Defined Benefit Pension Funds; Pension Entitlements')
-  dbFedFunded  = @(@("BOGZ1FL342000075Q"), 'Federal Government Defined Benefit Pension Funds; Total Funded Assets')
-  dbFedEnt     = @(@("BOGZ1FL344190045Q"), 'Federal Government Defined Benefit Pension Funds; Pension Entitlements')
-  dbAllFunded  = @(@("BOGZ1FL592000075Q"), '^Defined Benefit Pension Funds; Total Funded Assets')
-  dbAllEnt     = @(@("BOGZ1FL594190045Q"), '^Defined Benefit Pension Funds; Pension Entitlements')
+  fin   = @("FL794090005.Q", '^Domestic financial sectors; total financial assets')
+  fed   = @("FL714090005.Q", '^(Central bank|Monetary authority); total financial assets')
+  dep   = @("FL704090005.Q", '^Private depository institutions; total financial assets')
+  cu    = @("FL474090005.Q", '^Credit unions; total financial assets')
+  pc    = @("FL514090005.Q", '^Property-casualty insurance companies; total financial assets')
+  life  = @("FL544090005.Q", '^Life insurance companies; total financial assets')
+  pens  = @("FL594090005.Q", '^Pension funds; total financial assets')
+  mmf   = @("FL634090005.Q", '^Money market funds; total financial assets')
+  mf    = @("LM654090000.Q", '^Mutual funds; total financial assets')
+  cef   = @("LM554090005.Q", '^Closed-end funds; total financial assets')
+  etf   = @("LM564090005.Q", '^Exchange-traded funds; total financial assets')
+  gse   = @("FL404090005.Q", '^Government-sponsored enterprises; total financial assets')
+  pools = @("FL413065005.Q", 'GSE-backed mortgage pools; total mortgages; asset')
+  abs   = @("FL674090005.Q", '^Issuers of asset-backed securities; total financial assets')
+  finco = @("FL614090005.Q", '^Finance companies; total financial assets')
+  mreit = @("FL644090075.Q", '^Mortgage real estate investment trusts; total financial assets')
+  bd    = @("FL664090005.Q", '^Security brokers and dealers; total financial assets')
+  hold  = @("FL734090005.Q", '^Holding companies; total financial assets')
+  other = @("FL504090005.Q", '^(Other financial business|Funding corporations); total financial assets')
+  hf    = @("FL624090005.Q", '^Hedge funds \(domestic\); total assets net of short sales')
+  pdf   = @("FL444090000.Q", '^Private debt funds; total financial assets')
+  bdc   = @("FL454090003.Q", '^Business development companies; total financial assets')
+  ivf   = @("FL464090005.Q", '^Interval funds and tender offer funds; total financial assets')
+  depLE   = @("FL704194005.Q", '^Private depository institutions; total liabilities and equity')
+  depTL   = @("FL704190005.Q", '^Private depository institutions; total liabilities\s*$')
+  lifeLE  = @("FL544194075.Q", '^Life insurance companies, general accounts; total liabilities and equity')
+  lifeTL  = @("FL544190075.Q", '^Life insurance companies, general accounts; total liabilities\s*$')
+  pcLE    = @("FL514194005.Q", '^Property-casualty insurance companies; total liabilities and equity')
+  pcTL    = @("FL514190005.Q", '^Property-casualty insurance companies; total liabilities\s*$')
+  bdLE    = @("FL664194005.Q", '^Security brokers and dealers; total liabilities and equity')
+  bdTL    = @("FL664190005.Q", '^Security brokers and dealers; total liabilities\s*$')
+  gseLE   = @("FL404194005.Q", '^Government-sponsored enterprises; total liabilities and equity')
+  gseTL   = @("FL404190005.Q", '^Government-sponsored enterprises; total liabilities\s*$')
+  fincoLE = @("FL614194005.Q", '^Finance companies; total liabilities and equity')
+  fincoTL = @("FL614190005.Q", '^Finance companies; total liabilities\s*$')
+  dbPrivFunded = @("FL572000075.Q", '^Private defined benefit pension funds; total funded assets')
+  dbPrivEnt    = @("FL574190043.Q", '^Private defined benefit pension funds; pension entitlements')
+  dbSlFunded   = @("FL222000075.Q", '^State and local government employee defined benefit pension funds; total funded assets')
+  dbSlEnt      = @("FL224190043.Q", '^State and local government employee defined benefit pension funds; pension entitlements')
+  dbFedFunded  = @("FL342000075.Q", '^Federal government defined benefit pension funds; total funded assets')
+  dbFedEnt     = @("FL344190045.Q", '^Federal government defined benefit pension funds; pension entitlements')
+  dbAllFunded  = @("FL592000075.Q", '^Defined benefit pension funds; total funded assets')
+  dbAllEnt     = @("FL594190045.Q", '^Defined benefit pension funds; pension entitlements')
 }
-$from = "1952-01-01"
-$series = [ordered]@{}; $ids = [ordered]@{}
-foreach ($k in $z1.Keys) { $s = Get-FredChecked $z1[$k][0] $z1[$k][1] $from; $series[$k] = $s; $ids[$k] = $s.id }
-# A "total liabilities" title must not be the "total liabilities and equity" series (the regex above would accept both).
-foreach ($k in @("depTL", "lifeTL", "pcTL", "bdTL", "gseTL", "fincoTL")) { if ($series[$k].title -match 'and Equity') { throw "Z.1: $k resolved to the liabilities-and-equity series ($($series[$k].id))" } }
-$byQ = @{}
-foreach ($k in $series.Keys) { $m = @{}; foreach ($p in $series[$k].points) { $m[(ToQuarter $p.d)] = [math]::Round($p.v / 1000, 1) }; $byQ[$k] = $m }
+$tables = @{}; $byQ = @{}; $ids = [ordered]@{}
+foreach ($k in $z1.Keys) {
+  $code = $z1[$k][0]
+  if (-not $dict.ContainsKey($code)) { throw "Z.1: $code is not in the package's data dictionary" }
+  $desc = [string]$dict[$code].desc
+  if ($desc -notmatch $z1[$k][1]) { throw "Z.1: $code is described as '$desc', not /$($z1[$k][1])/" }
+  $t = [string]$dict[$code].table
+  if (-not $tables.ContainsKey($t)) {
+    $csvPath = Join-Path $csvDir ($t + ".csv")
+    if (-not (Test-Path $csvPath)) { throw "Z.1: table file $t.csv is missing" }
+    $tables[$t] = @(Import-Csv $csvPath)
+  }
+  $m = @{}
+  foreach ($row in $tables[$t]) {
+    $d = [string]$row.date
+    if ($d -notmatch '^\d{4}:Q[1-4]$' -or $d -lt "1952:Q1") { continue }
+    $v = [string]$row.$code
+    if ($null -eq $v -or $v -eq "" -or $v -eq "ND" -or $v -eq "NA") { continue }
+    $m[($d -replace ':', '-')] = [math]::Round([double]$v / 1000, 1)
+  }
+  if ($m.Count -lt 40) { throw "Z.1: only $($m.Count) quarterly observations for $code in $t" }
+  $byQ[$k] = $m; $ids[$k] = $code
+  Write-Host ("  {0,-13} {1,-15} {2,4} qtrs  {3}" -f $k, $code, $m.Count, $desc)
+}
 $quarters = @($byQ["fin"].Keys | Sort-Object)
-$sizeKeys = @("dep", "pc", "life", "pens", "mmf", "mf", "cef", "etf", "gse", "pools", "abs", "finco", "mreit", "bd", "hold", "other")
-$newKeys = @("hf", "pdf", "bdc", "ivf")   # in the Z.1's financial-sector total from 2012-Q4 (0 or absent before)
-$rows = New-Object System.Collections.ArrayList
-foreach ($q in $quarters) {
-  $row = [ordered]@{ d = $q }
-  foreach ($k in $series.Keys) { if ($byQ[$k].ContainsKey($q)) { $row[$k] = $byQ[$k][$q] } else { $row[$k] = $null } }
-  if ($q -lt "2012-Q4") { foreach ($k in $newKeys) { $row[$k] = $null } }
-  [void]$rows.Add($row)
-}
-# The latest quarter must carry every series (the Z.1 posts them together).
-$last = $rows[$rows.Count - 1]
-foreach ($k in $series.Keys) { if ($null -eq $last[$k]) { throw "Z.1: $k is missing for $($last.d)" } }
-# Identity 1: the sectors add up to the financial-sector total less the central bank (exactly,
-# within rounding; the four sectors the Z.1 added from 2012-Q4 count from then on). Credit unions are
-# part of private depository institutions and are kept only as a memo item.
-$maxGap = 0.0
-foreach ($r in $rows) {
-  if ($null -eq $r.fin -or $null -eq $r.fed) { continue }
-  $sum = 0.0; $ok = $true
-  foreach ($k in $sizeKeys) { if ($null -eq $r[$k]) { $ok = $false; break }; $sum += [double]$r[$k] }
-  if ($r.d -ge "2012-Q4") { foreach ($k in $newKeys) { if ($null -eq $r[$k]) { $ok = $false; break }; $sum += [double]$r[$k] } }
-  if (-not $ok) { continue }
-  $gap = [math]::Abs(([double]$r.fin - [double]$r.fed) - $sum)
-  if ($gap -gt $maxGap) { $maxGap = $gap }
-  if ($gap -gt [math]::Max(2.0, 0.0005 * [double]$r.fin)) { throw ("Z.1: sectors sum to {0:N1}B but the financial total less the central bank is {1:N1}B in {2} (gap {3:N1}B)" -f $sum, ([double]$r.fin - [double]$r.fed), $r.d, $gap) }
-}
-# Identity 2: private + state and local + federal defined benefit = all defined benefit (funded assets and entitlements).
-foreach ($r in $rows) {
-  if ($null -eq $r.dbAllFunded -or $null -eq $r.dbPrivFunded -or $null -eq $r.dbSlFunded -or $null -eq $r.dbFedFunded) { continue }
-  $g1 = [math]::Abs([double]$r.dbPrivFunded + [double]$r.dbSlFunded + [double]$r.dbFedFunded - [double]$r.dbAllFunded)
-  $g2 = [math]::Abs([double]$r.dbPrivEnt + [double]$r.dbSlEnt + [double]$r.dbFedEnt - [double]$r.dbAllEnt)
-  if ($g1 -gt 1.0 -or $g2 -gt 1.0) { throw ("Z.1: defined benefit pension components do not add up in {0} (funded gap {1:N1}B, entitlements gap {2:N1}B)" -f $r.d, $g1, $g2) }
-}
-# Equity = total liabilities and equity - total liabilities; every sector's share must be sane in the latest quarter.
-foreach ($k in @("dep", "life", "pc", "bd", "gse", "finco")) {
-  $eq = [double]$last["${k}LE"] - [double]$last["${k}TL"]; $share = $eq / [double]$last["${k}LE"] * 100
-  if ($eq -le 0 -or $share -gt 60) { throw ("Z.1: implausible equity for {0} in {1}: {2:N1}B ({3:F1}% of the balance sheet)" -f $k, $last.d, $eq, $share) }
-}
-$nonbank = (1 - [double]$last.dep / ([double]$last.fin - [double]$last.fed)) * 100
-if ($nonbank -lt 50 -or $nonbank -gt 95) { throw "Z.1: implausible nonbank share $nonbank%" }
-Write-Output ("Z.1: {0} quarters, {1} .. {2}; financial assets ex-Fed {3:N0}B, depositories {4:N0}B (nonbank share {5:F1}%); equity/balance sheet: depositories {6:F1}%, life (GA) {7:F1}%, P&C {8:F1}%, broker-dealers {9:F1}%, GSEs {10:F1}%, finance cos {11:F1}%; DB funded: private {12:F1}%, state/local {13:F1}%, federal {14:F1}%; max sector gap {15:N2}B" -f $rows.Count, $rows[0].d, $last.d, ([double]$last.fin - [double]$last.fed), $last.dep, $nonbank,
-  (([double]$last.depLE - [double]$last.depTL) / [double]$last.depLE * 100), (([double]$last.lifeLE - [double]$last.lifeTL) / [double]$last.lifeLE * 100), (([double]$last.pcLE - [double]$last.pcTL) / [double]$last.pcLE * 100),
-  (([double]$last.bdLE - [double]$last.bdTL) / [double]$last.bdLE * 100), (([double]$last.gseLE - [double]$last.gseTL) / [double]$last.gseLE * 100), (([double]$last.fincoLE - [double]$last.fincoTL) / [double]$last.fincoLE * 100),
-  ([double]$last.dbPrivFunded / [double]$last.dbPrivEnt * 100), ([double]$last.dbSlFunded / [double]$last.dbSlEnt * 100), ([double]$last.dbFedFunded / [double]$last.dbFedEnt * 100), $maxGap)
-
 # ---- OFR Hedge Fund Monitor (SEC Form PF aggregates), dollars -> $ billions ----
 $ofr = [ordered]@{
   gne   = @("FPF-ALLQHF_GNE_SUM", 'Qualifying Hedge Funds: gross notional exposure')
@@ -222,7 +221,7 @@ if ($prev -and $prev.ncua -and $prev.ncua.asOf -and ($ncua.asOf -lt $prev.ncua.a
 Write-Output ("NCUA: {0} ({1}), {2} quarters kept, {3} .. {4}" -f $ncuaUrl, $(if ($ncuaDate) { $ncuaDate } else { "undated" }), $nrows.Count, $nrows[0].d, $nrows[$nrows.Count - 1].d)
 
 $obj = [ordered]@{
-  z1 = [ordered]@{ quarterly = $rows; asOf = $last.d; ids = $ids; newSectorsFrom = "2012-Q4"
+  z1 = [ordered]@{ quarterly = $rows; asOf = $last.d; ids = $ids; newSectorsFrom = "2012-Q4"; file = $z1Url; fileDate = $z1Date
     note = "Total financial assets by sector, $ billions (Z.1 L tables; mutual funds, closed-end funds and ETFs at market value); equity = total liabilities and equity less total liabilities (life insurers: general accounts); defined benefit pension funds: total funded assets and pension entitlements (L.118.b-L.120.b)" }
   hedge = [ordered]@{ quarterly = $hrows; asOf = $hl.d; lastUpdate = $hLastUpdate; mnemonics = [ordered]@{}; universe = "Qualifying hedge funds reporting on SEC Form PF (net assets of $500 million or more), aggregated by the OFR" }
   mmf = [ordered]@{ monthly = $mmf.monthly; asOf = $mmf.asOf; from = $mmf.from; liquidityFrom = $mmf.liquidityFrom; file = $secUrl; fileDate = $mmfDate

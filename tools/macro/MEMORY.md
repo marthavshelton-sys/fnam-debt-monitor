@@ -208,14 +208,14 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   Pitfalls met while building it: credit unions are inside Z.1 sector 70, adding them again breaks the sector
   identity by exactly their size; the Z.1's four newer sectors (hedge, private debt, BDC, interval funds) enter
   the financial total from 2012-Q4, not 2013; FRED was unreachable from the sandbox all day (HTTP/2 INTERNAL_ERROR
-  at the egress proxy), so every Z.1 id was verified against the Board's CSV package and the seed file was built
-  from it (the runner's FRED pull replaces it); SEC hosts accept a descriptive User-Agent without an email
+  at the egress proxy), so every Z.1 series was verified against the Board's CSV package; the first runner run then
+  showed FRED does not carry `FL444090000`, `FL454090003`, `FL464090005` (private debt funds, BDCs, interval funds)
+  and names the financial total `FBTFASQ027S`, so the processor reads the Z.1 from the package itself
+  (`z1_csv_files.zip`, dictionary-checked descriptions) and the seed and the runner use the same source; SEC hosts accept a descriptive User-Agent without an email
   (`fnam.mx macro monitor (https://fnam.mx)`), never put the owner's address there; the SEC workbook's weekly liquid
   assets can print 100.3% (tax-exempt institutional), so the helper tolerates up to 105%; the NCUA pack holds forty
   quarters, the processor merges them over the committed file so history never shrinks; in Spanish the bar list
   values are `$41.3` with the unit in the heading ("$41.3 billones" wrapped the value column).
 - Runner check for the nonbank processor: the log should print `Z.1: 298 quarters, 1952-Q1 .. <latest>` with
   `max sector gap` under 1 bn, `OFR hedge funds: 54 quarters`, the SEC workbook URL and `NCUA: … 40 quarters kept`
-  (more after the next pack). If FRED lacks one of the four newer Z.1 sector ids (`BOGZ1FL624090005Q`,
-  `BOGZ1FL444090000Q`, `BOGZ1FL454090003Q`, `BOGZ1FL464090005Q`), compute their group as the residual of the
-  identity instead of failing; nothing on the page shows them individually.
+  (more after the next pack).

@@ -208,8 +208,8 @@ dashboards, everything built from public data by GitHub Actions.
   section list both builders check against the page. Since 7-Oct-2026 the page has six quarterly sections
   (productivity from BLS; corporate profits and labor share from BEA table 1.14 via FRED; private-sector debt
   from the Z.1 via FRED; household debt from the New York Fed workbook plus Z.1/G.19; bank capitalization from
-  FDIC API aggregates plus H.8; the nonbank financial system from the Z.1 sector balance sheets via FRED plus the
-  OFR hedge fund API, the SEC money fund workbook and the NCUA chart pack), each with a title-checked processor (`Get-FredChecked` in `common.ps1`),
+  FDIC API aggregates plus H.8; the nonbank financial system from the Z.1 sector balance sheets in the Board's release
+  package plus the OFR hedge fund API, the SEC money fund workbook and the NCUA chart pack), each with a title-checked processor (`Get-FredChecked` in `common.ps1`),
   identity checks and staleness warnings; `tools/macro/README.md` → "The quarterly sections". The workflow's
   `branch` input runs the whole refresh on a feature branch (data and page committed there, no alerts) to test
   processors before merging; a session cannot reach FRED from PowerShell, so seed data comes from the runner. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
