@@ -4,48 +4,6 @@
   {
    "at": "2026-10-05T14:23:32.430Z",
    "file": "peers.js",
-   "path": "peers[5].peNtm",
-   "old": 14.904229848363928,
-   "new": 14.8342365317182
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[5].evEbitdaNtm",
-   "old": 11.37923250564334,
-   "new": 11.32815631262525
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[5].evSalesNtm",
-   "old": 3.9752037150617716,
-   "new": 3.9592015408860095
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].priceDate",
-   "old": "2026-10-01",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].price",
-   "old": 248.23,
-   "new": 251.52
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].marketCapUsdM",
-   "old": 2677487,
-   "new": 2712974
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
    "path": "peers[6].evUsdM",
    "old": 2796211,
    "new": 2831698
@@ -4200,7 +4158,49 @@
    "path": "peers[7].adtv.avg_vwap_usd",
    "old": 346.65,
    "new": 346.38
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-06)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-06",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2513,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-06",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-06",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T01:15:00.931Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
   }
  ],
- "generated": "2026-10-07T01:12:47.580Z"
+ "generated": "2026-10-07T01:15:00.931Z"
 }

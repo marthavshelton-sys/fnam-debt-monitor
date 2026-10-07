@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07T01:12:47.287Z",
+  "generated": "2026-10-07T01:15:00.762Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -3783,8 +3783,8 @@
     },
     {
       "series": "Share price (ORCL close, runner feed)",
-      "lastDate": "2026-10-05",
-      "ageDays": 2,
+      "lastDate": "2026-10-06",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet"
@@ -3815,32 +3815,32 @@
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-10-06",
-      "ageDays": 1,
+      "lastDate": "2026-10-07",
+      "ageDays": 0,
       "limitDays": 4,
       "status": "ok",
       "note": "filings harvest, weekdays 13:30 UTC"
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-10-06",
-      "ageDays": 1,
+      "lastDate": "2026-10-07",
+      "ageDays": 0,
       "limitDays": 4,
       "status": "ok",
       "note": "filings harvest"
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-10-06",
-      "ageDays": 1,
+      "lastDate": "2026-10-07",
+      "ageDays": 0,
       "limitDays": 10,
       "status": "ok",
       "note": "calendar fetch"
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-10-06",
-      "ageDays": 1,
+      "lastDate": "2026-10-07",
+      "ageDays": 0,
       "limitDays": 10,
       "status": "ok",
       "note": "peer-leverage fetch"
@@ -3879,7 +3879,7 @@
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-10-06",
+      "lastDate": "2026-10-07",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -3920,7 +3920,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-05; 3 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-06; 3 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -3940,7 +3940,7 @@
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-10-06"
+      "detail": "5 peers; fetched 2026-10-07"
     },
     {
       "file": "analysts.json",
@@ -3970,7 +3970,7 @@
       "label_es": "Datos XBRL (10-Q/10-K)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-06",
+      "lastRefresh": "2026-10-07",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4060,7 +4060,7 @@
       "label_es": "Hechos de referencia",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-06",
+      "lastRefresh": "2026-10-07",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4074,8 +4074,8 @@
       "label_en": "Market (daily closes)",
       "label_es": "Mercado (cierres diarios)",
       "cadence": "daily",
-      "asOf": "2026-10-05",
-      "lastRefresh": "2026-10-05",
+      "asOf": "2026-10-06",
+      "lastRefresh": "2026-10-06",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4149,8 +4149,8 @@
       "label_en": "Investor calendar",
       "label_es": "Calendario del inversionista",
       "cadence": "daily",
-      "asOf": "2026-10-06",
-      "lastRefresh": "2026-10-06",
+      "asOf": "2026-10-07",
+      "lastRefresh": "2026-10-07",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4164,8 +4164,8 @@
       "label_en": "Peer leverage (XBRL)",
       "label_es": "Apalancamiento de pares (XBRL)",
       "cadence": "daily",
-      "asOf": "2026-10-06",
-      "lastRefresh": "2026-10-06",
+      "asOf": "2026-10-07",
+      "lastRefresh": "2026-10-07",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
