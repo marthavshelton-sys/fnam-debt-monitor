@@ -142,7 +142,9 @@
       return y;
     }
     measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? (opts.marker === false ? 0 : 9) : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
-    heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(titleCase(str, this.es)), x, y + size * 0.85); return y + size * 1.5; }
+    // `w` (optional) is the room the heading has: the size shrinks (down to 7.5 pt) until the text fits, so a column heading
+    // never runs past its column (the tear sheet's Spanish chart heading was cut at the page edge, 2026-10-07)
+    heading(str, x, y, size = 11, w) { const t = tx(titleCase(str, this.es)); this.font('bold', size, ACCENT); if (w) while (size > 7.5 && this.tw(t) > w) { size -= 0.25; this.font('bold', size, ACCENT); } this.pdf.text(t, x, y + size * 0.85); return y + size * 1.5; }
     note(str, y, size = 7.5, x, w) { return this.text(str, x == null ? this.cur.x0 : x, y, w == null ? this.width() : w, size, 'normal', MUTED, 1.25); }
     measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w - 4).length * size * (lh || 1.3) + 1; }
     // A note that must sit above the footer: placed at `y`, or higher if it would not fit.
