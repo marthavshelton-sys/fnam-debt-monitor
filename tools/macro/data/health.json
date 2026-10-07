@@ -1,13 +1,15 @@
 ﻿{
-    "runAt":  "2026-10-06T20:18:44Z",
+    "runAt":  "2026-10-07T04:14:18Z",
     "failed":  [
-
+                   "process_productivity.ps1",
+                   "process_debt.ps1"
                ],
     "consecutive":  {
-
+                        "process_productivity.ps1":  1,
+                        "process_debt.ps1":  1
                     },
     "warnings":  [
-
+                     "G.19 consumer credit is still at 2026-07; the next month was due by 2026-09-11"
                  ],
-    "warnStreak":  0
+    "warnStreak":  1
 }
