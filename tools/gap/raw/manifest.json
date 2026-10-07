@@ -3,10 +3,10 @@
  "source": "gnw",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-06T15:50:54.354Z",
+ "updatedAt": "2026-10-07T14:41:21.587Z",
  "kept": {
   "results": 32,
-  "traffic": 154,
+  "traffic": 155,
   "other": 22
  },
  "companyFactsConcepts": null,
@@ -3877,6 +3877,23 @@
      "class": "traffic",
      "chars": 6345,
      "path": "tools/gap/raw/6k/2026-09-11_gnw3360535_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3376140",
+   "lang": "en",
+   "filingDate": "2026-10-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/10/06/3376140/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-september-2026-of-7-3-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-10-06_gnw3376140_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/10/06/3376140/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-september-2026-of-7-3-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 10249,
+     "path": "tools/gap/raw/6k/2026-10-06_gnw3376140_en.txt"
     }
    ]
   }

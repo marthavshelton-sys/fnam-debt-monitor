@@ -2,13 +2,21 @@
  "issuer": "GAP-6579-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GAP-6579-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": "2026-10-06T15:51:01.344Z",
- "rows": 198,
+ "checkedAt": "2026-10-07T14:41:25.305Z",
+ "rows": 199,
  "archived": 0,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1593716",
+   "date": "2026-10-06",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN SEPTIEMBRE DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 7.3% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1593716_1.pdf",
+   "coveredBy": "2026-10-06_gnw3376140_en.txt"
+  },
   {
    "id": "1589699",
    "date": "2026-09-18",
