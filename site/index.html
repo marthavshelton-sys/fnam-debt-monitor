@@ -258,6 +258,11 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent, #1b4332); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
 .skip:focus{left:8px;}
 </style>
+<!-- Prerender the Mauricio hub when its card is hovered or touched (Chrome and Edge; other browsers ignore this), so the
+     click opens it at once; the hub carries the same rule for the Oracle model. The PDF deep link is not matched. -->
+<script type="speculationrules">
+{ "prerender": [ { "where": { "selector_matches": "a[href=\"/mauricio/\"]" }, "eagerness": "moderate" } ] }
+</script>
 </head>
 <body>
 <a class="skip" href="#main"><span class="en">Skip to content</span><span class="es">Saltar al contenido</span></a>
