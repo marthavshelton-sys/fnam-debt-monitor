@@ -16,7 +16,7 @@ $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
-foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_weights.ps1")) {
+foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_nonbank.ps1","process_weights.ps1")) {
   Write-Output "=============== $step"
   try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
 }
@@ -61,11 +61,17 @@ CheckQuarterly "profits_processed.json" { param($j) $j.asOf } 60 "NIPA corporate
 CheckQuarterly "debt_processed.json" { param($j) $j.asOf } 75 "Z.1 debt"
 CheckQuarterly "hhdebt_processed.json" { param($j) $j.nyfed.asOf } 45 "NY Fed household debt"
 CheckQuarterly "banks_processed.json" { param($j) $j.asOf } 60 "FDIC bank capital"
+CheckQuarterly "nonbank_processed.json" { param($j) $j.z1.asOf } 75 "Z.1 nonbank financial sectors"
+CheckQuarterly "nonbank_processed.json" { param($j) $j.hedge.asOf } 85 "OFR hedge fund monitor"
+CheckQuarterly "nonbank_processed.json" { param($j) $j.ncua.asOf } 80 "NCUA credit union trends"
 try {
   $hh = Get-Content (Join-Path $data "hhdebt_processed.json") -Raw | ConvertFrom-Json
   $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(14)   # the G.19 posts a month about five weeks after it ends (July on the 5th business day of September), so the next month is overdue two weeks into the third month
   if ((Get-Date).Date -gt $g19) { Warn "G.19 consumer credit is still at $($hh.g19.asOf); the next month was due by $($g19.ToString('yyyy-MM-dd'))" } else { Write-Output ("G.19: {0} OK" -f $hh.g19.asOf) }
   $bk = Get-Content (Join-Path $data "banks_processed.json") -Raw | ConvertFrom-Json
+  $nb = Get-Content (Join-Path $data "nonbank_processed.json") -Raw | ConvertFrom-Json
+  $mmfDue = [datetime]::ParseExact($nb.mmf.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(15)   # the SEC posts a month about three to four weeks after it ends (August on 24-Sep); the next month is overdue in the middle of the third month after (August: 16-Nov), three weeks of slack
+  if ((Get-Date).Date -gt $mmfDue) { Warn "SEC money market fund statistics are still at $($nb.mmf.asOf); the next month was due by $($mmfDue.ToString('yyyy-MM-dd'))" } else { Write-Output ("SEC MMF: {0} OK" -f $nb.mmf.asOf) }
   $wk = $bk.h8.weekly[-1].d
   if (((Get-Date).Date - [datetime]::ParseExact($wk, "yyyy-MM-dd", $null)).TotalDays -gt 21) { Warn "H.8 weekly bank data is still at $wk (more than three weeks old)" } else { Write-Output ("H.8: {0} OK" -f $wk) }
 } catch { Warn "staleness check for G.19/H.8 could not run: $($_.Exception.Message)" }

@@ -1,5 +1,5 @@
 <title>Monitor Macro de Estados Unidos · FNAM</title>
-<meta name="description" content="Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.">
+<meta name="description" content="Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario y no bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.">
 <link rel="canonical" href="https://fnam.mx/macro/">
 <link rel="alternate" hreflang="es-MX" href="https://fnam.mx/macro/">
 <link rel="alternate" hreflang="en" href="https://fnam.mx/macro/?lang=en">
@@ -648,6 +648,7 @@
     <div class="rail-group-label" data-i18n="groupCredit">Credit &amp; Banking</div>
     <a class="rail-item" data-view="debt" href="?view=debt"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navDebt">Private Sector Debt</span></span></a>
     <a class="rail-item" data-view="banks" href="?view=banks"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navBanks">Bank Capitalization</span></span></a>
+    <a class="rail-item" data-view="nonbank" href="?view=nonbank"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navNonbank">Nonbank Financial System</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupMarkets">Markets &amp; Conditions</div>
     <a class="rail-item rail-link" href="https://fnam.mx/fiscal/#policyrates" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFedFunds">Federal Funds Rate</span></span><span class="ext-mark">↗</span></a>
@@ -2833,6 +2834,165 @@
 
     <footer data-i18n="footerBanks">Bank source note.</footer>
   </div>
+  <div class="view" id="view-nonbank">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="nbfTitle">Nonbank Financial System</h1>
+        <div class="desc" data-i18n="nbfDesc">Who holds the financial system's assets beyond the banks, and how much cushion stands behind them: insurers, pension funds, investment funds, GSEs, broker-dealers and finance companies since 1952, plus hedge funds, money market funds and credit unions from their regulators.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="nbfAsOfLine">&mdash;</div>
+        <div id="nbfHedgeLine">&mdash;</div>
+        <div id="nbfMmfLine">&mdash;</div>
+        <div id="nbfNcuaLine">&mdash;</div>
+        <div id="nbfNextReleaseLine">&mdash;</div>
+        <div id="nbfRefreshedLine">&mdash;</div>
+        <div><a href="https://www.federalreserve.gov/releases/z1/" target="_blank" rel="noopener" data-i18n="sourceNonbank">Source: Federal Reserve Z.1 Financial Accounts (release data package); OFR Hedge Fund Monitor; SEC Money Market Fund Statistics; NCUA</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-nonbank"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="nbfWho">Who is counted</span><span data-i18n="nbfWhoText">Who is counted.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="nbfWhy">Why it matters</span><span data-i18n="nbfWhyText">Why it matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="nbfKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecShares">Who holds the financial system's assets</h2>
+        <span class="note" data-i18n="nbfSecSharesNote">Share of the total financial assets of the domestic financial sectors, excluding the Federal Reserve, % &middot; Z.1, quarterly since 1952</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="nbfShareLegend"></div>
+        <div class="chart-wrap">
+          <svg id="nbfShareChart" viewBox="0 0 920 280"></svg>
+          <div class="tooltip" id="nbfShareTooltip"></div>
+        </div>
+        <div class="callout" id="nbfShareCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 id="nbfSectorListTitle">Financial assets by sector</h2>
+        <span class="note" data-i18n="nbfSectorListNote">$ trillions at the end of the latest quarter &middot; mutual funds, closed-end funds and ETFs at market value</span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="nbfSectorList"></div>
+        <div class="callout" id="nbfSectorCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecEquity">Equity cushions by sector</h2>
+        <span class="note" data-i18n="nbfSecEquityNote">Equity as % of total liabilities and equity, from each sector's Z.1 balance sheet, since 1952 &middot; a balance-sheet measure, not regulatory capital</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="nbfEquityLegend"></div>
+        <div class="chart-wrap">
+          <svg id="nbfEquityChart" viewBox="0 0 920 280"></svg>
+          <div class="tooltip" id="nbfEquityTooltip"></div>
+        </div>
+        <div class="callout" id="nbfEquityCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecPension">Defined benefit pensions: funded status</h2>
+        <span class="note" data-i18n="nbfSecPensionNote">Funded assets as % of pension entitlements, and the unfunded gap in $ trillions &middot; Z.1 tables L.118.b&ndash;L.120.b, since 1952</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfPensionRatioTitle">Funded ratio, %</div>
+            <div class="legend" id="nbfPensionRatioLegend"></div>
+            <div class="chart-wrap"><svg id="nbfPensionRatioChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfPensionRatioTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfPensionGapTitle">Unfunded entitlements, $ trillions</div>
+            <div class="legend" id="nbfPensionGapLegend"></div>
+            <div class="chart-wrap"><svg id="nbfPensionGapChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfPensionGapTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="nbfPensionCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecHedge">Hedge funds: assets, exposure and borrowing</h2>
+        <span class="note" data-i18n="nbfSecHedgeNote">Qualifying hedge funds reporting on SEC Form PF, aggregated by the Office of Financial Research, $ trillions, quarterly since 2013</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfHedgeAssetsTitle">Net assets, gross assets and gross notional exposure</div>
+            <div class="legend" id="nbfHedgeAssetsLegend"></div>
+            <div class="chart-wrap"><svg id="nbfHedgeAssetsChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfHedgeAssetsTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfHedgeBorrowTitle">Borrowing by type</div>
+            <div class="legend" id="nbfHedgeBorrowLegend"></div>
+            <div class="chart-wrap"><svg id="nbfHedgeBorrowChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfHedgeBorrowTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="nbfHedgeCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecMmf">Money market funds: assets and liquidity</h2>
+        <span class="note" data-i18n="nbfSecMmfNote">Form N-MFP aggregates published by the SEC: net assets by fund type since December 2010, $ trillions; weekly liquid assets as % of total assets since October 2016</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfMmfAssetsTitle">Net assets by fund type</div>
+            <div class="legend" id="nbfMmfAssetsLegend"></div>
+            <div class="chart-wrap"><svg id="nbfMmfAssetsChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfMmfAssetsTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfMmfLiqTitle">Weekly liquid assets, % of total assets</div>
+            <div class="legend" id="nbfMmfLiqLegend"></div>
+            <div class="chart-wrap"><svg id="nbfMmfLiqChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="nbfMmfLiqTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="nbfMmfCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="nbfSecNcua">Credit unions: net worth and asset quality</h2>
+        <span class="note" data-i18n="nbfSecNcuaNote">All federally insured credit unions, from the NCUA's quarterly chart pack: aggregate net worth ratio and delinquency rate, %</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfNcuaNwTitle">Net worth ratio, %</div>
+            <div class="chart-wrap"><svg id="nbfNcuaNwChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="nbfNcuaNwTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="nbfNcuaDelqTitle">Delinquency rate, % of loans</div>
+            <div class="chart-wrap"><svg id="nbfNcuaDelqChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="nbfNcuaDelqTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="nbfNcuaCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerNonbank">Nonbank source note.</footer>
+  </div>
 
   </main>
 </div>
@@ -2900,6 +3060,7 @@ let PROFITS = unpack(/*__PROFITS_DATA__*/ null);
 let DEBT = unpack(/*__DEBT_DATA__*/ null);
 let HHDEBT = unpack(/*__HHDEBT_DATA__*/ null);
 let BANKS = unpack(/*__BANKS_DATA__*/ null);
+let NONBANK = unpack(/*__NONBANK_DATA__*/ null);
 // Release dates come from FRED, which carries each agency's official schedule
 // including future dates. No hand-typed date tables remain in this file.
 const CALENDAR = unpack(/*__CALENDAR__*/ null);
@@ -2941,7 +3102,7 @@ const I18N = {
     switchTo: "Change to English",
     switchAria: "Change to English",
     docTitle: v => v + " · Monitor Macro de Estados Unidos · FNAM",
-    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
+    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario y no bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
     navAria: "Secciones",
     nfTitle: "Sección no encontrada",
     nfDesc: v => "Este tablero no tiene una sección llamada «" + v + "». Elige una de estas:",
@@ -4115,6 +4276,108 @@ const I18N = {
     exBkDrivers: (eqY, assetsY, unreal, kind, pctEq, worst, worstQ) => "El capital contable creció " + eqY + " en el año y los activos " + assetsY + ". La " + (kind === "loss" ? "pérdida" : "ganancia") + " no realizada en valores es " + unreal + ", el " + pctEq + "% del capital contable, frente a " + worst + " en el peor trimestre (" + worstQ + ").",
     exBkWhy: (nc, ncAgo, peak, peakQ, cov, unins) => "El " + nc + " de los préstamos está en mora (" + ncAgo + " un año antes; máximo " + peak + " en " + peakQ + "), con reservas que cubren el " + cov + "%; el " + unins + "% de los depósitos nacionales no está asegurado. Más capital y reservas amortiguan pérdidas; menos capital frente a pérdidas no realizadas y depósitos no asegurados es lo que amplificó las quiebras de 2023.",
     exBkWatch: (m, w) => "Próximo Quarterly Banking Profile: previsto a fines de " + m + (w ? "; la H.8 semanal llega al " + w : "") + ". Seguir las pérdidas no realizadas conforme se mueven las tasas, la mora en bienes raíces comerciales y la proporción de depósitos no asegurados.",
+    navNonbank: "Sistema financiero no bancario",
+    nbfTitle: "Sistema financiero no bancario",
+    nbfDesc: "Quién tiene los activos del sistema financiero más allá de los bancos y cuánto colchón los respalda: aseguradoras, fondos de pensiones, fondos de inversión, GSE, casas de bolsa y financieras desde 1952, más fondos de cobertura, fondos de mercado de dinero y cooperativas de crédito con las cifras de sus reguladores.",
+    sourceNonbank: "Fuente: Reserva Federal, Cuentas Financieras Z.1 (paquete de datos de la publicación); OFR Hedge Fund Monitor; SEC Money Market Fund Statistics; NCUA ↗",
+    footerNonbank: "Datos: Reserva Federal, Cuentas Financieras de Estados Unidos (Z.1), del paquete trimestral de cuadros de la publicación: activos financieros totales de cada sector financiero nacional (cuadros L.108 a L.132; fondos mutuos, fondos cerrados y ETF a valor de mercado), que deben sumar exactamente el total publicado del sector financiero menos la Reserva Federal o no se publica nada; capital contable como pasivos y capital totales menos pasivos totales en los balances de las instituciones de depósito privadas, las cuentas generales de las aseguradoras de vida, las aseguradoras de daños, las casas de bolsa, las empresas patrocinadas por el gobierno (GSE) y las financieras; activos fondeados y derechos pensionarios de los fondos de pensiones de beneficio definido (cuadros L.118.b a L.120.b; los tres tipos de plan deben sumar la serie de todos los planes). Office of Financial Research, Hedge Fund Monitor (agregados del Formulario PF de la SEC para los fondos de cobertura calificados, con activos netos de al menos 500 millones de dólares, incluidos los fondos asesorados desde EE. UU. pero domiciliados en el extranjero): activos netos, activos brutos, exposición nocional bruta, financiamiento por tipo, número de fondos y apalancamiento promedio de los diez fondos mayores. División de Administración de Inversiones de la SEC, Money Market Fund Statistics (agregados del Formulario N-MFP, sin fondos alimentadores): activos netos por categoría, número de fondos, activos líquidos diarios y semanales. NCUA, Financial Trends in Federally Insured Credit Unions (paquete trimestral de gráficas): número de instituciones, razón agregada de capital neto, tasa de morosidad, préstamos recibidos y rendimiento sobre activos promedio; los trimestres anteriores se conservan de ediciones previas. Las participaciones y razones se calculan en esta página a partir de las sumas; nada se estima.",
+    nbfWho: "A quién se cuenta",
+    nbfWhoText: "Todos los sectores financieros nacionales de las Cuentas Financieras de la Reserva Federal: bancos y cooperativas de crédito, aseguradoras de vida y de daños, fondos de pensiones privados, estatales y locales y federales, fondos de mercado de dinero, mutuos, cerrados y ETF, GSE y pools hipotecarios de agencias, emisores de bursatilizaciones (ABS), financieras, REIT hipotecarios, casas de bolsa, controladoras y otros negocios financieros y, desde 2012, fondos de cobertura nacionales, fondos de deuda privada y BDC (fondos de intervalo desde 2021). La propia Reserva Federal queda fuera. Los fondos de cobertura, los fondos de mercado de dinero y las cooperativas de crédito aparecen además con las cifras de sus reguladores (OFR, SEC, NCUA).",
+    nbfWhy: "Por qué importa",
+    nbfWhyText: "La mayor parte de los activos del sector financiero está fuera de los bancos, donde las reglas de capital son más laxas o no existen: aseguradoras y fondos de pensiones que deben cumplir promesas a largo plazo, fondos que pueden enfrentar reembolsos, casas de bolsa y fondos de cobertura que operan con dinero prestado. La crisis de 2008 corrió por las casas de bolsa, los fondos de mercado de dinero y las GSE; marzo de 2020, por los fondos de mercado de dinero y los fondos apalancados. Esta página muestra el tamaño de cada sector y el colchón que lo respalda, a partir de balances oficiales, para que un colchón que se adelgaza o un sector que crece rápido se vea antes de que importe.",
+    nbfAsOf: q => "Z.1 con datos al " + q,
+    nbfHedgeLine: (q, d) => "Fondos de cobertura (OFR): " + q + (d ? " · publicado el " + d : ""),
+    nbfMmfLine: (m, d) => "Fondos de mercado de dinero (SEC): " + m + (d ? " · publicado el " + d : ""),
+    nbfNcuaLine: (q, n) => "Cooperativas de crédito (NCUA): " + q + " (" + n + " instituciones)",
+    nbfKpiShare: "Participación no bancaria en los activos financieros",
+    nbfKpiShareFoot: q => "sin la Fed · " + q,
+    nbfKpiSlFunded: "Fondeo de pensiones estatales y locales",
+    nbfKpiPrivFunded: "Fondeo de pensiones privadas (BD)",
+    nbfKpiHedge: "Fondos de cobertura: activos brutos / netos",
+    nbfKpiHedgeFoot: q => "OFR · " + q,
+    nbfKpiMmf: "Activos de fondos de mercado de dinero",
+    nbfKpiCu: "Razón de capital neto de cooperativas de crédito",
+    nbfSecShares: "Quién tiene los activos del sistema financiero",
+    nbfSecSharesNote: "Participación en los activos financieros totales de los sectores financieros nacionales, sin la Reserva Federal, % · Z.1, trimestral desde 1952",
+    legDepositories: "Bancos y cooperativas de crédito",
+    legInsurers: "Aseguradoras",
+    legPensions: "Fondos de pensiones",
+    legInvFunds: "Fondos de inversión",
+    legGsePools: "GSE y pools de agencias",
+    legOtherNonbank: "Otras finanzas no bancarias",
+    nbfShareNote: (q, total, dep, depPct, share, s1980, s2000, n1, v1, p1, n2, v2, p2) => "En " + q + " los sectores financieros nacionales tienen " + total + " de activos financieros, de los cuales los bancos y las cooperativas de crédito " + dep + " (" + depPct + "). Las instituciones no bancarias tienen el " + share + (s1980 && s2000 ? ", frente al " + s1980 + " al cierre de 1980 y el " + s2000 + " al cierre de 2000" : "") + ". Los mayores tenedores no bancarios son " + n1 + " (" + v1 + ", " + p1 + ") y " + n2 + " (" + v2 + ", " + p2 + ").",
+    nbfShareMethod: "Participaciones en el total de \"sectores financieros nacionales\" de la Z.1 menos la Reserva Federal; los sectores suman exactamente ese total. Los fondos de inversión y de pensiones tienen acciones a valor de mercado, así que su participación sube y baja con la bolsa. Otras finanzas no bancarias: emisores de ABS, financieras, REIT hipotecarios, casas de bolsa, controladoras, otros negocios financieros y, desde 2012, fondos de cobertura, fondos de deuda privada y BDC (fondos de intervalo desde 2021).",
+    nbfSectorListTitle: q => "Activos financieros por sector, " + q,
+    nbfSectorListNote: "Billones de dólares al cierre del último trimestre · fondos mutuos, fondos cerrados y ETF a valor de mercado",
+    nbfBarValue: v => "$" + v.toFixed(1),
+    nbBanks: "Bancos",
+    nbCu: "Cooperativas de crédito",
+    nbLife: "Aseguradoras de vida",
+    nbPc: "Aseguradoras de daños",
+    nbPens: "Fondos de pensiones",
+    nbMfEtf: "Fondos mutuos, ETF y fondos cerrados",
+    nbMmf: "Fondos de mercado de dinero",
+    nbGse: "GSE y pools hipotecarios de agencias",
+    nbCredit: "Emisores de ABS, financieras y REIT hipotecarios",
+    nbPrivate: "Fondos de cobertura, deuda privada, BDC e intervalo",
+    nbBd: "Casas de bolsa",
+    nbHoldOther: "Controladoras y otros",
+    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from, ivfFrom) => "Los fondos mutuos, ETF y fondos cerrados tienen " + funds + " (los ETF solos " + etf + ") y los fondos de mercado de dinero " + mmf + " en " + q + "; las GSE y los pools de agencias " + gse + ", las casas de bolsa " + bd + ", los fondos de cobertura, de deuda privada, BDC y de intervalo " + priv + (from ? " (en las cuentas desde " + from + (ivfFrom ? ", los de intervalo desde " + ivfFrom : "") + ")" : "") + ". Las cooperativas de crédito tienen " + cu + ", el " + cuPct + " del total.",
+    nbfSecEquity: "Colchones de capital por sector",
+    nbfSecEquityNote: "Capital contable como % de pasivos y capital totales, del balance de cada sector en la Z.1, desde 1952 · una medida de balance, no capital regulatorio",
+    legEqDep: "Bancos y cooperativas de crédito",
+    legEqLife: "Aseguradoras de vida (cuentas generales)",
+    legEqPc: "Aseguradoras de daños",
+    legEqBd: "Casas de bolsa",
+    legEqGse: "GSE",
+    legEqFinco: "Financieras",
+    nbfEquityNote: (q, life, lifeAgo, pcv, bd, gse, finco, dep, lifeLow, lifeLowQ, bdLow, bdLowQ) => "En " + q + " el capital contable equivale al " + life + " del balance de las cuentas generales de las aseguradoras de vida (" + lifeAgo + " un año antes), al " + pcv + " en las aseguradoras de daños, al " + bd + " en las casas de bolsa, al " + gse + " en las GSE y al " + finco + " en las financieras, frente al " + dep + " en los bancos y las cooperativas de crédito. Desde 1990 el colchón de las aseguradoras de vida tocó fondo en " + lifeLow + " (" + lifeLowQ + ") y el de las casas de bolsa en " + bdLow + " (" + bdLowQ + ").",
+    nbfEquityMethod: "Capital contable = pasivos y capital totales menos pasivos totales en el cuadro de cada sector de la Z.1 (el concepto de las cuentas macroeconómicas integradas de la Fed), entre pasivos y capital totales. No es capital estatutario (aseguradoras), capital neto (casas de bolsa) ni el ERCF (GSE): esas medidas regulatorias usan otros denominadores y ponderaciones por riesgo. Las aseguradoras de daños muestran mucho capital porque sus pasivos son reservas de siniestros de corto plazo; las cuentas generales de las aseguradoras de vida llevan reservas de pólizas contra casi todos sus activos. Los fondos de pensiones y de inversión no tienen renglón de capital: sus pasivos son los derechos de sus beneficiarios.",
+    nbfSecPension: "Pensiones de beneficio definido: nivel de fondeo",
+    nbfSecPensionNote: "Activos fondeados como % de los derechos pensionarios, y la brecha sin fondear en billones de dólares · cuadros L.118.b–L.120.b de la Z.1, desde 1952",
+    nbfPensionRatioTitle: "Razón de fondeo, %",
+    nbfPensionGapTitle: "Derechos sin fondear, billones de dólares",
+    legPrivDb: "Planes privados",
+    legSlDb: "Planes de gobiernos estatales y locales",
+    legFedDb: "Planes del gobierno federal",
+    nbfPensionNote: (q, sl, slAgo, slEnt, slFunded, slGap, priv, fed, slLow, slLowQ) => "Los planes de gobiernos estatales y locales están fondeados al " + sl + " en " + q + " (" + slAgo + " un año antes): " + slEnt + " de derechos pensionarios contra " + slFunded + " de activos fondeados, una brecha de " + slGap + " que recae en los presupuestos estatales y locales. Los planes privados están fondeados al " + priv + " y los federales al " + fed + ". Desde 1990 la razón estatal y local tocó fondo en " + slLow + " en " + slLowQ + ".",
+    nbfPensionMethod: "La Reserva Federal valúa los derechos pensionarios como el valor presente de las prestaciones prometidas (con su propio descuento, no los supuestos actuariales de los planes) y cuenta como activos fondeados los activos que los planes tienen para respaldarlos, sin las reclamaciones contra los patrocinadores; la brecha entre derechos y activos fondeados es el pasivo sin fondear de los patrocinadores. Los planes federales están respaldados por el Tesoro; la razón mide los fondos fiduciarios, no la promesa.",
+    nbfSecHedge: "Fondos de cobertura: activos, exposición y financiamiento",
+    nbfSecHedgeNote: "Fondos de cobertura calificados que reportan en el Formulario PF de la SEC, agregados por la Office of Financial Research, billones de dólares, trimestral desde 2013",
+    nbfHedgeAssetsTitle: "Activos netos, activos brutos y exposición nocional bruta",
+    nbfHedgeBorrowTitle: "Financiamiento por tipo",
+    legGne: "Exposición nocional bruta",
+    legGav: "Activos brutos",
+    legNav: "Activos netos",
+    legRepo: "Reporto",
+    legPrimeBroker: "Prime brokerage",
+    legOtherSecured: "Otro financiamiento garantizado",
+    nbfHedgeNote: (q, nav, gav, gavNav, gavNavAgo, gne, gneNav, repo, repoY, pb, osec, n, top10) => "En " + q + " los fondos de cobertura calificados reportan " + nav + " de activos netos y " + gav + " de activos brutos (" + gavNav + " los activos netos" + (gavNavAgo ? ", " + gavNavAgo + " un año antes" : "") + "); la exposición nocional bruta, que suma los derivados, es de " + gne + " (" + gneNav + "). Se financian con " + repo + " en reporto" + (repoY ? " (" + repoY + " a/a)" : "") + ", " + pb + " con prime brokers y " + osec + " con otras garantías. Reportan " + n + " fondos" + (top10 ? "; los diez mayores operan en promedio " + top10 + " activos brutos sobre netos" : "") + ".",
+    nbfHedgeMethod: "Los agregados del Formulario PF cubren a los fondos de cobertura calificados (activos netos de 500 millones de dólares o más) asesorados por asesores registrados en la SEC, incluidos los domiciliados en el extranjero; el sector de fondos de cobertura nacionales de la Z.1, arriba, es más estrecho. Activos brutos sobre netos mide el apalancamiento de balance; la exposición nocional bruta suma el nocional de los derivados, así que exagera la exposición económica de las posiciones cubiertas. La OFR publica un trimestre unas once semanas después de su cierre y revisa trimestres anteriores conforme se enmiendan los reportes.",
+    nbfSecMmf: "Fondos de mercado de dinero: activos y liquidez",
+    nbfSecMmfNote: "Agregados del Formulario N-MFP publicados por la SEC: activos netos por tipo de fondo desde diciembre de 2010, billones de dólares; activos líquidos semanales como % de los activos totales desde octubre de 2016",
+    nbfMmfAssetsTitle: "Activos netos por tipo de fondo",
+    nbfMmfLiqTitle: "Activos líquidos semanales, % de los activos totales",
+    legMmfGov: "Gubernamentales",
+    legMmfTsy: "Del Tesoro",
+    legMmfPrime: "Prime",
+    legMmfTex: "Exentos de impuestos",
+    legWlaGov: "Fondos gubernamentales",
+    legWlaTsy: "Fondos del Tesoro",
+    legWlaPrimeI: "Prime institucionales",
+    legWlaPrimeR: "Prime minoristas",
+    nbfMmfNote: (m, total, yoy, govPct, prime, tex, n, wlaGov, wlaPrimeI, wlaPrimeR, peakKind, peak, peakM) => "Los fondos de mercado de dinero tienen " + total + (n ? " en " + n + " fondos" : "") + " en " + m + (yoy ? " (" + yoy + " a/a)" : "") + (peakKind === "record" ? ", un máximo histórico" : peakKind === "level" ? ", al nivel del máximo de " + peakM : ", frente a un máximo de " + peak + " en " + peakM) + ". Los fondos gubernamentales y del Tesoro son el " + govPct + " del total; los fondos prime tienen " + prime + " y los exentos de impuestos " + tex + ". Activos líquidos semanales: " + wlaGov + " de los activos en los fondos gubernamentales, " + wlaPrimeI + " en los prime institucionales y " + wlaPrimeR + " en los prime minoristas.",
+    nbfMmfMethod: "Se excluyen los fondos alimentadores. Los fondos prime tienen papel comercial, certificados de depósito y otro papel privado; fueron los que sufrieron fuertes reembolsos institucionales en septiembre de 2008 y en marzo de 2020; las reformas de 2014 y 2023 movieron activos a los fondos gubernamentales. Las reglas de la SEC exigen al menos 25% de activos líquidos diarios y 50% semanales (10% y 30% antes de abril de 2024; los fondos exentos de impuestos no tienen mínimo diario); las reformas de 2023 eliminaron las barreras a los reembolsos y el detonante de comisiones ligado a la liquidez semanal, y obligan a los fondos prime y exentos de impuestos institucionales a cobrar comisiones por liquidez en los días de reembolsos netos grandes.",
+    nbfSecNcua: "Cooperativas de crédito: capital neto y calidad de activos",
+    nbfSecNcuaNote: "Todas las cooperativas de crédito con seguro federal, del paquete trimestral de gráficas de la NCUA: razón agregada de capital neto y tasa de morosidad, %",
+    nbfNcuaNwTitle: "Razón de capital neto, %",
+    nbfNcuaDelqTitle: "Tasa de morosidad, % de los préstamos",
+    nbfNcuaNote: (q, n, nAgo, assets, nw, nwAgo, nwLow, nwLowQ, from, delq, delqAgo, borrow) => { const p = []; if (nwAgo) p.push(nwAgo + " un año antes"); if (nwLow && nwLowQ) p.push("mínimo de " + nwLow + " en " + nwLowQ + (from ? " en la serie desde " + from : "")); return n + " cooperativas de crédito con seguro federal" + (nAgo ? " (" + nAgo + " un año antes)" : "") + (assets ? " tienen " + assets + " de activos" : "") + " en " + q + ", con una razón agregada de capital neto de " + nw + (p.length ? " (" + p.join("; ") + ")" : "") + (delq ? ". El " + delq + " de los préstamos está en mora" + (delqAgo ? " (" + delqAgo + " un año antes)" : "") : "") + (borrow ? "; los préstamos recibidos son el " + borrow + " de los depósitos de los socios y el capital neto." : "."); },
+    nbfNcuaMethod: "El capital neto son las utilidades retenidas más la deuda subordinada que cuentan las reglas de la NCUA, entre los activos totales, sumado sobre todas las cooperativas con seguro federal; una cooperativa por debajo del 7% queda sujeta a acción correctiva pronta. La razón agregada del paquete de gráficas difiere ligeramente de la razón de acción correctiva pronta que la NCUA reporta para el sistema, que usa denominadores electivos. Los préstamos en mora tienen 60 días o más de atraso.",
+    exNfLatest: (q, share, dir, delta, life, bd, dep, sl, priv) => "Las instituciones no bancarias tienen el " + share + " de los activos del sector financiero de EE. UU. en " + q + " (" + ({ up: "subió", down: "bajó", flat: "sin cambio" })[dir] + (dir === "flat" ? "" : " " + delta + " pp") + " en el año). El capital contable equivale al " + life + " del balance de las cuentas generales de las aseguradoras de vida y al " + bd + " del de las casas de bolsa, frente al " + dep + " en los bancos y las cooperativas de crédito; los planes de pensiones estatales y locales están fondeados al " + sl + " y los privados al " + priv + ".",
+    exNfDrivers: (funds, fundsY, pens, pensY, ins, insY, hq, gavNav, gavNavAgo, gneNav, borrow, borrowY) => "Los fondos de inversión tienen " + funds + (fundsY ? " (" + fundsY + " a/a)" : "") + ", los fondos de pensiones " + pens + (pensY ? " (" + pensY + ")" : "") + " y las aseguradoras " + ins + (insY ? " (" + insY + ")" : "") + "." + (hq ? " Fondos de cobertura (" + hq + "): activos brutos de " + gavNav + " los activos netos" + (gavNavAgo ? " (" + gavNavAgo + " un año antes)" : "") + ", exposición nocional de " + gneNav + "; financiamiento de " + borrow + (borrowY ? " (" + borrowY + " a/a)" : "") + "." : ""),
+    exNfWhy: (mm, mmf, mmfY, wla, cq, nw, delq) => (mm ? "Los fondos de mercado de dinero tienen " + mmf + " (" + mm + (mmfY ? ", " + mmfY + " a/a" : "") + "), con el " + wla + " de activos líquidos semanales en los fondos prime institucionales. " : "") + (cq ? "La razón de capital neto de las cooperativas de crédito es " + nw + " (" + cq + ")" + (delq ? " con el " + delq + " de los préstamos en mora" : "") + ". " : "") + "Las tensiones de 2008 y 2020 corrieron por las casas de bolsa, los fondos de mercado de dinero y los fondos apalancados, no solo por el capital bancario: un colchón que se adelgaza o un sector que crece rápido aquí es la señal temprana.",
+    exNfWatch: (z1Date, z1Month, hedgeMonth, mmfMonth) => "Próxima Z.1: " + (z1Date ? z1Date : "prevista para " + z1Month) + (hedgeMonth ? "; próximo trimestre de fondos de cobertura de la OFR previsto para " + hedgeMonth : "") + (mmfMonth ? "; estadísticas de fondos de mercado de dinero de la SEC de " + mmfMonth + " previstas unas cuatro semanas después del cierre del mes" : "") + ". Seguir la liquidez de los fondos prime, el reporto de los fondos de cobertura y la razón de fondeo estatal y local conforme se mueven los mercados.",
     names: {
       "Individual Income Taxes": "Impuesto sobre la renta de personas", "Corporation Income Taxes": "Impuesto sobre la renta de empresas",
       "Employment and General Retirement": "Contribuciones laborales y de retiro", "Unemployment Insurance": "Seguro de desempleo",
@@ -4225,7 +4488,7 @@ const I18N = {
     switchTo: "Cambiar a español",
     switchAria: "Cambiar a español",
     docTitle: v => v + " · U.S. Macro Monitor · FNAM",
-    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, productivity, corporate profits, private and household debt, bank capital, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
+    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, productivity, corporate profits, private and household debt, bank and nonbank capital, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
     navAria: "Sections",
     nfTitle: "Section Not Found",
     nfDesc: v => "This dashboard has no section called “" + v + "”. Choose one of these:",
@@ -5396,6 +5659,108 @@ const I18N = {
     exBkDrivers: (eqY, assetsY, unreal, kind, pctEq, worst, worstQ) => "Equity grew " + eqY + " over the year and assets " + assetsY + ". The unrealized " + kind + " on securities is " + unreal + ", " + pctEq + "% of equity, against " + worst + " in the worst quarter (" + worstQ + ").",
     exBkWhy: (nc, ncAgo, peak, peakQ, cov, unins) => nc + " of loans are noncurrent (" + ncAgo + " a year earlier; peak " + peak + " in " + peakQ + "), with reserves covering " + cov + "%; " + unins + "% of domestic deposits are uninsured. More capital and reserves absorb losses; thin capital against unrealized losses and uninsured deposits is what amplified the 2023 failures.",
     exBkWatch: (m, w) => "Next Quarterly Banking Profile: expected late " + m + (w ? "; the weekly H.8 runs through " + w : "") + ". Watch unrealized losses as rates move, commercial real estate noncurrent loans and the uninsured deposit share.",
+    navNonbank: "Nonbank Financial System",
+    nbfTitle: "Nonbank Financial System",
+    nbfDesc: "Who holds the financial system's assets beyond the banks, and how much cushion stands behind them: insurers, pension funds, investment funds, GSEs, broker-dealers and finance companies since 1952, plus hedge funds, money market funds and credit unions from their regulators.",
+    sourceNonbank: "Source: Federal Reserve Z.1 Financial Accounts (release data package); OFR Hedge Fund Monitor; SEC Money Market Fund Statistics; NCUA ↗",
+    footerNonbank: "Data: Federal Reserve, Financial Accounts of the United States (Z.1), from the Board's quarterly release package of tables: total financial assets of every domestic financial sector (tables L.108 to L.132; mutual funds, closed-end funds and ETFs at market value), which must add up exactly to the published financial-sector total less the Federal Reserve or nothing is published; equity as total liabilities and equity less total liabilities from the balance sheets of private depository institutions, life insurers' general accounts, property-casualty insurers, security brokers and dealers, government-sponsored enterprises and finance companies; defined benefit pension funds' total funded assets and pension entitlements (tables L.118.b to L.120.b; the three plan types must add up to the all-plans series). Office of Financial Research, Hedge Fund Monitor (SEC Form PF aggregates for qualifying hedge funds, those with at least $500 million of net assets, including funds advised from the US but domiciled abroad): net assets, gross assets, gross notional exposure, borrowing by type, fund count and the equal-weighted leverage of the ten largest funds. SEC Division of Investment Management, Money Market Fund Statistics (Form N-MFP aggregates, feeder funds excluded): net assets by category, fund counts, daily and weekly liquid assets. NCUA, Financial Trends in Federally Insured Credit Unions (quarterly chart pack): institution count, aggregate net worth ratio, delinquency rate, borrowings and return on average assets; earlier quarters are kept from previous editions. Sector shares and ratios are computed on this page from the sums; nothing is estimated.",
+    nbfWho: "Who Is Counted",
+    nbfWhoText: "Every domestic financial sector of the Federal Reserve's Financial Accounts: banks and credit unions, life and property-casualty insurers, private, state and local and federal pension funds, money market, mutual, closed-end and exchange-traded funds, GSEs and agency mortgage pools, ABS issuers, finance companies, mortgage REITs, broker-dealers, holding companies and other financial business, and since 2012 domestic hedge funds, private debt funds and business development companies (interval funds since 2021). The Federal Reserve itself is left out. Hedge funds, money funds and credit unions also appear with their regulators' own figures (OFR, SEC, NCUA).",
+    nbfWhy: "Why It Matters",
+    nbfWhyText: "Most of the financial sector's assets sit outside the banks, where capital rules are lighter or absent: insurers and pension funds that must meet long-dated promises, funds that can face redemptions, dealers and hedge funds that run on borrowed money. The 2008 crisis ran through broker-dealers, money funds and the GSEs; March 2020 through money funds and leveraged funds. This page shows the size of each sector and the cushion behind it, from official balance sheets, so a thinning cushion or a fast-growing sector is visible before it matters.",
+    nbfAsOf: q => "Z.1 data through " + q,
+    nbfHedgeLine: (q, d) => "Hedge funds (OFR): " + q + (d ? " · posted " + d : ""),
+    nbfMmfLine: (m, d) => "Money market funds (SEC): " + m + (d ? " · posted " + d : ""),
+    nbfNcuaLine: (q, n) => "Credit unions (NCUA): " + q + " (" + n + " institutions)",
+    nbfKpiShare: "Nonbank share of financial assets",
+    nbfKpiShareFoot: q => "ex-Fed · " + q,
+    nbfKpiSlFunded: "State & local pensions funded",
+    nbfKpiPrivFunded: "Private DB pensions funded",
+    nbfKpiHedge: "Hedge fund gross / net assets",
+    nbfKpiHedgeFoot: q => "OFR · " + q,
+    nbfKpiMmf: "Money market fund assets",
+    nbfKpiCu: "Credit union net worth ratio",
+    nbfSecShares: "Who Holds the Financial System's Assets",
+    nbfSecSharesNote: "Share of the total financial assets of the domestic financial sectors, excluding the Federal Reserve, % · Z.1, quarterly since 1952",
+    legDepositories: "Banks and credit unions",
+    legInsurers: "Insurers",
+    legPensions: "Pension funds",
+    legInvFunds: "Investment funds",
+    legGsePools: "GSEs and agency pools",
+    legOtherNonbank: "Other nonbank finance",
+    nbfShareNote: (q, total, dep, depPct, share, s1980, s2000, n1, v1, p1, n2, v2, p2) => "In " + q + " the domestic financial sectors hold " + total + " of financial assets, of which banks and credit unions " + dep + " (" + depPct + "). Nonbanks hold " + share + (s1980 && s2000 ? ", against " + s1980 + " at the end of 1980 and " + s2000 + " at the end of 2000" : "") + ". The largest nonbank holders are " + n1 + " (" + v1 + ", " + p1 + ") and " + n2 + " (" + v2 + ", " + p2 + ").",
+    nbfShareMethod: "Shares of the Z.1's \"domestic financial sectors\" total less the Federal Reserve; the sectors add up to that total exactly. Investment funds and pension funds hold equities at market value, so their shares rise and fall with the stock market. Other nonbank finance: ABS issuers, finance companies, mortgage REITs, broker-dealers, holding companies, other financial business and, since 2012, hedge funds, private debt funds and business development companies (interval funds since 2021).",
+    nbfSectorListTitle: q => "Financial Assets by Sector, " + q,
+    nbfSectorListNote: "$ trillions at the end of the latest quarter · mutual funds, closed-end funds and ETFs at market value",
+    nbfBarValue: v => "$" + v.toFixed(1) + "T",
+    nbBanks: "Banks",
+    nbCu: "Credit unions",
+    nbLife: "Life insurers",
+    nbPc: "Property-casualty insurers",
+    nbPens: "Pension funds",
+    nbMfEtf: "Mutual funds, ETFs, closed-end funds",
+    nbMmf: "Money market funds",
+    nbGse: "GSEs and agency mortgage pools",
+    nbCredit: "ABS issuers, finance companies, mortgage REITs",
+    nbPrivate: "Hedge, private debt, BDC and interval funds",
+    nbBd: "Broker-dealers",
+    nbHoldOther: "Holding companies and other",
+    nbfSectorNote: (q, funds, etf, mmf, gse, bd, priv, cu, cuPct, from, ivfFrom) => "Mutual funds, ETFs and closed-end funds hold " + funds + " (ETFs alone " + etf + ") and money market funds " + mmf + " in " + q + "; GSEs and agency pools " + gse + ", broker-dealers " + bd + ", hedge, private debt, BDC and interval funds " + priv + (from ? " (in the accounts since " + from + (ivfFrom ? ", interval funds since " + ivfFrom : "") + ")" : "") + ". Credit unions hold " + cu + ", " + cuPct + " of the total.",
+    nbfSecEquity: "Equity Cushions by Sector",
+    nbfSecEquityNote: "Equity as % of total liabilities and equity, from each sector's Z.1 balance sheet, since 1952 · a balance-sheet measure, not regulatory capital",
+    legEqDep: "Banks and credit unions",
+    legEqLife: "Life insurers (general accounts)",
+    legEqPc: "Property-casualty insurers",
+    legEqBd: "Broker-dealers",
+    legEqGse: "GSEs",
+    legEqFinco: "Finance companies",
+    nbfEquityNote: (q, life, lifeAgo, pcv, bd, gse, finco, dep, lifeLow, lifeLowQ, bdLow, bdLowQ) => "In " + q + " equity is " + life + " of the general-account balance sheet of life insurers (" + lifeAgo + " a year earlier), " + pcv + " for property-casualty insurers, " + bd + " for broker-dealers, " + gse + " for GSEs and " + finco + " for finance companies, against " + dep + " for banks and credit unions. Since 1990 the life insurers' cushion bottomed at " + lifeLow + " (" + lifeLowQ + ") and the broker-dealers' at " + bdLow + " (" + bdLowQ + ").",
+    nbfEquityMethod: "Equity = total liabilities and equity less total liabilities in each sector's Z.1 table (the Fed's integrated macroeconomic accounts concept), divided by total liabilities and equity. It is not statutory capital (insurers), net capital (dealers) or the ERCF (GSEs): those regulatory measures use different denominators and risk weights. Property-casualty insurers carry high equity because their liabilities are short-dated claims reserves; life insurers' general accounts carry policy reserves against most of their assets. Pension funds and investment funds have no equity line: their liabilities are the claims of their beneficiaries.",
+    nbfSecPension: "Defined Benefit Pensions: Funded Status",
+    nbfSecPensionNote: "Funded assets as % of pension entitlements, and the unfunded gap in $ trillions · Z.1 tables L.118.b–L.120.b, since 1952",
+    nbfPensionRatioTitle: "Funded ratio, %",
+    nbfPensionGapTitle: "Unfunded entitlements, $ trillions",
+    legPrivDb: "Private plans",
+    legSlDb: "State and local government plans",
+    legFedDb: "Federal government plans",
+    nbfPensionNote: (q, sl, slAgo, slEnt, slFunded, slGap, priv, fed, slLow, slLowQ) => "State and local government plans are " + sl + " funded in " + q + " (" + slAgo + " a year earlier): " + slEnt + " of entitlements against " + slFunded + " of funded assets, a " + slGap + " gap that falls on state and local budgets. Private plans are " + priv + " funded and federal plans " + fed + ". Since 1990 the state and local ratio bottomed at " + slLow + " in " + slLowQ + ".",
+    nbfPensionMethod: "The Federal Reserve values pension entitlements as the present value of promised benefits (its own discounting, not the plans' actuarial assumptions) and counts as funded assets the assets the plans hold to back them, claims on sponsors excluded; the gap between entitlements and funded assets is the sponsors' unfunded liability. Federal plans are backed by the Treasury; the ratio measures the trust funds, not the promise.",
+    nbfSecHedge: "Hedge Funds: Assets, Exposure and Borrowing",
+    nbfSecHedgeNote: "Qualifying hedge funds reporting on SEC Form PF, aggregated by the Office of Financial Research, $ trillions, quarterly since 2013",
+    nbfHedgeAssetsTitle: "Net assets, gross assets and gross notional exposure",
+    nbfHedgeBorrowTitle: "Borrowing by type",
+    legGne: "Gross notional exposure",
+    legGav: "Gross assets",
+    legNav: "Net assets",
+    legRepo: "Repo",
+    legPrimeBroker: "Prime brokerage",
+    legOtherSecured: "Other secured",
+    nbfHedgeNote: (q, nav, gav, gavNav, gavNavAgo, gne, gneNav, repo, repoY, pb, osec, n, top10) => "In " + q + " qualifying hedge funds report " + nav + " of net assets and " + gav + " of gross assets (" + gavNav + " net assets" + (gavNavAgo ? ", " + gavNavAgo + " a year earlier" : "") + "); gross notional exposure, which adds derivatives, is " + gne + " (" + gneNav + "). They borrow " + repo + " through repo" + (repoY ? " (" + repoY + " y/y)" : "") + ", " + pb + " from prime brokers and " + osec + " on other secured terms. " + n + " funds report" + (top10 ? "; the ten largest run " + top10 + " gross assets to net assets on average" : "") + ".",
+    nbfHedgeMethod: "Form PF aggregates cover qualifying hedge funds (net assets of $500 million or more) advised by SEC-registered advisers, including funds domiciled offshore; the Z.1's domestic hedge fund sector above is narrower. Gross assets to net assets measures balance-sheet leverage; gross notional exposure adds the notional value of derivatives, so it overstates economic exposure for hedged positions. The OFR posts a quarter about eleven weeks after it ends and revises earlier quarters as filings are amended.",
+    nbfSecMmf: "Money Market Funds: Assets and Liquidity",
+    nbfSecMmfNote: "Form N-MFP aggregates published by the SEC: net assets by fund type since December 2010, $ trillions; weekly liquid assets as % of total assets since October 2016",
+    nbfMmfAssetsTitle: "Net assets by fund type",
+    nbfMmfLiqTitle: "Weekly liquid assets, % of total assets",
+    legMmfGov: "Government",
+    legMmfTsy: "Treasury",
+    legMmfPrime: "Prime",
+    legMmfTex: "Tax-exempt",
+    legWlaGov: "Government funds",
+    legWlaTsy: "Treasury funds",
+    legWlaPrimeI: "Prime institutional",
+    legWlaPrimeR: "Prime retail",
+    nbfMmfNote: (m, total, yoy, govPct, prime, tex, n, wlaGov, wlaPrimeI, wlaPrimeR, peakKind, peak, peakM) => "Money market funds hold " + total + (n ? " across " + n + " funds" : "") + " in " + m + (yoy ? " (" + yoy + " y/y)" : "") + (peakKind === "record" ? ", a record" : peakKind === "level" ? ", level with the " + peakM + " peak" : ", against a peak of " + peak + " in " + peakM) + ". Government and Treasury funds are " + govPct + " of the total; prime funds hold " + prime + " and tax-exempt funds " + tex + ". Weekly liquid assets: " + wlaGov + " of assets in government funds, " + wlaPrimeI + " in prime institutional and " + wlaPrimeR + " in prime retail funds.",
+    nbfMmfMethod: "Feeder funds are excluded. Prime funds hold commercial paper, CDs and other private paper and were the funds hit by heavy institutional redemptions in September 2008 and March 2020; the 2014 and 2023 reforms moved assets to government funds. SEC rules require at least 25% daily and 50% weekly liquid assets (10% and 30% before April 2024; tax-exempt funds are exempt from the daily minimum); the 2023 reforms removed redemption gates and the weekly-liquidity fee trigger and made institutional prime and tax-exempt funds charge liquidity fees on days of large net redemptions.",
+    nbfSecNcua: "Credit Unions: Net Worth and Asset Quality",
+    nbfSecNcuaNote: "All federally insured credit unions, from the NCUA's quarterly chart pack: aggregate net worth ratio and delinquency rate, %",
+    nbfNcuaNwTitle: "Net worth ratio, %",
+    nbfNcuaDelqTitle: "Delinquency rate, % of loans",
+    nbfNcuaNote: (q, n, nAgo, assets, nw, nwAgo, nwLow, nwLowQ, from, delq, delqAgo, borrow) => { const p = []; if (nwAgo) p.push(nwAgo + " a year earlier"); if (nwLow && nwLowQ) p.push("low of " + nwLow + " in " + nwLowQ + (from ? " in the series since " + from : "")); return n + " federally insured credit unions" + (nAgo ? " (" + nAgo + " a year earlier)" : "") + (assets ? " hold " + assets + " of assets" : "") + " in " + q + ", with an aggregate net worth ratio of " + nw + (p.length ? " (" + p.join("; ") + ")" : "") + (delq ? ". " + delq + " of loans are delinquent" + (delqAgo ? " (" + delqAgo + " a year earlier)" : "") : "") + (borrow ? "; borrowings are " + borrow + " of shares and net worth." : "."); },
+    nbfNcuaMethod: "Net worth is retained earnings plus subordinated debt counted under the NCUA's rules, divided by total assets, summed over every federally insured credit union; a credit union below 7% is subject to prompt corrective action. The chart pack's aggregate ratio differs slightly from the prompt-corrective-action ratio the NCUA reports for the system, which uses elective denominators. Delinquent loans are 60 or more days past due.",
+    exNfLatest: (q, share, dir, delta, life, bd, dep, sl, priv) => "Nonbanks hold " + share + " of US financial-sector assets in " + q + " (" + ({ up: "up", down: "down", flat: "unchanged" })[dir] + (dir === "flat" ? "" : " " + delta + " pp") + " over the year). Equity is " + life + " of life insurers' general-account balance sheet and " + bd + " of broker-dealers', against " + dep + " for banks and credit unions; state and local pension plans are " + sl + " funded, private plans " + priv + ".",
+    exNfDrivers: (funds, fundsY, pens, pensY, ins, insY, hq, gavNav, gavNavAgo, gneNav, borrow, borrowY) => "Investment funds hold " + funds + (fundsY ? " (" + fundsY + " y/y)" : "") + ", pension funds " + pens + (pensY ? " (" + pensY + ")" : "") + " and insurers " + ins + (insY ? " (" + insY + ")" : "") + "." + (hq ? " Hedge funds (" + hq + "): gross assets " + gavNav + " net assets" + (gavNavAgo ? " (" + gavNavAgo + " a year earlier)" : "") + ", notional exposure " + gneNav + "; borrowing " + borrow + (borrowY ? " (" + borrowY + " y/y)" : "") + "." : ""),
+    exNfWhy: (mm, mmf, mmfY, wla, cq, nw, delq) => (mm ? "Money market funds hold " + mmf + " (" + mm + (mmfY ? ", " + mmfY + " y/y" : "") + "), with prime institutional funds at " + wla + " weekly liquid assets. " : "") + (cq ? "Credit unions' net worth ratio is " + nw + " (" + cq + ")" + (delq ? " with " + delq + " of loans delinquent" : "") + ". " : "") + "The 2008 and 2020 stresses ran through dealers, money funds and leveraged funds, not bank capital alone: a thinning cushion or a fast-growing sector here is the early signal.",
+    exNfWatch: (z1Date, z1Month, hedgeMonth, mmfMonth) => "Next Z.1: " + (z1Date ? z1Date : "expected " + z1Month) + (hedgeMonth ? "; next OFR hedge fund quarter expected " + hedgeMonth : "") + (mmfMonth ? "; SEC money fund statistics for " + mmfMonth + " expected about four weeks after the month ends" : "") + ". Watch prime fund liquidity, hedge fund repo borrowing and the state and local funded ratio as markets move.",
     names: {
       "Individual Income Taxes": "Individual income taxes", "Corporation Income Taxes": "Corporate income taxes",
       "Employment and General Retirement": "Employment & general retirement", "Unemployment Insurance": "Unemployment insurance",
@@ -5805,7 +6170,8 @@ function clearTargets() {
     "scInvChart","scInvLegend","scInvCallout","scTradeChart","scTradeLegend","scBalanceChart","scPricesChart","scPricesLegend","scTradeCallout",
     "fiKpiRow","fiMonthlyChart","fiMonthlyLegend","fiDeficitChart","fiRollingChart","fiMonthlyCallout","fiFytdStats","fiFytdCallout",
     "fiSourceList","fiSourceCallout","fiFunctionList","fiFunctionCallout","fiGdpChart","fiGdpCallout",
-    "prKpiRow","prGrowthChart","prGrowthCallout","prLongChart","prLongLegend","prLongCallout","prEraList","prEraCallout","prCostChart","prCostLegend","prCostCallout","prOutChart","prOutLegend","prOutCallout","prShareChart","prShareCallout","cpKpiRow","cpMarginChart","cpMarginLegend","cpShareChart","cpShareLegend","cpMarginCallout","cpSplitList","cpSplitCallout","cpGdpChart","cpGdpLegend","cpGdpCallout","cpGrowthChart","cpGrowthCallout","dbKpiRow","dbGdpChart","dbGdpLegend","dbGdpCallout","dbLevelChart","dbLevelLegend","dbGrowthChart","dbGrowthLegend","dbLevelCallout","dbMixList","dbMixCallout","dbYearsChart","dbInterestChart","dbProfitsCallout","hhKpiRow","hhTotalChart","hhTotalLegend","hhTypesChart","hhTypesLegend","hhTypesCallout","hhDelqChart","hhDelqLegend","hhDelqCallout","hhZ1Chart","hhZ1Legend","hhIncomeChart","hhIncomeLegend","hhLongCallout","hhG19Chart","hhG19Legend","hhG19GrowthChart","hhG19Callout","bkKpiRow","bkRatioChart","bkRatioLegend","bkRatioCallout","bkAssetsChart","bkAssetsLegend","bkCapitalChart","bkCapitalLegend","bkBalanceCallout","bkUnrealChart","bkUnrealCallout","bkNoncurrentChart","bkCoverageChart","bkQualityCallout","bkCountChart","bkUninsChart","bkDepositsCallout","bkH8Chart","bkH8Legend","bkH8Callout"
+    "prKpiRow","prGrowthChart","prGrowthCallout","prLongChart","prLongLegend","prLongCallout","prEraList","prEraCallout","prCostChart","prCostLegend","prCostCallout","prOutChart","prOutLegend","prOutCallout","prShareChart","prShareCallout","cpKpiRow","cpMarginChart","cpMarginLegend","cpShareChart","cpShareLegend","cpMarginCallout","cpSplitList","cpSplitCallout","cpGdpChart","cpGdpLegend","cpGdpCallout","cpGrowthChart","cpGrowthCallout","dbKpiRow","dbGdpChart","dbGdpLegend","dbGdpCallout","dbLevelChart","dbLevelLegend","dbGrowthChart","dbGrowthLegend","dbLevelCallout","dbMixList","dbMixCallout","dbYearsChart","dbInterestChart","dbProfitsCallout","hhKpiRow","hhTotalChart","hhTotalLegend","hhTypesChart","hhTypesLegend","hhTypesCallout","hhDelqChart","hhDelqLegend","hhDelqCallout","hhZ1Chart","hhZ1Legend","hhIncomeChart","hhIncomeLegend","hhLongCallout","hhG19Chart","hhG19Legend","hhG19GrowthChart","hhG19Callout","bkKpiRow","bkRatioChart","bkRatioLegend","bkRatioCallout","bkAssetsChart","bkAssetsLegend","bkCapitalChart","bkCapitalLegend","bkBalanceCallout","bkUnrealChart","bkUnrealCallout","bkNoncurrentChart","bkCoverageChart","bkQualityCallout","bkCountChart","bkUninsChart","bkDepositsCallout","bkH8Chart","bkH8Legend","bkH8Callout",
+    "nbfKpiRow","nbfShareChart","nbfShareLegend","nbfShareCallout","nbfSectorList","nbfSectorCallout","nbfEquityChart","nbfEquityLegend","nbfEquityCallout","nbfPensionRatioChart","nbfPensionRatioLegend","nbfPensionGapChart","nbfPensionGapLegend","nbfPensionCallout","nbfHedgeAssetsChart","nbfHedgeAssetsLegend","nbfHedgeBorrowChart","nbfHedgeBorrowLegend","nbfHedgeCallout","nbfMmfAssetsChart","nbfMmfAssetsLegend","nbfMmfLiqChart","nbfMmfLiqLegend","nbfMmfCallout","nbfNcuaNwChart","nbfNcuaDelqChart","nbfNcuaCallout"
   ];
   ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ""; });
 }
@@ -8916,6 +9282,27 @@ function renderExecSummaries() {
       T.exBkWhy(pct2(ncCur), pct2(ncAgo), pct2(ncPeak.v), fmtQuarter(ncPeak.d), Math.round(cur.allowance / cur.noncurrent * 100), Math.round(cur.depUnins / cur.depDom * 100)),
       T.exBkWatch(fmtMonthYear(monthAfterQuarter(qShift(q, 1), 2)), hl ? fmtDateDMY(hl.d) : null));
   });
+
+  // ---- Nonbank financial system ----
+  section("exec-nonbank", () => {
+    if (!NONBANK || !NONBANK.z1 || !NONBANK.z1.quarterly || NONBANK.z1.quarterly.length < 40) return;
+    const R = NONBANK.z1.quarterly, cur = R[R.length - 1], q = cur.d, ago = R.find(r => r.d === qShift(q, -4));
+    const g = nbfGroups(cur), gAgo = ago ? nbfGroups(ago) : null;
+    const share = (1 - g.dep / g.total) * 100, shareAgo = gAgo ? (1 - gAgo.dep / gAgo.total) * 100 : share;
+    const eqPct = k => (cur[k + "LE"] - cur[k + "TL"]) / cur[k + "LE"] * 100;
+    const funded = k => cur[k + "Funded"] / cur[k + "Ent"] * 100;
+    const H = NONBANK.hedge && NONBANK.hedge.quarterly, hl = H && H.length ? H[H.length - 1] : null, hAgo = hl ? H.find(r => r.d === qShift(hl.d, -4)) : null;
+    const M = NONBANK.mmf && NONBANK.mmf.monthly, ml = M && M.length ? M[M.length - 1] : null, mAgo = ml ? M.find(m => m.d === (+ml.d.slice(0, 4) - 1) + ml.d.slice(4)) : null;
+    const C = NONBANK.ncua && NONBANK.ncua.quarterly, cl = C && C.length ? C[C.length - 1] : null;
+    const pc = (a, b) => (a / b - 1) * 100, x1 = v => v.toFixed(1) + "×", x2 = v => v.toFixed(2) + "×";
+    const z1d = calendarNextDate("z1");
+    card("exec-nonbank",
+      T.exNfLatest(fmtQuarter(q), pct1(share), dir(share - shareAgo, 0.05), Math.abs(share - shareAgo).toFixed(1), pct1(eqPct("life")), pct1(eqPct("bd")), pct1(eqPct("dep")), pct1(funded("dbSl")), pct1(funded("dbPriv"))),
+      T.exNfDrivers(fmtTn(g.funds), gAgo ? sg1(pc(g.funds, gAgo.funds)) : null, fmtTn(g.pens), gAgo ? sg1(pc(g.pens, gAgo.pens)) : null, fmtTn(g.ins), gAgo ? sg1(pc(g.ins, gAgo.ins)) : null,
+        hl ? fmtQuarter(hl.d) : null, hl ? x2(hl.gav / hl.nav) : null, hAgo ? x2(hAgo.gav / hAgo.nav) : null, hl ? x1(hl.gne / hl.nav) : null, hl ? fmtTn(hl.repo + hl.pb + hl.osec, 1) : null, hAgo ? sg1(pc(hl.repo + hl.pb + hl.osec, hAgo.repo + hAgo.pb + hAgo.osec)) : null),
+      T.exNfWhy(ml ? fmtMonthYear(ml.d) : null, ml ? fmtTn(ml.total, 2) : null, mAgo ? sg1(pc(ml.total, mAgo.total)) : null, ml ? pct1(ml.wlaPrimeI) : null, cl ? fmtQuarter(cl.d) : null, cl ? pct2(cl.nw) : null, cl && cl.delq !== null ? pct2(cl.delq) : null),
+      T.exNfWatch(z1d ? fmtDateDMY(z1d) : null, fmtMonthYear(monthAfterQuarter(qShift(q, 1), 3)), hl ? fmtMonthYear(monthAfterQuarter(qShift(hl.d, 1), 3)) : null, ml ? fmtMonthYear(nextMonthOf(ml.d)) : null));
+  });
 }
 
 // ================================================================
@@ -9556,6 +9943,152 @@ function renderBanks() {
     document.getElementById("bkH8Callout").innerHTML = "<div>" + T.bkH8Note(fmtDateDMY(hl.d), pct2(rc.v), fmtTn(hl.assets), fmtTn(hl.deposits), rAgo ? pct2(rAgo.v) : null) + "</div>";
   }
 }
+
+// ---------- view: nonbank financial system (Z.1, OFR, SEC, NCUA) ----------
+// Sector groups of the Z.1 financial business, each a sum of the sectors the processor
+// verified against the published total: depositories (banks and credit unions), insurers
+// (life, property-casualty), pension funds, investment funds (money market, mutual,
+// closed-end, exchange-traded), GSEs with agency pools, and the rest of nonbank finance.
+function nbfGroups(r) {
+  const n = k => r[k] === null || r[k] === undefined ? 0 : r[k];
+  return {
+    dep: n("dep"), ins: n("life") + n("pc"), pens: n("pens"), funds: n("mmf") + n("mf") + n("cef") + n("etf"), gse: n("gse") + n("pools"),
+    rest: n("abs") + n("finco") + n("mreit") + n("bd") + n("hold") + n("other") + n("hf") + n("pdf") + n("bdc") + n("ivf"),
+    total: n("fin") - n("fed")
+  };
+}
+// Lowercases a legend name at the start of a clause unless it opens with an acronym ("GSEs and agency pools").
+function nbfLc(s) { return /^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s; }
+function nbfEquityPts(R, k) { return R.filter(r => r[k + "LE"] && r[k + "TL"] !== null && r[k + "TL"] !== undefined).map(r => ({ d: r.d, v: (r[k + "LE"] - r[k + "TL"]) / r[k + "LE"] * 100 })); }
+function nbfFunded(R, k) { return R.filter(r => r[k + "Ent"] && r[k + "Funded"] !== null && r[k + "Funded"] !== undefined).map(r => ({ d: r.d, v: r[k + "Funded"] / r[k + "Ent"] * 100 })); }
+function renderNonbank() {
+  if (!NONBANK || !NONBANK.z1 || !NONBANK.z1.quarterly || NONBANK.z1.quarterly.length < 40) return;
+  const R = NONBANK.z1.quarterly, cur = lastOf(R), q = cur.d, nextQ = qShift(q, 1), ago = R.find(r => r.d === qShift(q, -4));
+  const share = R.map(r => { const g = nbfGroups(r); return { d: r.d, v: (1 - g.dep / g.total) * 100 }; });
+  const at4 = (pts, d) => atQ(pts, qShift(d, -4));
+  const x1 = v => v.toFixed(1) + "×", x2 = v => v.toFixed(2) + "×";
+  const H = NONBANK.hedge && NONBANK.hedge.quarterly, hl = H && H.length ? lastOf(H) : null, hAgo = hl ? H.find(r => r.d === qShift(hl.d, -4)) : null;
+  const M = NONBANK.mmf && NONBANK.mmf.monthly, ml = M && M.length ? lastOf(M) : null, mAgo = ml ? M.find(m => m.d === (+ml.d.slice(0, 4) - 1) + ml.d.slice(4)) : null;
+  const C = NONBANK.ncua && NONBANK.ncua.quarterly, cl = C && C.length ? lastOf(C) : null, cAgo = cl ? C.find(r => r.d === qShift(cl.d, -4)) : null;
+  const slF = nbfFunded(R, "dbSl"), privF = nbfFunded(R, "dbPriv"), fedF = nbfFunded(R, "dbFed");
+
+  // ---- header ----
+  document.getElementById("nbfAsOfLine").textContent = T.nbfAsOf(fmtQuarter(q));
+  if (hl) document.getElementById("nbfHedgeLine").textContent = T.nbfHedgeLine(fmtQuarter(hl.d), NONBANK.hedge.lastUpdate ? fmtDateDMY(String(NONBANK.hedge.lastUpdate).slice(0, 10)) : null);
+  if (ml) document.getElementById("nbfMmfLine").textContent = T.nbfMmfLine(fmtMonthYear(ml.d), NONBANK.mmf.fileDate ? fmtDateDMY(NONBANK.mmf.fileDate) : null);
+  if (cl) document.getElementById("nbfNcuaLine").textContent = T.nbfNcuaLine(fmtQuarter(cl.d), cl.n.toLocaleString(T.dateLocale));
+  (function () { const d = calendarNextDate("z1"), what = fmtQuarter(nextQ);
+    document.getElementById("nbfNextReleaseLine").textContent = d ? T.dbNext(fmtDateDMY(d), what) : T.dbNextEst(fmtMonthYear(monthAfterQuarter(nextQ, 3)), what); })();
+  document.getElementById("nbfRefreshedLine").textContent = freshnessLabel("snapshot", NONBANK.fetchedAt, "Z.1");
+
+  // ---- KPIs ----
+  const shareCur = lastOf(share).v, shareAgo = at4(share, q);
+  const tiles = [
+    { label: T.nbfKpiShare, value: pct1(shareCur), delta: shareAgo === null ? "" : kpiChange(shareCur - shareAgo, 1, " pp", T.vsYearAgo), spark: share.slice(-40).map(p => p.v), color: "--series-headline", foot: T.nbfKpiShareFoot(fmtQuarter(q)) },
+    { label: T.nbfKpiSlFunded, value: pct1(lastOf(slF).v), delta: at4(slF, q) === null ? "" : kpiChange(lastOf(slF).v - at4(slF, q), 1, " pp", T.vsYearAgo), spark: slF.slice(-40).map(p => p.v), color: "--cat-7", foot: fmtQuarter(q) },
+    { label: T.nbfKpiPrivFunded, value: pct1(lastOf(privF).v), delta: at4(privF, q) === null ? "" : kpiChange(lastOf(privF).v - at4(privF, q), 1, " pp", T.vsYearAgo), spark: privF.slice(-40).map(p => p.v), color: "--cat-3", foot: fmtQuarter(q) }
+  ];
+  if (hl) { const lev = H.map(r => ({ d: r.d, v: r.gav / r.nav })), lp = H[H.length - 2]; tiles.push({ label: T.nbfKpiHedge, value: lastOf(lev).v.toFixed(2) + "×", delta: lp ? kpiChange(lastOf(lev).v - lp.gav / lp.nav, 2, "×", T.vsPrevQ) : "", spark: lev.slice(-40).map(p => p.v), color: "--cat-8", foot: T.nbfKpiHedgeFoot(fmtQuarter(hl.d)) }); }
+  if (ml) tiles.push({ label: T.nbfKpiMmf, value: fmtTnTile(ml.total, 2), delta: mAgo ? kpiChange((ml.total / mAgo.total - 1) * 100, 1, "%", T.vsYearAgo) : "", spark: M.slice(-60).map(m => m.total), color: "--cat-5", foot: fmtMonthYear(ml.d) });
+  if (cl) tiles.push({ label: T.nbfKpiCu, value: pct2(cl.nw), delta: cAgo ? kpiChange(cl.nw - cAgo.nw, 2, " pp", T.vsYearAgo) : "", spark: C.slice(-40).map(r => r.nw), color: "--cat-10", foot: fmtQuarter(cl.d) });
+  kpiTiles("nbfKpiRow", "nf", tiles);
+
+  // ---- shares of financial-sector assets since 1952 ----
+  const labels = R.map(r => r.d);
+  const groups = [
+    { key: "dep", name: T.legDepositories, color: "--series-headline" }, { key: "ins", name: T.legInsurers, color: "--cat-3" },
+    { key: "pens", name: T.legPensions, color: "--cat-7" }, { key: "funds", name: T.legInvFunds, color: "--series-core" },
+    { key: "gse", name: T.legGsePools, color: "--cat-10" }, { key: "rest", name: T.legOtherNonbank, color: "--cat-5" }
+  ];
+  const gShare = R.map(r => { const g = nbfGroups(r); const o = { d: r.d }; groups.forEach(x => { o[x.key] = g[x.key] / g.total * 100; }); return o; });
+  plotSeries("nbfShareChart", "nbfShareTooltip", "nbfShareLegend", labels, groups.map(x => ({ name: x.name, color: x.color, data: gShare.map(p => p[x.key]) })),
+    { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const gc = nbfGroups(cur), gl = lastOf(gShare);
+  const ranked = groups.filter(x => x.key !== "dep").map(x => ({ name: x.name, tn: gc[x.key], pct: gl[x.key] })).sort((a, b) => b.tn - a.tn);
+  const s1980 = atQ(share, "1980-Q4"), s2000 = atQ(share, "2000-Q4");
+  document.getElementById("nbfShareCallout").innerHTML = "<div>" + T.nbfShareNote(fmtQuarter(q), fmtTn(gc.total), fmtTn(gc.dep), pct1(gl.dep), pct1(shareCur), s1980 === null ? null : pct1(s1980), s2000 === null ? null : pct1(s2000),
+    nbfLc(ranked[0].name), fmtTn(ranked[0].tn), pct1(ranked[0].pct), nbfLc(ranked[1].name), fmtTn(ranked[1].tn), pct1(ranked[1].pct)) + "</div><div>" + T.nbfShareMethod + "</div>";
+
+  // ---- the latest quarter by sector ----
+  const n0 = k => cur[k] === null || cur[k] === undefined ? 0 : cur[k];
+  document.getElementById("nbfSectorListTitle").textContent = T.nbfSectorListTitle(fmtQuarter(q));
+  const sectors = [
+    { name: T.nbBanks, v: n0("dep") - n0("cu"), color: "--series-headline" }, { name: T.nbCu, v: n0("cu"), color: "--series-headline" },
+    { name: T.nbLife, v: n0("life"), color: "--cat-3" }, { name: T.nbPc, v: n0("pc"), color: "--cat-3" },
+    { name: T.nbPens, v: n0("pens"), color: "--cat-7" }, { name: T.nbMfEtf, v: n0("mf") + n0("etf") + n0("cef"), color: "--series-core" }, { name: T.nbMmf, v: n0("mmf"), color: "--series-core" },
+    { name: T.nbGse, v: n0("gse") + n0("pools"), color: "--cat-10" }, { name: T.nbCredit, v: n0("abs") + n0("finco") + n0("mreit"), color: "--cat-5" },
+    { name: T.nbPrivate, v: n0("hf") + n0("pdf") + n0("bdc") + n0("ivf"), color: "--cat-5" }, { name: T.nbBd, v: n0("bd"), color: "--cat-5" }, { name: T.nbHoldOther, v: n0("hold") + n0("other"), color: "--cat-5" }
+  ].sort((a, b) => b.v - a.v);
+  renderBarList("nbfSectorList", sectors.map(s => ({ name: s.name, value: s.v / 1000, color: s.color })), v => T.nbfBarValue(v));
+  const cuPct = n0("cu") / gc.total * 100, privTn = n0("hf") + n0("pdf") + n0("bdc") + n0("ivf"), ivfFrom = (R.find(r => r.ivf > 0) || {}).d;
+  document.getElementById("nbfSectorCallout").innerHTML = "<div>" + T.nbfSectorNote(fmtQuarter(q), fmtTn(n0("mf") + n0("etf") + n0("cef")), fmtTn(n0("etf")), fmtTn(n0("mmf")), fmtTn(n0("gse") + n0("pools")), fmtTn(n0("bd")), fmtTn(privTn), fmtTn(n0("cu")), pct1(cuPct), NONBANK.z1.newSectorsFrom ? fmtQuarter(NONBANK.z1.newSectorsFrom) : null, ivfFrom ? fmtQuarter(ivfFrom) : null) + "</div>";
+
+  // ---- equity cushions ----
+  const eq = { dep: nbfEquityPts(R, "dep"), life: nbfEquityPts(R, "life"), pc: nbfEquityPts(R, "pc"), bd: nbfEquityPts(R, "bd"), gse: nbfEquityPts(R, "gse"), finco: nbfEquityPts(R, "finco") };
+  plotSeries("nbfEquityChart", "nbfEquityTooltip", "nbfEquityLegend", labels, [
+    { name: T.legEqDep, color: "--series-headline", data: qSeries(labels, eq.dep) },
+    { name: T.legEqLife, color: "--cat-3", data: qSeries(labels, eq.life) },
+    { name: T.legEqPc, color: "--cat-9", data: qSeries(labels, eq.pc) },
+    { name: T.legEqBd, color: "--cat-8", data: qSeries(labels, eq.bd) },
+    { name: T.legEqGse, color: "--cat-10", data: qSeries(labels, eq.gse) },
+    { name: T.legEqFinco, color: "--cat-5", data: qSeries(labels, eq.finco) }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const eqCur = k => lastOf(eq[k]).v, lifeLow = troughOf(eq.life.filter(p => p.d >= "1990-Q1")), bdLow = troughOf(eq.bd.filter(p => p.d >= "1990-Q1"));
+  document.getElementById("nbfEquityCallout").innerHTML = "<div>" + T.nbfEquityNote(fmtQuarter(q), pct1(eqCur("life")), pct1(at4(eq.life, q)), pct1(eqCur("pc")), pct1(eqCur("bd")), pct1(eqCur("gse")), pct1(eqCur("finco")), pct1(eqCur("dep")),
+    pct1(lifeLow.v), fmtQuarter(lifeLow.d), pct1(bdLow.v), fmtQuarter(bdLow.d)) + "</div><div>" + T.nbfEquityMethod + "</div>";
+
+  // ---- pensions ----
+  const pl = slF.map(p => p.d);
+  plotSeries("nbfPensionRatioChart", "nbfPensionRatioTooltip", "nbfPensionRatioLegend", pl, [
+    { name: T.legPrivDb, color: "--cat-3", data: qSeries(pl, privF) }, { name: T.legSlDb, color: "--cat-7", data: qSeries(pl, slF) }, { name: T.legFedDb, color: "--cat-10", data: qSeries(pl, fedF) }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const gap = k => R.map(r => r[k + "Ent"] === null || r[k + "Funded"] === null ? null : (r[k + "Ent"] - r[k + "Funded"]) / 1000);
+  plotSeries("nbfPensionGapChart", "nbfPensionGapTooltip", "nbfPensionGapLegend", labels, [
+    { name: T.legPrivDb, color: "--cat-3", data: gap("dbPriv") }, { name: T.legSlDb, color: "--cat-7", data: gap("dbSl") }, { name: T.legFedDb, color: "--cat-10", data: gap("dbFed") }
+  ], { fmt: v => (v < 0 ? "−" : "") + fmtTn(Math.abs(v) * 1000, 2), axisFmt: v => v.toFixed(1), labelFmt: fmtQuarter, tickFmt: qTick });
+  const slLow = troughOf(slF.filter(p => p.d >= "1990-Q1")), slGap = (cur.dbSlEnt - cur.dbSlFunded);
+  document.getElementById("nbfPensionCallout").innerHTML = "<div>" + T.nbfPensionNote(fmtQuarter(q), pct1(lastOf(slF).v), pct1(at4(slF, q)), fmtTn(cur.dbSlEnt, 2), fmtTn(cur.dbSlFunded, 2), fmtTn(slGap, 2), pct1(lastOf(privF).v), pct1(lastOf(fedF).v), pct1(slLow.v), fmtQuarter(slLow.d)) + "</div><div>" + T.nbfPensionMethod + "</div>";
+
+  // ---- hedge funds (OFR) ----
+  if (hl) {
+    const hlab = H.map(r => r.d), tn = k => H.map(r => r[k] === null || r[k] === undefined ? null : r[k] / 1000);
+    plotSeries("nbfHedgeAssetsChart", "nbfHedgeAssetsTooltip", "nbfHedgeAssetsLegend", hlab, [
+      { name: T.legGne, color: "--cat-8", data: tn("gne") }, { name: T.legGav, color: "--series-core", data: tn("gav") }, { name: T.legNav, color: "--series-headline", data: tn("nav") }
+    ], { fmt: v => fmtTn(v * 1000, 1), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick });
+    plotSeries("nbfHedgeBorrowChart", "nbfHedgeBorrowTooltip", "nbfHedgeBorrowLegend", hlab, [
+      { name: T.legRepo, color: "--cat-10", data: tn("repo") }, { name: T.legPrimeBroker, color: "--cat-3", data: tn("pb") }, { name: T.legOtherSecured, color: "--cat-5", data: tn("osec") }
+    ], { fmt: v => fmtTn(v * 1000, 2), axisFmt: v => v.toFixed(1), labelFmt: fmtQuarter, tickFmt: qTick });
+    const repoY = hAgo && hAgo.repo ? (hl.repo / hAgo.repo - 1) * 100 : null;
+    document.getElementById("nbfHedgeCallout").innerHTML = "<div>" + T.nbfHedgeNote(fmtQuarter(hl.d), fmtTn(hl.nav, 1), fmtTn(hl.gav, 1), x2(hl.gav / hl.nav), hAgo ? x2(hAgo.gav / hAgo.nav) : null, fmtTn(hl.gne, 1), x1(hl.gne / hl.nav), fmtTn(hl.repo, 1), repoY === null ? null : sg1(repoY), fmtTn(hl.pb, 1), fmtTn(hl.osec, 2), hl.n.toLocaleString(T.dateLocale), hl.top10 === null || hl.top10 === undefined ? null : x1(hl.top10)) + "</div><div>" + T.nbfHedgeMethod + "</div>";
+  }
+
+  // ---- money market funds (SEC) ----
+  if (ml) {
+    const mlab = M.map(m => m.d), mtn = k => M.map(m => m[k] === null || m[k] === undefined ? null : m[k] / 1000);
+    plotSeries("nbfMmfAssetsChart", "nbfMmfAssetsTooltip", "nbfMmfAssetsLegend", mlab, [
+      { name: T.legMmfGov, color: "--series-headline", data: mtn("gov") }, { name: T.legMmfTsy, color: "--cat-10", data: mtn("tsy") }, { name: T.legMmfPrime, color: "--series-core", data: mtn("prime") }, { name: T.legMmfTex, color: "--cat-5", data: mtn("tex") }
+    ], { fmt: v => fmtTn(v * 1000, 2), axisFmt: v => v.toFixed(1), labelFmt: d => fmtMonthYear(d), tickFmt: d => d.slice(0, 4) });
+    const L = M.filter(m => m.wlaGov !== null && m.wlaGov !== undefined), llab = L.map(m => m.d);
+    plotSeries("nbfMmfLiqChart", "nbfMmfLiqTooltip", "nbfMmfLiqLegend", llab, [
+      { name: T.legWlaGov, color: "--series-headline", data: L.map(m => m.wlaGov) }, { name: T.legWlaTsy, color: "--cat-10", data: L.map(m => m.wlaTsy) }, { name: T.legWlaPrimeI, color: "--series-core", data: L.map(m => m.wlaPrimeI) }, { name: T.legWlaPrimeR, color: "--cat-3", data: L.map(m => m.wlaPrimeR) }
+    ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: d => fmtMonthYear(d), tickFmt: d => d.slice(0, 4), zeroBase: false });
+    const mmfY = mAgo ? (ml.total / mAgo.total - 1) * 100 : null, govPct = (ml.gov + ml.tsy) / ml.total * 100;
+    const mmfPeak = peakOf(M.map(m => ({ d: m.d, v: m.total }))), peakKind = ml.total >= mmfPeak.v ? "record" : fmtTn(mmfPeak.v, 2) === fmtTn(ml.total, 2) ? "level" : "below";
+    document.getElementById("nbfMmfCallout").innerHTML = "<div>" + T.nbfMmfNote(fmtMonthYear(ml.d), fmtTn(ml.total, 2), mmfY === null ? null : sg1(mmfY), pct1(govPct), fmtTn(ml.prime, 2), fmtTn(ml.tex, 2), ml.n === null ? null : ml.n.toLocaleString(T.dateLocale), pct1(ml.wlaGov), pct1(ml.wlaPrimeI), pct1(ml.wlaPrimeR), peakKind, fmtTn(mmfPeak.v, 2), fmtMonthYear(mmfPeak.d)) + "</div><div>" + T.nbfMmfMethod + "</div>";
+  }
+
+  // ---- credit unions (NCUA) ----
+  if (cl) {
+    const clab = C.map(r => r.d);
+    plotSeries("nbfNcuaNwChart", "nbfNcuaNwTooltip", null, clab, [{ name: T.nbfNcuaNwTitle, color: "--cat-10", data: C.map(r => r.nw) }],
+      { fmt: v => pct2(v), axisFmt: v => v.toFixed(1) + "%", labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+    plotSeries("nbfNcuaDelqChart", "nbfNcuaDelqTooltip", null, clab, [{ name: T.nbfNcuaDelqTitle, color: "--cat-4", data: C.map(r => r.delq) }],
+      { fmt: v => pct2(v), axisFmt: v => v.toFixed(1) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+    const nwLow = troughOf(C.map(r => ({ d: r.d, v: r.nw })));
+    document.getElementById("nbfNcuaCallout").innerHTML = "<div>" + T.nbfNcuaNote(fmtQuarter(cl.d), cl.n.toLocaleString(T.dateLocale), cAgo ? cAgo.n.toLocaleString(T.dateLocale) : null, NONBANK.ncua.assets ? fmtTn(NONBANK.ncua.assets, 2) : null, pct2(cl.nw), cAgo ? pct2(cAgo.nw) : null, pct2(nwLow.v), fmtQuarter(nwLow.d), C[0].d.slice(0, 4), cl.delq === null ? null : pct2(cl.delq), cAgo && cAgo.delq !== null ? pct2(cAgo.delq) : null, cl.borrow === null ? null : pct2(cl.borrow)) + "</div><div>" + T.nbfNcuaMethod + "</div>";
+  }
+}
+
 
 function renderCape() {
   if (!CAPE || !CAPE.monthly || CAPE.monthly.length < 120) return;
@@ -10377,6 +10910,7 @@ renderProfits();
 renderDebt();
 renderHhDebt();
 renderBanks();
+renderNonbank();
 renderExecSummaries();
 renderFileDateLines();
 labelCharts();

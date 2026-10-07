@@ -203,6 +203,19 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   BLS catalog titles passed (`catalog titles: OK for 22 series`), that `process_calendar.ps1`
   lists `productivity`, `z1`, `g19` and `h8` with next dates, and that the committed data files no
   longer carry the session's `"seed":"fred-mirror"` marker (the runner's files have none).
-- Open question for the owner: whether "capitalización del sistema financiero" should also
-  cover nonbank finance (insurers, broker-dealers, money funds); the Z.1 financial-sector
-  debt line in the debt section is the only nonbank figure today.
+- Nonbank finance (owner, 7-Oct-2026: "yes to non-bank financials"): its own section `nonbank` under Credit &
+  Banking (prefix `nbf`; `nf` was taken by the "section not found" strings), fed by `process_nonbank.ps1`.
+  Pitfalls met while building it: credit unions are inside Z.1 sector 70, adding them again breaks the sector
+  identity by exactly their size; the Z.1's four newer sectors (hedge, private debt, BDC, interval funds) enter
+  the financial total from 2012-Q4, not 2013 (the interval fund series itself is zero until 2021-Q4); FRED was unreachable from the sandbox all day (HTTP/2 INTERNAL_ERROR
+  at the egress proxy), so every Z.1 series was verified against the Board's CSV package; the first runner run then
+  showed FRED does not carry `FL444090000`, `FL454090003`, `FL464090005` (private debt funds, BDCs, interval funds)
+  and names the financial total `FBTFASQ027S`, so the processor reads the Z.1 from the package itself
+  (`z1_csv_files.zip`, dictionary-checked descriptions) and the seed and the runner use the same source; SEC hosts accept a descriptive User-Agent without an email
+  (`fnam.mx macro monitor (https://fnam.mx)`), never put the owner's address there; the SEC workbook's weekly liquid
+  assets can print 100.3% (tax-exempt institutional), so the helper tolerates up to 105%; the NCUA pack holds forty
+  quarters, the processor merges them over the committed file so history never shrinks; in Spanish the bar list
+  values are `$41.3` with the unit in the heading ("$41.3 billones" wrapped the value column).
+- Runner check for the nonbank processor: the log should print `Z.1: 298 quarters, 1952-Q1 .. <latest>` with
+  `max sector gap` under 1 bn, `OFR hedge funds: 54 quarters`, the SEC workbook URL and `NCUA: … 40 quarters kept`
+  (more after the next pack).
