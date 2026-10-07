@@ -25,6 +25,18 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   unreadable `data.js` now fails the run.
 - Banxico SG406/SG407 (gross and net liquid SPEA debt, quarterly) stopped at 2025-Q4; not shown on the page, listed
   by the freshness test.
+- Banxico republishes SHCP's monthly debt stocks (SG193 net SPEA debt, SG194/SG195 its domestic and external parts,
+  SG199 consolidated net debt; SIE table CG7) about a month after SHCP's own release, which comes 30 days after month
+  end: the Jul-2026 point landed on 28-Sep-2026, 59 days after period end and 31 days after SHCP's 28-Aug release, so
+  the latest point is about 90 days old by the time the next one lands. Their allowance is 100 days (`bySeries` in
+  `freshness.json`, 2026-10-07); the generic 66-day monthly rule opened issue #204 on 6-Oct-2026 while nothing was wrong.
+  Watch the observed lag in each run's freshness table and tighten the allowance if Banxico turns out to be faster.
+- 6-Oct-2026: every hacienda.gob.mx host was unreachable from the runner for the whole 19:30 UTC run (connect timeouts
+  on the three Estadísticas Oportunas CSVs and on the document links; answering again at 10:46 UTC the next day). The 28
+  SHCP series were kept from 5-Oct as designed, but each of them retried the dead file (3 tries × 30 s), so the fetch
+  step took 44 minutes. Since 2026-10-07 `fetch.mjs` downloads each CSV once per run, success or failure, and every
+  series that reads it fails fast with the same reason. A probe from the runner: dispatch the refresh workflow with
+  `probe` = "tls www.secciones.hacienda.gob.mx; url <csv url>" (nothing is written).
 
 ## Facts that were wrong once (and where the truth is)
 
