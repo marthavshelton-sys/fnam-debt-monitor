@@ -116,9 +116,9 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   `hhdc_xlsx.py` locates sheets by title and columns by header text.
 - **The Z.1's sector totals are not exact sums of the FRED component series** (business vs
   corporate + noncorporate: up to 0.05%; domestic nonfinancial vs households + business +
-  governments: up to 0.4%, 7-Oct-2026), and BLS's catalog title for an index series names the
+  governments: up to 0.4% recently and 1.5% in the 1950s, 7-Oct-2026), and BLS's catalog title for an index series names the
   program ("Index/Level and Office of Productivity And Technology...") with the measure in another
-  field: both tripped the first runner run. The checks are now bands (0.3% / 1%) and the catalog
+  field: both tripped the first runner run. The checks are now bands (0.3% / 2%, never under $1 billion) and the catalog
   test searches every descriptive field.
 - **FRED's TDSP (debt service ratio) starts in 2005** on FRED although the Fed's series is
   dated from 1980; the page shows what FRED carries.
