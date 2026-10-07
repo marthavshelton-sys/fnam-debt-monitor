@@ -146,7 +146,7 @@
       const series = [{ id: 'GAPB.MX', label: 'GAP B (BMV)' }, { id: '^MXX', label: 'S&P/BMV IPC' }].map((s) => ({ ...s, pts: M.px(s.id).filter((p) => p[0] >= base) })).filter((s) => s.pts.length > 5);
       const dates = series[0].pts.map((p) => p[0]);
       const ds = series.map((s, i) => { const b = s.pts[0][1]; const map = new Map(s.pts.map((p) => [p[0], p[1]])); let lv = null; return { label: s.label + ` (${this.T('base 100', 'rebased to 100')})`, data: dates.map((d) => { const v = map.get(d); if (v != null) lv = v; return lv != null ? 100 * lv / b : null; }), borderColor: PALETTE[i], backgroundColor: PALETTE[i], borderWidth: i === 0 ? 2.4 : 1.6 }; });
-      this.heading(this.T('GAP B vs S&P/BMV IPC · últimos 12 meses (base 100, precio sin dividendos)', 'GAP B vs S&P/BMV IPC · last 12 months (rebased to 100, price only)'), xr, y, 10);
+      this.heading(this.T('GAP B vs S&P/BMV IPC · últimos 12 meses (base 100, precio sin dividendos)', 'GAP B vs S&P/BMV IPC · last 12 months (rebased to 100, price only)'), xr, y, 10, colW);
       const img = this.chart({ type: 'line', data: { labels: dates, datasets: ds }, options: { scales: { x: { ticks: { maxTicksLimit: 7, maxRotation: 0, callback: (v, i) => (dates[i] ? dates[i].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } } } } }, 760, 470);
       const cw = this.cur.x1 - xr, chH = cw * 470 / 760;
       this.image(img, xr, y + 18, cw, chH);

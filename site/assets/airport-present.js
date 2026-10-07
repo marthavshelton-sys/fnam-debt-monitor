@@ -147,13 +147,15 @@
       if (L) R(this.T(`${this.ebitdaL} últimos 12 meses · margen`, `${this.ebitdaL} last twelve months · margin`), `Ps. ${this.m(L.is.ebitda)} M  ·  ${this.pct(L.is.ebitdaMarginExIfric)}${prevL ? `  ·  ${pm(g(L.is.ebitda, prevL.is.ebitda))} ${yy}` : ''}`);
       R(this.T(`${this.ebitdaL} ${this.qlab(lastQ)} · margen`, `${this.ebitdaL} ${this.qlab(lastQ)} · margin`), `Ps. ${this.m(lastQ.is.ebitda)} M  ·  ${this.pct(lastQ.is.ebitdaMarginExIfric)}${prevQ ? `  ·  ${pm(g(lastQ.is.ebitda, prevQ.is.ebitda))} ${yy}` : ''}`);
       if (L) R(this.T('Ingresos últimos 12 meses (sin construcción)', 'Revenue last twelve months (ex-construction)'), `Ps. ${this.m(M.exRev(L.is))} M${prevL ? `  ·  ${pm(g(M.exRev(L.is), M.exRev(prevL.is)))} ${yy}` : ''}`);
-      if (L) R(this.T('Utilidad neta (participación controladora) últimos 12 meses', 'Net income (controlling interest) last twelve months'), `Ps. ${this.m(M.niCtrl(L.is))} M${prevL ? `  ·  ${pm(g(M.niCtrl(L.is), M.niCtrl(prevL.is)))} ${yy}` : ''}`);
+      if (L) R(this.T('Utilidad neta controladora últimos 12 meses', 'Net income (controlling) last twelve months'), `Ps. ${this.m(M.niCtrl(L.is))} M${prevL ? `  ·  ${pm(g(M.niCtrl(L.is), M.niCtrl(prevL.is)))} ${yy}` : ''}`);
       if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M  ·  ${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
       if (nd && L) R(this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`), this.x(nd.net / L.is.ebitda, 1), 'bold');
       if (L) R(this.T(`VE / ${this.ebitdaL} UDM  ·  P/U UDM`, `EV / LTM ${this.ebitdaL}  ·  LTM P/E`), `${this.x(ev / L.is.ebitda)}  ·  ${M.niCtrl(L.is) ? this.x(mc / 1000 / M.niCtrl(L.is)) : '—'}`);
       // pro-forma perimeter (REF.proForma, ASUR with Motiva/CPC): the page's DCF and multiples use it while it is on; the deck prints it beside the reported figures
       if (nd && L && M.PF && M.proFormaOn && M.proFormaOn()) { const PFo = M.PF, eb = L.is.ebitda + PFo.ebitdaM * 1000, evPf = mc / 1000 + PFo.netDebtM * 1000 + M.nciOf(lastQ);
-        R(this.T(`Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, ilustrativo): deuda neta / EBITDA UDM  ·  VE / EBITDA UDM`, `Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, illustrative): net debt / LTM EBITDA  ·  EV / LTM EBITDA`), `${this.x(PFo.netDebtM * 1000 / eb, 1)}  ·  ${this.x(evPf / eb)}  ·  ${this.T('deuda neta', 'net debt')} Ps. ${this.n(PFo.netDebtM, 0)} M`); }
+        // one short label and the ratios named in the value, so the row stays on one or two lines (the long label wrapped to three
+        // and pushed the ASUR table past its limit, 2026-10-07)
+        R(this.T(`Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, ilustrativo)`, `Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, illustrative)`), `${this.T('DN', 'ND')}/EBITDA ${this.x(PFo.netDebtM * 1000 / eb, 1)}  ·  ${this.T('VE', 'EV')}/EBITDA ${this.x(evPf / eb)}  ·  ${this.T('deuda neta', 'net debt')} Ps. ${this.n(PFo.netDebtM, 0)} M`); }
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
       if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
@@ -164,12 +166,14 @@
       const noteStr = this.T(`Fuentes: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${M.L(CFG.debtNote)} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
         `Sources: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${M.L(CFG.debtNote)} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
-      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta: meta2, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.6, bottom: 2.6, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4, 7], limitY);
+      // ASUR's sheet carries more rows than GAP's or OMA's (ADS, pro-forma perimeter, one row per country): the padding is a little
+      // tighter than the other tables' and 6.7 pt is the last resort, so the list never spills past the sources note
+      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta: meta2, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.2, bottom: 2.2, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4, 7, 6.7], limitY);
       const base = M.addDays(px[0], -365);
       const series = [{ id: M.HOME, label: CFG.homeLabel }, { id: '^MXX', label: 'S&P/BMV IPC' }].map((s) => ({ ...s, pts: M.px(s.id).filter((p) => p[0] >= base) })).filter((s) => s.pts.length > 5);
       const dates = series[0].pts.map((p) => p[0]);
       const ds = series.map((s, i) => { const b = s.pts[0][1]; const map = new Map(s.pts.map((p) => [p[0], p[1]])); let lv = null; return { label: s.label + ` (${this.T('base 100', 'rebased to 100')})`, data: dates.map((d) => { const v = map.get(d); if (v != null) lv = v; return lv != null ? 100 * lv / b : null; }), borderColor: PALETTE[i], backgroundColor: PALETTE[i], borderWidth: i === 0 ? 2.4 : 1.6 }; });
-      this.heading(this.T(`${CFG.homeLabel} vs S&P/BMV IPC · últimos 12 meses (base 100, precio sin dividendos)`, `${CFG.homeLabel} vs S&P/BMV IPC · last 12 months (rebased to 100, price only)`), xr, y, 10);
+      this.heading(this.T(`${CFG.homeLabel} vs S&P/BMV IPC · últimos 12 meses (base 100, precio sin dividendos)`, `${CFG.homeLabel} vs S&P/BMV IPC · last 12 months (rebased to 100, price only)`), xr, y, 10, colW);
       const img = this.chart({ type: 'line', data: { labels: dates, datasets: ds }, options: { scales: { x: { ticks: { maxTicksLimit: 7, maxRotation: 0, callback: (v, i) => (dates[i] ? dates[i].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } } } } }, 760, 470);
       const cw = this.cur.x1 - xr, chH = cw * 470 / 760;
       this.image(img, xr, y + 18, cw, chH);
