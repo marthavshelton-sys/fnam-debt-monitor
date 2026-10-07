@@ -3477,8 +3477,8 @@ const I18N = {
     exScDrivers: (isr, d, bal, bm) => "Los inventarios de las empresas cubren " + isr + " meses de ventas (" + ({up:"al alza", down:"a la baja", flat:"estables"})[d] + "); el déficit comercial de bienes y servicios fue de $" + bal + " mil millones en " + bm + ".",
     exScWhy: (state, looser) => "La presión en las cadenas de suministro se traslada a los precios de los bienes con unos meses de rezago. " + ({tight:"La presión está por encima de lo normal", loose:"La presión está por debajo de lo normal", normal:"La presión está cerca de lo normal"})[state] + ": el " + looser + "% de los meses desde 1998 han sido más holgados que este.",
     exScWatch: (fr, ir) => "Se actualiza cada mes (GSCPI en la primera semana). Seguir el flete (" + fr + "%) y los precios de importación (" + ir + "%) por su traslado a la inflación de bienes.",
-    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => "En " + m + ": ingresos $" + r + " mil millones, gastos $" + o + " mil millones, " + (kind === "deficit" ? "déficit" : "superávit") + " de $" + d + " mil millones" + (vs ? " (" + vs + " contra el mismo mes del año pasado)" : "") + ". En lo que va del año fiscal " + fy + " el déficit es de $" + fytd + " mil millones, " + fyPct + " " + (wid === "wider" ? "mayor" : "menor") + " que hace un año.",
-    exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Ingresos " + r + " y gastos " + o + " frente a los mismos meses del año pasado. Interés neto de $" + intr + " mil millones en el año fiscal (" + intrPct + ")" + (cmp ? ", " + (cmp === "more" ? "más" : "menos") + " que defensa ($" + def + " mil millones)." : "."),
+    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid, full) => "En " + m + ": ingresos $" + r + " mil millones, gastos $" + o + " mil millones, " + (kind === "deficit" ? "déficit" : "superávit") + " de $" + d + " mil millones" + (vs ? " (" + vs + " contra el mismo mes del año pasado)" : "") + (full ? ". En el año fiscal " + fy + " completo el déficit fue de $" : ". En lo que va del año fiscal " + fy + " el déficit es de $") + fytd + " mil millones, " + fyPct + " " + (wid === "wider" ? "mayor" : "menor") + (full ? " que en el año fiscal anterior." : " que hace un año."),
+    exFiDrivers: (r, o, intr, intrPct, cmp, def, full) => "Ingresos " + r + " y gastos " + o + (full ? " frente al año fiscal anterior." : " frente a los mismos meses del año pasado.") + " Interés neto de $" + intr + " mil millones " + (full ? "en el año fiscal completo" : "en lo que va del año fiscal") + " (" + intrPct + ")" + (cmp ? ", " + (cmp === "more" ? "más" : "menos") + " que defensa ($" + def + " mil millones)." : "."),
     exFiWhy: (pg, y, debt, r12, r12dir) => "El déficit fue " + pg + "% del PIB en el año fiscal " + y + " y la deuda federal ronda el " + debt + "% del PIB" + (r12 === null ? "." : "; el déficit de 12 meses móviles es de $" + r12 + " billones, " + (r12dir === "up" ? "más" : "menos") + " que hace un año.") + " Déficits persistentes implican más emisión del Tesoro y una factura de intereses creciente.",
     exFiWatch: (dm, rm, faster) => "Próximo Estado Mensual del Tesoro (datos de " + dm + ") alrededor del octavo día hábil de " + rm + ". Seguir la factura de intereses y si los ingresos siguen creciendo " + (faster === "faster" ? "más rápido" : "más lento") + " que los gastos.",
     groupEnergy: "Energía",
@@ -3815,6 +3815,11 @@ const I18N = {
     fiKpiReceipts: "Ingresos, año fiscal a la fecha",
     fiKpiOutlays: "Gastos, año fiscal a la fecha",
     fiKpiInterest: "Interés neto, año fiscal a la fecha",
+    // Once the September statement is in, the fiscal year is complete and the tiles say so.
+    fiKpiDeficitFull: fy => "Déficit, año fiscal " + fy + " completo",
+    fiKpiReceiptsFull: fy => "Ingresos, año fiscal " + fy + " completo",
+    fiKpiOutlaysFull: fy => "Gastos, año fiscal " + fy + " completo",
+    fiKpiInterestFull: fy => "Interés neto, año fiscal " + fy + " completo",
     fiKpiRolling: "Déficit, últimos 12 meses",
     fiKpiMonth: "Déficit del mes",
     fiKpiVsPy: "vs. un año antes",
@@ -3825,6 +3830,8 @@ const I18N = {
     fiRollingTitle: "Déficit acumulado en 12 meses, billones de dólares",
     fiSecFytd: "El año fiscal hasta ahora",
     fiSecFytdNote: "Año fiscal a la fecha frente a los mismos meses del año anterior, miles de millones de dólares",
+    fiSecFytdFull: fy => "El año fiscal " + fy + " completo",
+    fiSecFytdNoteFull: "Año fiscal completo frente al año fiscal anterior, miles de millones de dólares",
     fiSecSources: "De dónde viene el dinero",
     fiSecSourcesNote: "Ingresos por fuente, año fiscal a la fecha · cambio frente al año anterior, miles de millones de dólares",
     fiSecFunctions: "A dónde va el dinero",
@@ -3841,6 +3848,7 @@ const I18N = {
     fiMonthlyNote: (m, r, o, d, kind) => "En " + m + " el gobierno recaudó " + r + " mil millones de dólares y gastó " + o + " mil millones: un " + (kind === "deficit" ? "déficit" : "superávit") + " de " + d + " mil millones.",
     fiMonthlySeason: "Los meses no son comparables entre sí: abril, junio, septiembre y enero reciben pagos de impuestos estimados y a veces cierran con superávit; octubre, noviembre y febrero suelen ser los déficits más grandes. La comparación válida es contra el mismo mes del año anterior, o el acumulado de 12 meses.",
     fiFytdNote: (fy, months, d, py, dir, chg) => "En los primeros " + months + " meses del año fiscal " + fy + " el déficit suma " + d + " mil millones de dólares, " + chg + " mil millones " + (dir === "wider" ? "más" : "menos") + " que en el mismo periodo del año anterior (" + py + " mil millones).",
+    fiFyFullNote: (fy, d, py, dir, chg) => "En el año fiscal " + fy + " completo el déficit sumó " + d + " mil millones de dólares, " + chg + " mil millones " + (dir === "wider" ? "más" : "menos") + " que en el año fiscal " + (fy - 1) + " (" + py + " mil millones).",
     fiFytdDetail: (rY, oY, iY, iShare) => "Los ingresos crecen " + rY + " y los gastos " + oY + ". El interés neto sobre la deuda crece " + iY + " y ya representa " + iShare + "% de todo el gasto federal.",
     fiSourceNote: (top, topChg, worst, worstChg) => top + " aporta el mayor aumento (" + topChg + " mil millones); " + worst + " registra la mayor caída (" + worstChg + " mil millones).",
     fiSourceShares: (ind, soc, corp) => "Del total de ingresos, el impuesto sobre la renta de personas aporta " + ind + "%, las contribuciones a la seguridad social " + soc + "% y el impuesto a empresas " + corp + "%.",
@@ -4862,8 +4870,8 @@ const I18N = {
     exScDrivers: (isr, d, bal, bm) => "Business inventories cover " + isr + " months of sales (" + ({up:"rising", down:"falling", flat:"steady"})[d] + "); the goods-and-services trade deficit was $" + bal + " billion in " + bm + ".",
     exScWhy: (state, looser) => "Supply pressure feeds into goods prices with a lag of a few months. " + ({tight:"Pressure is above normal", loose:"Pressure is below normal", normal:"Pressure is close to normal"})[state] + ": " + looser + "% of months since 1998 have been looser than this one.",
     exScWatch: (fr, ir) => "Updated monthly (GSCPI in the first week). Watch freight (" + fr + "%) and import prices (" + ir + "%) for pass-through to goods inflation.",
-    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => m + ": receipts $" + r + "B, outlays $" + o + "B, a " + kind + " of $" + d + "B" + (vs ? " (" + vs + " vs. the same month last year)" : "") + ". Fiscal " + fy + " to date the deficit is $" + fytd + "B, " + fyPct + " " + wid + " than a year earlier.",
-    exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Receipts " + r + " and outlays " + o + " vs. the same months last year. Net interest $" + intr + "B year to date (" + intrPct + ")" + (cmp ? ", " + cmp + " than defense ($" + def + "B)." : "."),
+    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid, full) => m + ": receipts $" + r + "B, outlays $" + o + "B, a " + kind + " of $" + d + "B" + (vs ? " (" + vs + " vs. the same month last year)" : "") + (full ? ". For fiscal " + fy + " as a whole the deficit was $" : ". Fiscal " + fy + " to date the deficit is $") + fytd + "B, " + fyPct + " " + wid + (full ? " than fiscal " + (fy - 1) + "." : " than a year earlier."),
+    exFiDrivers: (r, o, intr, intrPct, cmp, def, full) => "Receipts " + r + " and outlays " + o + (full ? " vs. the prior fiscal year." : " vs. the same months last year.") + " Net interest $" + intr + "B " + (full ? "for the full fiscal year" : "year to date") + " (" + intrPct + ")" + (cmp ? ", " + cmp + " than defense ($" + def + "B)." : "."),
     exFiWhy: (pg, y, debt, r12, r12dir) => "The deficit was " + pg + "% of GDP in fiscal " + y + " and federal debt is about " + debt + "% of GDP" + (r12 === null ? "." : "; the rolling 12-month deficit is $" + r12 + " trillion, " + r12dir + " from a year earlier.") + " Persistent deficits mean more Treasury issuance and a growing interest bill.",
     exFiWatch: (dm, rm, faster) => "Next Monthly Treasury Statement (" + dm + " data) around the eighth business day of " + rm + ". Watch the interest bill and whether receipts keep growing " + faster + " than outlays.",
     groupEnergy: "Energy",
@@ -5198,6 +5206,11 @@ const I18N = {
     fiKpiReceipts: "Receipts, fiscal year to date",
     fiKpiOutlays: "Outlays, fiscal year to date",
     fiKpiInterest: "Net interest, fiscal year to date",
+    // Once the September statement is in, the fiscal year is complete and the tiles say so.
+    fiKpiDeficitFull: fy => "Deficit, full fiscal " + fy,
+    fiKpiReceiptsFull: fy => "Receipts, full fiscal " + fy,
+    fiKpiOutlaysFull: fy => "Outlays, full fiscal " + fy,
+    fiKpiInterestFull: fy => "Net interest, full fiscal " + fy,
     fiKpiRolling: "Deficit, trailing 12 months",
     fiKpiMonth: "Deficit this month",
     fiKpiVsPy: "vs. a year earlier",
@@ -5208,6 +5221,8 @@ const I18N = {
     fiRollingTitle: "Deficit over the trailing 12 months, $ trillions",
     fiSecFytd: "The fiscal year so far",
     fiSecFytdNote: "Fiscal year to date vs. the same months a year earlier, $ billions",
+    fiSecFytdFull: fy => "Fiscal " + fy + " in Full",
+    fiSecFytdNoteFull: "Full fiscal year vs. the prior fiscal year, $ billions",
     fiSecSources: "Where the money comes from",
     fiSecSourcesNote: "Receipts by source, fiscal year to date · change from a year earlier, $ billions",
     fiSecFunctions: "Where the money goes",
@@ -5224,6 +5239,7 @@ const I18N = {
     fiMonthlyNote: (m, r, o, d, kind) => "In " + m + " the government took in $" + r + " billion and spent $" + o + " billion — a " + (kind === "deficit" ? "deficit" : "surplus") + " of $" + d + " billion.",
     fiMonthlySeason: "Months are not comparable with each other: April, June, September, and January receive estimated tax payments and sometimes post surpluses; October, November, and February are usually the largest deficits. The valid comparison is against the same month a year earlier, or the 12-month total.",
     fiFytdNote: (fy, months, d, py, dir, chg) => "Through the first " + months + " months of fiscal " + fy + ", the deficit totals $" + d + " billion, $" + chg + " billion " + (dir === "wider" ? "wider" : "narrower") + " than the same period a year earlier ($" + py + " billion).",
+    fiFyFullNote: (fy, d, py, dir, chg) => "For fiscal " + fy + " as a whole, the deficit totaled $" + d + " billion, $" + chg + " billion " + (dir === "wider" ? "wider" : "narrower") + " than fiscal " + (fy - 1) + " ($" + py + " billion).",
     fiFytdDetail: (rY, oY, iY, iShare) => "Receipts are up " + rY + " and outlays " + oY + ". Net interest on the debt is up " + iY + " and now accounts for " + iShare + "% of all federal spending.",
     fiSourceNote: (top, topChg, worst, worstChg) => top + " contributes the largest increase (" + topChg + " billion); " + worst + " shows the largest decline (" + worstChg + " billion).",
     fiSourceShares: (ind, soc, corp) => "Of total receipts, individual income taxes supply " + ind + "%, social insurance contributions " + soc + "%, and corporate income taxes " + corp + "%.",
@@ -8027,11 +8043,13 @@ function renderFiscal() {
 
   // ---- KPIs ----
   const curAgo = yearAgo(cur.d);
+  // A September statement completes the fiscal year: "year to date" then reads "full fiscal year".
+  const fyFull = fyMonths.length === 12;
   const tiles = [
-    {label:T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + unitHtml(sB), dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
-    {label:T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + unitHtml(sB), dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
-    {label:T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + unitHtml(sB), dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
-    {label:T.fiKpiInterest,    value:"$" + bn(interest.fytd) + unitHtml(sB), dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
+    {label:fyFull ? T.fiKpiDeficitFull(cur.fy) : T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + unitHtml(sB), dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
+    {label:fyFull ? T.fiKpiReceiptsFull(cur.fy) : T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + unitHtml(sB), dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
+    {label:fyFull ? T.fiKpiOutlaysFull(cur.fy) : T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + unitHtml(sB), dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
+    {label:fyFull ? T.fiKpiInterestFull(cur.fy) : T.fiKpiInterest,    value:"$" + bn(interest.fytd) + unitHtml(sB), dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
     {label:T.fiKpiRolling,     value:"$" + (r12.v/1000).toFixed(2) + unitHtml(sT), dlt:pct(r12.v, r12ago.v), sub:T.fiKpiVsPy, spark:roll12.slice(-24).map(p => -p.v), color:"--cat-7"},
     {label:T.fiKpiMonth,       value:(cur.dfct >= 0 ? "$" : "+$") + bn(cur.dfct) + unitHtml(sB), dlt:curAgo ? pct(cur.dfct, curAgo.dfct) : null, sub:T.fiKpiVsPm, spark:M.slice(-24).map(p => -p.dfct), color:"--cat-5"}
   ];
@@ -8068,6 +8086,11 @@ function renderFiscal() {
 
   // ---- fiscal year to date ----
   document.getElementById("fiFytdAsOf").textContent = fmtMonthYear(cur.d);
+  if (fyFull) {
+    const h = document.querySelector('[data-i18n="fiSecFytd"]'), n = document.querySelector('[data-i18n="fiSecFytdNote"]');
+    if (h) h.textContent = T.fiSecFytdFull(cur.fy);
+    if (n) n.textContent = T.fiSecFytdNoteFull;
+  }
   const stat = (label, v, py) =>
     `<div><div class="mstat-label">${label}</div><div class="mstat-value">$${bn(v)}${sB}</div><div class="mstat-sub">${T.fiStatVsPy(fmtPct(pct(v, py)))}</div></div>`;
   document.getElementById("fiFytdStats").innerHTML =
@@ -8075,7 +8098,8 @@ function renderFiscal() {
     stat(T.fiStatDeficit, fytd.dfct, pytd.dfct) + stat(T.fiStatInterest, interest.fytd, interest.pyfytd);
   const chg = fytd.dfct - pytd.dfct;
   document.getElementById("fiFytdCallout").innerHTML =
-    "<div>" + T.fiFytdNote(cur.fy, fyMonths.length, bn(fytd.dfct), bn(pytd.dfct), chg >= 0 ? "wider" : "narrower", bn(chg)) + "</div>" +
+    "<div>" + (fyFull ? T.fiFyFullNote(cur.fy, bn(fytd.dfct), bn(pytd.dfct), chg >= 0 ? "wider" : "narrower", bn(chg))
+                      : T.fiFytdNote(cur.fy, fyMonths.length, bn(fytd.dfct), bn(pytd.dfct), chg >= 0 ? "wider" : "narrower", bn(chg))) + "</div>" +
     "<div>" + T.fiFytdDetail(fmtPct(pct(fytd.rcpt, pytd.rcpt)), fmtPct(pct(fytd.outly, pytd.outly)),
                              fmtPct(pct(interest.fytd, interest.pyfytd)), (interest.fytd / totalOut.fytd * 100).toFixed(1)) + "</div>";
 
@@ -9151,8 +9175,8 @@ function renderExecSummaries() {
     const gl = FISCAL.pctGdp[FISCAL.pctGdp.length - 1];
     const vsAgo = ago && cur.dfct * ago.dfct > 0 ? sg(pc(cur.dfct, ago.dfct), 0) + "%" : null;
     card("exec-fiscal",
-      T.exFiLatest(fmtMonthYear(cur.d), bn(cur.rcpt), bn(cur.outly), cur.dfct >= 0 ? "deficit" : "surplus", bn(cur.dfct), vsAgo, cur.fy, bn(fytd.d), Math.abs(pc(fytd.d, pytd.d)).toFixed(1) + "%", fytd.d >= pytd.d ? "wider" : "narrower"),
-      T.exFiDrivers(sg(pc(fytd.r, pytd.r)) + "%", sg(pc(fytd.o, pytd.o)) + "%", intr ? bn(intr.fytd) : "—", intr ? sg(pc(intr.fytd, intr.pyfytd)) + "%" : "—", intr && def ? (intr.fytd > def.fytd ? "more" : "less") : null, def ? bn(def.fytd) : null),
+      T.exFiLatest(fmtMonthYear(cur.d), bn(cur.rcpt), bn(cur.outly), cur.dfct >= 0 ? "deficit" : "surplus", bn(cur.dfct), vsAgo, cur.fy, bn(fytd.d), Math.abs(pc(fytd.d, pytd.d)).toFixed(1) + "%", fytd.d >= pytd.d ? "wider" : "narrower", fy.length === 12),
+      T.exFiDrivers(sg(pc(fytd.r, pytd.r)) + "%", sg(pc(fytd.o, pytd.o)) + "%", intr ? bn(intr.fytd) : "—", intr ? sg(pc(intr.fytd, intr.pyfytd)) + "%" : "—", intr && def ? (intr.fytd > def.fytd ? "more" : "less") : null, def ? bn(def.fytd) : null, fy.length === 12),
       T.exFiWhy(Math.abs(gl.v).toFixed(1), gl.y, FISCAL.debtPctGdp.v.toFixed(0), r12 === null ? null : (r12 / 1000).toFixed(2), r12 === null ? null : (r12 >= r12a ? "up" : "down")),
       T.exFiWatch(fmtMonthYear(nextMonthOf(cur.d)), fmtMonthYear(monthsAgoKey(cur.d, -2)), pc(fytd.r, pytd.r) > pc(fytd.o, pytd.o) ? "faster" : "slower"));
   });

@@ -254,6 +254,15 @@ research step. Wiring it means parsing the workbook on the runner and presenting
   income (MTS table 9, budget function 900). Net is what counts against the deficit and what CBO
   projects; FY2026 through August: gross $1,267.4B, trust funds $215.9B, other $34.5B, net
   $1,017.0B. Label every interest figure one or the other.
+- The fiscal year ends 30 September but the September statement that closes it comes out in October (the
+  eighth business day on Treasury's schedule: 13-Oct-2026 for FY2026). Between the two dates every MTS figure
+  on the page is an 11-month figure, and Section 04 says so in a composed note (`fyEndNoteEn/Es`: year-end
+  date, the statement's scheduled date from `provenance.js`'s U.S. business-day calendar, the last download).
+  Once the September statement is in (`revOutInfo.months === 12`, `mtsFull`), every "YTD" label reads "full
+  fiscal year" (KPI tiles, Section 04 stats and bridge, Sections 07–08 captions and tables, which then drop
+  the duplicate prior-full-year column); the accrual-basis stat does the same on its own date (`accruedFull`:
+  the Interest Expense dataset posts September before the MTS does). Test the closed-year wording by serving a
+  `data.js` with `mts.date` set to the 30 September record; test the note's past-due wording with `?asof=`.
 - Debt-to-GDP has three honest answers that differ by timing and definition (see Section 06 above);
   the U.S. Macro Monitor (`/macro/?view=fiscal`) shows FRED's quarterly ratio and net interest, and
   both pages say so.
