@@ -29,6 +29,20 @@ $releases = [ordered]@{
   # Thanksgiving week), which a fixed weekday cannot.
   nfci     = 221  # Chicago Fed National Financial Conditions Index
   mortgage = 190  # Primary Mortgage Market Survey (Freddie Mac)
+  # Quarterly and monthly releases behind the productivity, profits, debt and bank sections.
+  productivity = 47   # BLS Productivity and Costs
+  z1       = 52   # Federal Reserve Z.1 Financial Accounts of the United States
+  g19      = 14   # Federal Reserve G.19 Consumer Credit (monthly)
+  h8       = 22   # Federal Reserve H.8 Assets and Liabilities of Commercial Banks (weekly)
+}
+# Each id must still be the release it is meant to be: FRED's name for it is checked against
+# these patterns, and a release whose name no longer matches is left out (the page then shows
+# its "expected" wording) rather than carrying another release's dates.
+$releaseNames = @{
+  cpi = 'Consumer Price Index'; ppi = 'Producer Price Index'; jobs = 'Employment Situation'; jolts = 'Job Openings and Labor Turnover'
+  pce = 'Personal Income and Outlays'; gdp = 'Gross Domestic Product'; retail = 'Advance Monthly Sales for Retail'
+  nfci = 'National Financial Conditions Index'; mortgage = 'Primary Mortgage Market Survey'
+  productivity = 'Productivity and Costs'; z1 = 'Z\.1'; g19 = 'G\.19'; h8 = 'H\.8'
 }
 
 # The weekly releases' "next" is worked out on the page from the data it shows, so
@@ -36,12 +50,18 @@ $releases = [ordered]@{
 # published it stays in "upcoming". Without this, the 04:00 UTC run on Thursday
 # 01-Oct-2026 dropped that day's mortgage survey from both lists and the page named
 # 08-Oct as the next reading. The monthly releases keep the rule their lines use.
-$weeklyKeys = @("nfci", "mortgage")
+$weeklyKeys = @("nfci", "mortgage", "h8")
 
 $cal = [ordered]@{}
 foreach ($k in $releases.Keys) {
   $id = $releases[$k]
   $base = "https://api.stlouisfed.org/fred/release/dates?release_id=$id&api_key=$key&file_type=json"
+  try {
+    $rel = Invoke-Retry { Invoke-RestMethod "https://api.stlouisfed.org/fred/release?release_id=$id&api_key=$key&file_type=json" -TimeoutSec 60 }
+    $name = [string]$rel.releases[0].name
+    if ($name -notmatch $releaseNames[$k]) { Write-Host "::warning::FRED release $id is named '$name', not /$($releaseNames[$k])/; $k left out of the calendar"; continue }
+  } catch { Write-Host "::warning::could not read the name of FRED release $id for $k ($($_.Exception.Message.Split([char]10)[0])); $k left out of the calendar"; continue }
+  Start-Sleep -Milliseconds 150
   $past = Invoke-Retry { Invoke-RestMethod "$base&realtime_start=$since&sort_order=desc&limit=6" -TimeoutSec 60 }
   $future = Invoke-Retry { Invoke-RestMethod "$base&include_release_dates_with_no_data=true&realtime_start=$today&realtime_end=$horizon&sort_order=asc&limit=12" -TimeoutSec 60 }
   $recent = @($past.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -le $today } | Sort-Object -Unique -Descending)

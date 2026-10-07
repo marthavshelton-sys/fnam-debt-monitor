@@ -58,7 +58,7 @@ function Get-RemoteFileDate([string]$url, [int]$timeoutSec = 60) {
 # Challenger report). On the runner setup-python puts it on PATH; on Windows
 # desktops the Store's "python" alias answers to the name but is not Python.
 function Get-Python {
-  $cands = @("python") + @(Get-ChildItem "$env:LOCALAPPDATA\Programs\Python" -Recurse -Filter python.exe -ErrorAction SilentlyContinue | Where-Object { $_.DirectoryName -notmatch 'venv' } | ForEach-Object { $_.FullName })
+  $cands = @("python", "python3") + @(Get-ChildItem "$env:LOCALAPPDATA\Programs\Python" -Recurse -Filter python.exe -ErrorAction SilentlyContinue | Where-Object { $_.DirectoryName -notmatch 'venv' } | ForEach-Object { $_.FullName })
   foreach ($c in $cands) {
     try { $v = & $c --version 2>$null; if ($LASTEXITCODE -eq 0 -and "$v" -match 'Python 3') { return $c } } catch {}
   }
@@ -229,3 +229,53 @@ function Get-HistoryRevision($prevGdp, $gdp, $prevPce, $pce, [string]$release) {
   return [ordered]@{ release = $release; gdpFrom = (& $first $qChanged); quarters = $qChanged.Count; examples = $ex
                      monthsFrom = [ordered]@{ income = (& $first $inc); spending = (& $first $spd); prices = (& $first $prc) } }
 }
+
+# ---- FRED series with a title check ----
+# Pulls a FRED series and verifies its title against a pattern before accepting it,
+# so a renamed, discontinued or mistyped id never reaches the page. $candidates are
+# tried in order and the first whose title matches wins. With FRED_API_KEY set (the
+# runner) the API serves the title and the observations; without it (a session) the
+# public series page and CSV download serve the same title and data, so a processor
+# can be run anywhere. Returns @{ id; title; points = [{d, v}] } with the points on or
+# after $from (dates as published: "yyyy-MM-dd"); missing values (".") are dropped.
+# Throws when no candidate matches: the caller's section then keeps its last data.
+function Get-FredChecked([string[]]$candidates, [string]$titlePattern, [string]$from = "1900-01-01") {
+  $key = [Environment]::GetEnvironmentVariable("FRED_API_KEY")
+  $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+  foreach ($id in $candidates) {
+    try {
+      $title = $null
+      if ($key) {
+        $meta = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series?series_id=$id&api_key=$key&file_type=json" -TimeoutSec 60 }
+        $title = [string]$meta.seriess[0].title
+      } else {
+        $html = (Invoke-WebRequest -Uri "https://fred.stlouisfed.org/series/$id" -UseBasicParsing -UserAgent $ua -TimeoutSec 60).Content
+        $m = [regex]::Match($html, '<title>(.*?)</title>')
+        $title = [System.Net.WebUtility]::HtmlDecode($m.Groups[1].Value) -replace ('\s*\(' + [regex]::Escape($id) + '\).*$'), ''
+      }
+      if (-not $title -or $title -notmatch $titlePattern) { Write-Host ("  {0}: title '{1}' does not match /{2}/; skipped" -f $id, $title, $titlePattern); Start-Sleep -Milliseconds 300; continue }
+      $pts = New-Object System.Collections.ArrayList
+      if ($key) {
+        $r = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&observation_start=$from" -TimeoutSec 120 }
+        foreach ($o in $r.observations) { if ($o.value -ne "." -and $o.date -ge $from) { [void]$pts.Add([ordered]@{ d = [string]$o.date; v = [double]$o.value }) } }
+      } else {
+        $csv = (Invoke-WebRequest -Uri "https://fred.stlouisfed.org/graph/fredgraph.csv?id=$id" -UseBasicParsing -UserAgent $ua -TimeoutSec 120).Content
+        foreach ($line in ($csv -split "`n")) {
+          $p = $line.Trim() -split ','
+          if ($p.Count -lt 2 -or $p[0] -notmatch '^\d{4}-\d{2}-\d{2}$' -or $p[1] -eq "." -or $p[1] -eq "" -or $p[0] -lt $from) { continue }
+          [void]$pts.Add([ordered]@{ d = $p[0]; v = [double]$p[1] })
+        }
+      }
+      if (-not $pts.Count) { throw "no observations" }
+      # FRED allows 120 requests a minute per key; two calls per series, paced to about 90.
+      Start-Sleep -Milliseconds 1000
+      Write-Host ("  {0,-18} {1,5} pts  {2} .. {3} = {4}  {5}" -f $id, $pts.Count, $pts[0].d, $pts[$pts.Count - 1].d, $pts[$pts.Count - 1].v, $title)
+      return [ordered]@{ id = $id; title = $title; points = $pts }
+    } catch { Write-Host ("  {0}: {1}" -f $id, $_.Exception.Message.Split([char]10)[0]); Start-Sleep -Milliseconds 300 }
+  }
+  throw ("FRED: none of {0} matched /{1}/" -f ($candidates -join ', '), $titlePattern)
+}
+
+# "2026-04-01" -> "2026-Q2"; "2026-04-01" -> "2026-04". Quarterly FRED observations are dated to the quarter's first day.
+function ToQuarter([string]$d) { "{0}-Q{1}" -f $d.Substring(0, 4), [math]::Floor(([int]$d.Substring(5, 2) - 1) / 3 + 1) }
+function ToMonth([string]$d) { $d.Substring(0, 7) }

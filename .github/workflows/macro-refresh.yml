@@ -28,6 +28,10 @@ on:
     - cron: "45 14,15 * * 3"
     - cron: "20 17 * * 4"
   workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to refresh and commit to (main; a feature branch runs its own processors and commits the data there, to test them before merging)"
+        default: "main"
   push:
     branches: [main]
     paths:
@@ -57,7 +61,7 @@ jobs:
       # commit the previous run has already built on and conflict with it.
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.inputs.branch || 'main' }}
 
       - uses: actions/setup-python@v5
         with:
@@ -65,9 +69,10 @@ jobs:
 
       # xlrd converts legacy .xls workbooks (NY Fed GSCPI, EIA SPR history,
       # Shiller's data set); PyMuPDF reads the Challenger report's tables;
-      # RapidOCR reads DOE's SPR inventory report, which is only an image.
+      # RapidOCR reads DOE's SPR inventory report, which is only an image; openpyxl reads the
+      # New York Fed's household debt workbook (.xlsx).
       # The rest of the pipeline is Windows PowerShell 5.1, which the runner ships.
-      - run: pip install xlrd==2.0.1 pymupdf==1.25.5 rapidocr-onnxruntime==1.4.4
+      - run: pip install xlrd==2.0.1 pymupdf==1.25.5 rapidocr-onnxruntime==1.4.4 openpyxl==3.1.5
 
       - name: Refresh data and build page
         id: refresh
@@ -87,6 +92,8 @@ jobs:
       # MATERIAL ones to the owner (tools/macro/README.md). State lives in
       # tools/macro/data/alerts_state.json and is committed with the data.
       - name: Email material updates (as a GitHub issue)
+        # Only a refresh of main reports releases; a test run on a feature branch must not open issues or advance the state.
+        if: (github.event.inputs.branch || 'main') == 'main'
         shell: powershell
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -96,6 +103,8 @@ jobs:
 
       - name: Commit if the data changed
         shell: bash
+        env:
+          BRANCH: ${{ github.event.inputs.branch || 'main' }}
         run: |
           git config user.name "macro-refresh[bot]"
           git config user.email "macro-refresh@users.noreply.github.com"
@@ -124,15 +133,15 @@ jobs:
             if [ -n "$dirty" ]; then echo "$dirty" | xargs -r git update-index --skip-worktree; echo "skip-worktree: $dirty"; fi
             pushed=0
             for i in 1 2 3; do
-              if git pull --rebase --autostash origin main; then
-                if git push; then pushed=1; break; fi
+              if git pull --rebase --autostash origin "$BRANCH"; then
+                if git push origin HEAD:"$BRANCH"; then pushed=1; break; fi
               else
                 # Only this job writes site/macro and tools/macro/data, so a
                 # conflict there means an earlier macro run landed first. This
                 # run's output is the newer complete state: keep it and go on.
                 git checkout --theirs -- site/macro tools/macro/data 2>/dev/null || true
                 git add -A site/macro tools/macro/data
-                if (GIT_EDITOR=true git rebase --continue || git rebase --skip) && git push; then pushed=1; break; fi
+                if (GIT_EDITOR=true git rebase --continue || git rebase --skip) && git push origin HEAD:"$BRANCH"; then pushed=1; break; fi
                 git rebase --abort 2>/dev/null || true
               fi
               echo "push attempt $i failed; retrying in 20s"; sleep 20
@@ -147,7 +156,7 @@ jobs:
       # and the Claude Routine that emails MATERIAL alerts emails it too. The
       # first healthy run afterwards closes it. See tools/macro/README.md.
       - name: Open or close the source-down issue
-        if: always() && steps.refresh.outcome == 'success'
+        if: always() && steps.refresh.outcome == 'success' && (github.event.inputs.branch || 'main') == 'main'
         uses: actions/github-script@v7
         env:
           STUCK: ${{ steps.refresh.outputs.stuck }}

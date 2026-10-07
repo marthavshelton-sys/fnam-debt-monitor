@@ -31,6 +31,11 @@ $fiscalJson   = Get-Content "$data\fiscal_processed.json" -Raw -Encoding UTF8
 $calendarJson = Get-Content "$data\calendar.json" -Raw -Encoding UTF8
 $sprJson      = Get-Content "$data\spr_processed.json" -Raw -Encoding UTF8
 $capeJson     = Get-Content "$data\cape_processed.json" -Raw -Encoding UTF8
+$prodJson     = Get-Content "$data\productivity_processed.json" -Raw -Encoding UTF8
+$profitsJson  = Get-Content "$data\profits_processed.json" -Raw -Encoding UTF8
+$debtJson     = Get-Content "$data\debt_processed.json" -Raw -Encoding UTF8
+$hhdebtJson   = Get-Content "$data\hhdebt_processed.json" -Raw -Encoding UTF8
+$banksJson    = Get-Content "$data\banks_processed.json" -Raw -Encoding UTF8
 $refreshedAt  = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
 $pceRefreshed = $refreshedAt      # BEA is pulled on every build
 $umichRefresh = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
@@ -133,9 +138,14 @@ function Build-Page([string]$liveFlag) {
     Replace('/*__CALENDAR__*/ null',         $calendarJson).
     Replace('/*__SPR_DATA__*/ null',         $sprJson).
     Replace('/*__CAPE_DATA__*/ null',        $capeJson).
+    Replace('/*__PRODUCTIVITY_DATA__*/ null', $prodJson).
+    Replace('/*__PROFITS_DATA__*/ null',     $profitsJson).
+    Replace('/*__DEBT_DATA__*/ null',        $debtJson).
+    Replace('/*__HHDEBT_DATA__*/ null',      $hhdebtJson).
+    Replace('/*__BANKS_DATA__*/ null',       $banksJson).
     Replace('/*__LIVE_DATA__*/ false',       $liveFlag)
 
-  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA|SPR_DATA|CAPE_DATA)__') {
+  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA|SPR_DATA|CAPE_DATA|PRODUCTIVITY_DATA|PROFITS_DATA|DEBT_DATA|HHDEBT_DATA|BANKS_DATA)__') {
     throw "A placeholder was left unsubstituted."
   }
   return $out
@@ -173,7 +183,7 @@ if ($Target -eq "both" -or $Target -eq "web") {
   # nothing else does.
   $payload = ($template + $builderSrc + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
               $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson + $calendarJson +
-              $sprJson + $capeJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
+              $sprJson + $capeJson + $prodJson + $profitsJson + $debtJson + $hhdebtJson + $banksJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
   $sha = [System.Security.Cryptography.SHA256]::Create()
   $hash = ([System.BitConverter]::ToString($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($payload)))).Replace("-", "").ToLower()
   $hashFile = Join-Path $data ".datahash"

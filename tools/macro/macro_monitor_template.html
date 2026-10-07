@@ -1,5 +1,5 @@
 <title>Monitor Macro de Estados Unidos · FNAM</title>
-<meta name="description" content="Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.">
+<meta name="description" content="Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.">
 <link rel="canonical" href="https://fnam.mx/macro/">
 <link rel="alternate" hreflang="es-MX" href="https://fnam.mx/macro/">
 <link rel="alternate" hreflang="en" href="https://fnam.mx/macro/?lang=en">
@@ -111,7 +111,7 @@
   .rail {
     background: var(--surface-1);
     border-right: 1px solid var(--border);
-    padding: 24px 16px;
+    padding: 18px 16px 20px;
     position: sticky;
     top: 0;
     height: 100vh;
@@ -138,7 +138,7 @@
   .rail-sub {
     font-size: 11.5px;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 14px;
   }
   .rail-group-label {
     font-size: 13px;
@@ -146,7 +146,7 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--text-secondary);
-    margin: 22px 0 8px;
+    margin: 14px 0 5px;
     padding: 0 10px;
   }
   .rail-item {
@@ -154,7 +154,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    padding: 8px 10px;
+    padding: 6px 10px;
     border-radius: 7px;
     font-size: 13px;
     font-weight: 500;
@@ -630,8 +630,12 @@
 
     <div class="rail-group-label" data-i18n="groupGrowth">Growth &amp; Spending</div>
     <a class="rail-item" data-view="gdp" href="?view=gdp"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navGDP">Real GDP Growth</span></span></a>
+    <a class="rail-item" data-view="productivity" href="?view=productivity"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navProd">Productivity Growth</span></span></a>
     <a class="rail-item" data-view="income" href="?view=income"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIncome">Personal Income &amp; Saving</span></span></a>
     <a class="rail-item" data-view="retail" href="?view=retail"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navRetail">Retail Sales</span></span></a>
+
+    <div class="rail-group-label" data-i18n="groupCorporate">Corporate Sector</div>
+    <a class="rail-item" data-view="profits" href="?view=profits"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navProfits">Corporate Profits &amp; Labor Share</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupFiscal">US Fiscal Overview</div>
     <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMonitor">US Fiscal Debt Monitor</span></span><span class="ext-mark">↗</span></a>
@@ -639,6 +643,11 @@
 
     <div class="rail-group-label" data-i18n="groupHouseholds">Households</div>
     <a class="rail-item" data-view="confidence" href="?view=confidence"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navConfidence">Consumer Sentiment</span></span></a>
+    <a class="rail-item" data-view="hhdebt" href="?view=hhdebt"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navHhDebt">Consumer Debt</span></span></a>
+
+    <div class="rail-group-label" data-i18n="groupCredit">Credit &amp; Banking</div>
+    <a class="rail-item" data-view="debt" href="?view=debt"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navDebt">Private Sector Debt</span></span></a>
+    <a class="rail-item" data-view="banks" href="?view=banks"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navBanks">Bank Capitalization</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupMarkets">Markets &amp; Conditions</div>
     <a class="rail-item rail-link" href="https://fnam.mx/fiscal/#policyrates" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFedFunds">Federal Funds Rate</span></span><span class="ext-mark">↗</span></a>
@@ -2303,6 +2312,528 @@
     <footer data-i18n="footerCape">CAPE source note.</footer>
   </div>
 
+  <div class="view" id="view-productivity">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="prTitle">Productivity Growth</h1>
+        <div class="desc" data-i18n="prDesc">Output per hour in the nonfarm business sector, what it costs to produce it, and how today's pace compares with past eras.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="prAsOfLine">&mdash;</div>
+        <div id="prVintageLine">&mdash;</div>
+        <div id="prNextReleaseLine">&mdash;</div>
+        <div id="prRefreshedLine">&mdash;</div>
+        <div><a href="https://www.bls.gov/productivity/" target="_blank" rel="noopener" data-i18n="sourceProd">Source: BLS, Productivity and Costs</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-productivity"></div>
+
+    <section><div class="kpi-row" id="prKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecQuarterly">Productivity growth, quarter by quarter</h2>
+        <span class="note" data-i18n="prSecQuarterlyNote">Nonfarm business output per hour, % change from the previous quarter at an annual rate, seasonally adjusted &middot; last 16 quarters</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-chart-wrap"><svg id="prGrowthChart" viewBox="0 0 920 200"></svg></div>
+        <div class="callout" id="prGrowthCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecLong">Productivity growth since 1948</h2>
+        <span class="note" data-i18n="prSecLongNote">% change from the same quarter a year earlier, with its five-year moving average</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="prLongLegend"></div>
+        <div class="chart-wrap">
+          <svg id="prLongChart" viewBox="0 0 920 280"></svg>
+          <div class="tooltip" id="prLongTooltip"></div>
+        </div>
+        <div class="callout" id="prLongCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecEras">Productivity by era</h2>
+        <span class="note" data-i18n="prSecErasNote">Average annual growth of output per hour between the fourth quarters that bound each period, computed from the BLS index</span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="prEraList"></div>
+        <div class="callout" id="prEraCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecCosts">Productivity, pay and unit labor costs</h2>
+        <span class="note" data-i18n="prSecCostsNote">% change from a year earlier since 2000 &middot; unit labor costs rise when hourly compensation outruns productivity</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="prCostLegend"></div>
+        <div class="chart-wrap">
+          <svg id="prCostChart" viewBox="0 0 920 260"></svg>
+          <div class="tooltip" id="prCostTooltip"></div>
+        </div>
+        <div class="callout" id="prCostCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecOutput">Output and hours</h2>
+        <span class="note" data-i18n="prSecOutputNote">% change from a year earlier since 2000 &middot; productivity growth is the gap between the two lines</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="prOutLegend"></div>
+        <div class="chart-wrap">
+          <svg id="prOutChart" viewBox="0 0 920 240"></svg>
+          <div class="tooltip" id="prOutTooltip"></div>
+        </div>
+        <div class="callout" id="prOutCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="prSecShare">Labor share of nonfarm business income</h2>
+        <span class="note" data-i18n="prSecShareNote">BLS labor share index, 2017 = 100, since 1947 &middot; the share of the sector's output that goes to workers' compensation</span>
+      </div>
+      <div class="panel">
+        <div class="chart-wrap">
+          <svg id="prShareChart" viewBox="0 0 920 220"></svg>
+          <div class="tooltip" id="prShareTooltip"></div>
+        </div>
+        <div class="callout" id="prShareCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerProd">Productivity source note.</footer>
+  </div>
+  <div class="view" id="view-profits">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="cpTitle">Corporate Profits &amp; Labor Share</h1>
+        <div class="desc" data-i18n="cpDesc">How much of what nonfinancial corporations produce ends up as profit and how much as pay, since 1947.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="cpAsOfLine">&mdash;</div>
+        <div id="cpNextReleaseLine">&mdash;</div>
+        <div id="cpRefreshedLine">&mdash;</div>
+        <div><a href="https://www.bea.gov/data/income-saving/corporate-profits" target="_blank" rel="noopener" data-i18n="sourceProfits">Source: BEA, National Income and Product Accounts, table 1.14 (via FRED)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-profits"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="cpWhat">How the margin is measured</span><span data-i18n="cpWhatText">What the margin is.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="cpWhy">Why it matters</span><span data-i18n="cpWhyText">Why it matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="cpKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="cpSecMargin">Profit margin vs. labor share since 1947</h2>
+        <span class="note" data-i18n="cpSecMarginNote">Nonfinancial corporate business: profits (with inventory valuation and capital consumption adjustments) and compensation of employees, each as % of the sector's gross value added, quarterly</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="cpMarginTitle">Profit margin, % of gross value added</div>
+            <div class="legend" id="cpMarginLegend"></div>
+            <div class="chart-wrap"><svg id="cpMarginChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="cpMarginTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="cpShareTitle">Labor share, % of gross value added</div>
+            <div class="legend" id="cpShareLegend"></div>
+            <div class="chart-wrap"><svg id="cpShareChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="cpShareTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="cpMarginCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="cpSecSplit">Where each dollar of value added goes</h2>
+        <span class="note"><span data-i18n="cpSecSplitNote">Nonfinancial corporate business, % of gross value added</span> &middot; <span id="cpSplitAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="cpSplitList"></div>
+        <div class="callout" id="cpSplitCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="cpSecGdp">Corporate profits after tax as a share of GDP</h2>
+        <span class="note" data-i18n="cpSecGdpNote">All US corporations, profits after tax with IVA and CCAdj, % of GDP, quarterly since 1947</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="cpGdpLegend"></div>
+        <div class="chart-wrap">
+          <svg id="cpGdpChart" viewBox="0 0 920 240"></svg>
+          <div class="tooltip" id="cpGdpTooltip"></div>
+        </div>
+        <div class="callout" id="cpGdpCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="cpSecGrowth">Profits growth</h2>
+        <span class="note" data-i18n="cpSecGrowthNote">Nonfinancial corporate profits with IVA and CCAdj, % change from a year earlier &middot; last 24 quarters</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-chart-wrap"><svg id="cpGrowthChart" viewBox="0 0 920 200"></svg></div>
+        <div class="callout" id="cpGrowthCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerProfits">Profits source note.</footer>
+  </div>
+  <div class="view" id="view-hhdebt">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="hhTitle">Consumer Debt</h1>
+        <div class="desc" data-i18n="hhDesc">What American households owe, by type of loan, how much of it is behind on payments, and the long view since 1952.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="hhAsOfLine">&mdash;</div>
+        <div id="hhNextReleaseLine">&mdash;</div>
+        <div id="hhG19Line">&mdash;</div>
+        <div id="hhRefreshedLine">&mdash;</div>
+        <div><a href="https://www.newyorkfed.org/microeconomics/hhdc" target="_blank" rel="noopener" data-i18n="sourceHh">Source: New York Fed Consumer Credit Panel/Equifax; Federal Reserve Z.1 and G.19 (via FRED)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-hhdebt"></div>
+
+    <section><div class="kpi-row" id="hhKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="hhSecTypes">Household debt by type since 2003</h2>
+        <span class="note" data-i18n="hhSecTypesNote">$ trillions, quarterly, not seasonally adjusted (New York Fed Consumer Credit Panel/Equifax)</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhTotalTitle">Total and mortgage balances</div>
+            <div class="legend" id="hhTotalLegend"></div>
+            <div class="chart-wrap"><svg id="hhTotalChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhTotalTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhTypesTitle">Non-mortgage balances by type</div>
+            <div class="legend" id="hhTypesLegend"></div>
+            <div class="chart-wrap"><svg id="hhTypesChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhTypesTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="hhTypesCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="hhSecDelq">Share of balances 90+ days delinquent, by type</h2>
+        <span class="note" data-i18n="hhSecDelqNote">% of each type's balance that is 90 or more days late (including severely derogatory), quarterly since 2003</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="hhDelqLegend"></div>
+        <div class="chart-wrap">
+          <svg id="hhDelqChart" viewBox="0 0 920 280"></svg>
+          <div class="tooltip" id="hhDelqTooltip"></div>
+        </div>
+        <div class="callout" id="hhDelqCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="hhSecLong">The long view since 1952</h2>
+        <span class="note" data-i18n="hhSecLongNote">Federal Reserve Z.1: household and nonprofit liabilities by instrument, $ trillions; debt against disposable personal income (BEA) and the Fed's debt service ratio</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhZ1Title">Household debt by instrument, $ trillions</div>
+            <div class="legend" id="hhZ1Legend"></div>
+            <div class="chart-wrap"><svg id="hhZ1Chart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhZ1Tooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhIncomeTitle">Debt and debt service against disposable income, %</div>
+            <div class="legend" id="hhIncomeLegend"></div>
+            <div class="chart-wrap"><svg id="hhIncomeChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhIncomeTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="hhLongCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="hhSecG19">Consumer credit, month by month</h2>
+        <span class="note" data-i18n="hhSecG19Note">Federal Reserve G.19: revolving (mostly credit cards) and nonrevolving (auto, student and other installment loans) credit outstanding, seasonally adjusted, $ trillions</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhG19Title">Outstanding since 1990, $ trillions</div>
+            <div class="legend" id="hhG19Legend"></div>
+            <div class="chart-wrap"><svg id="hhG19Chart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhG19Tooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="hhG19GrowthTitle">Total consumer credit, % change from a year earlier</div>
+            <div class="chart-wrap"><svg id="hhG19GrowthChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="hhG19GrowthTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="hhG19Callout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerHh">Household debt source note.</footer>
+  </div>
+  <div class="view" id="view-debt">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="dbTitle">Private Sector Debt</h1>
+        <div class="desc" data-i18n="dbDesc">What US companies, households and financial firms owe in aggregate, against the size of the economy, since 1952.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="dbAsOfLine">&mdash;</div>
+        <div id="dbNextReleaseLine">&mdash;</div>
+        <div id="dbRefreshedLine">&mdash;</div>
+        <div><a href="https://www.federalreserve.gov/releases/z1/" target="_blank" rel="noopener" data-i18n="sourceDebt">Source: Federal Reserve, Z.1 Financial Accounts of the United States (via FRED); BEA for GDP</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-debt"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="dbWhat">What counts as debt</span><span data-i18n="dbWhatText">What counts.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="dbWhy">Why it matters</span><span data-i18n="dbWhyText">Why it matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="dbKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="dbSecGdp">Debt as a share of GDP since 1952</h2>
+        <span class="note" data-i18n="dbSecGdpNote">Debt securities and loans outstanding at quarter end, % of the quarter's nominal GDP (annual rate); the federal government for comparison</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="dbGdpLegend"></div>
+        <div class="chart-wrap">
+          <svg id="dbGdpChart" viewBox="0 0 920 300"></svg>
+          <div class="tooltip" id="dbGdpTooltip"></div>
+        </div>
+        <div class="callout" id="dbGdpCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="dbSecLevels">Private debt in dollars and its growth</h2>
+        <span class="note" data-i18n="dbSecLevelsNote">$ trillions outstanding since 1990, and % change from a year earlier</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="dbLevelTitle">Outstanding, $ trillions</div>
+            <div class="legend" id="dbLevelLegend"></div>
+            <div class="chart-wrap"><svg id="dbLevelChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="dbLevelTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="dbGrowthTitle">Growth, % change from a year earlier</div>
+            <div class="legend" id="dbGrowthLegend"></div>
+            <div class="chart-wrap"><svg id="dbGrowthChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="dbGrowthTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="dbLevelCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="dbSecMix">What nonfinancial corporate debt is made of</h2>
+        <span class="note"><span data-i18n="dbSecMixNote">Debt securities (bonds and commercial paper) and loans (bank loans, mortgages and other), $ trillions</span> &middot; <span id="dbMixAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="dbMixList"></div>
+        <div class="callout" id="dbMixCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="dbSecProfits">Corporate debt against corporate income</h2>
+        <span class="note" data-i18n="dbSecProfitsNote">Nonfinancial corporate business: debt in years of profits (debt &divide; annualized profits with IVA and CCAdj) and net interest paid as % of net operating surplus, from BEA's table 1.14 and the Z.1</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="dbYearsTitle">Debt in years of profits</div>
+            <div class="chart-wrap"><svg id="dbYearsChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="dbYearsTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="dbInterestTitle">Net interest as % of net operating surplus</div>
+            <div class="chart-wrap"><svg id="dbInterestChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="dbInterestTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="dbProfitsCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerDebt">Debt source note.</footer>
+  </div>
+  <div class="view" id="view-banks">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="bkTitle">Bank Capitalization</h1>
+        <div class="desc" data-i18n="bkDesc">How much capital stands behind the US banking system: regulatory capital ratios, unrealized losses, asset quality and deposits for every FDIC-insured institution, since 1984.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="bkAsOfLine">&mdash;</div>
+        <div id="bkH8Line">&mdash;</div>
+        <div id="bkNextReleaseLine">&mdash;</div>
+        <div id="bkRefreshedLine">&mdash;</div>
+        <div><a href="https://www.fdic.gov/quarterly-banking-profile" target="_blank" rel="noopener" data-i18n="sourceBanks">Source: FDIC, Call Reports of all insured institutions (BankFind Suite API); Federal Reserve H.8 (via FRED)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-banks"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="bkWhat">What the ratios mean</span><span data-i18n="bkWhatText">What the ratios mean.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="bkWho">Who is counted</span><span data-i18n="bkWhoText">Who is counted.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="bkKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecRatios">Capital ratios since 1984</h2>
+        <span class="note" data-i18n="bkSecRatiosNote">All FDIC-insured institutions, aggregate ratios (sums of capital over sums of assets or risk-weighted assets), % &middot; risk-based measures exist since 1990, common equity tier 1 since 2014</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="bkRatioLegend"></div>
+        <div class="chart-wrap">
+          <svg id="bkRatioChart" viewBox="0 0 920 280"></svg>
+          <div class="tooltip" id="bkRatioTooltip"></div>
+        </div>
+        <div class="callout" id="bkRatioCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecBalance">Balance sheet and capital in dollars</h2>
+        <span class="note" data-i18n="bkSecBalanceNote">$ trillions, quarter end, since 1984</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkAssetsTitle">Assets, loans and deposits</div>
+            <div class="legend" id="bkAssetsLegend"></div>
+            <div class="chart-wrap"><svg id="bkAssetsChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="bkAssetsTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkCapitalTitle">Equity and Tier 1 capital</div>
+            <div class="legend" id="bkCapitalLegend"></div>
+            <div class="chart-wrap"><svg id="bkCapitalChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="bkCapitalTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="bkBalanceCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecUnreal">Unrealized gains and losses on securities</h2>
+        <span class="note" data-i18n="bkSecUnrealNote">Fair value minus amortized cost of available-for-sale plus held-to-maturity securities, $ billions, since 2008</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-chart-wrap"><svg id="bkUnrealChart" viewBox="0 0 920 200"></svg></div>
+        <div class="callout" id="bkUnrealCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecQuality">Asset quality</h2>
+        <span class="note" data-i18n="bkSecQualityNote">Noncurrent loans (90+ days past due or nonaccrual) as % of total loans and leases, and the allowance for credit losses as % of noncurrent loans, since 1984</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkNoncurrentTitle">Noncurrent loan rate, %</div>
+            <div class="chart-wrap"><svg id="bkNoncurrentChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="bkNoncurrentTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkCoverageTitle">Reserve coverage of noncurrent loans, %</div>
+            <div class="chart-wrap"><svg id="bkCoverageChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="bkCoverageTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="bkQualityCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecDeposits">Institutions and deposits</h2>
+        <span class="note" data-i18n="bkSecDepositsNote">Number of FDIC-insured institutions, and estimated uninsured deposits as % of domestic deposits</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkCountTitle">Insured institutions</div>
+            <div class="chart-wrap"><svg id="bkCountChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="bkCountTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="bkUninsTitle">Uninsured share of domestic deposits, %</div>
+            <div class="chart-wrap"><svg id="bkUninsChart" viewBox="0 0 440 200"></svg><div class="tooltip" id="bkUninsTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="bkDepositsCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="bkSecH8">Week by week: commercial banks (H.8)</h2>
+        <span class="note" data-i18n="bkSecH8Note">Federal Reserve H.8: residual (assets less liabilities) as % of total assets, all commercial banks, weekly since 2000, seasonally adjusted &middot; a timely proxy between Call Reports, not regulatory capital</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="bkH8Legend"></div>
+        <div class="chart-wrap">
+          <svg id="bkH8Chart" viewBox="0 0 920 220"></svg>
+          <div class="tooltip" id="bkH8Tooltip"></div>
+        </div>
+        <div class="callout" id="bkH8Callout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerBanks">Bank source note.</footer>
+  </div>
+
   </main>
 </div>
 
@@ -2364,6 +2895,11 @@ let SUPPLY_SOURCE = "snapshot";
 let FISCAL = unpack(/*__FISCAL_DATA__*/ null);
 let SPR = unpack(/*__SPR_DATA__*/ null);
 let CAPE = unpack(/*__CAPE_DATA__*/ null);
+let PRODUCTIVITY = unpack(/*__PRODUCTIVITY_DATA__*/ null);
+let PROFITS = unpack(/*__PROFITS_DATA__*/ null);
+let DEBT = unpack(/*__DEBT_DATA__*/ null);
+let HHDEBT = unpack(/*__HHDEBT_DATA__*/ null);
+let BANKS = unpack(/*__BANKS_DATA__*/ null);
 // Release dates come from FRED, which carries each agency's official schedule
 // including future dates. No hand-typed date tables remain in this file.
 const CALENDAR = unpack(/*__CALENDAR__*/ null);
@@ -2405,7 +2941,7 @@ const I18N = {
     switchTo: "Change to English",
     switchAria: "Change to English",
     docTitle: v => v + " · Monitor Macro de Estados Unidos · FNAM",
-    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
+    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
     navAria: "Secciones",
     nfTitle: "Sección no encontrada",
     nfDesc: v => "Este tablero no tiene una sección llamada «" + v + "». Elige una de estas:",
@@ -3320,6 +3856,265 @@ const I18N = {
     rtStatesMethod: "La serie estatal es un producto experimental del Censo que combina la encuesta mensual con datos administrativos y de tarjetas; cubre las tiendas NAICS 441 a 453, sin minoristas sin tienda física ni restaurantes, y se publica con unos dos meses de rezago frente a la cifra nacional.",
     mapLegendDiverging: (hi, hiV, lo, loV) => "Máximo: " + hi + " (" + hiV + ") · Mínimo: " + lo + " (" + loV + ")",
     footerRetail: "Datos: Oficina del Censo de EE. UU., Encuesta Mensual Adelantada de Comercio Minorista (MARTS) vía la API del Censo, y Ventas Minoristas Mensuales por Estado (MSRS, producto experimental) vía archivo CSV público. Cifras nacionales en millones de dólares corrientes, ajustadas por estacionalidad, festivos y días de operación; no ajustadas por precios salvo donde se indica. Las cifras adelantadas se revisan en los dos meses siguientes. El deflactor de las ventas reales es el CPI general ajustado por estacionalidad, una aproximación: el índice de precios apropiado para bienes minoristas difiere del CPI total.",
+    groupCorporate: "Sector corporativo",
+    groupCredit: "Crédito y banca",
+    navProd: "Crecimiento de la productividad",
+    navProfits: "Utilidades corporativas y participación del trabajo",
+    navHhDebt: "Deuda de los hogares",
+    navDebt: "Deuda del sector privado",
+    navBanks: "Capitalización bancaria",
+    vsPrevQ: "vs. trimestre previo",
+    vsYearAgo: "vs. un año antes",
+    yearsWord: "años",
+    fileNyFed: "Libro de datos de la Fed de Nueva York",
+    prTitle: "Crecimiento de la productividad",
+    prDesc: "El producto por hora del sector empresarial no agrícola, lo que cuesta producirlo y cómo se compara el ritmo actual con las épocas anteriores.",
+    sourceProd: "Fuente: BLS, Productividad y Costos ↗",
+    footerProd: "Datos: Oficina de Estadísticas Laborales de EE. UU. (BLS), programa Productividad y Costos, vía la API del BLS: sector empresarial no agrícola (series PRS8500609x, 611x, 610x, 615x, 604x, 603x y 6173) y sector manufacturero (PRS3000609x), trimestrales, ajustadas por estacionalidad, índice 2017 = 100, variación respecto al trimestre previo a tasa anual y respecto al mismo trimestre del año anterior. Cada trimestre se publica como estimación preliminar unas cinco semanas después de terminar y se revisa un mes más tarde; la revisión anual de cada verano puede modificar varios años. Los promedios por época son tasas compuestas calculadas aquí a partir del índice del BLS.",
+    prEstimateName: n => n <= 1 ? "estimación preliminar" : "estimación revisada",
+    prVintage: (n, d) => (n <= 1 ? "Estimación preliminar" : "Estimación revisada") + " (BLS, " + d + "); sujeta a revisión",
+    prVintageUnknown: "Estimación sujeta a revisión",
+    prNext: (d, what) => "Próxima publicación: " + d + " (" + what + ")",
+    prNextEst: (m, what) => "Próxima publicación: prevista a principios de " + m + " (" + what + ")",
+    exRelProd: q => "productividad y costos de " + q,
+    prKpiQ: "Productividad, trim. anualizado",
+    prKpiY: "Productividad, anual",
+    prKpiUlc: "Costos laborales unitarios, anual",
+    prKpiComp: "Compensación por hora, anual",
+    prKpiRcomp: "Compensación real por hora, anual",
+    prKpiMfg: "Productividad manufacturera, anual",
+    prSecQuarterly: "Crecimiento de la productividad, trimestre a trimestre",
+    prSecQuarterlyNote: "Producto por hora del sector empresarial no agrícola, variación respecto al trimestre previo a tasa anual, ajustada por estacionalidad · últimos 16 trimestres",
+    prGrowthNote: (v, q, a4, a8) => "La productividad varió " + v + " a tasa anualizada en " + q + "; el promedio de los últimos cuatro trimestres es " + a4 + " y el de los últimos ocho, " + a8 + ".",
+    prSecLong: "Crecimiento de la productividad desde 1948",
+    prSecLongNote: "Variación respecto al mismo trimestre del año anterior, con su promedio móvil de cinco años",
+    legProdYoy: "Productividad (anual)",
+    legProd5y: "Promedio móvil de 5 años",
+    prLongNote: (cur, q, avg, y0, ma, hi, hiQ, lo, loQ) => "En " + q + " la productividad está " + cur + " arriba de un año antes; el promedio desde " + y0 + " es " + avg + " y el promedio móvil de cinco años, " + ma + ". El máximo fue " + hi + " (" + hiQ + ") y el mínimo " + lo + " (" + loQ + ").",
+    prSecEras: "La productividad por época",
+    prSecErasNote: "Crecimiento anual promedio del producto por hora entre los cuartos trimestres que delimitan cada periodo, calculado a partir del índice del BLS",
+    prEraLabel: (a, b) => a + "–" + b,
+    prEraNote: (best, bestV, worst, worstV, latestY, latestV, endQ) => "La época más rápida fue " + best + " (" + bestV + " anual) y la más lenta " + worst + " (" + worstV + "). Desde " + latestY + " hasta " + endQ + " el ritmo es " + latestV + " anual.",
+    prSecCosts: "Productividad, pago y costos laborales unitarios",
+    prSecCostsNote: "Variación anual desde 2000 · los costos laborales unitarios suben cuando la compensación por hora crece más que la productividad",
+    legHourlyComp: "Compensación por hora",
+    legUlc: "Costos laborales unitarios",
+    prCostNote: (comp, prod, ulc, q) => "En " + q + " la compensación por hora creció " + comp + " anual y la productividad " + prod + ", de modo que los costos laborales unitarios variaron " + ulc + ".",
+    prCostMethod: "Costos laborales unitarios = compensación por hora ÷ producto por hora; es la medida del BLS de la presión salarial sobre los precios, neta de las ganancias de eficiencia.",
+    prSecOutput: "Producto y horas",
+    prSecOutputNote: "Variación anual desde 2000 · el crecimiento de la productividad es la brecha entre ambas líneas",
+    legOutput: "Producto",
+    legHours: "Horas trabajadas",
+    prOutNote: (out, hrs, prod, q) => "En " + q + " el producto del sector creció " + out + " anual y las horas trabajadas " + hrs + "; la diferencia es el avance de la productividad, " + prod + ".",
+    prSecShare: "Participación del trabajo en el ingreso del sector empresarial no agrícola",
+    prSecShareNote: "Índice de participación del trabajo del BLS, 2017 = 100, desde 1947 · la parte del producto del sector que va a la compensación de los trabajadores",
+    legLaborShare: "Participación del trabajo (índice)",
+    prShareNote: (cur, q, avg, hi, hiQ, lo, loQ) => "El índice está en " + cur + " en " + q + ", frente a un promedio de " + avg + " desde 1947; el máximo fue " + hi + " (" + hiQ + ") y el mínimo " + lo + " (" + loQ + "). Un índice por debajo de 100 significa que el trabajo recibe una parte menor del producto que en 2017.",
+    exPrLatest: (q, est, qq, pq, pqQ, yy) => "La productividad del sector empresarial no agrícola varió " + qq + " a tasa anualizada en " + q + (est ? " (" + est + ")" : "") + ", tras " + pq + " en " + pqQ + "; está " + yy + " arriba de un año antes.",
+    exPrDrivers: (out, hrs, prod, comp, ulc, rcomp) => "El producto creció " + out + " anual y las horas " + hrs + ", así que el producto por hora avanzó " + prod + ". La compensación por hora subió " + comp + ", por lo que los costos laborales unitarios variaron " + ulc + "; la compensación real por hora, " + rcomp + ".",
+    exPrWhy: (avg5, avgAll, y0, pos, mfg) => "La productividad fija qué tan rápido puede crecer la economía sin inflación: a " + avg5 + " anual en los últimos cinco años está " + (pos === "above" ? "por encima" : "por debajo") + " del promedio de " + avgAll + " desde " + y0 + ". La productividad manufacturera varió " + mfg + " anual.",
+    exPrWatch: ulc => "Seguir si los costos laborales unitarios (hoy " + ulc + " anual) se mantienen cerca de 2%, compatible con la meta de inflación, y la brecha entre pago y productividad.",
+    cpTitle: "Utilidades corporativas y participación del trabajo",
+    cpDesc: "Qué parte de lo que producen las corporaciones no financieras termina como utilidad y qué parte como pago a los trabajadores, desde 1947.",
+    sourceProfits: "Fuente: BEA, Cuentas Nacionales, tabla 1.14 (vía FRED) ↗",
+    footerProfits: "Datos: Oficina de Análisis Económico de EE. UU. (BEA), cuentas nacionales de ingreso y producto, tabla 1.14 (valor agregado bruto de las empresas corporativas y de las empresas corporativas no financieras), tabla 1.12 (utilidades corporativas) y tabla 1.1.5 (PIB), vía FRED (Fed de San Luis), que publica cada línea con el código de serie del propio BEA. Trimestral, tasas anuales ajustadas por estacionalidad, miles de millones de dólares corrientes. Utilidades con ajustes por valuación de inventarios y por consumo de capital (IVA y CCAdj), la medida de las utilidades de la producción corriente. El margen y la participación del trabajo son cocientes calculados aquí sobre el valor agregado bruto del sector; las identidades contables de la tabla se verifican en cada actualización. El BEA publica las utilidades con la segunda y la tercera estimación del PIB, no con la anticipada.",
+    cpWhat: "Cómo se mide el margen",
+    cpWhatText: "El valor agregado bruto de las corporaciones no financieras es lo que producen menos los insumos que compran. De ahí salen la compensación de los empleados, los impuestos a la producción, la depreciación (consumo de capital fijo), los intereses netos y las utilidades. El margen es utilidades ÷ valor agregado bruto; la participación del trabajo, compensación ÷ valor agregado bruto. Es el mismo cálculo que el BEA presenta como «utilidades por unidad de valor agregado real» y no depende de qué empresas cotizan en bolsa.",
+    cpWhy: "Por qué importa",
+    cpWhyText: "Margen y participación del trabajo son las dos caras del reparto del ingreso corporativo. Un margen alto sostiene las utilidades y las valuaciones aunque la economía crezca poco; una participación del trabajo que cae significa que una parte menor de cada dólar producido llega a los salarios. Cuando el margen se comprime, las utilidades caen aunque las ventas sigan creciendo.",
+    cpNext: (d, kind, q) => "Próxima publicación del PIB: " + d + (kind === "advance" ? " (estimación anticipada de " + q + "; las utilidades llegan con la segunda estimación)" : kind === "with" ? " (incluye utilidades corporativas de " + q + ")" : ""),
+    cpNextTbd: "Próxima publicación del PIB: fecha por publicar",
+    cpKpiMargin: "Margen de utilidad",
+    cpKpiAfterTax: "Margen después de impuestos",
+    cpKpiShare: "Participación del trabajo",
+    cpKpiGrowth: "Utilidades, variación anual",
+    cpKpiGdp: "Utilidades después de impuestos, % del PIB",
+    cpKpiTax: "Impuestos pagados, % de las utilidades",
+    cpSecMargin: "Margen de utilidad frente a participación del trabajo desde 1947",
+    cpSecMarginNote: "Empresas corporativas no financieras: utilidades (con ajustes de inventarios y de consumo de capital) y compensación de los empleados, cada una como % del valor agregado bruto del sector, trimestral",
+    cpMarginTitle: "Margen de utilidad, % del valor agregado bruto",
+    cpShareTitle: "Participación del trabajo, % del valor agregado bruto",
+    legMargin: "Margen (utilidades antes de impuestos)",
+    legMarginAfterTax: "Margen después de impuestos",
+    legLaborShareNipa: "Compensación de los empleados",
+    legAvgSince: (y, v) => "Promedio desde " + y + " (" + v + ")",
+    cpMarginNote: (m, q, avg, pctHigher, hi, hiQ, share, shareAvg, lo, loQ) => "El margen es " + m + " en " + q + ", frente a un promedio de " + avg + " desde 1947; solo el " + pctHigher + "% de los trimestres fueron más altos y el récord es " + hi + " (" + hiQ + "). La participación del trabajo es " + share + ", contra " + shareAvg + " en promedio; su mínimo fue " + lo + " (" + loQ + ").",
+    cpSecSplit: "A dónde va cada dólar de valor agregado",
+    cpSecSplitNote: "Empresas corporativas no financieras, % del valor agregado bruto",
+    cpSplitComp: "Compensación de los empleados",
+    cpSplitCfc: "Depreciación (consumo de capital fijo)",
+    cpSplitTaxProd: "Impuestos a la producción menos subsidios",
+    cpSplitInterest: "Intereses netos y pagos diversos",
+    cpSplitTransfers: "Transferencias corrientes netas",
+    cpSplitTaxes: "Impuestos sobre las utilidades",
+    cpSplitAfterTax: "Utilidades después de impuestos",
+    cpSplitNote: (q, comp, compAgo, agoQ, prof, profAgo, int, intAgo) => "En " + q + " la compensación se lleva " + comp + " del valor agregado (" + compAgo + " en " + agoQ + ") y las utilidades " + prof + " (" + profAgo + "); los intereses netos pasaron de " + intAgo + " a " + int + ".",
+    cpSecGdp: "Utilidades corporativas después de impuestos como % del PIB",
+    cpSecGdpNote: "Todas las corporaciones de EE. UU., utilidades después de impuestos con IVA y CCAdj, % del PIB, trimestral desde 1947",
+    legProfitsGdp: "Utilidades después de impuestos, % del PIB",
+    cpGdpNote: (cur, q, avg, hi, hiQ, pctHigher) => "Las utilidades después de impuestos equivalen a " + cur + " del PIB en " + q + ", frente a " + avg + " en promedio desde 1947; el máximo fue " + hi + " (" + hiQ + ") y solo el " + pctHigher + "% de los trimestres fueron más altos.",
+    cpSecGrowth: "Crecimiento de las utilidades",
+    cpSecGrowthNote: "Utilidades de las corporaciones no financieras con IVA y CCAdj, variación respecto al mismo trimestre del año anterior · últimos 24 trimestres",
+    cpGrowthNote: (yoy, q, gva, comp) => "Las utilidades variaron " + yoy + " anual en " + q + ", mientras el valor agregado del sector creció " + gva + " y la compensación " + comp + ".",
+    exCpLatest: (m, q, prev, prevQ, avg, pctHigher) => "Las corporaciones no financieras retuvieron como utilidad " + m + " de su valor agregado bruto en " + q + " (" + prev + " en " + prevQ + "); el promedio desde 1947 es " + avg + " y solo el " + pctHigher + "% de los trimestres fueron más altos.",
+    exCpDrivers: (profY, gvaY, compY, share, dir, tax) => "Las utilidades variaron " + profY + " anual, el valor agregado " + gvaY + " y la compensación de los empleados " + compY + ", por lo que la participación del trabajo " + ({ up: "subió a", down: "bajó a", flat: "se mantuvo en" })[dir] + " " + share + ". Los impuestos se llevaron " + tax + " de las utilidades.",
+    exCpWhy: (after, afterAvg, gdp, gdpAvg, shareAvg) => "Después de impuestos el margen es " + after + " (promedio " + afterAvg + "); para todas las corporaciones, las utilidades después de impuestos son " + gdp + " del PIB contra " + gdpAvg + " en promedio desde 1947. Un margen alto con una participación del trabajo por debajo de su promedio (" + shareAvg + ") sostiene las utilidades y las valuaciones; su reversión las comprimiría aunque la economía siga creciendo.",
+    exCpWatch: (d, kind) => (d ? "Próximo: publicación del PIB el " + d + (kind === "advance" ? " (estimación anticipada; las utilidades llegan con la segunda estimación)." : kind === "with" ? " (incluye utilidades corporativas)." : ".") : "Próximo: publicación del PIB (fecha por publicar).") + " Seguir el margen frente a su promedio y si la compensación alcanza al valor agregado.",
+    dbTitle: "Deuda del sector privado",
+    dbDesc: "Cuánto deben en conjunto las empresas, los hogares y las firmas financieras de EE. UU., frente al tamaño de la economía, desde 1952.",
+    sourceDebt: "Fuente: Reserva Federal, Cuentas Financieras Z.1 (vía FRED); BEA para el PIB ↗",
+    footerDebt: "Datos: Junta de la Reserva Federal, Z.1 Cuentas Financieras de Estados Unidos, «títulos de deuda y préstamos; pasivo, nivel» por sector (hogares e instituciones sin fines de lucro, empresas corporativas no financieras, empresas no corporativas no financieras, gobierno federal, gobiernos estatales y locales, sectores financieros nacionales y todos los sectores), más los títulos de deuda de las corporaciones no financieras, trimestrales, sin ajuste estacional, vía FRED (Fed de San Luis); PIB nominal del BEA (tasa anual ajustada por estacionalidad) vía FRED. Los cocientes deuda/PIB usan el PIB del mismo trimestre, como la tabla D.3 de la Z.1. Los préstamos de las corporaciones son la diferencia entre su deuda total y sus títulos; la deuda en años de utilidades y la participación de los intereses son cálculos de FNAM con la tabla 1.14 del BEA. Las identidades por sector de la Z.1 se verifican en cada actualización.",
+    dbWhat: "Qué cuenta como deuda",
+    dbWhatText: "Títulos de deuda (bonos, papel comercial) y préstamos (bancarios, hipotecarios y otros) a cargo de cada sector, al cierre del trimestre, según las Cuentas Financieras de la Reserva Federal. No incluye acciones, cuentas por pagar comerciales ni derivados. El sector privado no financiero son los hogares más las empresas corporativas y no corporativas no financieras; el sector financiero (bancos, aseguradoras, fondos, agencias hipotecarias) se muestra aparte porque buena parte de su deuda financia la de los demás.",
+    dbWhy: "Por qué importa",
+    dbWhyText: "La deuda crece sin problema mientras el ingreso que la paga crece a la par; el riesgo aparece cuando sube más rápido que el PIB o que las utilidades, o cuando se refinancia a tasas más altas. Medirla contra el PIB, contra las utilidades y por tipo de instrumento dice quién está apalancado y qué tan sensible es a las tasas.",
+    dbNext: (d, q) => "Próxima publicación de la Z.1: " + d + " (datos de " + q + ")",
+    dbNextEst: (m, q) => "Próxima publicación de la Z.1: prevista para " + m + " (datos de " + q + "; la Fed publica unas diez semanas después del cierre del trimestre)",
+    dbKpiNfc: "Deuda corporativa no financiera",
+    dbKpiNnb: "Deuda de empresas no corporativas",
+    dbKpiHh: "Deuda de los hogares",
+    dbKpiPrivate: "Deuda privada no financiera, % del PIB",
+    dbKpiFin: "Deuda del sector financiero",
+    dbKpiTotal: "Deuda no financiera total, % del PIB",
+    dbKpiGdpFoot: (pct, q) => pct + "% del PIB · " + q,
+    dbKpiOfGdp: q => "hogares + empresas · " + q,
+    dbKpiTotalFoot: q => "incluye gobiernos · " + q,
+    dbSecGdp: "La deuda como proporción del PIB desde 1952",
+    dbSecGdpNote: "Títulos de deuda y préstamos vigentes al cierre del trimestre, % del PIB nominal del trimestre (tasa anual); el gobierno federal, como referencia",
+    legHouseholds: "Hogares",
+    legNfc: "Corporaciones no financieras",
+    legNnb: "Empresas no corporativas",
+    legFin: "Sector financiero",
+    legFederal: "Gobierno federal",
+    dbGdpNote: (q, priv, privPeak, privPeakQ, nfc, nfcPeak, nfcPeakQ, hh, hhPeak, hhPeakQ, fed) => "En " + q + " la deuda privada no financiera (hogares más empresas) es " + priv + "% del PIB, frente a un máximo de " + privPeak + "% en " + privPeakQ + ". Las corporaciones no financieras deben " + nfc + " del PIB (máximo " + nfcPeak + " en " + nfcPeakQ + ") y los hogares " + hh + " (máximo " + hhPeak + " en " + hhPeakQ + "); el gobierno federal, " + fed + "%.",
+    dbGdpMethod: "Cocientes de FNAM: deuda al cierre del trimestre entre el PIB nominal del mismo trimestre a tasa anual, el método de la tabla D.3 de la Z.1.",
+    dbSecLevels: "La deuda privada en dólares y su crecimiento",
+    dbSecLevelsNote: "Billones de dólares vigentes desde 1990, y variación respecto al mismo trimestre del año anterior",
+    dbLevelTitle: "Saldo vigente, billones de dólares",
+    dbGrowthTitle: "Crecimiento, variación anual",
+    dbLevelNote: (q, nfcY, hhY, nnbY, finY, fast, fastV, slow, slowV) => "En " + q + " la deuda de las corporaciones no financieras creció " + nfcY + " anual, la de los hogares " + hhY + ", la de las empresas no corporativas " + nnbY + " y la del sector financiero " + finY + ": el ritmo más rápido es el de " + fast.toLowerCase() + " (" + fastV + ") y el más lento el de " + slow.toLowerCase() + " (" + slowV + ").",
+    dbSecMix: "De qué está hecha la deuda corporativa no financiera",
+    dbSecMixNote: "Títulos de deuda (bonos y papel comercial) y préstamos (bancarios, hipotecarios y otros), billones de dólares",
+    legBonds: "Bonos y papel comercial",
+    legLoans: "Préstamos",
+    dbMixNote: (q, bond, bondAgo, agoQ) => "En " + q + " los títulos de deuda son " + bond + "% de la deuda corporativa no financiera" + (bondAgo !== null ? ", frente a " + bondAgo + "% en " + agoQ : "") + "; el resto son préstamos bancarios, hipotecas comerciales y otros préstamos.",
+    dbSecProfits: "La deuda corporativa frente al ingreso corporativo",
+    dbSecProfitsNote: "Empresas corporativas no financieras: deuda en años de utilidades (deuda ÷ utilidades anualizadas con IVA y CCAdj) e intereses netos pagados como % del excedente neto de operación, con la tabla 1.14 del BEA y la Z.1",
+    dbYearsTitle: "Deuda en años de utilidades",
+    dbInterestTitle: "Intereses netos, % del excedente neto de operación",
+    dbProfitsNote: (q, years, yearsAvg, y0, intShare, intQ, intPeak, intPeakQ) => "En " + q + " la deuda de las corporaciones no financieras equivale a " + years + " años de sus utilidades, frente a " + yearsAvg + " en promedio desde " + y0 + ". Los intereses netos absorben " + intShare + " del excedente neto de operación en " + intQ + "; el máximo fue " + intPeak + " en " + intPeakQ + ".",
+    exDbLatest: (q, nfc, nfcY, nfcGdp, hh, hhY, hhGdp, priv) => "En " + q + " las corporaciones no financieras debían " + nfc + " (" + nfcY + " anual, " + nfcGdp + "% del PIB) y los hogares " + hh + " (" + hhY + ", " + hhGdp + "% del PIB); la deuda privada no financiera suma " + priv + "% del PIB.",
+    exDbDrivers: (fast, fastV, slow, slowV, nnb, bond) => "El sector que más crece es " + fast.toLowerCase() + " (" + fastV + " anual) y el que menos, " + slow.toLowerCase() + " (" + slowV + "). Las empresas no corporativas deben " + nnb + ". Los bonos y el papel comercial son " + bond + "% de la deuda corporativa no financiera; el resto son préstamos.",
+    exDbWhy: (priv, peak, peakQ, pos, years, intShare, fed) => "La deuda privada no financiera, " + priv + "% del PIB, está " + (pos === "at" ? "en su máximo" : "por debajo del máximo de " + peak + "% de " + peakQ) + (years ? "; la deuda corporativa equivale a " + years + " años de utilidades y los intereses netos absorben " + intShare + " del excedente de operación" : "") + ". El gobierno federal debe " + fed + "% del PIB.",
+    exDbWatch: (d, q) => (d ? "Próximo: Z.1 el " + d + " (datos de " + q + ")." : "Próximo: Z.1 con datos de " + q + " (fecha por publicar).") + " Seguir el crecimiento de la deuda corporativa frente al de las utilidades y la participación de los intereses conforme la deuda se refinancia.",
+    hhTitle: "Deuda de los hogares",
+    hhDesc: "Cuánto deben los hogares estadounidenses por tipo de préstamo, qué parte está atrasada en sus pagos y la perspectiva larga desde 1952.",
+    sourceHh: "Fuente: Fed de Nueva York, Consumer Credit Panel/Equifax; Reserva Federal Z.1 y G.19 (vía FRED) ↗",
+    footerHh: "Datos: Banco de la Reserva Federal de Nueva York, Consumer Credit Panel/Equifax, Informe Trimestral sobre Deuda y Crédito de los Hogares (libro de datos del informe más reciente): saldos por tipo de préstamo en billones de dólares desde 2003 y porcentaje del saldo con 90 días o más de atraso por tipo; es una muestra representativa de los expedientes de crédito, sin ajuste estacional. Junta de la Reserva Federal, Z.1 Cuentas Financieras: pasivos de los hogares e instituciones sin fines de lucro (total, hipotecas residenciales de una a cuatro viviendas y crédito al consumo; el resto son otros préstamos), trimestrales desde 1952, y razón del servicio de la deuda de los hogares (pagos de deuda como % del ingreso disponible); G.19 Crédito al Consumo: saldos totales, revolventes y no revolventes, mensuales, ajustados por estacionalidad. Ingreso personal disponible del BEA (tasa anual ajustada por estacionalidad, promedio trimestral) para la razón deuda/ingreso, un cálculo de FNAM. Todo vía FRED (Fed de San Luis) salvo el libro de la Fed de Nueva York, que se lee directamente.",
+    hhAsOf: q => "Saldos a " + q + " (Fed de Nueva York)",
+    hhNext: (q, m) => "Próximo informe de la Fed de Nueva York (datos de " + q + "): previsto a principios de " + m + " (trimestral, sin fecha fija)",
+    hhG19Line: (m, d, nm) => "Crédito al consumo (G.19) a " + m + (d ? " · próxima publicación: " + d + " (datos de " + nm + ")" : ""),
+    hhKpiTotal: "Deuda total de los hogares",
+    hhKpiMortgage: "Hipotecas",
+    hhKpiCard: "Tarjetas de crédito",
+    hhKpiAuto: "Préstamos automotrices",
+    hhKpiStudent: "Préstamos estudiantiles",
+    hhKpiDelq: "Saldo con 90+ días de atraso",
+    hhSecTypes: "Deuda de los hogares por tipo desde 2003",
+    hhSecTypesNote: "Billones de dólares, trimestral, sin ajuste estacional (Fed de Nueva York, Consumer Credit Panel/Equifax)",
+    hhTotalTitle: "Saldo total e hipotecario",
+    hhTypesTitle: "Saldos no hipotecarios por tipo",
+    legHhTotal: "Deuda total",
+    legMortgage: "Hipotecas",
+    legHeloc: "Líneas de crédito hipotecario",
+    legAuto: "Préstamos automotrices",
+    legCard: "Tarjetas de crédito",
+    legStudent: "Préstamos estudiantiles",
+    legOther: "Otros",
+    hhTypesNote: (q, total, yoy, top, topAbs, topYoy, second, secondAbs, secondYoy, mortShare) => "En " + q + " la deuda de los hogares suma " + total + ", " + yoy + " respecto a un año antes. Los mayores aumentos del año: " + top + " (" + topAbs + ", " + topYoy + ") y " + second + " (" + secondAbs + ", " + secondYoy + "). Las hipotecas son el " + mortShare + "% del total.",
+    hhSecDelq: "Porcentaje del saldo con 90 días o más de atraso, por tipo",
+    hhSecDelqNote: "% del saldo de cada tipo con 90 días o más de atraso (incluye cartera severamente morosa), trimestral desde 2003",
+    legAllLoans: "Todos los préstamos",
+    hhDelqNote: (all, q, worst, worstV, best, bestV, pre, peak, peakQ) => "En " + q + " el " + all + " de todos los saldos tiene 90 días o más de atraso: el tipo más moroso es " + worst + " (" + worstV + ") y el menos, " + best + " (" + bestV + ")." + (pre ? " Antes de la pandemia (T4 2019) la tasa general era " + pre + ";" : "") + " el máximo fue " + peak + " en " + peakQ + ".",
+    hhDelqMethod: "La morosidad de los préstamos estudiantiles refleja las reglas de reporte de cada periodo: los atrasos no se reportaron a los burós durante la pausa de pagos federal (2020–2024) y volvieron a reportarse a partir de 2025, por lo que la serie salta en esas fechas.",
+    hhSecLong: "La perspectiva larga desde 1952",
+    hhSecLongNote: "Z.1 de la Reserva Federal: pasivos de los hogares e instituciones sin fines de lucro por instrumento, billones de dólares; deuda frente al ingreso personal disponible (BEA) y razón del servicio de la deuda de la Fed",
+    hhZ1Title: "Deuda de los hogares por instrumento, billones de dólares",
+    hhIncomeTitle: "Deuda y servicio de la deuda frente al ingreso disponible, %",
+    legConsumerCredit: "Crédito al consumo",
+    legOtherLoans: "Otros préstamos",
+    legDebtToDpi: "Deuda, % del ingreso disponible anual",
+    legDsr: "Servicio de la deuda, % del ingreso disponible",
+    hhLongNote: (total, q, dti, dtiPeak, dtiPeakQ, dsr, dsrQ, dsrPeak, dsrPeakQ) => "Según la Z.1, los hogares deben " + total + " en " + q + ", el " + dti + "% de su ingreso disponible anual, frente a un máximo de " + dtiPeak + "% en " + dtiPeakQ + "." + (dsr ? " Los pagos de deuda absorben " + dsr + " del ingreso disponible en " + dsrQ + " (máximo " + dsrPeak + " en " + dsrPeakQ + ")." : ""),
+    hhSecG19: "Crédito al consumo, mes a mes",
+    hhSecG19Note: "G.19 de la Reserva Federal: crédito revolvente (sobre todo tarjetas) y no revolvente (préstamos automotrices, estudiantiles y otros a plazos) vigente, ajustado por estacionalidad, billones de dólares",
+    hhG19Title: "Saldo vigente desde 1990, billones de dólares",
+    hhG19GrowthTitle: "Crédito al consumo total, variación anual",
+    legRevolving: "Revolvente",
+    legNonrevolving: "No revolvente",
+    hhG19Note: (m, total, rev, nonrev, yoy, revYoy) => "En " + m + " el crédito al consumo suma " + total + " (" + yoy + " anual): " + rev + " revolvente" + (revYoy ? " (" + revYoy + ")" : "") + " y " + nonrev + " no revolvente. La G.19 excluye los préstamos garantizados con bienes raíces.",
+    exHhLatest: (total, q, yoy, mort, card, cardY, auto, autoY, student, studentY) => "La deuda de los hogares fue " + total + " en " + q + ", " + yoy + " respecto a un año antes: hipotecas " + mort + ", tarjetas de crédito " + card + " (" + cardY + "), préstamos automotrices " + auto + " (" + autoY + ") y estudiantiles " + student + " (" + studentY + ").",
+    exHhDrivers: (top, topAbs, topYoy, second, secondAbs, secondYoy, mortShare, g19, g19m, g19y) => "Los mayores aumentos del año: " + top + " (" + topAbs + ", " + topYoy + ") y " + second + " (" + secondAbs + ", " + secondYoy + "); las hipotecas son el " + mortShare + "% del total." + (g19 ? " La G.19 mensual de la Fed sitúa el crédito al consumo en " + g19 + " en " + g19m + (g19y ? " (" + g19y + " anual)" : "") + "." : ""),
+    exHhWhy: (delq, q, pre, peak, peakQ, dsr, dsrQ, dsrPeak, dsrPeakQ, dti) => "El " + delq + " de los saldos tiene 90 días o más de atraso en " + q + (pre ? ", frente a " + pre + " a fines de 2019" : "") + " y un máximo de " + peak + " en " + peakQ + "." + (dsr ? " Los pagos de deuda absorben " + dsr + " del ingreso disponible (" + dsrQ + "), contra un máximo de " + dsrPeak + " en " + dsrPeakQ + "." : "") + (dti ? " La deuda total equivale al " + dti + "% del ingreso disponible anual." : ""),
+    exHhWatch: (m, d) => "Próximo informe de la Fed de Nueva York: previsto a principios de " + m + (d ? "; próxima G.19: " + d : "") + ". Seguir la morosidad de tarjetas y préstamos automotrices y la tasa de los préstamos estudiantiles.",
+    bkTitle: "Capitalización bancaria",
+    bkDesc: "Cuánto capital respalda al sistema bancario de EE. UU.: razones de capital regulatorio, pérdidas no realizadas, calidad de activos y depósitos de todas las instituciones aseguradas por la FDIC, desde 1984.",
+    sourceBanks: "Fuente: FDIC, Call Reports de todas las instituciones aseguradas (API BankFind Suite); Reserva Federal H.8 (vía FRED) ↗",
+    footerBanks: "Datos: Corporación Federal de Seguro de Depósitos (FDIC), informes financieros trimestrales (Call Reports) de todas las instituciones aseguradas por la FDIC, vía la API BankFind Suite: sumas sobre bancos comerciales e instituciones de ahorro aseguradas (se excluyen las sucursales aseguradas de bancos extranjeros), el mismo universo del Quarterly Banking Profile de la FDIC, cuyo número de instituciones y activos totales se reproducen exactamente. Capital contable, capital de nivel 1 y capital total basado en riesgo, activos ponderados por riesgo y activos promedio para la razón de apalancamiento (definiciones de acción correctiva pronta), capital común de nivel 1 (desde 2015, cuando lo reportan todas las instituciones), préstamos y arrendamientos, préstamos en mora (90+ días de atraso o sin acumulación de intereses), reservas para pérdidas crediticias, valores a costo amortizado y a valor razonable (disponibles para la venta y conservados a vencimiento, desde 1994), depósitos nacionales, asegurados y no asegurados (estimados) y utilidad neta trimestral; las razones agregadas son cocientes de sumas, calculados aquí como en el QBP. Junta de la Reserva Federal, H.8 Activos y pasivos de los bancos comerciales: activos totales, depósitos y residual (activos menos pasivos), semanales, ajustados por estacionalidad, vía FRED.",
+    bkWhat: "Qué significan las razones",
+    bkWhatText: "Capital contable sobre activos es la medida contable simple. La razón de apalancamiento de nivel 1 divide el capital de nivel 1 (capital común más ciertas preferentes, sin intangibles) entre los activos promedio; el mínimo regulatorio es 4% y 5% para estar «bien capitalizado». Las razones basadas en riesgo (capital común de nivel 1, nivel 1 y total) dividen el capital entre los activos ponderados por riesgo; los mínimos son 4.5%, 6% y 8%, más los colchones. Las pérdidas no realizadas son la diferencia entre el valor razonable y el costo amortizado de los valores que los bancos conservan; las de los valores disponibles para la venta ya restan del capital contable y las de los conservados a vencimiento no.",
+    bkWho: "A quién se cuenta",
+    bkWhoText: "Todos los bancos comerciales e instituciones de ahorro asegurados por la FDIC, sumados: el universo del Quarterly Banking Profile de la FDIC (los conteos y los activos coinciden con el perfil). No incluye cooperativas de crédito, sucursales no aseguradas de bancos extranjeros, aseguradoras ni intermediarios no bancarios. La serie semanal H.8 de la Reserva Federal cubre a todos los bancos comerciales, asegurados o no, y su residual no es capital regulatorio.",
+    bkAsOf: (q, n) => "Call Reports a " + q + " (" + n + " instituciones)",
+    bkH8Line: (w, next, sched) => "H.8 semanal al " + w + " · próxima: " + (sched ? "" : "prevista para el ") + next + ", 4:15 PM ET",
+    bkNextEst: (q, m) => "Próximo Quarterly Banking Profile de la FDIC (datos de " + q + "): previsto a fines de " + m,
+    bkKpiEqAssets: "Capital contable, % de activos",
+    bkKpiLeverage: "Razón de apalancamiento de nivel 1",
+    bkKpiCet1: "Capital común de nivel 1 (CET1)",
+    bkKpiRbc: "Capital total basado en riesgo",
+    bkKpiUnreal: "Pérdidas no realizadas en valores",
+    bkKpiNoncurrent: "Préstamos en mora, % de préstamos",
+    bkSecRatios: "Razones de capital desde 1984",
+    bkSecRatiosNote: "Todas las instituciones aseguradas por la FDIC, razones agregadas (sumas de capital entre sumas de activos o de activos ponderados por riesgo), % · las medidas basadas en riesgo existen desde 1990 y el capital común de nivel 1 desde 2015",
+    legEqAssets: "Capital contable / activos",
+    legLeverage: "Apalancamiento de nivel 1",
+    legT1Rbc: "Nivel 1 / activos ponderados por riesgo",
+    legTotalRbc: "Capital total / activos ponderados por riesgo",
+    legCet1: "Capital común de nivel 1",
+    bkRatioNote: (q, lev, levAgo, levLow, levLowQ, rbc, cet1, eq) => "En " + q + " la razón de apalancamiento de nivel 1 es " + lev + " (" + levAgo + " un año antes); su mínimo fue " + levLow + " en " + levLowQ + ". El capital total basado en riesgo es " + rbc + " y el capital común de nivel 1 " + cet1 + "; el capital contable equivale a " + eq + " de los activos.",
+    bkRatioMethod: "Razones agregadas: la suma del capital de todas las instituciones entre la suma de sus activos (promedio, para el apalancamiento) o de sus activos ponderados por riesgo, el método del Quarterly Banking Profile; no son promedios de las razones de cada banco.",
+    bkSecBalance: "Balance y capital en dólares",
+    bkSecBalanceNote: "Billones de dólares, cierre del trimestre, desde 1984",
+    bkAssetsTitle: "Activos, préstamos y depósitos",
+    bkCapitalTitle: "Capital contable y capital de nivel 1",
+    legAssets: "Activos totales",
+    legLoans: "Préstamos y arrendamientos",
+    legDeposits: "Depósitos",
+    legEquity: "Capital contable",
+    legTier1: "Capital de nivel 1",
+    bkBalanceNote: (q, assets, equity, eqY, assetsY, loans, deposits, depY) => "En " + q + " los bancos asegurados tienen " + assets + " en activos y " + equity + " de capital contable; el capital creció " + eqY + " en el año y los activos " + assetsY + ". Los préstamos suman " + loans + " y los depósitos " + deposits + " (" + depY + ").",
+    bkSecUnreal: "Ganancias y pérdidas no realizadas en valores",
+    bkSecUnrealNote: "Valor razonable menos costo amortizado de los valores disponibles para la venta más los conservados a vencimiento, miles de millones de dólares, desde 2008",
+    bkUnrealNote: (q, total, afs, htm, pctEq, worst, worstQ, kind) => "En " + q + " la " + (kind === "loss" ? "pérdida" : "ganancia") + " no realizada suma " + total + " (" + afs + " en disponibles para la venta y " + htm + " en conservados a vencimiento), el " + pctEq + "% del capital contable; el peor trimestre fue " + worstQ + " (" + worst + ").",
+    bkUnrealMethod: "Las pérdidas en valores disponibles para la venta ya están restadas del capital contable (otros resultados integrales acumulados); las de los conservados a vencimiento no, y solo se materializarían si los bancos tuvieran que venderlos.",
+    bkSecQuality: "Calidad de los activos",
+    bkSecQualityNote: "Préstamos en mora (90 días o más de atraso o sin acumulación de intereses) como % del total de préstamos y arrendamientos, y reservas para pérdidas crediticias como % de los préstamos en mora, desde 1984",
+    bkNoncurrentTitle: "Tasa de préstamos en mora, %",
+    bkCoverageTitle: "Cobertura de reservas sobre préstamos en mora, %",
+    bkQualityNote: (q, nc, ncAgo, peak, peakQ, cov) => "En " + q + " el " + nc + " de los préstamos está en mora (" + ncAgo + " un año antes); el máximo fue " + peak + " en " + peakQ + ". Las reservas cubren el " + cov + "% de los préstamos en mora.",
+    bkSecDeposits: "Instituciones y depósitos",
+    bkSecDepositsNote: "Número de instituciones aseguradas por la FDIC, y depósitos no asegurados estimados como % de los depósitos nacionales",
+    bkCountTitle: "Instituciones aseguradas",
+    bkUninsTitle: "Depósitos no asegurados, % de los depósitos nacionales",
+    bkDepositsNote: (q, n, nAgo, y0, n0, unins, uninsPeak, uninsPeakQ, uninsAmt) => "Hay " + n + " instituciones aseguradas en " + q + (nAgo ? " (" + nAgo + " un año antes)" : "") + ", frente a " + n0 + " en " + y0 + ". Los depósitos no asegurados (" + uninsAmt + ") son el " + unins + " de los depósitos nacionales; el máximo fue " + uninsPeak + " en " + uninsPeakQ + ".",
+    bkSecH8: "Semana a semana: bancos comerciales (H.8)",
+    bkSecH8Note: "H.8 de la Reserva Federal: residual (activos menos pasivos) como % de los activos totales, todos los bancos comerciales, semanal desde 2000, ajustado por estacionalidad · un indicador oportuno entre Call Reports, no capital regulatorio",
+    legH8Residual: "Residual (activos menos pasivos), % de activos",
+    bkH8Note: (w, ratio, assets, deposits, ago) => "En la semana al " + w + " el residual de la H.8 equivale a " + ratio + " de los activos de los bancos comerciales (" + assets + " de activos y " + deposits + " de depósitos)" + (ago ? "; hace un año era " + ago : "") + ".",
+    exBkLatest: (q, lev, dir, delta, cet1, rbc, eq, n) => "La razón de apalancamiento de nivel 1 es " + lev + " en " + q + " (" + ({ up: "subió", down: "bajó", flat: "sin cambio" })[dir] + (dir === "flat" ? "" : " " + delta + " pp") + " en el año), el capital común de nivel 1 " + cet1 + " y el capital total basado en riesgo " + rbc + "; el capital contable equivale a " + eq + " de los activos de " + n + " instituciones aseguradas.",
+    exBkDrivers: (eqY, assetsY, unreal, kind, pctEq, worst, worstQ) => "El capital contable creció " + eqY + " en el año y los activos " + assetsY + ". La " + (kind === "loss" ? "pérdida" : "ganancia") + " no realizada en valores es " + unreal + ", el " + pctEq + "% del capital contable, frente a " + worst + " en el peor trimestre (" + worstQ + ").",
+    exBkWhy: (nc, ncAgo, peak, peakQ, cov, unins) => "El " + nc + " de los préstamos está en mora (" + ncAgo + " un año antes; máximo " + peak + " en " + peakQ + "), con reservas que cubren el " + cov + "%; el " + unins + "% de los depósitos nacionales no está asegurado. Más capital y reservas amortiguan pérdidas; menos capital frente a pérdidas no realizadas y depósitos no asegurados es lo que amplificó las quiebras de 2023.",
+    exBkWatch: (m, w) => "Próximo Quarterly Banking Profile: previsto a fines de " + m + (w ? "; la H.8 semanal llega al " + w : "") + ". Seguir las pérdidas no realizadas conforme se mueven las tasas, la mora en bienes raíces comerciales y la proporción de depósitos no asegurados.",
     names: {
       "Individual Income Taxes": "Impuesto sobre la renta de personas", "Corporation Income Taxes": "Impuesto sobre la renta de empresas",
       "Employment and General Retirement": "Contribuciones laborales y de retiro", "Unemployment Insurance": "Seguro de desempleo",
@@ -3430,7 +4225,7 @@ const I18N = {
     switchTo: "Cambiar a español",
     switchAria: "Cambiar a español",
     docTitle: v => v + " · U.S. Macro Monitor · FNAM",
-    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
+    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, productivity, corporate profits, private and household debt, bank capital, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
     navAria: "Sections",
     nfTitle: "Section Not Found",
     nfDesc: v => "This dashboard has no section called “" + v + "”. Choose one of these:",
@@ -4342,6 +5137,265 @@ const I18N = {
     rtStatesMethod: "The state series is an experimental Census product that blends the monthly survey with administrative and card data; it covers NAICS 441–453 stores, excluding nonstore retailers and restaurants, and publishes about two months behind the national figure.",
     mapLegendDiverging: (hi, hiV, lo, loV) => "Highest: " + hi + " (" + hiV + ") · Lowest: " + lo + " (" + loV + ")",
     footerRetail: "Data: U.S. Census Bureau, Advance Monthly Retail Trade Survey (MARTS) via the Census API, and Monthly State Retail Sales (MSRS, an experimental product) via public CSV. National figures in millions of current dollars, adjusted for seasonal variation, holidays, and trading-day differences; not adjusted for price changes except where noted. Advance figures are revised over the following two months. The real-sales deflator is seasonally adjusted headline CPI, an approximation — the appropriate price index for retail goods differs from all-items CPI.",
+    groupCorporate: "Corporate Sector",
+    groupCredit: "Credit & Banking",
+    navProd: "Productivity Growth",
+    navProfits: "Corporate Profits & Labor Share",
+    navHhDebt: "Consumer Debt",
+    navDebt: "Private Sector Debt",
+    navBanks: "Bank Capitalization",
+    vsPrevQ: "vs. prior quarter",
+    vsYearAgo: "vs. a year earlier",
+    yearsWord: "years",
+    fileNyFed: "New York Fed data workbook",
+    prTitle: "Productivity Growth",
+    prDesc: "Output per hour in the nonfarm business sector, what it costs to produce it, and how today's pace compares with past eras.",
+    sourceProd: "Source: BLS, Productivity and Costs ↗",
+    footerProd: "Data: U.S. Bureau of Labor Statistics, Productivity and Costs program, via the BLS API: nonfarm business sector (series PRS8500609x, 611x, 610x, 615x, 604x, 603x and 6173) and manufacturing sector (PRS3000609x), quarterly, seasonally adjusted, index 2017 = 100, percent change from the previous quarter at an annual rate and from the same quarter a year earlier. Each quarter is published as a preliminary estimate about five weeks after it ends and revised a month later; the annual revision each summer can change several years. The era averages are compound annual rates computed here from the BLS index.",
+    prEstimateName: n => n <= 1 ? "preliminary estimate" : "revised estimate",
+    prVintage: (n, d) => (n <= 1 ? "Preliminary estimate" : "Revised estimate") + " (BLS, " + d + "); subject to revision",
+    prVintageUnknown: "Estimate subject to revision",
+    prNext: (d, what) => "Next release: " + d + " (" + what + ")",
+    prNextEst: (m, what) => "Next release: expected early " + m + " (" + what + ")",
+    exRelProd: q => q + " productivity and costs",
+    prKpiQ: "Productivity, q/q annualized",
+    prKpiY: "Productivity, y/y",
+    prKpiUlc: "Unit labor costs, y/y",
+    prKpiComp: "Hourly compensation, y/y",
+    prKpiRcomp: "Real hourly compensation, y/y",
+    prKpiMfg: "Manufacturing productivity, y/y",
+    prSecQuarterly: "Productivity Growth, Quarter by Quarter",
+    prSecQuarterlyNote: "Nonfarm business output per hour, % change from the previous quarter at an annual rate, seasonally adjusted · last 16 quarters",
+    prGrowthNote: (v, q, a4, a8) => "Productivity changed " + v + " at an annual rate in " + q + "; the average of the last four quarters is " + a4 + " and of the last eight, " + a8 + ".",
+    prSecLong: "Productivity Growth Since 1948",
+    prSecLongNote: "% change from the same quarter a year earlier, with its five-year moving average",
+    legProdYoy: "Productivity (y/y)",
+    legProd5y: "5-year moving average",
+    prLongNote: (cur, q, avg, y0, ma, hi, hiQ, lo, loQ) => "In " + q + " productivity is " + cur + " above a year earlier; the average since " + y0 + " is " + avg + " and the five-year moving average " + ma + ". The high was " + hi + " (" + hiQ + ") and the low " + lo + " (" + loQ + ").",
+    prSecEras: "Productivity by Era",
+    prSecErasNote: "Average annual growth of output per hour between the fourth quarters that bound each period, computed from the BLS index",
+    prEraLabel: (a, b) => a + "–" + b,
+    prEraNote: (best, bestV, worst, worstV, latestY, latestV, endQ) => "The fastest era was " + best + " (" + bestV + " a year) and the slowest " + worst + " (" + worstV + "). From " + latestY + " through " + endQ + " the pace is " + latestV + " a year.",
+    prSecCosts: "Productivity, Pay and Unit Labor Costs",
+    prSecCostsNote: "% change from a year earlier since 2000 · unit labor costs rise when hourly compensation outruns productivity",
+    legHourlyComp: "Hourly compensation",
+    legUlc: "Unit labor costs",
+    prCostNote: (comp, prod, ulc, q) => "In " + q + " hourly compensation grew " + comp + " from a year earlier and productivity " + prod + ", so unit labor costs changed " + ulc + ".",
+    prCostMethod: "Unit labor costs = hourly compensation ÷ output per hour: the BLS measure of wage pressure on prices, net of efficiency gains.",
+    prSecOutput: "Output and Hours",
+    prSecOutputNote: "% change from a year earlier since 2000 · productivity growth is the gap between the two lines",
+    legOutput: "Output",
+    legHours: "Hours worked",
+    prOutNote: (out, hrs, prod, q) => "In " + q + " the sector's output grew " + out + " from a year earlier and hours worked " + hrs + "; the difference is the productivity gain, " + prod + ".",
+    prSecShare: "Labor Share of Nonfarm Business Income",
+    prSecShareNote: "BLS labor share index, 2017 = 100, since 1947 · the share of the sector's output that goes to workers' compensation",
+    legLaborShare: "Labor share (index)",
+    prShareNote: (cur, q, avg, hi, hiQ, lo, loQ) => "The index stands at " + cur + " in " + q + ", against an average of " + avg + " since 1947; the high was " + hi + " (" + hiQ + ") and the low " + lo + " (" + loQ + "). An index below 100 means labor receives a smaller share of output than in 2017.",
+    exPrLatest: (q, est, qq, pq, pqQ, yy) => "Nonfarm business productivity changed " + qq + " at an annual rate in " + q + (est ? " (" + est + ")" : "") + ", after " + pq + " in " + pqQ + "; it is " + yy + " above a year earlier.",
+    exPrDrivers: (out, hrs, prod, comp, ulc, rcomp) => "Output grew " + out + " over the year and hours " + hrs + ", so output per hour rose " + prod + ". Hourly compensation rose " + comp + ", leaving unit labor costs " + ulc + "; real hourly compensation " + rcomp + ".",
+    exPrWhy: (avg5, avgAll, y0, pos, mfg) => "Productivity sets how fast the economy can grow without inflation: at " + avg5 + " a year over the last five years it is " + pos + " the " + avgAll + " average since " + y0 + ". Manufacturing productivity changed " + mfg + " over the year.",
+    exPrWatch: ulc => "Watch whether unit labor costs (now " + ulc + " y/y) stay near 2%, consistent with the inflation target, and the gap between pay and productivity.",
+    cpTitle: "Corporate Profits & Labor Share",
+    cpDesc: "How much of what nonfinancial corporations produce ends up as profit and how much as pay, since 1947.",
+    sourceProfits: "Source: BEA, National Income and Product Accounts, table 1.14 (via FRED) ↗",
+    footerProfits: "Data: U.S. Bureau of Economic Analysis, National Income and Product Accounts, table 1.14 (gross value added of corporate business and of nonfinancial corporate business), table 1.12 (corporate profits) and table 1.1.5 (GDP), via FRED (St. Louis Fed), which carries every line under BEA's own series code. Quarterly, seasonally adjusted annual rates, billions of current dollars. Profits with inventory valuation and capital consumption adjustments (IVA and CCAdj), the measure of profits from current production. The margin and the labor share are ratios computed here over the sector's gross value added; the table's accounting identities are verified on every refresh. BEA publishes profits with the second and third GDP estimates, not with the advance estimate.",
+    cpWhat: "How the Margin Is Measured",
+    cpWhatText: "Nonfinancial corporations' gross value added is what they produce less the inputs they buy. Out of it come employee compensation, taxes on production, depreciation (consumption of fixed capital), net interest and profits. The margin is profits ÷ gross value added; the labor share, compensation ÷ gross value added. It is the same arithmetic BEA presents as \"profits per unit of real value added\" and does not depend on which companies are listed.",
+    cpWhy: "Why It Matters",
+    cpWhyText: "Margin and labor share are the two sides of how corporate income is split. A high margin sustains earnings and valuations even when the economy grows slowly; a falling labor share means a smaller part of each dollar produced reaches wages. When the margin compresses, profits fall even as sales keep growing.",
+    cpNext: (d, kind, q) => "Next GDP release: " + d + (kind === "advance" ? " (advance estimate of " + q + "; profits follow with the second estimate)" : kind === "with" ? " (includes " + q + " corporate profits)" : ""),
+    cpNextTbd: "Next GDP release: date not yet published",
+    cpKpiMargin: "Profit margin",
+    cpKpiAfterTax: "After-tax margin",
+    cpKpiShare: "Labor share",
+    cpKpiGrowth: "Profits, y/y",
+    cpKpiGdp: "After-tax profits, % of GDP",
+    cpKpiTax: "Taxes paid, % of profits",
+    cpSecMargin: "Profit Margin vs. Labor Share Since 1947",
+    cpSecMarginNote: "Nonfinancial corporate business: profits (with inventory valuation and capital consumption adjustments) and compensation of employees, each as % of the sector's gross value added, quarterly",
+    cpMarginTitle: "Profit margin, % of gross value added",
+    cpShareTitle: "Labor share, % of gross value added",
+    legMargin: "Margin (pre-tax profits)",
+    legMarginAfterTax: "After-tax margin",
+    legLaborShareNipa: "Compensation of employees",
+    legAvgSince: (y, v) => "Average since " + y + " (" + v + ")",
+    cpMarginNote: (m, q, avg, pctHigher, hi, hiQ, share, shareAvg, lo, loQ) => "The margin is " + m + " in " + q + ", against an average of " + avg + " since 1947; only " + pctHigher + "% of quarters were higher and the record is " + hi + " (" + hiQ + "). The labor share is " + share + ", against " + shareAvg + " on average; its low was " + lo + " (" + loQ + ").",
+    cpSecSplit: "Where Each Dollar of Value Added Goes",
+    cpSecSplitNote: "Nonfinancial corporate business, % of gross value added",
+    cpSplitComp: "Compensation of employees",
+    cpSplitCfc: "Depreciation (consumption of fixed capital)",
+    cpSplitTaxProd: "Taxes on production less subsidies",
+    cpSplitInterest: "Net interest and miscellaneous payments",
+    cpSplitTransfers: "Net business transfer payments",
+    cpSplitTaxes: "Taxes on corporate income",
+    cpSplitAfterTax: "Profits after tax",
+    cpSplitNote: (q, comp, compAgo, agoQ, prof, profAgo, int, intAgo) => "In " + q + " compensation takes " + comp + " of value added (" + compAgo + " in " + agoQ + ") and profits " + prof + " (" + profAgo + "); net interest went from " + intAgo + " to " + int + ".",
+    cpSecGdp: "Corporate Profits After Tax as a Share of GDP",
+    cpSecGdpNote: "All US corporations, profits after tax with IVA and CCAdj, % of GDP, quarterly since 1947",
+    legProfitsGdp: "After-tax profits, % of GDP",
+    cpGdpNote: (cur, q, avg, hi, hiQ, pctHigher) => "After-tax profits equal " + cur + " of GDP in " + q + ", against " + avg + " on average since 1947; the high was " + hi + " (" + hiQ + ") and only " + pctHigher + "% of quarters were higher.",
+    cpSecGrowth: "Profits Growth",
+    cpSecGrowthNote: "Nonfinancial corporate profits with IVA and CCAdj, % change from the same quarter a year earlier · last 24 quarters",
+    cpGrowthNote: (yoy, q, gva, comp) => "Profits changed " + yoy + " from a year earlier in " + q + ", while the sector's value added grew " + gva + " and compensation " + comp + ".",
+    exCpLatest: (m, q, prev, prevQ, avg, pctHigher) => "Nonfinancial corporations kept " + m + " of their gross value added as profit in " + q + " (" + prev + " in " + prevQ + "); the average since 1947 is " + avg + " and only " + pctHigher + "% of quarters were higher.",
+    exCpDrivers: (profY, gvaY, compY, share, dir, tax) => "Profits changed " + profY + " from a year earlier, value added " + gvaY + " and employee compensation " + compY + ", so the labor share " + ({ up: "rose to", down: "fell to", flat: "held at" })[dir] + " " + share + ". Taxes took " + tax + " of profits.",
+    exCpWhy: (after, afterAvg, gdp, gdpAvg, shareAvg) => "After tax the margin is " + after + " (average " + afterAvg + "); for all corporations, after-tax profits are " + gdp + " of GDP against " + gdpAvg + " on average since 1947. A high margin with a labor share below its average (" + shareAvg + ") sustains earnings and valuations; its reversal would squeeze them even with steady growth.",
+    exCpWatch: (d, kind) => (d ? "Next: GDP release on " + d + (kind === "advance" ? " (advance estimate; profits follow with the second estimate)." : kind === "with" ? " (includes corporate profits)." : ".") : "Next: GDP release (date not yet published).") + " Watch the margin against its average and whether compensation catches up with value added.",
+    dbTitle: "Private Sector Debt",
+    dbDesc: "What US companies, households and financial firms owe in aggregate, against the size of the economy, since 1952.",
+    sourceDebt: "Source: Federal Reserve, Z.1 Financial Accounts of the United States (via FRED); BEA for GDP ↗",
+    footerDebt: "Data: Federal Reserve Board, Z.1 Financial Accounts of the United States, \"debt securities and loans; liability, level\" by sector (households and nonprofit organizations, nonfinancial corporate business, nonfinancial noncorporate business, federal government, state and local governments, domestic financial sectors and all sectors), plus nonfinancial corporate debt securities, quarterly, not seasonally adjusted, via FRED (St. Louis Fed); nominal GDP from BEA (seasonally adjusted annual rate) via FRED. Debt-to-GDP ratios use the same quarter's GDP, as the Z.1's table D.3 does. Corporate loans are total debt less debt securities; debt in years of profits and the interest share are FNAM calculations using BEA's table 1.14. The Z.1's sector identities are verified on every refresh.",
+    dbWhat: "What Counts as Debt",
+    dbWhatText: "Debt securities (bonds, commercial paper) and loans (bank loans, mortgages and other) owed by each sector at quarter end, as recorded in the Federal Reserve's Financial Accounts. It excludes equity, trade payables and derivatives. The private nonfinancial sector is households plus nonfinancial corporate and noncorporate business; the financial sector (banks, insurers, funds, mortgage agencies) is shown separately because much of its debt funds everyone else's.",
+    dbWhy: "Why It Matters",
+    dbWhyText: "Debt grows harmlessly while the income that services it grows in step; the risk appears when it outruns GDP or profits, or when it refinances at higher rates. Measuring it against GDP, against profits and by instrument says who is leveraged and how sensitive they are to rates.",
+    dbNext: (d, q) => "Next Z.1 release: " + d + " (" + q + " data)",
+    dbNextEst: (m, q) => "Next Z.1 release: expected " + m + " (" + q + " data; the Fed publishes about ten weeks after quarter end)",
+    dbKpiNfc: "Nonfinancial corporate debt",
+    dbKpiNnb: "Noncorporate business debt",
+    dbKpiHh: "Household debt",
+    dbKpiPrivate: "Private nonfinancial debt, % of GDP",
+    dbKpiFin: "Financial sector debt",
+    dbKpiTotal: "Total nonfinancial debt, % of GDP",
+    dbKpiGdpFoot: (pct, q) => pct + "% of GDP · " + q,
+    dbKpiOfGdp: q => "households + business · " + q,
+    dbKpiTotalFoot: q => "incl. governments · " + q,
+    dbSecGdp: "Debt as a Share of GDP Since 1952",
+    dbSecGdpNote: "Debt securities and loans outstanding at quarter end, % of the quarter's nominal GDP (annual rate); the federal government for comparison",
+    legHouseholds: "Households",
+    legNfc: "Nonfinancial corporations",
+    legNnb: "Noncorporate business",
+    legFin: "Financial sector",
+    legFederal: "Federal government",
+    dbGdpNote: (q, priv, privPeak, privPeakQ, nfc, nfcPeak, nfcPeakQ, hh, hhPeak, hhPeakQ, fed) => "In " + q + " private nonfinancial debt (households plus business) is " + priv + "% of GDP, against a peak of " + privPeak + "% in " + privPeakQ + ". Nonfinancial corporations owe " + nfc + " of GDP (peak " + nfcPeak + " in " + nfcPeakQ + ") and households " + hh + " (peak " + hhPeak + " in " + hhPeakQ + "); the federal government, " + fed + "%.",
+    dbGdpMethod: "FNAM ratios: debt at quarter end over the same quarter's nominal GDP at an annual rate, the method of the Z.1's table D.3.",
+    dbSecLevels: "Private Debt in Dollars and Its Growth",
+    dbSecLevelsNote: "$ trillions outstanding since 1990, and % change from the same quarter a year earlier",
+    dbLevelTitle: "Outstanding, $ trillions",
+    dbGrowthTitle: "Growth, % change from a year earlier",
+    dbLevelNote: (q, nfcY, hhY, nnbY, finY, fast, fastV, slow, slowV) => "In " + q + " nonfinancial corporate debt grew " + nfcY + " from a year earlier, household debt " + hhY + ", noncorporate business debt " + nnbY + " and financial sector debt " + finY + ": the fastest pace is " + fast.toLowerCase() + "' (" + fastV + ") and the slowest " + slow.toLowerCase() + "' (" + slowV + ").",
+    dbSecMix: "What Nonfinancial Corporate Debt Is Made Of",
+    dbSecMixNote: "Debt securities (bonds and commercial paper) and loans (bank loans, mortgages and other), $ trillions",
+    legBonds: "Bonds and commercial paper",
+    legLoans: "Loans",
+    dbMixNote: (q, bond, bondAgo, agoQ) => "In " + q + " debt securities are " + bond + "% of nonfinancial corporate debt" + (bondAgo !== null ? ", against " + bondAgo + "% in " + agoQ : "") + "; the rest is bank loans, commercial mortgages and other loans.",
+    dbSecProfits: "Corporate Debt Against Corporate Income",
+    dbSecProfitsNote: "Nonfinancial corporate business: debt in years of profits (debt ÷ annualized profits with IVA and CCAdj) and net interest paid as % of net operating surplus, from BEA's table 1.14 and the Z.1",
+    dbYearsTitle: "Debt in years of profits",
+    dbInterestTitle: "Net interest, % of net operating surplus",
+    dbProfitsNote: (q, years, yearsAvg, y0, intShare, intQ, intPeak, intPeakQ) => "In " + q + " nonfinancial corporate debt equals " + years + " years of the sector's profits, against " + yearsAvg + " on average since " + y0 + ". Net interest absorbs " + intShare + " of net operating surplus in " + intQ + "; the peak was " + intPeak + " in " + intPeakQ + ".",
+    exDbLatest: (q, nfc, nfcY, nfcGdp, hh, hhY, hhGdp, priv) => "In " + q + " nonfinancial corporations owed " + nfc + " (" + nfcY + " y/y, " + nfcGdp + "% of GDP) and households " + hh + " (" + hhY + ", " + hhGdp + "% of GDP); private nonfinancial debt totals " + priv + "% of GDP.",
+    exDbDrivers: (fast, fastV, slow, slowV, nnb, bond) => "The fastest-growing sector is " + fast.toLowerCase() + " (" + fastV + " y/y) and the slowest, " + slow.toLowerCase() + " (" + slowV + "). Noncorporate business owes " + nnb + ". Bonds and commercial paper are " + bond + "% of nonfinancial corporate debt; the rest is loans.",
+    exDbWhy: (priv, peak, peakQ, pos, years, intShare, fed) => "Private nonfinancial debt, at " + priv + "% of GDP, is " + (pos === "at" ? "at its peak" : "below its " + peak + "% peak of " + peakQ) + (years ? "; corporate debt equals " + years + " years of profits and net interest absorbs " + intShare + " of operating surplus" : "") + ". The federal government owes " + fed + "% of GDP.",
+    exDbWatch: (d, q) => (d ? "Next: Z.1 on " + d + " (" + q + " data)." : "Next: Z.1 with " + q + " data (date not yet published).") + " Watch corporate debt growth against profit growth, and the interest share as debt reprices.",
+    hhTitle: "Consumer Debt",
+    hhDesc: "What American households owe, by type of loan, how much of it is behind on payments, and the long view since 1952.",
+    sourceHh: "Source: New York Fed Consumer Credit Panel/Equifax; Federal Reserve Z.1 and G.19 (via FRED) ↗",
+    footerHh: "Data: Federal Reserve Bank of New York, Consumer Credit Panel/Equifax, Quarterly Report on Household Debt and Credit (the latest report's data workbook): balances by loan type in $ trillions since 2003 and the share of each type's balance 90 or more days delinquent; a representative sample of credit records, not seasonally adjusted. Federal Reserve Board, Z.1 Financial Accounts: liabilities of households and nonprofit organizations (total, one-to-four-family residential mortgages and consumer credit; the rest is other loans), quarterly since 1952, and the household debt service ratio (debt payments as % of disposable income); G.19 Consumer Credit: total, revolving and nonrevolving credit outstanding, monthly, seasonally adjusted. BEA disposable personal income (seasonally adjusted annual rate, quarterly average) for the debt-to-income ratio, an FNAM calculation. All via FRED (St. Louis Fed) except the New York Fed workbook, which is read directly.",
+    hhAsOf: q => "Balances as of " + q + " (New York Fed)",
+    hhNext: (q, m) => "Next New York Fed report (" + q + " data): expected early " + m + " (quarterly, no fixed date)",
+    hhG19Line: (m, d, nm) => "Consumer credit (G.19) through " + m + (d ? " · next release: " + d + " (" + nm + " data)" : ""),
+    hhKpiTotal: "Total household debt",
+    hhKpiMortgage: "Mortgages",
+    hhKpiCard: "Credit cards",
+    hhKpiAuto: "Auto loans",
+    hhKpiStudent: "Student loans",
+    hhKpiDelq: "Balances 90+ days delinquent",
+    hhSecTypes: "Household Debt by Type Since 2003",
+    hhSecTypesNote: "$ trillions, quarterly, not seasonally adjusted (New York Fed Consumer Credit Panel/Equifax)",
+    hhTotalTitle: "Total and mortgage balances",
+    hhTypesTitle: "Non-mortgage balances by type",
+    legHhTotal: "Total debt",
+    legMortgage: "Mortgages",
+    legHeloc: "Home equity lines",
+    legAuto: "Auto loans",
+    legCard: "Credit cards",
+    legStudent: "Student loans",
+    legOther: "Other",
+    hhTypesNote: (q, total, yoy, top, topAbs, topYoy, second, secondAbs, secondYoy, mortShare) => "In " + q + " household debt totals " + total + ", " + yoy + " from a year earlier. The largest increases over the year: " + top + " (" + topAbs + ", " + topYoy + ") and " + second + " (" + secondAbs + ", " + secondYoy + "). Mortgages are " + mortShare + "% of the total.",
+    hhSecDelq: "Share of Balances 90+ Days Delinquent, by Type",
+    hhSecDelqNote: "% of each type's balance that is 90 or more days late (including severely derogatory), quarterly since 2003",
+    legAllLoans: "All loans",
+    hhDelqNote: (all, q, worst, worstV, best, bestV, pre, peak, peakQ) => "In " + q + " " + all + " of all balances are 90 or more days late: the most delinquent type is " + worst + " (" + worstV + ") and the least, " + best + " (" + bestV + ")." + (pre ? " Before the pandemic (Q4 2019) the overall rate was " + pre + ";" : "") + " the peak was " + peak + " in " + peakQ + ".",
+    hhDelqMethod: "Student loan delinquency reflects each period's reporting rules: missed payments were not reported to credit bureaus during the federal payment pause (2020–2024) and reporting resumed in 2025, so the series jumps at those dates.",
+    hhSecLong: "The Long View Since 1952",
+    hhSecLongNote: "Federal Reserve Z.1: household and nonprofit liabilities by instrument, $ trillions; debt against disposable personal income (BEA) and the Fed's debt service ratio",
+    hhZ1Title: "Household debt by instrument, $ trillions",
+    hhIncomeTitle: "Debt and debt service against disposable income, %",
+    legConsumerCredit: "Consumer credit",
+    legOtherLoans: "Other loans",
+    legDebtToDpi: "Debt, % of annual disposable income",
+    legDsr: "Debt service, % of disposable income",
+    hhLongNote: (total, q, dti, dtiPeak, dtiPeakQ, dsr, dsrQ, dsrPeak, dsrPeakQ) => "By the Z.1, households owe " + total + " in " + q + ", " + dti + "% of their annual disposable income, against a peak of " + dtiPeak + "% in " + dtiPeakQ + "." + (dsr ? " Debt payments absorb " + dsr + " of disposable income in " + dsrQ + " (peak " + dsrPeak + " in " + dsrPeakQ + ")." : ""),
+    hhSecG19: "Consumer Credit, Month by Month",
+    hhSecG19Note: "Federal Reserve G.19: revolving (mostly credit cards) and nonrevolving (auto, student and other installment loans) credit outstanding, seasonally adjusted, $ trillions",
+    hhG19Title: "Outstanding since 1990, $ trillions",
+    hhG19GrowthTitle: "Total consumer credit, % change from a year earlier",
+    legRevolving: "Revolving",
+    legNonrevolving: "Nonrevolving",
+    hhG19Note: (m, total, rev, nonrev, yoy, revYoy) => "In " + m + " consumer credit totals " + total + " (" + yoy + " y/y): " + rev + " revolving" + (revYoy ? " (" + revYoy + ")" : "") + " and " + nonrev + " nonrevolving. The G.19 excludes loans secured by real estate.",
+    exHhLatest: (total, q, yoy, mort, card, cardY, auto, autoY, student, studentY) => "Household debt was " + total + " in " + q + ", " + yoy + " from a year earlier: mortgages " + mort + ", credit cards " + card + " (" + cardY + "), auto loans " + auto + " (" + autoY + ") and student loans " + student + " (" + studentY + ").",
+    exHhDrivers: (top, topAbs, topYoy, second, secondAbs, secondYoy, mortShare, g19, g19m, g19y) => "The largest increases over the year: " + top + " (" + topAbs + ", " + topYoy + ") and " + second + " (" + secondAbs + ", " + secondYoy + "); mortgages are " + mortShare + "% of the total." + (g19 ? " The Fed's monthly G.19 puts consumer credit at " + g19 + " in " + g19m + (g19y ? " (" + g19y + " y/y)" : "") + "." : ""),
+    exHhWhy: (delq, q, pre, peak, peakQ, dsr, dsrQ, dsrPeak, dsrPeakQ, dti) => delq + " of balances are 90 or more days late in " + q + (pre ? ", against " + pre + " at the end of 2019" : "") + " and a peak of " + peak + " in " + peakQ + "." + (dsr ? " Debt payments absorb " + dsr + " of disposable income (" + dsrQ + "), against a peak of " + dsrPeak + " in " + dsrPeakQ + "." : "") + (dti ? " Total debt equals " + dti + "% of annual disposable income." : ""),
+    exHhWatch: (m, d) => "Next New York Fed report: expected early " + m + (d ? "; next G.19: " + d : "") + ". Watch credit card and auto delinquency and the student loan rate.",
+    bkTitle: "Bank Capitalization",
+    bkDesc: "How much capital stands behind the US banking system: regulatory capital ratios, unrealized losses, asset quality and deposits for every FDIC-insured institution, since 1984.",
+    sourceBanks: "Source: FDIC, Call Reports of all insured institutions (BankFind Suite API); Federal Reserve H.8 (via FRED) ↗",
+    footerBanks: "Data: Federal Deposit Insurance Corporation, quarterly financial reports (Call Reports) of all FDIC-insured institutions, via the BankFind Suite API: sums over insured commercial banks and savings institutions (insured branches of foreign banks excluded), the universe of the FDIC's Quarterly Banking Profile, whose institution counts and total assets are reproduced exactly. Equity capital, Tier 1 and total risk-based capital, risk-weighted assets and average assets for the leverage ratio (prompt corrective action definitions), common equity tier 1 (since 2015, when every institution reports it), loans and leases, noncurrent loans (90+ days past due or nonaccrual), allowances for credit losses, securities at amortized cost and fair value (available-for-sale and held-to-maturity, since 1994), domestic, insured and estimated uninsured deposits and quarterly net income; the aggregate ratios are ratios of sums, computed here as in the QBP. Federal Reserve Board, H.8 Assets and Liabilities of Commercial Banks: total assets, deposits and the residual (assets less liabilities), weekly, seasonally adjusted, via FRED.",
+    bkWhat: "What the Ratios Mean",
+    bkWhatText: "Equity to assets is the plain accounting measure. The Tier 1 leverage ratio divides Tier 1 capital (common equity plus certain preferred stock, less intangibles) by average assets; the regulatory minimum is 4%, and 5% counts as well capitalized. The risk-based ratios (common equity tier 1, Tier 1 and total) divide capital by risk-weighted assets; the minimums are 4.5%, 6% and 8% plus buffers. Unrealized losses are the gap between the fair value and the amortized cost of the securities banks hold; those on available-for-sale securities already reduce equity, those on held-to-maturity securities do not.",
+    bkWho: "Who Is Counted",
+    bkWhoText: "Every FDIC-insured commercial bank and savings institution, summed: the universe of the FDIC's Quarterly Banking Profile (counts and assets match the profile). It leaves out credit unions, uninsured branches of foreign banks, insurers and nonbank lenders. The Federal Reserve's weekly H.8 covers all commercial banks, insured or not, and its residual is not regulatory capital.",
+    bkAsOf: (q, n) => "Call Reports as of " + q + " (" + n + " institutions)",
+    bkH8Line: (w, next, sched) => "H.8 weekly through " + w + " · next: " + (sched ? "" : "expected ") + next + ", 4:15 PM ET",
+    bkNextEst: (q, m) => "Next FDIC Quarterly Banking Profile (" + q + " data): expected late " + m,
+    bkKpiEqAssets: "Equity, % of assets",
+    bkKpiLeverage: "Tier 1 leverage ratio",
+    bkKpiCet1: "Common equity tier 1 (CET1)",
+    bkKpiRbc: "Total risk-based capital",
+    bkKpiUnreal: "Unrealized losses on securities",
+    bkKpiNoncurrent: "Noncurrent loans, % of loans",
+    bkSecRatios: "Capital Ratios Since 1984",
+    bkSecRatiosNote: "All FDIC-insured institutions, aggregate ratios (sums of capital over sums of assets or risk-weighted assets), % · risk-based measures exist since 1990, common equity tier 1 since 2015",
+    legEqAssets: "Equity / assets",
+    legLeverage: "Tier 1 leverage",
+    legT1Rbc: "Tier 1 / risk-weighted assets",
+    legTotalRbc: "Total capital / risk-weighted assets",
+    legCet1: "Common equity tier 1",
+    bkRatioNote: (q, lev, levAgo, levLow, levLowQ, rbc, cet1, eq) => "In " + q + " the Tier 1 leverage ratio is " + lev + " (" + levAgo + " a year earlier); its low was " + levLow + " in " + levLowQ + ". Total risk-based capital is " + rbc + " and common equity tier 1 " + cet1 + "; equity equals " + eq + " of assets.",
+    bkRatioMethod: "Aggregate ratios: the sum of every institution's capital over the sum of their assets (average assets for leverage) or risk-weighted assets, the Quarterly Banking Profile's method; they are not averages of individual banks' ratios.",
+    bkSecBalance: "Balance Sheet and Capital in Dollars",
+    bkSecBalanceNote: "$ trillions, quarter end, since 1984",
+    bkAssetsTitle: "Assets, loans and deposits",
+    bkCapitalTitle: "Equity and Tier 1 capital",
+    legAssets: "Total assets",
+    legLoans: "Loans and leases",
+    legDeposits: "Deposits",
+    legEquity: "Equity capital",
+    legTier1: "Tier 1 capital",
+    bkBalanceNote: (q, assets, equity, eqY, assetsY, loans, deposits, depY) => "In " + q + " insured banks hold " + assets + " of assets and " + equity + " of equity capital; equity grew " + eqY + " over the year and assets " + assetsY + ". Loans total " + loans + " and deposits " + deposits + " (" + depY + ").",
+    bkSecUnreal: "Unrealized Gains and Losses on Securities",
+    bkSecUnrealNote: "Fair value minus amortized cost of available-for-sale plus held-to-maturity securities, $ billions, since 2008",
+    bkUnrealNote: (q, total, afs, htm, pctEq, worst, worstQ, kind) => "In " + q + " the unrealized " + kind + " totals " + total + " (" + afs + " on available-for-sale and " + htm + " on held-to-maturity securities), " + pctEq + "% of equity capital; the worst quarter was " + worstQ + " (" + worst + ").",
+    bkUnrealMethod: "Losses on available-for-sale securities are already deducted from equity (accumulated other comprehensive income); those on held-to-maturity securities are not, and would only materialize if banks had to sell.",
+    bkSecQuality: "Asset Quality",
+    bkSecQualityNote: "Noncurrent loans (90+ days past due or nonaccrual) as % of total loans and leases, and the allowance for credit losses as % of noncurrent loans, since 1984",
+    bkNoncurrentTitle: "Noncurrent loan rate, %",
+    bkCoverageTitle: "Reserve coverage of noncurrent loans, %",
+    bkQualityNote: (q, nc, ncAgo, peak, peakQ, cov) => "In " + q + " " + nc + " of loans are noncurrent (" + ncAgo + " a year earlier); the peak was " + peak + " in " + peakQ + ". Reserves cover " + cov + "% of noncurrent loans.",
+    bkSecDeposits: "Institutions and Deposits",
+    bkSecDepositsNote: "Number of FDIC-insured institutions, and estimated uninsured deposits as % of domestic deposits",
+    bkCountTitle: "Insured institutions",
+    bkUninsTitle: "Uninsured share of domestic deposits, %",
+    bkDepositsNote: (q, n, nAgo, y0, n0, unins, uninsPeak, uninsPeakQ, uninsAmt) => "There are " + n + " insured institutions in " + q + (nAgo ? " (" + nAgo + " a year earlier)" : "") + ", down from " + n0 + " in " + y0 + ". Uninsured deposits (" + uninsAmt + ") are " + unins + " of domestic deposits; the peak was " + uninsPeak + " in " + uninsPeakQ + ".",
+    bkSecH8: "Week by Week: Commercial Banks (H.8)",
+    bkSecH8Note: "Federal Reserve H.8: residual (assets less liabilities) as % of total assets, all commercial banks, weekly since 2000, seasonally adjusted · a timely proxy between Call Reports, not regulatory capital",
+    legH8Residual: "Residual (assets less liabilities), % of assets",
+    bkH8Note: (w, ratio, assets, deposits, ago) => "In the week ending " + w + " the H.8 residual equals " + ratio + " of commercial banks' assets (" + assets + " of assets and " + deposits + " of deposits)" + (ago ? "; a year earlier it was " + ago : "") + ".",
+    exBkLatest: (q, lev, dir, delta, cet1, rbc, eq, n) => "The Tier 1 leverage ratio is " + lev + " in " + q + " (" + ({ up: "up", down: "down", flat: "unchanged" })[dir] + (dir === "flat" ? "" : " " + delta + " pp") + " over the year), common equity tier 1 " + cet1 + " and total risk-based capital " + rbc + "; equity equals " + eq + " of the assets of " + n + " insured institutions.",
+    exBkDrivers: (eqY, assetsY, unreal, kind, pctEq, worst, worstQ) => "Equity grew " + eqY + " over the year and assets " + assetsY + ". The unrealized " + kind + " on securities is " + unreal + ", " + pctEq + "% of equity, against " + worst + " in the worst quarter (" + worstQ + ").",
+    exBkWhy: (nc, ncAgo, peak, peakQ, cov, unins) => nc + " of loans are noncurrent (" + ncAgo + " a year earlier; peak " + peak + " in " + peakQ + "), with reserves covering " + cov + "%; " + unins + "% of domestic deposits are uninsured. More capital and reserves absorb losses; thin capital against unrealized losses and uninsured deposits is what amplified the 2023 failures.",
+    exBkWatch: (m, w) => "Next Quarterly Banking Profile: expected late " + m + (w ? "; the weekly H.8 runs through " + w : "") + ". Watch unrealized losses as rates move, commercial real estate noncurrent loans and the uninsured deposit share.",
     names: {
       "Individual Income Taxes": "Individual income taxes", "Corporation Income Taxes": "Corporate income taxes",
       "Employment and General Retirement": "Employment & general retirement", "Unemployment Insurance": "Unemployment insurance",
@@ -4750,7 +5804,8 @@ function clearTargets() {
     "scKpiRow","scGscpiChart","scGscpiLegend","scGscpiCallout","scFreightList","scFreightChart","scDieselChart","scFreightCallout",
     "scInvChart","scInvLegend","scInvCallout","scTradeChart","scTradeLegend","scBalanceChart","scPricesChart","scPricesLegend","scTradeCallout",
     "fiKpiRow","fiMonthlyChart","fiMonthlyLegend","fiDeficitChart","fiRollingChart","fiMonthlyCallout","fiFytdStats","fiFytdCallout",
-    "fiSourceList","fiSourceCallout","fiFunctionList","fiFunctionCallout","fiGdpChart","fiGdpCallout"
+    "fiSourceList","fiSourceCallout","fiFunctionList","fiFunctionCallout","fiGdpChart","fiGdpCallout",
+    "prKpiRow","prGrowthChart","prGrowthCallout","prLongChart","prLongLegend","prLongCallout","prEraList","prEraCallout","prCostChart","prCostLegend","prCostCallout","prOutChart","prOutLegend","prOutCallout","prShareChart","prShareCallout","cpKpiRow","cpMarginChart","cpMarginLegend","cpShareChart","cpShareLegend","cpMarginCallout","cpSplitList","cpSplitCallout","cpGdpChart","cpGdpLegend","cpGdpCallout","cpGrowthChart","cpGrowthCallout","dbKpiRow","dbGdpChart","dbGdpLegend","dbGdpCallout","dbLevelChart","dbLevelLegend","dbGrowthChart","dbGrowthLegend","dbLevelCallout","dbMixList","dbMixCallout","dbYearsChart","dbInterestChart","dbProfitsCallout","hhKpiRow","hhTotalChart","hhTotalLegend","hhTypesChart","hhTypesLegend","hhTypesCallout","hhDelqChart","hhDelqLegend","hhDelqCallout","hhZ1Chart","hhZ1Legend","hhIncomeChart","hhIncomeLegend","hhLongCallout","hhG19Chart","hhG19Legend","hhG19GrowthChart","hhG19Callout","bkKpiRow","bkRatioChart","bkRatioLegend","bkRatioCallout","bkAssetsChart","bkAssetsLegend","bkCapitalChart","bkCapitalLegend","bkBalanceCallout","bkUnrealChart","bkUnrealCallout","bkNoncurrentChart","bkCoverageChart","bkQualityCallout","bkCountChart","bkUninsChart","bkDepositsCallout","bkH8Chart","bkH8Legend","bkH8Callout"
   ];
   ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ""; });
 }
@@ -7775,6 +8830,92 @@ function renderExecSummaries() {
       T.exCapeWhy(pk1929 && pk1929.r10 !== null ? pctf(pk1929.r10) : null, pk1999 && pk1999.r10 !== null ? pctf(pk1999.r10) : null),
       T.exCapeWatch);
   });
+  // ---- Productivity ----
+  section("exec-productivity", () => {
+    if (!PRODUCTIVITY || !PRODUCTIVITY.quarterly || PRODUCTIVITY.quarterly.length < 100) return;
+    const R = PRODUCTIVITY.quarterly, pq = qPts(R, "prodQ"), py = qPts(R, "prodY");
+    const cur = pq[pq.length - 1], prev = pq[pq.length - 2], y = py[py.length - 1];
+    const L = k => { const p = qPts(R, k); return p[p.length - 1].v; };
+    const est = prEstimate(cur.d);
+    const avg5 = meanOf(py.slice(-20)), avgAll = meanOf(py);
+    const d = calendarNextDate("productivity"), what = T.exRelProd(fmtQuarter(qShift(cur.d, 1)));
+    card("exec-productivity",
+      T.exPrLatest(fmtQuarter(cur.d), est ? T.prEstimateName(est.n) : null, sg1(cur.v), sg1(prev.v), fmtQuarter(prev.d), sg1(y.v)),
+      T.exPrDrivers(sg1(L("outY")), sg1(L("hrsY")), sg1(y.v), sg1(L("compY")), sg1(L("ulcY")), sg1(L("rcompY"))),
+      T.exPrWhy(sg1(avg5), sg1(avgAll), py[0].d.slice(0, 4), avg5 >= avgAll ? "above" : "below", sg1(L("mfgY"))),
+      (d ? T.exNext(what, fmtDateDMY(d)) : T.exNextTbd(what)) + " " + T.exPrWatch(sg1(L("ulcY"))));
+  });
+
+  // ---- Corporate profits and labor share ----
+  section("exec-profits", () => {
+    if (!PROFITS || !PROFITS.quarterly || PROFITS.quarterly.length < 100) return;
+    const R = PROFITS.quarterly, margin = qRatio(R, "profits", "gva"), share = qRatio(R, "comp", "gva"), after = qRatio(R, "aftertax", "gva"), gdpS = qRatio(R, "cpatax", "gdp");
+    const cur = margin[margin.length - 1], prev = margin[margin.length - 2], q = cur.d;
+    const curS = atQ(share, q), prevS = atQ(share, prev.d), curA = atQ(after, q), curG = atQ(gdpS, q);
+    const row = R.find(r => r.d === q);
+    const profY = atQ(qYoY(R, "profits"), q), gvaY = atQ(qYoY(R, "gva"), q), compY = atQ(qYoY(R, "comp"), q);
+    const gq = lastOf(qPts(R, "gdp")); const est = gq ? gdpEstimateInfo(gq.d) : null; const nextN = est ? (est.n < 3 ? est.n + 1 : 1) : null;
+    const d = calendarNextDate("gdp");
+    card("exec-profits",
+      T.exCpLatest(pct1(cur.v), fmtQuarter(q), pct1(prev.v), fmtQuarter(prev.d), pct1(meanOf(margin)), pctHigherThan(margin, cur.v)),
+      T.exCpDrivers(sg1(profY), sg1(gvaY), sg1(compY), pct1(curS), dir(curS - prevS, 0.05), pct1(row.taxes / row.profits * 100)),
+      T.exCpWhy(pct1(curA), pct1(meanOf(after)), pct1(curG), pct1(meanOf(gdpS)), pct1(meanOf(share))),
+      T.exCpWatch(d ? fmtDateDMY(d) : null, nextN === 1 ? "advance" : nextN ? "with" : "unknown"));
+  });
+
+  // ---- Private-sector debt ----
+  section("exec-debt", () => {
+    if (!DEBT || !DEBT.quarterly || DEBT.quarterly.length < 100) return;
+    const R = DEBT.quarterly, q = DEBT.asOf, row = R.find(r => r.d === q), ago = R.find(r => r.d === qShift(q, -4));
+    const pc = (a, b) => (a / b - 1) * 100, gdpPct = v => Math.round(v / row.gdp * 100);
+    const priv = R.filter(r => r.gdp && r.hh !== null && r.bus !== null).map(r => ({ d: r.d, v: (r.hh + r.bus) / r.gdp * 100 }));
+    const privCur = priv[priv.length - 1], privPeak = peakOf(priv);
+    const sectors = [{ name: T.legHouseholds, v: pc(row.hh, ago.hh) }, { name: T.legNfc, v: pc(row.nfc, ago.nfc) }, { name: T.legNnb, v: pc(row.nnb, ago.nnb) }, { name: T.legFin, v: pc(row.fin, ago.fin) }].sort((a, b) => b.v - a.v);
+    let years = null, intShare = null;
+    if (PROFITS && PROFITS.quarterly) { const p = PROFITS.quarterly.find(x => x.d === q) || PROFITS.quarterly.filter(x => x.profits !== null).slice(-1)[0]; if (p && p.profits) { years = (R.find(r => r.d === p.d) || row).nfc / p.profits; intShare = p.netint / p.nos * 100; } }
+    const d = calendarNextDate("z1");
+    card("exec-debt",
+      T.exDbLatest(fmtQuarter(q), fmtTn(row.nfc), sg1(pc(row.nfc, ago.nfc)), gdpPct(row.nfc), fmtTn(row.hh), sg1(pc(row.hh, ago.hh)), gdpPct(row.hh), Math.round(privCur.v)),
+      T.exDbDrivers(sectors[0].name, sg1(sectors[0].v), sectors[sectors.length - 1].name, sg1(sectors[sectors.length - 1].v), fmtTn(row.nnb), Math.round(row.nfcSec / row.nfc * 100)),
+      T.exDbWhy(Math.round(privCur.v), Math.round(privPeak.v), fmtQuarter(privPeak.d), privCur.v >= privPeak.v - 0.5 ? "at" : "below", years === null ? null : years.toFixed(1), intShare === null ? null : pct1(intShare), gdpPct(row.fed)),
+      T.exDbWatch(d ? fmtDateDMY(d) : null, fmtQuarter(qShift(q, 1))));
+  });
+
+  // ---- Household debt ----
+  section("exec-hhdebt", () => {
+    if (!HHDEBT || !HHDEBT.nyfed || !HHDEBT.nyfed.balances || HHDEBT.nyfed.balances.length < 40) return;
+    const B = HHDEBT.nyfed.balances, D = HHDEBT.nyfed.delinq90, cur = B[B.length - 1], ago = B.find(b => b.d === qShift(cur.d, -4)), dq = D[D.length - 1];
+    const tnF = v => "$" + v.toLocaleString(T.dateLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + T.sfxT;
+    const pc = k => (cur[k] / ago[k] - 1) * 100;
+    const names = { mortgage: T.legMortgage, heloc: T.legHeloc, auto: T.legAuto, card: T.legCard, student: T.legStudent, other: T.legOther };
+    const inc = Object.keys(names).map(k => ({ name: names[k], abs: (cur[k] - ago[k]) * 1000, v: pc(k) })).sort((a, b) => b.abs - a.abs);
+    const allPts = D.map(x => ({ d: x.d, v: x.all })), peak = peakOf(allPts), pre = atQ(allPts, "2019-Q4");
+    const Z = HHDEBT.z1 && HHDEBT.z1.quarterly, zl = Z ? Z.filter(z => z.dpi).slice(-1)[0] : null;
+    const dsr = HHDEBT.dsr && HHDEBT.dsr.quarterly && HHDEBT.dsr.quarterly.length ? HHDEBT.dsr.quarterly[HHDEBT.dsr.quarterly.length - 1] : null, dsrPeak = dsr ? peakOf(HHDEBT.dsr.quarterly) : null;
+    const G = HHDEBT.g19 && HHDEBT.g19.monthly, gl = G ? G[G.length - 1] : null, gAgo = gl ? G.find(m => m.d === (+gl.d.slice(0, 4) - 1) + gl.d.slice(4)) : null;
+    const g19d = calendarNextDate("g19");
+    card("exec-hhdebt",
+      T.exHhLatest(tnF(cur.total), fmtQuarter(cur.d), sg1(pc("total")), tnF(cur.mortgage), tnF(cur.card), sg1(pc("card")), tnF(cur.auto), sg1(pc("auto")), tnF(cur.student), sg1(pc("student"))),
+      T.exHhDrivers(inc[0].name, "$" + Math.round(inc[0].abs).toLocaleString(T.dateLocale) + T.sfxB, sg1(inc[0].v), inc[1].name, "$" + Math.round(inc[1].abs).toLocaleString(T.dateLocale) + T.sfxB, sg1(inc[1].v), Math.round(cur.mortgage / cur.total * 100), gl ? fmtTn(gl.total, 2) : null, gl ? fmtMonthYear(gl.d) : null, gAgo ? sg1((gl.total / gAgo.total - 1) * 100) : null),
+      T.exHhWhy(pct2(dq.all), fmtQuarter(dq.d), pre === null ? null : pct2(pre), pct2(peak.v), fmtQuarter(peak.d), dsr ? pct1(dsr.v) : null, dsr ? fmtQuarter(dsr.d) : null, dsrPeak ? pct1(dsrPeak.v) : null, dsrPeak ? fmtQuarter(dsrPeak.d) : null, zl ? Math.round(zl.total / zl.dpi * 100) : null),
+      T.exHhWatch(fmtMonthYear(monthAfterQuarter(qShift(cur.d, 1), 2)), g19d ? fmtDateDMY(g19d) : null));
+  });
+
+  // ---- Bank capitalization ----
+  section("exec-banks", () => {
+    if (!BANKS || !BANKS.quarterly || BANKS.quarterly.length < 40) return;
+    const R = BANKS.quarterly, cur = R[R.length - 1], q = cur.d, ago = R.find(r => r.d === qShift(q, -4));
+    const lev = qRatio(R, "t1", "avgAssets"), nc = qRatio(R, "noncurrent", "loans"), unreal = R.filter(r => r.afsFair !== null && r.htmFair !== null).map(r => ({ d: r.d, v: (r.afsFair - r.afsCost) + (r.htmFair - r.htmCost) }));
+    const levCur = lev[lev.length - 1].v, levAgo = atQ(lev, qShift(q, -4)), ncCur = nc[nc.length - 1].v, ncAgo = atQ(nc, qShift(q, -4)), ncPeak = peakOf(nc);
+    const uc = unreal[unreal.length - 1], uWorst = troughOf(unreal);
+    const pc = (a, b) => (a / b - 1) * 100;
+    const H = BANKS.h8 && BANKS.h8.weekly, hl = H && H.length ? H[H.length - 1] : null;
+    card("exec-banks",
+      T.exBkLatest(fmtQuarter(q), pct2(levCur), dir(levCur - levAgo, 0.005), Math.abs(levCur - levAgo).toFixed(2), pct2(cur.cet1 / cur.rwa * 100), pct2(cur.rbc / cur.rwa * 100), pct2(cur.equity / cur.assets * 100), cur.n.toLocaleString(T.dateLocale)),
+      T.exBkDrivers(sg1(pc(cur.equity, ago.equity)), sg1(pc(cur.assets, ago.assets)), fmtBn(uc.v), uc.v < 0 ? "loss" : "gain", Math.round(Math.abs(uc.v) / cur.equity * 100), fmtBn(uWorst.v), fmtQuarter(uWorst.d)),
+      T.exBkWhy(pct2(ncCur), pct2(ncAgo), pct2(ncPeak.v), fmtQuarter(ncPeak.d), Math.round(cur.allowance / cur.noncurrent * 100), Math.round(cur.depUnins / cur.depDom * 100)),
+      T.exBkWatch(fmtMonthYear(monthAfterQuarter(qShift(q, 1), 2)), hl ? fmtDateDMY(hl.d) : null));
+  });
 }
 
 // ================================================================
@@ -7944,6 +9085,478 @@ function renderSpr() {
 // data (episodes above the 95th percentile of the whole history), and what
 // followed each one comes from Shiller's own ten-year real-return column.
 // ================================================================
+// ================================================================
+// Quarterly sections: productivity (BLS), corporate profits and the labor share (BEA
+// via FRED), private-sector debt (Z.1 via FRED), household debt (New York Fed, Z.1,
+// G.19) and bank capital (FDIC, H.8). Shared helpers first: quarter arithmetic,
+// ratio and growth series, KPI tiles.
+// ================================================================
+function qIdx(q) { return +q.slice(0, 4) * 4 + (+q.slice(6, 7) - 1); }
+function qShift(q, k) { const t = qIdx(q) + k; return Math.floor(t / 4) + "-Q" + ((t % 4) + 1); }
+function qPts(rows, key, from) { return rows.filter(r => r[key] !== null && r[key] !== undefined && (!from || r.d >= from)).map(r => ({ d: r.d, v: r[key] })); }
+// Percent change on the same quarter a year earlier, from a level column.
+function qYoY(rows, key) { const by = {}; rows.forEach(r => { by[r.d] = r[key]; }); return rows.map(r => { const a = by[qShift(r.d, -4)]; return a && r[key] !== null && r[key] !== undefined ? { d: r.d, v: (r[key] / a - 1) * 100 } : null; }).filter(Boolean); }
+function qRatio(rows, num, den, scale) { return rows.filter(r => r[num] !== null && r[num] !== undefined && r[den]).map(r => ({ d: r.d, v: r[num] / r[den] * (scale === undefined ? 100 : scale) })); }
+function lastOf(a) { return a.length ? a[a.length - 1] : null; }
+function atQ(pts, q) { const p = pts.find(x => x.d === q); return p ? p.v : null; }
+function peakOf(pts) { return pts.reduce((m, p) => p.v > m.v ? p : m); }
+function troughOf(pts) { return pts.reduce((m, p) => p.v < m.v ? p : m); }
+function meanOf(pts) { return pts.reduce((a, p) => a + p.v, 0) / pts.length; }
+function pctHigherThan(pts, v) { return Math.round(pts.filter(p => p.v > v).length / pts.length * 100); }
+function qSeries(labels, pts) { const by = {}; pts.forEach(p => { by[p.d] = p.v; }); return labels.map(l => by[l] === undefined ? null : by[l]); }
+const qTick = d => d.slice(0, 4);
+// A tile's change line: arrow, magnitude, unit and the comparison ("▲ 0.3 pp vs. prior quarter").
+function kpiChange(v, d, unit, vs) { return deltaArrow(v, d) + " " + Math.abs(v).toFixed(d) + unit + " " + vs; }
+function kpiTiles(rowId, prefix, tiles) {
+  const row = document.getElementById(rowId); if (!row) return;
+  tiles.forEach((t2, i) => {
+    const tile = document.createElement("div"); tile.className = "kpi-tile";
+    const id = prefix + "spark-" + i;
+    const spark = t2.spark ? t2.spark.filter(v => v !== null && v !== undefined) : [];
+    tile.innerHTML = '<div class="kpi-label">' + t2.label + '</div>' +
+      '<div class="kpi-value-row"><div class="kpi-value">' + t2.value + '</div>' + (t2.delta ? '<div class="kpi-delta">' + t2.delta + '</div>' : '') + '</div>' +
+      (spark.length > 1 ? '<svg class="kpi-spark" id="' + id + '" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>' : '<div style="height:40px"></div>') +
+      '<div class="kpi-foot">' + t2.foot + '</div>';
+    row.appendChild(tile);
+    if (spark.length > 1) drawSparkline(document.getElementById(id), spark, t2.color);
+  });
+}
+// Dollar amounts: $ billions -> "$21.4T" / "$21.4 billones"; plain numbers for axes.
+function fmtTn(bn, dec) { return "$" + (bn / 1000).toLocaleString(T.dateLocale, { minimumFractionDigits: dec === undefined ? 1 : dec, maximumFractionDigits: dec === undefined ? 1 : dec }) + T.sfxT; }
+function fmtBn(bn) { return "$" + Math.round(Math.abs(bn)).toLocaleString(T.dateLocale) + T.sfxB; }
+function fmtTnTile(bn, dec) { return "$" + (bn / 1000).toLocaleString(T.dateLocale, { minimumFractionDigits: dec === undefined ? 1 : dec, maximumFractionDigits: dec === undefined ? 1 : dec }) + unitHtml(T.sfxT); }
+const pct1 = v => v.toFixed(1) + "%";
+const pct2 = v => v.toFixed(2) + "%";
+const sg1 = v => sgnFix(v, 1) + "%";
+// The month a quarter's data are usually published, k months after the quarter's end.
+function monthAfterQuarter(q, k) { const y = +q.slice(0, 4), n = +q.slice(6, 7); const t = y * 12 + n * 3 - 1 + k; return Math.floor(t / 12) + "-" + String((t % 12) + 1).padStart(2, "0"); }
+
+// ---------- view: productivity ----------
+// Which estimate of a quarter the page shows: BLS publishes a preliminary figure about five
+// weeks after the quarter and revises it a month later; the release dates after the quarter's
+// end (FRED's calendar of the Productivity and Costs release) say which one is on file.
+function prEstimate(q) {
+  const c = CALENDAR && CALENDAR.releases && CALENDAR.releases.productivity; if (!c || !c.recent || !c.recent.length) return null;
+  const m = /^(\d{4})-Q([1-4])$/.exec(q); if (!m) return null;
+  const qEnd = new Date(+m[1], +m[2] * 3, 0);
+  const after = c.recent.map(s => new Date(s + "T00:00:00")).filter(d => d > qEnd).sort((a, b) => b - a);
+  return after.length ? { n: after.length, date: after[0] } : null;
+}
+function renderProductivity() {
+  if (!PRODUCTIVITY || !PRODUCTIVITY.quarterly || PRODUCTIVITY.quarterly.length < 100) return;
+  const R = PRODUCTIVITY.quarterly;
+  const prodQ = qPts(R, "prodQ"), prodY = qPts(R, "prodY"), idx = qPts(R, "prodIdx");
+  const cur = lastOf(prodQ), prev = prodQ[prodQ.length - 2], curY = lastOf(prodY), prevY = prodY[prodY.length - 2];
+  const q = cur.d, nextQ = qShift(q, 1);
+  const ulcY = lastOf(qPts(R, "ulcY")), compY = lastOf(qPts(R, "compY")), rcompY = lastOf(qPts(R, "rcompY")), mfgY = lastOf(qPts(R, "mfgY"));
+  const outY = lastOf(qPts(R, "outY")), hrsY = lastOf(qPts(R, "hrsY")), ulcQ = lastOf(qPts(R, "ulcQ"));
+
+  // ---- header ----
+  document.getElementById("prAsOfLine").textContent = T.dataAsOf(fmtQuarter(q));
+  const est = prEstimate(q);
+  document.getElementById("prVintageLine").textContent = est ? T.prVintage(est.n, fmtDateDMY(est.date)) : T.prVintageUnknown;
+  (function () { const d = calendarNextDate("productivity"), what = T.exRelProd(fmtQuarter(nextQ));
+    document.getElementById("prNextReleaseLine").textContent = d ? T.prNext(fmtDateDMY(d), what) : T.prNextEst(fmtMonthYear(monthAfterQuarter(nextQ, 2)), what); })();
+  document.getElementById("prRefreshedLine").textContent = freshnessLabel("snapshot", PRODUCTIVITY.fetchedAt, "BLS");
+
+  // ---- KPIs ----
+  kpiTiles("prKpiRow", "pr", [
+    { label: T.prKpiQ, value: sg1(cur.v), delta: kpiChange(cur.v - prev.v, 1, " pp", T.vsPrevQ), spark: prodQ.slice(-16).map(p => p.v), color: "--series-headline", foot: fmtQuarter(q) },
+    { label: T.prKpiY, value: sg1(curY.v), delta: kpiChange(curY.v - prevY.v, 1, " pp", T.vsPrevQ), spark: prodY.slice(-40).map(p => p.v), color: "--series-headline", foot: fmtQuarter(curY.d) },
+    { label: T.prKpiUlc, value: sg1(ulcY.v), spark: qPts(R, "ulcY").slice(-40).map(p => p.v), color: "--series-core", foot: fmtQuarter(ulcY.d) },
+    { label: T.prKpiComp, value: sg1(compY.v), spark: qPts(R, "compY").slice(-40).map(p => p.v), color: "--series-goods", foot: fmtQuarter(compY.d) },
+    { label: T.prKpiRcomp, value: sg1(rcompY.v), spark: qPts(R, "rcompY").slice(-40).map(p => p.v), color: "--series-services", foot: fmtQuarter(rcompY.d) },
+    { label: T.prKpiMfg, value: sg1(mfgY.v), spark: qPts(R, "mfgY").slice(-40).map(p => p.v), color: "--cat-9", foot: fmtQuarter(mfgY.d) }
+  ]);
+
+  // ---- quarterly bars ----
+  const last16 = prodQ.slice(-16);
+  drawMomColumns(document.getElementById("prGrowthChart"), last16.map(p => ({ d: p.d, mom: p.v })), "--series-headline", { fmt: v => sg1(v), decimals: 1, labelFmt: d => fmtQuarter(d) });
+  const avg4 = meanOf(prodQ.slice(-4)), avg8 = meanOf(prodQ.slice(-8));
+  document.getElementById("prGrowthCallout").innerHTML = "<div>" + T.prGrowthNote(sg1(cur.v), fmtQuarter(q), sg1(avg4), sg1(avg8)) + "</div>";
+
+  // ---- long view: y/y and its five-year moving average ----
+  const ma = prodY.map((p, i) => i >= 19 ? { d: p.d, v: meanOf(prodY.slice(i - 19, i + 1)) } : null).filter(Boolean);
+  const labels = prodY.map(p => p.d);
+  plotSeries("prLongChart", "prLongTooltip", "prLongLegend", labels, [
+    { name: T.legProdYoy, color: "--series-headline", data: prodY.map(p => p.v) },
+    { name: T.legProd5y, color: "--series-core", data: qSeries(labels, ma), width: 2.5 }
+  ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const hiY = peakOf(prodY), loY = troughOf(prodY);
+  document.getElementById("prLongCallout").innerHTML = "<div>" + T.prLongNote(sg1(curY.v), fmtQuarter(curY.d), pct1(meanOf(prodY)), prodY[0].d.slice(0, 4), sg1(lastOf(ma).v), sg1(hiY.v), fmtQuarter(hiY.d), sg1(loY.v), fmtQuarter(loY.d)) + "</div>";
+
+  // ---- eras: compound annual growth of the index between fourth quarters ----
+  const bounds = ["1948-Q4", "1973-Q4", "1995-Q4", "2005-Q4", "2019-Q4"].filter(b => atQ(idx, b) !== null);
+  const endQ = lastOf(idx).d;
+  const eras = [];
+  for (let i = 0; i < bounds.length; i++) {
+    const a = bounds[i], b = i + 1 < bounds.length ? bounds[i + 1] : endQ;
+    const n = qIdx(b) - qIdx(a); if (n < 4) continue;
+    eras.push({ a: a, b: b, v: (Math.pow(atQ(idx, b) / atQ(idx, a), 4 / n) - 1) * 100, open: i + 1 >= bounds.length });
+  }
+  renderBarList("prEraList", eras.map((e, i) => ({ name: T.prEraLabel(e.a.slice(0, 4), e.open ? fmtQuarter(e.b) : e.b.slice(0, 4)), value: e.v, color: "--cat-" + (i + 1) })), v => sg1(v));
+  const best = eras.reduce((m, e) => e.v > m.v ? e : m), worst = eras.reduce((m, e) => e.v < m.v ? e : m), latestEra = lastOf(eras);
+  document.getElementById("prEraCallout").innerHTML = "<div>" + T.prEraNote(T.prEraLabel(best.a.slice(0, 4), best.b.slice(0, 4)), sg1(best.v), T.prEraLabel(worst.a.slice(0, 4), worst.b.slice(0, 4)), sg1(worst.v), latestEra.a.slice(0, 4), sg1(latestEra.v), fmtQuarter(endQ)) + "</div>";
+
+  // ---- productivity, compensation, unit labor costs (y/y since 2000) ----
+  const since = "2000-Q1";
+  const cy = qPts(R, "compY", since), uy = qPts(R, "ulcY", since), py = qPts(R, "prodY", since);
+  const lab2 = py.map(p => p.d);
+  plotSeries("prCostChart", "prCostTooltip", "prCostLegend", lab2, [
+    { name: T.legProdYoy, color: "--series-headline", data: qSeries(lab2, py) },
+    { name: T.legHourlyComp, color: "--series-goods", data: qSeries(lab2, cy) },
+    { name: T.legUlc, color: "--series-core", data: qSeries(lab2, uy) }
+  ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  document.getElementById("prCostCallout").innerHTML = "<div>" + T.prCostNote(sg1(compY.v), sg1(curY.v), sg1(ulcY.v), fmtQuarter(q)) + "</div><div>" + T.prCostMethod + "</div>";
+
+  // ---- output and hours ----
+  const oy = qPts(R, "outY", since), hy = qPts(R, "hrsY", since);
+  plotSeries("prOutChart", "prOutTooltip", "prOutLegend", lab2, [
+    { name: T.legOutput, color: "--series-headline", data: qSeries(lab2, oy) },
+    { name: T.legHours, color: "--cat-7", data: qSeries(lab2, hy) }
+  ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  document.getElementById("prOutCallout").innerHTML = "<div>" + T.prOutNote(sg1(outY.v), sg1(hrsY.v), sg1(curY.v), fmtQuarter(q)) + "</div>";
+
+  // ---- labor share index ----
+  const lsh = qPts(R, "lshIdx");
+  plotSeries("prShareChart", "prShareTooltip", null, lsh.map(p => p.d), [{ name: T.legLaborShare, color: "--series-services", data: lsh.map(p => p.v) }],
+    { fmt: v => v.toFixed(1), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+  const lshCur = lastOf(lsh), lshPeak = peakOf(lsh), lshLow = troughOf(lsh);
+  document.getElementById("prShareCallout").innerHTML = "<div>" + T.prShareNote(lshCur.v.toFixed(1), fmtQuarter(lshCur.d), meanOf(lsh).toFixed(1), lshPeak.v.toFixed(1), fmtQuarter(lshPeak.d), lshLow.v.toFixed(1), fmtQuarter(lshLow.d)) + "</div>";
+}
+
+// ---------- view: corporate profits and labor share ----------
+function renderProfits() {
+  if (!PROFITS || !PROFITS.quarterly || PROFITS.quarterly.length < 100) return;
+  const R = PROFITS.quarterly;
+  const margin = qRatio(R, "profits", "gva"), after = qRatio(R, "aftertax", "gva"), share = qRatio(R, "comp", "gva");
+  const taxShare = qRatio(R, "taxes", "profits"), gdpShare = qRatio(R, "cpatax", "gdp");
+  const profY = qYoY(R, "profits"), gvaY = qYoY(R, "gva"), compY = qYoY(R, "comp");
+  const cur = lastOf(margin), prev = margin[margin.length - 2], q = cur.d;
+  const curA = atQ(after, q), curS = atQ(share, q), prevS = atQ(share, prev.d);
+
+  // ---- header: profits come with BEA's second and third GDP estimates ----
+  document.getElementById("cpAsOfLine").textContent = T.dataAsOf(fmtQuarter(q));
+  (function () {
+    const gq = lastOf(qPts(R, "gdp")); const est = gq ? gdpEstimateInfo(gq.d) : null;
+    const nextN = est ? (est.n < 3 ? est.n + 1 : 1) : null;
+    const d = calendarNextDate("gdp");
+    document.getElementById("cpNextReleaseLine").textContent = d ? T.cpNext(fmtDateDMY(d), nextN === 1 ? "advance" : nextN ? "with" : "unknown", fmtQuarter(nextN === 1 ? qShift(gq.d, 1) : gq.d)) : T.cpNextTbd;
+  })();
+  document.getElementById("cpRefreshedLine").textContent = freshnessLabel("snapshot", PROFITS.fetchedAt, "FRED");
+
+  // ---- KPIs ----
+  const curPy = atQ(profY, q), curG = atQ(gdpShare, q), prevG = atQ(gdpShare, prev.d), curTax = atQ(taxShare, q);
+  kpiTiles("cpKpiRow", "cp", [
+    { label: T.cpKpiMargin, value: pct1(cur.v), delta: kpiChange(cur.v - prev.v, 1, " pp", T.vsPrevQ), spark: margin.slice(-40).map(p => p.v), color: "--series-headline", foot: fmtQuarter(q) },
+    { label: T.cpKpiAfterTax, value: pct1(curA), delta: kpiChange(curA - atQ(after, prev.d), 1, " pp", T.vsPrevQ), spark: after.slice(-40).map(p => p.v), color: "--cat-3", foot: fmtQuarter(q) },
+    { label: T.cpKpiShare, value: pct1(curS), delta: kpiChange(curS - prevS, 1, " pp", T.vsPrevQ), spark: share.slice(-40).map(p => p.v), color: "--series-services", foot: fmtQuarter(q) },
+    { label: T.cpKpiGrowth, value: sg1(curPy), spark: profY.slice(-16).map(p => p.v), color: "--series-core", foot: fmtQuarter(q) },
+    { label: T.cpKpiGdp, value: pct1(curG), delta: kpiChange(curG - prevG, 1, " pp", T.vsPrevQ), spark: gdpShare.slice(-40).map(p => p.v), color: "--cat-7", foot: fmtQuarter(q) },
+    { label: T.cpKpiTax, value: pct1(curTax), spark: taxShare.slice(-40).map(p => p.v), color: "--cat-4", foot: fmtQuarter(q) }
+  ]);
+
+  // ---- margin vs labor share since 1947 ----
+  const labels = margin.map(p => p.d), avgM = meanOf(margin), avgS = meanOf(share);
+  plotSeries("cpMarginChart", "cpMarginTooltip", "cpMarginLegend", labels, [
+    { name: T.legMargin, color: "--series-headline", data: margin.map(p => p.v) },
+    { name: T.legMarginAfterTax, color: "--cat-3", data: qSeries(labels, after) },
+    { name: T.legAvgSince(labels[0].slice(0, 4), pct1(avgM)), color: "--text-muted", data: labels.map(() => avgM), dashed: true }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+  plotSeries("cpShareChart", "cpShareTooltip", "cpShareLegend", labels, [
+    { name: T.legLaborShareNipa, color: "--series-services", data: qSeries(labels, share) },
+    { name: T.legAvgSince(labels[0].slice(0, 4), pct1(avgS)), color: "--text-muted", data: labels.map(() => avgS), dashed: true }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+  const hiM = peakOf(margin), loS = troughOf(share);
+  document.getElementById("cpMarginCallout").innerHTML = "<div>" + T.cpMarginNote(pct1(cur.v), fmtQuarter(q), pct1(avgM), pctHigherThan(margin, cur.v), pct1(hiM.v), fmtQuarter(hiM.d), pct1(curS), pct1(avgS), pct1(loS.v), fmtQuarter(loS.d)) + "</div>";
+
+  // ---- where value added goes (latest quarter) ----
+  const row = R.find(r => r.d === q), ago = R.find(r => r.d === qShift(q, -80)) || R.find(r => r.d === qShift(q, -40));
+  document.getElementById("cpSplitAsOf").textContent = fmtQuarter(q);
+  const parts = [
+    { key: "comp", name: T.cpSplitComp, color: "--series-services" }, { key: "cfc", name: T.cpSplitCfc, color: "--cat-10" },
+    { key: "taxprod", name: T.cpSplitTaxProd, color: "--cat-4" }, { key: "netint", name: T.cpSplitInterest, color: "--cat-9" },
+    { key: "transfers", name: T.cpSplitTransfers, color: "--cat-5" }, { key: "taxes", name: T.cpSplitTaxes, color: "--series-core" },
+    { key: "aftertax", name: T.cpSplitAfterTax, color: "--series-headline" }
+  ].filter(p => row[p.key] !== null && row[p.key] !== undefined);
+  renderBarList("cpSplitList", parts.map(p => ({ name: p.name, value: row[p.key] / row.gva * 100, color: p.color })), v => pct1(v));
+  if (ago) document.getElementById("cpSplitCallout").innerHTML = "<div>" + T.cpSplitNote(fmtQuarter(q), pct1(row.comp / row.gva * 100), pct1(ago.comp / ago.gva * 100), fmtQuarter(ago.d), pct1(row.profits / row.gva * 100), pct1(ago.profits / ago.gva * 100), pct1(row.netint / row.gva * 100), pct1(ago.netint / ago.gva * 100)) + "</div>";
+
+  // ---- profits after tax, % of GDP, all corporations ----
+  const gl = gdpShare.map(p => p.d), avgG = meanOf(gdpShare), hiG = peakOf(gdpShare), curGp = lastOf(gdpShare);
+  plotSeries("cpGdpChart", "cpGdpTooltip", "cpGdpLegend", gl, [
+    { name: T.legProfitsGdp, color: "--cat-7", data: gdpShare.map(p => p.v) },
+    { name: T.legAvgSince(gl[0].slice(0, 4), pct1(avgG)), color: "--text-muted", data: gl.map(() => avgG), dashed: true }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+  document.getElementById("cpGdpCallout").innerHTML = "<div>" + T.cpGdpNote(pct1(curGp.v), fmtQuarter(curGp.d), pct1(avgG), pct1(hiG.v), fmtQuarter(hiG.d), pctHigherThan(gdpShare, curGp.v)) + "</div>";
+
+  // ---- profits growth ----
+  drawMomColumns(document.getElementById("cpGrowthChart"), profY.slice(-24).map(p => ({ d: p.d, mom: p.v })), "--series-core", { fmt: v => sg1(v), decimals: 0, labelFmt: d => fmtQuarter(d) });
+  document.getElementById("cpGrowthCallout").innerHTML = "<div>" + T.cpGrowthNote(sg1(curPy), fmtQuarter(q), sg1(atQ(gvaY, q)), sg1(atQ(compY, q))) + "</div>";
+}
+
+// ---------- view: private-sector debt (Z.1) ----------
+function renderDebt() {
+  if (!DEBT || !DEBT.quarterly || DEBT.quarterly.length < 100) return;
+  const R = DEBT.quarterly, q = DEBT.asOf, nextQ = qShift(q, 1);
+  const row = R.find(r => r.d === q), ago = R.find(r => r.d === qShift(q, -4));
+  const withGdp = R.filter(r => r.gdp);
+  const ratio = key => qRatio(withGdp, key, "gdp");
+  const priv = withGdp.filter(r => r.hh !== null && r.bus !== null).map(r => ({ d: r.d, v: (r.hh + r.bus) / r.gdp * 100 }));
+
+  // ---- header ----
+  document.getElementById("dbAsOfLine").textContent = T.dataAsOf(fmtQuarter(q));
+  (function () { const d = calendarNextDate("z1"), what = fmtQuarter(nextQ);
+    document.getElementById("dbNextReleaseLine").textContent = d ? T.dbNext(fmtDateDMY(d), what) : T.dbNextEst(fmtMonthYear(monthAfterQuarter(nextQ, 3)), what); })();
+  document.getElementById("dbRefreshedLine").textContent = freshnessLabel("snapshot", DEBT.fetchedAt, "FRED");
+
+  // ---- KPIs: level, change on a year earlier, share of GDP ----
+  const yo = (k) => ago && ago[k] ? (row[k] / ago[k] - 1) * 100 : null;
+  const gdpPct = k => row.gdp ? row[k] / row.gdp * 100 : null;
+  const tile = (label, k, color) => ({ label: label, value: fmtTnTile(row[k]), delta: yo(k) === null ? "" : kpiChange(yo(k), 1, "%", T.vsYearAgo), spark: R.slice(-40).map(r => r[k]), color: color, foot: gdpPct(k) === null ? fmtQuarter(q) : T.dbKpiGdpFoot(Math.round(gdpPct(k)), fmtQuarter(q)) });
+  const privCur = lastOf(priv), privAgo = atQ(priv, qShift(privCur.d, -4));
+  const dnfPct = ratio("dnf"), dnfCur = lastOf(dnfPct), dnfAgo = atQ(dnfPct, qShift(dnfCur.d, -4));
+  kpiTiles("dbKpiRow", "db", [
+    tile(T.dbKpiNfc, "nfc", "--series-core"),
+    tile(T.dbKpiNnb, "nnb", "--cat-3"),
+    tile(T.dbKpiHh, "hh", "--cat-1"),
+    { label: T.dbKpiPrivate, value: Math.round(privCur.v) + "%", delta: privAgo === null ? "" : kpiChange(privCur.v - privAgo, 1, " pp", T.vsYearAgo), spark: priv.slice(-40).map(p => p.v), color: "--cat-7", foot: T.dbKpiOfGdp(fmtQuarter(privCur.d)) },
+    tile(T.dbKpiFin, "fin", "--cat-5"),
+    { label: T.dbKpiTotal, value: Math.round(dnfCur.v) + "%", delta: dnfAgo === null ? "" : kpiChange(dnfCur.v - dnfAgo, 1, " pp", T.vsYearAgo), spark: dnfPct.slice(-40).map(p => p.v), color: "--cat-10", foot: T.dbKpiTotalFoot(fmtQuarter(dnfCur.d)) }
+  ]);
+
+  // ---- debt as a share of GDP since 1952 ----
+  const hhP = ratio("hh"), nfcP = ratio("nfc"), nnbP = ratio("nnb"), finP = ratio("fin"), fedP = ratio("fed");
+  const labels = hhP.map(p => p.d);
+  plotSeries("dbGdpChart", "dbGdpTooltip", "dbGdpLegend", labels, [
+    { name: T.legHouseholds, color: "--cat-1", data: hhP.map(p => p.v) },
+    { name: T.legNfc, color: "--series-core", data: qSeries(labels, nfcP) },
+    { name: T.legNnb, color: "--cat-3", data: qSeries(labels, nnbP) },
+    { name: T.legFin, color: "--cat-5", data: qSeries(labels, finP) },
+    { name: T.legFederal, color: "--text-muted", data: qSeries(labels, fedP), dashed: true }
+  ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const privPeak = peakOf(priv), nfcPeak = peakOf(nfcP), hhPeak = peakOf(hhP);
+  document.getElementById("dbGdpCallout").innerHTML = "<div>" + T.dbGdpNote(fmtQuarter(privCur.d), Math.round(privCur.v), Math.round(privPeak.v), fmtQuarter(privPeak.d), pct1(lastOf(nfcP).v), pct1(nfcPeak.v), fmtQuarter(nfcPeak.d), pct1(lastOf(hhP).v), pct1(hhPeak.v), fmtQuarter(hhPeak.d), Math.round(lastOf(fedP).v)) + "</div><div>" + T.dbGdpMethod + "</div>";
+
+  // ---- levels and growth since 1990 ----
+  const since = "1990-Q1", R90 = R.filter(r => r.d >= since);
+  const lab2 = R90.map(r => r.d), tn = k => R90.map(r => r[k] === null ? null : r[k] / 1000);
+  plotSeries("dbLevelChart", "dbLevelTooltip", "dbLevelLegend", lab2, [
+    { name: T.legHouseholds, color: "--cat-1", data: tn("hh") },
+    { name: T.legNfc, color: "--series-core", data: tn("nfc") },
+    { name: T.legNnb, color: "--cat-3", data: tn("nnb") },
+    { name: T.legFin, color: "--cat-5", data: tn("fin") }
+  ], { fmt: v => fmtTn(v * 1000), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick });
+  const g = k => qYoY(R, k).filter(p => p.d >= since);
+  const gHh = g("hh"), gNfc = g("nfc"), gNnb = g("nnb"), gFin = g("fin");
+  plotSeries("dbGrowthChart", "dbGrowthTooltip", "dbGrowthLegend", lab2, [
+    { name: T.legHouseholds, color: "--cat-1", data: qSeries(lab2, gHh) },
+    { name: T.legNfc, color: "--series-core", data: qSeries(lab2, gNfc) },
+    { name: T.legNnb, color: "--cat-3", data: qSeries(lab2, gNnb) },
+    { name: T.legFin, color: "--cat-5", data: qSeries(lab2, gFin) }
+  ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const growth = [{ name: T.legHouseholds, v: lastOf(gHh).v }, { name: T.legNfc, v: lastOf(gNfc).v }, { name: T.legNnb, v: lastOf(gNnb).v }, { name: T.legFin, v: lastOf(gFin).v }].sort((a, b) => b.v - a.v);
+  document.getElementById("dbLevelCallout").innerHTML = "<div>" + T.dbLevelNote(fmtQuarter(q), sg1(lastOf(gNfc).v), sg1(lastOf(gHh).v), sg1(lastOf(gNnb).v), sg1(lastOf(gFin).v), growth[0].name, sg1(growth[0].v), growth[growth.length - 1].name, sg1(growth[growth.length - 1].v)) + "</div>";
+
+  // ---- nonfinancial corporate debt: securities vs loans ----
+  const mixRow = row.nfcSec !== null ? row : lastOf(R.filter(r => r.nfcSec !== null));
+  const mixAgo = R.find(r => r.d === qShift(mixRow.d, -80));
+  document.getElementById("dbMixAsOf").textContent = fmtQuarter(mixRow.d);
+  renderBarList("dbMixList", [
+    { name: T.legBonds, value: mixRow.nfcSec / 1000, color: "--series-core" },
+    { name: T.legLoans, value: (mixRow.nfc - mixRow.nfcSec) / 1000, color: "--cat-9" }
+  ], v => fmtTn(v * 1000, 2));
+  const bondShare = mixRow.nfcSec / mixRow.nfc * 100;
+  document.getElementById("dbMixCallout").innerHTML = "<div>" + T.dbMixNote(fmtQuarter(mixRow.d), Math.round(bondShare), mixAgo && mixAgo.nfcSec !== null ? Math.round(mixAgo.nfcSec / mixAgo.nfc * 100) : null, mixAgo ? fmtQuarter(mixAgo.d) : null) + "</div>";
+
+  // ---- debt against profits and interest (NIPA 1.14) ----
+  if (PROFITS && PROFITS.quarterly) {
+    const P = {}; PROFITS.quarterly.forEach(p => { P[p.d] = p; });
+    const years = R.filter(r => r.nfc !== null && P[r.d] && P[r.d].profits).map(r => ({ d: r.d, v: r.nfc / P[r.d].profits }));
+    const intShare = PROFITS.quarterly.filter(p => p.netint !== null && p.nos).map(p => ({ d: p.d, v: p.netint / p.nos * 100 }));
+    plotSeries("dbYearsChart", "dbYearsTooltip", null, years.map(p => p.d), [{ name: T.dbYearsTitle, color: "--series-core", data: years.map(p => p.v) }],
+      { fmt: v => v.toFixed(1) + " " + T.yearsWord, axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick, zeroBase: false });
+    plotSeries("dbInterestChart", "dbInterestTooltip", null, intShare.map(p => p.d), [{ name: T.dbInterestTitle, color: "--cat-9", data: intShare.map(p => p.v) }],
+      { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+    const yc = lastOf(years), ic = lastOf(intShare), ip = peakOf(intShare);
+    document.getElementById("dbProfitsCallout").innerHTML = "<div>" + T.dbProfitsNote(fmtQuarter(yc.d), yc.v.toFixed(1), meanOf(years).toFixed(1), years[0].d.slice(0, 4), pct1(ic.v), fmtQuarter(ic.d), pct1(ip.v), fmtQuarter(ip.d)) + "</div>";
+  }
+}
+
+// ---------- view: household (consumer) debt ----------
+function renderHhDebt() {
+  if (!HHDEBT || !HHDEBT.nyfed || !HHDEBT.nyfed.balances || HHDEBT.nyfed.balances.length < 40) return;
+  const N = HHDEBT.nyfed, B = N.balances, D = N.delinq90, cur = lastOf(B), ago = B.find(b => b.d === qShift(cur.d, -4)), q = cur.d, nextQ = qShift(q, 1);
+  const types = [
+    { key: "mortgage", name: T.legMortgage, color: "--cat-1" }, { key: "heloc", name: T.legHeloc, color: "--cat-10" },
+    { key: "auto", name: T.legAuto, color: "--cat-3" }, { key: "card", name: T.legCard, color: "--series-core" },
+    { key: "student", name: T.legStudent, color: "--cat-7" }, { key: "other", name: T.legOther, color: "--cat-5" }
+  ];
+  const yo = (k) => ago ? (cur[k] / ago[k] - 1) * 100 : null;
+  const tnF = v => "$" + v.toLocaleString(T.dateLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + T.sfxT;   // the NY Fed file is in $ trillions
+  const tnTile = v => "$" + v.toLocaleString(T.dateLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + unitHtml(T.sfxT);
+  const dq = lastOf(D), dqAgo = D.find(x => x.d === qShift(q, -4));
+  const G = HHDEBT.g19 && HHDEBT.g19.monthly, gl = G ? lastOf(G) : null;
+
+  // ---- header ----
+  document.getElementById("hhAsOfLine").textContent = T.hhAsOf(fmtQuarter(q));
+  document.getElementById("hhNextReleaseLine").textContent = T.hhNext(fmtQuarter(nextQ), fmtMonthYear(monthAfterQuarter(nextQ, 2)));
+  if (gl) { const d = calendarNextDate("g19"); document.getElementById("hhG19Line").textContent = T.hhG19Line(fmtMonthYear(gl.d), d ? fmtDateDMY(d) : null, fmtMonthYear(nextMonthOf(gl.d))); }
+  document.getElementById("hhRefreshedLine").textContent = freshnessLabel("snapshot", HHDEBT.fetchedAt, "NY Fed");
+
+  // ---- KPIs ----
+  const spark = k => B.slice(-40).map(b => b[k]);
+  kpiTiles("hhKpiRow", "hh", [
+    { label: T.hhKpiTotal, value: tnTile(cur.total), delta: ago ? kpiChange(yo("total"), 1, "%", T.vsYearAgo) : "", spark: spark("total"), color: "--series-headline", foot: fmtQuarter(q) },
+    { label: T.hhKpiMortgage, value: tnTile(cur.mortgage), delta: ago ? kpiChange(yo("mortgage"), 1, "%", T.vsYearAgo) : "", spark: spark("mortgage"), color: "--cat-1", foot: fmtQuarter(q) },
+    { label: T.hhKpiCard, value: tnTile(cur.card), delta: ago ? kpiChange(yo("card"), 1, "%", T.vsYearAgo) : "", spark: spark("card"), color: "--series-core", foot: fmtQuarter(q) },
+    { label: T.hhKpiAuto, value: tnTile(cur.auto), delta: ago ? kpiChange(yo("auto"), 1, "%", T.vsYearAgo) : "", spark: spark("auto"), color: "--cat-3", foot: fmtQuarter(q) },
+    { label: T.hhKpiStudent, value: tnTile(cur.student), delta: ago ? kpiChange(yo("student"), 1, "%", T.vsYearAgo) : "", spark: spark("student"), color: "--cat-7", foot: fmtQuarter(q) },
+    { label: T.hhKpiDelq, value: pct2(dq.all), delta: dqAgo ? kpiChange(dq.all - dqAgo.all, 2, " pp", T.vsYearAgo) : "", spark: D.slice(-40).map(x => x.all), color: "--cat-8", foot: fmtQuarter(dq.d) }
+  ]);
+
+  // ---- balances by type since 2003 ----
+  const labels = B.map(b => b.d);
+  plotSeries("hhTotalChart", "hhTotalTooltip", "hhTotalLegend", labels, [
+    { name: T.legHhTotal, color: "--series-headline", data: B.map(b => b.total) },
+    { name: T.legMortgage, color: "--cat-1", data: B.map(b => b.mortgage) }
+  ], { fmt: v => tnF(v), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick });
+  plotSeries("hhTypesChart", "hhTypesTooltip", "hhTypesLegend", labels, types.filter(t2 => t2.key !== "mortgage").map(t2 => ({ name: t2.name, color: t2.color, data: B.map(b => b[t2.key]) })),
+    { fmt: v => tnF(v), axisFmt: v => v.toFixed(1), labelFmt: fmtQuarter, tickFmt: qTick });
+  const growth = types.map(t2 => ({ name: t2.name, v: yo(t2.key), abs: ago ? cur[t2.key] - ago[t2.key] : null })).filter(x => x.v !== null).sort((a, b) => b.abs - a.abs);
+  document.getElementById("hhTypesCallout").innerHTML = "<div>" + T.hhTypesNote(fmtQuarter(q), tnF(cur.total), sg1(yo("total")), growth[0].name, "$" + Math.round(growth[0].abs * 1000).toLocaleString(T.dateLocale) + T.sfxB, sg1(growth[0].v), growth[1].name, "$" + Math.round(growth[1].abs * 1000).toLocaleString(T.dateLocale) + T.sfxB, sg1(growth[1].v), Math.round(cur.mortgage / cur.total * 100)) + "</div>";
+
+  // ---- 90+ day delinquency by type ----
+  const dl = D.map(x => x.d);
+  plotSeries("hhDelqChart", "hhDelqTooltip", "hhDelqLegend", dl, types.map(t2 => ({ name: t2.name, color: t2.color, data: D.map(x => x[t2.key]) })).concat([{ name: T.legAllLoans, color: "--text-primary", data: D.map(x => x.all), width: 2.5 }]),
+    { fmt: v => pct2(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const byType = types.map(t2 => ({ name: t2.name, v: dq[t2.key] })).filter(x => x.v !== null).sort((a, b) => b.v - a.v);
+  const allPts = D.map(x => ({ d: x.d, v: x.all })), allPeak = peakOf(allPts), pre = atQ(allPts, "2019-Q4");
+  document.getElementById("hhDelqCallout").innerHTML = "<div>" + T.hhDelqNote(pct2(dq.all), fmtQuarter(q), byType[0].name, pct2(byType[0].v), byType[byType.length - 1].name, pct2(byType[byType.length - 1].v), pre === null ? null : pct2(pre), pct2(allPeak.v), fmtQuarter(allPeak.d)) + "</div><div>" + T.hhDelqMethod + "</div>";
+
+  // ---- the long view: Z.1 by instrument, debt and debt service against income ----
+  const Z = HHDEBT.z1 && HHDEBT.z1.quarterly;
+  if (Z && Z.length) {
+    const zl = Z.map(z => z.d), tnZ = k => Z.map(z => z[k] === null || z[k] === undefined ? null : z[k] / 1000);
+    plotSeries("hhZ1Chart", "hhZ1Tooltip", "hhZ1Legend", zl, [
+      { name: T.legHhTotal, color: "--series-headline", data: tnZ("total") },
+      { name: T.legMortgage, color: "--cat-1", data: tnZ("mortgage") },
+      { name: T.legConsumerCredit, color: "--series-core", data: tnZ("consumer") },
+      { name: T.legOtherLoans, color: "--cat-5", data: tnZ("other") }
+    ], { fmt: v => fmtTn(v * 1000, 2), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick });
+    const dti = Z.filter(z => z.dpi).map(z => ({ d: z.d, v: z.total / z.dpi * 100 }));
+    const dsr = (HHDEBT.dsr && HHDEBT.dsr.quarterly) || [];
+    const il = dti.map(p => p.d);
+    plotSeries("hhIncomeChart", "hhIncomeTooltip", "hhIncomeLegend", il, [
+      { name: T.legDebtToDpi, color: "--series-headline", data: dti.map(p => p.v) },
+      { name: T.legDsr, color: "--cat-8", data: qSeries(il, dsr) }
+    ], { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+    const dtiCur = lastOf(dti), dtiPeak = peakOf(dti), dsrCur = lastOf(dsr), dsrPeak = dsr.length ? peakOf(dsr) : null;
+    document.getElementById("hhLongCallout").innerHTML = "<div>" + T.hhLongNote(fmtTn(lastOf(Z).total, 1), fmtQuarter(lastOf(Z).d), Math.round(dtiCur.v), Math.round(dtiPeak.v), fmtQuarter(dtiPeak.d), dsrCur ? pct1(dsrCur.v) : null, dsrCur ? fmtQuarter(dsrCur.d) : null, dsrPeak ? pct1(dsrPeak.v) : null, dsrPeak ? fmtQuarter(dsrPeak.d) : null) + "</div>";
+  }
+
+  // ---- G.19 monthly ----
+  if (G && G.length) {
+    const G90 = G.filter(m => m.d >= "1990-01"), ml = G90.map(m => m.d);
+    plotSeries("hhG19Chart", "hhG19Tooltip", "hhG19Legend", ml, [
+      { name: T.legRevolving, color: "--series-core", data: G90.map(m => m.rev === null ? null : m.rev / 1000) },
+      { name: T.legNonrevolving, color: "--cat-3", data: G90.map(m => m.nonrev === null ? null : m.nonrev / 1000) }
+    ], { fmt: v => fmtTn(v * 1000, 2), axisFmt: v => v.toFixed(1), labelFmt: d => fmtMonthYear(d), tickFmt: d => d.slice(0, 4) });
+    const by = {}; G.forEach(m => { by[m.d] = m; });
+    const yoyM = G90.map(m => { const a = by[(+m.d.slice(0, 4) - 1) + m.d.slice(4)]; return a ? { d: m.d, v: (m.total / a.total - 1) * 100 } : null; }).filter(Boolean);
+    const revY = (() => { const a = by[(+gl.d.slice(0, 4) - 1) + gl.d.slice(4)]; return a && a.rev ? (gl.rev / a.rev - 1) * 100 : null; })();
+    plotSeries("hhG19GrowthChart", "hhG19GrowthTooltip", null, yoyM.map(p => p.d), [{ name: T.hhG19GrowthTitle, color: "--series-headline", data: yoyM.map(p => p.v) }],
+      { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: d => fmtMonthYear(d), tickFmt: d => d.slice(0, 4) });
+    document.getElementById("hhG19Callout").innerHTML = "<div>" + T.hhG19Note(fmtMonthYear(gl.d), fmtTn(gl.total, 2), fmtTn(gl.rev, 2), fmtTn(gl.nonrev, 2), sg1(lastOf(yoyM).v), revY === null ? null : sg1(revY)) + "</div>";
+  }
+}
+
+// ---------- view: bank capitalization (FDIC, H.8) ----------
+function renderBanks() {
+  if (!BANKS || !BANKS.quarterly || BANKS.quarterly.length < 40) return;
+  const R = BANKS.quarterly, cur = lastOf(R), q = cur.d, nextQ = qShift(q, 1), ago = R.find(r => r.d === qShift(q, -4));
+  const eqA = qRatio(R, "equity", "assets"), lev = qRatio(R, "t1", "avgAssets"), t1r = qRatio(R, "t1", "rwa"), rbc = qRatio(R, "rbc", "rwa"), cet1 = qRatio(R, "cet1", "rwa");
+  const nc = qRatio(R, "noncurrent", "loans"), cov = qRatio(R, "allowance", "noncurrent"), unins = R.filter(r => r.depUnins !== null && r.depDom).map(r => ({ d: r.d, v: r.depUnins / r.depDom * 100 }));
+  const unreal = R.filter(r => r.afsFair !== null && r.htmFair !== null).map(r => ({ d: r.d, v: (r.afsFair - r.afsCost) + (r.htmFair - r.htmCost), afs: r.afsFair - r.afsCost, htm: r.htmFair - r.htmCost }));
+  const at4 = (pts, d) => atQ(pts, qShift(d, -4));
+  const H = BANKS.h8 && BANKS.h8.weekly, hl = H && H.length ? lastOf(H) : null;
+
+  // ---- header ----
+  document.getElementById("bkAsOfLine").textContent = T.bkAsOf(fmtQuarter(q), cur.n.toLocaleString(T.dateLocale));
+  if (hl) { const r = weeklyReleases("h8", hl.d, 9); document.getElementById("bkH8Line").textContent = T.bkH8Line(fmtDateDMY(hl.d), fmtDateWd(r.next), r.sched); }
+  document.getElementById("bkNextReleaseLine").textContent = T.bkNextEst(fmtQuarter(nextQ), fmtMonthYear(monthAfterQuarter(nextQ, 2)));
+  document.getElementById("bkRefreshedLine").textContent = freshnessLabel("snapshot", BANKS.fetchedAt, "FDIC");
+
+  // ---- KPIs ----
+  const uc = lastOf(unreal), up = unreal[unreal.length - 2];
+  kpiTiles("bkKpiRow", "bk", [
+    { label: T.bkKpiEqAssets, value: pct2(lastOf(eqA).v), delta: kpiChange(lastOf(eqA).v - at4(eqA, q), 2, " pp", T.vsYearAgo), spark: eqA.slice(-40).map(p => p.v), color: "--series-headline", foot: fmtQuarter(q) },
+    { label: T.bkKpiLeverage, value: pct2(lastOf(lev).v), delta: kpiChange(lastOf(lev).v - at4(lev, q), 2, " pp", T.vsYearAgo), spark: lev.slice(-40).map(p => p.v), color: "--series-core", foot: fmtQuarter(q) },
+    { label: T.bkKpiCet1, value: pct2(lastOf(cet1).v), delta: kpiChange(lastOf(cet1).v - at4(cet1, q), 2, " pp", T.vsYearAgo), spark: cet1.slice(-40).map(p => p.v), color: "--cat-3", foot: fmtQuarter(q) },
+    { label: T.bkKpiRbc, value: pct2(lastOf(rbc).v), delta: kpiChange(lastOf(rbc).v - at4(rbc, q), 2, " pp", T.vsYearAgo), spark: rbc.slice(-40).map(p => p.v), color: "--cat-7", foot: fmtQuarter(q) },
+    { label: T.bkKpiUnreal, value: (uc.v < 0 ? "−" : "") + "$" + Math.round(Math.abs(uc.v)).toLocaleString(T.dateLocale) + unitHtml(T.sfxB), delta: kpiChange(uc.v - up.v, 0, T.sfxB, T.vsPrevQ), spark: unreal.slice(-40).map(p => p.v), color: "--cat-8", foot: fmtQuarter(q) },
+    { label: T.bkKpiNoncurrent, value: pct2(lastOf(nc).v), delta: kpiChange(lastOf(nc).v - at4(nc, q), 2, " pp", T.vsYearAgo), spark: nc.slice(-40).map(p => p.v), color: "--cat-4", foot: fmtQuarter(q) }
+  ]);
+
+  // ---- capital ratios since 1984 ----
+  const labels = eqA.map(p => p.d);
+  plotSeries("bkRatioChart", "bkRatioTooltip", "bkRatioLegend", labels, [
+    { name: T.legEqAssets, color: "--series-headline", data: eqA.map(p => p.v) },
+    { name: T.legLeverage, color: "--series-core", data: qSeries(labels, lev) },
+    { name: T.legT1Rbc, color: "--cat-10", data: qSeries(labels, t1r) },
+    { name: T.legTotalRbc, color: "--cat-7", data: qSeries(labels, rbc) },
+    { name: T.legCet1, color: "--cat-3", data: qSeries(labels, cet1) }
+  ], { fmt: v => pct2(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const levLow = troughOf(lev);
+  document.getElementById("bkRatioCallout").innerHTML = "<div>" + T.bkRatioNote(fmtQuarter(q), pct2(lastOf(lev).v), pct2(at4(lev, q)), pct2(levLow.v), fmtQuarter(levLow.d), pct2(lastOf(rbc).v), pct2(lastOf(cet1).v), pct2(lastOf(eqA).v)) + "</div><div>" + T.bkRatioMethod + "</div>";
+
+  // ---- balance sheet in dollars ----
+  const tn = k => R.map(r => r[k] === null ? null : r[k] / 1000);
+  plotSeries("bkAssetsChart", "bkAssetsTooltip", "bkAssetsLegend", labels, [
+    { name: T.legAssets, color: "--series-headline", data: tn("assets") },
+    { name: T.legDeposits, color: "--cat-3", data: tn("deposits") },
+    { name: T.legLoans, color: "--cat-9", data: tn("loans") }
+  ], { fmt: v => fmtTn(v * 1000), axisFmt: v => v.toFixed(0), labelFmt: fmtQuarter, tickFmt: qTick });
+  plotSeries("bkCapitalChart", "bkCapitalTooltip", "bkCapitalLegend", labels, [
+    { name: T.legEquity, color: "--series-headline", data: tn("equity") },
+    { name: T.legTier1, color: "--series-core", data: tn("t1") }
+  ], { fmt: v => fmtTn(v * 1000, 2), axisFmt: v => v.toFixed(1), labelFmt: fmtQuarter, tickFmt: qTick });
+  const yo = k => ago && ago[k] ? (cur[k] / ago[k] - 1) * 100 : null;
+  document.getElementById("bkBalanceCallout").innerHTML = "<div>" + T.bkBalanceNote(fmtQuarter(q), fmtTn(cur.assets), fmtTn(cur.equity, 2), sg1(yo("equity")), sg1(yo("assets")), fmtTn(cur.loans), fmtTn(cur.deposits), sg1(yo("deposits"))) + "</div>";
+
+  // ---- unrealized gains and losses on securities ----
+  const u08 = unreal.filter(p => p.d >= "2008-Q1");
+  drawMomColumns(document.getElementById("bkUnrealChart"), u08.map(p => ({ d: p.d, mom: p.v })), "--cat-8", { fmt: v => (v < 0 ? "−" : v > 0 ? "+" : "") + fmtBn(v), decimals: 0, labelFmt: d => fmtQuarter(d) });
+  const uWorst = troughOf(unreal);
+  document.getElementById("bkUnrealCallout").innerHTML = "<div>" + T.bkUnrealNote(fmtQuarter(q), (uc.v < 0 ? "−" : "") + fmtBn(uc.v), (uc.afs < 0 ? "−" : "") + fmtBn(uc.afs), (uc.htm < 0 ? "−" : "") + fmtBn(uc.htm), Math.round(Math.abs(uc.v) / cur.equity * 100), (uWorst.v < 0 ? "−" : "") + fmtBn(uWorst.v), fmtQuarter(uWorst.d), uc.v < 0 ? "loss" : "gain") + "</div><div>" + T.bkUnrealMethod + "</div>";
+
+  // ---- asset quality ----
+  plotSeries("bkNoncurrentChart", "bkNoncurrentTooltip", null, nc.map(p => p.d), [{ name: T.bkNoncurrentTitle, color: "--cat-4", data: nc.map(p => p.v) }],
+    { fmt: v => pct2(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  plotSeries("bkCoverageChart", "bkCoverageTooltip", null, cov.map(p => p.d), [{ name: T.bkCoverageTitle, color: "--cat-3", data: cov.map(p => p.v) }],
+    { fmt: v => Math.round(v) + "%", axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const ncPeak = peakOf(nc);
+  document.getElementById("bkQualityCallout").innerHTML = "<div>" + T.bkQualityNote(fmtQuarter(q), pct2(lastOf(nc).v), pct2(at4(nc, q)), pct2(ncPeak.v), fmtQuarter(ncPeak.d), Math.round(lastOf(cov).v)) + "</div>";
+
+  // ---- institutions and uninsured deposits ----
+  const counts = R.map(r => ({ d: r.d, v: r.n }));
+  plotSeries("bkCountChart", "bkCountTooltip", null, labels, [{ name: T.bkCountTitle, color: "--series-headline", data: counts.map(p => p.v) }],
+    { fmt: v => Math.round(v).toLocaleString(T.dateLocale), axisFmt: v => Math.round(v / 1000) + "k", labelFmt: fmtQuarter, tickFmt: qTick });
+  plotSeries("bkUninsChart", "bkUninsTooltip", null, unins.map(p => p.d), [{ name: T.bkUninsTitle, color: "--cat-5", data: unins.map(p => p.v) }],
+    { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+  const uniPeak = peakOf(unins);
+  document.getElementById("bkDepositsCallout").innerHTML = "<div>" + T.bkDepositsNote(fmtQuarter(q), cur.n.toLocaleString(T.dateLocale), ago ? ago.n.toLocaleString(T.dateLocale) : null, R[0].d.slice(0, 4), R[0].n.toLocaleString(T.dateLocale), pct1(lastOf(unins).v), pct1(uniPeak.v), fmtQuarter(uniPeak.d), fmtTn(cur.depUnins, 1)) + "</div>";
+
+  // ---- H.8 weekly ----
+  if (hl) {
+    const ratio = H.map(w => ({ d: w.d, v: w.residual / w.assets * 100 }));
+    plotSeries("bkH8Chart", "bkH8Tooltip", "bkH8Legend", ratio.map(p => p.d), [{ name: T.legH8Residual, color: "--series-headline", data: ratio.map(p => p.v) }],
+      { fmt: v => pct2(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: d => fmtDateDMY(d), tickFmt: d => d.slice(0, 4), zeroBase: false });
+    const rc = lastOf(ratio); let rAgo = null; for (let i = ratio.length - 1; i >= 0; i--) { if (ratio[i].d <= addDaysYmd(rc.d, -364)) { rAgo = ratio[i]; break; } }
+    document.getElementById("bkH8Callout").innerHTML = "<div>" + T.bkH8Note(fmtDateDMY(hl.d), pct2(rc.v), fmtTn(hl.assets), fmtTn(hl.deposits), rAgo ? pct2(rAgo.v) : null) + "</div>";
+  }
+}
+
 function renderCape() {
   if (!CAPE || !CAPE.monthly || CAPE.monthly.length < 120) return;
   const P = CAPE.monthly, n = P.length, cur = P[n - 1], prev = P[n - 2];
@@ -8759,6 +10372,11 @@ renderSupply();
 renderFiscal();
 renderSpr();
 renderCape();
+renderProductivity();
+renderProfits();
+renderDebt();
+renderHhDebt();
+renderBanks();
 renderExecSummaries();
 renderFileDateLines();
 labelCharts();
@@ -8829,6 +10447,7 @@ function fileDateLine(id, proc, fileDate, fallbackChecked, label) {
 }
 function renderFileDateLines() {
   if (CAPE) fileDateLine("capeRefreshedLine", "process_cape", CAPE.fileDate, CAPE.fetchedAt, T.fileShiller);
+  if (HHDEBT && HHDEBT.nyfed) fileDateLine("hhRefreshedLine", "process_hhdebt", HHDEBT.nyfed.fileDate, HHDEBT.fetchedAt, T.fileNyFed);
   if (SPR) {
     fileDateLine("sprRefreshedLine", "process_spr", SPR.files && SPR.files.weekly, SPR.fetchedAt, T.fileEia);
     // Every "checked" date on the SPR page comes from the same run, so they agree.

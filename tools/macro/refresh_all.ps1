@@ -16,7 +16,7 @@ $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
-foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_weights.ps1")) {
+foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_weights.ps1")) {
   Write-Output "=============== $step"
   try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
 }
@@ -43,6 +43,32 @@ try {
   # persists into the second week of the month (or two months) is a problem.
   if ($lag -ge 2 -or ($lag -ge 1 -and $now.Day -ge 12)) { Warn "Challenger job-cut data is for $($ls.challenger.asOfMonth) while payrolls are at $payrollMonth. process_challenger.ps1 should have picked up the new report - check its output" } else { Write-Output "Challenger: $($ls.challenger.asOfMonth) vs payrolls $payrollMonth OK" }
 } catch { Warn "staleness check could not run: $($_.Exception.Message)" }
+# The quarterly sections that have no release calendar on FRED: each publisher posts a quarter a
+# known number of days after it ends (lag), so once the quarter that followed the latest one on
+# file is older than that lag plus a month, the feed has stopped moving even though its
+# download may still succeed (an unchanged workbook, an API that answers but adds nothing).
+function QuarterEnd([string]$q) { $y = [int]$q.Substring(0, 4); $n = [int]$q.Substring(6, 1); (Get-Date -Year $y -Month ($n * 3) -Day 1).AddMonths(1).AddDays(-1).Date }
+function CheckQuarterly([string]$file, [scriptblock]$asOf, [int]$lagDays, [string]$what) {
+  try {
+    $j = Get-Content (Join-Path $data $file) -Raw | ConvertFrom-Json
+    $q = [string](& $asOf $j); if ($q -notmatch '^\d{4}-Q[1-4]$') { throw "no quarter in $file" }
+    $due = (QuarterEnd $q).AddMonths(3).AddDays($lagDays + 30)
+    if ((Get-Date).Date -gt $due) { Warn "$what is still at $q; the next quarter was due by $($due.ToString('yyyy-MM-dd')) (publisher lag $lagDays days + 30). Check its processor's output" } else { Write-Output ("{0}: {1} OK (next due by {2})" -f $what, $q, $due.ToString('yyyy-MM-dd')) }
+  } catch { Warn "staleness check for $what could not run: $($_.Exception.Message)" }
+}
+CheckQuarterly "productivity_processed.json" { param($j) $j.asOf } 40 "BLS productivity"
+CheckQuarterly "profits_processed.json" { param($j) $j.asOf } 60 "NIPA corporate profits"
+CheckQuarterly "debt_processed.json" { param($j) $j.asOf } 75 "Z.1 debt"
+CheckQuarterly "hhdebt_processed.json" { param($j) $j.nyfed.asOf } 45 "NY Fed household debt"
+CheckQuarterly "banks_processed.json" { param($j) $j.asOf } 60 "FDIC bank capital"
+try {
+  $hh = Get-Content (Join-Path $data "hhdebt_processed.json") -Raw | ConvertFrom-Json
+  $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(2).AddDays(10)   # the G.19 posts a month about five weeks after it ends
+  if ((Get-Date).Date -gt $g19) { Warn "G.19 consumer credit is still at $($hh.g19.asOf); the next month was due by $($g19.ToString('yyyy-MM-dd'))" } else { Write-Output ("G.19: {0} OK" -f $hh.g19.asOf) }
+  $bk = Get-Content (Join-Path $data "banks_processed.json") -Raw | ConvertFrom-Json
+  $wk = $bk.h8.weekly[-1].d
+  if (((Get-Date).Date - [datetime]::ParseExact($wk, "yyyy-MM-dd", $null)).TotalDays -gt 21) { Warn "H.8 weekly bank data is still at $wk (more than three weeks old)" } else { Write-Output ("H.8: {0} OK" -f $wk) }
+} catch { Warn "staleness check for G.19/H.8 could not run: $($_.Exception.Message)" }
 
 # ---- health.json: what the email alert task reads to judge pipeline health ----
 # Consecutive-failure counts carry over from the previous run's file, so a
