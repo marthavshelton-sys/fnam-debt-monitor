@@ -13,8 +13,20 @@
     const M = window.G_MODEL;
     await P.run(M, [], async () => {
       const doc = new GenteraDoc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.loanBookPage(); doc.assetQualityPage(); doc.fundingPage(); doc.dividendPage(); doc.concreditoPage(); doc.groupLendingPage(); doc.sourcesPage();
+      // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
+      // executive summary) can list the sections with the page's numbers and link each row; the relative valuation (06)
+      // sits just before Sources and Methodology (owner, 2026-10-07)
+      doc.cover();
+      doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
+      doc.at('tear'); doc.tearSheet();
+      doc.at('statements'); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
+      doc.at('guidance'); doc.guidancePage();
+      doc.at('drivers'); doc.loanBookPage();
+      doc.at('assetquality'); doc.assetQualityPage(); doc.fundingPage();
+      doc.at('dividends'); doc.dividendPage(); doc.at('concredito'); doc.concreditoPage(); doc.at('grouplending'); doc.groupLendingPage();
+      doc.at('relative'); doc.relativePages();
+      doc.at('method'); doc.sourcesPage(); doc.at(null);
+      doc.contentsPage();
       doc.finish();
     });
   }
@@ -24,6 +36,29 @@
       const co = M.REF.company || {};
       super(M, { slug: 'gentera', short: co.short || 'Gentera', name: co.name || 'Gentera, S.A.B. de C.V.', tickerLine: `BMV: ${co.bmv || 'GENTERA'}`, url: 'fnam.mx/gentera', fileStem: `Gentera_${co.bmv || 'GENTERA'}`, publicSources: 'BMV, CNBV, SBS, informes trimestrales de la empresa', publicSourcesEn: 'BMV, CNBV, SBS, company quarterly releases' });
       this.next = this.nextResults();
+      this.trackPages = true; // page() records every page for the contents page
+    }
+    at(sec) { this.sec = sec; }
+    // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
+    // naming the sections of the page the deck does not carry (share-price performance, the valuation model), composed from them.
+    contentsPage() {
+      const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta), url = this.cfg.url;
+      const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
+      this.drawContents(this.tocEntries(meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${url}${out.length ? `; ${out.length > 1 ? 'las secciones' : 'la sección'} ${list} se ${out.length > 1 ? 'consultan' : 'consulta'} en la página y no ${out.length > 1 ? 'forman' : 'forma'} parte de esta presentación` : ''}.`, `Every row links to its page. Sections are numbered as on ${url}${out.length ? `; ${out.length > 1 ? 'sections' : 'section'} ${list} ${out.length > 1 ? 'are' : 'is'} read on the page and ${out.length > 1 ? 'are' : 'is'} not part of this presentation` : ''}.`));
+    }
+    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // The FactSet peers table as the page prints it (the company's row through the model, lead sentence and method note read from
+    // the page) and the weekly history of the company's NTM P/E and P/BV beside its peers'; both pages live in the shared engine.
+    relativePages() {
+      const M = this.M, P = M.PEERS, own = M.peersOwnRow(); if (!own) return;
+      const es = this.es;
+      const sec = this.pageSectionMeta().relative || {}; const title = (tail) => `${sec.label ? sec.label + ' · ' : ''}${sec.title || this.T('Valuación relativa', 'Relative valuation')} · ${tail}`;
+      const ntm = es ? 'PDM' : 'NTM', peL = es ? 'P/U' : 'P/E', pbL = es ? 'P/VL' : 'P/BV';
+      const SM = P.sectorMetric || 'nplPct';
+      const multiples = [{ cur: 'peNtm', avg: 'peNtmAvg', label: `${peL} ${ntm}`, dec: 1 }, { cur: 'pbv', avg: 'pbvAvg', label: pbL, dec: 2 }];
+      const tail = [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'roePct', label: 'ROE', fmt: 'pct' }, { key: SM, label: SM === 'nplPct' ? (es ? 'Cartera vencida' : 'NPL ratio') : (es ? 'Índice combinado' : 'Combined ratio'), fmt: 'pct' }];
+      this.peersPage({ P, own, ownPf: null, title: title(this.T('pares: múltiplos a futuro, sus promedios y liquidez', 'peers: forward multiples, their averages and liquidity')), lead: this.richTextOf('peersLead'), note: this.richTextOf('peersNote'), refreshNote: { es: 'se actualiza con cada corrida del conector FactSet', en: 'refreshed on each FactSet connector run' }, multiples, tail, groups: [{ key: 'mexico', label: es ? 'México' : 'Mexico' }, { key: 'international', label: es ? 'Internacional' : 'International' }], medians: [{ key: 'mexico', label: es ? 'Mediana México' : 'Median, Mexico' }, { key: 'all', label: es ? 'Mediana de pares' : 'Peer median' }] });
+      this.multiplesHistoryPage({ P, own, title: title(this.T('múltiplos a doce meses, historial semanal', 'forward multiples, weekly history')), series: [{ idx: 1, label: `${peL} ${ntm}`, avgKey: 'peNtmAvg5y' }, { idx: 2, label: pbL, avgKey: 'pbvAvg5y' }], methodNote: { es: 'P/U = cierre de la semana entre el consenso de UPA de ese día; P/VL = cierre entre el último valor en libros por acción publicado a esa fecha', en: "P/E = that week's close over the EPS consensus sampled that day; P/BV = the close over the latest book value per share reported by then" }, peers: P.peers.filter((p) => p.group === 'mexico'), peerNote: this.T('los bancos mexicanos de la tabla de pares', 'the Mexican banks in the peers table') });
     }
     // ----- shared pieces -----
     rel(q) { return q && q.sources && q.sources.is && q.sources.is.date; }

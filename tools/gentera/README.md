@@ -16,7 +16,7 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 | `guidance.js` | `G_GUIDANCE` | reviewed commit, each quarter | guidance vintages (`fy`, `kind`, `date` = release date, `call` = call date, `quarter`, `items{eps, loanGrowth, opexGrowth, cor, npl, roe}` with `lo`/`hi`/`text`, `notes`, `source` incl. the transcript path). 2023Q3–2025Q4 vintages are transcribed from the earnings calls; 2026 vintages from the 4T25/1T26/2T26 releases. `lo = hi` means "around"; a null bound means not given. |
 | `comments.js` | `G_COMMENTS` | reviewed commit, each quarter | one-line y/y explanations keyed by period (`2026Q2`, `2026M6`, `FY2025`): `lines` (income-statement rows), `bs`, `ops`, and `call` = the earnings-call block of the quarter that closes the period (`es`/`en` note, `date`, `file`, `quotes{rowKey: {who, en, es}}`; one `CALLS` entry per call, shared by the quarter, YTD and FY periods). Periods that only have a call block (2023Q3–2025Q4) show mechanical comments plus the quotes (💬, expandable; open in print mode). |
 | `summary.js` | `G_SUMMARY` | reviewed commit, each quarter | executive summary: `basis` + four sections (operations, guidance, asset quality/funding/capital, what to watch), ES and EN. |
-| `peers.js` | `G_PEERS` | pending (FactSet) | peer multiples schema (GFNORTEO, RA, BBAJIOO, BAP as placeholders) and the consensus contract; all null until the connector is authorised. |
+| `peers.js` | `G_PEERS` | FactSet pull (`scripts/lib/factset-peers-fin.mjs`, see the Quálitas runbook → "FactSet peers and consensus") | own row and peers (Banorte, Regional, BanBajío, Credicorp; a placeholder set, none a pure microlender) with NTM P/E and P/BV, their 1-, 3- and 5-year weekly averages, ROE, dividend yield, NPL ratio, ADTV, medians, weekly history, and the `consensus` block of section 02 (FY EPS, BVPS, DPS, net income, target, rating; FactSet collects no loan-growth consensus). Credicorp's consensus is FactSet's USD conversion of estimates made in soles; FactSet carries no NPL ratio for BanBajío and its latest BanBajío balance sheet is December 2025's. |
 
 ## After each quarterly report (≈ 3rd/4th week of Jan–Feb, Apr, Jul, Oct; 3Q26 ≈ 23 Oct 2026, assumed)
 
@@ -78,7 +78,7 @@ reports a refusal).
 | Valuation, multiples, header tiles, charts | at render time from the files above | — |
 | Comments, guidance vintage, summary, reference facts (dividend, ratings, next report date) | the reviewing routine, the weekday after a new release or event | routine pushes to `main`; Gentera's release wording |
 | Call quotes | only when a transcript is dropped in `tools/gentera/raw/transcripts/` (Gentera publishes none) | hand-supplied file |
-| Peer multiples and consensus | not yet: waits for the FactSet connector (shown as "pending") | FactSet |
+| Peer multiples and consensus | on each FactSet connector run from a Claude session (prompt `tools/qualitas/FACTSET-PEERS-PROMPT.md`; first fill 2026-10-07) | FactSet |
 
 The page shows a yellow refresh notice when prices are older than 7 days or the statements older than 10 days,
 and marks the next-report date as "to be confirmed" once it has passed.
@@ -149,7 +149,8 @@ Either way the page already carries `noindex,nofollow` and the data files are se
 - The initial 2023 guidance (February 2023) is not transcribed; the FY2023 record uses the October 2023 revision.
   The 2025 initial EPS range (Ps. 4.56–4.71) is derived from the guided +20% to +24% on Ps. 3.80.
 - Quote translations to Spanish are ours; the English text is the transcript wording, trimmed with [..].
-- Peer multiples, consensus and analyst targets wait for the FactSet connector.
+- Peer multiples, consensus and analyst targets come from the FactSet connector (first fill 2026-10-07; no nightly routine
+  yet, so the caption's date says how fresh they are).
 - Share prices come from Yahoo Finance's chart API (Stooq as fallback), not from the BMV directly; FX from the
   Banxico FIX rate (SIE SF43718; FRED DEXMXUS as fallback); the risk-free rate from Banxico's weekly auction.
 
@@ -176,7 +177,9 @@ Ctrl/Cmd+P still prints the page (print mode: light theme, tables trimmed to the
 
 Deep link: `/gentera/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted) · tear sheet (price, market cap
+Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitted) · contents (one linked row per section with
+the page's own numbers and titles, read from its headings; sub-rows when a section spans several pages; the note names the
+sections the deck does not carry, 04 and 05) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, gross loans, financial
 margin LTM and quarter with NIM, cost of risk, stage 3, coverage, efficiency, controlling net income LTM with a memo
 without the 4Q25 item, EPS, P/E, P/BV, ROAE, ICAP, clients, guidance in force, next results; 12-month chart vs the
@@ -191,7 +194,13 @@ monthly tables when the feed has them) · asset quality (stage 3 by subsidiary, 
 funds by subsidiary, 6-quarter table, ratings, reading) · 08 dividends (AGM bullets, DPS approved by AGM, table with
 payout on the prior year's controlling income, 10-fiscal-year earnings/returns/dividend table) · 09 ConCrédito and
 Perú (facts, page prose, Perú in figures, both timelines) · 10 group lending and stage 3 (facts, page prose,
-stage-3 loans and allowance with coverage) · sources and methodology.
+stage-3 loans and allowance with coverage) · 06 relative valuation, two landscape pages placed right before the sources
+page (owner, 2026-10-07): the FactSet peers table exactly as the page prints it (Gentera's row through
+`G_MODEL.peersOwnRow()`, the lead sentence and the method note read from the page's `#peersLead` / `#peersNote`, the
+analyst-consensus tiles, NTM P/E and P/BV with 1-, 3- and 5-year averages, ROE, dividend yield, NPL ratio, ADTV; Mexico
+and international groups, Mexican and peer medians), then the weekly history of Gentera's NTM P/E and P/BV beside the
+three Mexican banks' with Gentera's 5-year average dashed, one chart above the other (`peersPage` and
+`multiplesHistoryPage` in the shared engine) · sources and methodology.
 
 Next results: `reference.js → calendar.nextResults` when Gentera has announced the date (marked "confirmed");
 otherwise assumed from the median lag between quarter-end and release for the same quarter in the last three years.

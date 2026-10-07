@@ -30,7 +30,10 @@ so a new session does not rediscover it. Update it when a decision changes; keep
   The Ps. 500 M tax-contingency charge in 4Q25 opex is shown as reported (management called it a methodology
   change, not a one-off).
 - Coverage = allowance ÷ stage-3 recomputed for every quarter (Gentera's own definition since 4Q25).
-- Placeholder peers GFNORTEO, RA, BBAJIOO, BAP until FactSet; consensus and analyst targets stay "pending".
+- Peers GFNORTEO, RA, BBAJIOO, BAP (a placeholder set, none a pure microlender) are filled from the FactSet connector since
+  2026-10-07 (`scripts/lib/factset-peers-fin.mjs`, prompt `tools/qualitas/FACTSET-PEERS-PROMPT.md`), consensus block
+  included; only loan-growth consensus stays "pending" (FactSet collects none). The deck carries the table and the weekly
+  NTM P/E and P/BV history as section 06.
 - Email only on material days: daily move ≥ 5%, consolidated stage 3 > 4.5%, guided metric outside range, or a
   new quarter / monthly table / guidance vintage / reference event.
 - No password yet; Cloudflare Access (one-time PIN) is the recommended option, documented in the runbook.

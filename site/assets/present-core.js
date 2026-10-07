@@ -420,54 +420,65 @@
     // title, lead: the page's lead sentence (plain text with **bold** runs), note: the page's method note }. The company's
     // FactSet consensus (price target, ratings, NTM EBITDA and EPS) prints as a row of tiles under the lead, as on the page.
     // Returns false (no page) while the snapshot is empty.
+    // o.multiples (optional): the multiple groups, [{ cur, avg, label, dec }] (default the airports' EV/EBITDA NTM and P/E NTM; the
+    // financial pages pass P/E NTM and P/BV); o.tail: the closing single columns [{ key, label, fmt: 'pct' | 'x' }]; o.groups: the
+    // peer groups with their header rows [{ key, label }] (a single group prints no header); o.medians: the median rows [{ key, label }].
     peersPage(o) {
       const P = o.P || {}, own = o.own, ps = P.peers || [], MD = P.medians || {}; if (!P.updatedAt || !ps.length || !own) return false;
       const M = this.M, es = this.es, short = this.cfg.short;
+      const ntm0 = es ? 'PDM' : 'NTM', cur0 = own.currency === 'MXN' ? 'Ps. ' : (own.currency || '') + ' ';
+      const multiples = o.multiples || [{ cur: 'evEbitdaNtm', avg: 'evEbitdaNtmAvg', label: `${es ? 'VE' : 'EV'}/EBITDA ${ntm0}`, dec: 1 }, { cur: 'peNtm', avg: 'peNtmAvg', label: `${es ? 'P/U' : 'P/E'} ${ntm0}`, dec: 1 }];
+      const tail = o.tail || [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'netDebtEbitda', label: `${es ? 'DN' : 'ND'}/EBITDA`, fmt: 'x' }, { key: 'ebitdaMarginPct', label: es ? 'Margen EBITDA' : 'EBITDA margin', fmt: 'pct' }];
+      const groups = o.groups || [{ key: 'mexico', label: es ? 'México' : 'Mexico' }, { key: 'international', label: es ? 'Internacionales' : 'International' }];
+      const medians = o.medians || [{ key: 'mexico', label: es ? 'Mediana México' : 'Median, Mexico' }, { key: 'international', label: es ? 'Mediana internacional' : 'Median, international' }, { key: 'all', label: es ? 'Mediana de pares' : 'Peer median' }];
+      const nCols = 4 + 4 * multiples.length + tail.length, nTail = nCols - 1;
       const pd = P.priceDates || {}, main = P.pricesAsOf;
       const shortOf = (id) => ((ps.find((p) => p.ticker === id) || (own.ticker === id ? own : null) || {}).short || id);
       const otherDates = Object.entries(pd).filter(([, d]) => d && d !== main).map(([id, d]) => `${shortOf(id)} ${this.date(d)}`);
       const bsDates = [...new Set(Object.values(P.balanceSheetsAt || {}))].map((d) => this.date(d)).join(' / ');
       const H = P.history || {}, A = P.adtvWindow || {};
-      const sub = this.T(`FactSet · cierres del ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consenso al ${this.date(P.estimateDate)} · balances al ${bsDates}${H.from ? ` · promedios semanales de ${this.date(H.from)} a ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · se actualiza cada noche`,
-        `FactSet · closes of ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consensus as of ${this.date(P.estimateDate)} · balance sheets at ${bsDates}${H.from ? ` · weekly averages from ${this.date(H.from)} to ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · refreshed nightly`);
+      const sub = this.T(`FactSet · cierres del ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consenso al ${this.date(P.estimateDate)} · balances al ${bsDates}${H.from ? ` · promedios semanales de ${this.date(H.from)} a ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · ${o.refreshNote ? o.refreshNote.es : 'se actualiza cada noche'}`,
+        `FactSet · closes of ${this.date(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · consensus as of ${this.date(P.estimateDate)} · balance sheets at ${bsDates}${H.from ? ` · weekly averages from ${this.date(H.from)} to ${this.date(H.to)}` : ''}${A.from ? ` · ADTV ${this.date(A.from)} – ${this.date(A.to)}` : ''} · ${o.refreshNote ? o.refreshNote.en : 'refreshed nightly'}`);
       let y = this.page('L', o.title, sub);
       const W = this.width();
       if (o.lead) y = this.bullets([o.lead], this.cur.x0, y, W, 9.2, { marker: false, lh: 1.32, gap: 6 });
-      const ntm = es ? 'PDM' : 'NTM', evL = es ? 'VE' : 'EV', peL = es ? 'P/U' : 'P/E', ndL = es ? 'DN' : 'ND';
+      const ntm = ntm0;
       // consensus tiles (the page's "Analyst consensus" block): mean target and its upside on FactSet's close, range and analyst
       // count, buy / hold / sell, NTM EBITDA and EPS; sell-side consensus compiled by FactSet, not a recommendation
       const tg = own.target, ra = own.ratings, fn = own.ntm || {};
       if (tg && ra && ra.total) {
         y = this.heading(this.T(`Consenso de analistas sobre ${short} (FactSet, al ${this.date(P.estimateDate)})`, `Analyst consensus on ${short} (FactSet, as of ${this.date(P.estimateDate)})`), this.cur.x0, y + 2, 10);
         y = this.tiles([
-          { v: `Ps. ${M.fmtN(tg.mean, 0)}`, l: this.T(`Precio objetivo medio · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} frente al cierre de Ps. ${M.fmtN(own.price, 2)}`, `Mean price target · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} versus the Ps. ${M.fmtN(own.price, 2)} close`) },
-          { v: `Ps. ${M.fmtN(tg.low, 0)} – ${M.fmtN(tg.high, 0)}`, l: this.T(`Rango de objetivos · ${tg.count} analistas`, `Target range · ${tg.count} analysts`) },
+          { v: `${cur0}${M.fmtN(tg.mean, 0)}`, l: this.T(`Precio objetivo medio · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} frente al cierre de ${cur0}${M.fmtN(own.price, 2)}`, `Mean price target · ${M.fmtPct(100 * (tg.mean / own.price - 1), 0, true)} versus the ${cur0}${M.fmtN(own.price, 2)} close`) },
+          { v: `${cur0}${M.fmtN(tg.low, 0)} – ${M.fmtN(tg.high, 0)}`, l: this.T(`Rango de objetivos · ${tg.count} analistas`, `Target range · ${tg.count} analysts`) },
           { v: `${ra.buy + (ra.overweight || 0)} / ${ra.hold} / ${ra.sell + (ra.underweight || 0)}`, l: this.T(`Compra / mantener / venta (${ra.total} recomendaciones)`, `Buy / hold / sell (${ra.total} ratings)`) },
-          fn.ebitda ? { v: `Ps. ${M.fmtN(fn.ebitda.mean, 0)} M`, l: this.T(`EBITDA ${ntm} · media del consenso`, `${ntm} EBITDA · consensus mean`) } : null,
-          fn.eps ? { v: `Ps. ${M.fmtN(fn.eps.mean, 2)}`, l: this.T(`UPA ${ntm} · media del consenso`, `${ntm} EPS · consensus mean`) } : null,
+          fn.ebitda ? { v: `${cur0}${M.fmtN(fn.ebitda.mean, 0)} M`, l: this.T(`EBITDA ${ntm} · media del consenso`, `${ntm} EBITDA · consensus mean`) } : null,
+          fn.eps ? { v: `${cur0}${M.fmtN(fn.eps.mean, 2)}`, l: this.T(`UPA ${ntm} · media del consenso`, `${ntm} EPS · consensus mean`) } : null,
         ].filter(Boolean), y, 44) - 4;
       }
       y = this.heading(this.T('Pares: múltiplos a futuro, sus promedios de 1, 3 y 5 años y liquidez', 'Peers: forward multiples, their 1-, 3- and 5-year averages and liquidity'), this.cur.x0, y, 10);
       const cur = es ? 'Actual' : 'Current', a1 = es ? 'Prom. 1 a' : '1-yr avg', a3 = es ? 'Prom. 3 a' : '3-yr avg', a5 = es ? 'Prom. 5 a' : '5-yr avg';
       const headRows = [
         [{ content: es ? 'Empresa' : 'Company', rowSpan: 2 }, { content: es ? 'Precio' : 'Price', rowSpan: 2 }, { content: `${es ? 'Cap. US$ M' : 'Mkt cap US$ M'}${main ? ` (${es ? 'al' : 'as of'} ${this.date(main)})` : ''}`, rowSpan: 2 }, { content: 'ADTV US$ M', rowSpan: 2 },
-          { content: `${evL}/EBITDA ${ntm}`, colSpan: 4 }, { content: `${peL} ${ntm}`, colSpan: 4 },
-          { content: es ? 'Rend. div.' : 'Div. yield', rowSpan: 2 }, { content: `${ndL}/EBITDA`, rowSpan: 2 }, { content: es ? 'Margen EBITDA' : 'EBITDA margin', rowSpan: 2 }],
-        [cur, a1, a3, a5, cur, a1, a3, a5],
+          ...multiples.map((m) => ({ content: m.label, colSpan: 4 })),
+          ...tail.map((t) => ({ content: t.label, rowSpan: 2 }))],
+        multiples.flatMap(() => [cur, a1, a3, a5]),
       ];
-      const x = (v) => (v == null ? '—' : M.fmtX(v)), pc = (v) => (v == null ? '—' : M.fmtPct(v));
+      const x = (v, d) => (v == null ? '—' : M.fmtX(v, d)), pc = (v) => (v == null ? '—' : M.fmtPct(v, 1));
+      const fmtTail = (t, v) => (t.fmt === 'pct' ? pc(v) : x(v, t.dec));
       const name = (p) => (p.cls === 'total' || p.blank || !p.ticker ? p.name : `${p.short}  ·  ${p.ticker}`);
       const row = (p) => [name(p), p.price == null ? '' : `${p.currency} ${M.fmtN(p.price, 2)}`, p.mktCapUsdM == null ? '' : M.fmtN(p.mktCapUsdM, 0), p.adtvUsdM == null ? '' : M.fmtN(p.adtvUsdM, 1),
-        x(p.evEbitdaNtm), x(p.evEbitdaNtmAvg1y), x(p.evEbitdaNtmAvg3y), x(p.evEbitdaNtmAvg5y), x(p.peNtm), x(p.peNtmAvg1y), x(p.peNtmAvg3y), x(p.peNtmAvg5y), pc(p.divYieldPct), x(p.netDebtEbitda), pc(p.ebitdaMarginPct)];
+        ...multiples.flatMap((m) => [x(p[m.cur], m.dec), x(p[m.avg + '1y'], m.dec), x(p[m.avg + '3y'], m.dec), x(p[m.avg + '5y'], m.dec)]), ...tail.map((t) => fmtTail(t, p[t.key]))];
       const medRow = (nm, m) => (m ? { name: nm, ...m, cls: 'total' } : null);
-      const mx = ps.filter((p) => p.group === 'mexico'), intl = ps.filter((p) => p.group !== 'mexico');
-      const items = [o.ownPf, { ...own, cls: 'bold' }, { name: es ? 'México' : 'Mexico', cls: 'head' }, ...mx, { name: es ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
-        medRow(es ? 'Mediana México' : 'Median, Mexico', MD.mexico), medRow(es ? 'Mediana internacional' : 'Median, international', MD.international), medRow(es ? 'Mediana de pares' : 'Peer median', MD.all)].filter(Boolean);
-      const body = items.map((p) => (p.cls === 'head' ? [p.name, ...Array(14).fill('')] : row(p)));
-      const meta = items.map((p) => (p.cls === 'head' ? ['head left', ...Array(14).fill('')] : p.cls === 'bold' ? ['bold left', ...Array(14).fill('bold')] : p.cls === 'total' ? ['bold left muted', ...Array(14).fill('muted bold')] : p.blank ? ['left small', ...Array(14).fill('')] : ['left', ...Array(14).fill('')]));
-      const rowSpan = {}; items.forEach((p, i) => { if (p.cls === 'head') rowSpan[i] = 15; });
+      const items = [o.ownPf, { ...own, cls: 'bold' }];
+      for (const g of groups) { const glist = ps.filter((p) => p.group === g.key); if (!glist.length) continue; if (groups.length > 1) items.push({ name: g.label, cls: 'head' }); items.push(...glist); }
+      for (const m of medians) items.push(medRow(m.label, MD[m.key]));
+      const list = items.filter(Boolean);
+      const body = list.map((p) => (p.cls === 'head' ? [p.name, ...Array(nTail).fill('')] : row(p)));
+      const meta = list.map((p) => (p.cls === 'head' ? ['head left', ...Array(nTail).fill('')] : p.cls === 'bold' ? ['bold left', ...Array(nTail).fill('bold')] : p.cls === 'total' ? ['bold left muted', ...Array(nTail).fill('muted bold')] : p.blank ? ['left small', ...Array(nTail).fill('')] : ['left', ...Array(nTail).fill('')]));
+      const rowSpan = {}; list.forEach((p, i) => { if (p.cls === 'head') rowSpan[i] = nCols; });
       const cols = { 0: { halign: 'left', cellWidth: W * 0.165 }, 1: { cellWidth: W * 0.08 }, 2: { cellWidth: W * 0.085 } };
-      [4, 8].forEach((i) => { cols[i] = { fontStyle: 'bold' }; });
+      multiples.forEach((m, i) => { cols[4 + 4 * i] = { fontStyle: 'bold' }; });
       // the table and the notes under it share the page: the method note is measured first so the table shrinks to leave it room
       const notes = [o.note, this.T('Consenso del lado vendedor compilado por FactSet; no constituye una recomendación de inversión.', 'Sell-side consensus compiled by FactSet; not investment advice.')].filter(Boolean);
       const noteH = notes.reduce((h, n) => h + this.measureText(n, W, 7) + 3, 0);
@@ -478,30 +489,36 @@
     }
     // Weekly NTM EV/EBITDA and NTM P/E of the company (bold) beside the other Mexican groups, with the company's 5-year average
     // as a dashed line, one chart above the other so five years of weekly points keep the page's full width.
+    // o.series (optional): the two charts, [{ idx (column of history.series), label, avgKey }] (default the airports' EV/EBITDA NTM and
+    // P/E NTM); o.peers (optional): the peer rows drawn as thin lines (default the Mexican airport groups); o.peerNote: how the note names them.
     multiplesHistoryPage(o) {
       const P = o.P || {}, own = o.own; const hist = own && own.history && own.history.series; if (!hist || !hist.length) return false;
       const es = this.es, short = this.cfg.short, ntm = es ? 'PDM' : 'NTM', evL = es ? 'VE' : 'EV', peL = es ? 'P/U' : 'P/E';
+      const seriesSpec = o.series || [{ idx: 1, label: `${evL}/EBITDA ${ntm}`, avgKey: 'evEbitdaNtmAvg5y' }, { idx: 2, label: `${peL} ${ntm}`, avgKey: 'peNtmAvg5y' }];
       const H = P.history || {};
-      let y = this.page('L', o.title, this.T(`FactSet · observaciones semanales (cada viernes) de ${this.date(H.from || hist[0][0])} a ${this.date(H.to || hist[hist.length - 1][0])} · múltiplo = cierre de la semana × acciones vigentes + último balance publicado, sobre el consenso de ese día · promedios de la tabla de pares`, `FactSet · weekly observations (each Friday) from ${this.date(H.from || hist[0][0])} to ${this.date(H.to || hist[hist.length - 1][0])} · multiple = that week's close × shares then outstanding + the latest balance sheet published, over the consensus sampled that day · averages as in the peers table`));
+      // o.methodNote (optional): how the weekly multiple is built (default the airports' EV formula)
+      const mn = o.methodNote || { es: 'múltiplo = cierre de la semana × acciones vigentes + último balance publicado, sobre el consenso de ese día', en: "multiple = that week's close × shares then outstanding + the latest balance sheet published, over the consensus sampled that day" };
+      let y = this.page('L', o.title, this.T(`FactSet · observaciones semanales (cada viernes) de ${this.date(H.from || hist[0][0])} a ${this.date(H.to || hist[hist.length - 1][0])} · ${mn.es} · promedios de la tabla de pares`, `FactSet · weekly observations (each Friday) from ${this.date(H.from || hist[0][0])} to ${this.date(H.to || hist[hist.length - 1][0])} · ${mn.en} · averages as in the peers table`));
       const labels = hist.map((p) => p[0]);
       const tick = (v, i) => (labels[i] && labels[i].slice(5, 7) === '01' && (!labels[i - 1] || labels[i - 1].slice(0, 4) !== labels[i].slice(0, 4)) ? labels[i].slice(0, 4) : '');
-      const peers = (P.peers || []).filter((p) => p.group === 'mexico' && p.history && p.history.series);
+      const peers = (o.peers || (P.peers || []).filter((p) => p.group === 'mexico')).filter((p) => p.history && p.history.series);
       const W = this.width(), h = Math.floor((this.cur.y1 - y - 2 * 18 - 22) / 2);
       const draw = (k, label, avgKey, yy) => {
         const ownAvg = own[avgKey];
         const last = hist[hist.length - 1][k];
         const sets = [{ label: this.T(`${short} · última semana ${this.x(last)} (${this.date(labels[labels.length - 1])})`, `${short} · latest week ${this.x(last)} (${this.date(labels[labels.length - 1])})`), data: hist.map((p) => p[k]), borderColor: PALETTE[0], backgroundColor: PALETTE[0], borderWidth: 2.6, order: 0 }];
-        peers.forEach((p, i) => { const map = new Map(p.history.series.map((r) => [r[0], r[k]])); sets.push({ label: p.short, data: labels.map((d) => (map.has(d) ? map.get(d) : null)), borderColor: [PALETTE[2], PALETTE[1], PALETTE[3]][i % 3], backgroundColor: [PALETTE[2], PALETTE[1], PALETTE[3]][i % 3], borderWidth: 1.3, order: 1, spanGaps: true }); });
+        const pc = [PALETTE[2], PALETTE[1], PALETTE[3], PALETTE[4], PALETTE[7], PALETTE[5]];
+        peers.forEach((p, i) => { const map = new Map(p.history.series.map((r) => [r[0], r[k]])); sets.push({ label: p.short, data: labels.map((d) => (map.has(d) ? map.get(d) : null)), borderColor: pc[i % pc.length], backgroundColor: pc[i % pc.length], borderWidth: peers.length > 3 ? 1.1 : 1.3, order: 1, spanGaps: true }); });
         if (ownAvg != null) sets.push({ label: this.T(`${short} · promedio 5 años (${this.x(ownAvg)})`, `${short} · 5-year average (${this.x(ownAvg)})`), data: labels.map(() => ownAvg), borderColor: '#7f8c8d', backgroundColor: '#7f8c8d', borderWidth: 1.2, borderDash: [5, 4], order: 2 });
         const others = peers.map((p) => p.short); const vs = others.length ? ` ${this.T('frente a', 'versus')} ${others.length > 1 ? others.slice(0, -1).join(', ') + this.T(' y ', ' and ') + others[others.length - 1] : others[0]}` : '';
         yy = this.heading(`${label} · ${short}${vs}`, this.cur.x0, yy, 10);
         // the chart is drawn at 1.6× and scaled down: 14 / 13 px fonts print at about 9 / 8 pt, legible on paper
-        const img = this.chart({ type: 'line', data: { labels, datasets: sets }, options: { plugins: { legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 22, boxHeight: 3, font: { size: 14 } } } }, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 13 }, callback: tick } }, y: { ticks: { font: { size: 13 }, callback: (v) => this.x(v, 0) } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+        const img = this.chart({ type: 'line', data: { labels, datasets: sets }, options: { plugins: { legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 22, boxHeight: 3, font: { size: 14 } } } }, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 13 }, callback: tick } }, y: { ticks: { font: { size: 13 }, callback: (v) => this.x(v, Number.isInteger(v) ? 0 : 1) } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
         return this.image(img, this.cur.x0, yy, W, h) + 6;
       };
-      y = draw(1, `${evL}/EBITDA ${ntm}`, 'evEbitdaNtmAvg5y', y);
-      y = draw(2, `${peL} ${ntm}`, 'peNtmAvg5y', y);
-      this.noteAbove(this.T(`Línea gruesa: ${short}; líneas delgadas: los otros grupos aeroportuarios mexicanos de la tabla de pares, calculados igual; línea punteada: promedio de 5 años de ${short} (la misma cifra de la tabla). Fuente: FactSet (precios, balances y consenso); cálculo de fnam.mx.`, `Thick line: ${short}; thin lines: the other Mexican airport groups in the peers table, computed the same way; dashed line: ${short}'s 5-year average (the figure in the table). Source: FactSet (prices, balance sheets and consensus); fnam.mx calculation.`), y, 7);
+      for (const sp of seriesSpec) y = draw(sp.idx, sp.label, sp.avgKey, y);
+      const peerNote = o.peerNote || this.T('los otros grupos aeroportuarios mexicanos de la tabla de pares', 'the other Mexican airport groups in the peers table');
+      this.noteAbove(this.T(`Línea gruesa: ${short}; líneas delgadas: ${peerNote}, calculados igual; línea punteada: promedio de 5 años de ${short} (la misma cifra de la tabla). Fuente: FactSet (precios, balances y consenso); cálculo de fnam.mx.`, `Thick line: ${short}; thin lines: ${peerNote}, computed the same way; dashed line: ${short}'s 5-year average (the figure in the table). Source: FactSet (prices, balance sheets and consensus); fnam.mx calculation.`), y, 7);
       return true;
     }
     // ----- footers and download -----

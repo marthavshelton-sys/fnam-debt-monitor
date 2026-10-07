@@ -62,6 +62,10 @@ dashboards, everything built from public data by GitHub Actions.
   Airport peers (GAP, ASUR, OMA share one snapshot, `tools/gap/raw/factset/latest.json`) are refreshed every night at
   19:52 New York time by the cloud routine "FNAM Airports: FactSet peers refresh" (prompt
   `tools/gap/FACTSET-PEERS-PROMPT.md`; `scripts/lib/factset-peers.mjs ingest` + `build`); never hand-edit `peers.js`.
+  Quálitas and Gentera peers (NTM P/E and P/BV, no EV/EBITDA; one joint pull of eleven ids, snapshots
+  `tools/<slug>/raw/factset/latest.json`, `scripts/lib/factset-peers-fin.mjs ingest` + `build` → the two `peers.js` and
+  `site/qualitas/data/consensus.js`) were first filled in-session on 2026-10-07; no nightly routine yet (prompt
+  `tools/qualitas/FACTSET-PEERS-PROMPT.md`, to be created on the Routines page with the connector attached).
   The tables show NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages plus ADTV in US$ M, prices at the last
   completed close (owner, 2026-10-06); no trailing multiples. The connector cannot run FQL (FE_VALUATION etc.): the
   ratios are assembled from consensus_rolling NTMA, prices, shares_outstanding and FF_NET_DEBT / FF_MIN_INT_ACCUM.
@@ -253,10 +257,10 @@ dashboards, everything built from public data by GitHub Actions.
 - Text measurement: jsPDF applies kerning that the written PDF does not, so the engine sums per-glyph widths.
 - Chart conventions the owner asked for: y/y and margin lines in front of bars (red, white-filled points);
   two-axis charts say which series is on which axis; bold only a few key words per bullet; sections 04–05 of the
-  pages are excluded from decks; 07–10 are one landscape page each; the airport decks carry 06 (relative valuation) as two
-  landscape pages right before the sources page (the FactSet peers table with the consensus tiles, then the weekly NTM
-  EV/EBITDA and NTM P/E of the company beside the other Mexican groups; `peersPage` / `multiplesHistoryPage` in the engine,
-  owner 2026-10-07) and a linked contents page after the executive summary (`trackPages`, `tocEntries`, `pageSectionMeta`:
+  pages are excluded from decks; 07–10 are one landscape page each; the airport, Quálitas and Gentera decks carry 06 (relative
+  valuation) as two landscape pages right before the sources page (the FactSet peers table with the consensus tiles, then the
+  weekly history of the company's forward multiples beside its peers': NTM EV/EBITDA and NTM P/E for the airports, NTM P/E and
+  P/BV for the financials; `peersPage` / `multiplesHistoryPage` in the engine take a column and series spec, owner 2026-10-07) and a linked contents page after the executive summary (`trackPages`, `tocEntries`, `pageSectionMeta`:
   the page's own section numbers and titles, with a note naming the sections the deck does not carry); final page is sources and methodology;
   timestamps in CDMX time; market cap in USD only where she asked.
 - The Oracle deck will need a builder pass when that dashboard changes structurally; data changes flow through.
@@ -308,7 +312,8 @@ dashboards, everything built from public data by GitHub Actions.
   (BMV 15:30 CDMX, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid), so a morning run never publishes
   an intraday quote as a "close". The header shows the close date and the fetch time in CDMX. FactSet cannot run in
   GitHub Actions: the airport pages (GAP, ASUR, OMA) and Oracle get FactSet closes from their nightly cloud routines
-  (files committed to the repository and overlaid by the fetchers); for Quálitas and Gentera it is only an in-session cross-check.
+  (files committed to the repository and overlaid by the fetchers); for Quálitas and Gentera the share price stays Yahoo/Stooq
+  (FactSet is an in-session cross-check) while their peers tables come from the FactSet snapshot.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
   release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
   `present-core.js`), never a hand-written date.

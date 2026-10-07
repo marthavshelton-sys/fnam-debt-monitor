@@ -10,3 +10,4 @@ tools/oracle/data/_raw_transcripts_*.json
 tools/gap/raw/factset/pull/
 __pycache__/
 *.pyc
+tools/qualitas/raw/factset/pull/

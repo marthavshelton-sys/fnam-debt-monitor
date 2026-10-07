@@ -23,8 +23,8 @@ called out below.
 | `reference.js` (`Q_REF`) | Company facts, shares (400 M issued, treasury), subsidiaries, ratings, analysts, dividends approved per AGM, debt instruments (none), the VAT matter (one-off 4Q25 adjustment used by the toggle, facts, timeline), international timeline, valuation defaults, peer list, sources | **Reviewing routine** on events |
 | `glossary.js` (`Q_GLOSSARY`) | Bilingual one-sentence definitions keyed by data key; tooltips on row labels and the list in section 11 | Reviewed commit |
 | `alerts.js` (`Q_ALERTS`) | Owner thresholds (share move, combined/loss ratio, solvency, ROE, expectation tracking, 10-year yield) for the page banner and the routine's email | Reviewed commit (readers can override per browser) |
-| `consensus.js` (`Q_CONSENSUS`) | Sell-side consensus contract (written premiums, net income, EPS, ratios, ROE, DPS, target price, ratings) | **Placeholder** until a connector is authorised |
-| `peers.js` (`Q_PEERS`) | Peer multiples (Progressive, Allstate, Porto Seguro, Mapfre, Admiral) | **Placeholder** until the FactSet connector is authorised |
+| `consensus.js` (`Q_CONSENSUS`) | Sell-side consensus (FY net income, EPS, DPS, BVPS, target price, ratings; FactSet collects no written-premium, loss-ratio, combined-ratio or ROE consensus for Quálitas, so those rows stay "pending") | `scripts/lib/factset-peers-fin.mjs build` from the FactSet snapshot (see "FactSet peers and consensus") |
+| `peers.js` (`Q_PEERS`) | Peer multiples (Progressive, Allstate, Porto Seguro, Mapfre, Admiral): own row and peers with NTM P/E and P/BV, their 1-, 3- and 5-year weekly averages, ROE, dividend yield, combined ratio, ADTV, medians, weekly history, consensus block | `scripts/lib/factset-peers-fin.mjs build` from the FactSet snapshot |
 
 Quálitas-specific choices: consolidated perimeter (holding company, CNSF criteria, not IFRS); revenue drivers
 are insured units and written premiums by line (no monthly volumes are published); ratios follow the
@@ -142,7 +142,9 @@ Ctrl/Cmd+P still prints the page (print mode: light theme, tables trimmed to the
 
 Deep link: `/qualitas/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted) · tear sheet (price, market cap
+Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitted) · contents (one linked row per section with
+the page's own numbers and titles, read from its headings; sub-rows when a section spans several pages; the note names the
+sections the deck does not carry, 04 and 05) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, written premiums LTM and
 quarter, loss and combined ratios, RIF, net income LTM with an ex-VAT memo, EPS, P/E, P/BV, 12M ROE, solvency, float,
 insured units, expectations in force, next results; 12-month chart vs the IPC and 3-year price) · operating metrics
@@ -155,7 +157,13 @@ profitability (stacked ratio chart with the 92–94% target band, 8-quarter KPI 
 and portfolio (tiles, solvency chart, reserves/float/equity, portfolio table, ratings, no-debt note) · 08 dividends
 and buybacks (AGM bullets, DPS chart and table, net income/CFO/distributions by fiscal year) · 09 VAT on claims
 (facts, page prose, loss-ratio chart with the 4Q25 charge highlighted, timeline) · 10 international subsidiaries
-(page prose, premiums by subsidiary, timeline) · sources and methodology.
+(page prose, premiums by subsidiary, timeline) · 06 relative valuation, two landscape pages placed right before the
+sources page (owner, 2026-10-07): the FactSet peers table exactly as the page prints it (Quálitas' row through
+`Q_MODEL.peersOwnRow()`, the lead sentence and the method note read from the page's `#peersLead` / `#peersNote`, the
+analyst-consensus tiles, NTM P/E and P/BV with 1-, 3- and 5-year averages, ROE, dividend yield, combined ratio, ADTV),
+then the weekly history of Quálitas' NTM P/E and P/BV (`peers.js` → `own.history.series`) beside the five insurers' with
+Quálitas' 5-year average dashed, one chart above the other (`peersPage` and `multiplesHistoryPage` in the shared engine,
+with the P/E + P/BV column spec) · sources and methodology.
 
 Next results: `reference.js → calendar.nextResults` when Quálitas has announced the date (marked "confirmed");
 otherwise assumed from the median lag between quarter-end and release for the same quarter in the last three years.
@@ -183,3 +191,25 @@ python -m http.server 8080 --directory site      # then open http://localhost:80
 ## Closing prices only (30-Sep-2026)
 
 `fetch-market` passes every price series through `scripts/lib/completed-sessions.mjs`: a bar dated today is kept only after that exchange's close in its own time zone (BMV 15:30 Mexico City, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid). The morning run therefore publishes the previous close; the evening run adds the day's close. The same helper serves GAP, OMA, ASUR, Quálitas, Gentera and Oracle.
+
+## FactSet peers and consensus (`data/peers.js`, `data/consensus.js`)
+
+Filled on 2026-10-07 from the FactSet AI-Ready Data connector (available only inside a Claude session; no credentials in
+GitHub Actions). One joint pull serves Quálitas and Gentera: the connector results are saved as one JSON file per call in
+`tools/qualitas/raw/factset/pull/` (gitignored; file names, calls and definitions at the top of
+`scripts/lib/factset-peers-fin.mjs`), then
+
+    node scripts/lib/factset-peers-fin.mjs ingest --date <run date>   # → tools/qualitas/raw/factset/latest.json and tools/gentera/raw/factset/latest.json
+    node scripts/lib/factset-peers-fin.mjs build                      # → site/qualitas/data/peers.js, site/qualitas/data/consensus.js, site/gentera/data/peers.js
+
+An insurer is compared on NTM P/E and P/BV (no EV/EBITDA): P/E = price / consensus NTM EPS mean, P/BV = price / the book
+value per share of the latest balance sheet reported (FF_BPS by report date); the 1-, 3- and 5-year averages are means of
+the weekly series (each Friday's close over the consensus sampled that day, or over the latest book value reported by
+then); ADTV from FactSet's daily turnover over three months; ROE and the combined ratio from the latest quarter
+(`FF_ROE`, `FF_LOSS_EXP_RATIO`; they answer only under QTR/SEMI, never LTM). Quálitas' own row is FactSet's row computed
+like the peers (393.8 M shares; the page's "current multiples" card keeps the model's own basis). Mapfre: FactSet holds
+its interim statements only from 2024 (SEMI; annual book values before), so its long P/BV averages lean on annual book
+values; Admiral reports semi-annually. The weekly EPS consensus has to be pulled in batches of 2–4 ids (the connector
+refuses the eleven at once). Refresh: run the prompt in `tools/qualitas/FACTSET-PEERS-PROMPT.md` in a session with the
+FactSet connector (or create a nightly routine from it on the claude.ai Routines page with the connector and the
+repository attached, as the airports' routine was); never hand-edit the three data files.
