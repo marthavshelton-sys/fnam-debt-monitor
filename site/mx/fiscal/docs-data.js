@@ -9,7 +9,7 @@
 // the official table; the page shows them with "~". scripts/mx-fiscal/check-docs.mjs cross-checks
 // the values below against the mirrored documents on every workflow run.
 window.MX_DOCS = {
-  "updatedAt": "2026-10-02",
+  "updatedAt": "2026-10-07",
   "cgpe": {
     "title": "Criterios Generales de Política Económica 2027",
     "url": "https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/cgpe/cgpe_2027.pdf",
@@ -20,11 +20,11 @@ window.MX_DOCS = {
     "gdpNominalBn": { "2026": 37.2, "2027": 39.4 },
     "taxRevenuePct": { "2027": 15.9 },
     "ilif2027": { "domesticBn": 1700, "externalUsdBn": 13.5 },
-    "analystsSource": { "es": "Encuesta Citi, 22 sep. 2026", "en": "Citi survey, 22 Sep 2026" },
+    "analystsSource": { "es": "Encuesta Citi, 6 oct. 2026", "en": "Citi survey, 6 Oct 2026" },
     "rows": [
       { "es": "Crecimiento del PIB real", "en": "Real GDP growth", "shcp2026": "1.0–2.0%", "analysts2026": "1.4%", "shcp2027": "1.5–2.5%", "analysts2027": "1.8%" },
-      { "es": "Inflación, cierre de año", "en": "Inflation, year-end", "shcp2026": "3.5%", "analysts2026": "3.93%", "shcp2027": "3.0%", "analysts2027": "3.83%" },
-      { "es": "Tipo de cambio, cierre de año", "en": "Exchange rate, year-end", "shcp2026": "17.8", "analysts2026": "17.50", "shcp2027": "18.0", "analysts2027": "18.00" },
+      { "es": "Inflación, cierre de año", "en": "Inflation, year-end", "shcp2026": "3.5%", "analysts2026": "3.90%", "shcp2027": "3.0%", "analysts2027": "3.83%" },
+      { "es": "Tipo de cambio, cierre de año", "en": "Exchange rate, year-end", "shcp2026": "17.8", "analysts2026": "18.00", "shcp2027": "18.0", "analysts2027": "18.50" },
       { "es": "Tasa objetivo, cierre de año", "en": "Target rate, year-end", "shcp2026": "—", "analysts2026": "6.50%", "shcp2027": "—", "analysts2027": "6.50%" },
       { "es": "Cetes 28 días, cierre de año", "en": "28-day Cetes, year-end", "shcp2026": "6.5%", "analysts2026": "—", "shcp2027": "6.0%", "analysts2027": "—" },
       { "es": "Cetes 28 días, promedio anual", "en": "28-day Cetes, annual average", "shcp2026": "6.5%", "analysts2026": "—", "shcp2027": "6.1%", "analysts2027": "—" },
@@ -85,12 +85,12 @@ window.MX_DOCS = {
   },
   "survey": {
     "title": { "es": "Encuesta Citi México de expectativas", "en": "Citi Mexico expectations survey" },
-    "asOf": "2026-09-22",
-    "institutions": 36,
+    "asOf": "2026-10-06",
+    "institutions": 37,
     "nextMove": { "hold": 25, "hike": 6, "cut": 5 },
     "rateEnd": { "2026": 6.50, "2027": 6.50 },
-    "inflationEnd": { "2026": 3.93, "2027": 3.83 },
-    "fxEnd": { "2026": 17.50, "2027": 18.00 },
+    "inflationEnd": { "2026": 3.90, "2027": 3.83 },
+    "fxEnd": { "2026": 18.00, "2027": 18.50 },
     "gdpGrowth": { "2026": 1.4, "2027": 1.8 }
   },
   "banxicoSurvey": {
