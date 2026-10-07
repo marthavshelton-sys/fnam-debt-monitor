@@ -207,7 +207,7 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   Banking (prefix `nbf`; `nf` was taken by the "section not found" strings), fed by `process_nonbank.ps1`.
   Pitfalls met while building it: credit unions are inside Z.1 sector 70, adding them again breaks the sector
   identity by exactly their size; the Z.1's four newer sectors (hedge, private debt, BDC, interval funds) enter
-  the financial total from 2012-Q4, not 2013; FRED was unreachable from the sandbox all day (HTTP/2 INTERNAL_ERROR
+  the financial total from 2012-Q4, not 2013 (the interval fund series itself is zero until 2021-Q4); FRED was unreachable from the sandbox all day (HTTP/2 INTERNAL_ERROR
   at the egress proxy), so every Z.1 series was verified against the Board's CSV package; the first runner run then
   showed FRED does not carry `FL444090000`, `FL454090003`, `FL464090005` (private debt funds, BDCs, interval funds)
   and names the financial total `FBTFASQ027S`, so the processor reads the Z.1 from the package itself

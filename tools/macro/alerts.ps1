@@ -7,8 +7,9 @@
 # What counts as a release: a new period in any tracked series (CPI, PPI, jobs,
 # PCE, GDP, retail, sentiment prelim/final, Treasury statement, Challenger,
 # CAPE, BLS productivity, NIPA corporate profits, the Z.1 debt accounts, the New
-# York Fed's household debt report, the G.19 and the FDIC's bank aggregates) and a
-# weekly SPR move of 3 million barrels or more. The body is the
+# York Fed's household debt report, the G.19, the FDIC's bank aggregates, the Z.1 nonbank
+# financial sectors, the OFR hedge fund monitor, the SEC money market fund statistics and
+# the NCUA credit union trends) and a weekly SPR move of 3 million barrels or more. The body is the
 # page's own "At a glance" text for each affected section (read out of the
 # built page under Node), so the email says exactly what the dashboard says.
 # Thresholds below decide whether the subject is marked MATERIAL.

@@ -70,7 +70,7 @@ try {
   if ((Get-Date).Date -gt $g19) { Warn "G.19 consumer credit is still at $($hh.g19.asOf); the next month was due by $($g19.ToString('yyyy-MM-dd'))" } else { Write-Output ("G.19: {0} OK" -f $hh.g19.asOf) }
   $bk = Get-Content (Join-Path $data "banks_processed.json") -Raw | ConvertFrom-Json
   $nb = Get-Content (Join-Path $data "nonbank_processed.json") -Raw | ConvertFrom-Json
-  $mmfDue = [datetime]::ParseExact($nb.mmf.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(2).AddDays(30)   # the SEC posts a month about three to four weeks after it ends (August on 24-Sep), so the next month is overdue at the end of the second month after
+  $mmfDue = [datetime]::ParseExact($nb.mmf.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(15)   # the SEC posts a month about three to four weeks after it ends (August on 24-Sep); the next month is overdue in the middle of the third month after (August: 16-Nov), three weeks of slack
   if ((Get-Date).Date -gt $mmfDue) { Warn "SEC money market fund statistics are still at $($nb.mmf.asOf); the next month was due by $($mmfDue.ToString('yyyy-MM-dd'))" } else { Write-Output ("SEC MMF: {0} OK" -f $nb.mmf.asOf) }
   $wk = $bk.h8.weekly[-1].d
   if (((Get-Date).Date - [datetime]::ParseExact($wk, "yyyy-MM-dd", $null)).TotalDays -gt 21) { Warn "H.8 weekly bank data is still at $wk (more than three weeks old)" } else { Write-Output ("H.8: {0} OK" -f $wk) }

@@ -12,9 +12,10 @@
 #   OFR Hedge Fund Monitor API (data.financialresearch.gov/hf/v1, SEC Form PF aggregates for
 #     qualifying hedge funds, quarterly since 2013): gross notional exposure, gross and net
 #     assets, borrowing by type, fund count, top-10 leverage. Each series' name is checked.
-#   SEC Money Market Fund Statistics (Form N-MFP aggregates, monthly since Dec-2010): the newest
-#     "supporting data" workbook linked from the SEC's page (its file name is irregular, so the
-#     page is scraped), read by mmf_xlsx.py with its identity checks.
+#   SEC Money Market Fund Statistics (Form N-MFP aggregates, monthly since Dec-2010): the first
+#     workbook linked from the SEC's page that reads and is not older than the committed month
+#     (the page lists the newest first; file names are irregular), read by mmf_xlsx.py with its
+#     identity checks.
 #   NCUA "Financial Trends in Federally Insured Credit Unions" chart pack (quarterly, forty
 #     quarters per edition): the newest zip linked from the NCUA's page, read by ncua_xlsx.py;
 #     quarters that drop out of the forty-quarter window are kept from the committed file.
@@ -225,29 +226,31 @@ Write-Output ("OFR hedge funds: {0} quarters, {1} .. {2}; GNE {3:N0}B, GAV {4:N0
 $secUa = "fnam.mx macro monitor (https://fnam.mx)"
 $secPage = "https://www.sec.gov/data-research/investment-management-data/money-market-fund-statistics"
 $html = (Invoke-Retry { Invoke-WebRequest -Uri $secPage -UseBasicParsing -UserAgent $secUa -TimeoutSec 120 }).Content
-$links = @([regex]::Matches($html, 'href="([^"]*supporting-data[^"]*\.xlsx)"') | ForEach-Object { $_.Groups[1].Value })
-if (-not $links.Count) { throw "SEC: no supporting-data workbook linked from $secPage" }
-# The newest file: the one whose name carries the latest year-month (MM-YYYY or YYYY-MM or YYYYMM), else the first link.
-$best = $null; $bestKey = ""
-foreach ($l in $links) {
-  $key = ""
-  if ($l -match '(\d{2})-(\d{4})\.xlsx$') { $key = $Matches[2] + $Matches[1] }
-  elseif ($l -match '(\d{4})-(\d{2})\.xlsx$') { $key = $Matches[1] + $Matches[2] }
-  elseif ($l -match '(\d{4})(\d{2})(\d{2})?\.xlsx$') { $key = $Matches[1] + $Matches[2] }
-  if ($key -gt $bestKey) { $bestKey = $key; $best = $l }
-}
-if (-not $best) { $best = $links[0] }
-$secUrl = $(if ($best -match '^https?://') { $best } else { "https://www.sec.gov" + $best })
+# Candidates in page order: the SEC lists the newest workbook first and names the files
+# irregularly, so the order and each workbook's own last month decide, never the name.
+$links = @([regex]::Matches($html, 'href="([^"]*(?:supporting-data|mmf-statistics|money-market-fund-statistics)[^"]*\.xlsx)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+if (-not $links.Count) { throw "SEC: no statistics workbook linked from $secPage" }
 $mmfXlsx = Join-Path $scratch "mmf.xlsx"; $mmfJson = Join-Path $scratch "mmf.json"
-Invoke-Retry { Invoke-WebRequest -Uri $secUrl -OutFile $mmfXlsx -UseBasicParsing -UserAgent $secUa -TimeoutSec 180 } | Out-Null
-$head = [System.IO.File]::ReadAllBytes($mmfXlsx)[0..1]
-if ($head[0] -ne 0x50 -or $head[1] -ne 0x4B) { throw "SEC: $secUrl is not a workbook" }
-& (Get-Python) (Join-Path $PSScriptRoot "mmf_xlsx.py") $mmfXlsx $mmfJson | ForEach-Object { Write-Host "  $_" }
-if ($LASTEXITCODE -ne 0 -or -not (Test-Path $mmfJson)) { throw "mmf_xlsx.py failed for $secUrl" }
-$mmf = Get-Content $mmfJson -Raw -Encoding UTF8 | ConvertFrom-Json
+$mmf = $null; $secUrl = $null; $tried = 0
+foreach ($l in $links) {
+  if ($tried -ge 3) { break }
+  $tried++
+  $u = $(if ($l -match '^https?://') { $l } else { "https://www.sec.gov" + $l })
+  try {
+    Invoke-Retry { Invoke-WebRequest -Uri $u -OutFile $mmfXlsx -UseBasicParsing -UserAgent $secUa -TimeoutSec 180 } | Out-Null
+    $head = [System.IO.File]::ReadAllBytes($mmfXlsx)[0..1]
+    if ($head[0] -ne 0x50 -or $head[1] -ne 0x4B) { Write-Host "  $u : not a workbook"; continue }
+    if (Test-Path $mmfJson) { Remove-Item $mmfJson -Force }
+    & (Get-Python) (Join-Path $PSScriptRoot "mmf_xlsx.py") $mmfXlsx $mmfJson | ForEach-Object { Write-Host "  $_" }
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path $mmfJson)) { Write-Host "  $u : mmf_xlsx.py could not read it"; continue }
+    $cand = Get-Content $mmfJson -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($prev -and $prev.mmf -and $prev.mmf.asOf -and ($cand.asOf -lt $prev.mmf.asOf)) { Write-Host "  $u ends at $($cand.asOf), before the committed $($prev.mmf.asOf); trying the next link"; continue }
+    $mmf = $cand; $secUrl = $u; break
+  } catch { Write-Host ("  {0}: {1}" -f $u, $_.Exception.Message.Split([char]10)[0]) }
+}
+if (-not $mmf) { throw "SEC: none of the first $tried workbooks linked from $secPage could be read, or all end before the committed month" }
 $mmfDate = $null
 try { $h = Invoke-WebRequest -Uri $secUrl -Method Head -UseBasicParsing -UserAgent $secUa -TimeoutSec 60; $lm = $h.Headers["Last-Modified"]; if ($lm) { $mmfDate = ([datetime]$lm).ToUniversalTime().ToString("yyyy-MM-dd") } } catch { }
-if ($prev -and $prev.mmf -and $prev.mmf.asOf -and ($mmf.asOf -lt $prev.mmf.asOf)) { throw "SEC: the newest workbook ends at $($mmf.asOf), before the committed $($prev.mmf.asOf)" }
 Write-Output ("SEC MMF: {0} ({1}), data through {2}" -f $secUrl, $(if ($mmfDate) { $mmfDate } else { "undated" }), $mmf.asOf)
 
 # ---- NCUA chart pack: the newest zip on the NCUA's page, merged with the committed quarters ----
@@ -278,7 +281,7 @@ Write-Output ("NCUA: {0} ({1}), {2} quarters kept, {3} .. {4}" -f $ncuaUrl, $(if
 $obj = [ordered]@{
   z1 = [ordered]@{ quarterly = $rows; asOf = $last.d; ids = $ids; newSectorsFrom = "2012-Q4"; file = $z1Url; fileDate = $z1Date
     note = "Total financial assets by sector, $ billions (Z.1 L tables; mutual funds, closed-end funds and ETFs at market value); equity = total liabilities and equity less total liabilities (life insurers: general accounts); defined benefit pension funds: total funded assets and pension entitlements (L.118.b-L.120.b)" }
-  hedge = [ordered]@{ quarterly = $hrows; asOf = $hl.d; lastUpdate = $hLastUpdate; mnemonics = [ordered]@{}; universe = "Qualifying hedge funds reporting on SEC Form PF (net assets of $500 million or more), aggregated by the OFR" }
+  hedge = [ordered]@{ quarterly = $hrows; asOf = $hl.d; lastUpdate = $hLastUpdate; mnemonics = [ordered]@{}; universe = 'Qualifying hedge funds reporting on SEC Form PF (net assets of $500 million or more), aggregated by the OFR' }
   mmf = [ordered]@{ monthly = $mmf.monthly; asOf = $mmf.asOf; from = $mmf.from; liquidityFrom = $mmf.liquidityFrom; file = $secUrl; fileDate = $mmfDate
     note = "Form N-MFP aggregates, feeder funds excluded; net assets $ billions; daily and weekly liquid assets as % of total assets" }
   ncua = [ordered]@{ quarterly = $nrows; asOf = $ncua.asOf; assets = $ncua.assets; loans = $ncua.loans; shares = $ncua.shares; file = $ncuaUrl; fileDate = $ncuaDate
