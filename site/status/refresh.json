@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-07T04:00:02Z",
+  "checkedAt": "2026-10-07T11:12:01Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time), no alert of the pipeline is open and every price feed of the page carries the exchange's last completed session (stale otherwise); checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -79,15 +79,15 @@
         "en": "Mexico Fiscal"
       },
       "url": "/mx/fiscal/",
-      "status": "alert",
-      "refreshStatus": "alert",
+      "status": "ok",
+      "refreshStatus": "ok",
       "lastSuccess": "2026-10-06T20:30:56Z",
       "lastAttempt": {
         "at": "2026-10-06T20:30:56Z",
         "result": "failure"
       },
       "requiredSince": "2026-10-05T19:30:00Z",
-      "alerts": 1
+      "alerts": 0
     },
     {
       "id": "gap",

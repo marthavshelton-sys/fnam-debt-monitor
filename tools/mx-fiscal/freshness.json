@@ -6,7 +6,7 @@
     "`bd` = Mexican business days after the observation date (daily series); `days` = calendar days after the END of the",
     "stamped period (weekly, monthly, quarterly). An allowance is the publisher's normal lag plus a margin: past it, a newer",
     "figure exists that the fetch has failed to pick up. `byFreq` applies unless the key has its own entry in `bySeries`.",
-    "Calibrated on 2026-10-01 against the observed lags in data.js."
+    "Calibrated on 2026-10-01 against the observed lags in data.js; the Banxico-republished SHCP debt stocks (SG193, SG194, SG195, SG199) on 2026-10-07."
   ],
   "byFreq": {
     "D": { "bd": 2, "why": "Banxico SIE daily series (target rate, TIIE, FIX, UDI) carry the previous business day by the 19:30 UTC run" },
@@ -28,6 +28,8 @@
     "inflExp12mMean": { "days": 25 },
     "vgPlazoPromedio": { "days": 45, "why": "monthly, published early in the following month" },
     "deudaBrutaSPEA": { "days": 120, "why": "quarterly, SHCP's quarterly report 30 days after the quarter, republished by Banxico" },
-    "deudaNetaLiquidaSPEA": { "days": 120 }
+    "deudaNetaLiquidaSPEA": { "days": 120 },
+    "deudaNetaSPEA": { "days": 100, "why": "Banxico republishes SHCP's monthly debt stocks (SIE table CG7) about a month after SHCP's own release, which is 30 days after month end: the Jul-2026 point appeared on 28-Sep-2026, 59 days after period end, so the latest point is about 90 days old by the time the next one lands; 66 days opened a false alert on 6-Oct-2026" },
+    "deudaNetaSPEAInterna": { "days": 100 }, "deudaNetaSPEAExterna": { "days": 100 }, "deudaNetaConsolidada": { "days": 100 }
   }
 }

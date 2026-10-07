@@ -103,7 +103,7 @@ async function banxico(cand, spec) {
 // renumbered concept can never publish under the wrong label. `where` {COLUMN: regex} keeps only rows
 // whose attributes match (e.g. BASE_DE_REGISTRO, FRECUENCIA) when a month appears more than once. `scale` converts the unit (SHCP
 // reports stocks in miles de pesos). "N/E", "n.d." and blank MONTO cells are skipped.
-const csvCache = new Map();
+const csvCache = new Map(); // url -> { rows } or { error }: each file is downloaded once per run, success or failure
 const MESES = { enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', julio: '07', agosto: '08', septiembre: '09', setiembre: '09', octubre: '10', noviembre: '11', diciembre: '12' };
 function parseCSV(text) {
   const delim = (text.split('\n')[0] || '').includes(';') ? ';' : ',';
@@ -131,8 +131,15 @@ function shcpDate(ciclo, mes) {
   return null;
 }
 async function shcp(cand, spec) {
-  if (!csvCache.has(cand.url)) csvCache.set(cand.url, parseCSV(await getText(cand.url))); // net.mjs completes SHCP's TLS chain
-  const rows = csvCache.get(cand.url);
+  if (!csvCache.has(cand.url)) {
+    // One download per file per run, success or failure. 28 series read three files; on 6-Oct-2026 every one of them
+    // retried an unreachable host (3 tries x 30 s each): 44 minutes for the step instead of one. A cached failure makes
+    // every series of that file fail fast with the same reason. net.mjs completes SHCP's TLS chain.
+    try { csvCache.set(cand.url, { rows: parseCSV(await getText(cand.url)) }); }
+    catch (e) { csvCache.set(cand.url, { error: e }); }
+  }
+  const { rows, error } = csvCache.get(cand.url);
+  if (error) throw error;
   const header = rows[0].map((h) => clean(h).toUpperCase().replace(/^﻿/, ''));
   const ix = (n) => header.indexOf(n);
   const [iCiclo, iMes, iClave, iNombre, iUnidad, iMonto] = ['CICLO', 'MES', 'CLAVE_DE_CONCEPTO', 'NOMBRE', 'UNIDAD_DE_MEDIDA', 'MONTO'].map(ix);
