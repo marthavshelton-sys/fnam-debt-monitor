@@ -4,48 +4,6 @@
   {
    "at": "2026-10-05T14:23:32.430Z",
    "file": "peers.js",
-   "path": "peers[6].evUsdM",
-   "old": 2796211,
-   "new": 2831698
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].ntmEps",
-   "old": 11.155,
-   "new": 11.142
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].ntmEbitda",
-   "old": 266781,
-   "new": 267517
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].ntmSales",
-   "old": 919874,
-   "new": 920871
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].peNtm",
-   "old": 22.25280143433438,
-   "new": 22.574044157242867
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
-   "path": "peers[6].evEbitdaNtm",
-   "old": 10.481297393742432,
-   "new": 10.585114217040413
-  },
-  {
-   "at": "2026-10-05T14:23:32.430Z",
-   "file": "peers.js",
    "path": "peers[6].evSalesNtm",
    "old": 3.0397760997701857,
    "new": 3.075021365641876
@@ -4200,7 +4158,49 @@
    "path": "basis.marketDate",
    "old": "2026-10-05",
    "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-07T14:56:11.455Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-04",
+   "new": "2026-10-07"
   }
  ],
- "generated": "2026-10-07T13:41:04.125Z"
+ "generated": "2026-10-07T14:56:11.455Z"
 }
