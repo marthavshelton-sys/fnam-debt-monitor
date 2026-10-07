@@ -231,7 +231,7 @@ window.MONTHLY_DATA = {
     }
   },
   "fedWatch": {
-    "asOf": "2026-10-05",
+    "asOf": "2026-10-06",
     "meetings": [
       "28-Oct-2026",
       "09-Dec-2026"
@@ -249,25 +249,25 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        77.9,
-        11.4
+        79,
+        30
       ],
       [
-        22.1,
-        62.3
-      ],
-      [
-        0,
-        24.3
+        21,
+        70
       ],
       [
         0,
-        2.1
+        0
+      ],
+      [
+        0,
+        0
       ]
     ],
-    "sourceName": "Phemex News (quoting CME FedWatch)",
-    "sourceNameEs": "Phemex News (citando CME FedWatch)",
-    "sourceUrl": "https://phemex.com/news/article/cme-fedwatch-779-probability-fed-holds-rates-in-october-98766",
+    "sourceName": "CNBC (quoting CME FedWatch)",
+    "sourceNameEs": "CNBC (citando CME FedWatch)",
+    "sourceUrl": "https://www.cnbc.com/amp/2026/10/06/gold-inches-lower-as-firmer-dollar-higher-yields-weigh.html",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -292,7 +292,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "Phemex News, \"CME FedWatch: 77.9% Chance Fed Holds Rates in October\", 2026-10-05 (https://phemex.com/news/article/cme-fedwatch-779-probability-fed-holds-rates-in-october-98766): October, \"77.9% probability that the Federal Reserve will maintain current interest rates through October, with a 22.1% chance of a cumulative 25 basis point hike\"; December, \"only an 11.4% probability of rates remaining unchanged, while a cumulative 25 basis point hike carries a 62.3% likelihood. A 50 basis point cumulative increase is priced at 24.3%, with a 75 basis point hike at just 2.1%.\" The article gives cumulative moves from the current 3.75-4.00% target range, so they map one to one onto the buckets: unchanged = 3.75-4.00%, +25 bp = 4.00-4.25%, +50 bp = 4.25-4.50%, +75 bp = 4.50-4.75% (the December column sums to 100.1 as printed). Cross-check: Investing.com's Fed Rate Monitor (CME 30-day fed fund futures, 2026-10-03) put the December 4.25-4.50% bucket at 18.4%. Replaces the CNBC 2026-10-05 snapshot (binary 22% October hike / 87% December hike reading, which this file had placed entirely in the 4.00-4.25% bucket; now superseded by the full distribution). CME's tool and Investing.com answer 403 to scripts.",
+    "fedWatch": "CNBC, \"Gold ticks up as softer Fed rate expectations offset higher yields\", 2026-10-06 (https://www.cnbc.com/amp/2026/10/06/gold-inches-lower-as-firmer-dollar-higher-yields-weigh.html; mirrored verbatim by MarketScreener and TradingView the same day): \"Traders now see only a 21% chance of the Fed raising rates in October but are still pricing in an almost 70% probability of an increase in December, according to CME's FedWatch Tool.\" Both are binary hold/hike readings from the current 3.75-4.00% target range (since 2026-09-17), so each maps one-to-one onto the buckets per the routine's rule for a single-bucket quote: October = 79% hold (3.75-4.00%) / 21% hike (4.00-4.25%); December = 30% hold (3.75-4.00%) / 70% hike (4.00-4.25%, rounding \"almost 70%\"). A day later CNBC (\"Gold edges lower with focus on Fed minutes, rate path clues\", 2026-10-07, https://www.cnbc.com/amp/2026/10/07/gold-edges-lower-with-focus-on-fed-minutes-rate-path-clues.html) reported the December hike odds had risen further to 86% but gave no numeric October reading that day (only \"markets now largely expect the Fed to stay pat in October\"), so the 2026-10-06 snapshot was kept as the one dated quote with a complete column for both meetings. Replaces the prior Phemex News citation, which is not one of the outlets Martha's accuracy rule names. CME's own FedWatch tool and Investing.com's Fed Rate Monitor answer HTTP 403 to scripts.",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };
