@@ -254,13 +254,20 @@ the ES/EN toggle; the file is named `GAP_PAC_presentacion_<date>.pdf` / `GAP_PAC
 
 Deep link: `/gap/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · tear sheet
+Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · contents
+(one linked row per section with the page's own numbers and titles, read from the page's headings; sub-rows when a section
+spans several pages; the note names the sections the deck does not carry, 04 and 05) · tear sheet
 (market data with fetch timestamp, LTM and quarter EBITDA, net debt/EBITDA, GAP B vs IPC rebased, 3-year price) ·
 operating metrics and income statement of the latest quarter, latest fiscal year and LTM (portrait, with the
 `data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
 track record and every vintage (landscape) · traffic by airport (latest month and LTM) · GAP vs Mexico (AFAC, from
 `/aeropuertos/data/traffic.js`, two axes) · sections 07 leverage, 08 dividends, 09 CBX, 10 FIBRA GAP (landscape, bullets
-and charts) · sources and methodology. Every page after the cover carries the confidentiality footer and "Page X of Y".
+and charts) · 06 relative valuation, two landscape pages placed right before the sources page (owner, 2026-10-07): the
+FactSet peers table exactly as the page prints it (GAP's row through `GAP_MODEL.peersOwnRow()`, the lead sentence and the
+method note read from the page's `#peersLead` / `#peersNote`, the analyst-consensus tiles, 1-, 3- and 5-year averages and
+ADTV), then the weekly history of GAP's NTM EV/EBITDA and NTM P/E (`peers.js` → `own.history.series`) beside ASUR's and OMA's
+with GAP's 5-year average dashed, one chart above the other (`peersPage` and `multiplesHistoryPage` in the shared engine) ·
+sources and methodology. Every page after the cover carries the confidentiality footer and "Page X of Y".
 
 Next results date: `reference.js` → `calendar.nextResults` when GAP has announced it (shown as *confirmed*); otherwise
 the PDF assumes the median lag between quarter-end and release for the same quarter over the previous three years and

@@ -1043,6 +1043,22 @@
     // peers: FactSet snapshot in data/peers.js (refreshed nightly by the cloud routine); own row from this model's price and net debt
     renderPeers(price, sharesNow, ltm, nd);
   }
+  // The company's rows of the peers table, printed by the page and by the deck (through the model API).
+  // own: FactSet's own row, computed exactly like the peers (owner, 2026-10-06: every price from FactSet, one close date); only the
+  // dividend yield uses the AGM amount in this model over that close. ownPf: the pro-forma perimeter (ASUR with CPC, while the switch
+  // is on): FactSet market cap + pro-forma net debt + minorities over consensus NTM EBITDA plus CPC's EBITDA, an FNAM calculation that
+  // assumes the consensus still excludes CPC; no P/E and no history on that perimeter. `ltm` = the latest LTM income statement.
+  function peersOwnRows(ltm) {
+    const O = PEERS.own, es = LANG === 'es'; if (!O) return { own: null, ownPf: null };
+    const dps0 = (REF.dividends || []).slice(-1)[0];
+    const own = { ...O, cls: 'bold', divYieldPct: dps0 ? 100 * dps0.dps / O.price : O.divYieldPct };
+    const ownPf = usePF() && ltm && O.ntm && O.ntm.ebitda ? (() => {
+      const evPf = O.mktCapM + PF.netDebtM + nciOf(lastQ) / 1000;
+      return { ...own, blank: true, name: `${CFG.short} (${es ? 'pro forma con' : 'pro forma with'} ${L(PF.name)})`, ticker: null, evEbitdaNtm: evPf / (O.ntm.ebitda.mean + PF.ebitdaM), peNtm: null, evEbitdaNtmAvg1y: null, evEbitdaNtmAvg3y: null, evEbitdaNtmAvg5y: null, peNtmAvg1y: null, peNtmAvg3y: null, peNtmAvg5y: null, netDebtEbitda: PF.netDebtM * 1000 / (ltm.ebitda + PF.ebitdaM * 1000) };
+    })() : null;
+    if (ownPf) { own.name = `${CFG.short} (${es ? 'reportado' : 'reported'})`; own.ticker = null; }
+    return { own, ownPf };
+  }
   function renderPeers(price, shares, ltm, nd) {
     if (!el('peersTable')) return;
     const O = PEERS.own, ps = PEERS.peers || [], M = PEERS.medians || {}, es = LANG === 'es';
@@ -1069,17 +1085,7 @@
       if (k === 'adtvUsdM') return fmtN(v, 1);
       return /Pct/.test(k) ? fmtPct(v) : fmtX(v);
     };
-    // own row: FactSet's own row, computed exactly like the peers (owner, 2026-10-06: every price from FactSet, one close date);
-    // only the dividend yield uses the AGM amount in this model over that close
-    const dps0 = (REF.dividends || []).slice(-1)[0];
-    const own = { ...O, cls: 'bold', divYieldPct: dps0 ? 100 * dps0.dps / O.price : O.divYieldPct };
-    // pro-forma perimeter (ASUR with CPC, while the switch is on): FactSet market cap + pro-forma net debt + minorities over consensus NTM
-    // EBITDA plus CPC's EBITDA, an FNAM calculation that assumes the consensus still excludes CPC; no P/E and no history on that perimeter
-    const ownPf = usePF() && ltm && O.ntm && O.ntm.ebitda ? (() => {
-      const evPf = O.mktCapM + PF.netDebtM + nciOf(lastQ) / 1000;
-      return { ...own, blank: true, name: `${CFG.short} (${es ? 'pro forma con' : 'pro forma with'} ${L(PF.name)})`, ticker: null, evEbitdaNtm: evPf / (O.ntm.ebitda.mean + PF.ebitdaM), peNtm: null, evEbitdaNtmAvg1y: null, evEbitdaNtmAvg3y: null, evEbitdaNtmAvg5y: null, peNtmAvg1y: null, peNtmAvg3y: null, peNtmAvg5y: null, netDebtEbitda: PF.netDebtM * 1000 / (ltm.ebitda + PF.ebitdaM * 1000) };
-    })() : null;
-    if (ownPf) { own.name = `${CFG.short} (${es ? 'reportado' : 'reported'})`; own.ticker = null; }
+    const { own, ownPf } = peersOwnRows(ltm);
     const medRow = (name, m) => (m ? { name, ...m, cls: 'total' } : null);
     const mx = ps.filter((p) => p.group === 'mexico'), intl = ps.filter((p) => p.group !== 'mexico');
     const rows = [
@@ -1285,7 +1291,7 @@
   // calculations the page renders, so the PDF and the screen can never disagree.
   window[P + '_MODEL'] = {
     get LANG() { return LANG; }, nextResults, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays, cls,
-    CFG, FIN, TR, MK, REF, PEERS, GD, CM, SUM, HOME, ADS,
+    CFG, FIN, TR, MK, REF, PEERS, peersOwnRows, GD, CM, SUM, HOME, ADS,
     Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, sumParts, exRev, fixRatios, niCtrl, ytdFor, ltmFor, lastLTM,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, homePx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt, nciOf, PF, proFormaOn: usePF, pfCaveat,
     avgFx, yoyCommentsFor, trByYm, periodYms, opsFor, opsForMode, AIR, CTRY, PERIM, perimNote, nextTrafficRelease, addYm, GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual, fmtFact, betaFromMarket, kdFromDebt, priceSrcLabel, priceSources, marketSrcNote, marketCadence,

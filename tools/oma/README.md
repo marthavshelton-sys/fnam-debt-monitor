@@ -118,8 +118,10 @@ of sections 09 and 10 is read from the page itself. Language follows the ES/EN t
 
 Deep link: `/oma/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
-their lead clause emphasised) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
+Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
+their lead clause emphasised) · contents (one linked row per section with the page's own numbers and titles, read from
+the page's headings; sub-rows when a section spans several pages; the note names the sections the deck does not carry,
+04 and 05) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
 IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBITDA, EV/EBITDA, P/E, passengers,
 next results) · operating metrics and income statement for the latest quarter, LTM and fiscal year (portrait, ex-IFRIC
 12, with the `data/comments.js` comments) · outlook, tariffs and investment commitments (`reference.js` → `regulation`,
@@ -127,7 +129,12 @@ next results) · operating metrics and income statement for the latest quarter, 
 airport (latest month with country subtotals, LTM, next traffic report from the median release day) · OMA vs Mexico
 from AFAC (`/aeropuertos/data/traffic.js`, two axes; Mexican airports only for a multi-country group) · 07 leverage,
 08 dividends (with the annual cash-flow table), 09 and 10 (facts, timeline, fact sheet, the page's prose and a
-company chart) · sources and methodology. Sections 04–06 are excluded on purpose.
+company chart) · 06 relative valuation, two landscape pages placed right before the sources page (owner, 2026-10-07):
+the FactSet peers table exactly as the page prints it (the company's rows through `OMA_MODEL.peersOwnRows()`, the lead
+sentence and the method note read from the page's `#peersLead` / `#peersNote`, the analyst-consensus tiles, 1-, 3- and
+5-year averages and ADTV), then the weekly history of OMA's NTM EV/EBITDA and NTM P/E (`peers.js` → `own.history.series`)
+beside the other two Mexican groups' with OMA's 5-year average dashed, one chart above the other (`peersPage` and
+`multiplesHistoryPage` in the shared engine) · sources and methodology. Sections 04 and 05 are excluded on purpose.
 
 Next results date: `reference.js` → `calendar.nextResults` once OMA announces it (shown as *confirmed*); otherwise
 assumed from the median lag between quarter-end and release for the same quarter over the previous three years.

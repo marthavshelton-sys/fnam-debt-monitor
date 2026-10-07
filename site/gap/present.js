@@ -17,8 +17,19 @@
     const M = window.GAP_MODEL;
     await P.run(M, window.MX_AIRPORTS ? [] : [MX_TRAFFIC], async () => {
       const doc = new GapDoc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.trafficTables(); doc.trafficCharts(); doc.debtPage(); doc.dividendPage(); doc.cbxPage(); doc.fibraPage(); doc.sourcesPage();
+      // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
+      // executive summary) can list the sections with fnam.mx/gap's numbers and link each row; the relative valuation (06)
+      // sits just before Sources and Methodology (owner, 2026-10-07)
+      doc.cover();
+      doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
+      doc.at('tear'); doc.tearSheet();
+      doc.at('statements'); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
+      doc.at('guidance'); doc.guidancePage();
+      doc.at('traffic'); doc.trafficTables(); doc.trafficCharts();
+      doc.at('debt'); doc.debtPage(); doc.at('dividends'); doc.dividendPage(); doc.at('cbx'); doc.cbxPage(); doc.at('fibra'); doc.fibraPage();
+      doc.at('relative'); doc.relativePages();
+      doc.at('method'); doc.sourcesPage(); doc.at(null);
+      doc.contentsPage();
       doc.finish();
     });
   }
@@ -28,6 +39,15 @@
       super(M, { ...CFG, name: M.REF.company ? M.REF.company.name : 'Grupo Aeroportuario del Pacífico', tickerLine: `BMV: ${(M.REF.company && M.REF.company.short) || 'GAP'}  ·  NYSE: PAC` });
       this.MX = window.MX_AIRPORTS || null;
       this.next = this.nextResults();
+      this.trackPages = true; // page() records every page for the contents page
+    }
+    at(sec) { this.sec = sec; }
+    // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
+    // naming the sections of fnam.mx/gap the deck does not carry (share-price performance, DCF), composed from the same headings.
+    contentsPage() {
+      const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta);
+      const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
+      this.drawContents(this.tocEntries(meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de fnam.mx/gap${out.length ? `; ${out.length > 1 ? 'las secciones' : 'la sección'} ${list} se ${out.length > 1 ? 'consultan' : 'consulta'} en la página y no ${out.length > 1 ? 'forman' : 'forma'} parte de esta presentación` : ''}.`, `Every row links to its page. Sections are numbered as on fnam.mx/gap${out.length ? `; ${out.length > 1 ? 'sections' : 'section'} ${list} ${out.length > 1 ? 'are' : 'is'} read on the page and ${out.length > 1 ? 'are' : 'is'} not part of this presentation` : ''}.`));
     }
     // Next monthly traffic report: the month after the latest one, on GAP's usual day (median of the last twelve releases).
     nextTraffic() {
@@ -513,6 +533,18 @@
     }
 
     // ================= 15. SOURCES AND METHODOLOGY =================
+    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // The peers table as the page prints it (GAP's row through the model, lead sentence and method note read from the page) and
+    // the weekly history of GAP's NTM EV/EBITDA and NTM P/E beside ASUR's and OMA's; both pages live in the shared engine.
+    relativePages() {
+      const M = this.M, P = M.PEERS, own = M.peersOwnRow(); if (!own) return;
+      const sec = this.pageSectionMeta().relative || {}; const title = (tail) => `${sec.label ? sec.label + ' · ' : ''}${sec.title || this.T('Valuación relativa', 'Relative valuation')} · ${tail}`;
+      // the page's note points at its own multiples table for the ex-IFRIC 12 margin; in the deck that figure is on the tear sheet
+      const note = this.richTextOf('peersNote').replace('de la tabla izquierda', 'de la ficha técnica').replace('in the left-hand table', 'on the tear sheet');
+      this.peersPage({ P, own, ownPf: null, title: title(this.T('pares: múltiplos a futuro, sus promedios y liquidez', 'peers: forward multiples, their averages and liquidity')), lead: this.richTextOf('peersLead'), note });
+      this.multiplesHistoryPage({ P, own, title: title(this.T('múltiplos a doce meses, historial semanal', 'forward multiples, weekly history')) });
+    }
+
     sourcesPage() {
       const M = this.M;
       let y = this.page('L', this.T('Fuentes y metodología', 'Sources and Methodology'), this.T('Todo el contenido proviene de información pública; cada bloque de datos se actualiza automáticamente con la cadencia indicada', 'All content comes from public information; each data block refreshes automatically at the cadence shown'));
