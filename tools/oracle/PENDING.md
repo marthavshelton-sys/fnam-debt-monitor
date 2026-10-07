@@ -66,6 +66,11 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 
 ## Owner's decision pending (ideas proposed 2026-10-03, not built)
 
+- 2026-10-07: the scenario bar has both a "FactSet consensus" and a "Base case" button; by the rule of 2026-10-04 the Base
+  case is consensus as it stands, so both load the same figures (the note under the bar says so). If a Base case of FNAM's own
+  is wanted (its own growth, margin or capex path kept apart from consensus), it needs a data definition
+  (`reference.js → dcf`) and the Reset button would return to it instead.
+
 Interest coverage and cash interest (XBRL, easy); depreciation vs capex with a server useful-life sensitivity (10-K
 policy note, medium); Form 4 insider transactions (EDGAR, easy); rating-agency lease-adjusted leverage replicated
 (agency methodology, medium); "what changed since your last visit" banner (reuses the change log, easy); short interest

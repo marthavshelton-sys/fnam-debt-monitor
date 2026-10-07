@@ -307,3 +307,23 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   deck reads `M.MK.prices.ORCL.source/sourceUrl` in its DCF note, multiples note and Sources table (no typed "Nasdaq"); the validator
   ties the price file's last row to ORCL's own `oracle.price_date` (not the cross-peer common date), tolerates an empty OHLC cell,
   and the freshness row reads the same validated rows as the tie-out.
+
+## 2026-10-07 (owner's request: projections first, scenario buttons, consensus comparison, DCF-implied target, Excel export)
+- DCF layout: the projections card opens the section (every assumption per explicit year is an input in the table; scenario bar
+  FactSet consensus · Management targets · Bull · Bear · Base case · Reset); beside it the consensus comparison (revenue,
+  adjusted EBITDA, non-GAAP EPS; estimate counts) and the DCF-implied target with its target-implied P/E and EV/EBITDA; the
+  inputs card keeps frame, taxes, cost of capital, terminal value. Runbook `README.md` → "DCF section", method `METHODOLOGY.md`
+  §8 (bridge, export, labels). Values unchanged to the cent except years 6–N, whose growth is now rounded to 0.1 pp.
+- **Base case = FactSet consensus** (the rule of 2026-10-04): the two buttons load the same figures and the note says so. Open
+  question for the owner (`PENDING.md`): whether she wants a Base case of her own, distinct from consensus.
+- Pitfalls: `extendPath` fills years after the lever years once per scenario and `dcfCompute` reads the arrays as they stand
+  (never re-derive those years at compute time, the reader may have edited them); `updateDcfTable` refreshes the projection
+  cells in place (re-rendering `#dcfTable` in `renderDcfOutputs` would drop the focused input); `fyLab` is the prose form
+  (FY2026 / AF2026), tables keep their own `FY27E`; `filingLabel` needs the EDGAR file name (`orcl-YYYYMMDD.htm`) and falls back
+  to the title; `.dcf-top > *` and `.dcf-side > *` need `min-width:0` or the projection table pushes the page sideways on phones
+  (360 px overflowed 23 px); `.hero .hk` is 11 px on desktop and must be 12 px in the phone block; `check-links.mjs` scans the
+  scripts a page loads, so the XML namespace URIs inside `xlsx-lite.js` are listed in `tools/link-check-ignore.txt`
+  (`http://schemas.openxmlformats.org/`); `xlsx-check.mjs` needs `soffice` and Python openpyxl (both in the sandbox);
+  `reference.js → debt.instrumentsNote` is a data note that still says "58 instruments … FY2026 Form 10-K" and is re-based with
+  the next 10-K, as is the whole book; the GPU-delivery caption's "1Q27 = 1.9x 4Q26" describes a specific derived figure and
+  stays as a data fact.

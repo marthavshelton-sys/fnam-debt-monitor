@@ -118,7 +118,12 @@ dashboards, everything built from public data by GitHub Actions.
   Guidance / Debt then the verdict right) and a linked contents page, and excludes the DCF (page-only) while keeping the
   multiples and peers.
   Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
-  :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures).
+  :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures);
+  a change to the DCF engine, its projection table or the Excel writer also runs `scripts/oracle/xlsx-check.mjs` (LibreOffice +
+  openpyxl recalculate the download and compare it with the page). Since 2026-10-07 the DCF section opens with the editable
+  projection table (scenario buttons, Base case = FactSet consensus by construction), the consensus comparison and the
+  DCF-implied target; the Excel export uses the dependency-free writer `site/assets/xlsx-lite.js` (own origin, per the CSP);
+  quarter, fiscal-year, filing and target labels are composed from the data, never typed (helpers in `app.js`).
   Headings are Title Cased at render time (`titleCaseHeadings()`, both languages) and the English copy is American English
   (owner, 2026-10-06); the peers table carries 1/3/5-year averages of the forward multiples (weekly observations) and ADTV from
   `factset.json → hist_multiples` / `adtv`, refreshed by the nightly FactSet routine at 7:58 PM New York time (steps g and k of
