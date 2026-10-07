@@ -257,6 +257,12 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   .backlink:hover svg{transform:none;}
 }
 </style>
+<!-- Prerender the Oracle model when its card is hovered or touched (Chrome and Edge; other browsers ignore this), so the
+     click opens the page already populated instead of the empty shell it shows while its scripts download and run.
+     Only the model link, never the PDF deep link (that one builds a presentation on arrival). -->
+<script type="speculationrules">
+{ "prerender": [ { "where": { "selector_matches": "a[href=\"/oracle/\"]" }, "eagerness": "moderate" } ] }
+</script>
 </head>
 <body>
 
