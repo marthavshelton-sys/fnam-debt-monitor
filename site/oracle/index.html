@@ -120,6 +120,20 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 
 /* ---------- KPI strip ---------- */
 .kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
+
+/* ---------- Loading state ---------- */
+/* The page is a shell until app.js has run (about 0.7 s with a warm cache, 2 s on a cold phone load: the data files are
+   no-store by design and the charts are drawn at boot). Until then the header figures and the summary blocks are empty;
+   these rules put a quiet placeholder in them instead of blank boxes. :empty stops matching the moment the script
+   writes into an element, so this needs no JavaScript and the populated page is untouched. The header line follows
+   <html lang> (the ?lang= rewrite sets it; otherwise the page arrives in Spanish). */
+@keyframes fnam-shimmer{from{background-position:200% 0;} to{background-position:-200% 0;}}
+@keyframes fnam-pulse{0%,100%{opacity:.5;} 50%{opacity:1;}}
+#asofRow:empty::before, #hdrCompact:empty::before{content:"Cargando el modelo…"; color:var(--muted); font-size:12.5px; animation:fnam-pulse 1.6s ease-in-out infinite;}
+html[lang^="en"] #asofRow:empty::before, html[lang^="en"] #hdrCompact:empty::before{content:"Loading the model…";}
+#kpiStrip:empty, #sumVerdict:empty, #sumChain:empty, #sumGrid:empty, #sumWatch:empty{display:block; padding:0; border:1px solid var(--border); border-radius:12px; background:linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 50%, var(--surface-2) 75%); background-size:200% 100%; animation:fnam-shimmer 1.6s linear infinite;}
+#kpiStrip:empty{min-height:86px;} #sumVerdict:empty{min-height:72px;} #sumChain:empty{min-height:84px;} #sumGrid:empty{min-height:180px;} #sumWatch:empty{min-height:96px;}
+@media (prefers-reduced-motion: reduce){#asofRow:empty::before, #hdrCompact:empty::before, #kpiStrip:empty, #sumVerdict:empty, #sumChain:empty, #sumGrid:empty, #sumWatch:empty{animation:none;}}
 .kpi{background:var(--surface); padding:18px 14px 16px;}
 .kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
 .kpi .val{font-family:var(--sans); font-size:clamp(19px,2vw,26px); font-weight:700; margin-top:6px; line-height:1.15; overflow-wrap:normal;}
