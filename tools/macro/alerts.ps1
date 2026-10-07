@@ -26,7 +26,9 @@
 # 0.2 pp (MATERIAL from 0.5 pp); productivity q/q 0.3 pp (MATERIAL from 1 pp) and
 # unit labor costs q/q 0.5 pp (from 1.5 pp); the corporate profit margin 0.1 pp
 # (from 0.5 pp); nonfinancial corporate debt as % of GDP 0.3 pp (from 1.5 pp);
-# household debt 1% (from 3%); the banks' Tier 1 leverage ratio 0.05 pp (from 0.25 pp).
+# household debt 1% (from 3%); the banks' Tier 1 leverage ratio 0.05 pp (from 0.25 pp);
+# the nonbank share of financial assets 0.1 pp (from 0.5 pp) and the state and local pension
+# funded ratio 0.5 pp (from 2 pp); hedge funds' gross/net assets 0.05x (from 0.2x).
 #
 # A release missing from the state (a section added to the page) is seeded from the
 # current data without sending anything, like a missing state file.
@@ -44,7 +46,7 @@ $cpi = LoadJson "bls_cpi_processed3.json"; $ppi = LoadJson "ppi_processed.json";
 $pce = LoadJson "pce_processed.json"; $gdp = LoadJson "gdp_processed.json"; $retail = LoadJson "retail_processed.json"; $umich = LoadJson "umich_processed.json"
 $fiscal = LoadJson "fiscal_processed.json"; $spr = LoadJson "spr_processed.json"; $cape = LoadJson "cape_processed.json"
 $prod = LoadJson "productivity_processed.json"; $profits = LoadJson "profits_processed.json"; $debt = LoadJson "debt_processed.json"
-$hh = LoadJson "hhdebt_processed.json"; $banks = LoadJson "banks_processed.json"
+$hh = LoadJson "hhdebt_processed.json"; $banks = LoadJson "banks_processed.json"; $nonbank = LoadJson "nonbank_processed.json"
 
 function Pts($series) { if ($series -and $series.points) { @($series.points | Where-Object { $null -ne $_.v -or $null -ne $_.yoy -or $null -ne $_.idx }) } else { @() } }
 function Last($arr, [int]$back = 0) { if ($arr.Count -gt $back) { $arr[$arr.Count - 1 - $back] } else { $null } }
@@ -71,16 +73,21 @@ if ($debt -and $debt.asOf) { $cur.debt = $debt.asOf }
 if ($hh -and $hh.nyfed -and $hh.nyfed.asOf) { $cur.hhdebt = $hh.nyfed.asOf }
 if ($hh -and $hh.g19 -and $hh.g19.asOf) { $cur.g19 = $hh.g19.asOf }
 if ($banks -and $banks.asOf) { $cur.banks = $banks.asOf }
+if ($nonbank -and $nonbank.z1 -and $nonbank.z1.asOf) { $cur.nonbank = $nonbank.z1.asOf }
+if ($nonbank -and $nonbank.hedge -and $nonbank.hedge.asOf) { $cur.hedge = $nonbank.hedge.asOf }
+if ($nonbank -and $nonbank.mmf -and $nonbank.mmf.asOf) { $cur.mmf = $nonbank.mmf.asOf }
+if ($nonbank -and $nonbank.ncua -and $nonbank.ncua.asOf) { $cur.ncua = $nonbank.ncua.asOf }
 # Quarterly rows ("2026-Q2") of the quarterly sections: the last $n with a value in $field.
 function QRows($rows, [string]$field, [int]$n = 3) { $a = @($rows | Where-Object { $null -ne $_.$field }); if ($a.Count -gt $n) { $a[($a.Count - $n)..($a.Count - 1)] } else { $a } }
 
 # ---- the revisable figures of the last three periods, per release ----
-$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail", "productivity", "profits", "debt", "hhdebt", "banks")
+$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail", "productivity", "profits", "debt", "hhdebt", "banks", "nonbank", "hedge")
 $revTitle = @{ cpi = "Consumer Price Index"; ppi = "Producer Price Index"; jobs = "Jobs report"; pce = "PCE prices, income and spending"; gdp = "Real GDP"; retail = "Retail sales"
-  productivity = "Productivity and costs"; profits = "Corporate profits and labor share"; debt = "Private sector debt (Z.1)"; hhdebt = "Household debt (New York Fed)"; banks = "Bank capital (FDIC)" }
-$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail"; productivity = "Productivity"; profits = "Profit margin"; debt = "Corporate debt"; hhdebt = "Household debt"; banks = "Bank capital" }
+  productivity = "Productivity and costs"; profits = "Corporate profits and labor share"; debt = "Private sector debt (Z.1)"; hhdebt = "Household debt (New York Fed)"; banks = "Bank capital (FDIC)"
+  nonbank = "Nonbank financial system (Z.1)"; hedge = "Hedge funds (OFR)" }
+$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail"; productivity = "Productivity"; profits = "Profit margin"; debt = "Corporate debt"; hhdebt = "Household debt"; banks = "Bank capital"; nonbank = "Nonbank share"; hedge = "Hedge fund leverage" }
 $revViews = @{ cpi = @("cpi"); ppi = @("ppi"); jobs = @("payrolls", "unemployment"); pce = @("pce", "income"); gdp = @("gdp"); retail = @("retail")
-  productivity = @("productivity"); profits = @("profits"); debt = @("debt"); hhdebt = @("hhdebt"); banks = @("banks") }
+  productivity = @("productivity"); profits = @("profits"); debt = @("debt"); hhdebt = @("hhdebt"); banks = @("banks"); nonbank = @("nonbank"); hedge = @("nonbank") }
 function PeriodLabel([string]$d) { if ($d -match '^(\d{4})-Q(\d)$') { "Q{0} {1}" -f $Matches[2], $Matches[1] } else { Mon $d } }
 function YoyPairs($a, $b, [string]$fa, [string]$fb) {
   $out = [ordered]@{}; $byB = @{}; foreach ($q in (Pts $b)) { $byB[$q.d] = $q.yoy }
@@ -113,6 +120,8 @@ function Get-RevValues([string]$k) {
     "debt" { foreach ($r in (QRows ($debt.quarterly | Where-Object { $null -ne $_.gdp }) "nfc")) { $out[$r.d] = [ordered]@{ nfcGdp = [math]::Round([double]$r.nfc / [double]$r.gdp * 100, 2) } } }
     "hhdebt" { foreach ($r in (QRows $hh.nyfed.balances "total")) { $out[$r.d] = [ordered]@{ total = [math]::Round([double]$r.total, 3) } } }
     "banks" { foreach ($r in (QRows $banks.quarterly "t1")) { $out[$r.d] = [ordered]@{ lev = [math]::Round([double]$r.t1 / [double]$r.avgAssets * 100, 2) } } }
+    "nonbank" { foreach ($r in (QRows $nonbank.z1.quarterly "fin")) { $out[$r.d] = [ordered]@{ share = [math]::Round((1 - [double]$r.dep / ([double]$r.fin - [double]$r.fed)) * 100, 2); slFunded = [math]::Round([double]$r.dbSlFunded / [double]$r.dbSlEnt * 100, 1) } } }
+    "hedge" { foreach ($r in (QRows $nonbank.hedge.quarterly "nav")) { $out[$r.d] = [ordered]@{ gavNav = [math]::Round([double]$r.gav / [double]$r.nav, 2) } } }
   }
   return $out
 }
@@ -133,6 +142,9 @@ function RevField([string]$k, [string]$f, [double]$old, [double]$now) {
     "debt/nfcGdp" { return @{ note = [math]::Abs($d) -ge 0.25; mat = [math]::Abs($d) -ge 1.45; text = ("corporate debt {0}% of GDP (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
     "hhdebt/total" { $pc = $(if ($old -ne 0) { ($now / $old - 1) * 100 } else { 0 }); return @{ note = [math]::Abs($pc) -ge 1.0; mat = [math]::Abs($pc) -ge 3.0; text = ("`${0}T (was `${1}T, {2}%)" -f $now.ToString("F2"), $old.ToString("F2"), (Sg $pc)) } }
     "banks/lev" { return @{ note = [math]::Abs($d) -ge 0.045; mat = [math]::Abs($d) -ge 0.245; text = ("Tier 1 leverage {0}% (was {1}%)" -f $now.ToString("F2"), $old.ToString("F2")) } }
+    "nonbank/share" { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.45; text = ("nonbank share {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "nonbank/slFunded" { return @{ note = [math]::Abs($d) -ge 0.45; mat = [math]::Abs($d) -ge 1.95; text = ("state and local funded ratio {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "hedge/gavNav" { return @{ note = [math]::Abs($d) -ge 0.045; mat = [math]::Abs($d) -ge 0.195; text = ("hedge fund gross/net assets {0}x (was {1}x)" -f $now.ToString("F2"), $old.ToString("F2")) } }
   }
   return $null
 }
@@ -323,6 +335,37 @@ foreach ($k in $new) {
         $nc = [double]$L.noncurrent / [double]$L.loans * 100; $ncP = [double]$P.noncurrent / [double]$P.loans * 100
         $mat = ([math]::Abs($lev - $levP) -ge 0.25) -or ([math]::Abs($un - $unP) -ge 100) -or ([math]::Abs($nc - $ncP) -ge 0.2)
         AddItem $k "Bank capital (FDIC)" (PeriodLabel $L.d) ("FDIC {0}: Tier 1 leverage {1}% ({2} pp q/q), unrealized securities {3}`${4}B, noncurrent loans {5}%" -f (PeriodLabel $L.d), $lev.ToString("F2"), (Sg ($lev - $levP) 2), $(if ($un -lt 0) { "-" } else { "+" }), (N0 ([math]::Abs($un))), $nc.ToString("F2")) $mat @("banks")
+      }
+      "nonbank" {
+        $R = @(QRows $nonbank.z1.quarterly "fin" 2); $L = $R[-1]; $P = $R[-2]
+        $sh = (1 - [double]$L.dep / ([double]$L.fin - [double]$L.fed)) * 100; $shP = (1 - [double]$P.dep / ([double]$P.fin - [double]$P.fed)) * 100
+        $life = ([double]$L.lifeLE - [double]$L.lifeTL) / [double]$L.lifeLE * 100; $lifeP = ([double]$P.lifeLE - [double]$P.lifeTL) / [double]$P.lifeLE * 100
+        $bd = ([double]$L.bdLE - [double]$L.bdTL) / [double]$L.bdLE * 100; $bdP = ([double]$P.bdLE - [double]$P.bdTL) / [double]$P.bdLE * 100
+        $sl = [double]$L.dbSlFunded / [double]$L.dbSlEnt * 100; $slP = [double]$P.dbSlFunded / [double]$P.dbSlEnt * 100
+        $mat = ([math]::Abs($sh - $shP) -ge 1.0) -or ([math]::Abs($life - $lifeP) -ge 1.0) -or ([math]::Abs($bd - $bdP) -ge 2.0) -or ([math]::Abs($sl - $slP) -ge 5.0)
+        AddItem $k "Nonbank financial system (Z.1)" (PeriodLabel $L.d) ("Z.1 {0}: nonbanks hold {1}% of financial-sector assets ({2} pp q/q); equity {3}% of life insurers' balance sheet ({4} pp), {5}% of broker-dealers' ({6} pp); state and local pensions {7}% funded ({8} pp q/q)" -f (PeriodLabel $L.d), $sh.ToString("F1"), (Sg ($sh - $shP)), $life.ToString("F1"), (Sg ($life - $lifeP)), $bd.ToString("F1"), (Sg ($bd - $bdP)), $sl.ToString("F1"), (Sg ($sl - $slP))) $mat @("nonbank")
+      }
+      "hedge" {
+        $R = @(QRows $nonbank.hedge.quarterly "nav" 2); $L = $R[-1]; $P = $R[-2]
+        $lev = [double]$L.gav / [double]$L.nav; $levP = [double]$P.gav / [double]$P.nav; $gne = [double]$L.gne / [double]$L.nav; $gneP = [double]$P.gne / [double]$P.nav
+        $bor = [double]$L.repo + [double]$L.pb + [double]$L.osec; $borP = [double]$P.repo + [double]$P.pb + [double]$P.osec; $borQ = $(if ($borP -ne 0) { ($bor / $borP - 1) * 100 } else { 0 })
+        $mat = ([math]::Abs($lev - $levP) -ge 0.15) -or ([math]::Abs($gne - $gneP) -ge 0.5) -or ([math]::Abs($borQ) -ge 10)
+        AddItem $k "Hedge funds (OFR)" (PeriodLabel $L.d) ("OFR hedge funds {0}: gross assets {1}x net assets ({2}x q/q), notional exposure {3}x, borrowing `${4}T ({5}% q/q), {6} funds" -f (PeriodLabel $L.d), $lev.ToString("F2"), (Sg ($lev - $levP) 2), $gne.ToString("F1"), ($bor / 1000).ToString("F1"), (Sg $borQ), (N0 $L.n)) $mat @("nonbank")
+      }
+      "mmf" {
+        $G = @($nonbank.mmf.monthly); $L = $G[-1]; $P = $G[-2]; $Y = $(if ($G.Count -ge 13) { $G[-13] } else { $null })
+        $mm = [double]$L.total - [double]$P.total; $yoy = $(if ($Y) { ([double]$L.total / [double]$Y.total - 1) * 100 } else { 0 })
+        $primeM = $(if ([double]$P.prime -ne 0) { ([double]$L.prime / [double]$P.prime - 1) * 100 } else { 0 })
+        $wla = @(); foreach ($f in @("wlaGov", "wlaTsy", "wlaPrimeI", "wlaPrimeR")) { if ($null -ne $L.$f) { $wla += [double]$L.$f } }
+        $wlaMin = $(if ($wla.Count) { ($wla | Measure-Object -Minimum).Minimum } else { 100 })
+        $mat = ([math]::Abs($mm) -ge 300) -or ([math]::Abs($primeM) -ge 10) -or ($wlaMin -lt 55)
+        AddItem $k "Money market funds (SEC)" (Mon $L.d) ("Money market funds {0}: `${1}T ({2}B m/m, {3}% y/y); prime `${4}B ({5}% m/m); weekly liquid assets: government {6}%, prime institutional {7}%" -f (Mon $L.d), ([double]$L.total / 1000).ToString("F2"), (Sg $mm 0), (Sg $yoy), (N0 $L.prime), (Sg $primeM), ([double]$L.wlaGov).ToString("F1"), ([double]$L.wlaPrimeI).ToString("F1")) $mat @("nonbank")
+      }
+      "ncua" {
+        $R = @(QRows $nonbank.ncua.quarterly "nw" 2); $L = $R[-1]; $P = $R[-2]
+        $dq = $(if ($null -ne $L.delq -and $null -ne $P.delq) { [double]$L.delq - [double]$P.delq } else { 0 })
+        $mat = ([math]::Abs([double]$L.nw - [double]$P.nw) -ge 0.3) -or ([math]::Abs($dq) -ge 0.3)
+        AddItem $k "Credit unions (NCUA)" (PeriodLabel $L.d) ("NCUA {0}: net worth ratio {1}% ({2} pp q/q), delinquency {3}%, {4} credit unions" -f (PeriodLabel $L.d), ([double]$L.nw).ToString("F2"), (Sg ([double]$L.nw - [double]$P.nw) 2), $(if ($null -ne $L.delq) { ([double]$L.delq).ToString("F2") } else { "n/a" }), (N0 $L.n)) $mat @("nonbank")
       }
     }
   } catch { Write-Output "alerts: could not evaluate $k ($($_.Exception.Message)); it will be reported without a materiality flag"; AddItem $k $k $cur[$k] "$k $($cur[$k])" $false @($k) }

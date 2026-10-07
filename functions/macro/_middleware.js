@@ -14,7 +14,7 @@
 // Cloudflare Pages Functions live in /functions at the project root; the file's path decides the
 // route it covers: functions/macro/ → /macro/*.
 
-const VIEWS = ['cpi', 'pce', 'ppi', 'unemployment', 'payrolls', 'cuts', 'gdp', 'productivity', 'income', 'retail', 'profits', 'fiscal', 'confidence', 'hhdebt', 'debt', 'banks', 'fincond', 'supply', 'cape', 'spr'];
+const VIEWS = ['cpi', 'pce', 'ppi', 'unemployment', 'payrolls', 'cuts', 'gdp', 'productivity', 'income', 'retail', 'profits', 'fiscal', 'confidence', 'hhdebt', 'debt', 'banks', 'nonbank', 'fincond', 'supply', 'cape', 'spr'];
 
 export async function onRequest({ request, next }) {
   const res = await next();

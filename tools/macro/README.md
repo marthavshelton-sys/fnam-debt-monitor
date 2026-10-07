@@ -154,9 +154,9 @@ and state nonfarm employment behind the job-cut maps.
   the width. The phone `@media` blocks sit at the end of the stylesheet; placed
   earlier, later base rules silently override them.
 
-## The quarterly sections: productivity, profits, debt, household debt, bank capital
+## The quarterly sections: productivity, profits, debt, household debt, bank capital, nonbank finance
 
-Added 7-Oct-2026 (owner's request). One processor each; all five verify their series
+Added 7-Oct-2026 (owner's request; the nonbank section the same day, after she asked for nonbank financials). One processor each; all six verify their series
 before writing anything and fail (keeping the committed file) rather than publish a wrong
 figure. Every FRED pull goes through `Get-FredChecked` in `common.ps1`: a list of candidate
 ids with the title the series must carry; the first id whose FRED title matches wins, so a
@@ -172,6 +172,7 @@ against fred.stlouisfed.org, though; `curl` works).
 | `debt` | `process_debt.ps1` → `debt_processed.json` | Federal Reserve Z.1 via FRED: debt securities and loans, liability, level, by sector (CMDEBT households, BCNSDODNS nonfinancial corporate, TCMILBSNNB noncorporate, TBSDODNS business, FGSDODNS federal, SLGSDODNS state and local, TCMDODNS domestic nonfinancial, DODFS financial, TCMDO all) plus NCBDBIQ027S (corporate debt securities), $ millions → $ bn, 1952 on; GDP for the ratios (the Z.1's table D.3 method). Checks: business within 0.3% of corporate + noncorporate and domestic nonfinancial within 2% of households + business + governments (the Fed's published totals are not exact sums of the component series: gaps up to 0.35% for business and 1.5% for the total in the 1950s). |
 | `hhdebt` | `process_hhdebt.ps1` + `hhdc_xlsx.py` → `hhdebt_processed.json` | New York Fed Quarterly Report on Household Debt and Credit: the data workbook is named for its quarter (`…/householdcredit/data/xls/HHD_C_Report_2026Q2.xlsx`); the processor tries the current quarter and the five before it and keeps the newest that is a real workbook, and `hhdc_xlsx.py` (openpyxl) finds the sheets by title ("Total Debt Balance and Its Composition", "Percent of Balance 90+ Days Delinquent by Loan Type"), checks that every balance row adds up and writes 2003Q1 on. Plus, via FRED: Z.1 household liabilities (CMDEBT, HHMSDODNS mortgages, HCCSDODNS consumer credit; other = the remainder) since 1952, G.19 consumer credit (TOTALSL, REVOLSL, NONREVSL, monthly, revolving + nonrevolving = total is checked), the debt service ratio (TDSP) and disposable income (DSPI, quarterly average) for debt/income. |
 | `banks` | `process_banks.ps1` → `banks_processed.json` | FDIC BankFind Suite API (`api.fdic.gov/banks/financials`), aggregated by report date (`agg_by=REPDTE`, `agg_sum_fields`) over `INSFDIC:1 AND NOT BKCLASS:OI`: that filter reproduces the Quarterly Banking Profile's "all insured institutions" universe exactly (17,885 institutions in 1984Q1, 5,177 in 2019Q4, 4,238 in 2026Q2, and total assets to the million; the API's other records are insured branches of foreign banks and noninsured trust companies). Fields: ASSET, EQ, DEP, DEPDOM, DEPINS, DEPUNINS, LNLS, NCLNLS, LNATRES, SC, SCAA/SCAF/SCHA/SCHF (amortized cost and fair value of AFS and HTM securities, 1994 on), RBCT1, RBC, RWAJT (1990 on), AVASSETJ, RBCT1C (CET1, kept from 2015Q1 when every institution reports it), NETINCQ, NETINC; $ thousands → $ bn; a zero sum is a field that did not exist yet and is stored as null. The page forms the ratios from the sums, as the QBP does (its 2Q 2026 time-series workbook was used to cross-check: equity 2,624.8 vs 2,624,826 $M, Tier 1 2,322.8 vs 2,322,821, unrealized AFS −109.8 vs −109,817). Plus the Fed's weekly H.8 via FRED (TLAACBW027SBOG, DPSACBW027SBOG, RALACBW027SBOG) since 2000. |
+| `nonbank` | `process_nonbank.ps1` + `mmf_xlsx.py` + `ncua_xlsx.py` → `nonbank_processed.json` | Four sources. (1) Federal Reserve Z.1 via FRED, 43 title-checked series since 1952 (`BOGZ1FL…Q`, `BOGZ1LM…Q`): total financial assets of every domestic financial sector (private depository institutions, which already include credit unions; property-casualty and life insurers; pension funds; money market, mutual, closed-end and exchange-traded funds; GSEs and agency mortgage pools (`FL413065005`, total mortgages); ABS issuers; finance companies; mortgage REITs; broker-dealers; holding companies; other financial business; and the four sectors the Z.1 added from 2012-Q4: domestic hedge funds, private debt funds, business development companies, interval funds), which must sum exactly (within $2 bn or 0.05%) to the "domestic financial sectors" total less the central bank; total liabilities and equity and total liabilities for depositories, life insurers' general accounts, P&C insurers, broker-dealers, GSEs and finance companies (equity = the difference); defined benefit pension funds' funded assets and entitlements (private, state and local, federal; the three must sum exactly to the all-DB series). (2) OFR Hedge Fund Monitor API (`data.financialresearch.gov/hf/v1/series/full?mnemonic=…`, Form PF aggregates for qualifying hedge funds, quarterly since 2013; each series' `metadata.description.name` is checked). (3) SEC Money Market Fund Statistics: the newest `…supporting-data…xlsx` linked from the SEC's page (file names are irregular, so the page is scraped; SEC hosts want a descriptive User-Agent, `fnam.mx macro monitor (https://fnam.mx)`, no email), read by `mmf_xlsx.py` with subtotal/total identity checks (net assets by category since 2010-12, daily and weekly liquid assets since 2016-10). (4) NCUA Financial Trends chart pack: the newest `chart-pack-YYYY-qN.zip` linked from the NCUA's page, read by `ncua_xlsx.py` (count, aggregate net worth ratio, delinquency, borrowings, ROAA; the summary sheet's printed ratio and count must agree with the chart series); the pack holds forty quarters, so earlier quarters are kept from the committed file. |
 
 Release dates: `process_calendar.ps1` carries FRED releases 47 (Productivity and Costs → `productivity`),
 52 (Z.1 → `z1`), 14 (G.19 → `g19`) and 22 (H.8 → `h8`, weekly); every release id's FRED name is
@@ -183,18 +184,23 @@ the GDP calendar and say whether the next release is an advance estimate (profit
 the second).
 
 Staleness: `refresh_all.ps1` warns when a quarterly file's next quarter is overdue (quarter end
-+ publisher lag + 30 days: BLS 40, BEA 60, Z.1 75, New York Fed 45, FDIC 60 days), when the G.19
-month is more than ~5 weeks late or the H.8 week more than three weeks old; three runs in a row
++ publisher lag + 30 days: BLS 40, BEA 60, Z.1 75, New York Fed 45, FDIC 60, OFR 85, NCUA 80 days), when the G.19
+month is more than ~5 weeks late, the SEC money fund month is older than the end of the second month after it
+(August is overdue on 1-Nov) or the H.8 week more than three weeks old; three runs in a row
 turn that into the SOURCE DOWN issue like any other stuck source.
 
-Alerts: `alerts.ps1` tracks the six new releases (`productivity`, `profits`, `debt`, `hhdebt`,
-`g19` monthly, `banks`), with MATERIAL thresholds in the script (productivity |q/q| ≥ 3 pp, a
+Alerts: `alerts.ps1` tracks the ten new releases (`productivity`, `profits`, `debt`, `hhdebt`,
+`g19` monthly, `banks`, `nonbank`, `hedge`, `mmf` monthly, `ncua`), with MATERIAL thresholds in the script (productivity |q/q| ≥ 3 pp, a
 2 pp swing or unit labor costs ≥ 4%; margin ±0.5 pp q/q or profits ±10% y/y; corporate debt
 ≥ 8% or ≤ 0% y/y or private debt/GDP ±2 pp q/q; 90+ delinquency ±0.3 pp q/q, card balances
 ≥ 10% y/y or ±$300 bn q/q; G.19 ±$30 bn m/m or a 1 pp swing in y/y growth; Tier 1 leverage
-±0.25 pp q/q, unrealized securities ±$100 bn or noncurrent rate ±0.2 pp) and revision bands
+±0.25 pp q/q, unrealized securities ±$100 bn or noncurrent rate ±0.2 pp; nonbank share ±1 pp q/q, life insurers'
+equity ratio ±1 pp, broker-dealers' ±2 pp or the state and local funded ratio ±5 pp; hedge funds' gross/net
+assets ±0.15x, notional/net ±0.5x or borrowing ±10% q/q; money funds ±$300 bn m/m, prime assets ±10% m/m or any
+weekly-liquid-assets share below 55%; credit unions' net worth ratio or delinquency ±0.3 pp q/q) and revision bands
 (productivity q/q 0.3 / 1 pp, unit labor costs 0.5 / 1.5 pp, margin 0.1 / 0.5 pp, corporate
-debt/GDP 0.3 / 1.5 pp, household debt 1% / 3%, Tier 1 leverage 0.05 / 0.25 pp). A release the
+debt/GDP 0.3 / 1.5 pp, household debt 1% / 3%, Tier 1 leverage 0.05 / 0.25 pp, nonbank share 0.1 / 0.5 pp,
+state and local funded ratio 0.5 / 2 pp, hedge fund gross/net assets 0.05 / 0.2x). A release the
 state has never seen is seeded silently (the first run after adding a section sends nothing).
 The existing email routine delivers them: it emails every "MATERIAL: " issue, so its prompt
 needs no change.
@@ -203,6 +209,32 @@ Page conventions for these sections: quarterly labels through `fmtQuarter` ("Q2 
 2026"), dollar levels in $ trillions with `fmtTn` (Spanish "billones"), every chart through
 `plotSeries` with year ticks, KPI tiles through `kpiTiles`, and the "At a glance" cards composed
 from the data like every other section (the alert emails reuse them).
+
+
+### Nonbank finance: what is and is not on the page
+
+- The sector shares use the Z.1's own aggregate: "domestic financial sectors" less the central bank. Credit
+  unions sit inside private depository institutions (sector 70), so they are a memo item in the sector list and
+  never added to the sum. The Z.1 brought domestic hedge funds (62), private debt funds (44), business development
+  companies (45) and interval funds (46) into the financial-sector total from 2012-Q4; before that the series are
+  zero or absent and the page shows them as null. The identity held exactly in every quarter 1952–2026 when
+  checked against the Board's CSV package (`z1_csv_files.zip`); the processor allows $2 bn or 0.05% for rounding.
+- Equity is "total liabilities and equity" less "total liabilities" in each sector's L table (the Z.1's
+  integrated-macroeconomic-accounts equity line), over total liabilities and equity. Life insurers use the general
+  accounts table (separate accounts carry no equity). It is a balance-sheet measure, not statutory capital, net
+  capital or the ERCF: the page says so in its method note.
+- Pension funded ratios are the Fed's "total funded assets" over "pension entitlements" (L.118.b–L.120.b), the
+  same figures the Fed's own funded-status chart uses; sponsors' claims are already netted out by the Fed.
+- Hedge funds: the OFR API is the only machine-readable official aggregate (SEC Form PF). Its universe (qualifying
+  hedge funds advised from the US, including offshore funds) is wider than the Z.1's domestic hedge fund sector,
+  and the page says which is which. Money funds: fund-type assets and liquidity come from the SEC's supporting-data
+  workbook (the OFR MMF API gives holdings by instrument only). Credit unions: the NCUA chart pack's aggregate net
+  worth ratio (not the PCA ratio of the aggregate FPR, which differs by a few basis points).
+- Left out on purpose, with the reasons, so nobody re-hunts: the G.20 finance-company balance sheet (the Z.1
+  finance-company sector already gives equity; the G.20 benchmark revisions would make two figures disagree);
+  Fannie Mae / Freddie Mac net worth and ERCF capital from EDGAR XBRL (Freddie tags them under custom `fmcc:`
+  elements that never reach the frames API; the Z.1 GSE sector covers them in aggregate); FIO insurance capital
+  (PDF only); SEC broker-dealer FOCUS net capital (no machine-readable aggregate exists).
 
 ## The Challenger report (no API, handled on the runner)
 
@@ -451,7 +483,7 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
   carries a version token, so the page is read first); CAPE since 1881 plus
   Shiller's excess CAPE yield and ten-year subsequent real returns
 - `process_productivity.ps1`, `process_profits.ps1`, `process_debt.ps1`,
-  `process_hhdebt.ps1` (+ `hhdc_xlsx.py`), `process_banks.ps1` — the quarterly
+  `process_hhdebt.ps1` (+ `hhdc_xlsx.py`), `process_banks.ps1`, `process_nonbank.ps1` (+ `mmf_xlsx.py`, `ncua_xlsx.py`) — the quarterly
   sections (see above); `Get-FredChecked` in `common.ps1` is their FRED reader
 - `xlsx_to_rows.ps1` — reads the PPI weights workbook without Excel
 - `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
