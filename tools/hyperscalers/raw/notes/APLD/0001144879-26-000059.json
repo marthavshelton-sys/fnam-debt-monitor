@@ -1,0 +1,986 @@
+{
+ "ticker": "APLD",
+ "cik": 1144879,
+ "form": "10-Q",
+ "accn": "0001144879-26-000059",
+ "filed": "2026-10-07",
+ "report": "2026-08-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000059/apld-20260831.htm",
+ "harvested": "2026-10-07",
+ "pageCount": 60,
+ "numberedPages": 59,
+ "hits": [
+  {
+   "kind": "cash_flow",
+   "page": "1",
+   "match": "Deferred revenue ",
+   "text": "…t 72,250 76,922   Finance lease right of use assets, net 109,887 122,523   Other assets 1,112,220 830,710   TOTAL ASSETS $ 11,707,176 $ 9,929,312   LIABILITIES, TEMPORARY EQUITY AND STOCKHOLDERS' EQUITY   Current liabilities:   Accounts payable $ 336,865 $ 395,474   Accrued liabilities 850,355 548,493   Current portion of operating lease liability 19,199 18,484   Current portion of finance lease liability 43,490 47,585   Current portion of debt 112,645 16,422   Customer deposits 16,752 16,752   Deferred revenue 39,217 4,666   Due to customer 11,448 10,065   Current liabilities held-for-sale 4,988 7,426   Other current liabilities 158,273 97,489   Total current liabilities 1,593,232 1,162,856   Long-term deferred revenue 107 —   Long-term portion of operating lease liability 41,670 47,178   Long-term portion of finance lease liability 2,457 10,731   Long-term debt 6,263,947 4,959,516   Other long-term liabilities 5,432 5,454   Total liabilities 7,906,845 6,185,735   Commitments and contingencies (Note 18)   Temporary equity   Series E preferred stock, $ 0.001 par value, 2,000,000 shares authorized, no shares issued and outstanding at August 31, 2026, and 276,673 shares issued and outstanding at May 31, 2026   — 6,306   Series E-1 preferred stock, $ 0.001 par value, 62,500 shares authorized, 61,831 shares issued and outstanding at August 31, 2026, and 61,909 shares issued and out…",
+   "amounts": [
+    {
+     "raw": "$ 395,474   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "1",
+   "match": "related party",
+   "text": "…gust 31, 2026 and 7,165,300 shares at May 31, 2026, at cost   ( 52,737 ) ( 52,737 )   Additional paid in capital 2,492,725 2,432,250   Accumulated deficit ( 837,821 ) ( 662,333 )   Total stockholders’ equity attributable to Applied Digital Corporation 1,602,472 1,717,476   Noncontrolling interest 5,684 7,032   Total stockholders’ equity including noncontrolling interest 1,608,156 1,724,508   TOTAL LIABILITIES, TEMPORARY EQUITY AND STOCKHOLDERS' EQUITY   $ 11,707,176 $ 9,929,312   (1) Includes a related party receivable of $ 59.3 million and $ 58.6 million as of August 31, 2026 and May 31, 2026, respectively. See Note 7 - Related Party Transactions for further discussion.   See accompanying notes to the unaudited condensed consolidated financial statements   1",
+   "amounts": [
+    {
+     "raw": "$ 11,707,176 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,929,312   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 59.3 million",
+     "usdM": 59.3
+    },
+    {
+     "raw": "$ 58.6 million",
+     "usdM": 58.6
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "related party",
+   "text": "…$ ( 221,028 ) $ ( 18,502 )   Discontinued operations ( 16,054 ) —   Net loss attributable to common stockholders $ ( 237,082 ) $ ( 18,502 )   Basic and diluted net loss per share attributable to common stockholders   Continuing operations $ ( 0.76 ) $ ( 0.07 )   Discontinued operations ( 0.06 ) —   Basic and diluted net loss per share attributable to common stockholders $ ( 0.82 ) $ ( 0.07 )   Basic and diluted weighted average number of shares outstanding 291,557,618 255,892,902   (1) Includes related party selling, general and administrative expense of $ 49.7 thousand and $ 74.3 thousand for the three months ended August 31, 2026 and August 31, 2025, respectively. See Note 7 - Related Party Transactions for further discussion of related party transactions.   (2) Includes related party income of $ 0.7 million for the three months ended August 31, 2026. See Note 7 - Related Party Transactions for further discussion of related party transactions.   See accompanying notes to the unaudited condensed consolidated financial statements   2",
+   "amounts": [
+    {
+     "raw": "$ 49.7 thousand",
+     "usdM": 0.05
+    },
+    {
+     "raw": "$ 74.3 thousand",
+     "usdM": 0.074
+    },
+    {
+     "raw": "$ 0.7 million",
+     "usdM": 0.7
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "5",
+   "match": "net cash provided by (used in) operating activities",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Condensed Consolidated Statements of Cash Flows (Unaudited) (In thousands)   For the Three Months ended August 31, 2026 and August 31, 2025   Three Months Ended   August 31, 2026 August 31, 2025   CASH FLOW FROM OPERATING ACTIVITIES   Net loss $ ( 184,055 ) $ ( 16,926 )   Adjustments to reconcile net loss to net cash provided by (used in) operating activities:   Depreciation and amortization 41,912 4,152   Stock-based compensation 66,499 15,465   Lease expense 6,517 5,381   Loss on change in fair value of derivatives 49,511 —   Loss on change in fair value of investment 11,352 —   Amortization of debt issuance costs 5,896 4,851   Loss on classification of held for sale 14,126 —   Loss on abandonment of assets — 2,243   Gain on change in fair value of warrants ( 22 ) —   Changes in operating assets and liabilities:   Accounts receivable ( 56,977 ) ( 29,525 )   Prepaid expenses and other current assets ( 47,786 ) ( 6,962 )   Customer deposits 107 627   Deferred revenue 34,480 ( 2,316 )   Accounts payable ( 7,981 ) ( 77,784 )   Accrued liabilities 106,701 28,684   Due to customer 1,383 ( 1,753 )   Lease assets and liabilities 5,856 ( 9,598 )   Other current liabilities 1,886 —   Other assets 14…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "5",
+   "match": "Repayments of long-term debt",
+   "text": "… 1,886 —   Other assets 14,516 1,930   CASH FLOW PROVIDED BY (USED IN) OPERATING ACTIVITIES 63,921 ( 81,531 )   CASH FLOW FROM INVESTING ACTIVITIES   Purchases of property and equipment and other assets ( 2,074,698 ) ( 249,914 )   Investment in companies   ( 8,181 ) —   CASH FLOW USED IN INVESTING ACTIVITIES ( 2,082,879 ) ( 249,914 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 14,252 ) ( 29,932 )   Borrowings of long-term debt 1,648,500 65   Draw on revolver 82,390 —   Repayments of long-term debt ( 315,932 ) ( 2,416 )   Payment of deferred financing costs ( 28,879 ) ( 1 )   Tax payments for restricted stock upon vesting ( 99,413 ) ( 4,497 )   Noncontrolling interest issuance contributions 1,349 —   Proceeds from issuance of common stock — 196,366   Common stock issuance costs — ( 5,945 )   Proceeds from issuance of preferred stock 274,999 175,000   Preferred stock issuance costs ( 149 ) ( 4,604 )   Redemption of preferred stock   ( 6,996 ) ( 225 )   Dividends issued on preferred stock ( 1,543 ) ( 1,576 )   Exercise of warrants   — 1   Issuance of equity by subsidiary, net of costs 3,398 —   CASH FLOW PROVIDED BY FINANCING ACTIVITIES $ 1,543,472 $ 322,236   NET DECREASE IN CASH, CASH EQUIVALENTS, AND RESTRICTED CASH $ ( 475,486 ) $ ( 9,209 )   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, BEGINNING OF PERIOD, INCLUDING CASH FROM DISCONTINUED OPERATIONS …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "7",
+   "match": "variable interest entit",
+   "text": "…nnual consolidated financial statements on Form 10-K have been condensed or omitted. The unaudited condensed consolidated balance sheet as of May 31, 2026 has been derived from the audited consolidated financial statements as of that date, but does not include all disclosures required for audited annual financial statements.   The unaudited condensed consolidated financial statements include the accounts of the Company and its consolidated subsidiaries and entities that meet the definition of a variable interest entity (“VIE”) for which the Company is considered the primary beneficiary or entities that meet the definition of a voting interest entity (“VOE”). The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its vari…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "7",
+   "match": "Variable Interest Entit",
+   "text": "…the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its variable interest holders. The Company also evaluates its economic interests in the VIE. See Note 12 - Variable Interest Entities for additional information related to the consolidation of investments. Intercompany accounts and transactions have been eliminated.   The Company consolidates the results of ChronoScale Holdings Corporation, the Company’s majority owned subsidiary (“ChronoScale”) under the voting interest model because the Company holds a controlling financial interest in ChronoScale. The ownership interests in ChronoScale not attributable to the Company are presented as noncontrolling interests in the unaudited condensed consolidated financial statements. All intercompany balances and transactions have been eliminated in consolidation.   In the Company’s opinion, all necessary adjustments have been made for the fair presentation of the results of the interim periods presented. The results of operations for such interim periods are not necessarily indicative of the results to …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "8",
+   "match": "GPU",
+   "text": "… to customers, such as artificial intelligence and machine learning developers, to help develop their advanced products. Customers pay a fixed rate to ChronoScale in exchange for managed cloud services supported by provided equipment. Revenues are recognized based on the fixed rate, net of any credits for non-performance, over the term of the agreements. During the three months ended August 31, 2026, the Company also completed certain one-time resale arrangements involving AI infrastructure, or GPU-related, hardware and ancillary support and maintenance services. Revenues from GPU hardware sales were recognized at a point-in-time, generally when control of the hardware transferred to the customer. Revenues from the related support and maintenance services were recognized on a net basis at a point-in-time, as the Company acted as an agent in the selling arrangement.   Segments   The Company has identified two reportable segments: data center hosting (“Data Center Hosting Business”) and high-performance compute hosting (“HPC Hosting Business”). These segments represent management's view of the business for which separate financial information is available and evaluated regularly by the Chief Operating Decision Maker (CODM), which is the Company’s Chief Executive Officer.   Prior to the May 2026 business combination transaction (“Business Combination”) with Ekso Bionics Holdings, …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "14",
+   "match": "Useful Life",
+   "text": "Table of Content s   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three Months Ended August 31, 2026   4. Property and Equipment   Property and equipment consisted of the following as of August 31, 2026 and May 31, 2026 (in thousands):   Estimated Useful Life August 31, 2026 May 31, 2026   Networking equipment, electrical equipment, and software   3 years - 5 years   $ 40,425 $ 38,669   Mechanical infrastructure   20 years 194,896 71,939   Electrical infrastructure   15 years 237,495 104,491   Electric generation and transformers 15 years - 30 years   344,021 188,110   Land and building   Building 39 years 471,239 279,308   Building improvements   15 years - 25 years   1,085,386 682,348   Land 150,363 59,713   Land improvements 15 years 109,095 43,786   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 3,670,267 2,776,232   Other equipment and fixtures 5 years - 10 years   132,918 68,128   Total cost of property and equipment 6,437,247 4,313,866   Accumulated depreciation ( 106,836 ) ( 77,566 )   Property and equipment, net $ 6,330,411 $ 4,236,300   Depreciation expense totaled $ 29.3 million and $ …",
+   "amounts": [
+    {
+     "raw": "$ 40,425 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,669   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "14",
+   "match": "Depreciation expense",
+   "text": "…ilding 39 years 471,239 279,308   Building improvements   15 years - 25 years   1,085,386 682,348   Land 150,363 59,713   Land improvements 15 years 109,095 43,786   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 3,670,267 2,776,232   Other equipment and fixtures 5 years - 10 years   132,918 68,128   Total cost of property and equipment 6,437,247 4,313,866   Accumulated depreciation ( 106,836 ) ( 77,566 )   Property and equipment, net $ 6,330,411 $ 4,236,300   Depreciation expense totaled $ 29.3 million and $ 2.7 million for the three months ended August 31, 2026 and August 31, 2025, respectively.   The Company capitalizes a portion of the interest on funds borrowed to finance its capital expenditures. Capitalized interest is recorded as part of an asset’s cost and is depreciated over the same period as the related asset. Capitalized interest costs were $ 35.7 million and $ 8.7 million for the three months ended August 31, 2026 and August 31, 2025, respectively.   5. Revenue   Below is a summary of the Company’s revenue concentration by major customers for the three months ended August 31, 2026 and August 31, 2025, respectively.   Three Months Ended   August 31, 2026 August 31, 2025   Customer A 56 % 32 %   Customer B 21 % — %   Customer C 11 % 47 %   Customer D — % 21 %   The Company’s contract liabilities consist of deferred revenue that ari…",
+   "amounts": [
+    {
+     "raw": "$ 6,330,411 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,236,300   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 29.3 million",
+     "usdM": 29.3
+    },
+    {
+     "raw": "$ 2.7 million",
+     "usdM": 2.7
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "14",
+   "match": "deferred revenue ",
+   "text": "…lized interest costs were $ 35.7 million and $ 8.7 million for the three months ended August 31, 2026 and August 31, 2025, respectively.   5. Revenue   Below is a summary of the Company’s revenue concentration by major customers for the three months ended August 31, 2026 and August 31, 2025, respectively.   Three Months Ended   August 31, 2026 August 31, 2025   Customer A 56 % 32 %   Customer B 21 % — %   Customer C 11 % 47 %   Customer D — % 21 %   The Company’s contract liabilities consist of deferred revenue that arises when the Company receives consideration in advance of providing the goods or services provided in the contract. As of August 31, 2026 and May 31, 2026, the Company recorded $ 39.3 million and $ 4.7 million, respectively, of deferred revenue primarily related to advance billings for tenant fit-out services and the delivery of power. The Company classified deferred revenue based on the timing of when it expect to recognize revenue, which typically occurs within a short window after period-end. The full balance of deferred revenue at May 31, 2026 and May 31, 2025 was recognized as revenue during the three months ended August 31, 2026 and August 31, 2025, respectively.   Further, the contract assets consist of unbilled receivables that are recorded when revenue is recognized in advance of billings to its customers. These amounts are primarily associated with diff…",
+   "amounts": [
+    {
+     "raw": "$ 39.3 million",
+     "usdM": 39.3
+    },
+    {
+     "raw": "$ 4.7 million",
+     "usdM": 4.7
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "16",
+   "match": "Deferred revenue ",
+   "text": "…2   Accounts receivable 3,090 3,914   Prepaid expenses and other current assets 5,659 5,604   Property and equipment, net 1,069 1,084   Operating lease right of use asset, net 284 284   Intangible assets 10,950 10,950   Other assets 425 368   Less: Impairment on assets held for sale $ ( 16,491 ) $ ( 2,365 )   Total current assets held for sale $ 4,988 $ 19,841   Liabilities:   Accounts payable $ 360 $ 263   Accrued liabilities 1,859 4,205   Current portion of operating lease liability 191 290   Deferred revenue 2,493 2,563   Long-term portion of operating lease liability 86 105   Total current liabilities held for sale $ 4,988 $ 7,426   Loss on Impairment of Net Assets Held for Sale   In connection with the classification of the Ekso business as held for sale and discontinued operations, the Company evaluated the Ekso business for impairment as of August 31, 2026, in accordance with ASC 360-10, Impairment and Disposal of Long-Lived Assets. The Ekso business was measured at the lower of its carrying amount and fair value less cost to sell.   During the first and second quarters of fiscal year 2027, the Company continued to market the Ekso business and advance negotiations with prospective buyers. The disposal of the Ekso business was completed on September 30, 2026.   As of August 31, 2026, the Ekso business consisted of approximately $ 21.5 million of assets and $ 5.0 million o…",
+   "amounts": [
+    {
+     "raw": "$ 4,988 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 19,841   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 360 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 263   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,988 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,426   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "17",
+   "match": "Related Party",
+   "text": "… impairment of goodwill, which was assigned to ChronoScale as discussed in Note 3 - Business Combination , existed for the three months ended August 31, 2026.   The following table summarizes the net cash flows from discontinued operations of Ekso for the three months ended August 31, 2026 (in thousands):   Three Months Ended   August 31, 2026   Net cash used in operating activities - discontinued operations $ ( 1,257 )   Net cash used in investing activities - discontinued operations $ 15   7. Related Party Transactions   Base Electron   In the prior year, the Company and Base Electron Corporation (“Base Electron”) entered into the Intercompany Administrative Services Agreement (the \"Intercompany Agreement\"). The amount of services provided during the three months ended August 31, 2026 were approximately $ 0.1 million.   In the prior fiscal year, Base Electron issued to the Company approximately 10 % of Base Electron’s outstanding equity. The investment in Base Electron is accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value and will be evaluated quarterly for impairment indicators. There were no impairment indicators during the three months ended August 31, 2026. As of August 31, 2026, the Company determined the fair value of the investment was $ 2.0 million, which is recorded as an Other asset on the unaudited condensed co…",
+   "amounts": [
+    {
+     "raw": "$ 15   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "17",
+   "match": "related party",
+   "text": "… determined the fair value of the investment was $ 2.0 million, which is recorded as an Other asset on the unaudited condensed consolidated balance sheets.   Base Electron Demand Grid Promissory Note   In the prior fiscal year, Base Electron entered into a promissory note with the Company (“Demand Grid Promissory Note”) for up to $ 100.0 million which is payable on-demand. As of August 31, 2026, the principal balance of the Demand Grid Promissory Note was $ 58.5 million, which was recorded as a related party loan receivable and presented within Prepaid expense and other current assets on the unaudited condensed consolidated balance sheets. During the three months ended August 31, 2026, approximately $ 0.7 million of interest income was recognized. Further, no allowance for credit loss and no credit loss expense have been recognized for the three months ended August 31, 2026, and receivables are presented at their gross amount, which approximates the net amount expected to be collected.   Other Related Party Transactions   Related party transactions included within selling, general and administrative expense on the unaudited condensed consolidated statement of operations include software license fees of $ 49.7 thousand and $ 74.3 thousand during the three months ended August 31, 2026 and 2025, respectively, which were incurred with a company whose chairman is also a member of th…",
+   "amounts": [
+    {
+     "raw": "$ 100.0 million",
+     "usdM": 100
+    },
+    {
+     "raw": "$ 58.5 million",
+     "usdM": 58.5
+    },
+    {
+     "raw": "$ 0.7 million",
+     "usdM": 0.7
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "18",
+   "match": "guaranteed",
+   "text": "…ed Notes   7.00 % June 2031 1,590,000 —   Convertible Notes, senior unsecured (3)   2.75 % June 2030   450,000 450,000   Bridge Facility (4)   See below April 2027 — 300,000   2026 Revolving Credit Facility (5)   See below See below 82,390 —   Other debt (6)   99,215 56,680   Deferred financing costs, net of amortization   ( 345,013 ) ( 330,742 )   Less: Current portion of debt   ( 112,645 ) ( 16,422 )   Long-term debt, net $ 6,263,947 $ 4,959,516   (1) The 2030 9.250 % Senior Secured Notes are guaranteed by APLD ELN-02 HoldCo LLC, APLD ELN-03 HoldCo LLC, APLD ELN-02 LLC, APLD ELN-03 LLC, APLD ELN-02 LandCo LLC and APLD ELN-03 LandCo LLC, each a majority-owned subsidiary of the Company, and are secured by the equity interests of the issuer and guarantors, the Project Accounts (as defined in the 2030 Notes Indenture), and substantially all of the assets of the issuer and guarantors.   (2) The 6.750 % 2031 Senior Secured Notes are guaranteed by APLD FAR-01 HoldCo LLC, APLD FAR-02 HoldCo LLC, APLD FAR-01 LLC, APLD FAR-02 LLC, APLD FAR-01 LandCo LLC and APLD FAR-02 LandCo LLC, each majority-owned subsidiaries of the Company, and are secured by the equity interests of the issuer and guarantors, the   18",
+   "amounts": [
+    {
+     "raw": "$ 6,263,947 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,959,516   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "18",
+   "match": "Revolving Credit Facilit",
+   "text": "…ding debt consisted of the following components (in thousands):   Interest Rate Maturity Date August 31, 2026 May 31, 2026   2030 9.250 % Senior Secured Notes (1)   9.25 % December 2030   $ 2,350,000 $ 2,350,000   2031 6.750 % Senior Secured Notes (2)   6.75 % March 2031 2,150,000 2,150,000   2031 7.000 % Senior Secured Notes   7.00 % June 2031 1,590,000 —   Convertible Notes, senior unsecured (3)   2.75 % June 2030   450,000 450,000   Bridge Facility (4)   See below April 2027 — 300,000   2026 Revolving Credit Facility (5)   See below See below 82,390 —   Other debt (6)   99,215 56,680   Deferred financing costs, net of amortization   ( 345,013 ) ( 330,742 )   Less: Current portion of debt   ( 112,645 ) ( 16,422 )   Long-term debt, net $ 6,263,947 $ 4,959,516   (1) The 2030 9.250 % Senior Secured Notes are guaranteed by APLD ELN-02 HoldCo LLC, APLD ELN-03 HoldCo LLC, APLD ELN-02 LLC, APLD ELN-03 LLC, APLD ELN-02 LandCo LLC and APLD ELN-03 LandCo LLC, each a majority-owned subsidiary of the Company, and are secured by the equity interests of the issuer and guarantors, the Project Accounts (as defined in the 2030 Notes Indenture), and substantially all of the assets of the issuer and guarantors.   (2) The 6.750 % 2031 Senior Secured Notes are guaranteed by APLD FAR-01 HoldCo LLC, APLD FAR-02 HoldCo LLC, APLD FAR-01 LLC, APLD FAR-02 LLC, APLD FAR-01 LandCo LLC and APLD FAR-02 Lan…",
+   "amounts": [
+    {
+     "raw": "$ 6,263,947 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,959,516   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "19",
+   "match": "guaranteed",
+   "text": "…ents (Unaudited)   For the Three Months Ended August 31, 2026   Project Accounts (as defined in the 2031 6.750 % Notes Indenture), and substantially all of the assets of the issuer and guarantors.   (3) The net carrying amount of the Convertible Notes was $ 276.6 million and $ 276.0 million and the remaining unamortized deferred financing costs related to the issuance was $ 173.4 million and $ 174.0 million, each as of August 31, 2026 and May 31, 2026, respectively.   (4) The Bridge Facility is guaranteed by the wholly owned subsidiaries of APLD ComputeCo 3 LLC and by the Company and is secured by substantially all assets of APLD ComputeCo 3 LLC and the subsidiary guarantors, as well as a pledge of the equity interests of APLD ComputeCo 3 LLC by APLD HPC Holdings 2 LLC. The Bridge Facility bears interest at a rate equal to either Daily SOFR plus 2.75 % per annum or the Base Rate plus 1.75 % per annum, depending on the type of loans under any Borrowing.   (5) The 2026 Revolving Credit Facility is guaranteed by the Company, APLD Intermediate HoldCo LLC (as the borrower), Applied Talent Resources LLC, James River Housing LLC, APLD Holdings 1 LLC, APLD Holdings 2 LLC, APLD HPC TopCo LLC, and APLD HPC Holdings LLC and is secured by substantially all assets of the loan parties, subject to certain exclusions. The 2026 Revolving Credit Facility bears interest at a rate per annum equal …",
+   "amounts": [
+    {
+     "raw": "$ 276.6 million",
+     "usdM": 276.6
+    },
+    {
+     "raw": "$ 276.0 million",
+     "usdM": 276
+    },
+    {
+     "raw": "$ 173.4 million",
+     "usdM": 173.4
+    },
+    {
+     "raw": "$ 174.0 million",
+     "usdM": 174
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "19",
+   "match": "Revolving Credit Facilit",
+   "text": "…ridge Facility is guaranteed by the wholly owned subsidiaries of APLD ComputeCo 3 LLC and by the Company and is secured by substantially all assets of APLD ComputeCo 3 LLC and the subsidiary guarantors, as well as a pledge of the equity interests of APLD ComputeCo 3 LLC by APLD HPC Holdings 2 LLC. The Bridge Facility bears interest at a rate equal to either Daily SOFR plus 2.75 % per annum or the Base Rate plus 1.75 % per annum, depending on the type of loans under any Borrowing.   (5) The 2026 Revolving Credit Facility is guaranteed by the Company, APLD Intermediate HoldCo LLC (as the borrower), Applied Talent Resources LLC, James River Housing LLC, APLD Holdings 1 LLC, APLD Holdings 2 LLC, APLD HPC TopCo LLC, and APLD HPC Holdings LLC and is secured by substantially all assets of the loan parties, subject to certain exclusions. The 2026 Revolving Credit Facility bears interest at a rate per annum equal to, at the borrower’s election, either Term SOFR plus 2.25 % or the Alternate Base Rate plus 1.25 %. Additionally, there is an unused commitment fee of 0.25 % per annum based on the daily unused amount, payable quarterly in arrears at the end of each quarter. The 2026 Revolving Credit Facility matures on the earlier of (i) May 29, 2029 and (ii) the date that is ninety-one ( 91 ) days prior to a specified date under the Preferred Equity Purchase Agreement.   (6) Other debt as of…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "21",
+   "match": "guarantee",
+   "text": "…ons set forth in the 2031 7.000 % Notes Indenture. Prior to June 15, 2028, APLD ComputeCo 3 may also redeem up to 10 % of the original aggregate principal amount of the 2031 7.000 % Notes during each calendar year at the redemption price set forth in the 2031 7.000 % Notes Indenture, plus accrued and unpaid interest, to, but excluding, the redemption date.   The 2031 7.000 % Notes Indenture limits the ability of APLD ComputeCo 3 and the subsidiary guarantors to, among other things: (i) incur or guarantee additional indebtedness; (ii) pay dividends or distributions on, or redeem or repurchase, capital stock and make other restricted payments; (iii) make certain investments; (iv) create or incur liens; (v) consummate certain asset sales; (vi) enter into sale and leaseback transactions; (vii) conduct certain operations or hold certain assets outside their permitted businesses; (viii) engage in certain transactions with affiliates; and (ix) merge, consolidate or transfer or sell all or substantially all of their assets. These covenants are subject to a number of important qualifications and exceptions as set forth in the 2031 7.000 % Notes Indenture.   Additionally, upon the occurrence of specified change of control events, APLD ComputeCo 3 must offer to repurchase the 2031 7.000 % Notes at 101 % of the aggregate principal amount, plus accrued and unpaid interest, if any, to, but e…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "21",
+   "match": "guaranteed",
+   "text": "…ees under an applicable data center lease, APLD ComputeCo 3 generally will be required to apply the proceeds to redeem the 2031 7.000 % Notes at 100 % of the principal amount, plus accrued and unpaid interest, to, but excluding, the redemption date, subject to the permitted deferral and replacement tenant provisions set forth in the 2031 7.000 % Notes Indenture. The 2031 7.000 % Notes Indenture also provides for customary events of default.   The 2031 7.000 % Notes are fully and unconditionally guaranteed on a senior secured basis, jointly and severally, by APLD ComputeCo 3’s subsidiaries, including APLD ELN-04 HoldCo LLC, APLD ELN-04 LLC and APLD ELN-04 LandCo LLC. The 2031 7.000 % Notes and the related guarantees are secured, subject to permitted liens and certain exclusions, by first-priority liens on substantially all of the assets of APLD ComputeCo 3 and the subsidiary guarantors, including the applicable project accounts, and by a pledge of the equity interests of APLD ComputeCo 3 held by its direct parent.   In connection with the 2031 7.000 % Notes, the Company provides a customary completion guarantee with respect to the construction and completion of the ELN-04 data center project. Other than the completion guarantee, the Company is not a guarantor of any obligations under the 2031 7.000 % Notes.   As of August 31, 2026, the remaining unamortized debt issuance costs w…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "21",
+   "match": "Revolving Credit Facilit",
+   "text": "…% Senior Secured Notes due 2031   On June 18, 2026, APLD ComputeCo 2 LLC satisfied the escrow release condition under the escrow agreement for the 6.750 % Senior Secured Notes due 2031 (the “2031 6.750 % Notes”) and executed and delivered to the escrow agent an escrow release certificate directing the escrow agent to release the funds in the escrow account to APLD ComputeCo 2 and apply such funds in accordance with the escrow agreement and the Indenture for the 2031 6.750 % Notes.   Upsize 2026 Revolving Credit Facility   On June 26, 2026, the commitments under the 2026 Revolving Credit Facility were increased by $ 80.0 million, from $ 350.0 million to $ 430.0 million. Following the increase, the remaining accordion capacity under the facility was $ 120.0 million. The additional commitments are subject to the existing terms and conditions of the 2026 Revolving Credit Facility.   As of August 31, 2026, approximately $ 82.4 million was drawn under the 2026 Revolving Credit Facility and approximately $ 241.0 million of standby letters of credit were outstanding under the 2026 Revolving Credit Facility.   21",
+   "amounts": [
+    {
+     "raw": "$ 80.0 million",
+     "usdM": 80
+    },
+    {
+     "raw": "$ 350.0 million",
+     "usdM": 350
+    },
+    {
+     "raw": "$ 430.0 million",
+     "usdM": 430
+    },
+    {
+     "raw": "$ 120.0 million",
+     "usdM": 120
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "22",
+   "match": "utility",
+   "text": "…ose of any trading day. The Texas Capital Loan Agreement also contains customary affirmative and negative covenants, cross-default provisions, and events of default.   The Company was in compliance with the applicable financial covenants under all outstanding debt arrangements as of August 31, 2026.   10. Balance Sheet Components   Certain balance sheet components are as follows (in thousands):   August 31, 2026 May 31, 2026   Prepaid expenses and other current assets   Short term equipment and utility deposit $ 560,523 $ 500,290   Deferred issuance costs 2,966 3,397   Short term lease incentive 8,543 6,231   Related party receivable (1)   59,334 58,632   Prepaid expenses 29,641 24,471   Other current assets 24,631 20,671   Total Prepaid expenses and other current assets   $ 685,638 $ 613,692   (1) Balance as of August 31, 2026 consists of the $ 59.2 million promissory note and $ 0.1 million of deferred construction costs with Base Electron. See Note 7 - Related Party Transactions for further discussion.   August 31, 2026 May 31, 2026   Other assets   Long term lease incentive   $ 196,223 $ 199,391   Restricted cash   414,649 180,415   Deposits on assets & construction   170,978 47,719   Goodwill (1)   54,387 54,513   Lease receivables 34,141 21,026   Deferred lease costs — 10,729   Derivative assets (2)   169,837 163,283   Investments in other companies (3)   64,092 123,329   …",
+   "amounts": [
+    {
+     "raw": "$ 560,523 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 500,290   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 685,638 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 613,692   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 59.2 million",
+     "usdM": 59.2
+    },
+    {
+     "raw": "$ 0.1 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "22",
+   "match": "Related party",
+   "text": "…cross-default provisions, and events of default.   The Company was in compliance with the applicable financial covenants under all outstanding debt arrangements as of August 31, 2026.   10. Balance Sheet Components   Certain balance sheet components are as follows (in thousands):   August 31, 2026 May 31, 2026   Prepaid expenses and other current assets   Short term equipment and utility deposit $ 560,523 $ 500,290   Deferred issuance costs 2,966 3,397   Short term lease incentive 8,543 6,231   Related party receivable (1)   59,334 58,632   Prepaid expenses 29,641 24,471   Other current assets 24,631 20,671   Total Prepaid expenses and other current assets   $ 685,638 $ 613,692   (1) Balance as of August 31, 2026 consists of the $ 59.2 million promissory note and $ 0.1 million of deferred construction costs with Base Electron. See Note 7 - Related Party Transactions for further discussion.   August 31, 2026 May 31, 2026   Other assets   Long term lease incentive   $ 196,223 $ 199,391   Restricted cash   414,649 180,415   Deposits on assets & construction   170,978 47,719   Goodwill (1)   54,387 54,513   Lease receivables 34,141 21,026   Deferred lease costs — 10,729   Derivative assets (2)   169,837 163,283   Investments in other companies (3)   64,092 123,329   Investment in related party (4)   2,000 2,000   Other 5,913 28,221   Total Other assets $ 1,112,220 $ 830,710   (1) B…",
+   "amounts": [
+    {
+     "raw": "$ 560,523 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 500,290   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 685,638 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 613,692   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 59.2 million",
+     "usdM": 59.2
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "23",
+   "match": "Related Party",
+   "text": "…ounted for at cost under ASC 321. During the quarter ended August 31, 2026, the Company invested in three private companies for a total of $ 8.2 million, which are included within this balance. These investments are accounted for at cost under ASC 321. See Note 8 - Fair Value Measurements for further discussion on fair value measurements for equity investments and derivative assets.   (4) Includes a $ 2.0 million investment in Base Electron. See further discussion of the transaction in Note 7 - Related Party Transactions .   August 31, 2026 May 31, 2026   Accrued liabilities   Accrued construction payables $ 563,897 $ 307,812   Accrued expenses 135,587 81,311   Accrued interest 142,042 151,215   Other accrued liabilities   8,829 8,155   Total Accrued liabilities   $ 850,355 $ 548,493   August 31, 2026 May 31, 2026   Other current liabilities   Construction retainer $ 154,749 $ 95,848   Other 3,524 1,641   Total Other current liabilities $ 158,273 $ 97,489   23",
+   "amounts": [
+    {
+     "raw": "$ 2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$ 563,897 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 307,812   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 850,355 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 548,493   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 154,749 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 95,848   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "25",
+   "match": "Variable Interest Entit",
+   "text": "…ited)   For the Three Months Ended August 31, 2026   As of As of   August 31, 2026 May 31, 2026   Time to expiry 6.18 years 6.43 years   Stock price $ 7.54 $ 18.45   Volatility 105.0 % 110.0 %   Risk-free rate 4.52 % 4.19 %   Dividend yield — % — %   During the three months ended August 31, 2026, the Company recorded a loss of $ 56.1 million, which is included within the loss on change in fair value of derivatives assets within the unaudited condensed consolidated statement of operations.   12. Variable Interest Entities   Based upon the criteria set forth in ASC 810, Consolidation , the Company consolidates VIEs in which it has a controlling financial interest and is therefore deemed the primary beneficiary. A controlling financial interest will have both of the following characteristics: (a) the power to direct the VIE activities that most significantly impact economic performance; and (b) the obligation to absorb the VIE losses and the right to receive benefits that are significant to the VIE.   Consolidated VIE   The Company has determined that it is the primary beneficiary of one VIE, APLD HPC TopCo 2 LLC (“TopCo 2”), as it has both the power to direct the activities that most significantly impact the entity’s economic performance and the obligation to absorb losses or the right to receive benefits that could potentially be significant to the VIE.   During the fiscal year …",
+   "amounts": [
+    {
+     "raw": "$ 56.1 million",
+     "usdM": 56.1
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "26",
+   "match": "primary beneficiary",
+   "text": "…ns , Base Electron is a related party formed to develop power generation and infrastructure projects supporting the broader AI industry. The Company has determined that Base Electron is a VIE because it does not have sufficient equity at risk to finance its activities without additional subordinated financial support. The Company's variable interests in Base Electron consist of its equity investment and related party promissory note.   Additionally, the Company has determined that it is not the primary beneficiary of Base Electron because it does not have the power to direct the activities that most significantly impact Base Electron's economic performance. Accordingly, the Company does not consolidate Base Electron because ASC 810 requires both power and economics for consolidation.   As of August 31, 2026, the carrying value of the Company's investment in Base Electron was $ 2.0 million and the outstanding balance of the related party promissory note was $ 59.3 million, which together reflect the Company's maximum exposure to loss. The Company is not contractually required to provide financial support to Base Electron and did not provide material non-contractual financial support during the three months ended August 31, 2026.   13. Income Taxes   The Company’s tax provision or benefit from income taxes for interim periods is determined using an estimate of the Company’s annua…",
+   "amounts": [
+    {
+     "raw": "$ 2.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "26",
+   "match": "deferred revenue ",
+   "text": "… and liabilities held by TopCo 2 as of August 31, 2026, which are included in the unaudited condensed consolidated balance sheets (in thousands):   August 31, 2026   Assets:   Cash and cash equivalents $ 2,909,372   Restricted cash   510,963   Accounts receivable 44,925   Prepaid expenses and other current assets 573,876   Property and equipment, net 5,803,969   Other assets 440,148   Total assets   $ 10,283,253   Liabilities:   Accounts payable $ 221,607   Accrued liabilities 745,548   Current deferred revenue 39,669   Other current liabilities   147,070   Long-term debt   5,918,619   Total liabilities   $ 7,072,513   Third-party equity ownership interests in TopCo 2 represents a noncontrolling interest and is presented as temporary equity in the unaudited condensed consolidated balance sheets separate from the Company’s stockholders’ equity. The amount of net income (loss) attributable to noncontrolling interests is disclosed in the unaudited condensed consolidated statement of operations.   Unconsolidated VIE   As discussed in Note 7 - Related Party Transactions , Base Electron is a related party formed to develop power generation and infrastructure projects supporting the broader AI industry. The Company has determined that Base Electron is a VIE because it does not have sufficient equity at risk to finance its activities without additional subordinated financial support. T…",
+   "amounts": [
+    {
+     "raw": "$ 10,283,253   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 221,607   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,072,513   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "26",
+   "match": "Related Party",
+   "text": "…47,070   Long-term debt   5,918,619   Total liabilities   $ 7,072,513   Third-party equity ownership interests in TopCo 2 represents a noncontrolling interest and is presented as temporary equity in the unaudited condensed consolidated balance sheets separate from the Company’s stockholders’ equity. The amount of net income (loss) attributable to noncontrolling interests is disclosed in the unaudited condensed consolidated statement of operations.   Unconsolidated VIE   As discussed in Note 7 - Related Party Transactions , Base Electron is a related party formed to develop power generation and infrastructure projects supporting the broader AI industry. The Company has determined that Base Electron is a VIE because it does not have sufficient equity at risk to finance its activities without additional subordinated financial support. The Company's variable interests in Base Electron consist of its equity investment and related party promissory note.   Additionally, the Company has determined that it is not the primary beneficiary of Base Electron because it does not have the power to direct the activities that most significantly impact Base Electron's economic performance. Accordingly, the Company does not consolidate Base Electron because ASC 810 requires both power and economics for consolidation.   As of August 31, 2026, the carrying value of the Company's investment in Base E…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "26",
+   "match": "related party",
+   "text": "…   Additionally, the Company has determined that it is not the primary beneficiary of Base Electron because it does not have the power to direct the activities that most significantly impact Base Electron's economic performance. Accordingly, the Company does not consolidate Base Electron because ASC 810 requires both power and economics for consolidation.   As of August 31, 2026, the carrying value of the Company's investment in Base Electron was $ 2.0 million and the outstanding balance of the related party promissory note was $ 59.3 million, which together reflect the Company's maximum exposure to loss. The Company is not contractually required to provide financial support to Base Electron and did not provide material non-contractual financial support during the three months ended August 31, 2026.   13. Income Taxes   The Company’s tax provision or benefit from income taxes for interim periods is determined using an estimate of the Company’s annual effective tax rate, adjusted for discrete items, if any, that are considered in the relevant period.   The Company has an effective tax rate of approximately ( 1 )% and 0 % for the three months ended August 31, 2026, and August 31, 2025, respectively, primarily due to the recording of a valuation allowance against its deferred tax assets, as well as the mix of earnings across its separate operational components within the Company. …",
+   "amounts": [
+    {
+     "raw": "$ 2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$ 59.3 million",
+     "usdM": 59.3
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "31",
+   "match": "Variable Interest Entit",
+   "text": "…ng the three months ended August 31, 2026, the Company issued and sold 283,250 shares of Series G Preferred Stock for gross proceeds of $ 275.0 million. During the three months ended August 31, 2026, 154,500 shares of Series G Preferred Stock were converted into 4.5 million shares of the Company’s common stock. As of August 31, 2026, 128,750 shares of Series G Preferred Stock were issued and outstanding.   Redeemable Noncontrolling Interest   APLD HPC TopCo 2 LLC   As discussed within Note 12 - Variable Interest Entities above, APLD HPC TopCo 2 LLC (“TopCo 2”) completed four closings under its A&R UPA during the fiscal year ended May 31, 2026, issuing 1,825,000 preferred units and 144,593 corresponding common units for proceeds of approximately $ 1.8 billion to MIP HPC Holdings, LLC, which resulted in a redeemable noncontrolling interest.   There were no material changes to the terms of the redeemable noncontrolling interest during the three months ended August 31, 2026.   The balance sheets and operating activities of TopCo 2 are included in the Company's unaudited condensed consolidated financial statements. The Company adjusts net income in the unaudited condensed consolidated statements of operations to exclude the proportionate share of results that is attributable to the redeemable noncontrolling interest. Additionally, the Company presents the proportionate share that is…",
+   "amounts": [
+    {
+     "raw": "$ 1.8 billion",
+     "usdM": 1800
+    }
+   ]
+  },
+  {
+   "kind": "rvg",
+   "page": "32",
+   "match": "residual value guarantee",
+   "text": "…on or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY27 $ 467,961   FY28 1,579,517   FY29 2,360,558   FY30 2,371,420   FY31 2,371,420   Thereafter 26,580,159   Total $ 35,731,035   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   32",
+   "amounts": [
+    {
+     "raw": "$ 35,731,035   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "32",
+   "match": "guarantees",
+   "text": "…e has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY27 $ 467,961   FY28 1,579,517   FY29 2,360,558   FY30 2,371,420   FY31 2,371,420   Thereafter 26,580,159   Total $ 35,731,035   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   32",
+   "amounts": [
+    {
+     "raw": "$ 35,731,035   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "32",
+   "match": "210 MW",
+   "text": "…espectively. The change in redeemable noncontrolling interest consists of $ 60.1 million of preferred stock dividends paid in-kind, $ 1.3 million of contributions from noncontrolling interest, net of costs and $ 6.8 million in current year net loss attributable to non-controlling interest.   17. Leases   Lessor Accounting   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028. Following the signing of this lease, our aggregate contracted critical IT load is 1,410 MW.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the option or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY27 $ 467,961   FY28 1,579,517   FY29 2,360,…",
+   "amounts": [
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "32",
+   "match": "campus located",
+   "text": "…in redeemable noncontrolling interest consists of $ 60.1 million of preferred stock dividends paid in-kind, $ 1.3 million of contributions from noncontrolling interest, net of costs and $ 6.8 million in current year net loss attributable to non-controlling interest.   17. Leases   Lessor Accounting   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028. Following the signing of this lease, our aggregate contracted critical IT load is 1,410 MW.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the option or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY27 $ 467,961   FY28 1,579,517   FY29 2,360,558   FY30 2,371,420   F…",
+   "amounts": [
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "32",
+   "match": "investment-grade",
+   "text": "… billion as of August 31, 2026 and May 31, 2026, respectively. The change in redeemable noncontrolling interest consists of $ 60.1 million of preferred stock dividends paid in-kind, $ 1.3 million of contributions from noncontrolling interest, net of costs and $ 6.8 million in current year net loss attributable to non-controlling interest.   17. Leases   Lessor Accounting   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028. Following the signing of this lease, our aggregate contracted critical IT load is 1,410 MW.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the option or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Paymen…",
+   "amounts": [
+    {
+     "raw": "$ 6.8 million",
+     "usdM": 6.8
+    },
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "35",
+   "match": "utility",
+   "text": "Table of Content s   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three Months Ended August 31, 2026   including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   As of August 31, 2026, there were no other pending or threatened lawsuits that could reasonably be expected to have a material effect on the results of the Company’s consolidated operations. There are also no legal proceedings in which any of the Company’s management or affiliates is an adverse party or h…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "35",
+   "match": "segment results",
+   "text": "…ailable and evaluated regularly by the CODM.   The Company's CODM evaluates performance and makes operating decisions primarily based on revenue and segment profit (loss) on a consolidated basis and for each of the Company's reportable segments. Operating results by segment include costs or expenses directly attributable to each segment, which include selling, general, and administrative expenses, loss on classification of held for sale and loss on abandonment of assets. The Company derives the segment results from its internal management reporting system. The accounting policies the Company uses to derive reportable segment results are the same as those used for external reporting purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest expense, interest income, loss on change in fair value of derivatives, loss on change in fair value of investment, other expense, net or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance. The \"Other\" includes corporate related items not allocated to reportable segments for purposes of mak…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "36",
+   "match": "segment information",
+   "text": "Table of Content s   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three Months Ended August 31, 2026   The following tables present segment information, including revenue by segment and segment profit (loss) for the three months ended August 31, 2026 and August 31, 2025 (in thousands):   Three Months Ended August 31, 2026   Data Center Hosting Business   HPC Hosting Business   Revenue:   Services and other revenue $ 37,755 $ 183,518   Data center rental and other revenue — 79,120   Total segment revenue 37,755 262,638   Costs and expenses:   Services and other cost of revenue 23,978 176,100   Data center rental and other cost of revenue — 43,861   Selling, general and administrative (1)   450 9,246   Total costs and expenses 24,428 229,207   Segment profit $ 13,327 $ 33,431   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   Three Months Ended Augus…",
+   "amounts": [
+    {
+     "raw": "$ 37,755 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 183,518   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "39",
+   "match": "1,200 MW",
+   "text": "Table of Content s   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three Months Ended August 31, 2026   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement with Base Electron, for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in North Dakota, which is intended to provide dedicated generation for the Company’s Polaris Forge 3 campus expansion.   39",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "39",
+   "match": "Power Purchase Agreement",
+   "text": "Table of Content s   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three Months Ended August 31, 2026   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement with Base Electron, for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in North Dakota, which is intended to provide dedicated generation for the Company’s Polaris Forge 3 campus expansion.   39",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "40",
+   "match": "utility",
+   "text": "…our data center campuses;   • our dependence on principal customers, including our ability to execute leases with key customers;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies; and   • uncertainties of regulation policy.   You should carefully review the risks described in Item 1A of the Company’s Annual Report on Form 10-K for the year ended May 31, 2026, which was filed with the SEC on July 29, 2026, as well as any other cautionary language in this Quarterly Report on Form 10-Q, as the occurrence of any of these events could have an adverse effect, which may be material, on our business, results of operations, financial condition or cash flows.   A comparison of our results of operations and…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "40",
+   "match": "significant customer",
+   "text": "…lly from those expressed in any forward-looking statement made by us. These factors include, but are not limited to:   • our ability to complete construction of our data center campuses;   • our dependence on principal customers, including our ability to execute leases with key customers;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies; and   • uncertainties of regulation policy.   You should carefully review the risks described in Item 1A of the Company’s Annual Report on Form 10-K for the year ended May 31, 2026, which was filed with the SEC on July 29, 2026, as well as any other cautionary language in this Quarterly Report on Form 10-Q, as the occurrence of any of these events could have an …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "41",
+   "match": "variable interest entit",
+   "text": "…nd AI. We operate in two distinct business segments, data center hosting (the \"Data Center Hosting Business\") and HPC data center hosting (the “HPC Hosting Business”), both of which are included in our unaudited consolidated financial statements, as further discussed below. Management considers the Data Center Hosting Business and the HPC Hosting Business to be our core operations for long-run strategic and performance evaluation purposes.   We consolidate entities that meet the definition of a variable interest entity (“VIE”) for which the Company is considered the primary beneficiary or entities that meet the definition of a voting interest entity (“VOE”). The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its vari…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "100 MW",
+   "text": "…e related notes included in our Annual Report on Form 10-K and our subsequent Quarterly Reports on Form 10-Q.   Business Update   HPC Hosting Business   Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   In the prior fiscal year, we commenced operations at our first HPC data center at our Polaris Forge 1 campus in Ellendale, North Dakota, with 100 MW of capacity. During the quarter, we began commencing operations at our second HPC data center at our Polaris Forge 1 campus, which reached its full 150MW of capacity as of the date of filing of this Form 10-Q.   Our third HPC building at our Polaris Forge 1 campus, which is expected to provide an additional 150MW of capacity, is currently under construction. We anticipate reaching full ready for service in calendar year 2027.   Our two buildings at our Polaris Forge 2 campus, with an aggregate 300MW of capacity, are currently under construction. We anticipate reaching initial ready for service in the second half of calendar year 2026 and full capacity in early calendar year 2027.   Our two buildings at our Polaris Forge 3 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for service in the second half of calendar year …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "300MW",
+   "text": "…rently under construction. We anticipate reaching initial ready for service in the second half of calendar year 2026 and full capacity in early calendar year 2027.   Our two buildings at our Polaris Forge 3 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for service in the second half of calendar year 2027 and full capacity in the second half of calendar year 2028.   Our two buildings at our Delta Forge 1 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for service in the first half of calendar year 2027 and full capacity in early calendar 2028.   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 campus located in our southern region, comprising a single 210 MW building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   We recognized $262.6 million in revenue from this business segment during the three months ended August 31, 2026, with $183.5 million related to services and other revenue and $79.1 million related to data center rental and other revenue.   Data Center Ho…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "106 MW",
+   "text": "…e recognized $262.6 million in revenue from this business segment during the three months ended August 31, 2026, with $183.5 million related to services and other revenue and $79.1 million related to data center rental and other revenue.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements. As of August 31, 2026, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue to operate at full capacity.   42",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "42",
+   "match": "campus in",
+   "text": "…consolidated financial statements and the related notes included in our Annual Report on Form 10-K and our subsequent Quarterly Reports on Form 10-Q.   Business Update   HPC Hosting Business   Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   In the prior fiscal year, we commenced operations at our first HPC data center at our Polaris Forge 1 campus in Ellendale, North Dakota, with 100 MW of capacity. During the quarter, we began commencing operations at our second HPC data center at our Polaris Forge 1 campus, which reached its full 150MW of capacity as of the date of filing of this Form 10-Q.   Our third HPC building at our Polaris Forge 1 campus, which is expected to provide an additional 150MW of capacity, is currently under construction. We anticipate reaching full ready for service in calendar year 2027.   Our two buildings at our Polaris Forge 2 campus, with an aggregate 300MW of capacity, are currently under construction. We anticipate reaching initial ready for service in the second half of calendar year 2026 and full capacity in early calendar year 2027.   Our two buildings at our Polaris Forge 3 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for serv…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "42",
+   "match": "campus located",
+   "text": "…lf of calendar year 2027 and full capacity in the second half of calendar year 2028.   Our two buildings at our Delta Forge 1 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for service in the first half of calendar year 2027 and full capacity in early calendar 2028.   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 campus located in our southern region, comprising a single 210 MW building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   We recognized $262.6 million in revenue from this business segment during the three months ended August 31, 2026, with $183.5 million related to services and other revenue and $79.1 million related to data center rental and other revenue.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements. As of August 31, 2026, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue…",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$262.6 million",
+     "usdM": 262.6
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "42",
+   "match": "investment-grade",
+   "text": "…eaching initial ready for service in the second half of calendar year 2027 and full capacity in the second half of calendar year 2028.   Our two buildings at our Delta Forge 1 campus, with an aggregate 300MW capacity, are currently under construction. We anticipate reaching initial ready for service in the first half of calendar year 2027 and full capacity in early calendar 2028.   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 campus located in our southern region, comprising a single 210 MW building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   We recognized $262.6 million in revenue from this business segment during the three months ended August 31, 2026, with $183.5 million related to services and other revenue and $79.1 million related to data center rental and other revenue.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements. As of August 31, 2026, our 106 MW facility in Jamestown, North Dakota and our 1…",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$262.6 million",
+     "usdM": 262.6
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "43",
+   "match": "guaranteed",
+   "text": "…00% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000% Notes will amortize on a semi-annual basis on June 15 and December 15 of each year, pursuant to the terms and amounts set forth in the 2031 7.000% Notes Indenture. The 2031 7.000% Notes will mature on June 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 7.000% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 3 LLC. The Company provided a customary completion guarantee for the 2031 7.000% Notes Offering.   Series G Preferred Stock   On June 26, 2026, we entered into the sixth amendment to the PEPA to increase the aggregate commitment amount under the PEPA for the issuance of shares of Series G Preferred Stock from $1,590,000,000 to $2,000,000,000.   As Series G Preferred Stock may be reissued, during the three months ended August 31, 2026, we issued and sold 283,250 shares of Series G Preferred Stock for gross proceeds of $275.0 million. During the three months ended August 31, 2026,   43",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "43",
+   "match": "50 MW",
+   "text": "…ding Company Transaction, and as such, the shareholders of ChronoScale Corporation prior to the Holding Company Transaction were not diluted as a result thereof. Following the Holding Company Transaction, ChronoScale Holdings became the successor issuer to ChronoScale and continues to trade on Nasdaq under the ticker symbol “CHRN” with the same CUSIP.   On August 6, 2026, ChronoScale entered into a two-year strategic partnership with Microsoft to support the planned development of approximately 50 MW of AI compute capacity. On August 24, 2026, ChronoScale entered into a one-year extension of such strategic partnership, resulting in a total of a three-year service term. Upon projected completion, the deployment is expected to expand available compute capacity and further strengthen ChronoScale’s digital infrastructure supporting AI and cloud computing applications.   Debt and Equity Offerings and Changes to Equity   Cloud SAFE Payoff   During the fiscal year ended May 31, 2025, we entered into two Simple Agreements for Future Equity (“SAFEs”) with an investor for equity in Cloud, which was, at that time, our wholly-owned subsidiary, for aggregate proceeds of $12.0 million. On June 2, 2026, following an agreement reached with the investor, we paid off all amounts outstanding under the SAFEs, totaling $13.3 million.   $1.59 Billion Senior Secured Notes due 2031   On June 16, 2026,…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "43",
+   "match": "GPU",
+   "text": "…ation, and is consolidated into our financial statements.   The cloud business currently operates in three states: Colorado, Minnesota and Utah. This business provides cloud services to customers, such as AI and machine learning developers by renting space at third party co-location centers and providing the customers with access to its cloud computing equipment. Additionally, effective in the first quarter of fiscal year 2027, ChronoScale Holding’s cloud business provides AI infrastructure, or GPU-related, hardware, and ancillary support and maintenance services, through resale arrangements.   On July 1, 2026, we completed a holding company formation transaction (the “Holding Company Transaction”) that created the new parent holding company as the public company, with its operating companies as wholly-owned subsidiaries, including Applied Digital Cloud Corporation, which changed its name to ChronoScale Corporation. We effected the holding company structure to better reflect our individual operating businesses, which allows for and can accommodate future growth from internal operations and generally provides for greater administrative and operational flexibility. ChronoScale Holdings has the exact same classes and number of shares outstanding after the Holding Company Transaction as its predecessor had outstanding immediately before the Holding Company Transaction, and as such,…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "43",
+   "match": "Microsoft",
+   "text": "… as its predecessor had outstanding immediately before the Holding Company Transaction, and as such, the shareholders of ChronoScale Corporation prior to the Holding Company Transaction were not diluted as a result thereof. Following the Holding Company Transaction, ChronoScale Holdings became the successor issuer to ChronoScale and continues to trade on Nasdaq under the ticker symbol “CHRN” with the same CUSIP.   On August 6, 2026, ChronoScale entered into a two-year strategic partnership with Microsoft to support the planned development of approximately 50 MW of AI compute capacity. On August 24, 2026, ChronoScale entered into a one-year extension of such strategic partnership, resulting in a total of a three-year service term. Upon projected completion, the deployment is expected to expand available compute capacity and further strengthen ChronoScale’s digital infrastructure supporting AI and cloud computing applications.   Debt and Equity Offerings and Changes to Equity   Cloud SAFE Payoff   During the fiscal year ended May 31, 2025, we entered into two Simple Agreements for Future Equity (“SAFEs”) with an investor for equity in Cloud, which was, at that time, our wholly-owned subsidiary, for aggregate proceeds of $12.0 million. On June 2, 2026, following an agreement reached with the investor, we paid off all amounts outstanding under the SAFEs, totaling $13.3 million.   $…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "44",
+   "match": "1,200 MW",
+   "text": "…aWear Tech, Inc. under an asset purchase agreement, and immediately thereafter, ChronoScale Intermediate LLC sold all of the outstanding capital stock of Ekso, which held the remaining neuro-rehabilitation business, to WanderEkso Inc., a subsidiary of Wandercraft SAS, under a stock purchase agreement.   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement with Base Electron, for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in North Dakota, which is intended to provide dedicated generation for our Polaris Forge 3 campus expansion.   44",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "44",
+   "match": "Power Purchase Agreement",
+   "text": "…tions: Ekso and its wholly-owned German subsidiary sold substantially all of the assets of Ekso’s “EksoWorks” industrial exoskeleton business, including the EVO product line, to DynaWear Tech, Inc. under an asset purchase agreement, and immediately thereafter, ChronoScale Intermediate LLC sold all of the outstanding capital stock of Ekso, which held the remaining neuro-rehabilitation business, to WanderEkso Inc., a subsidiary of Wandercraft SAS, under a stock purchase agreement.   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement with Base Electron, for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in North Dakota, which is intended to provide dedicated generation for our Polaris Forge 3 campus expansion.   44",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "44",
+   "match": "Revolving Credit Facilit",
+   "text": "…atisfaction of Escrow Release Condition for 6.750% Senior Secured Notes due 2031   On June 18, 2026, APLD ComputeCo 2 satisfied the escrow release condition under the escrow agreement for the 2031 6.750% Notes and executed and delivered to the escrow agent an escrow release certificate directing the escrow agent to release the funds in the escrow account to APLD ComputeCo 2 and apply such funds in accordance with the escrow agreement and the indenture for the 2031 6.750% Notes.   Upsize of 2026 Revolving Credit Facility   On June 26, 2026, in connection with the 2026 Revolving Credit Facility, the Company, APLD Intermediate HoldCo, and certain subsidiaries of APLD Intermediate HoldCo entered into an Incremental Assumption Agreement No. 1 (the “Incremental Assumption Agreement”), with First National Bank of Omaha (in its capacities as administrative agent and collateral agent under the 2026 Revolving Credit Facility) and the lenders and issuing banks party thereto, providing for an Incremental Revolving Facility Commitment (as defined in the Incremental Assumption Agreement) in an aggregate principal amount of up to $80.0 million (the “Incremental Revolving Financing”). After giving effect to the Incremental Assumption Agreement, the aggregate revolving commitments under the 2026 Revolving Credit Facility increased to $430.0 million, with an additional $120 million accordion opt…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "44",
+   "match": "Revolving Credit Facilit",
+   "text": "…viding for an Incremental Revolving Facility Commitment (as defined in the Incremental Assumption Agreement) in an aggregate principal amount of up to $80.0 million (the “Incremental Revolving Financing”). After giving effect to the Incremental Assumption Agreement, the aggregate revolving commitments under the 2026 Revolving Credit Facility increased to $430.0 million, with an additional $120 million accordion option remaining. The Incremental Revolving Financing constitutes a part of the 2026 Revolving Credit Facility and is subject to the terms and conditions of the Revolving Credit Agreement and the other loan documents entered into in connection therewith.   Loan and Security Agreement   On June 30, 2026, we entered into a Loan and Security Agreement (the \"Texas Capital Loan Agreement\") with Texas Capital Bank (\"Texas Capital\") and a related Promissory Note in favor of Texas Capital in the stated principal amount of $58.5 million (the \"Texas Capital Note\"). The Texas Capital Loan Agreement contains standard terms, conditions and covenants. Interest is payable on the Texas Capital Note at the sum of an adjusted term SOFR plus an applicable margin. The Texas Capital Note matures on June 30, 2031.   Series E and Series E-1 Redemptions   During the three months ended August 31, 2026, 276,673 shares of Series E Preferred Stock were redeemed as well as 78 shares of Series E-1 Pr…",
+   "amounts": [
+    {
+     "raw": "$430.0 million",
+     "usdM": 430
+    },
+    {
+     "raw": "$120 million",
+     "usdM": 120
+    }
+   ]
+  },
+  {
+   "kind": "gpu",
+   "page": "46",
+   "match": "GPU",
+   "text": "…sults of Operations Comparative Results for the Three Months Ended August 31, 2026 compared to the Three Months Ended August 31, 2025   Revenue   Services and other revenue increased $181.8 million, or 225%, from $80.9 million for the three months ended August 31, 2025 to $262.8 million for the three months ended August 31, 2026. The increase was primarily due to an increase in tenant fit-out services of approximately $157.2 million. This revenue also consisted of approximately $23.0 million in GPU hardware sales related to ChronoScale. The remaining increase in services and other revenue was due to performance improvements in Data Center Hosting Business and ChronoScale during the three months ended August 31, 2026 compared to the three months ended August 31, 2025.   Data center rental and other revenue was $79.1 million for the three months ended August 31, 2026 compared to no revenue for the three months ended August 31, 2025, as our HPC Hosting Business commenced operations in the second half of the fiscal year 2026, resulting in approximately $65.8 million related to base rent, net of $0.9 million in amortization of customer lease incentives, and $13.3 million related to tenant recoveries.   Cost of revenues   Services and other cost of revenues increased $186.9 million, or 318%, from $58.8 million for the three months ended August 31, 2025 to $245.7 million for the three…",
+   "amounts": [
+    {
+     "raw": "$262.8 million",
+     "usdM": 262.8
+    },
+    {
+     "raw": "$157.2 million",
+     "usdM": 157.2
+    },
+    {
+     "raw": "$23.0 million",
+     "usdM": 23
+    },
+    {
+     "raw": "$79.1 million",
+     "usdM": 79.1
+    }
+   ]
+  },
+  {
+   "kind": "gpu",
+   "page": "46",
+   "match": "GPU",
+   "text": "…eries.   Cost of revenues   Services and other cost of revenues increased $186.9 million, or 318%, from $58.8 million for the three months ended August 31, 2025 to $245.7 million for the three months ended August 31, 2026. The increase in services and other cost of revenues was due to the following changes:   • approximately $151.1 million increase in expenses associated with tenant fit-out services for our HPC Hosting Business;   • approximately $22.4 million in cost of revenue associated with GPU hardware sales related to ChronoScale, which commenced during the current fiscal quarter;   • approximately $14.2 million increase in depreciation and amortization expense due to the Cloud Services Business no longer being classified as held for sale;   • approximately $3.6 million increase in lease and lease related expenses primarily related to ChronoScale’s operating leases; and   • approximately $0.3 million increase in personnel expenses and other costs due to the increases in headcount as well as other related costs directly supporting revenue.   46",
+   "amounts": [
+    {
+     "raw": "$151.1 million",
+     "usdM": 151.1
+    },
+    {
+     "raw": "$22.4 million",
+     "usdM": 22.4
+    },
+    {
+     "raw": "$14.2 million",
+     "usdM": 14.2
+    },
+    {
+     "raw": "$3.6 million",
+     "usdM": 3.6
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "46",
+   "match": "depreciation and amortization expense",
+   "text": "… ended August 31, 2025 to $245.7 million for the three months ended August 31, 2026. The increase in services and other cost of revenues was due to the following changes:   • approximately $151.1 million increase in expenses associated with tenant fit-out services for our HPC Hosting Business;   • approximately $22.4 million in cost of revenue associated with GPU hardware sales related to ChronoScale, which commenced during the current fiscal quarter;   • approximately $14.2 million increase in depreciation and amortization expense due to the Cloud Services Business no longer being classified as held for sale;   • approximately $3.6 million increase in lease and lease related expenses primarily related to ChronoScale’s operating leases; and   • approximately $0.3 million increase in personnel expenses and other costs due to the increases in headcount as well as other related costs directly supporting revenue.   46",
+   "amounts": [
+    {
+     "raw": "$22.4 million",
+     "usdM": 22.4
+    },
+    {
+     "raw": "$14.2 million",
+     "usdM": 14.2
+    },
+    {
+     "raw": "$3.6 million",
+     "usdM": 3.6
+    },
+    {
+     "raw": "$0.3 million",
+     "usdM": 0.3
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "46",
+   "match": "related party",
+   "text": "…sted net loss from continuing operations attributable to common stockholders $ (4,053) $ (7,570)   Adjusted net loss from continuing operations attributable to common stockholders per diluted share $ (0.01) $ (0.03)   Other Financial Data (3)   EBITDA $ (72,625) $ (18,140)   as a percentage of adjusted revenue   (24) % (28) %   Adjusted EBITDA $ 64,412 $ 537   as a percentage of adjusted revenue   21 % 1 %   Net operating income $ 58,829 $ —   Net operating income margin 89 % — %   (1) Includes related party selling, general and administrative expense of $49.7 thousand and $74.3 thousand for the three months ended August 31, 2026 and August 31, 2025, respectively. See Note 7 - Related Party Transactions for further discussion of related party transactions.   (2) Includes related party income of $0.7 million for the three months ended August 31, 2026. See Note 7 - Related Party Transactions for further discussion of related party transactions.   (3) Adjusted Amounts and Other Financial Data are non-GAAP performance measures. These non-GAAP measures exclude the results of the Cloud Services Business. A reconciliation of reported amounts to adjusted amounts can be found in the \"Non-GAAP Measures and Reconciliation\" section of Management’s Discussion and Analysis.   Commentary on Results of Operations Comparative Results for the Three Months Ended August 31, 2026 compared to the Th…",
+   "amounts": [
+    {
+     "raw": "$ 64,412 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 537   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 58,829 ",
+     "usdM": null
+    },
+    {
+     "raw": "$49.7 thousand",
+     "usdM": 0.05
+    },
+    {
+     "raw": "$74.3 thousand",
+     "usdM": 0.074
+    },
+    {
+     "raw": "$0.7 million",
+     "usdM": 0.7
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "52",
+   "match": "guaranteed",
+   "text": "…00% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000% Notes will amortize on a semi-annual basis on June 15 and December 15 of each year, pursuant to the terms and amounts set forth in the 2031 7.000% Notes Indenture. The 2031 7.000% Notes will mature on June 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 7.000% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 3 LLC. The Company provided a customary completion guarantee for the 2031 7.000% Notes Offering.   Series G Convertible Preferred Stock   During the three months ended August 31, 2026, the Company issued and sold 283,250 shares of Series G Preferred Stock for gross proceeds of $275.0 million. During the three months ended August 31, 2026, 154,500 shares of Series G Preferred Stock were converted into 4.5 million shares of the Company’s common stock. As of August 31, 2026, 128,750 shares of Series G Preferred Stock were issued and outstanding.   Upsize of 2026 Revolving Credit Facility   On June 26, 2026, in connection with the 2026 Revolving Credit Facility, the Company, APLD Intermediate HoldCo, and certain subsidiaries of APLD Intermediate HoldCo entered into an Incremental Assumption …",
+   "amounts": [
+    {
+     "raw": "$275.0 million",
+     "usdM": 275
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "52",
+   "match": "Revolving Credit Facilit",
+   "text": "…he 2031 7.000% Notes Offering.   Series G Convertible Preferred Stock   During the three months ended August 31, 2026, the Company issued and sold 283,250 shares of Series G Preferred Stock for gross proceeds of $275.0 million. During the three months ended August 31, 2026, 154,500 shares of Series G Preferred Stock were converted into 4.5 million shares of the Company’s common stock. As of August 31, 2026, 128,750 shares of Series G Preferred Stock were issued and outstanding.   Upsize of 2026 Revolving Credit Facility   On June 26, 2026, in connection with the 2026 Revolving Credit Facility, the Company, APLD Intermediate HoldCo, and certain subsidiaries of APLD Intermediate HoldCo entered into an Incremental Assumption Agreement No. 1 (the Incremental Assumption Agreement”), with First National Bank of Omaha (in its capacities as administrative agent and collateral agent under the 2026 Revolving Credit Facility) and the lenders and issuing banks party thereto, providing for an Incremental Revolving Facility Commitment (as defined in the Incremental Assumption Agreement) in an aggregate principal amount of up to $80.0 million (the “Incremental Revolving Financing”). After giving effect to the Incremental Assumption Agreement, the aggregate revolving commitments under the 2026 Revolving Credit Facility increased to $430.0 million, with an additional $120.0 million accordion op…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "52",
+   "match": "Revolving Credit Facilit",
+   "text": "…ding for an Incremental Revolving Facility Commitment (as defined in the Incremental Assumption Agreement) in an aggregate principal amount of up to $80.0 million (the “Incremental Revolving Financing”). After giving effect to the Incremental Assumption Agreement, the aggregate revolving commitments under the 2026 Revolving Credit Facility increased to $430.0 million, with an additional $120.0 million accordion option remaining. The Incremental Revolving Financing constitutes a part of the 2026 Revolving Credit Facility and is subject to the terms and conditions of the Revolving Credit Agreement and the other loan documents entered into in connection therewith.   As of August 31, 2026, approximately $241.0 million of standby letters of credit were outstanding under the 2026 Revolving Credit Facility. Refer to Note 9 - Debt in the accompanying notes to the unaudited condensed consolidated financial statements for additional information.   52",
+   "amounts": [
+    {
+     "raw": "$430.0 million",
+     "usdM": 430
+    },
+    {
+     "raw": "$120.0 million",
+     "usdM": 120
+    },
+    {
+     "raw": "$241.0 million",
+     "usdM": 241
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…nts for further discussion.   (6) Preferred share dividends represent estimated future dividend payments per year in accordance with preferred stock that has been issued. The estimated future dividend payments will continue until preferred stock is redeemed.   Summary of Cash Flows   The following table provides information about our net cash flow for the three months ended August 31, 2026 and August 31, 2025, respectively.   Three Months Ended   $ in thousands August 31, 2026 August 31, 2025   Net cash provided by (used in) operating activities $ 63,921 $ (81,531)   Net cash used in investing activities (2,082,879) (249,914)   Net cash provided by financing activities 1,543,472 322,236   Net decrease in cash and cash equivalents, and restricted cash (475,486) (9,209)   Cash, cash equivalents, and restricted cash, beginning of period, including cash from discontinued operations 4,153,431 123,318   Cash, cash equivalents, and restricted cash, end of period, including cash from discontinued operations $ 3,677,945 $ 114,109   Less: Cash, cash equivalents, and restricted cash from discontinued operations $ 2 $ —   Cash, cash equivalents, and restricted cash from continued operations $ 3,677,943 $ 114,109   53",
+   "amounts": [
+    {
+     "raw": "$ 63,921 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "54",
+   "match": "net cash provided by (used in) operating activities",
+   "text": "Table of Contents   Commentary on the change in cash flows between the Three Months Ended August 31, 2026 and Three Months Ended August 31, 2025   Operating Activities   The net cash provided by (used in) operating activities changed by $145.5 million, or 178%, from $81.5 million used in operating activities for the three months ended August 31, 2025 to $63.9 million provided by operating activities for the three months ended August 31, 2026. Activities that positively impacted operating cash flows during the three months ended August 31, 2026 included stock-based compensation, loss on change in fair value of derivatives, loss on change in fair value of investment, loss on classification of held for sale and non-cash interest expense. Other impacts included changes in operating assets and liabilities primarily affected by changes in the timing and quantity of services provided and associated working capital needs.   Investing Activities   The net cash used in investing activities increased by $1.8 billion, or 733%, from $249.9 million for the three months en…",
+   "amounts": [
+    {
+     "raw": "$145.5 million",
+     "usdM": 145.5
+    },
+    {
+     "raw": "$81.5 million",
+     "usdM": 81.5
+    },
+    {
+     "raw": "$63.9 million",
+     "usdM": 63.9
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "54",
+   "match": "repayments of long-term debt",
+   "text": "…ry reason for the change was an increase in the net borrowings of long-term debt of $1.6 billion from the issuance of our 2031 Notes as well as an our draw on the 2026 Revolver of $82.4 million. Additionally, there was an increase in receipt of net proceeds from offerings of our preferred stock of approximately $104.5 million during the three months ended August 31, 2026 compared to the three months ended August 31, 2025. These increases were partially offset by an increase of $313.5 million in repayments of long-term debt as well as a decrease of $196.4 million in proceeds from common stock during the three months ended August 31, 2026 compared to the three months ended August 31, 2025.   Item 3. Quantitative and Qualitative Disclosures About Market Risk   There have been no material changes in our exposure to market risk from the information provided in Item 7A. Quantitative and Qualitative Disclosures About Market Risk of our Annual Report on Form 10-K for the fiscal year ended May 31, 2026.   Item 4. Controls and Procedures   Management’s Evaluation of Disclosure Controls and Procedures   We maintain a system of disclosure controls and procedures that is designed to ensure that information required to be disclosed in the reports that we file or submit under the Exchange Act is recorded, processed, summarized and reported within the time periods specified in the SEC’s rules …",
+   "amounts": [
+    {
+     "raw": "$104.5 million",
+     "usdM": 104.5
+    },
+    {
+     "raw": "$313.5 million",
+     "usdM": 313.5
+    },
+    {
+     "raw": "$196.4 million",
+     "usdM": 196.4
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "55",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   There are no other pending lawsuits that could reasonably be expected to have a material adverse effect on the results of the Company’s consolidated operations.   Item 1A. Risk Factors   As of the date of this filing, there have been no material changes to the risk factors associated with our business pre…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "56",
+   "match": "1,200 MW",
+   "text": "Item 3. Defaults Upon Senior Securities   Not applicable.   Item 4. Mine Safety Disclosures   Not applicable.   Item 5. Other Information   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement and a related credit support agreement with Base Electron for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in Center, North Dakota, which is intended to provide dedicated generation for the Company's Polaris Forge 3 campus. The Power Purchase Agreement has a 15-year delivery term and provides for fixed monthly payments based on target contract capacity, and may be terminated by Base Electron if financial close for the facility has not occurred by March 31, 2027. The Power Purchase Agreement and the credit support agreement were approved by the Company's Board of Directors following review and recommendation by the Board's Base Electron Related Party Transaction Committee.   As of October 4, 2026, the Company owned approximately 10% of Base Electron. Base Electron is an independent power producer formed for the purpose of developing and operating dedicated power generation infrastructure for high-density AI data ce…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "56",
+   "match": "Power Purchase Agreement",
+   "text": "Item 3. Defaults Upon Senior Securities   Not applicable.   Item 4. Mine Safety Disclosures   Not applicable.   Item 5. Other Information   Base Electron Power Purchase Agreement   On October 4, 2026, the Company entered into a Power Purchase Agreement and a related credit support agreement with Base Electron for the purchase of capacity and energy from an approximately 1,200 MW natural gas-fired generation facility to be developed by Base Electron in Center, North Dakota, which is intended to provide dedicated generation for the Company's Polaris Forge 3 campus. The Power Purchase Agreement has a 15-year delivery term and provides for fixed monthly payments based on target contract capacity, and may be terminated by Base Electron if financial close for the facility has not occurred by March 31, 2027. The Power Purchase Agreement and the credit support agreement were approved by the Company's Board of Directors following review and recommendation by the Board's Base Electron Related Party Transaction Committee.   As of October 4, 2026, th…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "56",
+   "match": "Related Party",
+   "text": "…ended to provide dedicated generation for the Company's Polaris Forge 3 campus. The Power Purchase Agreement has a 15-year delivery term and provides for fixed monthly payments based on target contract capacity, and may be terminated by Base Electron if financial close for the facility has not occurred by March 31, 2027. The Power Purchase Agreement and the credit support agreement were approved by the Company's Board of Directors following review and recommendation by the Board's Base Electron Related Party Transaction Committee.   As of October 4, 2026, the Company owned approximately 10% of Base Electron. Base Electron is an independent power producer formed for the purpose of developing and operating dedicated power generation infrastructure for high-density AI data center campuses. It is owned and managed by certain officers and directors of the Company, including Messrs. Cummins and Zhang and Dr. Nottenburg, acting in their individual capacities, as well as numerous third parties. In addition, Messrs. Cummins and Zhang serve as the Chief Executive Officer, and President and Secretary of Base Electron, respectively.   56",
+   "amounts": []
+  }
+ ]
+}

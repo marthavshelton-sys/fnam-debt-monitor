@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-07T13:35:58Z",
+ "generated": "2026-10-07T22:28:51Z",
  "warnings": [
   {
    "ticker": "MSFT",
@@ -1962,12 +1962,22 @@
   },
   {
    "ticker": "APLD",
+   "check": "RevenueFromContractWithCustomerExcludingAssessedTax FY2026Q2: 3-month fact 126589000 vs YTD difference 109871000",
+   "status": "warn"
+  },
+  {
+   "ticker": "APLD",
    "check": "RevenueFromContractWithCustomerExcludingAssessedTax FY2026Q3: 3-month fact 126637000 vs YTD difference 161757000",
    "status": "warn"
   },
   {
    "ticker": "APLD",
    "check": "OperatingIncomeLoss FY2025Q3: 3-month fact -18943000 vs YTD difference -40563000",
+   "status": "warn"
+  },
+  {
+   "ticker": "APLD",
+   "check": "OperatingIncomeLoss FY2026Q2: 3-month fact -30957000 vs YTD difference -43487000",
    "status": "warn"
   },
   {
@@ -1983,6 +1993,11 @@
   {
    "ticker": "APLD",
    "check": "InterestExpenseNonoperating FY2025Q3: 3-month fact 8897000 vs YTD difference 17799000",
+   "status": "warn"
+  },
+  {
+   "ticker": "APLD",
+   "check": "InterestExpenseNonoperating FY2026Q2: 3-month fact 11484000 vs YTD difference 7418000",
    "status": "warn"
   },
   {
@@ -2338,7 +2353,7 @@
    "ticker": "APLD",
    "tag": "FY2026",
    "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
-   "diff": -35.12,
+   "diff": -18.402,
    "status": "warn",
    "identity": true
   },
@@ -2354,7 +2369,7 @@
    "ticker": "APLD",
    "tag": "FY2026",
    "check": "op_income: Q1+Q2+Q3+Q4 = fiscal year",
-   "diff": -27.274,
+   "diff": -14.743,
    "status": "warn",
    "identity": true
   },
@@ -2370,8 +2385,8 @@
    "ticker": "APLD",
    "tag": "FY2026",
    "check": "interest_exp: Q1+Q2+Q3+Q4 = fiscal year",
-   "diff": -5.84,
-   "status": "warn",
+   "diff": -1.773,
+   "status": "ok",
    "identity": true
   },
   {
@@ -3796,6 +3811,17 @@
   },
   {
    "ticker": "APLD",
+   "tag": "PaymentsToAcquireProductiveAssets",
+   "start": "2025-06-01",
+   "end": "2025-08-31",
+   "old": 249420000,
+   "oldAccn": "0001144879-25-000069",
+   "value": 249914000,
+   "accn": "0001144879-26-000059",
+   "filed": "2026-10-07"
+  },
+  {
+   "ticker": "APLD",
    "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
    "start": "2022-06-01",
    "end": "2022-11-30",
@@ -3928,6 +3954,17 @@
   },
   {
    "ticker": "APLD",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2025-06-01",
+   "end": "2025-08-31",
+   "old": 64216000,
+   "oldAccn": "0001144879-25-000069",
+   "value": 80934000,
+   "accn": "0001144879-26-000059",
+   "filed": "2026-10-07"
+  },
+  {
+   "ticker": "APLD",
    "tag": "NetCashProvidedByUsedInOperatingActivities",
    "start": "2021-06-01",
    "end": "2022-02-28",
@@ -3958,6 +3995,17 @@
    "value": 45338000,
    "accn": "0001628280-25-017684",
    "filed": "2025-04-14"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "NetCashProvidedByUsedInOperatingActivities",
+   "start": "2025-06-01",
+   "end": "2025-08-31",
+   "old": -82023000,
+   "oldAccn": "0001144879-25-000069",
+   "value": -81531000,
+   "accn": "0001144879-26-000059",
+   "filed": "2026-10-07"
   },
   {
    "ticker": "APLD",
@@ -4134,6 +4182,17 @@
    "value": -72175000,
    "accn": "0001144879-26-000048",
    "filed": "2026-07-29"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "OperatingIncomeLoss",
+   "start": "2025-06-01",
+   "end": "2025-08-31",
+   "old": -22293000,
+   "oldAccn": "0001144879-25-000069",
+   "value": -9762000,
+   "accn": "0001144879-26-000059",
+   "filed": "2026-10-07"
   },
   {
    "ticker": "APLD",
@@ -4453,6 +4512,17 @@
    "value": 32139000,
    "accn": "0001144879-26-000048",
    "filed": "2026-07-29"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "InterestExpenseNonoperating",
+   "start": "2025-06-01",
+   "end": "2025-08-31",
+   "old": 3946000,
+   "oldAccn": "0001144879-25-000069",
+   "value": 8013000,
+   "accn": "0001144879-26-000059",
+   "filed": "2026-10-07"
   },
   {
    "ticker": "APLD",
