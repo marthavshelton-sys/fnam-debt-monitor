@@ -13,8 +13,19 @@
     const M = window.Q_MODEL;
     await P.run(M, [], async () => {
       const doc = new QualitasDoc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.driversPage(); doc.combinedPage(); doc.capitalPage(); doc.dividendPage(); doc.vatPage(); doc.intlPage(); doc.sourcesPage();
+      // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
+      // executive summary) can list the sections with the page's numbers and link each row; the relative valuation (06)
+      // sits just before Sources and Methodology (owner, 2026-10-07)
+      doc.cover();
+      doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
+      doc.at('tear'); doc.tearSheet();
+      doc.at('statements'); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
+      doc.at('guidance'); doc.guidancePage();
+      doc.at('drivers'); doc.driversPage(); doc.combinedPage();
+      doc.at('capital'); doc.capitalPage(); doc.at('dividends'); doc.dividendPage(); doc.at('vat'); doc.vatPage(); doc.at('international'); doc.intlPage();
+      doc.at('relative'); doc.relativePages();
+      doc.at('method'); doc.sourcesPage(); doc.at(null);
+      doc.contentsPage();
       doc.finish();
     });
   }
@@ -24,6 +35,29 @@
       const co = M.REF.company || {};
       super(M, { slug: 'qualitas', short: co.short || 'Quálitas', name: co.name || 'Quálitas Controladora, S.A.B. de C.V.', tickerLine: `BMV: ${co.bmv || 'Q'}`, url: 'fnam.mx/qualitas', fileStem: `Qualitas_${co.bmv || 'Q'}`, publicSources: 'BMV, CNSF, informes y reportes SIFIC de la empresa', publicSourcesEn: 'BMV, CNSF, company reports and SIFIC filings' });
       this.next = this.nextResults();
+      this.trackPages = true; // page() records every page for the contents page
+    }
+    at(sec) { this.sec = sec; }
+    // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
+    // naming the sections of the page the deck does not carry (share-price performance, the valuation model), composed from them.
+    contentsPage() {
+      const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta), url = this.cfg.url;
+      const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
+      this.drawContents(this.tocEntries(meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${url}${out.length ? `; ${out.length > 1 ? 'las secciones' : 'la sección'} ${list} se ${out.length > 1 ? 'consultan' : 'consulta'} en la página y no ${out.length > 1 ? 'forman' : 'forma'} parte de esta presentación` : ''}.`, `Every row links to its page. Sections are numbered as on ${url}${out.length ? `; ${out.length > 1 ? 'sections' : 'section'} ${list} ${out.length > 1 ? 'are' : 'is'} read on the page and ${out.length > 1 ? 'are' : 'is'} not part of this presentation` : ''}.`));
+    }
+    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // The FactSet peers table as the page prints it (the company's row through the model, lead sentence and method note read from
+    // the page) and the weekly history of the company's NTM P/E and P/BV beside its peers'; both pages live in the shared engine.
+    relativePages() {
+      const M = this.M, P = M.PEERS, own = M.peersOwnRow(); if (!own) return;
+      const es = this.es;
+      const sec = this.pageSectionMeta().relative || {}; const title = (tail) => `${sec.label ? sec.label + ' · ' : ''}${sec.title || this.T('Valuación relativa', 'Relative valuation')} · ${tail}`;
+      const ntm = es ? 'PDM' : 'NTM', peL = es ? 'P/U' : 'P/E', pbL = es ? 'P/VL' : 'P/BV';
+      const SM = P.sectorMetric || 'combinedRatioPct';
+      const multiples = [{ cur: 'peNtm', avg: 'peNtmAvg', label: `${peL} ${ntm}`, dec: 1 }, { cur: 'pbv', avg: 'pbvAvg', label: pbL, dec: 2 }];
+      const tail = [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'roePct', label: 'ROE', fmt: 'pct' }, { key: SM, label: SM === 'nplPct' ? (es ? 'Cartera vencida' : 'NPL ratio') : (es ? 'Índice combinado' : 'Combined ratio'), fmt: 'pct' }];
+      this.peersPage({ P, own, ownPf: null, title: title(this.T('pares: múltiplos a futuro, sus promedios y liquidez', 'peers: forward multiples, their averages and liquidity')), lead: this.richTextOf('peersLead'), note: this.richTextOf('peersNote'), refreshNote: { es: 'se actualiza con cada corrida del conector FactSet', en: 'refreshed on each FactSet connector run' }, multiples, tail, groups: [{ key: 'international', label: es ? 'Internacionales' : 'International' }], medians: [{ key: 'all', label: es ? 'Mediana de pares' : 'Peer median' }] });
+      this.multiplesHistoryPage({ P, own, title: title(this.T('múltiplos a doce meses, historial semanal', 'forward multiples, weekly history')), series: [{ idx: 1, label: `${peL} ${ntm}`, avgKey: 'peNtmAvg5y' }, { idx: 2, label: pbL, avgKey: 'pbvAvg5y' }], methodNote: { es: 'P/U = cierre de la semana entre el consenso de UPA de ese día; P/VL = cierre entre el último valor en libros por acción publicado a esa fecha', en: "P/E = that week's close over the EPS consensus sampled that day; P/BV = the close over the latest book value per share reported by then" }, peers: P.peers, peerNote: this.T('las aseguradoras de la tabla de pares', 'the insurers in the peers table') });
     }
     // ----- shared pieces -----
     rel(q) { return q && q.sources && q.sources.is && q.sources.is.date; }

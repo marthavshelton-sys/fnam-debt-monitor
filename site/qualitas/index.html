@@ -196,6 +196,17 @@ table td:first-child{text-align:left;}
 table tr:last-child td{border-bottom:none;}
 table tr.total td, table tr.bold td{font-weight:700;}
 table tr.total td{border-top:1px solid var(--baseline);}
+.lead{font-size:13.5px; line-height:1.5; margin-top:8px;}
+/* peers table (the airport pages' design): each forward multiple with its 1-, 3- and 5-year averages under one group heading,
+   the current column in bold and a dividing line after each group */
+table.peers th, table.peers td{padding:5px 5px; white-space:nowrap; font-size:12px;}
+table.peers th{font-size:10.5px;}
+table.peers tr.head td{padding-top:12px;}
+table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
+table.peers thead tr:nth-child(2) th{padding-top:4px;}
+table.peers td.now{font-weight:700;}
+table.peers td.gsep, table.peers th.gsep{border-right:1px solid var(--grid);}
+@media (max-width:640px){ table.peers thead tr:first-child th:nth-child(2), table.peers td:nth-child(2), table.peers thead tr:first-child th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers thead tr:first-child th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
 table tr.sub td:first-child{padding-left:22px; color:var(--text-secondary);}
 table tr.sub2 td:first-child{padding-left:36px; color:var(--text-secondary);}
 table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding-top:14px;}
@@ -736,8 +747,8 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de Quálitas calculados con el precio más reciente, las acciones en circulación del último informe y las cifras de los últimos doce meses (reportadas y sin el cargo del IVA). La tabla de pares (Progressive, Allstate, Porto Seguro, Mapfre, Admiral) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía. No hay aseguradoras mexicanas comparables con bursatilidad.</span>
-      <span class="en" hidden>Quálitas multiples computed from the latest price, the share count of the latest report and last-twelve-month figures (reported and excluding the VAT charge). The peer table (Progressive, Allstate, Porto Seguro, Mapfre, Admiral) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure. There are no liquid Mexican insurance comparables.</span>
+      <span class="es">Múltiplos de Quálitas calculados con el precio más reciente, las acciones en circulación del último informe y las cifras de los últimos doce meses (reportadas y sin el cargo del IVA). La tabla de pares (Progressive, Allstate, Porto Seguro, Mapfre, Admiral) proviene de FactSet (precios, acciones, valores en libros y estimaciones; la fecha de cada corrida aparece en su pie): múltiplos a doce meses con sus promedios de 1, 3 y 5 años y liquidez. No hay aseguradoras mexicanas comparables con bursatilidad.</span>
+      <span class="en" hidden>Quálitas multiples computed from the latest price, the share count of the latest report and last-twelve-month figures (reported and excluding the VAT charge). The peer table (Progressive, Allstate, Porto Seguro, Mapfre, Admiral) comes from FactSet (prices, shares, book values and estimates; each run's date is in its caption): forward multiples with their 1-, 3- and 5-year averages and liquidity. There are no liquid Mexican insurance comparables.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -754,10 +765,11 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
+      <h3><span class="es">Pares: múltiplos a futuro, sus promedios y liquidez</span><span class="en" hidden>Peers: forward multiples, their averages and liquidity</span></h3>
       <p class="cap" id="peersCap"></p>
+      <p class="lead" id="peersLead"></p>
       <div class="tblwrap" id="peersTable"></div>
-      <p class="chart-src" id="peersSrc"></p>
+      <p class="chart-src" id="peersNote"></p>
     </div>
   </section>
 

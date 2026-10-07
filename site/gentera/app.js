@@ -540,7 +540,7 @@
     const cell = (v, f) => (v == null ? `<span class="muted">${t('pending')}</span>` : f(v));
     const crow = [[`${t('eps')} FY1`, cell(cs.epsFY1, (v) => 'Ps. ' + fmtN(v, 2))], [`${t('eps')} FY2`, cell(cs.epsFY2, (v) => 'Ps. ' + fmtN(v, 2))], [`${t('bvps')} FY1`, cell(cs.bvpsFY1, (v) => 'Ps. ' + fmtN(v, 2))], [`${t('dps')} FY1`, cell(cs.dpsFY1, (v) => 'Ps. ' + fmtN(v, 2))], [`${t('netIncome')} FY1 (Ps. M)`, cell(cs.netIncomeFY1MxnM, (v) => fmtN(v))], [`${t('loanGrowth')} FY1`, cell(cs.loanGrowthFY1Pct, (v) => fmtPct(v))], [es ? 'Precio objetivo' : 'Target price', cell(cs.targetPrice, (v) => 'Ps. ' + fmtN(v, 2) + (lastPx ? ` (${fmtPct(100 * (v / lastPx[1] - 1), 1, true)})` : ''))], [es ? 'Recomendación' : 'Rating', cell(cs.rating, (v) => v + (cs.nAnalysts ? ` (${cs.nAnalysts})` : ''))]];
     html('consTable', `<table><tbody>${crow.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table>`);
-    el('consCap').textContent = `${PEERS.source || ''}${cs.asOf ? ' · ' + fmtDate(cs.asOf) : ''} · ${es ? 'contrato de datos en data/peers.js; se muestra junto a la guía en cuanto el conector esté autorizado' : 'data contract in data/peers.js; shown next to guidance once the connector is authorised'}`;
+    el('consCap').textContent = cs.asOf ? `${PEERS.source || ''} · ${fmtDate(cs.asOf)} · ${es ? `consenso del lado vendedor compilado por FactSet, media de las estimaciones (FY1 = ${cs.fy1}, FY2 = ${cs.fy2}); FactSet no recopila consenso de crecimiento de cartera para Gentera` : `sell-side consensus compiled by FactSet, mean of the estimates (FY1 = ${cs.fy1}, FY2 = ${cs.fy2}); FactSet collects no loan-growth consensus for Gentera`}` : `${PEERS.source || ''} · ${es ? 'contrato de datos en data/peers.js; se muestra junto a la guía en cuanto el conector esté autorizado' : 'data contract in data/peers.js; shown next to guidance once the connector is authorised'}`;
     renderGuideChart();
   }
   function renderGuideChart() {
@@ -837,10 +837,65 @@
       { label: `${t('pe')} ${t('ltmS')} ${t('exAdj')}`, data: pts.map((x) => x.peEx), borderColor: c[1], borderDash: [4, 4], pointRadius: 0, yAxisID: 'y' },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 2)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) + 'x' }, beginAtZero: true } } } });
     html('multSrc', `${t('src')}: Yahoo Finance${qPx.length ? ` (${fmtDate(lastPx[0])})` : ' (' + t('pendingMk') + ')'} · ${es ? 'informes trimestrales (capital y utilidad controladores)' : 'quarterly releases (controlling equity and income)'} · ${asOfQ()}`);
-    const P = PEERS.peers || [];
-    const cell = (v, f) => (v == null ? `<span class="muted">${t('pending')}</span>` : f(v));
-    html('peersTable', `<table><thead><tr><th scope="col">${es ? 'Empresa' : 'Company'}</th><th scope="col">${t('price')}</th><th scope="col">${t('mktCap')} (US$ M)</th><th scope="col">${t('pe')} ${t('ltmS')}</th><th scope="col">${t('pe')} NTM</th><th scope="col">${t('pbv')}</th><th scope="col">${t('yield')}</th><th scope="col">ROE</th><th scope="col">${t('npl')}</th></tr></thead><tbody>${P.map((p) => { const lp = lastPoint(px(p.ticker.replace('-MX', '.MX').replace('-US', ''))); return `<tr><td>${p.name} <span class="muted small">${p.ticker}</span></td><td>${p.price != null ? p.currency + ' ' + fmtN(p.price, 2) : lp ? `<span class="muted">${p.currency} ${fmtN(lp[1], 2)} (Yahoo)</span>` : `<span class="muted">${t('pending')}</span>`}</td><td>${cell(p.mktCapUsdM, (v) => fmtN(v))}</td><td>${cell(p.peLtm, (v) => fmtX(v))}</td><td>${cell(p.peNtm, (v) => fmtX(v))}</td><td>${cell(p.pbv, (v) => fmtX(v, 2))}</td><td>${cell(p.divYieldPct, (v) => fmtPct(v))}</td><td>${cell(p.roePct, (v) => fmtPct(v))}</td><td>${cell(p.nplPct, (v) => fmtPct(v, 2))}</td></tr>`; }).join('')}<tr class="total"><td>Gentera</td><td>${lastPx ? 'MXN ' + fmtN(lastPx[1], 2) : '—'}</td><td>${lastPx && sharesOut && fxAt(lastPx[0]) ? fmtN(lastPx[1] * sharesOut / fxAt(lastPx[0]) / 1e6) : '—'}</td><td>${lastPx && e ? fmtX(lastPx[1] / e) : '—'}</td><td>—</td><td>${lastPx && bv ? fmtX(lastPx[1] / bv, 2) : '—'}</td><td>${lastPx && dps ? fmtPct(100 * dps / lastPx[1]) : '—'}</td><td>${lastLTM ? fmtPct(lastLTM.kpi.roe) : '—'}</td><td>${lastQ ? fmtPct(lastQ.kpi.npl, 2) : '—'}</td></tr></tbody></table>`);
-    el('peersCap').textContent = `${PEERS.source || ''}${PEERS.updatedAt ? ' · ' + fmtDate(PEERS.updatedAt) : ''} · ${L(REF.peers && REF.peers.note)}`;
+    // peers (FactSet snapshot in data/peers.js)
+    renderPeersTable();
+  }
+
+  // ---- peers table (FactSet snapshot in data/peers.js): the company's own FactSet row, the peers and the medians, each forward
+  // multiple (P/E NTM, P/BV) with its 1-, 3- and 5-year averages under one group heading (the airport pages' design), plus
+  // liquidity, dividend yield, ROE and the sector ratio. The deck prints the same rows through the model API.
+  function peersOwnRow() { return PEERS.own ? { ...PEERS.own, cls: 'bold' } : null; }
+  function renderPeersTable() {
+    const es = LANG === 'es', O = peersOwnRow(), ps = PEERS.peers || [], M = PEERS.medians || {};
+    if (!PEERS.updatedAt || !ps.length || !O) { html('peersTable', ''); html('peersLead', ''); el('peersCap').textContent = `${PEERS.source || ''} · ${t('pending')}`; html('peersNote', ''); return; }
+    const ntm = es ? 'PDM' : 'NTM', short = O.short;
+    const cur = es ? 'Actual' : 'Current', a1 = es ? 'Prom. 1 a' : '1-yr avg', a3 = es ? 'Prom. 3 a' : '3-yr avg', a5 = es ? 'Prom. 5 a' : '5-yr avg';
+    const priced = PEERS.pricesAsOf ? `<span class="sub">${es ? 'al' : 'as of'} ${fmtDate(PEERS.pricesAsOf)}</span>` : '';
+    const head = [['name', es ? 'Empresa' : 'Company'], ['price', t('price')], ['mktCapUsdM', (es ? 'Cap. US$ M' : 'Mkt cap US$ M') + priced], ['adtvUsdM', 'ADTV US$ M']];
+    const grp = (cur0, pre) => [[cur0, cur, 'now'], [pre + '1y', a1], [pre + '3y', a3], [pre + '5y', a5, 'gsep']];
+    const peCols = grp('peNtm', 'peNtmAvg'), pbCols = grp('pbv', 'pbvAvg');
+    const SM = PEERS.sectorMetric || 'nplPct';
+    const smLabel = SM === 'nplPct' ? (es ? 'Cartera vencida' : 'NPL ratio') : (es ? 'Índice combinado' : 'Combined ratio');
+    const tail = [['divYieldPct', es ? 'Rend. div.' : 'Div. yield'], ['roePct', 'ROE'], [SM, smLabel]];
+    const cols = [...head, ...peCols, ...pbCols, ...tail];
+    const th1 = (c) => `<th scope="col" rowspan="2">${c[1]}</th>`;
+    const th2 = (c) => `<th scope="col"${c[2] === 'gsep' ? ' class="gsep"' : ''}>${c[1]}</th>`;
+    const thead = `<tr>${head.map(th1).join('')}<th scope="colgroup" colspan="4" class="grp">${t('pe')} ${ntm}</th><th scope="colgroup" colspan="4" class="grp">${t('pbv')}</th>${tail.map(th1).join('')}</tr><tr>${[...peCols, ...pbCols].map(th2).join('')}</tr>`;
+    const cell = (k, p) => {
+      const v = p[k];
+      if (k === 'name') return p.ticker ? `${p.short} <span class="muted small">${p.ticker}</span>` : p.name;
+      if (k === 'price') return v == null ? '' : `<span class="muted small">${p.currency}</span> <span title="${fmtDate(p.priceDate)}">${fmtN(v, 2)}</span>`;
+      if (v == null) return p.cls === 'total' ? '' : `<span class="muted">${t('na')}</span>`;
+      if (k === 'mktCapUsdM') return fmtN(v, 0);
+      if (k === 'adtvUsdM') return fmtN(v, 1);
+      if (/Pct$/.test(k)) return fmtPct(v, 1);
+      return fmtX(v, /^pbv/.test(k) ? 2 : 1);
+    };
+    const medRow = (name, m) => (m ? { name, ...m, cls: 'total' } : null);
+    const groups = [['mexico', es ? 'México' : 'Mexico'], ['international', es ? 'Internacional' : 'International']];
+    const rows = [O];
+    for (const [g, name] of groups) { const list = ps.filter((p) => p.group === g); if (!list.length) continue; if (groups.length > 1) rows.push({ name, cls: 'head' }); rows.push(...list); }
+    for (const [g, name] of [['mexico', es ? 'Mediana México' : 'Median, Mexico'], ['all', es ? 'Mediana de pares' : 'Peer median']]) rows.push(medRow(name, M[g]));
+    html('peersTable', `<table class="peers"><thead>${thead}</thead><tbody>${rows.filter(Boolean).map((p) => p.cls === 'head'
+      ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
+      : `<tr class="${p.cls || ''}">${cols.map((c) => `<td${c[2] ? ` class="${c[2]}"` : ''}>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+    const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
+    const vsOwn = (v, m) => (Math.abs(100 * (v / m - 1)) < 0.5 ? (es ? 'en línea con' : 'in line with') : prem(v, m) + (es ? ' frente a' : ' versus'));
+    const own = O.peNtmAvg3y != null && O.peNtmAvg5y != null
+      ? (es ? ` (${vsOwn(O.peNtm, O.peNtmAvg3y)} su promedio de 3 años (${fmtX(O.peNtmAvg3y)}) y ${vsOwn(O.peNtm, O.peNtmAvg5y)} su promedio de 5 años (${fmtX(O.peNtmAvg5y)}))`
+        : ` (${vsOwn(O.peNtm, O.peNtmAvg3y)} its own 3-year average (${fmtX(O.peNtmAvg3y)}) and ${vsOwn(O.peNtm, O.peNtmAvg5y)} its 5-year average (${fmtX(O.peNtmAvg5y)}))`)
+      : '';
+    const ref = M.mexico ? { m: M.mexico, es: 'la mediana de los bancos mexicanos', en: 'the Mexican banks\' median' } : null;
+    html('peersLead', O.peNtm != null && ref ? (es
+      ? `${short} cotiza a <b>${fmtX(O.peNtm)} P/U PDM</b>${own}: ${prem(O.peNtm, ref.m.peNtm)} frente a ${ref.es} (${fmtX(ref.m.peNtm)}); P/VL ${fmtX(O.pbv, 2)} contra ${fmtX(ref.m.pbv, 2)}.`
+      : `${short} trades at <b>${fmtX(O.peNtm)} NTM P/E</b>${own}: ${prem(O.peNtm, ref.m.peNtm)} versus ${ref.en} (${fmtX(ref.m.peNtm)}); P/BV ${fmtX(O.pbv, 2)} against ${fmtX(ref.m.pbv, 2)}.`) : '');
+    const pd = PEERS.priceDates || {}; const main = PEERS.pricesAsOf;
+    const shortOf = (id) => ((ps.find((p) => p.ticker === id) || (O.ticker === id ? O : null) || {}).short || id);
+    const otherDates = Object.entries(pd).filter(([, d]) => d && d !== main).map(([id, d]) => `${shortOf(id)} ${fmtDate(d)}`);
+    const bsDates = [...new Set(Object.values(PEERS.balanceSheetsAt || {}))].sort().map((d) => fmtDate(d)).join(' / ');
+    const H = PEERS.history || {}, A = PEERS.adtvWindow || {};
+    el('peersCap').textContent = `${t('src')}: FactSet · ${es ? 'cierres al' : 'closes of'} ${fmtDate(main)}${otherDates.length ? ` (${otherDates.join(', ')})` : ''} · ${es ? 'consenso al' : 'consensus as of'} ${fmtDate(PEERS.estimateDate)} · ${es ? 'balances al' : 'balance sheets at'} ${bsDates}${H.from ? ` · ${es ? 'promedios semanales de' : 'weekly averages from'} ${fmtDate(H.from)} ${es ? 'a' : 'to'} ${fmtDate(H.to)}` : ''}${A.from ? ` · ADTV ${fmtDate(A.from)} – ${fmtDate(A.to)}` : ''}`;
+    html('peersNote', `${L(PEERS.method)} ${es ? `Fila de ${short}: calculada igual que los pares, con el precio, las ${fmtN(O.sharesM, 1)} M de acciones, el valor en libros y el consenso de FactSet (la tarjeta de múltiplos actuales usa la base del modelo).` : `${short} row: computed like the peers, with FactSet's price, ${fmtN(O.sharesM, 1)} M shares, book value and consensus (the current-multiples card uses the model's basis).`} ${L(PEERS.sectorNote)}`);
   }
 
   // ================= 07 ASSET QUALITY, FUNDING, CAPITAL =================
@@ -933,12 +988,12 @@
     const rows = [
       [es ? 'Estados financieros trimestrales, acumulados y anuales; cartera, clientes y calidad por subsidiaria' : 'Quarterly, YTD and annual statements; loans, clients and asset quality by subsidiary', es ? 'días hábiles 14:35 UTC' : 'weekdays 14:35 UTC', es ? 'Un proceso automático descarga los informes trimestrales del sitio de RI, los convierte en tablas, prueba el parser contra el archivo y valida cuadres antes de publicar' : 'An automated job downloads the quarterly releases from the IR site, parses the tables, regression-tests the parser and validates tie-outs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [es ? 'Series mensuales CNBV (Banco Compartamos) y SBS (Perú)' : 'Monthly CNBV (Banco Compartamos) and SBS (Perú) series', es ? 'días hábiles, mejor esfuerzo' : 'weekdays, best effort', es ? 'descarga automática → data/operations.js' : 'automated download → data/operations.js', lastCn || lastSb ? `${lastCn ? 'CNBV ' + lastCn.month : ''} ${lastSb ? 'SBS ' + lastSb.month : ''}` : (es ? 'pendiente' : 'pending')],
-      [es ? 'Guía de la administración y consenso' : 'Management guidance and consensus', es ? 'por trimestre (revisado) · FactSet pendiente' : 'per quarter (reviewed) · FactSet pending', 'data/guidance.js · data/peers.js', GD.updatedAt ? fmtDate(GD.updatedAt) : '—'],
+      [es ? 'Guía de la administración y consenso' : 'Management guidance and consensus', es ? 'por trimestre (revisado) · consenso con cada corrida del conector FactSet' : 'per quarter (reviewed) · consensus on each FactSet connector run', 'data/guidance.js · data/peers.js', GD.updatedAt ? fmtDate(GD.updatedAt) : '—'],
       [es ? 'Comentarios de los estados financieros' : 'Statement comments', es ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [es ? 'Resumen ejecutivo' : 'Executive summary', es ? 'con cada informe (rutina)' : 'with each release (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
       [es ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', es ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · Banxico SIE (SF43718, SF44071) · FRED (DGS10)', MK.generatedAt ? fmtDate(MK.generatedAt.slice(0, 10)) : (es ? 'pendiente de la primera corrida' : 'pending first run')],
       [es ? 'Referencia: acciones, subsidiarias, dividendos, ConCrédito, Perú, glosario, supuestos de valuación' : 'Reference: shares, subsidiaries, dividends, ConCrédito, Perú, glossary, valuation defaults', es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/reference.js', fmtDate(REF.updatedAt)],
-      [es ? 'Múltiplos de pares' : 'Peer multiples', es ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
+      [es ? 'Múltiplos de pares y consenso' : 'Peer multiples and consensus', es ? 'con cada corrida del conector FactSet' : 'each FactSet connector run', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
       [es ? 'Alertas por correo (rutina de revisión)' : 'Email alerts (reviewing routine)', es ? 'días hábiles 15:35 UTC, sólo días materiales' : 'weekdays 15:35 UTC, material days only', es ? 'umbrales: movimiento diario ≥ 5%, etapa 3 > 4.5%, guía fuera de rango' : 'thresholds: daily move ≥ 5%, stage 3 > 4.5%, guidance outside range', '—'],
     ];
     html('refreshTable', `<table><thead><tr><th scope="col">${t('block')}</th><th scope="col">${t('cadence')}</th><th scope="col">${t('mechanism')}</th><th scope="col">${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
@@ -1025,7 +1080,7 @@
   // calculations the page renders, so the PDF and the screen can never disagree.
   window.G_MODEL = {
     get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtPct, fmtPp, fmtX, fmtDate, qLabel, ytdLabel, cls, clsInv, addDays,
-    FIN, OPS, MK, REF, PEERS, GD, CM, SUM, QL, TICK,
+    FIN, OPS, MK, REF, PEERS, peersOwnRow, GD, CM, SUM, QL, TICK,
     Q, Y, YTD, lastQ, qById, ytdById, opsById, prevQid, yoyQid, sumParts, sharesOf, quarterObj, ytdFor, ltmFor, fyObj, exAdj, lastLTM, lastYTD,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, qPx, lastPx, sharesM, sharesOut, qEndDate, bvps, epsLtm, divsApproved, dpsOf,
     avgFx, commentsFor, autoComments, G_METRICS, gLabel, gIsCost, gFmt, gRangeTxt, vintagesSorted, gActual, gStatus, betaFromMarket,
