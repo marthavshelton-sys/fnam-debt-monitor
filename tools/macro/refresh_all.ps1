@@ -16,7 +16,7 @@ $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
-foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_nonbank.ps1","process_weights.ps1")) {
+foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_nonbank.ps1","process_trade.ps1","process_iip.ps1","process_weights.ps1")) {
   Write-Output "=============== $step"
   try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
 }
@@ -64,6 +64,26 @@ CheckQuarterly "banks_processed.json" { param($j) $j.asOf } 60 "FDIC bank capita
 CheckQuarterly "nonbank_processed.json" { param($j) $j.z1.asOf } 75 "Z.1 nonbank financial sectors"
 CheckQuarterly "nonbank_processed.json" { param($j) $j.hedge.asOf } 85 "OFR hedge fund monitor"
 CheckQuarterly "nonbank_processed.json" { param($j) $j.ncua.asOf } 80 "NCUA credit union trends"
+CheckQuarterly "iip_processed.json" { param($j) $j.asOf } 90 "BEA international investment position"
+CheckQuarterly "iip_processed.json" { param($j) $j.flowsAsOf } 90 "BEA international transactions"
+CheckQuarterly "trade_processed.json" { param($j) $j.quarterlyAsOf } 30 "NIPA trade lines"
+# Monthly external-sector releases: the FT-900 posts a month about five weeks after it ends (August in
+# early October) and the import/export price indexes about two weeks after, so the next month is overdue
+# three weeks into the third month after it (trade) or at the end of the second (prices); the partner
+# block comes with the FT-900 and the customs duties with the Monthly Treasury Statement (the 8th business
+# day of the following month).
+function CheckMonthly([string]$file, [scriptblock]$asOf, [int]$months, [int]$days, [string]$what) {
+  try {
+    $j = Get-Content (Join-Path $data $file) -Raw | ConvertFrom-Json
+    $m = [string](& $asOf $j); if ($m -notmatch '^\d{4}-\d{2}$') { throw "no month in $file" }
+    $due = [datetime]::ParseExact($m + "-01", "yyyy-MM-dd", $null).AddMonths($months).AddDays($days)
+    if ((Get-Date).Date -gt $due) { Warn "$what is still at $m; the next month was due by $($due.ToString('yyyy-MM-dd'))" } else { Write-Output ("{0}: {1} OK (next due by {2})" -f $what, $m, $due.ToString('yyyy-MM-dd')) }
+  } catch { Warn "staleness check for $what could not run: $($_.Exception.Message)" }
+}
+CheckMonthly "trade_processed.json" { param($j) $j.asOf } 3 20 "FT-900 trade balance"
+CheckMonthly "trade_processed.json" { param($j) $j.pricesAsOf } 2 30 "BLS import and export prices"
+CheckMonthly "trade_processed.json" { param($j) $j.partners.asOf } 3 20 "Census trade by partner"
+CheckMonthly "trade_processed.json" { param($j) $j.customs.asOf } 2 25 "MTS customs duties"
 try {
   $hh = Get-Content (Join-Path $data "hhdebt_processed.json") -Raw | ConvertFrom-Json
   $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(14)   # the G.19 posts a month about five weeks after it ends (July on the 5th business day of September), so the next month is overdue two weeks into the third month

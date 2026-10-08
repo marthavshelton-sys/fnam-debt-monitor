@@ -219,7 +219,8 @@ const files = [
   ["/*__CAPE_DATA__*/ null", "cape_processed.json"], ["/*__PRODUCTIVITY_DATA__*/ null", "productivity_processed.json"],
   ["/*__PROFITS_DATA__*/ null", "profits_processed.json"], ["/*__DEBT_DATA__*/ null", "debt_processed.json"],
   ["/*__HHDEBT_DATA__*/ null", "hhdebt_processed.json"], ["/*__BANKS_DATA__*/ null", "banks_processed.json"],
-  ["/*__NONBANK_DATA__*/ null", "nonbank_processed.json"],
+  ["/*__NONBANK_DATA__*/ null", "nonbank_processed.json"], ["/*__TRADE_DATA__*/ null", "trade_processed.json"],
+  ["/*__IIP_DATA__*/ null", "iip_processed.json"],
 ];
 let page = template;
 if (!plain) {
@@ -236,7 +237,7 @@ const reps = files.map(([k, f]) => [k, embed(f, k)]).concat([
   ["/*__UMICH_REFRESHED_AT__*/ null", stamp], ["/*__LIVE_DATA__*/ false", "false"],
 ]);
 for (const [k, v] of reps) { if (!page.includes(k)) fail("placeholder " + k + " not found"); page = page.split(k).join(v); }
-if (/__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA|SPR_DATA|CAPE_DATA|PRODUCTIVITY_DATA|PROFITS_DATA|DEBT_DATA|HHDEBT_DATA|BANKS_DATA|NONBANK_DATA)__/.test(page)) fail("a placeholder was left unsubstituted");
+if (/__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA|SPR_DATA|CAPE_DATA|PRODUCTIVITY_DATA|PROFITS_DATA|DEBT_DATA|HHDEBT_DATA|BANKS_DATA|NONBANK_DATA|TRADE_DATA|IIP_DATA)__/.test(page)) fail("a placeholder was left unsubstituted");
 const cut = page.indexOf('<div class="mobilebar"');
 if (cut < 0) fail("could not find the page body to wrap");
 page = '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +

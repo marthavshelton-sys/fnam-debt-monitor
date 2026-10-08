@@ -34,6 +34,11 @@ $releases = [ordered]@{
   z1       = 52   # Federal Reserve Z.1 Financial Accounts of the United States
   g19      = 14   # Federal Reserve G.19 Consumer Credit (monthly)
   h8       = 22   # Federal Reserve H.8 Assets and Liabilities of Commercial Banks (weekly)
+  # The external-sector sections: the monthly trade report, the BLS import/export price indexes and
+  # BEA's quarterly international investment position (published with the international transactions).
+  trade    = 51   # U.S. International Trade in Goods and Services (Census/BEA, FT-900)
+  mxp      = 188  # U.S. Import and Export Price Indexes (BLS)
+  iip      = 359  # U.S. International Investment Position (BEA)
 }
 # Each id must still be the release it is meant to be: FRED's name for it is checked against
 # these patterns, and a release whose name no longer matches is left out (the page then shows
@@ -43,6 +48,7 @@ $releaseNames = @{
   pce = 'Personal Income and Outlays'; gdp = 'Gross Domestic Product'; retail = 'Advance Monthly Sales for Retail'
   nfci = 'National Financial Conditions Index'; mortgage = 'Primary Mortgage Market Survey'
   productivity = 'Productivity and Costs'; z1 = 'Z\.1'; g19 = 'G\.19'; h8 = 'H\.8'
+  trade = 'International Trade in Goods and Services'; mxp = 'Import and Export Price Indexes'; iip = 'International Investment Position'
 }
 
 # The weekly releases' "next" is worked out on the page from the data it shows, so

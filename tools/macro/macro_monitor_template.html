@@ -634,6 +634,10 @@
     <a class="rail-item" data-view="income" href="?view=income"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIncome">Personal Income &amp; Saving</span></span></a>
     <a class="rail-item" data-view="retail" href="?view=retail"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navRetail">Retail Sales</span></span></a>
 
+    <div class="rail-group-label" data-i18n="groupExternal">External Sector</div>
+    <a class="rail-item" data-view="trade" href="?view=trade"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navTrade">Foreign Trade</span></span></a>
+    <a class="rail-item" data-view="iip" href="?view=iip"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIip">Foreign Investment &amp; NIIP</span></span></a>
+
     <div class="rail-group-label" data-i18n="groupCorporate">Corporate Sector</div>
     <a class="rail-item" data-view="profits" href="?view=profits"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navProfits">Corporate Profits &amp; Labor Share</span></span></a>
 
@@ -2701,6 +2705,302 @@
 
     <footer data-i18n="footerDebt">Debt source note.</footer>
   </div>
+  <div class="view" id="view-trade">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="trTitle">Foreign Trade: Imports, Exports &amp; Prices</h1>
+        <div class="desc" data-i18n="trDesc">The US trade balance, exports and imports of goods and services, import and export prices, trade with the largest partners and customs duties, from the official monthly reports.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="trAsOfLine">&mdash;</div>
+        <div id="trNextReleaseLine">&mdash;</div>
+        <div id="trRefreshedLine">&mdash;</div>
+        <div><a href="https://www.bea.gov/data/intl-trade-investment/international-trade-goods-and-services" target="_blank" rel="noopener" data-i18n="sourceTrade">Source: Census Bureau and BEA, U.S. International Trade in Goods and Services; BLS, Import/Export Price Indexes; Treasury (via FRED and FiscalData)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-trade"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="trWhat">What is counted</span><span data-i18n="trWhatText">What is counted.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="trWhy">Why it matters</span><span data-i18n="trWhyText">Why it matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="trKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecBal">The trade balance since 1992</h2>
+        <span class="note" data-i18n="trSecBalNote">Goods and services, balance of payments basis, seasonally adjusted, $ billions per month</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="trBalLegend"></div>
+        <div class="chart-wrap">
+          <svg id="trBalChart" viewBox="0 0 920 300"></svg>
+          <div class="tooltip" id="trBalTooltip"></div>
+        </div>
+        <div class="callout" id="trBalCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecFlows">Exports and imports</h2>
+        <span class="note" data-i18n="trSecFlowsNote">Goods and services, balance of payments basis, seasonally adjusted: $ billions per month and % change from a year earlier</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="trLevelTitle">Monthly flows, $ billions</div>
+            <div class="legend" id="trLevelLegend"></div>
+            <div class="chart-wrap"><svg id="trLevelChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trLevelTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="trGrowthTitle">Growth, % change from a year earlier</div>
+            <div class="legend" id="trGrowthLegend"></div>
+            <div class="chart-wrap"><svg id="trGrowthChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trGrowthTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="trLevelCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecGdp">Trade against the economy</h2>
+        <span class="note" data-i18n="trSecGdpNote">Net exports of goods and services as % of nominal GDP since 1947, and their contribution to real GDP growth (percentage points, annual rate) &middot; BEA national accounts</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="trGdpTitle">Net exports, % of GDP</div>
+            <div class="chart-wrap"><svg id="trGdpChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trGdpTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="trContribTitle">Contribution to real GDP growth, pp &middot; last 16 quarters</div>
+            <div class="momentum-chart-wrap"><svg id="trContribChart" viewBox="0 0 440 220"></svg></div>
+          </div>
+        </div>
+        <div class="callout" id="trGdpCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecPrices">Import and export prices</h2>
+        <span class="note"><span data-i18n="trSecPricesNote">BLS import and export price indexes, not seasonally adjusted, 2000 = 100</span> &middot; <span id="trPricesMeta"></span></span>
+      </div>
+      <div class="kpi-row" id="trPriceKpiRow"></div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="trImpPriceTitle">Import prices, % change from a year earlier</div>
+            <div class="legend" id="trImpPriceLegend"></div>
+            <div class="chart-wrap"><svg id="trImpPriceChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trImpPriceTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="trExpPriceTitle">Export prices, % change from a year earlier</div>
+            <div class="legend" id="trExpPriceLegend"></div>
+            <div class="chart-wrap"><svg id="trExpPriceChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trExpPriceTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="trPriceCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecOrigin">Import prices by country of origin</h2>
+        <span class="note" data-i18n="trSecOriginNote">BLS import price indexes by locality of origin (all industries, December 2003 = 100), % change from a year earlier</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="trOriginLegend"></div>
+        <div class="chart-wrap">
+          <svg id="trOriginChart" viewBox="0 0 920 260"></svg>
+          <div class="tooltip" id="trOriginTooltip"></div>
+        </div>
+        <div class="callout" id="trOriginCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="trSecPartners">Goods trade by partner</h2>
+        <span class="note"><span data-i18n="trSecPartnersNote">Census basis (exports f.a.s., imports customs value), not seasonally adjusted, 12-month sums; the European Union as a bloc beside its largest members</span> &middot; <span id="trPartnersAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="trPartnerBalTitle">Goods balance by partner, $ billions</div>
+            <div class="derby-list" id="trPartnerBalList"></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="trPartnerTotalTitle">Share of US goods trade (exports + imports), %</div>
+            <div class="derby-list" id="trPartnerTotalList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <div class="momentum-chart-title" data-i18n="trShareTitle">Share of US goods imports by origin, 12-month sums</div>
+        <div class="legend" id="trShareLegend"></div>
+        <div class="chart-wrap">
+          <svg id="trShareChart" viewBox="0 0 920 260"></svg>
+          <div class="tooltip" id="trShareTooltip"></div>
+        </div>
+        <div class="callout" id="trPartnerCallout"></div>
+      </div>
+    </section>
+
+    <section id="trTariffSection">
+      <div class="section-head">
+        <h2 data-i18n="trSecTariffs">Customs duties and the effective tariff rate</h2>
+        <span class="note"><span data-i18n="trSecTariffsNote">Monthly Treasury Statement: customs duties collected (net of refunds, $ billions) and duties as % of the month's goods imports at customs value, an FNAM calculation</span> &middot; <span id="trTariffAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="trDutiesTitle">Customs duties collected, $ billions per month</div>
+            <div class="legend" id="trDutiesLegend"></div>
+            <div class="chart-wrap"><svg id="trDutiesChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trDutiesTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="trRateTitle">Duties as % of goods imports (effective tariff rate)</div>
+            <div class="chart-wrap"><svg id="trRateChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="trRateTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="trTariffCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerTrade">Trade source note.</footer>
+  </div>
+  <div class="view" id="view-iip">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="iiTitle">Foreign Direct Investment &amp; Net International Investment Position</h1>
+        <div class="desc" data-i18n="iiDesc">What the United States owns abroad and owes to the rest of the world, by type of investment; foreign direct investment in and out of the country; and the current account behind the position.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="iiAsOfLine">&mdash;</div>
+        <div id="iiNextReleaseLine">&mdash;</div>
+        <div id="iiRefreshedLine">&mdash;</div>
+        <div><a href="https://www.bea.gov/data/intl-trade-investment/international-investment-position" target="_blank" rel="noopener" data-i18n="sourceIip">Source: BEA, U.S. International Investment Position and International Transactions (via FRED and BEA's API)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-iip"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="iiWhat">What is counted</span><span data-i18n="iiWhatText">What is counted.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="iiWhy">Why it matters</span><span data-i18n="iiWhyText">Why it matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="iiKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="iiSecLong">The net position since 1976</h2>
+        <span class="note" data-i18n="iiSecLongNote">Annual net position as % of GDP (year end), and quarterly assets, liabilities and net position in $ trillions since 2006</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiAnnualTitle">Net position, % of GDP, year end</div>
+            <div class="chart-wrap"><svg id="iiAnnualChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="iiAnnualTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiLevelTitle">Assets, liabilities and net position, $ trillions</div>
+            <div class="legend" id="iiLevelLegend"></div>
+            <div class="chart-wrap"><svg id="iiLevelChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="iiLevelTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="iiLevelCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="iiSecMix">What the position is made of</h2>
+        <span class="note"><span data-i18n="iiSecMixNote">Assets and liabilities by type of investment, $ trillions; direct investment at market value</span> &middot; <span id="iiMixAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiAssetsTitle">US assets abroad</div>
+            <div class="derby-list" id="iiAssetsList"></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiLiabTitle">US liabilities to foreigners</div>
+            <div class="derby-list" id="iiLiabList"></div>
+          </div>
+        </div>
+        <div class="callout" id="iiMixCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="iiSecDi">Direct investment: positions and flows</h2>
+        <span class="note" data-i18n="iiSecDiNote">Positions at market value, $ trillions, quarterly since 2006; flows as four-quarter sums, $ billions, seasonally adjusted, since 1999 &middot; BEA international transactions</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-charts">
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiDiPosTitle">Positions at market value, $ trillions</div>
+            <div class="legend" id="iiDiPosLegend"></div>
+            <div class="chart-wrap"><svg id="iiDiPosChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="iiDiPosTooltip"></div></div>
+          </div>
+          <div>
+            <div class="momentum-chart-title" data-i18n="iiDiFlowTitle">Flows, four-quarter sums, $ billions</div>
+            <div class="legend" id="iiDiFlowLegend"></div>
+            <div class="chart-wrap"><svg id="iiDiFlowChart" viewBox="0 0 440 220"></svg><div class="tooltip" id="iiDiFlowTooltip"></div></div>
+          </div>
+        </div>
+        <div class="callout" id="iiDiCallout"></div>
+      </div>
+    </section>
+
+    <section id="iiCountrySection">
+      <div class="section-head">
+        <h2 data-i18n="iiSecCountry">Foreign direct investment in the US by country</h2>
+        <span class="note"><span data-i18n="iiSecCountryNote">Position on a historical-cost basis by country of the foreign parent, year end, $ billions &middot; BEA, Direct Investment by Country and Industry (annual)</span> &middot; <span id="iiCountryAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="iiCountryList"></div>
+        <div class="callout" id="iiCountryCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="iiSecCa">The current account and how the position changes</h2>
+        <span class="note" data-i18n="iiSecCaNote">Current account balance as % of GDP, quarterly, seasonally adjusted, since 1999; and the change in the net position split into transactions and valuation effects &middot; BEA</span>
+      </div>
+      <div class="panel">
+        <div class="momentum-chart-title" data-i18n="iiCaTitle">Current account balance, % of GDP</div>
+        <div class="legend" id="iiCaLegend"></div>
+        <div class="chart-wrap">
+          <svg id="iiCaChart" viewBox="0 0 920 240"></svg>
+          <div class="tooltip" id="iiCaTooltip"></div>
+        </div>
+        <div id="iiChangeBox" style="margin-top:18px">
+          <div class="momentum-chart-title"><span data-i18n="iiChangeTitle">Change in the net position over the last four quarters, $ trillions</span> &middot; <span id="iiChangeAsOf"></span></div>
+          <div class="derby-list" id="iiChangeList"></div>
+        </div>
+        <div class="callout" id="iiCaCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerIip">Investment position source note.</footer>
+  </div>
   <div class="view" id="view-banks">
     <div class="page-header">
       <div>
@@ -3061,6 +3361,8 @@ let DEBT = unpack(/*__DEBT_DATA__*/ null);
 let HHDEBT = unpack(/*__HHDEBT_DATA__*/ null);
 let BANKS = unpack(/*__BANKS_DATA__*/ null);
 let NONBANK = unpack(/*__NONBANK_DATA__*/ null);
+let TRADE = unpack(/*__TRADE_DATA__*/ null);
+let IIP = unpack(/*__IIP_DATA__*/ null);
 // Release dates come from FRED, which carries each agency's official schedule
 // including future dates. No hand-typed date tables remain in this file.
 const CALENDAR = unpack(/*__CALENDAR__*/ null);
@@ -3102,7 +3404,7 @@ const I18N = {
     switchTo: "Change to English",
     switchAria: "Change to English",
     docTitle: v => v + " · Monitor Macro de Estados Unidos · FNAM",
-    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario y no bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
+    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, comercio exterior, inversión extranjera y posición de inversión internacional, productividad, utilidades corporativas, deuda privada y de los hogares, capital bancario y no bancario, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
     navAria: "Secciones",
     nfTitle: "Sección no encontrada",
     nfDesc: v => "Este tablero no tiene una sección llamada «" + v + "». Elige una de estas:",
@@ -4386,7 +4688,183 @@ const I18N = {
     exNfDrivers: (funds, fundsY, pens, pensY, ins, insY, hq, gavNav, gavNavAgo, gneNav, borrow, borrowY) => "Los fondos de inversión tienen " + funds + (fundsY ? " (" + fundsY + " a/a)" : "") + ", los fondos de pensiones " + pens + (pensY ? " (" + pensY + ")" : "") + " y las aseguradoras " + ins + (insY ? " (" + insY + ")" : "") + "." + (hq ? " Fondos de cobertura (" + hq + "): activos brutos de " + gavNav + " los activos netos" + (gavNavAgo ? " (" + gavNavAgo + " un año antes)" : "") + ", exposición nocional de " + gneNav + "; financiamiento de " + borrow + (borrowY ? " (" + borrowY + " a/a)" : "") + "." : ""),
     exNfWhy: (mm, mmf, mmfY, wla, cq, nw, delq) => (mm ? "Los fondos de mercado de dinero tienen " + mmf + " (" + mm + (mmfY ? ", " + mmfY + " a/a" : "") + "), con el " + wla + " de activos líquidos semanales en los fondos prime institucionales. " : "") + (cq ? "La razón de capital neto de las cooperativas de crédito es " + nw + " (" + cq + ")" + (delq ? " con el " + delq + " de los préstamos en mora" : "") + ". " : "") + "Las tensiones de 2008 y 2020 corrieron por las casas de bolsa, los fondos de mercado de dinero y los fondos apalancados, no solo por el capital bancario: un colchón que se adelgaza o un sector que crece rápido aquí es la señal temprana.",
     exNfWatch: (z1Date, z1Month, hedgeMonth, mmfMonth) => "Próxima Z.1: " + (z1Date ? z1Date : "prevista para " + z1Month) + (hedgeMonth ? "; próximo trimestre de fondos de cobertura de la OFR previsto para " + hedgeMonth : "") + (mmfMonth ? "; estadísticas de fondos de mercado de dinero de la SEC de " + mmfMonth + " previstas unas cuatro semanas después del cierre del mes" : "") + ". Seguir la liquidez de los fondos prime, el reporto de los fondos de cobertura y la razón de fondeo estatal y local conforme se mueven los mercados.",
+    groupExternal: "Sector externo",
+    navTrade: "Comercio exterior",
+    navIip: "Inversión extranjera y posición internacional",
+    vsPriorMonth: "vs. mes anterior",
+    trDeficitWord: "déficit",
+    trSurplusWord: "superávit",
+    trTitle: "Comercio exterior: importaciones, exportaciones y precios",
+    trDesc: "La balanza comercial de Estados Unidos, sus exportaciones e importaciones de bienes y servicios, los precios de importación y exportación, el comercio con los principales socios y los aranceles recaudados, a partir de los informes oficiales mensuales.",
+    sourceTrade: "Fuente: Oficina del Censo y BEA, comercio internacional de bienes y servicios de EE. UU.; BLS, índices de precios de importación y exportación; Tesoro (vía FRED y FiscalData) ↗",
+    footerTrade: "Datos: Oficina del Censo y Oficina de Análisis Económico (BEA) de EE. UU., U.S. International Trade in Goods and Services (FT-900): exportaciones, importaciones y saldos de bienes y servicios, base de balanza de pagos, ajustados por estacionalidad, mensuales desde 1992, y comercio de bienes por socio (exportaciones a valor f.a.s., importaciones a valor en aduana, sin ajuste estacional, mensuales desde 1999), vía FRED (Fed de San Luis). Oficina de Estadísticas Laborales (BLS), índices de precios de importación y exportación: agregados por uso final (2000 = 100) y precios de importación por país de origen (todas las industrias, diciembre de 2003 = 100), sin ajuste estacional, vía FRED; los índices excluyen aranceles, seguro y flete. Tesoro de EE. UU., informe mensual del Tesoro (MTS), tabla 4 (aranceles aduanales: recaudación bruta, devoluciones y recaudación neta por mes desde marzo de 2015), vía la API de FiscalData. Cuentas nacionales del BEA (exportaciones, importaciones y exportaciones netas de bienes y servicios en dólares corrientes y encadenados de 2017, sus contribuciones al crecimiento del PIB real y el PIB nominal), trimestrales a tasa anual ajustada por estacionalidad desde 1947, vía FRED. Las sumas móviles de 12 meses, las participaciones, el cociente sobre el PIB, los términos de intercambio (índice de precios de exportación ÷ índice de precios de importación) y la tasa arancelaria efectiva (aranceles netos ÷ importaciones de bienes a valor en aduana) son cálculos de FNAM. Cada serie se contrasta con su título en FRED y con la aritmética del propio informe (saldo = exportaciones − importaciones; bienes + servicios = total) en cada actualización.",
+    trNextEst: m => "Próxima publicación: datos de " + m + ", unas cinco semanas después del cierre del mes (Censo/BEA)",
+    trWhat: "Qué se mide",
+    trWhatText: "El informe mensual cuenta cada bien que cruza la frontera (bienes, en base de balanza de pagos) y los servicios vendidos a residentes del exterior o comprados a ellos (viajes, transporte, regalías, servicios financieros y empresariales). Exportaciones menos importaciones es la balanza comercial; Estados Unidos tiene déficit en bienes y superávit en servicios. Las cifras por socio están en base Censo, por país de origen de las importaciones y de destino de las exportaciones, y difieren de los totales de balanza de pagos.",
+    trWhy: "Por qué importa",
+    trWhyText: "El comercio es donde primero se ven los aranceles, el dólar y la demanda externa: las importaciones restan al PIB por construcción, así que un déficit que se amplía pesa sobre el crecimiento medido aunque refleje una demanda interna fuerte. Los precios de importación, medidos antes de aranceles, dicen si los exportadores extranjeros absorben los aranceles o los trasladan; la recaudación aduanal mide lo que los importadores pagan en realidad. El detalle por socio muestra qué países cargan con el déficit y cómo se mueven las cadenas de suministro.",
+    trKpiBal: "Balanza comercial, bienes y servicios",
+    trKpiBalFoot: m => "base de balanza de pagos · " + m,
+    trKpiGoods: "Saldo de bienes",
+    trKpiSaFoot: m => "ajustado por estacionalidad · " + m,
+    trKpiServices: "Saldo de servicios",
+    trKpiExports: "Exportaciones de bienes y servicios",
+    trKpiImports: "Importaciones de bienes y servicios",
+    trKpiMomFoot: (mm, m) => mm + " mensual · " + m,
+    trKpiShare: "Saldo, % del PIB (12 meses)",
+    trKpiShareFoot: (w, amt, m) => w + " de 12 meses de " + amt + " a " + m,
+    trTwelveTo: m => "12 meses a " + m,
+    trSecBal: "La balanza comercial desde 1992",
+    trSecBalNote: "Bienes y servicios, base de balanza de pagos, ajustados por estacionalidad, miles de millones de dólares por mes",
+    legTrBal: "Bienes y servicios",
+    legTrGoods: "Bienes",
+    legTrServices: "Servicios",
+    trBalNote: (m, w, bal, wp, balP, mp, w12, r12, w12a, r12a, wG, g, wS, s, worst, worstM) => "En " + m + " la balanza de bienes y servicios registró un " + w + " de " + bal + ", tras un " + wp + " de " + balP + " en " + mp + ". En los últimos 12 meses el " + w12 + " suma " + r12 + (r12a ? " (un año antes: un " + w12a + " de " + r12a + ")" : "") + ". Bienes: " + wG + " de " + g + "; servicios: " + wS + " de " + s + ". El mayor déficit mensual desde 1992 fue de " + worst + " (" + worstM + ").",
+    trSecFlows: "Exportaciones e importaciones",
+    trSecFlowsNote: "Bienes y servicios, base de balanza de pagos, ajustados por estacionalidad: miles de millones de dólares por mes y variación respecto al mismo mes del año anterior",
+    trLevelTitle: "Flujos mensuales, mmd",
+    trGrowthTitle: "Crecimiento, variación anual",
+    legTrExports: "Exportaciones",
+    legTrImports: "Importaciones",
+    trFlowsNote: (m, exp, expY, expG, expS, imp, impY, impG, impS, e12, i12) => "En " + m + " las exportaciones fueron de " + exp + (expY ? " (" + expY + " anual" : " (") + "; bienes " + expG + ", servicios " + expS + ") y las importaciones de " + imp + (impY ? " (" + impY + "" : " (") + "; bienes " + impG + ", servicios " + impS + "). En los últimos 12 meses: exportaciones " + e12 + ", importaciones " + i12 + ".",
+    trSecGdp: "El comercio frente a la economía",
+    trSecGdpNote: "Exportaciones netas de bienes y servicios como % del PIB nominal desde 1947, y su contribución al crecimiento del PIB real (puntos porcentuales, tasa anual) · cuentas nacionales del BEA",
+    trGdpTitle: "Exportaciones netas, % del PIB",
+    trContribTitle: "Contribución al crecimiento del PIB real, pp · últimos 16 trimestres",
+    legTrNetGdp: "Exportaciones netas, % del PIB",
+    trGdpNote: (q, pct, low, lowQ, lastSur, cq, c, ce, ci) => "Las exportaciones netas fueron " + pct + " del PIB en " + q + "; la brecha más amplia fue " + low + " en " + lowQ + (lastSur ? ", y el último superávit trimestral se registró en " + lastSur : "") + ". En " + cq + " las exportaciones netas aportaron " + c + " pp al crecimiento del PIB real (exportaciones " + ce + " pp, importaciones " + ci + " pp).",
+    trGdpMethod: "Las líneas de comercio de las cuentas nacionales difieren un poco del informe mensual (tasas anuales, convenciones de valuación y de fechas). Una factura de importaciones creciente resta al crecimiento del PIB por construcción, porque lo importado no se produce en el país.",
+    trSecPrices: "Precios de importación y exportación",
+    trSecPricesNote: "Índices de precios de importación y exportación del BLS, sin ajuste estacional, 2000 = 100",
+    trPricesNextEst: m => "Próxima publicación: datos de " + m + ", a mediados del mes siguiente (BLS)",
+    trKpiImpPrices: "Precios de importación, anual",
+    trKpiImpExPet: "Precios de importación sin petróleo, anual",
+    trKpiExpPrices: "Precios de exportación, anual",
+    trKpiExpNonAg: "Precios de exportación no agrícolas, anual",
+    trKpiCrude: "Precios de importación de petróleo crudo, anual",
+    trKpiYoyFoot: m => "índice por uso final del BLS · " + m,
+    trKpiTot: "Términos de intercambio",
+    trKpiTotFoot: "precios de exportación ÷ precios de importación × 100",
+    trImpPriceTitle: "Precios de importación, variación anual",
+    trExpPriceTitle: "Precios de exportación, variación anual",
+    legTrImpAll: "Todas las importaciones",
+    legTrImpExPet: "Sin petróleo",
+    legTrExpAll: "Todas las exportaciones",
+    legTrExpNonAg: "No agrícolas",
+    trPriceNote: (m, ir, irxp, crude, iq, tot, totY) => "En " + m + " los precios de importación variaron " + ir + " respecto a un año antes (" + irxp + " sin petróleo" + (crude ? "; petróleo crudo " + crude : "") + ") y los de exportación " + iq + ". Los términos de intercambio (precios de exportación ÷ precios de importación) están en " + tot + (totY ? ", " + totY + " en el año" : "") + ": por encima de 100, un dólar de exportaciones compra más importaciones que en 2000.",
+    trPriceMethod: "El BLS mide los precios de importación en el puerto extranjero, sin aranceles, seguro ni flete: muestran si los exportadores extranjeros cambian sus precios (por ejemplo, ante los aranceles), no lo que pagan los compradores estadounidenses una vez sumados los aranceles.",
+    trSecOrigin: "Precios de importación por país de origen",
+    trSecOriginNote: "Índices de precios de importación del BLS por localidad de origen (todas las industrias, diciembre de 2003 = 100), variación anual",
+    trOriginNote: (m, lo, loV, hi, hiV, list) => "En " + m + " los precios bajaron más, o subieron menos, para las importaciones de " + lo + " (" + loV + ") y subieron más para las de " + hi + " (" + hiV + "). Todos los orígenes mostrados: " + list + ".",
+    trSecPartners: "Comercio de bienes por socio",
+    trSecPartnersNote: "Base Censo (exportaciones f.a.s., importaciones a valor en aduana), sin ajuste estacional, sumas de 12 meses; la Unión Europea como bloque junto a sus mayores miembros",
+    trPartnerBalTitle: "Saldo de bienes por socio, mmd",
+    trPartnerTotalTitle: "Participación en el comercio de bienes de EE. UU. (exportaciones + importaciones), %",
+    trShareTitle: "Participación en las importaciones de bienes de EE. UU. por origen, sumas de 12 meses",
+    trPartnerNote: (m, d1, v1, d2, v2, d3, v3, sName, sV, t1, t1S, t2, t2S) => "En los 12 meses a " + m + " los mayores déficits de bienes fueron con " + d1 + " (" + v1 + "), " + d2 + " (" + v2 + ") y " + d3 + " (" + v3 + ")" + (sName ? "; el mayor superávit fue con " + sName + " (" + sV + ")" : "") + ". Los mayores socios por comercio total de bienes son " + t1 + " (" + t1S + " del total) y " + t2 + " (" + t2S + ").",
+    trShareNote: (top, topS, cn, cnPeak, cnPeakM, mx, ca, eu, vn) => "El mayor origen de las importaciones de bienes de EE. UU. es " + top + " (" + topS + " del total). La participación de China es " + cn + ", frente a un máximo de " + cnPeak + " en los 12 meses a " + cnPeakM + "; la de México es " + mx + ", la de Canadá " + ca + ", la de la Unión Europea " + eu + " y la de Vietnam " + vn + ".",
+    trSecTariffs: "Aranceles aduanales y tasa arancelaria efectiva",
+    trSecTariffsNote: "Informe mensual del Tesoro: aranceles aduanales recaudados (mmd, brutos y netos de devoluciones) y aranceles brutos como % de las importaciones de bienes del mes a valor en aduana, un cálculo de FNAM",
+    trDutiesTitle: "Aranceles aduanales recaudados, mmd por mes",
+    trRateTitle: "Aranceles como % de las importaciones de bienes (tasa arancelaria efectiva)",
+    legTrDuties: "Recaudación bruta",
+    legTrDutiesNet: "Neta de devoluciones",
+    legTrRate: "Tasa arancelaria efectiva",
+    trTariffNote: (m, gross, grossAgo, refund, net, rateM, rate, rateAgo, peak, peakM, c12, c12Ago) => "Los aranceles aduanales recaudaron " + gross + " en " + m + (grossAgo ? " (" + grossAgo + " un año antes)" : "") + "; las devoluciones de " + refund + " dejaron " + net + " netos. En " + rateM + " los aranceles brutos equivalieron a " + rate + " de las importaciones de bienes" + (rateAgo ? ", frente a " + rateAgo + " un año antes" : "") + "; la tasa mensual más alta desde 2015 fue " + peak + " (" + peakM + "). En los últimos 12 meses la recaudación bruta suma " + c12 + (c12Ago ? ", frente a " + c12Ago + " en los 12 meses previos" : "") + ".",
+    trTariffMethod: "Tasa efectiva = aranceles aduanales brutos recaudados en el mes ÷ importaciones de bienes del mes (valor en aduana, base Censo, sin ajuste estacional). Los aranceles se pagan al ingreso de la mercancía o en el estado de cuenta mensual del importador, así que la recaudación va un poco rezagada respecto a las importaciones, y las devoluciones (de rutina o por orden judicial) se reintegran meses después: el cociente aproxima el arancel promedio pagado en la frontera y no es una tasa legal.",
+    exTrLatest: (m, w, bal, wp, balP, exp, expY, imp, impY, w12, r12, pct) => "En " + m + " la balanza de bienes y servicios registró un " + w + " de " + bal + " (un " + wp + " de " + balP + " el mes anterior); exportaciones " + exp + " (" + expY + " anual), importaciones " + imp + " (" + impY + "). En 12 meses el " + w12 + " es de " + r12 + (pct ? ", " + pct + " del PIB" : "") + ".",
+    exTrDrivers: (wG, g, wS, s, d1, v1, d2, v2, d3, v3, ir, irxp, iq, pm) => "Bienes: " + wG + " de " + g + "; servicios: " + wS + " de " + s + "." + (d1 ? " Mayores déficits de bienes en 12 meses: " + d1 + " (" + v1 + ")" + (d2 ? ", " + d2 + " (" + v2 + ")" : "") + (d3 ? ", " + d3 + " (" + v3 + ")" : "") + "." : "") + (ir ? " Precios de importación " + ir + " anual en " + pm + (irxp ? " (" + irxp + " sin petróleo)" : "") + (iq ? ", precios de exportación " + iq : "") + "." : ""),
+    exTrWhy: (cq, c, ce, ci, cm, net, netAgo, rate, rateAgo) => (cq ? "Las exportaciones netas aportaron " + c + " pp al crecimiento del PIB real en " + cq + " (exportaciones " + ce + ", importaciones " + ci + "). " : "") + (cm ? "Los aranceles aduanales brutos fueron " + net + " en " + cm + (netAgo ? " (" + netAgo + " un año antes)" : "") + (rate ? ", " + rate + " de las importaciones de bienes" + (rateAgo ? " frente a " + rateAgo : "") : "") + "." : ""),
+    exRelTrade: m => "el informe de comercio de " + m,
+    exTrWatch: "Seguir el déficit de bienes frente al calendario arancelario, los precios de importación por origen para medir el traslado de los aranceles, y el superávit de servicios.",
+    iiTitle: "Inversión extranjera directa y posición de inversión internacional neta",
+    iiDesc: "Lo que Estados Unidos posee en el exterior y lo que debe al resto del mundo, por tipo de inversión; la inversión extranjera directa que entra y sale del país; y la cuenta corriente detrás de la posición.",
+    sourceIip: "Fuente: BEA, posición de inversión internacional y transacciones internacionales de EE. UU. (vía FRED y la API del BEA) ↗",
+    footerIip: "Datos: Oficina de Análisis Económico (BEA) de EE. UU., posición de inversión internacional, tabla 1.1 (activos, pasivos y posición neta de EE. UU., por tipo de inversión: inversión directa a valor de mercado, inversión de cartera, derivados financieros distintos de reservas, otra inversión y activos de reserva), al cierre del trimestre, sin ajuste estacional, desde 2006, y la posición neta anual desde 1976, vía FRED (Fed de San Luis). BEA, transacciones internacionales de EE. UU., tablas 1.1 y 1.2: la cuenta corriente y sus saldos de bienes, servicios e ingreso primario; adquisición neta de activos de inversión directa e incurrimiento neto de pasivos de inversión directa (capital e instrumentos de deuda); flujos de inversión de cartera; préstamo neto o endeudamiento neto por transacciones de la cuenta financiera, trimestrales, ajustados por estacionalidad, desde 1999, vía FRED. API del BEA: la variación de la posición neta por componente (transacciones de la cuenta financiera y otros cambios: de precios, de tipo de cambio y de volumen, que el BEA desglosa solo anualmente) y la posición de inversión extranjera directa en Estados Unidos por país de la matriz extranjera a costo histórico (BEA, Direct Investment by Country and Industry, anual). PIB nominal del BEA vía FRED. Los cocientes sobre el PIB, las sumas de cuatro trimestres y las participaciones son cálculos de FNAM. Cada serie se contrasta con su título en FRED y con las sumas de las propias tablas (activos = suma de sus tipos; posición neta = activos − pasivos) en cada actualización.",
+    iiWhat: "Qué se mide",
+    iiWhatText: "La posición de inversión internacional es el balance de Estados Unidos frente al resto del mundo: el acervo de activos externos en manos de residentes de EE. UU. (inversión directa en el exterior, acciones y bonos extranjeros, préstamos y depósitos, reservas oficiales) y el acervo de activos estadounidenses en manos de extranjeros (inversión directa en EE. UU., acciones y bonos estadounidenses, préstamos y depósitos). La diferencia es la posición neta. La inversión directa es una participación de 10% o más en una empresa, valuada aquí a precios de mercado; los flujos son el dinero nuevo que cruza la frontera cada trimestre.",
+    iiWhy: "Por qué importa",
+    iiWhyText: "La posición neta es lo que Estados Unidos debe al resto del mundo: el resultado acumulado de décadas de déficits en cuenta corriente más los vaivenes de los precios de los activos y del dólar. Dice qué tan dependiente es la economía del financiamiento externo y qué tan expuestos están los extranjeros a los activos estadounidenses. La inversión directa es la parte más estable de ese financiamiento, y donde deberían verse los aranceles y la política industrial; las tenencias de cartera son la parte que puede irse.",
+    iiNext: (d, q) => "Próxima publicación: " + d + " (datos de " + q + ")",
+    iiNextEst: (m, q) => "Próxima publicación: prevista para fines de " + m + " (datos de " + q + "; el BEA publica unos tres meses después del cierre del trimestre)",
+    iiKpiNet: "Posición de inversión internacional neta",
+    iiKpiNetFoot: (pct, q) => pct + " del PIB · " + q,
+    iiKpiNetPct: "Posición neta, % del PIB",
+    iiKpiNetPctFoot: "PIB nominal del trimestre, tasa anual",
+    iiKpiAssets: "Activos de EE. UU. en el exterior",
+    iiKpiLiab: "Pasivos de EE. UU. con extranjeros",
+    iiKpiFdiIn: "Inversión extranjera directa en EE. UU.",
+    iiKpiFdiOut: "Inversión directa de EE. UU. en el exterior",
+    iiKpiFdiFoot: q => "posición a valor de mercado · " + q,
+    iiSecLong: "La posición neta desde 1976",
+    iiSecLongNote: "Posición neta anual como % del PIB (cierre de año), y activos, pasivos y posición neta trimestrales en billones de dólares desde 2006",
+    iiAnnualTitle: "Posición neta, % del PIB, cierre de año",
+    iiLevelTitle: "Activos, pasivos y posición neta, billones de dólares",
+    legIiNetPct: "Posición neta, % del PIB",
+    legIiAssets: "Activos de EE. UU.",
+    legIiLiab: "Pasivos de EE. UU.",
+    legIiNet: "Posición neta",
+    iiLevelNote: (q, net, neg, pct, decPct, decQ, firstNeg, assets, assetsY, liab, liabY) => "Al " + q + (neg ? " los pasivos de EE. UU. con el resto del mundo superan a sus activos en el exterior por " : " los activos de EE. UU. en el exterior superan a sus pasivos por ") + net + (pct ? ", " + pct + " del PIB" : "") + (decPct ? " (" + decPct + " diez años antes, " + decQ + ")" : "") + (firstNeg ? "; la posición ha sido negativa cada año desde " + firstNeg : "") + ". Los activos en el exterior son " + assets + (assetsY ? " (" + assetsY + " anual)" : "") + " y los pasivos " + liab + (liabY ? " (" + liabY + ")" : "") + ".",
+    iiSecMix: "De qué está hecha la posición",
+    iiSecMixNote: "Activos y pasivos por tipo de inversión, billones de dólares; inversión directa a valor de mercado",
+    iiAssetsTitle: "Activos de EE. UU. en el exterior",
+    iiLiabTitle: "Pasivos de EE. UU. con extranjeros",
+    iiTypeDi: "Inversión directa",
+    iiTypePf: "Inversión de cartera (acciones y bonos)",
+    iiTypeOther: "Otra inversión (préstamos, depósitos, crédito comercial)",
+    iiTypeDeriv: "Derivados financieros",
+    iiTypeRes: "Activos de reserva",
+    iiMixNote: (q, pfL, pfLS, diL, diLS, oiL, diA, diAS, pfA, res) => "En " + q + " los extranjeros tienen " + pfL + " en acciones y bonos estadounidenses (" + pfLS + "% de los pasivos de EE. UU.), " + diL + " en inversión directa (" + diLS + "%) y " + oiL + " en préstamos, depósitos y otros créditos. Los residentes de EE. UU. tienen " + diA + " en inversión directa en el exterior (" + diAS + "% de los activos de EE. UU.), " + pfA + " en valores extranjeros y " + res + " en reservas oficiales.",
+    iiMixMethod: "La inversión directa es una participación de 10% o más; la inversión de cartera son participaciones menores más títulos de deuda. Las posiciones a valor de mercado se mueven con los precios de las acciones y con el dólar, no solo con la inversión nueva.",
+    iiSecDi: "Inversión directa: posiciones y flujos",
+    iiSecDiNote: "Posiciones a valor de mercado, billones de dólares, trimestrales desde 2006; flujos como sumas de cuatro trimestres, mmd, ajustados por estacionalidad, desde 1999 · transacciones internacionales del BEA",
+    iiDiPosTitle: "Posiciones a valor de mercado, billones de dólares",
+    iiDiFlowTitle: "Flujos, sumas de cuatro trimestres, mmd",
+    legIiFdiIn: "Inversión extranjera directa en EE. UU.",
+    legIiFdiOut: "Inversión directa de EE. UU. en el exterior",
+    legIiFdiInFlow: "Entradas (inversión extranjera hacia EE. UU.)",
+    legIiFdiOutFlow: "Salidas (inversión de EE. UU. en el exterior)",
+    iiDiNote: (q, diL, diLY, diA, diAY, netDi, fq, inQ, outQ, in4, in4Ago, out4, peak, peakQ) => "Al " + q + " la inversión extranjera directa en Estados Unidos vale " + diL + " a valor de mercado" + (diLY ? " (" + diLY + " anual)" : "") + " y la inversión directa de EE. UU. en el exterior " + diA + (diAY ? " (" + diAY + ")" : "") + ", una posición neta de inversión directa de " + netDi + ". En " + fq + " las entradas fueron de " + inQ + " y las salidas de " + outQ + "; en cuatro trimestres, las entradas suman " + in4 + (in4Ago ? " (" + in4Ago + " un año antes)" : "") + " y las salidas " + out4 + ". Los cuatro trimestres con más entradas fueron los que terminan en " + peakQ + " (" + peak + ").",
+    iiDiMethod: "Los flujos son transacciones de la cuenta financiera (capital, utilidades reinvertidas y deuda entre empresas relacionadas), ajustados por estacionalidad; un trimestre negativo significa que salió más dinero del que entró. La publicación anual del BEA por país valúa las posiciones a costo histórico, menor que el valor de mercado.",
+    iiSecCountry: "Inversión extranjera directa en EE. UU. por país",
+    iiSecCountryNote: "Posición a costo histórico por país de la matriz extranjera, cierre de año, mmd · BEA, Direct Investment by Country and Industry (anual)",
+    iiCountryAsOf: (y, total) => "cierre de " + y + " · todos los países " + total,
+    iiCountryNote: (y, c1, v1, s1, c2, v2, c3, v3, top5, total) => "Al cierre de " + y + " el mayor inversionista era " + c1 + " (" + v1 + ", " + s1 + "% del total), seguido de " + c2 + " (" + v2 + ") y " + c3 + " (" + v3 + "); los cinco primeros concentran " + top5 + "% del total de " + total + ".",
+    iiCountryMethod: "Por país de la matriz extranjera (el dueño inmediato), a costo histórico: una posición acumulada durante décadas a los precios de cada época, por lo que subestima el valor de mercado y atribuye inversión a sedes de sociedades tenedoras como los Países Bajos y Luxemburgo.",
+    iiSecCa: "La cuenta corriente y cómo cambia la posición",
+    iiSecCaNote: "Saldo de la cuenta corriente como % del PIB, trimestral, ajustado por estacionalidad, desde 1999; y la variación de la posición neta dividida entre transacciones de la cuenta financiera y cambios de valuación · BEA",
+    iiCaTitle: "Saldo de la cuenta corriente, % del PIB",
+    legIiCaPct: "Cuenta corriente, % del PIB",
+    iiChangeTitle: "Variación de la posición neta en los últimos cuatro trimestres, billones de dólares",
+    iiChangeSpan: (a, b) => a + " a " + b,
+    iiChgTrans: "Transacciones de la cuenta financiera",
+    iiChgOth: "Cambios de precios, de tipo de cambio y otros de valuación",
+    iiChangeNote: (a, b, tot, trans, oth) => "De " + a + " a " + b + " la posición neta cambió " + tot + ": " + trans + " por transacciones de la cuenta financiera (la contraparte del déficit en cuenta corriente) y " + oth + " por cambios de precios, de tipo de cambio y otros de valuación, que el BEA desglosa solo en sus cifras anuales.",
+    iiCaNote: (q, ca, w, pct, low, lowQ, g, s, pi, nlf4, pf4, fdi4) => "En " + q + " la cuenta corriente registró un " + w + " de " + ca + " (" + pct + " del PIB; el más amplio desde 1999 fue " + low + " en " + lowQ + "): bienes " + g + ", servicios " + s + ", ingreso primario " + pi + "." + (nlf4 ? " En los últimos cuatro trimestres Estados Unidos se endeudó " + nlf4 + " netos con el exterior" + (pf4 ? ", con compras extranjeras de valores estadounidenses por " + pf4 : "") + (fdi4 ? " y entradas de inversión directa por " + fdi4 : "") + "." : ""),
+    iiCaMethod: "Un déficit en cuenta corriente se financia con entradas netas de capital, que elevan los pasivos; la posición neta también se mueve con los precios de los activos y el dólar, y por eso puede empeorar en años de déficits menores.",
+    exIiLatest: (q, net, pct, netAgo, agoQ, assets, liab) => "Al " + q + " la posición de inversión internacional neta fue de " + net + " (" + pct + " del PIB), desde " + netAgo + " en " + agoQ + "; activos de EE. UU. en el exterior " + assets + ", pasivos " + liab + ".",
+    exIiDrivers: (diL, diLY, diA, diAY, pfL, pfLS, in4, out4, in4Q) => "La inversión extranjera directa en EE. UU. a valor de mercado es de " + diL + " (" + diLY + " anual) y la inversión directa de EE. UU. en el exterior de " + diA + " (" + diAY + "). Los extranjeros tienen " + pfL + " en acciones y bonos estadounidenses, " + pfLS + "% de los pasivos de EE. UU." + (in4 ? " Entradas de inversión directa en los cuatro trimestres a " + in4Q + ": " + in4 + "; salidas " + out4 + "." : ""),
+    exIiWhy: (fq, ca, w, pct, nlf4, trans, val, a, b) => (fq ? "La cuenta corriente registró un " + w + " de " + ca + " en " + fq + " (" + pct + " del PIB)" + (nlf4 ? ", financiado con entradas netas de " + nlf4 + " en cuatro trimestres" : "") + "." : "") + (trans ? " De " + a + " a " + b + " las transacciones movieron la posición neta " + trans + " y los cambios de valuación (precios, tipo de cambio, otros) " + val + "." : ""),
+    exIiWatch: (d, q) => (d ? "Próximo: posición de inversión internacional y transacciones internacionales el " + d + " (datos de " + q + ")." : "Próximo: posición de inversión internacional con datos de " + q + " (fecha por publicar).") + " Seguir las entradas de inversión directa frente al impulso arancelario e industrial, el apetito extranjero por los bonos del Tesoro y el efecto del dólar sobre la posición.",
     names: {
+      "ptn:mx": "México", "ptn:ca": "Canadá", "ptn:cn": "China", "ptn:eu": "Unión Europea", "ptn:de": "Alemania", "ptn:jp": "Japón",
+      "ptn:vn": "Vietnam", "ptn:kr": "Corea del Sur", "ptn:tw": "Taiwán", "ptn:uk": "Reino Unido", "ptn:ind": "India", "ptn:ie": "Irlanda",
+      "ptn:sw": "Suiza", "ptn:nl": "Países Bajos", "ptn:it": "Italia", "ptn:fr": "Francia",
+      "loc:cn": "China", "loc:mx": "México", "loc:ca": "Canadá", "loc:jp": "Japón", "loc:eu": "Unión Europea", "loc:asean": "ASEAN",
+      "ptn:eu:the": "la Unión Europea", "ptn:uk:the": "el Reino Unido", "ptn:nl:the": "los Países Bajos", "loc:eu:the": "la Unión Europea",
+      "cty:Netherlands:the": "los Países Bajos", "cty:United Kingdom:the": "el Reino Unido", "cty:United Kingdom Islands, Caribbean:the": "las islas británicas del Caribe",
+      "cty:United Arab Emirates:the": "los Emiratos Árabes Unidos", "cty:Cayman Islands:the": "las Islas Caimán", "cty:Philippines:the": "Filipinas", "cty:Czech Republic:the": "la República Checa",
+      "cty:Japan": "Japón", "cty:Canada": "Canadá", "cty:United Kingdom": "Reino Unido", "cty:Netherlands": "Países Bajos", "cty:Germany": "Alemania",
+      "cty:Ireland": "Irlanda", "cty:France": "Francia", "cty:Switzerland": "Suiza", "cty:Luxembourg": "Luxemburgo", "cty:Belgium": "Bélgica",
+      "cty:Spain": "España", "cty:Australia": "Australia", "cty:Sweden": "Suecia", "cty:South Korea": "Corea del Sur", "cty:Korea, Republic of": "Corea del Sur",
+      "cty:Singapore": "Singapur", "cty:Italy": "Italia", "cty:Norway": "Noruega", "cty:Denmark": "Dinamarca", "cty:China": "China", "cty:Taiwan": "Taiwán",
+      "cty:India": "India", "cty:Mexico": "México", "cty:Israel": "Israel", "cty:Hong Kong": "Hong Kong", "cty:Bermuda": "Bermudas",
+      "cty:United Arab Emirates": "Emiratos Árabes Unidos", "cty:Finland": "Finlandia", "cty:Austria": "Austria", "cty:Brazil": "Brasil",
+      "cty:Saudi Arabia": "Arabia Saudita", "cty:Qatar": "Catar", "cty:Cayman Islands": "Islas Caimán", "cty:Panama": "Panamá",
+      "cty:United Kingdom Islands, Caribbean": "Islas británicas del Caribe", "cty:Venezuela": "Venezuela", "cty:Chile": "Chile", "cty:New Zealand": "Nueva Zelanda",
+      "cty:Thailand": "Tailandia", "cty:Malaysia": "Malasia", "cty:Indonesia": "Indonesia", "cty:Philippines": "Filipinas", "cty:Vietnam": "Vietnam",
+      "cty:South Africa": "Sudáfrica", "cty:Turkey": "Turquía", "cty:Russia": "Rusia", "cty:Poland": "Polonia", "cty:Portugal": "Portugal",
+      "cty:Greece": "Grecia", "cty:Czech Republic": "República Checa", "cty:Hungary": "Hungría", "cty:Kuwait": "Kuwait", "cty:Egypt": "Egipto", "cty:Nigeria": "Nigeria",
       "Individual Income Taxes": "Impuesto sobre la renta de personas", "Corporation Income Taxes": "Impuesto sobre la renta de empresas",
       "Employment and General Retirement": "Contribuciones laborales y de retiro", "Unemployment Insurance": "Seguro de desempleo",
       "Other Retirement": "Otros fondos de retiro", "Excise Taxes": "Impuestos especiales", "Estate and Gift Taxes": "Impuestos sucesorios y a donaciones",
@@ -4496,7 +4974,7 @@ const I18N = {
     switchTo: "Cambiar a español",
     switchAria: "Cambiar a español",
     docTitle: v => v + " · U.S. Macro Monitor · FNAM",
-    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, productivity, corporate profits, private and household debt, bank and nonbank capital, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
+    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, foreign trade, foreign investment and the net international investment position, productivity, corporate profits, private and household debt, bank and nonbank capital, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
     navAria: "Sections",
     nfTitle: "Section Not Found",
     nfDesc: v => "This dashboard has no section called “" + v + "”. Choose one of these:",
@@ -5777,7 +6255,183 @@ const I18N = {
     exNfDrivers: (funds, fundsY, pens, pensY, ins, insY, hq, gavNav, gavNavAgo, gneNav, borrow, borrowY) => "Investment funds hold " + funds + (fundsY ? " (" + fundsY + " y/y)" : "") + ", pension funds " + pens + (pensY ? " (" + pensY + ")" : "") + " and insurers " + ins + (insY ? " (" + insY + ")" : "") + "." + (hq ? " Hedge funds (" + hq + "): gross assets " + gavNav + " net assets" + (gavNavAgo ? " (" + gavNavAgo + " a year earlier)" : "") + ", notional exposure " + gneNav + "; borrowing " + borrow + (borrowY ? " (" + borrowY + " y/y)" : "") + "." : ""),
     exNfWhy: (mm, mmf, mmfY, wla, cq, nw, delq) => (mm ? "Money market funds hold " + mmf + " (" + mm + (mmfY ? ", " + mmfY + " y/y" : "") + "), with prime institutional funds at " + wla + " weekly liquid assets. " : "") + (cq ? "Credit unions' net worth ratio is " + nw + " (" + cq + ")" + (delq ? " with " + delq + " of loans delinquent" : "") + ". " : "") + "The 2008 and 2020 stresses ran through dealers, money funds and leveraged funds, not bank capital alone: a thinning cushion or a fast-growing sector here is the early signal.",
     exNfWatch: (z1Date, z1Month, hedgeMonth, mmfMonth) => "Next Z.1: " + (z1Date ? z1Date : "expected " + z1Month) + (hedgeMonth ? "; next OFR hedge fund quarter expected " + hedgeMonth : "") + (mmfMonth ? "; SEC money fund statistics for " + mmfMonth + " expected about four weeks after the month ends" : "") + ". Watch prime fund liquidity, hedge fund repo borrowing and the state and local funded ratio as markets move.",
+    groupExternal: "External Sector",
+    navTrade: "Foreign Trade",
+    navIip: "Foreign Investment & NIIP",
+    vsPriorMonth: "vs. prior month",
+    trDeficitWord: "deficit",
+    trSurplusWord: "surplus",
+    trTitle: "Foreign Trade: Imports, Exports & Prices",
+    trDesc: "The US trade balance, exports and imports of goods and services, import and export prices, trade with the largest partners and customs duties, from the official monthly reports.",
+    sourceTrade: "Source: Census Bureau and BEA, U.S. International Trade in Goods and Services; BLS, Import/Export Price Indexes; Treasury (via FRED and FiscalData) ↗",
+    footerTrade: "Data: U.S. Census Bureau and Bureau of Economic Analysis, U.S. International Trade in Goods and Services (FT-900): exports, imports and balances of goods and services, balance of payments basis, seasonally adjusted, monthly since 1992, and goods trade by partner (exports f.a.s. value, imports customs value, not seasonally adjusted, monthly since 1999), via FRED (St. Louis Fed). Bureau of Labor Statistics, U.S. Import and Export Price Indexes: end-use aggregates (2000 = 100) and import prices by locality of origin (all industries, December 2003 = 100), not seasonally adjusted, via FRED; the indexes exclude duties, insurance and freight. U.S. Treasury, Monthly Treasury Statement, table 4 (customs duties: gross receipts, refunds and net receipts by month since March 2015), via the FiscalData API. BEA National Income and Product Accounts (exports, imports and net exports of goods and services in current and chained 2017 dollars, their contributions to real GDP growth, and nominal GDP), quarterly at seasonally adjusted annual rates since 1947, via FRED. Rolling 12-month sums, shares, the ratio to GDP, terms of trade (export price index ÷ import price index) and the effective tariff rate (net customs duties ÷ goods imports at customs value) are FNAM calculations. Every series is checked against its FRED title and the report's own arithmetic (balance = exports − imports; goods + services = total) on each refresh.",
+    trNextEst: m => "Next release: " + m + " data, expected about five weeks after the month's end (Census/BEA)",
+    trWhat: "What Is Counted",
+    trWhatText: "The monthly report counts every good that crosses the border (goods, on a balance of payments basis) and services sold to or bought from foreign residents (travel, transport, royalties, financial and business services). Exports minus imports is the trade balance; the United States runs a deficit in goods and a surplus in services. Partner figures are on the Census basis, by the country of origin of imports and the country of destination of exports, which differ from the balance of payments totals.",
+    trWhy: "Why It Matters",
+    trWhyText: "Trade is where tariffs, the dollar and foreign demand first show up: imports subtract from GDP by construction, so a widening deficit weighs on measured growth even when it reflects strong domestic demand. Import prices, measured before duties, show whether foreign exporters absorb tariffs or pass them on; customs receipts measure what importers actually pay. The partner detail shows which countries carry the deficit and how supply chains are shifting.",
+    trKpiBal: "Trade balance, goods & services",
+    trKpiBalFoot: m => "balance of payments basis · " + m,
+    trKpiGoods: "Goods balance",
+    trKpiSaFoot: m => "seasonally adjusted · " + m,
+    trKpiServices: "Services balance",
+    trKpiExports: "Exports of goods & services",
+    trKpiImports: "Imports of goods & services",
+    trKpiMomFoot: (mm, m) => mm + " m/m · " + m,
+    trKpiShare: "Balance, % of GDP (12 months)",
+    trKpiShareFoot: (w, amt, m) => "12-month " + w + " of " + amt + " to " + m,
+    trTwelveTo: m => "12 months to " + m,
+    trSecBal: "The Trade Balance Since 1992",
+    trSecBalNote: "Goods and services, balance of payments basis, seasonally adjusted, $ billions per month",
+    legTrBal: "Goods & services",
+    legTrGoods: "Goods",
+    legTrServices: "Services",
+    trBalNote: (m, w, bal, wp, balP, mp, w12, r12, w12a, r12a, wG, g, wS, s, worst, worstM) => "In " + m + " the goods and services balance was a " + w + " of " + bal + ", after a " + wp + " of " + balP + " in " + mp + ". Over the last 12 months the " + w12 + " adds up to " + r12 + (r12a ? " (a year earlier: a " + w12a + " of " + r12a + ")" : "") + ". Goods: " + wG + " of " + g + "; services: " + wS + " of " + s + ". The widest monthly deficit since 1992 was " + worst + " (" + worstM + ").",
+    trSecFlows: "Exports and Imports",
+    trSecFlowsNote: "Goods and services, balance of payments basis, seasonally adjusted: $ billions per month and % change from a year earlier",
+    trLevelTitle: "Monthly flows, $ billions",
+    trGrowthTitle: "Growth, % change from a year earlier",
+    legTrExports: "Exports",
+    legTrImports: "Imports",
+    trFlowsNote: (m, exp, expY, expG, expS, imp, impY, impG, impS, e12, i12) => "In " + m + " exports were " + exp + (expY ? " (" + expY + " from a year earlier" : " (") + "; goods " + expG + ", services " + expS + ") and imports " + imp + (impY ? " (" + impY + "" : " (") + "; goods " + impG + ", services " + impS + "). Over the last 12 months: exports " + e12 + ", imports " + i12 + ".",
+    trSecGdp: "Trade Against the Economy",
+    trSecGdpNote: "Net exports of goods and services as % of nominal GDP since 1947, and their contribution to real GDP growth (percentage points, annual rate) · BEA national accounts",
+    trGdpTitle: "Net exports, % of GDP",
+    trContribTitle: "Contribution to real GDP growth, pp · last 16 quarters",
+    legTrNetGdp: "Net exports, % of GDP",
+    trGdpNote: (q, pct, low, lowQ, lastSur, cq, c, ce, ci) => "Net exports were " + pct + " of GDP in " + q + "; the widest gap was " + low + " in " + lowQ + (lastSur ? ", and the last quarterly surplus was in " + lastSur : "") + ". In " + cq + " net exports contributed " + c + " pp to real GDP growth (exports " + ce + " pp, imports " + ci + " pp).",
+    trGdpMethod: "The national accounts' trade lines differ slightly from the monthly report (annual rates, valuation and timing conventions). A rising import bill subtracts from GDP growth by construction, because imports are not produced at home.",
+    trSecPrices: "Import and Export Prices",
+    trSecPricesNote: "BLS import and export price indexes, not seasonally adjusted, 2000 = 100",
+    trPricesNextEst: m => "Next release: " + m + " data, expected in the middle of the following month (BLS)",
+    trKpiImpPrices: "Import prices, y/y",
+    trKpiImpExPet: "Import prices ex petroleum, y/y",
+    trKpiExpPrices: "Export prices, y/y",
+    trKpiExpNonAg: "Nonagricultural export prices, y/y",
+    trKpiCrude: "Crude oil import prices, y/y",
+    trKpiYoyFoot: m => "BLS end-use index · " + m,
+    trKpiTot: "Terms of trade",
+    trKpiTotFoot: "export prices ÷ import prices × 100",
+    trImpPriceTitle: "Import prices, % change from a year earlier",
+    trExpPriceTitle: "Export prices, % change from a year earlier",
+    legTrImpAll: "All imports",
+    legTrImpExPet: "Excluding petroleum",
+    legTrExpAll: "All exports",
+    legTrExpNonAg: "Nonagricultural",
+    trPriceNote: (m, ir, irxp, crude, iq, tot, totY) => "In " + m + " import prices were " + ir + " from a year earlier (" + irxp + " excluding petroleum" + (crude ? "; crude oil " + crude : "") + ") and export prices " + iq + ". The terms of trade (export prices ÷ import prices) stand at " + tot + (totY ? ", " + totY + " on the year" : "") + ": above 100, a dollar of exports buys more imports than in 2000.",
+    trPriceMethod: "BLS import prices are measured at the foreign port, excluding duties, insurance and freight: they show whether foreign exporters change their prices (for instance in response to tariffs), not what US buyers pay once duties are added.",
+    trSecOrigin: "Import Prices by Country of Origin",
+    trSecOriginNote: "BLS import price indexes by locality of origin (all industries, December 2003 = 100), % change from a year earlier",
+    trOriginNote: (m, lo, loV, hi, hiV, list) => "In " + m + " prices fell most, or rose least, for imports from " + lo + " (" + loV + ") and rose most for those from " + hi + " (" + hiV + "). All origins shown: " + list + ".",
+    trSecPartners: "Goods Trade by Partner",
+    trSecPartnersNote: "Census basis (exports f.a.s., imports customs value), not seasonally adjusted, 12-month sums; the European Union as a bloc beside its largest members",
+    trPartnerBalTitle: "Goods balance by partner, $ billions",
+    trPartnerTotalTitle: "Share of US goods trade (exports + imports), %",
+    trShareTitle: "Share of US goods imports by origin, 12-month sums",
+    trPartnerNote: (m, d1, v1, d2, v2, d3, v3, sName, sV, t1, t1S, t2, t2S) => "In the 12 months to " + m + " the largest goods deficits were with " + d1 + " (" + v1 + "), " + d2 + " (" + v2 + ") and " + d3 + " (" + v3 + ")" + (sName ? "; the largest surplus was with " + sName + " (" + sV + ")" : "") + ". The largest partners by total goods trade are " + t1 + " (" + t1S + " of the total) and " + t2 + " (" + t2S + ").",
+    trShareNote: (top, topS, cn, cnPeak, cnPeakM, mx, ca, eu, vn) => "The largest source of US goods imports is " + top + " (" + topS + " of the total). China's share is " + cn + ", against a peak of " + cnPeak + " in the 12 months to " + cnPeakM + "; Mexico's is " + mx + ", Canada's " + ca + ", the European Union's " + eu + " and Vietnam's " + vn + ".",
+    trSecTariffs: "Customs Duties and the Effective Tariff Rate",
+    trSecTariffsNote: "Monthly Treasury Statement: customs duties collected ($ billions, gross and net of refunds) and gross duties as % of the month's goods imports at customs value, an FNAM calculation",
+    trDutiesTitle: "Customs duties collected, $ billions per month",
+    trRateTitle: "Duties as % of goods imports (effective tariff rate)",
+    legTrDuties: "Gross collections",
+    legTrDutiesNet: "Net of refunds",
+    legTrRate: "Effective tariff rate",
+    trTariffNote: (m, gross, grossAgo, refund, net, rateM, rate, rateAgo, peak, peakM, c12, c12Ago) => "Customs duties collected " + gross + " in " + m + (grossAgo ? " (" + grossAgo + " a year earlier)" : "") + "; refunds of " + refund + " left " + net + " net. In " + rateM + " gross duties equalled " + rate + " of goods imports" + (rateAgo ? ", against " + rateAgo + " a year earlier" : "") + "; the highest monthly rate since 2015 was " + peak + " (" + peakM + "). Over the last 12 months gross collections total " + c12 + (c12Ago ? ", against " + c12Ago + " in the 12 months before" : "") + ".",
+    trTariffMethod: "Effective rate = gross customs duties collected in the month ÷ the month's goods imports (customs value, Census basis, not seasonally adjusted). Duties are paid at entry or on the importer's monthly statement, so collections lag imports slightly, and refunds (routine or court-ordered) are returned months later: the ratio approximates the average tariff paid at the border and is not a statutory rate.",
+    exTrLatest: (m, w, bal, wp, balP, exp, expY, imp, impY, w12, r12, pct) => "In " + m + " the goods and services balance was a " + w + " of " + bal + " (a " + wp + " of " + balP + " the month before); exports " + exp + " (" + expY + " y/y), imports " + imp + " (" + impY + "). Over 12 months the " + w12 + " is " + r12 + (pct ? ", " + pct + " of GDP" : "") + ".",
+    exTrDrivers: (wG, g, wS, s, d1, v1, d2, v2, d3, v3, ir, irxp, iq, pm) => "Goods: " + wG + " of " + g + "; services: " + wS + " of " + s + "." + (d1 ? " Largest 12-month goods deficits: " + d1 + " (" + v1 + ")" + (d2 ? ", " + d2 + " (" + v2 + ")" : "") + (d3 ? ", " + d3 + " (" + v3 + ")" : "") + "." : "") + (ir ? " Import prices " + ir + " y/y in " + pm + (irxp ? " (" + irxp + " ex petroleum)" : "") + (iq ? ", export prices " + iq : "") + "." : ""),
+    exTrWhy: (cq, c, ce, ci, cm, net, netAgo, rate, rateAgo) => (cq ? "Net exports contributed " + c + " pp to real GDP growth in " + cq + " (exports " + ce + ", imports " + ci + "). " : "") + (cm ? "Gross customs duties were " + net + " in " + cm + (netAgo ? " (" + netAgo + " a year earlier)" : "") + (rate ? ", " + rate + " of goods imports" + (rateAgo ? " against " + rateAgo : "") : "") + "." : ""),
+    exRelTrade: m => "the " + m + " trade report",
+    exTrWatch: "Watch the goods deficit against the tariff schedule, import prices by origin for pass-through, and the services surplus.",
+    iiTitle: "Foreign Direct Investment & Net International Investment Position",
+    iiDesc: "What the United States owns abroad and owes to the rest of the world, by type of investment; foreign direct investment in and out of the country; and the current account behind the position.",
+    sourceIip: "Source: BEA, U.S. International Investment Position and International Transactions (via FRED and BEA's API) ↗",
+    footerIip: "Data: Bureau of Economic Analysis, U.S. International Investment Position, table 1.1 (U.S. assets, liabilities and net position, by type of investment: direct investment at market value, portfolio investment, financial derivatives other than reserves, other investment and reserve assets), end of quarter, not seasonally adjusted, since 2006, and the annual net position since 1976, via FRED (St. Louis Fed). BEA, U.S. International Transactions, tables 1.1 and 1.2: the current account and its goods, services and primary income balances; net acquisition of direct investment assets and net incurrence of direct investment liabilities (equity and debt instruments); portfolio investment flows; net lending or borrowing from financial-account transactions, quarterly, seasonally adjusted, since 1999, via FRED. BEA's API: the change in the net position by component (financial-account transactions and other changes: price, exchange-rate and volume changes, which BEA splits only annually) and the foreign direct investment position in the United States by country of foreign parent on a historical-cost basis (BEA, Direct Investment by Country and Industry, annual). Nominal GDP from BEA via FRED. Ratios to GDP, four-quarter sums and shares are FNAM calculations. Every series is checked against its FRED title and the tables' own sums (assets = the sum of their types; net = assets − liabilities) on each refresh.",
+    iiWhat: "What Is Counted",
+    iiWhatText: "The international investment position is the balance sheet of the United States against the rest of the world: the stock of foreign assets held by US residents (direct investment abroad, foreign stocks and bonds, loans and deposits, official reserves) and the stock of US assets held by foreigners (direct investment in the US, US stocks and bonds, loans and deposits). The difference is the net position. Direct investment is a stake of 10% or more in a business, valued here at market prices; flows are the new money crossing the border each quarter.",
+    iiWhy: "Why It Matters",
+    iiWhyText: "The net position is what the United States owes the rest of the world, the accumulated result of decades of current account deficits plus the swings in asset prices and the dollar. It says how dependent the economy is on foreign financing and how exposed foreigners are to US assets. Direct investment is the stickiest part of that financing, and where tariffs and industrial policy are meant to show up; portfolio holdings are the part that can leave.",
+    iiNext: (d, q) => "Next release: " + d + " (" + q + " data)",
+    iiNextEst: (m, q) => "Next release: expected late " + m + " (" + q + " data; BEA publishes about three months after quarter end)",
+    iiKpiNet: "Net international investment position",
+    iiKpiNetFoot: (pct, q) => pct + " of GDP · " + q,
+    iiKpiNetPct: "Net position, % of GDP",
+    iiKpiNetPctFoot: "quarter's nominal GDP, annual rate",
+    iiKpiAssets: "US assets abroad",
+    iiKpiLiab: "US liabilities to foreigners",
+    iiKpiFdiIn: "Foreign direct investment in the US",
+    iiKpiFdiOut: "US direct investment abroad",
+    iiKpiFdiFoot: q => "position at market value · " + q,
+    iiSecLong: "The Net Position Since 1976",
+    iiSecLongNote: "Annual net position as % of GDP (year end), and quarterly assets, liabilities and net position in $ trillions since 2006",
+    iiAnnualTitle: "Net position, % of GDP, year end",
+    iiLevelTitle: "Assets, liabilities and net position, $ trillions",
+    legIiNetPct: "Net position, % of GDP",
+    legIiAssets: "US assets",
+    legIiLiab: "US liabilities",
+    legIiNet: "Net position",
+    iiLevelNote: (q, net, neg, pct, decPct, decQ, firstNeg, assets, assetsY, liab, liabY) => "At " + q + (neg ? " US liabilities to the rest of the world exceed US assets abroad by " : " US assets abroad exceed US liabilities by ") + net + (pct ? ", " + pct + " of GDP" : "") + (decPct ? " (" + decPct + " ten years earlier, " + decQ + ")" : "") + (firstNeg ? "; the position has been negative every year since " + firstNeg : "") + ". Assets abroad are " + assets + (assetsY ? " (" + assetsY + " y/y)" : "") + " and liabilities " + liab + (liabY ? " (" + liabY + ")" : "") + ".",
+    iiSecMix: "What the Position Is Made Of",
+    iiSecMixNote: "Assets and liabilities by type of investment, $ trillions; direct investment at market value",
+    iiAssetsTitle: "US assets abroad",
+    iiLiabTitle: "US liabilities to foreigners",
+    iiTypeDi: "Direct investment",
+    iiTypePf: "Portfolio investment (stocks and bonds)",
+    iiTypeOther: "Other investment (loans, deposits, trade credit)",
+    iiTypeDeriv: "Financial derivatives",
+    iiTypeRes: "Reserve assets",
+    iiMixNote: (q, pfL, pfLS, diL, diLS, oiL, diA, diAS, pfA, res) => "In " + q + " foreigners hold " + pfL + " of US stocks and bonds (" + pfLS + "% of US liabilities), " + diL + " of direct investment (" + diLS + "%) and " + oiL + " of loans, deposits and other claims. US residents hold " + diA + " of direct investment abroad (" + diAS + "% of US assets), " + pfA + " of foreign securities and " + res + " of official reserves.",
+    iiMixMethod: "Direct investment is an ownership stake of 10% or more; portfolio investment is smaller stakes plus debt securities. Market-value positions move with stock prices and the dollar, not only with new investment.",
+    iiSecDi: "Direct Investment: Positions and Flows",
+    iiSecDiNote: "Positions at market value, $ trillions, quarterly since 2006; flows as four-quarter sums, $ billions, seasonally adjusted, since 1999 · BEA international transactions",
+    iiDiPosTitle: "Positions at market value, $ trillions",
+    iiDiFlowTitle: "Flows, four-quarter sums, $ billions",
+    legIiFdiIn: "Foreign direct investment in the US",
+    legIiFdiOut: "US direct investment abroad",
+    legIiFdiInFlow: "Inflows (foreign investment into the US)",
+    legIiFdiOutFlow: "Outflows (US investment abroad)",
+    iiDiNote: (q, diL, diLY, diA, diAY, netDi, fq, inQ, outQ, in4, in4Ago, out4, peak, peakQ) => "At " + q + " foreign direct investment in the United States is worth " + diL + " at market value" + (diLY ? " (" + diLY + " y/y)" : "") + " and US direct investment abroad " + diA + (diAY ? " (" + diAY + ")" : "") + ", a net direct investment position of " + netDi + ". In " + fq + " inflows were " + inQ + " and outflows " + outQ + "; over four quarters, inflows total " + in4 + (in4Ago ? " (" + in4Ago + " a year earlier)" : "") + " and outflows " + out4 + ". The strongest four quarters of inflows were those to " + peakQ + " (" + peak + ").",
+    iiDiMethod: "Flows are financial-account transactions (equity, reinvested earnings and intercompany debt), seasonally adjusted; a negative quarter means more money left than came in. BEA's annual release by country values positions at historical cost, which is lower than market value.",
+    iiSecCountry: "Foreign Direct Investment in the US by Country",
+    iiSecCountryNote: "Position on a historical-cost basis by country of the foreign parent, year end, $ billions · BEA, Direct Investment by Country and Industry (annual)",
+    iiCountryAsOf: (y, total) => "end of " + y + " · all countries " + total,
+    iiCountryNote: (y, c1, v1, s1, c2, v2, c3, v3, top5, total) => "At the end of " + y + " the largest investor was " + c1 + " (" + v1 + ", " + s1 + "% of the total), followed by " + c2 + " (" + v2 + ") and " + c3 + " (" + v3 + "); the top five hold " + top5 + "% of the " + total + " total.",
+    iiCountryMethod: "By country of the foreign parent (the immediate owner), at historical cost: a position accumulated over decades at the prices of the time, so it understates market value and credits holding-company locations such as the Netherlands and Luxembourg.",
+    iiSecCa: "The Current Account and How the Position Changes",
+    iiSecCaNote: "Current account balance as % of GDP, quarterly, seasonally adjusted, since 1999; and the change in the net position split into financial-account transactions and valuation changes · BEA",
+    iiCaTitle: "Current account balance, % of GDP",
+    legIiCaPct: "Current account, % of GDP",
+    iiChangeTitle: "Change in the net position over the last four quarters, $ trillions",
+    iiChangeSpan: (a, b) => a + " to " + b,
+    iiChgTrans: "Financial-account transactions",
+    iiChgOth: "Price, exchange-rate and other valuation changes",
+    iiChangeNote: (a, b, tot, trans, oth) => "From " + a + " to " + b + " the net position changed by " + tot + ": " + trans + " from financial-account transactions (the counterpart of the current account deficit) and " + oth + " from price, exchange-rate and other valuation changes, which BEA splits further only in its annual figures.",
+    iiCaNote: (q, ca, w, pct, low, lowQ, g, s, pi, nlf4, pf4, fdi4) => "In " + q + " the current account showed a " + w + " of " + ca + " (" + pct + " of GDP; the widest since 1999 was " + low + " in " + lowQ + "): goods " + g + ", services " + s + ", primary income " + pi + "." + (nlf4 ? " Over the last four quarters the United States borrowed " + nlf4 + " net from abroad" + (pf4 ? ", with foreign purchases of US securities of " + pf4 : "") + (fdi4 ? " and direct investment inflows of " + fdi4 : "") + "." : ""),
+    iiCaMethod: "A current account deficit is financed by net capital inflows, which add to liabilities; the net position also moves with asset prices and the dollar, which is why it can worsen in years of smaller deficits.",
+    exIiLatest: (q, net, pct, netAgo, agoQ, assets, liab) => "At " + q + " the net international investment position was " + net + " (" + pct + " of GDP), from " + netAgo + " in " + agoQ + "; US assets abroad " + assets + ", liabilities " + liab + ".",
+    exIiDrivers: (diL, diLY, diA, diAY, pfL, pfLS, in4, out4, in4Q) => "Foreign direct investment in the US at market value is " + diL + " (" + diLY + " y/y) and US direct investment abroad " + diA + " (" + diAY + "). Foreigners hold " + pfL + " of US stocks and bonds, " + pfLS + "% of US liabilities." + (in4 ? " Direct investment inflows over the four quarters to " + in4Q + ": " + in4 + "; outflows " + out4 + "." : ""),
+    exIiWhy: (fq, ca, w, pct, nlf4, trans, val, a, b) => (fq ? "The current account showed a " + w + " of " + ca + " in " + fq + " (" + pct + " of GDP)" + (nlf4 ? ", financed by net inflows of " + nlf4 + " over four quarters" : "") + "." : "") + (trans ? " From " + a + " to " + b + " transactions moved the net position by " + trans + " and valuation changes (prices, exchange rates, other) by " + val + "." : ""),
+    exIiWatch: (d, q) => (d ? "Next: IIP and international transactions on " + d + " (" + q + " data)." : "Next: IIP with " + q + " data (date not yet published).") + " Watch direct investment inflows against the tariff and industrial-policy push, foreign appetite for Treasuries, and the dollar's effect on the position.",
     names: {
+      "ptn:mx": "Mexico", "ptn:ca": "Canada", "ptn:cn": "China", "ptn:eu": "European Union", "ptn:de": "Germany", "ptn:jp": "Japan",
+      "ptn:vn": "Vietnam", "ptn:kr": "South Korea", "ptn:tw": "Taiwan", "ptn:uk": "United Kingdom", "ptn:ind": "India", "ptn:ie": "Ireland",
+      "ptn:sw": "Switzerland", "ptn:nl": "Netherlands", "ptn:it": "Italy", "ptn:fr": "France",
+      "loc:cn": "China", "loc:mx": "Mexico", "loc:ca": "Canada", "loc:jp": "Japan", "loc:eu": "European Union", "loc:asean": "ASEAN",
+      "ptn:eu:the": "the European Union", "ptn:uk:the": "the United Kingdom", "ptn:nl:the": "the Netherlands", "loc:eu:the": "the European Union",
+      "cty:Netherlands:the": "the Netherlands", "cty:United Kingdom:the": "the United Kingdom", "cty:United Kingdom Islands, Caribbean:the": "the UK Caribbean islands",
+      "cty:United Arab Emirates:the": "the United Arab Emirates", "cty:Cayman Islands:the": "the Cayman Islands", "cty:Philippines:the": "the Philippines", "cty:Czech Republic:the": "the Czech Republic",
+      "cty:Japan": "Japan", "cty:Canada": "Canada", "cty:United Kingdom": "United Kingdom", "cty:Netherlands": "Netherlands", "cty:Germany": "Germany",
+      "cty:Ireland": "Ireland", "cty:France": "France", "cty:Switzerland": "Switzerland", "cty:Luxembourg": "Luxembourg", "cty:Belgium": "Belgium",
+      "cty:Spain": "Spain", "cty:Australia": "Australia", "cty:Sweden": "Sweden", "cty:South Korea": "South Korea", "cty:Korea, Republic of": "South Korea",
+      "cty:Singapore": "Singapore", "cty:Italy": "Italy", "cty:Norway": "Norway", "cty:Denmark": "Denmark", "cty:China": "China", "cty:Taiwan": "Taiwan",
+      "cty:India": "India", "cty:Mexico": "Mexico", "cty:Israel": "Israel", "cty:Hong Kong": "Hong Kong", "cty:Bermuda": "Bermuda",
+      "cty:United Arab Emirates": "United Arab Emirates", "cty:Finland": "Finland", "cty:Austria": "Austria", "cty:Brazil": "Brazil",
+      "cty:Saudi Arabia": "Saudi Arabia", "cty:Qatar": "Qatar", "cty:Cayman Islands": "Cayman Islands", "cty:Panama": "Panama",
+      "cty:United Kingdom Islands, Caribbean": "UK Caribbean islands", "cty:Venezuela": "Venezuela", "cty:Chile": "Chile", "cty:New Zealand": "New Zealand",
+      "cty:Thailand": "Thailand", "cty:Malaysia": "Malaysia", "cty:Indonesia": "Indonesia", "cty:Philippines": "Philippines", "cty:Vietnam": "Vietnam",
+      "cty:South Africa": "South Africa", "cty:Turkey": "Turkey", "cty:Russia": "Russia", "cty:Poland": "Poland", "cty:Portugal": "Portugal",
+      "cty:Greece": "Greece", "cty:Czech Republic": "Czech Republic", "cty:Hungary": "Hungary", "cty:Kuwait": "Kuwait", "cty:Egypt": "Egypt", "cty:Nigeria": "Nigeria",
       "Individual Income Taxes": "Individual income taxes", "Corporation Income Taxes": "Corporate income taxes",
       "Employment and General Retirement": "Employment & general retirement", "Unemployment Insurance": "Unemployment insurance",
       "Other Retirement": "Other retirement", "Excise Taxes": "Excise taxes", "Estate and Gift Taxes": "Estate & gift taxes",
@@ -6187,7 +6841,9 @@ function clearTargets() {
     "fiKpiRow","fiMonthlyChart","fiMonthlyLegend","fiDeficitChart","fiRollingChart","fiMonthlyCallout","fiFytdStats","fiFytdCallout",
     "fiSourceList","fiSourceCallout","fiFunctionList","fiFunctionCallout","fiGdpChart","fiGdpCallout",
     "prKpiRow","prGrowthChart","prGrowthCallout","prLongChart","prLongLegend","prLongCallout","prEraList","prEraCallout","prCostChart","prCostLegend","prCostCallout","prOutChart","prOutLegend","prOutCallout","prShareChart","prShareCallout","cpKpiRow","cpMarginChart","cpMarginLegend","cpShareChart","cpShareLegend","cpMarginCallout","cpSplitList","cpSplitCallout","cpGdpChart","cpGdpLegend","cpGdpCallout","cpGrowthChart","cpGrowthCallout","dbKpiRow","dbGdpChart","dbGdpLegend","dbGdpCallout","dbLevelChart","dbLevelLegend","dbGrowthChart","dbGrowthLegend","dbLevelCallout","dbMixList","dbMixCallout","dbYearsChart","dbInterestChart","dbProfitsCallout","hhKpiRow","hhTotalChart","hhTotalLegend","hhTypesChart","hhTypesLegend","hhTypesCallout","hhDelqChart","hhDelqLegend","hhDelqCallout","hhZ1Chart","hhZ1Legend","hhIncomeChart","hhIncomeLegend","hhLongCallout","hhG19Chart","hhG19Legend","hhG19GrowthChart","hhG19Callout","bkKpiRow","bkRatioChart","bkRatioLegend","bkRatioCallout","bkAssetsChart","bkAssetsLegend","bkCapitalChart","bkCapitalLegend","bkBalanceCallout","bkUnrealChart","bkUnrealCallout","bkNoncurrentChart","bkCoverageChart","bkQualityCallout","bkCountChart","bkUninsChart","bkDepositsCallout","bkH8Chart","bkH8Legend","bkH8Callout",
-    "nbfKpiRow","nbfShareChart","nbfShareLegend","nbfShareCallout","nbfSectorList","nbfSectorCallout","nbfEquityChart","nbfEquityLegend","nbfEquityCallout","nbfPensionRatioChart","nbfPensionRatioLegend","nbfPensionGapChart","nbfPensionGapLegend","nbfPensionCallout","nbfHedgeAssetsChart","nbfHedgeAssetsLegend","nbfHedgeBorrowChart","nbfHedgeBorrowLegend","nbfHedgeCallout","nbfMmfAssetsChart","nbfMmfAssetsLegend","nbfMmfLiqChart","nbfMmfLiqLegend","nbfMmfCallout","nbfNcuaNwChart","nbfNcuaDelqChart","nbfNcuaCallout"
+    "nbfKpiRow","nbfShareChart","nbfShareLegend","nbfShareCallout","nbfSectorList","nbfSectorCallout","nbfEquityChart","nbfEquityLegend","nbfEquityCallout","nbfPensionRatioChart","nbfPensionRatioLegend","nbfPensionGapChart","nbfPensionGapLegend","nbfPensionCallout","nbfHedgeAssetsChart","nbfHedgeAssetsLegend","nbfHedgeBorrowChart","nbfHedgeBorrowLegend","nbfHedgeCallout","nbfMmfAssetsChart","nbfMmfAssetsLegend","nbfMmfLiqChart","nbfMmfLiqLegend","nbfMmfCallout","nbfNcuaNwChart","nbfNcuaDelqChart","nbfNcuaCallout",
+    "trKpiRow","trBalChart","trBalLegend","trBalCallout","trLevelChart","trLevelLegend","trGrowthChart","trGrowthLegend","trLevelCallout","trGdpChart","trContribChart","trGdpCallout","trPriceKpiRow","trImpPriceChart","trImpPriceLegend","trExpPriceChart","trExpPriceLegend","trPriceCallout","trOriginChart","trOriginLegend","trOriginCallout","trPartnerBalList","trPartnerTotalList","trShareChart","trShareLegend","trPartnerCallout","trDutiesChart","trDutiesLegend","trRateChart","trTariffCallout",
+    "iiKpiRow","iiAnnualChart","iiLevelChart","iiLevelLegend","iiLevelCallout","iiAssetsList","iiLiabList","iiMixCallout","iiDiPosChart","iiDiPosLegend","iiDiFlowChart","iiDiFlowLegend","iiDiCallout","iiCountryList","iiCountryCallout","iiCaChart","iiCaLegend","iiChangeList","iiCaCallout"
   ];
   ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ""; });
 }
@@ -6640,7 +7296,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     hit.setAttribute("width", (plotW/points.length).toFixed(1)); hit.setAttribute("height", plotH);
     hit.setAttribute("fill", "transparent");
     hit.addEventListener("mousemove", (e) => {
-      tooltip.innerHTML = `<div class="t-date">${fmtMonthYear(p.d)}</div><div class="t-row"><span class="t-dot" style="background:var(${colorVar})"></span>${vfmt(p.mom)}</div>`;
+      tooltip.innerHTML = `<div class="t-date">${opts.labelFmt ? opts.labelFmt(p.d) : fmtMonthYear(p.d)}</div><div class="t-row"><span class="t-dot" style="background:var(${colorVar})"></span>${vfmt(p.mom)}</div>`;
       placeTooltip(tooltip, e.clientX, e.clientY);
     });
     hit.addEventListener("mouseleave", () => { tooltip.style.opacity = "0"; });
@@ -9253,6 +9909,47 @@ function renderExecSummaries() {
       T.exCpWatch(d ? fmtDateDMY(d) : null, nextN === 1 ? "advance" : nextN ? "with" : "unknown"));
   });
 
+  // ---- Foreign trade ----
+  section("exec-trade", () => {
+    if (!TRADE || !TRADE.monthly || TRADE.monthly.length < 24 || !TRADE.asOf) return;
+    const M = TRADE.monthly, m = TRADE.asOf, i0 = M.findIndex(r => r.d === m), cur = M[i0], prev = M[i0 - 1], ago = M.find(r => r.d === mShift(m, -12));
+    if (!cur || !prev || !ago) return;
+    const pc = (a, b) => (a / b - 1) * 100, word = v => v < 0 ? T.trDeficitWord : T.trSurplusWord, absB = v => fmtBnS(Math.abs(v));
+    const bal12 = rollSum(M, "bal", 12), b12 = bal12[bal12.length - 1];
+    const Q = (TRADE.quarterly || []).filter(r => r.gdp !== null), gdpY = annualGdpAt(Q, b12.d);
+    const P = TRADE.prices || [], pm = TRADE.pricesAsOf, pc1 = pm ? P.find(r => r.d === pm) : null, pa = pm ? P.find(r => r.d === mShift(pm, -12)) : null;
+    const py = key => pc1 && pa && pc1[key] !== null && pa[key] ? sg1(pc(pc1[key], pa[key])) : null;
+    const PT = TRADE.partners, deficits = partnerStats(PT, PT && PT.months ? PT.months.indexOf(PT.asOf) : -1).sort((a, b) => a.bal - b.bal);
+    const dn = i => deficits.length > i ? deficits[i].prose : null, dv = i => deficits.length > i ? fmtBnS(Math.abs(deficits[i].bal), 0) : null;
+    const cq = (TRADE.quarterly || []).filter(r => r.cNet !== null).slice(-1)[0];
+    const C = TRADE.customs && TRADE.customs.monthly ? TRADE.customs.monthly : [], cm = C.length ? C[C.length - 1] : null, cAgo = cm ? C.find(r => r.d === mShift(cm.d, -12)) : null;
+    const wi = d => { const j = PT && PT.months ? PT.months.indexOf(d) : -1; return j >= 0 ? PT.data.world.imp[j] : null; };
+    const rate = cm && wi(cm.d) ? cm.gross / wi(cm.d) * 100 : null, rateAgo = cAgo && wi(cAgo.d) ? cAgo.gross / wi(cAgo.d) * 100 : null;
+    card("exec-trade",
+      T.exTrLatest(fmtMonthYear(m), word(cur.bal), absB(cur.bal), word(prev.bal), absB(prev.bal), fmtBnS(cur.exp), sg1(pc(cur.exp, ago.exp)), fmtBnS(cur.imp), sg1(pc(cur.imp, ago.imp)), word(b12.v), fmtAmt(Math.abs(b12.v)), gdpY ? pct1(Math.abs(b12.v) / gdpY * 100) : null),
+      T.exTrDrivers(word(cur.balG), absB(cur.balG), word(cur.balS), absB(cur.balS), dn(0), dv(0), dn(1), dv(1), dn(2), dv(2), py("ir"), py("irxp"), py("iq"), pm ? fmtMonthYear(pm) : null),
+      T.exTrWhy(cq ? fmtQuarter(cq.d) : null, cq ? sgnFix(cq.cNet, 1) : null, cq ? sgnFix(cq.cExp, 1) : null, cq ? sgnFix(cq.cImp, 1) : null, cm ? fmtMonthYear(cm.d) : null, cm ? fmtBnS(cm.gross) : null, cAgo ? fmtBnS(cAgo.gross) : null, rate === null ? null : pct1(rate), rateAgo === null ? null : pct1(rateAgo)),
+      nextLine("trade", T.exRelTrade(fmtMonthYear(nextMonthOf(m)))) + " " + T.exTrWatch);
+  });
+
+  // ---- Foreign investment and the net international investment position ----
+  section("exec-iip", () => {
+    if (!IIP || !IIP.quarterly || IIP.quarterly.length < 20 || !IIP.asOf) return;
+    const R = IIP.quarterly, q = IIP.asOf, row = R.find(r => r.d === q), ago = R.find(r => r.d === qShift(q, -4));
+    if (!row || !ago || !row.gdp) return;
+    const pc = (a, b) => (a / b - 1) * 100;
+    const F = IIP.flows || [], fl = F.filter(r => r.ca !== null && r.gdp).slice(-1)[0];
+    const r4 = key => lastOf(rollSum(F, key, 4));
+    const in4 = r4("fdiIn"), out4 = r4("fdiOut"), nlf4 = r4("nlf");
+    const CH = IIP.bea && IIP.bea.change && IIP.bea.change.quarterly, last4 = CH && CH.length >= 4 ? CH.slice(-4) : null, sum = k => last4.reduce((s, r) => s + (r[k] || 0), 0);
+    const d = calendarNextDate("iip");
+    card("exec-iip",
+      T.exIiLatest(fmtQuarter(q), fmtTnS(row.net), sgnFix(row.net / row.gdp * 100, 1) + "%", fmtTnS(ago.net), fmtQuarter(ago.d), fmtTnS(row.assets), fmtTnS(row.liab)),
+      T.exIiDrivers(fmtTnS(row.diL), sg1(pc(row.diL, ago.diL)), fmtTnS(row.diA), sg1(pc(row.diA, ago.diA)), fmtTnS(row.pfL), Math.round(row.pfL / row.liab * 100), in4 ? fmtAmt(in4.v) : null, out4 ? fmtAmt(out4.v) : null, in4 ? fmtQuarter(in4.d) : null),
+      T.exIiWhy(fl ? fmtQuarter(fl.d) : null, fl ? fmtBnS(Math.abs(fl.ca), 0) : null, fl ? (fl.ca < 0 ? T.trDeficitWord : T.trSurplusWord) : null, fl ? pct1(Math.abs(fl.ca) * 4 / fl.gdp * 100) : null, nlf4 ? fmtAmt(Math.abs(nlf4.v)) : null, last4 ? fmtTnS(sum("trans"), 2) : null, last4 ? fmtTnS(sum("oth"), 2) : null, last4 ? fmtQuarter(last4[0].d) : null, last4 ? fmtQuarter(last4[3].d) : null),
+      T.exIiWatch(d ? fmtDateDMY(d) : null, fmtQuarter(qShift(q, 1))));
+  });
+
   // ---- Private-sector debt ----
   section("exec-debt", () => {
     if (!DEBT || !DEBT.quarterly || DEBT.quarterly.length < 100) return;
@@ -9704,6 +10401,307 @@ function renderProfits() {
   // ---- profits growth ----
   drawMomColumns(document.getElementById("cpGrowthChart"), profY.slice(-24).map(p => ({ d: p.d, mom: p.v })), "--series-core", { fmt: v => sg1(v), decimals: 0, labelFmt: d => fmtQuarter(d) });
   document.getElementById("cpGrowthCallout").innerHTML = "<div>" + T.cpGrowthNote(sg1(curPy), fmtQuarter(q), sg1(atQ(gvaY, q)), sg1(atQ(compY, q))) + "</div>";
+}
+
+// ---------- shared helpers for the external-sector sections ----------
+// Month arithmetic for "yyyy-MM" keys, the monthly counterpart of qShift.
+function mShift(d, k) { const [y, m] = d.split("-").map(Number); const t = y * 12 + (m - 1) + k; return Math.floor(t / 12) + "-" + String((t % 12) + 1).padStart(2, "0"); }
+// Percent change on the same month a year earlier, from a level column.
+function mYoY(rows, key) { const by = {}; rows.forEach(r => { by[r.d] = r[key]; }); return rows.map(r => { const a = by[mShift(r.d, -12)]; return a && r[key] !== null && r[key] !== undefined ? { d: r.d, v: (r[key] / a - 1) * 100 } : null; }).filter(Boolean); }
+// Rolling sums over the last n rows of a column: a point for every row whose n values are all present.
+function rollSum(rows, key, n) { const out = []; for (let i = n - 1; i < rows.length; i++) { let s = 0, ok = true; for (let j = i - n + 1; j <= i; j++) { const v = rows[j][key]; if (v === null || v === undefined) { ok = false; break; } s += v; } if (ok) out.push({ d: rows[i].d, v: s }); } return out; }
+// Signed dollar amounts from $ billions, with a real minus sign: "−$105.6B", "$1.02T" ("mmd" / "billones" in Spanish).
+function fmtBnS(bn, dec) { const d = dec === undefined ? 1 : dec; return (bn < 0 ? "−" : "") + "$" + Math.abs(bn).toLocaleString(T.dateLocale, { minimumFractionDigits: d, maximumFractionDigits: d }) + T.sfxB; }
+function fmtTnS(bn, dec) { const d = dec === undefined ? 1 : dec; return (bn < 0 ? "−" : "") + "$" + (Math.abs(bn) / 1000).toLocaleString(T.dateLocale, { minimumFractionDigits: d, maximumFractionDigits: d }) + T.sfxT; }
+// The nearest unit: billions below a trillion, trillions above.
+function fmtAmt(bn) { return Math.abs(bn) >= 1000 ? fmtTnS(bn, 2) : fmtBnS(bn, Math.abs(bn) >= 100 ? 0 : 1); }
+// KPI tile values, the unit in the tile's smaller type and glued to the number (a Spanish " mmd" or
+// " billones" otherwise wraps under the figure beside a long change line; the change line wraps instead).
+// The whole figure is one unbreakable run (browsers may break after a minus sign); the change line wraps instead.
+const tileUnit = u => unitHtml(u.replace(/^ /, "\u00a0"));
+const tileWrap = h => '<span style="white-space:nowrap">' + h + "</span>";
+function tileAmt(bn) { const a = Math.abs(bn), sign = bn < 0 ? "−" : ""; return tileWrap(a >= 1000 ? sign + "$" + (a / 1000).toLocaleString(T.dateLocale, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + tileUnit(T.sfxT) : sign + "$" + a.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + tileUnit(T.sfxB)); }
+function tileTn(bn) { return tileWrap((bn < 0 ? "−" : "") + "$" + (Math.abs(bn) / 1000).toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + tileUnit(T.sfxT)); }
+// The quarter a month belongs to: "2026-08" -> "2026-Q3".
+function qOfMonth(d) { return d.slice(0, 4) + "-Q" + (Math.floor((+d.slice(5, 7) - 1) / 3) + 1); }
+// A year's nominal GDP behind a month: the mean of the latest four quarters published by that
+// month's quarter (seasonally adjusted annual rates, so the mean of four is the year's GDP).
+function annualGdpAt(Q, d) { const qm = qOfMonth(d); let k = Q.length - 1; while (k >= 0 && Q[k].d > qm) k--; return k >= 3 ? (Q[k].gdp + Q[k - 1].gdp + Q[k - 2].gdp + Q[k - 3].gdp) / 4 : null; }
+// 12-month goods trade with each partner at the month at index pi of the partner block: exports, imports, balance, total.
+// A partner's name for running text: with its article where the language uses one ("the European Union", "los Países Bajos").
+function proseName(prefix, code) { return (T.names && T.names[prefix + ":" + code + ":the"]) || nameOf(prefix + ":" + code); }
+function partnerStats(PT, pi) {
+  if (!PT || pi < 11) return [];
+  const s12 = arr => { let s = 0; for (let j = pi - 11; j <= pi; j++) { if (arr[j] === null || arr[j] === undefined) return null; s += arr[j]; } return s; };
+  return Object.keys(PT.data).filter(c => c !== "world").map(c => { const e = s12(PT.data[c].exp), i = s12(PT.data[c].imp); return e === null || i === null ? null : { code: c, name: nameOf("ptn:" + c), prose: proseName("ptn", c), exp: e, imp: i, bal: e - i, total: e + i }; }).filter(Boolean);
+}
+
+// ---------- view: foreign trade (FT-900, import/export prices, partners, customs duties, NIPA) ----------
+function renderTrade() {
+  if (!TRADE || !TRADE.monthly || TRADE.monthly.length < 24 || !TRADE.asOf) return;
+  const M = TRADE.monthly, m = TRADE.asOf, i0 = M.findIndex(r => r.d === m);
+  if (i0 < 12) return;
+  const cur = M[i0], prev = M[i0 - 1], ago = M.find(r => r.d === mShift(m, -12));
+  const at = (rows, d) => rows.find(r => r.d === d);
+  const pc = (a, b) => (a / b - 1) * 100;
+  const word = v => v < 0 ? T.trDeficitWord : T.trSurplusWord;
+  const absB = (v, dec) => fmtBnS(Math.abs(v), dec);
+  const Q = (TRADE.quarterly || []).filter(r => r.gdp !== null);
+
+  // ---- header ----
+  document.getElementById("trAsOfLine").textContent = T.dataAsOf(fmtMonthYear(m));
+  document.getElementById("trNextReleaseLine").textContent = nextReleaseText("trade", fmtMonthYear(nextMonthOf(m)), T.trNextEst);
+  document.getElementById("trRefreshedLine").textContent = freshnessLabel("snapshot", TRADE.fetchedAt, "FRED");
+
+  // ---- KPIs: the balance and its parts, the flows, the 12-month balance against GDP ----
+  const bal12 = rollSum(M, "bal", 12), exp12 = rollSum(M, "exp", 12), imp12 = rollSum(M, "imp", 12);
+  const b12 = lastOf(bal12), b12Ago = atQ(bal12, mShift(b12.d, -12));
+  const share12 = bal12.map(p => { const g = annualGdpAt(Q, p.d); return g ? { d: p.d, v: p.v / g * 100 } : null; }).filter(Boolean);
+  const sh = lastOf(share12), shAgo = sh ? atQ(share12, mShift(sh.d, -12)) : null;
+  const spark = k => M.slice(-36).map(r => r[k]);
+  const dAmt = (v, vs) => deltaArrow(v, 1) + " $" + Math.abs(v).toFixed(1) + T.sfxB + " " + vs;
+  kpiTiles("trKpiRow", "tr", [
+    { label: T.trKpiBal, value: tileAmt(cur.bal), delta: dAmt(cur.bal - prev.bal, T.vsPriorMonth), spark: spark("bal"), color: "--series-headline", foot: T.trKpiBalFoot(fmtMonthYear(m)) },
+    { label: T.trKpiGoods, value: tileAmt(cur.balG), delta: dAmt(cur.balG - prev.balG, T.vsPriorMonth), spark: spark("balG"), color: "--series-goods", foot: T.trKpiSaFoot(fmtMonthYear(m)) },
+    { label: T.trKpiServices, value: tileAmt(cur.balS), delta: dAmt(cur.balS - prev.balS, T.vsPriorMonth), spark: spark("balS"), color: "--series-services", foot: T.trKpiSaFoot(fmtMonthYear(m)) },
+    { label: T.trKpiExports, value: tileAmt(cur.exp), delta: ago ? kpiChange(pc(cur.exp, ago.exp), 1, "%", T.vsYearAgo) : "", spark: spark("exp"), color: "--cat-5", foot: T.trKpiMomFoot(sg1(pc(cur.exp, prev.exp)), fmtMonthYear(m)) },
+    { label: T.trKpiImports, value: tileAmt(cur.imp), delta: ago ? kpiChange(pc(cur.imp, ago.imp), 1, "%", T.vsYearAgo) : "", spark: spark("imp"), color: "--cat-7", foot: T.trKpiMomFoot(sg1(pc(cur.imp, prev.imp)), fmtMonthYear(m)) },
+    sh ? { label: T.trKpiShare, value: sgnFix(sh.v, 1) + "%", delta: shAgo === null ? "" : kpiChange(sh.v - shAgo, 1, " pp", T.vsYearAgo), spark: share12.slice(-36).map(p => p.v), color: "--cat-10", foot: T.trKpiShareFoot(word(b12.v), fmtAmt(Math.abs(b12.v)), fmtMonthYear(b12.d)) }
+       : { label: T.trKpiShare, value: tileAmt(b12.v), delta: "", spark: bal12.slice(-36).map(p => p.v), color: "--cat-10", foot: T.trTwelveTo(fmtMonthYear(b12.d)) }
+  ]);
+
+  // ---- the balance since 1992 ----
+  const labels = M.map(r => r.d);
+  plotSeries("trBalChart", "trBalTooltip", "trBalLegend", labels, [
+    { name: T.legTrBal, color: "--series-headline", data: M.map(r => r.bal), width: 2.5 },
+    { name: T.legTrGoods, color: "--series-goods", data: M.map(r => r.balG) },
+    { name: T.legTrServices, color: "--series-services", data: M.map(r => r.balS) }
+  ], { fmt: v => fmtBnS(v), axisFmt: v => fmtBnS(v, 0), labelFmt: fmtMonthYear, tickFmt: qTick });
+  const worst = troughOf(M.filter(r => r.bal !== null).map(r => ({ d: r.d, v: r.bal })));
+  document.getElementById("trBalCallout").innerHTML = "<div>" + T.trBalNote(fmtMonthYear(m), word(cur.bal), absB(cur.bal), word(prev.bal), absB(prev.bal), fmtMonthYear(prev.d), word(b12.v), fmtAmt(Math.abs(b12.v)), b12Ago === null ? null : word(b12Ago), b12Ago === null ? null : fmtAmt(Math.abs(b12Ago)), word(cur.balG), absB(cur.balG), word(cur.balS), absB(cur.balS), absB(worst.v), fmtMonthYear(worst.d)) + "</div>";
+
+  // ---- exports and imports: levels and growth ----
+  plotSeries("trLevelChart", "trLevelTooltip", "trLevelLegend", labels, [
+    { name: T.legTrExports, color: "--cat-5", data: M.map(r => r.exp) },
+    { name: T.legTrImports, color: "--cat-7", data: M.map(r => r.imp) }
+  ], { fmt: v => fmtBnS(v), axisFmt: v => fmtBnS(v, 0), labelFmt: fmtMonthYear, tickFmt: qTick });
+  const gE = mYoY(M, "exp"), gI = mYoY(M, "imp"), lab2 = gE.map(p => p.d);
+  plotSeries("trGrowthChart", "trGrowthTooltip", "trGrowthLegend", lab2, [
+    { name: T.legTrExports, color: "--cat-5", data: gE.map(p => p.v) },
+    { name: T.legTrImports, color: "--cat-7", data: qSeries(lab2, gI) }
+  ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+  document.getElementById("trLevelCallout").innerHTML = "<div>" + T.trFlowsNote(fmtMonthYear(m), fmtBnS(cur.exp), ago ? sg1(pc(cur.exp, ago.exp)) : null, fmtBnS(cur.expG), fmtBnS(cur.expS), fmtBnS(cur.imp), ago ? sg1(pc(cur.imp, ago.imp)) : null, fmtBnS(cur.impG), fmtBnS(cur.impS), fmtAmt(lastOf(exp12).v), fmtAmt(lastOf(imp12).v)) + "</div>";
+
+  // ---- net exports against GDP (NIPA, since 1947) and their contribution to growth ----
+  const nx = Q.filter(r => r.netN !== null).map(r => ({ d: r.d, v: r.netN / r.gdp * 100 }));
+  if (nx.length) {
+    plotSeries("trGdpChart", "trGdpTooltip", null, nx.map(p => p.d), [{ name: T.legTrNetGdp, color: "--series-headline", data: nx.map(p => p.v) }],
+      { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+    const contrib = (TRADE.quarterly || []).filter(r => r.cNet !== null).slice(-16);
+    drawMomColumns(document.getElementById("trContribChart"), contrib.map(p => ({ d: p.d, mom: p.cNet })), "--series-core", { fmt: v => sgnFix(v, 1) + " pp", decimals: 1, labelFmt: d => fmtQuarter(d) });
+    const nxCur = lastOf(nx), nxLow = troughOf(nx), lastSurplus = lastOf(Q.filter(r => r.netN !== null && r.netN > 0)), cq = lastOf(contrib);
+    document.getElementById("trGdpCallout").innerHTML = "<div>" + T.trGdpNote(fmtQuarter(nxCur.d), sg1(nxCur.v), sg1(nxLow.v), fmtQuarter(nxLow.d), lastSurplus ? fmtQuarter(lastSurplus.d) : null, fmtQuarter(cq.d), sgnFix(cq.cNet, 1), sgnFix(cq.cExp, 1), sgnFix(cq.cImp, 1)) + "</div><div>" + T.trGdpMethod + "</div>";
+  }
+
+  // ---- import and export prices ----
+  const P = TRADE.prices || [], pm = TRADE.pricesAsOf, pi0 = P.findIndex(r => r.d === pm);
+  if (pi0 > 12) {
+    const pcur = P[pi0], pprev = P[pi0 - 1], pago = at(P, mShift(pm, -12));
+    const yo = (k, r1, r0) => r1 && r0 && r1[k] !== null && r0[k] !== null && r0[k] ? (r1[k] / r0[k] - 1) * 100 : null;
+    const irY = yo("ir", pcur, pago), iqY = yo("iq", pcur, pago), irxpY = yo("irxp", pcur, pago), crudeY = yo("crude", pcur, pago), iqxaY = yo("iqxa", pcur, pago);
+    const irM = yo("ir", pcur, pprev), iqM = yo("iq", pcur, pprev), irxpM = yo("irxp", pcur, pprev), crudeM = yo("crude", pcur, pprev), iqxaM = yo("iqxa", pcur, pprev);
+    const tot = P.filter(r => r.ir !== null && r.iq !== null).map(r => ({ d: r.d, v: r.iq / r.ir * 100 }));
+    const totCur = lastOf(tot), totAgo = atQ(tot, mShift(totCur.d, -12));
+    document.getElementById("trPricesMeta").textContent = T.dataAsOf(fmtMonthYear(pm)) + " · " + nextReleaseText("mxp", fmtMonthYear(nextMonthOf(pm)), T.trPricesNextEst);
+    const tile = (label, y, mm, color, foot) => ({ label: label, value: y === null ? "—" : sgnFix(y, 1) + "%", delta: mm === null ? "" : kpiChange(mm, 1, "%", T.vsPriorMonth), spark: null, color: color, foot: foot });
+    const sparkY = k => mYoY(P, k).slice(-36).map(p => p.v);
+    kpiTiles("trPriceKpiRow", "trp", [
+      Object.assign(tile(T.trKpiImpPrices, irY, irM, "--cat-7", T.trKpiYoyFoot(fmtMonthYear(pm))), { spark: sparkY("ir") }),
+      Object.assign(tile(T.trKpiImpExPet, irxpY, irxpM, "--cat-9", T.trKpiYoyFoot(fmtMonthYear(pm))), { spark: sparkY("irxp") }),
+      Object.assign(tile(T.trKpiExpPrices, iqY, iqM, "--cat-5", T.trKpiYoyFoot(fmtMonthYear(pm))), { spark: sparkY("iq") }),
+      Object.assign(tile(T.trKpiExpNonAg, iqxaY, iqxaM, "--cat-3", T.trKpiYoyFoot(fmtMonthYear(pm))), { spark: sparkY("iqxa") }),
+      Object.assign(tile(T.trKpiCrude, crudeY, crudeM, "--cat-1", T.trKpiYoyFoot(fmtMonthYear(pm))), { spark: sparkY("crude") }),
+      { label: T.trKpiTot, value: totCur.v.toFixed(1), delta: totAgo === null ? "" : kpiChange((totCur.v / totAgo - 1) * 100, 1, "%", T.vsYearAgo), spark: tot.slice(-36).map(p => p.v), color: "--series-core", foot: T.trKpiTotFoot }
+    ]);
+    const pyI = mYoY(P, "ir"), pyIx = mYoY(P, "irxp"), pyE = mYoY(P, "iq"), pyEx = mYoY(P, "iqxa"), lab3 = pyI.map(p => p.d);
+    plotSeries("trImpPriceChart", "trImpPriceTooltip", "trImpPriceLegend", lab3, [
+      { name: T.legTrImpAll, color: "--cat-7", data: pyI.map(p => p.v) },
+      { name: T.legTrImpExPet, color: "--cat-9", data: qSeries(lab3, pyIx) }
+    ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+    plotSeries("trExpPriceChart", "trExpPriceTooltip", "trExpPriceLegend", lab3, [
+      { name: T.legTrExpAll, color: "--cat-5", data: qSeries(lab3, pyE) },
+      { name: T.legTrExpNonAg, color: "--cat-3", data: qSeries(lab3, pyEx) }
+    ], { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+    document.getElementById("trPriceCallout").innerHTML = "<div>" + T.trPriceNote(fmtMonthYear(pm), irY === null ? "—" : sg1(irY), irxpY === null ? "—" : sg1(irxpY), crudeY === null ? null : sg1(crudeY), iqY === null ? "—" : sg1(iqY), totCur.v.toFixed(1), totAgo === null ? null : sg1((totCur.v / totAgo - 1) * 100)) + "</div><div>" + T.trPriceMethod + "</div>";
+    // by country of origin
+    const locKeys = ["cn", "mx", "ca", "jp", "eu"], locColors = { cn: "--cat-1", mx: "--cat-2", ca: "--cat-3", jp: "--cat-4", eu: "--cat-5" };
+    const locY = {}; locKeys.forEach(k => { locY[k] = mYoY(P, k); });
+    const lab4 = locY.cn.map(p => p.d);
+    if (lab4.length) {
+      plotSeries("trOriginChart", "trOriginTooltip", "trOriginLegend", lab4, locKeys.map(k => ({ name: nameOf("loc:" + k), color: locColors[k], data: qSeries(lab4, locY[k]) })),
+        { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+      const locCur = locKeys.map(k => { const p = lastOf(locY[k]); return p ? { name: proseName("loc", k), v: p.v, d: p.d } : null; }).filter(Boolean).sort((a, b) => a.v - b.v);
+      const lo = locCur[0], hi = locCur[locCur.length - 1];
+      document.getElementById("trOriginCallout").innerHTML = "<div>" + T.trOriginNote(fmtMonthYear(lo.d), lo.name, sg1(lo.v), hi.name, sg1(hi.v), locCur.map(x => x.name + " " + sg1(x.v)).join(", ")) + "</div>";
+    }
+  }
+
+  // ---- goods trade by partner ----
+  const PT = TRADE.partners, pi = PT && PT.months ? PT.months.indexOf(PT.asOf) : -1;
+  const stats = partnerStats(PT, pi);
+  if (stats.length >= 5) {
+    const s12w = arr => { let s = 0; for (let j = pi - 11; j <= pi; j++) { if (arr[j] === null || arr[j] === undefined) return null; s += arr[j]; } return s; };
+    const wExp = s12w(PT.data.world.exp), wImp = s12w(PT.data.world.imp), wTot = wExp + wImp;
+    document.getElementById("trPartnersAsOf").textContent = T.trTwelveTo(fmtMonthYear(PT.asOf));
+    const byBal = stats.slice().sort((a, b) => a.bal - b.bal);
+    renderBarList("trPartnerBalList", byBal.map(s => ({ name: s.name, value: s.bal, color: s.bal < 0 ? "--cat-7" : "--cat-5" })), v => fmtBnS(v, 0));
+    const byTotal = stats.slice().sort((a, b) => b.total - a.total);
+    renderBarList("trPartnerTotalList", byTotal.map(s => ({ name: s.name, value: s.total / wTot * 100, color: "--series-core" })), v => pct1(v));
+    const shareKeys = ["cn", "mx", "ca", "eu", "vn"], shareColors = { cn: "--cat-1", mx: "--cat-2", ca: "--cat-3", eu: "--cat-5", vn: "--cat-7" }, shares = {};
+    shareKeys.forEach(k => {
+      shares[k] = [];
+      for (let j = 11; j < PT.months.length; j++) {
+        let a = 0, w = 0, ok = true;
+        for (let t = j - 11; t <= j; t++) { const x = PT.data[k].imp[t], y = PT.data.world.imp[t]; if (x === null || x === undefined || y === null || y === undefined) { ok = false; break; } a += x; w += y; }
+        if (ok && w) shares[k].push({ d: PT.months[j], v: a / w * 100 });
+      }
+    });
+    const lab5 = shares.cn.map(p => p.d);
+    plotSeries("trShareChart", "trShareTooltip", "trShareLegend", lab5, shareKeys.map(k => ({ name: nameOf("ptn:" + k), color: shareColors[k], data: qSeries(lab5, shares[k]) })),
+      { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+    const surplus = byBal[byBal.length - 1].bal > 0 ? byBal[byBal.length - 1] : null;
+    const topImp = stats.slice().sort((a, b) => b.imp - a.imp)[0], cnPeak = peakOf(shares.cn), last = k => lastOf(shares[k]);
+    document.getElementById("trPartnerCallout").innerHTML = "<div>" + T.trPartnerNote(fmtMonthYear(PT.asOf), byBal[0].prose, fmtBnS(Math.abs(byBal[0].bal), 0), byBal[1].prose, fmtBnS(Math.abs(byBal[1].bal), 0), byBal[2].prose, fmtBnS(Math.abs(byBal[2].bal), 0), surplus ? surplus.prose : null, surplus ? fmtBnS(surplus.bal, 0) : null, byTotal[0].prose, pct1(byTotal[0].total / wTot * 100), byTotal[1].prose, pct1(byTotal[1].total / wTot * 100)) + "</div><div>" +
+      T.trShareNote(topImp.prose, pct1(topImp.imp / wImp * 100), pct1(last("cn").v), pct1(cnPeak.v), fmtMonthYear(cnPeak.d), pct1(last("mx").v), pct1(last("ca").v), pct1(last("eu").v), pct1(last("vn").v)) + "</div>";
+  }
+
+  // ---- customs duties and the effective tariff rate ----
+  const C = TRADE.customs && TRADE.customs.monthly ? TRADE.customs.monthly : [], secT = document.getElementById("trTariffSection");
+  if (C.length >= 24 && PT && pi >= 0) {
+    if (secT) secT.hidden = false;
+    const cm = lastOf(C), cAgo = at(C, mShift(cm.d, -12));
+    const wi = d => { const j = PT.months.indexOf(d); return j >= 0 ? PT.data.world.imp[j] : null; };
+    // Gross collections are what importers paid at entry on the month's imports; refunds (court-ordered
+    // or routine) are returned later and can be large, so the rate uses gross and the chart shows both.
+    const rate = C.map(c => { const w = wi(c.d); return w ? { d: c.d, v: c.gross / w * 100 } : null; }).filter(Boolean);
+    const rCur = lastOf(rate), rAgo = atQ(rate, mShift(rCur.d, -12)), rPeak = peakOf(rate);
+    const c12 = rollSum(C, "gross", 12), c12Cur = lastOf(c12), c12Ago = atQ(c12, mShift(c12Cur.d, -12));
+    document.getElementById("trTariffAsOf").textContent = T.dataAsOf(fmtMonthYear(cm.d));
+    plotSeries("trDutiesChart", "trDutiesTooltip", "trDutiesLegend", C.map(c => c.d), [
+      { name: T.legTrDuties, color: "--cat-9", data: C.map(c => c.gross) },
+      { name: T.legTrDutiesNet, color: "--cat-3", data: C.map(c => c.net), dashed: true }
+    ], { fmt: v => fmtBnS(v), axisFmt: v => fmtBnS(v, 0), labelFmt: fmtMonthYear, tickFmt: qTick });
+    plotSeries("trRateChart", "trRateTooltip", null, rate.map(p => p.d), [{ name: T.legTrRate, color: "--series-headline", data: rate.map(p => p.v) }],
+      { fmt: v => pct1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtMonthYear, tickFmt: qTick });
+    document.getElementById("trTariffCallout").innerHTML = "<div>" + T.trTariffNote(fmtMonthYear(cm.d), fmtBnS(cm.gross), cAgo ? fmtBnS(cAgo.gross) : null, fmtBnS(cm.refund), fmtBnS(cm.net), fmtMonthYear(rCur.d), pct1(rCur.v), rAgo === null ? null : pct1(rAgo), pct1(rPeak.v), fmtMonthYear(rPeak.d), fmtAmt(c12Cur.v), c12Ago === null ? null : fmtAmt(c12Ago)) + "</div><div>" + T.trTariffMethod + "</div>";
+  } else if (secT) secT.hidden = true;
+}
+
+// ---------- view: foreign direct investment and the net international investment position (BEA) ----------
+function renderIip() {
+  if (!IIP || !IIP.quarterly || IIP.quarterly.length < 20 || !IIP.asOf) return;
+  const R = IIP.quarterly, q = IIP.asOf, row = R.find(r => r.d === q), ago = R.find(r => r.d === qShift(q, -4)), nextQ = qShift(q, 1);
+  if (!row) return;
+  const pc = (a, b) => a !== null && b ? (a / b - 1) * 100 : null;
+
+  // ---- header ----
+  document.getElementById("iiAsOfLine").textContent = T.dataAsOf(fmtQuarter(q));
+  (function () { const d = calendarNextDate("iip"), what = fmtQuarter(nextQ);
+    document.getElementById("iiNextReleaseLine").textContent = d ? T.iiNext(fmtDateDMY(d), what) : T.iiNextEst(fmtMonthYear(monthAfterQuarter(nextQ, 3)), what); })();
+  document.getElementById("iiRefreshedLine").textContent = freshnessLabel("snapshot", IIP.fetchedAt, "FRED");
+
+  // ---- KPIs ----
+  const netPct = R.filter(r => r.gdp && r.net !== null).map(r => ({ d: r.d, v: r.net / r.gdp * 100 }));
+  const npCur = lastOf(netPct), npAgo = npCur ? atQ(netPct, qShift(npCur.d, -4)) : null;
+  const dTn = (v, vs) => deltaArrow(v, 1) + " $" + (Math.abs(v) / 1000).toFixed(1) + T.sfxT + " " + vs;
+  const yoyTile = k => ago && ago[k] ? kpiChange(pc(row[k], ago[k]), 1, "%", T.vsYearAgo) : "";
+  kpiTiles("iiKpiRow", "ii", [
+    { label: T.iiKpiNet, value: tileTn(row.net), delta: ago ? dTn(row.net - ago.net, T.vsYearAgo) : "", spark: R.slice(-40).map(r => r.net), color: "--series-headline", foot: npCur ? T.iiKpiNetFoot(sgnFix(npCur.v, 1), fmtQuarter(q)) : fmtQuarter(q) },
+    { label: T.iiKpiNetPct, value: npCur ? sgnFix(npCur.v, 1) + "%" : "—", delta: npAgo === null ? "" : kpiChange(npCur.v - npAgo, 1, " pp", T.vsYearAgo), spark: netPct.slice(-40).map(p => p.v), color: "--cat-10", foot: T.iiKpiNetPctFoot },
+    { label: T.iiKpiAssets, value: tileTn(row.assets), delta: yoyTile("assets"), spark: R.slice(-40).map(r => r.assets), color: "--cat-5", foot: fmtQuarter(q) },
+    { label: T.iiKpiLiab, value: tileTn(row.liab), delta: yoyTile("liab"), spark: R.slice(-40).map(r => r.liab), color: "--cat-7", foot: fmtQuarter(q) },
+    { label: T.iiKpiFdiIn, value: tileTn(row.diL), delta: yoyTile("diL"), spark: R.slice(-40).map(r => r.diL), color: "--cat-1", foot: T.iiKpiFdiFoot(fmtQuarter(q)) },
+    { label: T.iiKpiFdiOut, value: tileTn(row.diA), delta: yoyTile("diA"), spark: R.slice(-40).map(r => r.diA), color: "--cat-3", foot: T.iiKpiFdiFoot(fmtQuarter(q)) }
+  ]);
+
+  // ---- the long view: annual % of GDP since 1976, quarterly levels since 2006 ----
+  const A = IIP.annual || [], aPct = A.filter(r => r.net !== null && r.gdp).map(r => ({ d: r.d, v: r.net / r.gdp * 100 }));
+  if (aPct.length) plotSeries("iiAnnualChart", "iiAnnualTooltip", null, aPct.map(p => p.d), [{ name: T.legIiNetPct, color: "--series-headline", data: aPct.map(p => p.v) }],
+    { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: d => d, tickFmt: d => d });
+  const tnCol = k => R.map(r => r[k] === null ? null : r[k] / 1000);
+  plotSeries("iiLevelChart", "iiLevelTooltip", "iiLevelLegend", R.map(r => r.d), [
+    { name: T.legIiAssets, color: "--cat-5", data: tnCol("assets") },
+    { name: T.legIiLiab, color: "--cat-7", data: tnCol("liab") },
+    { name: T.legIiNet, color: "--series-headline", data: tnCol("net"), width: 2.5 }
+  ], { fmt: v => fmtTnS(v * 1000), axisFmt: v => (v < 0 ? "−" : "") + "$" + Math.abs(v).toFixed(0) + T.sfxT, labelFmt: fmtQuarter, tickFmt: qTick });
+  const firstNeg = A.find(r => r.net !== null && r.net < 0), decade = npCur ? atQ(netPct, qShift(npCur.d, -40)) : null;
+  document.getElementById("iiLevelCallout").innerHTML = "<div>" + T.iiLevelNote(fmtQuarter(q), fmtTnS(Math.abs(row.net)), row.net < 0, npCur ? sgnFix(npCur.v, 1) + "%" : null, decade === null ? null : sgnFix(decade, 1) + "%", npCur ? fmtQuarter(qShift(npCur.d, -40)) : null, firstNeg && A.slice(A.indexOf(firstNeg)).every(r => r.net === null || r.net < 0) ? firstNeg.d : null, fmtTnS(row.assets), ago ? sg1(pc(row.assets, ago.assets)) : null, fmtTnS(row.liab), ago ? sg1(pc(row.liab, ago.liab)) : null) + "</div>";
+
+  // ---- composition by type of investment ----
+  document.getElementById("iiMixAsOf").textContent = fmtQuarter(q);
+  renderBarList("iiAssetsList", [
+    { name: T.iiTypeDi, value: row.diA / 1000, color: "--cat-1" }, { name: T.iiTypePf, value: row.pfA / 1000, color: "--cat-2" },
+    { name: T.iiTypeOther, value: row.oiA / 1000, color: "--cat-3" }, { name: T.iiTypeDeriv, value: row.fdA / 1000, color: "--cat-4" }, { name: T.iiTypeRes, value: row.res / 1000, color: "--cat-5" }
+  ], v => fmtTnS(v * 1000, 2));
+  renderBarList("iiLiabList", [
+    { name: T.iiTypeDi, value: row.diL / 1000, color: "--cat-1" }, { name: T.iiTypePf, value: row.pfL / 1000, color: "--cat-2" },
+    { name: T.iiTypeOther, value: row.oiL / 1000, color: "--cat-3" }, { name: T.iiTypeDeriv, value: row.fdL / 1000, color: "--cat-4" }
+  ], v => fmtTnS(v * 1000, 2));
+  document.getElementById("iiMixCallout").innerHTML = "<div>" + T.iiMixNote(fmtQuarter(q), fmtTnS(row.pfL), Math.round(row.pfL / row.liab * 100), fmtTnS(row.diL), Math.round(row.diL / row.liab * 100), fmtTnS(row.oiL), fmtTnS(row.diA), Math.round(row.diA / row.assets * 100), fmtTnS(row.pfA), fmtAmt(row.res)) + "</div><div>" + T.iiMixMethod + "</div>";
+
+  // ---- direct investment: positions and flows ----
+  const F = (IIP.flows || []);
+  plotSeries("iiDiPosChart", "iiDiPosTooltip", "iiDiPosLegend", R.map(r => r.d), [
+    { name: T.legIiFdiIn, color: "--cat-1", data: tnCol("diL") },
+    { name: T.legIiFdiOut, color: "--cat-3", data: tnCol("diA") }
+  ], { fmt: v => fmtTnS(v * 1000), axisFmt: v => "$" + v.toFixed(0) + T.sfxT, labelFmt: fmtQuarter, tickFmt: qTick });
+  const roll4 = key => rollSum(F, key, 4);
+  const fIn = roll4("fdiIn"), fOut = roll4("fdiOut"), labF = fIn.map(p => p.d);
+  const fl = lastOf(F.filter(r => r.fdiIn !== null && r.fdiOut !== null));
+  if (fIn.length && fl) {
+    plotSeries("iiDiFlowChart", "iiDiFlowTooltip", "iiDiFlowLegend", labF, [
+      { name: T.legIiFdiInFlow, color: "--cat-1", data: fIn.map(p => p.v) },
+      { name: T.legIiFdiOutFlow, color: "--cat-3", data: qSeries(labF, fOut) }
+    ], { fmt: v => fmtBnS(v, 0), axisFmt: v => fmtBnS(v, 0), labelFmt: fmtQuarter, tickFmt: qTick });
+    const fInCur = lastOf(fIn), fOutCur = lastOf(fOut), fInAgo = atQ(fIn, qShift(fInCur.d, -4)), fInPeak = peakOf(fIn);
+    document.getElementById("iiDiCallout").innerHTML = "<div>" + T.iiDiNote(fmtQuarter(q), fmtTnS(row.diL), ago ? sg1(pc(row.diL, ago.diL)) : null, fmtTnS(row.diA), ago ? sg1(pc(row.diA, ago.diA)) : null, fmtTnS(row.diA - row.diL), fmtQuarter(fl.d), fmtBnS(fl.fdiIn, 0), fmtBnS(fl.fdiOut, 0), fmtAmt(fInCur.v), fInAgo === null ? null : fmtAmt(fInAgo), fmtAmt(fOutCur.v), fmtAmt(fInPeak.v), fmtQuarter(fInPeak.d)) + "</div><div>" + T.iiDiMethod + "</div>";
+  }
+
+  // ---- FDI in the US by country (BEA's annual release, when the API block is present) ----
+  const FC = IIP.bea && IIP.bea.fdiCountry, secC = document.getElementById("iiCountrySection");
+  if (FC && FC.countries && FC.countries.length >= 10 && FC.total) {
+    if (secC) secC.hidden = false;
+    const cname = c => nameOf("cty:" + c.name), cprose = c => proseName("cty", c.name);
+    document.getElementById("iiCountryAsOf").textContent = T.iiCountryAsOf(FC.year, fmtTnS(FC.total, 2));
+    renderBarList("iiCountryList", FC.countries.map((c, i) => ({ name: cname(c), value: c.v, color: "--cat-" + ((i % 10) + 1) })), v => fmtBnS(v, 0));
+    const top5 = FC.countries.slice(0, 5).reduce((s, c) => s + c.v, 0);
+    document.getElementById("iiCountryCallout").innerHTML = "<div>" + T.iiCountryNote(FC.year, cprose(FC.countries[0]), fmtBnS(FC.countries[0].v, 0), Math.round(FC.countries[0].v / FC.total * 100), cprose(FC.countries[1]), fmtBnS(FC.countries[1].v, 0), cprose(FC.countries[2]), fmtBnS(FC.countries[2].v, 0), Math.round(top5 / FC.total * 100), fmtTnS(FC.total, 2)) + "</div><div>" + T.iiCountryMethod + "</div>";
+  } else if (secC) secC.hidden = true;
+
+  // ---- the current account, and what moved the position ----
+  // Quarterly flows are not annualized; GDP is, so the share of GDP takes four times the quarter.
+  const caPct = F.filter(r => r.ca !== null && r.gdp).map(r => ({ d: r.d, v: r.ca * 4 / r.gdp * 100 }));
+  const caCur = lastOf(F.filter(r => r.ca !== null));
+  if (caPct.length && caCur) {
+    plotSeries("iiCaChart", "iiCaTooltip", "iiCaLegend", caPct.map(p => p.d), [{ name: T.legIiCaPct, color: "--series-headline", data: caPct.map(p => p.v) }],
+      { fmt: v => sg1(v), axisFmt: v => v.toFixed(0) + "%", labelFmt: fmtQuarter, tickFmt: qTick });
+    const caP = lastOf(caPct), caLow = troughOf(caPct), nlf4 = lastOf(roll4("nlf")), pf4 = lastOf(roll4("pfIn")), fdi4 = lastOf(roll4("fdiIn"));
+    const CH = IIP.bea && IIP.bea.change && IIP.bea.change.quarterly, chBox = document.getElementById("iiChangeBox");
+    let chText = "";
+    if (CH && CH.length >= 4) {
+      // BEA splits the quarterly change into financial-account transactions and other changes (price,
+      // exchange-rate and volume changes together; the finer split is annual only).
+      const last4 = CH.slice(-4), sum = k => last4.reduce((s, r) => s + (r[k] || 0), 0);
+      const tot = last4.every(r => r.chg !== null && r.chg !== undefined) ? sum("chg") : sum("trans") + sum("oth");
+      if (chBox) chBox.hidden = false;
+      document.getElementById("iiChangeAsOf").textContent = T.iiChangeSpan(fmtQuarter(last4[0].d), fmtQuarter(last4[3].d));
+      renderBarList("iiChangeList", [
+        { name: T.iiChgTrans, value: sum("trans") / 1000, color: "--cat-1" }, { name: T.iiChgOth, value: sum("oth") / 1000, color: "--cat-2" }
+      ], v => fmtTnS(v * 1000, 2));
+      chText = T.iiChangeNote(fmtQuarter(last4[0].d), fmtQuarter(last4[3].d), fmtTnS(tot, 2), fmtTnS(sum("trans"), 2), fmtTnS(sum("oth"), 2));
+    } else if (chBox) chBox.hidden = true;
+    document.getElementById("iiCaCallout").innerHTML = "<div>" + T.iiCaNote(fmtQuarter(caCur.d), fmtBnS(Math.abs(caCur.ca), 0), caCur.ca < 0 ? T.trDeficitWord : T.trSurplusWord, sg1(caP.v), sg1(caLow.v), fmtQuarter(caLow.d), fmtBnS(caCur.caG, 0), fmtBnS(caCur.caS, 0), fmtBnS(caCur.caPI, 0), nlf4 ? fmtAmt(Math.abs(nlf4.v)) : null, pf4 ? fmtAmt(pf4.v) : null, fdi4 ? fmtAmt(fdi4.v) : null) + "</div>" + (chText ? "<div>" + chText + "</div>" : "") + "<div>" + T.iiCaMethod + "</div>";
+  }
 }
 
 // ---------- view: private-sector debt (Z.1) ----------
@@ -10935,6 +11933,8 @@ renderDebt();
 renderHhDebt();
 renderBanks();
 renderNonbank();
+renderTrade();
+renderIip();
 renderExecSummaries();
 renderFileDateLines();
 labelCharts();

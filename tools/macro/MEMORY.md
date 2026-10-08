@@ -89,12 +89,27 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
 - **Debt-to-GDP uses the same quarter's nominal GDP at an annual rate**, the Z.1 table D.3
   method; debt in years of profits and the interest share of operating surplus are FNAM
   calculations from table 1.14 and are labeled so.
+- **External sector (8-Oct-2026, owner's request):** two sections in a new rail group "External Sector" after
+  Growth & Spending: `trade` (FT-900 balance, exports and imports via FRED; BLS import/export price indexes by end
+  use and by origin; goods trade by partner on the Census basis; customs duties from the MTS via FiscalData with the
+  effective tariff rate as an FNAM calculation; the NIPA trade lines and net exports' contribution to growth) and
+  `iip` (BEA's IIP by type of investment, the annual net position since 1976, the ITA current account and direct
+  investment flows, plus two optional BEA-API blocks: the change decomposition of the net position and FDI in the US
+  by country at historical cost). Prefixes `tr` and `ii`; names of partners, localities and BEA countries in the
+  `names` map (`ptn:`, `loc:`, `cty:`). Import prices are described as measured before duties (BLS: f.o.b. foreign
+  port) so nobody reads them as what US buyers pay; the effective rate is labelled an approximation (cash basis,
+  net of refunds). Column-chart tooltips now use the chart's `labelFmt` (they printed "undefined 2026" for quarters).
 - **Rail spacing was tightened** (item padding 6px, group margin 14px) when the list grew to
   20 sections and 9 groups; on a 900 px window the rail still scrolls a little (it has
   `overflow-y: auto`), which is accepted.
 
 ## Pitfalls
 
+- **FRED from the sandbox comes and goes (8-Oct-2026):** `curl --http1.1` to fred.stlouisfed.org worked, then timed
+  out or died with HTTP/2 `INTERNAL_ERROR` at the egress proxy for half an hour, then worked again. A watcher loop
+  that polls `fredgraph.csv` once a minute and runs the processors when it answers (through a shim that routes
+  `Invoke-WebRequest` over curl, since PowerShell's own client always times out there) is the way to seed data in a
+  session; the runner remains the canonical path.
 - **Sessions and the new sources (7-Oct-2026):** `curl` reaches fred.stlouisfed.org (keyless
   `fredgraph.csv` and series pages), api.fdic.gov, newyorkfed.org and the BLS API (keyless
   POST, 25 series / 10 years per call, a shared daily quota that runs out), but PowerShell's
@@ -166,6 +181,28 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   CLAUDE.md's Title Case in both languages.
 
 ## Open items
+
+- After the first runner run with `process_trade.ps1` and `process_iip.ps1` (8-Oct-2026): the log should show every
+  identity "OK", `FT-900: … months`, `partners: 16 partners + world`, `customs duties: … months` (FiscalData),
+  `IIP: … quarters` and `ITA: … quarters`, and the two BEA-API blocks either `IIP change decomposition: …` and `FDI in
+  the US by country (<year>): …` or a `::warning::` naming what the API returned (the parameter lists and the first
+  MNE row are printed; adjust the description regexes or the row fields in `process_iip.ps1` from that output). Also
+  that `process_calendar.ps1` lists `trade`, `mxp` and `iip` with next dates, and that `alerts.ps1` seeded the three
+  releases silently ("seeded trade, mxp, iip").
+- BEA's IIP API (first runner run, 8-Oct-2026): `TypeOfInvestment` has 1,323 keys; both `Net` and `FinDerivNet` are
+  described as "U.S. net international investment position" and the latter sorts first (it has no change components,
+  so the block came out empty); the Component descriptions are "Change in position attributable to financial-account
+  transactions / price changes / exchange-rate changes" and "changes in volume and valuation n.i.e." (`ChgPosNie`), with
+  `ChgPosOth` = everything not attributable to transactions; quarterly, only `Pos`, `ChgPos`, `ChgPosTrans` and `ChgPosOth`
+  carry values (the price / exchange-rate / volume split is annual), so the page shows the two-way split, like BEA's
+  quarterly release. Also: a loop that worked on PowerShell 7 assembled nothing on 5.1 until it stopped relying on
+  `$Matches` after `-notmatch` and on `Where-Object` over dictionaries; the block now uses `[regex]::Match`, hashtables
+  with indexers and plain loops. MNE DI rows carry `Row` (country), `RowCode`, `Year`,
+  `TableScale` ("Millions of Dollars") and `DataValue` with thousands separators; SeriesID 22 is the historical-cost
+  FDI position in the US; "United Kingdom Islands, Caribbean" is a BEA country row and stays in the list.
+- The session's seed of `trade_processed.json` and `iip_processed.json` was produced by the real processors run
+  through a curl shim (FRED's keyless CSV mirror; FiscalData directly; no BEA key, so `bea` is empty): the runner's
+  files replace them on the first run.
 
 - Verify with DOE which cavern count for West Hackberry is current (storage-sites
   page: 21; Quick Facts table as of 20-Aug-2026: 22); switch the source if the
