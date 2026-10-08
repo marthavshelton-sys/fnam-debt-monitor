@@ -4769,7 +4769,7 @@ const I18N = {
     iiSecCountryNote: "Posición a costo histórico por país de la matriz extranjera, cierre de año, mmd · BEA, Direct Investment by Country and Industry (anual)",
     iiCountryAsOf: (y, total) => "cierre de " + y + " · todos los países " + total,
     iiCountryNote: (y, c1, v1, s1, c2, v2, c3, v3, top5, total) => "Al cierre de " + y + " el mayor inversionista era " + c1 + " (" + v1 + ", " + s1 + "% del total), seguido de " + c2 + " (" + v2 + ") y " + c3 + " (" + v3 + "); los cinco primeros concentran " + top5 + "% del total de " + total + ".",
-    iiCountryMethod: "Por país de la matriz extranjera (el dueño inmediato), a costo histórico: una posición acumulada durante décadas a los precios de cada época, por lo que subestima el valor de mercado y atribuye inversión a sedes de sociedades tenedoras como Países Bajos y Luxemburgo.",
+    iiCountryMethod: "Por país de la matriz extranjera (el dueño inmediato), a costo histórico: una posición acumulada durante décadas a los precios de cada época, por lo que subestima el valor de mercado y atribuye inversión a sedes de sociedades tenedoras como los Países Bajos y Luxemburgo.",
     iiSecCa: "La cuenta corriente y cómo cambia la posición",
     iiSecCaNote: "Saldo de la cuenta corriente como % del PIB, trimestral, ajustado por estacionalidad, desde 1999; y la variación de la posición neta dividida entre transacciones y efectos de valuación · BEA",
     iiCaTitle: "Saldo de la cuenta corriente, % del PIB",
@@ -4793,6 +4793,8 @@ const I18N = {
       "ptn:sw": "Suiza", "ptn:nl": "Países Bajos", "ptn:it": "Italia", "ptn:fr": "Francia",
       "loc:cn": "China", "loc:mx": "México", "loc:ca": "Canadá", "loc:jp": "Japón", "loc:eu": "Unión Europea", "loc:asean": "ASEAN",
       "ptn:eu:the": "la Unión Europea", "ptn:uk:the": "el Reino Unido", "ptn:nl:the": "los Países Bajos", "loc:eu:the": "la Unión Europea",
+      "cty:Netherlands:the": "los Países Bajos", "cty:United Kingdom:the": "el Reino Unido", "cty:United Kingdom Islands, Caribbean:the": "las islas británicas del Caribe",
+      "cty:United Arab Emirates:the": "los Emiratos Árabes Unidos", "cty:Cayman Islands:the": "las Islas Caimán", "cty:Philippines:the": "Filipinas", "cty:Czech Republic:the": "la República Checa",
       "cty:Japan": "Japón", "cty:Canada": "Canadá", "cty:United Kingdom": "Reino Unido", "cty:Netherlands": "Países Bajos", "cty:Germany": "Alemania",
       "cty:Ireland": "Irlanda", "cty:France": "Francia", "cty:Switzerland": "Suiza", "cty:Luxembourg": "Luxemburgo", "cty:Belgium": "Bélgica",
       "cty:Spain": "España", "cty:Australia": "Australia", "cty:Sweden": "Suecia", "cty:South Korea": "Corea del Sur", "cty:Korea, Republic of": "Corea del Sur",
@@ -6358,6 +6360,8 @@ const I18N = {
       "ptn:sw": "Switzerland", "ptn:nl": "Netherlands", "ptn:it": "Italy", "ptn:fr": "France",
       "loc:cn": "China", "loc:mx": "Mexico", "loc:ca": "Canada", "loc:jp": "Japan", "loc:eu": "European Union", "loc:asean": "ASEAN",
       "ptn:eu:the": "the European Union", "ptn:uk:the": "the United Kingdom", "ptn:nl:the": "the Netherlands", "loc:eu:the": "the European Union",
+      "cty:Netherlands:the": "the Netherlands", "cty:United Kingdom:the": "the United Kingdom", "cty:United Kingdom Islands, Caribbean:the": "the UK Caribbean islands",
+      "cty:United Arab Emirates:the": "the United Arab Emirates", "cty:Cayman Islands:the": "the Cayman Islands", "cty:Philippines:the": "the Philippines", "cty:Czech Republic:the": "the Czech Republic",
       "cty:Japan": "Japan", "cty:Canada": "Canada", "cty:United Kingdom": "United Kingdom", "cty:Netherlands": "Netherlands", "cty:Germany": "Germany",
       "cty:Ireland": "Ireland", "cty:France": "France", "cty:Switzerland": "Switzerland", "cty:Luxembourg": "Luxembourg", "cty:Belgium": "Belgium",
       "cty:Spain": "Spain", "cty:Australia": "Australia", "cty:Sweden": "Sweden", "cty:South Korea": "South Korea", "cty:Korea, Republic of": "South Korea",
@@ -10218,11 +10222,11 @@ function renderIip() {
   const FC = IIP.bea && IIP.bea.fdiCountry, secC = document.getElementById("iiCountrySection");
   if (FC && FC.countries && FC.countries.length >= 10 && FC.total) {
     if (secC) secC.hidden = false;
-    const cname = c => nameOf("cty:" + c.name);
+    const cname = c => nameOf("cty:" + c.name), cprose = c => proseName("cty", c.name);
     document.getElementById("iiCountryAsOf").textContent = T.iiCountryAsOf(FC.year, fmtTnS(FC.total, 2));
     renderBarList("iiCountryList", FC.countries.map((c, i) => ({ name: cname(c), value: c.v, color: "--cat-" + ((i % 10) + 1) })), v => fmtBnS(v, 0));
     const top5 = FC.countries.slice(0, 5).reduce((s, c) => s + c.v, 0);
-    document.getElementById("iiCountryCallout").innerHTML = "<div>" + T.iiCountryNote(FC.year, cname(FC.countries[0]), fmtBnS(FC.countries[0].v, 0), Math.round(FC.countries[0].v / FC.total * 100), cname(FC.countries[1]), fmtBnS(FC.countries[1].v, 0), cname(FC.countries[2]), fmtBnS(FC.countries[2].v, 0), Math.round(top5 / FC.total * 100), fmtTnS(FC.total, 2)) + "</div><div>" + T.iiCountryMethod + "</div>";
+    document.getElementById("iiCountryCallout").innerHTML = "<div>" + T.iiCountryNote(FC.year, cprose(FC.countries[0]), fmtBnS(FC.countries[0].v, 0), Math.round(FC.countries[0].v / FC.total * 100), cprose(FC.countries[1]), fmtBnS(FC.countries[1].v, 0), cprose(FC.countries[2]), fmtBnS(FC.countries[2].v, 0), Math.round(top5 / FC.total * 100), fmtTnS(FC.total, 2)) + "</div><div>" + T.iiCountryMethod + "</div>";
   } else if (secC) secC.hidden = true;
 
   const caPct = F.filter(r => r.ca !== null && r.gdp).map(r => ({ d: r.d, v: r.ca * 4 / r.gdp * 100 }));
