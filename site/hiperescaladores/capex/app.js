@@ -1,4 +1,4 @@
-// Hyperscaler Hub · Module 3: Capex and financing. Reads window.HYP_FIN (written by the hub's build script) and renders
+// Hyperscaler Hub · Module 1: Capex and financing. Coverage: the five majors (owner, 2026-10-08). Reads window.HYP_FIN (written by the hub's build script) and renders
 // every section in the language on screen. No figure is computed here except the labeled FNAM calculations
 // (sums of a company's own quarters, ratios); nothing is imputed: a missing input prints "Not disclosed".
 (function () {
@@ -7,10 +7,8 @@
   if (!F || !H) return;
   var t = H.t, esc = H.esc;
   var CO = Object.values(F.companies);
-  var CORE = CO.filter(function (c) { return c.group === 'core'; });
-  var NEO = CO.filter(function (c) { return c.group !== 'core'; });
   var charts = {};
-  var state = { group: 'core', measure: 'capex_cash', co: 'MSFT', iss: 'all' };
+  var state = { measure: 'capex_cash', co: 'MSFT', iss: 'all' };
   var $ = function (id) { return document.getElementById(id); };
   var set = function (id, html) { var e = $(id); if (e) e.innerHTML = html; };
 
@@ -99,26 +97,25 @@
     set('notices', notes.join(''));
     // KPIs
     // calendarized: every company at the same calendar quarter (H.calTTM); OCF from the same fiscal quarters
-    var X = H.calTTM(CORE, 'capex_cash'), cap = X ? X.total : null, ocf = 0, missing = X ? X.missing.slice() : CORE.map(function (c) { return c.name; });
+    var X = H.calTTM(CO, 'capex_cash'), cap = X ? X.total : null, ocf = 0, missing = X ? X.missing.slice() : CO.map(function (c) { return c.name; });
     if (X) X.rows.forEach(function (r) { if (r.q.ttm.ocf != null) ocf += r.q.ttm.ocf; else { ocf = null; missing.push(r.c.name); } });
     var win = X ? t('UDM al ', 'TTM to ') + H.cq(X.cal) + t(' calendario', ' (calendar)') : '';
     var leases = 0, lm = [];
-    CORE.forEach(function (c) { var qo = lastWith(c, 'ol_liab'), qf = lastWith(c, 'fl_liab'); if (qo) leases += v(qo, 'ol_liab'); if (qf) leases += v(qf, 'fl_liab'); if (!qo || !qf) lm.push(c.name); });
+    CO.forEach(function (c) { var qo = lastWith(c, 'ol_liab'), qf = lastWith(c, 'fl_liab'); if (qo) leases += v(qo, 'ol_liab'); if (qf) leases += v(qf, 'fl_liab'); if (!qo || !qf) lm.push(c.name); });
     var iss = F.debt ? F.debt.deals.reduce(function (s, d) { return s + d.amount; }, 0) * 1e6 : null;
     set('kpis', [
-      [t('Capex en efectivo, UDM, seis principales', 'Cash capex, TTM, core six'), H.money(cap) + (X ? H.src({ title: t('Capex en efectivo UDM, seis principales', 'Cash capex TTM, core six'), rows: [[t('Ventana', 'Window'), win]].concat(H.calRows(X)).concat([[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL)', 'FNAM calculation on T1 figures (XBRL)')]]) }) : ''), win + '. ' + H.offsetNote(X || { offsets: [] }) + (missing.length ? ' ' + t('Sin dato: ', 'Missing: ') + missing.join(', ') : '')],
-      [t('Capex / flujo de operación, seis principales', 'Capex / operating cash flow, core six'), H.capexOcf(ocf ? cap / ocf : null), t('Cálculo FNAM con las mismas sumas UDM calendarizadas', 'FNAM calculation on the same calendarized TTM sums')],
-      [t('Deuda emitida desde ene-2025 (vigente)', 'Debt issued since Jan-2025 (outstanding)'), H.money(iss), t('Diez empresas; bonos, préstamos, convertibles; instantánea FactSet del ', 'Ten companies; bonds, loans, converts; FactSet snapshot of ') + H.date(F.debt && F.debt.pulledAt)],
-      [t('Pasivos por arrendamiento, seis principales', 'Lease liabilities, core six'), H.money(leases), t('Operativos + financieros, último balance etiquetado; excluye arrendamientos aún no iniciados (módulo 6)', 'Operating + finance, latest tagged balance sheet; excludes leases not yet commenced (module 6)') + (lm.length ? '. ' + t('Balance trimestral incompleto: ', 'Quarterly balance incomplete: ') + lm.join(', ') : '')]
+      [t('Capex en efectivo, UDM, cinco grandes', 'Cash capex, TTM, five majors'), H.money(cap) + (X ? H.src({ title: t('Capex en efectivo UDM, cinco grandes', 'Cash capex TTM, five majors'), rows: [[t('Ventana', 'Window'), win]].concat(H.calRows(X)).concat([[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL)', 'FNAM calculation on T1 figures (XBRL)')]]) }) : ''), win + '. ' + H.offsetNote(X || { offsets: [] }) + (missing.length ? ' ' + t('Sin dato: ', 'Missing: ') + missing.join(', ') : '')],
+      [t('Capex / flujo de operación, cinco grandes', 'Capex / operating cash flow, five majors'), H.capexOcf(ocf ? cap / ocf : null), t('Cálculo FNAM con las mismas sumas UDM calendarizadas', 'FNAM calculation on the same calendarized TTM sums')],
+      [t('Deuda emitida desde ene-2025 (vigente)', 'Debt issued since Jan-2025 (outstanding)'), H.money(iss), t('Cinco empresas; bonos, préstamos, convertibles; instantánea FactSet del ', 'Five companies; bonds, loans, converts; FactSet snapshot of ') + H.date(F.debt && F.debt.pulledAt)],
+      [t('Pasivos por arrendamiento, cinco grandes', 'Lease liabilities, five majors'), H.money(leases), t('Operativos + financieros, último balance etiquetado; excluye arrendamientos aún no iniciados (módulo 3)', 'Operating + finance, latest tagged balance sheet; excludes leases not yet commenced (module 3)') + (lm.length ? '. ' + t('Balance trimestral incompleto: ', 'Quarterly balance incomplete: ') + lm.join(', ') : '')]
     ].map(function (k) { return '<div class="kpi"><div class="lbl">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>'; }).join(''));
   }
 
   // ---------- 01 trend ----------
   function trend() {
-    var grp = state.group === 'core' ? CORE : NEO;
-    seg('segGroup', [['core', t('Seis principales', 'Core six')], ['neo', t('Neonubes listadas', 'Listed neoclouds')]], state.group, function (x) { state.group = x; trend(); });
+    var grp = CO;
     seg('segMeasure', [['capex_cash', t('Capex en efectivo', 'Cash capex')], ['capex_incl_fl', t('Incl. arrendamientos financieros', 'Incl. finance leases')]], state.measure, function (x) { state.measure = x; trend(); });
-    set('trendDesc', t('Compras de propiedades y equipo en efectivo por trimestre, apiladas por empresa y alineadas al trimestre calendario. Microsoft y IREN cierran su año en junio, Oracle y Applied Digital en mayo: sus trimestres que terminan en febrero, mayo, agosto y noviembre se comparan con el trimestre calendario que termina un mes después. La vista "incl. arrendamientos financieros" suma los activos recibidos mediante arrendamiento financiero, que no pasan por el estado de flujos: es la parte de la expansión que llega como deuda y no como efectivo.', 'Cash purchases of property and equipment by quarter, stacked by company and aligned to calendar quarters. Microsoft and IREN close their year in June, Oracle and Applied Digital in May: their quarters ending February, May, August and November are compared with the calendar quarter ending one month later. The "incl. finance leases" view adds assets received under finance leases, which never pass through the cash-flow statement: the part of the buildout that arrives as debt rather than cash.'));
+    set('trendDesc', t('Compras de propiedades y equipo en efectivo por trimestre, apiladas por empresa y alineadas al trimestre calendario. Microsoft cierra su año en junio y Oracle en mayo: los trimestres de Oracle, que terminan en febrero, mayo, agosto y noviembre, se comparan con el trimestre calendario que termina un mes después. La vista "incl. arrendamientos financieros" suma los activos recibidos mediante arrendamiento financiero, que no pasan por el estado de flujos: es la parte de la expansión que llega como deuda y no como efectivo.', 'Cash purchases of property and equipment by quarter, stacked by company and aligned to calendar quarters. Microsoft closes its year in June and Oracle in May: Oracle\'s quarters, which end in February, May, August and November, are compared with the calendar quarter ending one month later. The "incl. finance leases" view adds assets received under finance leases, which never pass through the cash-flow statement: the part of the buildout that arrives as debt rather than cash.'));
     var cqs = {};
     grp.forEach(function (c) { c.quarters.forEach(function (q) { cqs[q.cal] = 1; }); });
     var allQ = Object.keys(cqs).sort();
@@ -223,8 +220,8 @@
       return '<tr><td class="l">' + coName(c) + '</td><td class="l">' + H.fq(q.id) + ' · ' + H.date(q.end) + (s.stale ? H.flag('stale') : '') + '</td>' + ks.map(function (k) { return '<td>' + (DER[k] ? calc(q.ttm[k], k, c, q, true) : ttmCell(c, q, k)) + '</td>'; }).join('') + '</tr>';
     }
     var mrow = function (c) { var q = latest(c); if (!q) return ''; var s = H.stale(c); return '<div class="mrow"><div class="h"><b>' + sw(c) + esc(c.name) + '</b><span class="v">' + H.money(q.ttm.capex_cash) + '</span></div><div class="c">' + t('Capex en efectivo UDM al ', 'Cash capex TTM to ') + H.date(q.end) + ' · ' + t('capex/flujo de op. ', 'capex/OCF ') + H.capexOcf(q.ttm.capex_ocf).replace(/<[^>]+>/g, '') + ' · ' + t('flujo libre ', 'FCF ') + H.money(q.ttm.fcf) + (q.ttm.capex_incl_fl != null ? ' · ' + t('incl. arrend. fin. ', 'incl. fin. leases ') + H.money(q.ttm.capex_incl_fl) : '') + (s.stale ? ' ' + H.flag('stale') : '') + '</div></div>'; };
-    set('ttmTbl', '<div class="only-d"><table><thead>' + head + '</thead><tbody><tr class="grp"><td colspan="' + (ks.length + 2) + '">' + t('Seis principales', 'Core six') + '</td></tr>' + CORE.map(row).join('') + '<tr class="grp"><td colspan="' + (ks.length + 2) + '">' + t('Neonubes listadas', 'Listed neoclouds') + '</td></tr>' + NEO.map(row).join('') + '</tbody></table></div><div class="only-m">' + CO.map(mrow).join('') + '<p class="small muted">' + t('Tabla completa con fuentes (ⓘ) en pantalla ancha o en el CSV.', 'Full table with sources (ⓘ) on a wide screen or in the CSV.') + '</p></div>');
-    set('ttmStamp', H.stamp({ tier: 'T1', asOf: asOfRange, sources: SRC_XBRL(), csv: '/hiperescaladores/csv/capex-financing-quarterly.csv', note: t('Nebius: año fiscal 2025 del 20-F (sin trimestres en XBRL)', 'Nebius: fiscal 2025 from the 20-F (no XBRL quarters)') }));
+    set('ttmTbl', '<div class="only-d"><table><thead>' + head + '</thead><tbody>' + CO.map(row).join('') + '</tbody></table></div><div class="only-m">' + CO.map(mrow).join('') + '<p class="small muted">' + t('Tabla completa con fuentes (ⓘ) en pantalla ancha o en el CSV.', 'Full table with sources (ⓘ) on a wide screen or in the CSV.') + '</p></div>');
+    set('ttmStamp', H.stamp({ tier: 'T1', asOf: asOfRange, sources: SRC_XBRL(), csv: '/hiperescaladores/csv/capex-financing-quarterly.csv' }));
     // guidance (T2)
     var G = F.guidance;
     set('guideT', t('Guía de capex de las empresas', 'Company capex guidance') + ' ' + H.tier('T2'));
@@ -256,13 +253,13 @@
     var ks = ['ocf', 'capex_cash', 'debt_proceeds', 'debt_repaid', 'cp_net', 'equity_proceeds', 'pref_proceeds', 'buybacks', 'dividends'];
     var head = '<tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('UDM al', 'TTM to') + '</th>' + ks.map(function (k) { return '<th>' + esc(sname(k)) + '</th>'; }).join('') + '</tr>';
     function row(c) { var q = latest(c); if (!q) return ''; return '<tr><td class="l">' + coName(c) + '</td><td class="l">' + H.date(q.end) + '</td>' + ks.map(function (k) { return '<td>' + (q.ttm[k] == null && !q.m[k] ? H.ntCell(c.ticker, k, { why: t('Sin etiqueta en los cuatro trimestres', 'Not tagged in the four quarters'), ttm: true }) : ttmCell(c, q, k)) + '</td>'; }).join('') + '</tr>'; }
-    set('fundTbl', '<table><thead>' + head + '</thead><tbody><tr class="grp"><td colspan="11">' + t('Seis principales', 'Core six') + '</td></tr>' + CORE.map(row).join('') + '<tr class="grp"><td colspan="11">' + t('Neonubes listadas', 'Listed neoclouds') + '</td></tr>' + NEO.map(row).join('') + '</tbody></table>');
+    set('fundTbl', '<table><thead>' + head + '</thead><tbody>' + CO.map(row).join('') + '</tbody></table>');
     set('fundStamp', H.stamp({ tier: 'T1', asOf: asOfRange, sources: SRC_XBRL(), csv: '/hiperescaladores/csv/capex-financing-quarterly.csv', note: t('Signos como en el estado de flujos: las salidas (capex, pagos, recompras, dividendos) se reportan en positivo', 'Signs as in the cash-flow statement: outflows (capex, repayments, buybacks, dividends) are reported as positive') }));
   }
 
   // ---------- 05 leverage ----------
   function leverage() {
-    set('levDesc', t('Saldos al último balance trimestral etiquetado. "Deuda neta ajustada por arrendamientos" suma los pasivos por arrendamiento operativo y financiero ya reconocidos (ASC 842); los arrendamientos firmados que aún no inician no están en el balance y se muestran por separado en el módulo 6, nunca sumados aquí. La columna FactSet es un cotejo independiente de la deuda total. Cobertura = utilidad de operación UDM ÷ gasto por intereses UDM (neto de intereses capitalizados, que se muestran aparte).', 'Balances at the latest tagged quarterly balance sheet. "Lease-adjusted net debt" adds operating and finance lease liabilities already recognized (ASC 842); leases signed but not yet commenced are not on the balance sheet and are shown separately in module 6, never added here. The FactSet column is an independent check of total debt. Coverage = TTM operating income ÷ TTM interest expense (net of capitalized interest, shown separately).'));
+    set('levDesc', t('Saldos al último balance trimestral etiquetado. "Deuda neta ajustada por arrendamientos" suma los pasivos por arrendamiento operativo y financiero ya reconocidos (ASC 842); los arrendamientos firmados que aún no inician no están en el balance y se muestran por separado en el módulo 3, nunca sumados aquí. La columna FactSet es un cotejo independiente de la deuda total. Cobertura = utilidad de operación UDM ÷ gasto por intereses UDM (neto de intereses capitalizados, que se muestran aparte).', 'Balances at the latest tagged quarterly balance sheet. "Lease-adjusted net debt" adds operating and finance lease liabilities already recognized (ASC 842); leases signed but not yet commenced are not on the balance sheet and are shown separately in module 3, never added here. The FactSet column is an independent check of total debt. Coverage = TTM operating income ÷ TTM interest expense (net of capitalized interest, shown separately).'));
     var head = '<tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('Balance al', 'Balance at') + '</th><th>' + sname('cash') + '</th><th>' + sname('debt') + '</th><th>' + t('FactSet (cotejo)', 'FactSet (check)') + '</th><th>' + t('Deuda neta', 'Net debt') + '</th><th>' + sname('ol_liab') + '</th><th>' + sname('fl_liab') + '</th><th>' + t('DN ajust. por arrend.', 'Lease-adj. net debt') + '</th><th>EBITDA ' + t('UDM', 'TTM') + '</th><th>' + t('DN / EBITDA', 'ND / EBITDA') + '</th><th>' + t('DN ajust. / EBITDA', 'Adj. ND / EBITDA') + '</th><th>' + t('Cobertura (EBIT / int.)', 'Coverage (EBIT / int.)') + '</th><th>' + t('Int. capitalizados UDM', 'Cap. interest TTM') + '</th></tr>';
     function row(c) {
       var q = lastWith(c, 'debt') || lastWith(c, 'cash'); if (!q) return '';
@@ -273,7 +270,7 @@
       var d = q.d || {};
       return '<tr><td class="l">' + coName(c) + '</td><td class="l">' + H.date(q.end) + '</td><td>' + cell(c, q, 'cash') + '</td><td>' + cell(c, q, 'debt') + '</td><td>' + fsCell + '</td><td>' + calcM(d.net_debt, c, q, t('deuda total − efectivo e inversiones de corto plazo', 'total debt − cash and short-term investments'), q.m.debt ? 'cash' : 'debt') + '</td><td>' + cell(c, q, 'ol_liab') + '</td><td>' + cell(c, q, 'fl_liab') + '</td><td>' + calcM(d.lease_adj_net_debt, c, q, t('deuda neta + pasivos por arrendamiento operativo + financiero (sin arrendamientos no iniciados)', 'net debt + operating + finance lease liabilities (excludes leases not yet commenced)'), q.m.ol_liab ? 'fl_liab' : 'ol_liab') + '</td><td>' + calcM(lq.ttm.ebitda, c, lq, t('utilidad de operación UDM + D&A UDM', 'TTM operating income + TTM D&A'), 'da') + '</td><td>' + H.mult(q.ttm.nd_ebitda, 2) + '</td><td>' + H.mult(q.ttm.land_ebitda, 2) + '</td><td>' + H.mult(lq.ttm.int_cov, 1) + '</td><td>' + (lq.ttm.interest_cap != null ? ttmCell(c, lq, 'interest_cap') : H.ntCell(c.ticker, 'interest_cap', { ttm: true })) + '</td></tr>';
     }
-    set('levTbl', '<table><thead>' + head + '</thead><tbody><tr class="grp"><td colspan="14">' + t('Seis principales', 'Core six') + '</td></tr>' + CORE.map(row).join('') + '<tr class="grp"><td colspan="14">' + t('Neonubes listadas', 'Listed neoclouds') + '</td></tr>' + NEO.map(row).join('') + '</tbody></table>');
+    set('levTbl', '<table><thead>' + head + '</thead><tbody>' + CO.map(row).join('') + '</tbody></table>');
     set('levStamp', H.stamp({ tier: 'T1', asOf: asOfRange, sources: SRC_XBRL().concat(F.debt ? [{ label: 'FactSet Debt Capital Structure (' + H.date(F.debt.pulledAt) + ')' }] : []), csv: '/hiperescaladores/csv/balance-leverage-quarterly.csv', note: t('Deuda neta negativa = efectivo neto. "cotejado" = FactSet y XBRL difieren ≤ 2% en la misma fecha', 'Negative net debt = net cash. "matched" = FactSet and XBRL differ ≤ 2% at the same date') }));
   }
   function calcM(val, c, q, how, dep) {
@@ -349,7 +346,7 @@
     if (!D) { set('strTbl', H.nd()); return; }
     var cols = [['total', t('Total', 'Total')], ['st', t('Corto plazo', 'Short-term')], ['bonds', t('Bonos', 'Bonds')], ['termLoans', t('Préstamos a plazo', 'Term loans')], ['revolver', t('Revolvente', 'Revolver')], ['other', t('Otros', 'Other')], ['secured', t('Garantizada', 'Secured')], ['convertible', t('Convertible', 'Convertible')], ['nonRecourse', t('Sin recurso', 'Non-recourse')], ['variable', t('Tasa variable', 'Floating rate')]];
     function row(c) { var x = D.totals[c.ticker]; if (!x) return ''; return '<tr><td class="l">' + coName(c) + '</td><td class="l">' + H.date(x.report) + '</td>' + cols.map(function (k, i) { return '<td' + (i === 6 ? ' style="border-left:1px solid var(--baseline)"' : '') + '>' + H.moneyM(x[k[0]]) + '</td>'; }).join('') + '</tr>'; }
-    set('strTbl', '<table><thead><tr><th scope="col" class="l">' + t('Empresa', 'Company') + '</th><th scope="col" class="l">' + t('Al', 'At') + '</th>' + cols.map(function (k, i) { return '<th scope="col"' + (i === 6 ? ' style="border-left:1px solid var(--baseline)"' : '') + '>' + k[1] + '</th>'; }).join('') + '</tr></thead><tbody><tr class="grp"><td colspan="12">' + t('Seis principales', 'Core six') + '</td></tr>' + CORE.map(row).join('') + '<tr class="grp"><td colspan="12">' + t('Neonubes listadas', 'Listed neoclouds') + '</td></tr>' + NEO.map(row).join('') + '</tbody></table>');
+    set('strTbl', '<table><thead><tr><th scope="col" class="l">' + t('Empresa', 'Company') + '</th><th scope="col" class="l">' + t('Al', 'At') + '</th>' + cols.map(function (k, i) { return '<th scope="col"' + (i === 6 ? ' style="border-left:1px solid var(--baseline)"' : '') + '>' + k[1] + '</th>'; }).join('') + '</tr></thead><tbody>' + CO.map(row).join('') + '</tbody></table>');
     set('strStamp', H.stamp({ tier: 'FS', asOf: asOfRange, sources: [{ label: 'FactSet Debt Capital Structure · ' + D.file }], note: t('Instantánea fechada; se renueva tras cada 10-Q/10-K (FactSet no forma parte de la reconstrucción diaria)', 'Dated snapshot; renewed after each 10-Q/10-K (FactSet is not part of the daily rebuild)') }));
   }
 
@@ -360,10 +357,10 @@
   // conclusion title and "so what", composed from the same calendarized window as the KPIs
   var ocfCh = null;
   function conclusion() {
-    var X = H.calTTM(CORE, 'capex_cash'), ocf = 0; if (!X) return;
+    var X = H.calTTM(CO, 'capex_cash'), ocf = 0; if (!X) return;
     X.rows.forEach(function (r) { ocf = ocf == null || r.q.ttm.ocf == null ? null : ocf + r.q.ttm.ocf; });
     var over = CO.filter(function (c) { var q = latest(c); return q && !H.aged(q.end) && q.ttm.capex_cash != null && q.ttm.ocf != null && (q.ttm.ocf <= 0 || q.ttm.capex_cash > q.ttm.ocf); });
-    if (ocf) H.title('El Capex Absorbe ' + H.num(X.total / ocf * 100, 0) + '% del Flujo de los Seis Principales y Lo Supera en ' + over.length + ' de ' + CO.length + ' Empresas', 'Capex Takes ' + H.num(X.total / ocf * 100, 0) + '% of the Core Six\'s Cash Flow and Exceeds It at ' + over.length + ' of ' + CO.length + ' Companies');
+    if (ocf) H.title('El Capex Absorbe ' + H.num(X.total / ocf * 100, 0) + '% del Flujo de las Cinco Grandes y Lo Supera en ' + over.length + ' de ' + CO.length + ' Empresas', 'Capex Takes ' + H.num(X.total / ocf * 100, 0) + '% of the Five Majors\' Cash Flow and Exceeds It at ' + over.length + ' of ' + CO.length + ' Companies');
     H.soWhat(t('Donde el capex supera al flujo de operación (' + over.map(function (c) { return c.name; }).join(', ') + '), la diferencia se paga con deuda, arrendamientos, acciones o caja: la sección 04 muestra con qué, empresa por empresa, y la 06 cuánta deuda se emitió desde 2025.', 'Where capex exceeds operating cash flow (' + over.map(function (c) { return c.name; }).join(', ') + '), the gap is paid with debt, leases, equity or cash: section 04 shows which, company by company, and section 06 how much debt was issued since 2025.'));
   }
   function ocfChart() {

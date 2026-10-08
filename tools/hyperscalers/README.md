@@ -1,24 +1,61 @@
 # Hyperscaler Hub — runbook
 
-Pages: `site/hiperescaladores/` (summary), `capacidad/` (module 1), `comprometida/` (2), `capex/` (3), `electricidad/`
-(4), `sitios/` (5), `fuera-de-balance/` (6), `circular/` (7), `retorno/` (8, payoff and cost of money), `metodologia/`,
-`glosario/`, and a data-quality page per module (`<module>/quality.html`). `/hyperscalers/*` redirects here. Phases 2–3 (modules 1, 2, 4, 5, 7) approved by the
-owner on 2026-10-03 ("when in doubt, the SEC filings reign supreme").
+Pages: `site/hiperescaladores/` (summary), `capex/` (module 1), `electricidad/` (2), `fuera-de-balance/` (3), `circular/` (4),
+`retorno/` (5, payoff and cost of money), `metodologia/`, `glosario/`, and a data-quality page per module
+(`<module>/quality.html`). `/hyperscalers/*` redirects here; the retired `capacidad/`, `comprometida/` and `sitios/` addresses
+redirect to the summary (`site/_redirects`). Phases 2–3 approved by the owner on 2026-10-03 ("when in doubt, the SEC filings
+reign supreme").
 
-Coverage (owner's choice, 2026-10-03): MSFT, GOOGL, AMZN, META, ORCL, CRWV (core) and NBIS, IREN, APLD, CORZ
-(listed neoclouds), in `companies.json`. Public for now; the owner plans a password in a few weeks — copy
+Coverage (owner's choice, 2026-10-08): MSFT, GOOGL, AMZN, META, ORCL, in `companies.json → companies`. Until 2026-10-08 the hub
+also covered CoreWeave (CRWV) and the listed neoclouds Nebius (NBIS), IREN, Applied Digital (APLD) and Core Scientific (CORZ);
+see "Coverage narrowed (8-Oct-2026)" below. Public for now; the owner plans a password in a few weeks — copy
 `functions/oma/_middleware.js` to `functions/hiperescaladores/_middleware.js` with its own secret.
+
+**Module numbers in the dated sections below (rounds 3–5, open items) are the ones in force when they were written (1–8).**
+Since 8-Oct-2026 the map is: old 3 → 1 (capex), old 4 → 2 (power), old 6 → 3 (off-balance-sheet), old 7 → 4 (circular),
+old 8 → 5 (payoff); old 1, 2 and 5 (capacity, committed capacity, sites) are retired.
+
+## Coverage narrowed (8-Oct-2026)
+
+The owner removed CoreWeave, Nebius, IREN, Applied Digital and Core Scientific from the coverage (comparability: together they
+spend about 6% of the five majors' capex, fund it with converts and equity, depend on one or two customers, two are former
+bitcoin miners, two are lessors, Nebius has no quarterly XBRL). What changed:
+
+- `companies.json` has `companies` (the five majors; no `group` field any more) and `counterparties` (the five removed
+  names with CIK and `kind`). `fetch-edgar.mjs` polls the counterparties' submissions only (no XBRL); `harvest-notes.mjs`
+  harvests their 10-K/10-Q/20-F; `build-modules.mjs` and `loadHarvest` load both lists, so Circular's flows keep their T1
+  citations (the neoclouds' own filings). `build.mjs` builds financials for the covered companies only and filters the raw
+  FactSet debt snapshot (tranches, totals, notes) to them; the previous build's values of a company that left the coverage
+  are dropped from the diff base so the change log does not fill with "removed" entries (the curated log explains it).
+- Modules 1 (capacity), 2 (committed) and 5 (sites) were retired: 7 of 7 operating-MW records, 13 of 14 committed records and
+  29 of 36 sites belonged to the five. `capacity.json`, `sites.json`, `build-map.mjs`, `assets/map-data.js`, the three page
+  folders, their quality pages, `data/{capacity,sites}.js` and the capacity/sites CSVs are gone; the Oracle T2 capacity and
+  sites that lived there stay on the Oracle page. The power bridge (module 4, `payoff.json → powerBridge`), the T4 capacity
+  estimates (`mwEstimates`), capex per GW (`capexPerMW`, CoreWeave only) and `ratingsSearched` left `payoff.json` and the pages.
+- Curated files were filtered to the five majors: `power.json` (IREN's two deals and the neoclouds' `searched` rows),
+  `offbs.json` (7 items), `not-tagged.json` (60 of 108 records), `outliers.json` (6), `deal-matches.json` (27 of 45),
+  `guidance.json` (5), `scope.json` (the Core Scientific, IREN and Oracle Jupiter notes; the lease-basis note stays, module 3).
+  `changelog.json` keeps only the covered companies' entries. The raw files (`raw/factset/*`, `raw/notes/<T>/`, `filings.json`,
+  `state.json`) keep the five: the snapshot is a raw pull, and the notes are the quote-check base for Circular.
+- Circular (module 4) keeps all 27 flows and the concentration rows; the five are nodes with `name` and `counterparty: true`,
+  drawn dashed like OpenAI and Anthropic. A flow or concentration row "of" a counterparty is cited from that company's filing
+  (T1 = SEC filing; the filer need not be covered). The summary's fourth "What to know" line lists the majors' capacity
+  contracts at the counterparties (latest per pair, each on its own basis, never summed).
+- Summary page: one thesis grouping (the five majors), four "What to know" lines (capex pace, leases, payoff, circular with
+  the counterparty contracts), a three-column heat map (capex growth, capex/OCF, off-balance-sheet/recognized), one company
+  table, five module tiles. The wording "core six / seis principales" became "the five majors / las cinco grandes" everywhere.
+- The Oracle page's credit section reads the hub's `financials.js`; its caption now states the five-company coverage
+  (`site/oracle/app.js → renderHyperscalers`, `tools/oracle/METHODOLOGY.md`).
 
 ## Pipeline
 
 | Step | Script | Output |
 |---|---|---|
-| EDGAR poll (submissions + XBRL companyfacts) | `scripts/hyperscalers/fetch-edgar.mjs` | `data/xbrl/<T>.json`, `data/filings.json`, `data/state.json` |
+| EDGAR poll (submissions + XBRL companyfacts; submissions only for the counterparties) | `scripts/hyperscalers/fetch-edgar.mjs` | `data/xbrl/<T>.json`, `data/filings.json`, `data/state.json` |
 | Build | `scripts/hyperscalers/build.mjs` | `site/hiperescaladores/data/{financials,changelog,status}.js`, `site/hiperescaladores/csv/*.csv`, `data/{metrics,changelog,derivations}.json` |
-| Build modules 1, 2, 4, 5, 7, 8 | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{capacity,sites,power,circular,payoff,scope}.js`, module CSVs, `data/modules-log.json` |
-| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (eight modules) |
-| Base map (one-off, npm packages) | `scripts/hyperscalers/build-map.mjs` | `site/hiperescaladores/assets/map-data.js` |
-| Notes harvest (runner only) | `scripts/hyperscalers/harvest-notes.mjs` | `raw/notes/<T>/<accession>.json` |
+| Build modules 2, 4, 5 (power, circular, payoff) | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{power,circular,payoff,scope}.js`, module CSVs, `data/modules-log.json` |
+| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (five modules) |
+| Notes harvest (runner only; covered companies and Circular counterparties) | `scripts/hyperscalers/harvest-notes.mjs` | `raw/notes/<T>/<accession>.json` |
 
 Schedule: `.github/workflows/hyperscalers-refresh.yml`, daily 13:20 and 22:20 UTC; commits only when a value,
 filing or note changed (`[skip actions]`). Dispatch with `mode=notes` (and `force_notes=true`) to re-harvest notes.
@@ -44,7 +81,7 @@ owner's email in a User-Agent.
 ## In-session refreshes (FactSet is not available in Actions)
 
 After each 10-Q season (and after each earnings call for guidance):
-1. FactSet Debt Capital Structure: `totals` for the ten tickers and `details` per company at its latest period end;
+1. FactSet Debt Capital Structure: `totals` for the five tickers and `details` per company at its latest period end;
    save as `raw/factset/<YYYY-MM-DD>-debt.json` (same layout as the previous file; tranches issued since 2025-01-01).
    The newest file wins. Deals match a 424B fee exhibit within ±7 days and ±3% or stay "needs review".
 2. FactSet guidance (`estimate_type=guidance`, `CAPEX`, ANN, relative 0–1): update `data/guidance.json`. Oracle's
@@ -76,20 +113,19 @@ read from `tools/oracle/data/obligations.json` (verified by the Oracle routine; 
 records items looked for and confirmed absent ("Not disclosed"). The look-through total is computed only when JV debt
 has been read or confirmed absent; leases not yet commenced (undiscounted) are never added to present-value debt.
 
-## Modules 1, 2, 4, 5, 7 (curated files)
+## Modules 2, 4, 5 (curated files; numbering since 8-Oct-2026)
 
 | File | Module | What it holds |
 |---|---|---|
-| `data/capacity.json` | 1, 2 | Current MW (company definition in `definitions`), pipeline by stage (contracted / under construction / announced), companies with no MW (`notDisclosed`, with what was searched). Oracle's MW come from `tools/oracle/data/buildout.json` (T2). |
-| `data/sites.json` | 5 | Sites the company names in a filing (T1); Oracle's from its store (T2). `lat`/`lon` = the locality the filing names, with `precision` (locality, county, state, country); never campus coordinates. A site whose location is withheld has no point. |
-| `data/power.json` | 4 | `companyDeals` (T1 filings / T2 company or counterparty releases) and `grid` (T3 EIA, ERCOT, PJM, NERC; T4 LBNL, IEA) with `editionDate` and `nextExpected` (amber in the browser 30 days after it). Never mixed or summed. |
-| `data/circular.json` | 7 | `flows` (from → to, type, amount and basis, accounting, citation), `concentration`, and FNAM `inferences` / `breakers`, each listing the flows it rests on (validator fails on an unknown id). |
+| `data/power.json` | 2 | `companyDeals` (T1 filings / T2 company or counterparty releases) and `grid` (T3 EIA, ERCOT, PJM, NERC; T4 LBNL, IEA) with `editionDate` and `nextExpected` (amber in the browser 30 days after it). Never mixed or summed. |
+| `data/circular.json` | 4 | `flows` (from → to, type, amount and basis, accounting, citation), `concentration`, and FNAM `inferences` / `breakers`, each listing the flows it rests on (validator fails on an unknown id). `nodes` carry `name` and `counterparty: true` for the five names outside the coverage. |
+| `data/payoff.json` | 5 | Segments, backlog timing, useful lives, ratings and term sheets (see Round 3). |
 
 Every T1 item cites `src.k` = `"<TICKER> <form> <period end>"` (a harvested filing in `raw/notes/`), `page` (use
 `seqNN` when the filing has no printed number on that page) and `quote`. `build-modules.mjs` resolves the accession and
 URL and checks that the quote appears on that page of the harvested text ("quote matched"; misses are listed on the
-module 1 quality page). Items stay `needs_review` until a second reading (`verified`, `verifiedBy`, `verifiedOn`).
-MW of different definitions are never summed; contract MW (power) are never added to data center MW.
+Circular quality page). Items stay `needs_review` until a second reading (`verified`, `verifiedBy`, `verifiedOn`).
+Contract MW (power) are plant capacity or contract quantity, never data center IT load, and are never summed.
 
 Review cadence: after each 10-Q/10-K harvest and weekly for the T3/T4 grid sources (EIA STEO monthly, NERC LTRA
 yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) feeds the revenue shares in module 7.
@@ -247,30 +283,24 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 
 ## Open items
 
-- Text items in `offbs.json`: 28 of 28 quote-matched on their cited pages (`quoteCheckAccn`) as of 2026-10-04; Applied
-  Digital's SPV amount (US$4.5bn) is quoted from the 10-K (US$2.15bn notes) and the 10-Q (US$2.35bn notes).
-  Capacity and pipeline records in `capacity.json`: all 20 T1 records verified the same day. New items start as `needs_review`.
-- CoreWeave active power: the 10-Q for 2026-06-30 states no active-power figure (searched); keep the 10-K figure until a
-  filing updates it (`newerFilingSearched` on the record).
-- Module 3 debt deals: 44 of 45 FactSet deals without a 424B are matched to an SEC filing (`deal-matches.json`); Alphabet's
-  3 Mar 2026 Swiss-franc notes rest on the 10-Q debt note. FactSet dates IREN's 3.25% converts due 2030 at 22 Dec 2025, which
-  is not their issue date (December 2024): kept with the caveat.
+- Text items in `offbs.json`: 19 of 19 quote-matched on their cited pages (`quoteCheckAccn`) as of 2026-10-08. New items start
+  as `needs_review`.
+- Module 1 (capex) debt deals: the FactSet deals without a 424B are matched to an SEC filing (`deal-matches.json`); Alphabet's
+  3 Mar 2026 Swiss-franc notes rest on the 10-Q debt note.
 - Quarterly derivation across a reclassified comparative (Oracle Q2 FY2026 common-stock proceeds): the build takes the
   latest-filed fact for every period, so a comparative restated under another tag misallocates a quarter without breaking
   the fiscal-year tie-out. A "same vintage" rule (derive a fiscal year's quarters from that year's own filings unless the
   year total is restated too) would fix it; it changes many derived values and needs the owner's go.
 - `reviewedBy` is empty everywhere: no item has a human sign-off yet. The owner's initials and the date in that field are
   what turns "verified (automated)" into "analyst-reviewed".
-- Nebius quarterly figures come from 6-K press releases (no XBRL): T1-furnished text, to be added as curated items.
-- Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow `meta-nbis-2` shows "reading pending").
+- Circular: Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow
+  `meta-nbis-2` shows "reading pending"). The counterparties' filings keep being harvested for these citations.
 - Item 2 "Properties" of Microsoft and Oracle was not captured (upper-case heading); the harvester regex now matches it and the next `mode=notes force_notes=true` run will bring it in.
 - Weekly T3/T4 review is done in-session; a scheduled Claude routine for it needs the owner's go.
-- Module 8: Microsoft's S&P rating and CoreWeave's Moody's rating are not shown (no dated source read in session); Microsoft
-  has no registered bond since 2017, so no term sheet. Daily market spreads have no public source; only new-issue spreads.
-  The three press-sourced ratings (MSFT Aaa, ORCL BBB-, CRWV B+) stay T4: ratings.moodys.com returns an empty page,
-  spglobal.com 403 and fitchratings.com is blocked from the session; no 8-K or term sheet states them.
-- FactSet still projects IREN's next results (1 Dec 2026) and Core Scientific's (11 Nov 2026) after their SEC deadlines
-  (IREN 10-Q 16 Nov, CORZ 10-Q 9 Nov); the calendar flags both. Re-pull the snapshot after the companies confirm.
+- Module 5 (payoff): Microsoft's S&P rating is not shown (no dated source read in session); Microsoft has no registered bond
+  since 2017, so no term sheet. Daily market spreads have no public source; only new-issue spreads. The two press-sourced
+  ratings (MSFT Aaa, ORCL BBB-) stay T4: ratings.moodys.com returns an empty page, spglobal.com 403 and fitchratings.com is
+  blocked from the session; no 8-K or term sheet states them.
 - `www.sec.gov/Archives` answered 403 to this session on 2026-10-04 (it answered on 2026-10-03), so the page recheck used
   the harvested text (`raw/notes/`) rather than the documents; the quote check is the mechanical substitute.
 - Amazon reports its AWS backlog only as an amount and a weighted-average life (6.4 years), not a 12-month share.

@@ -323,7 +323,8 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   (`site/hiperescaladores/data/financials.js`, SEC XBRL, T1) with the hub's definitions: TTM capex / revenue, capex /
   operating cash flow, RPO as tagged and RPO / TTM revenue, net debt / EBITDA and lease-adjusted net debt / EBITDA
   (leases already recognised, never the uncommenced ones). Oracle's row uses the same XBRL facts; its EBITDAR-based
-  3.5× sits beside it with a cross-reference. The chart shows the core six; the neoclouds appear in the table only.
+  3.5× sits beside it with a cross-reference. Since 8-Oct-2026 the hub covers five companies (Microsoft, Alphabet, Amazon, Meta,
+  Oracle); the table and the chart show those five.
 * **Glossary.** `tools/oracle/data/glossary.json` (bilingual definitions with first-use match patterns) feeds the
   table in the Reference appendix and `glossify()`, which wraps the first visible occurrence of each term in the main
   content in a definition tooltip (hover; tap on a phone).

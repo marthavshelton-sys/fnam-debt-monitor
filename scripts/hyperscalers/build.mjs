@@ -1,7 +1,7 @@
 // Hyperscaler Hub: builds the module data from the stored EDGAR extracts.
 //   in : tools/hyperscalers/companies.json, data/xbrl/<TICKER>.json, data/filings.json, data/state.json,
 //        data/debt-instruments.json (FactSet snapshot, optional), data/metrics.json (previous build, for the diff)
-//   out: site/hiperescaladores/data/{financials,companies,changelog}.js, site/hiperescaladores/csv/*.csv,
+//   out: site/hiperescaladores/data/{financials,changelog,status}.js, site/hiperescaladores/csv/*.csv,
 //        tools/hyperscalers/data/{metrics,changelog,derivations}.json
 //
 // Accounting rules applied here (methodology page states them):
@@ -18,9 +18,13 @@ import { TAGS, FLOW, INSTANT } from './tags.mjs';
 
 const FIRST_FY_END = '2022-06-01';   // history kept from fiscal 2023 quarters onward (≥ 3 years)
 const { companies } = await readJson(TOOLS + 'companies.json');
+const COVERED = new Set(companies.map((c) => c.ticker));
 const filings = await readJson(TOOLS + 'data/filings.json', { companies: {} });
 const state = await readJson(TOOLS + 'data/state.json', {});
 const prevMetrics = await readJson(TOOLS + 'data/metrics.json', null);
+// a company that left the coverage (owner, 2026-10-08) is not a data change: its old values are dropped from the diff base
+// so the change log does not fill with "removed" entries; the curated log explains the coverage change to the reader
+if (prevMetrics && prevMetrics.values) prevMetrics.values = Object.fromEntries(Object.entries(prevMetrics.values).filter(([id]) => COVERED.has(id.split('.')[0])));
 const prevLog = await readJson(TOOLS + 'data/changelog.json', { entries: [] });
 // reader-facing log of curated edits (tools/hyperscalers/data/curated-log.json): merged into the change log the home page shows
 const curatedLog = await readJson(TOOLS + 'data/curated-log.json', { entries: [] });
@@ -28,6 +32,12 @@ const curatedLog = await readJson(TOOLS + 'data/curated-log.json', { entries: []
 const fsDir = new URL('tools/hyperscalers/raw/factset/', ROOT);
 const fsFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-debt\.json$/.test(f)).sort();
 const debtSnap = fsFiles.length ? { file: fsFiles.at(-1), ...(await readJson(`tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`)) } : null;
+// the raw snapshot may carry tickers outside the coverage (pulled for the ten-company universe before 2026-10-08): only the
+// covered companies' tranches, totals and notes are built
+if (debtSnap) {
+  debtSnap.tranches = (debtSnap.tranches || []).filter((t) => COVERED.has(t[0]));
+  for (const k of ['totals', 'notes']) if (debtSnap[k]) debtSnap[k] = Object.fromEntries(Object.entries(debtSnap[k]).filter(([tk]) => COVERED.has(tk)));
+}
 const guidance = await readJson(TOOLS + 'data/guidance.json', null);
 const offbsCur = await readJson(TOOLS + 'data/offbs.json', { items: [], searched: [] });
 const orclOblig = await readJson('tools/oracle/data/obligations.json', null);
@@ -274,30 +284,27 @@ for (const c of companies) {
   for (const q of quarters) for (const x of Object.values(q.m)) if (x.anomaly != null && !(x.conf && x.conf.result === 'confirmed')) x.review = true;
 
   // staleness: next expected filing = next period end + the SEC deadline for the filer category (filerDays: 40/60 large
-  // accelerated and 40/75 accelerated, 45/90 non-accelerated, 120 for the 20-F), rolled to the next business day when it
+  // accelerated and 40/75 accelerated, 45/90 non-accelerated), rolled to the next business day when it
   // falls on a weekend or SEC holiday; the page adds 7 days of grace before calling the company stale
   const last = quarters.filter((q) => q.m.capex_cash || q.m.ocf || (q.ttm && q.ttm.capex_cash != null)).pop();
   const cat = fl.category || '';
-  const fpi = c.ticker === 'NBIS';
   const fd = filerDays(cat);
   let nextEnd = null, due = null, dueRaw = null, dueForm = null;
   if (last) {
     const d = new Date(last.end + 'T12:00:00Z');
-    const months = fpi ? 12 : 3;
-    const ne = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + months + 1, 0));
+    const ne = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 4, 0));
     nextEnd = ne.toISOString().slice(0, 10);
     const isK = fiscalOf(nextEnd, c.fyEnd).q === 4;
-    dueForm = fpi ? '20-F' : isK ? '10-K' : '10-Q';
-    const add = fpi ? 120 : isK ? fd.k : fd.q;
+    dueForm = isK ? '10-K' : '10-Q';
+    const add = isK ? fd.k : fd.q;
     dueRaw = new Date(ne.getTime() + add * 864e5).toISOString().slice(0, 10);
     due = rollBusinessDay(dueRaw);
   }
   const lastFilings = (fl.filings || []).filter((f) => /^(10-K|10-Q|20-F|6-K|8-K)/.test(f.form)).slice(0, 12)
     .map((f) => ({ form: f.form, filed: f.filed, report: f.report, accn: f.accn, items: f.items, url: filingIndexUrl(c.cik, f.accn) }));
   out.companies[c.ticker] = {
-    ticker: c.ticker, cik: c.cik, name: c.name, group: c.group, color: c.color, fyEnd: c.fyEnd, category: cat || null,
-    filer: { category: cat || null, label: fd.label, qDays: fpi ? null : fd.q, kDays: fpi ? 120 : fd.k },
-    note: c.note_en ? { en: c.note_en, es: c.note_es } : null,
+    ticker: c.ticker, cik: c.cik, name: c.name, color: c.color, fyEnd: c.fyEnd, category: cat || null,
+    filer: { category: cat || null, label: fd.label, qDays: fd.q, kDays: fd.k },
     latest: last ? { id: last.id, end: last.end, cal: last.cal } : null, nextPeriodEnd: nextEnd, nextFilingDue: due, nextFilingDueRaw: dueRaw, nextFilingForm: dueForm,
     quarters: quarters.filter((q) => Object.keys(q.m).length).map((q) => ({ id: q.id, end: q.end, cal: q.cal, m: Object.fromEntries(Object.entries(q.m).map(([k, x]) => [k, [x.v, x.t, x.a, x.m, x.review ? 1 : 0, x.mixed ? 1 : 0, x.conf || 0]])), d: q.d, ttm: q.ttm })),
     fy: Object.values(FY).sort((a, b) => a.end.localeCompare(b.end)).map((f) => ({ id: f.id, end: f.end, m: Object.fromEntries(Object.entries(f.m).map(([k, x]) => [k, [x.v, x.t, x.a]])) })),

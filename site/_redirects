@@ -3,3 +3,7 @@
 # English address of the Hyperscaler Hub (the hub lives under its Spanish path, like the rest of the site).
 /hyperscalers /hiperescaladores/ 301
 /hyperscalers/* /hiperescaladores/:splat 301
+# Modules retired on 8 Oct 2026 (Capacity, Committed, Sites: they measured the neoclouds, which left the coverage); their addresses go to the hub's summary.
+/hiperescaladores/capacidad/* /hiperescaladores/ 301
+/hiperescaladores/comprometida/* /hiperescaladores/ 301
+/hiperescaladores/sitios/* /hiperescaladores/ 301

@@ -10,8 +10,8 @@
 (function () {
   'use strict';
   var COLORS = {
-    light: { MSFT: '#2a78d6', GOOGL: '#eb6834', AMZN: '#1baf7a', META: '#eda100', ORCL: '#e87ba4', CRWV: '#008300', NBIS: '#4a3aa7', IREN: '#e34948', APLD: '#00989a', CORZ: '#a8780f' },
-    dark: { MSFT: '#3987e5', GOOGL: '#d95f2b', AMZN: '#1baf7a', META: '#bb8000', ORCL: '#d0628c', CRWV: '#2a9d2a', NBIS: '#7d6fe0', IREN: '#e34948', APLD: '#00989a', CORZ: '#b8861a' }
+    light: { MSFT: '#2a78d6', GOOGL: '#eb6834', AMZN: '#1baf7a', META: '#eda100', ORCL: '#e87ba4' },
+    dark: { MSFT: '#3987e5', GOOGL: '#d95f2b', AMZN: '#1baf7a', META: '#bb8000', ORCL: '#d0628c' }
   };
   var MON = { es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'], en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] };
   var LANG = 'es';
@@ -256,14 +256,6 @@
     return n > 2;
   }
   function oldFlag(end) { return oldQ(end) && !aged(end) ? ' <span class="flag old2" title="' + esc(t('Dato de hace más de dos trimestres; se revisa si hay una presentación más reciente (la ficha dice cuál se buscó)', 'Value more than two quarters old; newer filings are checked (the card says which were searched)')) + '">' + t('> 2 trim.', '> 2 qtrs') + '</span>' : ''; }
-  // committed ÷ operating multiple: when the operating figure is a rounded "approximately" number the filing itself rounds,
-  // the quotient is an order of magnitude ("more than 10x") with the note, never a decimal
-  function capMult(b, a) {
-    var r = b.mw / a.mw;
-    if (a.qualifier === 'approx' && a.rounded_en) { var fl = r >= 10 ? Math.floor(r / 10) * 10 : Math.floor(r); return { r: r, text: t('más de ' + num(fl, 0) + ' veces', 'more than ' + num(fl, 0) + 'x'), short: '> ' + num(fl, 0) + 'x', note: a['rounded_' + LANG] || a.rounded_en, approx: true }; }
-    var ap = !!(a.qualifier || b.qualifier);
-    return { r: r, text: (ap ? '≈ ' : '') + num(r, 1) + (LANG === 'es' ? ' veces' : 'x'), short: (ap ? '≈ ' : '') + num(r, 1) + 'x', note: ap ? t('cifras «más de» / «aprox.» en la presentación: el múltiplo es aproximado', '"over" / "approx." figures in the filing: the multiple is approximate') : null, approx: ap };
-  }
   // leases signed but not commenced against recognized payments: within ±5% of 1.0x the two are "about equal", not "exceed"
   function leaseCmp(r) { return r > 1.05 ? 'above' : r < 0.95 ? 'below' : 'equal'; }
   function leaseCmpText(r) { var k = leaseCmp(r); return k === 'equal' ? t('casi iguales', 'about equal') : k === 'above' ? t('superan', 'exceed') : t('no alcanzan', 'fall short of'); }
@@ -276,11 +268,6 @@
     return { stale: now > lim, limit: lim };
   }
 
-  // labels of the MW definitions (capacity.json → definitions)
-  function metricLabel(m) {
-    var L = { active_power: ['Potencia activa', 'Active power'], critical_it_operating: ['Carga crítica de TI en operación', 'Critical IT load operating'], operating_ai: ['Nube de IA en operación', 'AI cloud operating'], mining_dc: ['Centro de datos para minería', 'Bitcoin-mining data center'], hosting: ['Alojamiento (hosting)', 'Hosting'], billable: ['Potencia facturable', 'Billable power'], delivered: ['MW entregados en el periodo', 'MW delivered in the period'], contracted_power: ['Potencia contratada', 'Contracted power'], contracted_it: ['Carga de TI contratada', 'Contracted IT load'], leased_customer: ['Potencia arrendada a clientes', 'Customer leased power'], undelivered_leased: ['Potencia arrendada por entregar', 'Leased power not yet delivered'], grid_gross: ['Potencia bruta de red', 'Gross grid power'], secured_partners: ['Capacidad asegurada vía socios', 'Capacity secured via partners'], option: ['Opción del cliente', 'Customer option'], dc_development: ['Centro de datos en desarrollo', 'Data center in development'], planned_campus: ['Capacidad planeada del campus', 'Planned campus capacity'] }[m];
-    return L ? t(L[0], L[1]) : (m || '');
-  }
   function coName(tk, F) { var c = (F || window.HYP_FIN).companies[tk]; return '<span class="sw" style="background:' + color(tk) + '"></span><b>' + esc(c ? c.name : tk) + '</b> <span class="muted small">' + tk + '</span>'; }
 
   // ---- age of a dated value: older than 12 months (365 days) against today, in the reader's browser. Such a value is
@@ -318,7 +305,7 @@
 
   // ---- calendarized trailing twelve months for cross-company sums: every company at the same calendar quarter (the
   // latest one all of them have reported). A fiscal quarter counts in the calendar quarter that contains its last month,
-  // or the one ending a month later for February/May/August/November closes (Oracle, Applied Digital): those are one
+  // or the one ending a month later for February/May/August/November closes (Oracle): those are one
   // month earlier than the window, and the offset is listed. Values more than 12 months old are left out.
   function calTTM(cos, k) {
     var have = cos.map(function (c) { var qs = c.quarters.filter(function (q) { return q.ttm && q.ttm[k] != null && !aged(q.end); }); return qs.length ? qs[qs.length - 1].cal : null; });
@@ -388,7 +375,7 @@
   }
 
   // ---- sortable tables: every column heading of a data table sorts its rows (click or Enter; again to reverse).
-  // Group rows (core six / neoclouds) stay in place and rows sort within their group; a detail row spanning the table
+  // Group rows (when a table has them) stay in place and rows sort within their group; a detail row spanning the table
   // travels with the row above it. Totals stay last. The order survives re-renders (language, filters).
   var SORT = {};
   var MONTHS = { ene: 1, jan: 1, feb: 2, mar: 3, abr: 4, apr: 4, may: 5, jun: 6, jul: 7, ago: 8, aug: 8, sep: 9, oct: 10, nov: 11, dic: 12, dec: 12 };
@@ -535,7 +522,7 @@
   // shown, how many are verified or matched, the items that need review, the XBRL gaps that remain unexplained and the gaps
   // the curated file explains (not-tagged.json). Every page prints the line with the verification method and the item lists
   // folded beneath (#dq); the summary page rolls all modules up in module order, names the weakest, and links each count to that list.
-  var MODULE_IDS = ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'];
+  var MODULE_IDS = ['capex', 'electricidad', 'fuera-de-balance', 'circular', 'retorno'];
   function dqLatest(c) { return c.latest ? c.quarters.filter(function (q) { return q.id === c.latest.id; })[0] : null; }
   function dqLastWith(c, k) { for (var i = c.quarters.length - 1; i >= 0; i--) if (c.quarters[i].m[k]) return c.quarters[i]; return null; }
   // Three kinds of credit, never blended (owner's fourth review): quote = a quoted sentence matched on the cited harvested
@@ -599,15 +586,12 @@
       });
       return D;
     },
-    capacidad: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('capacidad'); dqText(D, C.current, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.curated.t1 = C.current.length; if (C.oracle) D.statements += (C.oracle.quarters || []).length + (C.oracle.fiscalYears || []).length; return D; },
-    comprometida: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('comprometida'); var t1 = C.pipeline.filter(function (x) { return x.tier !== 'T2'; }); dqText(D, t1, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.curated.t1 = t1.length; D.statements += C.pipeline.length - t1.length; return D; },
     electricidad: function () { var P = window.HYP_POWER, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('electricidad'); P.companyDeals.forEach(function (d) { if (d.src && d.src.tier === 'T1') { D.curated.t1++; if (d.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', F.companies[d.ticker].name, d.counterparty || d.counterparty_en || d.id, t('la cita no está en la página citada', 'quote not on the cited page')); } else { D.statements++; D.curated.t2++; } }); D.curated.n = P.companyDeals.length; D.curated.verified = P.companyDeals.filter(function (d) { return d.src && d.src.quoteCheck === 'page'; }).length; D.curated.reviewed = P.companyDeals.filter(function (d) { return d.reviewedBy; }).length; return D; },
-    sitios: function () { var S = window.HYP_SITES, F = window.HYP_FIN; if (!S || !F) return null; var D = dqNew('sitios'); S.sites.forEach(function (x) { if (x.src && x.src.tier === 'T1') { D.curated.t1++; if (x.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', F.companies[x.ticker].name, x.name || x.name_en, t('la cita no está en la página citada', 'quote not on the cited page')); } else { D.statements++; D.curated.t2++; } }); D.curated.n = S.sites.length; D.curated.verified = S.sites.filter(function (x) { return x.src && x.src.quoteCheck === 'page'; }).length; D.curated.reviewed = S.sites.filter(function (x) { return x.reviewedBy; }).length; return D; },
     circular: function () { var C = window.HYP_CIRC; if (!C) return null; var D = dqNew('circular'); C.flows.forEach(function (f) { if (f.src && f.src.tier === 'T1') { D.curated.t1++; if (f.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', f.from + ' → ' + f.to, f.type, t('la cita no está en la página citada', 'quote not on the cited page')); } else if (f.pending_en) { D.curated.t1++; dqItem(D, 'review', f.from + ' → ' + f.to, f.type, f['pending_' + LANG] || f.pending_en); } else { D.statements++; D.curated.t2++; } }); D.curated.n = C.flows.length; D.curated.verified = C.flows.filter(function (f) { return f.src && f.src.quoteCheck === 'page'; }).length; D.curated.reviewed = C.flows.filter(function (f) { return f.reviewedBy; }).length; return D; },
     retorno: function () {
       var P = window.HYP_PAY, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('retorno');
-      var items = [].concat(P.segments, P.rpoTiming, P.usefulLives, P.capexPerMW);
-      dqText(D, items, function (x) { return F.companies[x.ticker].name; }, function (x) { return x.segment_en ? x['segment_' + LANG] : x.rpoUSDm ? 'RPO' : x.servers_en ? t('vida útil', 'useful life') : t('capex por GW', 'capex per GW'); });
+      var items = [].concat(P.segments, P.rpoTiming, P.usefulLives);
+      dqText(D, items, function (x) { return F.companies[x.ticker].name; }, function (x) { return x.segment_en ? x['segment_' + LANG] : x.rpoUSDm ? 'RPO' : t('vida útil', 'useful life'); });
       P.termSheets.forEach(function (x) { if (x.status === 'verified') D.quote++; else dqItem(D, 'review', F.companies[x.ticker].name, x.form + ' ' + date(x.date), t('hoja de términos pendiente de segunda lectura', 'term sheet pending second read')); }); dqCurated(D, P.termSheets);
       D.curated.t1 = D.curated.n;
       P.ratings.forEach(function (r) { r.items.forEach(function (it) { if (it.supersededBy) return; if (it.tier === 'T1') D.quote++; else D.secondary++; }); });
@@ -642,7 +626,7 @@
   }
   // summary page, in its last section "Sources and methodology" (owner, 2026-10-08; the heading there replaces the inline
   // label, o.noLabel): hub-wide coverage first (all figures, explained gaps included, and figures with a value), then one line
-  // per module in module order (1 to 8; owner, 2026-10-06), the weakest module named in the text and highlighted in the
+  // per module in module order (1 to 5; owner, 2026-10-06), the weakest module named in the text and highlighted in the
   // table; the counts link to that module's list (#dq)
   function dqRollup(hostId, o) {
     var host = document.getElementById(hostId); if (!host) return;
@@ -653,20 +637,19 @@
     var T = rows.reduce(function (s, r) { return { ok: s.ok + r.P.ok, shown: s.shown + r.P.shown, all: s.all + r.P.all, q: s.q + r.D.quote, tg: s.tg + r.D.tag, pr: s.pr + r.D.present, rev: s.rev + r.D.review.length, nt: s.nt + r.D.nt.length, ex: s.ex + r.D.explained.length, cn: s.cn + r.D.curated.n, cr: s.cr + r.D.curated.reviewed, tc: s.tc + r.D.curated.tagChecked }; }, { ok: 0, shown: 0, all: 0, q: 0, tg: 0, pr: 0, rev: 0, nt: 0, ex: 0, cn: 0, cr: 0, tc: 0 });
     var pctAll = T.all ? Math.round(T.ok / T.all * 100) : 100, pctVal = T.shown ? Math.round(T.ok / T.shown * 100) : 100;
     var link = function (r, kind, n) { return n ? '<a href="/hiperescaladores/' + r.id + '/#dq">' + n + '</a>' : '0'; };
-    host.innerHTML = (o && o.noLabel ? '' : '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ') + t(pctAll + '% de las ' + T.all + ' cifras de los ocho módulos está verificado o cotejado, con los ' + T.ex + ' huecos explicados y los ' + T.nt + ' sin explicar en el denominador; ' + pctVal + '% de las ' + T.shown + ' cifras con valor. ', pctAll + '% of all ' + T.all + ' figures across the eight modules are verified or matched, with the ' + T.ex + ' explained gaps and ' + T.nt + ' unexplained in the denominator; ' + pctVal + '% of the ' + T.shown + ' figures with a value. ') + t('Del total cotejado: ' + T.q + ' con cita cotejada, ' + T.tg + ' con etiqueta XBRL cotejada, ' + T.pr + ' valores presentes (cálculo FNAM). ', 'Of those: ' + T.q + ' quote-matched, ' + T.tg + ' XBRL tag-matched, ' + T.pr + ' values present (FNAM calculation). ') +
+    host.innerHTML = (o && o.noLabel ? '' : '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ') + t(pctAll + '% de las ' + T.all + ' cifras de los cinco módulos está verificado o cotejado, con los ' + T.ex + ' huecos explicados y los ' + T.nt + ' sin explicar en el denominador; ' + pctVal + '% de las ' + T.shown + ' cifras con valor. ', pctAll + '% of all ' + T.all + ' figures across the five modules are verified or matched, with the ' + T.ex + ' explained gaps and ' + T.nt + ' unexplained in the denominator; ' + pctVal + '% of the ' + T.shown + ' figures with a value. ') + t('Del total cotejado: ' + T.q + ' con cita cotejada, ' + T.tg + ' con etiqueta XBRL cotejada, ' + T.pr + ' valores presentes (cálculo FNAM). ', 'Of those: ' + T.q + ' quote-matched, ' + T.tg + ' XBRL tag-matched, ' + T.pr + ' values present (FNAM calculation). ') +
       t('El módulo más débil es ', 'The weakest module is ') + '<a href="/hiperescaladores/' + w.id + '/#dq">' + esc(modLabel(w.m)) + '</a>: ' + t(w.P.pctAll + '% de ' + w.P.all + ' cifras, ' + w.D.review.length + ' por revisar, ' + w.D.nt.length + ' sin etiqueta XBRL sin explicar', w.P.pctAll + '% of ' + w.P.all + ' figures, ' + (w.D.review.length === 1 ? '1 needs review, ' : w.D.review.length + ' need review, ') + w.D.nt.length + ' not tagged in XBRL and unexplained') + '. ' +
       t((T.rev === 1 ? '1 partida por revisar' : T.rev + ' partidas por revisar') + ' en total; revisadas por analista: ' + T.cr + ' de ' + T.cn + ' partidas curadas' + (T.tc ? '; ' + T.tc + ' huecos con etiqueta cotejada (control de concepto, no verificados)' : '') + '. Verificado significa ' + VERIF.es + '.', (T.rev === 1 ? '1 item needs review' : T.rev + ' items need review') + ' in total; analyst-reviewed: ' + T.cr + ' of ' + T.cn + ' curated items' + (T.tc ? '; ' + T.tc + ' gaps tag-checked (concept check, not verified)' : '') + '. Verified means ' + VERIF.en + '.') +
       '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th scope="col" class="l">' + t('Módulo', 'Module') + '</th><th scope="col">' + t('Verificado, todas las cifras', 'Verified, all figures') + '</th><th scope="col">' + t('Verificado, con valor', 'Verified, with a value') + '</th><th scope="col">' + t('Cita', 'Quote') + '</th><th scope="col">' + t('Etiqueta', 'Tag') + '</th><th scope="col">' + t('Presente', 'Present') + '</th><th scope="col">' + t('Por revisar', 'Needs review') + '</th><th scope="col">' + t('Sin etiqueta', 'Not tagged') + '</th><th scope="col">' + t('Explicados', 'Explained') + '</th><th scope="col">' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
       rows.map(function (r) { var c = function (l, v) { return '<td data-l="' + esc(l) + '">' + v + '</td>'; }; return '<tr' + (r === w ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td>' + c(t('Todas', 'All'), r.P.pctAll + '% · ' + r.P.all) + c(t('Con valor', 'With value'), r.P.pct + '% · ' + r.P.shown) + c(t('Cita', 'Quote'), r.D.quote) + c(t('Etiqueta', 'Tag'), r.D.tag) + c(t('Presente', 'Present'), r.D.present) + c(t('Por revisar', 'Needs review'), link(r, 'review', r.D.review.length)) + c(t('Sin etiqueta', 'Not tagged'), link(r, 'nt', r.D.nt.length)) + c(t('Explicados', 'Explained'), link(r, 'explained', r.D.explained.length)) + c(t('Analista', 'Analyst'), r.D.curated.reviewed + ' / ' + r.D.curated.n) + '</tr>'; }).join('') + '</tbody></table></div>';
   }
-  var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
+  var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capex', 'electricidad', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
 
   // ---- module order: compact navigation, previous / next links and the module's "so what" line
   var MODS = [
-    { p: '', es: 'Resumen', en: 'Summary' }, { p: 'capacidad', n: 1, es: 'Capacidad', en: 'Capacity' }, { p: 'comprometida', n: 2, es: 'Comprometida', en: 'Committed' },
-    { p: 'capex', n: 3, es: 'Capex', en: 'Capex' }, { p: 'electricidad', n: 4, es: 'Energía', en: 'Power' }, { p: 'sitios', n: 5, es: 'Sitios', en: 'Sites' },
-    { p: 'fuera-de-balance', n: 6, es: 'Fuera de balance', en: 'Off-balance-sheet' }, { p: 'circular', n: 7, es: 'Circular', en: 'Circular' },
-    { p: 'retorno', n: 8, es: 'Retorno', en: 'Payoff' }, { p: 'metodologia', es: 'Metodología', en: 'Methodology' }, { p: 'glosario', es: 'Glosario', en: 'Glossary' }
+    { p: '', es: 'Resumen', en: 'Summary' }, { p: 'capex', n: 1, es: 'Capex', en: 'Capex' }, { p: 'electricidad', n: 2, es: 'Energía', en: 'Power' },
+    { p: 'fuera-de-balance', n: 3, es: 'Fuera de balance', en: 'Off-balance-sheet' }, { p: 'circular', n: 4, es: 'Circular', en: 'Circular' },
+    { p: 'retorno', n: 5, es: 'Retorno', en: 'Payoff' }, { p: 'metodologia', es: 'Metodología', en: 'Methodology' }, { p: 'glosario', es: 'Glosario', en: 'Glossary' }
   ];
   function curMod() { var m = /^\/hiperescaladores\/(?:([a-z-]+)\/)?(?:index\.html)?$/.exec(location.pathname); return m ? MODS.findIndex(function (x) { return x.p === (m[1] || ''); }) : -1; }
   function modHref(x) { return '/hiperescaladores/' + (x.p ? x.p + '/' : ''); }
@@ -753,10 +736,10 @@
     get lang() { return LANG; }, t: t, esc: esc, onLang: function (fn) { listeners.push(fn); },
     color: color, css: css, isDark: isDark, nd: nd, nt: nt, nm: nm, num: num, money: money, moneyM: moneyM, pct: pct, mult: mult, date: date, fq: fq, cq: cq,
     edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
-    mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
+    mw: mw, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
     aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify,
     soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend,
     ntReason: ntReason, ntCell: ntCell, ntCheck: ntCheck, verifText: verifText, verifSummary: verifSummary, quoteOk: quoteOk, VERIF: VERIF, etDate: etDate, curatedDate: curatedDate, dqModule: dqModule, dqRollup: dqRollup, dqPct: dqPct,
-    buildRow: buildRow, oldQ: oldQ, oldFlag: oldFlag, capMult: capMult, leaseCmp: leaseCmp, leaseCmpText: leaseCmpText, narrow: narrow
+    buildRow: buildRow, oldQ: oldQ, oldFlag: oldFlag, leaseCmp: leaseCmp, leaseCmpText: leaseCmpText, narrow: narrow
   };
 })();

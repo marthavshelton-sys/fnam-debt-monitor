@@ -1,7 +1,7 @@
 // Hyperscaler Hub: validation and data-quality reports. Runs after build.mjs and writes
 //   site/hiperescaladores/capex/data/quality.js              (window.HYP_CAPEX_QUALITY)
 //   site/hiperescaladores/fuera-de-balance/data/quality.js   (window.HYP_OFFBS_QUALITY)
-//   and one per curated module (1, 2, 4, 5, 7, 8: HYP_CAP1/CAP2/POWER/SITES/CIRC/PAY_QUALITY)
+//   and one per curated module (Power, Circular, Payoff: HYP_POWER/CIRC/PAY_QUALITY)
 // rendered by the shared owner pages (site/assets/quality-page.js). Exit code 1 only on hard failures: a company
 // with no stored XBRL extract, a non-USD monetary fact, or every EDGAR call failing; identity misses are warnings
 // that flag the affected figures "needs review" on the pages.
@@ -23,7 +23,7 @@ const reviewedCard = (Rp, items, es, en) => { Rp.card(items.filter((i) => i.revi
 const VLABEL = 'verified (automated quote-match and second read)';
 const et = (iso) => (iso ? etOf(iso) || iso : '—');
 
-// ---------------- module 3: capex and financing ----------------
+// ---------------- module 1: capex and financing ----------------
 const Q = createReport({ slug: 'hiperescaladores/capex', key: 'HYP_CAPEX_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia (US$ M)', 'Difference (US$ m)'), tolerances: L('Trimestres vs. año fiscal: US$2 M o 0.2%. Hecho de 3 meses vs. diferencia de acumulados: 0.5%. Deuda XBRL vs. FactSet a la misma fecha: 2%. Operación de deuda vs. 424B: ±7 días y ±3%; si no hay 424B, la presentación (8-K, FWP, 6-K) que el índice de texto completo de EDGAR devuelve para el cupón y vencimiento del tramo en ±12/25 días, y la página del 10-K/10-Q que nombra el instrumento. Huecos XBRL: cada uno con su motivo en not-tagged.json. ' + VERIF.es, 'Quarters vs. fiscal year: US$2m or 0.2%. 3-month fact vs. year-to-date difference: 0.5%. XBRL debt vs. FactSet at the same date: 2%. Debt deal vs. 424B: ±7 days and ±3%; without a 424B, the filing (8-K, FWP, 6-K) EDGAR\'s full-text index returns for the tranche\'s coupon and maturity within −12/+25 days, and the 10-K/10-Q page that names the instrument. XBRL gaps: each with its reason in not-tagged.json. ' + VERIF.en) });
 for (const w of der.warnings) {
   if (w.identity) Q.record(`${w.ticker} ${w.tag}`, w.check, w.status, w.diff, 2, w.status === 'ok' ? null : L('Trimestres marcados "revisar" en la página: probable reexpresión en una presentación posterior', 'Quarters flagged "needs review" on the page: likely a recast in a later filing'));
@@ -100,7 +100,7 @@ Q.card(Object.values(F.companies).reduce((s, c) => s + (c.anomalies || []).lengt
 const latestIds = Object.values(F.companies).filter((c) => c.latest).map((c) => c.latest.end).sort();
 await Q.write({ latestQuarter: latestIds.at(-1) || null, expectedQuarter: null, financialsGeneratedAt: F.generated, refreshedET: F.refreshedET, verification: F.verification || null });
 
-// ---------------- module 6: off-balance-sheet ----------------
+// ---------------- module 3: off-balance-sheet ----------------
 const O = createReport({ slug: 'hiperescaladores/fuera-de-balance', key: 'HYP_OFFBS_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Cada partida de texto debe citar presentación (número de acceso), sección y página; ' + VERIF.es + '.', 'Every text item must cite the filing (accession number), section and page; ' + VERIF.en + '.') });
 const OB = F.offbs || { items: [], searched: [] };
 for (const i of OB.items) {
@@ -127,9 +127,9 @@ reviewedCard(O, OB.items, 'revisadas por analista', 'analyst-reviewed');
 O.card(gaps, 'huecos de cobertura', 'coverage gaps');
 await O.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: F.generated });
 
-// ---------------- modules 1, 2, 4, 5, 7 (curated text items; built by build-modules.mjs) ----------------
+// ---------------- modules 2, 4 (curated text items; built by build-modules.mjs) ----------------
 async function loadW(file, name) { const t = await readFile(p(SITE + `data/${file}.js`), 'utf8'); return JSON.parse(t.slice(t.indexOf('=') + 1).trim().replace(/;\s*$/, '')); }
-const CAPD = await loadW('capacity', 'HYP_CAP'), SITD = await loadW('sites', 'HYP_SITES'), POWD = await loadW('power', 'HYP_POWER'), CIRD = await loadW('circular', 'HYP_CIRC');
+const POWD = await loadW('power', 'HYP_POWER'), CIRD = await loadW('circular', 'HYP_CIRC');
 const TOL_TEXT = L('Cada cifra cita la presentación (número de acceso), la sección y la página, y la frase citada debe aparecer en el texto descargado de esa página ("cita cotejada"). ' + VERIF.es + '.', 'Every figure cites the filing (accession number), section and page, and the quoted sentence must appear in the downloaded text of that page ("quote matched"). ' + VERIF.en + '.');
 function citeChecks(Rp, tag, src, status) {
   if (!src) { Rp.record(tag, 'source cited', 'fail'); fails.push(`${tag}: no source`); return; }
@@ -140,46 +140,10 @@ function citeChecks(Rp, tag, src, status) {
   } else Rp.record(tag, 'company statement cited (T2)', src.title || src.url ? 'ok' : 'fail');
 }
 function originsOf(Rp, items) { const seen = new Set(); for (const s of items) if (s && s.accn && !seen.has(s.accn)) { seen.add(s.accn); Rp.R.origins.push({ id: s.k.split(' ')[0], origin: 'primary', title: s.k, url: s.url, date: s.filed, page: null, parts: s.accn }); } }
-const defsOK = (m) => !m || !!CAPD.definitions[m] || m === 'planned_campus';
 
-// module 1
-const M1 = createReport({ slug: 'hiperescaladores/capacidad', key: 'HYP_CAP1_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: TOL_TEXT });
-for (const x of CAPD.current) {
-  const tag = `${x.ticker} ${x.metric}`;
-  citeChecks(M1, tag, x.src, x.status);
-  M1.record(tag, 'MW definition recorded', defsOK(x.metric) ? 'ok' : 'fail');
-  if (!defsOK(x.metric)) fails.push(`${tag}: undefined MW metric`);
-  M1.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
-}
-for (const x of CAPD.notDisclosed) M1.curated(`${x.ticker} ${x.item}`, true, L(`no revelado; buscado en ${x.searched.join(', ')}`, `not disclosed; searched ${x.searched.join(', ')}`));
-if (CAPD.oracle) M1.curated('buildout.json (Oracle model store, T2)', ageDays(CAPD.oracle.updated) <= 100, L(`almacén del modelo de Oracle al ${CAPD.oracle.updated}`, `Oracle model store as of ${CAPD.oracle.updated}`));
-M1.curated('capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
-originsOf(M1, CAPD.current.map((x) => x.src));
 const ml = await readJson(TOOLS + 'data/modules-log.json', { problems: [] });
-for (const pr of ml.problems) M1.R.parse.push({ file: pr.where, msg: `${pr.k || ''} ${pr.issue}` });
-M1.card(CAPD.current.length, 'cifras T1 de capacidad', 'T1 capacity figures');
-M1.card(CAPD.notDisclosed.filter((x) => x.item === 'mw').length, 'empresas sin MW en sus presentaciones', 'companies with no MW in filings');
-M1.card(CAPD.current.filter((x) => x.status !== 'verified').length, 'por revisar', 'to review');
-reviewedCard(M1, CAPD.current, 'revisadas por analista', 'analyst-reviewed');
-await M1.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CAPD.generated });
 
-// module 2
-const M2 = createReport({ slug: 'hiperescaladores/comprometida', key: 'HYP_CAP2_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: TOL_TEXT });
-for (const x of CAPD.pipeline) {
-  const tag = `${x.ticker} ${x.stage} ${x.metric}`;
-  citeChecks(M2, tag, x.src, x.tier === 'T2' ? undefined : x.status);
-  M2.record(tag, 'MW definition recorded', defsOK(x.metric) ? 'ok' : 'fail');
-  M2.record(tag, 'stage is contracted / under construction / announced', ['contracted', 'under_construction', 'announced'].includes(x.stage) ? 'ok' : 'fail');
-  if (x.asOf) M2.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
-}
-M2.curated('capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
-originsOf(M2, CAPD.pipeline.map((x) => x.src));
-M2.card(CAPD.pipeline.length, 'partidas comprometidas', 'committed items');
-M2.card(CAPD.pipeline.filter((x) => x.subsequent).length, 'posteriores al balance', 'after balance-sheet date');
-reviewedCard(M2, CAPD.pipeline.filter((x) => x.tier !== 'T2'), 'revisadas por analista', 'analyst-reviewed');
-await M2.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CAPD.generated });
-
-// module 4
+// module 2 (power)
 const M4 = createReport({ slug: 'hiperescaladores/electricidad', key: 'HYP_POWER_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Contratos de las empresas (T1/T2) y proyecciones de red (T3/T4) nunca se suman ni se mezclan. Vigencia: T1 hasta la siguiente presentación; T3/T4 hasta la siguiente edición del publicador + 30 días.', 'Company contracts (T1/T2) and grid projections (T3/T4) are never added or mixed. Freshness: T1 until the next filing; T3/T4 until the publisher\'s next edition + 30 days.') });
 for (const d of POWD.companyDeals) { citeChecks(M4, `${d.ticker} ${d.id}`, d.src, d.tier === 'T1' ? 'needs_review' : undefined); M4.record(`${d.ticker} ${d.id}`, 'tier is T1 or T2', ['T1', 'T2'].includes(d.tier) ? 'ok' : 'fail'); }
 for (const g of POWD.grid) {
@@ -194,23 +158,7 @@ M4.card(POWD.companyDeals.length, 'contratos de energía', 'power deals');
 M4.card(POWD.grid.length, 'fuentes de red (T3/T4)', 'grid sources (T3/T4)');
 await M4.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: POWD.generated });
 
-// module 5
-const M5 = createReport({ slug: 'hiperescaladores/sitios', key: 'HYP_SITES_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Ubicación del mapa = localidad nombrada en la presentación (localidad, condado, estado o país), nunca coordenadas del campus. Sitio sin ubicación revelada: sin punto en el mapa.', 'Map position = the locality the filing names (locality, county, state or country), never campus coordinates. A site whose location is not disclosed gets no map point.') });
-for (const s of SITD.sites) {
-  const tag = `${s.ticker} ${s.name || s.name_en}`;
-  citeChecks(M5, tag, s.src || (s.sources && s.sources[0]), undefined);
-  const hasPt = s.lat != null && s.lon != null;
-  M5.record(tag, 'map position has a stated precision', hasPt ? (s.precision ? 'ok' : 'fail') : (s.precision == null ? 'ok' : 'fail'));
-  if (hasPt) M5.record(tag, 'coordinates in range', Math.abs(s.lat) <= 90 && Math.abs(s.lon) <= 180 ? 'ok' : 'fail');
-  M5.record(tag, 'MW definition recorded', s.mw == null || defsOK(s.mwMetric) ? 'ok' : 'fail');
-}
-M5.curated('sites.json', true, L(`actualizado ${SITD.updated}`, `updated ${SITD.updated}`));
-originsOf(M5, SITD.sites.map((s) => s.src));
-M5.card(SITD.sites.length, 'sitios', 'sites');
-M5.card(SITD.sites.filter((s) => s.lat == null).length, 'sin ubicación revelada', 'location not disclosed');
-await M5.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: SITD.generated });
-
-// module 7
+// module 4 (circular); the citation problems of every curated module (modules-log.json) are listed here
 const M7 = createReport({ slug: 'hiperescaladores/circular', key: 'HYP_CIRC_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Cada flujo cita su presentación; las inferencias de FNAM deben apoyarse solo en flujos registrados y se muestran como inferencia, nunca como hecho.', 'Every flow cites its filing; FNAM inferences must rest only on recorded flows and are shown as inference, never as fact.') });
 const flowIds = new Set(CIRD.flows.map((f) => f.id)), nodeIds = new Set(CIRD.nodes.map((n) => n.id));
 for (const f of CIRD.flows) {
@@ -219,17 +167,18 @@ for (const f of CIRD.flows) {
   if (f.shareOf && f.shareOf.calc) M7.record(f.id, 'revenue share computed from XBRL revenue', f.shareOf.pct != null ? 'ok' : 'warn');
 }
 for (const i of [...CIRD.inferences, ...CIRD.breakers]) { const bad = (i.rests_on || []).filter((id) => !flowIds.has(id)); M7.record(i.id || i.en.slice(0, 40), 'inference rests on recorded flows', bad.length ? 'fail' : 'ok', null, null, bad.length ? L(`faltan: ${bad.join(', ')}`, `missing: ${bad.join(', ')}`) : null); if (bad.length) fails.push(`circular inference cites unknown flows: ${bad.join(', ')}`); }
+for (const pr of ml.problems) M7.R.parse.push({ file: pr.where, msg: `${pr.k || ''} ${pr.issue}` });
 M7.curated('circular.json', true, L(`actualizado ${CIRD.updated}`, `updated ${CIRD.updated}`));
 originsOf(M7, CIRD.flows.map((f) => f.src));
 M7.card(CIRD.flows.length, 'flujos', 'flows');
 M7.card(CIRD.inferences.length, 'inferencias FNAM', 'FNAM inferences');
 await M7.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CIRD.generated });
 
-// module 8: payoff and cost of money (segments, backlog timing, useful lives, ratings, new-issue spreads, T4 estimates)
+// module 5: payoff and cost of money (segments, backlog timing, useful lives, ratings, new-issue spreads)
 let M8 = null;
 try {
   const PAYD = await loadW('payoff', 'HYP_PAY');
-  M8 = createReport({ slug: 'hiperescaladores/retorno', key: 'HYP_PAY_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia (US$ M)', 'Difference (US$ m)'), tolerances: L('Cifras de texto: cita cotejada en la página y segunda lectura. Segmentos UDM = año fiscal − acumulado del año anterior + acumulado actual (cálculo FNAM, componentes T1). Calificaciones: hoja de términos registrada ante la SEC (T1) o nota de prensa de la acción de la agencia (T4). Estimaciones de capacidad de terceros (T4): nunca se suman a cifras de las empresas.', 'Text figures: quote matched on the page and a second reading. Segment TTM = fiscal year − prior year-to-date + current year-to-date (FNAM calculation on T1 components). Ratings: SEC-filed term sheet (T1) or a press report of the agency action (T4). Third-party capacity estimates (T4): never added to company figures.') });
+  M8 = createReport({ slug: 'hiperescaladores/retorno', key: 'HYP_PAY_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia (US$ M)', 'Difference (US$ m)'), tolerances: L('Cifras de texto: cita cotejada en la página y segunda lectura. Segmentos UDM = año fiscal − acumulado del año anterior + acumulado actual (cálculo FNAM, componentes T1). Calificaciones: hoja de términos registrada ante la SEC (T1) o nota de prensa de la acción de la agencia (T4).', 'Text figures: quote matched on the page and a second reading. Segment TTM = fiscal year − prior year-to-date + current year-to-date (FNAM calculation on T1 components). Ratings: SEC-filed term sheet (T1) or a press report of the agency action (T4).') });
   for (const x of PAYD.segments) {
     const tag = `${x.ticker} ${x.segment_en}`;
     for (const k of ['src', 'src2', 'src3', 'src4']) if (x[k]) citeChecks(M8, `${tag} (${k})`, x[k], k === 'src' ? x.status : undefined);
@@ -247,7 +196,6 @@ try {
     if (q) M8.identity(`${x.ticker} RPO`, 'RPO in the text = RPO tagged in XBRL', x.rpoUSDm, q.m.rpo[0] / 1e6, Math.max(100, x.rpoUSDm * 0.002), { soft: true });
   }
   for (const x of PAYD.usefulLives) citeChecks(M8, `${x.ticker} useful lives`, x.src, x.status);
-  for (const x of PAYD.capexPerMW) citeChecks(M8, `${x.ticker} capex per MW`, x.src, x.status);
   const TSid = new Set(PAYD.termSheets.map((t) => t.id));
   for (const r of PAYD.ratings) for (const it of r.items) {
     const tag = `${r.ticker} ${it.agency} ${it.rating}`;
@@ -257,7 +205,6 @@ try {
   for (const t of PAYD.termSheets) M8.record(`${t.ticker} ${t.form} ${t.date}`, 'term sheet read twice (automated; not analyst-reviewed)', t.status === 'verified' ? 'ok' : 'warn');
   for (const r of PAYD.ratings) for (const it of r.items) if (it.tier === 'T4') M8.record(`${r.ticker} ${it.agency} ${it.rating}`, 'secondary source labeled (agency page and SEC filings checked, not available)', it.secondary ? 'ok' : 'warn', null, null, it.agencyChecked ? L(it.agencyChecked.note_es || it.agencyChecked.es || it.agencyChecked.note_en || it.agencyChecked.en, it.agencyChecked.note_en || it.agencyChecked.en) : null);
   for (const r of PAYD.ratings) for (const it of r.items) if (it.laterActionsChecked) M8.record(`${r.ticker} ${it.agency} ${it.rating}`, `term-sheet rating checked for later agency actions (${it.laterActionsChecked.result}, ${et(it.laterActionsChecked.checkedAt)})`, it.laterActionsChecked.result === 'none_found' ? 'ok' : 'warn', null, null, L(it.laterActionsChecked.note_es || '', it.laterActionsChecked.note_en || ''));
-  for (const e of PAYD.mwEstimates) M8.record(`${e.publisher} ${e.date}`, 'third-party estimate labeled T4 with a URL and date', e.tier === 'T4' && e.url && e.date ? 'ok' : 'fail');
   const calAge = PAYD.calendar ? ageDays(PAYD.calendar.pulledAt) : null;
   M8.curated('FactSet earnings calendar (raw/factset/<date>-calendar.json)', calAge != null && calAge <= 45, L(`tomado el ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} días); renovar cada mes y tras cada temporada`, `pulled ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} days); renew monthly and after each season`));
   // a FactSet projection dated after the company's SEC deadline for the same period is flagged on the page; count them here
@@ -268,11 +215,10 @@ try {
   M8.card(PAYD.segments.length, 'segmentos de nube', 'cloud segments');
   M8.card(PAYD.rpoTiming.length, 'calendarios de cartera', 'backlog schedules');
   M8.card(PAYD.ratings.reduce((s, r) => s + r.items.length, 0), 'calificaciones', 'ratings');
-  M8.card(PAYD.mwEstimates.length, 'estimaciones T4', 'T4 estimates');
-  reviewedCard(M8, [].concat(PAYD.segments, PAYD.rpoTiming, PAYD.usefulLives, PAYD.capexPerMW, PAYD.termSheets), 'revisadas por analista', 'analyst-reviewed');
+  reviewedCard(M8, [].concat(PAYD.segments, PAYD.rpoTiming, PAYD.usefulLives, PAYD.termSheets), 'revisadas por analista', 'analyst-reviewed');
   await M8.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: PAYD.generated });
 } catch (e) { if (e.code !== 'ENOENT') throw e; }
 
-console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps; modules 1/2/4/5/7/8: ${[M1, M2, M4, M5, M7, M8].filter(Boolean).map((m) => `${m.R.checks.length} (${m.R.fails.length} fail)`).join(' / ')}`);
+console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps; power/circular/payoff: ${[M4, M7, M8].filter(Boolean).map((m) => `${m.R.checks.length} (${m.R.fails.length} fail)`).join(' / ')}`);
 if (fails.length || (state.errors || []).length === Object.keys(F.companies).length * 2) { console.error('HARD FAIL:\n  ' + fails.join('\n  ')); process.exit(1); }
 void TODAY;

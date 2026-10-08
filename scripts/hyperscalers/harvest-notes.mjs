@@ -1,5 +1,5 @@
-// Hyperscaler Hub: harvest the off-balance-sheet notes from each company's latest 10-K and 10-Q (and the 20-F for
-// Nebius). Runs on the GitHub runner (www.sec.gov answers only clients with the declared User-Agent the SEC asks for;
+// Hyperscaler Hub: harvest the notes from each company's latest 10-K and 10-Q (or 20-F), for the covered companies and
+// for the counterparties of module Circular (companies.json → counterparties), whose filings are cited there. Runs on the GitHub runner (www.sec.gov answers only clients with the declared User-Agent the SEC asks for;
 // repository variable EDGAR_USER_AGENT). For every filing not yet harvested it downloads the primary document, splits
 // it into printed pages, and keeps the passages that matter for module 6, each with its page number:
 //   leases not yet commenced · residual value guarantees · variable interest entities / maximum exposure to loss ·
@@ -73,12 +73,12 @@ function amounts(s) {
 }
 
 const SELF = { MSFT: /Microsoft/, NBIS: /Nebius/ };
-const { companies } = await readJson(TOOLS + 'companies.json');
+const { companies, counterparties = [] } = await readJson(TOOLS + 'companies.json');
 const filings = await readJson(TOOLS + 'data/filings.json', { companies: {} });
 const state = await readJson(TOOLS + 'data/state.json', {});
 state.notes = state.notes || {};
 let done = 0, errors = 0;
-for (const c of companies) {
+for (const c of [...companies, ...counterparties]) {
   if (ONLY && c.ticker !== ONLY) continue;
   const list = (filings.companies[c.ticker] || {}).filings || [];
   const pick = [list.find((f) => /^10-K$|^20-F$/.test(f.form)), list.find((f) => f.form === '10-Q')].filter(Boolean);

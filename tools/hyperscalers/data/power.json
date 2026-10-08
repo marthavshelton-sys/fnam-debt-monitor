@@ -1,5 +1,5 @@
 {
- "_comment": "Module 4 (electricity). Two blocks that are never combined: (1) companyDeals: power contracts of the ten companies, from their filings (T1) or their own / their counterparty's announcements (T2: company statement, not audited; a counterparty's 8-K exhibit is still the counterparty's statement); (2) grid: national and regional projections and measurements from regulators and grid operators (T3: EIA, NERC, ERCOT, PJM) and third-party estimates (T4: LBNL, IEA). MW in a contract are nameplate or contract quantity as the announcement states; they are not data center IT load and are never added to the capacity modules. Staleness: T1 next filing + 7 days; T3/T4 publisher's next edition + 30 days (nextExpected).",
+ "_comment": "Module 4 (electricity). Two blocks that are never combined: (1) companyDeals: power contracts of the five covered companies, from their filings (T1) or their own / their counterparty's announcements (T2: company statement, not audited; a counterparty's 8-K exhibit is still the counterparty's statement); (2) grid: national and regional projections and measurements from regulators and grid operators (T3: EIA, NERC, ERCOT, PJM) and third-party estimates (T4: LBNL, IEA). MW in a contract are nameplate or contract quantity as the announcement states; they are not data center IT load and are never read as data center IT load. Staleness: T1 next filing + 7 days; T3/T4 publisher's next edition + 30 days (nextExpected).",
  "updated": "2026-10-03",
  "readBy": "automated read, 3 Oct 2026 ET",
  "companyDeals": [
@@ -238,48 +238,6 @@
    "inFiling": true
   },
   {
-   "id": "iren-hedges",
-   "ticker": "IREN",
-   "counterparty_es": "no revelada",
-   "counterparty_en": "not disclosed",
-   "asset_es": "Coberturas de precio de energía a 5 años para el contrato de Microsoft (Horizons 1–4, Childress)",
-   "asset_en": "5-year fixed-price power hedges for the Microsoft contract (Horizons 1–4, Childress)",
-   "source_type": "hedge",
-   "mw": null,
-   "usdM": null,
-   "announced": "2026-05-31",
-   "grid": "ERCOT",
-   "tier": "T1",
-   "src": {
-    "k": "IREN 10-Q 2026-03-31",
-    "page": "43",
-    "section": "Note: Subsequent events",
-    "quote": "In May 2026, the Group entered into power hedges at a fixed price over a 5-year term, intended to reduce the Group’s exposure to variability in power prices with respect to delivery of the Microsoft contract at Horizons 1-4."
-   },
-   "inFiling": true
-  },
-  {
-   "id": "iren-renewable",
-   "ticker": "IREN",
-   "counterparty_es": "red y certificados",
-   "counterparty_en": "grid and certificates",
-   "asset_es": "Sitios operativos con 100% de energía renovable (fuentes limpias o certificados REC)",
-   "asset_en": "Operating sites 100% renewable (clean sources or RECs)",
-   "source_type": "renewables_mixed",
-   "mw": null,
-   "usdM": null,
-   "announced": "2026-06-30",
-   "tier": "T1",
-   "src": {
-    "k": "IREN 10-K 2026-06-30",
-    "page": "12",
-    "section": "Item 1. Business",
-    "quote": "Each of our operating sites has been 100% powered by renewable energy"
-   },
-   "inFiling": true
-  },
-  {
-   "scope": "orcl-jupiter",
    "id": "orcl-jupiter-bloom",
    "ticker": "ORCL",
    "counterparty": "Bloom Energy (with BorderPlex)",
@@ -327,32 +285,6 @@
     "section": "Item 1A. Risk Factors",
     "quote": "We also may enter into long-term power supply arrangements, including power purchase agreements or similar arrangements, that may extend beyond customer contract terms"
    }
-  },
-  {
-   "ticker": "CRWV",
-   "note_es": "Sin contratos de energía propios revelados: CoreWeave arrienda todos sus centros y el arrendador provee la potencia (MW por entregar en el módulo 2).",
-   "note_en": "No own power contracts disclosed: CoreWeave leases all its data centers and the landlord supplies the power (undelivered MW in module 2)."
-  },
-  {
-   "ticker": "NBIS",
-   "note_es": "El 20-F describe eficiencia energética (Finlandia) sin contratos de energía cuantificados.",
-   "note_en": "The 20-F describes energy efficiency (Finland) with no quantified power contracts."
-  },
-  {
-   "ticker": "APLD",
-   "note_es": "Cada MW de su cartera contratada está respaldado por terreno o un contrato de energía con la empresa eléctrica ejecutado; no se cuantifican por contrato.",
-   "note_en": "Each MW of its contracted portfolio is backed by land and/or an executed utility power agreement; not quantified per contract.",
-   "src": {
-    "k": "APLD 10-K 2026-05-31",
-    "page": "7",
-    "section": "Item 1. Business",
-    "quote": "Each megawatt in this category is backed by land under our control and/or an executed utility power agreement."
-   }
-  },
-  {
-   "ticker": "CORZ",
-   "note_es": "Hunt County con calendario de interconexión aprobado por ERCOT (430 MW brutos); Muskogee con contratos de servicio eléctrico de hasta 440 MW (adquisición).",
-   "note_en": "Hunt County with an ERCOT-approved interconnection ramp (430 MW gross); Muskogee with electric service agreements of up to 440 MW (acquisition)."
   }
  ],
  "grid": [
@@ -566,5 +498,5 @@
    "page": "Executive summary"
   }
  ],
- "updatedAt": "2026-10-04T14:44:12Z"
+ "updatedAt": "2026-10-08T16:30:00Z"
 }

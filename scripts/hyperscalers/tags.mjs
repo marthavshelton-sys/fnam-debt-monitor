@@ -16,9 +16,10 @@ export const TAGS = {
   da: { kind: 'flow', tags: ['us-gaap:DepreciationDepletionAndAmortization', 'us-gaap:DepreciationAmortizationAndAccretionNet', 'us-gaap:DepreciationAndAmortization', 'us-gaap:Depreciation'], en: 'Depreciation and amortization (cash-flow statement)', es: 'Depreciación y amortización (estado de flujos)' },
   interest_exp: { kind: 'flow', tags: ['us-gaap:InterestExpense', 'us-gaap:InterestExpenseNonoperating', 'us-gaap:InterestExpenseDebt'], en: 'Interest expense (as reported, net of capitalized interest)', es: 'Gasto por intereses (reportado, neto de intereses capitalizados)' },
   interest_cap: { kind: 'flow', tags: ['us-gaap:InterestCostsCapitalized', 'us-gaap:InterestCostsCapitalizedAdjustment'], en: 'Interest capitalized into construction', es: 'Intereses capitalizados en construcción' },
-  // candidates added 2026-10-03 after a scan of the ten companies' full companyfacts (owner's third review): Microsoft tags
-  // debt by maturity bucket (…MaturingInMoreThanThreeMonths), IREN its convertibles, Alphabet repayments incl. capital
-  // leases, Applied Digital its project notes as medium-term notes; Alphabet re-tagged dividends in 2026 (ordinary dividends)
+  // candidates added 2026-10-03 after a scan of the companies' full companyfacts (owner's third review): Microsoft tags
+  // debt by maturity bucket (…MaturingInMoreThanThreeMonths), Alphabet repayments incl. capital leases; the convertible,
+  // medium-term and secured candidates are kept so a new issuer type is read without a tag-map change; Alphabet re-tagged
+  // dividends in 2026 (ordinary dividends)
   debt_proceeds: { kind: 'flow', tags: ['us-gaap:ProceedsFromIssuanceOfLongTermDebt', 'us-gaap:ProceedsFromIssuanceOfSeniorLongTermDebt', 'us-gaap:ProceedsFromIssuanceOfDebt', 'us-gaap:ProceedsFromDebtNetOfIssuanceCosts', 'us-gaap:ProceedsFromIssuanceOfMediumTermNotes', 'us-gaap:ProceedsFromIssuanceOfSecuredDebt', 'us-gaap:ProceedsFromDebtMaturingInMoreThanThreeMonths', 'us-gaap:ProceedsFromConvertibleDebt'], en: 'Proceeds from debt issued', es: 'Recursos por emisión de deuda' },
   debt_repaid: { kind: 'flow', tags: ['us-gaap:RepaymentsOfLongTermDebt', 'us-gaap:RepaymentsOfDebt', 'us-gaap:RepaymentsOfSeniorDebt', 'us-gaap:RepaymentsOfDebtMaturingInMoreThanThreeMonths', 'us-gaap:RepaymentsOfDebtAndCapitalLeaseObligations', 'us-gaap:RepaymentsOfMediumTermNotes', 'us-gaap:RepaymentsOfConvertibleDebt'], en: 'Repayments of debt', es: 'Pagos de deuda' },
   cp_net: { kind: 'flow', tags: ['us-gaap:ProceedsFromRepaymentsOfCommercialPaper', 'us-gaap:ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess'], en: 'Commercial paper, net', es: 'Papel comercial, neto' },
