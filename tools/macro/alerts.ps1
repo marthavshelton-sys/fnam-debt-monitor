@@ -9,7 +9,8 @@
 # CAPE, BLS productivity, NIPA corporate profits, the Z.1 debt accounts, the New
 # York Fed's household debt report, the G.19, the FDIC's bank aggregates, the Z.1 nonbank
 # financial sectors, the OFR hedge fund monitor, the SEC money market fund statistics and
-# the NCUA credit union trends) and a weekly SPR move of 3 million barrels or more. The body is the
+# the NCUA credit union trends, the FT-900 trade balance, the BLS import and export price indexes
+# and BEA's international investment position) and a weekly SPR move of 3 million barrels or more. The body is the
 # page's own "At a glance" text for each affected section (read out of the
 # built page under Node), so the email says exactly what the dashboard says.
 # Thresholds below decide whether the subject is marked MATERIAL.
@@ -48,6 +49,7 @@ $pce = LoadJson "pce_processed.json"; $gdp = LoadJson "gdp_processed.json"; $ret
 $fiscal = LoadJson "fiscal_processed.json"; $spr = LoadJson "spr_processed.json"; $cape = LoadJson "cape_processed.json"
 $prod = LoadJson "productivity_processed.json"; $profits = LoadJson "profits_processed.json"; $debt = LoadJson "debt_processed.json"
 $hh = LoadJson "hhdebt_processed.json"; $banks = LoadJson "banks_processed.json"; $nonbank = LoadJson "nonbank_processed.json"
+$trade = LoadJson "trade_processed.json"; $iip = LoadJson "iip_processed.json"
 
 function Pts($series) { if ($series -and $series.points) { @($series.points | Where-Object { $null -ne $_.v -or $null -ne $_.yoy -or $null -ne $_.idx }) } else { @() } }
 function Last($arr, [int]$back = 0) { if ($arr.Count -gt $back) { $arr[$arr.Count - 1 - $back] } else { $null } }
@@ -78,17 +80,21 @@ if ($nonbank -and $nonbank.z1 -and $nonbank.z1.asOf) { $cur.nonbank = $nonbank.z
 if ($nonbank -and $nonbank.hedge -and $nonbank.hedge.asOf) { $cur.hedge = $nonbank.hedge.asOf }
 if ($nonbank -and $nonbank.mmf -and $nonbank.mmf.asOf) { $cur.mmf = $nonbank.mmf.asOf }
 if ($nonbank -and $nonbank.ncua -and $nonbank.ncua.asOf) { $cur.ncua = $nonbank.ncua.asOf }
+if ($trade -and $trade.asOf) { $cur.trade = $trade.asOf }
+if ($trade -and $trade.pricesAsOf) { $cur.mxp = $trade.pricesAsOf }
+if ($iip -and $iip.asOf) { $cur.iip = $iip.asOf }
 # Quarterly rows ("2026-Q2") of the quarterly sections: the last $n with a value in $field.
 function QRows($rows, [string]$field, [int]$n = 3) { $a = @($rows | Where-Object { $null -ne $_.$field }); if ($a.Count -gt $n) { $a[($a.Count - $n)..($a.Count - 1)] } else { $a } }
 
 # ---- the revisable figures of the last three periods, per release ----
-$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail", "productivity", "profits", "debt", "hhdebt", "banks", "nonbank", "hedge")
+$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail", "productivity", "profits", "debt", "hhdebt", "banks", "nonbank", "hedge", "trade", "mxp", "iip")
 $revTitle = @{ cpi = "Consumer Price Index"; ppi = "Producer Price Index"; jobs = "Jobs report"; pce = "PCE prices, income and spending"; gdp = "Real GDP"; retail = "Retail sales"
   productivity = "Productivity and costs"; profits = "Corporate profits and labor share"; debt = "Private sector debt (Z.1)"; hhdebt = "Household debt (New York Fed)"; banks = "Bank capital (FDIC)"
-  nonbank = "Nonbank financial system (Z.1)"; hedge = "Hedge funds (OFR)" }
-$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail"; productivity = "Productivity"; profits = "Profit margin"; debt = "Corporate debt"; hhdebt = "Household debt"; banks = "Bank capital"; nonbank = "Nonbank share"; hedge = "Hedge fund leverage" }
+  nonbank = "Nonbank financial system (Z.1)"; hedge = "Hedge funds (OFR)"; trade = "Trade balance (FT-900)"; mxp = "Import and export prices"; iip = "International investment position (BEA)" }
+$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail"; productivity = "Productivity"; profits = "Profit margin"; debt = "Corporate debt"; hhdebt = "Household debt"; banks = "Bank capital"; nonbank = "Nonbank share"; hedge = "Hedge fund leverage"; trade = "Trade balance"; mxp = "Import prices"; iip = "Net investment position" }
 $revViews = @{ cpi = @("cpi"); ppi = @("ppi"); jobs = @("payrolls", "unemployment"); pce = @("pce", "income"); gdp = @("gdp"); retail = @("retail")
-  productivity = @("productivity"); profits = @("profits"); debt = @("debt"); hhdebt = @("hhdebt"); banks = @("banks"); nonbank = @("nonbank"); hedge = @("nonbank") }
+  productivity = @("productivity"); profits = @("profits"); debt = @("debt"); hhdebt = @("hhdebt"); banks = @("banks"); nonbank = @("nonbank"); hedge = @("nonbank")
+  trade = @("trade"); mxp = @("trade"); iip = @("iip") }
 function PeriodLabel([string]$d) { if ($d -match '^(\d{4})-Q(\d)$') { "Q{0} {1}" -f $Matches[2], $Matches[1] } else { Mon $d } }
 function YoyPairs($a, $b, [string]$fa, [string]$fb) {
   $out = [ordered]@{}; $byB = @{}; foreach ($q in (Pts $b)) { $byB[$q.d] = $q.yoy }
@@ -123,6 +129,12 @@ function Get-RevValues([string]$k) {
     "banks" { foreach ($r in (QRows $banks.quarterly "t1")) { $out[$r.d] = [ordered]@{ lev = [math]::Round([double]$r.t1 / [double]$r.avgAssets * 100, 2) } } }
     "nonbank" { foreach ($r in (QRows $nonbank.z1.quarterly "fin")) { $out[$r.d] = [ordered]@{ share = [math]::Round((1 - [double]$r.dep / ([double]$r.fin - [double]$r.fed)) * 100, 2); slFunded = [math]::Round([double]$r.dbSlFunded / [double]$r.dbSlEnt * 100, 1) } } }
     "hedge" { foreach ($r in (QRows $nonbank.hedge.quarterly "nav")) { $out[$r.d] = [ordered]@{ gavNav = [math]::Round([double]$r.gav / [double]$r.nav, 2) } } }
+    "trade" { $tm = @($trade.monthly | Where-Object { $null -ne $_.bal }); for ($i = [math]::Max(0, $tm.Count - 3); $i -lt $tm.Count; $i++) { $out[$tm[$i].d] = [ordered]@{ bal = [math]::Round([double]$tm[$i].bal, 2) } } }
+    "mxp" {
+      $pr = @($trade.prices | Where-Object { $null -ne $_.ir }); $byM = @{}; foreach ($r in $pr) { $byM[$r.d] = [double]$r.ir }
+      for ($i = [math]::Max(0, $pr.Count - 3); $i -lt $pr.Count; $i++) { $agoM = "{0}-{1}" -f ([int]$pr[$i].d.Substring(0, 4) - 1), $pr[$i].d.Substring(5, 2); if ($byM.ContainsKey($agoM)) { $out[$pr[$i].d] = [ordered]@{ yoy = [math]::Round(([double]$pr[$i].ir / $byM[$agoM] - 1) * 100, 2) } } }
+    }
+    "iip" { foreach ($r in (QRows $iip.quarterly "net")) { $out[$r.d] = [ordered]@{ net = [math]::Round([double]$r.net / 1000, 3) } } }
   }
   return $out
 }
@@ -146,6 +158,9 @@ function RevField([string]$k, [string]$f, [double]$old, [double]$now) {
     "nonbank/share" { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.45; text = ("nonbank share {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
     "nonbank/slFunded" { return @{ note = [math]::Abs($d) -ge 0.45; mat = [math]::Abs($d) -ge 1.95; text = ("state and local funded ratio {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
     "hedge/gavNav" { return @{ note = [math]::Abs($d) -ge 0.045; mat = [math]::Abs($d) -ge 0.195; text = ("hedge fund gross/net assets {0}x (was {1}x)" -f $now.ToString("F2"), $old.ToString("F2")) } }
+    "trade/bal" { return @{ note = [math]::Abs($d) -ge 0.95; mat = [math]::Abs($d) -ge 4.95; text = ("trade balance {0}`${1}B (was {2}`${3}B)" -f $(if ($now -lt 0) { "-" } else { "" }), [math]::Abs($now).ToString("F1"), $(if ($old -lt 0) { "-" } else { "" }), [math]::Abs($old).ToString("F1")) } }
+    "mxp/yoy" { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.45; text = ("import prices {0}% y/y (was {1}%)" -f (Sg $now), (Sg $old)) } }
+    "iip/net" { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.495; text = ("net investment position {0}`${1}T (was {2}`${3}T)" -f $(if ($now -lt 0) { "-" } else { "" }), [math]::Abs($now).ToString("F2"), $(if ($old -lt 0) { "-" } else { "" }), [math]::Abs($old).ToString("F2")) } }
   }
   return $null
 }
@@ -361,6 +376,34 @@ foreach ($k in $new) {
         $wlaMin = $(if ($wla.Count) { ($wla | Measure-Object -Minimum).Minimum } else { 100 })
         $mat = ([math]::Abs($mm) -ge 300) -or ([math]::Abs($primeM) -ge 10) -or ($wlaMin -lt 55)
         AddItem $k "Money market funds (SEC)" (Mon $L.d) ("Money market funds {0}: `${1}T ({2}B m/m, {3}% y/y); prime `${4}B ({5}% m/m); weekly liquid assets: government {6}%, prime institutional {7}%" -f (Mon $L.d), ([double]$L.total / 1000).ToString("F2"), (Sg $mm 0), (Sg $yoy), (N0 $L.prime), (Sg $primeM), ([double]$L.wlaGov).ToString("F1"), ([double]$L.wlaPrimeI).ToString("F1")) $mat @("nonbank")
+      }
+      "trade" {
+        $tm = @($trade.monthly | Where-Object { $null -ne $_.bal -and $null -ne $_.exp -and $null -ne $_.imp }); $L = $tm[-1]; $P = $tm[-2]
+        $agoD = "{0}-{1}" -f ([int]$L.d.Substring(0, 4) - 1), $L.d.Substring(5, 2); $Y = @($tm | Where-Object { $_.d -eq $agoD })[0]
+        $expY = $(if ($Y) { ([double]$L.exp / [double]$Y.exp - 1) * 100 } else { 0 }); $impY = $(if ($Y) { ([double]$L.imp / [double]$Y.imp - 1) * 100 } else { 0 })
+        $expM = ([double]$L.exp / [double]$P.exp - 1) * 100; $impM = ([double]$L.imp / [double]$P.imp - 1) * 100
+        # MATERIAL: the balance moves $8 billion or more on the month, or exports or imports 4% or more.
+        $mat = ([math]::Abs([double]$L.bal - [double]$P.bal) -ge 8) -or ([math]::Abs($expM) -ge 4) -or ([math]::Abs($impM) -ge 4)
+        AddItem $k "Trade balance (FT-900)" (Mon $L.d) ("Trade {0}: balance {1}`${2}B ({3}B m/m); exports `${4}B ({5}% y/y), imports `${6}B ({7}% y/y)" -f (Mon $L.d), $(if ([double]$L.bal -lt 0) { "-" } else { "" }), [math]::Abs([double]$L.bal).ToString("F1"), (Sg ([double]$L.bal - [double]$P.bal)), ([double]$L.exp).ToString("F1"), (Sg $expY), ([double]$L.imp).ToString("F1"), (Sg $impY)) $mat @("trade")
+      }
+      "mxp" {
+        $pr = @($trade.prices | Where-Object { $null -ne $_.ir -and $null -ne $_.iq }); $L = $pr[-1]; $P = $pr[-2]
+        $agoD = "{0}-{1}" -f ([int]$L.d.Substring(0, 4) - 1), $L.d.Substring(5, 2); $Y = @($pr | Where-Object { $_.d -eq $agoD })[0]
+        $agoP = "{0}-{1}" -f ([int]$P.d.Substring(0, 4) - 1), $P.d.Substring(5, 2); $YP = @($pr | Where-Object { $_.d -eq $agoP })[0]
+        $irY = $(if ($Y) { ([double]$L.ir / [double]$Y.ir - 1) * 100 } else { 0 }); $irYP = $(if ($YP) { ([double]$P.ir / [double]$YP.ir - 1) * 100 } else { $irY })
+        $irM = ([double]$L.ir / [double]$P.ir - 1) * 100; $iqM = ([double]$L.iq / [double]$P.iq - 1) * 100; $iqY = $(if ($Y) { ([double]$L.iq / [double]$Y.iq - 1) * 100 } else { 0 })
+        # MATERIAL: import or export prices move 1% or more on the month, or the import y/y rate swings 1 pp.
+        $mat = ([math]::Abs($irM) -ge 1.0) -or ([math]::Abs($iqM) -ge 1.0) -or ([math]::Abs($irY - $irYP) -ge 1.0)
+        AddItem $k "Import and export prices (BLS)" (Mon $L.d) ("Import prices {0} {1}% m/m, {2}% y/y; export prices {3}% m/m, {4}% y/y" -f (Mon $L.d), (Sg $irM), (Sg $irY), (Sg $iqM), (Sg $iqY)) $mat @("trade")
+      }
+      "iip" {
+        $R = @(QRows ($iip.quarterly | Where-Object { $null -ne $_.gdp }) "net" 5); $L = $R[-1]; $P = $R[-2]
+        $pct = [double]$L.net / [double]$L.gdp * 100; $pctP = [double]$P.net / [double]$P.gdp * 100
+        $fl = @($iip.flows | Where-Object { $null -ne $_.ca -and $null -ne $_.gdp }); $cL = $fl[-1]; $cP = $fl[-2]
+        $caPct = [double]$cL.ca * 4 / [double]$cL.gdp * 100; $caPctP = [double]$cP.ca * 4 / [double]$cP.gdp * 100   # quarterly flow at an annual rate over GDP (SAAR)
+        # MATERIAL: the net position moves $1 trillion or 3 pp of GDP on the quarter, or the current account 0.5 pp of GDP.
+        $mat = ([math]::Abs([double]$L.net - [double]$P.net) -ge 1000) -or ([math]::Abs($pct - $pctP) -ge 3) -or ([math]::Abs($caPct - $caPctP) -ge 0.5)
+        AddItem $k "International investment position (BEA)" (PeriodLabel $L.d) ("IIP {0}: net position {1}`${2}T ({3}% of GDP, {4} pp q/q); FDI in the US `${5}T; current account {6} {7}`${8}B ({9}% of GDP)" -f (PeriodLabel $L.d), $(if ([double]$L.net -lt 0) { "-" } else { "" }), ([math]::Abs([double]$L.net) / 1000).ToString("F2"), $pct.ToString("F1"), (Sg ($pct - $pctP)), ([double]$L.diL / 1000).ToString("F2"), (PeriodLabel $cL.d), $(if ([double]$cL.ca -lt 0) { "-" } else { "" }), [math]::Abs([double]$cL.ca).ToString("F0"), $caPct.ToString("F1")) $mat @("iip")
       }
       "ncua" {
         $R = @(QRows $nonbank.ncua.quarterly "nw" 2); $L = $R[-1]; $P = $R[-2]

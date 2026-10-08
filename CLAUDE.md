@@ -214,7 +214,11 @@ dashboards, everything built from public data by GitHub Actions.
   from the Z.1 via FRED; household debt from the New York Fed workbook plus Z.1/G.19; bank capitalization from
   FDIC API aggregates plus H.8; the nonbank financial system from the Z.1 sector balance sheets in the Board's release
   package plus the OFR hedge fund API, the SEC money fund workbook and the NCUA chart pack), each with a title-checked processor (`Get-FredChecked` in `common.ps1`),
-  identity checks and staleness warnings; `tools/macro/README.md` → "The quarterly sections". The workflow's
+  identity checks and staleness warnings; `tools/macro/README.md` → "The quarterly sections". Since 8-Oct-2026 an
+  "External Sector" group carries `trade` (FT-900 balance, exports, imports; BLS import/export prices by end use and
+  origin; Census-basis trade by partner; MTS customs duties and the effective tariff rate; NIPA trade lines) and `iip`
+  (BEA IIP by type, ITA current account and direct investment flows, optional BEA-API blocks for the change
+  decomposition and FDI by country); README → "The external sector". The workflow's
   `branch` input runs the whole refresh on a feature branch (data and page committed there, no alerts) to test
   processors before merging; a session cannot reach FRED from PowerShell, so seed data comes from the runner. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
   from the publishers' calendars and are always the release after the one shown; extra refresh runs on Wednesdays
