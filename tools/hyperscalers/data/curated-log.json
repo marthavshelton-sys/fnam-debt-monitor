@@ -2,6 +2,14 @@
  "_comment": "Reader-facing log of curated edits to the Hyperscaler Hub (wording, structure, review counts, explained gaps, thesis changes). at = UTC instant; the pages print it in ET. build.mjs merges it into site/hiperescaladores/data/changelog.js (HYP_LOG.curated). Append one entry per edit; never rewrite history.",
  "entries": [
   {
+   "at": "2026-10-08T23:31:00Z",
+   "modules": [
+    "home"
+   ],
+   "en": "\"How to Read This Hub\" keeps only the 3-minute path: the list of the five modules beside it repeated \"The Five Modules\", which now sits one section below.",
+   "es": "«Cómo Leer Este Centro» conserva solo la ruta de 3 minutos: la lista de los cinco módulos que la acompañaba repetía «Los Cinco Módulos», que ahora está una sección más abajo."
+  },
+  {
    "at": "2026-10-08T23:26:00Z",
    "modules": [
     "home"
