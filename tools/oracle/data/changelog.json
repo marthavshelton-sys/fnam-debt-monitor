@@ -2,48 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "reference.js",
-   "path": "erp.asOf",
-   "old": "2026-09-01",
-   "new": "2026-10-01"
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "reference.js",
-   "path": "erp.riskfreeUsedPct",
-   "old": 4.75,
-   "new": 5.29
-  },
-  {
-   "at": "2026-10-05T22:03:45.293Z",
-   "file": "financials.js",
-   "path": "basisNotes.extraction_notes.supplement.method",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-06T00:47:13.229Z",
-   "file": "market.js",
-   "path": "dividends.ORCL.source",
-   "old": "Quarterly dividends declared in each 8-K earnings release; dated by payment date",
-   "new": "Quarterly dividends declared in each 8-K earnings release; dated by payment date (paid only; declared-not-yet-paid under announced)"
-  },
-  {
-   "at": "2026-10-06T00:47:13.229Z",
-   "file": "market.js",
-   "path": "dividends.ORCL.points[19][0]",
-   "old": "2026-10-23",
-   "new": null
-  },
-  {
-   "at": "2026-10-06T00:47:13.229Z",
-   "file": "market.js",
-   "path": "dividends.ORCL.points[19][1]",
-   "old": 0.5,
-   "new": null
-  },
-  {
    "at": "2026-10-06T00:47:13.229Z",
    "file": "market.js",
    "path": "dividends.ORCL.announced[0].declared",
@@ -4200,7 +4158,49 @@
    "path": "spreads.BBB_OAS.fetchedAt",
    "old": "2026-10-07",
    "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T14:56:37.325Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
   }
  ],
- "generated": "2026-10-08T13:42:49.665Z"
+ "generated": "2026-10-08T14:56:37.325Z"
 }
