@@ -193,7 +193,11 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   described as "U.S. net international investment position" and the latter sorts first (it has no change components,
   so the block came out empty); the Component descriptions are "Change in position attributable to financial-account
   transactions / price changes / exchange-rate changes" and "changes in volume and valuation n.i.e." (`ChgPosNie`), with
-  `ChgPosOth` = everything not attributable to transactions. MNE DI rows carry `Row` (country), `RowCode`, `Year`,
+  `ChgPosOth` = everything not attributable to transactions; quarterly, only `Pos`, `ChgPos`, `ChgPosTrans` and `ChgPosOth`
+  carry values (the price / exchange-rate / volume split is annual), so the page shows the two-way split, like BEA's
+  quarterly release. Also: a loop that worked on PowerShell 7 assembled nothing on 5.1 until it stopped relying on
+  `$Matches` after `-notmatch` and on `Where-Object` over dictionaries; the block now uses `[regex]::Match`, hashtables
+  with indexers and plain loops. MNE DI rows carry `Row` (country), `RowCode`, `Year`,
   `TableScale` ("Millions of Dollars") and `DataValue` with thousands separators; SeriesID 22 is the historical-cost
   FDI position in the US; "United Kingdom Islands, Caribbean" is a BEA country row and stays in the list.
 - The session's seed of `trade_processed.json` and `iip_processed.json` was produced by the real processors run

@@ -9,8 +9,8 @@
 #   portfolio investment flows; net lending or borrowing from financial-account transactions. FRED suffixes:
 #   none = quarterly seasonally adjusted, N = quarterly not seasonally adjusted, A = annual (IEAIPIA is annual).
 #   Two optional blocks come from BEA's own API (the runner holds the key): the quarterly change
-#   in the net position split into financial transactions, price changes, exchange-rate changes
-#   and other changes (dataset IIP), and the foreign direct investment position in the United
+#   in the net position split into financial-account transactions and other changes (price,
+#   exchange-rate and volume changes together; dataset IIP), and the foreign direct investment position in the United
 #   States by country of the foreign parent, historical-cost basis, annual (dataset MNE). Each
 #   is dropped with a warning when it cannot be read or checked; the page then leaves it out.
 # Every FRED id is checked against its title (Get-FredChecked); the IIP's and ITA's own sums are
@@ -146,12 +146,15 @@ try {
   $comps = @((Invoke-BeaApi "method=GetParameterValues&DataSetName=IIP&ParameterName=Component").ParamValue)
   Write-Host ("  IIP Component: " + (ParamDesc $comps))
   $pick = { param($re) $m = @($comps | Where-Object { "$($_.Desc)" -match $re }); if ($m.Count) { "$($m[0].Key)" } else { $null } }
-  # BEA's components (table 1.3): Pos; ChgPos = ChgPosTrans + ChgPosOth, and ChgPosOth = ChgPosPrice +
-  # ChgPosXRate + ChgPosNie ("changes in volume and valuation n.i.e."), the "other" of the page. The
-  # patterns are anchored: "not attributable to financial-account transactions" must not match transactions.
-  $cKeys = @{ pos = (& $pick '^position$'); chg = (& $pick '^change in position$'); trans = (& $pick '^change in position attributable to financial.account transactions$'); price = (& $pick 'attributable to price changes$'); fx = (& $pick 'attributable to exchange.rate changes$'); other = (& $pick 'volume and valuation') }
+  # BEA's components (table 1.3): Pos; ChgPos = ChgPosTrans + ChgPosOth ("not attributable to
+  # financial-account transactions": price changes, exchange-rate changes and changes in volume and
+  # valuation n.i.e. together). The split of ChgPosOth into ChgPosPrice, ChgPosXRate and ChgPosNie is
+  # published annually only: the quarterly rows carry blank values (8-Oct-2026: 42 blank rows), so the
+  # page shows transactions and the combined other changes, as BEA's quarterly release does. The
+  # patterns are anchored: "not attributable to ... transactions" must not match transactions.
+  $cKeys = @{ pos = (& $pick '^position$'); chg = (& $pick '^change in position$'); trans = (& $pick '^change in position attributable to financial.account transactions$'); oth = (& $pick '^change in position not attributable to financial.account transactions$'); price = (& $pick 'attributable to price changes$'); fx = (& $pick 'attributable to exchange.rate changes$'); nie = (& $pick 'volume and valuation') }
   Write-Host ("  IIP component keys: " + (($cKeys.Keys | Sort-Object | ForEach-Object { $_ + "=" + $cKeys[$_] }) -join ", "))
-  if (-not $cKeys.pos -or -not $cKeys.trans -or -not $cKeys.price -or -not $cKeys.fx) { throw ("IIP Component keys not recognised: " + (ParamDesc $comps)) }
+  if (-not $cKeys.pos -or -not $cKeys.chg -or -not $cKeys.trans -or -not $cKeys.oth) { throw ("IIP Component keys not recognised: " + (ParamDesc $comps)) }
   $rows = @((Invoke-BeaApi ("method=GetData&DataSetName=IIP&TypeOfInvestment=" + $netType[0].Key + "&Component=All&Frequency=QNSA&Year=ALL")).Data)
   if (-not $rows.Count) { throw "IIP GetData returned no rows" }
   Write-Host ("  IIP first row: " + (($rows[0].PSObject.Properties | ForEach-Object { $_.Name + "=" + $_.Value }) -join "; "))
@@ -168,17 +171,17 @@ try {
     if ($null -eq $v) { $skipped++; continue }
     $mult = 6; $mu = [string]$row.UNIT_MULT; if ($mu -match '^\d+$') { $mult = [int]$mu }
     $bn = [math]::Round($v * [math]::Pow(10, $mult) / 1e9, 1)
-    if (-not $byQ.ContainsKey($q)) { $byQ[$q] = @{ d = $q; pos = $null; chg = $null; trans = $null; price = $null; fx = $null; other = $null } }
+    if (-not $byQ.ContainsKey($q)) { $byQ[$q] = @{ d = $q; pos = $null; chg = $null; trans = $null; oth = $null; price = $null; fx = $null; nie = $null } }
     $comp = [string]$row.Component
-    foreach ($ck in @("pos", "chg", "trans", "price", "fx", "other")) { if ($cKeys[$ck] -and $comp -eq $cKeys[$ck]) { $byQ[$q][$ck] = $bn } }
+    foreach ($ck in @("pos", "chg", "trans", "oth", "price", "fx", "nie")) { if ($cKeys[$ck] -and $comp -eq $cKeys[$ck]) { $byQ[$q][$ck] = $bn } }
   }
   $qKeys = @($byQ.Keys | Sort-Object)
   Write-Host ("  IIP quarters assembled: {0} ({1} rows skipped); sample: {2}" -f $qKeys.Count, $skipped, $(if ($qKeys.Count) { ($byQ[$qKeys[$qKeys.Count - 1]] | ConvertTo-Json -Compress) } else { "none" }))
   $chgRows = New-Object System.Collections.ArrayList
   foreach ($k in $qKeys) {
     $e = $byQ[$k]
-    if ($null -eq $e["pos"] -or $null -eq $e["trans"] -or $null -eq $e["price"] -or $null -eq $e["fx"]) { continue }
-    [void]$chgRows.Add([ordered]@{ d = $e["d"]; pos = $e["pos"]; chg = $e["chg"]; trans = $e["trans"]; price = $e["price"]; fx = $e["fx"]; other = $e["other"] })
+    if ($null -eq $e["pos"] -or $null -eq $e["chg"] -or $null -eq $e["trans"] -or $null -eq $e["oth"]) { continue }
+    [void]$chgRows.Add([ordered]@{ d = $e["d"]; pos = $e["pos"]; chg = $e["chg"]; trans = $e["trans"]; oth = $e["oth"]; price = $e["price"]; fx = $e["fx"]; nie = $e["nie"] })
   }
   if ($chgRows.Count -lt 8) { throw ("only {0} quarters with a complete change decomposition" -f $chgRows.Count) }
   # The API's position must be FRED's, and the components must add up to the quarter's change.
@@ -186,8 +189,8 @@ try {
   $off = New-Object System.Collections.ArrayList; $bad = New-Object System.Collections.ArrayList
   foreach ($e in $chgRows) {
     if ($fredNet.ContainsKey($e["d"]) -and [math]::Abs($fredNet[$e["d"]] - $e["pos"]) -gt 1.5) { [void]$off.Add($e) }
-    $oth = $(if ($null -ne $e["other"]) { $e["other"] } else { 0 })
-    if ($null -ne $e["chg"] -and [math]::Abs($e["chg"] - ($e["trans"] + $e["price"] + $e["fx"] + $oth)) -gt 1.5) { [void]$bad.Add($e) }
+    if ([math]::Abs($e["chg"] - ($e["trans"] + $e["oth"])) -gt 1.5) { [void]$bad.Add($e) }
+    if ($null -ne $e["price"] -and $null -ne $e["fx"] -and $null -ne $e["nie"] -and [math]::Abs($e["oth"] - ($e["price"] + $e["fx"] + $e["nie"])) -gt 1.5) { [void]$bad.Add($e) }
   }
   if ($off.Count) { throw ("BEA API position differs from FRED in {0} quarters (first {1}: {2} vs {3})" -f $off.Count, $off[0]["d"], $off[0]["pos"], $fredNet[$off[0]["d"]]) }
   if ($bad.Count) { throw ("IIP change components do not add up in {0} quarters (first {1})" -f $bad.Count, $bad[0]["d"]) }
@@ -195,7 +198,7 @@ try {
   $kept = @($chgRows.GetRange($chgRows.Count - $keep, $keep))
   $lastC = $chgRows[$chgRows.Count - 1]
   $bea["change"] = [ordered]@{ quarterly = $kept; typeOfInvestment = "$($netType[0].Key)"; asOf = $lastC["d"] }
-  Write-Output ("IIP change decomposition: {0} quarters, latest {1}: change {2}B = transactions {3}B + price {4}B + exchange rate {5}B + other {6}B" -f $chgRows.Count, $lastC["d"], $lastC["chg"], $lastC["trans"], $lastC["price"], $lastC["fx"], $lastC["other"])
+  Write-Output ("IIP change decomposition: {0} quarters, latest {1}: change {2}B = transactions {3}B + other changes {4}B (price/exchange-rate/volume split: {5})" -f $chgRows.Count, $lastC["d"], $lastC["chg"], $lastC["trans"], $lastC["oth"], $(if ($null -ne $lastC["price"]) { "quarterly" } else { "annual only" }))
 } catch { Write-Host ("::warning::IIP change decomposition (BEA API) left out: {0}" -f $_.Exception.Message.Split([char]10)[0]) }
 # 4b. Foreign direct investment position in the United States by country (historical cost, annual).
 try {
