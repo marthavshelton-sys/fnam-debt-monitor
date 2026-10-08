@@ -235,6 +235,60 @@ async function imssCurated(cand, spec) {
 }
 
 const PROVIDERS = { banxico, fred, inegi, imss: imssCurated };
+
+// Accounting identities between related series, checked after every fetch (see checkIdentities).
+// parts: keys, or [key, sign]; rel/abs: tolerance (relative to the larger side, with a floor in the
+// series' own unit, for Banxico's rounding: "la suma de los componentes puede no coincidir con los
+// totales"); strict: a block that fails goes back to the previous committed data (or is dropped when
+// there is none) and the run warns, so a wrong or re-based component never reaches the page beside a
+// total it does not add up to. A non-strict identity only warns.
+export const IDENTITIES = [
+  { name: 'exports by sector (CE125)', total: 'expTotalO', parts: ['expOil', 'expAgri', 'expExtr', 'expManuf'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'imports by type of good (CE125)', total: 'impTotalO', parts: ['impCons', 'impInter', 'impCap'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance = exports - imports (CE125)', total: 'balTotalO', parts: ['expTotalO', ['impTotalO', -1]], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance = oil + non-oil (CE125)', total: 'balTotalO', parts: ['balOil', 'balNonOil'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance with the U.S. = exports - imports (CE197)', total: 'balUS', parts: ['expUS', ['impUS', -1]], rel: 0.002, abs: 1000, strict: true },
+  { name: 'current account = goods + services + primary + secondary income (CE174)', total: 'ca', parts: ['goodsB', 'svcB', 'priB', 'secB'], rel: 0.002, abs: 5, strict: true },
+  { name: 'financial account = current account + capital account + errors and omissions (CE174)', total: 'fa', parts: ['ca', 'ka', 'eo'], rel: 0.002, abs: 5, strict: false },
+  { name: 'direct investment in Mexico = new + reinvested + intercompany (CE131)', total: 'diMx', parts: ['diMxNew', 'diMxReinv', 'diMxInter'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP assets by category (CE170)', total: 'iipAssets', parts: ['iipADi', 'iipAPf', 'iipADv', 'iipAOi', 'iipARes'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP liabilities by category (CE170)', total: 'iipLiab', parts: ['iipLDi', 'iipLPf', 'iipLDv', 'iipLOi'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP net = assets - liabilities (CE170)', total: 'iipNet', parts: ['iipAssets', ['iipLiab', -1]], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP net = initial + transactions + other changes (CE170)', total: 'iipNet', parts: ['iipInit', 'iipTrans', 'iipOther'], rel: 0.002, abs: 5, strict: true },
+];
+// Checks every identity on the dates the block's series share. Returns [{name, n, bad:[...], reverted:[keys]}];
+// a strict failure replaces each series of the block in `series` with its copy in `prev` (marked stale) or deletes it.
+export function checkIdentities(series, prev, log) {
+  const results = [];
+  for (const c of IDENTITIES) {
+    const keys = [c.total, ...c.parts.map((p) => (Array.isArray(p) ? p[0] : p))];
+    if (keys.some((k) => !series[k])) continue;                 // block not (fully) fetched: nothing to check
+    if (keys.some((k) => series[k].stale)) continue;            // already on kept data: checked when it was fetched
+    const maps = Object.fromEntries(keys.map((k) => [k, new Map(series[k].points)]));
+    let n = 0; const bad = [];
+    for (const [d, tv] of maps[c.total]) {
+      let sum = 0, ok = true;
+      for (const p of c.parts) { const [k, sign] = Array.isArray(p) ? p : [p, 1]; const v = maps[k].get(d); if (v === undefined) { ok = false; break; } sum += sign * v; }
+      if (!ok) continue;
+      n++;
+      const tol = Math.max(c.abs, c.rel * Math.max(Math.abs(tv), Math.abs(sum)));
+      if (Math.abs(tv - sum) > tol) bad.push(`${d}: ${tv} vs ${Math.round(sum * 1000) / 1000}`);
+    }
+    const r = { name: c.name, n, bad, reverted: [] };
+    results.push(r);
+    if (!n) { log.warn(`identity "${c.name}": the series share no dates`); continue; }
+    if (!bad.length) { console.log(`identity ${c.name}: OK on ${n} dates`); continue; }
+    log.warn(`identity "${c.name}" fails on ${bad.length} of ${n} dates (${bad.slice(0, 3).join('; ')}${bad.length > 3 ? '; ...' : ''})${c.strict ? ' - the block goes back to the previous data' : ''}`);
+    if (!c.strict) continue;
+    for (const k of keys) {
+      const old = prev?.series?.[k];
+      if (old && old.points?.length && !isDiscontinued(old.points[old.points.length - 1][0], old.freq)) series[k] = { ...old, stale: true, staleSince: old.fetchedAt, error: `identity check failed: ${c.name}` };
+      else delete series[k];
+      r.reverted.push(k);
+    }
+  }
+  return results;
+}
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI', imss: 'IMSS' };
 
 function minPoints(freq) { return freq === 'Q' ? 8 : freq === 'M' ? 24 : 50; }
@@ -428,6 +482,16 @@ async function main() {
     await sleep(250);
   }
 
+  // Accounting identities between the external-sector series (IDENTITIES above): a block that no
+  // longer adds up keeps its previous data and the run summary says so.
+  for (const r of checkIdentities(out.series, prev, log)) {
+    for (const k of r.reverted) {
+      const row = rows.find((x) => x[0] === k);
+      if (row) { row[6] = out.series[k] ? `STALE: identity "${r.name}" failed; kept previous points` : `MISSING: identity "${r.name}" failed and no previous data`; }
+      if (!out.series[k]) failed++;
+    }
+  }
+
   await mkdir(new URL('./', OUT), { recursive: true });
   await writeFile(OUT, JSON.stringify(out) + '\n', 'utf8');
   console.log(`\nWrote ${OUT.pathname}: ${ok} series fetched, ${failed} failed/stale.`);
@@ -445,4 +509,4 @@ async function main() {
   if (ok === 0) { console.error('Nothing could be fetched.'); process.exit(1); }
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) main().catch((e) => { console.error(e); process.exit(1); });
