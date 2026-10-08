@@ -2,34 +2,34 @@
   "as_of": "2026-10-08",
   "price_snapshot": {
     "orcl": {
-      "close": 143.56,
-      "close_date": "2026-10-07",
+      "close": 135.69000244140625,
+      "close_date": "2026-10-08",
       "week52_high": 313,
       "week52_high_date": "2025-10-16",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 434087.54,
-      "one_day_change_pct": -0.84,
-      "one_year_change_pct": -49.49,
+      "market_cap_millions": 410290.75,
+      "one_day_change_pct": -5.48,
+      "one_year_change_pct": -52.99,
       "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-08&todate=2026-10-08&limit=10000",
       "accessed": "2026-10-08",
       "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
-      "source_name": "Nasdaq"
+      "source_name": "Nasdaq + Yahoo Finance (2026-10-08)"
     },
     "sp500": {
-      "close": 7801.77,
-      "close_date": "2026-10-07",
-      "one_day_change_pct": -0.22,
-      "one_year_change_pct": 16.19,
+      "close": 7765.35986328125,
+      "close_date": "2026-10-08",
+      "one_day_change_pct": -0.47,
+      "one_year_change_pct": 14.98,
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-      "source_name": "FRED SP500",
+      "source_name": "FRED SP500 + Yahoo Finance (2026-10-08)",
       "accessed": "2026-10-08"
     }
   },
   "treasury_10y": {
-    "yield_pct": 5.28,
-    "as_of_date": "2026-10-07",
+    "yield_pct": 5.22,
+    "as_of_date": "2026-10-08",
     "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
     "source_name": "U.S. Treasury daily par yield curve",
     "series": "10-year par yield, daily",
@@ -556,13 +556,13 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-08"
   },
-  "refreshed_at": "2026-10-08T13:42:41.407Z",
+  "refreshed_at": "2026-10-08T21:56:22.209Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
     "unit": "percent",
     "value_pct": 1.02,
-    "as_of_date": "2026-10-06",
+    "as_of_date": "2026-10-07",
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",
