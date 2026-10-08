@@ -506,7 +506,8 @@
   // ---- heat-map cell: a single-hue scale (light → dark) of how strongly a metric points to risk, 0..1; the value is
   // always printed in the cell, so the color never carries the information alone
   function heat(level) { if (level == null || !isFinite(level)) return ''; var l = Math.max(0, Math.min(1, level)); return ' data-heat="' + Math.round(l * 4) + '"'; }
-  function heatLegend() { return '<span class="heat-legend"><span>' + t('menor', 'lower') + '</span>' + [0, 1, 2, 3, 4].map(function (k) { return '<i data-heat="' + k + '"></i>'; }).join('') + '<span>' + t('mayor riesgo o presión', 'higher risk or strain') + '</span></span>'; }
+  // the legend is one bar of the five cell colors, lowest strain on the left, highest on the right
+  function heatLegend() { return '<span class="heat-legend"><span>' + t('Menor presión', 'Lowest strain') + '</span><span class="heat-bar" aria-hidden="true">' + [0, 1, 2, 3, 4].map(function (k) { return '<i data-heat="' + k + '"></i>'; }).join('') + '</span><span>' + t('Mayor presión', 'Highest strain') + '</span></span>'; }
 
   // ---- data quality: cells holding a "needs review" mark or a "not tagged" mark get a subtle shade (the reason is on
   // hover); one line under the page header counts the figures shown and the share verified or matched
