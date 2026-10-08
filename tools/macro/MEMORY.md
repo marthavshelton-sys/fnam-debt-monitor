@@ -189,6 +189,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   MNE row are printed; adjust the description regexes or the row fields in `process_iip.ps1` from that output). Also
   that `process_calendar.ps1` lists `trade`, `mxp` and `iip` with next dates, and that `alerts.ps1` seeded the three
   releases silently ("seeded trade, mxp, iip").
+- BEA's IIP API (first runner run, 8-Oct-2026): `TypeOfInvestment` has 1,323 keys; both `Net` and `FinDerivNet` are
+  described as "U.S. net international investment position" and the latter sorts first (it has no change components,
+  so the block came out empty); the Component descriptions are "Change in position attributable to financial-account
+  transactions / price changes / exchange-rate changes" and "changes in volume and valuation n.i.e." (`ChgPosNie`), with
+  `ChgPosOth` = everything not attributable to transactions. MNE DI rows carry `Row` (country), `RowCode`, `Year`,
+  `TableScale` ("Millions of Dollars") and `DataValue` with thousands separators; SeriesID 22 is the historical-cost
+  FDI position in the US; "United Kingdom Islands, Caribbean" is a BEA country row and stays in the list.
 - The session's seed of `trade_processed.json` and `iip_processed.json` was produced by the real processors run
   through a curl shim (FRED's keyless CSV mirror; FiscalData directly; no BEA key, so `bea` is empty): the runner's
   files replace them on the first run.

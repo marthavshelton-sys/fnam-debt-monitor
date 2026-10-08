@@ -136,15 +136,26 @@ $bea = [ordered]@{}
 try {
   $types = @((Invoke-BeaApi "method=GetParameterValues&DataSetName=IIP&ParameterName=TypeOfInvestment").ParamValue)
   Write-Host ("  IIP TypeOfInvestment: " + (ParamDesc $types))
-  $netType = @($types | Where-Object { "$($_.Desc)" -match 'net international investment position' -and "$($_.Desc)" -notmatch 'excluding' })
+  # BEA describes two keys as "U.S. net international investment position": Net (the position) and
+  # FinDerivNet (net financial derivatives, mislabelled; it sorts first and has no change components).
+  # The key Net wins when it carries that description; the description alone is the fallback.
+  $netType = @($types | Where-Object { "$($_.Key)" -eq "Net" -and "$($_.Desc)" -match 'net international investment position' })
+  if (-not $netType.Count) { $netType = @($types | Where-Object { "$($_.Desc)" -match 'net international investment position' -and "$($_.Desc)" -notmatch 'excluding' -and "$($_.Key)" -notmatch 'deriv' }) }
   if (-not $netType.Count) { throw "no IIP TypeOfInvestment describes the net position" }
+  Write-Host ("  IIP net position key: " + $netType[0].Key + " = " + $netType[0].Desc)
   $comps = @((Invoke-BeaApi "method=GetParameterValues&DataSetName=IIP&ParameterName=Component").ParamValue)
   Write-Host ("  IIP Component: " + (ParamDesc $comps))
   $pick = { param($re) $m = @($comps | Where-Object { "$($_.Desc)" -match $re }); if ($m.Count) { "$($m[0].Key)" } else { $null } }
-  $cKeys = @{ pos = (& $pick '^position'); chg = (& $pick '^(total )?change in position'); trans = (& $pick 'financial.account transactions'); price = (& $pick 'price changes'); fx = (& $pick 'exchange.rate changes'); other = (& $pick 'other changes') }
+  # BEA's components (table 1.3): Pos; ChgPos = ChgPosTrans + ChgPosOth, and ChgPosOth = ChgPosPrice +
+  # ChgPosXRate + ChgPosNie ("changes in volume and valuation n.i.e."), the "other" of the page. The
+  # patterns are anchored: "not attributable to financial-account transactions" must not match transactions.
+  $cKeys = @{ pos = (& $pick '^position$'); chg = (& $pick '^change in position$'); trans = (& $pick '^change in position attributable to financial.account transactions$'); price = (& $pick 'attributable to price changes$'); fx = (& $pick 'attributable to exchange.rate changes$'); other = (& $pick 'volume and valuation') }
+  Write-Host ("  IIP component keys: " + (($cKeys.Keys | Sort-Object | ForEach-Object { $_ + "=" + $cKeys[$_] }) -join ", "))
   if (-not $cKeys.pos -or -not $cKeys.trans -or -not $cKeys.price -or -not $cKeys.fx) { throw ("IIP Component keys not recognised: " + (ParamDesc $comps)) }
   $rows = @((Invoke-BeaApi ("method=GetData&DataSetName=IIP&TypeOfInvestment=" + $netType[0].Key + "&Component=All&Frequency=QNSA&Year=ALL")).Data)
   if (-not $rows.Count) { throw "IIP GetData returned no rows" }
+  Write-Host ("  IIP first row: " + (($rows[0].PSObject.Properties | ForEach-Object { $_.Name + "=" + $_.Value }) -join "; "))
+  Write-Host ("  IIP rows: " + $rows.Count + "; components seen: " + ((@($rows | ForEach-Object { "$($_.Component)" } | Sort-Object -Unique)) -join ", "))
   $byQ = @{}
   foreach ($row in $rows) {
     if ("$($row.TimePeriod)" -notmatch '^(\d{4})Q([1-4])$') { continue }
