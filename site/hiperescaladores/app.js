@@ -237,9 +237,10 @@
       ['retorno', 5, t('Lo que rinde la inversión y cuánto cuesta el dinero', 'What the spending earns, and what the money costs')]
     ];
   };
+  // the 3-minute path only (owner, 2026-10-08): the list of modules that sat beside it repeated "The five modules", now the
+  // section right after the heat map
   function paths() {
-    set('pathsBox', '<div class="path fast"><h3>' + t('Ruta de 3 minutos', '3-minute path') + '</h3><ol><li><a href="#thesis">' + t('La tesis', 'The thesis') + '</a> ' + t('y las cuatro líneas de «Lo que hay que saber» (arriba)', 'and the four "What to know" lines (above)') + '</li><li><a href="#heat">' + t('El mapa de calor', 'The heat map') + '</a>: ' + t('qué empresa enciende qué alerta', 'which company trips which alert') + '</li><li><a href="#changed">' + t('Qué cambió', 'What changed') + '</a> ' + t('en las últimas presentaciones', 'in the latest filings') + '</li><li><a href="#calendar">' + t('Próximos resultados', 'Upcoming results') + '</a></li></ol></div>' +
-      '<div class="path"><h3>' + t('A fondo: los cinco módulos', 'Deep dive: the five modules') + '</h3><div class="mini-tiles">' + TILES().map(function (m) { return '<a href="/hiperescaladores/' + m[0] + '/"><b>' + m[1] + '</b> ' + esc(m[2]) + '</a>'; }).join('') + '</div><p class="small muted" style="margin:8px 0 0"><a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a></p></div>');
+    set('pathsBox', '<div class="path fast"><h3>' + t('Ruta de 3 minutos', '3-minute path') + '</h3><ol><li><a href="#thesis">' + t('La tesis', 'The thesis') + '</a> ' + t('y las cuatro líneas de «Lo que hay que saber» (arriba)', 'and the four "What to know" lines (above)') + '</li><li><a href="#heat">' + t('El mapa de calor', 'The heat map') + '</a>: ' + t('qué empresa enciende qué alerta', 'which company trips which alert') + '</li><li><a href="#changed">' + t('Qué cambió', 'What changed') + '</a> ' + t('en las últimas presentaciones', 'in the latest filings') + '</li><li><a href="#calendar">' + t('Próximos resultados', 'Upcoming results') + '</a></li></ol></div>');
   }
 
   // ---- B. heat map: company × metric, the value and its as-of date printed in every cell
