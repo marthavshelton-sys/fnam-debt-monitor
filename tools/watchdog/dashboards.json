@@ -1,5 +1,5 @@
 {
-  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path; name {es, en}), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routine runs at 19:58, so 5 h). Every feed must carry that session (the S&P 500 included: the runner tops it up from Yahoo/Stooq the same evening); lagSessions N would let a feed trail by N sessions and no feed uses it. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue; a date the exchange calendar (scripts/watchdog/lib.mjs) does not cover → unverified.",
+  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path; name {es, en}), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routines run at 19:52 (airports), 19:58 (Oracle) and 20:13 (Quálitas, Gentera) New York time, so 5 h). Every feed must carry that session (the S&P 500 included: the runner tops it up from Yahoo/Stooq the same evening); lagSessions N would let a feed trail by N sessions and no feed uses it. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue; a date the exchange calendar (scripts/watchdog/lib.mjs) does not cover → unverified.",
   "graceHours": 3,
   "heartbeatHours": 11,
   "sections": {
@@ -32,8 +32,22 @@
       ] } },
     { "id": "airport-traffic", "section": "companies", "name": { "es": "Tráfico por Aeropuerto", "en": "Traffic by Airport" }, "url": "/aeropuertos/trafico/", "workflows": ["aeropuertos-refresh.yml"], "alertLabels": [] },
     { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },
-    { "id": "qualitas", "section": "companies", "name": { "es": "Quálitas", "en": "Quálitas" }, "url": "/qualitas/", "workflows": ["qualitas-refresh.yml"], "alertLabels": [] },
-    { "id": "gentera", "section": "companies", "name": { "es": "Gentera", "en": "Gentera" }, "url": "/gentera/", "workflows": ["gentera-refresh.yml"], "alertLabels": [] },
+    { "id": "qualitas", "section": "companies", "name": { "es": "Quálitas", "en": "Quálitas" }, "url": "/qualitas/", "workflows": ["qualitas-refresh.yml"], "alertLabels": [],
+      "prices": { "exchange": "BMV", "settleHours": 5, "series": [
+        { "name": "Q.MX close (FactSet Global Prices)", "file": "tools/qualitas/raw/factset/prices.json", "kind": "json", "field": "latestClose.Q-MX" },
+        { "name": "PGR close (FactSet Global Prices)", "file": "tools/qualitas/raw/factset/prices.json", "kind": "json", "field": "latestClose.PGR-US", "exchange": "NYSE" },
+        { "name": "ALL close (FactSet Global Prices)", "file": "tools/qualitas/raw/factset/prices.json", "kind": "json", "field": "latestClose.ALL-US", "exchange": "NYSE" },
+        { "name": "Page close Q.MX (market.js)", "file": "site/qualitas/data/market.js", "kind": "js", "field": "latestClose" }
+      ] } },
+    { "id": "gentera", "section": "companies", "name": { "es": "Gentera", "en": "Gentera" }, "url": "/gentera/", "workflows": ["gentera-refresh.yml"], "alertLabels": [],
+      "prices": { "exchange": "BMV", "settleHours": 5, "series": [
+        { "name": "GENTERA.MX close (FactSet Global Prices)", "file": "tools/gentera/raw/factset/prices.json", "kind": "json", "field": "latestClose.GENTERA-MX" },
+        { "name": "GFNORTEO.MX close (FactSet Global Prices)", "file": "tools/gentera/raw/factset/prices.json", "kind": "json", "field": "latestClose.GFNORTEO-MX" },
+        { "name": "RA.MX close (FactSet Global Prices)", "file": "tools/gentera/raw/factset/prices.json", "kind": "json", "field": "latestClose.RA-MX" },
+        { "name": "BBAJIOO.MX close (FactSet Global Prices)", "file": "tools/gentera/raw/factset/prices.json", "kind": "json", "field": "latestClose.BBAJIOO-MX" },
+        { "name": "BAP close (FactSet Global Prices)", "file": "tools/gentera/raw/factset/prices.json", "kind": "json", "field": "latestClose.BAP-US", "exchange": "NYSE" },
+        { "name": "Page close GENTERA.MX (market.js)", "file": "site/gentera/data/market.js", "kind": "js", "field": "latestClose" }
+      ] } },
     { "id": "oracle", "section": "companies", "name": { "es": "Oracle", "en": "Oracle" }, "url": "/oracle/", "workflows": ["oracle-refresh.yml"], "alertLabels": [],
       "prices": { "exchange": "NYSE", "settleHours": 5, "series": [
         { "name": { "es": "Cierre de ORCL (FactSet Global Prices)", "en": "ORCL close (FactSet Global Prices)" }, "file": "tools/oracle/data/prices_orcl_factset.csv", "kind": "csv" },

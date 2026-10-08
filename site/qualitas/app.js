@@ -200,6 +200,68 @@
   const asOfQ = () => (lastQ ? ` · ${LANG === 'es' ? 'último dato' : 'latest data'}: ${qLabel(lastQ)}${relDate() ? ` (${LANG === 'es' ? 'informe del' : 'report of'} ${relDate()})` : ''}` : '');
   const asOfPx = () => (lastPx ? ` · ${LANG === 'es' ? 'precio al' : 'price as of'} ${fmtDate(lastPx[0])}` : '');
   const asOfFile = (o, name) => (o && o.updatedAt ? ` · ${name ? name + ' ' : ''}${LANG === 'es' ? 'actualizado el' : 'updated'} ${fmtDate(o.updatedAt)}` : '');
+
+  // ---- price provenance. FactSet Global Prices is the share-price authority (nightly cloud routine); Yahoo Finance keeps the
+  // S&P/BMV IPC, the dividend record and fills only the sessions FactSet has not posted yet. Every label below is composed
+  // from market.js's own provenance, never typed.
+  const feedName = (s) => String(s || 'Yahoo Finance').replace(/ chart API$/, '');
+  function priceSrcLabel(meta) {
+    const pv = meta && meta.provenance; if (!pv || !pv.factset) return feedName(meta && meta.source);
+    const es = LANG === 'es', f = pv.factset, fill = pv.fill || {}, fillName = feedName(fill.source);
+    let s = `${pv.authority} (${es ? 'cierres diarios' : 'daily closes'} ${fmtDate(f.from)} → ${fmtDate(f.to)})`;
+    if (fill.before) s += es ? `; ${fillName} antes del ${fmtDate(f.from)}` : `; ${fillName} before ${fmtDate(f.from)}`;
+    const a = fill.after || [];
+    if (a.length) s += es ? `; ${fillName} para ${a.length === 1 ? 'la sesión del ' + fmtDate(a[0]) : a.length + ' sesiones posteriores'}` : `; ${fillName} for ${a.length === 1 ? 'the ' + fmtDate(a[0]) + ' session' : a.length + ' later sessions'}`;
+    return s;
+  }
+  // the feed that supplied a series' latest close (FactSet, or the runner's feed for a session FactSet has not posted yet)
+  function latestCloseFeed(meta) {
+    const pv = meta && meta.provenance; if (!pv || !pv.factset) return feedName(meta && meta.source);
+    return pv.latestFrom === 'runner' ? feedName(pv.fill && pv.fill.source) : pv.authority;
+  }
+  function priceSources(ids) {
+    const fs = [], other = [];
+    for (const id of ids) { const m = MK.prices[id]; if (!m) continue; (m.provenance && m.provenance.factset ? fs : other).push(id === '^MXX' ? 'S&P/BMV IPC' : id); }
+    const first = fs.length ? MK.prices[ids.find((id) => MK.prices[id] && MK.prices[id].provenance && MK.prices[id].provenance.factset)].provenance : null;
+    return { factset: fs, other, authority: first ? first.authority : null, fillName: feedName(first && first.fill && first.fill.source) };
+  }
+  // one-line market-data note for the page and the deck: "FactSet Global Prices (cierres diarios Q.MX, PGR, …), Yahoo Finance (cierres diarios S&P/BMV IPC; dividendos; cierres de respaldo)"
+  function marketSrcNote(ids) {
+    const es = LANG === 'es', ps = priceSources(ids), dc = es ? 'cierres diarios' : 'daily closes', fb = es ? 'cierres de respaldo' : 'fallback closes';
+    const parts = [];
+    if (ps.factset.length) parts.push(`${ps.authority} (${dc} ${ps.factset.join(', ')})`);
+    const yahoo = [];
+    if (ps.other.length) yahoo.push(`${dc} ${ps.other.join(', ')}`);
+    yahoo.push(es ? 'dividendos' : 'dividends');
+    if (ps.factset.length && ps.fillName === 'Yahoo Finance') yahoo.push(fb);
+    parts.push(`Yahoo Finance (${yahoo.join('; ')})`);
+    if (ps.factset.length && ps.fillName !== 'Yahoo Finance') parts.push(`${ps.fillName} (${fb})`);
+    return parts.join(', ');
+  }
+  // short form for chart captions: "FactSet Global Prices (Q.MX, PGR, ALL, PSSA3.SA, MAP.MC) · Yahoo Finance (S&P/BMV IPC)"
+  function priceSourcesShort(ids) {
+    const ps = priceSources(ids), parts = [];
+    if (ps.factset.length) parts.push(`${ps.authority} (${ps.factset.join(', ')})`);
+    if (ps.other.length) parts.push(`Yahoo Finance (${ps.other.join(', ')})`);
+    return parts.join(' · ');
+  }
+  // the refresh table's cadence for the market row, composed from the same provenance (page and deck)
+  function marketCadence(ids) {
+    const es = LANG === 'es';
+    return priceSources(ids).factset.length
+      ? (es ? 'diario, tras el cierre de la BMV; cierres de FactSet después de las 20:00, hora de Nueva York' : 'daily after the BMV close; FactSet closes after 8 PM New York time')
+      : (es ? 'diario, después del cierre de la BMV' : 'daily after the BMV close');
+  }
+  // the USD/MXN feed in use (Banxico's FIX rate, or FRED's mirror when Banxico was unavailable), read from market.js
+  function fxSrc() {
+    const src = String((MK.fx && MK.fx.USDMXN && MK.fx.USDMXN.source) || ''), es = LANG === 'es';
+    const banxico = /banxico/i.test(src), id = (src.match(/S[FR]\d+/) || [])[0], sie = `SIE${id ? ' ' + id : ''}`;
+    const short = banxico ? `Banxico ${sie}` : src ? src.replace(/\s*\(.*$/, '') : 'FRED DEXMXUS';
+    const note = banxico
+      ? (es ? `tipo de cambio FIX de Banxico (${sie}), con FRED DEXMXUS como respaldo` : `Banxico FIX exchange rate (${sie}), FRED DEXMXUS as the fallback`)
+      : (es ? `tipo de cambio ${short} (respaldo; Banxico no estuvo disponible en la última corrida)` : `${short} exchange rate (fallback; Banxico was unavailable on the last run)`);
+    return { short, note };
+  }
   const sharesIssued = (REF.shares && REF.shares.issued) || (lastQ && sharesOf(lastQ)) || null;
   const sharesOut = sharesIssued ? sharesIssued - ((REF.shares && REF.shares.treasuryApprox) || 0) : null; // for market cap and value per share
   const qEndDate = (q) => `${q.fy}-${String(q.q * 3).padStart(2, '0')}-${q.q === 1 || q.q === 4 ? '31' : '30'}`;
@@ -738,7 +800,7 @@
       options: { parsing: true, plugins: { tooltip: { callbacks: { title: (x) => fmtDate(x[0].raw.x), label: (x) => `${meta.currency} ${fmtN(x.parsed.y, 2)}` } } }, scales: { x: { type: 'category', ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i, ticks) => { const d = win[Math.round(i * (win.length - 1) / Math.max(1, ticks.length - 1))]; return d ? d[0].slice(0, 7) : ''; } }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     el('priceChartTitle').textContent = `${meta.name} · ${meta.currency}`;
     el('priceChartCap').textContent = `${t('close')} ${fmtDate(win[0][0])} → ${fmtDate(cur[0])}`;
-    html('priceSrc', `${t('src')}: ${meta.source}${meta.fetchedAt ? ` (${LANG === 'es' ? 'descargado el' : 'fetched'} ${fmtDate(meta.fetchedAt)})` : ''}${asOfPx()}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
+    html('priceSrc', `${t('src')}: ${priceSrcLabel(meta)}${meta.fetchedAt ? ` (${LANG === 'es' ? 'descargado el' : 'fetched'} ${fmtDate(meta.fetchedAt)})` : ''}${asOfPx()}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
     const yAgo = pointAtOrBefore(pts, addDays(cur[0], -365)); const yStart = pointAtOrBefore(pts, `${cur[0].slice(0, 4)}-01-01`);
     const w52 = pts.filter((p) => p[0] >= addDays(cur[0], -365)); const hi = Math.max(...w52.map((p) => p[1])), lo = Math.min(...w52.map((p) => p[1]));
     const stats = [
@@ -758,7 +820,7 @@
     mkChart('chartRebased', { type: 'line', data: { labels: idx.map((i) => dates[i]), datasets: ds.map((d) => ({ ...d, data: idx.map((i) => d.data[i]) })) },
       options: { plugins: { legend: legendTop, tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)}` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => (idx[i] != null ? dates[idx[i]].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     html('rebasedTable', `<table><thead><tr><th scope="col">${t('period')}: ${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}</th><th scope="col">${t('ret')}</th></tr></thead><tbody>${ds.map((d) => { const last = [...d.data].reverse().find((v) => v != null); return `<tr><td>${d.label}</td><td class="${cls(last - 100)}">${fmtPct(last - 100, 1, true)}</td></tr>`; }).join('')}</tbody></table>`);
-    html('rebasedSrc', `${t('src')}: Yahoo Finance (${LANG === 'es' ? 'cierres diarios, moneda local, sin dividendos reinvertidos' : 'daily closes, local currency, dividends not reinvested'})${asOfPx()}`);
+    html('rebasedSrc', `${t('src')}: ${priceSourcesShort(ids)} · ${LANG === 'es' ? 'cierres diarios, moneda local, sin dividendos reinvertidos' : 'daily closes, local currency, dividends not reinvested'}${asOfPx()}`);
     html('shareMeta', LANG === 'es' ? `Acciones emitidas: ${fmtN(sharesIssued)}; en circulación (netas de tesorería): ≈${fmtN(sharesOut)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}). Sin ADR.` : `Shares issued: ${fmtN(sharesIssued)}; outstanding (net of treasury): ≈${fmtN(sharesOut)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}). No ADR.`);
   }
 
@@ -865,7 +927,7 @@
     const roes = [s.roe - 6, s.roe - 3, s.roe, s.roe + 3, s.roe + 6], kes = [-2, -1, 0, 1, 2].map((d) => 100 * r.ke + d);
     html('valSens', `<table class="sens"><thead><tr><th scope="col">ROE ↓ / Ke →</th>${kes.map((k) => `<th scope="col">${fmtPct(k, 1)}</th>`).join('')}</tr></thead><tbody>${roes.map((ro) => `<tr><td>${fmtPct(ro, 1)}</td>${kes.map((k) => { const rr = valCompute(s, { roe: ro, rf: k - s.beta * s.erp }); const now = ro === s.roe && Math.abs(k - 100 * r.ke) < 1e-9; return `<td class="center ${lastPx && rr.perShare > lastPx[1] ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(rr.perShare, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
     el('sensCap').textContent = es ? `Ps. por acción; sombreado = por encima del precio actual (${lastPx ? 'Ps. ' + fmtN(lastPx[1], 2) : '—'}); ROE terminal y demás supuestos fijos` : `Ps. per share; shaded = above the current price (${lastPx ? 'Ps. ' + fmtN(lastPx[1], 2) : '—'}); terminal ROE and other assumptions held`;
-    const vsrc = `${t('src')}: ${es ? `capital contable del balance ${lastQ ? qLabel(lastQ) : ''} (informe trimestral); tasa libre de riesgo Banxico, subasta del bono M (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta con precios de Yahoo Finance; acciones en circulación de reference.js; los demás supuestos son los del panel` : `equity from the ${lastQ ? qLabel(lastQ) : ''} balance sheet (quarterly report); risk-free rate from Banxico's M bond auction (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta from Yahoo Finance prices; shares outstanding from reference.js; the rest are the panel's assumptions`}${asOfQ()}`;
+    const vsrc = `${t('src')}: ${es ? `capital contable del balance ${lastQ ? qLabel(lastQ) : ''} (informe trimestral); tasa libre de riesgo Banxico, subasta del bono M (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta con cierres de ${priceSourcesShort([TICK, '^MXX'])}; acciones en circulación de reference.js; los demás supuestos son los del panel` : `equity from the ${lastQ ? qLabel(lastQ) : ''} balance sheet (quarterly report); risk-free rate from Banxico's M bond auction (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta from ${priceSourcesShort([TICK, '^MXX'])} closes; shares outstanding from reference.js; the rest are the panel's assumptions`}${asOfQ()}`;
     html('valSrc', vsrc); html('sensSrc', vsrc); html('valOutSrc', vsrc);
     updateHash();
   }
@@ -888,8 +950,8 @@
     ];
     for (const a of REF.analysts || []) rows.push([`${a.firm} (${fmtDate(a.date)})`, `${a.rating} · PO Ps. ${fmtN(a.target, 0)}${lastPx ? ` (${fmtPct(100 * (a.target / lastPx[1] - 1), 1, true)})` : ''}`]);
     html('multTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table>`);
-    html('multTblSrc', `${t('src')}: Yahoo Finance (Q.MX, ${lastPx ? fmtDate(lastPx[0]) : '—'}) · ${lastQ && lastQ.sources && lastQ.sources.is ? `<a href="${lastQ.sources.is.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(lastQ)}${relDate() ? ` (${relDate()})` : ''} ↗</a>` : ''} · FRED DEXMXUS · reference.js (${es ? 'acciones, analistas' : 'shares, analysts'})`);
-    el('multCap').textContent = es ? `Precio de Yahoo Finance; UPA UDM sobre ${fmtN(sharesIssued)} acciones emitidas (base de la compañía); valor en libros y capitalización sobre ≈${fmtN(sharesOut)} en circulación.` : `Yahoo Finance price; LTM EPS on ${fmtN(sharesIssued)} issued shares (company basis); book value and market cap on ≈${fmtN(sharesOut)} outstanding.`;
+    html('multTblSrc', `${t('src')}: ${latestCloseFeed(MK.prices[TICK])} (Q.MX, ${lastPx ? fmtDate(lastPx[0]) : '—'}) · ${lastQ && lastQ.sources && lastQ.sources.is ? `<a href="${lastQ.sources.is.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(lastQ)}${relDate() ? ` (${relDate()})` : ''} ↗</a>` : ''} · ${fxSrc().short} · reference.js (${es ? 'acciones, analistas' : 'shares, analysts'})`);
+    el('multCap').textContent = es ? `Precio de ${latestCloseFeed(MK.prices[TICK])}; UPA UDM sobre ${fmtN(sharesIssued)} acciones emitidas (base de la compañía); valor en libros y capitalización sobre ≈${fmtN(sharesOut)} en circulación.` : `${latestCloseFeed(MK.prices[TICK])} price; LTM EPS on ${fmtN(sharesIssued)} issued shares (company basis); book value and market cap on ≈${fmtN(sharesOut)} outstanding.`;
     // historical multiples at quarter-ends
     const qs = Q.slice(-lastN() - 4).filter((q) => q.bs);
     const c = SERIES();
@@ -899,7 +961,7 @@
       { label: `${t('pe')} ${t('ltm')}`, data: pts.map((x) => x.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3, yAxisID: 'y' },
       { label: `${t('pe')} ${t('ltm')} ${t('exVat')}`, data: pts.map((x) => x.peEx), borderColor: c[1], borderDash: [4, 4], pointRadius: 0, yAxisID: 'y' },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 2)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) + 'x' }, beginAtZero: true } } } });
-    html('multSrc', `${t('src')}: Yahoo Finance · ${es ? 'informes trimestrales (capital contable, utilidad neta)' : 'quarterly reports (equity, net income)'}${asOfPx()}${asOfQ()}`);
+    html('multSrc', `${t('src')}: ${priceSourcesShort([TICK])} · ${es ? 'informes trimestrales (capital contable, utilidad neta)' : 'quarterly reports (equity, net income)'}${asOfPx()}${asOfQ()}`);
     // peers (FactSet snapshot in data/peers.js)
     renderPeersTable();
   }
@@ -1054,10 +1116,10 @@
       [es ? 'Expectativas de la administración' : 'Management expectations', es ? 'por trimestre (revisado)' : 'per quarter (reviewed)', 'data/guidance.js', GD.updatedAt ? fmtDate(GD.updatedAt) : '—'],
       [es ? 'Comentarios de los estados financieros' : 'Statement comments', es ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [es ? 'Resumen ejecutivo' : 'Executive summary', es ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
-      [es ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', es ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · Banxico SIE (SF43718, SF44071) · FRED (DGS10)', fmtDate((MK.generatedAt || '').slice(0, 10))],
+      [es ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', marketCadence(Object.keys(MK.prices || {})), `${marketSrcNote(Object.keys(MK.prices || {}))} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
       [es ? 'Referencia: acciones, subsidiarias, calificaciones, dividendos, IVA, supuestos de valuación' : 'Reference: shares, subsidiaries, ratings, dividends, VAT, valuation defaults', es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/reference.js', fmtDate(REF.updatedAt)],
-      [es ? 'Múltiplos de pares y consenso' : 'Peer multiples and consensus', es ? 'con cada corrida del conector FactSet' : 'each FactSet connector run', 'FactSet → data/peers.js, data/consensus.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
-      [es ? 'Consenso de analistas' : 'Sell-side consensus', es ? 'pendiente' : 'pending', es ? 'conector → data/consensus.js' : 'connector → data/consensus.js', CONS && CONS.updatedAt ? fmtDate(CONS.updatedAt) : '—'],
+      [es ? 'Múltiplos de pares y consenso' : 'Peer multiples and consensus', es ? 'cada noche (conector FactSet, rutina en la nube)' : 'nightly (FactSet connector, cloud routine)', 'FactSet → data/peers.js, data/consensus.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
+      [es ? 'Consenso de analistas' : 'Sell-side consensus', es ? 'cada noche (conector FactSet)' : 'nightly (FactSet connector)', 'FactSet → data/consensus.js', CONS && CONS.updatedAt ? fmtDate(CONS.updatedAt) : '—'],
       [es ? 'Glosario y umbrales de alerta' : 'Glossary and alert thresholds', es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/glossary.js · data/alerts.js', window.Q_GLOSSARY && window.Q_GLOSSARY.updatedAt ? fmtDate(window.Q_GLOSSARY.updatedAt) : '—'],
       [es ? 'Cuadres y salud del pipeline' : 'Tie-outs and pipeline health', es ? 'con cada construcción de datos' : 'with every data build', es ? '<a href="quality.html">quality.html</a> ← validador (con pruebas de parseo)' : '<a href="quality.html">quality.html</a> ← validator (with parser tests)', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [es ? 'Rutina de revisión (correo)' : 'Reviewing routine (email)', es ? 'diario 09:50 CDMX (15:50 UTC)' : 'daily 09:50 CDMX (15:50 UTC)', es ? 'rutina diaria de revisión; escribe data/review.js cada día y los archivos curados cuando hay cambios materiales' : 'daily reviewing routine; writes data/review.js every day and the curated files on material change', window.Q_REVIEW && window.Q_REVIEW.lastRunAt ? fmtDate(window.Q_REVIEW.lastRunAt) : '—'],
@@ -1208,6 +1270,7 @@
     Q, Y, YTD, lastQ, qById, ytdById, opsById, prevQid, yoyQid, sumParts, ratiosFrom, pointKpi, sharesOf, quarterObj, ytdFor, ltmFor, fyObj, exVat, lastLTM, lastYTD,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, qPx, lastPx, sharesIssued, sharesOut, qEndDate, bvps, divs12m, epsLtm, opsLast,
     avgFx, commentsFor, quotesFor, opsFor, G_METRICS, gLabel, gIsCost, gRangeTxt, vintagesSorted, gActual, gStatus, betaFromMarket,
+    priceSrcLabel, latestCloseFeed, priceSources, priceSourcesShort, marketSrcNote, marketCadence, fxSrc,
   };
   // ---------------- init ----------------
   let initLang = 'es';

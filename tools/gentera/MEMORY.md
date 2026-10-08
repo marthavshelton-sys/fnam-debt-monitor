@@ -32,7 +32,10 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - Coverage = allowance ÷ stage-3 recomputed for every quarter (Gentera's own definition since 4Q25).
 - Peers GFNORTEO, RA, BBAJIOO, BAP (a placeholder set, none a pure microlender) are filled from the FactSet connector since
   2026-10-07 (`scripts/lib/factset-peers-fin.mjs`, prompt `tools/qualitas/FACTSET-PEERS-PROMPT.md`), consensus block
-  included; only loan-growth consensus stays "pending" (FactSet collects none). The deck carries the table and the weekly
+  included; only loan-growth consensus stays "pending" (FactSet collects none). Since 2026-10-08 the nightly cloud routine
+  "FNAM Financials: FactSet peers and prices refresh" (20:13 New York) refreshes them and the FactSet daily closes of GENTERA
+  and the four peers (`tools/gentera/raw/factset/prices.json`, overlaid on market.js; owner: all share prices and ratios from
+  FactSet). Price-source labels on the page and the deck are composed from `provenance` in market.js, never typed. The deck carries the table and the weekly
   NTM P/E and P/BV history as section 06.
 - Email only on material days: daily move ≥ 5%, consolidated stage 3 > 4.5%, guided metric outside range, or a
   new quarter / monthly table / guidance vintage / reference event.
@@ -74,7 +77,8 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 
 - `financials.js` `G_FIN`: `layout`, `quarters[]`, `ytd[]`, `years[]`; Ps. millions; workflow-owned.
 - `operations.js` `G_OPS`: per-quarter ops + `monthly.cnbv` / `monthly.sbs`; workflow-owned.
-- `market.js` `G_MARKET`: prices, dividends, FX, rates; workflow-owned (daily).
+- `market.js` `G_MARKET`: prices (FactSet closes overlaid; `latestClose` first), dividends, FX, rates; workflow-owned (daily)
+  plus the nightly FactSet routine (`apply --group financials`).
 - `quality.js` `G_QUALITY`: parse log + validator result; workflow-owned.
 - `guidance.js` `G_GUIDANCE`: vintages with `eps, loanGrowth, opexGrowth, cor, npl, roe`; `lo = hi` = "around".
 - `comments.js` `G_COMMENTS`: `periods[...]{lines, bs, ops, call}` + `CALLS` (quotes per call, shared by the
@@ -82,7 +86,7 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - `reference.js` `G_REF`: facts, shares, dividends, `adjust`, ConCrédito / Perú timelines, `management`,
   `ratings` (3T24 deck), `coverage`, glossary, valuation defaults, sources.
 - `summary.js` `G_SUMMARY`: four executive-summary cards + `basis`.
-- `peers.js` `G_PEERS`: schema only until FactSet.
+- `peers.js` `G_PEERS`: FactSet snapshot (own row, peers, medians, weekly history, consensus block); routine-owned, nightly.
 
 ## Audit trail
 
@@ -94,7 +98,7 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 
 ## Open items (owner's side)
 
-- FactSet connector (peers, consensus, analyst targets).
+- (done 2026-10-07/08) FactSet connector: peers, consensus, analyst targets and daily closes, nightly routine.
 - Access decision (Cloudflare Access recommended) — nothing in the repo changes for option 1.
 - Transcripts for 4T22–2T23 (initial 2023 guidance); decks other than 3T24. (1T26 and 2T26 Bloomberg transcripts
   ingested 25 Sep 2026.)

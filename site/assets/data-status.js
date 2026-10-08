@@ -100,7 +100,9 @@
     'oracle': { url: '/oracle/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ },
     'gap': { url: '/gap/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ },
     'asur': { url: '/asur/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ },
-    'oma': { url: '/oma/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ }
+    'oma': { url: '/oma/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ },
+    'qualitas': { url: '/qualitas/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ },
+    'gentera': { url: '/gentera/data/market.js', re: /latestClose"?\s*:\s*"(\d{4}-\d{2}-\d{2})"/ }
   };
   function ownClose(id) {
     var d = OWN_CLOSE[id]; if (!d) return Promise.resolve(null);

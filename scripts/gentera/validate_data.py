@@ -146,6 +146,16 @@ try:
             label = {'prices': 'price', 'dividends': 'dividends'}.get(grp, grp)
             note = {'es': 'error en la última corrida: %s' % s['error'], 'en': 'error on the last run: %s' % s['error']} if s.get('error') else ({'es': 'último dividendo en efectivo registrado', 'en': 'last recorded cash dividend'} if grp == 'dividends' else None)
             stale('%s %s' % (label, sid), pts[-1][0] if pts else None, limit, note)
+    # FactSet closes (the share-price authority since 2026-10-08, nightly cloud routine): every share series (the index stays
+    # on Yahoo) must carry them and they must be recent; the oldest FactSet end date is the row's date, a series without them warns
+    rows = [(sid, (s.get('provenance') or {}).get('factset'), ((s.get('provenance') or {}).get('fill') or {}).get('after') or []) for sid, s in (mk.get('prices') or {}).items() if sid != '^MXX']
+    with_fs = [r for r in rows if r[1]]; without = [r for r in rows if not r[1]]
+    oldest = min((r[1]['to'] for r in with_fs), default=None)
+    authority = ((mk['prices'][with_fs[0][0]].get('provenance') or {}).get('authority') or 'FactSet') if with_fs else None
+    lst = lambda es: ', '.join('%s %s %s%s' % (r[0], 'hasta' if es else 'through', r[1]['to'], (' (+%d %s)' % (len(r[2]), 'sesión(es) de respaldo' if es else 'fallback session(s)')) if r[2] else '') for r in with_fs)
+    stale('FactSet closes (market.js)', None if without else oldest, 5, {
+        'es': ('%s: %s' % (authority, lst(True)) if with_fs else 'ninguna serie con cierres de FactSet') + ('; SIN FactSet (sólo Yahoo): %s' % ', '.join(r[0] for r in without) if without else ''),
+        'en': ('%s: %s' % (authority, lst(False)) if with_fs else 'no series carries FactSet closes') + ('; NO FactSet (Yahoo only): %s' % ', '.join(r[0] for r in without) if without else '')})
 except Exception as ex:
     STALE.append({'series': 'market.js', 'lastDate': None, 'ageDays': None, 'limitDays': None, 'status': 'warn', 'note': 'unreadable: %s' % ex})
 
@@ -205,6 +215,12 @@ curated('summary.js', has_s, {'es': 'resumen ejecutivo %s' % ('= último trimest
 m = re.search(r'updatedAt:\s*"(\d{4}-\d{2}-\d{2})"', rf)
 ra = age_days(m.group(1)) if m else None
 curated('reference.js', ra is not None and ra <= 120, {'es': 'referencia revisada el %s (hace %s días)' % (m.group(1) if m else '?', ra), 'en': 'reference facts last reviewed %s (%s days ago)' % (m.group(1) if m else '?', ra)})
+# FactSet peers and consensus (nightly cloud routine): the table's common close date must be recent
+try:
+    pr = load('peers.js'); pa = age_days(pr.get('pricesAsOf') or '')
+    curated('peers.js', pa is not None and pa <= 5, {'es': 'pares y consenso FactSet con cierres al %s (hace %s días); rutina nocturna en la nube' % (pr.get('pricesAsOf') or '?', pa), 'en': 'FactSet peers and consensus with closes as of %s (%s days ago); nightly cloud routine' % (pr.get('pricesAsOf') or '?', pa)})
+except Exception as ex:
+    curated('peers.js', False, {'es': 'ilegible: %s' % ex, 'en': 'unreadable: %s' % ex})
 
 # origin of every quarter (from the parse log build_data.py wrote to quality.js) and its source
 try: LOG = load('quality.js')
