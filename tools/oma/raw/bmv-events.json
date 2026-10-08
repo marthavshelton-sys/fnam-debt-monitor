@@ -2,13 +2,21 @@
  "issuer": "OMA-6707-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/OMA-6707-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": "2026-10-07T15:05:08.718Z",
- "rows": 176,
+ "checkedAt": "2026-10-08T15:57:47.873Z",
+ "rows": 177,
  "archived": 0,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1593997",
+   "date": "2026-10-07",
+   "title": "OMA reporta disminución de 4.8% en el tráfico de pasajeros del mes de septiembre 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1593997_1.pdf",
+   "coveredBy": "2026-10-07_omaOMA-September-2026-Traffic-Report-vf_en.txt"
+  },
   {
    "id": "1591834",
    "date": "2026-09-28",
