@@ -271,11 +271,6 @@
   }
 
   // ---- C7. what changed in the latest filings, in plain language (the technical diff log sits below it, folded)
-  // the pages a curated edit touched, in the hub's order (summary, modules 1–8, methodology, glossary), each module with its number
-  function modList(list) {
-    var order = H.MODS.map(function (x) { return x.p || 'home'; }), k = function (m) { var i = order.indexOf(m); return i < 0 ? order.length : i; };
-    return list.slice().sort(function (a, b) { return k(a) - k(b); }).map(function (m) { var x = H.MODS[order.indexOf(m)]; return x ? (x.n ? x.n + ' · ' : '') + x[H.lang] : m; }).join(', ');
-  }
   function changed() {
     set('changedDesc', t('Lo que trajo la presentación más reciente de cada empresa (últimos 100 días), en palabras. Debajo, plegado, el registro técnico de cada valor XBRL nuevo, revisado o reexpresado.', 'What each company\'s most recent filing brought (last 100 days), in words. Below, folded, the technical log of every new, revised or restated XBRL value.'));
     var lim = new Date(Date.now() - 100 * 864e5).toISOString().slice(0, 10), items = [];
@@ -295,12 +290,6 @@
     var rsLine = Object.keys(byT).length ? '<li class="muted">' + t('Reexpresiones (cifras de periodos anteriores que una presentación posterior cambió): ', 'Restatements (prior-period figures a later filing changed): ') + Object.keys(byT).map(function (k) { return esc((F.companies[k] || {}).name || k) + ' ' + byT[k]; }).join(', ') + t('. Se usa el valor más reciente; el detalle está en el registro técnico.', '. The latest value is used; the detail is in the technical log.') + '</li>' : '';
     set('changedList', items.sort(function (a, b) { return b.d.localeCompare(a.d); }).map(function (x) { return '<li>' + x.html + '</li>'; }).join('') + rsLine || '<li>' + t('Ninguna presentación periódica en los últimos 100 días.', 'No periodic filing in the last 100 days.') + '</li>');
     set('changedStamp', H.stamp({ tier: 'T1', sources: [{ label: 'SEC EDGAR', url: XBRL }], note: t('Variaciones: cálculo FNAM sobre cifras T1', 'Changes: FNAM calculation on T1 figures') }));
-    // curated edits (wording, structure, review counts, explained gaps, thesis changes): one entry per edit, time in ET; collapsed at the
-    // end of "Sources and Methodology" (owner, 2026-10-08), hidden when there are none
-    var cur = (LOG.curated || []).slice(0, 12);
-    set('curH', cur.length ? t('Cambios en la curación y la redacción del centro (hora del Este)', 'Curated and editorial changes to the hub (Eastern time)') : '');
-    var cl = $('curLog'); if (cl) cl.hidden = !cur.length;
-    set('curatedList', cur.map(function (e) { return '<li><b>' + esc(H.etTime(e.at)) + '</b>' + (e.modules && e.modules.length ? ' <span class="small muted">' + esc(modList(e.modules)) + '</span>' : '') + ' — ' + esc(e[H.lang] || e.en) + '</li>'; }).join(''));
     // technical log
     set('logDesc', t('Cada actualización compara los valores nuevos con los anteriores y anota periodos nuevos, cifras revisadas y reexpresiones que la empresa hizo en una presentación posterior (el valor viejo y su presentación quedan registrados).', 'Each refresh diffs new values against the previous ones and records new periods, revised figures and restatements the company made in a later filing (the old value and its filing are kept).'));
     var KIND = { 'new': t('nuevo', 'new'), revised: t('revisado', 'revised'), removed: t('retirado', 'removed'), initial: t('carga inicial', 'initial load'), metric_added: t('métrica agregada', 'metric added') };

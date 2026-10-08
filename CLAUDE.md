@@ -157,9 +157,11 @@ dashboards, everything built from public data by GitHub Actions.
   signed leases are compared only with undiscounted recognized lease payments. One unit per page (US$ bn, GW). Thesis,
   "What to know" (four lines), module titles and "so what" lines are composed from data. Summary page (owner, 2026-10-08):
   the thesis is short sentences with no ⓘ; coverage, the thesis' source lines and the hub data-quality roll-up sit in the
-  last section, "Sources and Methodology", not in the header; the curated-edits log closes that section, collapsed; the title
-  carries the covered tickers, composed from `HYP_FIN.companies`. Section order (owner, 2026-10-08): How to read (the
-  3-minute path only; no module list there), Where the strain is, The five modules, What changed, The five majors, the two charts, Upcoming results and filings, Sources and Methodology. Figures that differ in basis across modules carry a `scope`
+  last section, "Sources and Methodology", not in the header; the title carries the covered tickers, composed from
+  `HYP_FIN.companies`. No log of curated or editorial edits anywhere on the hub (owner removed it 2026-10-08: not necessary;
+  the technical XBRL change log stays). Section order (owner, 2026-10-08): How to read (the 3-minute path only; no module
+  list there), Where the strain is, The five modules, The five majors, the two charts, What changed, Upcoming results and
+  filings, Sources and Methodology. Figures that differ in basis across modules carry a `scope`
   note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`
   ("Coverage narrowed (8-Oct-2026)"; the dated round sections use the old 1–8 numbering). Since 8-Oct-2026 (afternoon) the
   capex page's company selector offers the five majors summed by calendar quarter (cells say "n/5" when fewer than five tag a

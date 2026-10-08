@@ -295,8 +295,9 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
   its filed date; Oracle's prepayment is quoted from the cash-flow line (10-Q p. 5, `pageCites`); Microsoft's OpenAI
   commitment shows committed, funded and remaining; ratings stay T4 "secondary source" because the agency pages are
   unreadable from the session (`agencyChecked`, `alsoReported`, `laterActionsChecked` recorded in `payoff.json`).
-- **Changelog.** `tools/hyperscalers/data/curated-log.json` (ISO instant, modules, en/es) is written to
-  `changelog.js → curated` and rendered on the home page's "what changed" card and the methodology page.
+- **Changelog.** The reader-facing log of curated edits (`curated-log.json`, `changelog.js → curated`, the list on the
+  summary page) was removed on 8-Oct-2026 (owner: not necessary). Do not bring it back or keep an editorial log elsewhere
+  on the hub; the technical XBRL change log (new, revised, restated values) stays.
 - **Phones.** `data-fold` cards fold behind a button at ≤640 px (`foldM()`), chart legends sit above the canvas, bar charts
   turn horizontal when `H.narrow()`, every `.src-btn` is 44×44 px at ≤640 px, `#mapFallback` replaces the sites map, the
   jump-link bar wraps on desktop (methodology has 13 links) and no text is under 11 px. `render.mjs` reports zero

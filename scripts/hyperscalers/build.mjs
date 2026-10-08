@@ -26,8 +26,6 @@ const prevMetrics = await readJson(TOOLS + 'data/metrics.json', null);
 // so the change log does not fill with "removed" entries; the curated log explains the coverage change to the reader
 if (prevMetrics && prevMetrics.values) prevMetrics.values = Object.fromEntries(Object.entries(prevMetrics.values).filter(([id]) => COVERED.has(id.split('.')[0])));
 const prevLog = await readJson(TOOLS + 'data/changelog.json', { entries: [] });
-// reader-facing log of curated edits (tools/hyperscalers/data/curated-log.json): merged into the change log the home page shows
-const curatedLog = await readJson(TOOLS + 'data/curated-log.json', { entries: [] });
 // latest FactSet debt snapshot (tools/hyperscalers/raw/factset/<date>-debt.json, pulled outside the automated run; dated)
 const fsDir = new URL('tools/hyperscalers/raw/factset/', ROOT);
 const fsFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-debt\.json$/.test(f)).sort();
@@ -366,7 +364,7 @@ out.outliers = { updatedAt: OUTL.updatedAt || null, method: OUTL.method || null,
 out.verification = { en: 'automated quote-match plus a second automated read; not analyst-reviewed', es: 'cotejo automático de la cita más una segunda lectura automática; sin revisión de analista' };
 out.guidance = guidance;
 // one build time: a curated file edited after this build started would print a later time than the build; say so
-for (const [name, obj] of [['offbs', offbsCur], ['not-tagged', notTaggedCur], ['deal-matches', dealMatchesCur], ['outliers', OUTL], ['curated-log', { updatedAt: (curatedLog.entries || []).map((e) => e.at).sort().pop() }]])
+for (const [name, obj] of [['offbs', offbsCur], ['not-tagged', notTaggedCur], ['deal-matches', dealMatchesCur], ['outliers', OUTL]])
   if (obj.updatedAt && obj.updatedAt > stamp.iso) warnings.push({ ticker: '*', check: `${name}.json updatedAt ${obj.updatedAt} is after this build (${stamp.iso}); the pages derive every time from the build`, status: 'warn' });
 
 // Off-balance-sheet text items: the curated file plus Oracle's items read from the Oracle model's verified store
@@ -440,7 +438,7 @@ await writeJson(TOOLS + 'data/derivations.json', { generated: stamp.iso, warning
 
 const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} — do not hand-edit.\nwindow.${key} = ${JSON.stringify(scrubProvenance(obj))};\n`);
 await js('financials', 'HYP_FIN', out, 'Hyperscaler Hub financials: XBRL-tagged values from SEC companyfacts (T1), quarters derived from year-to-date facts, ratios computed (FNAM calculation).');
-await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200), curated: (curatedLog.entries || []).slice().sort((a, b) => String(b.at).localeCompare(String(a.at))) }, 'Hyperscaler Hub change log: what each refresh added or revised, restatements found in later filings, and the log of curated edits.');
+await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200) }, 'Hyperscaler Hub change log: what each refresh added or revised, and restatements found in later filings.');
 await js('status', 'HYP_STATUS', { generated: stamp.iso, refreshedET: stamp.et, lastEdgarRun: state.lastRun || null, lastEdgarRunET: state.lastRun ? etOf(state.lastRun) : null, lastEdgarSuccess: state.lastSuccess || null, lastEdgarSuccessET: state.lastSuccess ? etOf(state.lastSuccess) : null, edgarErrors: state.errors || [], consecutiveFailures: state.consecutiveFailures || 0 }, 'Hyperscaler Hub refresh status (EDGAR poll).');
 
 // CSV downloads: one per table family (static files, so they work without JavaScript)
