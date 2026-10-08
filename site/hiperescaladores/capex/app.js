@@ -151,61 +151,112 @@
   }
 
   // ---------- 02 company ----------
+  // The selector also offers the five majors combined (owner, 2026-10-08): the same lines summed by calendar quarter.
+  // Sums follow the hub's cross-company rule (one calendar quarter for everyone; Oracle's quarter ending one month earlier
+  // counts in the calendar quarter ending a month later, and the offset is printed). A line is summed over the companies
+  // that tag it that quarter; the cell says "n/5" when fewer than five do and the card names the missing company and its
+  // recorded reason. Nothing is imputed; a derived line sums each company's own derivation, never mixed inputs.
+  var ALL = 'ALL';
+  function calEndOf(cal) { var y = +cal.slice(0, 4), qn = +cal.slice(-1); return new Date(Date.UTC(y, qn * 3, 0)).toISOString().slice(0, 10); }
+  // calendar quarters every covered company has reported cash capex for (a quarter one company has not filed yet is left
+  // out, like the trend chart's partial quarters), each with the fiscal quarter of every company that falls in it
+  function aggRows() {
+    var by = {};
+    CO.forEach(function (c) { c.quarters.forEach(function (q) { (by[q.cal] = by[q.cal] || {})[c.ticker] = q; }); });
+    return Object.keys(by).filter(function (l) { return CO.every(function (c) { return by[l][c.ticker] && by[l][c.ticker].m.capex_cash; }); }).sort().map(function (l) { return { cal: l, end: calEndOf(l), by: by[l] }; });
+  }
+  function gv(q, k) { if (!q) return null; return DER[k] ? (q.d ? q.d[k] : null) : (q.m[k] ? q.m[k][0] : null); }
+  function monthsOff(r, q) { return Math.round((Date.parse(r.end) - Date.parse(q.end)) / (30.44 * 864e5)); }
+  // one line of the combined view in one calendar quarter; capex / OCF = summed capex ÷ summed OCF of the companies with both
+  function aggVal(r, k) {
+    var parts = [], miss = [];
+    CO.forEach(function (c) { var q = r.by[c.ticker], v = k === 'capex_ocf' ? (q && q.m.capex_cash && q.m.ocf ? 1 : null) : gv(q, k); if (v == null) miss.push(c); else parts.push({ c: c, q: q, v: v }); });
+    if (!parts.length) return null;
+    var v;
+    if (k === 'capex_ocf') { var cap = 0, ocf = 0; parts.forEach(function (p) { cap += p.q.m.capex_cash[0]; ocf += p.q.m.ocf[0]; p.v = p.q.d && p.q.d.capex_ocf != null ? p.q.d.capex_ocf : null; }); v = ocf > 0 ? cap / ocf : null; }
+    else v = parts.reduce(function (s, p) { return s + p.v; }, 0);
+    return { v: v, parts: parts, miss: miss, review: parts.some(function (p) { return !DER[k] && p.q.m[k][4]; }) };
+  }
+  function aggCell(r, k) {
+    var a = aggVal(r, k);
+    if (!a) return H.nd(t('Ninguna de las cinco etiqueta esta partida en el trimestre', 'None of the five tags this line in the quarter'));
+    var n = a.parts.length, strip = function (h) { return String(h).replace(/<[^>]+>/g, ''); };
+    var fmt = function (x) { return x == null ? strip(H.nm()) : k === 'capex_ocf' ? strip(H.capexOcf(x)) : strip(H.money(x)); };
+    var rows = [[t('Cálculo FNAM', 'FNAM calculation'), k === 'capex_ocf' ? t('capex en efectivo sumado ÷ flujo de operación sumado de las mismas empresas', 'summed cash capex ÷ summed operating cash flow of the same companies') : t('suma de la cifra de cada empresa en su trimestre fiscal asignado a este trimestre calendario', 'sum of each company\'s figure in its fiscal quarter assigned to this calendar quarter') + (DER[k] ? t('; por empresa: ', '; per company: ') + DER[k].how[H.lang] : '')], [t('Trimestre calendario', 'Calendar quarter'), H.cq(r.cal) + ' · ' + t('cierra ', 'ends ') + H.date(r.end)]]
+      .concat(a.parts.map(function (p) { return [p.c.name, fmt(p.v) + ' · ' + H.fq(p.q.id) + ' · ' + t('cierre ', 'period end ') + H.date(p.q.end) + (monthsOff(r, p.q) ? t(' (un mes antes de la ventana)', ' (one month before the window)') : '')]; }))
+      .concat(a.miss.length ? [[t('Sin dato (no se imputa)', 'Missing (not imputed)'), a.miss.map(function (c) { var z = H.ntReason(c.ticker, DEP[k] || k); return c.name + (z ? ': ' + (z['note_' + H.lang] || z.note_en) : ''); }).join(' · ')]] : [])
+      .concat([[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL); cada cifra abre su presentación en la ficha de su empresa', 'FNAM calculation on T1 figures (XBRL); each figure opens its filing in its company\'s detail')]]);
+    var shown = k === 'capex_ocf' ? H.capexOcf(a.v) : H.money(a.v);
+    var cnt = n < CO.length ? ' <span class="nd nx small" title="' + esc(t('Suma de ' + n + ' de ' + CO.length + ' empresas; sin dato: ', 'Sum of ' + n + ' of ' + CO.length + ' companies; missing: ') + a.miss.map(function (c) { return c.name; }).join(', ')) + '">' + n + '/' + CO.length + '</span>' : '';
+    return shown + (a.review ? H.flag('review') : '') + cnt + H.src({ title: t('Cinco grandes · ', 'Five majors · ') + dname(k) + ' · ' + H.cq(r.cal), rows: rows });
+  }
   function company() {
     var sel = $('selCo');
-    sel.innerHTML = CO.map(function (c) { return '<option value="' + c.ticker + '"' + (c.ticker === state.co ? ' selected' : '') + '>' + esc(c.name) + ' (' + c.ticker + ')</option>'; }).join('');
+    sel.innerHTML = CO.map(function (c) { return '<option value="' + c.ticker + '"' + (c.ticker === state.co ? ' selected' : '') + '>' + esc(c.name) + ' (' + c.ticker + ')</option>'; }).join('') +
+      '<option value="' + ALL + '"' + (state.co === ALL ? ' selected' : '') + '>' + t('Las cinco grandes (suma)', 'Five majors (combined)') + '</option>';
     sel.onchange = function () { state.co = sel.value; company(); };
-    var c = F.companies[state.co];
-    set('coDesc', t('Capex en efectivo frente a los activos que llegan por arrendamiento financiero, y cuánto del flujo de operación consume la inversión. Cada celda abre su fuente: etiqueta XBRL, método (reportado o derivado del acumulado) y la presentación.', 'Cash capex against the assets that arrive through finance leases, and how much of operating cash flow the investment absorbs. Each cell opens its source: XBRL tag, method (reported or derived from year-to-date) and the filing.'));
-    set('coNote', c.note ? '<div class="callout">' + esc(c.note[H.lang]) + '</div>' : '');
-    var qs = c.quarters.filter(function (q) { return q.m.capex_cash || q.m.ocf; }).slice(-12);
-    var annual = !qs.length;
-    var rows = annual ? c.fy.slice(-4).map(function (f) { return { id: f.id, end: f.end, m: f.m, d: {} }; }) : qs;
-    var lab = rows.map(function (q) { if (annual) return H.lang === 'es' ? q.id.replace('FY', 'AF') : q.id; var p = H.fq(q.id).split(' '); return [p[1], p[0]]; });
-    var val = function (q, k) { return q.m[k] ? q.m[k][0] / 1e9 : null; };
-    set('coChart1T', t('Capex en efectivo, arrendamientos financieros y flujo de operación', 'Cash capex, finance leases and operating cash flow') + ' · US$ ' + t('miles de millones', 'billions'));
-    set('coChart1C', (annual ? t('Años fiscales (la empresa no presenta trimestres en XBRL). ', 'Fiscal years (the company files no quarters in XBRL). ') : t('Trimestres fiscales. ', 'Fiscal quarters. ')) + t('Barras: capex en efectivo y, encima, activos recibidos por arrendamiento financiero (no monetario). Línea: flujo de operación, mismo eje.', 'Bars: cash capex and, on top, assets received under finance leases (non-cash). Line: operating cash flow, same axis.'));
+    var combined = state.co === ALL, c = combined ? null : F.companies[state.co];
+    var name = combined ? t('Las cinco grandes (suma)', 'Five majors (combined)') : c.name, col = combined ? H.css('--accent') : H.color(c.ticker);
+    set('coDesc', t('Capex en efectivo frente a los activos que llegan por arrendamiento financiero, y cuánto del flujo de operación consume la inversión. Cada celda abre su fuente: etiqueta XBRL, método (reportado o derivado del acumulado) y la presentación. La última opción del selector suma las cinco grandes por trimestre calendario.', 'Cash capex against the assets that arrive through finance leases, and how much of operating cash flow the investment absorbs. Each cell opens its source: XBRL tag, method (reported or derived from year-to-date) and the filing. The last option in the selector sums the five majors by calendar quarter.'));
+    var aggAll = combined ? aggRows() : null;
+    if (combined) {
+      var lastAgg = aggAll[aggAll.length - 1], offs = lastAgg ? CO.filter(function (x) { return monthsOff(lastAgg, lastAgg.by[x.ticker]); }) : [];
+      var later = []; CO.forEach(function (x) { x.quarters.forEach(function (q) { if (lastAgg && q.cal > lastAgg.cal && q.m.capex_cash) later.push(x.name + ' ' + H.fq(q.id)); }); });
+      set('coNote', '<div class="callout"><b>' + t('Suma de las cinco grandes, cálculo FNAM.', 'Five majors combined, FNAM calculation.') + '</b> ' + t('Cada celda suma la misma partida de las cinco empresas en el trimestre calendario que contiene el último mes de su trimestre fiscal', 'Each cell sums the same line of the five companies in the calendar quarter that contains the last month of their fiscal quarter') + (offs.length ? t('; ' + offs.map(function (x) { return x.name; }).join(', ') + ' cierra en febrero, mayo, agosto y noviembre y entra en el trimestre calendario que termina un mes después (su cierre va en cada ficha ⓘ)', '; ' + offs.map(function (x) { return x.name; }).join(', ') + ' closes in February, May, August and November and counts in the calendar quarter ending a month later (its period end is in each ⓘ card)') : '') + '. ' + t('Una celda marcada n/5 suma solo a las empresas que etiquetan esa partida en ese trimestre y nombra a las que faltan; nada se imputa.', 'A cell marked n/5 sums only the companies that tag that line in that quarter and names the ones missing; nothing is imputed.') + (later.length ? ' ' + t('No se muestra un trimestre calendario hasta que las cinco lo reportan (pendiente: ', 'A calendar quarter is not shown until all five have reported it (pending: ') + later.join(', ') + t('; está en la sección 03).', '; it is in section 03).') : '') + '</div>');
+    } else set('coNote', c.note ? '<div class="callout">' + esc(c.note[H.lang]) + '</div>' : '');
+    var qs = combined ? [] : c.quarters.filter(function (q) { return q.m.capex_cash || q.m.ocf; }).slice(-12);
+    var annual = !combined && !qs.length;
+    var rows = combined ? aggAll.slice(-12) : annual ? c.fy.slice(-4).map(function (f) { return { id: f.id, end: f.end, m: f.m, d: {} }; }) : qs;
+    var lab = rows.map(function (q) { if (combined) { var s = H.cq(q.cal).split(' '); return [s[0], s[1]]; } if (annual) return H.lang === 'es' ? q.id.replace('FY', 'AF') : q.id; var p = H.fq(q.id).split(' '); return [p[1], p[0]]; });
+    var val = combined ? function (r, k) { var a = aggVal(r, k); return a && a.v != null ? a.v / 1e9 : null; } : function (q, k) { return q.m[k] ? q.m[k][0] / 1e9 : null; };
+    var cnt = function (i, k) { var a = combined ? aggVal(rows[i], k) : null; return a && a.parts.length < CO.length ? ' · ' + a.parts.length + '/' + CO.length + t(' empresas', ' companies') : ''; };
+    var bnTxt = function (v) { return 'US$ ' + H.num(v, 1) + (H.lang === 'es' ? ' mil M' : ' bn'); };
+    set('coChart1T', t('Capex en efectivo, arrendamientos financieros y flujo de operación', 'Cash capex, finance leases and operating cash flow') + (combined ? t(' · cinco grandes', ' · five majors') : '') + ' · US$ ' + t('miles de millones', 'billions'));
+    set('coChart1C', (combined ? t('Trimestres calendario, suma de las cinco grandes (una barra de arrendamientos suma solo a las empresas que los etiquetan ese trimestre; el conteo va en la ficha emergente y en la tabla). ', 'Calendar quarters, five majors summed (a finance-lease bar sums only the companies that tag them that quarter; the count is in the tooltip and the table). ') : annual ? t('Años fiscales (la empresa no presenta trimestres en XBRL). ', 'Fiscal years (the company files no quarters in XBRL). ') : t('Trimestres fiscales. ', 'Fiscal quarters. ')) + t('Barras: capex en efectivo y, encima, activos recibidos por arrendamiento financiero (no monetario). Línea: flujo de operación, mismo eje.', 'Bars: cash capex and, on top, assets received under finance leases (non-cash). Line: operating cash flow, same axis.'));
     killChart('co1');
     charts.co1 = new Chart($('chCo1'), { data: { labels: lab, datasets: [
-      { type: 'line', label: t('Flujo de operación', 'Operating cash flow'), data: rows.map(function (q) { return val(q, 'ocf'); }), borderColor: H.css('--text-primary'), backgroundColor: H.css('--surface'), borderWidth: 2, pointRadius: 3, pointBackgroundColor: H.css('--surface'), order: 0, spanGaps: false },
-      { type: 'bar', label: t('Capex en efectivo', 'Cash capex'), data: rows.map(function (q) { return val(q, 'capex_cash'); }), backgroundColor: H.color(c.ticker), borderColor: H.css('--surface'), borderWidth: 1, borderRadius: 3, borderSkipped: false, stack: 'c', order: 1 },
-      { type: 'bar', label: t('Arrendamientos financieros (no monetario)', 'Finance leases (non-cash)'), data: rows.map(function (q) { return val(q, 'fl_additions'); }), backgroundColor: H.css('--de-emph'), borderColor: H.css('--surface'), borderWidth: 1, borderRadius: 3, borderSkipped: false, stack: 'c', order: 1 }
+      { type: 'line', label: t('Flujo de operación', 'Operating cash flow'), _k: 'ocf', data: rows.map(function (q) { return val(q, 'ocf'); }), borderColor: H.css('--text-primary'), backgroundColor: H.css('--surface'), borderWidth: 2, pointRadius: 3, pointBackgroundColor: H.css('--surface'), order: 0, spanGaps: false },
+      { type: 'bar', label: t('Capex en efectivo', 'Cash capex'), _k: 'capex_cash', data: rows.map(function (q) { return val(q, 'capex_cash'); }), backgroundColor: col, borderColor: H.css('--surface'), borderWidth: 1, borderRadius: 3, borderSkipped: false, stack: 'c', order: 1 },
+      { type: 'bar', label: t('Arrendamientos financieros (no monetario)', 'Finance leases (non-cash)'), _k: 'fl_additions', data: rows.map(function (q) { return val(q, 'fl_additions'); }), backgroundColor: H.css('--de-emph'), borderColor: H.css('--surface'), borderWidth: 1, borderRadius: 3, borderSkipped: false, stack: 'c', order: 1 }
     ] }, options: { interaction: { mode: 'index', intersect: false }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { callback: H.axisMoney } } },
-      plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + (ctx.raw == null ? t('no divulgado', 'not disclosed') : 'US$ ' + H.num(ctx.raw, 1) + (H.lang === 'es' ? ' mil M' : ' bn')); } } } } } });
-    set('coLegend1', legend([{ label: t('Capex en efectivo', 'Cash capex'), color: H.color(c.ticker) }, { label: t('Arrendamientos financieros (no monetario)', 'Finance leases (non-cash)'), color: H.css('--de-emph') }, { label: t('Flujo de operación', 'Operating cash flow'), color: H.css('--text-primary'), cls: 'line' }]));
-    set('coChart2T', t('Flujo libre antes y después del principal de arrendamientos', 'Free cash flow before and after finance-lease principal') + ' · US$ ' + t('miles de millones', 'billions'));
-    set('coChart2C', t('Cálculo FNAM: flujo de operación − capex en efectivo; la segunda barra resta además el principal pagado de arrendamientos financieros. Barras bajo cero en rojo = la inversión supera al flujo.', 'FNAM calculation: operating cash flow − cash capex; the second bar also subtracts finance-lease principal paid. Bars below zero = investment exceeds the flow.'));
-    var fcf = rows.map(function (q) { var o = val(q, 'ocf'), k = val(q, 'capex_cash'); return o == null || k == null ? null : o - k; });
-    var fcf2 = rows.map(function (q, i) { var p = val(q, 'fl_principal'); return fcf[i] == null || p == null ? null : fcf[i] - p; });
+      plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + (ctx.raw == null ? t('no divulgado', 'not disclosed') : bnTxt(ctx.raw) + cnt(ctx.dataIndex, ctx.dataset._k)); } } } } } });
+    set('coLegend1', legend([{ label: t('Capex en efectivo', 'Cash capex'), color: col }, { label: t('Arrendamientos financieros (no monetario)', 'Finance leases (non-cash)'), color: H.css('--de-emph') }, { label: t('Flujo de operación', 'Operating cash flow'), color: H.css('--text-primary'), cls: 'line' }]));
+    set('coChart2T', t('Flujo libre antes y después del principal de arrendamientos', 'Free cash flow before and after finance-lease principal') + (combined ? t(' · cinco grandes', ' · five majors') : '') + ' · US$ ' + t('miles de millones', 'billions'));
+    set('coChart2C', (combined ? t('Cálculo FNAM, suma de las cinco grandes por trimestre calendario: flujo de operación − capex en efectivo; la segunda barra resta además el principal pagado de arrendamientos financieros de las empresas que lo etiquetan (conteo en la ficha emergente). ', 'FNAM calculation, five majors summed by calendar quarter: operating cash flow − cash capex; the second bar also subtracts the finance-lease principal paid by the companies that tag it (count in the tooltip). ') : t('Cálculo FNAM: flujo de operación − capex en efectivo; la segunda barra resta además el principal pagado de arrendamientos financieros. ', 'FNAM calculation: operating cash flow − cash capex; the second bar also subtracts finance-lease principal paid. ')) + t('Barras bajo cero en rojo = la inversión supera al flujo.', 'Bars below zero = investment exceeds the flow.'));
+    var fcf = rows.map(function (q) { if (combined) return val(q, 'fcf'); var o = val(q, 'ocf'), k = val(q, 'capex_cash'); return o == null || k == null ? null : o - k; });
+    var fcf2 = rows.map(function (q, i) { if (combined) return val(q, 'fcf_after_fl'); var p = val(q, 'fl_principal'); return fcf[i] == null || p == null ? null : fcf[i] - p; });
     killChart('co2');
     charts.co2 = new Chart($('chCo2'), { type: 'bar', data: { labels: lab, datasets: [
-      { label: t('Flujo libre', 'Free cash flow'), data: fcf, backgroundColor: fcf.map(function (x) { return x != null && x < 0 ? H.css('--bad') : H.color(c.ticker); }), borderRadius: 3, borderSkipped: false },
-      { label: t('Después de principal de arrendamientos', 'After finance-lease principal'), data: fcf2, backgroundColor: H.css('--de-emph'), borderRadius: 3, borderSkipped: false }
+      { label: t('Flujo libre', 'Free cash flow'), _k: 'fcf', data: fcf, backgroundColor: fcf.map(function (x) { return x != null && x < 0 ? H.css('--bad') : col; }), borderRadius: 3, borderSkipped: false },
+      { label: t('Después de principal de arrendamientos', 'After finance-lease principal'), _k: 'fcf_after_fl', data: fcf2, backgroundColor: H.css('--de-emph'), borderRadius: 3, borderSkipped: false }
     ] }, options: { interaction: { mode: 'index', intersect: false }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: H.axisMoney } } },
-      plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + (ctx.raw == null ? t('falta un insumo', 'an input is missing') : 'US$ ' + H.num(ctx.raw, 1) + (H.lang === 'es' ? ' mil M' : ' bn')); } } } } } });
-    set('coLegend2', legend([{ label: t('Flujo libre (negativo en rojo)', 'Free cash flow (negative in red)'), color: H.color(c.ticker) }, { label: t('Después de principal de arrendamientos', 'After finance-lease principal'), color: H.css('--de-emph') }]));
-    // table: last 8 quarters (or the fiscal years for annual-only filers)
+      plugins: { tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + (ctx.raw == null ? t('falta un insumo', 'an input is missing') : bnTxt(ctx.raw) + cnt(ctx.dataIndex, ctx.dataset._k)); } } } } } });
+    set('coLegend2', legend([{ label: t('Flujo libre (negativo en rojo)', 'Free cash flow (negative in red)'), color: col }, { label: t('Después de principal de arrendamientos', 'After finance-lease principal'), color: H.css('--de-emph') }]));
+    // table: last 8 quarters (or the fiscal years for annual-only filers; calendar quarters for the combined view)
     var cols = rows.slice(-8);
     var lines = [['capex_cash', 'T1'], ['fl_additions', 'T1'], ['capex_incl_fl', 'C'], ['fl_principal', 'T1'], ['ocf', 'T1'], ['fcf', 'C'], ['fcf_after_fl', 'C'], ['capex_ocf', 'C'], ['da', 'T1'], ['ol_additions', 'T1'], ['interest_cap', 'T1']];
     function cellFor(q, k) {
+      if (combined) return aggCell(q, k);
       if (annual) { var x = q.m[k]; return x ? H.money(x[0]) + H.src({ title: c.name + ' · ' + def(k) + ' · ' + q.id, rows: [[t('Etiqueta XBRL', 'XBRL tag'), x[1]], [t('Presentación', 'Filing'), x[2][0]]], url: H.edgar(c.cik, x[2][0]) }) : (DER[k] ? H.nd() : H.nd()); }
       if (DER[k]) { var dv = k === 'capex_ocf' ? (q.d ? q.d.capex_ocf : null) : (q.d ? q.d[k] : null); return calc(dv, k, c, q, false); }
       return cell(c, q, k);
     }
-    set('coTblT', t('Partidas trimestrales', 'Quarterly line items') + ' · ' + esc(c.name));
-    set('coTblC', t('Las columnas son trimestres fiscales con su cierre; T1 = etiquetado por la empresa en su presentación; Cálculo FNAM = derivado de cifras T1.', 'Columns are fiscal quarters with their period end; T1 = tagged by the company in its filing; FNAM calc. = derived from T1 figures.'));
-    var head = '<tr><th class="l">' + t('Partida', 'Line item') + '</th><th class="l">' + t('Nivel', 'Tier') + '</th>' + cols.map(function (q) { return '<th>' + (annual ? q.id : H.fq(q.id)) + '<br><span style="font-weight:400;text-transform:none">' + H.date(q.end) + '</span></th>'; }).join('') + '</tr>';
-    var body = lines.map(function (ln) { return '<tr><td class="l">' + esc(dname(ln[0])) + '</td><td class="l">' + H.tier(ln[1]) + '</td>' + cols.map(function (q) { return '<td>' + cellFor(q, ln[0]) + '</td>'; }).join('') + '</tr>'; }).join('');
+    var colHead = function (q) { return combined ? H.cq(q.cal) : annual ? q.id : H.fq(q.id); };
+    set('coTblT', t('Partidas trimestrales', 'Quarterly line items') + ' · ' + esc(name));
+    set('coTblC', combined ? t('Las columnas son trimestres calendario con su cierre; cada celda es la suma de las empresas que etiquetan la partida (n/5 cuando no son las cinco) y abre la cifra de cada empresa con su trimestre fiscal. Toda la vista es cálculo FNAM sobre cifras T1.', 'Columns are calendar quarters with their end date; each cell is the sum of the companies that tag the line (n/5 when fewer than five do) and opens each company\'s figure with its fiscal quarter. The whole view is an FNAM calculation on T1 figures.') : t('Las columnas son trimestres fiscales con su cierre; T1 = etiquetado por la empresa en su presentación; Cálculo FNAM = derivado de cifras T1.', 'Columns are fiscal quarters with their period end; T1 = tagged by the company in its filing; FNAM calc. = derived from T1 figures.'));
+    var head = '<tr><th class="l">' + t('Partida', 'Line item') + '</th><th class="l">' + t('Nivel', 'Tier') + '</th>' + cols.map(function (q) { return '<th>' + colHead(q) + '<br><span style="font-weight:400;text-transform:none">' + H.date(q.end) + '</span></th>'; }).join('') + '</tr>';
+    var body = lines.map(function (ln) { return '<tr><td class="l">' + esc(dname(ln[0])) + '</td><td class="l">' + H.tier(combined ? 'C' : ln[1]) + '</td>' + cols.map(function (q) { return '<td>' + cellFor(q, ln[0]) + '</td>'; }).join('') + '</tr>'; }).join('');
     // phone: line item · latest period · y/y change, note beneath
     var last = cols[cols.length - 1], yago = annual ? cols[cols.length - 2] : cols[cols.length - 5];
     var mob = lines.map(function (ln) {
-      var k = ln[0], gv = function (q) { if (!q) return null; return DER[k] ? (q.d ? q.d[k] : null) : (q.m[k] ? q.m[k][0] : null); };
-      var a = gv(last), b = gv(yago);
+      var k = ln[0], g = function (q) { if (!q) return null; if (combined) { var a = aggVal(q, k); return a ? a.v : null; } return gv(q, k); };
+      var a = g(last), b = g(yago);
       var chg = a != null && b != null && b !== 0 && k !== 'capex_ocf' ? (a - b) / Math.abs(b) : null;
-      return '<div class="mrow"><div class="h"><b>' + esc(dname(k)) + '</b><span class="v">' + (a == null ? H.nt() : (k === 'capex_ocf' ? H.capexOcf(a) : H.money(a))) + '</span></div><div class="c">' + (annual ? last.id : H.fq(last.id)) + ' · ' + t('a/a', 'y/y') + ' ' + (chg == null ? t('n.s.', 'n.m.') : (chg > 0 ? '+' : '') + H.num(chg * 100, 0) + '%') + ' · ' + (ln[1] === 'C' ? t('cálculo FNAM', 'FNAM calculation') : 'T1 · SEC') + '</div></div>';
+      return '<div class="mrow"><div class="h"><b>' + esc(dname(k)) + '</b><span class="v">' + (a == null ? H.nt() : (k === 'capex_ocf' ? H.capexOcf(a) : H.money(a))) + '</span></div><div class="c">' + colHead(last) + ' · ' + t('a/a', 'y/y') + ' ' + (chg == null ? t('n.s.', 'n.m.') : (chg > 0 ? '+' : '') + H.num(chg * 100, 0) + '%') + ' · ' + (combined || ln[1] === 'C' ? t('cálculo FNAM', 'FNAM calculation') : 'T1 · SEC') + '</div></div>';
     }).join('');
     set('coTbl', '<div class="only-d"><table>' + '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><div class="only-m">' + mob + '</div>');
-    set('coStamp', H.stamp({ tier: 'T1', asOf: last ? H.date(last.end) : '', sources: [{ label: 'EDGAR · ' + c.name, url: edgarCo(c) }], csv: '/hiperescaladores/csv/capex-financing-quarterly.csv' }));
+    if (combined) set('coStamp', H.stamp({ tier: 'C', asOf: last ? H.date(last.end) : '', sources: SRC_XBRL(), csv: '/hiperescaladores/csv/capex-financing-quarterly.csv', note: t('Suma de las cinco grandes por trimestre calendario (cálculo FNAM sobre cifras T1); cada empresa abre sus presentaciones en su propia ficha', 'Five majors summed by calendar quarter (FNAM calculation on T1 figures); each company opens its filings in its own detail') }));
+    else set('coStamp', H.stamp({ tier: 'T1', asOf: last ? H.date(last.end) : '', sources: [{ label: 'EDGAR · ' + c.name, url: edgarCo(c) }], csv: '/hiperescaladores/csv/capex-financing-quarterly.csv' }));
   }
 
   // ---------- 03 TTM ----------

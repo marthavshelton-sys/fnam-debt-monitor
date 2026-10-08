@@ -47,6 +47,27 @@ bitcoin miners, two are lessors, Nebius has no quarterly XBRL). What changed:
 - The Oracle page's credit section reads the hub's `financials.js`; its caption now states the five-company coverage
   (`site/oracle/app.js → renderHyperscalers`, `tools/oracle/METHODOLOGY.md`).
 
+## Combined company view and the financing clause (8-Oct-2026, afternoon)
+
+- **Module 1, section 02 (`capex/app.js → company()`).** The company selector's last option, "Las cinco grandes (suma) / Five
+  majors (combined)", sums the same eleven lines by calendar quarter (`aggRows`, `aggVal`, `aggCell`): a calendar quarter is
+  shown only once all five have reported cash capex for it (Oracle's quarter to August waits in section 03 until the others
+  file); Oracle's February/May/August/November closes count in the calendar quarter ending a month later and the offset is
+  printed in the ⓘ card. A line is summed over the companies that tag it that quarter, the cell shows "n/5" when fewer than
+  five do, and the card names the missing company with its `not-tagged.json` reason (Meta's finance-lease additions are
+  annual-only, so that line and "capex incl. finance leases" read 4/5 or 3/5). Derived lines sum each company's own
+  derivation (never mixed inputs); capex / OCF is summed capex ÷ summed OCF of the companies with both. Every cell is tier
+  "FNAM calc."; nothing is imputed.
+- **Summary thesis (`app.js → thesis()`).** After "Amazon and Oracle spent more than their own", a third sentence says how
+  the gap was financed, composed from the same calendar window's TTM cash-flow lines (`financing()`): debt issued (gross
+  proceeds), common and preferred stock issued; a line the gap file explains as `none` is left out, a line not tagged in the
+  window is named. Repayments and the source cards are in "What to know" line 1 (`finDetail`), the method in the thesis'
+  source lines under "Sources and Methodology". The companies named above their cash flow are now judged in the same
+  calendar window as the group ratio (`overIn(X)`), not each company's latest quarter, so one sentence states one window.
+  `ttmSrc` says "full fiscal year from the 10-K" when the figure comes from `_fromFY` (Oracle's preferred stock).
+- The summary's coverage paragraph dates its "about 6% of the majors' capex" to 8-Oct-2026: it is a static statement of why
+  the neoclouds left, not a refreshed figure.
+
 ## Pipeline
 
 | Step | Script | Output |

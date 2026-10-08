@@ -159,7 +159,13 @@ dashboards, everything built from public data by GitHub Actions.
   the thesis is short sentences with no ⓘ; coverage, the thesis' source lines and the hub data-quality roll-up sit in the
   last section, "Sources and Methodology", not in the header. Figures that differ in basis across modules carry a `scope`
   note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`
-  ("Coverage narrowed (8-Oct-2026)"; the dated round sections use the old 1–8 numbering).
+  ("Coverage narrowed (8-Oct-2026)"; the dated round sections use the old 1–8 numbering). Since 8-Oct-2026 (afternoon) the
+  capex page's company selector offers the five majors summed by calendar quarter (cells say "n/5" when fewer than five tag a
+  line; nothing imputed) and the summary thesis' third sentence says how the companies above their cash flow financed the gap
+  (debt and stock issued in the same window, from XBRL; cards and repayments in "What to know" line 1). What refreshes on its
+  own: everything from EDGAR XBRL/submissions (twice daily). What does not: the FactSet debt, guidance and calendar snapshots
+  and the curated files (`offbs`, `power`, `circular`, `payoff`, `not-tagged`, `outliers`, `deal-matches`), which a session
+  updates after each 10-Q season; the pages flag them when old but cannot fill them.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
