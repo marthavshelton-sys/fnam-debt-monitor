@@ -159,7 +159,8 @@ dashboards, everything built from public data by GitHub Actions.
   the thesis is short sentences with no ⓘ; coverage, the thesis' source lines and the hub data-quality roll-up sit in the
   last section, "Sources and Methodology", not in the header; the title carries the covered tickers, composed from
   `HYP_FIN.companies`. No log of curated or editorial edits anywhere on the hub (owner removed it 2026-10-08: not necessary;
-  the technical XBRL change log stays). Section order (owner, 2026-10-08): How to read (the 3-minute path only; no module
+  the technical XBRL change log stays); Methodology and Glossary show a "Last reviewed" date with no change history (owner:
+  simple and easy to read). Section order (owner, 2026-10-08): How to read (the 3-minute path only; no module
   list there), Where the strain is, The five modules, The five majors, the two charts, What changed, Upcoming results and
   filings, Sources and Methodology. Figures that differ in basis across modules carry a `scope`
   note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`
