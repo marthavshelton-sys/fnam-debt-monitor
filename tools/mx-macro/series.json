@@ -16,7 +16,8 @@
   "Expected 12-month inflation since 2026-10-05: two statistics of the same Banxico survey, both for the 12 months that FOLLOW the survey month ('Para los próximos 12 meses (mes t+1)' in SIE table CR155): inflExp12mMean = SR16773 (mean) and inflExp12m = SR16774 (median). The mean drives the ex ante real rate because that is Banxico's own definition (Informe Trimestral abril-junio 2026, note 1 to the chart 'Tasa real ex ante de corto plazo': the target minus 'la media de las expectativas de inflación a 12 meses'; its August 2026 figure, 2.35%, is 6.50 - 4.15); the median, the figure Banxico headlines in Cuadro 2 of the survey PDF and the statistic consensus surveys (Citi, Bloomberg) report, is printed beside it. The fiscal monitor shows the same pair. The 'mes t' variants (SR14194 mean, SR14195 median) count the 12 months from the survey month itself and differ month by month (Feb-2018 to Sep-2026 medians: -0.29 to +0.13 pp; Sep-2026: 4.16 vs 4.08): never mix them. The API carries the 'mes t+1' series only from Feb-2018 (N/E before, although the table lists Jan-1999). Ids, labels and the Jul-Sep 2026 values were read from the public CR155 table on 2026-10-05; the fetcher's title check confirms each id on every run.",
   "banxico candidates carry `page`: the public SIE table (consultarCuadro) that holds the series, used as the source link on the page because the API endpoint the fetcher reads needs a token and shows an error to a reader. Mapped by hand on 2026-09-28 from the SIE directory; a new banxico candidate needs one too.",
   "Yield curve (added 2026-10-03; ids and titles confirmed by probe that day): Cetes primary-auction yields SF43936 (28 days), SF43939 (91), SF43942 (182), SF43945 (364), SF349785 (728, since Oct-2022) and fixed-rate Bonos M SF43883 (3 years), SF43886 (5), SF44071 (10), SF45384 (20), SF60696 (30), all from Banxico table CF107; the 10-year U.S. Treasury is FRED DGS10 (Federal Reserve H.15). Banxico's SIE has no daily secondary-market yields (checked 2026-09-28), so each tenor shows its latest auction, at the issue date Banxico records it under (CF107 is 'a su fecha de colocación'; the auction is two business days earlier).",
-  "External sector (added 2026-10-08): ids read from Banxico's SIE table pages in sector 1 (CE125 balanza comercial, CE171 exportaciones manufactureras, CE160 participaciones, CE197 comercio con Estados Unidos, CE187 términos de intercambio y valor unitario, CE174 balanza de pagos MBP6, CE158 agregados como % del PIB, CE131 inversión directa principio direccional, CE170 posición de inversión internacional trimestral, CE89 tenencia de no residentes en valores gubernamentales, CE182 deuda externa bruta) and INEGI's BIE search (734407, PIB a precios corrientes); the U.S. side of the bilateral trade (Census EXPMX/IMPMX) and the BLS import price index from Mexico (MEXTOT) come from FRED. Banxico trade series are in thousands of dollars (unit usd_k); the page scales every unit to millions. fetch.mjs checks the accounting identities between these series after each fetch (exports by sector, imports by type, oil/non-oil balances, current-account components, direct-investment components, IIP assets/liabilities/net and its change) and keeps the previous data for a block that fails."
+  "External sector (added 2026-10-08): ids read from Banxico's SIE table pages in sector 1 (CE125 balanza comercial, CE171 exportaciones manufactureras, CE160 participaciones, CE197 comercio con Estados Unidos, CE187 términos de intercambio y valor unitario, CE174 balanza de pagos MBP6, CE158 agregados como % del PIB, CE131 inversión directa principio direccional, CE170 posición de inversión internacional trimestral, CE89 tenencia de no residentes en valores gubernamentales, CE182 deuda externa bruta) and INEGI's BIE search (734407, PIB a precios corrientes); the U.S. side of the bilateral trade (Census EXPMX/IMPMX) and the BLS import price index from Mexico (MEXTOT) come from FRED. Banxico trade series are in thousands of dollars (unit usd_k); the page scales every unit to millions. fetch.mjs checks the accounting identities between these series after each fetch (exports by sector, imports by type, oil/non-oil balances, current-account components, direct-investment components, IIP assets/liabilities/net and its change) and keeps the previous data for a block that fails.",
+  "Title regexes of the external-sector series were tightened on 2026-10-08 to the titles the SIE API reported on the first runner fetch (the API title is the table path plus the row path, e.g. \"Balanza comercial de mercancías de México Exportaciones totales Petroleras\"; the CE170 titles carry \"Activos\"/\"Pasivos\" before the category, which tells the two apart). The three CE197 series (trade with the United States) come back from the API with an empty title: they carry allowEmptyTitle and are checked by the identities balUS = expUS - impUS and shExpUS = 100 * expUS / expTotalO instead."
  ],
  "series": {
   "inpc": {
@@ -719,7 +720,7 @@
      "provider": "banxico",
      "id": "SE36593",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Exportaciones totales",
+     "title": "Balanza\\s+comercial\\s+de\\s+mercanc(í|i)as\\s+de\\s+M(é|e)xico\\s+Exportaciones\\s+totales\\s*$",
      "note": {
       "es": "Exportaciones totales FOB, cifras originales, miles de dólares (Banxico, cuadro CE125; la serie desestacionalizada del encabezado es de INEGI)",
       "en": "Total exports FOB, original figures, thousands of US dollars (Banxico, table CE125; the seasonally adjusted headline series is INEGI's)"
@@ -736,7 +737,7 @@
      "provider": "banxico",
      "id": "SE36595",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Importaciones totales",
+     "title": "Balanza\\s+comercial\\s+de\\s+mercanc(í|i)as\\s+de\\s+M(é|e)xico\\s+Importaciones\\s+totales\\s*$",
      "note": {
       "es": "Importaciones totales FOB, cifras originales, miles de dólares (Banxico, cuadro CE125)",
       "en": "Total imports FOB, original figures, thousands of US dollars (Banxico, table CE125)"
@@ -753,7 +754,7 @@
      "provider": "banxico",
      "id": "SE28294",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Balanza comercial total"
+     "title": "Balanza\\s+comercial\\s+de\\s+mercanc(í|i)as\\s+de\\s+M(é|e)xico\\s+Balanza\\s+Comercial\\s+Total\\s*$"
     }
    ]
   },
@@ -766,7 +767,7 @@
      "provider": "banxico",
      "id": "SE32150",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Petroleras"
+     "title": "Exportaciones\\s+totales\\s+Petroleras\\s*$"
     }
    ]
   },
@@ -779,7 +780,7 @@
      "provider": "banxico",
      "id": "SE33538",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Agropecuarias"
+     "title": "Exportaciones\\s+totales\\s+No\\s+petroleras\\s+Agropecuarias\\s*$"
     }
    ]
   },
@@ -792,7 +793,7 @@
      "provider": "banxico",
      "id": "SE30348",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Extractivas"
+     "title": "Exportaciones\\s+totales\\s+No\\s+petroleras\\s+Extractivas\\s*$"
     }
    ]
   },
@@ -805,7 +806,7 @@
      "provider": "banxico",
      "id": "SE35398",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Manufactureras"
+     "title": "Exportaci(ó|o)n\\s+de\\s+productos\\s+manufacturados\\s+Total\\s*$"
     }
    ]
   },
@@ -818,7 +819,7 @@
      "provider": "banxico",
      "id": "SE28442",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE171&locale=es",
-     "title": "Automotrices",
+     "title": "Exportaci(ó|o)n\\s+de\\s+productos\\s+manufacturados\\s+Total\\s+Automotrices\\s*$",
      "note": {
       "es": "Exportaciones manufactureras automotrices, cifras originales (Banxico, cuadro CE171)",
       "en": "Automotive manufacturing exports, original figures (Banxico, table CE171)"
@@ -835,7 +836,7 @@
      "provider": "banxico",
      "id": "SE32189",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Petroleras"
+     "title": "Importaciones\\s+totales\\s+Petroleras\\s*$"
     }
    ]
   },
@@ -848,7 +849,7 @@
      "provider": "banxico",
      "id": "SE36597",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Bienes de consumo"
+     "title": "Importaciones\\s+totales\\s+Bienes\\s+de\\s+consumo\\s*$"
     }
    ]
   },
@@ -861,7 +862,7 @@
      "provider": "banxico",
      "id": "SE36598",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Bienes de uso intermedio"
+     "title": "Importaciones\\s+totales\\s+Bienes\\s+de\\s+uso\\s+intermedio\\s*$"
     }
    ]
   },
@@ -874,7 +875,7 @@
      "provider": "banxico",
      "id": "SE36599",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Bienes de capital"
+     "title": "Importaciones\\s+totales\\s+Bienes\\s+de\\s+capital\\s*$"
     }
    ]
   },
@@ -887,7 +888,7 @@
      "provider": "banxico",
      "id": "SE36600",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Balanza comercial petrolera"
+     "title": "Balanza\\s+Comercial\\s+Petrolera\\s*$"
     }
    ]
   },
@@ -900,7 +901,7 @@
      "provider": "banxico",
      "id": "SE35403",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE125&locale=es",
-     "title": "Balanza comercial no petrolera"
+     "title": "Balanza\\s+Comercial\\s+No\\s+Petrolera\\s*$"
     }
    ]
   },
@@ -913,7 +914,7 @@
      "provider": "banxico",
      "id": "SE41177",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE160&locale=es",
-     "title": "exportaciones hacia Estados Unidos",
+     "title": "Participaci(ó|o)n\\s+de\\s+las\\s+exportaciones\\s+hacia\\s+Estados\\s+Unidos\\s+en\\s+las\\s+exportaciones\\s+totales",
      "note": {
       "es": "Participación de las exportaciones hacia Estados Unidos en las exportaciones totales, % (Banxico, cuadro CE160)",
       "en": "Share of exports going to the United States in total exports, % (Banxico, table CE160)"
@@ -930,11 +931,12 @@
      "provider": "banxico",
      "id": "SE46697",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE197&locale=es",
-     "title": "Exportaciones totales",
+     "title": "Exportaciones\\s+totales\\s*$",
      "note": {
       "es": "Exportaciones a Estados Unidos, cifras originales, miles de dólares (Banxico, cuadro CE197; se publica con un mes más de rezago que el total)",
       "en": "Exports to the United States, original figures, thousands of US dollars (Banxico, table CE197; published one month later than the total)"
-     }
+     },
+     "allowEmptyTitle": true
     }
    ]
   },
@@ -947,7 +949,8 @@
      "provider": "banxico",
      "id": "SE46703",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE197&locale=es",
-     "title": "Importaciones totales"
+     "title": "Importaciones\\s+totales\\s*$",
+     "allowEmptyTitle": true
     }
    ]
   },
@@ -960,7 +963,8 @@
      "provider": "banxico",
      "id": "SE46713",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE197&locale=es",
-     "title": "Balanza comercial total"
+     "title": "Balanza\\s+Comercial\\s+Total\\s*$",
+     "allowEmptyTitle": true
     }
    ]
   },
@@ -972,7 +976,7 @@
     {
      "provider": "fred",
      "id": "IMPMX",
-     "title": "imports.*mexico",
+     "title": "U\\.S\\. Imports of Goods .* from Mexico",
      "note": {
       "es": "Importaciones de EE. UU. provenientes de México según el Census Bureau (base aduanal, sin ajuste estacional, millones de dólares): la contraparte estadounidense de las exportaciones mexicanas",
       "en": "U.S. imports from Mexico as the Census Bureau records them (customs basis, not seasonally adjusted, millions of US dollars): the U.S. side of Mexico's exports"
@@ -988,7 +992,7 @@
     {
      "provider": "fred",
      "id": "EXPMX",
-     "title": "exports.*mexico",
+     "title": "U\\.S\\. Exports of Goods .* to Mexico",
      "note": {
       "es": "Exportaciones de EE. UU. a México según el Census Bureau (base aduanal, sin ajuste estacional, millones de dólares)",
       "en": "U.S. exports to Mexico as the Census Bureau records them (customs basis, not seasonally adjusted, millions of US dollars)"
@@ -1005,7 +1009,7 @@
      "provider": "banxico",
      "id": "SE46175",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE187&locale=es",
-     "title": "T(é|e)rminos de intercambio",
+     "title": "T(é|e)rminos\\s+de\\s+Intercambio\\s+Totales\\s*$",
      "note": {
       "es": "Índice de términos de intercambio (precios de exportación entre precios de importación), trimestral; estimación de Banxico (cuadro CE187)",
       "en": "Terms-of-trade index (export prices over import prices), quarterly; Banxico estimate (table CE187)"
@@ -1022,7 +1026,7 @@
      "provider": "banxico",
      "id": "SE46145",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE187&locale=es",
-     "title": "Exportaciones totales",
+     "title": "Valor\\s+Unitario\\s+Exportaciones\\s+Totales\\s*$",
      "note": {
       "es": "Índice de valor unitario de las exportaciones totales, trimestral (Banxico, cuadro CE187)",
       "en": "Unit-value index of total exports, quarterly (Banxico, table CE187)"
@@ -1039,7 +1043,7 @@
      "provider": "banxico",
      "id": "SE46153",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE187&locale=es",
-     "title": "Importaciones totales",
+     "title": "Valor\\s+Unitario\\s+Importaciones\\s+totales\\s*$",
      "note": {
       "es": "Índice de valor unitario de las importaciones totales, trimestral (Banxico, cuadro CE187)",
       "en": "Unit-value index of total imports, quarterly (Banxico, table CE187)"
@@ -1055,7 +1059,7 @@
     {
      "provider": "fred",
      "id": "MEXTOT",
-     "title": "import price index.*mexico",
+     "title": "Import Price Index by Origin.*for Mexico",
      "note": {
       "es": "Índice de precios de las importaciones de EE. UU. provenientes de México (BLS, diciembre de 2003 = 100): el precio que reciben las exportaciones mexicanas en su principal mercado; excluye aranceles",
       "en": "U.S. import price index for goods from Mexico (BLS, December 2003 = 100): the price Mexican exports fetch in their main market; excludes duties"
@@ -1072,7 +1076,7 @@
      "provider": "banxico",
      "id": "SE44352",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Cuenta corriente",
+     "title": "Balanza\\s+de\\s+pagos\\s+con\\s+base\\s+en\\s+MBP6.*Cuenta\\s+corriente\\s+\\(I\\s+-\\s+II\\)\\s*$",
      "note": {
       "es": "Cuenta corriente de la balanza de pagos (MBP6), millones de dólares, trimestral (Banxico, cuadro CE174)",
       "en": "Balance-of-payments current account (BPM6), millions of US dollars, quarterly (Banxico, table CE174)"
@@ -1089,7 +1093,7 @@
      "provider": "banxico",
      "id": "SE40521",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE158&locale=es",
-     "title": "Cuenta corriente como proporci(ó|o)n del PIB",
+     "title": "Cuenta\\s+corriente\\s+como\\s+proporci(ó|o)n\\s+del\\s+PIB\\s*$",
      "note": {
       "es": "Cuenta corriente como proporción del PIB, %, trimestral: razón que publica Banxico (cuadro CE158)",
       "en": "Current account as a proportion of GDP, %, quarterly: the ratio Banxico itself publishes (table CE158)"
@@ -1106,7 +1110,7 @@
      "provider": "banxico",
      "id": "SE44462",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Balanza de bienes"
+     "title": "Balanza\\s+de\\s+bienes\\s+y\\s+servicios\\s+Balanza\\s+de\\s+bienes\\s*$"
     }
    ]
   },
@@ -1119,7 +1123,7 @@
      "provider": "banxico",
      "id": "SE44466",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Balanza de servicios"
+     "title": "Balanza\\s+de\\s+bienes\\s+y\\s+servicios\\s+Balanza\\s+de\\s+servicios\\s*$"
     }
    ]
   },
@@ -1132,7 +1136,7 @@
      "provider": "banxico",
      "id": "SE44467",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "ingreso primario"
+     "title": "Balanza\\s+de\\s+ingreso\\s+primario\\s*$"
     }
    ]
   },
@@ -1145,7 +1149,7 @@
      "provider": "banxico",
      "id": "SE44468",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "ingreso secundario"
+     "title": "Balanza\\s+de\\s+ingreso\\s+secundario\\s*$"
     }
    ]
   },
@@ -1158,7 +1162,7 @@
      "provider": "banxico",
      "id": "SE44393",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Cuenta de capital"
+     "title": "Cuenta\\s+de\\s+capital\\s+\\(I\\s+-\\s+II\\)\\s*$"
     }
    ]
   },
@@ -1171,7 +1175,7 @@
      "provider": "banxico",
      "id": "SE44396",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Cuenta financiera",
+     "title": "Cuenta\\s+financiera\\s+\\(I\\s+\\+\\s+II\\s+\\+\\s+III\\s+\\+\\s+IV\\s+\\+\\s+V\\).*Endeudamiento\\s+neto\\s+\\(-\\)\\]\\s*\\d+/\\s*$",
      "note": {
       "es": "Cuenta financiera (préstamo neto (+) / endeudamiento neto (−)), millones de dólares (Banxico, cuadro CE174)",
       "en": "Financial account (net lending (+) / net borrowing (−)), millions of US dollars (Banxico, table CE174)"
@@ -1188,7 +1192,7 @@
      "provider": "banxico",
      "id": "SE44460",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Errores y omisiones"
+     "title": "Balanza\\s+de\\s+pagos\\s+con\\s+base\\s+en\\s+MBP6.*Errores\\s+y\\s+omisiones\\s*$"
     }
    ]
   },
@@ -1201,7 +1205,7 @@
      "provider": "banxico",
      "id": "SE30330",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE131&locale=es",
-     "title": "En M(é|e)xico",
+     "title": "Flujos\\s+totales\\s+de\\s+empresas\\s+con\\s+inversi(ó|o)n\\s+directa\\s+en\\s+M(é|e)xico\\s*$",
      "note": {
       "es": "Inversión directa en México (principio direccional), millones de dólares, trimestral: la cifra de IED que difunde la Secretaría de Economía (Banxico, cuadro CE131)",
       "en": "Direct investment in Mexico (directional principle), millions of US dollars, quarterly: the FDI figure the Secretaría de Economía headlines (Banxico, table CE131)"
@@ -1218,7 +1222,7 @@
      "provider": "banxico",
      "id": "SE30331",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE131&locale=es",
-     "title": "Nuevas inversiones"
+     "title": "Nuevas\\s+inversiones\\s+de\\s+empresas\\s+con\\s+inversi(ó|o)n\\s+directa\\s+en\\s+M(é|e)xico\\s*$"
     }
    ]
   },
@@ -1231,7 +1235,7 @@
      "provider": "banxico",
      "id": "SE30332",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE131&locale=es",
-     "title": "Reinversiones"
+     "title": "Reinversi(ó|o)n\\s+de\\s+utilidades\\s+de\\s+empresas\\s+con\\s+inversi(ó|o)n\\s+directa\\s+en\\s+M(é|e)xico\\s*$"
     }
    ]
   },
@@ -1244,7 +1248,7 @@
      "provider": "banxico",
      "id": "SE30333",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE131&locale=es",
-     "title": "Cuentas entre compa(ñ|n)(í|i)as"
+     "title": "Cuentas\\s+entre\\s+compa(ñ|n)(í|i)as\\s+de\\s+empresas\\s+con\\s+inversi(ó|o)n\\s+directa\\s+en\\s+M(é|e)xico\\s*$"
     }
    ]
   },
@@ -1257,7 +1261,7 @@
      "provider": "banxico",
      "id": "SE46350",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE131&locale=es",
-     "title": "En el exterior",
+     "title": "Flujos\\s+totales\\s+de\\s+empresas\\s+con\\s+inversi(ó|o)n\\s+directa\\s+en\\s+el\\s+exterior\\s*$",
      "note": {
       "es": "Inversión directa de México en el exterior (principio direccional), millones de dólares (Banxico, cuadro CE131)",
       "en": "Mexican direct investment abroad (directional principle), millions of US dollars (Banxico, table CE131)"
@@ -1274,7 +1278,7 @@
      "provider": "banxico",
      "id": "SE44412",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE174&locale=es",
-     "title": "Pasivos.*netos incurridos|Inversi(ó|o)n de cartera",
+     "title": "II\\.\\s+Inversi(ó|o)n\\s+de\\s+cartera\\s+\\(A\\s+-\\s+B\\)\\s+B\\.\\s+Pasivos\\s+netos\\s+incurridos\\s*$",
      "note": {
       "es": "Inversión de cartera: pasivos netos incurridos (entradas netas de no residentes a valores mexicanos), millones de dólares (Banxico, cuadro CE174)",
       "en": "Portfolio investment: net incurrence of liabilities (net non-resident inflows into Mexican securities), millions of US dollars (Banxico, table CE174)"
@@ -1291,7 +1295,7 @@
      "provider": "banxico",
      "id": "SE29489",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE89&locale=es",
-     "title": "valores gubernamentales|Total",
+     "title": "Posici(ó|o)n\\s+de\\s+no\\s+residentes\\s+en\\s+valores\\s+gubernamentales.*Saldos\\s+a\\s+valor\\s+nominal\\s+Total\\s*$",
      "note": {
       "es": "Tenencia de no residentes de valores gubernamentales, saldo a valor nominal, millones de dólares, mensual (Banxico, cuadro CE89)",
       "en": "Non-resident holdings of government securities, nominal value, millions of US dollars, monthly (Banxico, table CE89)"
@@ -1308,7 +1312,7 @@
      "provider": "banxico",
      "id": "SE45549",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Posici(ó|o)n final neta",
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*Posici(ó|o)n\\s+final\\s+neta\\s*$",
      "note": {
       "es": "Posición de inversión internacional neta (activos menos pasivos), saldo al fin del trimestre, millones de dólares (Banxico, cuadro CE170)",
       "en": "Net international investment position (assets minus liabilities), end-of-quarter stock, millions of US dollars (Banxico, table CE170)"
@@ -1325,7 +1329,7 @@
      "provider": "banxico",
      "id": "SE44870",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Activos"
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*\\d/\\s+Activos\\s*$"
     }
    ]
   },
@@ -1338,7 +1342,7 @@
      "provider": "banxico",
      "id": "SE44880",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Pasivos"
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*\\d/\\s+Pasivos\\s*$"
     }
    ]
   },
@@ -1351,7 +1355,7 @@
      "provider": "banxico",
      "id": "SE44871",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Inversi(ó|o)n directa"
+     "title": "Activos\\s+I\\.\\s+Inversi(ó|o)n\\s+directa\\s*$"
     }
    ]
   },
@@ -1364,7 +1368,7 @@
      "provider": "banxico",
      "id": "SE44874",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Inversi(ó|o)n de cartera"
+     "title": "Activos\\s+II\\.\\s+Inversi(ó|o)n\\s+de\\s+cartera\\s*$"
     }
    ]
   },
@@ -1377,7 +1381,7 @@
      "provider": "banxico",
      "id": "SE45566",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Derivados financieros"
+     "title": "Activos\\s+III\\.\\s+Derivados\\s+financieros\\s*$"
     }
    ]
   },
@@ -1390,7 +1394,7 @@
      "provider": "banxico",
      "id": "SE44877",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Otra inversi(ó|o)n"
+     "title": "Activos\\s+IV\\.\\s+Otra\\s+inversi(ó|o)n\\s*$"
     }
    ]
   },
@@ -1403,7 +1407,7 @@
      "provider": "banxico",
      "id": "SE44878",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Activos de reserva"
+     "title": "Activos\\s+V\\.\\s+Activos\\s+de\\s+reserva\\s*$"
     }
    ]
   },
@@ -1416,7 +1420,7 @@
      "provider": "banxico",
      "id": "SE44881",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Inversi(ó|o)n directa",
+     "title": "Pasivos\\s+I\\.\\s+Inversi(ó|o)n\\s+directa\\s*$",
      "note": {
       "es": "Pasivos de inversión directa: el acervo de IED en México a valor de mercado, al fin del trimestre (Banxico, cuadro CE170)",
       "en": "Direct investment liabilities: the stock of FDI in Mexico at market value, end of quarter (Banxico, table CE170)"
@@ -1433,7 +1437,7 @@
      "provider": "banxico",
      "id": "SE44884",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Inversi(ó|o)n de cartera"
+     "title": "Pasivos\\s+II\\.\\s+Inversi(ó|o)n\\s+de\\s+cartera\\s*$"
     }
    ]
   },
@@ -1446,7 +1450,7 @@
      "provider": "banxico",
      "id": "SE45596",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Derivados financieros"
+     "title": "Pasivos\\s+III\\.\\s+Derivados\\s+financieros\\s*$"
     }
    ]
   },
@@ -1459,7 +1463,7 @@
      "provider": "banxico",
      "id": "SE44905",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Otra inversi(ó|o)n"
+     "title": "Pasivos\\s+IV\\.\\s+Otra\\s+inversi(ó|o)n\\s*$"
     }
    ]
   },
@@ -1472,7 +1476,7 @@
      "provider": "banxico",
      "id": "SE45430",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Posici(ó|o)n inicial neta"
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*Posici(ó|o)n\\s+inicial\\s+neta\\s*$"
     }
    ]
   },
@@ -1485,7 +1489,7 @@
      "provider": "banxico",
      "id": "SE45310",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Transacciones de la cuenta financiera"
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*Transacciones\\s+de\\s+la\\s+cuenta\\s+financiera\\s*$"
     }
    ]
   },
@@ -1498,7 +1502,7 @@
      "provider": "banxico",
      "id": "SE45311",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE170&locale=es",
-     "title": "Otras variaciones",
+     "title": "Posici(ó|o)n\\s+de\\s+Inversi(ó|o)n\\s+Internacional.*Otras\\s+variaciones\\s*$",
      "note": {
       "es": "Otras variaciones de la posición neta (precios, tipo de cambio y otros ajustes), millones de dólares (Banxico, cuadro CE170)",
       "en": "Other changes in the net position (prices, exchange rates and other adjustments), millions of US dollars (Banxico, table CE170)"
@@ -1515,7 +1519,7 @@
      "provider": "banxico",
      "id": "SE44968",
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE182&locale=es",
-     "title": "Deuda Externa Bruta|Total",
+     "title": "Posici(ó|o)n\\s+de\\s+Deuda\\s+Externa\\s+Bruta.*Total\\s*$",
      "note": {
       "es": "Posición de deuda externa bruta, todos los sectores, saldo al fin del trimestre, millones de dólares (Banxico, cuadro CE182)",
       "en": "Gross external debt position, all sectors, end-of-quarter stock, millions of US dollars (Banxico, table CE182)"

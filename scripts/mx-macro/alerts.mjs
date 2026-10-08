@@ -88,11 +88,24 @@ const RELEASES = {
   },
   trade: () => {
     const x = S('exports'), m = byDate(S('imports')); const L = last(x), P = last(x, 1); if (!L || !P || !m.has(L[0]) || !m.has(P[0])) return null;
-    const bal = (L[1] - m.get(L[0])) / 1e9, balP = (P[1] - m.get(P[0])) / 1e9;
+    // INEGI's series are in millions of dollars; a FRED fallback is in dollars (unit "usd").
+    const toB = (k) => (data.series?.[k]?.unit === 'usd' ? 1e-9 : data.series?.[k]?.unit === 'usd_k' ? 1e-6 : 1e-3);
+    const bal = L[1] * toB('exports') - m.get(L[0]) * toB('imports'), balP = P[1] * toB('exports') - m.get(P[0]) * toB('imports');
     const y = yoy(x, L[0]), yp = yoy(x, P[0]);
     const material = Math.sign(bal) !== Math.sign(balP) || (y !== null && yp !== null && Math.abs(y - yp) >= 10);
-    return { period: L[0], title: 'Merchandise trade', views: ['ex'], material,
+    return { period: L[0], title: 'Merchandise trade', views: ['tr'], material,
       headline: `Trade ${mon(L[0])}: balance US$${sg(bal, 2)}B, exports ${sg(y, 1)}% YoY` };
+  },
+  // Balance of payments and the international investment position come out together each quarter.
+  bop: () => {
+    const c = S('ca'), pctM = byDate(S('caPct')), d = S('diMx'); const L = last(c), P = last(c, 1); if (!L || !P) return null;
+    const pct = pctM.get(L[0]), pctP = pctM.get(P[0]);
+    const sum4 = (pts, back) => { let s = 0; for (let k = 0; k < 4; k++) { const x = last(pts, back + k); if (!x) return null; s += x[1]; } return s; };
+    const di4 = sum4(d, 0), di4p = sum4(d, 4);
+    const material = (pct !== undefined && pctP !== undefined && (Math.abs(pct - pctP) >= 0.5 || Math.sign(pct) !== Math.sign(pctP)))
+      || (di4 !== null && di4p !== null && di4p !== 0 && Math.abs(di4 / di4p - 1) >= 0.2);
+    return { period: L[0], title: 'Balance of payments and IIP', views: ['ii'], material,
+      headline: `Current account ${mon(L[0])} US$${sg(L[1] / 1000, 1)}B (${pct !== undefined ? sg(pct, 1) + '% of GDP' : 'ratio n/a'}); FDI over 4 quarters US$${di4 !== null ? (di4 / 1000).toFixed(1) : 'n/a'}B` };
   },
   // Daily/weekly series: only a material move is reported, never a routine new observation.
   policyRate: (st) => {
@@ -129,7 +142,7 @@ const RELEASES = {
       headline: `12-month inflation expectations ${mon(L[0])} ${L[1].toFixed(2)}% (${sg(d, 2)}pp)` };
   },
 };
-const VIEW_PARAM = { inpc: 'inpc', ac: 'activity', lb: 'labor', cc: 'confidence', ex: 'external', bx: 'banxico' };
+const VIEW_PARAM = { inpc: 'inpc', ac: 'activity', lb: 'labor', cc: 'confidence', ex: 'external', tr: 'trade', ii: 'iip', bx: 'banxico' };
 
 // ---- compare with state ----
 const seeding = !existsSync(STATE);

@@ -616,7 +616,9 @@
     <div class="rail-item" data-view="confidence"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navConfidence">Confianza del consumidor</span></span></div>
 
     <div class="rail-group-label" data-i18n="groupExternal">Sector externo</div>
-    <div class="rail-item" data-view="external"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navExternal">Remesas, comercio y peso</span></span></div>
+    <div class="rail-item" data-view="external"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navExternal">Remesas y peso</span></span></div>
+    <div class="rail-item" data-view="trade"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navTrade">Comercio exterior</span></span></div>
+    <div class="rail-item" data-view="iip"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIip">Inversión extranjera y PII</span></span></div>
 
     <div class="rail-group-label" data-i18n="groupBanxico">Banxico y mercados</div>
     <div class="rail-item" data-view="banxico"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navBanxico">Tasas y reservas</span></span></div>
@@ -930,7 +932,7 @@
 
     <section id="exSummarySec"><div class="exec-summary" id="exSummary"></div></section>
 
-    <section id="exKpiSec"><div class="kpi-row six" id="exKpiRow"></div></section>
+    <section id="exKpiSec"><div class="kpi-row" id="exKpiRow"></div></section>
 
     <section id="exRemSec">
       <div class="section-head">
@@ -941,20 +943,6 @@
         <div class="legend" id="exRemLegend"></div>
         <div class="chart-wrap"><svg id="exRemChart" viewBox="0 0 920 260"></svg><div class="tooltip" id="exRemTooltip"></div></div>
         <div class="callout" id="exRemCallout"></div>
-      </div>
-    </section>
-
-    <section id="exTradeSec">
-      <div class="section-head">
-        <h2 data-i18n="exSecTrade">Exportaciones e importaciones de mercancías</h2>
-        <span class="note" data-i18n="exSecTradeNote">Miles de millones de dólares por mes</span>
-      </div>
-      <div class="panel">
-        <div class="legend" id="exTradeLegend"></div>
-        <div class="chart-wrap"><svg id="exTradeChart" viewBox="0 0 920 240"></svg><div class="tooltip" id="exTradeTooltip"></div></div>
-        <div class="sub-title" style="margin-top:18px" data-i18n="exBalanceTitle">Balanza comercial mensual</div>
-        <div class="chart-wrap"><svg id="exBalanceChart" viewBox="0 0 920 150"></svg></div>
-        <div class="callout" id="exTradeCallout"></div>
       </div>
     </section>
 
@@ -971,6 +959,222 @@
     </section>
 
     <footer id="exFooter" data-i18n="footerExternal">Nota de fuente.</footer>
+  </div>
+
+  <!-- ================= Comercio exterior ================= -->
+  <div class="view" id="view-trade">
+    <div class="page-header">
+      <div>
+        <h2 class="view-title" data-i18n="trTitle">Comercio exterior: exportaciones, importaciones y precios</h2>
+        <div class="desc" data-i18n="trDesc">Qué vende y qué compra México en el exterior, a quién y a qué precios.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="trAsOf">—</div>
+        <div id="trNext">—</div>
+        <div id="trRefreshed">—</div>
+        <div class="src-line" id="trSource"></div>
+      </div>
+    </div>
+    <div class="notice pending" id="trPending" hidden></div>
+
+    <section id="trSummarySec"><div class="exec-summary" id="trSummary"></div></section>
+
+    <section id="trKpiSec"><div class="kpi-row six" id="trKpiRow"></div></section>
+
+    <section id="trLevelSec">
+      <div class="section-head">
+        <h2 data-i18n="exSecTrade">Exportaciones e importaciones de mercancías</h2>
+        <span class="note" data-i18n="exSecTradeNote">Miles de millones de dólares por mes</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="trLevelLegend"></div>
+        <div class="chart-wrap"><svg id="trLevelChart" viewBox="0 0 920 240"></svg><div class="tooltip" id="trLevelTooltip"></div></div>
+        <div class="sub-title" style="margin-top:18px" data-i18n="exBalanceTitle">Balanza comercial mensual</div>
+        <div class="chart-wrap"><svg id="trBalanceChart" viewBox="0 0 920 150"></svg></div>
+        <div class="callout" id="trLevelCallout"></div>
+      </div>
+    </section>
+
+    <section id="trOilSec">
+      <div class="section-head">
+        <h2 data-i18n="trSecOil">Balanza petrolera y no petrolera</h2>
+        <span class="note" data-i18n="trSecOilNote">Suma de 12 meses, miles de millones de dólares</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="trOilLegend"></div>
+        <div class="chart-wrap"><svg id="trOilChart" viewBox="0 0 920 220"></svg><div class="tooltip" id="trOilTooltip"></div></div>
+        <div class="callout" id="trOilCallout"></div>
+      </div>
+    </section>
+
+    <section id="trMixSec">
+      <div class="section-head">
+        <h2 data-i18n="trSecMix">Exportaciones por sector e importaciones por tipo de bien</h2>
+        <span class="note" id="trMixNote"></span>
+      </div>
+      <div class="panel">
+        <div class="two-col">
+          <div>
+            <div class="sub-title" data-i18n="trSubExpMix">Exportaciones por sector</div>
+            <div class="derby-list" id="trExpMixList"></div>
+            <div class="callout" id="trExpMixCallout"></div>
+          </div>
+          <div>
+            <div class="sub-title" data-i18n="trSubImpMix">Importaciones por tipo de bien</div>
+            <div class="derby-list" id="trImpMixList"></div>
+            <div class="callout" id="trImpMixCallout"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trUsSec">
+      <div class="section-head">
+        <h2 data-i18n="trSecUS">Comercio con Estados Unidos</h2>
+        <span class="note" data-i18n="trSecUSNote">Participación de Estados Unidos en las exportaciones totales, %, mensual</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="trUsLegend"></div>
+        <div class="chart-wrap"><svg id="trUsChart" viewBox="0 0 920 220"></svg><div class="tooltip" id="trUsTooltip"></div></div>
+        <div class="callout" id="trUsCallout"></div>
+      </div>
+    </section>
+
+    <section id="trPricesSec">
+      <div class="section-head">
+        <h2 data-i18n="trSecPrices">Precios del comercio exterior</h2>
+        <span class="note" data-i18n="trSecPricesNote">Índices trimestrales de Banxico y precio de las exportaciones mexicanas en Estados Unidos (BLS)</span>
+      </div>
+      <div class="panel">
+        <div id="trTotCol">
+          <div class="sub-title" data-i18n="trSubTot">Términos de intercambio y valores unitarios, trimestral</div>
+          <div class="legend" id="trTotLegend"></div>
+          <div class="chart-wrap"><svg id="trTotChart" viewBox="0 0 920 220"></svg><div class="tooltip" id="trTotTooltip"></div></div>
+          <div class="callout" id="trTotCallout"></div>
+        </div>
+        <div id="trUsPxCol" style="margin-top:18px">
+          <div class="sub-title" data-i18n="trSubUsPx">Precios de las importaciones de EE. UU. provenientes de México, variación anual</div>
+          <div class="legend" id="trUsPxLegend"></div>
+          <div class="chart-wrap"><svg id="trUsPxChart" viewBox="0 0 920 200"></svg><div class="tooltip" id="trUsPxTooltip"></div></div>
+          <div class="callout" id="trUsPxCallout"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="trFooter" data-i18n="footerTrade">Nota de fuente.</footer>
+  </div>
+
+  <!-- ================= Inversión extranjera y PII ================= -->
+  <div class="view" id="view-iip">
+    <div class="page-header">
+      <div>
+        <h2 class="view-title" data-i18n="iiTitle">Inversión extranjera y posición de inversión internacional</h2>
+        <div class="desc" data-i18n="iiDesc">Cuánto capital entra y sale de México cada trimestre y cuánto debe el país al exterior en términos netos.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="iiAsOf">—</div>
+        <div id="iiNext">—</div>
+        <div id="iiRefreshed">—</div>
+        <div class="src-line" id="iiSource"></div>
+      </div>
+    </div>
+    <div class="notice pending" id="iiPending" hidden></div>
+
+    <section id="iiSummarySec"><div class="exec-summary" id="iiSummary"></div></section>
+
+    <section id="iiKpiSec"><div class="kpi-row six" id="iiKpiRow"></div></section>
+
+    <section id="iiCaSec">
+      <div class="section-head">
+        <h2 data-i18n="iiSecCa">Cuenta corriente y sus componentes</h2>
+        <span class="note" data-i18n="iiSecCaNote">Suma de cuatro trimestres, miles de millones de dólares</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="iiCaLegend"></div>
+        <div class="chart-wrap"><svg id="iiCaChart" viewBox="0 0 920 260"></svg><div class="tooltip" id="iiCaTooltip"></div></div>
+        <div class="callout" id="iiCaCallout"></div>
+      </div>
+    </section>
+
+    <section id="iiDiSec">
+      <div class="section-head">
+        <h2 data-i18n="iiSecDi">Inversión extranjera directa en México</h2>
+        <span class="note" data-i18n="iiSecDiNote">Flujo trimestral y promedio móvil de cuatro trimestres, miles de millones de dólares</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="iiDiLegend"></div>
+        <div class="chart-wrap"><svg id="iiDiChart" viewBox="0 0 920 220"></svg></div>
+        <div class="sub-title" style="margin-top:18px" data-i18n="iiSubDiMix">Componentes, suma de cuatro trimestres</div>
+        <div class="derby-list" id="iiDiMixList"></div>
+        <div class="callout" id="iiDiCallout"></div>
+      </div>
+    </section>
+
+    <section id="iiPfSec">
+      <div class="section-head">
+        <h2 data-i18n="iiSecPf">Inversión de cartera y tenencia de no residentes</h2>
+        <span class="note" data-i18n="iiSecPfNote">Pasivos netos de cartera por trimestre y saldo de valores gubernamentales en manos de no residentes</span>
+      </div>
+      <div class="panel">
+        <div class="two-col">
+          <div id="iiPfCol">
+            <div class="sub-title" data-i18n="iiSubPf">Pasivos netos de inversión de cartera, trimestral</div>
+            <div class="chart-wrap"><svg id="iiPfChart" viewBox="0 0 450 220"></svg></div>
+            <div class="callout" id="iiPfCallout"></div>
+          </div>
+          <div id="iiNrCol">
+            <div class="sub-title" data-i18n="iiSubNrGov">Valores gubernamentales en manos de no residentes, saldo mensual</div>
+            <div class="legend" id="iiNrGovLegend"></div>
+            <div class="chart-wrap"><svg id="iiNrGovChart" viewBox="0 0 450 220"></svg><div class="tooltip" id="iiNrGovTooltip"></div></div>
+            <div class="callout" id="iiNrCallout"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="iiIipSec">
+      <div class="section-head">
+        <h2 data-i18n="iiSecIip">Posición de inversión internacional</h2>
+        <span class="note" data-i18n="iiSecIipNote">Activos, pasivos y posición neta al fin de cada trimestre, miles de millones de dólares</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="iiIipLegend"></div>
+        <div class="chart-wrap"><svg id="iiIipChart" viewBox="0 0 920 260"></svg><div class="tooltip" id="iiIipTooltip"></div></div>
+        <div class="two-col" style="margin-top:18px">
+          <div>
+            <div class="sub-title" data-i18n="iiSubAssets">Activos por categoría</div>
+            <div class="derby-list" id="iiAssetsList"></div>
+          </div>
+          <div>
+            <div class="sub-title" data-i18n="iiSubLiab">Pasivos por categoría</div>
+            <div class="derby-list" id="iiLiabList"></div>
+          </div>
+        </div>
+        <div class="callout" id="iiIipCallout"></div>
+      </div>
+    </section>
+
+    <section id="iiChangeSec">
+      <div class="section-head">
+        <h2 data-i18n="iiSecChange">Cómo cambió la posición neta</h2>
+        <span class="note" data-i18n="iiSecChangeNote">Transacciones vs. otras variaciones, miles de millones de dólares por trimestre</span>
+      </div>
+      <div class="panel">
+        <div class="two-col">
+          <div>
+            <div class="sub-title" data-i18n="iiSubTrans">Transacciones</div>
+            <div class="chart-wrap"><svg id="iiTransChart" viewBox="0 0 450 200"></svg></div>
+          </div>
+          <div>
+            <div class="sub-title" data-i18n="iiSubOther">Otras variaciones</div>
+            <div class="chart-wrap"><svg id="iiOtherChart" viewBox="0 0 450 200"></svg></div>
+          </div>
+        </div>
+        <div class="callout" id="iiChangeCallout"></div>
+      </div>
+    </section>
+
+    <footer id="iiFooter" data-i18n="footerIip">Nota de fuente.</footer>
   </div>
 
   <!-- ================= Banxico & markets ================= -->
@@ -1099,7 +1303,9 @@ const I18N = {
     groupHouseholds: "Hogares",
     navConfidence: "Confianza del consumidor",
     groupExternal: "Sector externo",
-    navExternal: "Remesas, comercio y peso",
+    navExternal: "Remesas y peso",
+    navTrade: "Comercio exterior",
+    navIip: "Inversión extranjera y PII",
     groupBanxico: "Banxico y mercados",
     navBanxico: "Tasas y reservas",
     groupFiscal: "Finanzas públicas",
@@ -1157,8 +1363,8 @@ const I18N = {
     sumCcWhy: "Anticipa la disposición de los hogares a gastar, y el consumo es el principal motor de la economía.",
     sumCcTail: "La señal: la brecha frente a su promedio histórico.",
     sumExLatest: (m, r, ry, fx, fd) => "Remesas: " + r + " mdd en " + m + " (" + ry + " anual). Peso: " + fx + " por dólar al " + fd + ".",
-    sumExDriver: (xy, my, b) => "Exportaciones " + xy + " e importaciones " + my + " anual; la balanza acumula " + b + " mmd en 12 meses.",
-    sumExWhy: "Remesas y exportaciones son las mayores fuentes de dólares del país: sostienen el consumo y respaldan al peso.",
+    sumExDriver: (r12, ry, m1, y1) => "Las remesas acumulan " + r12 + " mmd en 12 meses (" + ry + " anual); el peso se movió " + m1 + " en un mes y " + y1 + " en un año (negativo = peso más fuerte).",
+    sumExWhy: "Las remesas son una de las mayores fuentes de dólares del país: sostienen el consumo y respaldan al peso.",
     sumExNextTail: "La señal: la tendencia anual de las remesas.",
     sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
     sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
@@ -1246,9 +1452,66 @@ const I18N = {
       "mbono30": "Bono M 30 años",
       "ust10": "Tesoro de EE. UU. a 10 años",
       "inflExp12m": "Inflación esperada a 12 meses (mediana)",
-      "inflExp12mMean": "Inflación esperada a 12 meses (media)"
+      "inflExp12mMean": "Inflación esperada a 12 meses (media)",
+      "expTotalO": "Exportaciones totales (cifras originales)",
+      "impTotalO": "Importaciones totales (cifras originales)",
+      "balTotalO": "Balanza comercial (cifras originales)",
+      "expOil": "Exportaciones petroleras",
+      "expAgri": "Exportaciones agropecuarias",
+      "expExtr": "Exportaciones extractivas",
+      "expManuf": "Exportaciones manufactureras",
+      "expAuto": "Exportaciones automotrices",
+      "impOil": "Importaciones petroleras",
+      "impCons": "Importaciones de bienes de consumo",
+      "impInter": "Importaciones de bienes de uso intermedio",
+      "impCap": "Importaciones de bienes de capital",
+      "balOil": "Balanza petrolera",
+      "balNonOil": "Balanza no petrolera",
+      "shExpUS": "Participación de EE. UU. en las exportaciones",
+      "expUS": "Exportaciones a Estados Unidos",
+      "impUS": "Importaciones desde Estados Unidos",
+      "balUS": "Balanza comercial con Estados Unidos",
+      "usImpFromMx": "Importaciones de EE. UU. desde México (Census)",
+      "usExpToMx": "Exportaciones de EE. UU. a México (Census)",
+      "totIdx": "Términos de intercambio",
+      "uvExp": "Valor unitario de exportaciones",
+      "uvImp": "Valor unitario de importaciones",
+      "usImpPxMx": "Precios de importación de EE. UU. desde México (BLS)",
+      "ca": "Cuenta corriente",
+      "caPct": "Cuenta corriente, % del PIB",
+      "goodsB": "Balanza de bienes",
+      "svcB": "Balanza de servicios",
+      "priB": "Balanza de ingreso primario",
+      "secB": "Balanza de ingreso secundario",
+      "ka": "Cuenta de capital",
+      "fa": "Cuenta financiera",
+      "eo": "Errores y omisiones",
+      "diMx": "Inversión extranjera directa en México",
+      "diMxNew": "IED: nuevas inversiones",
+      "diMxReinv": "IED: reinversión de utilidades",
+      "diMxInter": "IED: cuentas entre compañías",
+      "diAbroad": "Inversión directa de México en el exterior",
+      "pfLiab": "Pasivos netos de inversión de cartera",
+      "nrGovHold": "Valores gubernamentales en manos de no residentes",
+      "iipNet": "Posición de inversión internacional neta",
+      "iipAssets": "PII: activos",
+      "iipLiab": "PII: pasivos",
+      "iipADi": "PII: activos de inversión directa",
+      "iipAPf": "PII: activos de inversión de cartera",
+      "iipADv": "PII: activos en derivados financieros",
+      "iipAOi": "PII: activos de otra inversión",
+      "iipARes": "PII: activos de reserva",
+      "iipLDi": "PII: pasivos de inversión directa",
+      "iipLPf": "PII: pasivos de inversión de cartera",
+      "iipLDv": "PII: pasivos en derivados financieros",
+      "iipLOi": "PII: pasivos de otra inversión",
+      "iipInit": "PII: posición inicial neta",
+      "iipTrans": "PII: transacciones de la cuenta financiera",
+      "iipOther": "PII: otras variaciones",
+      "extDebt": "Deuda externa bruta",
+      "gdpNom": "PIB a precios corrientes"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)", FedH15: "Reserva Federal (H.15)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)", FedH15: "Reserva Federal (H.15)", Census: "Census Bureau de EE. UU.", BLS: "Bureau of Labor Statistics de EE. UU." },
 
     // ---- Activity ----
     acTitle: "Actividad económica: PIB e IGAE",
@@ -1332,8 +1595,8 @@ const I18N = {
     pts: "pts",
 
     // ---- External ----
-    exTitle: "Sector externo: remesas, comercio y tipo de cambio",
-    exDesc: "Los dólares que entran y salen, y el precio del peso. Banxico publica las remesas con dos meses de rezago; INEGI la balanza comercial con uno.",
+    exTitle: "Sector externo: remesas y tipo de cambio",
+    exDesc: "Los dólares que envían los migrantes y el precio del peso. Banxico publica las remesas con dos meses de rezago y el FIX cada día hábil. El comercio exterior y la inversión extranjera tienen sus propias secciones.",
     exNextRem: (m, p) => "Próximas remesas: " + m + ", " + p,
     exNextBal: (m, p) => "Próxima balanza comercial: " + m + ", " + p,
     exSecRem: "Remesas familiares",
@@ -1343,7 +1606,7 @@ const I18N = {
     exBalanceTitle: "Balanza comercial mensual (miles de millones de dólares)",
     exSecFx: "Tipo de cambio peso–dólar",
     exFxNote: "Pesos por dólar, FIX, últimos 3 años",
-    footerExternal: "Remesas: ingresos por remesas familiares, millones de dólares (Banxico). Exportaciones e importaciones de mercancías en dólares (INEGI/Banxico; serie OCDE desestacionalizada cuando se usa FRED). Tipo de cambio FIX publicado por Banxico; cuando se usa la Reserva Federal es la cotización de mediodía en Nueva York.",
+    footerExternal: "Remesas: ingresos por remesas familiares, millones de dólares (Banxico). Tipo de cambio FIX publicado por Banxico; cuando se usa la Reserva Federal es la cotización de mediodía en Nueva York.",
     kpiRemMonth: "Remesas del mes",
     kpiRem12m: "Remesas, 12 meses",
     kpiExports: "Exportaciones",
@@ -1360,6 +1623,120 @@ const I18N = {
     kpiDeltaFx: "vs. hace un mes",
     usdMn: "millones de dólares",
     usdBn: "mil millones de dólares",
+
+    // ---- Comercio exterior ----
+    trTitle: "Comercio exterior: exportaciones, importaciones y precios",
+    trDesc: "Qué vende y qué compra México en el exterior, a quién y a qué precios. INEGI y Banxico publican la balanza comercial de mercancías con un mes de rezago; el detalle por país, con dos.",
+    trSecOil: "Balanza petrolera y no petrolera",
+    trSecOilNote: "Suma de 12 meses, miles de millones de dólares, cifras originales",
+    trSecMix: "Exportaciones por sector e importaciones por tipo de bien",
+    trMixNote: (m) => "Variación anual en " + m + ", cifras originales; participación en el total entre paréntesis",
+    trSubExpMix: "Exportaciones por sector",
+    trSubImpMix: "Importaciones por tipo de bien",
+    trSecUS: "Comercio con Estados Unidos",
+    trSecUSNote: "Participación de Estados Unidos en las exportaciones totales, %, mensual",
+    trSecPrices: "Precios del comercio exterior",
+    trSecPricesNote: "Índices trimestrales de Banxico y precio de las exportaciones mexicanas en Estados Unidos (BLS)",
+    trSubTot: "Términos de intercambio y valores unitarios, trimestral",
+    trSubUsPx: "Precios de las importaciones de EE. UU. provenientes de México, variación anual",
+    kpiBalOil12m: "Balanza petrolera, 12 meses",
+    kpiShExpUS: "Exportaciones a EE. UU.",
+    kpiShExpUSFoot: "% de las exportaciones totales",
+    kpiTot: "Términos de intercambio",
+    kpiTotFoot: "índice trimestral",
+    kpiUsPx: "Precio de exportación en EE. UU.",
+    kpiUsPxFoot: "índice BLS, variación anual",
+    legBalOil: "Balanza petrolera",
+    legBalNonOil: "Balanza no petrolera",
+    legShExpUS: "Participación de EE. UU. en las exportaciones",
+    legTot: "Términos de intercambio",
+    legUvExp: "Valor unitario de exportaciones",
+    legUvImp: "Valor unitario de importaciones",
+    legUsPx: "Precios de importación de EE. UU. desde México (BLS)",
+    trExpOil: "Petroleras",
+    trExpAgri: "Agropecuarias",
+    trExpExtr: "Extractivas",
+    trExpManuf: "Manufactureras",
+    trExpAuto: "Manufactureras automotrices",
+    trImpCons: "Bienes de consumo",
+    trImpInter: "Bienes de uso intermedio",
+    trImpCap: "Bienes de capital",
+    trImpOil: "Petroleras, de todos los tipos",
+    trOilCallout: (m, oil, nonoil) => m + ": balanza petrolera de " + oil + " y no petrolera de " + nonoil + " mil millones de dólares en 12 meses.",
+    trExpMixCallout: (m, sh, manuf, auto) => m + ": las manufacturas son " + sh + " de las exportaciones y varían " + manuf + " anual; las automotrices, " + auto + ".",
+    trImpMixCallout: (m, cons, inter, cap) => m + ": importaciones de bienes de consumo " + cons + ", de uso intermedio " + inter + " y de capital " + cap + " (anual).",
+    trUsCallout: (m, sh) => m + ": " + sh + " de las exportaciones fue a Estados Unidos.",
+    trUsBilateral: (m, x, i, b) => "Comercio bilateral acumulado en 12 meses a " + m + " (Banxico): exportaciones " + x + ", importaciones " + i + " y saldo de " + b + " mil millones de dólares.",
+    trUsCensus: (m, v, y) => "Del lado estadounidense, el Census Bureau registró importaciones desde México por " + v + " mil millones de dólares en " + m + " (" + y + " anual).",
+    trTotCallout: (q, tot, ty, uvx, uvm) => q + ": términos de intercambio en " + tot + " (" + ty + " anual); valor unitario de las exportaciones " + uvx + " y de las importaciones " + uvm + " anual.",
+    trUsPxCallout: (m, y) => m + ": los precios de las importaciones de EE. UU. provenientes de México varían " + y + " anual (BLS; excluyen aranceles).",
+    sumTrLatest: (m, x, xy, i, iy, b) => "Exportaciones de " + x + " mmd en " + m + " (" + xy + " anual) e importaciones de " + i + " mmd (" + iy + "); la balanza acumula " + b + " mmd en 12 meses.",
+    sumTrDriver: (manuf, oil, sh) => "Manufacturas " + manuf + " anual; balanza petrolera de " + oil + " mmd en 12 meses; " + sh + " de las exportaciones va a Estados Unidos.",
+    sumTrWhy: "Las exportaciones manufactureras son el motor de la economía abierta de México y su vínculo con Estados Unidos; el déficit petrolero y los precios relativos definen el saldo.",
+    sumTrNextTail: "La señal: el ritmo de las manufacturas y el peso de Estados Unidos en las ventas.",
+    footerTrade: "Exportaciones e importaciones totales: balanza comercial de mercancías de México (SAT, SE, Banco de México, INEGI), serie desestacionalizada de INEGI, millones de dólares FOB. Balanzas petrolera y no petrolera, exportaciones por sector, importaciones por tipo de bien, comercio con Estados Unidos y su participación: cifras originales de la misma estadística en el SIE de Banco de México (cuadros CE125, CE171, CE160 y CE197); el detalle por país se publica con un mes más de rezago. Términos de intercambio y valores unitarios: estimación trimestral de Banco de México (cuadro CE187). Precio de las exportaciones en Estados Unidos: índice de precios de las importaciones estadounidenses provenientes de México del Bureau of Labor Statistics (diciembre de 2003 = 100, excluye aranceles), vía FRED; la contraparte estadounidense del comercio bilateral es del Census Bureau (base aduanal, sin ajuste estacional), vía FRED. Las sumas de 12 meses y las participaciones se calculan sobre las cifras publicadas; la actualización comprueba que los componentes sumen los totales antes de publicar un bloque.",
+
+    // ---- Inversión extranjera y posición de inversión internacional ----
+    iiTitle: "Inversión extranjera y posición de inversión internacional",
+    iiDesc: "Cuánto capital entra y sale de México cada trimestre y cuánto debe el país al exterior en términos netos. Banxico publica la balanza de pagos y la posición de inversión internacional unos 55 días después del cierre de cada trimestre.",
+    iiNext: (q, p) => "Próxima balanza de pagos: " + q + ", " + p,
+    iiSecCa: "Cuenta corriente y sus componentes",
+    iiSecCaNote: "Suma de cuatro trimestres, miles de millones de dólares",
+    iiSecDi: "Inversión extranjera directa en México",
+    iiSecDiNote: "Flujo trimestral y promedio móvil de cuatro trimestres, miles de millones de dólares, principio direccional",
+    iiSubDiMix: "Componentes, suma de cuatro trimestres",
+    iiSecPf: "Inversión de cartera y tenencia de no residentes",
+    iiSecPfNote: "Pasivos netos de cartera por trimestre y saldo de valores gubernamentales en manos de no residentes, miles de millones de dólares",
+    iiSubPf: "Pasivos netos de inversión de cartera, trimestral",
+    iiSubNrGov: "Valores gubernamentales en manos de no residentes, saldo mensual a valor nominal",
+    iiSecIip: "Posición de inversión internacional",
+    iiSecIipNote: "Activos, pasivos y posición neta al fin de cada trimestre, miles de millones de dólares",
+    iiSubAssets: "Activos por categoría",
+    iiSubLiab: "Pasivos por categoría",
+    iiSecChange: "Cómo cambió la posición neta",
+    iiSecChangeNote: "Transacciones de la cuenta financiera vs. otras variaciones (precios, tipo de cambio y otros ajustes), miles de millones de dólares por trimestre",
+    iiSubTrans: "Transacciones",
+    iiSubOther: "Otras variaciones",
+    kpiCa: "Cuenta corriente",
+    kpiCaFoot: "del PIB, trimestre (Banxico)",
+    kpiDi4q: "IED en México, 4 trimestres",
+    kpiIipNet: "Posición neta (PII)",
+    kpiPfLiab4q: "Pasivos de cartera, 4 trimestres",
+    kpiNrGov: "Valores gubernamentales en manos de extranjeros",
+    kpiExtDebt: "Deuda externa bruta",
+    kpiPctGdp: "del PIB",
+    legCa: "Cuenta corriente",
+    legGoodsB: "Bienes",
+    legSvcB: "Servicios",
+    legPriB: "Ingreso primario",
+    legSecB: "Ingreso secundario (remesas)",
+    legDi: "IED trimestral",
+    legDi4: "Promedio móvil de cuatro trimestres",
+    legNrGov: "Tenencia de no residentes",
+    legIipAssets: "Activos",
+    legIipLiab: "Pasivos",
+    legIipNet: "Posición neta",
+    iiCatDi: "Inversión directa",
+    iiCatPf: "Inversión de cartera",
+    iiCatDv: "Derivados financieros",
+    iiCatOi: "Otra inversión",
+    iiCatRes: "Activos de reserva",
+    iiDiNew: "Nuevas inversiones",
+    iiDiReinv: "Reinversión de utilidades",
+    iiDiInter: "Cuentas entre compañías",
+    iiDiAbroad: "Inversión de México en el exterior",
+    iiCaCallout: (q, ca, pct, g, s, p, r) => q + ": cuenta corriente de " + ca + " mmd en el trimestre (" + pct + " del PIB, cifra de Banxico). En cuatro trimestres: bienes " + g + ", servicios " + s + ", ingreso primario " + p + " e ingreso secundario " + r + " mmd.",
+    iiDiCallout: (q, v, s4, y, abroad) => q + ": IED de " + v + " mmd en el trimestre y " + s4 + " mmd en cuatro trimestres (" + y + " frente a los cuatro previos). Inversión directa de México en el exterior: " + abroad + " mmd en cuatro trimestres.",
+    iiPfCallout: (q, pf4) => "Pasivos netos de cartera: " + pf4 + " mmd en los cuatro trimestres a " + q + " (positivo = entrada neta de no residentes).",
+    iiNrCallout: (m, hold, hy) => "Valores gubernamentales en manos de no residentes: " + hold + " mmd en " + m + " (" + hy + " en un año).",
+    iiIipCallout: (q, net, pct, a, l) => q + ": posición neta de " + net + " mmd (" + pct + " del PIB); activos por " + a + " y pasivos por " + l + " mmd.",
+    iiChangeCallout: (q, d, t, o) => q + ": la posición neta varió " + d + " mmd en el trimestre: " + t + " por transacciones y " + o + " por precios, tipo de cambio y otros ajustes.",
+    iiGdpNote: "Porcentajes del PIB de la posición neta, la IED y la deuda externa: cálculo FNAM, saldo o flujo entre el PIB de los últimos cuatro trimestres a precios corrientes (INEGI) convertido a dólares al FIX promedio de cada trimestre (Banxico). La razón de la cuenta corriente es la que publica Banxico.",
+    sumIiLatest: (q, ca, pct, di) => "Cuenta corriente de " + ca + " mmd en " + q + " (" + pct + " del PIB). IED en México: " + di + " mmd en el trimestre.",
+    sumIiDriver: (net, pct, di4, hold) => "Posición de inversión internacional neta de " + net + " mmd (" + pct + " del PIB). IED de cuatro trimestres: " + di4 + " mmd; valores gubernamentales en manos de extranjeros: " + hold + " mmd.",
+    sumIiWhy: "La cuenta corriente mide cuántos dólares necesita México del exterior; la IED es la fuente más estable para financiarla y la posición neta resume cuánto debe el país al mundo.",
+    sumIiNextTail: "La señal: si la IED cubre el déficit de cuenta corriente y cómo se mueve la tenencia extranjera de bonos.",
+    footerIip: "Balanza de pagos con base en el MBP6 (Banco de México, cuadro CE174 del SIE), millones de dólares, trimestral: cuenta corriente y sus balanzas de bienes, servicios, ingreso primario e ingreso secundario; la razón al PIB de la cuenta corriente es la que publica Banxico (cuadro CE158). Inversión extranjera directa por principio direccional (cuadro CE131): nuevas inversiones, reinversión de utilidades y cuentas entre compañías, la cifra que difunde la Secretaría de Economía; inversión de México en el exterior del mismo cuadro. Pasivos netos de inversión de cartera: cuadro CE174. Tenencia de no residentes en valores gubernamentales: saldo mensual a valor nominal (cuadro CE89). Posición de inversión internacional: estado integrado trimestral (cuadro CE170), saldos al fin de periodo por categoría funcional, con las transacciones y otras variaciones que explican el cambio de la posición neta. Deuda externa bruta: cuadro CE182. Porcentajes del PIB de saldos y flujos: cálculo FNAM con el PIB trimestral a precios corrientes de INEGI convertido al FIX promedio de cada trimestre. La actualización comprueba que los componentes sumen los totales (cuenta corriente, IED, activos y pasivos de la PII y su variación) antes de publicar un bloque.",
 
     // ---- Banxico ----
     bxTitle: "Banxico y mercados",
@@ -1441,7 +1818,9 @@ const I18N = {
     groupHouseholds: "Households",
     navConfidence: "Consumer Confidence",
     groupExternal: "External Sector",
-    navExternal: "Remittances, Trade & Peso",
+    navExternal: "Remittances & Peso",
+    navTrade: "Foreign Trade",
+    navIip: "Foreign Investment & IIP",
     groupBanxico: "Banxico & Markets",
     navBanxico: "Rates & Reserves",
     groupFiscal: "Public Finance",
@@ -1499,8 +1878,8 @@ const I18N = {
     sumCcWhy: "It anticipates households' willingness to spend, and consumption is the economy's main engine.",
     sumCcTail: "Watch the gap versus its historical average.",
     sumExLatest: (m, r, ry, fx, fd) => "Remittances: " + r + " million dollars in " + m + " (" + ry + " year over year). Peso: " + fx + " per dollar as of " + fd + ".",
-    sumExDriver: (xy, my, b) => "Exports " + xy + " and imports " + my + " year over year; the 12-month trade balance is " + b + " billion dollars.",
-    sumExWhy: "Remittances and exports are Mexico's largest sources of dollars: they support consumption and back the peso.",
+    sumExDriver: (r12, ry, m1, y1) => "Remittances add up to US$" + r12 + " billion over 12 months (" + ry + " year over year); the peso moved " + m1 + " in a month and " + y1 + " in a year (negative = stronger peso).",
+    sumExWhy: "Remittances are one of Mexico's largest sources of dollars: they support consumption and back the peso.",
     sumExNextTail: "Watch the annual trend in remittances.",
     sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
     sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
@@ -1588,9 +1967,66 @@ const I18N = {
       "mbono30": "30-year M bond",
       "ust10": "10-year U.S. Treasury",
       "inflExp12m": "Expected inflation, 12 months ahead (median)",
-      "inflExp12mMean": "Expected inflation, 12 months ahead (mean)"
+      "inflExp12mMean": "Expected inflation, 12 months ahead (mean)",
+      "expTotalO": "Total exports (original figures)",
+      "impTotalO": "Total imports (original figures)",
+      "balTotalO": "Trade balance (original figures)",
+      "expOil": "Oil exports",
+      "expAgri": "Agricultural exports",
+      "expExtr": "Extractive exports",
+      "expManuf": "Manufacturing exports",
+      "expAuto": "Automotive exports",
+      "impOil": "Oil imports",
+      "impCons": "Imports of consumer goods",
+      "impInter": "Imports of intermediate goods",
+      "impCap": "Imports of capital goods",
+      "balOil": "Oil balance",
+      "balNonOil": "Non-oil balance",
+      "shExpUS": "U.S. share of exports",
+      "expUS": "Exports to the United States",
+      "impUS": "Imports from the United States",
+      "balUS": "Trade balance with the United States",
+      "usImpFromMx": "U.S. imports from Mexico (Census)",
+      "usExpToMx": "U.S. exports to Mexico (Census)",
+      "totIdx": "Terms of trade",
+      "uvExp": "Export unit value",
+      "uvImp": "Import unit value",
+      "usImpPxMx": "U.S. import prices from Mexico (BLS)",
+      "ca": "Current account",
+      "caPct": "Current account, % of GDP",
+      "goodsB": "Goods balance",
+      "svcB": "Services balance",
+      "priB": "Primary income balance",
+      "secB": "Secondary income balance",
+      "ka": "Capital account",
+      "fa": "Financial account",
+      "eo": "Errors and omissions",
+      "diMx": "Foreign direct investment in Mexico",
+      "diMxNew": "FDI: new investments",
+      "diMxReinv": "FDI: reinvested earnings",
+      "diMxInter": "FDI: intercompany accounts",
+      "diAbroad": "Mexican direct investment abroad",
+      "pfLiab": "Net portfolio investment liabilities",
+      "nrGovHold": "Government securities held by non-residents",
+      "iipNet": "Net international investment position",
+      "iipAssets": "IIP: assets",
+      "iipLiab": "IIP: liabilities",
+      "iipADi": "IIP: direct investment assets",
+      "iipAPf": "IIP: portfolio investment assets",
+      "iipADv": "IIP: financial derivative assets",
+      "iipAOi": "IIP: other investment assets",
+      "iipARes": "IIP: reserve assets",
+      "iipLDi": "IIP: direct investment liabilities",
+      "iipLPf": "IIP: portfolio investment liabilities",
+      "iipLDv": "IIP: financial derivative liabilities",
+      "iipLOi": "IIP: other investment liabilities",
+      "iipInit": "IIP: initial net position",
+      "iipTrans": "IIP: financial-account transactions",
+      "iipOther": "IIP: other changes",
+      "extDebt": "Gross external debt",
+      "gdpNom": "GDP at current prices"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)", FedH15: "Federal Reserve (H.15)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)", FedH15: "Federal Reserve (H.15)", Census: "U.S. Census Bureau", BLS: "U.S. Bureau of Labor Statistics" },
 
     // ---- Activity ----
     acTitle: "Economic Activity: GDP & IGAE",
@@ -1674,8 +2110,8 @@ const I18N = {
     pts: "pts",
 
     // ---- External ----
-    exTitle: "External Sector: Remittances, Trade & Exchange Rate",
-    exDesc: "The dollars flowing in and out, and the price of the peso. Banxico publishes remittances with a two-month lag; INEGI publishes the trade balance with a one-month lag.",
+    exTitle: "External Sector: Remittances & Exchange Rate",
+    exDesc: "The dollars migrants send home and the price of the peso. Banxico publishes remittances with a two-month lag and the FIX every business day. Foreign trade and foreign investment have their own sections.",
     exNextRem: (m, p) => "Next remittances: " + m + ", " + p,
     exNextBal: (m, p) => "Next trade balance: " + m + ", " + p,
     exSecRem: "Family remittances",
@@ -1685,7 +2121,7 @@ const I18N = {
     exBalanceTitle: "Monthly trade balance (billions of US dollars)",
     exSecFx: "Peso–dollar exchange rate",
     exFxNote: "Pesos per dollar, FIX, last 3 years",
-    footerExternal: "Remittances: family remittance inflows, millions of US dollars (Banxico). Merchandise exports and imports in US dollars (INEGI/Banxico; OECD seasonally adjusted series when served via FRED). FIX exchange rate published by Banxico; when the Federal Reserve series is used it is the New York noon buying rate.",
+    footerExternal: "Remittances: family remittance inflows, millions of US dollars (Banxico). FIX exchange rate published by Banxico; when the Federal Reserve series is used it is the New York noon buying rate.",
     kpiRemMonth: "Remittances, month",
     kpiRem12m: "Remittances, 12 months",
     kpiExports: "Exports",
@@ -1702,6 +2138,120 @@ const I18N = {
     kpiDeltaFx: "vs. a month ago",
     usdMn: "US$ million",
     usdBn: "US$ billion",
+
+    // ---- Foreign trade ----
+    trTitle: "Foreign Trade: Exports, Imports & Prices",
+    trDesc: "What Mexico sells and buys abroad, to whom and at what prices. INEGI and Banxico publish the merchandise trade balance with a one-month lag; the detail by country, with two.",
+    trSecOil: "Oil and non-oil balances",
+    trSecOilNote: "12-month sums, billions of US dollars, original figures",
+    trSecMix: "Exports by sector and imports by type of good",
+    trMixNote: (m) => "Year-over-year change in " + m + ", original figures; share of the total in parentheses",
+    trSubExpMix: "Exports by sector",
+    trSubImpMix: "Imports by type of good",
+    trSecUS: "Trade with the United States",
+    trSecUSNote: "Share of the United States in total exports, %, monthly",
+    trSecPrices: "Foreign trade prices",
+    trSecPricesNote: "Banxico's quarterly indexes and the price of Mexican exports in the United States (BLS)",
+    trSubTot: "Terms of trade and unit values, quarterly",
+    trSubUsPx: "U.S. import prices from Mexico, year-over-year change",
+    kpiBalOil12m: "Oil balance, 12 months",
+    kpiShExpUS: "Exports to the U.S.",
+    kpiShExpUSFoot: "% of total exports",
+    kpiTot: "Terms of trade",
+    kpiTotFoot: "quarterly index",
+    kpiUsPx: "Export price in the U.S.",
+    kpiUsPxFoot: "BLS index, year over year",
+    legBalOil: "Oil balance",
+    legBalNonOil: "Non-oil balance",
+    legShExpUS: "U.S. share of exports",
+    legTot: "Terms of trade",
+    legUvExp: "Export unit value",
+    legUvImp: "Import unit value",
+    legUsPx: "U.S. import prices from Mexico (BLS)",
+    trExpOil: "Oil",
+    trExpAgri: "Agricultural",
+    trExpExtr: "Extractive",
+    trExpManuf: "Manufacturing",
+    trExpAuto: "Automotive manufacturing",
+    trImpCons: "Consumer goods",
+    trImpInter: "Intermediate goods",
+    trImpCap: "Capital goods",
+    trImpOil: "Oil products, all types",
+    trOilCallout: (m, oil, nonoil) => m + ": oil balance of US$" + oil + " billion and non-oil balance of US$" + nonoil + " billion over 12 months.",
+    trExpMixCallout: (m, sh, manuf, auto) => m + ": manufacturing is " + sh + " of exports and changed " + manuf + " year over year; automotive, " + auto + ".",
+    trImpMixCallout: (m, cons, inter, cap) => m + ": imports of consumer goods " + cons + ", intermediate goods " + inter + " and capital goods " + cap + " (year over year).",
+    trUsCallout: (m, sh) => m + ": " + sh + " of exports went to the United States.",
+    trUsBilateral: (m, x, i, b) => "Bilateral trade over the 12 months to " + m + " (Banxico): exports US$" + x + " billion, imports US$" + i + " billion, balance US$" + b + " billion.",
+    trUsCensus: (m, v, y) => "On the U.S. side, the Census Bureau recorded US$" + v + " billion of imports from Mexico in " + m + " (" + y + " year over year).",
+    trTotCallout: (q, tot, ty, uvx, uvm) => q + ": terms of trade at " + tot + " (" + ty + " year over year); export unit value " + uvx + " and import unit value " + uvm + " year over year.",
+    trUsPxCallout: (m, y) => m + ": U.S. import prices from Mexico changed " + y + " year over year (BLS; excludes duties).",
+    sumTrLatest: (m, x, xy, i, iy, b) => "Exports of US$" + x + " billion in " + m + " (" + xy + " year over year) and imports of US$" + i + " billion (" + iy + "); the 12-month balance is US$" + b + " billion.",
+    sumTrDriver: (manuf, oil, sh) => "Manufacturing exports " + manuf + " year over year; oil balance of US$" + oil + " billion over 12 months; " + sh + " of exports go to the United States.",
+    sumTrWhy: "Manufacturing exports are the engine of Mexico's open economy and its link to the United States; the oil deficit and relative prices set the balance.",
+    sumTrNextTail: "Watch the pace of manufacturing exports and the weight of the United States in sales.",
+    footerTrade: "Total exports and imports: Mexico's merchandise trade balance (SAT, SE, Banco de México, INEGI), INEGI's seasonally adjusted series, millions of US dollars FOB. Oil and non-oil balances, exports by sector, imports by type of good, trade with the United States and its share: original figures of the same statistic in Banco de México's SIE (tables CE125, CE171, CE160 and CE197); the detail by country is published one month later. Terms of trade and unit values: Banco de México's quarterly estimate (table CE187). Export prices in the United States: the Bureau of Labor Statistics index of U.S. import prices from Mexico (December 2003 = 100, excludes duties), via FRED; the U.S. side of bilateral trade is from the Census Bureau (customs basis, not seasonally adjusted), via FRED. 12-month sums and shares are computed from the published figures; the refresh checks that components add up to the totals before publishing a block.",
+
+    // ---- Foreign investment and international investment position ----
+    iiTitle: "Foreign Investment & International Investment Position",
+    iiDesc: "How much capital flows into and out of Mexico each quarter, and how much the country owes the rest of the world on a net basis. Banxico publishes the balance of payments and the international investment position about 55 days after the end of each quarter.",
+    iiNext: (q, p) => "Next balance of payments: " + q + ", " + p,
+    iiSecCa: "Current account and its components",
+    iiSecCaNote: "Four-quarter sums, billions of US dollars",
+    iiSecDi: "Foreign direct investment in Mexico",
+    iiSecDiNote: "Quarterly flow and four-quarter moving average, billions of US dollars, directional principle",
+    iiSubDiMix: "Components, four-quarter sums",
+    iiSecPf: "Portfolio investment and non-resident holdings",
+    iiSecPfNote: "Net portfolio liabilities per quarter and non-resident holdings of government securities, billions of US dollars",
+    iiSubPf: "Net portfolio investment liabilities, quarterly",
+    iiSubNrGov: "Government securities held by non-residents, monthly stock at nominal value",
+    iiSecIip: "International investment position",
+    iiSecIipNote: "Assets, liabilities and net position at the end of each quarter, billions of US dollars",
+    iiSubAssets: "Assets by category",
+    iiSubLiab: "Liabilities by category",
+    iiSecChange: "How the net position changed",
+    iiSecChangeNote: "Financial-account transactions vs. other changes (prices, exchange rates and other adjustments), billions of US dollars per quarter",
+    iiSubTrans: "Transactions",
+    iiSubOther: "Other changes",
+    kpiCa: "Current account",
+    kpiCaFoot: "of GDP, quarter (Banxico)",
+    kpiDi4q: "FDI in Mexico, 4 quarters",
+    kpiIipNet: "Net position (IIP)",
+    kpiPfLiab4q: "Portfolio liabilities, 4 quarters",
+    kpiNrGov: "Government securities held by foreigners",
+    kpiExtDebt: "Gross external debt",
+    kpiPctGdp: "of GDP",
+    legCa: "Current account",
+    legGoodsB: "Goods",
+    legSvcB: "Services",
+    legPriB: "Primary income",
+    legSecB: "Secondary income (remittances)",
+    legDi: "Quarterly FDI",
+    legDi4: "Four-quarter moving average",
+    legNrGov: "Non-resident holdings",
+    legIipAssets: "Assets",
+    legIipLiab: "Liabilities",
+    legIipNet: "Net position",
+    iiCatDi: "Direct investment",
+    iiCatPf: "Portfolio investment",
+    iiCatDv: "Financial derivatives",
+    iiCatOi: "Other investment",
+    iiCatRes: "Reserve assets",
+    iiDiNew: "New investments",
+    iiDiReinv: "Reinvested earnings",
+    iiDiInter: "Intercompany accounts",
+    iiDiAbroad: "Mexican investment abroad",
+    iiCaCallout: (q, ca, pct, g, s, p, r) => q + ": current account of US$" + ca + " billion in the quarter (" + pct + " of GDP, Banxico's figure). Over four quarters: goods US$" + g + " billion, services US$" + s + " billion, primary income US$" + p + " billion and secondary income US$" + r + " billion.",
+    iiDiCallout: (q, v, s4, y, abroad) => q + ": FDI of US$" + v + " billion in the quarter and US$" + s4 + " billion over four quarters (" + y + " vs. the previous four). Mexican direct investment abroad: US$" + abroad + " billion over four quarters.",
+    iiPfCallout: (q, pf4) => "Net portfolio liabilities: US$" + pf4 + " billion over the four quarters to " + q + " (positive = net non-resident inflow).",
+    iiNrCallout: (m, hold, hy) => "Government securities held by non-residents: US$" + hold + " billion in " + m + " (" + hy + " over one year).",
+    iiIipCallout: (q, net, pct, a, l) => q + ": net position of US$" + net + " billion (" + pct + " of GDP); assets of US$" + a + " billion and liabilities of US$" + l + " billion.",
+    iiChangeCallout: (q, d, t, o) => q + ": the net position changed by US$" + d + " billion in the quarter: US$" + t + " billion from transactions and US$" + o + " billion from prices, exchange rates and other adjustments.",
+    iiGdpNote: "Percentages of GDP for the net position, FDI and external debt: FNAM calculation, the stock or flow over the last four quarters' GDP at current prices (INEGI) converted to dollars at each quarter's average FIX (Banxico). The current-account ratio is the one Banxico publishes.",
+    sumIiLatest: (q, ca, pct, di) => "Current account of US$" + ca + " billion in " + q + " (" + pct + " of GDP). FDI in Mexico: US$" + di + " billion in the quarter.",
+    sumIiDriver: (net, pct, di4, hold) => "Net international investment position of US$" + net + " billion (" + pct + " of GDP). Four-quarter FDI: US$" + di4 + " billion; government securities held by foreigners: US$" + hold + " billion.",
+    sumIiWhy: "The current account measures how many dollars Mexico needs from abroad; FDI is the most stable way to finance it, and the net position sums up what the country owes the world.",
+    sumIiNextTail: "Watch whether FDI covers the current-account deficit and how foreign holdings of bonds move.",
+    footerIip: "Balance of payments on a BPM6 basis (Banco de México, SIE table CE174), millions of US dollars, quarterly: the current account and its goods, services, primary income and secondary income balances; the current-account ratio to GDP is the one Banxico publishes (table CE158). Foreign direct investment on the directional principle (table CE131): new investments, reinvested earnings and intercompany accounts, the figure the Secretaría de Economía headlines; Mexican investment abroad from the same table. Net portfolio investment liabilities: table CE174. Non-resident holdings of government securities: monthly stock at nominal value (table CE89). International investment position: the quarterly integrated statement (table CE170), end-of-period stocks by functional category, with the transactions and other changes that explain the change in the net position. Gross external debt: table CE182. Percentages of GDP for stocks and flows: FNAM calculation with INEGI's quarterly GDP at current prices converted at each quarter's average FIX. The refresh checks that components add up to the totals (current account, FDI, IIP assets and liabilities and their change) before publishing a block.",
 
     // ---- Banxico ----
     bxTitle: "Banxico & Markets",
@@ -1864,7 +2414,10 @@ const ORIGIN = {
   tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"},
   cetes91: {banxico: "Banxico"}, cetes182: {banxico: "Banxico"}, cetes364: {banxico: "Banxico"}, cetes728: {banxico: "Banxico"},
   mbono3: {banxico: "Banxico"}, mbono5: {banxico: "Banxico"}, mbono20: {banxico: "Banxico"}, mbono30: {banxico: "Banxico"}, ust10: {fred: "FedH15"},
-  inflExp12m: {banxico: "Banxico"}, inflExp12mMean: {banxico: "Banxico"}
+  inflExp12m: {banxico: "Banxico"}, inflExp12mMean: {banxico: "Banxico"},
+  // external sector (trade and investment views)
+  expTotalO: {banxico: "Banxico"}, impTotalO: {banxico: "Banxico"}, balTotalO: {banxico: "Banxico"}, expOil: {banxico: "Banxico"}, expAgri: {banxico: "Banxico"}, expExtr: {banxico: "Banxico"}, expManuf: {banxico: "Banxico"}, expAuto: {banxico: "Banxico"}, impOil: {banxico: "Banxico"}, impCons: {banxico: "Banxico"}, impInter: {banxico: "Banxico"}, impCap: {banxico: "Banxico"}, balOil: {banxico: "Banxico"}, balNonOil: {banxico: "Banxico"}, shExpUS: {banxico: "Banxico"}, expUS: {banxico: "Banxico"}, impUS: {banxico: "Banxico"}, balUS: {banxico: "Banxico"}, totIdx: {banxico: "Banxico"}, uvExp: {banxico: "Banxico"}, uvImp: {banxico: "Banxico"}, ca: {banxico: "Banxico"}, caPct: {banxico: "Banxico"}, goodsB: {banxico: "Banxico"}, svcB: {banxico: "Banxico"}, priB: {banxico: "Banxico"}, secB: {banxico: "Banxico"}, ka: {banxico: "Banxico"}, fa: {banxico: "Banxico"}, eo: {banxico: "Banxico"}, diMx: {banxico: "Banxico"}, diMxNew: {banxico: "Banxico"}, diMxReinv: {banxico: "Banxico"}, diMxInter: {banxico: "Banxico"}, diAbroad: {banxico: "Banxico"}, pfLiab: {banxico: "Banxico"}, nrGovHold: {banxico: "Banxico"}, iipNet: {banxico: "Banxico"}, iipAssets: {banxico: "Banxico"}, iipLiab: {banxico: "Banxico"}, iipADi: {banxico: "Banxico"}, iipAPf: {banxico: "Banxico"}, iipADv: {banxico: "Banxico"}, iipAOi: {banxico: "Banxico"}, iipARes: {banxico: "Banxico"}, iipLDi: {banxico: "Banxico"}, iipLPf: {banxico: "Banxico"}, iipLDv: {banxico: "Banxico"}, iipLOi: {banxico: "Banxico"}, iipInit: {banxico: "Banxico"}, iipTrans: {banxico: "Banxico"}, iipOther: {banxico: "Banxico"}, extDebt: {banxico: "Banxico"},
+  usImpFromMx: {fred: "Census"}, usExpToMx: {fred: "Census"}, usImpPxMx: {fred: "BLS"}, gdpNom: {}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
@@ -2428,34 +2981,25 @@ function renderConfidence() {
 //  View: external sector
 // ================================================================
 function renderExternal() {
-  if (!gate("ex", [], ["remittances", "exports", "imports", "usdmxn"])) return;
+  if (!gate("ex", [], ["remittances", "usdmxn"])) return;
   const R = S("remittances") ? withChanges(P("remittances")) : null;
-  const X = S("exports") ? withChanges(P("exports")) : null, M = S("imports") ? withChanges(P("imports")) : null;
   const FX = S("usdmxn") ? P("usdmxn") : null;
-  const rL = R ? last(R) : null, xL = X ? last(X) : null, fL = FX ? last(FX) : null;
-  const scaleUsd = s => (s && s.unit === "usd") ? 1e-6 : 1;   // FRED trade series are in dollars; Banxico's in millions
-  // Banxico posts remittances for month M in the first days of M+2; INEGI's trade balance for
-  // month M lands around the 27th of M+1. Both labeled "(estimado)" by the strings.
+  const rL = R ? last(R) : null, fL = FX ? last(FX) : null;
+  // Banxico posts remittances for month M in the first days of M+2 (labeled "(estimado)" by the strings).
   const exNextParts = [];
   if (rL) { const nr = nextMonthOf(rL.d); exNextParts.push(T.exNextRem(fmtMonthYear(nr), T.estEarly(fmtMonthYear(plusMonths(nr, 2))))); }
-  if (xL) { const nb = nextMonthOf(xL.d); exNextParts.push(T.exNextBal(fmtMonthYear(nb), T.estOn(27, fmtMonthYear(nextMonthOf(nb))))); }
-  headerMeta("ex", [rL && nameOf("remittances") + " " + fmtMonthYear(rL.d), xL && T.legExports + " " + fmtMonthYear(xL.d), fL && "FIX " + fmtDateDMY(fL.d)].filter(Boolean).join(" · "), exNextParts.join(" · "), ["remittances", "exports", "imports", "usdmxn"], true);
+  headerMeta("ex", [rL && nameOf("remittances") + " " + fmtMonthYear(rL.d), fL && "FIX " + fmtDateDMY(fL.d)].filter(Boolean).join(" · "), exNextParts.join(" · "), ["remittances", "usdmxn"], true);
 
   const row = document.getElementById("exKpiRow");
+  let l12 = null, ago12 = null;
   if (R) {
-    const s12 = rolling(R, 12, "sum"), l12 = last(s12), ago12 = atOrBefore(s12, prevYearKey(l12.d));
+    const s12 = rolling(R, 12, "sum"); l12 = last(s12); ago12 = atOrBefore(s12, prevYearKey(l12.d));
     kpiTile(row, {label: T.kpiRemMonth, value: fmtNum(rL.v), delta: deltaText(rL.yoy, T.kpiDeltaYoy, 1, v => Math.abs(v).toFixed(1) + "%"), foot: fmtMonthYear(rL.d) + " · " + T.usdMn, spark: R.slice(-24).map(p => p.v), color: "--cat-3"});
     kpiTile(row, {label: T.kpiRem12m, value: fmtNum(l12.v / 1000, 1), delta: ago12 && ago12.v ? deltaText((l12.v / ago12.v - 1) * 100, T.kpiDeltaYoy, 1, v => Math.abs(v).toFixed(1) + "%") : "", foot: T.usdBn, spark: s12.filter(p => p.v !== null).slice(-24).map(p => p.v), color: "--cat-3"});
   }
-  if (X && M) {
-    const kx = scaleUsd(S("exports")), km = scaleUsd(S("imports")), mL = last(M);
-    kpiTile(row, {label: T.kpiExports, value: fmtNum(xL.v * kx / 1000, 1), delta: deltaText(xL.yoy, T.kpiDeltaYoy, 1, v => Math.abs(v).toFixed(1) + "%"), foot: fmtMonthYear(xL.d) + " · " + T.usdBn, spark: X.slice(-24).map(p => p.v), color: "--cat-1"});
-    kpiTile(row, {label: T.kpiImports, value: fmtNum(mL.v * km / 1000, 1), delta: deltaText(mL.yoy, T.kpiDeltaYoy, 1, v => Math.abs(v).toFixed(1) + "%"), foot: fmtMonthYear(mL.d) + " · " + T.usdBn, spark: M.slice(-24).map(p => p.v), color: "--cat-2"});
-    const bal = balanceSeries(X, M, kx, km), b12 = rolling(bal, 12, "sum"), bL = last(b12);
-    kpiTile(row, {label: T.kpiBalance12m, value: fmtSigned(bL.v / 1000, 1), foot: fmtMonthYear(bL.d) + " · " + T.usdBn, spark: b12.filter(p => p.v !== null).slice(-24).map(p => p.v), color: "--cat-5"});
-  }
+  let m1 = null, y1 = null;
   if (FX) {
-    const m1 = atOrBefore(FX, shiftDays(fL.d, -30)), y1 = atOrBefore(FX, shiftDays(fL.d, -365));
+    m1 = atOrBefore(FX, shiftDays(fL.d, -30)); y1 = atOrBefore(FX, shiftDays(fL.d, -365));
     kpiTile(row, {label: T.kpiFx, value: fL.v.toFixed(2), delta: m1 ? deltaText((fL.v / m1.v - 1) * 100, T.kpiDeltaFx, 1, v => Math.abs(v).toFixed(1) + "%") : "", foot: fmtDateDMY(fL.d), spark: monthEnd(FX).slice(-24).map(p => p.v), color: "--cat-4"});
     showSec("exFxSec", true);
     const cut = shiftDays(fL.d, -365 * 3);
@@ -2472,33 +3016,255 @@ function renderExternal() {
     ], {legendId: "exRemLegend", tooltipId: "exRemTooltip", calloutId: "exRemCallout", fmt: v => fmtNum(v), axisFmt: v => fmtNum(v), zeroBase: true,
         calloutLines: [T.exRemCallout(fmtMonthYear(rL.d), fmtNum(rL.v), fmtPct(rL.yoy), fmtNum(s12.v / 1000, 1))]});
   }
-  showSec("exTradeSec", !!(X && M));
-  if (X && M) {
-    const kx = scaleUsd(S("exports")), km = scaleUsd(S("imports")), mL = last(M);
-    const bal = balanceSeries(X, M, kx, km), bL = last(rolling(bal, 12, "sum"));
-    lineChart("exTradeChart", [
-      {pts: X.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.v * kx / 1000})), color: "--cat-1", label: T.legExports},
-      {pts: M.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.v * km / 1000})), color: "--cat-2", label: T.legImports}
-    ], {legendId: "exTradeLegend", tooltipId: "exTradeTooltip", fmt: v => fmtNum(v, 1), axisFmt: v => fmtNum(v, 0), zeroBase: true});
-    columns("exBalanceChart", bal.slice(-36).map(p => ({d: p.d, v: p.v / 1000})), "--cat-5", {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-3" : "--cat-8"});
-    document.getElementById("exTradeCallout").innerHTML = `<div>${esc(T.exTradeCallout(fmtMonthYear(xL.d), fmtPct(xL.yoy), fmtPct(mL.yoy), fmtSigned(bL.v / 1000, 1)))}</div>`;
-  }
 
-  let exDrv = null;
-  if (X && M) {
-    const kx2 = scaleUsd(S("exports")), km2 = scaleUsd(S("imports")), mL2 = last(M);
-    const b12 = last(rolling(balanceSeries(X, M, kx2, km2), 12, "sum"));
-    exDrv = [T.sumDriver, T.sumExDriver(fmtPct(xL.yoy), fmtPct(mL2.yoy), fmtSigned(b12.v / 1000, 1))];
-  }
   execSummary("ex", [
     R && FX ? [T.sumLatest, T.sumExLatest(fmtMonthYear(rL.d), fmtNum(rL.v), fmtPct(rL.yoy), fL.v.toFixed(2), fmtDateDMY(fL.d))] : null,
-    exDrv,
+    R && l12 && FX ? [T.sumDriver, T.sumExDriver(fmtNum(l12.v / 1000, 1), ago12 && ago12.v ? fmtPct((l12.v / ago12.v - 1) * 100) : "—", m1 ? fmtPct((fL.v / m1.v - 1) * 100) : "—", y1 ? fmtPct((fL.v / y1.v - 1) * 100) : "—")] : null,
     [T.sumWhy, T.sumExWhy],
     exNextParts.length ? [T.sumNext, exNextParts.join(". ") + ". " + T.sumExNextTail] : null
   ]);
 }
 function balanceSeries(X, M, kx, km) { const m = new Map(M.map(p => [p.d, p.v])); return X.filter(p => m.has(p.d)).map(p => ({d: p.d, v: p.v * kx - m.get(p.d) * km})); }
 function shiftDays(d, n) { const dt = new Date(d + "T00:00:00Z"); dt.setUTCDate(dt.getUTCDate() + n); return dt.toISOString().slice(0, 10); }
+
+// ================================================================
+//  View: Comercio exterior (foreign trade)
+// ================================================================
+// Every dollar series is handled in millions: INEGI's seasonally adjusted totals come in millions,
+// Banxico's breakdown in thousands (unit usd_k) and FRED's OECD mirror of the totals in dollars.
+function unitToMn(key) { const s = S(key); return !s ? 1 : s.unit === "usd" ? 1e-6 : s.unit === "usd_k" ? 1e-3 : 1; }
+function ptsMn(key) { const k = unitToMn(key); return P(key).map(p => ({d: p.d, v: r2(p.v * k)})); }
+function sumN(pts, n) { return rolling(pts, n, "sum").filter(p => p.v !== null); }
+function bn(v, d) { return fmtNum(v / 1000, d === undefined ? 1 : d); }        // US$ mn -> US$ bn
+function bnS(v, d) { return fmtSigned(v / 1000, d === undefined ? 1 : d); }    // signed
+function fmtQ(d) { return LANG === "es" ? d.slice(6) + "T " + d.slice(0, 4) : "Q" + d.slice(6) + " " + d.slice(0, 4); }
+function fmtLevelPctS(v, digits) { if (v === null || v === undefined || isNaN(v)) return "—"; return (v < 0 ? "−" : "") + Math.abs(v).toFixed(digits === undefined ? 1 : digits) + "%"; }
+const yoyDelta = v => deltaText(v, T.kpiDeltaYoy, 1, x => Math.abs(x).toFixed(1) + "%");
+const TR_OPT = ["expTotalO", "impTotalO", "balTotalO", "expOil", "expAgri", "expExtr", "expManuf", "expAuto", "impOil", "impCons", "impInter", "impCap", "balOil", "balNonOil", "shExpUS", "expUS", "impUS", "balUS", "usImpFromMx", "usExpToMx", "totIdx", "uvExp", "uvImp", "usImpPxMx"];
+function renderTrade() {
+  if (!gate("tr", ["exports", "imports"], TR_OPT)) return;
+  const X = withChanges(ptsMn("exports")), M = withChanges(ptsMn("imports"));
+  const xL = last(X), mL = last(M);
+  const bal = balanceSeries(X, M, 1, 1), b12 = sumN(bal, 12), bL = last(b12);
+  // INEGI's monthly trade balance for month M lands around the 27th of M+1.
+  const nb = nextMonthOf(xL.d);
+  const nextTxt = T.exNextBal(fmtMonthYear(nb), T.estOn(27, fmtMonthYear(nextMonthOf(nb))));
+  headerMeta("tr", fmtMonthYear(xL.d), nextTxt, ["exports", "imports", "expTotalO", "shExpUS", "expUS", "usImpFromMx", "totIdx", "usImpPxMx"]);
+
+  // The breakdown is Banxico's, in original figures: shares use the original total of the same month.
+  const comp = key => S(key) ? withChanges(ptsMn(key)) : null;
+  const O = comp("expTotalO"), IO = comp("impTotalO"), oL = O ? last(O) : null, ioL = IO ? last(IO) : null;
+  const E = {oil: comp("expOil"), agri: comp("expAgri"), extr: comp("expExtr"), manuf: comp("expManuf"), auto: comp("expAuto")};
+  const I = {cons: comp("impCons"), inter: comp("impInter"), cap: comp("impCap"), oil: comp("impOil")};
+  const atD = (pts, d) => pts ? pts.find(p => p.d === d) : null;
+  const BO = S("balOil") ? sumN(ptsMn("balOil"), 12) : null, BN = S("balNonOil") ? sumN(ptsMn("balNonOil"), 12) : null;
+  const boL = BO ? last(BO) : null, bnL = BN ? last(BN) : null;
+  const SH = S("shExpUS") ? P("shExpUS") : null, shL = SH ? last(SH) : null, shAgo = shL ? atOrBefore(SH, prevYearKey(shL.d)) : null;
+  const TOT = S("totIdx") ? withChanges(P("totIdx")) : null, totL = TOT ? last(TOT) : null;
+  const UPX = S("usImpPxMx") ? withChanges(P("usImpPxMx")) : null, upxL = UPX ? last(UPX) : null;
+
+  const row = document.getElementById("trKpiRow");
+  kpiTile(row, {label: T.kpiExports, value: bn(xL.v), delta: yoyDelta(xL.yoy), foot: fmtMonthYear(xL.d) + " · " + T.usdBn, spark: X.slice(-24).map(p => p.v), color: "--cat-1"});
+  kpiTile(row, {label: T.kpiImports, value: bn(mL.v), delta: yoyDelta(mL.yoy), foot: fmtMonthYear(mL.d) + " · " + T.usdBn, spark: M.slice(-24).map(p => p.v), color: "--cat-2"});
+  kpiTile(row, {label: T.kpiBalance12m, value: bnS(bL.v), foot: fmtMonthYear(bL.d) + " · " + T.usdBn, spark: b12.slice(-24).map(p => p.v), color: "--cat-5"});
+  if (boL) kpiTile(row, {label: T.kpiBalOil12m, value: bnS(boL.v), foot: fmtMonthYear(boL.d) + " · " + T.usdBn, spark: BO.slice(-24).map(p => p.v), color: "--cat-4"});
+  if (shL) kpiTile(row, {label: T.kpiShExpUS, value: fmtLevelPct(shL.v, 1), delta: shAgo ? deltaText(shL.v - shAgo.v, T.kpiDeltaYoy, 1, x => Math.abs(x).toFixed(1) + " pp") : "", foot: fmtMonthYear(shL.d) + " · " + T.kpiShExpUSFoot, spark: SH.slice(-24).map(p => p.v), color: "--cat-7"});
+  if (totL) kpiTile(row, {label: T.kpiTot, value: fmtNum(totL.v, 1), delta: yoyDelta(totL.yoy), foot: fmtQ(totL.d) + " · " + T.kpiTotFoot, spark: TOT.slice(-16).map(p => p.v), color: "--cat-9"});
+  else if (upxL && upxL.yoy !== null) kpiTile(row, {label: T.kpiUsPx, value: fmtPct(upxL.yoy), foot: fmtMonthYear(upxL.d) + " · " + T.kpiUsPxFoot, spark: UPX.filter(p => p.yoy !== null).slice(-24).map(p => p.yoy), color: "--cat-9"});
+
+  // Levels (INEGI, seasonally adjusted) and the monthly balance.
+  lineChart("trLevelChart", [
+    {pts: X.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-1", label: T.legExports},
+    {pts: M.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-2", label: T.legImports}
+  ], {legendId: "trLevelLegend", tooltipId: "trLevelTooltip", fmt: v => fmtNum(v, 1), axisFmt: v => fmtNum(v, 0), zeroBase: true});
+  columns("trBalanceChart", bal.slice(-36).map(p => ({d: p.d, v: p.v / 1000})), "--cat-5", {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-3" : "--cat-8"});
+  document.getElementById("trLevelCallout").innerHTML = `<div>${esc(T.exTradeCallout(fmtMonthYear(xL.d), fmtPct(xL.yoy), fmtPct(mL.yoy), bnS(bL.v)))}</div>`;
+
+  // Oil and non-oil balances, 12-month sums.
+  showSec("trOilSec", !!(boL && bnL));
+  if (boL && bnL) {
+    lineChart("trOilChart", [
+      {pts: BO.filter(p => p.d >= "2012-01").map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-4", label: T.legBalOil},
+      {pts: BN.filter(p => p.d >= "2012-01").map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-3", label: T.legBalNonOil}
+    ], {legendId: "trOilLegend", tooltipId: "trOilTooltip", calloutId: "trOilCallout", fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), zeroBase: true,
+        calloutLines: [T.trOilCallout(fmtMonthYear(boL.d), bnS(boL.v), bnS(bnL.v))]});
+  }
+
+  // Composition: year-over-year change of each component at the latest month of the original series, share in parentheses.
+  const mixOk = !!(oL && ioL && E.oil && E.agri && E.extr && E.manuf && I.cons && I.inter && I.cap);
+  showSec("trMixSec", mixOk);
+  if (mixOk) {
+    const d = oL.d;
+    document.getElementById("trMixNote").textContent = T.trMixNote(fmtMonthYear(d));
+    const item = (pts, name, color, total) => { const p = atD(pts, d); return p && p.yoy !== null ? {name: name + " (" + fmtLevelPct(p.v / total * 100, 0) + ")", value: p.yoy, color} : null; };
+    barList("trExpMixList", [item(E.manuf, T.trExpManuf, "--cat-1", oL.v), E.auto ? item(E.auto, T.trExpAuto, "--cat-1", oL.v) : null, item(E.agri, T.trExpAgri, "--cat-3", oL.v), item(E.extr, T.trExpExtr, "--cat-9", oL.v), item(E.oil, T.trExpOil, "--cat-4", oL.v)].filter(Boolean), v => fmtPct(v));
+    barList("trImpMixList", [item(I.inter, T.trImpInter, "--cat-2", ioL.v), item(I.cons, T.trImpCons, "--cat-7", ioL.v), item(I.cap, T.trImpCap, "--cat-5", ioL.v), I.oil ? item(I.oil, T.trImpOil, "--cat-4", ioL.v) : null].filter(Boolean), v => fmtPct(v));
+    const em = atD(E.manuf, d), ea = E.auto ? atD(E.auto, d) : null;
+    document.getElementById("trExpMixCallout").innerHTML = `<div>${esc(T.trExpMixCallout(fmtMonthYear(d), fmtLevelPct(em.v / oL.v * 100, 0), fmtPct(em.yoy), ea ? fmtPct(ea.yoy) : "—"))}</div>`;
+    const ic = atD(I.cons, d), ii = atD(I.inter, d), ik = atD(I.cap, d);
+    document.getElementById("trImpMixCallout").innerHTML = `<div>${esc(T.trImpMixCallout(fmtMonthYear(d), fmtPct(ic.yoy), fmtPct(ii.yoy), fmtPct(ik.yoy)))}</div>`;
+  }
+
+  // Trade with the United States: the share of exports (monthly), the bilateral 12-month figures and the U.S. side.
+  showSec("trUsSec", !!shL);
+  if (shL) {
+    const lines = [T.trUsCallout(fmtMonthYear(shL.d), fmtLevelPct(shL.v, 1))];
+    if (S("expUS") && S("impUS") && S("balUS")) {
+      const xu = sumN(ptsMn("expUS"), 12), iu = sumN(ptsMn("impUS"), 12), bu = sumN(ptsMn("balUS"), 12), l = last(bu);
+      if (l && last(xu) && last(iu)) lines.push(T.trUsBilateral(fmtMonthYear(l.d), bn(last(xu).v), bn(last(iu).v), bnS(l.v)));
+    }
+    if (S("usImpFromMx")) { const U = withChanges(ptsMn("usImpFromMx")), uL = last(U); lines.push(T.trUsCensus(fmtMonthYear(uL.d), bn(uL.v), fmtPct(uL.yoy))); }
+    lineChart("trUsChart", [{pts: SH.filter(p => p.d >= "2012-01"), color: "--cat-7", label: T.legShExpUS}], {legendId: "trUsLegend", tooltipId: "trUsTooltip", calloutId: "trUsCallout", fmt: v => fmtLevelPct(v, 1), axisFmt: v => Math.round(v) + "%", calloutLines: lines});
+  }
+
+  // Prices: Banxico's quarterly indexes and the BLS index of U.S. import prices from Mexico.
+  showSec("trPricesSec", !!(totL || (upxL && upxL.yoy !== null)));
+  document.getElementById("trTotCol").hidden = !totL;
+  document.getElementById("trUsPxCol").hidden = !(upxL && upxL.yoy !== null);
+  if (totL) {
+    const UX = S("uvExp") ? withChanges(P("uvExp")) : null, UM = S("uvImp") ? withChanges(P("uvImp")) : null;
+    const series = [{pts: TOT.map(p => ({d: p.d, v: p.v})), color: "--cat-9", label: T.legTot, width: 2.5}];
+    if (UX) series.push({pts: UX.map(p => ({d: p.d, v: p.v})), color: "--cat-1", label: T.legUvExp, dashed: true, noDot: true});
+    if (UM) series.push({pts: UM.map(p => ({d: p.d, v: p.v})), color: "--cat-2", label: T.legUvImp, dashed: true, noDot: true});
+    const uxL = UX ? last(UX) : null, umL = UM ? last(UM) : null;
+    lineChart("trTotChart", series, {legendId: "trTotLegend", tooltipId: "trTotTooltip", calloutId: "trTotCallout", fmt: v => fmtNum(v, 1), axisFmt: v => fmtNum(v, 0), labelFmt: fmtQ,
+      calloutLines: [T.trTotCallout(fmtQ(totL.d), fmtNum(totL.v, 1), fmtPct(totL.yoy), uxL ? fmtPct(uxL.yoy) : "—", umL ? fmtPct(umL.yoy) : "—")]});
+  }
+  if (upxL && upxL.yoy !== null) {
+    const Y = UPX.filter(p => p.yoy !== null && p.d >= "2012-01").map(p => ({d: p.d, v: p.yoy}));
+    lineChart("trUsPxChart", [{pts: Y, color: "--cat-6", label: T.legUsPx}], {legendId: "trUsPxLegend", tooltipId: "trUsPxTooltip", calloutId: "trUsPxCallout", fmt: v => fmtPct(v), axisFmt: v => fmtPct(v, 0), zeroBase: true, calloutLines: [T.trUsPxCallout(fmtMonthYear(upxL.d), fmtPct(upxL.yoy))]});
+  }
+
+  const em2 = E.manuf && oL ? atD(E.manuf, oL.d) : null;
+  execSummary("tr", [
+    [T.sumLatest, T.sumTrLatest(fmtMonthYear(xL.d), bn(xL.v), fmtPct(xL.yoy), bn(mL.v), fmtPct(mL.yoy), bnS(bL.v))],
+    em2 && em2.yoy !== null && boL && shL ? [T.sumDriver, T.sumTrDriver(fmtPct(em2.yoy), bnS(boL.v), fmtLevelPct(shL.v, 0))] : null,
+    [T.sumWhy, T.sumTrWhy],
+    [T.sumNext, nextTxt + ". " + T.sumTrNextTail]
+  ]);
+}
+
+// ================================================================
+//  View: Inversión extranjera y posición de inversión internacional
+// ================================================================
+const II_OPT = ["caPct", "goodsB", "svcB", "priB", "secB", "diMx", "diMxNew", "diMxReinv", "diMxInter", "diAbroad", "pfLiab", "nrGovHold", "iipNet", "iipAssets", "iipLiab", "iipADi", "iipAPf", "iipADv", "iipAOi", "iipARes", "iipLDi", "iipLPf", "iipLDv", "iipLOi", "iipInit", "iipTrans", "iipOther", "extDebt", "gdpNom"];
+// Nominal GDP of the last four quarters in dollars, by quarter: INEGI's quarterly GDP at current prices
+// (published at an annualized level) converted at the quarter's average FIX and averaged over four
+// quarters (Banxico publishes no ratio to GDP for the stocks).
+function gdpUsd4() {
+  const G = S("gdpNom") ? P("gdpNom") : null, FX = S("usdmxn") ? P("usdmxn") : null; if (!G || !FX) return null;
+  const acc = new Map();
+  FX.forEach(p => { if (p.d.length < 10) return; const q = p.d.slice(0, 4) + "-Q" + (Math.floor((+p.d.slice(5, 7) - 1) / 3) + 1); const a = acc.get(q) || {s: 0, n: 0}; a.s += p.v; a.n++; acc.set(q, a); });
+  const usd = G.map(p => { const a = acc.get(p.d); return a && a.n >= 40 ? {d: p.d, v: p.v / (a.s / a.n)} : null; }).filter(Boolean);
+  const out = new Map();
+  for (let i = 3; i < usd.length; i++) {
+    if (nextQuarterOf(usd[i - 1].d) !== usd[i].d || nextQuarterOf(usd[i - 2].d) !== usd[i - 1].d || nextQuarterOf(usd[i - 3].d) !== usd[i - 2].d) continue;
+    // INEGI publishes quarterly GDP at an annualized level, so the year's GDP is the mean of its four quarters.
+    out.set(usd[i].d, (usd[i - 3].v + usd[i - 2].v + usd[i - 1].v + usd[i].v) / 4);
+  }
+  return out.size ? out : null;
+}
+function pctOfGdp(v, d, G) { const g = G && G.get(d); return g ? v / g * 100 : null; }
+function renderIip() {
+  if (!gate("ii", ["ca"], II_OPT)) return;
+  const CA = P("ca"), caL = last(CA);
+  const CAP = S("caPct") ? P("caPct") : null, capL = CAP ? CAP.find(p => p.d === caL.d) || null : null;
+  const G = gdpUsd4();
+  // Banxico publishes the quarter's balance of payments about 55 days after the quarter ends.
+  const nq = nextQuarterOf(caL.d), relM = plusMonths(quarterToMonth(nq), 3);
+  const nextTxt = T.iiNext(fmtQ(nq), T.estLate(fmtMonthYear(relM)));
+  headerMeta("ii", fmtQ(caL.d), nextTxt, ["ca", "caPct", "diMx", "pfLiab", "nrGovHold", "iipNet", "extDebt", "gdpNom"]);
+
+  const S4 = key => S(key) ? sumN(P(key), 4) : null;
+  const CA4 = sumN(CA, 4), ca4L = last(CA4);
+  const comps = {goodsB: S4("goodsB"), svcB: S4("svcB"), priB: S4("priB"), secB: S4("secB")};
+  const DI = S("diMx") ? P("diMx") : null, diL = DI ? last(DI) : null, DI4 = DI ? sumN(DI, 4) : null, di4L = DI4 ? last(DI4) : null;
+  const di4Ago = di4L ? DI4.find(p => p.d === prevYearKey(di4L.d)) || null : null;
+  const PF = S("pfLiab") ? P("pfLiab") : null, PF4 = PF ? sumN(PF, 4) : null, pf4L = PF4 ? last(PF4) : null;
+  const NR = S("nrGovHold") ? withChanges(P("nrGovHold")) : null, nrL = NR ? last(NR) : null;
+  const NET = S("iipNet") ? P("iipNet") : null, netL = NET ? last(NET) : null;
+  const AS = S("iipAssets") ? P("iipAssets") : null, LI = S("iipLiab") ? P("iipLiab") : null;
+  const ED = S("extDebt") ? P("extDebt") : null, edL = ED ? last(ED) : null;
+  const netPct = netL ? pctOfGdp(netL.v, netL.d, G) : null, edPct = edL ? pctOfGdp(edL.v, edL.d, G) : null, di4Pct = di4L ? pctOfGdp(di4L.v, di4L.d, G) : null;
+  const pctGdpTxt = v => v !== null ? fmtLevelPctS(v, 1) + " " + T.kpiPctGdp : "";
+
+  const row = document.getElementById("iiKpiRow");
+  kpiTile(row, {label: T.kpiCa, value: bnS(caL.v), delta: capL ? fmtLevelPctS(capL.v, 1) + " " + T.kpiCaFoot : "", foot: fmtQ(caL.d) + " · " + T.usdBn, spark: CA.slice(-16).map(p => p.v), color: "--cat-5"});
+  if (di4L) kpiTile(row, {label: T.kpiDi4q, value: bn(di4L.v), delta: di4Ago && di4Ago.v ? yoyDelta((di4L.v / di4Ago.v - 1) * 100) : "", foot: fmtQ(di4L.d) + " · " + T.usdBn + (di4Pct !== null ? " · " + pctGdpTxt(di4Pct) : ""), spark: DI4.slice(-16).map(p => p.v), color: "--cat-3"});
+  if (netL) kpiTile(row, {label: T.kpiIipNet, value: bnS(netL.v, 0), delta: pctGdpTxt(netPct), foot: fmtQ(netL.d) + " · " + T.usdBn, spark: NET.slice(-16).map(p => p.v), color: "--cat-8"});
+  if (pf4L) kpiTile(row, {label: T.kpiPfLiab4q, value: bnS(pf4L.v), foot: fmtQ(pf4L.d) + " · " + T.usdBn, spark: PF4.slice(-16).map(p => p.v), color: "--cat-7"});
+  if (nrL) kpiTile(row, {label: T.kpiNrGov, value: bn(nrL.v), delta: yoyDelta(nrL.yoy), foot: fmtMonthYear(nrL.d) + " · " + T.usdBn, spark: NR.slice(-24).map(p => p.v), color: "--cat-9"});
+  if (edL) kpiTile(row, {label: T.kpiExtDebt, value: bn(edL.v, 0), delta: pctGdpTxt(edPct), foot: fmtQ(edL.d) + " · " + T.usdBn, spark: ED.slice(-16).map(p => p.v), color: "--cat-4"});
+
+  // Current account and its four components, four-quarter sums.
+  const okComp = !!(comps.goodsB && comps.svcB && comps.priB && comps.secB);
+  const toBn = pts => pts.filter(p => p.d >= "2010-Q1").map(p => ({d: p.d, v: p.v / 1000}));
+  const caSeries = [{pts: toBn(CA4), color: "--cat-5", label: T.legCa, width: 2.5}];
+  if (okComp) caSeries.push({pts: toBn(comps.goodsB), color: "--cat-1", label: T.legGoodsB}, {pts: toBn(comps.svcB), color: "--cat-7", label: T.legSvcB}, {pts: toBn(comps.priB), color: "--cat-4", label: T.legPriB}, {pts: toBn(comps.secB), color: "--cat-3", label: T.legSecB});
+  const cL = k => okComp && last(comps[k]) ? bnS(last(comps[k]).v) : "—";
+  lineChart("iiCaChart", caSeries, {legendId: "iiCaLegend", tooltipId: "iiCaTooltip", calloutId: "iiCaCallout", fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), zeroBase: true, labelFmt: fmtQ,
+    calloutLines: [T.iiCaCallout(fmtQ(caL.d), bnS(caL.v), capL ? fmtLevelPctS(capL.v, 1) : "—", cL("goodsB"), cL("svcB"), cL("priB"), cL("secB"))]});
+
+  // Direct investment in Mexico: quarterly columns with the four-quarter average, and the components' four-quarter sums.
+  showSec("iiDiSec", !!(diL && di4L));
+  if (diL && di4L) {
+    document.getElementById("iiDiLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-3);height:8px"></span>${esc(T.legDi)}</div><div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.legDi4)}</div>`;
+    columns("iiDiChart", DI.slice(-24).map(p => ({d: p.d, v: p.v / 1000})), "--cat-3", {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 4, tickFmt: fmtQShort, labelFmt: fmtQ, overlay: DI4.slice(-24).map(p => ({d: p.d, v: p.v / 4000}))});
+    const sumOf = key => { const s4 = S4(key); return s4 && s4.length ? last(s4) : null; };
+    const items = [["diMxNew", T.iiDiNew, "--cat-3"], ["diMxReinv", T.iiDiReinv, "--cat-1"], ["diMxInter", T.iiDiInter, "--cat-9"], ["diAbroad", T.iiDiAbroad, "--cat-7"]].map(([k, name, color]) => { const l = sumOf(k); return l ? {name, value: l.v / 1000, color} : null; }).filter(Boolean);
+    barList("iiDiMixList", items, v => fmtSigned(v, 1));
+    const ab = sumOf("diAbroad");
+    document.getElementById("iiDiCallout").innerHTML = `<div>${esc(T.iiDiCallout(fmtQ(diL.d), bnS(diL.v), bnS(di4L.v), di4Ago && di4Ago.v ? fmtPct((di4L.v / di4Ago.v - 1) * 100) : "—", ab ? bnS(ab.v) : "—"))}</div>`;
+  }
+
+  // Portfolio liabilities (quarterly) and non-resident holdings of government securities (monthly stock).
+  showSec("iiPfSec", !!(pf4L || nrL));
+  document.getElementById("iiPfCol").hidden = !pf4L;
+  document.getElementById("iiNrCol").hidden = !nrL;
+  if (pf4L) {
+    columns("iiPfChart", PF.slice(-24).map(p => ({d: p.d, v: p.v / 1000})), "--cat-7", {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 4, tickFmt: fmtQShort, labelFmt: fmtQ, colorFn: v => v >= 0 ? "--cat-7" : "--cat-8"});
+    document.getElementById("iiPfCallout").innerHTML = `<div>${esc(T.iiPfCallout(fmtQ(pf4L.d), bnS(pf4L.v)))}</div>`;
+  }
+  if (nrL) {
+    lineChart("iiNrGovChart", [{pts: NR.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-9", label: T.legNrGov}], {legendId: "iiNrGovLegend", tooltipId: "iiNrGovTooltip", fmt: v => fmtNum(v, 1), axisFmt: v => fmtNum(v, 0), zeroBase: true});
+    document.getElementById("iiNrCallout").innerHTML = `<div>${esc(T.iiNrCallout(fmtMonthYear(nrL.d), bn(nrL.v), fmtPct(nrL.yoy)))}</div>`;
+  }
+
+  // The position: assets, liabilities and net, with the latest quarter's categories.
+  showSec("iiIipSec", !!(netL && AS && LI));
+  if (netL && AS && LI) {
+    lineChart("iiIipChart", [
+      {pts: AS.map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-3", label: T.legIipAssets},
+      {pts: LI.map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-8", label: T.legIipLiab},
+      {pts: NET.map(p => ({d: p.d, v: p.v / 1000})), color: "--cat-5", label: T.legIipNet, width: 2.5}
+    ], {legendId: "iiIipLegend", tooltipId: "iiIipTooltip", fmt: v => fmtSigned(v, 0), axisFmt: v => fmtSigned(v, 0), zeroBase: true, labelFmt: fmtQ});
+    const cat = (k, name, color) => { if (!S(k)) return null; const l = P(k).find(p => p.d === netL.d); return l ? {name, value: l.v / 1000, color} : null; };
+    barList("iiAssetsList", [cat("iipADi", T.iiCatDi, "--cat-3"), cat("iipAPf", T.iiCatPf, "--cat-3"), cat("iipADv", T.iiCatDv, "--cat-3"), cat("iipAOi", T.iiCatOi, "--cat-3"), cat("iipARes", T.iiCatRes, "--cat-3")].filter(Boolean), v => fmtNum(v, 0));
+    barList("iiLiabList", [cat("iipLDi", T.iiCatDi, "--cat-8"), cat("iipLPf", T.iiCatPf, "--cat-8"), cat("iipLDv", T.iiCatDv, "--cat-8"), cat("iipLOi", T.iiCatOi, "--cat-8")].filter(Boolean), v => fmtNum(v, 0));
+    document.getElementById("iiIipCallout").innerHTML = `<div>${esc(T.iiIipCallout(fmtQ(netL.d), bnS(netL.v, 0), netPct !== null ? fmtLevelPctS(netPct, 1) : "—", bn(last(AS).v, 0), bn(last(LI).v, 0)))}</div><div class="note-sm">${esc(T.iiGdpNote)}</div>`;
+  }
+
+  // What moved the net position: transactions vs. other changes (prices, exchange rates, other adjustments).
+  const TRn = S("iipTrans") ? P("iipTrans") : null, OT = S("iipOther") ? P("iipOther") : null, IN = S("iipInit") ? P("iipInit") : null;
+  showSec("iiChangeSec", !!(TRn && OT && netL));
+  if (TRn && OT && netL) {
+    const colOpts = {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 4, tickFmt: fmtQShort, labelFmt: fmtQ, colorFn: v => v >= 0 ? "--cat-3" : "--cat-8"};
+    columns("iiTransChart", TRn.slice(-16).map(p => ({d: p.d, v: p.v / 1000})), "--cat-1", colOpts);
+    columns("iiOtherChart", OT.slice(-16).map(p => ({d: p.d, v: p.v / 1000})), "--cat-9", colOpts);
+    const tL = TRn.find(p => p.d === netL.d), oL2 = OT.find(p => p.d === netL.d), inL = IN ? IN.find(p => p.d === netL.d) : null;
+    if (tL && oL2) {
+      const dNet = inL ? netL.v - inL.v : tL.v + oL2.v;
+      document.getElementById("iiChangeCallout").innerHTML = `<div>${esc(T.iiChangeCallout(fmtQ(netL.d), bnS(dNet), bnS(tL.v), bnS(oL2.v)))}</div>`;
+    }
+  }
+
+  execSummary("ii", [
+    [T.sumLatest, T.sumIiLatest(fmtQ(caL.d), bnS(caL.v), capL ? fmtLevelPctS(capL.v, 1) : "—", diL ? bnS(diL.v) : "—")],
+    netL ? [T.sumDriver, T.sumIiDriver(bnS(netL.v, 0), netPct !== null ? fmtLevelPctS(netPct, 1) : "—", di4L ? bnS(di4L.v) : "—", nrL ? bn(nrL.v) : "—")] : null,
+    [T.sumWhy, T.sumIiWhy],
+    [T.sumNext, nextTxt + ". " + T.sumIiNextTail]
+  ]);
+}
 
 // ================================================================
 //  View: Banxico and markets
@@ -2690,7 +3456,7 @@ function prevMonthKey(d) { const [y, m] = d.split("-").map(Number); return (m ==
 //  Boot
 // ================================================================
 function renderAll() {
-  [renderInpc, renderActivity, renderLabor, renderConfidence, renderExternal, renderBanxico].forEach(fn => {
+  [renderInpc, renderActivity, renderLabor, renderConfidence, renderExternal, renderTrade, renderIip, renderBanxico].forEach(fn => {
     try { fn(); } catch (e) { console.error(fn.name, e); }
   });
 }

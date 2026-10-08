@@ -73,7 +73,7 @@ if (/\/\*__[A-Z_]+__\*\//.test(page)) throw new Error('A placeholder was left un
 const cut = page.indexOf('<div class="mobilebar"');
 if (cut < 0) throw new Error('could not find the page body to wrap');
 page = '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
-  '<meta name="description" content="Panel macro de México: inflación INPC, PIB e IGAE, empleo, confianza del consumidor, remesas, comercio exterior, tipo de cambio y tasas de Banxico. Mexico macro dashboard, bilingual.">\n' +
+  '<meta name="description" content="Panel macro de México: inflación INPC, PIB e IGAE, empleo, confianza del consumidor, remesas, comercio exterior, inversión extranjera y posición de inversión internacional, tipo de cambio y tasas de Banxico. Mexico macro dashboard, bilingual.">\n' +
   '<link rel="canonical" href="https://fnam.mx/mx/macro/">\n<link rel="alternate" hreflang="es-MX" href="https://fnam.mx/mx/macro/">\n<link rel="alternate" hreflang="en" href="https://fnam.mx/mx/macro/?lang=en">\n' +
   page.slice(0, cut) + '</head>\n<body>\n' + page.slice(cut) + '\n</body>\n</html>\n';
 await mkdir(new URL('./', 'file://' + OUT), { recursive: true });
