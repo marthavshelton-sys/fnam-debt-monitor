@@ -40,7 +40,10 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   OMA, added 6-Oct-2026) watch, on the BMV calendar with 5 h settle (close 15:00 Mexico City, the FactSet routine runs at
   19:52 New York), the listing's FactSet close in `tools/gap/raw/factset/prices.json` (`latestClose.<FactSet id>`), the
   ADS's FactSet close on the NYSE calendar, and the close the page prints (`latestClose` in `site/<slug>/data/market.js`,
-  `kind: "js"`), so a stopped FactSet pull shows even while Yahoo keeps the page current. Feed names may be bilingual
+  `kind: "js"`), so a stopped FactSet pull shows even while Yahoo keeps the page current. The financial pages (Quálitas,
+  Gentera, added 8-Oct-2026; their FactSet routine runs at 20:13 New York) watch the same way the listing's FactSet close in
+  `tools/<slug>/raw/factset/prices.json`, the FactSet closes of the peers of their rebased chart that trade on the BMV or the
+  NYSE (Porto Seguro on the B3 and Mapfre on the BME have no calendar here and are not watched), and the page's close. Feed names may be bilingual
   (`{ es, en }`); the published status file carries no file paths (they go to the console line and the alarm issue). The
   status row carries `prices.expected`, `prices.next` (the next session and the instant it becomes required) and one line
   per feed, so the pages can judge their own data between two checks: `data-status.js` paints the watchdog's verdict

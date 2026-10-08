@@ -16,7 +16,7 @@ called out below.
 | `operations.js` (`Q_OPS`) | Insured units by country/type (period-end), written premiums by line of business (quarter and YTD), subsidiaries and verticals, solvency (RCS, margin, index), portfolio facts, per quarter since 3Q20 | **Automatic** (same pipeline) |
 | `quality.js` (`Q_QUALITY`) | Every tie-out evaluated (ok / warn / fail), stale-series checks, curated-file freshness, parse warnings from `tools/qualitas/raw/build-log.json` | **Automatic.** Written by `validate_data.py`; rendered by `quality.html` |
 | `review.js` (`Q_REVIEW`) | Stamp of the last reviewing-routine run (`lastRunAt`, `result` = quiet / material / pipeline, `lastQuarterChecked`, one-line bilingual note); the header shows it as "Last review" and `validate_data.py` warns when it is older than two days | **Automatic, daily** (reviewing routine) |
-| `market.js` (`Q_MARKET`) | Daily closes (closed sessions only; the day's own close arrives with the 23:00 UTC run) Q.MX, ^MXX, PGR, ALL, PSSA3.SA, MAP.MC; Q.MX cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, every day 23:00 UTC) |
+| `market.js` (`Q_MARKET`) | Daily closes (closed sessions only) Q.MX, PGR, ALL, PSSA3.SA, MAP.MC (FactSet Global Prices, the share-price authority since 2026-10-08; Yahoo/Stooq only for the sessions FactSet has not posted yet) and ^MXX (Yahoo); Q.MX cash dividends (Yahoo); USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, every day 23:00 UTC, overlays `tools/qualitas/raw/factset/prices.json`; the nightly FactSet routine re-pulls the closes at 20:13 New York time and applies them with `scripts/lib/factset-prices.mjs apply --group financials`) |
 | `guidance.js` (`Q_GUIDANCE`) | Management expectations by vintage (`fy, kind, date, quarter, source, items{written, earned, lossRatio, combined, rif, roe}, notes`) plus the long-term references (loss ratio 62–65 %, combined 92–94 %, ROE 20–25 %, payout 40–90 %). Quálitas gives no formal guidance table: the ranges are the model's numeric reading of the words, kept in `text` | **Reviewing routine** after each 4Q report/call (initial) and each quarterly call (reaffirmed/revised) |
 | `comments.js` (`Q_COMMENTS`) | One-line explanations per statement line, ratio, balance-sheet, cash-flow and operating key for year-over-year pairs (`2026Q2`, `2026M6`, `FY2025`), ES/EN, from the report and the call; `quotes` = verbatim management quotes per key (speaker, role, ES translation) from the transcripts | **Reviewing routine** (report) + hand-supplied transcripts |
 | `summary.js` (`Q_SUMMARY`) | Executive summary: four cards × three bullets (operations; expectations and why they changed; capital and shareholder returns; what to watch) and the `basis` periods | **Reviewing routine** with each report |
@@ -38,7 +38,8 @@ weekly returns vs the IPC, clipped 0.5–1.2), Gordon or exit-multiple terminal 
 ## Pipeline (`.github/workflows/qualitas-refresh.yml`)
 
 ```
-scripts/qualitas/fetch-market.mjs   Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; FRED fallbacks) + FRED (US 10y) -> site/qualitas/data/market.js
+scripts/qualitas/fetch-market.mjs   Yahoo Finance (Stooq fallback) overlaid with FactSet closes (tools/qualitas/raw/factset/prices.json) + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; FRED fallbacks) + FRED (US 10y) -> site/qualitas/data/market.js
+scripts/lib/factset-prices.mjs      tools/qualitas/raw/factset/pull/prices-daily-*.json (FactSet GlobalPrices, nightly routine) -> tools/{qualitas,gentera}/raw/factset/prices.json (ingest --group financials) -> site/{qualitas,gentera}/data/market.js (apply --group financials; the fetchers overlay the same files)
 scripts/qualitas/harvest.py         IR site (informes, SIFIC) -> tools/qualitas/raw/text/{reports,sific}/*.txt + manifest.json
 scripts/qualitas/test_parsers.py    parser unit tests on archived releases; a failure stops the build
 scripts/qualitas/build_data.py      raw text + workbook       -> financials.js, operations.js, raw/build-log.json
@@ -195,7 +196,9 @@ python -m http.server 8080 --directory site      # then open http://localhost:80
 ## FactSet peers and consensus (`data/peers.js`, `data/consensus.js`)
 
 Filled on 2026-10-07 from the FactSet AI-Ready Data connector (available only inside a Claude session; no credentials in
-GitHub Actions). One joint pull serves Quálitas and Gentera: the connector results are saved as one JSON file per call in
+GitHub Actions) and refreshed every night since 2026-10-08 by the cloud routine "FNAM Financials: FactSet peers and prices
+refresh" (20:13 New York time; prompt and routine id in `tools/qualitas/FACTSET-PEERS-PROMPT.md`). One joint pull serves
+Quálitas and Gentera: the connector results are saved as one JSON file per call in
 `tools/qualitas/raw/factset/pull/` (gitignored; file names, calls and definitions at the top of
 `scripts/lib/factset-peers-fin.mjs`), then
 
@@ -210,6 +213,30 @@ then); ADTV from FactSet's daily turnover over three months; ROE and the combine
 like the peers (393.8 M shares; the page's "current multiples" card keeps the model's own basis). Mapfre: FactSet holds
 its interim statements only from 2024 (SEMI; annual book values before), so its long P/BV averages lean on annual book
 values; Admiral reports semi-annually. The weekly EPS consensus has to be pulled in batches of 2–4 ids (the connector
-refuses the eleven at once). Refresh: run the prompt in `tools/qualitas/FACTSET-PEERS-PROMPT.md` in a session with the
-FactSet connector (or create a nightly routine from it on the claude.ai Routines page with the connector and the
-repository attached, as the airports' routine was); never hand-edit the three data files.
+refuses the eleven at once). Refresh: the nightly routine (or the same prompt run by hand in a session with the FactSet
+connector); never hand-edit the three data files. The validator warns on `quality.html` when the table's closes or the
+consensus pull are older than 5 days.
+
+## Daily closes from FactSet (`data/market.js`, since 2026-10-08)
+
+Owner (2026-10-08): every share price and ratio from FactSet, refreshed daily. The nightly routine also pulls FactSet
+GlobalPrices `prices` (frequency D, fields price + volume, currency LOCAL) for Q-MX and the four peers of the rebased chart
+(PGR-US, ALL-US, PSSA3-BR, MAP-ES) for the last three months (`prices-daily-qualitas.json`; Gentera's five listings go to
+`prices-daily-gentera.json`), and `node scripts/lib/factset-prices.mjs ingest --group financials --date $RUN` merges them into
+the committed `tools/qualitas/raw/factset/prices.json` (history since 2015-01-02 for Q.MX and 2019-01-02 for the peers, pulled
+once in the session of 2026-10-08 with `--replace`) and `tools/gentera/raw/factset/prices.json`. `node scripts/lib/
+factset-prices.mjs apply --group financials` overlays the closes on both `data/market.js` in place, and `fetch-market.mjs`
+imports `overlayFactSet()` and does the same on every Actions run: inside FactSet's date range only FactSet's closes are shown;
+Yahoo/Stooq fill the history before it and the sessions after it (the 23:00 UTC run sees a close about an hour before the
+routine), and the file says so per series in `source` and `provenance` (`authority`, `latestFrom`, `factset.{from,to,points,
+pulledAt}`, `fill.{source,fetchedAt,before,after,points}`). `latestClose` sits in the first bytes of market.js for the watchdog
+and the page-side status check. The S&P/BMV IPC stays on Yahoo (the connector rejects index ids), as does the dividend record.
+The page and the deck compose every price-source label from `provenance` (`priceSrcLabel`, `latestCloseFeed`,
+`priceSources`, `priceSourcesShort`, `marketSrcNote`, `marketCadence`, `fxSrc` in the model); the validator warns when any
+share series (the IPC excepted) carries no FactSet closes or the oldest FactSet end date is more than 5 days old; the watchdog
+(`tools/watchdog/dashboards.json` → `prices`) turns the page's dot red when the FactSet file or the page's own close is behind
+the exchange's last completed session. `ingest` refuses a partial pull (a listing with no rows) and a pull whose closes
+disagree with the stored history on most overlapping dates (a split or restatement: re-pull from 2015-01-01 and run
+`ingest --group financials --replace`); the overlay never discards points the page already shows when FactSet's range is
+narrower than before. The model's own multiples card keeps the model's basis (FactSet's price over the filings' EPS and book
+value); the FactSet-only version of Quálitas' multiples is its row in the peers table.

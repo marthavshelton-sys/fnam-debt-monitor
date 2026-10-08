@@ -64,8 +64,16 @@ dashboards, everything built from public data by GitHub Actions.
   `tools/gap/FACTSET-PEERS-PROMPT.md`; `scripts/lib/factset-peers.mjs ingest` + `build`); never hand-edit `peers.js`.
   Quálitas and Gentera peers (NTM P/E and P/BV, no EV/EBITDA; one joint pull of eleven ids, snapshots
   `tools/<slug>/raw/factset/latest.json`, `scripts/lib/factset-peers-fin.mjs ingest` + `build` → the two `peers.js` and
-  `site/qualitas/data/consensus.js`) were first filled in-session on 2026-10-07; no nightly routine yet (prompt
-  `tools/qualitas/FACTSET-PEERS-PROMPT.md`, to be created on the Routines page with the connector attached).
+  `site/qualitas/data/consensus.js`) were first filled in-session on 2026-10-07 and are refreshed every night at 20:13 New York
+  time (after the airports' run, so the two routines never push at once) by the cloud routine "FNAM Financials: FactSet peers
+  and prices refresh" (prompt and routine id in `tools/qualitas/FACTSET-PEERS-PROMPT.md`; created 2026-10-08 with the
+  connector attached). The same routine pulls the daily closes of Q.MX, GENTERA.MX and the peers of their rebased charts
+  (PGR, ALL, PSSA3.SA, MAP.MC; GFNORTEO.MX, RA.MX, BBAJIOO.MX, BAP) into `tools/<slug>/raw/factset/prices.json` (history from
+  2015 for the two listings, 2019 for the peers) and overlays them on the two `data/market.js` (`scripts/lib/factset-prices.mjs
+  ingest --group financials` + `apply --group financials`; the two fetchers apply the same overlay on every Actions run), so
+  since 2026-10-08 FactSet Global Prices is the share-price authority of the Quálitas and Gentera pages too (owner: all share
+  prices and ratios from FactSet); the pages and decks compose every price-source label from `provenance` in market.js, and the
+  watchdog watches both pages' FactSet files and page closes.
   The tables show NTM EV/EBITDA and NTM P/E with 1-, 3- and 5-year averages plus ADTV in US$ M, prices at the last
   completed close (owner, 2026-10-06); no trailing multiples. The connector cannot run FQL (FE_VALUATION etc.): the
   ratios are assembled from consensus_rolling NTMA, prices, shares_outstanding and FF_NET_DEBT / FF_MIN_INT_ACCUM.
@@ -325,8 +333,8 @@ dashboards, everything built from public data by GitHub Actions.
   (BMV 15:30 CDMX, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid), so a morning run never publishes
   an intraday quote as a "close". The header shows the close date and the fetch time in CDMX. FactSet cannot run in
   GitHub Actions: the airport pages (GAP, ASUR, OMA) and Oracle get FactSet closes from their nightly cloud routines
-  (files committed to the repository and overlaid by the fetchers); for Quálitas and Gentera the share price stays Yahoo/Stooq
-  (FactSet is an in-session cross-check) while their peers tables come from the FactSet snapshot.
+  (files committed to the repository and overlaid by the fetchers); Quálitas and Gentera get theirs the same way from the
+  financials routine (20:13 New York, since 2026-10-08), together with their peers tables.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
   release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
   `present-core.js`), never a hand-written date.

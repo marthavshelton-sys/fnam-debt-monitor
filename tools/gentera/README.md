@@ -11,7 +11,7 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 | `financials.js` | `G_FIN` | workflow, after each report | `layout` (bilingual row definitions for `is`, `bs`, `kpi`, each with the release page it comes from), `quarters[]`, `ytd[]`, `years[]`. Statements in **Ps. millions** as printed (CNBV criteria, IFRS 9-converged from 2022). Per quarter: `is` (interest income → comprehensive income, subsidiary interest income / margin / net income, write-offs), `bs`, `ops` (loan book, clients, headcount, stage-3 and NIM by subsidiary, cost of funds, ICAP, Perú solvency), `kpi` (reported: `nim`, `nimAdj`, `effic`, `efficOp`, `roa`, `roe`, `roeCtrl`, `npl`, `coverageRep`, `capAssets`; recomputed: `cor`, `yieldCalc`, `coverage`, `effCalc`, `effPre`, `taxRate`, `eps`, `bvps`, `leverage`, `loansToDeposits`), `shares.current` (millions), `sources` (URL, date, page), `origin` (`release` / `comparative` / `seed`). `discontinued` is derived where net income exceeds pre-tax minus tax (3Q22). |
 | `operations.js` | `G_OPS` | workflow, after each report | flat per-quarter operating record (same `ops` fields plus loans, stage-3 balance, allowance, write-offs and subsidiary P&L/balance figures) and `monthly` (`cnbv`: Banco Compartamos loans, IMOR, deposits, YTD result; `sbs`: Compartamos Banco Perú balance, delinquency, write-offs) once `fetch-regulators.py` has run. |
 | `quality.js` | `G_QUALITY` | workflow | parse log from `build_data.py` (origin per quarter, warnings) merged by `validate_data.py` with every identity evaluated, series freshness (market, CNBV, SBS, latest quarter, reviewing routine), curated files and the origin table; rendered by `quality.html` on the shared design (`site/assets/quality-page.js`). |
-| `market.js` | `G_MARKET` | workflow, daily | daily closes for GENTERA.MX, ^MXX, GFNORTEO.MX, RA.MX, BBAJIOO.MX, BAP; GENTERA cash dividends; USD/MXN (Banxico SIE `SF43718`, FIX rate; FRED DEXMXUS fallback); MX 10-year (Banxico SIE `SF44071`, Bono M 10-year auction yield; FRED monthly fallback) and US 10-year (DGS10). Placeholder until the first run. |
+| `market.js` | `G_MARKET` | workflow, daily + nightly FactSet routine | daily closes for GENTERA.MX, GFNORTEO.MX, RA.MX, BBAJIOO.MX, BAP (FactSet Global Prices, the share-price authority since 2026-10-08, overlaid from `tools/gentera/raw/factset/prices.json`; Yahoo/Stooq only for the sessions FactSet has not posted yet) and ^MXX (Yahoo); GENTERA cash dividends (Yahoo); USD/MXN (Banxico SIE `SF43718`, FIX rate; FRED DEXMXUS fallback); MX 10-year (Banxico SIE `SF44071`, Bono M 10-year auction yield; FRED monthly fallback) and US 10-year (DGS10). `latestClose` in the first bytes for the watchdog. Method in `tools/qualitas/README.md` → "Daily closes from FactSet". |
 | `reference.js` | `G_REF` | reviewed commit | company facts, shares, subsidiaries, dividends approved at each AGM, `adjust` (the 4Q25 Ps. 328 M ConCrédito deferred-tax write-down that drives the accounting switch), ConCrédito and Perú sections (timelines now carry the call facts), `management` changes, `ratings` (from the 3Q24 corporate presentation), `coverage` (brokers seen on the calls), group-lending facts, glossary, valuation defaults, sources. `analysts` (targets) stay empty until FactSet. |
 | `guidance.js` | `G_GUIDANCE` | reviewed commit, each quarter | guidance vintages (`fy`, `kind`, `date` = release date, `call` = call date, `quarter`, `items{eps, loanGrowth, opexGrowth, cor, npl, roe}` with `lo`/`hi`/`text`, `notes`, `source` incl. the transcript path). 2023Q3–2025Q4 vintages are transcribed from the earnings calls; 2026 vintages from the 4T25/1T26/2T26 releases. `lo = hi` means "around"; a null bound means not given. |
 | `comments.js` | `G_COMMENTS` | reviewed commit, each quarter | one-line y/y explanations keyed by period (`2026Q2`, `2026M6`, `FY2025`): `lines` (income-statement rows), `bs`, `ops`, and `call` = the earnings-call block of the quarter that closes the period (`es`/`en` note, `date`, `file`, `quotes{rowKey: {who, en, es}}`; one `CALLS` entry per call, shared by the quarter, YTD and FY periods). Periods that only have a call block (2023Q3–2025Q4) show mechanical comments plus the quotes (💬, expandable; open in print mode). |
@@ -73,12 +73,12 @@ reports a refusal).
 | Element | Updates | Depends on |
 |---|---|---|
 | Statements, ratios, subsidiary tables, quality page | every weekday 14:35 UTC (new quarter parsed the day it appears on the IR page) | Gentera IR site reachable; parser recognising the release layout (test_parser + validate gate the commit) |
-| Prices, index, peers' prices, FX, MX and US 10-year | every weekday 22:45 UTC and 14:35 UTC | Yahoo Finance (Stooq fallback), FRED, Banxico SIE (`BANXICO_TOKEN`) |
+| Prices, index, peers' prices, FX, MX and US 10-year | every weekday 22:45 UTC and 14:35 UTC; FactSet closes every night at 20:13 New York time (the cloud routine) | FactSet Global Prices (share series), Yahoo Finance (index, dividends, fallback sessions; Stooq fallback), FRED, Banxico SIE (`BANXICO_TOKEN`) |
 | CNBV and SBS monthly tables | every weekday, best effort (new month when the regulator publishes it) | CNBV portal and SBS site reachable; values pass the plausibility gates |
 | Valuation, multiples, header tiles, charts | at render time from the files above | — |
 | Comments, guidance vintage, summary, reference facts (dividend, ratings, next report date) | the reviewing routine, the weekday after a new release or event | routine pushes to `main`; Gentera's release wording |
 | Call quotes | only when a transcript is dropped in `tools/gentera/raw/transcripts/` (Gentera publishes none) | hand-supplied file |
-| Peer multiples and consensus | on each FactSet connector run from a Claude session (prompt `tools/qualitas/FACTSET-PEERS-PROMPT.md`; first fill 2026-10-07) | FactSet |
+| Peer multiples and consensus | every night at 20:13 New York time, cloud routine "FNAM Financials: FactSet peers and prices refresh" (prompt `tools/qualitas/FACTSET-PEERS-PROMPT.md`; first fill 2026-10-07) | FactSet |
 
 The page shows a yellow refresh notice when prices are older than 7 days or the statements older than 10 days,
 and marks the next-report date as "to be confirmed" once it has passed.
@@ -149,10 +149,13 @@ Either way the page already carries `noindex,nofollow` and the data files are se
 - The initial 2023 guidance (February 2023) is not transcribed; the FY2023 record uses the October 2023 revision.
   The 2025 initial EPS range (Ps. 4.56–4.71) is derived from the guided +20% to +24% on Ps. 3.80.
 - Quote translations to Spanish are ours; the English text is the transcript wording, trimmed with [..].
-- Peer multiples, consensus and analyst targets come from the FactSet connector (first fill 2026-10-07; no nightly routine
-  yet, so the caption's date says how fresh they are).
-- Share prices come from Yahoo Finance's chart API (Stooq as fallback), not from the BMV directly; FX from the
-  Banxico FIX rate (SIE SF43718; FRED DEXMXUS as fallback); the risk-free rate from Banxico's weekly auction.
+- Peer multiples, consensus and analyst targets come from the FactSet connector (first fill 2026-10-07; nightly cloud routine
+  since 2026-10-08; the caption's date says how fresh they are and `quality.html` warns past 5 days).
+- Share prices are FactSet Global Prices closes since 2026-10-08 (GENTERA.MX and the four peers; the nightly routine commits
+  `tools/gentera/raw/factset/prices.json` and overlays it, and `fetch-market.mjs` overlays the same file on every run); Yahoo
+  Finance (Stooq as fallback) supplies the S&P/BMV IPC, the dividend record and the sessions FactSet has not posted yet; FX
+  from the Banxico FIX rate (SIE SF43718; FRED DEXMXUS as fallback); the risk-free rate from Banxico's weekly auction. The
+  page and the deck compose every price-source label from `provenance` in market.js.
 
 ## Local run
 
