@@ -3,48 +3,6 @@
  "entries": [
   {
    "at": "2026-10-05T21:55:12.089Z",
-   "file": "market.js",
-   "path": "rates.US10Y.value",
-   "old": 5.28,
-   "new": 5.31
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "market.js",
-   "path": "rates.US10Y.points.length",
-   "old": 16174,
-   "new": 16175
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "market.js",
-   "path": "spreads.BBB_OAS.asOf",
-   "old": "2026-10-01",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "market.js",
-   "path": "spreads.BBB_OAS.value",
-   "old": 1.06,
-   "new": 1.04
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "market.js",
-   "path": "spreads.BBB_OAS.points.length",
-   "old": 786,
-   "new": 787
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
-   "file": "reference.js",
-   "path": "erp.pct",
-   "old": 4.14,
-   "new": 4.2
-  },
-  {
-   "at": "2026-10-05T21:55:12.089Z",
    "file": "reference.js",
    "path": "erp.asOf",
    "old": "2026-09-01",
@@ -4200,7 +4158,49 @@
    "path": "basis.marketDate",
    "old": "2026-10-06",
    "new": "2026-10-07"
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-07)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-07)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2513,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-08T13:42:49.665Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
   }
  ],
- "generated": "2026-10-07T21:55:48.400Z"
+ "generated": "2026-10-08T13:42:49.665Z"
 }

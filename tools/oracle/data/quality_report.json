@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-07T21:55:48.214Z",
+  "generated": "2026-10-08T13:42:49.396Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -3775,7 +3775,7 @@
   "freshness": [
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
-      "lastDate": "2026-10-06",
+      "lastDate": "2026-10-07",
       "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
@@ -3784,7 +3784,7 @@
     {
       "series": "Share price (ORCL close, runner feed)",
       "lastDate": "2026-10-07",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet"
@@ -3792,7 +3792,7 @@
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
       "lastDate": "2026-10-07",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
@@ -3800,7 +3800,7 @@
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
       "lastDate": "2026-10-06",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 7,
       "status": "ok",
       "note": "market fetch; credit card proxy while no CDS source exists"
@@ -3808,14 +3808,14 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 28,
+      "ageDays": 29,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-10-07",
+      "lastDate": "2026-10-08",
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
@@ -3823,7 +3823,7 @@
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-10-07",
+      "lastDate": "2026-10-08",
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
@@ -3831,7 +3831,7 @@
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-10-07",
+      "lastDate": "2026-10-08",
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
@@ -3839,7 +3839,7 @@
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-10-07",
+      "lastDate": "2026-10-08",
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
@@ -3847,7 +3847,7 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-06",
+      "lastDate": "2026-10-07",
       "ageDays": 2,
       "limitDays": 7,
       "status": "ok",
@@ -3856,7 +3856,7 @@
     {
       "series": "Implied equity risk premium (Damodaran, monthly)",
       "lastDate": "2026-10-01",
-      "ageDays": 7,
+      "ageDays": 8,
       "limitDays": 45,
       "status": "ok",
       "note": "the market fetch reads Damodaran's home page; he posts on the first of each month"
@@ -3864,7 +3864,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-10-05",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
@@ -3872,14 +3872,14 @@
     {
       "series": "Sell-side research sweep (analyst opinions)",
       "lastDate": "2026-10-05",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 60,
       "status": "ok",
       "note": "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt"
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-10-07",
+      "lastDate": "2026-10-08",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -3935,12 +3935,12 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-06; prices 2026-10-06; 8 peers; fetched 2026-10-06"
+      "detail": "consensus 2026-10-07; prices 2026-10-07; 8 peers; fetched 2026-10-07"
     },
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-10-07"
+      "detail": "5 peers; fetched 2026-10-08"
     },
     {
       "file": "analysts.json",
@@ -3970,7 +3970,7 @@
       "label_es": "Datos XBRL (10-Q/10-K)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-07",
+      "lastRefresh": "2026-10-08",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4060,7 +4060,7 @@
       "label_es": "Hechos de referencia",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-07",
+      "lastRefresh": "2026-10-08",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4104,8 +4104,8 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-06",
-      "lastRefresh": "2026-10-06",
+      "asOf": "2026-10-07",
+      "lastRefresh": "2026-10-07",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4149,8 +4149,8 @@
       "label_en": "Investor calendar",
       "label_es": "Calendario del inversionista",
       "cadence": "daily",
-      "asOf": "2026-10-07",
-      "lastRefresh": "2026-10-07",
+      "asOf": "2026-10-08",
+      "lastRefresh": "2026-10-08",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4164,8 +4164,8 @@
       "label_en": "Peer leverage (XBRL)",
       "label_es": "Apalancamiento de pares (XBRL)",
       "cadence": "daily",
-      "asOf": "2026-10-07",
-      "lastRefresh": "2026-10-07",
+      "asOf": "2026-10-08",
+      "lastRefresh": "2026-10-08",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4194,8 +4194,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-07",
-      "lastRefresh": "2026-10-07",
+      "asOf": "2026-10-08",
+      "lastRefresh": "2026-10-08",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
