@@ -236,6 +236,15 @@ dashboards, everything built from public data by GitHub Actions.
   for a month before INEGI publishes that month's INPC (6-Oct-2026: a September point beside an August headline, so the
   component table printed 7.8% while the August-based figure is 7.7%); `renderInpc` cuts every component at the headline's
   latest month.
+- MX macro: since 8-Oct-2026 the page has `trade` (Comercio exterior) and `iip` (Inversión extranjera y PII) views fed by
+  Banxico SIE tables CE125/CE171/CE160/CE197/CE187 (trade) and CE174/CE158/CE131/CE170/CE89/CE182 (balance of payments, FDI,
+  IIP, external debt), INEGI's nominal GDP and FRED mirrors (Census EXPMX/IMPMX, BLS MEXTOT); the external view keeps
+  remittances and the peso. `fetch.mjs` checks the accounting identities between these series after every fetch and keeps
+  the previous data for a block that fails. Banxico's API titles are table path + row path with non-breaking spaces, and
+  CE197's series come back untitled (`allowEmptyTitle`, verified by identities); INEGI's quarterly GDP at current prices is
+  an annualized level (ratios to GDP average four quarters converted at each quarter's FIX). `--cuadro CE125` (workflow
+  input `cuadro`) lists a SIE table's series ids and labels. Runbook: `tools/mx-macro/README.md` → "Comercio exterior e
+  inversión extranjera"; memory `tools/mx-macro/MEMORY.md`.
 - MX macro: Banxico's neutral real-rate range is 1.8–3.6% (text and the threshold in the summary driver, owner 2026-10-05);
   the real-rate caption pairs the ex post month with the SAME month's survey and names the newer survey separately; a monthly
   average of a daily series carries "(promedio al día, mes en curso)" while the month runs (`monthAvg` → `partial`).

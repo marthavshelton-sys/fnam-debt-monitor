@@ -2,8 +2,10 @@
 
 Bilingual (es-MX default / EN) Mexico macro dashboard: INPC inflation and its
 components, real GDP and IGAE, unemployment and IMSS formal jobs, consumer
-confidence, remittances, merchandise trade, the peso, Banxico's policy rate,
-market rates and international reserves. One page, two languages, served at
+confidence, remittances and the peso, foreign trade (merchandise trade and its
+breakdown, trade with the United States, trade prices), foreign investment and
+the international investment position (balance of payments, FDI, IIP, external
+debt), Banxico's policy rate, market rates and international reserves. One page, two languages, served at
 `site/mx/macro/index.html` (`/mx/macro/en/` redirects to the English view).
 Same visual system as the U.S. page at `/macro/`.
 
@@ -54,7 +56,8 @@ Thresholds (edit them in `alerts.mjs`):
 | Unemployment | moves ≥0.3 pp |
 | Consumer confidence | moves ≥2.0 points |
 | Remittances | y/y ≥10% either way |
-| Trade | monthly balance changes sign, or export y/y shifts ≥10 pp |
+| Trade | monthly balance changes sign, or export y/y shifts ≥10 pp (links to the trade view) |
+| Balance of payments and IIP | current account / GDP moves ≥0.5 pp or changes sign, or four-quarter FDI moves ≥20% (links to the investment view) |
 | Banxico policy rate | any change |
 | Peso (FIX) | USD/MXN ≥2% in a day or ≥4% in 5 sessions (one alert per 7 days) |
 | 10-year M bono | moves ≥50 bp from one auction to the next |
@@ -233,6 +236,11 @@ run's log and summary:
 - **post** — `URL {json} ;; URL {json}` sends JSON POST requests (token
   placeholders substituted) and prints status and body; how the INEGI
   query-builder service was mapped.
+- **cuadro** — lists the series of one or more Banxico SIE table pages
+  (`CE125,CE170`, or `CE125:1` with the sector) with id, periodicity, unit, range
+  and row label, nested rows indented; needs no token. The SIE API has no
+  search endpoint, so this is how a table's ids are found (the sector directory
+  is `consultarDirectorioCuadros&sector=N`; sector 1 is the external sector).
 - **catalog** — reserved; INEGI exposes no whole-catalog endpoint.
 
 Locally the same flags work on `scripts/mx-macro/fetch.mjs` (`--search`,
@@ -342,3 +350,71 @@ price sector (`banxico-dir 8` through the fiscal workflow's probe) lists only mo
 (CP151/154/155/193-195) and UDIs. So month-over-month changes and the 3- and 6-month annualized core rates are on
 original figures and keep their seasonality; the page and its footer say so. Year-over-year changes are unaffected.
 If INEGI ever publishes an adjusted INPC, add it as a separate, labeled series; never mix it with the original one.
+
+## Comercio exterior e inversión extranjera (views `trade` and `iip`, added 2026-10-08)
+
+Two views mirror the U.S. page's external-sector sections. The external view
+(`external`) keeps remittances and the peso; the trade charts moved to `trade`.
+
+**Comercio exterior** (`renderTrade()`): the headline exports, imports and
+monthly balance are INEGI's seasonally adjusted totals (`exports`/`imports`, as
+before). Everything else is Banxico's SIE, original figures, in thousands of
+dollars (unit `usd_k`; the page scales every dollar series to millions with
+`unitToMn`): CE125 exports by sector (`expOil`, `expAgri`, `expExtr`,
+`expManuf` from CE171, plus `expAuto`), imports by type of good (`impCons`,
+`impInter`, `impCap`, `impOil`), the oil and non-oil balances (`balOil`,
+`balNonOil`; 12-month sums on the page) and the original totals used for the
+shares (`expTotalO`, `impTotalO`, `balTotalO`); CE160 share of exports going to
+the United States (`shExpUS`); CE197 trade with the United States (`expUS`,
+`impUS`, `balUS`; Banxico posts it about two months after the total, so the
+page sums 12 months to its own latest month); CE187 quarterly terms of trade and
+unit-value indices (`totIdx`, `uvExp`, `uvImp`). From FRED: the Census Bureau's
+side of the bilateral trade (`usImpFromMx` = IMPMX, `usExpToMx` = EXPMX,
+customs basis, not seasonally adjusted, millions) and the BLS index of U.S.
+import prices from Mexico (`usImpPxMx` = MEXTOT, December 2003 = 100, excludes
+duties).
+
+**Inversión extranjera y PII** (`renderIip()`): CE174 balance of payments (BPM6):
+`ca` and its components `goodsB`, `svcB`, `priB`, `secB` (four-quarter sums on
+the page), `ka`, `fa`, `eo`, and portfolio liabilities `pfLiab`; CE158 the
+current account as % of GDP that Banxico itself publishes (`caPct`); CE131
+direct investment on the directional principle (`diMx` = `diMxNew` +
+`diMxReinv` + `diMxInter`, the figure the Secretaría de Economía headlines, and
+`diAbroad`); CE89 non-resident holdings of government securities at nominal
+value, monthly (`nrGovHold`); CE170 the quarterly integrated IIP statement
+(`iipNet`, `iipAssets`, `iipLiab`, assets by category `iipADi`/`iipAPf`/
+`iipADv`/`iipAOi`/`iipARes`, liabilities `iipLDi`/`iipLPf`/`iipLDv`/`iipLOi`,
+and the change decomposition `iipInit` + `iipTrans` + `iipOther` = `iipNet`);
+CE182 gross external debt (`extDebt`); INEGI 734407 quarterly GDP at current
+prices (`gdpNom`, millions of pesos). Ratios to GDP for the stocks and for
+four-quarter FDI are an FNAM calculation: INEGI publishes quarterly GDP at an
+**annualized** level, so the page converts each of the last four quarters at
+that quarter's average FIX (the daily `usdmxn` series now starts in 2009 for
+this) and averages them (`gdpUsd4()`); the current-account ratio is Banxico's.
+The next balance of payments is labeled "finales de <month>" with the quarter
+end plus two months (Banxico publishes about 55 days after the quarter).
+
+**Titles and identities.** Banxico's API title is the table path plus the row
+path, e.g. "Balanza comercial de mercancías de México Exportaciones totales
+Petroleras", with non-breaking spaces in places; the manifest regexes use `\s+`
+between words and anchor the row (CE170's titles carry "Activos"/"Pasivos"
+before the category, which tells assets and liabilities apart). The three CE197
+series answer with an **empty** title (checked 2026-10-08): they carry
+`allowEmptyTitle` in the manifest and are verified instead by the identities.
+After every fetch `checkIdentities()` in `fetch.mjs` (table `IDENTITIES`) checks:
+exports by sector, imports by type of good, balance = exports − imports, balance
+= oil + non-oil, U.S. balance = exports − imports, U.S. share = exports to the
+U.S. / total exports (±0.5 pp), current account = goods + services + primary +
+secondary income, financial account = current + capital account + errors and
+omissions (warn only), direct investment = its three components, IIP assets and
+liabilities = their categories, net = assets − liabilities, and net = initial +
+transactions + other changes. A strict identity that fails sends every series of
+the block back to the previous committed data (marked stale, so the page shows
+the pill) or drops it when there is none, and the run summary says so.
+
+Ids were mapped from the public SIE table pages (sector 1 directory; the
+`cuadro` diagnostic lists any table) and confirmed by the titles the API reported
+on the first runner fetch. Not available from any API: FDI by country of origin
+(Secretaría de Economía publishes it as spreadsheets only); INEGI's BIE has no
+balance-of-payments or IIP series (full-text search returns nothing for them).
+
