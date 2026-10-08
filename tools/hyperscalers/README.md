@@ -123,7 +123,8 @@ After each 10-Q season (and after each earnings call for guidance):
 - Shared UI in `hub.js`: sortable headings, key-column toggle (`data-keycols` on a `.tblwrap`), jargon tooltips (first
   use per page; glossary anchors `g-*`), source cards that stay inside the viewport. Reader-facing text never shows
   repository paths (`HUB.plain`).
-- Glossary and methodology carry a "Last reviewed" date: update it when you edit either page.
+- Glossary and methodology carry a "Last reviewed" date: update it when you edit either page. The date only: no "Changes on…"
+  history beside it (owner removed both on 8-Oct-2026: simple and easy to read).
 
 ## Module 6 text items
 
