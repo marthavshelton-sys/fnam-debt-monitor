@@ -2,6 +2,15 @@
  "_comment": "Reader-facing log of curated edits to the Hyperscaler Hub (wording, structure, review counts, explained gaps, thesis changes). at = UTC instant; the pages print it in ET. build.mjs merges it into site/hiperescaladores/data/changelog.js (HYP_LOG.curated). Append one entry per edit; never rewrite history.",
  "entries": [
   {
+   "at": "2026-10-08T17:24:00Z",
+   "modules": [
+    "home",
+    "capex"
+   ],
+   "en": "Module 1's company detail offers the five majors combined: the same lines summed by calendar quarter (Oracle's quarter ending one month earlier counts in the calendar quarter ending a month later), each cell stating how many of the five tag the line and naming the missing company; nothing is imputed. The summary's opening paragraph now says how the companies whose capex exceeded their operating cash flow financed the gap, from the same window's cash-flow statements (debt issued; common and preferred stock issued), with the source cards and the debt repaid in \"What to know\", line 1. The companies named as above their cash flow are judged in the same calendar window as the group ratio.",
+   "es": "La ficha por empresa del módulo 1 ofrece la suma de las cinco grandes: las mismas partidas sumadas por trimestre calendario (el trimestre de Oracle, que cierra un mes antes, entra en el trimestre calendario que termina un mes después); cada celda dice cuántas de las cinco etiquetan la partida y nombra a la que falta; nada se imputa. El párrafo inicial del resumen dice ahora con qué financiaron la diferencia las empresas cuyo capex superó su flujo de operación, según los estados de flujos de la misma ventana (deuda emitida; acciones comunes y preferentes emitidas), con las fichas de fuente y la deuda pagada en «Lo que hay que saber», línea 1. Las empresas nombradas por encima de su flujo se juzgan en la misma ventana calendario que la razón del grupo."
+  },
+  {
    "at": "2026-10-08T16:30:00Z",
    "modules": [
     "home",

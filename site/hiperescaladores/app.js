@@ -27,7 +27,9 @@
   // ---- source cards
   function ttmSrc(c, q, k, title) {
     var i = c.quarters.indexOf(q), qs = c.quarters.slice(Math.max(0, i - 3), i + 1), x = q.m[k];
-    return H.src({ title: c.name + ' · ' + title, rows: [[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL)', 'FNAM calculation on T1 figures (XBRL)')], [t('Método', 'Method'), t('suma de cuatro trimestres: ', 'sum of four quarters: ') + qs.map(function (z) { return H.fq(z.id); }).join(', ')], [t('Cierre', 'Period end'), H.date(q.end)], x ? [t('Etiqueta XBRL', 'XBRL tag'), x[1]] : null, x ? [t('Última presentación', 'Latest filing'), (x[2] || []).join(', ')] : null], url: x && x[2] ? H.edgar(c.cik, x[2][0]) : XBRL });
+    // a line tagged only in the 10-K (Oracle's preferred stock) carries the fiscal year as its twelve months when the quarter closes the year
+    var fy = q.ttm && q.ttm._fromFY && q.ttm._fromFY.indexOf(k) >= 0;
+    return H.src({ title: c.name + ' · ' + title, rows: [[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL)', 'FNAM calculation on T1 figures (XBRL)')], [t('Método', 'Method'), fy ? t('año fiscal completo del 10-K (el periodo cierra el año)', 'full fiscal year from the 10-K (the period closes the year)') : t('suma de cuatro trimestres: ', 'sum of four quarters: ') + qs.map(function (z) { return H.fq(z.id); }).join(', ')], [t('Cierre', 'Period end'), H.date(q.end)], x ? [t('Etiqueta XBRL', 'XBRL tag'), x[1]] : null, x ? [t('Última presentación', 'Latest filing'), (x[2] || []).join(', ')] : null], url: x && x[2] ? H.edgar(c.cik, x[2][0]) : XBRL });
   }
   function rpoSrc(c, q) {
     var x = q.m.rpo;
@@ -47,8 +49,38 @@
     X.rows.forEach(function (r) { ocf = ocf == null || r.q.ttm.ocf == null ? null : ocf + r.q.ttm.ocf; });
     return { X: X, ocf: ocf, r: ocf ? X.total / ocf : null, g: X.prev ? X.total / X.prev - 1 : null };
   }
-  // capex above operating cash flow, latest TTM of each company (12-month rule applies)
-  function overOcf() { return CO.filter(function (c) { var q = latest(c); return q && !H.aged(q.end) && q.ttm.capex_cash != null && q.ttm.ocf != null && (q.ttm.ocf <= 0 || q.ttm.capex_cash > q.ttm.ocf); }); }
+  // capex above operating cash flow in the thesis window: the same calendarized rows (one calendar quarter for everyone) as
+  // the group's capex / OCF, so one sentence states one window (owner, 2026-10-08). The 12-month rule is applied by calTTM.
+  function overIn(X) { return X ? X.rows.filter(function (r) { var T = r.q.ttm; return T.capex_cash != null && T.ocf != null && (T.ocf <= 0 || T.capex_cash > T.ocf); }) : []; }
+  // how a company that outspent its cash flow paid for it, in the same window: debt issued (gross proceeds) and stock issued
+  // (common and preferred), as tagged in its cash-flow statement and summed over the same four quarters. A line the curated
+  // gap file explains as "none" (Amazon issues no stock) is left out; a line not tagged in the window is named, never read
+  // as zero. Repayments are stated beside the proceeds, not netted: the sentence says what was raised.
+  function financing(r) {
+    var c = r.c, q = r.q, T = q.ttm, out = { c: c, q: q, items: [], nt: [], repaid: T.debt_repaid != null ? T.debt_repaid : null };
+    if (T.debt_proceeds > 0) out.items.push({ k: 'debt', v: T.debt_proceeds });
+    var com = T.equity_proceeds > 0 ? T.equity_proceeds : 0, pf = T.pref_proceeds > 0 ? T.pref_proceeds : 0;
+    if (com + pf > 0) out.items.push({ k: 'equity', v: com + pf, com: com, pf: pf });
+    ['debt_proceeds', 'equity_proceeds', 'pref_proceeds'].forEach(function (k) { if (T[k] != null) return; var z = H.ntReason(c.ticker, k); if (!(z && z.result === 'none')) out.nt.push(k); });
+    return out;
+  }
+  function finLabel(i) { return i.k === 'debt' ? t(' de deuda', ' of debt') : t(' de capital', ' of equity') + (i.com && i.pf ? t(' (acciones comunes y preferentes)', ' (common and preferred stock)') : i.pf ? t(' (acciones preferentes)', ' (preferred stock)') : t(' (acciones comunes)', ' (common stock)')); }
+  function finNt(f) { return f.nt.length ? t(' (sin etiqueta en la ventana: ', ' (not tagged in the window: ') + f.nt.map(function (k) { return F.defs[k][H.lang].toLowerCase(); }).join(', ') + ')' : ''; }
+  // plain text for the thesis (no ⓘ there; the cards sit in "What to know")
+  function finText(f, first) {
+    if (!f.items.length) return esc(f.c.name) + t(': sin emisión de deuda ni de capital etiquetada en la ventana', ': no debt or stock issuance tagged in the window') + finNt(f);
+    return esc(f.c.name) + (first ? t(' emitió ', ' issued ') : ', ') + f.items.map(function (i) { return plainMoney(i.v) + finLabel(i); }).join(t(' y ', ' and ')) + finNt(f);
+  }
+  // the same facts with a source card on every figure, for the "What to know" detail
+  function finDetail(f) {
+    var c = f.c, q = f.q;
+    var parts = f.items.map(function (i) {
+      if (i.k === 'debt') return H.money(i.v) + ttmSrc(c, q, 'debt_proceeds', t('deuda emitida UDM (recursos brutos)', 'debt issued TTM (gross proceeds)')) + t(' de deuda', ' of debt');
+      var sub = [i.com ? t('comunes ', 'common ') + H.money(i.com) + ttmSrc(c, q, 'equity_proceeds', t('acciones comunes emitidas UDM', 'common stock issued TTM')) : null, i.pf ? t('preferentes ', 'preferred ') + H.money(i.pf) + ttmSrc(c, q, 'pref_proceeds', t('acciones preferentes emitidas UDM', 'preferred stock issued TTM')) : null].filter(Boolean);
+      return H.money(i.v) + t(' de capital (', ' of equity (') + sub.join(', ') + ')';
+    });
+    return '<b>' + esc(c.name) + '</b> ' + (parts.length ? t('emitió ', 'issued ') + parts.join(t(' y ', ' and ')) : t('no etiqueta emisión de deuda ni de capital en la ventana', 'tags no debt or stock issuance in the window')) + (f.repaid != null ? t(' y pagó ', ' and repaid ') + H.money(f.repaid) + ttmSrc(c, q, 'debt_repaid', t('deuda pagada UDM', 'debt repaid TTM')) + t(' de deuda', ' of debt') : '') + finNt(f);
+  }
   // leases signed, not commenced (undiscounted) against the undiscounted payments of the leases already recognized, at the
   // same date: like for like. A company without both figures at the same date is left out.
   // a company whose curated gap record says it has no finance leases (result "none", assumeZero) compares its signed
@@ -116,12 +148,16 @@
   // The thesis carries no ⓘ (owner, 2026-10-08): its figures open their source cards in "What to know" and in the KPI row
   // just below, and its source lines print in the page's last section, "Sources and methodology" (#thesisMeta, sources()).
   // Two short sentences, each with its module link.
+  // Sentence 1: the ratio, then the companies above their own cash flow. Sentence 2 (owner, 2026-10-08): how those companies
+  // financed the gap, from the same window's cash-flow statements (debt and stock issued; repayments in the source line).
   function thesis() {
-    var P = pace(), over = overOcf(), LC = leaseCompare(), parts = [], meta = [], m3 = [];
+    var P = pace(), LC = leaseCompare(), parts = [], meta = [], m3 = [];
     if (P && P.r != null && P.r <= H.CO_MAX && P.X.rows.length === CO.length) {
-      var X = P.X, win = H.date(X.calEnd);
+      var X = P.X, win = H.date(X.calEnd), overR = overIn(X), over = overR.map(function (r) { return r.c; }), fin = overR.map(financing);
       m3.push(t('Las cinco grandes destinaron ' + pctS(P.r) + ' de su flujo de operación conjunto a capex en los doce meses al ' + win, 'The five majors put ' + pctS(P.r) + ' of their combined operating cash flow into capex in the twelve months to ' + win) + '; ' + (over.length ? t(names(over) + (over.length > 1 ? ' gastaron' : ' gastó') + ' más que su propio flujo', names(over) + ' spent more than ' + (over.length > 1 ? 'their' : 'its') + ' own') : t('ninguna gastó más que su propio flujo', 'none spent more than its own')) + '.');
+      if (fin.length) m3.push(t('Cómo se financió la diferencia, mismos doce meses: ', 'How the gap was financed, same twelve months: ') + fin.map(function (f, i) { return finText(f, i === 0); }).join('; ') + '.');
       meta.push(H.tier('C') + ' ' + t('capex y flujo: XBRL de 10-Q/10-K, UDM al ', 'capex and cash flow: 10-Q/10-K XBRL, TTM to ') + win + (X.offsets.length ? '; ' + H.offsetNote(X).replace(/\.$/, '') : ''));
+      if (fin.length) meta.push(H.tier('T1') + ' ' + t('financiamiento: recursos brutos por emisión de deuda y de acciones (comunes y preferentes), líneas del estado de flujos etiquetadas en XBRL, misma ventana; pagos de deuda en esa ventana: ', 'financing: gross proceeds from debt and stock issued (common and preferred), cash-flow statement lines tagged in XBRL, same window; debt repaid in that window: ') + fin.map(function (f) { return f.c.name + ' ' + (f.repaid != null ? plainMoney(f.repaid) : t('sin etiqueta', 'not tagged')); }).join(', ') + t('; el detalle con fuentes está en «Lo que hay que saber», línea 1', '; the detail with sources is in "What to know", line 1'));
     }
     if (m3.length) parts.push(m3.join(' ') + ' ' + mod('capex', 1, t('Módulo 1', 'Module 1')));
     if (LC.length >= 2) {
@@ -143,11 +179,11 @@
     // 1. pace of capex (module 1)
     var P = pace();
     if (P && P.g != null && P.ocf && P.X.rows.length === CO.length) {
-      var X = P.X, r = P.r, g = P.g;
+      var X = P.X, r = P.r, g = P.g, overR = overIn(X), fin = overR.map(financing);
       var capCardW = H.src({ title: t('Capex en efectivo UDM, cinco grandes', 'Cash capex TTM, five majors'), rows: [[t('Ventana', 'Window'), t('UDM al ', 'TTM to ') + H.cq(X.cal) + ' (' + H.date(X.calEnd) + ')']].concat(H.calRows(X)).concat([[t('Suma', 'Sum'), plainMoney(X.total)], [t('Un año antes', 'A year earlier'), X.prev != null ? plainMoney(X.prev) : ''], [t('Crecimiento', 'Growth'), (g > 0 ? '+' : '') + pctS(g) + t(' (cálculo FNAM)', ' (FNAM calculation)')]]), url: XBRL });
       var ocfCardW = H.src({ title: t('Capex / flujo de operación, cinco grandes', 'Capex / operating cash flow, five majors'), rows: X.rows.map(function (z) { return [z.c.name, t('flujo de op. ', 'OCF ') + plainMoney(z.q.ttm.ocf) + t(' · capex ', ' · capex ') + plainMoney(z.q.ttm.capex_cash) + ' · ' + H.fq(z.q.id)]; }).concat([[t('Razón', 'Ratio'), plainMoney(X.total) + ' / ' + plainMoney(P.ocf) + ' = ' + pctS(r) + t(' (cálculo FNAM)', ' (FNAM calculation)')]]), url: XBRL });
       L.push([(r > 0.75 && g > 0.25 ? t('La inversión crece ' + pctS(g), 'Spending grew ' + pctS(g)) + capCardW + t(' en un año y absorbe ' + pctS(r), ' in a year and absorbs ' + pctS(r)) + ocfCardW + t(' del flujo de operación.', ' of operating cash flow.') : t('La inversión absorbe ' + pctS(r), 'Spending absorbs ' + pctS(r)) + ocfCardW + t(' del flujo de operación.', ' of operating cash flow.')),
-        t('Las cinco grandes gastaron ', 'The five majors spent ') + H.money(X.total) + H.src({ title: t('Capex UDM, cinco grandes', 'Capex TTM, five majors'), rows: H.calRows(X), url: XBRL }) + t(' en capex en efectivo en los doce meses al ', ' in cash capex in the twelve months to ') + H.date(X.calEnd) + t(', frente a ', ', against ') + H.money(X.prev) + t(' un año antes. ', ' a year earlier. ') + (r <= H.CO_MAX ? t('Equivale a ' + pctS(r) + ' de su flujo de operación. ', 'That is ' + pctS(r) + ' of their operating cash flow. ') : '') + t('Por empresa, el capex superó al flujo en ', 'Company by company, capex exceeded cash flow at ') + overOcf().map(function (c) { return c.name; }).join(', ') + '. ' + (X.offsets.length ? H.offsetNote(X) : '') +
+        t('Las cinco grandes gastaron ', 'The five majors spent ') + H.money(X.total) + H.src({ title: t('Capex UDM, cinco grandes', 'Capex TTM, five majors'), rows: H.calRows(X), url: XBRL }) + t(' en capex en efectivo en los doce meses al ', ' in cash capex in the twelve months to ') + H.date(X.calEnd) + t(', frente a ', ', against ') + H.money(X.prev) + t(' un año antes. ', ' a year earlier. ') + (r <= H.CO_MAX ? t('Equivale a ' + pctS(r) + ' de su flujo de operación. ', 'That is ' + pctS(r) + ' of their operating cash flow. ') : '') + (overR.length ? t('Por empresa, el capex superó al flujo en ', 'Company by company, capex exceeded cash flow at ') + overR.map(function (z) { return z.c.name; }).join(', ') + '. ' + t('Con qué se financió la diferencia, misma ventana (recursos brutos del estado de flujos): ', 'How the gap was financed, same window (gross proceeds in the cash-flow statement): ') + fin.map(finDetail).join('; ') + '. ' : t('Ninguna empresa gastó más que su propio flujo. ', 'No company spent more than its own cash flow. ')) + (X.offsets.length ? H.offsetNote(X) : '') +
         meta(t('XBRL de 10-Q/10-K (cálculo FNAM)', '10-Q/10-K XBRL (FNAM calculation)'), H.cq(X.cal), [['capex', 1]], 'C')]);
     }
     // 2. obligations not on the balance sheet, like for like (module 3): leases signed vs undiscounted recognized payments;
