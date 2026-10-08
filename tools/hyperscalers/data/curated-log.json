@@ -2,6 +2,14 @@
  "_comment": "Reader-facing log of curated edits to the Hyperscaler Hub (wording, structure, review counts, explained gaps, thesis changes). at = UTC instant; the pages print it in ET. build.mjs merges it into site/hiperescaladores/data/changelog.js (HYP_LOG.curated). Append one entry per edit; never rewrite history.",
  "entries": [
   {
+   "at": "2026-10-08T23:26:00Z",
+   "modules": [
+    "home"
+   ],
+   "en": "Summary page reordered: \"The Five Modules\" now follows \"Where the Strain Is\", and \"Upcoming Results and Filings\" sits right before \"Sources and Methodology\".",
+   "es": "Página de resumen reordenada: «Los Cinco Módulos» ahora sigue a «Dónde Está la Presión» y «Próximos Resultados y Presentaciones» queda justo antes de «Fuentes y Metodología»."
+  },
+  {
    "at": "2026-10-08T23:22:00Z",
    "modules": [
     "home"
