@@ -96,8 +96,12 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 
 ## Round 3 (owner's second review, 2026-10-04)
 
-- **Summary page.** Opens with a one-sentence thesis (`app.js → thesis()`): three clauses, each linked to its module, each
-  number T1 with its as-of date in the line beneath; a clause whose inputs are missing is dropped. "What to know" is five
+- **Summary page.** Opens with a short thesis (`app.js → thesis()`): three sentences linked to their modules, each number
+  T1; a sentence whose inputs are missing is dropped. Since 2026-10-08 (owner) the thesis carries no ⓘ (its figures open
+  their cards in "What to know" and the KPI row) and the header holds only the thesis, the as-of row, "What to know" and the
+  KPIs: the thesis' source lines (`#thesisMeta`), the coverage sentence, the sources line that opened the footer and the hub
+  data-quality roll-up (`#dqRoll`, `HUB.dqRollup(id, { noLabel: true })`) sit in the page's last section, "Sources and
+  Methodology" (`#sources`, `app.js → sources()`, `.srcmeth` in `hub.css`). Do not put them back in the header. "What to know" is five
   headline lines, each a `<details>` that opens to its detail. Line 2 compares leases signed but not commenced with the
   **undiscounted** payments of recognized leases (XBRL `LesseeOperatingLeaseLiabilityPaymentsDue` +
   `FinanceLeaseLiabilityPaymentsDue`) at the same date; a company without both is left out and named. Line 3 pairs operating
@@ -175,8 +179,8 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - **Summary page.** Thesis in two sentences of at most 35 words: the core six (capex as % of operating cash flow, with a
   source card) and the names of the companies that spent more than their cash flow (Amazon, Oracle and the five neoclouds),
   whose gap is financed with debt and equity while a larger stack of signed obligations sits off the balance sheet (leases
-  not commenced are future obligations, not a source of funds). Every number in the thesis and in the five "What to know"
-  headlines opens its own ⓘ card (form, accession, page, quote); the detail sits behind the expander. Line 5 names the two
+  not commenced are future obligations, not a source of funds). Every number in the five "What to know"
+  headlines opens its own ⓘ card (form, accession, page, quote; the thesis had them too until 2026-10-08); the detail sits behind the expander. Line 5 names the two
   documented concentration cases (CoreWeave: Microsoft 67% of 2025 revenue per the 10-K, largest customer 36% of Q2 2026
   revenue, unnamed in the 10-Q; Core Scientific: CoreWeave 77% of H1 2026 revenue) and says IREN, Nebius and Applied Digital
   give no per-customer share. Oracle T2 capacity figures stay out of the thesis and "What to know".
@@ -217,8 +221,9 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
   hub roll-up (`dqRollup`, ten columns). Of the 20 fillable gaps, 12 are filled (11 TTM derivations with inputs and
   zero periods under `not-tagged.json → derived`, 1 read from the 10-K text) and 8 carry a specific reason each.
   `reviewedBy` is still empty everywhere: "analyst-reviewed: 0 of N" is the truth until the owner signs an item.
-- **Thesis.** One grouping (core six incl. CoreWeave; four listed neoclouds), three sentences of 35 words or fewer,
-  84% labeled an aggregate with Amazon, Oracle and CoreWeave named above OCF; `leaseCmp()` prints "about equal" for
+- **Thesis.** One grouping (core six incl. CoreWeave; four listed neoclouds), three sentences of 35 words or fewer
+  (shortened 2026-10-08: about 65 words in all, no ⓘ, one "Module 3" link for the two capex sentences),
+  84% of the core six's "combined" cash flow (an aggregate) with Amazon, Oracle and CoreWeave named above OCF; `leaseCmp()` prints "about equal" for
   0.95–1.05x (Amazon 1.0x) and `capMult()` prints "more than 10x" when the operating figure is a rounded number in the
   filing (Applied Digital "approximately 100 MW").
 - **Backlog.** `payoff.json → revenueBasis` (segment revenue for Google Cloud and AWS, company revenue otherwise) with a

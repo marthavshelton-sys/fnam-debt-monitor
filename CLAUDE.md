@@ -151,7 +151,9 @@ dashboards, everything built from public data by GitHub Actions.
   source tier (T1 SEC, T2 company, T3 regulator, T4 estimate; FactSet = dated snapshot, not T1 until matched) and an ⓘ
   card; "Not tagged" (absent from XBRL) is never written as "Not disclosed"; nothing is imputed; leases not yet commenced
   are never added to present-value debt; signed leases are compared only with undiscounted recognized lease payments. One unit
-  per page (US$ bn, GW). Thesis, "What to know", module titles and "so what" lines are composed from data. Figures that differ
+  per page (US$ bn, GW). Thesis, "What to know", module titles and "so what" lines are composed from data. Summary page
+  (owner, 2026-10-08): the thesis is three short sentences with no ⓘ; coverage, the thesis' source lines and the hub
+  data-quality roll-up sit in the last section, "Sources and Methodology", not in the header. Figures that differ
   in scope across modules carry a `scope` note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook
   `tools/hyperscalers/README.md` (round 3 section).
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.

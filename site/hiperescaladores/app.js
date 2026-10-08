@@ -115,7 +115,6 @@
     var rpoList = '<span class="kpi-list">' + rpoRows.slice(0, 5).map(function (r) { return '<span>' + esc(r.c.name) + ' <b>' + H.money(r.v) + '</b>' + (r.q ? rpoSrc(r.c, r.q) : H.src({ title: r.c.name + ' · ' + t('compromisos no reconocidos (texto)', 'commitments not yet recognized (text)'), rows: [[t('Nivel', 'Tier'), 'T1 · SEC (' + t('texto de la presentación, sin etiqueta XBRL estándar', 'filing text, no standard XBRL tag') + ')'], [t('Al', 'At'), H.date(r.end)], [t('Motivo', 'Reason'), r.r['note_' + H.lang] || r.r.note_en]].concat(H.citeRows(r.r.src)), url: r.r.src && r.r.src.url })) + ' <span class="muted">' + H.date(r.end) + (r.r ? ' · ' + t('texto', 'text') : '') + '</span></span>'; }).join('') + '</span>';
     var iss = F.debt ? F.debt.deals.reduce(function (s, d) { return s + d.amount; }, 0) * 1e6 : null;
     var issCard = F.debt ? H.src({ title: t('Deuda emitida desde ene-2025', 'Debt issued since Jan-2025'), rows: [[t('Nivel', 'Tier'), t('FactSet (instantánea fechada; no es T1 hasta cotejarse con el 424B/8-K)', 'FactSet (dated snapshot; not T1 until matched to the 424B/8-K)')], [t('Instantánea', 'Snapshot'), H.date(F.debt.pulledAt)], [t('Operaciones', 'Deals'), String(F.debt.deals.length)], [t('Detalle', 'Detail'), t('módulo 3, sección de emisiones, con el cotejo de cada operación', 'module 3, issuance section, with each deal\'s match')]] }) : '';
-    H.dqRollup('dqRoll');
     set('kpis', [
       [t('Capex en efectivo UDM, seis principales', 'Cash capex TTM, core six'), H.money(X && X.total) + capCard, win + (X && X.prev ? ' · ' + t('vs. ', 'vs. ') + H.money(X.prev) + t(' un año antes (', ' a year earlier (') + (P.g > 0 ? '+' : '') + H.num(P.g * 100, 0) + '%). ' : '. ') + (X ? H.offsetNote(X) : '')],
       [t('Capex / flujo de operación', 'Capex / operating cash flow'), H.capexOcf(P && P.r) + ocfCard, t('Seis principales, misma ventana. Lo que queda es el flujo libre antes de dividendos y recompras.', 'Core six, same window. What is left is free cash flow before dividends and buybacks.')],
@@ -130,38 +129,36 @@
   // more than their own cash flow. Sentence 2: the listed neoclouds funded externally (named only when their capex exceeds
   // cash flow, per the funding table). Sentence 3: leases signed but not commenced against recognized lease payments,
   // "about equal" within ±5% of 1.0x. Every number carries its own ⓘ card; a clause whose inputs are missing is dropped.
-  function overCard(list) {
-    return H.src({ title: t('Capex frente a flujo de operación, UDM', 'Capex against operating cash flow, TTM'), rows: list.map(function (c) { var q = latest(c); return [c.name, (q.ttm.ocf > 0 ? H.num(q.ttm.capex_ocf * 100, 0) + '%' : t('flujo de operación ≤ 0', 'operating cash flow ≤ 0')) + ' · ' + t('capex ', 'capex ') + plainMoney(q.ttm.capex_cash) + t(', flujo ', ', OCF ') + plainMoney(q.ttm.ocf) + ' · ' + H.fq(q.id) + (q.ttm.debt_proceeds != null || q.ttm.equity_proceeds != null ? ' · ' + t('deuda emitida ', 'debt issued ') + (q.ttm.debt_proceeds != null ? plainMoney(q.ttm.debt_proceeds) : t('s.e.', 'n.t.')) + t(', acciones ', ', equity ') + (q.ttm.equity_proceeds != null ? plainMoney(q.ttm.equity_proceeds) : t('s.e.', 'n.t.')) : '')]; }).concat([[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL 10-Q/10-K/20-F); fuentes de fondeo en el módulo 3', 'FNAM calculation on T1 figures (10-Q/10-K/20-F XBRL); funding sources in module 3')]]), url: XBRL });
-  }
   function stackCard(LC) {
     return H.src({ title: t('Arrendamientos firmados, aún no iniciados, frente a los ya reconocidos (sin descontar)', 'Leases signed but not commenced against those already recognized (undiscounted)'), rows: LC.map(function (x) { return [x.c.name, plainMoney(x.signed) + t(' firmados frente a ', ' signed vs. ') + plainMoney(x.rec) + t(' reconocidos (', ' recognized (') + H.num(x.signed / x.rec, 1) + 'x, ' + H.leaseCmpText(x.signed / x.rec) + ') · ' + H.date(x.i.asOf) + ' · ' + x.i.filing.form + ' p. ' + (x.i.filing.page || '') + (x.flZero ? ' · ' + t('sin arrendamientos financieros (pagos reconocidos = solo operativos)', 'no finance leases (recognized payments = operating only)') : '')]; }).concat([[t('Regla', 'Rule'), t('«casi iguales» = razón entre 0.95x y 1.05x; «superan» = más de 1.05x', '"about equal" = ratio between 0.95x and 1.05x; "exceed" = above 1.05x')], [t('Base', 'Basis'), t('pagos futuros sin descontar en ambos lados; lo firmado entra al balance cuando se entrega cada centro de datos y nunca se suma a la deuda. Son obligaciones futuras: no financian el capex de hoy.', 'future payments, undiscounted on both sides; signed leases enter the balance sheet as each data center is delivered and are never added to debt. They are future obligations: they do not fund today\'s capex.')], [t('Nivel', 'Tier'), 'T1 · SEC (' + t('notas de arrendamientos; tabla de vencimientos en XBRL', 'lease notes; maturity tables in XBRL') + ')']]), url: XBRL });
   }
   function names(L) { var n = L.map(function (c) { return c.name; }); return n.length > 1 ? n.slice(0, -1).join(', ') + t(' y ', ' and ') + n[n.length - 1] : (n[0] || ''); }
+  // The thesis carries no ⓘ (owner, 2026-10-08): its figures open their source cards in "What to know" and in the KPI row
+  // just below, and its source lines print in the page's last section, "Sources and methodology" (#thesisMeta, sources()).
+  // Three short sentences; the two that lead to module 3 share one link.
   function thesis() {
-    var P = pace(), over = overOcf(), LC = leaseCompare(), parts = [], meta = [];
+    var P = pace(), over = overOcf(), LC = leaseCompare(), parts = [], meta = [], m3 = [];
     var coreOver = CORE.filter(function (c) { return over.indexOf(c) >= 0; }), neoOver = NEO.filter(function (c) { return over.indexOf(c) >= 0; });
     if (P && P.r != null && P.r <= H.CO_MAX && P.X.rows.length === CORE.length) {
       var X = P.X, win = H.date(X.calEnd);
-      var ocfCard = H.src({ title: t('Capex / flujo de operación, seis principales (agregado)', 'Capex / operating cash flow, core six (aggregate)'), rows: [[t('Ventana', 'Window'), t('UDM al ', 'TTM to ') + H.cq(X.cal) + t(' calendario (', ' (calendar, ') + win + ')']].concat(X.rows.map(function (r) { return [r.c.name, t('capex ', 'capex ') + plainMoney(r.q.ttm.capex_cash) + t(' · flujo de op. ', ' · OCF ') + plainMoney(r.q.ttm.ocf) + ' · ' + (r.q.ttm.ocf > 0 ? pctS(r.q.ttm.capex_cash / r.q.ttm.ocf) : t('flujo ≤ 0', 'OCF ≤ 0')) + ' · ' + H.fq(r.q.id)]; })).concat([[t('Suma', 'Sum'), plainMoney(X.total) + ' / ' + plainMoney(P.ocf) + ' = ' + pctS(P.r) + t(' (agregado: no es la razón de ninguna empresa)', ' (an aggregate: no single company\'s ratio)')], [t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL 10-Q/10-K)', 'FNAM calculation on T1 figures (10-Q/10-K XBRL)')]]), url: XBRL });
-      var s1 = t('Los seis principales destinaron ' + pctS(P.r), 'The core six put ' + pctS(P.r)) + ocfCard + t(' de su flujo de operación a capex en los doce meses a ' + win + ', un agregado', ' of operating cash flow into capex in the twelve months to ' + win + ', an aggregate') + (coreOver.length ? t(': ' + names(coreOver) + (coreOver.length > 1 ? ' gastaron cada una' : ' gastó') + ' más que su propio flujo', ': ' + names(coreOver) + ' each spent more than ' + (coreOver.length > 1 ? 'their' : 'its') + ' own cash flow') + overCard(coreOver) : t(': ninguna gastó más que su propio flujo', ': none spent more than its own cash flow')) + '.';
-      parts.push(s1 + ' ' + mod('capex', 3, t('Módulo 3', 'Module 3')));
+      m3.push(t('Los seis principales destinaron ' + pctS(P.r) + ' de su flujo de operación conjunto a capex en los doce meses al ' + win, 'The core six put ' + pctS(P.r) + ' of their combined operating cash flow into capex in the twelve months to ' + win) + '; ' + (coreOver.length ? t(names(coreOver) + (coreOver.length > 1 ? ' gastaron' : ' gastó') + ' más que su propio flujo', names(coreOver) + ' spent more than ' + (coreOver.length > 1 ? 'their' : 'its') + ' own') : t('ninguna gastó más que su propio flujo', 'none spent more than its own')) + '.');
       meta.push(H.tier('C') + ' ' + t('capex y flujo: XBRL de 10-Q/10-K, UDM al ', 'capex and cash flow: 10-Q/10-K XBRL, TTM to ') + win + (X.offsets.length ? '; ' + H.offsetNote(X).replace(/\.$/, '') : ''));
     }
     if (neoOver.length) {
-      var s2 = (neoOver.length === NEO.length ? t('Las cuatro neonubes listadas, ' + names(NEO) + ', se financian afuera', 'The four listed neoclouds, ' + names(NEO) + ', are funded externally') : t(names(neoOver) + ' se financia' + (neoOver.length > 1 ? 'n' : '') + ' afuera', names(neoOver) + (neoOver.length > 1 ? ' are' : ' is') + ' funded externally')) + overCard(neoOver) + t(': deuda y capital cubren el capex que excede su flujo de operación.', ': debt and equity cover capex above operating cash flow.');
-      parts.push(s2 + ' ' + mod('capex', 3, t('Módulo 3', 'Module 3')));
+      m3.push((neoOver.length === NEO.length ? t('Las cuatro neonubes listadas cubren', 'The four listed neoclouds fund') : t(names(neoOver) + (neoOver.length > 1 ? ' cubren' : ' cubre'), names(neoOver) + (neoOver.length > 1 ? ' fund' : ' funds'))) + t(' con deuda y capital el capex que excede su flujo.', ' capex beyond ' + (neoOver.length > 1 ? 'their' : 'its') + ' cash flow with debt and equity.'));
       meta.push(H.tier('T1') + ' ' + t('capex, flujo y fondeo: XBRL de 10-Q/10-K/20-F, UDM al cierre de cada empresa', 'capex, cash flow and funding: 10-Q/10-K/20-F XBRL, TTM to each company\'s latest quarter'));
     }
+    if (m3.length) parts.push(m3.join(' ') + ' ' + mod('capex', 3, t('Módulo 3', 'Module 3')));
     if (LC.length >= 2) {
       var ab = LC.filter(function (x) { return H.leaseCmp(x.signed / x.rec) === 'above'; }), eq = LC.filter(function (x) { return H.leaseCmp(x.signed / x.rec) === 'equal'; }), be = LC.filter(function (x) { return H.leaseCmp(x.signed / x.rec) === 'below'; });
       var tail = (eq.length ? '; ' + t('en ' + names(eq.map(function (x) { return x.c; })) + ' son casi iguales', names(eq.map(function (x) { return x.c; })) + '\'s are about equal') : '') + (be.length ? '; ' + t('en ' + names(be.map(function (x) { return x.c; })) + ' no alcanzan', names(be.map(function (x) { return x.c; })) + '\'s fall short') : '');
-      var s3 = t('Fuera del balance, los arrendamientos firmados sin iniciar superan los pagos de los ya reconocidos en ' + ab.length + ' de ' + LC.length + ' empresas con cifras comparables', 'Off the balance sheet, leases signed but not yet commenced exceed the payments on recognized leases at ' + ab.length + ' of ' + LC.length + ' companies with comparable figures') + stackCard(LC) + tail + '.';
-      parts.push(s3 + ' ' + mod('fuera-de-balance', 6, t('Módulo 6', 'Module 6')));
+      parts.push(t('Los arrendamientos firmados sin iniciar superan los pagos de los ya reconocidos en ' + ab.length + ' de ' + LC.length + ' empresas comparables', 'Leases signed but not commenced exceed payments on recognized leases at ' + ab.length + ' of ' + LC.length + ' comparable companies') + tail + '. ' + mod('fuera-de-balance', 6, t('Módulo 6', 'Module 6')));
       meta.push(H.tier('T1') + ' ' + t('arrendamientos: notas de 10-K/10-Q/20-F y tabla de vencimientos (XBRL), al ', 'leases: 10-K/10-Q/20-F notes and maturity tables (XBRL), at ') + uniq(LC.map(function (x) { return H.date(x.i.asOf); })).join(', '));
     }
+    var k = $('thesisMetaK'); if (k) k.hidden = !parts.length;
     if (!parts.length) { set('thesis', ''); set('thesisMeta', ''); return; }
     set('thesis', parts.map(function (x) { return '<span class="ts">' + x + '</span>'; }).join(' '));
-    set('thesisMeta', meta.join(' · ') + ' · <b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(F.refreshedET));
+    set('thesisMeta', meta.concat(['<b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(F.refreshedET)]).map(function (x) { return '<li>' + x + '</li>'; }).join(''));
   }
 
   // ---- What to know: five headline lines, each opening to its detail; every number T1 except the labeled inference
@@ -437,8 +434,16 @@
       '<a class="tile" href="/hiperescaladores/glosario/"><div class="k">' + t('Referencia', 'Reference') + '</div><h3>' + t('Glosario', 'Glossary') + '</h3><p>' + t('RPO, ASC 842, ASC 810, EIV, SPV, MW de TI y los demás términos, en lenguaje llano.', 'RPO, ASC 842, ASC 810, VIE, SPV, IT MW and the other terms, in plain language.') + '</p></a>');
   }
 
-  function foot() {
-    set('foot', t('FNAM. Fuentes: SEC EDGAR, materiales de las empresas, FactSet (instantáneas fechadas), estimaciones de terceros (T4, siempre aparte). Cifras en dólares estadounidenses (miles de millones) y GW; marcas de tiempo en hora del Este de EE. UU. (ET). ', 'FNAM. Sources: SEC EDGAR, company materials, FactSet (dated snapshots), third-party estimates (T4, always apart). Figures in US dollars (billions) and GW; timestamps in US Eastern time (ET). ') + '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.'));
+  // last section, "Sources and methodology" (owner, 2026-10-08): coverage (static text), the sources line that used to open
+  // the footer, the thesis' source lines (written by thesis()) and the hub data-quality roll-up, which left the header
+  function sources() {
+    var links = '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a>';
+    set('srcNote', t('SEC EDGAR, materiales de las empresas, FactSet (instantáneas fechadas), estimaciones de terceros (T4, siempre aparte). Cifras en dólares estadounidenses (miles de millones) y GW; marcas de tiempo en hora del Este de EE. UU. (ET).', 'SEC EDGAR, company materials, FactSet (dated snapshots), third-party estimates (T4, always apart). Figures in US dollars (billions) and GW; timestamps in US Eastern time (ET).'));
+    H.dqRollup('dqRoll', { noLabel: true });
+    set('srcMore', t('Reglas completas: ', 'Full rules: ') + links);
   }
-  H.onLang(function () { header(); thesis(); whatToKnow(); paths(); heat(); changed(); calendar(); groups(); ocfChart(); ttmTrend(); tiles(); foot(); });
+  function foot() {
+    set('foot', 'FNAM. <a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.'));
+  }
+  H.onLang(function () { header(); thesis(); whatToKnow(); paths(); heat(); changed(); calendar(); groups(); ocfChart(); ttmTrend(); tiles(); sources(); foot(); });
 })();
