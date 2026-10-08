@@ -2,11 +2,13 @@
 #
 #   poll    every day, twice (13:20 UTC ≈ 09:20 ET, after the overnight filings; 22:20 UTC ≈ 18:20 ET, after the
 #           evening 8-Ks): SEC EDGAR submissions API (new 8-K / 10-Q / 10-K / 10-K/A / 20-F / 6-K / 424B) and XBRL
-#           companyfacts for the ten companies → tools/hyperscalers/data/xbrl, filings.json, state.json; then the build
-#           (quarters, TTM, ratios, debt deals, change log, CSVs) and the validator (quality pages).
+#           companyfacts for the five covered companies (submissions only for the counterparties of module Circular) →
+#           tools/hyperscalers/data/xbrl, filings.json, state.json; then the build (quarters, TTM, ratios, debt deals,
+#           change log, CSVs) and the validator (quality pages).
 #   notes   when a new 10-K / 10-Q / 20-F arrives (or on dispatch with mode=notes): downloads the filing on this runner
-#           and keeps the off-balance-sheet passages with their page numbers in tools/hyperscalers/raw/notes/. Figures
-#           from text enter the page only through tools/hyperscalers/data/offbs.json, as "needs review" until verified.
+#           (covered companies and Circular counterparties) and keeps the passages with their page numbers in
+#           tools/hyperscalers/raw/notes/. Figures from text enter the page only through the curated files, as "needs
+#           review" until verified.
 #
 # A run commits only when data changed; bot commits carry [skip actions]. Three failed EDGAR polls in a row open one
 # "SOURCE DOWN: Hyperscalers - ..." issue (label hyperscalers-health), closed on recovery. FactSet snapshots and
@@ -60,7 +62,7 @@ jobs:
           if [ "$MODE" = "notes" ] || [ "$MODE" = "all" ] || [ "$NEW" = "yes" ]; then echo "notes=yes" >> "$GITHUB_OUTPUT"; else echo "notes=no" >> "$GITHUB_OUTPUT"; fi
           echo "mode=$MODE new_periodic_filing=$NEW"
 
-      - name: Harvest off-balance-sheet notes (new 10-K / 10-Q / 20-F)
+      - name: Harvest filing notes (new 10-K / 10-Q / 20-F)
         if: steps.plan.outputs.notes == 'yes'
         env:
           EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx hyperscaler-hub (contact via repository)' }}
@@ -69,7 +71,7 @@ jobs:
       - name: Build module data
         run: node scripts/hyperscalers/build.mjs
 
-      - name: Build modules 1, 2, 4, 5, 7 (capacity, sites, power, circular)
+      - name: Build the curated modules (power, circular, payoff)
         run: node scripts/hyperscalers/build-modules.mjs
 
       - name: Validate (writes the quality pages)

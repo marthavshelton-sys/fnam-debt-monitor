@@ -74,7 +74,8 @@ export function calQuarter(y, m) {
   return `${y}-Q${Math.ceil(mm / 3)}`;
 }
 
-// ---- harvested filing passages (tools/hyperscalers/raw/notes/<T>/<accn>.json) keyed "<TICKER> <form> <period end>",
+// ---- harvested filing passages (tools/hyperscalers/raw/notes/<T>/<accn>.json) keyed "<TICKER> <form> <period end>" for the
+// covered companies and the counterparties of module Circular (companies.json → counterparties; pass both lists),
 // and the mechanical quote check every curated citation goes through: the quoted sentence must appear in the harvested
 // text of the cited page ("page"), else on another page ("other_page") or nowhere ("not_found"). The check is automated
 // and does not replace an analyst's review (reviewedBy).
@@ -135,7 +136,7 @@ export function quoteCheckAccn(FILINGS, accn, page, quote) {
 
 // SEC periodic-report deadlines by filer category (Exchange Act Forms 10-Q and 10-K general instructions): 10-Q 40 days for
 // large accelerated and accelerated filers, 45 for non-accelerated; 10-K 60 / 75 / 90 days; 20-F 120 days after the fiscal
-// year-end. "Non-accelerated filer" must not match /accelerated/ loosely (CoreWeave is non-accelerated: 45 and 90 days).
+// year-end. "Non-accelerated filer" must not match /accelerated/ loosely (a non-accelerated filer gets 45 and 90 days).
 export function filerDays(category) {
   const c = String(category || '').trim();
   if (/^large accelerated/i.test(c)) return { q: 40, k: 60, label: 'large accelerated filer' };

@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Electricidad · Hiperescaladores | FNAM</title>
-<meta name="description" content="Contratos de energía de los hiperescaladores y neonubes (nuclear, gas, renovables, celdas de combustible), separados de las proyecciones de la red de EIA, NERC, ERCOT, PJM, LBNL e IEA.">
+<meta name="description" content="Contratos de energía de Microsoft, Alphabet, Amazon, Meta y Oracle (nuclear, gas, renovables, celdas de combustible), separados de las proyecciones de la red de EIA, NERC, ERCOT, PJM, LBNL e IEA.">
 <link rel="canonical" href="https://fnam.mx/hiperescaladores/electricidad/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FNAM">
 <meta property="og:title" content="Electricidad · Hiperescaladores | FNAM">
-<meta property="og:description" content="Contratos de energía de los hiperescaladores y neonubes (nuclear, gas, renovables, celdas de combustible), separados de las proyecciones de la red de EIA, NERC, ERCOT, PJM, LBNL e IEA.">
+<meta property="og:description" content="Contratos de energía de Microsoft, Alphabet, Amazon, Meta y Oracle (nuclear, gas, renovables, celdas de combustible), separados de las proyecciones de la red de EIA, NERC, ERCOT, PJM, LBNL e IEA.">
 <meta property="og:url" content="https://fnam.mx/hiperescaladores/electricidad/">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="en_US">
@@ -27,8 +27,6 @@
 <script src="/hiperescaladores/data/financials.js" defer></script>
 <script src="/hiperescaladores/data/status.js" defer></script>
 <script src="/hiperescaladores/data/power.js" defer></script>
-<script src="/hiperescaladores/data/capacity.js" defer></script>
-<script src="/hiperescaladores/data/payoff.js" defer></script>
 <script src="/hiperescaladores/data/scope.js" defer></script>
 <script src="/hiperescaladores/assets/hub.js" defer></script>
 </head>
@@ -41,7 +39,7 @@
       <a class="fnam-brand" href="/" aria-label="FNAM"><span class="fnam-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg></span><span class="fnam-word">FNAM</span></a>
       <a class="fnam-back" href="/hiperescaladores/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg><span class="es">Centro de Hiperescaladores</span><span class="en" hidden>Hyperscaler Hub</span></a>
     </div>
-    <span class="eyebrow"><span class="live" data-status-dot="hyperscalers"></span><span class="es">Módulo 4 · Empresas (T1/T2) y red (T3/T4)</span><span class="en" hidden>Module 4 · Companies (T1/T2) and grid (T3/T4)</span></span>
+    <span class="eyebrow"><span class="live" data-status-dot="hyperscalers"></span><span class="es">Módulo 2 · Empresas (T1/T2) y red (T3/T4)</span><span class="en" hidden>Module 2 · Companies (T1/T2) and grid (T3/T4)</span></span>
     <h1><span class="es">Electricidad</span><span class="en" hidden>Electricity</span></h1>
     <p class="lede"><span class="es">Dos cosas distintas que nunca se suman: arriba, los contratos de energía de cada empresa según sus presentaciones o anuncios; abajo, lo que dicen los reguladores, operadores de red y estimadores independientes sobre la demanda de los centros de datos y la red que debe atenderla.</span><span class="en" hidden>Two different things that are never added together: above, each company's power contracts per its filings or announcements; below, what regulators, grid operators and independent estimators say about data center demand and the grid that must serve it.</span></p>
     <div class="asof-row" id="asofRow"></div>
@@ -52,14 +50,11 @@
 <nav class="mods" aria-label="Módulos / Modules">
   <div class="wrap">
     <a href="/hiperescaladores/"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
-    <a href="/hiperescaladores/capacidad/"><span class="n">1</span><span class="es">Capacidad</span><span class="en" hidden>Capacity</span></a>
-    <a href="/hiperescaladores/comprometida/"><span class="n">2</span><span class="es">Comprometida</span><span class="en" hidden>Committed</span></a>
-    <a href="/hiperescaladores/capex/"><span class="n">3</span><span class="es">Capex</span><span class="en" hidden>Capex</span></a>
-    <a href="/hiperescaladores/electricidad/" class="active" aria-current="page"><span class="n">4</span><span class="es">Energía</span><span class="en" hidden>Power</span></a>
-    <a href="/hiperescaladores/sitios/"><span class="n">5</span><span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
-    <a href="/hiperescaladores/fuera-de-balance/"><span class="n">6</span><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
-    <a href="/hiperescaladores/circular/"><span class="n">7</span><span class="es">Circular</span><span class="en" hidden>Circular</span></a>
-    <a href="/hiperescaladores/retorno/"><span class="n">8</span><span class="es">Retorno</span><span class="en" hidden>Payoff</span></a>
+    <a href="/hiperescaladores/capex/"><span class="n">1</span><span class="es">Capex</span><span class="en" hidden>Capex</span></a>
+    <a href="/hiperescaladores/electricidad/" class="active" aria-current="page"><span class="n">2</span><span class="es">Energía</span><span class="en" hidden>Power</span></a>
+    <a href="/hiperescaladores/fuera-de-balance/"><span class="n">3</span><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
+    <a href="/hiperescaladores/circular/"><span class="n">4</span><span class="es">Circular</span><span class="en" hidden>Circular</span></a>
+    <a href="/hiperescaladores/retorno/"><span class="n">5</span><span class="es">Retorno</span><span class="en" hidden>Payoff</span></a>
     <a href="/hiperescaladores/metodologia/"><span class="es">Metodología</span><span class="en" hidden>Methodology</span></a>
     <a href="/hiperescaladores/glosario/"><span class="es">Glosario</span><span class="en" hidden>Glossary</span></a>
   </div>
@@ -68,8 +63,7 @@
 <nav class="jump" aria-label="Secciones / Sections"><div class="wrap">
   <a href="#deals">01 <span class="es">Contratos de Energía de las Empresas</span><span class="en" hidden>The Companies' Power Contracts</span></a>
   <a href="#searched">02 <span class="es">Lo Que No Revelan</span><span class="en" hidden>What They Do Not Disclose</span></a>
-  <a href="#bridge">03 <span class="es">De GW a TWh (cálculo FNAM)</span><span class="en" hidden>From GW to TWh (FNAM calculation)</span></a>
-  <a href="#grid">04 <span class="es">La Red: Reguladores y Estimaciones</span><span class="en" hidden>The Grid: Regulators and Estimates</span></a>
+  <a href="#grid">03 <span class="es">La Red: Reguladores y Estimaciones</span><span class="en" hidden>The Grid: Regulators and Estimates</span></a>
 </div></nav>
 
 <main class="wrap">
@@ -81,12 +75,8 @@
     <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Lo Que No Revelan</span><span class="en" hidden>What They Do Not Disclose</span></h2></div>
     <p class="sec-desc" id="srDesc"></p><div class="card"><div class="tblwrap" id="srTbl"></div></div>
   </section>
-  <section class="block" id="bridge">
-    <div class="sec-head"><span class="sec-num">03</span><h2 id="brH"><span class="es">De GW Contratados a TWh al Año (Cálculo FNAM)</span><span class="en" hidden>From Contracted GW to TWh a Year (FNAM Calculation)</span></h2></div>
-    <p class="sec-desc" id="brDesc"></p><div class="card"><div class="tblwrap" id="brTbl"></div><div id="brStamp"></div></div>
-  </section>
   <section class="block" id="grid">
-    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">La Red: Reguladores y Estimaciones</span><span class="en" hidden>The Grid: Regulators and Estimates</span></h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">La Red: Reguladores y Estimaciones</span><span class="en" hidden>The Grid: Regulators and Estimates</span></h2></div>
     <p class="sec-desc" id="grDesc"></p><div class="grid-2" id="grGrid"></div><div id="grStamp"></div>
   </section>
 </main>

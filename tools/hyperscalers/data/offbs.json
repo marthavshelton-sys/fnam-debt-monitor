@@ -545,198 +545,6 @@
    "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
-  },
-  {
-   "ticker": "CRWV",
-   "item": "leases_not_commenced",
-   "amountUSDm": 35500,
-   "basis": "undiscounted",
-   "asOf": "2026-06-30",
-   "filing": {
-    "form": "10-Q",
-    "accn": "0001769628-26-000366",
-    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
-    "section": "Note 8 — Leases (leases not yet commenced)",
-    "page": "24"
-   },
-   "quote": "As of June 30, 2026, the Company executed additional lease agreements, primarily for data centers, equipment, and office buildings, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $35.5 billion. These leases will commence between 2026 and 2029 with estimated lease terms of seven to sixteen years. Not included in the preceding amount of estimated future undiscounted lease payments are the following lease arrangements, which include significant uncertainties regarding the amount of future lease payments.",
-   "commence": {
-    "from": "2026",
-    "to": "2029"
-   },
-   "termYears": [
-    7,
-    16
-   ],
-   "accounting": "ASC 842",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "CRWV",
-   "item": "vie_unconsolidated",
-   "amountUSDm": 1700,
-   "basis": "max_exposure",
-   "asOf": "2026-06-30",
-   "counterparty": "Data center joint ventures",
-   "filing": {
-    "form": "10-Q",
-    "accn": "0001769628-26-000366",
-    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
-    "section": "Note — Variable interest entities (joint ventures)",
-    "page": "16"
-   },
-   "quote": "The Company's maximum exposure to loss related to these joint ventures is limited to its total funding commitments of $1.7 billion as of June 30, 2026. The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment and is included in other non-current assets on the condensed consolidated balance sheets.",
-   "accounting": "ASC 810 / ASC 323",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "CRWV",
-   "item": "spv",
-   "amountUSDm": 1800,
-   "basis": "undiscounted",
-   "asOf": "2026-06-30",
-   "counterparty": "Equipment Lessor (special-purpose entities sponsored by a third-party financial investor)",
-   "includedIn": "leases_not_commenced",
-   "filing": {
-    "form": "10-Q",
-    "accn": "0001769628-26-000366",
-    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
-    "section": "Note 8 — Leases",
-    "page": "25"
-   },
-   "quote": "The Company also entered into an equipment lease with a group of special-purpose entities (the \"Equipment Lessor\") sponsored by a third-party financial investor... the Company is not the primary beneficiary and does not consolidate the Equipment Lessor. The Company's maximum exposure to loss under this lease consists of its committed payments, which total approximately $1.8 billion as of June 30, 2026 and are included within aggregate estimated future undiscounted lease payments, as disclosed in the Leases Not Yet Commenced section.",
-   "note_en": "Already inside the $35.5bn of leases not yet commenced; not additional.",
-   "note_es": "Ya incluido en los US$35.5 mil M de arrendamientos no iniciados; no es adicional.",
-   "accounting": "ASC 842 / ASC 810",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "NBIS",
-   "item": "leases_not_commenced",
-   "amountUSDm": 9759.6,
-   "basis": "undiscounted",
-   "asOf": "2025-12-31",
-   "filing": {
-    "form": "20-F",
-    "accn": "0001104659-26-052948",
-    "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/0001104659-26-052948-index.htm",
-    "section": "Note 8 — Leases",
-    "page": "not printed (130th page of the document)"
-   },
-   "quote": "As of December 31, 2025, the Group executed additional lease agreements, primarily for data centers, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $9,759.6 [million] and the Group has already made a prepayment of $271.0 [million] as of December 31, 2025. These leases will commence between 2026 and 2027 with estimated lease terms up to eleven years.",
-   "commence": {
-    "from": "2026",
-    "to": "2027"
-   },
-   "termYears": [
-    null,
-    11
-   ],
-   "accounting": "ASC 842",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "IREN",
-   "item": "spv",
-   "amountUSDm": 3645,
-   "basis": "notional",
-   "asOf": "2026-06-30",
-   "counterparty": "Microsoft contract financing (Financing SPV, consolidated)",
-   "filing": {
-    "form": "10-K",
-    "accn": "0001878848-26-000052",
-    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/0001878848-26-000052-index.htm",
-    "section": "Item 7 — Liquidity (p. 124); Note 23 — Debt (176th page)",
-    "page": "124; 176th page (no printed number)"
-   },
-   "quote": "In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company... As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded. ... The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable interest entity).",
-   "note_en": "Consolidated: the drawn amounts are already in debt; the undrawn remainder ($2,707m) is a commitment, not a liability. Parent guarantees cover the remarketing right and hedges, stepping down tranche by tranche.",
-   "note_es": "Consolidado: lo dispuesto ya está en la deuda; el remanente no dispuesto (US$2,707 M) es un compromiso, no un pasivo. Las garantías de la matriz cubren el derecho de recomercialización y las coberturas, y bajan por tramo.",
-   "accounting": "ASC 810 (consolidated VIE)",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "APLD",
-   "item": "spv",
-   "amountUSDm": 4500,
-   "basis": "carrying",
-   "asOf": "2026-05-31",
-   "counterparty": "APLD ComputeCo and APLD ComputeCo 2 (project subsidiaries)",
-   "filing": {
-    "form": "10-K",
-    "accn": "0001144879-26-000048",
-    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/0001144879-26-000048-index.htm",
-    "section": "Item 7 — Financing (2030 9.250% and 2031 6.750% Notes)",
-    "page": "49"
-   },
-   "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par.",
-   "note_en": "Amount = US$2,350m (2030 9.250% notes, 10-Q for 28 Feb 2026 p. 19 and the debt table p. 17) + US$2,150m (2031 6.750% notes, 10-K p. 49), the principal amounts the filings state; FactSet shows the same amounts outstanding at 31 May 2026. Consolidated, so already in debt; the point is recourse: project-level, with only completion guarantees from the parent.",
-   "note_es": "Monto = US$2,350 M (notas 9.250% 2030, 10-Q al 28 feb 2026 p. 19 y tabla de deuda p. 17) + US$2,150 M (notas 6.750% 2031, 10-K p. 49), los principales que indican las presentaciones; FactSet muestra los mismos montos vigentes al 31 may 2026. Consolidado, ya está en la deuda; lo relevante es el recurso: a nivel proyecto, con solo garantías de terminación de la matriz.",
-   "accounting": "ASC 810 (consolidated subsidiaries)",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited pages in the harvested SEC text (US$2.35bn on 10-Q p. 19 and p. 17; US$2.15bn on 10-K p. 49; recourse terms on 10-K pp. 48–49)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "filing2": {
-    "form": "10-Q",
-    "accn": "0001144879-26-000030",
-    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000030/0001144879-26-000030-index.htm",
-    "section": "Note 6 — Debt (2030 Senior Secured Notes)",
-    "page": "19",
-    "quote": "The aggregate principal amount of Notes sold in the offering was $2.35 billion. The 2030 Notes were issued at a price equal to 97% of their aggregate principal amount."
-   },
-   "reviewedBy": null
-  },
-  {
-   "ticker": "APLD",
-   "item": "vie_unconsolidated",
-   "amountUSDm": 60.6,
-   "basis": "max_exposure",
-   "asOf": "2026-05-31",
-   "counterparty": "Base Electron Corp. (related-party power developer, ~10% owned)",
-   "filing": {
-    "form": "10-K",
-    "accn": "0001144879-26-000048",
-    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/0001144879-26-000048-index.htm",
-    "section": "Note 11 — Variable interest entities (unconsolidated VIE)",
-    "page": "105"
-   },
-   "quote": "As of May 31, 2026, the carrying value of the Company's investment in Base Electron was $2.0 million and the outstanding balance of the related party promissory note w",
-   "note_en": "Maximum exposure = US$2.0m investment (ASC 321, at cost) + US$58.6m related-party promissory note (10-K p. 93, p. 101): FNAM sum of the two disclosed figures. Base Electron is a VIE Applied Digital does not consolidate (not the primary beneficiary).",
-   "note_es": "Exposición máxima = inversión de US$2.0 M (ASC 321, al costo) + pagaré con parte relacionada de US$58.6 M (10-K p. 93, p. 101): suma FNAM de las dos cifras divulgadas. Base Electron es una EIV que Applied Digital no consolida (no es beneficiario primario).",
-   "accounting": "ASC 810",
-   "tier": "T1",
-   "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the harvested SEC text (investment and note balances confirmed on pp. 93, 101 and 105)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner",
-   "reviewedBy": null
   }
  ],
  "searched": [
@@ -748,15 +556,6 @@
    "accn": "0001193125-26-389274",
    "note_en": "No residual value guarantee passage in the FY2026 10-K or the August 31, 2026 10-Q (harvested text).",
    "note_es": "Sin pasaje de garantía de valor residual en el 10-K del AF2026 ni en el 10-Q al 31 de agosto de 2026 (texto cosechado)."
-  },
-  {
-   "ticker": "APLD",
-   "item": "rvg",
-   "result": "none",
-   "asOf": "2026-05-31",
-   "accn": "0001144879-26-000048",
-   "note_en": "10-K p. 120: \"The Company's lease agreements do not contain any material residual value guarantees.\"",
-   "note_es": "10-K p. 120: los contratos de arrendamiento \"no contienen garantías de valor residual materiales\"."
   },
   {
    "ticker": "MSFT",
@@ -775,15 +574,6 @@
    "accn": "0001628280-26-050705",
    "note_en": "The Venture (20%) funds ~$27bn of development costs pro rata; its borrowings are not stated in Meta's filing, so the look-through share cannot be computed from T1.",
    "note_es": "La coinversión (20%) financia ~US$27 mil M de desarrollo a prorrata; su deuda no aparece en la presentación de Meta, así que la parte proporcional no puede calcularse con T1."
-  },
-  {
-   "ticker": "CORZ",
-   "item": "leases_not_commenced",
-   "result": "none",
-   "asOf": "2026-06-30",
-   "accn": "0001839341-26-000014",
-   "note_en": "Core Scientific is the lessor: its $3.1bn of leases not yet commenced (10-Q p. 17) are payments it expects to receive (from CoreWeave), not obligations.",
-   "note_es": "Core Scientific es el arrendador: sus US$3.1 mil M de arrendamientos no iniciados (10-Q p. 17) son pagos que espera recibir (de CoreWeave), no obligaciones."
   },
   {
    "ticker": "MSFT",
@@ -820,51 +610,6 @@
    "accn": "0001193125-26-389274",
    "note_en": "No joint venture is described; the FY2026 10-K mentions a guarantee of up to $3.3bn of one lessor's borrowing (see the guarantee item).",
    "note_es": "No se describe coinversión; el 10-K del AF2026 menciona una garantía de hasta US$3.3 mil M de la deuda de un arrendador (ver la partida de garantía)."
-  },
-  {
-   "ticker": "CRWV",
-   "item": "jv_equity_method_debt",
-   "result": "amount_not_disclosed",
-   "asOf": "2026-06-30",
-   "accn": "0001769628-26-000366",
-   "note_en": "Data center joint ventures exist (maximum exposure $1.7bn of funding commitments); their borrowings are not stated.",
-   "note_es": "Existen coinversiones de centros de datos (exposición máxima US$1.7 mil M de compromisos de fondeo); su deuda no se revela."
-  },
-  {
-   "ticker": "NBIS",
-   "item": "jv_equity_method_debt",
-   "result": "none",
-   "asOf": "2025-12-31",
-   "accn": "0001104659-26-052948",
-   "note_en": "No datacenter joint venture is described in the 20-F.",
-   "note_es": "El 20-F no describe coinversiones de centros de datos."
-  },
-  {
-   "ticker": "IREN",
-   "item": "jv_equity_method_debt",
-   "result": "none",
-   "asOf": "2026-06-30",
-   "accn": "0001878848-26-000052",
-   "note_en": "No joint venture; the Microsoft-contract Financing SPV is a consolidated subsidiary (its debt is on the balance sheet).",
-   "note_es": "Sin coinversiones; el SPV de financiamiento del contrato con Microsoft es subsidiaria consolidada (su deuda está en el balance)."
-  },
-  {
-   "ticker": "APLD",
-   "item": "jv_equity_method_debt",
-   "result": "none",
-   "asOf": "2026-05-31",
-   "accn": "0001144879-26-000048",
-   "note_en": "No datacenter joint venture; the only unconsolidated VIE is Base Electron (maximum exposure $60.6m: $2.0m investment + $58.6m note, 10-K p. 105).",
-   "note_es": "Sin coinversiones de centros de datos; la única EIV no consolidada es Base Electron (exposición máxima US$60.6 M, 10-K p. 105)."
-  },
-  {
-   "ticker": "CORZ",
-   "item": "jv_equity_method_debt",
-   "result": "none",
-   "asOf": "2026-06-30",
-   "accn": "0001839341-26-000014",
-   "note_en": "No joint venture is described.",
-   "note_es": "No se describe coinversión."
   }
  ],
  "pageCites": [
@@ -888,5 +633,5 @@
    "note_es": "Línea del estado de flujos del trimestre al 31 ago 2026 (US$ millones; ninguna en el trimestre comparable). El MD&A, p. 33, describe el mismo flujo como «$11.4 billion of customer prepayments with a significant financing component»."
   }
  ],
- "updatedAt": "2026-10-04T14:44:12Z"
+ "updatedAt": "2026-10-08T16:30:00Z"
 }

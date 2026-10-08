@@ -1,32 +1,28 @@
-// Hyperscaler Hub: modules 1, 2, 4, 5 and 7 (capacity, committed capacity, electricity, sites, circular financing).
-// Runs after build.mjs. Reads the curated files in tools/hyperscalers/data/ (capacity, sites, power, circular), the
-// harvested filing passages in raw/notes/ and, for Oracle, the Oracle model's store (tools/oracle/data/buildout.json,
-// sources.json). For every filing citation it resolves the key "<TICKER> <form> <period end>" to the accession and URL
-// and checks that the quoted sentence appears in the harvested text of the cited page ("quote matched"); that check is
-// mechanical and does not replace the second reading that turns "needs review" into "verified".
-// Writes site/hiperescaladores/data/{capacity,sites,power,circular}.js, the module CSVs and data/modules-log.json.
+// Hyperscaler Hub: the curated modules Power (2), Circular (4) and Payoff (5), plus the scope notes. Runs after build.mjs.
+// Reads the curated files in tools/hyperscalers/data/ (power, circular, payoff, scope) and the harvested filing passages in
+// raw/notes/ of the covered companies and of the Circular counterparties. For every filing citation it resolves the key
+// "<TICKER> <form> <period end>" to the accession and URL and checks that the quoted sentence appears in the harvested text
+// of the cited page ("quote matched"); that check is mechanical and does not replace the second reading that turns
+// "needs review" into "verified".
+// Writes site/hiperescaladores/data/{power,circular,payoff,scope}.js, the module CSVs and data/modules-log.json.
 import { readdir } from 'node:fs/promises';
 import { readJson, writeJson, writeText, TOOLS, SITE, nowET, scrubProvenance } from './lib.mjs';
 
-const { companies } = await readJson(TOOLS + 'companies.json');
-const CO = Object.fromEntries(companies.map((c) => [c.ticker, c]));
-const cap = await readJson(TOOLS + 'data/capacity.json');
-const sites = await readJson(TOOLS + 'data/sites.json');
+const { companies, counterparties = [] } = await readJson(TOOLS + 'companies.json');
+const COVERED = new Set(companies.map((c) => c.ticker));
 const power = await readJson(TOOLS + 'data/power.json');
 const circ = await readJson(TOOLS + 'data/circular.json');
 const pay = await readJson(TOOLS + 'data/payoff.json', null);
 const scope = await readJson(TOOLS + 'data/scope.json', { notes: [] });
-const orcl = await readJson('tools/oracle/data/buildout.json', null);
-const orclSrc = await readJson('tools/oracle/data/sources.json', {});
 const finSrc = await import('node:fs/promises').then((m) => m.readFile(SITE + 'data/financials.js', 'utf8'));
 const FIN = JSON.parse(finSrc.slice(finSrc.indexOf('=') + 1).trim().replace(/;\s*$/, ''));
 // one refresh time per build: the stamp build.mjs wrote into financials.js (owner's third review: the page header and
 // the footers used to show two different times because each script took its own clock reading)
 const stamp = FIN.generated && FIN.refreshedET ? { iso: FIN.generated, et: FIN.refreshedET } : nowET();
 
-// ---- harvested filings: key -> { form, accn, url, filed, report, pages: { page: [text…] } }
+// ---- harvested filings: key -> { form, accn, url, filed, report, pages: { page: [text…] } }, covered companies and counterparties
 const FILINGS = {};
-for (const c of companies) {
+for (const c of [...companies, ...counterparties]) {
   let files = [];
   try { files = await readdir(`${TOOLS}raw/notes/${c.ticker}`); } catch { continue; }
   for (const f of files) {
@@ -60,65 +56,16 @@ function resolveAll(obj, where) {
   return obj;
 }
 // a curated file edited after this build started would print a later time than the build: say so in the log
-for (const [name, obj] of [['capacity', cap], ['sites', sites], ['power', power], ['circular', circ], ['payoff', pay || {}], ['scope', scope]])
+for (const [name, obj] of [['power', power], ['circular', circ], ['payoff', pay || {}], ['scope', scope]])
   if (obj.updatedAt && obj.updatedAt > stamp.iso) problems.push({ where: name + '.json', issue: `updatedAt ${obj.updatedAt} is after the build time ${stamp.iso}` });
 
-// ---- Oracle (T2): capacity and sites from the Oracle model's store
-function oSrc(key, page) {
-  const s = orclSrc[key] || (orclSrc.sources || {})[key];
-  if (!s) return { tier: 'T2', title: key, page: page || null, key, noUrl: true };
-  const out = { tier: 'T2', title: 'Oracle ' + String(s.title).replace(/\s*—.*$/, ''), date: s.filing_date, url: s.url || null, page: page || null, key };
-  // Earnings-call transcripts are licensed copies supplied by the owner: no public URL. The reader gets the call date and
-  // the same-day earnings release (8-K Ex. 99.1, public on EDGAR), labeled as not containing the quoted sentence.
-  if (!out.url) {
-    out.noUrl = true;
-    const m = /^S-CALL-(FY\d{4}Q\d)$/.exec(key);
-    const rel = m && (orclSrc[`S-8K-${m[1]}`] || (orclSrc.sources || {})[`S-8K-${m[1]}`]);
-    if (rel && rel.url) out.companion = { title: rel.title, url: rel.url, accn: rel.accession || null, date: rel.filing_date || null };
-  }
-  return out;
-}
-const orclCap = orcl ? {
-  updated: orcl.updated,
-  fiscalYears: (orcl.capacity.fiscal_years || []).map((y) => ({ id: y.id, mw: y.mw, qualifier: 'over', text: y.text, src: oSrc(y.source, y.page), speaker: y.speaker })),
-  quarters: (orcl.capacity.quarters || []).map((q) => ({ id: q.id, mw: q.mw, approx: !!q.approx, derived: !!q.derived, gpus: q.gpus || null, text: q.text, src: oSrc(q.source, q.page), speaker: q.speaker })),
-  secured: orcl.capacity.secured ? { gw: orcl.capacity.secured.gw, asOf: orcl.capacity.secured.as_of, text: orcl.capacity.secured.text, src: oSrc(orcl.capacity.secured.source, orcl.capacity.secured.page) } : null,
-  utilization: (orcl.gpu && orcl.gpu.utilization || []).map((u) => ({ id: u.id, pct: u.pct, text: u.text, src: oSrc(u.source, u.page) }))
-} : null;
-
-// ---- module 1–2
-for (const [i, x] of cap.current.entries()) resolveAll(x, `capacity.current[${i}]`);
-const pipeline = [];
-for (const [i, x] of cap.pipeline.entries()) {
-  if (x.fromOracleStore === 'capacity.secured') {
-    if (orclCap && orclCap.secured) pipeline.push({ ticker: 'ORCL', stage: 'contracted', metric: 'secured_partners', mw: orclCap.secured.gw * 1000, qualifier: 'over', asOfFq: orclCap.secured.asOf, target_es: 'en los próximos tres años; más de 90% financiado por socios', target_en: 'over the next three years; more than 90% funded through partners', src: { ...orclCap.secured.src, quote: orclCap.secured.text }, tier: 'T2', status: 'company_statement' });
-    continue;
-  }
-  pipeline.push(resolveAll(x, `capacity.pipeline[${i}]`));
-}
-for (const [i, x] of cap.notDisclosed.entries()) resolveAll(x, `capacity.notDisclosed[${i}]`);
-const capacityOut = { generated: stamp.iso, refreshedET: stamp.et, updated: cap.updated, updatedAt: cap.updatedAt || null, definitions: cap.definitions, current: cap.current, pipeline, notDisclosed: cap.notDisclosed, oracle: orclCap };
-
-// ---- module 5
-const siteRows = [];
-for (const [i, s] of sites.sites.entries()) {
-  if (s.fromOracleStore) {
-    const o = orcl && orcl.sites.find((x) => x.name === s.fromOracleStore);
-    if (!o) { problems.push({ where: `sites[${i}]`, issue: `Oracle store site not found: ${s.fromOracleStore}` }); continue; }
-    const srcs = (o.sources || []).map((x) => x.key ? { ...oSrc(x.key), short: x.short || x.title } : { tier: /oracle\.com|sec\.gov/.test(x.url || '') ? 'T2' : 'context', title: x.title, url: x.url, date: x.date });
-    siteRows.push({ ...s, name: o.name, mw: o.capacity_mw, mwMetric: 'planned_campus', capacityText: o.capacity_text, customer: o.customer, developer: o.developer, financing: o.financing, oracleStatus: o.oracle_status, online_en: o.first_delivery, contracted: o.contracted, power_en: o.power || null, tier: 'T2', sources: srcs });
-    continue;
-  }
-  siteRows.push({ ...resolveAll({ ...s }, `sites[${i}]`), tier: 'T1' });
-}
-const sitesOut = { generated: stamp.iso, refreshedET: stamp.et, updated: sites.updated, updatedAt: sites.updatedAt || null, sites: siteRows };
-
-// ---- module 4
+// ---- Power
 for (const [i, d] of power.companyDeals.entries()) if (d.src && d.src.k) d.src = resolve(d.src, `power.companyDeals[${i}]`); else if (d.src) d.src = { ...d.src, tier: d.tier };
 for (const [i, s] of power.searched.entries()) if (s.src) s.src = resolve(s.src, `power.searched[${i}]`);
 const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, updatedAt: power.updatedAt || null, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
 
-// ---- module 7: revenue shares computed from T1 revenue (fiscal year or trailing four quarters ending at the flow date)
+// ---- Circular: revenue shares computed from T1 revenue (fiscal year or trailing four quarters ending at the flow date); only a
+// covered company has XBRL revenue in the hub, so a share "of" a counterparty stays as the filing discloses it
 function revenueAt(tk, period, asOf) {
   const c = FIN.companies[tk]; if (!c) return null;
   const q = c.quarters.filter((x) => x.ttm && x.ttm.revenue != null && x.end <= asOf).pop();
@@ -139,10 +86,10 @@ for (const [i, c] of circ.concentration.entries()) {
 }
 const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
 
-// ---- module 8: payoff and cost of money (curated, T1 text items; FWP term sheets read twice by the automated pipeline; T4 kept apart)
+// ---- Payoff: payoff and cost of money (curated, T1 text items; FWP term sheets read twice by the automated pipeline; T4 kept apart)
 let payOut = null;
 if (pay) {
-  for (const k of ['segments', 'rpoTiming', 'usefulLives', 'capexPerMW']) for (const [i, x] of (pay[k] || []).entries()) resolveAll(x, `payoff.${k}[${i}]`);
+  for (const k of ['segments', 'rpoTiming', 'usefulLives']) for (const [i, x] of (pay[k] || []).entries()) resolveAll(x, `payoff.${k}[${i}]`);
   const TS = Object.fromEntries((pay.termSheets || []).map((t) => [t.id, t]));
   for (const r of pay.ratings || []) for (const it of r.items) {
     if (it.termSheet) {
@@ -153,36 +100,26 @@ if (pay) {
   }
   for (const t of pay.termSheets || []) if (!('reviewedBy' in t)) t.reviewedBy = null;
   // earnings calendar: newest FactSet calendar snapshot (pulled outside the automated run; FactSet is not available on the
-  // runner). pulledAt is a UTC instant; the page prints it in ET.
+  // runner), covered companies only. pulledAt is a UTC instant; the page prints it in ET.
   const fsDir = 'tools/hyperscalers/raw/factset/';
   const calFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-calendar\.json$/.test(f)).sort();
   const cal = calFiles.length ? await readJson(fsDir + calFiles.at(-1)) : null;
   payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, updatedAt: pay.updatedAt || null, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
-    rpoTiming: pay.rpoTiming, rpoSearched: pay.rpoSearched, usefulLives: pay.usefulLives, capexPerMW: pay.capexPerMW, ratings: pay.ratings, ratingsSearched: pay.ratingsSearched,
-    termSheets: pay.termSheets, mwEstimates: pay.mwEstimates, powerBridge: pay.powerBridge, segmentNote_es: pay.segmentNote_es || null, segmentNote_en: pay.segmentNote_en || null,
-    calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, events: cal.events } : null };
+    rpoTiming: pay.rpoTiming, rpoSearched: pay.rpoSearched, usefulLives: pay.usefulLives, ratings: pay.ratings,
+    termSheets: pay.termSheets, segmentNote_es: pay.segmentNote_es || null, segmentNote_en: pay.segmentNote_en || null,
+    calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, events: (cal.events || []).filter((e) => COVERED.has(e.ticker)) } : null };
 }
 
 // ---- write
 async function js(file, name, data, comment) { await writeText(`${SITE}data/${file}.js`, `// ${comment}\n// Generated by scripts/hyperscalers/build-modules.mjs — do not hand-edit.\nwindow.${name} = ${JSON.stringify(scrubProvenance(data))};\n`); }
-await js('capacity', 'HYP_CAP', capacityOut, 'Hyperscaler Hub modules 1–2: current and committed capacity (T1 filings; Oracle T2 from its calls).');
-await js('sites', 'HYP_SITES', sitesOut, 'Hyperscaler Hub module 5: sites named by the companies (T1 filings; Oracle T2). Map positions are localities, not campus coordinates.');
-await js('power', 'HYP_POWER', powerOut, 'Hyperscaler Hub module 4: company power deals (T1/T2) kept apart from grid projections (T3 regulators, T4 estimates).');
-if (payOut) await js('payoff', 'HYP_PAY', payOut, 'Hyperscaler Hub module 8: segment results, backlog timing, useful lives, ratings and new-issue spreads (T1 filings and term sheets); third-party estimates (T4) kept apart; FactSet earnings calendar (dated snapshot).');
+await js('power', 'HYP_POWER', powerOut, 'Hyperscaler Hub module 2: company power deals (T1/T2) kept apart from grid projections (T3 regulators, T4 estimates).');
+if (payOut) await js('payoff', 'HYP_PAY', payOut, 'Hyperscaler Hub module 5: segment results, backlog timing, useful lives, ratings and new-issue spreads (T1 filings and term sheets); third-party rating reports (T4) kept apart; FactSet earnings calendar (dated snapshot).');
 await js('scope', 'HYP_SCOPE', { generated: stamp.iso, refreshedET: stamp.et, updated: scope.updated, updatedAt: scope.updatedAt || null, notes: scope.notes }, 'Hyperscaler Hub: figures that look alike across modules but measure different scopes, and why they differ.');
-await js('circular', 'HYP_CIRC', circOut, 'Hyperscaler Hub module 7: money flows between clouds, chip makers, AI labs and neoclouds (T1 filings of the covered companies).');
+await js('circular', 'HYP_CIRC', circOut, 'Hyperscaler Hub module 4: money flows between the covered clouds, chip makers, AI labs and the counterparty neoclouds and developers (T1: SEC filings of a covered company or of the counterparty itself).');
 
 const csv = (rows) => rows.map((r) => r.map((v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }).join(',')).join('\n') + '\n';
 const cite = (s) => s ? [s.tier || '', s.form || s.title || '', s.accn || '', s.page || (s.pageSeq ? 'seq ' + s.pageSeq : ''), s.url || '', s.quote || ''] : ['', '', '', '', '', ''];
 const CH = ['tier', 'filing_or_source', 'accession', 'page', 'url', 'quote'];
-await writeText(`${SITE}csv/capacity-current.csv`, csv([['ticker', 'metric', 'mw', 'qualifier', 'as_of', 'data_centers', 'ownership', ...CH, 'status', 'refreshed_et'],
-  ...cap.current.map((x) => [x.ticker, x.metric, x.mw, x.qualifier || '', x.asOf, x.dataCenters || '', x.ownership || '', ...cite(x.src), x.status, stamp.et]),
-  ...(orclCap ? orclCap.fiscalYears.map((y) => ['ORCL', 'delivered', y.mw, 'over', y.id, '', '', 'T2', y.src.title, '', y.src.page, y.src.url || '', y.text, 'company statement', stamp.et]) : []),
-  ...(orclCap ? orclCap.quarters.map((q) => ['ORCL', 'delivered', q.mw, q.derived ? 'derived' : q.approx ? 'approx' : '', q.id, '', '', 'T2', q.src.title, '', q.src.page, q.src.url || '', q.text, q.derived ? 'derived from company ratios' : 'company statement', stamp.et]) : [])]));
-await writeText(`${SITE}csv/capacity-committed.csv`, csv([['ticker', 'stage', 'metric', 'mw', 'qualifier', 'as_of', 'counterparty', 'contract_value_usd_bn', 'target', 'after_balance_sheet_date', ...CH, 'status', 'refreshed_et'],
-  ...pipeline.map((x) => [x.ticker, x.stage, x.metric, x.mw, x.qualifier || '', x.asOf || x.asOfFq, x.counterparty || x.counterparty_en || '', x.valueUSDbn || '', x.target_en || '', x.subsequent ? 'yes' : 'no', ...cite(x.src), x.status, stamp.et])]));
-await writeText(`${SITE}csv/sites.csv`, csv([['ticker', 'site', 'locality', 'region', 'country', 'mw', 'mw_definition', 'status', 'expected_online', 'customer', 'power', 'map_lat', 'map_lon', 'map_precision', ...CH, 'refreshed_et'],
-  ...siteRows.map((s) => [s.ticker, s.name || s.name_en, s.locality || '', s.region || s.region_en || '', s.country, s.mw, s.mwMetric || '', s.status, s.online_en || '', s.customer || s.customer_en || '', s.power_en || '', s.lat, s.lon, s.precision ? `${s.precision} (not campus coordinates)` : 'location not disclosed', ...(s.src ? cite(s.src) : ['T2', (s.sources || []).map((x) => x.title || x.short).join(' | '), '', '', (s.sources || []).map((x) => x.url).filter(Boolean).join(' | '), '']), stamp.et])]));
 await writeText(`${SITE}csv/power-company-deals.csv`, csv([['ticker', 'counterparty', 'asset', 'source_type', 'mw', 'mw_basis', 'usd_m', 'usd_basis', 'term_years', 'announced', 'is_goal', 'in_filing', ...CH, 'refreshed_et'],
   ...power.companyDeals.map((d) => [d.ticker, d.counterparty || d.counterparty_en, d.asset || d.asset_en, d.source_type, d.mw, d.mwBasis_en || '', d.usdM, d.usdBasis_en || '', d.termYears || '', d.announced, d.isGoal ? 'yes' : 'no', d.inFiling ? 'yes' : 'no', ...cite(d.src), stamp.et])]));
 await writeText(`${SITE}csv/power-grid.csv`, csv([['id', 'tier', 'publisher', 'title', 'edition', 'edition_date', 'next_expected', 'label', 'value', 'value_high', 'unit', 'note', 'url', 'page', 'refreshed_et'],
@@ -199,5 +136,5 @@ if (payOut) {
     ...payOut.termSheets.map((t) => [t.ticker, 'new-issue spread', `${t.tenYear.coupon}% notes due ${t.tenYear.maturity}`, t.tenYear.spreadBps + ' bps', '', t.date, 'T1', `${t.form} ${t.accn}`, t.url, stamp.et])]));
 }
 await writeJson(TOOLS + 'data/modules-log.json', { problems });
-console.log(`build-modules: capacity ${cap.current.length}+${pipeline.length}, sites ${siteRows.length}, power ${power.companyDeals.length} deals / ${power.grid.length} grid sources, circular ${circ.flows.length} flows; ${problems.length} citation issues`);
+console.log(`build-modules: power ${power.companyDeals.length} deals / ${power.grid.length} grid sources, circular ${circ.flows.length} flows, payoff ${payOut ? payOut.segments.length + payOut.rpoTiming.length + payOut.usefulLives.length + payOut.termSheets.length : 0} text items; ${problems.length} citation issues`);
 for (const p of problems) console.log('  ', JSON.stringify(p));

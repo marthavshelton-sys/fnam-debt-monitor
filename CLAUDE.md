@@ -140,22 +140,26 @@ dashboards, everything built from public data by GitHub Actions.
   (owner, 2026-10-06); the peers table carries 1/3/5-year averages of the forward multiples (weekly observations) and ADTV from
   `factset.json → hist_multiples` / `adtv`, refreshed by the nightly FactSet routine at 7:58 PM New York time (steps g and k of
   `tools/oracle/FACTSET-PROMPT.md`); every FactSet price on the page is the latest completed session's close.
-- Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
-  `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, 8 `retorno/` (payoff and
-  cost of money, curated `payoff.json`; ratings from SEC-filed term sheets), `metodologia/`,
-  `glosario/`, quality page per module. Modules 1, 2, 4, 5, 7 come from curated files (`tools/hyperscalers/data/
-  {capacity,sites,power,circular}.json`) whose quotes `build-modules.mjs` checks against the harvested filing page; MW
-  keep each company's definition and are never summed; map dots are named localities, never campus coordinates; grid
-  projections (T3/T4) never mix with company deals; FNAM inferences on circular financing are labeled and cite flows.
-  Ten companies in `tools/hyperscalers/companies.json`. Every datum carries a
-  source tier (T1 SEC, T2 company, T3 regulator, T4 estimate; FactSet = dated snapshot, not T1 until matched) and an ⓘ
-  card; "Not tagged" (absent from XBRL) is never written as "Not disclosed"; nothing is imputed; leases not yet commenced
-  are never added to present-value debt; signed leases are compared only with undiscounted recognized lease payments. One unit
-  per page (US$ bn, GW). Thesis, "What to know", module titles and "so what" lines are composed from data. Summary page
-  (owner, 2026-10-08): the thesis is three short sentences with no ⓘ; coverage, the thesis' source lines and the hub
-  data-quality roll-up sit in the last section, "Sources and Methodology", not in the header. Figures that differ
-  in scope across modules carry a `scope` note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook
-  `tools/hyperscalers/README.md` (round 3 section).
+- Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capex/`, 2 `electricidad/`,
+  3 `fuera-de-balance/`, 4 `circular/`, 5 `retorno/` (payoff and cost of money, curated `payoff.json`; ratings from SEC-filed
+  term sheets), `metodologia/`, `glosario/`, quality page per module. Coverage since 2026-10-08 (owner): the five majors
+  Microsoft, Alphabet, Amazon, Meta and Oracle (`tools/hyperscalers/companies.json → companies`). CoreWeave, Nebius, IREN,
+  Applied Digital and Core Scientific were removed as not comparable (about 6% of the majors' capex, converts and equity,
+  one or two customers) and survive only as `counterparties` in that file and as dashed nodes in Circular, where the
+  majors' contracts and investments with them are cited from the neoclouds' own SEC filings (still polled and harvested
+  for that purpose, no XBRL). The former modules Capacity, Committed and Sites (built on those companies' MW and campuses)
+  are retired; their URLs redirect to the summary. Modules 2, 4 and 5 come from curated files (`tools/hyperscalers/data/
+  {power,circular,payoff}.json`) whose quotes `build-modules.mjs` checks against the harvested filing page; contract MW
+  keep the announcement's definition and are never summed; grid projections (T3/T4) never mix with company deals; FNAM
+  inferences on circular financing are labeled and cite flows. Every datum carries a source tier (T1 SEC, T2 company, T3
+  regulator, T4 estimate; FactSet = dated snapshot, not T1 until matched) and an ⓘ card; "Not tagged" (absent from XBRL)
+  is never written as "Not disclosed"; nothing is imputed; leases not yet commenced are never added to present-value debt;
+  signed leases are compared only with undiscounted recognized lease payments. One unit per page (US$ bn, GW). Thesis,
+  "What to know" (four lines), module titles and "so what" lines are composed from data. Summary page (owner, 2026-10-08):
+  the thesis is short sentences with no ⓘ; coverage, the thesis' source lines and the hub data-quality roll-up sit in the
+  last section, "Sources and Methodology", not in the header. Figures that differ in basis across modules carry a `scope`
+  note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`
+  ("Coverage narrowed (8-Oct-2026)"; the dated round sections use the old 1–8 numbering).
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

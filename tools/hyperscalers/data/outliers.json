@@ -1,6 +1,6 @@
 {
  "_comment": "Hyperscaler Hub, module 3: quarterly flow values the build flags as outliers (more than 5x the median of the four quarters before, above US$1bn) that were read in the filing and either confirmed (result: confirmed; the needs-review flag is cleared and the cell shows 'matched' with the quote) or explained without clearing the flag (result: reclassified). The build applies a record only when its valueUSDm matches the derived value within 0.5%. Quotes are checked against the harvested page of the cited filing (tools/hyperscalers/raw/notes). reviewedBy is a person's sign-off, null until someone signs.",
- "updatedAt": "2026-10-04T14:44:12Z",
+ "updatedAt": "2026-10-08T16:30:00Z",
  "method": {
   "en": "Each flagged quarter was read in the primary document on EDGAR (cash-flow statement, equity note or liquidity section); the quote is checked against the harvested page by the build, and the amount is reconciled to the tagged facts the quarter is derived from.",
   "es": "Cada trimestre marcado se leyó en el documento primario en EDGAR (estado de flujos, nota de capital o sección de liquidez); el cotejo de la cita contra la página cosechada lo hace la construcción, y el monto se concilia con los hechos etiquetados de los que se deriva el trimestre."
@@ -107,106 +107,6 @@
    "reviewedBy": null
   },
   {
-   "ticker": "CRWV",
-   "metric": "ocf",
-   "quarter": "FY2025Q3",
-   "end": "2025-09-30",
-   "valueUSDm": 1689,
-   "result": "confirmed",
-   "note_en": "Derived quarter: nine-month operating cash flow of US$1,499m (10-Q to 30 Sep 2025) less the six-month figure of −US$190m (as reported in the June 2026 10-Q's comparative) = US$1,689m; CoreWeave's operating cash flow moves with upfront payments on committed contracts (deferred revenue rose US$1,402m in the nine months).",
-   "note_es": "Trimestre derivado: flujo de operación de nueve meses de US$1,499 M (10-Q al 30 de septiembre de 2025) menos la cifra semestral de −US$190 M (comparativo del 10-Q de junio de 2026) = US$1,689 M; el flujo de operación de CoreWeave se mueve con los pagos anticipados de los contratos comprometidos (los ingresos diferidos subieron US$1,402 M en los nueve meses).",
-   "src": {
-    "k": "CRWV 10-Q 2025-09-30",
-    "page": "55",
-    "section": "Liquidity and Capital Resources — Cash Flows",
-    "quote": "Net cash provided by operating activities $ 1,499,051 $ 2,562,436"
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "CRWV",
-   "metric": "ocf",
-   "quarter": "FY2025Q4",
-   "end": "2025-12-31",
-   "valueUSDm": 1559,
-   "result": "confirmed",
-   "note_en": "Derived quarter: FY2025 operating cash flow of US$3,058m (10-K) less the nine-month figure of US$1,499m = US$1,559m in Q4 2025; the 10-K attributes the year's operating cash flow to upfront payments on committed contracts (deferred revenue +US$4,174m in 2025).",
-   "note_es": "Trimestre derivado: flujo de operación del año 2025 de US$3,058 M (10-K) menos la cifra de nueve meses de US$1,499 M = US$1,559 M en el 4T25; el 10-K atribuye el flujo de operación del año a los pagos anticipados de los contratos comprometidos (ingresos diferidos +US$4,174 M en 2025).",
-   "src": {
-    "k": "CRWV 10-K 2025-12-31",
-    "page": "76",
-    "section": "Liquidity and Capital Resources — Cash Flows",
-    "quote": "Net cash provided by operating activities was $3.1 billion for the year ended December 31, 2025, as compared to $2.7 billion for the year ended December 31, 2024. The increase was primarily driven by cash received for upfront payments from our committed contracts from new and expanded customer contracts."
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "IREN",
-   "metric": "ocf",
-   "quarter": "FY2026Q4",
-   "end": "2026-06-30",
-   "valueUSDm": 1811.092,
-   "result": "confirmed",
-   "note_en": "Derived quarter: FY2026 operating cash flow of US$2,100.4m (10-K) less US$289.3m in the nine months to 31 Mar 2026 (10-Q) = US$1,811m in the June 2026 quarter. The 10-K tags a US$1,842m increase in contract liabilities for FY2026 (XBRL IncreaseDecreaseInContractWithCustomerLiability) against US$120m for the nine months: the quarter's cash came from customer prepayments reflected in deferred revenue, as the 10-K's liquidity section describes.",
-   "note_es": "Trimestre derivado: flujo de operación del año fiscal 2026 de US$2,100.4 M (10-K) menos US$289.3 M de los nueve meses al 31 de marzo de 2026 (10-Q) = US$1,811 M en el trimestre de junio de 2026. El 10-K etiqueta un aumento de US$1,842 M en pasivos por contratos para el año (XBRL IncreaseDecreaseInContractWithCustomerLiability) frente a US$120 M en los nueve meses: el efectivo del trimestre vino de pagos anticipados de clientes reflejados en ingresos diferidos, como describe la sección de liquidez del 10-K.",
-   "src": {
-    "k": "IREN 10-K 2026-06-30",
-    "page": "seq139",
-    "section": "Notes — Liquidity",
-    "quote": "For the year ended June 30, 2026, the Group generated net cash from operating activities of $ 2,100.4 million."
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "APLD",
-   "metric": "debt_proceeds",
-   "quarter": "FY2026Q2",
-   "end": "2025-11-30",
-   "valueUSDm": 2419.798,
-   "result": "confirmed",
-   "note_en": "Derived quarter: six-month proceeds (10-Q to 30 Nov 2025) less the first quarter = US$2,420m in the quarter to 30 Nov 2025: the US$2.35bn 9.250% senior secured notes closed on 20 Nov 2025 (US$2.28bn at the 97% issue price) plus smaller borrowings; the notes are matched to an SEC filing in the deals table.",
-   "note_es": "Trimestre derivado: recursos semestrales (10-Q al 30 de noviembre de 2025) menos el primer trimestre = US$2,420 M en el trimestre al 30 de noviembre de 2025: los bonos garantizados al 9.250% por US$2.35 mil M cerrados el 20 de noviembre de 2025 (US$2.28 mil M al precio de emisión de 97%) más préstamos menores; los bonos están cotejados con una presentación ante la SEC en la tabla de operaciones.",
-   "src": {
-    "k": "APLD 10-Q 2025-11-30",
-    "page": "50",
-    "section": "Liquidity and Capital Resources — Senior Secured Notes",
-    "quote": "On November 20, 2025, our subsidiary APLD ComputeCo, closed a $2.35 billion offering (the “Notes Offering”) of 9.250% senior secured notes due 2030 (the “Notes”) at an issue price of 97.000%."
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "APLD",
-   "metric": "debt_proceeds",
-   "quarter": "FY2026Q4",
-   "end": "2026-05-31",
-   "valueUSDm": 2450.464,
-   "result": "confirmed",
-   "note_en": "Derived quarter: FY2026 proceeds (10-K) less the nine months = US$2,450m in the quarter to 31 May 2026: the US$2.15bn 6.750% senior secured notes closed on 10 Mar 2026 (US$2.11bn at the 98% issue price) and the US$300m term loan of 23 Apr 2026, both matched to SEC filings in the deals table.",
-   "note_es": "Trimestre derivado: recursos del año fiscal 2026 (10-K) menos los nueve meses = US$2,450 M en el trimestre al 31 de mayo de 2026: los bonos garantizados al 6.750% por US$2.15 mil M cerrados el 10 de marzo de 2026 (US$2.11 mil M al precio de emisión de 98%) y el préstamo a plazo por US$300 M del 23 de abril de 2026, ambos cotejados con presentaciones ante la SEC en la tabla de operaciones.",
-   "src": {
-    "k": "APLD 10-K 2026-05-31",
-    "page": "49",
-    "section": "Note — Debt: 6.750% Senior Secured Notes due 2031",
-    "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par."
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
    "ticker": "MSFT",
    "metric": "debt_repaid",
    "quarter": "FY2024Q3",
@@ -300,26 +200,6 @@
     "page": "3",
     "section": "Consolidated Statements of Cash Flows",
     "quote": "Repayments of long-term debt — ( 2,183 ) ( 3,386 ) ( 6,682 ) ( 4,643 ) ( 6,972 )"
-   },
-   "status": "verified",
-   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
-  },
-  {
-   "ticker": "IREN",
-   "metric": "equity_proceeds",
-   "quarter": "FY2026Q2",
-   "end": "2025-12-31",
-   "valueUSDm": 1632.427,
-   "result": "confirmed",
-   "note_en": "Derived quarter (six months less three months, both tagged): IREN sold 39.7 million ordinary shares in an underwritten equity offering in the quarter to 31 Dec 2025 for US$1,634.8m net of issuance costs (statement of stockholders' equity); the cash-flow figure of US$1,632.4m differs by the timing of issuance costs.",
-   "note_es": "Trimestre derivado (seis meses menos tres, ambos etiquetados): IREN vendió 39.7 millones de acciones ordinarias en una oferta pública en el trimestre al 31 de diciembre de 2025 por US$1,634.8 M netos de gastos de emisión (estado de cambios en el capital); la cifra del estado de flujos, US$1,632.4 M, difiere por el momento de pago de los gastos de emisión.",
-   "src": {
-    "k": "IREN 10-Q 2025-12-31",
-    "page": "11",
-    "section": "Condensed Consolidated Statements of Stockholders' Equity",
-    "quote": "Issuance of Ordinary shares – Equity Offering, net of issuance costs 39,699,102 1,634,847"
    },
    "status": "verified",
    "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",

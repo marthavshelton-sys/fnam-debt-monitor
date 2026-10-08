@@ -1,5 +1,5 @@
 {
- "_comment": "Module 7 (circular financing). flows: money or capacity commitments between the ten companies, chip makers and AI labs, each read from a filing of a company in the universe (T1) or, where noted, its own statement (T2). direction is the way the money moves (from pays/invests/lends to). amountUSDm is the amount as the filing states it on the stated basis (basis), never netted or summed across bases. shareOf: the counterparty share the filing itself gives (disclosed) or FNAM computes from T1 revenue (calc, method shown). inferences: FNAM analysis, labeled as such on the page, each listing the flows it rests on; never presented as fact.",
+ "_comment": "Module Circular (circular financing). flows: money or capacity commitments between the five covered companies, the counterparty neoclouds and developers (CoreWeave, Nebius, IREN, Applied Digital, Core Scientific: not covered since 2026-10-08, kept here only as counterparties), chip makers and AI labs, each read from an SEC filing of a covered company or of the counterparty itself (T1; counterparty filings are harvested for this purpose) or, where noted, a company's own statement (T2). direction is the way the money moves (from pays/invests/lends to). amountUSDm is the amount as the filing states it on the stated basis (basis), never netted or summed across bases. shareOf: the counterparty share the filing itself gives (disclosed) or FNAM computes from T1 revenue (calc, method shown; only for covered companies, whose XBRL revenue the hub carries). concentration: the single-customer dependence a filing discloses, for covered companies and counterparties alike (a counterparty row is the other side of a major's commitment). inferences: FNAM analysis, labeled as such on the page, each listing the flows it rests on (the validator fails on an unknown id). breakers: what would break each loop, same rule.",
  "updated": "2026-10-03",
  "readBy": "automated read, 3 Oct 2026 ET (harvested passages)",
  "nodes": [
@@ -25,23 +25,33 @@
   },
   {
    "id": "CRWV",
-   "kind": "neocloud"
+   "kind": "neocloud",
+   "name": "CoreWeave",
+   "counterparty": true
   },
   {
    "id": "NBIS",
-   "kind": "neocloud"
+   "kind": "neocloud",
+   "name": "Nebius",
+   "counterparty": true
   },
   {
    "id": "IREN",
-   "kind": "neocloud"
+   "kind": "neocloud",
+   "name": "IREN",
+   "counterparty": true
   },
   {
    "id": "APLD",
-   "kind": "developer"
+   "kind": "developer",
+   "name": "Applied Digital",
+   "counterparty": true
   },
   {
    "id": "CORZ",
-   "kind": "developer"
+   "kind": "developer",
+   "name": "Core Scientific",
+   "counterparty": true
   },
   {
    "id": "NVDA",
@@ -394,7 +404,6 @@
    }
   },
   {
-   "scope": "corz-mw",
    "id": "crwv-corz",
    "from": "CRWV",
    "to": "CORZ",
@@ -420,7 +429,6 @@
    }
   },
   {
-   "scope": "corz-mw",
    "id": "amd-corz",
    "from": "AMD",
    "to": "CORZ",
@@ -748,5 +756,5 @@
    ]
   }
  ],
- "updatedAt": "2026-10-04T14:44:12Z"
+ "updatedAt": "2026-10-08T16:30:00Z"
 }
