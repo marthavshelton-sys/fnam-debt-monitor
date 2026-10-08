@@ -447,3 +447,14 @@ td .nd.nx + .src-btn, td .ntx-val + .src-btn{margin-right:2px;}
 #mapFallback{display:none; margin-top:10px; font-size:13px; color:var(--text-secondary); line-height:1.5;}
 /* 250% desktop zoom (512 px CSS width): the headline and the "so what" box keep the page margins */
 @media (max-width:560px){ header h1{font-size:clamp(22px,6vw,28px);} .sowhat{font-size:14.5px; padding:9px 12px;} .kpis{grid-template-columns:1fr;} }
+/* summary page, last section "Sources and methodology" (owner, 2026-10-08): coverage, sources, the opening paragraph's source
+   lines and the hub data-quality roll-up, which left the header */
+.srcmeth h3{margin-top:20px;}
+.srcmeth h3:first-child{margin-top:0;}
+.srcmeth p, .srcmeth .sm-list{font-size:13px; color:var(--text-secondary); line-height:1.55; margin-top:6px; max-width:92ch;}
+.srcmeth .sm-k{margin-top:10px; font-weight:600;}
+.srcmeth .sm-list{padding-left:18px; margin-top:4px;}
+.srcmeth .sm-list li{margin:3px 0;}
+.srcmeth .sm-list b{color:var(--text-primary); font-weight:600;}
+.srcmeth .dq-roll{margin-top:6px;}
+.srcmeth .sm-more{margin-top:14px;}
