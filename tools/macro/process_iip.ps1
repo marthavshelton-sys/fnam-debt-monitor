@@ -156,26 +156,46 @@ try {
   if (-not $rows.Count) { throw "IIP GetData returned no rows" }
   Write-Host ("  IIP first row: " + (($rows[0].PSObject.Properties | ForEach-Object { $_.Name + "=" + $_.Value }) -join "; "))
   Write-Host ("  IIP rows: " + $rows.Count + "; components seen: " + ((@($rows | ForEach-Object { "$($_.Component)" } | Sort-Object -Unique)) -join ", "))
-  $byQ = @{}
+  # One hashtable per quarter; no reliance on $Matches or property access on dictionaries, so the
+  # same code runs on Windows PowerShell 5.1 (the runner) and PowerShell 7.
+  $tpRe = New-Object System.Text.RegularExpressions.Regex '^(\d{4})Q([1-4])$'
+  $byQ = @{}; $skipped = 0
   foreach ($row in $rows) {
-    if ("$($row.TimePeriod)" -notmatch '^(\d{4})Q([1-4])$') { continue }
-    $q = "{0}-Q{1}" -f $Matches[1], $Matches[2]
-    $v = BeaNumber $row.DataValue; if ($null -eq $v) { continue }
-    $mult = $(if ("$($row.UNIT_MULT)" -match '^\d+$') { [int]$row.UNIT_MULT } else { 6 })
+    $tm = $tpRe.Match([string]$row.TimePeriod)
+    if (-not $tm.Success) { $skipped++; continue }
+    $q = $tm.Groups[1].Value + "-Q" + $tm.Groups[2].Value
+    $v = BeaNumber $row.DataValue
+    if ($null -eq $v) { $skipped++; continue }
+    $mult = 6; $mu = [string]$row.UNIT_MULT; if ($mu -match '^\d+$') { $mult = [int]$mu }
     $bn = [math]::Round($v * [math]::Pow(10, $mult) / 1e9, 1)
-    if (-not $byQ.ContainsKey($q)) { $byQ[$q] = [ordered]@{ d = $q; pos = $null; chg = $null; trans = $null; price = $null; fx = $null; other = $null } }
-    foreach ($ck in $cKeys.Keys) { if ($cKeys[$ck] -and "$($row.Component)" -eq $cKeys[$ck]) { $byQ[$q][$ck] = $bn } }
+    if (-not $byQ.ContainsKey($q)) { $byQ[$q] = @{ d = $q; pos = $null; chg = $null; trans = $null; price = $null; fx = $null; other = $null } }
+    $comp = [string]$row.Component
+    foreach ($ck in @("pos", "chg", "trans", "price", "fx", "other")) { if ($cKeys[$ck] -and $comp -eq $cKeys[$ck]) { $byQ[$q][$ck] = $bn } }
   }
-  $chgRows = @($byQ.Keys | Sort-Object | ForEach-Object { $byQ[$_] } | Where-Object { $null -ne $_.pos -and $null -ne $_.trans -and $null -ne $_.price -and $null -ne $_.fx })
+  $qKeys = @($byQ.Keys | Sort-Object)
+  Write-Host ("  IIP quarters assembled: {0} ({1} rows skipped); sample: {2}" -f $qKeys.Count, $skipped, $(if ($qKeys.Count) { ($byQ[$qKeys[$qKeys.Count - 1]] | ConvertTo-Json -Compress) } else { "none" }))
+  $chgRows = New-Object System.Collections.ArrayList
+  foreach ($k in $qKeys) {
+    $e = $byQ[$k]
+    if ($null -eq $e["pos"] -or $null -eq $e["trans"] -or $null -eq $e["price"] -or $null -eq $e["fx"]) { continue }
+    [void]$chgRows.Add([ordered]@{ d = $e["d"]; pos = $e["pos"]; chg = $e["chg"]; trans = $e["trans"]; price = $e["price"]; fx = $e["fx"]; other = $e["other"] })
+  }
   if ($chgRows.Count -lt 8) { throw ("only {0} quarters with a complete change decomposition" -f $chgRows.Count) }
   # The API's position must be FRED's, and the components must add up to the quarter's change.
   $fredNet = @{}; foreach ($r2 in $quarterly) { if ($null -ne $r2.net) { $fredNet[$r2.d] = $r2.net } }
-  $off = @($chgRows | Where-Object { $fredNet.ContainsKey($_.d) -and [math]::Abs($fredNet[$_.d] - $_.pos) -gt 1.5 })
-  if ($off.Count) { throw ("BEA API position differs from FRED in {0} quarters (first {1}: {2} vs {3})" -f $off.Count, $off[0].d, $off[0].pos, $fredNet[$off[0].d]) }
-  $bad = @($chgRows | Where-Object { $null -ne $_.chg -and [math]::Abs($_.chg - ($_.trans + $_.price + $_.fx + $(if ($null -ne $_.other) { $_.other } else { 0 }))) -gt 1.5 })
-  if ($bad.Count) { throw ("IIP change components do not add up in {0} quarters (first {1})" -f $bad.Count, $bad[0].d) }
-  $bea["change"] = [ordered]@{ quarterly = @($chgRows | Select-Object -Last 24); typeOfInvestment = "$($netType[0].Key)"; asOf = $chgRows[$chgRows.Count - 1].d }
-  Write-Output ("IIP change decomposition: {0} quarters, latest {1}: change {2}B = transactions {3}B + price {4}B + exchange rate {5}B + other {6}B" -f $chgRows.Count, $chgRows[-1].d, $chgRows[-1].chg, $chgRows[-1].trans, $chgRows[-1].price, $chgRows[-1].fx, $chgRows[-1].other)
+  $off = New-Object System.Collections.ArrayList; $bad = New-Object System.Collections.ArrayList
+  foreach ($e in $chgRows) {
+    if ($fredNet.ContainsKey($e["d"]) -and [math]::Abs($fredNet[$e["d"]] - $e["pos"]) -gt 1.5) { [void]$off.Add($e) }
+    $oth = $(if ($null -ne $e["other"]) { $e["other"] } else { 0 })
+    if ($null -ne $e["chg"] -and [math]::Abs($e["chg"] - ($e["trans"] + $e["price"] + $e["fx"] + $oth)) -gt 1.5) { [void]$bad.Add($e) }
+  }
+  if ($off.Count) { throw ("BEA API position differs from FRED in {0} quarters (first {1}: {2} vs {3})" -f $off.Count, $off[0]["d"], $off[0]["pos"], $fredNet[$off[0]["d"]]) }
+  if ($bad.Count) { throw ("IIP change components do not add up in {0} quarters (first {1})" -f $bad.Count, $bad[0]["d"]) }
+  $keep = [math]::Min(24, $chgRows.Count)
+  $kept = @($chgRows.GetRange($chgRows.Count - $keep, $keep))
+  $lastC = $chgRows[$chgRows.Count - 1]
+  $bea["change"] = [ordered]@{ quarterly = $kept; typeOfInvestment = "$($netType[0].Key)"; asOf = $lastC["d"] }
+  Write-Output ("IIP change decomposition: {0} quarters, latest {1}: change {2}B = transactions {3}B + price {4}B + exchange rate {5}B + other {6}B" -f $chgRows.Count, $lastC["d"], $lastC["chg"], $lastC["trans"], $lastC["price"], $lastC["fx"], $lastC["other"])
 } catch { Write-Host ("::warning::IIP change decomposition (BEA API) left out: {0}" -f $_.Exception.Message.Split([char]10)[0]) }
 # 4b. Foreign direct investment position in the United States by country (historical cost, annual).
 try {
