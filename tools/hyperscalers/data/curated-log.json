@@ -2,6 +2,14 @@
  "_comment": "Reader-facing log of curated edits to the Hyperscaler Hub (wording, structure, review counts, explained gaps, thesis changes). at = UTC instant; the pages print it in ET. build.mjs merges it into site/hiperescaladores/data/changelog.js (HYP_LOG.curated). Append one entry per edit; never rewrite history.",
  "entries": [
   {
+   "at": "2026-10-08T23:22:00Z",
+   "modules": [
+    "home"
+   ],
+   "en": "The summary page's title now lists the five covered companies' tickers (MSFT, GOOGL, AMZN, META, ORCL), composed from the coverage. This log moved from \"What Changed This Quarter\" to the end of \"Sources and Methodology\", collapsed.",
+   "es": "El título de la página de resumen ahora lista las claves de pizarra de las cinco empresas cubiertas (MSFT, GOOGL, AMZN, META, ORCL), compuestas a partir de la cobertura. Este registro pasó de «Qué Cambió Este Trimestre» al final de «Fuentes y Metodología», colapsado."
+  },
+  {
    "at": "2026-10-08T17:24:00Z",
    "modules": [
     "home",

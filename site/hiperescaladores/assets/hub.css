@@ -459,3 +459,8 @@ td .nd.nx + .src-btn, td .ntx-val + .src-btn{margin-right:2px;}
 .srcmeth .sm-list b{color:var(--text-primary); font-weight:600;}
 .srcmeth .dq-roll{margin-top:6px;}
 .srcmeth .sm-more{margin-top:14px;}
+/* summary page: tickers of the covered companies beside the title (owner, 2026-10-08) */
+header h1 .h1-tk{font-family:var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size:0.5em; font-weight:500; letter-spacing:0.02em; color:var(--text-secondary); white-space:nowrap; vertical-align:middle;}
+@media (max-width:560px){ header h1 .h1-tk{display:block; margin-top:6px; font-size:13px; white-space:normal;} }
+.srcmeth details.tech{margin-top:16px;}
+.srcmeth details.tech .changes-list{margin-top:8px;}

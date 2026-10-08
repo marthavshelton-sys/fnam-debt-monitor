@@ -43,7 +43,7 @@
       <a class="fnam-back" href="/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg><span class="es">Todos los paneles</span><span class="en" hidden>All dashboards</span></a>
     </div>
     <span class="eyebrow"><span class="live" data-status-dot="hyperscalers"></span><span class="es">Expansión de centros de datos de IA · Datos públicos</span><span class="en" hidden>AI datacenter buildout · Public data</span></span>
-    <h1><span class="es">Centro de Hiperescaladores</span><span class="en" hidden>Hyperscaler Hub</span></h1>
+    <h1><span class="es">Centro de Hiperescaladores</span><span class="en" hidden>Hyperscaler Hub</span> <span class="h1-tk" id="hubTickers">(MSFT, GOOGL, AMZN, META, ORCL)</span></h1>
     <p class="thesis" id="thesis"></p>
     <div class="asof-row" id="asofRow"></div>
     <div id="notices"></div>
@@ -78,7 +78,6 @@
     <div class="sec-head"><h2><span class="es">Qué Cambió Este Trimestre</span><span class="en" hidden>What Changed This Quarter</span></h2></div>
     <p class="sec-desc" id="changedDesc"></p>
     <div class="card"><ul class="changes-list" id="changedList"></ul><div id="changedStamp"></div>
-      <h3 id="curH" style="margin-top:16px"></h3><ul class="changes-list" id="curatedList"></ul>
       <details class="tech" id="techLog"><summary><span class="es">Registro técnico de cambios (valores XBRL nuevos, revisados y reexpresados)</span><span class="en" hidden>Technical change log (new, revised and restated XBRL values)</span></summary><p class="small muted" id="logDesc"></p><div class="tblwrap" id="logTbl"></div><div id="logStamp"></div></details>
     </div>
   </section>
@@ -118,6 +117,7 @@
       <h3><span class="es">Calidad de los Datos del Centro</span><span class="en" hidden>Hub Data Quality</span></h3>
       <div class="dq-roll" id="dqRoll"></div>
       <p class="sm-more" id="srcMore"></p>
+      <details class="tech" id="curLog" hidden><summary id="curH"></summary><ul class="changes-list" id="curatedList"></ul></details>
     </div>
   </section>
 </main>

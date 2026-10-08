@@ -9,6 +9,8 @@
   if (!F || !H) return;
   var t = H.t, esc = H.esc, $ = function (id) { return document.getElementById(id); }, set = function (id, h) { var e = $(id); if (e) e.innerHTML = h; };
   var CO = Object.values(F.companies);
+  // tickers beside the hub title (owner, 2026-10-08), from the covered companies so they follow coverage
+  (function () { var e = document.getElementById('hubTickers'); if (e && CO.length) e.textContent = '(' + CO.map(function (c) { return c.ticker; }).join(', ') + ')'; })();
   var charts = {};
   var TODAY = new Date().toISOString().slice(0, 10);
   function latest(c) { return c.latest ? c.quarters.find(function (q) { return q.id === c.latest.id; }) : null; }
@@ -292,9 +294,11 @@
     var rsLine = Object.keys(byT).length ? '<li class="muted">' + t('Reexpresiones (cifras de periodos anteriores que una presentación posterior cambió): ', 'Restatements (prior-period figures a later filing changed): ') + Object.keys(byT).map(function (k) { return esc((F.companies[k] || {}).name || k) + ' ' + byT[k]; }).join(', ') + t('. Se usa el valor más reciente; el detalle está en el registro técnico.', '. The latest value is used; the detail is in the technical log.') + '</li>' : '';
     set('changedList', items.sort(function (a, b) { return b.d.localeCompare(a.d); }).map(function (x) { return '<li>' + x.html + '</li>'; }).join('') + rsLine || '<li>' + t('Ninguna presentación periódica en los últimos 100 días.', 'No periodic filing in the last 100 days.') + '</li>');
     set('changedStamp', H.stamp({ tier: 'T1', sources: [{ label: 'SEC EDGAR', url: XBRL }], note: t('Variaciones: cálculo FNAM sobre cifras T1', 'Changes: FNAM calculation on T1 figures') }));
-    // curated edits (wording, structure, review counts, explained gaps, thesis changes): one entry per edit, time in ET
+    // curated edits (wording, structure, review counts, explained gaps, thesis changes): one entry per edit, time in ET; collapsed at the
+    // end of "Sources and Methodology" (owner, 2026-10-08), hidden when there are none
     var cur = (LOG.curated || []).slice(0, 12);
     set('curH', cur.length ? t('Cambios en la curación y la redacción del centro (hora del Este)', 'Curated and editorial changes to the hub (Eastern time)') : '');
+    var cl = $('curLog'); if (cl) cl.hidden = !cur.length;
     set('curatedList', cur.map(function (e) { return '<li><b>' + esc(H.etTime(e.at)) + '</b>' + (e.modules && e.modules.length ? ' <span class="small muted">' + esc(modList(e.modules)) + '</span>' : '') + ' — ' + esc(e[H.lang] || e.en) + '</li>'; }).join(''));
     // technical log
     set('logDesc', t('Cada actualización compara los valores nuevos con los anteriores y anota periodos nuevos, cifras revisadas y reexpresiones que la empresa hizo en una presentación posterior (el valor viejo y su presentación quedan registrados).', 'Each refresh diffs new values against the previous ones and records new periods, revised figures and restatements the company made in a later filing (the old value and its filing are kept).'));
