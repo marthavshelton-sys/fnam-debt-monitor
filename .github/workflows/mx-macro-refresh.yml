@@ -63,6 +63,9 @@ on:
       post:
         description: "Diagnostics only: 'URL {json}' pairs separated by ;; sent as JSON POST requests"
         default: ""
+      cuadro:
+        description: "Diagnostics only: comma list of Banxico SIE tables (CE125,CE170 or CE125:1) whose series ids and labels to list from the public table page"
+        default: ""
   push:
     branches: ["main", "claude/mexico-macro-dashboard-fnam-3m65pe"]
     paths:
@@ -90,7 +93,7 @@ jobs:
           node-version: "22"
 
       - name: Series diagnostics (probe / catalog search)
-        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != '' || github.event.inputs.xlsx != '' || github.event.inputs.search != '' || github.event.inputs.post != ''
+        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != '' || github.event.inputs.xlsx != '' || github.event.inputs.search != '' || github.event.inputs.post != '' || github.event.inputs.cuadro != ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -101,6 +104,7 @@ jobs:
           XLSX: ${{ github.event.inputs.xlsx }}
           SEARCH: ${{ github.event.inputs.search }}
           POSTS: ${{ github.event.inputs.post }}
+          CUADRO: ${{ github.event.inputs.cuadro }}
         run: |
           ARGS=()
           if [ -n "$PROBE" ]; then ARGS+=(--probe "$PROBE"); fi
@@ -109,11 +113,12 @@ jobs:
           if [ -n "$XLSX" ]; then ARGS+=(--xlsx "$XLSX"); fi
           if [ -n "$SEARCH" ]; then ARGS+=(--search "$SEARCH"); fi
           if [ -n "$POSTS" ]; then ARGS+=(--post "$POSTS"); fi
+          if [ -n "$CUADRO" ]; then ARGS+=(--cuadro "$CUADRO"); fi
           node scripts/mx-macro/fetch.mjs "${ARGS[@]}"
 
       - name: Fetch series (Banxico SIE, FRED, INEGI)
         id: fetch
-        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -125,7 +130,7 @@ jobs:
       # Runs even if a fetch failed, so whatever did refresh still reaches the page.
       - name: Build page
         id: build
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         run: node scripts/mx-macro/build.mjs
 
       # Material-change alerts: new releases that cross a threshold in scripts/mx-macro/alerts.mjs
@@ -135,7 +140,7 @@ jobs:
       # branch run never alerts.
       - name: Queue material-change alerts (GitHub issue)
         id: alerts
-        if: always() && github.ref == 'refs/heads/main' && steps.build.outcome == 'success' && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: always() && github.ref == 'refs/heads/main' && steps.build.outcome == 'success' && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         env:
           GITHUB_TOKEN: ${{ github.token }}
           # Optional WhatsApp copy of each MATERIAL alert (scripts/lib/whatsapp.mjs); skipped when unset.
@@ -146,7 +151,7 @@ jobs:
 
       - name: Commit if anything changed
         id: commit
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         shell: bash
         run: |
           git config user.name "mx-macro-refresh[bot]"
@@ -169,11 +174,13 @@ jobs:
       # changed API even though the page keeps its last good data and the run stays green.
       - name: Data health check
         id: health
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         run: node scripts/mx-macro/health.mjs
 
+      # main only: a test run on a feature branch (new series being wired up) must not open or close the
+      # owner's alert issue; its health verdict is in the run log and summary.
       - name: Open, update or close the mx-macro-health issue
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        if: always() && github.ref == 'refs/heads/main' && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == '' && github.event.inputs.cuadro == ''
         uses: actions/github-script@v7
         env:
           PROBLEMS: ${{ steps.health.outputs.problems }}

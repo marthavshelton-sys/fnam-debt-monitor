@@ -13,6 +13,7 @@
 // one bad feed never blanks a section. Exit code is non-zero only if nothing could be fetched at
 // all. Diagnostics: node scripts/mx-macro/fetch.mjs --probe banxico:SP1,inegi:496150 (prints what an id is)
 //                    node scripts/mx-macro/fetch.mjs --catalog "actividad economica" (searches INEGI's catalog)
+//                    node scripts/mx-macro/fetch.mjs --cuadro CE125,CE170 (lists the series of SIE table pages, with labels)
 
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -192,6 +193,29 @@ async function inegiCatalogSearch(pattern, limit = 80) {
   return { total: rows.length, hits: hits.map((r) => [String(r.value), String(r.Description || '').replace(/\s+/g, ' ').trim()]) };
 }
 
+// Lists the series of a public SIE table page (consultarCuadro; no token needed): id, periodicity, type of
+// figure, unit, first and last period and the row label, nested rows indented. This is how the external-sector
+// ids were mapped on 2026-10-08 (the SIE API has no search endpoint). Pages are ISO-8859-1 and answer 429 to
+// bursts, so requests are paced. Note: the row label is the leaf only; the API title the fetcher checks is
+// the table path plus the row path (e.g. "... Exportaciones totales Petroleras").
+async function sieCuadro(idCuadro, sector) {
+  const accion = /^CA/.test(idCuadro) ? 'consultarCuadroAnalitico' : 'consultarCuadro';
+  const res = await fetch(`https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=${accion}&idCuadro=${idCuadro}&sector=${sector || 1}&locale=es`, { headers: { 'User-Agent': UA } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const html = new TextDecoder('latin1').decode(await res.arrayBuffer());
+  const dec = (t) => String(t || '').replace(/&oacute;/g, 'ó').replace(/&aacute;/g, 'á').replace(/&eacute;/g, 'é').replace(/&iacute;/g, 'í').replace(/&uacute;/g, 'ú').replace(/&ntilde;/g, 'ñ').replace(/&Oacute;/g, 'Ó').replace(/&Aacute;/g, 'Á').replace(/&Eacute;/g, 'É').replace(/&Iacute;/g, 'Í').replace(/&Uacute;/g, 'Ú').replace(/&amp;/g, '&').replace(/&nbsp;|\u00a0/g, ' ').replace(/&quot;/g, '"').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const out = [];
+  for (const r of html.matchAll(/<tr id="(nodo_[\d_]+)"[^>]*>([\s\S]*?)<\/tr>/g)) {
+    const body = r[2], lvl = r[1].split('_').length - 1;
+    const id = (body.match(/<div>Serie:<\/div><div>(S[A-Z]\d{3,7})\.<\/div>/) || [])[1];
+    const meta = (k) => dec((body.match(new RegExp('<div>' + k + ':<\\/div><div>([^<]*)<\\/div>')) || [])[1]).replace(/\.$/, '');
+    const ind = '  '.repeat(Math.max(0, lvl - 1));
+    if (id) out.push(`${id.padEnd(9)} ${meta('Periodicidad').slice(0, 10).padEnd(10)} ${meta('Tipo de Cifra').slice(0, 7).padEnd(7)} ${meta('Tipo de Unidad').slice(0, 19).padEnd(19)} ${meta('Fecha(?:&nbsp;|\\s)inicial').padEnd(12)} ${meta('Fecha(?:&nbsp;|\\s)final').padEnd(12)} ${ind}${dec((body.match(/Mostrar metadatos de la serie ([\s\S]*?)<\/span>/) || [])[1])}`);
+    else { const t = dec(body.replace(/<!--[\s\S]*?-->/g, '').replace(/data-content="[^"]*"/g, '').replace(/Mostrar elementos de [^<]*/g, '')); if (t && !/^(Fuente|Nota|Notas):/.test(t)) out.push(`${' '.repeat(74)}${ind}# ${t.slice(0, 120)}`); }
+  }
+  return out;
+}
+
 // Minimal .zip reader (stored and deflate entries) so the xlsx diagnostic needs no dependency.
 function unzip(buf) {
   const zlib = require('node:zlib');
@@ -235,6 +259,63 @@ async function imssCurated(cand, spec) {
 }
 
 const PROVIDERS = { banxico, fred, inegi, imss: imssCurated };
+
+// Accounting identities between related series, checked after every fetch (see checkIdentities).
+// parts: keys, or [key, sign]; rel/abs: tolerance (relative to the larger side, with a floor in the
+// series' own unit, for Banxico's rounding: "la suma de los componentes puede no coincidir con los
+// totales"); strict: a block that fails goes back to the previous committed data (or is dropped when
+// there is none) and the run warns, so a wrong or re-based component never reaches the page beside a
+// total it does not add up to. A non-strict identity only warns.
+export const IDENTITIES = [
+  { name: 'exports by sector (CE125)', total: 'expTotalO', parts: ['expOil', 'expAgri', 'expExtr', 'expManuf'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'imports by type of good (CE125)', total: 'impTotalO', parts: ['impCons', 'impInter', 'impCap'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance = exports - imports (CE125)', total: 'balTotalO', parts: ['expTotalO', ['impTotalO', -1]], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance = oil + non-oil (CE125)', total: 'balTotalO', parts: ['balOil', 'balNonOil'], rel: 0.002, abs: 1000, strict: true },
+  { name: 'trade balance with the U.S. = exports - imports (CE197)', total: 'balUS', parts: ['expUS', ['impUS', -1]], rel: 0.002, abs: 1000, strict: true },
+  // ratio: total (per cent) = 100 * num / den, within abs percentage points.
+  { name: 'U.S. share of exports (CE160) = exports to the U.S. / total exports (CE197, CE125)', total: 'shExpUS', ratio: ['expUS', 'expTotalO'], rel: 0, abs: 0.5, strict: true },
+  { name: 'current account = goods + services + primary + secondary income (CE174)', total: 'ca', parts: ['goodsB', 'svcB', 'priB', 'secB'], rel: 0.002, abs: 5, strict: true },
+  { name: 'financial account = current account + capital account + errors and omissions (CE174)', total: 'fa', parts: ['ca', 'ka', 'eo'], rel: 0.002, abs: 5, strict: false },
+  { name: 'direct investment in Mexico = new + reinvested + intercompany (CE131)', total: 'diMx', parts: ['diMxNew', 'diMxReinv', 'diMxInter'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP assets by category (CE170)', total: 'iipAssets', parts: ['iipADi', 'iipAPf', 'iipADv', 'iipAOi', 'iipARes'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP liabilities by category (CE170)', total: 'iipLiab', parts: ['iipLDi', 'iipLPf', 'iipLDv', 'iipLOi'], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP net = assets - liabilities (CE170)', total: 'iipNet', parts: ['iipAssets', ['iipLiab', -1]], rel: 0.002, abs: 5, strict: true },
+  { name: 'IIP net = initial + transactions + other changes (CE170)', total: 'iipNet', parts: ['iipInit', 'iipTrans', 'iipOther'], rel: 0.002, abs: 5, strict: true },
+];
+// Checks every identity on the dates the block's series share. Returns [{name, n, bad:[...], reverted:[keys]}];
+// a strict failure replaces each series of the block in `series` with its copy in `prev` (marked stale) or deletes it.
+export function checkIdentities(series, prev, log) {
+  const results = [];
+  for (const c of IDENTITIES) {
+    const keys = [c.total, ...(c.ratio || c.parts).map((p) => (Array.isArray(p) ? p[0] : p))];
+    if (keys.some((k) => !series[k])) continue;                 // block not (fully) fetched: nothing to check
+    if (keys.some((k) => series[k].stale)) continue;            // already on kept data: checked when it was fetched
+    const maps = Object.fromEntries(keys.map((k) => [k, new Map(series[k].points)]));
+    let n = 0; const bad = [];
+    for (const [d, tv] of maps[c.total]) {
+      let sum = 0, ok = true;
+      if (c.ratio) { const a = maps[c.ratio[0]].get(d), b = maps[c.ratio[1]].get(d); if (a === undefined || b === undefined || !b) continue; sum = 100 * a / b; }
+      else for (const p of c.parts) { const [k, sign] = Array.isArray(p) ? p : [p, 1]; const v = maps[k].get(d); if (v === undefined) { ok = false; break; } sum += sign * v; }
+      if (!ok) continue;
+      n++;
+      const tol = Math.max(c.abs, c.rel * Math.max(Math.abs(tv), Math.abs(sum)));
+      if (Math.abs(tv - sum) > tol) bad.push(`${d}: ${tv} vs ${Math.round(sum * 1000) / 1000}`);
+    }
+    const r = { name: c.name, n, bad, reverted: [] };
+    results.push(r);
+    if (!n) { log.warn(`identity "${c.name}": the series share no dates`); continue; }
+    if (!bad.length) { console.log(`identity ${c.name}: OK on ${n} dates`); continue; }
+    log.warn(`identity "${c.name}" fails on ${bad.length} of ${n} dates (${bad.slice(0, 3).join('; ')}${bad.length > 3 ? '; ...' : ''})${c.strict ? ' - the block goes back to the previous data' : ''}`);
+    if (!c.strict) continue;
+    for (const k of keys) {
+      const old = prev?.series?.[k];
+      if (old && old.points?.length && !isDiscontinued(old.points[old.points.length - 1][0], old.freq)) series[k] = { ...old, stale: true, staleSince: old.fetchedAt, error: `identity check failed: ${c.name}` };
+      else delete series[k];
+      r.reverted.push(k);
+    }
+  }
+  return results;
+}
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI', imss: 'IMSS' };
 
 function minPoints(freq) { return freq === 'Q' ? 8 : freq === 'M' ? 24 : 50; }
@@ -253,6 +334,9 @@ async function fetchOne(key, spec, log) {
     const cspec = { ...spec, ...(cand.freq ? { freq: cand.freq } : {}), ...(cand.unit ? { unit: cand.unit } : {}) };
     try {
       const r = await PROVIDERS[cand.provider](cand, cspec);
+      // A candidate marked allowEmptyTitle (Banxico answers a few series, e.g. CE197's, with no title) is
+      // accepted untitled; the manifest documents the identity checks that stand in for the title.
+      if (cand.allowEmptyTitle && r.title === '') { r.title = null; log.warn(`${key}: ${cand.provider} ${cand.id} answered without a title (allowEmptyTitle); accepted on the identity checks`); }
       if (cand.title && r.title !== null && !new RegExp(cand.title, 'i').test(r.title)) {
         tried.push(`${cand.provider}:${cand.id} title mismatch ("${r.title}")`);
         log.warn(`${key}: ${cand.provider} ${cand.id} answered but its title "${r.title}" does not match /${cand.title}/ - dropped`);
@@ -285,7 +369,8 @@ async function main() {
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
   const catIdx = argv.indexOf('--catalog');
-  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx') || argv.includes('--search') || argv.includes('--post')) {
+  const cuadroIdx = argv.indexOf('--cuadro');
+  if (probeIdx >= 0 || catIdx >= 0 || cuadroIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx') || argv.includes('--search') || argv.includes('--post')) {
     // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
     // --catalog "actividad economica" searches INEGI's indicator catalog by description.
     const lines = [];
@@ -297,6 +382,15 @@ async function main() {
         out(`INEGI catalog: ${r.total} indicators, ${r.hits.length} shown for /${pattern}/`);
         for (const [id, desc] of r.hits) out(`  ${id}\t${desc}`);
       } catch (e) { out(`INEGI catalog search failed: ${e.message}`); }
+    }
+    if (cuadroIdx >= 0) {
+      // --cuadro CE125,CE170[:sector] : the series of each public SIE table page, with labels (no token needed).
+      for (const item of (argv[cuadroIdx + 1] || '').split(',').map((x) => x.trim()).filter(Boolean)) {
+        const [id, sector] = item.split(':');
+        try { const rows = await sieCuadro(id, sector); out(`cuadro ${id} (sector ${sector || 1}): ${rows.filter((r) => /^S[A-Z]\d/.test(r)).length} series`); for (const r of rows) out('  ' + r); }
+        catch (e) { out(`cuadro ${id}: ERROR ${e.message}`); }
+        await sleep(2500);
+      }
     }
     const urlIdx = argv.indexOf('--url');
     if (urlIdx >= 0) {
@@ -428,6 +522,16 @@ async function main() {
     await sleep(250);
   }
 
+  // Accounting identities between the external-sector series (IDENTITIES above): a block that no
+  // longer adds up keeps its previous data and the run summary says so.
+  for (const r of checkIdentities(out.series, prev, log)) {
+    for (const k of r.reverted) {
+      const row = rows.find((x) => x[0] === k);
+      if (row) { row[6] = out.series[k] ? `STALE: identity "${r.name}" failed; kept previous points` : `MISSING: identity "${r.name}" failed and no previous data`; }
+      if (!out.series[k]) failed++;
+    }
+  }
+
   await mkdir(new URL('./', OUT), { recursive: true });
   await writeFile(OUT, JSON.stringify(out) + '\n', 'utf8');
   console.log(`\nWrote ${OUT.pathname}: ${ok} series fetched, ${failed} failed/stale.`);
@@ -445,4 +549,4 @@ async function main() {
   if (ok === 0) { console.error('Nothing could be fetched.'); process.exit(1); }
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+if (import.meta.url === `file://${process.argv[1]}`) main().catch((e) => { console.error(e); process.exit(1); });
