@@ -286,19 +286,18 @@
    "from": "META",
    "to": "NBIS",
    "type": "contract",
-   "amountUSDm": null,
-   "basis": "tcv",
+   "amountUSDm": 27000,
+   "basis": "tcv_upto",
    "asOf": "2026-03-13",
-   "pending_es": "monto en el 20-F p. 75–76, fuera del pasaje descargado: lectura pendiente",
-   "pending_en": "amount in the 20-F pp. 75–76, outside the harvested passage: reading pending",
-   "accounting_es": "Contrato de servicios de infraestructura (mar-2026)",
-   "accounting_en": "Infrastructure services agreement (Mar-2026)",
+   "accounting_es": "Contrato de servicios de infraestructura (13 mar 2026) con órdenes de cinco años: US$12 mil M de clústeres de GPU dedicados (entregas durante el 1S27) y una orden adicional por capacidad no vendida de hasta US$15 mil M",
+   "accounting_en": "Infrastructure services agreement (13 Mar 2026) with five-year orders: US$12 bn of dedicated GPU clusters (deployments through H1 2027) and a further order for unsold capacity of up to US$15 bn",
    "src": {
     "k": "NBIS 20-F 2025-12-31",
     "page": "75",
-    "section": "Item 5. Operating and Financial Review",
-    "quote": "On March 13, 2026, our wholly owned subsidiary, Nebius, Inc., entered into an Infrastructure Services Agreement with Met"
-   }
+    "section": "Item 5. Operating and Financial Review — Commercial partnerships with Meta",
+    "quote": "The Agreement and the initial Orders thereunder have a total contract value of up to approximately $27 billion."
+   },
+   "end": "2032"
   },
   {
    "id": "nvda-crwv-equity",
@@ -514,6 +513,28 @@
     "page": "27",
     "section": "Item 2. MD&A",
     "quote": "We invested $28.7 billion in OpenAI’s Series C Preferred Stock for the six months ended June 30, 2026, including $13.7 billion invested in Q2 2026."
+   },
+   "note_en": "US$28.7 bn invested to 30 Jun 2026 (US$13.7 bn of it in Q2 2026 under a US$35.0 bn commitment); the remaining US$21.3 bn was invested after 30 Jun 2026 (own row). Series C investment once the commitment is funded: US$50.0 bn = 28.7 + 21.3 (FNAM sum of the filing's figures).",
+   "note_es": "US$28.7 mil M invertidos al 30 jun 2026 (US$13.7 mil M en el 2T26 bajo un compromiso de US$35.0 mil M); los US$21.3 mil M restantes se invirtieron después del 30 jun 2026 (fila propia). Inversión en la Serie C con el compromiso fondeado: US$50.0 mil M = 28.7 + 21.3 (suma FNAM de las cifras de la presentación)."
+  },
+  {
+   "id": "amzn-openai-equity-2",
+   "from": "AMZN",
+   "to": "OPENAI",
+   "type": "equity",
+   "amountUSDm": 21300,
+   "basis": "cash",
+   "asOf": "2026-07-31",
+   "subsequent": true,
+   "accounting_es": "Resto del compromiso de US$35.0 mil M en preferentes Serie C, invertido después del 30 jun 2026 (hecho posterior; el 10-Q no da la fecha); completa el compromiso de la Serie C",
+   "accounting_en": "Remaining US$21.3 bn of the US$35.0 bn Series C commitment, invested after 30 Jun 2026 (subsequent event; the 10-Q gives no date); completes the Series C commitment",
+   "note_es": "Fecha mostrada: la de presentación del 10-Q (31 jul 2026); nunca se suma a los saldos al 30 jun 2026",
+   "note_en": "Date shown: the 10-Q filing date (31 Jul 2026); never added to the 30 Jun 2026 balances",
+   "src": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "12",
+    "section": "Note 1 — Investments (OpenAI)",
+    "quote": "Subsequent to June 30, 2026, we invested the remaining $21.3 billion Commitment Amount in shares of Series C Preferred Stock of OpenAI."
    }
   },
   {
@@ -548,8 +569,8 @@
    "accounting_es": "Cliente de los campus Stargate (Abilene, Shackelford, Saline, Port Washington) según Oracle; el 10-K no nombra a OpenAI ni da el monto",
    "accounting_en": "Customer of the Stargate campuses (Abilene, Shackelford, Saline, Port Washington) per Oracle; the 10-K does not name OpenAI or give the amount",
    "srcT2": {
-    "title_es": "Llamadas de resultados de Oracle y comunicados (almacén del modelo de Oracle)",
-    "title_en": "Oracle earnings calls and releases (Oracle model store)",
+    "title_es": "Llamadas de resultados y comunicados de Oracle (ver la página de Oracle de este sitio)",
+    "title_en": "Oracle's earnings calls and releases (see this site's Oracle page)",
     "url": "/oracle/"
    }
   },
@@ -646,7 +667,7 @@
    "what_es": "de los ingresos contratados de su cartera (US$11.0 de 36.2 mil M; cálculo FNAM)",
    "what_en": "of its portfolio's contracted revenue (US$11.0 of 36.2 bn; FNAM calc.)",
    "calc": {
-    "num": 11.0,
+    "num": 11,
     "den": 36.2
    },
    "flow": "crwv-apld"
@@ -659,6 +680,23 @@
    "what_en": "of FY2026 revenue (FNAM calc. with XBRL revenue)",
    "flow": "openai-msft-revenue",
    "calcRevenue": true
+  },
+  {
+   "ticker": "ORCL",
+   "counterparty": "OpenAI",
+   "pct": null,
+   "rpoVsRevenue": {
+    "rpoUSDm": 664000,
+    "asOf": "2026-08-31"
+   },
+   "what_es": "no revelado; la cartera (RPO) de US$664 mil M equivale a {x} veces los ingresos de 12 meses y su aumento se atribuye a «ciertos contratos de nube significativos» (10-Q); Oracle no nombra al cliente ni da porcentaje",
+   "what_en": "not disclosed; the US$664 bn backlog (RPO) is {x} times 12-month revenue and its increase is attributed to \"certain significant cloud contracts\" (10-Q); Oracle names no customer and gives no percentage",
+   "src": {
+    "k": "ORCL 10-Q 2026-08-31",
+    "page": "35",
+    "section": "Item 2. MD&A — Remaining performance obligations",
+    "quote": "The increase in remaining performance obligations as of August 31, 2026 in comparison to August 31, 2025 was primarily attributable to certain significant cloud contracts that were entered into during the period."
+   }
   }
  ],
  "inferences": [
@@ -678,6 +716,7 @@
    "id": "inf-lab-loop",
    "rests_on": [
     "amzn-openai-equity",
+    "amzn-openai-equity-2",
     "openai-amzn",
     "amzn-anthropic-equity",
     "amzn-anthropic-facility",
@@ -756,5 +795,5 @@
    ]
   }
  ],
- "updatedAt": "2026-10-08T16:30:00Z"
+ "updatedAt": "2026-10-09T23:00:00Z"
 }

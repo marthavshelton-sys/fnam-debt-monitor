@@ -286,8 +286,15 @@
    "verifiedBy": "Claude session (second reading of the cited page)",
    "verifiedOn": "2026-10-04T03:34:31Z",
    "revenueBasis": "segment",
-   "basisNote_en": "Google Cloud backlog ÷ Google Cloud revenue (segment note), 12 months",
-   "basisNote_es": "Cartera de Google Cloud ÷ ingresos de Google Cloud (nota de segmentos), 12 meses"
+   "basisNote_en": "Google Cloud backlog (US$513.9 bn of the US$519.5 bn company total) ÷ Google Cloud revenue (segment note), 12 months",
+   "basisNote_es": "Cartera de Google Cloud (US$513.9 mil M de los US$519.5 mil M de toda la empresa) ÷ ingresos de Google Cloud (nota de segmentos), 12 meses",
+   "segmentRpoUSDm": 513900,
+   "src2": {
+    "k": "GOOGL 10-Q 2026-06-30",
+    "page": "14",
+    "section": "Note 2 — Revenue backlog (Google Cloud share)",
+    "quote": "As of June 30, 2026, we had $519.5 billion of remaining performance obligations (\"revenue backlog\"), of which $513.9 billion related to Google Cloud."
+   }
   },
   {
    "ticker": "AMZN",
@@ -674,10 +681,17 @@
     "benchmark": "4.375% UST due May 15, 2036"
    },
    "totalUSDm": 25000,
-   "ratingsText": "A1 by Moody's Investor Service, Inc., AA by Standard & Poor's Ratings Services, AA- by Fitch Ratings Inc.",
+   "ratingsText": "A1 by Moody's Investor Service, Inc. · AA by Standard & Poor's Ratings Services · AA- by Fitch Ratings Inc.",
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
-   "verifiedOn": "2026-10-04T03:34:31Z"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "ratingsLines": [
+    "A1 by Moody's Investor Service, Inc.",
+    "AA by Standard & Poor's Ratings Services",
+    "AA- by Fitch Ratings Inc."
+   ],
+   "ratingsNote_en": "Three lines of the term sheet, one per agency, as printed (read again on 9 Oct 2026 ET).",
+   "ratingsNote_es": "Tres líneas de la hoja de términos, una por agencia, tal como están impresas (releídas el 9 oct 2026 ET)."
   },
   {
    "id": "googl-2026-08",
@@ -702,5 +716,5 @@
  ],
  "segmentNote_es": "Las definiciones de segmento difieren: Intelligent Cloud de Microsoft incluye productos de servidor y otros servicios; AWS y Google Cloud son más estrechos. Los márgenes no son comparables uno a uno; la definición de cada unidad está en su ficha ⓘ.",
  "segmentNote_en": "Segment definitions differ: Microsoft's Intelligent Cloud includes server products and other items; AWS and Google Cloud are narrower. Margins are not comparable one to one; each unit's definition is in its ⓘ card.",
- "updatedAt": "2026-10-08T16:30:00Z"
+ "updatedAt": "2026-10-09T23:00:00Z"
 }

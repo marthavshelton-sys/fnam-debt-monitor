@@ -1,0 +1,120 @@
+{
+ "_comment": "Security type of every SEC-registered offering (424B prospectus) the hub lists from the filing-fee exhibits: the fee exhibit gives only the total, so the type is read from the prospectus cover. items keyed by accession: type = debt (notes) | common (common stock offering) | preferred (mandatory convertible preferred, offered as depositary shares) | atm_program (an at-the-market program: the amount is a ceiling for future sales, not proceeds); title = the cover line(s); quote = the cover sentence the type rests on; method = cover-read (a person or the automated reader read the cover) | cover-regex (scripts/hyperscalers/classify-offerings.mjs, which runs on the automated job for new 424B filings). An accession absent here shows \"type pending\" on the page.",
+ "updatedAt": "2026-10-09T23:00:00Z",
+ "items": {
+  "0001193125-26-252439": {
+   "ticker": "GOOGL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": "Up to $40,000,000,000 Class A Common Stock and Class C Capital Stock (at-the-market program)",
+   "quote": "We have entered into an equity distribution agreement … we may offer and sell shares of our Class A Common Stock and Class C Capital Stock … (the \"ATM Program\")",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001193125-26-256375": {
+   "ticker": "GOOGL",
+   "type": "common",
+   "currency": "USD",
+   "title": "25,459,689 shares of Class A Common Stock and 25,459,689 shares of Class C Capital Stock",
+   "quote": "We are offering 25,459,689 shares of our Class A Common Stock and 25,459,689 shares of our Class C Capital Stock",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read",
+   "note_en": "Fee-exhibit total (US$20.7 bn) includes the underwriters' option; the cover's base offering is US$18.0 bn (US$9.04 bn Class A at $355.1982 + US$8.96 bn Class C at $351.8018).",
+   "note_es": "El total del anexo de cuotas (US$20.7 mil M) incluye la opción de los colocadores; la oferta base de la portada es de US$18.0 mil M (US$9.04 mil M Clase A a $355.1982 + US$8.96 mil M Clase C a $351.8018)."
+  },
+  "0001193125-26-257690": {
+   "ticker": "GOOGL",
+   "type": "preferred",
+   "currency": "USD",
+   "title": "167,500,000 Series A Depositary Shares, each representing a 1/20th interest in a share of 6.25% Series A Mandatory Convertible Preferred Stock",
+   "quote": "We are offering 167,500,000 of our Series A Depositary Shares … 6.25% Series A Mandatory Convertible Preferred Stock",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read",
+   "note_en": "Series A (a separate offering from Series B, filed the same day); fee-exhibit total US$9.625 bn includes the underwriters' option; base offering US$8.375 bn at $50 per depositary share.",
+   "note_es": "Serie A (oferta distinta de la Serie B, presentada el mismo día); el total del anexo de cuotas (US$9.625 mil M) incluye la opción de los colocadores; oferta base US$8.375 mil M a $50 por acción depositaria."
+  },
+  "0001193125-26-257702": {
+   "ticker": "GOOGL",
+   "type": "preferred",
+   "currency": "USD",
+   "title": "167,500,000 Series B Depositary Shares, each representing a 1/20th interest in a share of 6.25% Series B Mandatory Convertible Preferred Stock",
+   "quote": "167,500,000 Series B Depositary Shares … 6.25% Series B Mandatory Convertible Preferred Stock",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read",
+   "note_en": "Series B (a separate offering from Series A, filed the same day); fee-exhibit total US$9.625 bn includes the underwriters' option; base offering US$8.375 bn at $50 per depositary share.",
+   "note_es": "Serie B (oferta distinta de la Serie A, presentada el mismo día); el total del anexo de cuotas (US$9.625 mil M) incluye la opción de los colocadores; oferta base US$8.375 mil M a $50 por acción depositaria."
+  },
+  "0001193125-26-228923": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "JPY",
+   "title": "¥576,500,000,000 of notes due 2029–2066 (seven series, 1.965%–4.599%)",
+   "quote": "¥135,500,000,000 1.965% Notes due 2029 … ¥24,000,000,000 4.599% Notes due 2066",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001193125-26-212210": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "CAD",
+   "title": "C$8,500,000,000 of notes due 2031–2056 (four series, 3.650%–5.000%)",
+   "quote": "C$1,500,000,000 3.650% Notes due 2031 … C$2,750,000,000 5.000% Notes due 2056",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001193125-26-212222": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "EUR",
+   "title": "€9,000,000,000 of notes due 2030–2063 (six series, 3.200%–4.800%)",
+   "quote": "€1,500,000,000 3.200% Notes due 2030 … €1,250,000,000 4.800% Notes due 2063",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001193125-26-340264": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": "$25,000,000,000 of notes due 2028–2066 (ten series, floating and 4.500%–6.500%)",
+   "quote": "$750,000,000 Floating Rate Notes due 2028 … $2,500,000,000 6.500% Notes due 2066",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001104659-26-072332": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "CAD",
+   "title": "C$14,000,000,000 of notes due 2029–2056 (five series, 3.400%–5.000%)",
+   "quote": "C$1,250,000,000 3.400% NOTES DUE 2029 … C$4,750,000,000 5.000% NOTES DUE 2056",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001104659-26-081786": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": "$25,000,000,000 of notes due 2029–2066 (eight series, floating and 4.600%–6.250%)",
+   "quote": "$750,000,000 FLOATING RATE NOTES DUE 2029 … $2,250,000,000 6.250% NOTES DUE 2066",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001104659-26-107122": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "GBP",
+   "title": "£4,250,000,000 of notes due 2029–2045 (four series, 5.200%–6.650%)",
+   "quote": "£1,250,000,000 5.200% NOTES DUE 2029 … £1,000,000,000 6.650% NOTES DUE 2045",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  },
+  "0001193125-26-201738": {
+   "ticker": "META",
+   "type": "debt",
+   "currency": "USD",
+   "title": "$25,000,000,000 of senior notes due 2031–2066 (six series, 4.550%–6.450%)",
+   "quote": "$3,000,000,000 4.550% Senior Notes due 2031 … $4,000,000,000 6.450% Senior Notes due 2066",
+   "classifiedOn": "2026-10-09",
+   "method": "cover-read"
+  }
+ }
+}

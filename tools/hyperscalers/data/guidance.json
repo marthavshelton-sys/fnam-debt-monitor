@@ -1,5 +1,5 @@
 {
- "_comment": "Company capex guidance (T2: company statement, not audited). Each company defines capex its own way (Meta includes principal payments on finance leases; Microsoft speaks of capex including finance leases; Oracle separates gross capex from net cash capex). Guidance is never mixed into the reported (T1) series. Sources: FactSet guidance dataset (company-provided guidance as FactSet records it, FactSet snapshot pulled 2026-10-03 ET) and, for Oracle, the Oracle model's own guidance store (transcribed from the Q1 FY2027 call). US$ millions. Update after each earnings call.",
+ "_comment": "Company capex guidance (T2: company statement, not audited). Each company defines capex its own way (Meta includes principal payments on finance leases; Microsoft speaks of capex including finance leases; Oracle separates gross capex from net cash capex; Amazon speaks of cash capex). Guidance is never mixed into the reported (T1) series. Sources: FactSet guidance dataset (company-provided guidance as FactSet records it; snapshot date in pulledAt) and, where the dataset lags the call, the licensed earnings-call transcript (FactSet CallStreet; no public link, like the Oracle figures). US$ millions. Update after each earnings call; checkedOn = the last in-session re-check of the dataset.",
  "pulledAt": "2026-10-03",
  "items": [
   {
@@ -11,7 +11,8 @@
    "status": "not_disclosed",
    "note_en": "Microsoft gives no annual capex range; FactSet's guidance dataset has none for FY2026 or FY2027.",
    "note_es": "Microsoft no da un rango anual de capex; el conjunto de guías de FactSet no registra ninguno para el AF2026 ni el AF2027.",
-   "source": "FactSet guidance dataset (CAPEX), pulled 2026-10-03"
+   "source_es": "Conjunto de guías de FactSet (CAPEX), consulta del 3 oct 2026; revisado de nuevo el 9 oct 2026",
+   "source_en": "FactSet guidance dataset (CAPEX), pulled 3 Oct 2026; rechecked 9 Oct 2026"
   },
   {
    "ticker": "GOOGL",
@@ -22,20 +23,27 @@
    "date": "2026-07-23",
    "prevLow": 180000,
    "prevHigh": 190000,
-   "source": "FactSet guidance dataset (CAPEX), guidance dated 2026-07-23 (Q2 2026 results)"
+   "source_es": "Conjunto de guías de FactSet (CAPEX), guía del 23 jul 2026 (resultados del 2T26)",
+   "source_en": "FactSet guidance dataset (CAPEX), guidance dated 23 Jul 2026 (Q2 2026 results)"
   },
   {
    "ticker": "AMZN",
    "fy": "FY2026",
    "fyEnd": "2026-12-31",
-   "low": 200000,
-   "high": 200000,
-   "date": "2026-02-06",
+   "low": 220000,
+   "high": 220000,
+   "date": "2026-07-30",
    "approx": true,
-   "note_en": "Recorded by FactSet as a point figure from the Q4 2025 call. Rechecked 2026-10-03: FactSet's monthly guidance snapshots through 2026-10-01 show no later figure, so this is still the latest guidance on record; Amazon's Q3 2026 call is the next chance to update it.",
-   "note_es": "FactSet lo registra como cifra puntual de la llamada del 4T25. Revisado el 2026-10-03: las instantáneas mensuales de guías de FactSet hasta el 2026-10-01 no muestran cifra posterior, así que sigue siendo la guía más reciente registrada; la llamada del 3T26 de Amazon es la próxima oportunidad de actualizarla.",
-   "recheckedOn": "2026-10-03",
-   "source": "FactSet guidance dataset (CAPEX), guidance dated 2026-02-06 (Q4 2025 results)"
+   "note_en": "Raised on the Q2 2026 call (30 Jul 2026) from about US$200 bn (6 Feb 2026) to about US$220 bn of cash capex, which Amazon attributed to the higher cost of memory. FactSet's guidance dataset had not recorded the change as of 9 Oct 2026, so the figure comes from the licensed transcript (company statement, T2).",
+   "note_es": "Elevada en la llamada del 2T26 (30 jul 2026) de unos US$200 mil M (6 feb 2026) a unos US$220 mil M de capex en efectivo, que Amazon atribuyó al mayor costo de la memoria. El conjunto de guías de FactSet no registraba el cambio al 9 oct 2026, así que la cifra viene de la transcripción con licencia (declaración de la empresa, T2).",
+   "recheckedOn": "2026-10-09",
+   "source_es": "Llamada de resultados de Amazon del 2T26 (30 jul 2026), comentarios preparados del director general; transcripción con licencia, sin enlace público. El conjunto de guías de FactSet aún registra la cifra del 6 feb 2026 (US$200 mil M) al 9 oct 2026",
+   "source_en": "Amazon Q2 2026 earnings call (30 Jul 2026), the chief executive's prepared remarks; licensed transcript, no public link. FactSet's guidance dataset still records the 6 Feb 2026 figure (US$200 bn) as of 9 Oct 2026",
+   "prevLow": 200000,
+   "prevHigh": 200000,
+   "prevDate": "2026-02-06",
+   "noUrl": true,
+   "quote": "We now believe we will spend approximately $220 billion in cash CapEx in 2026. The higher cost of memory pushing this number up from our prior estimate of about $200 billion."
   },
   {
    "ticker": "META",
@@ -48,7 +56,8 @@
    "prevHigh": 145000,
    "note_en": "Meta's capex definition includes principal payments on finance leases.",
    "note_es": "La definición de capex de Meta incluye los pagos de principal de arrendamientos financieros.",
-   "source": "FactSet guidance dataset (CAPEX), guidance dated 2026-07-30 (Q2 2026 results)"
+   "source_es": "Conjunto de guías de FactSet (CAPEX), guía del 30 jul 2026 (resultados del 2T26)",
+   "source_en": "FactSet guidance dataset (CAPEX), guidance dated 30 Jul 2026 (Q2 2026 results)"
   },
   {
    "ticker": "ORCL",
@@ -60,7 +69,9 @@
    "netCashMax": 70000,
    "note_en": "$90-95bn of capex, of which not more than $70bn net cash capex (the rest funded by partners/customers), per the Q1 FY2027 call, p. 4.",
    "note_es": "US$90-95 mil millones de capex, de los cuales no más de US$70 mil millones de capex neto en efectivo (el resto lo financian socios/clientes), según la llamada del 1T AF2027, p. 4.",
-   "source": "Oracle Q1 FY2027 earnings call (2026-09-10), p. 4, as stored in the Oracle model's guidance store"
+   "source_es": "Llamada de resultados de Oracle del 1T AF2027 (10 sep 2026), p. 4 de la transcripción con licencia (sin enlace público)",
+   "source_en": "Oracle Q1 FY2027 earnings call (10 Sep 2026), p. 4 of the licensed transcript (no public link)"
   }
- ]
+ ],
+ "checkedOn": "2026-10-09"
 }

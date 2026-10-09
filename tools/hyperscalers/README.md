@@ -47,6 +47,56 @@ bitcoin miners, two are lessors, Nebius has no quarterly XBRL). What changed:
 - The Oracle page's credit section reads the hub's `financials.js`; its caption now states the five-company coverage
   (`site/oracle/app.js → renderHyperscalers`, `tools/oracle/METHODOLOGY.md`).
 
+## Review of 9-Oct-2026 (22 findings: 3 critical, 10 medium, 9 low)
+
+Every fix sits in the generator or the curated files, so it survives the next rebuild. What changed:
+
+- **Derived TTM figures (C1).** A `not-tagged.json` record with `derived: { kind: 'ttm', end, amountUSDm, ... }` is injected
+  by `build.mjs` into the quarter's `ttm` when `derived.end` equals the quarter end (`q.ttm._derived` lists the keys; the ⓘ
+  card prints the method and inputs). Alphabet's 2026 stock and preferred proceeds and Oracle's lease additions, debt,
+  commercial paper, preferred and buybacks (FY to 31-Aug-2026) now enter the thesis and the leverage table on the same
+  window as the tagged figures. The thesis adds an "equity" sentence for a company within cash flow that issued ≥ US$5 bn
+  of stock in the window (`equityExtras` in `app.js`), and the capex page prints an equity note under the leverage table
+  (net cash includes stock issued ≥ US$10 bn TTM).
+- **Carried balances (C2).** A record with `carryForward: true` (Meta's finance-lease liability, tagged only in the 10-K)
+  is carried into later quarters within 366 days (`q.d._carried`: key, date, accession, form); the lease KPI and the
+  lease-adjusted net debt use it and say "finance leases at 31 Dec 2025 (10-K)". Meta recognized leases ≈ 29.8, lease-adj.
+  net debt ≈ 23.2 (US$ bn) at 30-Jun-2026.
+- **Registered offerings (C3).** `data/offerings.json` classifies each 424B by accession (`atm_program`, `common`,
+  `preferred`, `debt`; cover quote, `classifiedOn`). `classify-offerings.mjs` (runner only, workflow step "Classify new
+  424B prospectuses") reads the cover of every new 424B and adds entries with `method: 'cover-regex'`; it never changes an
+  existing entry. The capex page prints a "Security" column and an ATM program as "up to … program ceiling, not proceeds".
+- **Tag aliases (M1).** A `purchase_oblig` tag equal to a `leases_not_commenced` text item at the same date is labeled as
+  leases (`out.tagAliases`; off-balance-sheet page). Superseded tags are grayed with the text item that replaces them (M2).
+- **Coverage columns (M3).** `jv_equity_method_debt` has no XBRL stand-in; stand-ins print their date and the > 12-month
+  flag; Oracle's unconsolidated-VIE search (none in the 10-Q to 31-Aug-2026) is a `searched` record in `offbs.json`.
+- **Circular (M4–M6).** Every capacity contract per pair is listed ("plus", never summed); Amazon's second OpenAI tranche
+  (US$21.3 bn, subsequent event in the 10-Q to 30-Jun-2026, p.12) is its own flow; `circOut.counts` carries T1/T2 (26 + 1:
+  the OpenAI–Oracle flow cites earnings calls, T2); the Oracle/OpenAI concentration row prints RPO ÷ XBRL revenue.
+- **Common window (M7).** Group sums keep the calendarized window (2026-Q2) and `offsetNote` states that Oracle's quarter
+  to 31-Aug-2026 is used in the per-company figures. Held-up figures: capex TTM 566.37 vs 312.56 (+81%), capex/OCF 81.8%,
+  lease KPI 292.6, FactSet deals 276.3.
+- **Retired modules (M8).** Intentional (commit f0eae95, 8-Oct-2026, owner's choice; "Coverage narrowed" above). Notice in
+  `data/notices.json` (shown in "What changed" for 100 days), methodology §07 `#retirados`, and `site/_redirects` sends the
+  three old paths there. Not rebuilt.
+- **Wording (M9).** No tool or file names in reader text: "stored filing text", "downloaded", "company-specific tag",
+  "the review field"; the methodology's ingestion table names no runner, state file or commit marker. The glossary's static
+  nav lists the five modules.
+- **Implied cost of debt (M10).** Latest quarter with `ttm.interest_paid` and debt at both ends (Oracle: FY2026 from the
+  10-K, 3,896 / avg(92,568; 129,541) ≈ 3.5%); "n.a." with the reason when interest paid is not tagged (Amazon).
+- **Low findings.** Alphabet's backlog timing uses the Google Cloud RPO (513.9 of 519.5, 10-Q p.14) (L1); EIA's October
+  STEO values and `check-steo.mjs` (workflow step "Check EIA's STEO edition", `data/steo-status.json`) flag a newer edition
+  (L2); Alphabet's filing-dated power deals say "signed in …/as of … (10-K/10-Q)" and the PPA backstops sit apart (L3);
+  Spanish counterparties, bilingual FactSet notes (`data/debt-notes.json`) and guidance sources (L4); calendar flags = SEC
+  deadline, estimate untouched > 6 months, snapshot > 45 days; ratings keep the 12-month rule only (L5); calendar snapshot
+  `raw/factset/2026-10-09-calendar.json` (Microsoft confirmed 28-Oct-2026) (L6); Amazon's FWP rating lines verbatim (L7);
+  Amazon's 2026 capex guidance ≈ US$220 bn from the Q2 2026 call (licensed transcript, T2; FactSet's dataset still 200 on
+  9-Oct-2026) (L8); ET timestamps were already in place (L9).
+- The "about 6%" claim is sourced: the last build that included the neoclouds (8-Oct-2026, 13:37 UTC) had their TTM cash
+  capex at US$33.8 bn vs US$586.4 bn for the five majors (5.8%; Nebius at 31-Dec-2025, no quarterly XBRL).
+- Not changed (unverifiable from the sandbox): Microsoft's and Oracle's T4 rating actions (agency pages unreadable), FactSet
+  values, call transcripts beyond Amazon's Q2 2026 call.
+
 ## Combined company view and the financing clause (8-Oct-2026, afternoon)
 
 - **Module 1, section 02 (`capex/app.js → company()`).** The company selector's last option, "Las cinco grandes (suma) / Five

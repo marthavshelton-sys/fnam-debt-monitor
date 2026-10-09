@@ -1,0 +1,7 @@
+{
+ "_comment": "Spanish wording of the per-company notes in the FactSet debt snapshot (raw/factset/<date>-debt.json → notes), keyed by ticker; build.mjs publishes a note in both languages only when the English text here matches the snapshot's note exactly (otherwise the English note is shown alone until this file is updated).",
+ "MSFT": {
+  "en": "No instrument issued since 2025-01-01 in FactSet's list as of 2026-06-30.",
+  "es": "Ningún instrumento emitido desde el 1 de enero de 2025 en la lista de FactSet al 30 de junio de 2026."
+ }
+}
