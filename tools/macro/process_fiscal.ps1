@@ -4,7 +4,8 @@
 #            restates the current and prior fiscal year, so the history is
 #            assembled by taking each (fiscal year, month) from the latest
 #            statement that carries it.
-#   Table 9: receipts by source and outlays by function, FYTD vs prior FYTD.
+#   Table 9: receipts by source and outlays by function, FYTD vs prior FYTD, plus
+#            the same breakdown month by month for the last 24 statements.
 . "$PSScriptRoot\common.ps1"
 $fredKey = Get-ApiKey "FRED_API_KEY"
 $api = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts"
@@ -79,6 +80,101 @@ $sumO = ($functions | Where-Object { $_.name -ne "Total" } | ForEach-Object { $_
 Write-Output ("identity: sources {0:N2} vs total {1:N2}; functions {2:N2} vs total {3:N2}" -f $sumR, $totR.fytd, $sumO, $totO.fytd)
 if ([math]::Abs($sumR - $totR.fytd) -gt 0.5 -or [math]::Abs($sumO - $totO.fytd) -gt 0.5) { throw "table 9 does not reconcile" }
 
+# ---- Table 9 history: the breakdown month by month ----
+# Table 9 prints one "current month" column per statement and never restates an earlier
+# month, so monthly receipts by source and outlays by function are assembled from the last
+# 24 statements: each month's figures are the ones its own statement published. Every month
+# must reconcile (the sources sum to total receipts, the functions to total outlays).
+# The history only changes when a new statement arrives (and FiscalData is slow some
+# mornings), so the call is made only when the committed block does not end on the statement's
+# month; otherwise the committed block is used as it is. Either way each month's totals are
+# compared with Table 1, whose months do carry later revisions, and the months that differ
+# are stored so the page can say so. A failure here never blocks the section: the committed
+# block is kept and the run says so (refresh_all.ps1 warns while it trails the statement).
+$breakdown = $null
+$keep = 24
+$latestM = $latestStmt.Substring(0, 7)
+$prevBk = $null
+try {
+  $prevPath = Join-Path $script:data "fiscal_processed.json"
+  if (Test-Path $prevPath) { $prevBk = (Get-Content $prevPath -Raw -Encoding UTF8 | ConvertFrom-Json).breakdown }
+} catch { $prevBk = $null }
+try {
+  $bMonths = $null; $bSrc = $null; $bFn = $null
+  if ($prevBk -and [string]$prevBk.asOf -eq $latestM -and @($prevBk.months).Count -ge $keep -and $prevBk.sources -and $prevBk.functions) {
+    $bMonths = @($prevBk.months); $bSrc = @($prevBk.sources); $bFn = @($prevBk.functions)
+    Write-Output ("table 9 history: the committed block already runs through {0} ({1} months); not fetched again" -f $latestM, $bMonths.Count)
+  } else {
+    $from = [datetime]::ParseExact($latestStmt, "yyyy-MM-dd", $null).AddMonths(-($keep + 2)).ToString("yyyy-MM-01")
+    $h9 = Invoke-Retry { Invoke-RestMethod "$api/mts_table_9?filter=record_date:gte:$from&fields=record_date,classification_desc,current_month_rcpt_outly_amt,sequence_number_cd,sequence_level_nbr&page[size]=2000" -TimeoutSec 300 }
+    $h9rows = @($h9.data)
+    if ($h9rows.Count -ge 2000) { throw ("table 9 history: the page came back full ({0} rows); narrow the window" -f $h9rows.Count) }
+    $bySrc = @{}; $byFn = @{}
+    foreach ($row in $h9rows) {
+      if ("$($row.sequence_level_nbr)" -eq "1") { continue }
+      if ("$($row.current_month_rcpt_outly_amt)" -notmatch '^-?\d') { continue }
+      $d = "$($row.record_date)".Substring(0, 7)
+      $name = "$($row.classification_desc)".Trim().TrimEnd(':')
+      if ("$($row.sequence_number_cd)" -like "1.*") { $bucket = $bySrc } else { $bucket = $byFn }
+      if (-not $bucket.ContainsKey($d)) { $bucket[$d] = @{} }
+      if ($bucket[$d].ContainsKey($name)) { throw ("table 9 history: '{0}' is listed twice for {1}" -f $name, $d) }
+      $bucket[$d][$name] = [math]::Round([double]$row.current_month_rcpt_outly_amt / 1e9, 2)
+    }
+    # Consecutive months, counted back from the latest statement.
+    $monthList = New-Object System.Collections.ArrayList
+    $cursor = [datetime]::ParseExact($latestM + "-01", "yyyy-MM-dd", $null)
+    while ($monthList.Count -lt $keep) {
+      $mKey = $cursor.ToString("yyyy-MM")
+      if (-not ($bySrc.ContainsKey($mKey) -and $byFn.ContainsKey($mKey))) { break }
+      $monthList.Insert(0, $mKey)
+      $cursor = $cursor.AddMonths(-1)
+    }
+    if ($monthList.Count -lt 12) { throw ("table 9 history: only {0} consecutive months ending {1}" -f $monthList.Count, $latestM) }
+    # One series per line, in the latest statement's order; a line an older statement names
+    # differently is kept under its own name with nulls where it is absent.
+    $sets = @{}
+    foreach ($def in @(@{ id = "sources"; latest = $sources; bucket = $bySrc }, @{ id = "functions"; latest = $functions; bucket = $byFn })) {
+      $names = New-Object System.Collections.ArrayList
+      foreach ($it in $def.latest) { [void]$names.Add([string]$it.name) }
+      foreach ($m in $monthList) { foreach ($n in @($def.bucket[$m].Keys | Sort-Object)) { if (-not $names.Contains($n)) { [void]$names.Add($n) } } }
+      $list = New-Object System.Collections.ArrayList
+      foreach ($n in $names) {
+        $vals = New-Object System.Collections.ArrayList
+        foreach ($m in $monthList) { if ($def.bucket[$m].ContainsKey($n)) { [void]$vals.Add($def.bucket[$m][$n]) } else { [void]$vals.Add($null) } }
+        [void]$list.Add([ordered]@{ name = $n; v = $vals.ToArray() })
+      }
+      $tot = @($list | Where-Object { $_.name -eq "Total" })
+      if ($tot.Count -ne 1) { throw ("table 9 history: {0} Total lines among the {1}" -f $tot.Count, $def.id) }
+      for ($i = 0; $i -lt $monthList.Count; $i++) {
+        if ($null -eq $tot[0].v[$i]) { throw ("table 9 history: no total for the {0} in {1}" -f $def.id, $monthList[$i]) }
+        $sum = 0.0
+        foreach ($s in $list) { if ($s.name -ne "Total" -and $null -ne $s.v[$i]) { $sum += [double]$s.v[$i] } }
+        if ([math]::Abs($sum - [double]$tot[0].v[$i]) -gt 0.25) { throw ("table 9 history: the {0} sum to {1:N2}B in {2} but the total is {3:N2}B" -f $def.id, $sum, $monthList[$i], $tot[0].v[$i]) }
+      }
+      $sets[$def.id] = $list
+    }
+    $bMonths = $monthList.ToArray(); $bSrc = $sets["sources"].ToArray(); $bFn = $sets["functions"].ToArray()
+    Write-Output ("table 9 history: fetched {0} months, {1} .. {2}; {3} receipt lines, {4} outlay lines; every month reconciles" -f $bMonths.Count, $bMonths[0], $bMonths[$bMonths.Count - 1], ($bSrc.Count - 1), ($bFn.Count - 1))
+  }
+  # Against Table 1 (the monthly series above, which takes each month from the newest
+  # statement that restates it): a difference is a revision published after the month's
+  # own statement. Recomputed on every run, fetched or not.
+  $totS = @($bSrc | Where-Object { $_.name -eq "Total" })[0]
+  $totF = @($bFn | Where-Object { $_.name -eq "Total" })[0]
+  $revised = New-Object System.Collections.ArrayList
+  for ($i = 0; $i -lt $bMonths.Count; $i++) {
+    $t1 = $byKey[[string]$bMonths[$i]]
+    if (-not $t1) { continue }
+    $dR = [math]::Round($t1.rcpt - [double]$totS.v[$i], 2); $dO = [math]::Round($t1.outly - [double]$totF.v[$i], 2)
+    if ([math]::Abs($dR) -gt 0.05 -or [math]::Abs($dO) -gt 0.05) { [void]$revised.Add([ordered]@{ d = [string]$bMonths[$i]; rcpt = $dR; outly = $dO }) }
+  }
+  if ($revised.Count) { Write-Output ("table 9 history vs table 1, revised since (table 1 minus table 9, receipts / outlays, B): " + (($revised | ForEach-Object { "{0} {1:N2} / {2:N2}" -f $_.d, $_.rcpt, $_.outly }) -join "; ")) } else { Write-Output "table 9 history vs table 1: every month's totals agree" }
+  $breakdown = [ordered]@{ months = $bMonths; sources = $bSrc; functions = $bFn; revised = $revised.ToArray(); asOf = $latestM }
+} catch {
+  Write-Host ("::warning::the table 9 monthly history could not be refreshed ({0}); keeping the committed block" -f $_.Exception.Message.Split([char]10)[0])
+  if ($prevBk -and $prevBk.months) { $breakdown = $prevBk; Write-Output ("table 9 history: committed block kept, through {0}" -f $prevBk.asOf) }
+}
+
 # ---- FRED annual: deficit as % of GDP; fiscal-year totals for the long view ----
 function Get-FredA($id) {
   $r = Invoke-Retry { Invoke-RestMethod "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$fredKey&file_type=json&observation_start=1970-01-01" -TimeoutSec 120 }
@@ -96,6 +192,7 @@ $obj = [ordered]@{
   statementDate = $latestStmt
   sources = $sources
   functions = $functions
+  breakdown = $breakdown
   pctGdp = $pctGdp
   debtPctGdp = [ordered]@{ v = $debtGdpQ[0].v; y = $debtGdpQ[0].y }
   fetchedAt = (Get-Date -Format "yyyy-MM-dd")

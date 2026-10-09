@@ -156,6 +156,36 @@ and state nonfarm employment behind the job-cut maps.
   the width. The phone `@media` blocks sit at the end of the stylesheet; placed
   earlier, later base rules silently override them.
 
+## The fiscal section: receipts by source and outlays by function, month by month
+
+`process_fiscal.ps1` keeps, besides the statement's fiscal-year-to-date table 9, the same breakdown
+for each of the last 24 months (`fiscal_processed.json` → `breakdown`: `months`, one series per line
+of table 9 in `sources` and `functions`, `revised`, `asOf`). Table 9 prints one "current month"
+column per statement and never restates an earlier month, so each month's figures are the ones its
+own statement published; one FiscalData call (`mts_table_9`, `record_date:gte:` 26 months back,
+keyless) returns them all. The history only changes with a new statement, so the call is made only
+when the committed block does not end on the statement's month (about once a month); every other
+run reuses the committed block. When fetched, each month's sources must sum to total receipts and
+its functions to total outlays (within $0.25 bn). On every run each total is compared with Table 1,
+whose months carry later revisions: the months that differ by more than $0.05 bn go to `revised`
+(table 1 minus table 9) and the page names those of $0.5 bn or more under the chart. If the history
+call fails, the committed block is kept, the statement itself still refreshes, and `refresh_all.ps1`
+warns while `breakdown.asOf` trails the statement's month (three runs in a row open the usual
+source-down issue). To force a fresh fetch, remove `breakdown` from the committed file.
+
+On the page ("Where the money comes from" / "Where the money goes") both headings name the month the
+data runs through, composed from the latest statement, and each panel holds the fiscal-year-to-date
+list and a stacked column chart of the last 12 months (`drawStackedColumns`). The lines drawn as
+their own segment are fixed by name in `FI_GROUPS` inside `renderFiscal` (receipts: individual
+income taxes, social insurance and retirement = the three level-3 lines, corporate income taxes,
+customs duties; outlays: Social Security, net interest, Medicare, Health, national defense, income
+security). Every other line is gray in the list and folds into the chart's gray segment, which is
+the statement's total less the named lines, so a column always adds up to the total. A negative
+amount (refunds above collections, a credit re-estimate) stacks below zero and the column gets a
+line at its net total. The colour order keeps neighbouring segments apart for colour-blind readers
+in both themes; gray may only sit beside orange, yellow, dark green or red (it is too close to the
+other hues), so keep that in mind when adding or reordering a segment.
+
 ## The quarterly sections: productivity, profits, debt, household debt, bank capital, nonbank finance
 
 Added 7-Oct-2026 (owner's request; the nonbank section the same day, after she asked for nonbank financials). One processor each; all six verify their series

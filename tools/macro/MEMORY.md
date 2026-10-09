@@ -99,6 +99,15 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   `names` map (`ptn:`, `loc:`, `cty:`). Import prices are described as measured before duties (BLS: f.o.b. foreign
   port) so nobody reads them as what US buyers pay; the effective rate is labelled an approximation (cash basis,
   net of refunds). Column-chart tooltips now use the chart's `labelFmt` (they printed "undefined 2026" for quarters).
+- **Fiscal breakdown month by month (9-Oct-2026, owner's request):** "Where the money comes from" and
+  "Where the money goes" carry the month in the heading ("..., Through August 2026", composed from the
+  latest statement, so it moves with every release) and one 12-month stacked column chart each. A month's
+  figures are table 9's current-month column of that month's own statement (as first published; table 9
+  never restates a month), not differences of the fiscal-year-to-date column, which would book a revision
+  in the month it was published. Months Table 1 later revised by $0.5 bn or more are named under the
+  chart. Segments are fixed by name so a colour always means the same line; the list above them uses the
+  same colours and gray for the lines folded into "Other". Column totals print only where all twelve fit
+  (not on phones). README → "The fiscal section".
 - **Rail spacing was tightened** (item padding 6px, group margin 14px) when the list grew to
   20 sections and 9 groups; on a 900 px window the rail still scrolls a little (it has
   `overflow-y: auto`), which is accepted.
@@ -110,6 +119,12 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   that polls `fredgraph.csv` once a minute and runs the processors when it answers (through a shim that routes
   `Invoke-WebRequest` over curl, since PowerShell's own client always times out there) is the way to seed data in a
   session; the runner remains the canonical path.
+- **FiscalData and the Actions log from a session (9-Oct-2026):** api.fiscaldata.treasury.gov and
+  packages.microsoft.com (no `pwsh` to parse-check with) were refused by the egress policy, and so was
+  the host the job log is served from (`gh api .../actions/jobs/<id>/logs` redirects to
+  `*.blob.core.windows.net`). What a session can read of a run: its steps and timings
+  (`gh api .../actions/runs/<id>/jobs`), its warnings (`gh api .../check-runs/<job id>/annotations`) and
+  the files a branch run commits (workflow input `branch`), which is how the table 9 history was tested.
 - **Sessions and the new sources (7-Oct-2026):** `curl` reaches fred.stlouisfed.org (keyless
   `fredgraph.csv` and series pages), api.fdic.gov, newyorkfed.org and the BLS API (keyless
   POST, 25 series / 10 years per call, a shared daily quota that runs out), but PowerShell's

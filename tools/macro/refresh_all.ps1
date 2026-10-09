@@ -84,6 +84,15 @@ CheckMonthly "trade_processed.json" { param($j) $j.asOf } 3 20 "FT-900 trade bal
 CheckMonthly "trade_processed.json" { param($j) $j.pricesAsOf } 2 30 "BLS import and export prices"
 CheckMonthly "trade_processed.json" { param($j) $j.partners.asOf } 3 20 "Census trade by partner"
 CheckMonthly "trade_processed.json" { param($j) $j.customs.asOf } 2 25 "MTS customs duties"
+# The month-by-month receipts and outlays breakdown (MTS table 9, one statement per month) is
+# fetched apart from the statement itself and keeps its committed copy when that fetch fails;
+# it must end on the statement's own month, or the two 12-month charts trail the rest of the section.
+try {
+  $fi = Get-Content (Join-Path $data "fiscal_processed.json") -Raw | ConvertFrom-Json
+  $stmtM = ([string]$fi.statementDate).Substring(0, 7)
+  $bkM = if ($fi.breakdown) { [string]$fi.breakdown.asOf } else { "" }
+  if ($bkM -ne $stmtM) { Warn "MTS monthly receipts-by-source and outlays-by-function history is at '$bkM' while the statement on file is $stmtM. Check process_fiscal.ps1's output (table 9 history)" } else { Write-Output ("MTS table 9 history: {0} OK" -f $bkM) }
+} catch { Warn "staleness check for the MTS table 9 history could not run: $($_.Exception.Message)" }
 try {
   $hh = Get-Content (Join-Path $data "hhdebt_processed.json") -Raw | ConvertFrom-Json
   $g19 = [datetime]::ParseExact($hh.g19.asOf + "-01", "yyyy-MM-dd", $null).AddMonths(3).AddDays(14)   # the G.19 posts a month about five weeks after it ends (July on the 5th business day of September), so the next month is overdue two weeks into the third month
