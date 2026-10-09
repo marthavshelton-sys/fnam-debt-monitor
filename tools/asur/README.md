@@ -118,6 +118,23 @@ unadjusted comparison would show ≈+66% with no real growth; FNAM calculation).
   ASUR prints prior-year comparatives for CPC (not used yet; consolidated growth stays n.c.). Open items for 3Q26 results
   (≈22-Oct): the DCF base passengers (`dcfDefaults`) are consolidated once traffic includes CPC, while the DCF note says
   Motiva is not in the base; revisit when the first consolidated quarter lands.
+* **First print (September 2026 traffic, released 7-Oct-2026; read 9-Oct-2026).** ASUR prints the twenty airports as one block,
+  "Brazil and Others": a summary row with its domestic / international split, and a "Brazil and Others Passenger Traffic" table
+  with three segment blocks ("Total Domestic Traffic", "Total International Traffic", "Traffic Total Brazil and Others"), each
+  listing an "Others" subtotal (SJO San José, CUR Curaçao, UIO Quito: one airport per country, the country in the airport's
+  printed name) and a "Brazil" subtotal (17 airports under "South Block" and "Central Block"; Pampulha, Bacacheri and Bagé print
+  "-", general aviation only). The two filings runs of 8 and 9-Oct failed on "countries sum = group total" (the block was not a
+  country the parser knew) and committed nothing; `build-data.mjs` now reads the block: Brazil from its printed subtotal, Costa
+  Rica / Curaçao / Ecuador from their single airport's printed row (ASUR's own country changes in the text are those airports'),
+  the block's printed totals checked against the four countries and "Others" against its three airports (a mismatch is a build
+  warning; an unplaced airport still fails validation). ASUR's codes are kept as printed: "BHA" for Belo Horizonte (Confins) and
+  "BHF" for Bacacheri are ASUR's labels, not IATA's (CNF, BFH). The release prints prior-year comparatives for the block
+  (Sep-2025: 3,872,332, and a pro-forma group total of 8,659,156): they are not used; the Sep-2025 month keeps the 16-airport
+  perimeter from its own release and consolidated growth stays n.c. until Sep-2027. `quality.js` → "traffic perimeter" reads
+  "since 2026-09: BR, EC, CR, CW; 20 of 20 airports itemized".
+  Deck (`airport-present.js`, tear sheet): the new perimeter prints on one row ("Motiva (CPC Aeroportos) · sep 26", n.c.) after
+  the legacy countries, and when the sheet would still spill past the sources note at the smallest size (the Spanish labels wrap
+  more) the indented per-country rows are dropped, since the deck's traffic page carries every country and airport.
 
 ### When a release changes format
 

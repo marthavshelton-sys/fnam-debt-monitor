@@ -162,3 +162,32 @@ from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
   at Tepic (ASA's contract, assigned to GATM on 15-Aug-2023; GATM 2023-2024 progress report, p. 8), not a shareholder.
 - The "Updates" definition on `/trafico/` is composed from `sources.afac.published` (AFAC's file name) and
   `sources.aicm.updated` (the day our check first saw AICM's PDF), never a typed schedule.
+
+## Page conventions added 9-Oct-2026
+
+- **Company reports basis on `/trafico/`**: a month that not every group has reported yet (only months after the three series
+  overlap count) is *partial*: each group's own figure is drawn (dashed segment into it), the month is never summed (the
+  tooltip footer and the "Suma" line say which group is missing), the footer gives the last month all three cover and names
+  the partial ones, and the annual bar of the current year says "(ene–sep, parcial)". Before 9-Oct the view summed GAP and OMA
+  for a month ASUR had not published and called it the total.
+- **Regulation table**: every cell starts with a `basis` line (`regulation.js` → `cells[co].basis`, `es`/`en`): the period
+  and the peso base of its figures (constant pesos of the filing, current pesos, year or quarter), so the mixed bases are
+  labeled in the table itself and not only in the note under it. Bump `?v=` on the hub's script tag when the shape changes
+  (now `v=4`).
+- **Sources**: `sources.aicm.fileUrl` (written by `refresh.mjs`) is the newest "AICM en Cifras" PDF itself and `/trafico/` links
+  it next to the statistics page; AIFA publishes its counters only at the foot of its home page (no statistics page exists on
+  aifa.aero, checked 9-Oct-2026), so `sources.aifa.url` opens the home page at the counters' heading through a text fragment.
+- **`/aerolineas/` route map labels**: widths are measured with the page font at the label's size in map units (the earlier
+  estimate used an 11 px size for 14–14.5 px labels, so boxes were 25% too small and 17 pairs overlapped on desktop); every box
+  must lie inside the frame (Cancún's used to run past the right edge); a label with no room beside its symbol goes farther out
+  on a leader line; out-of-frame corridors get **one edge label per foreign city** (busiest first) with the city's passengers
+  with Mexico over all its corridors, slid along the frame edge until it fits, with a leader back to its spoke when it had to
+  slide. The map is drawn again once the web font has loaded. Audit: zero overlapping pairs and zero labels outside the frame at
+  1280 and 390 px in both languages (routes, international scope, airline networks).
+- **Phone map on the hub**: labels are 15 / 16.5 map units (the 1000-unit map is 760 px wide on phones, so 11.4 / 12.5 px on
+  screen; they were 9.9 px).
+- **Accessibility** on the hub, `/trafico/` and `/aerolineas/`: a "Skip to content" link to `<main id="main">`, `scope="col"`
+  on every column header, the sortable airport table carries `aria-sort` on the sorted column and a real button in each header,
+  and every chart canvas gets `role="img"` with a name composed from its section and block headings in the current language.
+- Generated data files carry no script paths in their headers (`status.js`, `airlines.js`, `routes.js`, `airlines-summary.js`);
+  `regulation.js` and the `/aerolineas/` page source name no repository path either.
