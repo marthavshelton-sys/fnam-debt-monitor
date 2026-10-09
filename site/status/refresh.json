@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-09T22:29:01Z",
-  "rule": "up to date = the last scheduled refresh landed (3 h grace after its due time), no alert of the pipeline is open and every price feed of the page carries the exchange's last completed session (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
+  "checkedAt": "2026-10-09T22:35:06Z",
+  "rule": "up to date = the last scheduled refresh landed (3 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 3,
   "sections": {
     "us": {
@@ -86,7 +86,7 @@
         "at": "2026-10-09T19:41:11Z",
         "result": "failure"
       },
-      "requiredSince": "2026-10-08T19:30:00Z",
+      "requiredSince": "2026-10-09T19:30:00Z",
       "alerts": 0
     },
     {
@@ -134,6 +134,25 @@
             "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
+          }
+        ]
+      },
+      "data": {
+        "status": "ok",
+        "series": [
+          {
+            "name": {
+              "es": "Tráfico mensual por aeropuerto (traffic.js)",
+              "en": "Monthly traffic by airport (traffic.js)"
+            },
+            "month": "2026-09",
+            "needed": "2026-08",
+            "ok": true,
+            "requiredFrom": "2026-09-11T06:00:00Z",
+            "next": {
+              "month": "2026-09",
+              "requiredFrom": "2026-10-11T06:00:00Z"
+            }
           }
         ]
       }
@@ -186,6 +205,25 @@
             "ok": true
           }
         ]
+      },
+      "data": {
+        "status": "ok",
+        "series": [
+          {
+            "name": {
+              "es": "Tráfico mensual por aeropuerto (traffic.js)",
+              "en": "Monthly traffic by airport (traffic.js)"
+            },
+            "month": "2026-09",
+            "needed": "2026-08",
+            "ok": true,
+            "requiredFrom": "2026-09-11T06:00:00Z",
+            "next": {
+              "month": "2026-09",
+              "requiredFrom": "2026-10-11T06:00:00Z"
+            }
+          }
+        ]
       }
     },
     {
@@ -198,6 +236,9 @@
       "url": "/asur/",
       "status": "late",
       "refreshStatus": "late",
+      "lateCrons": [
+        "40 14 * * 1-5"
+      ],
       "lastSuccess": "2026-10-08T22:59:53Z",
       "lastAttempt": {
         "at": "2026-10-09T14:55:48Z",
@@ -233,6 +274,25 @@
             "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
+          }
+        ]
+      },
+      "data": {
+        "status": "ok",
+        "series": [
+          {
+            "name": {
+              "es": "Tráfico mensual por aeropuerto (traffic.js)",
+              "en": "Monthly traffic by airport (traffic.js)"
+            },
+            "month": "2026-09",
+            "needed": "2026-08",
+            "ok": true,
+            "requiredFrom": "2026-09-11T06:00:00Z",
+            "next": {
+              "month": "2026-09",
+              "requiredFrom": "2026-10-11T06:00:00Z"
+            }
           }
         ]
       }
@@ -463,9 +523,9 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T13:37:22Z",
+      "lastSuccess": "2026-10-09T22:30:56Z",
       "lastAttempt": {
-        "at": "2026-10-09T13:37:22Z",
+        "at": "2026-10-09T22:30:56Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T13:20:00Z",
