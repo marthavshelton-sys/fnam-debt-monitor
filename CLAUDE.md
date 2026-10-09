@@ -376,6 +376,14 @@ dashboards, everything built from public data by GitHub Actions.
 - GAP dividends: the AGM approves one amount per share payable in instalments over the following 12 months
   (`REF.dividends[].payableUntil`); the exchange record in `market.js` shows only what has gone ex. Compare the
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
+- GAP DCF (rebuilt 2026-10-09; runbook `tools/gap/README.md` → "DCF"): the rest of the current fiscal year plus five fiscal years,
+  discounted at mid-period from the latest balance sheet; the first projected year follows GAP's guidance midpoints, the next two
+  FactSet's consensus EBITDA (switch in the card), the rest the drivers; capex defaults to the PMD's annual pace; terminal value =
+  annuity to 2048 with a renewal-probability input (0 by default), perpetuity or exit multiple. The outputs print the bridges to the
+  market price (implied WACC, renewed-concession value, implied renewal probability and exit multiple, value at the 5-year average
+  multiple, FactSet's mean target) and a composed "Gap to market" callout; nothing there is typed. Every input has a range
+  (`DCF_LIMITS` in `app.js`): an out-of-range or empty entry is refused with a visible warning and the last valid value stays in
+  force. The validator warns on British spellings in the curated files' English strings (American English in the English view).
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
 - Fiscal dashboards (owner's rules, 2026-10-01): every block says "Data through <date>" (never "live"); every figure
