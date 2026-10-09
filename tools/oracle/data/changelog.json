@@ -4,167 +4,6 @@
   {
    "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
-   "path": "peers[2].price",
-   "old": 234.69,
-   "new": 229.79
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].marketCapUsdM",
-   "old": 193150,
-   "new": 189117
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].evUsdM",
-   "old": 224123,
-   "new": 220090
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEps",
-   "old": 16.292,
-   "new": 16.29
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEbitda",
-   "old": 20297,
-   "new": 20300
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmSales",
-   "old": 49387,
-   "new": 49400
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].peNtm",
-   "old": 14.4052295605205,
-   "new": 14.106200122774709
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].evEbitdaNtm",
-   "old": 11.042173720254224,
-   "new": 10.841871921182266
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].evSalesNtm",
-   "old": 4.5380970700791705,
-   "new": 4.455263157894737
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].divYieldPct",
-   "old": 0.7499254335506412,
-   "new": 0.7659167065581618
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.as_of",
-   "old": "2026-09-30",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y1",
-   "old": 15.3,
-   "new": 15.73
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y3",
-   "old": 21.94,
-   "new": 22.45
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y5",
-   "old": 27.14,
-   "new": 27.25
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n1",
-   "old": 12,
-   "new": 52
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n3",
-   "old": 35,
-   "new": 156
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.n5",
-   "old": 59,
-   "new": 252
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.spot_month_end",
-   "old": 14.08,
-   "new": null
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y1",
-   "old": 10.61,
-   "new": 10.77
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y3",
-   "old": 14.09,
-   "new": 14.33
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y5",
-   "old": 15.75,
-   "new": 15.81
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.n1",
-   "old": 12,
-   "new": 52
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.n3",
-   "old": 35,
-   "new": 156
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
    "path": "peers[2].hist.ev_ebitda_ntm.n5",
    "old": 59,
    "new": 252
@@ -4200,7 +4039,168 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 790,
    "new": 791
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].id",
+   "old": "2026-06-10-4q26-results",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].date",
+   "old": "2026-06-10",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].theme",
+   "old": "financing",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].basis",
+   "old": "sec",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].title_en",
+   "old": "4Q26 results: FY2026 capex US$55.7 bn; about US$40 bn of debt and equity planned for fiscal 2027, including a US$20 bn at-the-market equity program",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].title_es",
+   "old": "Resultados 4T26: capex AF2026 US$55.7 mil millones; unos US$40 mil millones de deuda y capital planeados para el AF2027, incluida una emisión ATM de US$20 mil millones",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].summary_en",
+   "old": "With the fiscal 4Q26 results Oracle set FY2027 guidance and, on the call, said it expects to raise around US$40 bn of debt and equity in fiscal 2027, including the US$20 bn at-the-market equity program already announced, with no additional debt funding anticipated in calendar 2026; it reported about US$75 bn of cumulative customer prepayments and bring-your-own-hardware contracts (company statements on the call, not audited).",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].summary_es",
+   "old": "Con los resultados del 4T26 fiscal Oracle fijó la guía del AF2027 y, en la llamada, dijo que espera levantar unos US$40 mil millones de deuda y capital en el AF2027, incluida la emisión ATM de US$20 mil millones ya anunciada, sin deuda adicional en el año calendario 2026; reportó unos US$75 mil millones acumulados de prepagos de clientes y contratos con hardware del cliente (declaraciones de la empresa en la llamada, no auditadas).",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].why_en",
+   "old": "Sets the funding plan this page reconciles: US$19.9 bn of equity raised in 1Q27 against the US$40 bn plan leaves about US$20 bn expected between January and May 2027 in an instrument not yet announced.",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].why_es",
+   "old": "Fija el plan de financiamiento que esta página concilia: US$19.9 mil millones de capital levantados en el 1T27 frente al plan de US$40 mil millones dejan unos US$20 mil millones esperados entre enero y mayo de 2027 en un instrumento aún no anunciado.",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[0].tier",
+   "old": "sec",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[0].title",
+   "old": "Form 8-K, Item 2.02, Exhibit 99.1 (4Q26 earnings release), filed Jun 10, 2026 (accession 0001193125-26-265848)",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[0].url",
+   "old": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[0].accession",
+   "old": "0001193125-26-265848",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[1].tier",
+   "old": "company",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[1].title",
+   "old": "4Q26 earnings call, Jun 10, 2026 (CFO remarks p.8; transcript supplied by the owner, not republished)",
+   "new": null
+  },
+  {
+   "at": "2026-10-09T14:56:21.788Z",
+   "file": "news.js",
+   "path": "items[17].sources[1].url",
+   "old": "https://investor.oracle.com/events-and-presentations/default.aspx",
+   "new": null
   }
  ],
- "generated": "2026-10-09T13:42:44.173Z"
+ "generated": "2026-10-09T14:56:21.788Z"
 }
