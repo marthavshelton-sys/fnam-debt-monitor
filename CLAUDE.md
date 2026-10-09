@@ -291,7 +291,8 @@ dashboards, everything built from public data by GitHub Actions.
 ## Board presentations (PDF)
 
 - Shared engine `site/assets/present-core.js` (`window.FNAM_PRESENT`: `Doc`, `run`, `autoRun`, Title Case,
-  `**bold**` runs, fit-to-page tables, off-screen Chart.js charts, cover, footers "Page X of Y" + confidentiality,
+  `**bold**` runs, fit-to-page tables, off-screen Chart.js charts, cover, footers "Page X of Y" + the source line (no deck
+  carries an authorship line or a confidentiality notice; owner, 2026-10-09),
   next-results rule). Per-company builders extend `Doc`: `site/gap/present.js`, `site/oracle/present.js`,
   `site/assets/airport-present.js` (ASUR, OMA), `site/qualitas/present.js`, `site/gentera/present.js`.
 - Each `app.js` exposes a read-only `window.<PREFIX>_MODEL`; builders read only that, never recompute figures.

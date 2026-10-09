@@ -1,7 +1,7 @@
 // Offline checks of the watchdog's rules (scripts/watchdog/lib.mjs). Run before every check:
 //   node scripts/watchdog/selftest.mjs
 import assert from 'node:assert/strict';
-import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, verdict, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, lastCsvDate, jsonDate } from './lib.mjs';
+import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, attemptRecord, verdict, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, lastCsvDate, jsonDate } from './lib.mjs';
 
 const t = (s) => Date.parse(s);
 const H = 36e5;
@@ -24,6 +24,14 @@ assert.equal(refreshLandedBySteps(steps(['Fetch', 'success'], ['Commit if anythi
 assert.equal(refreshLandedBySteps(steps(['Fetch', 'failure'], ['Commit if anything changed', 'success'])), false);
 assert.equal(refreshLandedBySteps(steps(['Fetch', 'success'], ['Commit if anything changed', 'failure'])), false);
 assert.equal(refreshLandedBySteps(steps(['Fetch', 'success'], ['Check source links', 'failure'])), false);  // no commit step
+
+// the newest scheduled run as one record: a run that committed and then failed is the landed refresh, not a failure beside it
+const run = (id, conclusion, at) => ({ id, conclusion, updated_at: at });
+assert.deepEqual(attemptRecord(run(2, 'failure', '2026-10-09T15:10:21Z'), { run: run(2, 'failure', '2026-10-09T15:10:21Z'), afterCommitFailure: true }), { at: '2026-10-09T15:10:21Z', result: 'success', afterCommitFailure: true });
+assert.deepEqual(attemptRecord(run(3, 'failure', '2026-10-09T23:03:00Z'), { run: run(2, 'success', '2026-10-09T15:10:21Z') }), { at: '2026-10-09T23:03:00Z', result: 'failure' });
+assert.deepEqual(attemptRecord(run(2, 'success', '2026-10-09T15:10:21Z'), { run: run(2, 'success', '2026-10-09T15:10:21Z') }), { at: '2026-10-09T15:10:21Z', result: 'success' });
+assert.deepEqual(attemptRecord(run(4, 'cancelled', '2026-10-10T15:10:21Z'), null), { at: '2026-10-10T15:10:21Z', result: 'cancelled' });
+assert.equal(attemptRecord(null, null), null);
 
 // verdicts: weekdays 19:30 UTC, 3 h grace
 const base = { crons: ['30 19 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H, openAlerts: 0 };

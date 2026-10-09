@@ -8,8 +8,6 @@
 (function () {
   'use strict';
   const VENDOR = ['/assets/vendor/jspdf.umd.min.js', '/assets/vendor/jspdf.plugin.autotable.min.js'];
-  const POWERED_BY = window.FNAM_MODEL_NAME || 'Claude (Anthropic)';
-  const PROMPTED_BY = 'Martha V. Shelton, CFA', PROMPTED_ROLE = 'Director, Talipot Research & Analysis';
 
   // ---------- page geometry (points; Letter) ----------
   const PAGE = { L: { w: 792, h: 612 }, P: { w: 612, h: 792 } };
@@ -76,7 +74,7 @@
   }
 
   class Doc {
-    // cfg: { slug, short, name, tickerLine, url, fileStem, confidential: {es,en} (optional) }
+    // cfg: { slug, short, name, tickerLine, url, fileStem, confidential: {es,en} (optional; the source line printed on the cover, the footers and the sources page) }
     constructor(M, cfg) {
       this.M = M; this.cfg = cfg; this.es = M.LANG === 'es'; this.T = (es, en) => (this.es ? es : en);
       const { jsPDF } = window.jspdf;
@@ -272,7 +270,10 @@
       if (n.kind === 'assumed') return this.T(`Próximos resultados (${q}): ~${this.date(n.date)}, fecha supuesta según el historial de publicación de ${co}`, `Next results (${q}): ~${this.date(n.date)}, assumed from ${co}'s release history`);
       return this.T(`Próximos resultados (${q}): fecha por confirmar`, `Next results (${q}): date to be confirmed`);
     }
-    confidential() { return (this.cfg.confidential && this.T(this.cfg.confidential.es, this.cfg.confidential.en)) || this.T('Confidencial · Preparado para Talipot Research & Analysis; no distribuir.', 'Confidential · Prepared for Talipot Research & Analysis; not for distribution.'); }
+    // The line every deck prints on its cover, in its footer and on its sources page: a builder may set cfg.confidential ({ es, en });
+    // the default names the sources. No deck carries an authorship line or a confidentiality notice (owner, 2026-10-09; the Oracle
+    // deck dropped them on 2026-10-04 and every other deck follows that pattern since).
+    confidential() { return (this.cfg.confidential && this.T(this.cfg.confidential.es, this.cfg.confidential.en)) || this.T('Fuente: información pública y consenso de FactSet; no es asesoría de inversión.', 'Source: public information and FactSet consensus; not investment advice.'); }
 
     // ----- cover page (landscape, unnumbered) -----
     cover(dataLine) {
@@ -283,13 +284,7 @@
       let y = 150 + lines.length * 36;
       this.font('bold', 17, ACCENT); this.pdf.text(tx(this.cfg.tickerLine), cx, y); y += 34;
       this.font('normal', 15, INK); this.pdf.text(tx(this.longDate(this.today)), cx, y); y += 46;
-      this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.8); this.pdf.line(cx, y, cx + 300, y); y += 26;
-      // cfg.credits === false drops the "Powered by / Prompted by" lines (the Oracle deck, owner's request 2026-10-04); other decks keep them
-      if (this.cfg.credits !== false) {
-        this.font('normal', 12, INK); this.pdf.text(tx(`Powered by ${POWERED_BY}`), cx, y); y += 20;
-        this.pdf.text(tx(`Prompted by ${PROMPTED_BY}`), cx, y); y += 18;
-        this.pdf.text(tx(PROMPTED_ROLE), cx, y); y += 20;
-      }
+      this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.8); this.pdf.line(cx, y, cx + 300, y);
       this.font('normal', 10, MUTED);
       // cfg.coverLines: extra basis lines a builder adds (e.g. the data refresh time)
       const basis = [dataLine, this.T(`Elaborado únicamente con información pública (${this.cfg.publicSources || 'comunicados de la empresa'}) · ${this.cfg.url}`, `Built only from public information (${this.cfg.publicSourcesEn || 'company releases'}) · ${this.cfg.url}`), ...(this.cfg.coverLines || [])].filter(Boolean);

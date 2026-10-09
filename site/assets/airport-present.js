@@ -573,7 +573,9 @@
         this.T(`Mercado: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; precio, sin dividendos reinvertidos; tipo de cambio FIX de Banxico (SIE SF43718), con FRED DEXMXUS como respaldo.`, `Market: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; price only, dividends not reinvested; Banxico FIX exchange rate (SIE SF43718), FRED DEXMXUS as the fallback.`),
       ];
       yl = this.heading(this.T('Metodología', 'Methodology'), this.cur.x0, yl + 10, 10);
-      yl = this.bullets(meth, this.cur.x0, yl, wl, 7.7, { gap: 3 });
+      // the methodology bullets shrink (7.7 → 6.5 pt) until they end above the footer rule: the Spanish list ran into the footer (OMA, 9-Oct-2026)
+      const methSize = [7.7, 7.4, 7.1, 6.8, 6.5].find((sz) => yl + this.measureBullets(meth, wl, sz, { gap: 3 }) <= this.cur.y1 - 6) || 6.5;
+      yl = this.bullets(meth, this.cur.x0, yl, wl, methSize, { gap: 3 });
       const srcs = (CFG.sources || []).map((s) => [M.L(s.t), M.L(s.d), s.u.replace(/^https?:\/\/(www\.)?/, '').split('?')[0].slice(0, 44)]);
       let yr = this.heading(this.T('Fuentes', 'Sources'), xr, y, 10);
       yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Fuente', 'Source'), this.T('Qué aporta', 'What it provides'), 'URL'], body: srcs, meta: srcs.map(() => ['bold left', 'left small', 'left small']), size: 7.6, cols: { 0: { halign: 'left', cellWidth: wr * 0.3 }, 1: { halign: 'left' }, 2: { halign: 'left', cellWidth: wr * 0.28 } } });
