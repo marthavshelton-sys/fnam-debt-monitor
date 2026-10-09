@@ -61,7 +61,8 @@ jobs:
       - name: Commit data.js if it changed
         id: commit
         if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
-        run: bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal data [skip actions]" site/mx/fiscal/data.js
+        run: |
+          bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal data [skip actions]" site/mx/fiscal/data.js
 
       # Official documents (CGPE, PAF, LIF, PEF, Banxico announcements, Pemex IR…) mirrored as text
       # into tools/mx-fiscal/docs/ so the document routine reads primary sources. Never fails the job
@@ -82,7 +83,8 @@ jobs:
 
       - name: Commit document mirrors if they changed
         if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
-        run: bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal document mirrors [skip actions]" tools/mx-fiscal/docs/
+        run: |
+          bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal document mirrors [skip actions]" tools/mx-fiscal/docs/
 
       # Document-sourced figures (docs-data.js) checked against the mirrored LIF, PEF, CGPE and PAF text.
       # Runs after the data commit so a drift never blocks the daily series; a mismatch fails the job,
