@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-09T22:35:06Z",
+  "checkedAt": "2026-10-09T22:38:40Z",
   "rule": "up to date = the last scheduled refresh landed (3 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 3,
   "sections": {
@@ -63,9 +63,9 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T19:40:24Z",
+      "lastSuccess": "2026-10-09T22:36:59Z",
       "lastAttempt": {
-        "at": "2026-10-09T19:40:24Z",
+        "at": "2026-10-09T22:36:59Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T19:25:00Z",
@@ -234,12 +234,9 @@
         "en": "ASUR"
       },
       "url": "/asur/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "40 14 * * 1-5"
-      ],
-      "lastSuccess": "2026-10-08T22:59:53Z",
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-09T22:36:19Z",
       "lastAttempt": {
         "at": "2026-10-09T14:55:48Z",
         "result": "failure"
