@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-09T00:02:59.224Z",
+  "generated": "2026-10-09T13:10:25.341Z",
   "summary": {
-    "checks": 461,
+    "checks": 464,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -2829,7 +2829,31 @@
     },
     {
       "tag": "factset",
+      "check": "every market cap is dated at its company's price date and equals close × company-level shares (FF_COM_SHS_OUT, within 0.5%)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "the snapshot's market_cap_date is its price_date",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
       "check": "historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "historical multiples use company-level shares (FF_COM_SHS_OUT) for Oracle and every peer",
       "status": "ok",
       "diff": null,
       "tol": null,
@@ -3776,7 +3800,7 @@
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "nightly FactSet routine, 7:58 PM New York time; the page's price authority"
@@ -3784,7 +3808,7 @@
     {
       "series": "Share price (ORCL close, runner feed)",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet"
@@ -3792,7 +3816,7 @@
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
@@ -3800,7 +3824,7 @@
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
       "lastDate": "2026-10-07",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 7,
       "status": "ok",
       "note": "market fetch; credit card proxy while no CDS source exists"
@@ -3808,7 +3832,7 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 29,
+      "ageDays": 30,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
@@ -3816,7 +3840,7 @@
     {
       "series": "EDGAR submissions snapshot",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 4,
       "status": "ok",
       "note": "filings harvest, weekdays 13:30 UTC"
@@ -3824,7 +3848,7 @@
     {
       "series": "Oracle IR press-release snapshot",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 4,
       "status": "ok",
       "note": "filings harvest"
@@ -3832,7 +3856,7 @@
     {
       "series": "Investor calendar",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 10,
       "status": "ok",
       "note": "calendar fetch"
@@ -3840,14 +3864,14 @@
     {
       "series": "Peer leverage (SEC XBRL)",
       "lastDate": "2026-10-08",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 10,
       "status": "ok",
       "note": "peer-leverage fetch"
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-08",
+      "lastDate": "2026-10-09",
       "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
@@ -3856,7 +3880,7 @@
     {
       "series": "Implied equity risk premium (Damodaran, monthly)",
       "lastDate": "2026-10-01",
-      "ageDays": 8,
+      "ageDays": 9,
       "limitDays": 45,
       "status": "ok",
       "note": "the market fetch reads Damodaran's home page; he posts on the first of each month"
@@ -3864,7 +3888,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-10-05",
-      "ageDays": 4,
+      "ageDays": 5,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
@@ -3872,7 +3896,7 @@
     {
       "series": "Sell-side research sweep (analyst opinions)",
       "lastDate": "2026-10-05",
-      "ageDays": 4,
+      "ageDays": 5,
       "limitDays": 60,
       "status": "ok",
       "note": "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt"
@@ -3935,7 +3959,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-08; prices 2026-10-08; 8 peers; fetched 2026-10-08"
+      "detail": "consensus 2026-10-08; prices 2026-10-08; 8 peers; fetched 2026-10-09"
     },
     {
       "file": "peer_leverage.json",
@@ -4105,7 +4129,7 @@
       "label_es": "Consenso FactSet",
       "cadence": "daily",
       "asOf": "2026-10-08",
-      "lastRefresh": "2026-10-08",
+      "lastRefresh": "2026-10-09",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -5226,7 +5250,10 @@
     "factset: NTM history is dated and ascending",
     "factset: rating counts add up to the total",
     "factset: at least six peers with price, market cap and NTM EPS",
+    "factset: every market cap is dated at its company's price date and equals close × company-level shares (FF_COM_SHS_OUT, within 0.5%)",
+    "factset: the snapshot's market_cap_date is its price_date",
     "factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer",
+    "factset: historical multiples use company-level shares (FF_COM_SHS_OUT) for Oracle and every peer",
     "factset: ADTV (3-month average daily traded value, US$ M) present and positive for Oracle and every peer",
     "factset: ORCL daily price file (FactSet Global Prices) present, ascending, with intraday highs and lows",
     "factset: the price file's last close is the snapshot's ORCL price on ORCL's own price date",

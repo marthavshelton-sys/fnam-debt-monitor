@@ -188,9 +188,20 @@ if (fsj) {
   check("factset: NTM history is dated and ascending", Array.isArray(o.ntm_history) && o.ntm_history.length > 4 && o.ntm_history.every((h, i, a) => /^\d{4}-\d{2}-\d{2}$/.test(h.date) && (i === 0 || a[i - 1].date < h.date)));
   check("factset: rating counts add up to the total", !r || r.buy + r.overweight + r.hold + r.underweight + r.sell === r.total);
   check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
+  // market values at the close the snapshot carries (owner, 2026-10-09: tables 22 and 23 always at the prior close). FactSet's market_value
+  // endpoint posts a session's value only after the 19:58 routine has run (on 2026-10-08 it still carried the 7-Oct value at 8 PM ET),
+  // so the routine prices the company-level share count (FF_COM_SHS_OUT, every class: FactSet's market value leaves Alphabet's unlisted
+  // Class B out) at the close it carries; a snapshot whose market caps are dated before its prices, or whose market cap is not
+  // close × shares, fails here instead of publishing a stale EV
+  const fsCos = [{ ...(fsj.oracle || {}), ticker: "ORCL-US" }, ...(fsj.peers || [])];
+  check("factset: every market cap is dated at its company's price date and equals close × company-level shares (FF_COM_SHS_OUT, within 0.5%)", fsCos.length > 1 && fsCos.every((c) => c.market_cap_date && c.market_cap_date === (c.price_date || fsj.price_date) && c.shares_basis === "FF_COM_SHS_OUT" && c.shares_m > 0 && c.price > 0 && c.market_cap_usd_m > 0 && Math.abs(c.market_cap_usd_m - c.price * c.shares_m) / c.market_cap_usd_m < 0.005));
+  check("factset: the snapshot's market_cap_date is its price_date", !!fsj.market_cap_date && fsj.market_cap_date === fsj.price_date);
   // trailing averages of the forward multiples (owner's request 2026-10-06): every peer and Oracle carry y1/y3/y5 for both ratios, positive, dated
   const hm = [fsj.oracle?.hist_multiples, ...(fsj.peers || []).map((p) => p.hist_multiples)];
   check("factset: historical multiple averages (1y/3y/5y NTM EV/EBITDA and P/E) present and positive for Oracle and every peer", hm.length > 1 && hm.every((h) => h && /^\d{4}-\d{2}-\d{2}$/.test(h.as_of) && ["pe_ntm", "ev_ebitda_ntm"].every((k) => h[k] && ["y1", "y3", "y5"].every((w) => h[k][w] > 0) && (h.sampling === "weekly" ? h[k].n1 >= 48 && h[k].n3 >= 140 && h[k].n5 >= 230 : h[k].n1 >= 10 && h[k].n3 >= 30 && h[k].n5 >= 50))));
+  // the weekly EV uses the company-level share count (FactSet Fundamentals FF_COM_SHS_OUT, every class): the security-level monthly count
+  // is one class only for Alphabet (Class A, about half the total) and Workday, which halved Alphabet's historical EV until 2026-10-09
+  check("factset: historical multiples use company-level shares (FF_COM_SHS_OUT) for Oracle and every peer", hm.length > 1 && hm.every((h) => h && h.shares_basis === "FF_COM_SHS_OUT"));
   const ad = [fsj.oracle?.adtv, ...(fsj.peers || []).map((p) => p.adtv)];
   check("factset: ADTV (3-month average daily traded value, US$ M) present and positive for Oracle and every peer", ad.length > 1 && ad.every((a) => a && a.usd_m > 0 && a.days >= 55 && /^\d{4}-\d{2}-\d{2}$/.test(a.end || "")));
   // ORCL daily prices from FactSet (owner, 2026-10-06): the file is the page's price authority, so its last row must be ORCL's snapshot close

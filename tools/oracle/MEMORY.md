@@ -301,6 +301,23 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   issue) when any of them is behind the last completed NYSE session (required from 21:00 New York, 5 h after the close for the
   19:58 routine); `market.js` now carries `latestClose` in its first bytes so `data-status.js` can turn the dot red between
   checks. Runbook `tools/watchdog/README.md`.
+- Market values at the close (owner, 2026-10-09: "tables 22 and 23 should always use the prior night's close"): FactSet's
+  `market_value` endpoint (currentMarketValue) posts a session's value only hours after the 19:58 routine has run — at 8 PM New York
+  on 2026-10-08 it returned the 7-Oct value (434,088 = 3,023.736 M × 143.56) while prices carried the 8-Oct close (135.69), so table 23
+  printed Oracle's market cap 5.8% too high (434 vs 410 bn, against table 22's 410.3) and EV/EBITDA NTM 9.5x instead of 9.2x, all
+  labeled "as of Oct 8". Routine step h now prices the company-level count FF_COM_SHS_OUT of the latest reported quarter (every class; FactSet's
+  market value also leaves Alphabet's unlisted Class B out, 11,341 M vs 12,230 M) at the snapshot's close; `market_cap_date`,
+  `shares_m`, `shares_date`, `shares_basis` and `market_value_factset` (audit only) are stored per company and the validator fails a
+  snapshot whose market caps are dated before its prices or differ from close × shares. The page composes the label from
+  `PEERS.marketCapDate` (`pxMcPhrase`).
+- Weekly history share count (same review): the `shares_outstanding` endpoint is security-level, one class only for multi-class
+  issuers (GOOGL-US = Class A 5,868 M vs 12,230 M company-level FF_COM_SHS_OUT; WDAY-US 196 M vs 241 M), so Alphabet's trailing
+  EV/EBITDA averages printed 7.8/6.3/5.8x (correct: 16.6/13.7/12.8x) and Workday's 9.6/15.4/17.6x (11.7/19.2/22.7x); single-class
+  peers moved by less than 0.6x. Step k now uses FactSet Fundamentals FF_COM_SHS_OUT (quarterly, every class) and weekly prices on
+  `calendar: US` (a holiday Friday is dated at the Thursday instead of returning null, so every window has its 52/156/260 weeks);
+  `hist_multiples.shares_basis` is validated. Windows are date-based (observations after as_of − N × 7 days).
+- The live site answers 401 to plain requests while `SITE_PASSWORD` is set (2026-10-09), so a session verifies deploys through the
+  commits on `main`, not by fetching fnam.mx.
 - Price provenance rules (review of the FactSet-authority change, 2026-10-06): `prices.ORCL.fetchedAt` is the stamp of the feed that
   supplied the latest close (the runner's `accessed` when it filled a date FactSet has not posted yet), so the footer never says
   "fetched" before the close it shows; every source line that quotes the latest close uses `pxLink()` (source + fill-in dates), the
