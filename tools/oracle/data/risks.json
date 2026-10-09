@@ -64,8 +64,8 @@
         {
           "kind": "press",
           "date": "2026-07-20",
-          "en": "The 203 bp CDS figure is a press report (Bloomberg, Jul 20, 2026), not a market feed: the page has no CDS series yet (FactSet connector pending), so it is not current.",
-          "es": "La cifra de 203 pb del CDS es una nota de prensa (Bloomberg, 20 jul 2026), no un dato de mercado: la página aún no tiene serie de CDS (conector de FactSet pendiente), así que no está al día."
+          "en": "The 203 bp CDS figure is a press report (Bloomberg, Jul 20, 2026), not a market feed: the page has no CDS series yet (no CDS data source is available), so it is not current.",
+          "es": "La cifra de 203 pb del CDS es una nota de prensa (Bloomberg, 20 jul 2026), no un dato de mercado: la página aún no tiene serie de CDS (no hay una fuente de datos de CDS disponible), así que no está al día."
         }
       ]
     },

@@ -179,6 +179,12 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   landscape bar is 38 px; the chain's valuation detail leads with the delta; the phone menu separates number and name; Spanish view
   translates the curated English source shorts (`srcLabel`); the deck's contents note names the DCF section of the page. The link checker
   already treats 401/403/429 as "unverifiable" (never broken): nothing to change.
+- **Reader-facing wording (standing rule restated in the review's full prompt).** No internal or tool names on the page or the decks:
+  "connector", "harvest", "routine", "workflow", "prompt", file names. The methodology modules table, the CDS card, the risks
+  note, the calendar meta, the summary fallbacks and the deck's sources page now say "download", "automated", "FactSet's data
+  feed", "FactSet AI-Ready Data service"; the raw change-log table prints the module label (`fileLabel`) instead of the data file
+  name. Scan before pushing: visible text in both languages plus the PDFs' text for Claude, Anthropic, Talipot and the terms
+  above (the render check does not cover them).
 
 ## Pitfalls
 
