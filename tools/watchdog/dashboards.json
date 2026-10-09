@@ -1,5 +1,5 @@
 {
-  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path; name {es, en}), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routines run at 19:52 (airports), 19:58 (Oracle) and 20:13 (Quálitas, Gentera) New York time, so 5 h). Every feed must carry that session (the S&P 500 included: the runner tops it up from Yahoo/Stooq the same evening); lagSessions N would let a feed trail by N sessions and no feed uses it. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue; a date the exchange calendar (scripts/watchdog/lib.mjs) does not cover → unverified.",
+  "_comment": "Dashboard → refresh workflow(s) and the alert labels of its own pipeline. `prices` (optional): the page's price feeds, each a file in main read for its latest date (kind csv = last dated row, Date first; kind json = `field`, a dotted path; name {es, en}), judged against the exchange's last completed session once its close plus settleHours has passed (NYSE close 16:00 New York; the nightly FactSet routines run at 19:52 (airports), 19:58 (Oracle) and 20:13 (Quálitas, Gentera) New York time, so 5 h). Every feed must carry that session (the S&P 500 included: the runner tops it up from Yahoo/Stooq the same evening); lagSessions N would let a feed trail by N sessions and no feed uses it. Any feed behind → status stale (red, pulsing) and a 'SOURCE DOWN: watchdog - <name> prices stale' issue; a date the exchange calendar (scripts/watchdog/lib.mjs) does not cover → unverified. `data` (optional, added 9-Oct-2026): the page's monthly data feeds, each a file in main read for its latest month (kind js = a `window.X = {...};` data file, kind json; `field` a dotted path such as coverage.1), judged against the month the publisher's calendar requires (scripts/watchdog/lib.mjs requiredMonth: month M-1 once day dueDay of month M has ended in Mexico City, month M-2 before that; the airport groups publish traffic around the 5th-8th, so dueDay 10 gives a late release its grace). Any feed behind -> status stale and a 'SOURCE DOWN: watchdog - <name> data stale' issue.",
   "graceHours": 3,
   "heartbeatHours": 11,
   "sections": {
@@ -17,18 +17,27 @@
         { "name": "GAPB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.GAPB-MX" },
         { "name": "PAC close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.PAC-US", "exchange": "NYSE" },
         { "name": "Page close GAPB.MX (market.js)", "file": "site/gap/data/market.js", "kind": "js", "field": "latestClose" }
+      ] },
+      "data": { "timeZone": "America/Mexico_City", "dueDay": 10, "series": [
+        { "name": { "es": "Tráfico mensual por aeropuerto (traffic.js)", "en": "Monthly traffic by airport (traffic.js)" }, "file": "site/gap/data/traffic.js", "kind": "js", "field": "coverage.1" }
       ] } },
     { "id": "oma", "section": "companies", "name": { "es": "OMA", "en": "OMA" }, "url": "/oma/", "workflows": ["oma-refresh.yml"], "alertLabels": [],
       "prices": { "exchange": "BMV", "settleHours": 5, "series": [
         { "name": "OMAB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.OMAB-MX" },
         { "name": "OMAB close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.OMAB-US", "exchange": "NYSE" },
         { "name": "Page close OMAB.MX (market.js)", "file": "site/oma/data/market.js", "kind": "js", "field": "latestClose" }
+      ] },
+      "data": { "timeZone": "America/Mexico_City", "dueDay": 10, "series": [
+        { "name": { "es": "Tráfico mensual por aeropuerto (traffic.js)", "en": "Monthly traffic by airport (traffic.js)" }, "file": "site/oma/data/traffic.js", "kind": "js", "field": "coverage.1" }
       ] } },
     { "id": "asur", "section": "companies", "name": { "es": "ASUR", "en": "ASUR" }, "url": "/asur/", "workflows": ["asur-refresh.yml"], "alertLabels": [],
       "prices": { "exchange": "BMV", "settleHours": 5, "series": [
         { "name": "ASURB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.ASURB-MX" },
         { "name": "ASR close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.ASR-US", "exchange": "NYSE" },
         { "name": "Page close ASURB.MX (market.js)", "file": "site/asur/data/market.js", "kind": "js", "field": "latestClose" }
+      ] },
+      "data": { "timeZone": "America/Mexico_City", "dueDay": 10, "series": [
+        { "name": { "es": "Tráfico mensual por aeropuerto (traffic.js)", "en": "Monthly traffic by airport (traffic.js)" }, "file": "site/asur/data/traffic.js", "kind": "js", "field": "coverage.1" }
       ] } },
     { "id": "airport-traffic", "section": "companies", "name": { "es": "Tráfico por Aeropuerto", "en": "Traffic by Airport" }, "url": "/aeropuertos/trafico/", "workflows": ["aeropuertos-refresh.yml"], "alertLabels": [] },
     { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },

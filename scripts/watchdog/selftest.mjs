@@ -1,7 +1,7 @@
 // Offline checks of the watchdog's rules (scripts/watchdog/lib.mjs). Run before every check:
 //   node scripts/watchdog/selftest.mjs
 import assert from 'node:assert/strict';
-import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, verdict, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, lastCsvDate, jsonDate } from './lib.mjs';
+import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, verdict, perCronLate, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, requiredMonth, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth } from './lib.mjs';
 
 const t = (s) => Date.parse(s);
 const H = 36e5;
@@ -39,6 +39,25 @@ assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreate
 assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z', openAlerts: 1 }).status, 'alert');
 // late wins over alert
 assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-09-29T19:35:00Z', openAlerts: 2 }).status, 'late');
+
+// per-schedule lateness: ASUR 8–9 Oct 2026, filings cron 14:40 failing twice while the market cron 22:50 keeps landing
+const two = { crons: ['40 14 * * 1-5', '50 22 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H };
+const runsA = [{ createdAt: '2026-10-09T14:54:49Z', landed: false }, { createdAt: '2026-10-08T22:59:08Z', landed: true }, { createdAt: '2026-10-08T14:54:11Z', landed: false }, { createdAt: '2026-10-07T22:58:05Z', landed: true }, { createdAt: '2026-10-07T14:51:56Z', landed: true }];
+assert.equal(verdict({ ...two, now: t('2026-10-09T15:50:00Z'), lastLandedCreatedAt: '2026-10-08T22:59:08Z', openAlerts: 0 }).status, 'ok');   // the combined rule is fooled
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA }).map((x) => x.cron), []);                               // 9-Oct 14:40 is inside the grace: one miss so far
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // after the grace: two filings runs in a row failed
+assert.equal(new Date(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA })[0].missedSince).toISOString(), '2026-10-08T14:40:00.000Z');
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T15:10:00Z', landed: true }] }).map((x) => x.cron), []); // a landed run 30 min late belongs to 14:40
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T19:10:00Z', landed: true }] }).map((x) => x.cron), []); // and one 4.5 h late still does (no fixed window)
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-10T03:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T23:10:00Z', landed: true }] }).map((x) => x.cron), ['40 14 * * 1-5']); // a run after the market cron's due time belongs to the market cron
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-05T12:00:00Z'), runs: [] }).map((x) => x.cron), ['40 14 * * 1-5', '50 22 * * 1-5']);    // nothing ever landed
+// the MX macro weekend cron (15:25 UTC Sat/Sun): GitHub started the 3–4 Oct 2026 runs four and five hours late; they still count
+const wk = { crons: ['25 15 * * 0,6', '40 13 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H };
+const wkRuns = [{ createdAt: '2026-10-05T13:45:00Z', landed: true }, { createdAt: '2026-10-04T20:43:54Z', landed: true }, { createdAt: '2026-10-03T19:43:29Z', landed: true }, { createdAt: '2026-10-02T13:46:00Z', landed: true }];
+assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns }).map((x) => x.cron), []);
+assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns.filter((r) => !/10-0[34]/.test(r.createdAt)) }).map((x) => x.cron), ['25 15 * * 0,6']); // both weekend runs missing
+// a weekend-only cron whose runs fell off the fetched page is not judged before `since` (the oldest run fetched)
+assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-09T22:00:00Z'), runs: [{ createdAt: '2026-10-09T13:45:00Z', landed: true }, { createdAt: '2026-10-08T13:44:00Z', landed: true }], since: t('2026-10-08T13:44:00Z') }).map((x) => x.cron), []);
 
 // Mexico City time (UTC-6, no daylight saving since 2022)
 assert.equal(cdmx('2026-10-01T15:12:00Z'), '01-Oct-2026 09:12 CDMX');
@@ -114,6 +133,29 @@ assert.deepEqual(pxB('2026-09-17T15:00:00Z', [{ name: 'ads', date: '2026-09-15',
 assert.equal(pxB('2026-07-04T15:00:00Z', [{ name: 'home', date: '2026-07-03' }, { name: 'ads', date: '2026-07-02', exchange: 'NYSE' }]).status, 'ok');
 assert.equal(pxB('2027-01-05T15:00:00Z', [{ name: 'home', date: '2027-01-04' }, { name: 'ads', date: '2027-01-04', exchange: 'NYSE' }]).status, 'unverified');
 assert.equal(jsonDate({ latestClose: { 'GAPB-MX': '2026-10-05' } }, 'latestClose.GAPB-MX'), '2026-10-05');
+// monthly data feeds: the traffic file must carry September once 10-Oct has ended in Mexico City, August before that
+const rm = (iso, dueDay = 10) => requiredMonth({ now: t(iso), dueDay });
+assert.equal(rm('2026-10-09T21:00:00Z').month, '2026-08');                       // 9-Oct 15:00 CDMX: August still enough
+assert.equal(rm('2026-10-11T05:59:00Z').month, '2026-08');                       // 10-Oct 23:59 CDMX
+assert.equal(rm('2026-10-11T06:00:00Z').month, '2026-09');                       // 11-Oct 00:00 CDMX: September required
+assert.equal(rm('2026-10-11T06:00:00Z').requiredFrom, '2026-10-11T06:00:00Z');
+assert.deepEqual(rm('2026-10-11T06:00:00Z').next, { month: '2026-10', requiredFrom: '2026-11-11T06:00:00Z' });
+assert.deepEqual(rm('2026-10-09T21:00:00Z').next, { month: '2026-09', requiredFrom: '2026-10-11T06:00:00Z' });
+assert.equal(rm('2027-01-05T12:00:00Z').month, '2026-11');                       // year boundary
+assert.equal(rm('2027-01-12T12:00:00Z').month, '2026-12');
+assert.equal(rm('2026-10-06T12:00:00Z', 5).month, '2026-09');                    // a publisher with an earlier due day
+assert.throws(() => requiredMonth({ now: t('2026-10-06T12:00:00Z'), dueDay: 31 }), /1–28/);
+const mv = (iso, series) => monthlyVerdict({ now: t(iso), series });
+assert.equal(mv('2026-10-09T21:00:00Z', [{ name: 'traffic', month: '2026-08' }]).status, 'ok');
+assert.equal(mv('2026-10-11T06:00:00Z', [{ name: 'traffic', month: '2026-08' }]).status, 'stale');   // the ASUR case: a Sep release not parsed
+assert.equal(mv('2026-10-11T06:00:00Z', [{ name: 'traffic', month: '2026-09' }]).status, 'ok');
+assert.equal(mv('2026-10-11T06:00:00Z', [{ name: 'traffic', month: '2026-10' }]).status, 'ok');      // ahead is never stale
+assert.equal(mv('2026-10-11T06:00:00Z', [{ name: 'traffic', month: null }]).status, 'stale');
+assert.deepEqual(mv('2026-10-11T06:00:00Z', [{ name: 'traffic', month: '2026-08' }]).series[0], { name: 'traffic', month: '2026-08', needed: '2026-09', ok: false, requiredFrom: '2026-10-11T06:00:00Z', next: { month: '2026-10', requiredFrom: '2026-11-11T06:00:00Z' } });
+assert.equal(jsonMonth({ coverage: ['2014-12', '2026-09'] }, 'coverage.1'), '2026-09');
+assert.equal(jsonMonth({ generatedAt: '2026-10-09T21:45:22.656Z' }, 'generatedAt'), '2026-10');
+assert.equal(jsonMonth({ coverage: [] }, 'coverage.1'), null);
+
 // readers
 assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n'), '2026-10-05');
 assert.equal(lastCsvDate('Date,Close\n2026-10-02,1\n2026-10-05,2\n2026-10-\n'), '2026-10-05');  // partial trailing line ignored

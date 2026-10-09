@@ -8,7 +8,7 @@ hard-coded in the page or the engine.
 | File | What it holds | How it is refreshed |
 | --- | --- | --- |
 | `financials.js` (`window.ASUR_FIN`) | Income statement, statement of financial position, cash flow, Table 1 KPIs (passengers by country, commercial revenue per passenger, capex, debt) and the country segments (Mexico, Puerto Rico, Colombia, United States) for every quarter since 1Q18, the year-to-date columns and fiscal years FY2018→ | **Automatic.** `asur-refresh.yml` → `harvest-releases.mjs` → `build-data.mjs` → `validate-data.mjs` |
-| `traffic.js` (`window.ASUR_TRAFFIC`) | Monthly terminal passengers by airport (16 airports; domestic / international / total) and by country since Dec-2014 | **Automatic.** Same pipeline (monthly traffic release ≈ the 5th–8th of each month, PR Newswire) |
+| `traffic.js` (`window.ASUR_TRAFFIC`) | Monthly terminal passengers by airport (16 legacy airports and, from September 2026, the 20 Motiva/CPC airports, `group: "cpc"`; domestic / international / total) and by country (MX, PR, CO and, from Sep-2026, BR, EC, CR, CW) since Dec-2014; a month's `comparatives` are the prior-year figures the same release prints for airports the prior-year release did not carry | **Automatic.** Same pipeline (monthly traffic release ≈ the 5th–8th of each month, PR Newswire) |
 | `guidance.js` (`window.ASUR_GUIDANCE`) | Empty vintages: ASUR publishes no guidance table. The page shows the qualitative targets kept in `reference.js` (`regulation.facts`) instead | **Automatic** (the builder would fill it if a guidance table ever appears) |
 | `comments.js` (`window.ASUR_COMMENTS`) | One-line explanations per income-statement line (`lines`) and per operating metric (`ops`) for year-over-year comparisons, ES and EN, from the results report and the call transcript; keyed `2026Q2`, `2026M6`, `FY2025` | **Drafted by the alert routine** when a new quarter lands; transcripts (`tools/asur/raw/releases/*tx_en.txt`) are folded in |
 | `summary.js` (`window.ASUR_SUMMARY`) | Executive summary: operations, expansion and capital, debt and dividends, what to watch; four bilingual sections plus the basis periods | **Rewritten by the alert routine** when results, traffic or an event land |
@@ -113,11 +113,34 @@ unadjusted comparison would show ≈+66% with no real growth; FNAM calculation).
 * **Validator**: per-country domestic + international = total, and countries sum = group total (both strict from 2019),
   on top of airports sum = group total. A first CPC release the parser cannot place therefore **fails the filings run and
   commits nothing** (market-only runs keep committing prices from the last valid data); fix the label in `build-data.mjs`.
-* **First print checklist** (September 2026 traffic, expected about 6–8 Oct-2026): the quality page's "traffic perimeter"
-  row turns to "since 2026-09"; the card shows "In traffic since Sep 26"; check the itemized count against 20 and whether
-  ASUR prints prior-year comparatives for CPC (not used yet; consolidated growth stays n.c.). Open items for 3Q26 results
-  (≈22-Oct): the DCF base passengers (`dcfDefaults`) are consolidated once traffic includes CPC, while the DCF note says
-  Motiva is not in the base; revisit when the first consolidated quarter lands.
+* **First print (September 2026 traffic, published 7-Oct-2026; parsed 9-Oct-2026).** ASUR prints the new airports as one block,
+  **"Brazil and Others"**: in the summary table a row with its domestic / international split (the parser keeps it as
+  `newBlock` for a cross-check against the countries), and a "Brazil and Others Passenger Traffic" table whose three segments
+  ("Total Domestic Traffic", "Total International Traffic", "Traffic Total Brazil and Others") each list an **"Others"** subtotal
+  (SJO San José, CUR Curaçao, UIO Quito, the country in the airport's name) and a **"Brazil"** subtotal followed by BHA Confins,
+  PLU Pampulha and the "South Block" / "Central Block" subtotals with their airports (`NEW_BLOCK`, `nameRe` and the `sub` state in
+  `parseTraffic`). The one-airport countries take their airport as the country subtotal (`finishTraffic`); the block subtotals are
+  skipped; the note "Bage, Bacacheri and Pampulha are 100% general aviation airports" flags those three `ga: true` (no row, no
+  chip, no series on the page; they stay in the 20-airport count). The validator's identities (countries sum = group total,
+  airports sum = group total, domestic + international per country) passed on the first parse (0 failures). The Oct-8 and
+  Oct-9 filings runs had failed on this release ("summary row not recognised: Brazil and Others"; countries ≠ group total by
+  3,925 K) and committed nothing: since 9-Oct-2026 the workflow commits `market.js` even when the filings validation fails, so
+  the page's market stamp keeps pace with GAP's and OMA's, and the watchdog judges each cron of a workflow on its own and the
+  traffic file's latest month (see `tools/watchdog/README.md`).
+* **The company's comparatives (pf).** The September release carries September 2025 figures for every new airport (under their
+  previous owner). `build-data.mjs` keeps them beside the month as `months[].comparatives` (airports, countries; never merged
+  into the 2025-09 month, which stays the 16-airport release). The page (`PERIM.priorOf`, `PERIM.consolidatedPrior`), the deck
+  and the hub print a change across the perimeter change with them, marked **pf** (pro forma) with a tooltip, instead of n.c.:
+  the Motiva segment +1.4%, the consolidated total −0.0% in the month and −0.7% year to date, the figures ASUR itself prints.
+  n.c. remains wherever no comparative exists. Nothing is estimated.
+* **Motiva as a segment.** The consolidated basis adds a "Motiva (CPC Aeroportos) (20 airports)" chip and series (`CPC_CHIP`),
+  a subtotal row in the latest-month table (page and deck), a "Passengers Motiva" row in the operating-metrics table once a
+  period carries it, and a row in the deck's tear sheet (the three legacy countries share one row there). The deck's
+  twelve-month table stays on the legacy perimeter until the new airports have twelve months (a one-month "LTM" would mislead)
+  and sits on a page of its own with a 24-month chart (legacy bars, Motiva stacked, legacy y/y line): 19 pages since 9-Oct-2026.
+* Open item for 3Q26 results (≈22-Oct): the DCF base passengers (`dcfDefaults`) sum the last four reported quarters on the
+  consolidated basis plus `proForma.paxM`; once a reported quarter carries a CPC month, that month is counted twice. Revisit
+  with the first consolidated quarter (and the LTM EBITDA overlay, below).
 
 ### When a release changes format
 
@@ -160,7 +183,7 @@ of sections 09 and 10 is read from the page itself. Language follows the ES/EN t
 
 Deep link: `/asur/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
+Pages (19 since 9-Oct-2026, 18 before the Motiva airports were reported): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
 their lead clause emphasised) · contents (one linked row per section with the page's own numbers and titles, read from
 the page's headings; sub-rows when a section spans several pages; the note names the sections the deck does not carry,
 04 and 05) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
@@ -168,7 +191,8 @@ IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBI
 next results) · operating metrics and income statement for the latest quarter, LTM and fiscal year (portrait, ex-IFRIC
 12, with the `data/comments.js` comments) · outlook, tariffs and investment commitments (`reference.js` → `regulation`,
 `concessions`; the formal guidance layout switches on automatically when `guidance.js` carries vintages) · traffic by
-airport (latest month with country subtotals, LTM, next traffic report from the median release day) · ASUR vs Mexico
+airport (latest month with country subtotals, the Motiva subtotal and the consolidated total; on its own page since the new
+airports were reported) · twelve months on the legacy perimeter with a 24-month chart (its own page) · ASUR vs Mexico
 from AFAC (`/aeropuertos/data/traffic.js`, two axes; Mexican airports only for a multi-country group) · 07 leverage,
 08 dividends (with the annual cash-flow table), 09 and 10 (facts, timeline, fact sheet, the page's prose and a
 company chart) · 06 relative valuation, two landscape pages placed right before the sources page (owner, 2026-10-07):
@@ -181,6 +205,16 @@ beside the other two Mexican groups' with ASUR's 5-year average dashed, one char
 Next results date: `reference.js` → `calendar.nextResults` once ASUR announces it (shown as *confirmed*); otherwise
 assumed from the median lag between quarter-end and release for the same quarter over the previous three years.
 To review the output headlessly, open the page with Playwright, click `#btnPrint`, save the download and rasterise it.
+Cover and footers (owner, 9-Oct-2026, the Oracle deck's pattern): no "Powered by" or "Prompted by" credits and no
+confidentiality notice; the footer line names the sources ("Fuente: informes y comunicados públicos de ASUR, FactSet; no es
+asesoría de inversión") — set in the shared airport builder (`credits: false`, `confidential`), so OMA's deck follows; a
+page can override through `MODEL_CFG.deck`.
+
+DCF inputs (9-Oct-2026): every assumption has bounds (`DCF_LIMITS` in `airport-model.js`; the risk-free rate 0–40%, beta
+0.05–4, the terminal growth −10–15%, …). An entry outside them is refused: the field turns red (`aria-invalid`), a warning
+under the inputs says which bound it broke, and the outputs keep the last valid value; a WACC at or below the terminal
+growth, a non-positive WACC and a negative value per share print their own warnings. The page never answers an input with a
+silent "—".
 
 ## Local preview
 
@@ -208,10 +242,16 @@ material change in ASUR data today."
 - Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.
 - Leverage: the page's 0.8× (shown to one decimal, as every leverage ratio on the page and in the deck) divides net debt by consolidated LTM EBITDA; ASUR's Table 6 prints 0.9× on the same net debt with a denominator it does not itemize, and its evento relevante of 28-Sep-2026 prints 0.8× on adjusted LTM EBITDA of Ps. 19,449 M; all are noted. The country-review passenger figures include transit and general aviation (the report's own note), the traffic tables do not; the page footnotes both bases. Motiva: only ASUR's filings feed the page (R$5.1 bn price; CPC Bridge Facility US$1,299 M signed 14-Aug-2026, US$1,230 M drawn at closing, per the 28-Sep-2026 evento relevante; the US$936.0 M JPMorgan figure of the 2Q26 report was the facility arranged with the offer); press-only figures are named in the status text and not used.
 
-### Valuation perimeter: pro forma with Motiva / CPC (5-Oct-2026)
+### Valuation perimeter: pro forma with Motiva / CPC (5-Oct-2026; one basis everywhere since 9-Oct-2026)
 
 Owner's request after the 5-Oct-2026 review: the DCF, the multiples table (section 06) and the header's leverage and
-EV/EBITDA tiles use `reference.js → proForma` while ASUR has not consolidated CPC: net debt = total debt Ps. 68,989 M − cash
+EV/EBITDA tiles use `reference.js → proForma` while ASUR has not consolidated CPC. Since 9-Oct-2026 the same basis runs
+through the executive summary (`summary.js`, debt section), section 07 (a "Pro-forma basis" block above the charts, five tiles:
+net debt Ps. 50,889 M, total debt, cash, 2.1× net debt / LTM EBITDA + CPC EBITDA, the reported 0.8× beside it; `renderDebt`),
+the deck's debt page (a pro-forma tile) and the fact sheet of section 09 (`motivaProForma` = 2.1×, the official pro-forma
+balance sheet; the earlier 2.2× used CPC's Sep-2025 net debt). The 8-Oct-2026 notes (US$1.8 bn, S&P BBB / Fitch BBB+, filed
+by ASUR on PR Newswire) replace the two bridges and leave pro-forma net debt unchanged; they sit in `debt.events` and
+`debt.ratings`. Details: net debt = total debt Ps. 68,989 M − cash
 Ps. 18,100 M (ASUR's pro-forma balance sheet at 30-Jun-2026 with CPC and the bridge, evento relevante 28-Sep-2026; FNAM sum
 of the lines); base passengers +45 M a year and EBITDA +R$1,300 M ≈ US$243 M (proportionate LTM Sep-2025, signing release
 18-Nov-2025) converted at the FIX of the balance-sheet date; CPC revenue = that EBITDA at the group's margin (FNAM

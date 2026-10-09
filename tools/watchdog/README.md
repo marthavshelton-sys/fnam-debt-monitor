@@ -22,11 +22,25 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   checks and alert steps run once the data is already in `main`).
 - **Late**: no landed refresh since the second-to-last time the workflow's own cron was due, counting only due times
   at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
-  workflow file, so changing a cron needs no change here.
+  workflow file, so changing a cron needs no change here. Since 9-Oct-2026 each cron of a workflow is also judged on its
+  own (`perCronLate`): a run belongs to the latest due time of any of the workflow's crons at or before its start (GitHub
+  starts schedules minutes to hours late, five hours on a weekend), and a cron whose last two due times have no landed run
+  of their own makes the dashboard late even when another cron keeps landing. Why: the ASUR workflow's market-only run
+  (22:50 UTC) succeeded on 8-Oct-2026 while its filings run (14:40 UTC) failed on the 8th and 9th on an unparsed traffic
+  release, and the dashboard read "ok". Due times older than the oldest run on the page fetched (30 runs) are not judged.
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.
-- **Prices stale** (`stale`, shown red and pulsing as "Precios desactualizados / Prices out of date"; owner's rule,
+- **Data stale** (`stale`, the same red pulsing state as prices, shown as "Datos desactualizados / Data out of date"; the
+  tooltip names the feed): a dashboard with a `data` block in `dashboards.json` has each monthly feed read from `main`
+  (`kind: "js" | "json"`, `field` a dotted path such as `coverage.1`, the latest month of the airport pages' `traffic.js`)
+  and compared with the month its publisher's calendar requires (`requiredMonth`, `monthlyVerdict` in `lib.mjs`): month M−1
+  once day `dueDay` of month M has ended in Mexico City, month M−2 before that. GAP, OMA and ASUR use `dueDay` 10 (they
+  publish traffic around the 5th–8th; the 10th gives a late release its grace), so from 11-Oct 00:00 CDMX the file must carry
+  September. Any feed behind → `stale` and one `SOURCE DOWN: watchdog - <dashboard> data stale` issue (marker `<id>:data`),
+  closed at the first check that finds the file current. Added 9-Oct-2026: ASUR's traffic file had stopped at August for two
+  days while its prices were current and the dashboard read "ok".
+- **Prices stale** (`stale`, shown red and pulsing as "Datos desactualizados / Data out of date", the feed named in the tooltip; owner's rule,
   6-Oct-2026: if any price is not updated, the watchdog flashes red): a dashboard with a `prices` block in
   `dashboards.json` has every listed feed read from the files in `main` (last dated CSV row, or a JSON field) and
   compared with the exchange's **last completed session**: the latest session whose close plus `settleHours` has
@@ -79,7 +93,7 @@ In a Claude session the GitHub API answers only through the egress proxy: prefix
 ## Adding a dashboard
 
 Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels). For a company
-page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`. To watch its prices, add a
+page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`. To watch a monthly data file, add a `data` block (`timeZone`, `dueDay`, `series` of `{ name, file, kind: "js" | "json", field }`). To watch its prices, add a
 `prices` block (`exchange`, `settleHours`, `series` of `{ name, file, kind: "csv" | "json" | "js", field?, lagSessions?,
 exchange? }`), and, for the page-side check, an `OWN_CLOSE` entry in `data-status.js` plus a `latestClose` stamp in the
 first bytes of the file it names. A new exchange needs its holiday calendar in `EXCHANGES` (NYSE and BMV so far).

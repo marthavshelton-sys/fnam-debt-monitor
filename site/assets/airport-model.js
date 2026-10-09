@@ -63,6 +63,8 @@
     nc: { es: 'n.c.', en: 'n.c.' }, ncTitle: { es: 'No comparable: uno de los dos periodos incluye aeropuertos que el otro no tiene', en: 'Not comparable: one of the two periods includes airports the other lacks' },
     legacyPax: { es: 'Pasajeros, perímetro anterior', en: 'Passengers, legacy perimeter' }, airportsN: { es: 'aeropuertos', en: 'airports' },
     basisCons: { es: 'Consolidado', en: 'Consolidated' }, totalCons: { es: 'Total consolidado', en: 'Consolidated total' },
+    pf: { es: 'pf', en: 'pf' }, pfTitle: { es: 'Variación pro forma: comparativo del año anterior que la empresa publica en el mismo reporte para los aeropuertos que el reporte del año anterior no incluía', en: "Pro-forma change: the prior-year comparative the company prints in the same report for airports the prior-year report did not carry" },
+    gaOnly: { es: 'solo aviación general', en: 'general aviation only' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
   const L = (obj) => (obj ? (LANG === 'es' ? obj.es || obj.en : obj.en || obj.es) : '');
@@ -404,7 +406,16 @@
     // like for like: every month of period A pairs with a month of period B that carries the same perimeter
     const lfl = (ymsA, ymsB) => ymsA.length === ymsB.length && ymsA.every((ym, i) => has(trByYm[ym]) === has(trByYm[ymsB[i]]));
     const nLegacyAir = legacyAir.length;
-    return { P: P0, newCodes, legacyCodes, newAir, legacyAir, has, legacy, added, consolidated, first, lastM, state, lfl, nLegacyAir, nConsolidated: nLegacyAir + (P0.airports || newAir.length), comparableFrom: first ? addYm(first.ym, 12) : null };
+    // the new airports as one segment (the sum of the new countries a month carries); works on a month and on its `comparatives`
+    const cpc = (m, s = 'total') => { if (!m || !m.countries) return null; const cs = newCodes.filter((c) => ctryHas(m, c, s)); return cs.length ? cs.reduce((a, c) => a + m.countries[c][s], 0) : null; };
+    // The company's own prior-year comparatives (traffic.js -> month.comparatives: the prior-year column of a release for the airports
+    // the prior-year release did not carry). They let a change across the perimeter change be printed as the company prints it,
+    // marked "pf" (pro forma), instead of "n.c."; nothing is estimated. priorOf(m, get) = the prior-year value a getter compares
+    // with: the prior month's own figure, else the comparative; consolidatedPrior = the prior-year consolidated total on that basis.
+    const cmpOf = (m) => (m && m.comparatives) || null;
+    const priorOf = (m, get, s = 'total') => { const p = m ? trByYm[addYm(m.ym, -12)] : null; const v = p ? get(p, s) : null; if (v != null) return { v, pf: false }; const c = get(cmpOf(m), s); return c != null ? { v: c, pf: true } : { v: null, pf: false }; };
+    const consolidatedPrior = (m, s = 'total') => { if (!m) return { v: null, pf: false }; const p = trByYm[addYm(m.ym, -12)]; if (!p) return { v: null, pf: false }; if (!has(m)) return { v: legacy(p, s), pf: false }; if (has(p)) return { v: consolidated(p, s), pf: false }; const a = cpc(cmpOf(m), s), l = legacy(p, s); return a == null || l == null || newCodes.filter((c) => ctryHas(m, c, s)).some((c) => !ctryHas(cmpOf(m), c, s)) ? { v: null, pf: false } : { v: l + a, pf: true }; };
+    return { P: P0, newCodes, legacyCodes, newAir, legacyAir, has, legacy, added, consolidated, cpc, cmpOf, priorOf, consolidatedPrior, first, lastM, state, lfl, nLegacyAir, nConsolidated: nLegacyAir + (P0.airports || newAir.length), comparableFrom: first ? addYm(first.ym, 12) : null };
   })();
   function periodYms(obj, mode = st.mode) {
     const endM = mode === 'fy' ? 12 : (obj.q || 4) * 3;
@@ -427,6 +438,7 @@
     const o = { dom, intl, total, totalSrc, legacyTotal, aeroPerPax: per(is.revAero, total), nonAeroPerPax: per(is.revNonAero, total), commercialPerPax: is.revCommercial != null ? per(is.revCommercial, total) : null, revPerPaxAll: is.revAero != null && is.revNonAero != null ? per(is.revAero + is.revNonAero, total) : null };
     if (CFG.costPerPax) o.costPerPax = per(CFG.costPerPax(is), total);
     for (const c of (TR.countries || [])) { const v = full && ms.some((m) => m.countries && m.countries[c.code]) ? sum((m) => m.countries && m.countries[c.code] && m.countries[c.code].total) : null; o['country_' + c.code] = v; }
+    o.cpc = PERIM && full && ms.some((m) => PERIM.has(m)) ? sum((m) => PERIM.cpc(m, 'total')) : null; // the new airports as one segment
     for (const k of (CFG.opsKpi || [])) o['kpi_' + k.k] = kpi[k.k] != null ? kpi[k.k] : null;
     return o;
   }
@@ -462,6 +474,7 @@
     row(t('totalPax'), 'total', { cls: 'bold', perim: true });
     if (ncP) row(`${t('legacyPax')} (${PERIM.nLegacyAir} ${t('airportsN')})`, 'legacyTotal', { cls: 'bold' });
     for (const c of (TR.countries || [])) row(`${LANG === 'es' ? 'Pasajeros' : 'Passengers'} ${L(c)}`, 'country_' + c.code, { cls: 'sub', cmtKey: 'country_' + c.code, perim: !!(PERIM && PERIM.newCodes.includes(c.code)) });
+    if (PERIM) row(`${LANG === 'es' ? 'Pasajeros' : 'Passengers'} ${L(PERIM.P.name)} (${PERIM.newAir.length} ${t('airportsN')})`, 'cpc', { cls: 'sub', perim: true });
     head(`${t('unitRev')} (${st.usd ? 'US$' : 'Ps.'})`);
     row(t('aeroPerPax'), 'aeroPerPax', { money: true, perim: true });
     row(t('nonAeroPerPax'), 'nonAeroPerPax', { money: true, perim: true });
@@ -631,13 +644,15 @@
   // Basis (REF.perimeter only): "legacy" keeps the airports reported before the perimeter change, so every growth rate is
   // like for like; "cons" adds the new airports and is available only once a traffic release carries them.
   const consBasis = () => !!(PERIM && PERIM.first && tr.basis === 'cons');
-  const isNewChip = (code) => !!PERIM && (code.startsWith('C:') ? PERIM.newCodes.includes(code.slice(2)) : PERIM.newAir.includes(code));
+  const CPC_CHIP = 'C:__cpc'; // the new airports as one segment (chips, series), available in the consolidated basis only
+  const isNewChip = (code) => !!PERIM && (code === CPC_CHIP || (code.startsWith('C:') ? PERIM.newCodes.includes(code.slice(2)) : PERIM.newAir.includes(code)));
   const airB = () => (!PERIM || consBasis() ? AIR : AIR.filter((a) => !PERIM.newCodes.includes(a.country)));
   const ctryB = () => (!PERIM || consBasis() ? CTRY : CTRY.filter((c) => !PERIM.newCodes.includes(c.code)));
   const groupVal = (m, s) => (!PERIM ? (m[s] ? m[s].TOTAL : null) : consBasis() ? PERIM.consolidated(m, s) : PERIM.legacy(m, s));
   const groupN = () => (!PERIM ? AIR.length : consBasis() ? PERIM.nConsolidated : PERIM.nLegacyAir);
   const groupLabel = () => (PERIM ? `${t('group')} (${groupN()} ${t('airportsN')})` : t('group'));
-  const segValue = (m, code) => (code === 'TOTAL' ? groupVal(m, tr.seg) : code.startsWith('C:') ? (m.countries && m.countries[code.slice(2)] ? m.countries[code.slice(2)][tr.seg] : null) : m[tr.seg][code]);
+  const cpcLabel = () => (PERIM ? `${L(PERIM.P.name)} (${PERIM.newAir.length} ${t('airportsN')})` : '');
+  const segValue = (m, code) => (code === 'TOTAL' ? groupVal(m, tr.seg) : code === CPC_CHIP ? PERIM.cpc(m, tr.seg) : code.startsWith('C:') ? (m.countries && m.countries[code.slice(2)] ? m.countries[code.slice(2)][tr.seg] : null) : m[tr.seg][code]);
   function trafficSeries() {
     const months = TR.months.filter((m) => m.ym >= (CFG.trafficFrom || '2019-01'));
     const bucket = (ym) => (tr.freq === 'm' ? ym : tr.freq === 'q' ? `${ym.slice(0, 4)}Q${Math.ceil(+ym.slice(5) / 3)}` : ym.slice(0, 4));
@@ -646,16 +661,18 @@
     const buckets = Object.keys(byB).sort();
     const complete = (b) => (tr.freq === 'm' ? true : tr.freq === 'q' ? byB[b].months.length === 3 : byB[b].months.length === 12);
     const label = (b) => (tr.freq === 'm' ? ymLabel(b) : tr.freq === 'q' ? (LANG === 'es' ? `${b.slice(5)}T${b.slice(2, 4)}` : `${b.slice(5)}Q${b.slice(2, 4)}`) : b);
-    const nameOf = (code) => (code === 'TOTAL' ? groupLabel() : code.startsWith('C:') ? L(CTRY.find((c) => c.code === code.slice(2)) || {}) : (AIR.find((a) => a.code === code) || {})[LANG] || code);
+    const nameOf = (code) => (code === 'TOTAL' ? groupLabel() : code === CPC_CHIP ? cpcLabel() : code.startsWith('C:') ? L(CTRY.find((c) => c.code === code.slice(2)) || {}) : (AIR.find((a) => a.code === code) || {})[LANG] || code);
     return tr.airports.map((code) => ({ key: code, label: nameOf(code), points: buckets.filter(complete).map((b) => { const vals = byB[b].months.map((m) => segValue(m, code)).filter((v) => v != null); return [label(b), vals.length ? vals.reduce((a, v) => a + v, 0) : null, b]; }) }));
   }
   // One sentence for captions when a comparison mixes perimeters (the status card below says the rest).
   function perimNote() {
     if (!PERIM || !PERIM.first) return '';
     const nm = L(PERIM.P.name);
-    return LANG === 'es'
+    const hasCmp = TR.months.some((m) => m.comparatives);
+    return (LANG === 'es'
       ? `n.c. = no comparable: ${nm} entra al tráfico de ${CFG.short} en ${ymLabel(PERIM.first.ym)} y el periodo de comparación no lo incluye; la variación comparable es la del perímetro anterior (${PERIM.nLegacyAir} aeropuertos). El consolidado vuelve a ser comparable mes contra mes desde ${ymLabel(PERIM.comparableFrom)}.`
-      : `n.c. = not comparable: ${nm} enters ${CFG.short}'s traffic in ${ymLabel(PERIM.first.ym)} and the comparison period does not include it; the comparable change is the legacy perimeter's (${PERIM.nLegacyAir} airports). The consolidated total is comparable month on month again from ${ymLabel(PERIM.comparableFrom)}.`;
+      : `n.c. = not comparable: ${nm} enters ${CFG.short}'s traffic in ${ymLabel(PERIM.first.ym)} and the comparison period does not include it; the comparable change is the legacy perimeter's (${PERIM.nLegacyAir} airports). The consolidated total is comparable month on month again from ${ymLabel(PERIM.comparableFrom)}.`)
+      + (hasCmp ? (LANG === 'es' ? ` pf = pro forma: variación contra el comparativo del año anterior que ${CFG.short} publica en el mismo reporte para los aeropuertos de ${nm} (la cifra de la empresa; nada se estima).` : ` pf = pro forma: change against the prior-year comparative ${CFG.short} prints in the same report for the ${nm} airports (the company's own figure; nothing is estimated).`) : '');
   }
   // Status card for the perimeter change: airports, closing date, whether ASUR's monthly report carries them yet, and how
   // the section compares. Every passenger figure is ASUR's (traffic.js or the filing cited in REF.perimeter).
@@ -697,8 +714,13 @@
       lines.push(es ? `Mientras tanto, todo total y variación a/a de esta sección corresponde al perímetro anterior (${n0} aeropuertos). El selector «${t('basisCons')}» se activa con el primer reporte que los incluya y marca «n.c.» toda variación contra un mes sin ellos. No se estima ningún pasajero que ${CFG.short} no haya publicado.` : `Until then, every total and y/y change in this section is the legacy perimeter's (${n0} airports). The "${t('basisCons')}" switch turns on with the first report that includes them and marks "n.c." every change against a month without them. No passenger figure ${CFG.short} has not published is estimated.`);
     } else {
       const cpc = PERIM.added(lastM, 'total'), cons = PERIM.consolidated(lastM, 'total');
-      lines.push(es ? `En ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} mil pasajeros en los aeropuertos de ${nm}, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} del consolidado (${fmtN(cons, 1)} mil).` : `In ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} thousand passengers at the ${nm} airports, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} of the consolidated total (${fmtN(cons, 1)} thousand).`);
+      const cpcP = PERIM.cpc(PERIM.cmpOf(lastM), 'total'), consP = PERIM.consolidatedPrior(lastM, 'total'), prevYm = ymLabel(addYm(lastM.ym, -12));
+      const g = (a, b) => (a != null && b ? fmtPct(100 * (a / b - 1), 1, true) : null);
+      const cpcTxt = cpcP != null ? (es ? ` (${g(cpc, cpcP)} frente a ${fmtN(cpcP, 1)} mil en ${prevYm}, el comparativo que ${CFG.short} publica para esos aeropuertos bajo su dueño anterior)` : ` (${g(cpc, cpcP)} versus ${fmtN(cpcP, 1)} thousand in ${prevYm}, the comparative ${CFG.short} prints for those airports under their previous owner)`) : '';
+      const consTxt = consP.v != null ? (es ? `; ${g(cons, consP.v)} pro forma frente a ${prevYm}` : `; ${g(cons, consP.v)} pro forma versus ${prevYm}`) : '';
+      lines.push(es ? `En ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} mil pasajeros en los aeropuertos de ${nm}${cpcTxt}, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} del consolidado (${fmtN(cons, 1)} mil${consTxt}).` : `In ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} thousand passengers at the ${nm} airports${cpcTxt}, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} of the consolidated total (${fmtN(cons, 1)} thousand${consTxt}).`);
       if (PERIM.newAir.length && P0.airports && PERIM.newAir.length !== P0.airports) lines.push(es ? `El reporte desglosa ${PERIM.newAir.length} de los ${P0.airports} aeropuertos; el resto viene agregado por país o bloque.` : `The report itemizes ${PERIM.newAir.length} of the ${P0.airports} airports; the rest come aggregated by country or block.`);
+      { const ga = AIR.filter((a) => a.ga && PERIM.newAir.includes(a.code)); if (ga.length) lines.push(es ? `${ga.map((a) => `${a.code} (${a[LANG] || a.en})`).join(', ')}: ${ga.length > 1 ? 'aeropuertos' : 'aeropuerto'} de aviación general, sin pasajeros comerciales (nota del reporte).` : `${ga.map((a) => `${a.code} (${a[LANG] || a.en})`).join(', ')}: general-aviation ${ga.length > 1 ? 'airports' : 'airport'} with no commercial passengers (the report's note).`); }
       lines.push(es ? `La vista por defecto es el perímetro anterior (${n0} aeropuertos, comparable). «${t('basisCons')}» suma ${nm} y marca «n.c.» las variaciones contra meses sin esos aeropuertos hasta ${ymLabel(addYm(PERIM.comparableFrom, -1))}.` : `The default view is the legacy perimeter (${n0} airports, like for like). "${t('basisCons')}" adds ${nm} and marks "n.c." every change against months without those airports through ${ymLabel(addYm(PERIM.comparableFrom, -1))}.`);
     }
     if (P0.minorities) lines.push(L(P0.minorities));
@@ -715,14 +737,15 @@
     if (!consBasis()) { tr.airports = tr.airports.filter((c) => !isNewChip(c)); if (!tr.airports.length) tr.airports = ['TOTAL']; }
     const bBox = el('segTrafBasis'); if (bBox) bBox.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.v === (consBasis() ? 'cons' : 'legacy')));
     const AIRb = airB(), CTRYb = ctryB();
-    const chips = [{ code: 'TOTAL', label: groupLabel() }, ...CTRYb.map((c) => ({ code: 'C:' + c.code, label: L(c) })), ...AIRb.map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
+    const chips = [{ code: 'TOTAL', label: groupLabel() }, ...(consBasis() ? [{ code: CPC_CHIP, label: cpcLabel() }] : []), ...CTRYb.map((c) => ({ code: 'C:' + c.code, label: L(c) })), ...AIRb.filter((a) => !a.ga).map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
     const c = SERIES();
     html('airportChips', chips.map((ch) => { const i = tr.airports.indexOf(ch.code); return `<button type="button" class="chip${i >= 0 ? ' active' : ''}" data-code="${ch.code}">${i >= 0 ? `<span class="sw" style="background:${c[i % 8]}"></span>` : ''}${ch.label}</button>`; }).join(''));
     el('airportChips').querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => { const code = b.dataset.code; const i = tr.airports.indexOf(code); if (i >= 0) { if (tr.airports.length > 1) tr.airports.splice(i, 1); } else if (tr.airports.length < 6) tr.airports.push(code); renderTraffic(); }));
     const series = trafficSeries();
     const labels = series[0] ? series[0].points.map((p) => p[0]) : [];
     const type = tr.freq === 'y' ? 'bar' : 'line';
-    mkChart('chartTraffic', { type, data: { labels, datasets: series.map((s, i) => ({ label: s.label, data: s.points.map((p) => p[1]), borderColor: c[i % 8], backgroundColor: c[i % 8], fill: false, spanGaps: false })) },
+    // a series with one or two points (the new airports in their first months) is drawn as visible points, else it would vanish
+    mkChart('chartTraffic', { type, data: { labels, datasets: series.map((s, i) => ({ label: s.label, data: s.points.map((p) => p[1]), borderColor: c[i % 8], backgroundColor: c[i % 8], fill: false, spanGaps: false, ...(s.points.filter((p) => p[1] != null).length < 3 ? { pointRadius: 4, pointHoverRadius: 6 } : {}) })) },
       options: { plugins: { legend: { display: series.length > 1, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)} (${LANG === 'es' ? 'miles' : 'thousands'})` } } }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 14, maxRotation: 0 } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     txt('trafficChartTitle', tc(`${t(tr.seg)} · ${LANG === 'es' ? 'serie' : 'series'} ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')}`));
     const jump = consBasis() && tr.airports.includes('TOTAL') ? (LANG === 'es' ? ` El total consolidado sube en ${ymLabel(PERIM.first.ym)} porque entran los aeropuertos de ${L(PERIM.P.name)}, no por crecimiento.` : ` The consolidated total steps up in ${ymLabel(PERIM.first.ym)} because the ${L(PERIM.P.name)} airports enter, not because of growth.`) : '';
@@ -733,18 +756,20 @@
     const prev = trByYm[addYm(lastM.ym, -12)];
     const ytdYms = (ym) => TR.months.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).map((m) => m.ym);
     const ytdOf = (ym, get) => ytdYms(ym).reduce((a, x) => a + (get(trByYm[x], 'total') || 0), 0);
-    // like for like on the group total: every month of the window carries the same perimeter as its prior-year month
-    const lflM = !PERIM || !prev || PERIM.lfl([lastM.ym], [prev.ym]);
-    const lflY = !PERIM || !prev || PERIM.lfl(ytdYms(lastM.ym), ytdYms(prev.ym));
     const totB = groupVal(lastM, 'total');
-    const ncCell = (y) => `<td class="${cls(y)}">${y === 'nc' ? `<span class="nc" title="${t('ncTitle')}">${t('nc')}</span>` : fmtPct(y, 1, true)}</td>`;
-    // get(m, seg) -> value; opt.ncM / opt.ncY force n.c.; opt.noYtd leaves the YTD cells empty (country subtotals)
+    const pfSup = `<sup class="pf" title="${t('pfTitle')}">${t('pf')}</sup>`;
+    const ncCell = (y, pf) => `<td class="${cls(y)}">${y === 'nc' ? `<span class="nc" title="${t('ncTitle')}">${t('nc')}</span>` : fmtPct(y, 1, true) + (pf && y != null ? pfSup : '')}</td>`;
+    // prior-year values: the prior-year month's own figure, else the company's comparative for an airport that month did not carry
+    // (marked pf); for the consolidated total, the prior-year consolidated figure on the same basis (PERIM.consolidatedPrior)
+    const priorM = (get, opt) => (opt.cons ? PERIM.consolidatedPrior(lastM, 'total') : PERIM ? PERIM.priorOf(lastM, get) : { v: prev ? get(prev, 'total') : null, pf: false });
+    const priorY = (get, opt) => { let sum = 0, pf = false; for (const ym of ytdYms(lastM.ym)) { const m = trByYm[ym]; const cur = opt.cons ? groupVal(m, 'total') : get(m, 'total'); if (cur == null) continue; const r = opt.cons ? PERIM.consolidatedPrior(m, 'total') : PERIM ? PERIM.priorOf(m, get) : { v: trByYm[addYm(ym, -12)] ? get(trByYm[addYm(ym, -12)], 'total') : null, pf: false }; if (r.v == null) return { v: null, pf: false }; sum += r.v; pf = pf || r.pf; } return { v: sum, pf }; };
+    // get(m, seg) -> value; opt.cons: the consolidated total; opt.noYtd leaves the YTD cells empty (country subtotals)
     const line = (name, get, opt = {}) => {
-      const v = get(lastM, 'total'), p = prev ? get(prev, 'total') : null;
-      const yoy = opt.ncM || (opt.isNew && v != null && p == null) ? 'nc' : p ? 100 * (v / p - 1) : null;
+      const v = get(lastM, 'total'), pm = priorM(get, opt);
+      const yoy = pm.v ? 100 * (v / pm.v - 1) : v != null && opt.isNew ? 'nc' : null;
       let ytdC = '<td></td><td></td>';
-      if (!opt.noYtd) { const y = ytdOf(lastM.ym, get), yp = prev ? ytdOf(prev.ym, get) : null; const yoyY = opt.ncY || (opt.isNew && y && !yp) ? 'nc' : yp ? 100 * (y / yp - 1) : null; ytdC = `<td>${fmtN(y, 1)}</td>${ncCell(yoyY)}`; }
-      return `<tr class="${opt.total ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td>${ncCell(yoy)}<td>${fmtN(get(lastM, 'dom'), 1)}</td><td>${fmtN(get(lastM, 'intl'), 1)}</td>${ytdC}<td>${fmtPct(v != null && totB ? 100 * v / totB : null, 1)}</td></tr>`;
+      if (!opt.noYtd) { const y = ytdOf(lastM.ym, get), py = priorY(get, opt); const yoyY = py.v ? 100 * (y / py.v - 1) : y && opt.isNew ? 'nc' : null; ytdC = `<td>${fmtN(y, 1)}</td>${ncCell(yoyY, py.pf)}`; }
+      return `<tr class="${opt.total ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td>${ncCell(yoy, pm.pf)}<td>${fmtN(get(lastM, 'dom'), 1)}</td><td>${fmtN(get(lastM, 'intl'), 1)}</td>${ytdC}<td>${fmtPct(v != null && totB ? 100 * v / totB : null, 1)}</td></tr>`;
     };
     const airGet = (code) => (m, s) => (m && m[s] ? m[s][code] : null);
     const ctryGet = (code) => (m, s) => (m && m.countries && m.countries[code] ? m.countries[code][s] : null);
@@ -752,13 +777,15 @@
     if (CTRYb.length) {
       for (const cc of CTRYb) {
         const nw = !!(PERIM && PERIM.newCodes.includes(cc.code));
-        rows.push(...AIRb.filter((a) => a.country === cc.code).map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code), { isNew: nw })));
-        if (lastM.countries && lastM.countries[cc.code]) rows.push(line(L(cc), ctryGet(cc.code), { total: true, noYtd: true, isNew: nw }));
+        const listed = AIRb.filter((a) => a.country === cc.code && !a.ga);
+        rows.push(...listed.map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code), { isNew: nw, total: listed.length === 1 })));
+        if (listed.length > 1 && lastM.countries && lastM.countries[cc.code]) rows.push(line(L(cc), ctryGet(cc.code), { total: true, noYtd: true, isNew: nw })); // a one-airport country needs no subtotal row
       }
-    } else rows.push(...AIRb.map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code))));
+    } else rows.push(...AIRb.filter((a) => !a.ga).map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code))));
     if (consBasis()) {
+      rows.push(line(cpcLabel(), (m, s) => PERIM.cpc(m, s), { total: true, isNew: true }));
       rows.push(line(`${t('legacyPax')} (${PERIM.nLegacyAir} ${t('airportsN')})`, (m, s) => PERIM.legacy(m, s), { total: true }));
-      rows.push(line(`${t('totalCons')} (${groupN()} ${t('airportsN')})`, groupVal, { total: true, ncM: !lflM, ncY: !lflY }));
+      rows.push(line(`${t('totalCons')} (${groupN()} ${t('airportsN')})`, groupVal, { total: true, cons: true }));
     } else rows.push(line(PERIM ? `${t('total')} (${PERIM.nLegacyAir} ${t('airportsN')})` : t('total'), groupVal, { total: true }));
     html('trafficTable', `<table><thead><tr><th scope="col">${t('airport')}</th><th scope="col">${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('dom')}</th><th scope="col">${t('intl')}</th><th scope="col">${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     txt('trafficTblTitle', tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)}`));
@@ -766,7 +793,9 @@
     const joinL = (a) => (a.length > 1 ? `${a.slice(0, -1).join(', ')} ${LANG === 'es' ? 'y' : 'and'} ${a[a.length - 1]}` : a.join(''));
     const capB = !PERIM ? '' : consBasis() ? ' ' + perimNote()
       : (LANG === 'es' ? ` Perímetro anterior: los ${PERIM.nLegacyAir} aeropuertos de ${joinL(legNames)} que ${CFG.short} reportaba antes de ${L(PERIM.P.name)}; todas las variaciones son comparables.` : ` Legacy perimeter: the ${PERIM.nLegacyAir} airports in ${joinL(legNames)} that ${CFG.short} reported before ${L(PERIM.P.name)}; every change is like for like.`);
-    txt('trafficTblCap', L(CFG.trafficCap) + capB);
+    const gaAir = consBasis() ? AIRb.filter((a) => a.ga) : [];
+    const capGa = gaAir.length ? (LANG === 'es' ? ` Sin fila: ${gaAir.map((a) => a.code).join(', ')} (${t('gaOnly')}, sin pasajeros comerciales según la nota del reporte).` : ` No row for ${gaAir.map((a) => a.code).join(', ')} (${t('gaOnly')}, no commercial passengers per the report's note).`) : '';
+    txt('trafficTblCap', L(CFG.trafficCap) + capB + capGa);
     html('trafficMeta', LANG === 'es' ? `Cobertura mensual: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} meses). Cifras preliminares publicadas cada mes; la vista por defecto empieza en 2019 para incluir la base prepandemia.` : `Monthly coverage: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} months). Preliminary figures released monthly; the default view starts in 2019 to include the pre-pandemic base.`);
   }
 
@@ -907,11 +936,40 @@
       baseYear: lastQ ? lastQ.fy : new Date().getFullYear(),
     };
   }
+  // Bounds for the editable assumptions (percent unless noted). A value outside them is rejected: the field turns red, the
+  // warning line under the inputs says which bound it broke, and the outputs keep the last valid value (owner, 2026-10-09:
+  // a negative risk-free rate must be refused with a message, never answered with a silent "—").
+  const DCF_LIMITS = {
+    trafficG: [-50, 50], revPaxG: [-30, 50], margin: [10, 95], capex: [0, 200000], daPct: [0, 60], tax: [0, 60], nwc: [-100, 100],
+    rf: [0, 40], erp: [0, 20], beta: [0.05, 4], kd: [0, 40], dw: [0, 95], g: [-10, 15], mult: [0.5, 50], endYear: [2027, 2120],
+  };
+  const dcfLimitLabel = (k) => ({
+    trafficG: LANG === 'es' ? 'Crecimiento de pasajeros' : 'Passenger growth', revPaxG: LANG === 'es' ? 'Ingreso por pasajero, crecimiento' : 'Revenue per passenger growth', margin: LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin',
+    capex: 'Capex', daPct: 'D&A', tax: LANG === 'es' ? 'Tasa de impuestos' : 'Tax rate', nwc: LANG === 'es' ? 'Δ capital de trabajo' : 'Δ working capital', rf: LANG === 'es' ? 'Tasa libre de riesgo' : 'Risk-free rate',
+    erp: LANG === 'es' ? 'Prima de riesgo' : 'Equity risk premium', beta: 'Beta', kd: LANG === 'es' ? 'Costo de deuda' : 'Cost of debt', dw: LANG === 'es' ? 'Deuda / (deuda + capital)' : 'Debt / (debt + equity)',
+    g: LANG === 'es' ? 'Crecimiento terminal' : 'Terminal growth', mult: LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple', endYear: LANG === 'es' ? 'Fin de concesión' : 'Concession end',
+  }[k] || k);
+  const dcfUnit = (k) => (k === 'beta' || k === 'endYear' ? '' : k === 'mult' ? 'x' : k === 'capex' ? ' Ps. M' : '%');
+  // null when the value is acceptable, else the message to show
+  function dcfInvalid(k, v) {
+    const lim = DCF_LIMITS[k]; if (!lim) return null;
+    const fmtB = (b) => (k === 'endYear' ? String(b) : fmtN(b, k === 'beta' ? 2 : 0) + dcfUnit(k));
+    if (!Number.isFinite(v)) return LANG === 'es' ? `${dcfLimitLabel(k)}: escriba un número.` : `${dcfLimitLabel(k)}: enter a number.`;
+    if (v < lim[0] || v > lim[1]) return LANG === 'es' ? `${dcfLimitLabel(k)}: ${fmtN(v, 2)}${dcfUnit(k)} rechazado; debe estar entre ${fmtB(lim[0])} y ${fmtB(lim[1])}. Se conserva el último valor válido.` : `${dcfLimitLabel(k)}: ${fmtN(v, 2)}${dcfUnit(k)} rejected; it must be between ${fmtB(lim[0])} and ${fmtB(lim[1])}. The last valid value is kept.`;
+    return null;
+  }
+  const dcfWarnings = []; // messages shown under the inputs (invalid entries and model-consistency warnings)
+  function showDcfWarnings(extra) {
+    const box = el('dcfInputs'); if (!box) return;
+    let w = el('dcfWarn'); if (!w) { w = document.createElement('p'); w.id = 'dcfWarn'; w.setAttribute('role', 'alert'); w.setAttribute('aria-live', 'polite'); w.style.cssText = 'margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#b42318;font-weight:600;'; box.appendChild(w); }
+    const msgs = [...dcfWarnings, ...(extra || [])];
+    w.hidden = !msgs.length; w.innerHTML = msgs.map((m) => `<span style="display:block">⚠ ${m}</span>`).join('');
+  }
   function dcfInputsHtml(s) {
-    const num = (k, step = 0.1, min, max) => `<input type="number" step="${step}" ${min != null ? `min="${min}"` : ''} ${max != null ? `max="${max}"` : ''} data-k="${k}" value="${s[k]}">`;
+    const num = (k, step = 0.1, min, max) => { const lim = DCF_LIMITS[k] || []; const lo = min != null ? min : lim[0], hi = max != null ? max : lim[1]; return `<input type="number" step="${step}" ${lo != null ? `min="${lo}"` : ''} ${hi != null ? `max="${hi}"` : ''} data-k="${k}" value="${s[k]}">`; };
     const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}</div>`;
     const years = Array.from({ length: 5 }, (_, i) => s.baseYear + 1 + i);
-    const arr = (k, step) => `<div class="inp years"><div class="name">${k === 'trafficG' ? t('trafficG') + ' (%)' : 'Capex (Ps. M)'}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" data-k="${k}" data-i="${i}" value="${v}">`).join('')}</div></div>`;
+    const arr = (k, step) => { const lim = DCF_LIMITS[k] || []; return `<div class="inp years"><div class="name">${k === 'trafficG' ? t('trafficG') + ' (%)' : 'Capex (Ps. M)'}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" ${lim[0] != null ? `min="${lim[0]}" max="${lim[1]}"` : ''} data-k="${k}" data-i="${i}" value="${v}">`).join('')}</div></div>`; };
     const lm = lastLTM && lastLTM.is ? lastLTM.is.ebitdaMarginExIfric : null;
     const perimRow = PF && !PF.consolidated ? row(LANG === 'es' ? 'Perímetro' : 'Perimeter', LANG === 'es' ? `reportado al ${lastQ ? qLabel(lastQ) : '—'} o pro forma con ${L(PF.name)}` : `reported at ${lastQ ? qLabel(lastQ) : '—'} or pro forma with ${L(PF.name)}`, `<select data-k="perim"><option value="proforma"${s.perim === 'proforma' ? ' selected' : ''}>${L(PF.label)}</option><option value="reported"${s.perim === 'reported' ? ' selected' : ''}>${LANG === 'es' ? 'Reportado' : 'Reported'} (${lastQ ? qLabel(lastQ) : '—'})</option></select>`) : '';
     return `
@@ -962,8 +1020,19 @@
     if (reset || !dcfState.s) dcfState.s = dcfDefaults();
     const s = dcfState.s;
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s); box.querySelectorAll('.inp').forEach((r, ri) => { const name = ((r.querySelector('.name') || {}).textContent || '').replace(/\s+/g, ' ').trim(); const yrs = [...r.querySelectorAll('.row5 span')].map((x) => x.textContent.trim()); r.querySelectorAll('input').forEach((inp, i) => { inp.id = inp.id || `dcf-${ri}-${i}`; inp.setAttribute('aria-label', yrs.length ? `${name} ${yrs[i] || ''}`.trim() : name); }); });
-    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; if (k === 'perim') { dcfState.perim = inp.value; renderDcf(true); renderRelative(); renderHeader(); return; } const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; renderDcfOutputs(); }));
-    el('dcfReset').addEventListener('click', () => renderDcf(true));
+    const markBad = (inp, msg) => { inp.classList.toggle('bad', !!msg); inp.setAttribute('aria-invalid', msg ? 'true' : 'false'); inp.style.borderColor = msg ? '#b42318' : ''; inp.style.background = msg ? 'rgba(180,35,24,.08)' : ''; inp.title = msg || ''; };
+    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => {
+      const k = inp.dataset.k; if (k === 'perim') { dcfState.perim = inp.value; renderDcf(true); renderRelative(); renderHeader(); return; }
+      const v = inp.tagName === 'SELECT' ? inp.value : (inp.value.trim() === '' ? NaN : Number(inp.value));
+      const msg = inp.tagName === 'SELECT' ? null : dcfInvalid(k, v);
+      const key = k + (inp.dataset.i != null ? ':' + inp.dataset.i : ''); inp.dataset.msgKey = key;
+      const i = dcfWarnings.findIndex((m) => m.key === key); if (i >= 0) dcfWarnings.splice(i, 1);
+      markBad(inp, msg);
+      if (msg) { const m = new String(msg); m.key = key; dcfWarnings.push(m); showDcfWarnings(dcfModelWarnings(dcfCompute(s), s)); return; } // the state keeps its last valid value
+      if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; renderDcfOutputs();
+    }));
+    el('dcfReset').addEventListener('click', () => { dcfWarnings.length = 0; renderDcf(true); });
+    dcfWarnings.length = 0;
     renderDcfOutputs();
     const pf = usePF();
     html('dcfMeta', LANG === 'es'
@@ -971,8 +1040,19 @@
       : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (${CFG.marginShort ? L(CFG.marginShort) : 'ex-IFRIC 12'})${pf ? ` plus ${L(PF.name)}'s EBITDA at the group's margin; pro-forma net debt at ${fmtDate(PF.asOf)}` : '; net debt'} and non-controlling interest at the same quarter-end; ${fmtN(sharesNow)} shares.`);
     const cav = el('dcfCaveat'); if (cav) { cav.hidden = !pf; cav.innerHTML = pf ? pfCaveat() : ''; }
   }
+  // Warnings about the model itself (not about a single entry): a WACC at or below the terminal growth has no finite perpetuity,
+  // a discount rate under the growth rate makes the annuity meaningless, a negative value per share is a sign to revisit the inputs.
+  function dcfModelWarnings(r, s) {
+    const out = [], es = LANG === 'es';
+    if (s.method === 'perpetuity' && !(r.wacc > s.g / 100)) out.push(es ? `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ crecimiento terminal (${fmtPct(s.g, 2)}): la perpetuidad no tiene valor finito; baje g o suba el costo de capital.` : `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ terminal growth (${fmtPct(s.g, 2)}): the perpetuity has no finite value; lower g or raise the cost of capital.`);
+    else if (s.method === 'annuity' && !(r.wacc > s.g / 100)) out.push(es ? `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ crecimiento terminal (${fmtPct(s.g, 2)}): el flujo terminal crece más rápido que la tasa de descuento; revise g o el costo de capital.` : `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ terminal growth (${fmtPct(s.g, 2)}): the terminal flow grows faster than the discount rate; revisit g or the cost of capital.`);
+    if (!(r.wacc > 0)) out.push(es ? 'El WACC resultante no es positivo; revise la tasa libre de riesgo, la beta, la prima y el costo de deuda.' : 'The resulting WACC is not positive; check the risk-free rate, beta, premium and cost of debt.');
+    if (r.perShare != null && isFinite(r.perShare) && r.perShare < 0) out.push(es ? 'El valor por acción es negativo con estos supuestos (deuda neta y minoritarios superan el valor de la empresa).' : 'Value per share is negative under these assumptions (net debt and minorities exceed enterprise value).');
+    return out;
+  }
   function renderDcfOutputs() {
     const s = dcfState.s; const r = dcfCompute(s);
+    showDcfWarnings(dcfModelWarnings(r, s));
     const price = lastPx ? lastPx[1] : null;
     txt('dcfHero', r.perShare != null && isFinite(r.perShare) ? 'Ps. ' + fmtN(r.perShare, 0) : '—');
     txt('dcfHeroLbl', `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (Ps. ${fmtN(price, 2)})` : ''}`);
@@ -1138,6 +1218,29 @@
     mkChart('chartLeverage', { type: 'line', data: { labels: qs.map(qLabel), datasets: [{ label: t('lev'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: c[1], backgroundColor: c[1], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 1)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 1, callback: (v) => fmtX(v, 1) } } } } });
     html('debtSrc', L(CFG.debtNote));
     const D2 = REF.debt || {};
+    // Pro-forma basis (REF.proForma, ASUR with Motiva/CPC): the owner's one basis for the summary, this section and the DCF while the
+    // company has not consolidated the acquisition. The charts above stay on reported quarter-ends; this block states the pro-forma
+    // net debt and leverage from the company's own pro-forma balance sheet and names the reported figures beside them.
+    const pfBox = el('debtProForma');
+    if (pfBox) {
+      const nd0 = netDebt(lastQ), ltm = lastLTM && lastLTM.is, es = LANG === 'es';
+      if (PF && !PF.consolidated && nd0 && ltm && ltm.ebitda) {
+        const eb = ltm.ebitda / 1000 + PF.ebitdaM, lev = PF.netDebtM / eb, levR = nd0.net / ltm.ebitda, src = (PF.sources || [])[0];
+        const tiles = [
+          [`Ps. ${fmtN(PF.netDebtM, 0)} M`, es ? `Deuda neta pro forma al ${fmtDate(PF.asOf)}` : `Pro-forma net debt at ${fmtDate(PF.asOf)}`],
+          [`Ps. ${fmtN(PF.totalDebtMxnM, 0)} M`, es ? 'Deuda total pro forma' : 'Pro-forma total debt'],
+          [`Ps. ${fmtN(PF.cashMxnM, 0)} M`, es ? 'Efectivo pro forma' : 'Pro-forma cash'],
+          [fmtX(lev, 1), es ? `Deuda neta / EBITDA UDM + EBITDA de ${L(PF.name)}` : `Net debt / LTM EBITDA + ${L(PF.name)} EBITDA`],
+          [fmtX(levR, 1), es ? `Reportado ${qLabel(lastQ)}: deuda neta Ps. ${fmtM(nd0.net)} M` : `Reported ${qLabel(lastQ)}: net debt Ps. ${fmtM(nd0.net)} M`],
+        ];
+        pfBox.hidden = false;
+        pfBox.innerHTML = `<div class="pf-head"><h3>${tc(es ? `Base pro forma con ${L(PF.name)}` : `Pro-forma basis with ${L(PF.name)}`)}</h3><span class="perim-badge">${es ? 'ilustrativo' : 'illustrative'}</span></div>`
+          + `<div class="pf-tiles">${tiles.map((x) => `<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`
+          + `<p class="pf-note">${es
+            ? `Deuda total y efectivo del balance pro forma de ${CFG.short} al ${fmtDate(PF.asOf)} con CPC y el crédito puente (${src ? `<a href="${src.url}" target="_blank" rel="noopener">${L(src).split(':')[0]} ↗</a>` : 'evento relevante'}); EBITDA UDM reportado Ps. ${fmtM(ltm.ebitda)} M más el EBITDA proporcional de CPC (US$${fmtN(PF.ebitdaUsdM, 0)} M ≈ Ps. ${fmtN(PF.ebitdaM, 0)} M, cifra de ${CFG.short} al firmar). Las gráficas de arriba muestran los cierres reportados hasta el ${qLabel(lastQ)}; el balance del ${PF.consolidatedFrom ? qLabel({ fy: +PF.consolidatedFrom.slice(0, 4), q: Math.ceil(+PF.consolidatedFrom.slice(5, 7) / 3) }) : '—'} será el primero consolidado. El encabezado, el DCF y los múltiplos usan esta misma base.`
+            : `Total debt and cash from ${CFG.short}'s pro-forma balance sheet at ${fmtDate(PF.asOf)} with CPC and the bridge (${src ? `<a href="${src.url}" target="_blank" rel="noopener">${L(src).split(':')[0]} ↗</a>` : 'evento relevante'}); reported LTM EBITDA Ps. ${fmtM(ltm.ebitda)} M plus CPC's proportionate EBITDA (US$${fmtN(PF.ebitdaUsdM, 0)} M ≈ Ps. ${fmtN(PF.ebitdaM, 0)} M, ${CFG.short}'s figure at signing). The charts above show the reported quarter-ends through ${qLabel(lastQ)}; the ${PF.consolidatedFrom ? qLabel({ fy: +PF.consolidatedFrom.slice(0, 4), q: Math.ceil(+PF.consolidatedFrom.slice(5, 7) / 3) }) : '—'} balance sheet will be the first consolidated one. The header, the DCF and the multiples use this same basis.`}</p>`;
+      } else { pfBox.hidden = true; pfBox.innerHTML = ''; }
+    }
     // Instruments: a dated snapshot in reference.js (instrumentsAsOf; CB = certificados bursátiles, loans) with post-quarter
     // events listed under the table, so 30-Jun balances and later issues are never mixed in one list.
     let ins = (D2.instruments || []).map((i) => ({ name: LS(i.name) + (i.inferred ? '*' : ''), note: i.note ? LS(i.note) : '', type: i.type === 'CB' ? 'CB' : LS(i.type), issued: i.issued, matures: i.matures, principal: i.principalMxn, rate: LS(i.rate), source: i.source || '', cb: i.type === 'CB' }));
@@ -1286,6 +1389,12 @@
   const io = new IntersectionObserver((entries) => { entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }); }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
+  // First paint safety net: a chart created while its container had no size yet (fonts or styles still loading, a late
+  // layout) would stay blank until something resized it; once the page and its fonts have loaded, any chart whose canvas
+  // is empty is resized, which redraws it. Never re-renders a chart that already painted.
+  const repaintEmptyCharts = () => { if (!hasChart()) return; for (const ch of Object.values(Chart.instances)) { const cv = ch.canvas; if (cv && cv.offsetWidth && (!ch.width || !ch.height || cv.width === 0 || cv.height === 0)) ch.resize(); } };
+  window.addEventListener('load', () => requestAnimationFrame(repaintEmptyCharts));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestAnimationFrame(repaintEmptyCharts)).catch(() => {});
 
   // Read-only view of the model for the presentation builder (/assets/airport-present.js): the same data, helpers and
   // calculations the page renders, so the PDF and the screen can never disagree.
