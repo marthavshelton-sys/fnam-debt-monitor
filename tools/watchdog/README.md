@@ -25,9 +25,11 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   (`failure`, `cancelled`...). A run that committed and then failed a later step (OMA's source-link check found a dead
   link on 8/9-Oct-2026) is that landed refresh, recorded as `success` with `afterCommitFailure: true`, never as a failure
   at the same instant as `lastSuccess` (`attemptRecord` in `lib.mjs`, tested in `selftest.mjs`).
-- **Late**: no landed refresh since the second-to-last time the workflow's own cron was due, counting only due times
-  at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
-  workflow file, so changing a cron needs no change here.
+- **Late**: no landed refresh since the last time the workflow's own cron was due, counting only due times at least
+  3 hours old. In words: the last scheduled refresh failed or never ran. Until 9-Oct-2026 two misses in a row were
+  needed, which left the MX fiscal page "up to date" for a day after its 8-Oct refresh failed (the owner asked for a
+  failed or stale refresh to be flagged the same day). The schedule is read from the workflow file, so changing a cron
+  needs no change here.
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.

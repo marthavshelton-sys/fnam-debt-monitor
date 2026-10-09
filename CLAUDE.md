@@ -191,6 +191,10 @@ dashboards, everything built from public data by GitHub Actions.
 - Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
   sources publish weekdays). A run commits only when data changed.
 - When working on one page, do not touch another page's workflow or scripts.
+- A refresh workflow commits its data right after the fetch, before any optional step (document mirrors, link checks,
+  alerts), and every optional step is `continue-on-error` with a time limit: the MX fiscal run lost 8 and 9-Oct-2026 to a
+  failed apt install placed before its only commit step, while its freshness test passed on the fresh local file. The
+  watchdog flags ONE missed scheduled refresh (`late`) since 9-Oct-2026 (owner: a failed or stale refresh shows the same day).
 - `data-watchdog.yml`, every 12 hours at 03:50 and 15:50 UTC (owner's choice, to limit deploys; `scripts/watchdog/`,
   runbook `tools/watchdog/README.md`), judges each dashboard's
   last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the

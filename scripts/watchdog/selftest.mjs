@@ -35,12 +35,18 @@ assert.equal(attemptRecord(null, null), null);
 
 // verdicts: weekdays 19:30 UTC, 3 h grace
 const base = { crons: ['30 19 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H, openAlerts: 0 };
-// Monday 12:00: due Thu and Fri 19:30; Thursday's success is enough (one miss is tolerated)
-assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).status, 'ok');
-// ...but Wednesday's is not: Thursday and Friday both missed
-assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-09-30T19:36:00Z' }).status, 'late');
+// Monday 12:00: the last due time is Friday 19:30; Friday's success covers it
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'ok');
+// ...but Thursday's does not: one missed refresh is late (the same-day rule, 9-Oct-2026)
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).status, 'late');
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).requiredSince, t('2026-10-02T19:30:00Z'));
+// the 8-Oct-2026 case: the 19:30 run failed, the 03:50 UTC check the same night (21:50 in Mexico City) flags it
+assert.equal(verdict({ ...base, now: t('2026-10-09T03:50:00Z'), lastLandedCreatedAt: '2026-10-07T19:39:25Z' }).status, 'late');
 // Monday 21:00: Monday's slot is inside the grace, so Friday's success still covers it
 assert.equal(verdict({ ...base, now: t('2026-10-05T21:00:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'ok');
+// Monday 22:31: the grace is over and Monday's refresh has not landed
+assert.equal(verdict({ ...base, now: t('2026-10-05T22:31:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'late');
+assert.equal(verdict({ ...base, now: t('2026-10-05T22:31:00Z'), lastLandedCreatedAt: '2026-10-05T19:36:00Z' }).status, 'ok');
 // never succeeded
 assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: null }).status, 'late');
 // on time with an open pipeline alert

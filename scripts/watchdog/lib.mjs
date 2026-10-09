@@ -71,13 +71,15 @@ export function attemptRecord(attempt, landed) {
 }
 
 // ---- the verdict ----
-// late:  no landed scheduled refresh since the second-to-last time the schedule was due, counting only
-//        due times at least `graceMs` old (two scheduled refreshes in a row failed or never ran);
+// late:  no landed scheduled refresh since the LAST time the schedule was due, counting only due times at
+//        least `graceMs` old (the last scheduled refresh failed or never ran). Until 9-Oct-2026 the rule
+//        waited for two misses in a row, which left the MX fiscal page showing "up to date" for a whole day
+//        after its 8-Oct refresh failed; the owner wants a failed refresh flagged the same day.
 // alert: on time, but an alert issue of the dashboard's own pipeline is open;
 // ok:    on time, no alert open.
 export function verdict({ crons, now, graceMs, lookbackMs, lastLandedCreatedAt, openAlerts }) {
   const due = dueTimes(crons, now - lookbackMs, now - graceMs);
-  const requiredSince = due.length >= 2 ? due[due.length - 2] : due.length ? due[0] : null;
+  const requiredSince = due.length ? due[due.length - 1] : null;
   const landed = lastLandedCreatedAt ? Date.parse(lastLandedCreatedAt) : null;
   const late = requiredSince !== null && (landed === null || landed < requiredSince);
   return { status: late ? 'late' : openAlerts > 0 ? 'alert' : 'ok', requiredSince };
