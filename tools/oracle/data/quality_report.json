@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-08T21:56:22.304Z",
+  "generated": "2026-10-09T00:02:59.224Z",
   "summary": {
     "checks": 461,
     "failed": 0,
@@ -3775,8 +3775,8 @@
   "freshness": [
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
-      "lastDate": "2026-10-07",
-      "ageDays": 2,
+      "lastDate": "2026-10-08",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "nightly FactSet routine, 7:58 PM New York time; the page's price authority"
@@ -3847,8 +3847,8 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-07",
-      "ageDays": 2,
+      "lastDate": "2026-10-08",
+      "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
       "note": "automated FactSet refresh, weekdays 14:20 UTC"
@@ -3935,7 +3935,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-07; prices 2026-10-07; 8 peers; fetched 2026-10-07"
+      "detail": "consensus 2026-10-08; prices 2026-10-08; 8 peers; fetched 2026-10-08"
     },
     {
       "file": "peer_leverage.json",
@@ -4104,8 +4104,8 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-07",
-      "lastRefresh": "2026-10-07",
+      "asOf": "2026-10-08",
+      "lastRefresh": "2026-10-08",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4194,8 +4194,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-08",
-      "lastRefresh": "2026-10-08",
+      "asOf": "2026-10-09",
+      "lastRefresh": "2026-10-09",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4209,8 +4209,8 @@
       "label_en": "Change log",
       "label_es": "Bitácora de cambios",
       "cadence": "daily",
-      "asOf": "2026-10-08",
-      "lastRefresh": "2026-10-08",
+      "asOf": "2026-10-09",
+      "lastRefresh": "2026-10-09",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
