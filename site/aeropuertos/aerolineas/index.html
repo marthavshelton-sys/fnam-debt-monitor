@@ -176,6 +176,10 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .ap.hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
 .ap-label{font-family:var(--sans); font-size:calc(14.5px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
 .ap-label.off{opacity:.2;}
+.layer-labels .leader{fill:none; stroke:var(--text-secondary); stroke-width:calc(0.9px * var(--k, 1)); stroke-opacity:.55;}
+.layer-labels .leader.off{stroke-opacity:.12;}
+.skip{position:absolute; left:8px; top:-80px; z-index:1000; background:var(--accent); color:#fff; padding:8px 14px; border-radius:8px; font-weight:600; text-decoration:none;}
+.skip:focus{top:8px;}
 .rt.net{stroke-opacity:.8;}
 .rt.est, .spoke.est{stroke-dasharray:3 3; stroke-opacity:.65;}
 .rt.net:hover, .spoke.net:hover{stroke-opacity:1; stroke-dasharray:none;}
@@ -226,6 +230,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 </style>
 </head>
 <body>
+<a class="skip" href="#main"><span class="en">Skip to content</span><span class="es">Ir al contenido</span></a>
 
 <header class="topbar">
   <div class="wrap">
@@ -240,7 +245,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <section class="pagehead">
     <div class="wrap">
       <a class="backlink" href="/aeropuertos/">
@@ -486,7 +491,7 @@ window.addEventListener("DOMContentLoaded", function(){
   function alpha(hex, a){ var h = (hex || "#888").replace("#", ""); if (h.length === 3) h = h.split("").map(function(c){ return c + c; }).join(""); return "rgba(" + parseInt(h.slice(0, 2), 16) + "," + parseInt(h.slice(2, 4), 16) + "," + parseInt(h.slice(4, 6), 16) + "," + a + ")"; }
   function titleCase(s){ return String(s || "").toLowerCase().replace(/(^|[\s\-\/(,])([a-záéíóúñ])/g, function(m, p, c){ return p + c.toUpperCase(); }).replace(/\bDe\b/g, "de").replace(/\bDel\b/g, "del").replace(/\bY\b/g, "y"); }
   // Foreign cities and countries come from AFAC without accents and half in Spanish ("BOGOTA", "NUEVA YORK", "MUNICH", "Espana");
-  // routes.js carries their display names (tools/aeropuertos/cities.json). nk() is the key both sides use: no accents, upper case.
+  // routes.js carries their display names (the hub's curated city list). nk() is the key both sides use: no accents, upper case.
   function nk(s){ return String(s == null ? "" : s).normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/\s+/g, " ").trim(); }
   var NAMES = (window.MX_ROUTES && window.MX_ROUTES.names) || {city:{}, country:{}};
   function cityName(city){ var n = NAMES.city[nk(city)]; return n ? (es() ? n.es : n.en) : titleCase(city); }
@@ -639,6 +644,12 @@ window.addEventListener("DOMContentLoaded", function(){
   function served(g, other, list){ if (!list.length) return ""; return '<div class="row" style="margin-top:4px"><span>' + T((other ? "Otras aerolíneas mexicanas" : "Aerolíneas mexicanas") + " que " + g + " sirven (de las que tienen red en el mapa)", (other ? "Other Mexican airlines" : "Mexican airlines") + " serving it (of those with a network on the map)") + '</span></div>' + tags(list); }
   function tags(list){ if (!list.length) return ""; return '<div class="tags">' + list.map(function(c){ return '<span class="tag" style="--c:' + colorOf(c) + '">' + esc(c.short) + '</span>'; }).join("") + "</div>"; }
   function symbolScale(){ var w = svg.getBoundingClientRect().width || 1000; return Math.min(2.4, Math.max(1, (1000 / Math.max(280, w)) * 0.8)); }
+  // Label widths are measured with the page's font at the label's size in map units (text scales with the map), so the
+  // collision boxes are the real ones; the map is drawn again once the web font has loaded.
+  var measureCtx = document.createElement("canvas").getContext("2d"), sansFamily = (getComputedStyle(document.body).getPropertyValue("--sans") || "").trim() || "Inter, system-ui, sans-serif";
+  function measure(text, px){ measureCtx.font = "600 " + px + "px " + sansFamily; return measureCtx.measureText(String(text)).width + 4; }
+  // passengers with Mexico per foreign city over all its corridors: the figure the edge labels carry
+  var cityTot = {}; R.international.forEach(function(d){ cityTot[d.cityKey] = (cityTot[d.cityKey] || 0) + d.tot; });
 
   // tooltips shared by both views
   function domTip(d, ev, who){ var pos = posOf(ev); var yoy = d.prev ? d.tot / d.prev - 1 : null; showTip('<b>' + esc(apName(d.a)) + ' ↔ ' + esc(apName(d.b)) + '</b>' + (who ? '<div class="op">' + who + '</div>' : "") + row(T("Pasajeros, 12 meses", "Passengers, 12 months"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(yoy)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) + row(T("Pasajeros por vuelo", "Passengers per flight"), d.flights ? nf(d.tot / d.flights, 0) : "—") + served("la", false, airlinesOnDom(d.key)), pos[0], pos[1]); }
@@ -659,12 +670,18 @@ window.addEventListener("DOMContentLoaded", function(){
     var sel = selList(), anySel = sel.length > 0, routesView = S.mapview === "routes";
     var wscale = (wide ? 0.7 : 1) * K, few = K > 1.5 || window.innerWidth <= 640;            // thinner lines on the wide frame; bigger symbols and fewer labels on phones
     document.getElementById("routectl").style.display = routesView ? "" : "none";
-    var edgeReq = [], boxes = [], labelBudget = few ? 8 : (wide ? 22 : 26), fcity = {};   // deferred edge labels, placed label boxes, foreign-city nodes
-    var fs = 11 * K, lh = fs * 1.15; function textW(t, size){ return String(t).length * size * 0.56 + 6; }
+    var edgeReq = {}, edgeList = [], boxes = [], labelBudget = few ? 8 : (wide ? 22 : 26), fcity = {};   // edge labels (one per foreign city), placed label boxes, foreign-city nodes
+    // label metrics: the same sizes as the stylesheet (.ap-label 14.5px and .spoke-label 14px, both times --k)
+    var fsA = 14.5 * K, fsS = 14 * K, lhA = fsA * 1.2, lhS = fsS * 1.2;
     function collides(b){ for (var i = 0; i < boxes.length; i++) { var o = boxes[i]; if (b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y) return true; } return false; }
-    function place(x, y, anchor, w, h, force){ var bx = anchor === "end" ? x - w : anchor === "middle" ? x - w / 2 : x; var b = {x:bx, y:y - h * 0.8, w:w, h:h}; if (!force && collides(b)) return false; boxes.push(b); return true; }
+    function boxOf(x, y, anchor, w, h){ var bx = anchor === "end" ? x - w : anchor === "middle" ? x - w / 2 : x; return {x:bx, y:y - h * 0.78, w:w, h:h}; }
+    function inside(b){ return b.x >= 2 && b.y >= 1 && b.x + b.w <= W - 2 && b.y + b.h <= H - 1; }
+    // a label box is accepted only inside the frame; a forced one may overlap, never leave the frame
+    function place(x, y, anchor, w, h, force){ var b = boxOf(x, y, anchor, w, h); if (!inside(b) || (!force && collides(b))) return false; boxes.push(b); return true; }
+    function leader(x1, y1, x2, y2, off){ el("line", {x1:x1.toFixed(1), y1:y1.toFixed(1), x2:x2.toFixed(1), y2:y2.toFixed(1), "class":"leader" + (off ? " off" : "")}, gL); }
     function addCity(d, on, airline){ var pc = f.proj(d.lon, d.lat); if (!wide || !inFrame(f, pc, 4)) return null; var c = fcity[d.cityKey] || (fcity[d.cityKey] = {city:d.city, country:d.country, cc:d.cc, key:d.cityKey, p:pc, tot:0, n:0, on:false, col:null, airlines:[]}); c.tot += d.tot; c.n++; if (on) { c.on = true; if (airline && !c.col) c.col = airline.col; } airlinesOnIntl(d.mx, d.cityKey).forEach(function(a){ if (c.airlines.indexOf(a) < 0) c.airlines.push(a); }); return c; }
-    function edgeLabel(d, off, text){ edgeReq.push({d:d, off:off, text:text}); }
+    // one edge label per foreign city: its busiest drawn corridor gives the direction, the text carries the city's passengers with Mexico
+    function edgeLabel(d, off){ var k = d.cityKey || nk(d.city), e = edgeReq[k]; if (!e) { e = edgeReq[k] = {key:k, city:d.city, off:!!off, tot:cityTot[k] || d.tot || 0, best:null}; edgeList.push(e); } if (!off) e.off = false; if (!e.best || (d.tot || 0) > (e.best.tot || 0)) e.best = d; }
     function spokeTo(d, cls, width, col, angOff, onTip){ var a = R.airports[d.mx], p0 = apXY[d.mx], ang = bearing(a.lat, a.lon, d.lat, d.lon) + (angOff || 0), p1 = edgePoint(f, p0[0], p0[1], ang); var ln = el("line", {x1:p0[0].toFixed(1), y1:p0[1].toFixed(1), x2:p1[0].toFixed(1), y2:p1[1].toFixed(1), "class":cls, "stroke-width":width.toFixed(2)}, gK); if (col) ln.style.setProperty("--c", col); ln.addEventListener("mousemove", onTip); ln.addEventListener("mouseleave", hideTip); return ln; }
     function arcTo(p1, p2, cls, width, col, k, onTip, layer){ var p = el("path", {d:arcPath(p1, p2, k), "class":cls, "stroke-width":width.toFixed(2)}, layer || gR); if (col) p.style.setProperty("--c", col); p.addEventListener("mousemove", onTip); p.addEventListener("mouseleave", hideTip); return p; }
     var trafficLabel = function(t){ return t >= 1e6 ? nf(t / 1e6, 1) + "\u00a0M" : nf(t / 1e3, 0) + "\u00a0k"; };
@@ -695,7 +712,7 @@ window.addEventListener("DOMContentLoaded", function(){
           }
         });
         // edge labels for the largest (or highlighted) out-of-frame corridors
-        ishown.filter(function(d){ return !(anySel) || ifl(d).length; }).filter(function(d){ return !(wide && inFrame(f, f.proj(d.lon, d.lat), 4)); }).forEach(function(d){ edgeLabel(d, false, cityName(d.city) + " · " + trafficLabel(d.tot)); });
+        ishown.filter(function(d){ return !(anySel) || ifl(d).length; }).filter(function(d){ return !(wide && inFrame(f, f.proj(d.lon, d.lat), 4)); }).forEach(function(d){ edgeLabel(d, false); });
       }
     } else if (anySel) {
       // network view: each selected airline's own routes — domestic pairs as arcs, international pairs as arcs (wide frame) or spokes
@@ -711,7 +728,7 @@ window.addEventListener("DOMContentLoaded", function(){
           else spokeTo(y, "spoke on net" + (est ? " est" : ""), width, x.col, (j - (n - 1) / 2) * 0.035, function(ev){ netIntlTip(y, x, est, ev); });
         });
         var seenCity = {};
-        ni.forEach(function(y){ if (seenCity[y.cityKey]) return; seenCity[y.cityKey] = true; if (!(wide && inFrame(f, f.proj(y.lon, y.lat), 4))) edgeLabel(y, false, cityName(y.city) + (y.d ? " · " + trafficLabel(y.tot) : "")); });
+        ni.forEach(function(y){ if (seenCity[y.cityKey]) return; seenCity[y.cityKey] = true; if (!(wide && inFrame(f, f.proj(y.lon, y.lat), 4))) edgeLabel(y, false); });
       });
     }
     // ----- symbols and labels: labels avoid each other (hubs and the largest airports first, then foreign cities, then the rest, then edge labels) -----
@@ -719,7 +736,28 @@ window.addEventListener("DOMContentLoaded", function(){
     var servedBy = function(c){ return sel.filter(function(x){ return x.net && x.net.ap[c]; }); };
     var hubs = []; sel.forEach(function(x){ if (x.net && x.net.n.hubs) x.net.n.hubs.forEach(function(h){ if (hubs.indexOf(h) < 0 && apXY[h]) hubs.push(h); }); });
     var apR = function(c){ return (2.4 + 16 * Math.sqrt(apSize(c) / maxAp)) * (wide ? 0.75 : 1) * Math.sqrt(K); };
-    function labelAt(p, r, text, cls, force){ var w = textW(text, fs), cand = [[p[0] + r + 3, p[1] + fs * 0.35, "start"], [p[0] - r - 3, p[1] + fs * 0.35, "end"], [p[0], p[1] - r - 4, "middle"], [p[0], p[1] + r + fs, "middle"]]; for (var i = 0; i < cand.length; i++) { if (place(cand[i][0], cand[i][1], cand[i][2], w, lh, force && i === cand.length - 1)) { el("text", {x:cand[i][0].toFixed(1), y:cand[i][1].toFixed(1), "class":cls, "text-anchor":cand[i][2]}, gL).textContent = text; return true; } } return false; }
+    // Airport and city labels: beside the symbol when there is room (right, left, above, below), otherwise farther out at the
+    // end of a leader line; every box stays inside the frame and clear of the boxes already placed. A forced label (hubs, the
+    // largest airports) takes the first in-frame position even if it overlaps.
+    function labelAt(p, r, text, cls, force){
+      var off = /\boff\b/.test(cls), w = measure(text, fsA), h = lhA, dy = fsA * 0.35;
+      var cand = [[p[0] + r + 3, p[1] + dy, "start"], [p[0] - r - 3, p[1] + dy, "end"], [p[0], p[1] - r - 4, "middle"], [p[0], p[1] + r + fsA, "middle"]];
+      var put = function(x, y, anchor){ el("text", {x:x.toFixed(1), y:y.toFixed(1), "class":cls, "text-anchor":anchor}, gL).textContent = text; return true; };
+      for (var i = 0; i < cand.length; i++) if (place(cand[i][0], cand[i][1], cand[i][2], w, h, false)) return put(cand[i][0], cand[i][1], cand[i][2]);
+      var dists = [r + 11 * K, r + 20 * K, r + 32 * K], angs = [-35, 35, -145, 145, -70, 70, -110, 110, 0, 180, -90, 90];
+      for (var j = 0; j < dists.length; j++) for (var a = 0; a < angs.length; a++) {
+        var th = angs[a] * Math.PI / 180, c = Math.cos(th), sn = Math.sin(th), ax = p[0] + dists[j] * c, ay = p[1] + dists[j] * sn;
+        var anchor = c > 0.35 ? "start" : c < -0.35 ? "end" : "middle", ty = anchor === "middle" ? (sn < 0 ? ay : ay + fsA * 0.8) : ay + dy;
+        if (!place(ax, ty, anchor, w, h, false)) continue;
+        var b = boxOf(ax, ty, anchor, w, h), ex = Math.max(b.x, Math.min(p[0], b.x + b.w)), ey = Math.max(b.y, Math.min(p[1], b.y + b.h));
+        var vx = ex - p[0], vy = ey - p[1], L = Math.hypot(vx, vy) || 1;
+        leader(p[0] + vx / L * (r + 1), p[1] + vy / L * (r + 1), ex - vx / L * 1.5, ey - vy / L * 1.5, off);
+        return put(ax, ty, anchor);
+      }
+      if (!force) return false;
+      for (var k = 0; k < cand.length; k++) if (place(cand[k][0], cand[k][1], cand[k][2], w, h, true)) return put(cand[k][0], cand[k][1], cand[k][2]);
+      return false;
+    }
     var labeled = {};
     function apLabel(c, force){ if (labeled[c] || !apXY[c]) return; labeled[c] = true; labelAt(apXY[c], apR(c), apName(c), "ap-label" + (anySel && !servedBy(c).length ? " off" : ""), force); }
     hubs.forEach(function(h){ apLabel(h, true); });
@@ -748,15 +786,23 @@ window.addEventListener("DOMContentLoaded", function(){
     });
     var more = codes.slice(0, few ? 6 : (wide ? 10 : 16)); if (anySel && !few) more = more.concat(codes.filter(function(c){ return servedBy(c).length; }).slice(0, wide ? 14 : 26));
     more.forEach(function(c){ apLabel(c, false); });
-    // edge labels for out-of-frame corridors, nudged along the frame until they fit
+    // Edge labels (corridors leaving the frame): one per foreign city, the busiest first, set where the city's busiest spoke
+    // meets the frame and slid along that edge until it fits; a label that had to slide gets a short leader back to its spoke.
     var drawn = 0;
-    edgeReq.forEach(function(rq){
+    edgeList.sort(function(a, b){ return b.tot - a.tot; }).forEach(function(rq){
       if (drawn >= labelBudget) return;
-      var d = rq.d, a = R.airports[d.mx], p0 = apXY[d.mx], ang = bearing(a.lat, a.lon, d.lat, d.lon), p1 = edgePoint(f, p0[0], p0[1], ang);
-      var x = p1[0], y = p1[1], anchor = x > W * 0.6 ? "end" : (x < W * 0.4 ? "start" : "middle"); if (anchor === "end") x -= 6; if (anchor === "start") x += 6; if (y < 20) y += 12; if (y > H - 10) y -= 6;
-      var w = textW(rq.text, fs * 0.95);
-      var dir = y > H / 2 ? -1 : 1;
-      for (var t = 0; t < 10; t++) { if (y > 8 && y < H - 2 && place(x, y, anchor, w, lh)) { el("text", {x:x.toFixed(1), y:y.toFixed(1), "class":"spoke-label" + (rq.off ? " off" : ""), "text-anchor":anchor}, gL).textContent = rq.text; drawn++; break; } y += dir * lh; }
+      var d = rq.best, a = R.airports[d.mx], p0 = apXY[d.mx], ang = bearing(a.lat, a.lon, d.lat, d.lon), p1 = edgePoint(f, p0[0], p0[1], ang);
+      var text = cityName(rq.city) + (rq.tot ? " · " + trafficLabel(rq.tot) : ""), w = measure(text, fsS), h = lhS, x0 = p1[0], y0 = p1[1];
+      var side = y0 <= 9 ? "top" : y0 >= H - 9 ? "bottom" : x0 <= 9 ? "left" : "right", along = side === "top" || side === "bottom", step = along ? Math.max(w / 2 + 2, 12 * K) : h;
+      for (var t = 0; t < 16; t++) {
+        var o = (t % 2 ? 1 : -1) * Math.ceil(t / 2) * step, x, y, anchor;
+        if (along) { anchor = "middle"; x = Math.max(w / 2 + 3, Math.min(W - w / 2 - 3, x0 + o)); y = side === "top" ? 6 + fsS * 0.85 : H - 7; }
+        else { anchor = side === "left" ? "start" : "end"; x = side === "left" ? 11 : W - 11; y = Math.max(fsS, Math.min(H - 6, y0 + o)) + fsS * 0.35; }
+        if (!place(x, y, anchor, w, h, false)) continue;
+        var b = boxOf(x, y, anchor, w, h), ex = Math.max(b.x, Math.min(x0, b.x + b.w)), ey = Math.max(b.y, Math.min(y0, b.y + b.h));
+        if (Math.hypot(ex - x0, ey - y0) > 4 * K) leader(x0, y0, ex, ey, rq.off);
+        el("text", {x:x.toFixed(1), y:y.toFixed(1), "class":"spoke-label" + (rq.off ? " off" : ""), "text-anchor":anchor}, gL).textContent = text; drawn++; break;
+      }
     });
     renderSide(); renderLegend();
   }
@@ -839,7 +885,7 @@ window.addEventListener("DOMContentLoaded", function(){
       k(T("Acumulado ", "Year to date ") + yearNow + " (" + monName(1) + "–" + monName(lastM) + ")", fmtM(ytd), '<span class="' + cls(ytd / ytdP - 1) + '">' + pct(ytd / ytdP - 1) + '</span> ' + T("vs. mismo periodo de ", "vs. same period of ") + (yearNow - 1)) +
       top.map(function(c){ return k(esc(c.members ? c.name : c.short) + T(": participación, ", ": share, ") + ml, nf(c.lastPax / allLast * 100, 1) + "%", fmtM(c.lastPax) + T(" de ", " of ") + fmtM(allLast) + T(" pasajeros de todas las aerolíneas · pasajeros ", " passengers, all airlines · passengers ") + "<span class=\"" + cls(tot(c)[last] / (tot(c)[last - 12] || 1) - 1) + "\">" + pct(tot(c)[last - 12] ? tot(c)[last] / tot(c)[last - 12] - 1 : null) + "</span> " + T("a/a", "y/y")); }).join("");
     document.getElementById("snap-asof").textContent = T("AFAC · datos a ", "AFAC · data to ") + ml;
-    document.getElementById("map-asof").textContent = T("Corredores: 12 meses a ", "Corridors: 12 months to ") + monthLabel(R.window.to) + T(" · redes al ", " · networks as of ") + ((A.networks && A.networks.VOI && A.networks.VOI.asOf) || A.generatedAt.slice(0, 10));
+    document.getElementById("map-asof").textContent = T("Corredores: 12 meses a ", "Corridors: 12 months to ") + monthLabel(R.window.to) + T(" · redes al ", " · networks as of ") + dayLabel(String((A.networks && A.networks.VOI && A.networks.VOI.asOf) || A.generatedAt).slice(0, 10));
   }
 
   // ---------- 2. airline chart ----------
@@ -890,7 +936,7 @@ window.addEventListener("DOMContentLoaded", function(){
     mount("regchart", {type:"line", data:{labels:labels, datasets:regs.map(function(r, i){ return {label:regName(r.id), data:r.pax.slice(startIdx), borderColor:regColor(r.id), backgroundColor:alpha(regColor(r.id), .6), fill:i === 0 ? "origin" : "-1", stack:"r", borderWidth:1.2, pointRadius:0, pointHitRadius:6, tension:.15}; })}, options:opts});
     var foT12 = ttm12(A.totals.foreignIntl, last), intlT12 = foT12 + ttm12(A.totals.mxIntl, last);
     var rows = foreign.filter(function(c){ return c.t12 > 0; }).slice(0, 25);
-    document.querySelector("#fotbl thead").innerHTML = "<tr><th class=\"l\">#</th><th class=\"l\">" + T("Aerolínea", "Airline") + "</th><th class=\"l\">" + T("Región", "Region") + "</th><th>" + T("Pasajeros 12 m", "Passengers, 12 m") + "</th><th>" + T("Var. 12 m", "Chg., 12 m") + "</th><th>" + T("Del tráfico internacional, 12 m", "Of international traffic, 12 m") + "</th></tr>";
+    document.querySelector("#fotbl thead").innerHTML = "<tr><th scope=\"col\" class=\"l\">#</th><th scope=\"col\" class=\"l\">" + T("Aerolínea", "Airline") + "</th><th scope=\"col\" class=\"l\">" + T("Región", "Region") + "</th><th scope=\"col\">" + T("Pasajeros 12 m", "Passengers, 12 m") + "</th><th scope=\"col\">" + T("Var. 12 m", "Chg., 12 m") + "</th><th scope=\"col\">" + T("Del tráfico internacional, 12 m", "Of international traffic, 12 m") + "</th></tr>";
     document.querySelector("#fotbl tbody").innerHTML = rows.map(function(c, i){ var yoy = c.t12prev ? c.t12 / c.t12prev - 1 : null; return "<tr><td class=\"l\">" + (i + 1) + "</td><td class=\"l\"" + (c.aliases && c.aliases.length && c.aliases[0] !== c.short ? " title=\"" + esc(T("Nombre en la AFAC: ", "AFAC label: ") + c.aliases.join(" / ")) + "\"" : "") + "><span class=\"dot\" style=\"--c:" + regColor(c.region) + "\"></span>" + esc(c.short) + "</td><td class=\"l\">" + esc(regName(c.region)) + "</td><td>" + fmtN(c.t12) + "</td><td class=\"" + cls(yoy) + "\">" + pct(yoy) + "</td><td>" + nf(c.t12 / intlT12 * 100, 1) + "%</td></tr>"; }).join("");
     document.getElementById("fo-note").textContent = T("Pasajeros regulares internacionales, últimos 12 meses (" + monthLabel(months[last - 11]) + "–" + monthLabel(months[last]) + "); Var. 12 m = contra los 12 meses previos. Las aerolíneas extranjeras transportan ", "Scheduled international passengers, last 12 months (" + monthLabel(months[last - 11]) + "–" + monthLabel(months[last]) + "); Chg., 12 m = versus the prior 12 months. Foreign airlines carry ") + nf(foT12 / intlT12 * 100, 0) + T("% del tráfico internacional de México. Nombres comerciales; pasa el cursor sobre uno para ver el de la AFAC.", "% of Mexico's international traffic. Names are the ones the airlines fly under; hover over one for AFAC's label.");
   }
@@ -974,8 +1020,18 @@ window.addEventListener("DOMContentLoaded", function(){
     var ir = A.ir || {}, ids = Object.keys(ir).filter(function(k){ return ir[k] && ir[k].months && ir[k].months.length; });
     put("stamp-ir", line({ src: T("de las aerolíneas (IR)", "from the airlines (IR)"), to: ids.length ? monthLabel(ids.map(function(k){ return ir[k].months[ir[k].months.length - 1]; }).sort()[ids.length - 1]) : "—", generated: A.generatedAt, checked: checked }));
   }
-  function renderAll(){ renderKpis(); renderMapChips(); renderMap(); renderAlChips(); renderAl(); renderForeign(); renderIr(); renderSources(); renderStamps(); }
+  // Every chart canvas gets an accessible name: the section's heading plus the heading of its own block, in the current language.
+  function labelCharts(){
+    Array.prototype.forEach.call(document.querySelectorAll("canvas"), function(cv){
+      var sec = cv.closest("section"), h2 = sec && sec.querySelector("h2"), box = cv.parentElement, hh = null;
+      while (box && box !== sec && !(hh = box.querySelector("h3, h4"))) box = box.parentElement;
+      var parts = [h2 ? h2.innerText : "", hh && hh !== h2 ? hh.innerText : ""].map(function(x){ return x.replace(/\s+/g, " ").trim(); }).filter(Boolean);
+      cv.setAttribute("role", "img"); cv.setAttribute("aria-label", parts.join(" · ") + T(" (gráfica)", " (chart)"));
+    });
+  }
+  function renderAll(){ renderKpis(); renderMapChips(); renderMap(); renderAlChips(); renderAl(); renderForeign(); renderIr(); renderSources(); renderStamps(); labelCharts(); }
   renderAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ renderMap(); });
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang", "data-theme"]});
   var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", renderAll);
   var rsT; window.addEventListener("resize", function(){ hideTip(); clearTimeout(rsT); rsT = setTimeout(renderMap, 160); });

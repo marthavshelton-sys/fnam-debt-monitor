@@ -13,7 +13,7 @@ import { writeData, header, norm, normLabel, tokenizeRow, qid, pdfRows, parseRow
 
 const RAW = new URL('../../tools/oma/raw/releases/', import.meta.url);
 const OUT = (f) => new URL(`../../site/oma/data/${f}`, import.meta.url);
-const GEN = 'scripts/oma/build-data.mjs from tools/oma/raw/releases';
+const GEN = 'the OMA model builder from the archived OMA releases'; // header of the data files: no script or repository paths (owner, 2026-10-05)
 
 export const IS_ROWS = [
   { k: 'revAero', en: 'Aeronautical revenues', es: 'Ingresos aeronáuticos', re: /^aeronautical revenues$/, level: 1 },

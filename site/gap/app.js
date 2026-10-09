@@ -740,8 +740,15 @@
   }
 
   // ================= 04 DCF =================
+  // Structure (9-Oct-2026): the flows start at the latest balance sheet (net debt and minorities at that date), cover the rest of
+  // the current fiscal year (stub) and five full fiscal years, and are discounted at mid-period. The first projected year is
+  // anchored on GAP's own guidance midpoints (guidance.js), the next two on FactSet's consensus EBITDA (peers.js, switchable),
+  // the rest on the drivers in the card. The terminal value is an annuity to the concession's end (nothing after it unless a
+  // renewal probability is entered), a Gordon perpetuity or an exit multiple. Every input has a plausible range: a value
+  // outside it is refused with a visible warning and the last valid value stays in force.
   const D = Object.assign({}, REF.dcf || {});
-  const dcfState = {};
+  const dcfState = { s: null, bad: {} };
+  const DCF_LIMITS = { trafficG: [-30, 30], revPaxG: [-20, 30], margin: [30, 90], capex: [0, 60000], daPct: [0, 40], tax: [0, 60], nwc: [-50, 50], rf: [0, 30], erp: [0, 15], beta: [0, 3], kd: [0, 30], dw: [0, 90], g: [-5, 10], renew: [0, 100], mult: [1, 40], endYear: [2030, 2100] };
   // Beta: OLS slope of two years of weekly log returns, GAPB.MX on the IPC (^MXX), from market.js.
   function betaFromMarket() {
     const g = px('GAPB.MX'), m = px('^MXX'); if (g.length < 120 || m.length < 120) return null;
@@ -762,120 +769,278 @@
     return fixed.length ? fixed[fixed.length - 1] : null;
   }
   const BETA = betaFromMarket(), KD = kdFromDebt();
+  // Anchors: the latest guidance vintage of a fiscal year (midpoints) and FactSet's consensus EBITDA for it (mean, count).
+  const fyActual = (fy) => Y.find((y) => y.fy === fy && y.is && y.is.ebitda != null && y.kpi && y.kpi.pax) || null;
+  const exRevM = (o) => (o && o.is && o.is.revTotal != null ? (o.is.revTotal - (o.is.revConstruction || 0)) / 1000 : null); // Ps. M, ex-IFRIC 12
+  const guidanceFor = (fy) => { const vs = GV.filter((v) => v.fy === fy); return vs.length ? vs[vs.length - 1] : null; };
+  function guidanceMid(v) {
+    if (!v) return null; const it = v.items || {}; const m = (k) => gMid(GM.find((x) => x.k === k), it[k]);
+    const o = { fy: v.fy, date: v.date, traffic: m('traffic'), revTotal: m('revTotal'), ebitda: m('ebitda'), margin: m('ebitdaMargin'), capex: m('capex') };
+    return o.traffic != null && o.revTotal != null && (o.ebitda != null || o.margin != null) ? o : null;
+  }
+  function consensusFor(fy) {
+    const e = PEERS.own && PEERS.own.fy && PEERS.own.fy[String(fy)]; const c = e && e.ebitda;
+    if (!c || c.mean == null || (c.count || 0) < (D.minAnalysts || 3)) return null;
+    return { fy, mean: c.mean, median: c.median, high: c.high, low: c.low, count: c.count, date: (PEERS.own.ntm && PEERS.own.ntm.estimateDate) || PEERS.estimateDate || PEERS.updatedAt || null };
+  }
+  // Capex per explicit year: the PMD's annual pace (regulation.mdp: total over its years) unless reference.js fixes a profile.
+  function capexDefaults(years) {
+    if (Array.isArray(D.capexMxnM) && D.capexMxnM.length === years.length) return D.capexMxnM.slice();
+    const mdp = REF.regulation && REF.regulation.mdp; const m = mdp && mdp.period && String(mdp.period).match(/(\d{4})\D+(\d{4})/);
+    const pace = mdp && mdp.capexMxnBn && m ? Math.round(1000 * mdp.capexMxnBn / (+m[2] - +m[1] + 1) / 100) * 100 : 10000;
+    return years.map(() => pace);
+  }
+  const mdpPace = () => capexDefaults([0])[0];
   function dcfDefaults() {
+    const fy = lastQ ? lastQ.fy : new Date().getFullYear(), q = lastQ ? lastQ.q : 4;
+    const years = Array.from({ length: 5 }, (_, i) => fy + 1 + i);
     const ltm = lastLTM && lastLTM.is ? lastLTM.is : {};
-    const revEx = ltm.revTotal ? (ltm.revTotal - (ltm.revConstruction || 0)) / 1000 : 0; // Ps. M
-    const paxLtm = lastLTM && lastLTM.kpi && lastLTM.kpi.pax ? lastLTM.kpi.pax : 0; // thousands
-    const s = {
-      baseRev: revEx, basePax: paxLtm, baseEbitda: ltm.ebitda ? ltm.ebitda / 1000 : 0, baseDa: ltm.da ? ltm.da / 1000 : 0,
-      trafficG: (D.trafficGrowthPct || [2, 4, 4, 3.5, 3.5]).slice(), revPaxG: D.revPerPaxGrowthPct ?? 5,
-      margin: D.ebitdaMarginPct ?? (ltm.ebitdaMarginExIfric ? Math.round(10 * ltm.ebitdaMarginExIfric) / 10 : 67), capex: (D.capexMxnM || [13000, 11000, 10000, 9000, 9000]).slice(),
-      daPct: D.daPctRevenue ?? (revEx ? Math.round(1000 * (ltm.da / 1000) / revEx) / 10 : 9), tax: D.taxRatePct ?? 30, nwc: D.nwcPctDeltaRevenue ?? 5,
-      rf: D.riskFreePct ?? (mx10.length ? mx10[mx10.length - 1][1] : 9.5), erp: D.erpPct ?? 5.5, beta: BETA ? BETA.beta : (D.beta ?? 0.9), kd: KD ? KD.rate : (D.costOfDebtPct ?? 10), dw: D.targetDebtPct ?? 20,
-      method: D.terminalMethod || 'annuity', g: D.terminalGrowthPct ?? 3.5, mult: D.exitMultiple ?? 11, endYear: D.concessionEnd || 2048,
-      baseYear: lastQ ? lastQ.fy : new Date().getFullYear(), stubFrac: lastQ ? (4 - lastQ.q) / 4 : 0.5,
+    const gCur = guidanceMid(guidanceFor(q < 4 ? fy : fy + 1));
+    const revEx = exRevM(lastLTM) || 0;
+    return {
+      fy, q, years,
+      trafficG: (D.trafficGrowthPct || [2, 4, 4, 3.5, 3.5]).slice(0, 5), revPaxG: D.revPerPaxGrowthPct ?? 5,
+      margin: D.ebitdaMarginPct ?? (gCur && gCur.margin != null ? gCur.margin : ltm.ebitdaMarginExIfric ? Math.round(10 * ltm.ebitdaMarginExIfric) / 10 : 67),
+      capex: capexDefaults(years),
+      daPct: D.daPctRevenue ?? (revEx && ltm.da ? Math.round(1000 * (ltm.da / 1000) / revEx) / 10 : 9), tax: D.taxRatePct ?? 30, nwc: D.nwcPctDeltaRevenue ?? 5,
+      rf: D.riskFreePct ?? (mx10.length ? mx10[mx10.length - 1][1] : 9.5), erp: D.erpPct ?? 5, beta: BETA ? BETA.beta : (D.beta ?? 0.9), kd: KD ? KD.rate : (D.costOfDebtPct ?? 10), dw: D.targetDebtPct ?? 25,
+      method: D.terminalMethod || 'annuity', g: D.terminalGrowthPct ?? 4, renew: D.renewalPct ?? 0, mult: D.exitMultiple ?? 11, endYear: D.concessionEnd || 2048,
+      anchor: D.anchorConsensus !== false,
     };
-    return s;
   }
-  function dcfInputsHtml(s) {
-    const num = (k, step = 0.1, min, max) => `<input type="number" step="${step}" ${min != null ? `min="${min}"` : ''} ${max != null ? `max="${max}"` : ''} data-k="${k}" value="${s[k]}">`;
-    const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}</div>`;
-    const years = Array.from({ length: 5 }, (_, i) => s.baseYear + 1 + i);
-    const arr = (k, step) => `<div class="inp years"><div class="name">${k === 'trafficG' ? t('trafficG') + ' (%)' : 'Capex (Ps. M)'}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" data-k="${k}" data-i="${i}" value="${v}">`).join('')}</div></div>`;
-    return `
-      <h4>${tc(LANG === 'es' ? 'Operación' : 'Operations')}</h4>
-      ${arr('trafficG', 0.5)}
-      ${row(LANG === 'es' ? 'Ingreso por pasajero, crecimiento anual (%)' : 'Revenue per passenger, annual growth (%)', LANG === 'es' ? 'tarifa máxima + inflación + comercial' : 'tariff + inflation + commercial', num('revPaxG', 0.5))}
-      ${row(LANG === 'es' ? 'Margen EBITDA sin IFRIC 12 (%)' : 'EBITDA margin ex-IFRIC 12 (%)', LANG === 'es' ? `UDM: ${fmtPct(lastLTM && lastLTM.is ? lastLTM.is.ebitdaMarginExIfric : null)}` : `LTM: ${fmtPct(lastLTM && lastLTM.is ? lastLTM.is.ebitdaMarginExIfric : null)}`, num('margin', 0.5, 30, 90))}
-      ${arr('capex', 500)}
-      ${row(LANG === 'es' ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', '', num('daPct', 0.5))}
-      ${row(LANG === 'es' ? 'Tasa de impuestos (%)' : 'Tax rate (%)', '', num('tax', 1, 0, 60))}
-      ${row(LANG === 'es' ? 'Δ capital de trabajo (% de Δ ingresos)' : 'Δ working capital (% of Δ revenue)', '', num('nwc', 1))}
-      <h4>${tc(LANG === 'es' ? 'Costo de capital' : 'Cost of capital')}</h4>
-      ${row(LANG === 'es' ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', LANG === 'es' ? `Bono M 10 años (Banxico, subasta): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/d'}` : `MX 10-yr bond (Banxico auction): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/a'}`, num('rf', 0.1))}
-      ${row(LANG === 'es' ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', '', num('erp', 0.25))}
-      ${row('Beta', BETA ? (LANG === 'es' ? `calculada: ${BETA.weeks} rendimientos semanales GAPB vs IPC desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns GAPB vs IPC since ${fmtDate(BETA.from)}`) : (LANG === 'es' ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05))}
-      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (LANG === 'es' ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija, último bono a tasa fija (${fmtDate(KD.issued)})` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed, latest fixed-rate bond (${fmtDate(KD.issued)})`) : '', num('kd', 0.1))}
-      ${row(LANG === 'es' ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', '', num('dw', 1, 0, 90))}
-      <h4>${tc(t('tv'))}</h4>
-      ${row(LANG === 'es' ? 'Método' : 'Method', '', `<select data-k="method"><option value="annuity"${s.method === 'annuity' ? ' selected' : ''}>${LANG === 'es' ? 'Anualidad hasta ' + s.endYear : 'Annuity to ' + s.endYear}</option><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${LANG === 'es' ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
-      ${row(LANG === 'es' ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', LANG === 'es' ? 'nominal, en pesos' : 'nominal, pesos', num('g', 0.25))}
-      ${row(LANG === 'es' ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', '', num('mult', 0.5))}
-      ${row(LANG === 'es' ? 'Fin de concesión (año)' : 'Concession end (year)', LANG === 'es' ? 'México: 2048' : 'Mexico: 2048', num('endYear', 1, 2030, 2100))}
-      <div style="margin-top:14px"><button type="button" class="btn" id="dcfReset">${LANG === 'es' ? 'Restablecer supuestos' : 'Reset assumptions'}</button></div>`;
-  }
+  // Period label of the stub column (the months of the current fiscal year after the latest balance sheet).
+  const stubLabel = (year, q) => { const yy = String(year).slice(2); return q === 2 ? (LANG === 'es' ? `2S${yy}E` : `2H${yy}E`) : q === 3 ? (LANG === 'es' ? `4T${yy}E` : `4Q${yy}E`) : (LANG === 'es' ? `T2–T4 ${yy}E` : `Q2–Q4 ${yy}E`); };
+  const basisLabel = (x) => (x.basis === 'guidance' ? (LANG === 'es' ? 'guía' : 'guidance') : x.basis === 'consensus' ? (LANG === 'es' ? `consenso (${x.consensus.count})` : `consensus (${x.consensus.count})`) : (LANG === 'es' ? 'modelo' : 'model'));
   function dcfCompute(s, over = {}) {
     const p = { ...s, ...over };
     const wacc = (1 - p.dw / 100) * (p.rf + p.beta * p.erp) / 100 + (p.dw / 100) * (p.kd / 100) * (1 - p.tax / 100);
-    const rows = []; let rev = p.baseRev, pax = p.basePax; let pv = 0;
-    for (let i = 0; i < 5; i++) {
-      pax = pax * (1 + p.trafficG[i] / 100); rev = rev * (1 + p.trafficG[i] / 100) * (1 + p.revPaxG / 100);
-      const ebitda = rev * p.margin / 100, da = rev * p.daPct / 100, ebit = ebitda - da, taxes = Math.max(0, ebit) * p.tax / 100;
-      const prevRev = i === 0 ? p.baseRev : rows[i - 1].rev; const dnwc = (rev - prevRev) * p.nwc / 100; const capex = p.capex[i];
-      const fcf = ebitda - taxes - capex - dnwc; const tt = i + 1; const df = 1 / Math.pow(1 + wacc, tt);
-      pv += fcf * df; rows.push({ year: p.baseYear + 1 + i, pax, rev, ebitda, da, ebit, taxes, capex, dnwc, fcf, df, pv: fcf * df });
+    // Base: the last complete fiscal year (the current one when the latest quarter is the fourth); the LTM only as a fallback.
+    let base = fyActual(p.q === 4 ? p.fy : p.fy - 1); let stub = p.q < 4 ? (4 - p.q) / 4 : 0;
+    if (!base) { base = lastLTM; stub = 0; }
+    const t0 = p.fy + p.q / 4; // the balance-sheet date as a fraction of the year (2Q26 → 2026.5): time zero of the discounting
+    let prev = { pax: base && base.kpi ? base.kpi.pax : 0, rev: exRevM(base) || 0, ebitda: base && base.is && base.is.ebitda ? base.is.ebitda / 1000 : 0 };
+    const ytd = stub ? ytdFor(lastQ) : null;
+    const yrs = stub ? [p.fy, ...p.years] : p.years.slice();
+    const rows = []; let pv = 0;
+    for (const y of yrs) {
+      const i = Math.max(0, y - (p.fy + 1)); const tg = p.trafficG[i] / 100;
+      const gm = rows.length === 0 ? guidanceMid(guidanceFor(y)) : null, cs = consensusFor(y);
+      let pax, rev, ebitda, capex, basis;
+      if (gm) { // the first projected year on the company's own guidance midpoints (growth on the last complete fiscal year)
+        pax = prev.pax * (1 + gm.traffic / 100); rev = prev.rev * (1 + gm.revTotal / 100);
+        ebitda = gm.ebitda != null ? prev.ebitda * (1 + gm.ebitda / 100) : rev * gm.margin / 100;
+        capex = gm.capex != null ? gm.capex : p.capex[i]; basis = 'guidance';
+      } else if (p.anchor && cs) { ebitda = cs.mean; pax = prev.pax * (1 + tg); rev = ebitda / (p.margin / 100); capex = p.capex[i]; basis = 'consensus'; }
+      else { pax = prev.pax * (1 + tg); rev = prev.rev * (1 + tg) * (1 + p.revPaxG / 100); ebitda = rev * p.margin / 100; capex = p.capex[i]; basis = 'model'; }
+      const da = rev * p.daPct / 100, dnwc = (rev - prev.rev) * p.nwc / 100;
+      let f = { pax, rev, ebitda, da, capex, dnwc }, tt;
+      if (y === p.fy && stub) { // the rest of the current year: full-year figures less what the year-to-date statements already carry
+        const yi = (ytd && ytd.is) || {}, yk = (ytd && ytd.kpi) || {}, yc = (ytd && ytd.cf) || {};
+        const yRev = yi.revTotal != null ? (yi.revTotal - (yi.revConstruction || 0)) / 1000 : rev * (1 - stub);
+        f = { pax: pax - (yk.pax != null ? yk.pax : pax * (1 - stub)), rev: rev - yRev, ebitda: ebitda - (yi.ebitda != null ? yi.ebitda / 1000 : ebitda * (1 - stub)),
+          da: Math.max(0, da - (yi.da != null ? yi.da / 1000 : da * (1 - stub))), capex: Math.max(0, capex - (yc.capex != null ? -yc.capex / 1000 : capex * (1 - stub))), dnwc: dnwc * stub };
+        tt = (y + 1 - stub / 2) - t0;
+      } else tt = y + 0.5 - t0;
+      const ebit = f.ebitda - f.da, taxes = Math.max(0, ebit) * p.tax / 100, fcf = f.ebitda - taxes - f.capex - f.dnwc, df = Math.pow(1 + wacc, -tt);
+      pv += fcf * df;
+      rows.push({ year: y, stub: y === p.fy && !!stub, basis, ...f, ebit, taxes, fcf, t: tt, df, pv: fcf * df, fy: { pax, rev, ebitda, da, capex }, consensus: cs, guidance: gm });
+      prev = { pax, rev, ebitda };
     }
-    const last = rows[4]; const g = p.g / 100; let tv;
-    if (p.method === 'multiple') tv = last.ebitda * p.mult;
-    else if (p.method === 'perpetuity') tv = wacc > g ? last.fcf * (1 + g) / (wacc - g) : NaN;
-    else { const n = Math.max(0, p.endYear - last.year); tv = wacc === g ? last.fcf * n : last.fcf * (1 + g) / (wacc - g) * (1 - Math.pow((1 + g) / (1 + wacc), n)); }
-    const pvTv = tv * last.df; const ev = pv + pvTv;
+    // Terminal value, measured at the mid-point of the last explicit year (flows after it keep the mid-year timing).
+    const last = rows[rows.length - 1]; const g = p.g / 100; const r = (1 + g) / (1 + wacc); const n = Math.max(0, p.endYear - last.year);
+    const fcf6 = last.fcf * (1 + g);
+    const perp = wacc > g ? fcf6 / (wacc - g) : NaN;                                                          // Gordon
+    const annuity = Math.abs(1 - r) < 1e-12 ? fcf6 * n / (1 + wacc) : fcf6 / (1 + wacc) * (1 - Math.pow(r, n)) / (1 - r); // n flows, nothing after
+    const renew = Math.min(1, Math.max(0, (p.renew || 0) / 100));
+    let tv, tvT;
+    if (p.method === 'multiple') { tv = last.fy.ebitda * p.mult; tvT = last.t + 0.5; }   // a sale at the end of the last explicit year
+    else if (p.method === 'perpetuity') { tv = perp; tvT = last.t; }
+    else { tv = renew > 0 ? annuity + renew * (perp - annuity) : annuity; tvT = last.t; }
+    const dfTv = Math.pow(1 + wacc, -tvT); const pvTv = tv * dfTv; const ev = pv + pvTv;
     const nd = netDebt(lastQ); const netDebtM = nd ? nd.net / 1000 : 0; const nciM = lastQ && lastQ.bs && lastQ.bs.nci ? lastQ.bs.nci / 1000 : 0;
     const eq = ev - netDebtM - nciM; const perShare = sharesNow ? eq * 1e6 / sharesNow : null;
-    return { wacc, rows, tv, pvTv, pvExplicit: pv, ev, netDebtM, nciM, eq, perShare, impliedMult: last.ebitda ? ev / (p.baseEbitda || last.ebitda) : null };
+    const ltmE = lastLTM && lastLTM.is && lastLTM.is.ebitda ? lastLTM.is.ebitda / 1000 : null; const first = rows.find((x) => !x.stub) || last;
+    return { wacc, rows, stub, base, tv, tvT, dfTv, pvTv, pvExplicit: pv, ev, netDebtM, nciM, eq, perShare, annuity, perp, n, last, first, impliedMult: ltmE ? ev / ltmE : null, impliedMultNext: first.fy.ebitda ? ev / first.fy.ebitda : null };
+  }
+  // Allowed range of an input; the concession end must fall after the last explicit year.
+  const dcfLimits = (s, k) => (k === 'endYear' ? [s.years[s.years.length - 1] + 1, DCF_LIMITS.endYear[1]] : DCF_LIMITS[k] || [-Infinity, Infinity]);
+  function dcfInputsHtml(s) {
+    const lim = (k) => dcfLimits(s, k);
+    const num = (k, step = 0.1) => `<input type="number" step="${step}" min="${dcfLimits(s, k)[0]}" max="${dcfLimits(s, k)[1]}" data-k="${k}" value="${s[k]}" inputmode="decimal">`;
+    const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}<div class="warn" hidden></div></div>`;
+    const arr = (k, step, name, sub) => `<div class="inp years"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div><div class="row5">${s.years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" min="${lim(k)[0]}" max="${lim(k)[1]}" data-k="${k}" data-i="${i}" value="${v}" inputmode="decimal">`).join('')}</div><div class="warn" hidden></div></div>`;
+    const es = LANG === 'es';
+    // Anchor line: what the first projected year and the consensus years rest on, composed from guidance.js and peers.js.
+    const gm = guidanceMid(guidanceFor(s.q < 4 ? s.fy : s.fy + 1)); const cs = s.years.map(consensusFor).filter(Boolean);
+    const gTxt = gm ? (es ? `<b>${s.q < 4 ? stubLabel(s.fy, s.q) : s.fy + 1 + 'E'}:</b> punto medio de la guía ${gm.fy} de GAP (${fmtDate(gm.date)}): tráfico ${fmtPct(gm.traffic, 1, true)}, ingresos ${fmtPct(gm.revTotal, 1, true)}, ${gm.ebitda != null ? `EBITDA ${fmtPct(gm.ebitda, 1, true)}` : `margen ${fmtPct(gm.margin, 1)}`}${gm.capex != null ? `, capex Ps. ${fmtN(gm.capex)} M` : ''}` : `<b>${s.q < 4 ? stubLabel(s.fy, s.q) : s.fy + 1 + 'E'}:</b> midpoint of GAP's ${gm.fy} guidance (${fmtDate(gm.date)}): traffic ${fmtPct(gm.traffic, 1, true)}, revenue ${fmtPct(gm.revTotal, 1, true)}, ${gm.ebitda != null ? `EBITDA ${fmtPct(gm.ebitda, 1, true)}` : `margin ${fmtPct(gm.margin, 1)}`}${gm.capex != null ? `, capex Ps. ${fmtN(gm.capex)} M` : ''}`) : (es ? `Sin guía de GAP para ${s.q < 4 ? s.fy : s.fy + 1}: ese año sigue los supuestos de abajo` : `No GAP guidance for ${s.q < 4 ? s.fy : s.fy + 1}: that year follows the drivers below`);
+    const cTxt = cs.length ? (es ? `<b>${cs.map((c) => c.fy + 'E').join('–')}:</b> EBITDA del consenso FactSet (media de ${cs.map((c) => c.count).join(' y ')} analistas, ${fmtDate(cs[0].date)}); después, los supuestos de abajo.` : `<b>${cs.map((c) => c.fy + 'E').join('–')}:</b> FactSet consensus EBITDA (mean of ${cs.map((c) => c.count).join(' and ')} analysts, ${fmtDate(cs[0].date)}); the drivers below after that.`) : (es ? 'Sin consenso FactSet por año fiscal: todos los años siguen los supuestos de abajo.' : 'No FactSet consensus by fiscal year: every year follows the drivers below.');
+    const anchor = `<div class="anchor">${gTxt}. ${cTxt}${cs.length ? `<label class="switch"><input type="checkbox" data-k="anchor"${s.anchor ? ' checked' : ''}><span>${es ? 'Usar el consenso FactSet' : 'Use the FactSet consensus'}</span></label>` : ''}</div>`;
+    // Sub-labels composed from the data: LTM revenue per passenger growth, LTM margin, the PMD's pace, GAP's leverage at market.
+    const ltm = lastLTM && lastLTM.is ? lastLTM.is : {}; const prevLtm = lastQ ? ltmFor(qById[yoyQid(lastQ)] || null) : null;
+    const rpp = (o) => (o && o.kpi && o.kpi.pax && exRevM(o) ? 1000 * exRevM(o) / o.kpi.pax : null);
+    const rppG = rpp(lastLTM) && rpp(prevLtm) ? 100 * (rpp(lastLTM) / rpp(prevLtm) - 1) : null;
+    const price = lastPx ? lastPx[1] : null; const nd = netDebt(lastQ); const mcap = price && sharesNow ? price * sharesNow / 1e6 : null;
+    const dwNow = nd && mcap ? { gross: 100 * (nd.gross / 1000) / (nd.gross / 1000 + mcap), net: 100 * (nd.net / 1000) / (nd.net / 1000 + mcap) } : null;
+    const mdp = REF.regulation && REF.regulation.mdp; const own = PEERS.own || {};
+    const capexSub = es ? `${gm && gm.capex != null ? `${gm.fy}: guía Ps. ${fmtN(gm.capex)} M · ` : ''}${mdp && mdp.capexMxnBn ? `PMD ${mdp.period}: más de Ps. ${fmtN(mdp.capexMxnBn)} mil M en cinco años (Ps. ${fmtN(mdpPace())} M al año); el siguiente PMD no está aprobado` : 'perfil de reference.js'}` : `${gm && gm.capex != null ? `${gm.fy}: guidance Ps. ${fmtN(gm.capex)} M · ` : ''}${mdp && mdp.capexMxnBn ? `PMD ${mdp.period}: over Ps. ${fmtN(mdp.capexMxnBn)} bn in five years (Ps. ${fmtN(mdpPace())} M a year); the next PMD is not approved yet` : 'profile from reference.js'}`;
+    const note = (k) => (D.notes && D.notes[k] ? L(D.notes[k]) : '');
+    return `
+      ${anchor}
+      <h4>${tc(es ? 'Operación' : 'Operations')}</h4>
+      ${arr('trafficG', 0.5, t('trafficG') + ' (%)', es ? `${s.fy + 1}+: después de la guía ${s.fy} (${gm ? fmtPct(gm.traffic, 1, true) : '—'}); 2019–${s.fy - 1}: ${fyActual(s.fy - 1) && fyActual(2019) ? fmtPct(100 * (Math.pow(fyActual(s.fy - 1).kpi.pax / fyActual(2019).kpi.pax, 1 / (s.fy - 1 - 2019)) - 1), 1, true) + ' anual' : '—'}` : `${s.fy + 1}+: after the ${s.fy} guidance (${gm ? fmtPct(gm.traffic, 1, true) : '—'}); 2019–${s.fy - 1}: ${fyActual(s.fy - 1) && fyActual(2019) ? fmtPct(100 * (Math.pow(fyActual(s.fy - 1).kpi.pax / fyActual(2019).kpi.pax, 1 / (s.fy - 1 - 2019)) - 1), 1, true) + ' a year' : '—'}`)}
+      ${row(es ? 'Ingreso por pasajero, crecimiento anual (%)' : 'Revenue per passenger, annual growth (%)', es ? `tarifa máxima 2025–29 indexada a inflación + comercial · UDM: ${rppG != null ? fmtPct(rppG, 1, true) : '—'}` : `2025–29 maximum tariff indexed to inflation + commercial · LTM: ${rppG != null ? fmtPct(rppG, 1, true) : '—'}`, num('revPaxG', 0.5))}
+      ${row(es ? 'Margen EBITDA sin IFRIC 12 (%)' : 'EBITDA margin ex-IFRIC 12 (%)', es ? `UDM: ${fmtPct(ltm.ebitdaMarginExIfric)}${gm && gm.margin != null ? ` · guía ${gm.fy}: ${fmtPct(gm.margin, 0)}` : ''}` : `LTM: ${fmtPct(ltm.ebitdaMarginExIfric)}${gm && gm.margin != null ? ` · ${gm.fy} guidance: ${fmtPct(gm.margin, 0)}` : ''}`, num('margin', 0.5))}
+      ${arr('capex', 500, 'Capex (Ps. M)', capexSub)}
+      ${row(es ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', es ? `UDM: ${ltm.da && exRevM(lastLTM) ? fmtPct(100 * (ltm.da / 1000) / exRevM(lastLTM)) : '—'}` : `LTM: ${ltm.da && exRevM(lastLTM) ? fmtPct(100 * (ltm.da / 1000) / exRevM(lastLTM)) : '—'}`, num('daPct', 0.5))}
+      ${row(es ? 'Tasa de impuestos (%)' : 'Tax rate (%)', es ? 'sobre EBITDA − D&A; tasa legal 30%' : 'on EBITDA − D&A; statutory rate 30%', num('tax', 1))}
+      ${row(es ? 'Δ capital de trabajo (% de Δ ingresos)' : 'Δ working capital (% of Δ revenue)', '', num('nwc', 1))}
+      <h4>${tc(es ? 'Costo de capital' : 'Cost of capital')}</h4>
+      ${row(es ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', es ? `Bono M 10 años (Banxico, subasta): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/d'}` : `MX 10-yr bond (Banxico auction): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/a'}`, num('rf', 0.1))}
+      ${row(es ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', note('erp'), num('erp', 0.25))}
+      ${row('Beta', BETA ? (es ? `calculada: ${BETA.weeks} rendimientos semanales GAPB vs IPC desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns GAPB vs IPC since ${fmtDate(BETA.from)}`) : (es ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05))}
+      ${row(es ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (es ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija, último bono a tasa fija (${fmtDate(KD.issued)})` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed, latest fixed-rate bond (${fmtDate(KD.issued)})`) : '', num('kd', 0.1))}
+      ${row(es ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', dwNow ? (es ? `GAP hoy a valor de mercado: deuda bruta ${fmtPct(dwNow.gross, 0)}, neta ${fmtPct(dwNow.net, 0)}` : `GAP today at market values: gross debt ${fmtPct(dwNow.gross, 0)}, net ${fmtPct(dwNow.net, 0)}`) : '', num('dw', 1))}
+      <h4>${tc(t('tv'))}</h4>
+      ${row(es ? 'Método' : 'Method', '', `<select data-k="method"><option value="annuity"${s.method === 'annuity' ? ' selected' : ''}>${es ? 'Anualidad hasta ' + s.endYear : 'Annuity to ' + s.endYear}</option><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${es ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${es ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
+      ${row(es ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', note('g'), num('g', 0.25))}
+      ${row(es ? 'Probabilidad de renovación de la concesión (%)' : 'Concession renewal probability (%)', note('renew'), num('renew', 5))}
+      ${row(es ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', own.evEbitdaNtm ? (es ? `GAP VE/EBITDA NTM: ${fmtX(own.evEbitdaNtm)} hoy${own.evEbitdaNtmAvg5y ? `, ${fmtX(own.evEbitdaNtmAvg5y)} promedio 5 años` : ''} (FactSet)` : `GAP NTM EV/EBITDA: ${fmtX(own.evEbitdaNtm)} now${own.evEbitdaNtmAvg5y ? `, ${fmtX(own.evEbitdaNtmAvg5y)} 5-year average` : ''} (FactSet)`) : '', num('mult', 0.5))}
+      ${row(es ? 'Fin de concesión (año)' : 'Concession end (year)', es ? 'México: 2048' : 'Mexico: 2048', num('endYear', 1))}
+      <div style="margin-top:14px"><button type="button" class="btn" id="dcfReset">${es ? 'Restablecer supuestos' : 'Reset assumptions'}</button></div>`;
+  }
+  // Validation: a value outside its range (or empty) is refused; the field turns red, the row says the allowed range and the
+  // last valid value stays in force. Two cross-checks after each computation: g below the WACC when flows continue after the
+  // explicit period, and a concession end after the last explicit year.
+  function dcfWarnings(box, r) {
+    const s = dcfState.s, es = LANG === 'es'; const bad = dcfState.bad; const rows = new Map();
+    box.querySelectorAll('input[type=number]').forEach((inp) => { const id = inp.dataset.k + (inp.dataset.i != null ? ':' + inp.dataset.i : ''); inp.classList.toggle('bad', !!bad[id]); });
+    for (const [id, b] of Object.entries(bad)) { const [k, i] = id.split(':'); const yr = i != null ? s.years[+i] + ': ' : ''; const fl = (v) => (k === 'endYear' ? String(v) : fmtN(v, v % 1 ? 2 : 0)); const msg = es ? `${yr}capture un valor entre ${fl(b.lim[0])} y ${fl(b.lim[1])}` : `${yr}enter a value between ${fl(b.lim[0])} and ${fl(b.lim[1])}`; rows.set(k, (rows.get(k) ? rows.get(k) + ' · ' : '') + msg); }
+    if (r) {
+      const flowsOn = s.method === 'perpetuity' || (s.method === 'annuity' && s.renew > 0);
+      if (flowsOn && !(r.wacc > s.g / 100)) rows.set('g', (rows.get('g') ? rows.get('g') + ' · ' : '') + (es ? `debe ser menor que el WACC (${fmtPct(100 * r.wacc, 2)}) para que la perpetuidad sea finita` : `must be below the WACC (${fmtPct(100 * r.wacc, 2)}) for the perpetuity to be finite`));
+      if (s.method === 'annuity' && s.endYear <= r.last.year) rows.set('endYear', (rows.get('endYear') ? rows.get('endYear') + ' · ' : '') + (es ? `debe ser posterior al último año explícito (${r.last.year})` : `must be after the last explicit year (${r.last.year})`));
+    }
+    box.querySelectorAll('.inp').forEach((row) => { const inp = row.querySelector('input[type=number], select'); const k = inp && inp.dataset.k; const w = row.querySelector('.warn'); if (!w) return; const msg = k && rows.get(k); w.textContent = msg || ''; w.hidden = !msg; });
+    const nBad = Object.keys(bad).length;
+    const wl = el('dcfWarn'); if (wl) wl.textContent = nBad ? (es ? `${nBad} ${nBad === 1 ? 'entrada fuera de rango' : 'entradas fuera de rango'}: los resultados usan el último valor válido.` : `${nBad} ${nBad === 1 ? 'input is' : 'inputs are'} out of range: the results use the last valid value.`) : '';
   }
   function renderDcf(reset) {
     if (reset || !dcfState.s) dcfState.s = dcfDefaults();
+    dcfState.bad = {};
     const s = dcfState.s;
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s); box.querySelectorAll('.inp').forEach((r, ri) => { const name = ((r.querySelector('.name') || {}).textContent || '').replace(/\s+/g, ' ').trim(); const yrs = [...r.querySelectorAll('.row5 span')].map((x) => x.textContent.trim()); r.querySelectorAll('input').forEach((inp, i) => { inp.id = inp.id || `dcf-${ri}-${i}`; inp.setAttribute('aria-label', yrs.length ? `${name} ${yrs[i] || ''}`.trim() : name); }); });
-    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; renderDcfOutputs(); }));
+    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => {
+      const k = inp.dataset.k;
+      if (inp.type === 'checkbox') { s[k] = inp.checked; renderDcfOutputs(); return; }
+      if (inp.tagName === 'SELECT') { s[k] = inp.value; renderDcfOutputs(); return; }
+      const lim = dcfLimits(s, k); const v = inp.value.trim() === '' ? NaN : Number(inp.value); const id = k + (inp.dataset.i != null ? ':' + inp.dataset.i : '');
+      if (!isFinite(v) || v < lim[0] || v > lim[1]) { dcfState.bad[id] = { lim, v }; renderDcfOutputs(); return; } // refused: the last valid value stays in force
+      delete dcfState.bad[id];
+      if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v;
+      renderDcfOutputs();
+    }));
     el('dcfReset').addEventListener('click', () => renderDcf(true));
     renderDcfOutputs();
-    html('dcfMeta', LANG === 'es' ? `Base: ingresos y EBITDA de los últimos doce meses al ${lastQ ? qLabel(lastQ) : '—'} (sin IFRIC 12); deuda neta y participación no controladora al cierre del mismo trimestre; ${fmtN(sharesNow)} acciones.` : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (ex-IFRIC 12); net debt and non-controlling interest at the same quarter-end; ${fmtN(sharesNow)} shares.`);
+    const nd = netDebt(lastQ);
+    html('dcfMeta', LANG === 'es'
+      ? `Base: balance al ${lastQ ? qLabel(lastQ) : '—'} (deuda neta Ps. ${nd ? fmtM(nd.net) : '—'} M, participación no controladora Ps. ${lastQ && lastQ.bs && lastQ.bs.nci != null ? fmtM(lastQ.bs.nci) : '—'} M); ${fmtN(sharesNow)} acciones; precio Ps. ${lastPx ? fmtN(lastPx[1], 2) : '—'} (${lastPx ? fmtDate(lastPx[0]) : '—'}). Flujos: resto de ${s.fy}${s.q < 4 ? '' : ' no aplica'} y cinco años fiscales completos sobre el año fiscal ${s.q === 4 ? s.fy : s.fy - 1} reportado, descontados a mitad de periodo desde esa fecha de balance; cifras sin IFRIC 12.`
+      : `Base: balance sheet at ${lastQ ? qLabel(lastQ) : '—'} (net debt Ps. ${nd ? fmtM(nd.net) : '—'} M, non-controlling interest Ps. ${lastQ && lastQ.bs && lastQ.bs.nci != null ? fmtM(lastQ.bs.nci) : '—'} M); ${fmtN(sharesNow)} shares; price Ps. ${lastPx ? fmtN(lastPx[1], 2) : '—'} (${lastPx ? fmtDate(lastPx[0]) : '—'}). Flows: the rest of ${s.fy} and five full fiscal years built on the reported fiscal year ${s.q === 4 ? s.fy : s.fy - 1}, discounted at mid-period from that balance-sheet date; figures ex-IFRIC 12.`);
   }
   function renderDcfOutputs() {
-    const s = dcfState.s; const r = dcfCompute(s);
-    const price = lastPx ? lastPx[1] : null;
+    const s = dcfState.s; const r = dcfCompute(s); const es = LANG === 'es';
+    const price = lastPx ? lastPx[1] : null; const own = PEERS.own || {};
     el('dcfHero').textContent = r.perShare != null && isFinite(r.perShare) ? 'Ps. ' + fmtN(r.perShare, 0) : '—';
-    el('dcfHeroLbl').textContent = `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (Ps. ${fmtN(price, 2)})` : ''}`;
-    let implied = null;
-    if (price && r.perShare != null) { // WACC at which the model returns the market price (bisection on the risk-free rate)
+    el('dcfHeroLbl').textContent = `${t('perShare')}${price && r.perShare != null && isFinite(r.perShare) ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (Ps. ${fmtN(price, 2)})` : ''}`;
+    // Bridges to the market price, every one a recomputation of the same model: the WACC that returns the price (bisection on
+    // the risk-free rate), the value with the concessions renewed, the renewal probability or exit multiple the price implies.
+    let implied = null, vPerp = null, pImplied = null, vExit5 = null, multImplied = null, evMkt = null;
+    if (price && r.perShare != null && isFinite(r.perShare)) {
       let lo = -20, hi = 40; for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; const v = dcfCompute(s, { rf: mid }).perShare; if (!isFinite(v) || v > price) lo = mid; else hi = mid; }
       implied = dcfCompute(s, { rf: (lo + hi) / 2 }).wacc;
+      evMkt = price * sharesNow / 1e6 + r.netDebtM + r.nciM;
+      vPerp = dcfCompute(s, { method: 'perpetuity' }).perShare;
+      if (s.method === 'annuity' && isFinite(r.perp) && r.perp !== r.annuity) pImplied = ((evMkt - r.pvExplicit) / r.dfTv - r.annuity) / (r.perp - r.annuity);
+      if (own.evEbitdaNtmAvg5y) vExit5 = dcfCompute(s, { method: 'multiple', mult: own.evEbitdaNtmAvg5y }).perShare;
+      if (r.last.fy.ebitda > 0) multImplied = (evMkt - r.pvExplicit) / Math.pow(1 + r.wacc, -(r.last.t + 0.5)) / r.last.fy.ebitda;
     }
+    const tgt = own.target && own.target.mean ? own.target : null;
     const outs = [
-      { v: fmtPct(100 * r.wacc, 2), l: t('wacc') + (implied != null && isFinite(implied) ? ` · ${LANG === 'es' ? 'implícito por el mercado' : 'market-implied'} ${fmtPct(100 * implied, 1)}` : '') },
-      { v: 'Ps. ' + fmtN(r.ev / 1000, 1) + (LANG === 'es' ? ' mil M' : ' bn'), l: t('ev') },
-      { v: 'Ps. ' + fmtN(r.eq / 1000, 1) + (LANG === 'es' ? ' mil M' : ' bn'), l: LANG === 'es' ? 'Valor del capital' : 'Equity value' },
-      { v: fmtPct(100 * r.pvTv / r.ev, 0), l: LANG === 'es' ? 'VP del valor terminal / VE' : 'PV of terminal value / EV' },
-      { v: fmtX(r.impliedMult), l: LANG === 'es' ? 'VE / EBITDA UDM implícito' : 'Implied EV / LTM EBITDA' },
-      { v: 'Ps. ' + fmtN(r.netDebtM + r.nciM, 0) + ' M', l: LANG === 'es' ? 'Deuda neta + minoritarios' : 'Net debt + minorities' },
+      { v: fmtPct(100 * r.wacc, 2), l: t('wacc') + (implied != null && isFinite(implied) ? ` · ${es ? 'implícito por el mercado' : 'market-implied'} ${fmtPct(100 * implied, 1)}` : '') },
+      { v: 'Ps. ' + fmtN(r.ev / 1000, 1) + (es ? ' mil M' : ' bn'), l: t('ev') },
+      { v: 'Ps. ' + fmtN(r.eq / 1000, 1) + (es ? ' mil M' : ' bn'), l: es ? 'Valor del capital' : 'Equity value' },
+      { v: fmtPct(100 * r.pvTv / r.ev, 0), l: es ? 'VP del valor terminal / VE' : 'PV of terminal value / EV' },
+      { v: fmtX(r.impliedMult), l: (es ? 'VE / EBITDA UDM implícito' : 'Implied EV / LTM EBITDA') + (r.impliedMultNext ? ` · ${r.first.year}E ${fmtX(r.impliedMultNext)}` : '') },
+      { v: 'Ps. ' + fmtN(r.netDebtM + r.nciM, 0) + ' M', l: es ? 'Deuda neta + minoritarios' : 'Net debt + minorities' },
+      { v: vPerp != null && isFinite(vPerp) ? 'Ps. ' + fmtN(vPerp, 0) : '—', l: es ? `Por acción con la concesión renovada (perpetuidad al ${fmtPct(s.g)}, mismos supuestos)` : `Per share with the concession renewed (perpetuity at ${fmtPct(s.g)}, same inputs)` },
+      { v: vExit5 != null && isFinite(vExit5) ? 'Ps. ' + fmtN(vExit5, 0) : '—', l: own.evEbitdaNtmAvg5y ? (es ? `Por acción con salida a ${fmtX(own.evEbitdaNtmAvg5y)} (VE/EBITDA NTM promedio 5 años de GAP, FactSet) sobre el EBITDA ${r.last.year}E` : `Per share with an exit at ${fmtX(own.evEbitdaNtmAvg5y)} (GAP's 5-year average NTM EV/EBITDA, FactSet) on ${r.last.year}E EBITDA`) : (es ? 'Salida al múltiplo promedio: sin dato FactSet' : 'Exit at the average multiple: no FactSet figure') },
+      { v: tgt ? 'Ps. ' + fmtN(tgt.mean, 0) : '—', l: tgt ? (es ? `Precio objetivo promedio de ${tgt.count} analistas (Ps. ${fmtN(tgt.low, 0)}–${fmtN(tgt.high, 0)}, FactSet ${fmtDate(own.asOf || PEERS.updatedAt)})` : `Mean sell-side target of ${tgt.count} analysts (Ps. ${fmtN(tgt.low, 0)}–${fmtN(tgt.high, 0)}, FactSet ${fmtDate(own.asOf || PEERS.updatedAt)})`) : (es ? 'Precio objetivo del consenso: sin dato' : 'Consensus target: no figure') },
     ];
     html('dcfOutputs', outs.map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
-    html('dcfNote', LANG === 'es'
-      ? `<b>Lectura.</b> El valor terminal se calcula por ${s.method === 'annuity' ? `anualidad de ${Math.max(0, s.endYear - r.rows[4].year)} años (flujo del año 5 creciendo ${fmtPct(s.g)} hasta ${s.endYear}), sin valor residual después del fin de la concesión` : s.method === 'perpetuity' ? 'perpetuidad de Gordon; sobreestima el valor de un activo con concesión finita' : `múltiplo de salida ${fmtX(s.mult)} sobre el EBITDA del año 5`}. Los flujos son a la firma, en pesos nominales; los impuestos se aplican sobre la utilidad operativa (EBITDA − D&amp;A). El capex sigue el perfil del PMD 2025–2029 y no genera ingreso IFRIC 12 en el modelo.`
-      : `<b>Reading it.</b> The terminal value uses ${s.method === 'annuity' ? `a ${Math.max(0, s.endYear - r.rows[4].year)}-year annuity (year-5 cash flow growing ${fmtPct(s.g)} until ${s.endYear}) with no residual value after the concession ends` : s.method === 'perpetuity' ? 'a Gordon perpetuity, which overstates a finite-concession asset' : `a ${fmtX(s.mult)} exit multiple on year-5 EBITDA`}. Flows are to the firm in nominal pesos; taxes are charged on operating profit (EBITDA − D&amp;A). Capex follows the PMD 2025–2029 profile and generates no IFRIC 12 revenue in the model.`);
-    const hdr = `<tr><th>${t('year')}</th>${r.rows.map((x) => `<th>${x.year}E</th>`).join('')}</tr>`;
-    const line = (l, f, d = 0) => `<tr><td>${l}</td>${r.rows.map((x) => `<td>${fmtN(f(x), d)}</td>`).join('')}</tr>`;
+    const nAnn = Math.max(0, s.endYear - r.last.year);
+    const tvTxt = s.method === 'annuity'
+      ? (es ? `anualidad de ${nAnn} años (flujo de ${r.last.year}E creciendo ${fmtPct(s.g)} hasta ${s.endYear})${s.renew > 0 ? ` más ${fmtPct(s.renew, 0)} del valor de una perpetuidad después de ${s.endYear} (renovación)` : ', sin valor después del fin de la concesión'}` : `a ${nAnn}-year annuity (${r.last.year}E cash flow growing ${fmtPct(s.g)} until ${s.endYear})${s.renew > 0 ? ` plus ${fmtPct(s.renew, 0)} of a perpetuity's value after ${s.endYear} (renewal)` : ' with no value after the concession ends'}`)
+      : s.method === 'perpetuity' ? (es ? 'perpetuidad de Gordon, que supone la renovación de las concesiones' : 'a Gordon perpetuity, which assumes the concessions are renewed') : (es ? `múltiplo de salida ${fmtX(s.mult)} sobre el EBITDA de ${r.last.year}E` : `a ${fmtX(s.mult)} exit multiple on ${r.last.year}E EBITDA`);
+    const anchored = r.rows.filter((x) => x.basis !== 'model');
+    const lblOf = (x) => (x.stub ? stubLabel(x.year, s.q) : x.year + 'E'); const gY = anchored.filter((x) => x.basis === 'guidance').map(lblOf), cY = anchored.filter((x) => x.basis === 'consensus').map(lblOf);
+    const span = (a) => (a.length > 2 ? `${a[0]}–${a[a.length - 1]}` : a.join(es ? ' y ' : ' and '));
+    const parts = [gY.length ? (es ? `${span(gY)} sigue la guía de GAP` : `${span(gY)} follows GAP's guidance`) : '', cY.length ? (es ? `${span(cY)} el consenso FactSet` : `${span(cY)} the FactSet consensus`) : ''].filter(Boolean);
+    const anchTxt = parts.length ? ` ${parts.join(es ? ' y ' : ' and ')}; ${es ? 'los demás años, los supuestos de la tarjeta.' : 'the other years follow the inputs in the card.'}` : '';
+    html('dcfNote', es
+      ? `<b>Lectura.</b> El valor terminal se calcula por ${tvTxt}. Los flujos son a la firma, en pesos nominales, descontados a mitad de periodo desde el balance del ${qLabel(lastQ)}; los impuestos se aplican sobre la utilidad operativa (EBITDA − D&amp;A). El capex sigue el ritmo del PMD 2025–2029 y no genera ingreso IFRIC 12 en el modelo.${anchTxt}`
+      : `<b>Reading it.</b> The terminal value uses ${tvTxt}. Flows are to the firm in nominal pesos, discounted at mid-period from the ${qLabel(lastQ)} balance sheet; taxes are charged on operating profit (EBITDA − D&amp;A). Capex follows the pace of the PMD 2025–2029 and generates no IFRIC 12 revenue in the model.${anchTxt}`);
+    // Gap to market: composed from the bridges above and from peers.js (consensus EBITDA, target prices).
+    const gapEl = el('dcfGap');
+    if (gapEl) {
+      if (!(price && r.perShare != null && isFinite(r.perShare))) gapEl.innerHTML = '';
+      else {
+        const dPct = 100 * (r.perShare / price - 1); const pct = (v) => fmtPct(100 * (v / price - 1), 0, true);
+        const misses = r.rows.filter((x) => x.consensus && x.basis !== 'consensus' && x.fy.ebitda).map((x) => `${x.year}E (${x.basis === 'guidance' ? (es ? 'guía' : 'guidance') : (es ? 'modelo' : 'model')}) ${fmtPct(100 * (x.fy.ebitda / x.consensus.mean - 1), 0, true)}`);
+        const p1 = es ? `<b>Brecha frente al mercado.</b> Con estos supuestos el modelo queda ${fmtPct(Math.abs(dPct), 0)} ${dPct < 0 ? 'por debajo' : 'por encima'} del precio (Ps. ${fmtN(price, 2)}, ${fmtDate(lastPx[0])}); el precio implica un WACC de ${implied != null && isFinite(implied) ? fmtPct(100 * implied, 1) : '—'} con los mismos flujos.` : `<b>Gap to market.</b> At these inputs the model sits ${fmtPct(Math.abs(dPct), 0)} ${dPct < 0 ? 'below' : 'above'} the price (Ps. ${fmtN(price, 2)}, ${fmtDate(lastPx[0])}); the price implies a WACC of ${implied != null && isFinite(implied) ? fmtPct(100 * implied, 1) : '—'} on the same flows.`;
+        let p2 = '';
+        if (s.method === 'annuity' && vPerp != null && isFinite(vPerp)) {
+          const pTxt = pImplied == null || !isFinite(pImplied) ? '' : pImplied > 1 ? (es ? ` Ni la renovación plena alcanza el precio: hace falta además un WACC menor o flujos mayores.` : ` Even full renewal does not reach the price: it also needs a lower WACC or larger flows.`) : pImplied < 0 ? (es ? ` El precio está por debajo del valor sin renovación.` : ` The price is below the no-renewal value.`) : (es ? ` El precio implica una probabilidad de renovación de ${fmtPct(100 * pImplied, 0)}.` : ` The price implies a renewal probability of ${fmtPct(100 * pImplied, 0)}.`);
+          p2 = es ? ` La mayor parte de la brecha es el fin de la concesión: ${s.renew > 0 ? `el caso base pondera la renovación al ${fmtPct(s.renew, 0)}` : 'el caso base no asigna valor después de ' + s.endYear}; con las concesiones renovadas (perpetuidad al ${fmtPct(s.g)}) el valor es Ps. ${fmtN(vPerp, 0)} (${pct(vPerp)} vs. precio).${pTxt}` : ` Most of the gap is the concession's end: ${s.renew > 0 ? `the base case weights renewal at ${fmtPct(s.renew, 0)}` : 'the base case assigns no value after ' + s.endYear}; with the concessions renewed (perpetuity at ${fmtPct(s.g)}) the value is Ps. ${fmtN(vPerp, 0)} (${pct(vPerp)} vs. price).${pTxt}`;
+        }
+        const p3 = vExit5 != null && isFinite(vExit5) ? (es ? ` Una salida a ${fmtX(own.evEbitdaNtmAvg5y)} (VE/EBITDA NTM promedio de 5 años de GAP) sobre el EBITDA ${r.last.year}E da Ps. ${fmtN(vExit5, 0)} (${pct(vExit5)})${multImplied != null && isFinite(multImplied) ? `; el precio implica un múltiplo de salida de ${fmtX(multImplied)}` : ''}.` : ` An exit at ${fmtX(own.evEbitdaNtmAvg5y)} (GAP's 5-year average NTM EV/EBITDA) on ${r.last.year}E EBITDA gives Ps. ${fmtN(vExit5, 0)} (${pct(vExit5)})${multImplied != null && isFinite(multImplied) ? `; the price implies an exit multiple of ${fmtX(multImplied)}` : ''}.`) : '';
+        const p4 = tgt ? (es ? ` Precio objetivo promedio del consenso: Ps. ${fmtN(tgt.mean, 0)} (${tgt.count} analistas, Ps. ${fmtN(tgt.low, 0)}–${fmtN(tgt.high, 0)}; FactSet, ${fmtDate(own.asOf || PEERS.updatedAt)}).` : ` Mean sell-side target: Ps. ${fmtN(tgt.mean, 0)} (${tgt.count} analysts, Ps. ${fmtN(tgt.low, 0)}–${fmtN(tgt.high, 0)}; FactSet, ${fmtDate(own.asOf || PEERS.updatedAt)}).`) : '';
+        const p5 = misses.length ? (es ? ` EBITDA del modelo frente a la media del consenso: ${misses.join(', ')}.` : ` Model EBITDA versus the consensus mean: ${misses.join(', ')}.`) : '';
+        gapEl.innerHTML = p1 + p2 + p3 + p4 + p5;
+      }
+    }
+    // Projection table: one column per period (the stub first), a basis row under the headers, mid-period discount times.
+    const cols = r.rows; const nCol = cols.length + 1;
+    const colLbl = (x) => (x.stub ? stubLabel(x.year, s.q) : x.year + 'E');
+    const hdr = `<tr><th>${es ? 'Periodo' : 'Period'}</th>${cols.map((x) => `<th>${colLbl(x)}</th>`).join('')}</tr><tr class="basis"><th>${es ? 'Base' : 'Basis'}</th>${cols.map((x) => `<th>${basisLabel(x)}</th>`).join('')}</tr>`;
+    const line = (l, f, d = 0, cls = '') => `<tr${cls ? ` class="${cls}"` : ''}><td>${l}</td>${cols.map((x) => `<td>${fmtN(f(x), d)}</td>`).join('')}</tr>`;
+    const pctLine = (l, f) => `<tr class="sub"><td>${l}</td>${cols.map((x) => `<td>${fmtPct(f(x), 1)}</td>`).join('')}</tr>`;
     html('dcfTable', `<table><thead>${hdr}</thead><tbody>
       ${line(t('pax'), (x) => x.pax)}
       ${line(t('revenue') + ' ' + t('exIfric'), (x) => x.rev)}
       ${line('EBITDA', (x) => x.ebitda)}
+      ${pctLine(es ? 'Margen EBITDA' : 'EBITDA margin', (x) => (x.rev ? 100 * x.ebitda / x.rev : null))}
       ${line('− D&A', (x) => -x.da)}
-      ${line(LANG === 'es' ? '− Impuestos sobre EBIT' : '− Taxes on EBIT', (x) => -x.taxes)}
+      ${line(es ? '− Impuestos sobre EBIT' : '− Taxes on EBIT', (x) => -x.taxes)}
       ${line('− Capex', (x) => -x.capex)}
-      ${line(LANG === 'es' ? '− Δ capital de trabajo' : '− Δ working capital', (x) => -x.dnwc)}
-      <tr class="total"><td>${LANG === 'es' ? 'Flujo libre a la firma' : 'Unlevered free cash flow'}</td>${r.rows.map((x) => `<td>${fmtN(x.fcf)}</td>`).join('')}</tr>
-      ${line(LANG === 'es' ? 'Factor de descuento' : 'Discount factor', (x) => x.df, 3)}
+      ${line(es ? '− Δ capital de trabajo' : '− Δ working capital', (x) => -x.dnwc)}
+      ${line(es ? 'Flujo libre a la firma' : 'Unlevered free cash flow', (x) => x.fcf, 0, 'total')}
+      ${line(es ? 'Años hasta el flujo (mitad de periodo)' : 'Years to the flow (mid-period)', (x) => x.t, 2)}
+      ${line(es ? 'Factor de descuento' : 'Discount factor', (x) => x.df, 3)}
       ${line(t('pv'), (x) => x.pv)}
-      <tr class="head"><td colspan="6">${t('tv')}: ${fmtN(r.tv)} · ${t('pv')}: ${fmtN(r.pvTv)} · ${LANG === 'es' ? 'VP flujos explícitos' : 'PV explicit flows'}: ${fmtN(r.pvExplicit)} · VE: ${fmtN(r.ev)}</td></tr></tbody></table>`);
+      <tr class="head"><td colspan="${nCol}">${t('tv')} (${es ? 'a' : 'at'} ${fmtN(r.tvT, 2)} ${es ? 'años' : 'years'}): ${fmtN(r.tv)} · ${t('pv')}: ${fmtN(r.pvTv)} · ${es ? 'VP flujos explícitos' : 'PV explicit flows'}: ${fmtN(r.pvExplicit)} · ${es ? 'VE' : 'EV'}: ${fmtN(r.ev)}</td></tr></tbody></table>`);
+    // Consensus comparison under the table: full fiscal-year EBITDA of the model beside FactSet's mean for the years it covers.
+    const withCs = cols.filter((x) => x.consensus);
+    const stubRow = cols.find((x) => x.stub);
+    html('dcfTableNote', withCs.length
+      ? (es ? `EBITDA por año fiscal completo, modelo vs. consenso FactSet (media; analistas): ${withCs.map((x) => `${x.year}E Ps. ${fmtN(x.fy.ebitda)} M vs. ${fmtN(x.consensus.mean)} M (${x.consensus.count})`).join(' · ')}.${stubRow ? ` La columna ${colLbl(stubRow)} es el año fiscal ${stubRow.year}E menos lo reportado a ${ytdLabel(stubRow.year, lastQ.q * 3)}.` : ''}` : `Full fiscal-year EBITDA, model vs. FactSet consensus (mean; analysts): ${withCs.map((x) => `${x.year}E Ps. ${fmtN(x.fy.ebitda)} M vs. ${fmtN(x.consensus.mean)} M (${x.consensus.count})`).join(' · ')}.${stubRow ? ` The ${colLbl(stubRow)} column is fiscal ${stubRow.year}E less the figures reported through ${ytdLabel(stubRow.year, lastQ.q * 3)}.` : ''}`)
+      : (stubRow ? (es ? `La columna ${colLbl(stubRow)} es el año fiscal ${stubRow.year}E menos lo reportado a ${ytdLabel(stubRow.year, lastQ.q * 3)}.` : `The ${colLbl(stubRow)} column is fiscal ${stubRow.year}E less the figures reported through ${ytdLabel(stubRow.year, lastQ.q * 3)}.`) : ''));
     // sensitivity WACC x g (or multiple)
     const waccs = [-1, -0.5, 0, 0.5, 1].map((d) => r.wacc * 100 + d);
     const gs = s.method === 'multiple' ? [-2, -1, 0, 1, 2].map((d) => s.mult + d) : [-1, -0.5, 0, 0.5, 1].map((d) => s.g + d);
     const cell = (w, g) => { const over = s.method === 'multiple' ? { mult: g } : { g }; // solve for the rf that yields this wacc: shift rf by delta/(1-dw)
       const deltaW = w / 100 - r.wacc; over.rf = s.rf + 100 * deltaW / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
-    html('dcfSens', `<table class="sens"><thead><tr><th scope="col">WACC ↓ / ${s.method === 'multiple' ? (LANG === 'es' ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gs.map((g) => `<th scope="col">${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gs.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
-    el('sensCap').textContent = LANG === 'es' ? `Ps. por acción; sombreado = por encima del precio actual (Ps. ${fmtN(price, 2)}); recuadro = caso base` : `Ps. per share; shaded = above the current price (Ps. ${fmtN(price, 2)}); outlined = base case`;
+    html('dcfSens', `<table class="sens"><thead><tr><th scope="col">WACC ↓ / ${s.method === 'multiple' ? (es ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gs.map((g) => `<th scope="col">${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gs.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
+    el('sensCap').textContent = es ? `Ps. por acción; sombreado = por encima del precio actual (Ps. ${fmtN(price, 2)}); recuadro = caso base` : `Ps. per share; shaded = above the current price (Ps. ${fmtN(price, 2)}); outlined = base case`;
+    dcfWarnings(el('dcfInputs'), r);
   }
 
   // ================= 05 RELATIVE =================
@@ -1187,7 +1352,7 @@
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
   seg('segPreset', (v) => { fillSelects(v); renderStatements(); });
-  // The two periods can never be the same: when one selector lands on the other's value, the other steps to its neighbour.
+  // The two periods can never be the same: when one selector lands on the other's value, the other steps to its neighbor.
   const avoidSame = (changed) => { if (st.a !== st.b) return; const opts = periodOptions(); const i = opts.findIndex((o) => o.id === st[changed]); const n = (opts[i - 1] || opts[i + 1] || {}).id; if (changed === 'a') st.b = n; else st.a = n; fillSelects(); };
   el('selA').addEventListener('change', (e) => { st.a = e.target.value; avoidSame('a'); renderStatements(); });
   el('selB').addEventListener('change', (e) => { st.b = e.target.value; avoidSame('b'); renderStatements(); });
@@ -1213,7 +1378,7 @@
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
-    betaFromMarket, kdFromDebt, PEERS, peersOwnRow, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
+    betaFromMarket, kdFromDebt, dcfDefaults, dcfCompute, DCF_LIMITS, PEERS, peersOwnRow, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
   };
 
     let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }

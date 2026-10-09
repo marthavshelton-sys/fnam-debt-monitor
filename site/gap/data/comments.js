@@ -5,14 +5,14 @@
 // operating-metrics keys (dom, intl, total, cbx, cargo, wlu, aeroPerPax, nonAeroPerPax, cbxPerUser,
 // revPerPaxGap, aeroPerWlu, costPerWlu). `call` names the earnings call used; the release link
 // comes from financials.js. New quarters: the change-alert routine drafts entries from the new release;
-// transcripts can be added afterwards. Percentages quoted are as printed by GAP; where GAP restated the
+// transcripts can be added afterward. Percentages quoted are as printed by GAP; where GAP restated the
 // prior-year base, the table (as originally reported) can differ slightly.
 window.GAP_COMMENTS = {
   updatedAt: "2026-09-18",
   periods: {
     "2026Q2": {
       ops: {
-        dom: { es: "México −4.2% en total: aerolíneas recortan capacidad por el combustible y las tarifas aéreas más altas del Mundial desplazaron viajeros de negocios y ocio en junio; Guadalajara +6%.", en: "Mexico −4.2% overall: airlines cut capacity on fuel costs and higher World Cup airfares displaced business and leisure travellers in June; Guadalajara +6%." },
+        dom: { es: "México −4.2% en total: aerolíneas recortan capacidad por el combustible y las tarifas aéreas más altas del Mundial desplazaron viajeros de negocios y ocio en junio; Guadalajara +6%.", en: "Mexico −4.2% overall: airlines cut capacity on fuel costs and higher World Cup airfares displaced business and leisure travelers in June; Guadalajara +6%." },
         intl: { es: "Puerto Vallarta internacional −27% por la percepción de seguridad y avisos de viaje de EE. UU.; Jamaica −16.9%, aún por el huracán Melissa.", en: "Puerto Vallarta international −27% on security perception and US travel advisories; Jamaica −16.9%, still Hurricane Melissa." },
         total: { es: "−5.6%: la dirección lo ve en gran parte temporal; 19 rutas nuevas en el trimestre y comparativos más fáciles en el segundo semestre.", en: "−5.6%: management sees most of it as temporary; 19 new routes in the quarter and easier comparisons in the second half." },
         cbx: { es: "Por debajo del año anterior (≈75% son pasajeros con base en EE. UU.); GAP ve margen en precios dinámicos y servicios auxiliares.", en: "Below a year earlier (≈75% are US-based passengers); GAP sees upside in dynamic pricing and ancillary services." },
@@ -58,7 +58,7 @@ window.GAP_COMMENTS = {
         dom: { es: "México −3.7% en el semestre: hechos de seguridad en Jalisco (feb–mar), capacidad recortada por el combustible y el efecto del Mundial en junio.", en: "Mexico −3.7% in the half: Jalisco security events (Feb–Mar), capacity cut on fuel costs and the World Cup effect in June." },
         intl: { es: "Jamaica −20.8% por Melissa; Puerto Vallarta débil por seguridad y avisos de viaje de EE. UU.", en: "Jamaica −20.8% on Melissa; Puerto Vallarta weak on security and US travel advisories." },
         total: { es: "−5.6%; guía revisada a −3% a 0% con mejora gradual en el segundo semestre.", en: "−5.6%; guidance revised to −3% to 0% with gradual improvement in the second half." },
-        cbx: { es: "Por debajo del año anterior; depende del viajero con base en EE. UU.", en: "Below a year earlier; relies on US-based travellers." },
+        cbx: { es: "Por debajo del año anterior; depende del viajero con base en EE. UU.", en: "Below a year earlier; relies on US-based travelers." },
         cargo: { es: "+8.2%: carga electrónica de alto valor hacia Guadalajara.", en: "+8.2%: high-value electronics cargo into Guadalajara." },
         wlu: { es: "−5.0%: caída de pasajeros.", en: "−5.0%: passenger decline." },
         nonAeroPerPax: { es: "+21.9% (Exhibit F): negocios operados por GAP y dos meses de CBX.", en: "+21.9% (Exhibit F): GAP-operated businesses and two months of CBX." },

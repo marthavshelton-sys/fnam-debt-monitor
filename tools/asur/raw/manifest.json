@@ -2,13 +2,13 @@
  "entity": "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-07T14:52:50.162Z",
+ "updatedAt": "2026-10-09T22:04:23.067Z",
  "kept": {
-  "traffic": 139,
+  "traffic": 140,
   "results-pdf": 29,
   "results": 26,
   "transcript": 14,
-  "other": 19
+  "other": 20
  },
  "filings": [
   {
@@ -3413,6 +3413,24 @@
    "title": "ASUR Announces Total Passenger Traffic for August 2026",
    "class": "traffic",
    "path": "tools/asur/raw/releases/2026-09-08_prn302872657_en.txt"
+  },
+  {
+   "source": "prn",
+   "id": "302901630",
+   "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-september-2026-302901630.html",
+   "date": "2026-10-07",
+   "title": "ASUR Announces Total Passenger Traffic for September 2026",
+   "class": "traffic",
+   "path": "tools/asur/raw/releases/2026-10-07_prn302901630_en.txt"
+  },
+  {
+   "source": "prn",
+   "id": "302902737",
+   "url": "https://www.prnewswire.com/news-releases/asur-announces-the-successful-placement-by-its-subsidiary-aeropuerto-de-cancun-sa-de-cv-of-6-711-senior-notes-due-2031-and-7-491-senior-notes-due-2036--302902737.html",
+   "date": "2026-10-08",
+   "title": "ASUR ANNOUNCES THE SUCCESSFUL PLACEMENT, BY ITS SUBSIDIARY AEROPUERTO DE CANCÚN, S.A. DE C.V., OF 6.711% SENIOR NOTES DUE 2031 AND 7.491% SENIOR NOTES DUE 2036",
+   "class": "other",
+   "path": "tools/asur/raw/releases/2026-10-08_prn302902737_en.txt"
   }
  ]
 }

@@ -58,7 +58,7 @@ const OUT_TRAFFIC = new URL('../../site/gap/data/traffic.js', import.meta.url);
 const OUT_GUIDANCE = new URL('../../site/gap/data/guidance.js', import.meta.url);
 
 // ---------------------------------------------------------------------------------------------
-// Line-item catalogue. Each entry: key, en/es labels, regexes that match the printed label,
+// Line-item catalog. Each entry: key, en/es labels, regexes that match the printed label,
 // and presentation hints (level 0 = total/heading, 1 = item, 2 = sub-item; bold; sign for USD conv.).
 // ---------------------------------------------------------------------------------------------
 const IS_ROWS = [
@@ -323,7 +323,7 @@ function parseResults(text, meta) {
 
   // --- Income statement. Exhibit D (quarter + YTD) plus every table in the summary section (the
   // "Consolidated Results" tables and the EBITDA / margin mini-tables that follow them, which carry
-  // EBITDA in the 2019–2021 layout). First value found for a period wins; tie-outs run afterwards.
+  // EBITDA in the 2019–2021 layout). First value found for a period wins; tie-outs run afterward.
   const summaryEnd = (() => { const e = idx(/^Exhibit A|^Exhibit B|^Statement of Financial Position|^Consolidated statement of financial position/i); return e < 0 ? lines.length : e; })();
   const isHeaders = [];
   const exD = idx(/^Exhibit D: Consolidated statements? of profit or loss/i);

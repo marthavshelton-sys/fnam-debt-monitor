@@ -28,7 +28,7 @@
 // In Actions: GITHUB_TOKEN (actions: read, issues: write) and GITHUB_REPOSITORY. Exits 1 only when GitHub
 // cannot be read: an unverifiable state is never written as a verdict.
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
-import { verdict, cronsInWorkflow, refreshLandedBySteps, priceVerdict, lastCsvDate, jsonDate, isoSeconds, cdmx } from './lib.mjs';
+import { verdict, cronsInWorkflow, refreshLandedBySteps, attemptRecord, priceVerdict, lastCsvDate, jsonDate, isoSeconds, cdmx } from './lib.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const argv = process.argv.slice(2);
@@ -134,7 +134,9 @@ for (const d of CONFIG.dashboards) {
     status: prices && prices.status === 'stale' ? 'stale' : prices && prices.status === 'unverified' ? 'unverified' : v.status,
     refreshStatus: v.status,
     lastSuccess: landed ? isoSeconds(landed.run.updated_at) : null,
-    lastAttempt: attempt ? { at: isoSeconds(attempt.updated_at), result: attempt.conclusion } : null,
+    // one run, one outcome (lib.mjs attemptRecord): a run that committed and then failed a later step is the landed refresh,
+    // recorded as success + afterCommitFailure, never a failure at the same instant as lastSuccess
+    lastAttempt: attemptRecord(attempt, landed),
     requiredSince: v.requiredSince !== null ? isoSeconds(v.requiredSince) : null,
     alerts: alerts.length,
     ...(prices ? { prices } : {}),
@@ -155,7 +157,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last scheduled refresh landed (3 h grace after its due time), no alert of the pipeline is open and every price feed of the page carries the exchange\'s last completed session (stale otherwise); checked every 12 hours',
+  rule: 'up to date = the last scheduled refresh landed (3 h grace after its due time), no alert of the pipeline is open and every price feed of the page carries the exchange\'s last completed session (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run\'s conclusion',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,

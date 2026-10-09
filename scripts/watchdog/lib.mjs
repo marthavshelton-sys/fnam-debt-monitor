@@ -57,6 +57,19 @@ export function refreshLandedBySteps(jobs) {
   return false;
 }
 
+// ---- the newest scheduled run, as one record ----
+// One run, one outcome: `result` is the refresh outcome of the newest completed scheduled run ('success' when its data landed,
+// else the run's own conclusion: failure, cancelled, timed_out...). A run that committed its refresh and failed afterwards (a
+// source-link check, an alert step) is the landed run, recorded as a success with afterCommitFailure: true, never as a failure
+// at the same instant as the last landed refresh (OMA, 9-Oct-2026: the link check after the commit found a dead source link).
+export function attemptRecord(attempt, landed) {
+  if (!attempt) return null;
+  const same = !!(landed && landed.run && landed.run.id === attempt.id);
+  const rec = { at: isoSeconds(attempt.updated_at), result: same ? 'success' : attempt.conclusion };
+  if (same && attempt.conclusion !== 'success') rec.afterCommitFailure = true;
+  return rec;
+}
+
 // ---- the verdict ----
 // late:  no landed scheduled refresh since the LAST time the schedule was due, counting only due times at
 //        least `graceMs` old (the last scheduled refresh failed or never ran). Until 9-Oct-2026 the rule
