@@ -4,55 +4,6 @@
   {
    "at": "2026-10-06T10:56:16.528Z",
    "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.y3",
-   "old": 19.34,
-   "new": 19.29
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.y5",
-   "old": 17.08,
-   "new": 17.21
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n1",
-   "old": 12,
-   "new": 52
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n3",
-   "old": 35,
-   "new": 156
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.n5",
-   "old": 59,
-   "new": 252
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[1].hist.ev_ebitda_ntm.spot_month_end",
-   "old": 14.62,
-   "new": null
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
-   "path": "peers[2].priceDate",
-   "old": "2026-10-02",
-   "new": "2026-10-05"
-  },
-  {
-   "at": "2026-10-06T10:56:16.528Z",
-   "file": "peers.js",
    "path": "peers[2].price",
    "old": 234.69,
    "new": 229.79
@@ -4200,7 +4151,56 @@
    "path": "peers[7].sharesDate",
    "old": null,
    "new": "2026-06-30"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-08)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-08)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-07",
+   "new": "2026-10-08"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-08",
+   "new": "2026-10-09"
+  },
+  {
+   "at": "2026-10-09T13:13:52.291Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 790,
+   "new": 791
   }
  ],
- "generated": "2026-10-09T13:08:50.443Z"
+ "generated": "2026-10-09T13:13:52.291Z"
 }
