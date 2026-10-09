@@ -9,7 +9,8 @@
 //   stale  a price feed of the page (dashboards.json → prices) is behind the exchange's last completed session,
 //          judged from the data files in main (the owner's rule, 6-Oct-2026: any price not updated turns the dot red);
 //          'unverified' when the exchange calendar in lib.mjs does not cover the date (extend it);
-//   late   the last scheduled refresh failed or never ran (3 h grace after its due time; one miss is enough since 9-Oct-2026);
+//   late   the last scheduled refresh failed or never ran (3 h grace after its due time; one miss is enough since 9-Oct-2026,
+//          and a refresh re-run by hand on main whose commit step succeeded counts as landed);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
 //
@@ -83,6 +84,18 @@ async function runsOf(file) {
   if (!landed) {
     const { workflow_runs: older } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=schedule&status=success&per_page=1&exclude_pull_requests=true`);
     if (older[0]) landed = { run: older[0], afterCommitFailure: false };
+  }
+  // A run started by hand on main (workflow_dispatch) counts as a landed refresh only when its "Commit …" step succeeded:
+  // a diagnostics (probe) or dry run ends green without committing anything, so a green conclusion alone never counts, and
+  // a run on another branch commits there, not to main. Added 9-Oct-2026: the owner re-runs a failed nightly refresh by
+  // hand, the data is in main, and the page must not stay "late" until the next scheduled run. `attempt` stays the newest
+  // scheduled run, so lastAttempt still reports that the schedule itself failed.
+  const { workflow_runs: manual } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=workflow_dispatch&status=completed&per_page=5&exclude_pull_requests=true`);
+  for (const run of manual) {
+    if (landed && run.created_at <= landed.run.created_at) break;
+    if (run.head_branch !== 'main') continue;
+    const { jobs } = await gh(`/repos/${REPO}/actions/runs/${run.id}/jobs?per_page=30`);
+    if (refreshLandedBySteps(jobs)) { landed = { run, afterCommitFailure: run.conclusion !== 'success', manual: true }; break; }
   }
   return { attempt: runs[0] || null, landed };
 }

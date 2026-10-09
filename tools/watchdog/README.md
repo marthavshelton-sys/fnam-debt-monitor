@@ -17,7 +17,10 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
 
 ## Rules
 
-- Only scheduled runs count (`event=schedule`); dispatched diagnostics runs never do.
+- Scheduled runs count (`event=schedule`). A run started by hand on `main` (`workflow_dispatch`) counts as a landed refresh
+  only when its `Commit …` step succeeded: a probe or dry run ends green without committing, so a green conclusion alone
+  never counts, and a run on another branch commits there. Added 9-Oct-2026 so a failed nightly refresh re-run by hand does
+  not leave the page "late" until the next schedule; `lastAttempt` still reports the newest scheduled run.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
 - **One run, one record** (9-Oct-2026): `lastSuccess` is the newest landed refresh; `lastAttempt` is the newest completed
