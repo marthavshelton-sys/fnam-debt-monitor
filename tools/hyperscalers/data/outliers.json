@@ -2,8 +2,8 @@
  "_comment": "Hyperscaler Hub, module 3: quarterly flow values the build flags as outliers (more than 5x the median of the four quarters before, above US$1bn) that were read in the filing and either confirmed (result: confirmed; the needs-review flag is cleared and the cell shows 'matched' with the quote) or explained without clearing the flag (result: reclassified). The build applies a record only when its valueUSDm matches the derived value within 0.5%. Quotes are checked against the harvested page of the cited filing (tools/hyperscalers/raw/notes). reviewedBy is a person's sign-off, null until someone signs.",
  "updatedAt": "2026-10-08T16:30:00Z",
  "method": {
-  "en": "Each flagged quarter was read in the primary document on EDGAR (cash-flow statement, equity note or liquidity section); the quote is checked against the harvested page by the build, and the amount is reconciled to the tagged facts the quarter is derived from.",
-  "es": "Cada trimestre marcado se leyó en el documento primario en EDGAR (estado de flujos, nota de capital o sección de liquidez); el cotejo de la cita contra la página cosechada lo hace la construcción, y el monto se concilia con los hechos etiquetados de los que se deriva el trimestre."
+  "en": "Each flagged quarter was read in the primary document on EDGAR (cash-flow statement, equity note or liquidity section); the quote is checked against the stored filing page by the build, and the amount is reconciled to the tagged facts the quarter is derived from.",
+  "es": "Cada trimestre marcado se leyó en el documento primario en EDGAR (estado de flujos, nota de capital o sección de liquidez); el cotejo de la cita contra la página descargada lo hace la construcción, y el monto se concilia con los hechos etiquetados de los que se deriva el trimestre."
  },
  "items": [
   {

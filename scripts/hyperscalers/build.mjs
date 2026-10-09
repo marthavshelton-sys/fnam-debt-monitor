@@ -52,6 +52,21 @@ const restated = [];
 // a gap the curated file explains as "none" (the line does not exist for the company, e.g. no finance leases) counts as
 // zero in the derived figures that need it; the derivation records which input was taken as zero and why
 const assumeZero = (tk, k) => notTaggedCur.items.some((i) => i.ticker === tk && i.metric === k && i.result === 'none' && i.assumeZero);
+const ntRec = (tk, k) => notTaggedCur.items.find((i) => i.ticker === tk && i.metric === k) || null;
+// A trailing-twelve-month figure the curated gap file derives from tagged facts and listed zero periods (not-tagged.json →
+// derived, with the period end it closes, derived.end) is carried as that quarter's TTM value and marked _derived, so every
+// consumer (the thesis, the funding table, leverage) sees one figure, with the derivation in its ⓘ card (review of 9-Oct-2026).
+const derivedTTM = (tk, k, end) => { const r = ntRec(tk, k); return r && r.derived && r.derived.kind === 'ttm' && r.derived.end === end && r.derived.amountUSDm != null ? r.derived : null; };
+// A balance tagged only in the annual report (Meta's finance lease liabilities) is carried into the later quarters of the
+// following 12 months with its own date when the curated record says carryForward (a balance, not a flow); the derived figure
+// records which input was carried and from which filing, and the pages print it.
+const carried = (tk, k, end) => { const r = ntRec(tk, k); if (!(r && r.carryForward && r.amountUSDm != null && r.asOf && r.asOf < end && days(r.asOf, end) <= 366)) return null; return { v: r.amountUSDm * 1e6, asOf: r.asOf, accn: r.accn || null, form: r.form || null }; };
+// security type of each registered offering (tools/hyperscalers/data/offerings.json: read from the prospectus cover)
+const offeringsCur = await readJson(TOOLS + 'data/offerings.json', { items: {} });
+// structural notices the summary prints in "What changed" (tools/hyperscalers/data/notices.json)
+const noticesCur = await readJson(TOOLS + 'data/notices.json', { notices: [] });
+// Spanish wording of the FactSet snapshot notes (tools/hyperscalers/data/debt-notes.json)
+const debtNotesTr = await readJson(TOOLS + 'data/debt-notes.json', {});
 
 const short = (t) => t.replace(/^us-gaap:/, '');
 
@@ -215,7 +230,9 @@ for (const c of companies) {
   // input as "none" for the company, in which case it is zero and the derivation says so: d._zero lists those inputs)
   const zeroK = ['fl_additions', 'fl_principal', 'fl_liab', 'ol_liab'].filter((k) => assumeZero(c.ticker, k));
   for (const q of quarters) {
-    const g = (k) => (q.m[k] ? q.m[k].v : zeroK.includes(k) ? 0 : null);
+    const cf = {};
+    for (const k of ['fl_liab', 'ol_liab']) if (!q.m[k]) { const x = carried(c.ticker, k, q.end); if (x) cf[k] = x; }
+    const g = (k) => (q.m[k] ? q.m[k].v : cf[k] ? cf[k].v : zeroK.includes(k) ? 0 : null);
     const d = {};
     if (g('capex_cash') != null && g('fl_additions') != null) d.capex_incl_fl = g('capex_cash') + g('fl_additions');
     if (g('ocf') != null && g('capex_cash') != null) { d.fcf = g('ocf') - g('capex_cash'); d.capex_ocf = g('ocf') > 0 ? g('capex_cash') / g('ocf') : null; }
@@ -224,6 +241,8 @@ for (const c of companies) {
     if (d.net_debt != null && g('ol_liab') != null && g('fl_liab') != null) d.lease_adj_net_debt = d.net_debt + g('ol_liab') + g('fl_liab');
     const used = zeroK.filter((k) => !q.m[k] && ((k === 'fl_additions' && d.capex_incl_fl != null) || (k === 'fl_principal' && d.fcf_after_fl != null) || ((k === 'fl_liab' || k === 'ol_liab') && d.lease_adj_net_debt != null)));
     if (used.length) d._zero = used;
+    const cu = d.lease_adj_net_debt != null ? Object.keys(cf) : [];
+    if (cu.length) d._carried = cu.map((k) => ({ k, asOf: cf[k].asOf, amountUSDm: cf[k].v / 1e6, accn: cf[k].accn, form: cf[k].form }));
     q.d = d;
   }
   // trailing twelve months: the last four consecutive fiscal quarters (no gaps) for each flow metric
@@ -241,6 +260,7 @@ for (const c of companies) {
       if (v != null) t[k] = v;
       else if (fyRow && fyRow.m[k] && fyRow.end === q.end) { t[k] = fyRow.m[k].v; (t._fromFY ||= []).push(k); }   // 12 months to fiscal year-end = the fiscal year
       else if (zeroK.includes(k)) { t[k] = 0; (t._zero ||= []).push(k); }                                     // explained as "none" in not-tagged.json
+      else { const dr = derivedTTM(c.ticker, k, q.end); if (dr) { t[k] = dr.amountUSDm * 1e6; (t._derived ||= []).push(k); } }   // derived in not-tagged.json (method in the card)
     }
     if (t.op_income != null && t.da != null) t.ebitda = t.op_income + t.da;
     if (t.capex_cash != null && t.fl_additions != null) t.capex_incl_fl = t.capex_cash + t.fl_additions;
@@ -311,10 +331,11 @@ for (const c of companies) {
   // registered offerings: the filing-fee exhibit of each 424B prospectus (EX-FILING FEES, tagged ffd) gives the
   // offering's total amount and date; the security type and terms are in the prospectus itself
   const off = (xb.facts['ffd:TtlOfferingAmt'] || { facts: [] }).facts.filter((f) => /^424B/.test(f.f) && f.v > 0);
-  for (const f of off) out.offerings.push({ ticker: c.ticker, amount: f.v, date: f.e, filed: f.d, form: f.f, accn: f.a, url: filingIndexUrl(c.cik, f.a) });
+  for (const f of off) { const k = offeringsCur.items[f.a] || null; out.offerings.push({ ticker: c.ticker, amount: f.v, date: f.e, filed: f.d, form: f.f, accn: f.a, url: filingIndexUrl(c.cik, f.a), sec: k ? { type: k.type, title: k.title, quote: k.quote, currency: k.currency || null, classifiedOn: k.classifiedOn, method: k.method, note_en: k.note_en || null, note_es: k.note_es || null } : null }); }
   for (const q of out.companies[c.ticker].quarters) for (const [k, x] of Object.entries(q.m)) flat[`${c.ticker}.${k}.${q.id}`] = { v: x[0], a: x[2].join(',') };
 }
 out.offerings.sort((a, b) => b.date.localeCompare(a.date));
+out.offeringsMeta = { updatedAt: offeringsCur.updatedAt || null };
 
 // Debt issued since 2025: FactSet tranches grouped into deals (same company, issue date and instrument class).
 // A deal is corroborated when a 424B filing-fee exhibit of the same company lies within 7 days with a total
@@ -399,18 +420,29 @@ for (const i of offItems) {
   i.verifiedHow = i.status === 'verified' ? 'automated' : null;
   if (i.status === 'verified' && i.quoteCheck !== 'page') {
     i.status = 'needs_review'; i.verifiedHow = null;
-    i.reviewNote_en = i.quoteCheck === 'no_harvest' ? 'the cited filing is not in the harvested text, so the quote could not be checked against its page' : i.quoteCheck === 'other_page' ? `the quoted sentence sits on page ${i.foundOn} of the harvested text, not on the cited page` : i.filing && !i.filing.page ? 'no page is cited, so the quote could not be checked' : 'the quoted sentence was not found on the cited page of the harvested text';
-    i.reviewNote_es = i.quoteCheck === 'no_harvest' ? 'la presentación citada no está en el texto cosechado, así que la cita no se pudo cotejar con su página' : i.quoteCheck === 'other_page' ? `la frase citada está en la página ${i.foundOn} del texto cosechado, no en la citada` : i.filing && !i.filing.page ? 'no se cita página, así que la cita no se pudo cotejar' : 'la frase citada no se encontró en la página citada del texto cosechado';
+    i.reviewNote_en = i.quoteCheck === 'no_harvest' ? 'the cited filing is not in the stored filing text, so the quote could not be checked against its page' : i.quoteCheck === 'other_page' ? `the quoted sentence sits on page ${i.foundOn} of the stored filing text, not on the cited page` : i.filing && !i.filing.page ? 'no page is cited, so the quote could not be checked' : 'the quoted sentence was not found on the cited page of the stored filing text';
+    i.reviewNote_es = i.quoteCheck === 'no_harvest' ? 'la presentación citada no está en el texto descargado, así que la cita no se pudo cotejar con su página' : i.quoteCheck === 'other_page' ? `la frase citada está en la página ${i.foundOn} del texto descargado, no en la citada` : i.filing && !i.filing.page ? 'no se cita página, así que la cita no se pudo cotejar' : 'la frase citada no se encontró en la página citada del texto descargado';
     warnings.push({ ticker: i.ticker, check: `offbs ${i.item}: ${i.reviewNote_en}`, status: 'warn' });
   }
   delete i.readBy; delete i.verifiedBy;
 }
 out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [] };
+// A company that tags its leases not yet commenced under the purchase-obligation concept (Meta: the tagged amount equals the lease
+// note's figure at the same date) has that tag labeled as leases on the pages, never shown as purchase obligations (review of 9-Oct-2026).
+out.tagAliases = [];
+for (const c of Object.values(out.companies)) for (const q of c.quarters) {
+  const x = q.m.purchase_oblig; if (!x) continue;
+  const items = offItems.filter((i) => i.ticker === c.ticker && i.item === 'leases_not_commenced' && !i.subsequent);
+  const near = (usd) => usd != null && Math.abs(usd - x[0]) <= Math.max(1e6, Math.abs(x[0]) * 0.005);
+  const hit = items.find((i) => i.asOf === q.end && near(i.amountUSDm != null ? i.amountUSDm * 1e6 : null)) || items.find((i) => (i.history || []).some((h) => h.as_of === q.end && near(h.usd_bn * 1e9)));
+  if (hit) out.tagAliases.push({ ticker: c.ticker, metric: 'purchase_oblig', end: q.end, as: 'leases_not_commenced', accn: hit.filing && hit.filing.accn, note_en: 'The company tags its leases signed but not yet commenced under the purchase-obligation concept: the tagged amount equals the lease note\'s figure at this date. It is labeled as leases here; the purchase commitments are the text item read from the commitments note.', note_es: 'La empresa etiqueta sus arrendamientos firmados aún no iniciados con el concepto de obligaciones de compra: el monto etiquetado coincide con la cifra de la nota de arrendamientos a esta fecha. Aquí se rotula como arrendamientos; los compromisos de compra son la partida de texto leída de la nota de compromisos.' });
+}
 // FactSet snapshot notes: the facts stay; a sentence that is a reviewer's instruction to itself ("needs review…", "verify in…",
 // "pending…") is working material, never page copy (owner's review, 2026-10-05).
 const publicNote = (n) => { if (!n) return n; const kept = String(n).split(/(?<=[.;])\s+/).filter((x) => !/\b(needs? review|to be reviewed|verify in|to verify|pending (review|confirmation)|check against)\b/i.test(x)); return kept.join(' ').trim() || null; };
-const publicNotes = (o) => { if (!o || typeof o !== 'object') return o; const out = {}; for (const [k, v] of Object.entries(o)) { const pv = publicNote(v); if (pv) out[k] = pv; } return out; };
-out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: publicNotes(debtSnap.notes), tranches: debtSnap.tranches, deals } : null;
+// the note is published in both languages when debt-notes.json carries the Spanish wording of exactly this English text
+const publicNotes = (o) => { if (!o || typeof o !== 'object') return o; const out = {}; for (const [k, v] of Object.entries(o)) { const pv = publicNote(v); if (!pv) continue; const tr = debtNotesTr[k]; out[k] = { en: pv, es: tr && tr.en === pv ? tr.es : null }; } return out; };
+out.debt = debtSnap ? { pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: publicNotes(debtSnap.notes), tranches: debtSnap.tranches, deals } : null;
 
 // change log: new periods and revised values against the previous build
 const entries = [];
@@ -438,7 +470,7 @@ await writeJson(TOOLS + 'data/derivations.json', { generated: stamp.iso, warning
 
 const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} — do not hand-edit.\nwindow.${key} = ${JSON.stringify(scrubProvenance(obj))};\n`);
 await js('financials', 'HYP_FIN', out, 'Hyperscaler Hub financials: XBRL-tagged values from SEC companyfacts (T1), quarters derived from year-to-date facts, ratios computed (FNAM calculation).');
-await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200) }, 'Hyperscaler Hub change log: what each refresh added or revised, and restatements found in later filings.');
+await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200), notices: noticesCur.notices || [] }, 'Hyperscaler Hub change log: what each refresh added or revised, restatements found in later filings, and structural notices.');
 await js('status', 'HYP_STATUS', { generated: stamp.iso, refreshedET: stamp.et, lastEdgarRun: state.lastRun || null, lastEdgarRunET: state.lastRun ? etOf(state.lastRun) : null, lastEdgarSuccess: state.lastSuccess || null, lastEdgarSuccessET: state.lastSuccess ? etOf(state.lastSuccess) : null, edgarErrors: state.errors || [], consecutiveFailures: state.consecutiveFailures || 0 }, 'Hyperscaler Hub refresh status (EDGAR poll).');
 
 // CSV downloads: one per table family (static files, so they work without JavaScript)
@@ -462,7 +494,7 @@ for (const c of Object.values(out.companies)) {
 await writeText(`${SITE}csv/capex-financing-quarterly.csv`, csv(rowsCapex));
 await writeText(`${SITE}csv/balance-leverage-quarterly.csv`, csv(rowsBal));
 await writeText(`${SITE}csv/off-balance-sheet-tagged.csv`, csv(rowsOff));
-await writeText(`${SITE}csv/registered-offerings.csv`, csv([['ticker', 'offering_total_usd', 'date', 'filed', 'form', 'accession', 'url', 'tier', 'refreshed_et'], ...out.offerings.map((o) => [o.ticker, o.amount, o.date, o.filed, o.form, o.accn, o.url, 'T1 (424B filing-fee exhibit)', stamp.et])]));
+await writeText(`${SITE}csv/registered-offerings.csv`, csv([['ticker', 'offering_total_usd', 'date', 'filed', 'form', 'accession', 'security_type', 'security_title', 'url', 'tier', 'refreshed_et'], ...out.offerings.map((o) => [o.ticker, o.amount, o.date, o.filed, o.form, o.accn, o.sec ? o.sec.type : 'pending', o.sec ? o.sec.title : '', o.url, 'T1 (424B filing-fee exhibit; type from the prospectus cover)', stamp.et])]));
 if (debtSnap) {
   await writeText(`${SITE}csv/debt-tranches-since-2025.csv`, csv([['ticker', 'instrument_id', 'type', 'seniority', 'amount_outstanding_usd_m', 'coupon_pct', 'coupon_type', 'issue_date', 'maturity', 'report_date', 'source', 'pulled', 'status'], ...debtSnap.tranches.map((t) => [...t, 'FactSet Debt Capital Structure', debtSnap.pulledAt, 'needs review (match to 424B / 8-K)'])]));
   await writeText(`${SITE}csv/debt-deals-since-2025.csv`, csv([['ticker', 'issue_date', 'class', 'tranches', 'amount_outstanding_usd_m', 'coupon_min_pct', 'coupon_max_pct', 'floating_tranche', 'tenor_min_years', 'tenor_max_years', 'seniority', 'non_usd_or_reg_s', 'report_date', 'matched_424b_accession', 'matched_424b_total_usd', 'status', 'pulled'], ...deals.map((d) => [d.ticker, d.issued, d.klass, d.tranches, d.amount, d.couponMin, d.couponMax, d.floating ? 'yes' : 'no', d.tenorMin == null ? '' : d.tenorMin.toFixed(1), d.tenorMax == null ? '' : d.tenorMax.toFixed(1), d.seniority, d.nonUSD ? 'yes' : 'no', d.reportDate, d.match ? d.match.accn : '', d.match ? d.match.amount : '', d.match ? 'corroborated by 424B (T1)' : 'FactSet only, needs review', debtSnap.pulledAt])]));

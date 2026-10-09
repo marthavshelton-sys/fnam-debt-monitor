@@ -190,7 +190,10 @@
     "section": "Note 4. Leases",
     "quote": "In January 2026, we executed a power purchase agreement which we expect to be accounted for as a lease resulting in future payments depending on certain agreement terms of $ 9.9 billion between 2027 and 2047."
    },
-   "inFiling": true
+   "inFiling": true,
+   "dateKind": "filing",
+   "dateLabel_es": "firmado en enero de 2026 (10-K)",
+   "dateLabel_en": "signed in January 2026 (10-K)"
   },
   {
    "id": "googl-ppa-backstops",
@@ -213,7 +216,13 @@
     "quote": "These backstop agreements support counterparty procurement of long-lead time equipment for our future power purch"
    },
    "inFiling": true,
-   "seeModule6": true
+   "seeModule6": true,
+   "dateKind": "filing",
+   "dateLabel_es": "al 30 jun 2026 (10-Q)",
+   "dateLabel_en": "as of 30 Jun 2026 (10-Q)",
+   "isBackstop": true,
+   "backstopNote_es": "Garantía financiera, no un contrato de energía: es la misma exposición máxima de US$7.6 mil M del módulo 3 y no cuenta como contrato en presentaciones.",
+   "backstopNote_en": "A financial guarantee, not a power contract: the same US$7.6 bn maximum exposure shown in module 3; not counted as a deal in filings."
   },
   {
    "id": "googl-ppa-volumes",
@@ -235,7 +244,10 @@
     "section": "Item 7. MD&A",
     "quote": "we regularly enter into multi-year, non-cancellable power purchase agreements with third-party suppliers that do not include a minimum dollar commitment"
    },
-   "inFiling": true
+   "inFiling": true,
+   "dateKind": "filing",
+   "dateLabel_es": "al 31 dic 2025 (10-K)",
+   "dateLabel_en": "as of 31 Dec 2025 (10-K)"
   },
   {
    "id": "orcl-jupiter-bloom",
@@ -292,35 +304,37 @@
    "id": "eia-steo-sales",
    "tier": "T3",
    "publisher": "EIA",
-   "title_es": "Ventas de electricidad en EE. UU. (Perspectiva Energética de Corto Plazo)",
-   "title_en": "US electricity sales (Short-Term Energy Outlook)",
-   "edition": "STEO, Sep-2026",
-   "edition_es": "STEO, sep-2026",
-   "editionDate": "2026-09-09",
-   "nextExpected": "2026-10-07",
+   "title_es": "Ventas de electricidad en EE. UU. a clientes finales (Perspectiva Energética de Corto Plazo)",
+   "title_en": "US electricity sales to ultimate customers (Short-Term Energy Outlook)",
+   "edition": "STEO, Oct-2026",
+   "edition_es": "STEO, oct-2026",
+   "editionDate": "2026-10-06",
+   "nextExpected": "2026-11-10",
    "kind": "projection",
    "values": [
     {
      "label_es": "2026",
      "label_en": "2026",
-     "v": 4135,
+     "v": 4152,
      "unit": "BkWh",
-     "note_es": "casi +2% vs. 2025",
-     "note_en": "almost +2% vs. 2025"
+     "note_es": "+2.3% vs. 2025 (4,058 BkWh)",
+     "note_en": "+2.3% vs. 2025 (4,058 BkWh)"
     },
     {
      "label_es": "2027",
      "label_en": "2027",
-     "v": 4211,
+     "v": 4217,
      "unit": "BkWh",
-     "note_es": "casi +2% adicional",
-     "note_en": "nearly +2% more"
+     "note_es": "+1.6% vs. 2026",
+     "note_en": "+1.6% vs. 2026"
     }
    ],
-   "context_es": "La EIA atribuye el récord a centros de datos y manufactura en los sectores comercial e industrial.",
-   "context_en": "EIA attributes the record to data centers and manufacturing in the commercial and industrial sectors.",
+   "context_es": "La EIA prevé que la demanda del sector comercial, que incluye los centros de datos, crezca 2.8% en 2027 y la industrial 2.7%, con el consumo residencial casi sin cambio frente a 2026 (edición de octubre de 2026). Consumo total: 4,288 BkWh en 2026 y 4,356 en 2027.",
+   "context_en": "EIA expects commercial-sector demand, which includes data centers, to grow 2.8% in 2027 and industrial demand 2.7%, with residential consumption mostly unchanged from 2026 (October 2026 edition). Total consumption: 4,288 BkWh in 2026 and 4,356 in 2027.",
    "url": "https://www.eia.gov/outlooks/steo/",
-   "page": "Electricity"
+   "page": "Table 7a (Year columns) and the Electricity section",
+   "valuesNote_en": "Year columns of Table 7a as printed; growth rates are FNAM calculations on those figures.",
+   "valuesNote_es": "Columnas anuales de la tabla 7a tal como se imprimen; las tasas de crecimiento son cálculo FNAM sobre esas cifras."
   },
   {
    "id": "ercot-large-load",
@@ -498,5 +512,5 @@
    "page": "Executive summary"
   }
  ],
- "updatedAt": "2026-10-08T16:30:00Z"
+ "updatedAt": "2026-10-09T23:00:00Z"
 }

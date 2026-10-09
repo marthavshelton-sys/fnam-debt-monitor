@@ -159,7 +159,8 @@ dashboards, everything built from public data by GitHub Actions.
   one or two customers) and survive only as `counterparties` in that file and as dashed nodes in Circular, where the
   majors' contracts and investments with them are cited from the neoclouds' own SEC filings (still polled and harvested
   for that purpose, no XBRL). The former modules Capacity, Committed and Sites (built on those companies' MW and campuses)
-  are retired; their URLs redirect to the summary. Modules 2, 4 and 5 come from curated files (`tools/hyperscalers/data/
+  are retired; their URLs redirect to the methodology's retired-modules note (`#retirados`, owner's decision of 8-Oct-2026; never
+  rebuild them without her approval). Modules 2, 4 and 5 come from curated files (`tools/hyperscalers/data/
   {power,circular,payoff}.json`) whose quotes `build-modules.mjs` checks against the harvested filing page; contract MW
   keep the announcement's definition and are never summed; grid projections (T3/T4) never mix with company deals; FNAM
   inferences on circular financing are labeled and cite flows. Every datum carries a source tier (T1 SEC, T2 company, T3
@@ -181,7 +182,10 @@ dashboards, everything built from public data by GitHub Actions.
   (debt and stock issued in the same window, from XBRL; cards and repayments in "What to know" line 1). What refreshes on its
   own: everything from EDGAR XBRL/submissions (twice daily). What does not: the FactSet debt, guidance and calendar snapshots
   and the curated files (`offbs`, `power`, `circular`, `payoff`, `not-tagged`, `outliers`, `deal-matches`), which a session
-  updates after each 10-Q season; the pages flag them when old but cannot fill them.
+  updates after each 10-Q season; the pages flag them when old but cannot fill them. Review of 9-Oct-2026 (`tools/hyperscalers/README.md` → "Review of 9-Oct-2026"): `not-tagged.json` records can carry a
+  `derived` TTM figure (injected into `q.ttm` at its end date) or `carryForward: true` (a 10-K-only balance carried ≤ 366 days,
+  `q.d._carried`); `offerings.json` classifies every 424B (runner step `classify-offerings.mjs` reads new covers); `check-steo.mjs`
+  flags a newer EIA STEO edition; `notices.json` feeds "What changed"; reader text never names tools, files or the runner.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

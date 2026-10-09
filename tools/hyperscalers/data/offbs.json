@@ -521,7 +521,8 @@
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "counterparty_es": "Arrendador de un centro de datos (sin nombre)"
   },
   {
    "ticker": "ORCL",
@@ -554,8 +555,8 @@
    "result": "none",
    "asOf": "2026-08-31",
    "accn": "0001193125-26-389274",
-   "note_en": "No residual value guarantee passage in the FY2026 10-K or the August 31, 2026 10-Q (harvested text).",
-   "note_es": "Sin pasaje de garantía de valor residual en el 10-K del AF2026 ni en el 10-Q al 31 de agosto de 2026 (texto cosechado)."
+   "note_en": "No residual value guarantee passage in the FY2026 10-K or the August 31, 2026 10-Q (filing text).",
+   "note_es": "Sin pasaje de garantía de valor residual en el 10-K del AF2026 ni en el 10-Q al 31 de agosto de 2026 (texto de la presentación)."
   },
   {
    "ticker": "MSFT",
@@ -610,6 +611,16 @@
    "accn": "0001193125-26-389274",
    "note_en": "No joint venture is described; the FY2026 10-K mentions a guarantee of up to $3.3bn of one lessor's borrowing (see the guarantee item).",
    "note_es": "No se describe coinversión; el 10-K del AF2026 menciona una garantía de hasta US$3.3 mil M de la deuda de un arrendador (ver la partida de garantía)."
+  },
+  {
+   "ticker": "ORCL",
+   "item": "vie_unconsolidated",
+   "result": "none",
+   "asOf": "2026-08-31",
+   "accn": "0001193125-26-389274",
+   "searchedOn": "2026-10-09T22:40:00Z",
+   "note_en": "No variable-interest-entity passage in the FY2026 10-K (0001193125-26-277521) or the 10-Q to 31 Aug 2026: the full text of both was searched on 9 Oct 2026 ET for \"variable interest\", \"maximum exposure to loss\" and \"primary beneficiary\" with no hit. Oracle's non-marketable investments include a 15% equity-method stake (TikTok USDS Joint Venture) with no VIE disclosure.",
+   "note_es": "Sin pasaje sobre entidades de interés variable en el 10-K del AF2026 (0001193125-26-277521) ni en el 10-Q al 31 ago 2026: el texto completo de ambos se buscó el 9 oct 2026 ET por «variable interest», «maximum exposure to loss» y «primary beneficiary» sin resultado. Las inversiones no negociables de Oracle incluyen una participación de 15% por método de participación (TikTok USDS Joint Venture) sin revelación de EIV."
   }
  ],
  "pageCites": [
@@ -633,5 +644,5 @@
    "note_es": "Línea del estado de flujos del trimestre al 31 ago 2026 (US$ millones; ninguna en el trimestre comparable). El MD&A, p. 33, describe el mismo flujo como «$11.4 billion of customer prepayments with a significant financing component»."
   }
  ],
- "updatedAt": "2026-10-08T16:30:00Z"
+ "updatedAt": "2026-10-09T23:00:00Z"
 }

@@ -5,6 +5,8 @@
 #           companyfacts for the five covered companies (submissions only for the counterparties of module Circular) →
 #           tools/hyperscalers/data/xbrl, filings.json, state.json; then the build (quarters, TTM, ratios, debt deals,
 #           change log, CSVs) and the validator (quality pages).
+#   covers  after each poll: reads the cover of every new 424B prospectus (security type: notes, common, preferred, ATM ceiling)
+#           and EIA's STEO release dates (module 2 card); both steps are best-effort (continue-on-error).
 #   notes   when a new 10-K / 10-Q / 20-F arrives (or on dispatch with mode=notes): downloads the filing on this runner
 #           (covered companies and Circular counterparties) and keeps the passages with their page numbers in
 #           tools/hyperscalers/raw/notes/. Figures from text enter the page only through the curated files, as "needs
@@ -68,6 +70,20 @@ jobs:
           EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx hyperscaler-hub (contact via repository)' }}
         run: node scripts/hyperscalers/harvest-notes.mjs ${{ github.event.inputs.force_notes == 'true' && '--force' || '' }}
 
+      - name: Classify new 424B prospectuses (security type from the cover)
+        if: github.event.inputs.mode != 'notes'
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx hyperscaler-hub (contact via repository)' }}
+        run: node scripts/hyperscalers/classify-offerings.mjs
+
+      - name: Check EIA's STEO edition (module 2 card)
+        if: github.event.inputs.mode != 'notes'
+        continue-on-error: true
+        timeout-minutes: 3
+        run: node scripts/hyperscalers/check-steo.mjs
+
       - name: Build module data
         run: node scripts/hyperscalers/build.mjs
 
@@ -84,7 +100,7 @@ jobs:
           git config user.email "hyperscalers-refresh@users.noreply.github.com"
           git add site/hiperescaladores tools/hyperscalers
           # the build stamps every file with its run time; commit only when a value, filing or note changed
-          if git diff --cached --quiet -- tools/hyperscalers/data/metrics.json tools/hyperscalers/data/filings.json tools/hyperscalers/raw tools/hyperscalers/data/xbrl tools/hyperscalers/data/changelog.json; then
+          if git diff --cached --quiet -- tools/hyperscalers/data/metrics.json tools/hyperscalers/data/filings.json tools/hyperscalers/raw tools/hyperscalers/data/xbrl tools/hyperscalers/data/changelog.json tools/hyperscalers/data/offerings.json tools/hyperscalers/data/steo-status.json; then
             echo "No data change; nothing to commit."
             git reset -q
             git checkout -q -- site/hiperescaladores tools/hyperscalers

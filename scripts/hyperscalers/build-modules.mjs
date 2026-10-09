@@ -62,6 +62,14 @@ for (const [name, obj] of [['power', power], ['circular', circ], ['payoff', pay 
 // ---- Power
 for (const [i, d] of power.companyDeals.entries()) if (d.src && d.src.k) d.src = resolve(d.src, `power.companyDeals[${i}]`); else if (d.src) d.src = { ...d.src, tier: d.tier };
 for (const [i, s] of power.searched.entries()) if (s.src) s.src = resolve(s.src, `power.searched[${i}]`);
+// EIA's STEO: the automated job reads the release and next-release dates printed on eia.gov (check-steo.mjs → steo-status.json);
+// the card's "next edition" follows the live date and a newer edition than the curated one is flagged on the card and the quality page
+const steo = await readJson(TOOLS + 'data/steo-status.json', null);
+for (const g of power.grid) if (g.id === 'eia-steo-sales' && steo && steo.ok && steo.releaseDate) {
+  g.liveCheck = { checkedAt: steo.checkedAt, releaseDate: steo.releaseDate, nextReleaseDate: steo.nextReleaseDate || null, url: steo.url || null };
+  if (steo.nextReleaseDate && steo.releaseDate <= g.editionDate) g.nextExpected = steo.nextReleaseDate;
+  if (steo.releaseDate > g.editionDate) { g.newerEdition = steo.releaseDate; problems.push({ where: 'power.grid.eia-steo-sales', issue: `EIA published a newer STEO edition (${steo.releaseDate}) than the curated card (${g.editionDate}): read the new table` }); }
+}
 const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, updatedAt: power.updatedAt || null, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
 
 // ---- Circular: revenue shares computed from T1 revenue (fiscal year or trailing four quarters ending at the flow date); only a
@@ -83,8 +91,15 @@ for (const [i, c] of circ.concentration.entries()) {
   if (c.src) c.src = resolve(c.src, `circular.concentration[${i}]`);
   if (c.calcRevenue) { const f = circ.flows.find((x) => x.id === c.flow); if (f && f.shareOf && f.shareOf.pct != null) { c.pct = f.shareOf.pct; c.calcMethod = f.shareOf.method; } }
   if (c.calc) { c.pct = Math.round(c.calc.num / c.calc.den * 1000) / 10; c.calcMethod = `${c.calc.num} / ${c.calc.den}`; }
+  // a dependence the company states only as backlog growth (Oracle): the backlog as a multiple of trailing revenue (FNAM calculation on XBRL revenue)
+  if (c.rpoVsRevenue) {
+    const r = revenueAt(c.ticker, null, c.rpoVsRevenue.asOf);
+    if (r) { c.multiple = Math.round(c.rpoVsRevenue.rpoUSDm * 1e6 / r.v * 10) / 10; c.calcMethod = `${c.rpoVsRevenue.rpoUSDm} m RPO / ${(r.v / 1e6).toFixed(0)} m revenue (trailing four quarters to ${r.end}, XBRL ${r.tag}) = ${c.multiple}x`; for (const L of ['es', 'en']) c['what_' + L] = String(c['what_' + L] || '').replace('{x}', String(c.multiple)); }
+    else problems.push({ where: `circular.concentration[${i}]`, issue: 'no XBRL revenue for the RPO multiple' });
+  }
 }
-const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
+const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers,
+  counts: { t1: circ.flows.filter((f) => f.tier === 'T1').length, t2: circ.flows.filter((f) => f.tier !== 'T1').length, subsequent: circ.flows.filter((f) => f.subsequent).length } };
 
 // ---- Payoff: payoff and cost of money (curated, T1 text items; FWP term sheets read twice by the automated pipeline; T4 kept apart)
 let payOut = null;
@@ -95,7 +110,7 @@ if (pay) {
     if (it.termSheet) {
       const t = TS[it.termSheet];
       if (!t) { problems.push({ where: `payoff.ratings.${r.ticker}`, issue: `unknown term sheet ${it.termSheet}` }); continue; }
-      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, status: t.status, verifiedHow: t.status === 'verified' ? 'automated' : null, verifiedOn: t.verifiedOn, reviewedBy: t.reviewedBy || null };
+      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, quoteLines: t.ratingsLines || null, quoteNote_en: t.ratingsNote_en || null, quoteNote_es: t.ratingsNote_es || null, status: t.status, verifiedHow: t.status === 'verified' ? 'automated' : null, verifiedOn: t.verifiedOn, reviewedBy: t.reviewedBy || null };
     }
   }
   for (const t of pay.termSheets || []) if (!('reviewedBy' in t)) t.reviewedBy = null;

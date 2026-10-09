@@ -1,0 +1,12 @@
+{
+ "_comment": "Structural notices the summary page prints in \"What changed\" while they are within that section's 100-day window (the hub keeps no editorial change log; owner, 8-Oct-2026). Each notice: id, date, es, en, href.",
+ "notices": [
+  {
+   "id": "retired-modules",
+   "date": "2026-10-08",
+   "es": "Los módulos Capacidad, Comprometida y Sitios se retiraron el 8 de octubre de 2026 con la salida de las neonubes de la cobertura; sus direcciones llevan a la nota de la metodología que explica el cambio.",
+   "en": "The Capacity, Committed and Sites modules were retired on 8 October 2026 when the neoclouds left the coverage; their addresses lead to the methodology note that explains the change.",
+   "href": "/hiperescaladores/metodologia/#retirados"
+  }
+ ]
+}

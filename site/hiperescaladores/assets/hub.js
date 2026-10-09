@@ -92,12 +92,12 @@
   // (none: the line does not exist for this company; text: the figure is in the filing text and shown from it; fy_only:
   // tagged only in the annual report; custom_tag: a company-specific tag the SEC API does not serve; not_disclosed:
   // searched and absent). The cell is not counted as "not tagged" in the data-quality line; the reason is on hover and in ⓘ.
-  var NTR = { none: ['no aplica', 'n/a'], text: ['texto', 'text'], fy_only: ['solo anual', 'annual only'], ytd_only: ['solo acumulado', 'YTD only'], last_tagged: ['última etiqueta', 'last tagged'], custom_tag: ['etiqueta propia', 'custom tag'], not_disclosed: ['No divulgado', 'Not disclosed'], unknown: ['s.e.', 'n.t.'] };
+  var NTR = { none: ['no aplica', 'n/a'], text: ['texto', 'text'], fy_only: ['solo anual', 'annual only'], ytd_only: ['solo acumulado', 'YTD only'], last_tagged: ['última etiqueta', 'last tagged'], custom_tag: ['etiqueta propia de la empresa', 'company-specific tag'], not_disclosed: ['No divulgado', 'Not disclosed'], unknown: ['s.e.', 'n.t.'] };
   var NTS = { none: ['no aplica: la partida no existe para esta empresa', 'not applicable: the line does not exist for this company'], text: ['cifra leída del texto de la presentación (sin etiqueta XBRL estándar)', 'figure read from the filing text (no standard XBRL tag)'], fy_only: ['etiquetada solo en el informe anual', 'tagged only in the annual report'], ytd_only: ['etiquetada solo como acumulado del año (el trimestre se deriva o falta)', 'tagged only year-to-date (the quarter is derived or missing)'], last_tagged: ['la empresa dejó de etiquetar el concepto: se muestra el último valor con su fecha', 'the company stopped tagging the concept: the latest value is shown with its date'], custom_tag: ['la empresa usa una etiqueta propia que la API de la SEC no publica', 'the company uses a custom tag the SEC API does not serve'], not_disclosed: ['buscado en la presentación y ausente', 'searched in the filing and absent'], unknown: ['sin etiqueta XBRL; motivo no resuelto', 'not tagged in XBRL; reason not resolved'] };
   function ntReason(tk, metric) { var F = window.HYP_FIN; var L = (F && F.notTagged) || []; for (var i = 0; i < L.length; i++) if (L[i].ticker === tk && L[i].metric === metric) return L[i]; return null; }
   // how a gap's explanation was established (check, from build.mjs): a quote matched on the cited page; a derivation from
   // tagged facts; or an XBRL concept check / EDGAR full-text search alone, which the pages call "tag-checked", never "verified"
-  function ntCheck(r) { return r.check === 'quote' ? t('cita cotejada en la página citada de la presentación', 'quote matched on the cited filing page') : r.check === 'derived' ? t('derivado de hechos etiquetados y de líneas del estado de flujos (método abajo); cálculo FNAM', 'derived from tagged facts and cash-flow statement lines (method below); FNAM calculation') : r.check === 'quote_unmatched' ? t('la cita no está en la página citada del texto cosechado: por revisar', 'the quote is not on the cited page of the harvested text: needs review') : t('control de concepto XBRL o búsqueda de texto completo en EDGAR: etiqueta cotejada, no verificado', 'XBRL concept check or EDGAR full-text search: tag-checked, not verified'); }
+  function ntCheck(r) { return r.check === 'quote' ? t('cita cotejada en la página citada de la presentación', 'quote matched on the cited filing page') : r.check === 'derived' ? t('derivado de hechos etiquetados y de líneas del estado de flujos (método abajo); cálculo FNAM', 'derived from tagged facts and cash-flow statement lines (method below); FNAM calculation') : r.check === 'quote_unmatched' ? t('la cita no está en la página citada del texto descargado de la presentación: por revisar', 'the quote is not on the cited page of the stored filing text: needs review') : t('control de concepto XBRL o búsqueda de texto completo en EDGAR: etiqueta cotejada, no verificado', 'XBRL concept check or EDGAR full-text search: tag-checked, not verified'); }
   // not-tagged cell with its reason when one is recorded, else the plain "n.t." mark; a text figure prints its amount; a
   // derived trailing-twelve-month figure prints in TTM cells only (opts.ttm) with its method in the ⓘ card
   function ntCell(tk, metric, opts) {
@@ -157,7 +157,7 @@
     if (b.closest('summary')) e.preventDefault();   // a ⓘ inside a <summary> opens its card without toggling the expander
     var p = provs[+b.getAttribute('data-prov')]; if (!p) return;
     openPop(b, (p.title ? '<b>' + esc(p.title) + '</b><br>' : '') +
-      (p.rows || []).filter(function (r) { return r && r[1] != null && r[1] !== ''; }).map(function (r) { return '<span class="muted">' + esc(r[0]) + ':</span> ' + (r[2] ? r[1] : esc(plain(r[1]))); }).join('<br>') +
+      (p.rows || []).filter(function (r) { return r && r[1] != null && r[1] !== ''; }).map(function (r) { return (r[0] ? '<span class="muted">' + esc(r[0]) + ':</span> ' : '') + (r[2] ? r[1] : esc(plain(r[1]))); }).join('<br>') +
       (p.url ? '<br><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + t('Abrir la fuente', 'Open the source') + ' ↗</a>' : ''));
   });
   document.addEventListener('keydown', function (e) {
@@ -218,7 +218,8 @@
     if (!s) return [];
     var page = s.page ? s.page : s.pageSeq ? t('sin número impreso (secuencia ', 'no printed number (sequence ') + s.pageSeq + ')' : null;
     var qc = s.quoteCheck === 'page' ? t('cita cotejada contra el texto de la página', 'quote matched against the page text') : s.quoteCheck === 'other_page' ? t('cita hallada en otra página (', 'quote found on another page (') + s.foundOn + ')' : s.quoteCheck ? t('cita no cotejada', 'quote not matched') : null;
-    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? (s.noUrl ? t('T2 · declaración de la empresa, sin enlace público', 'T2 · company statement, no public link') : t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited')) : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title + (s.date && !s.form ? ' · ' + date(s.date) : '')], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc], s.status ? [t('Verificación', 'Verification'), s.status === 'verified' ? t('verificado ', 'verified ') + (s.verifiedOn ? date(s.verifiedOn) + ' · ' : '') + t(VERIF.es, VERIF.en) : t('pendiente de la segunda lectura automática', 'pending the automated second read')] : null, s.status ? [t('Revisión de analista', 'Analyst review'), s.reviewedBy ? esc(s.reviewedBy) + (s.reviewedOn ? ' · ' + date(s.reviewedOn) : '') : t('ninguna', 'none')] : null].concat(noUrlRows(s));
+    var quoteRows = s.quoteLines && s.quoteLines.length ? s.quoteLines.map(function (l, i) { return [i ? '' : t('Texto', 'Text'), '“' + l + '”']; }).concat(s['quoteNote_' + LANG] || s.quoteNote_en ? [[t('Nota', 'Note'), s['quoteNote_' + LANG] || s.quoteNote_en]] : []) : s.quote ? [[t('Texto', 'Text'), '“' + s.quote + '”']] : [];
+    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? (s.noUrl ? t('T2 · declaración de la empresa, sin enlace público', 'T2 · company statement, no public link') : t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited')) : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title + (s.date && !s.form ? ' · ' + date(s.date) : '')], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page]].concat(quoteRows).concat([[t('Cotejo', 'Check'), qc], s.status ? [t('Verificación', 'Verification'), s.status === 'verified' ? t('verificado ', 'verified ') + (s.verifiedOn ? date(s.verifiedOn) + ' · ' : '') + t(VERIF.es, VERIF.en) : t('pendiente de la segunda lectura automática', 'pending the automated second read')] : null, s.status ? [t('Revisión de analista', 'Analyst review'), s.reviewedBy ? esc(s.reviewedBy) + (s.reviewedOn ? ' · ' + date(s.reviewedOn) : '') : t('ninguna', 'none')] : null]).concat(noUrlRows(s));
   }
   // T2 statements whose document has no public address (licensed call transcripts): say so, and point to the nearest
   // public document (the same-day earnings release on EDGAR), which does not contain the quoted sentence
@@ -277,8 +278,8 @@
     var now = Date.parse((today || new Date().toISOString().slice(0, 10)) + 'T12:00:00Z');
     return now - Date.parse(String(end).slice(0, 10) + 'T12:00:00Z') > 365 * 864e5;
   }
-  function agedCell(html, end) {
-    if (!aged(end)) return html + oldFlag(end);
+  function agedCell(html, end, opts) {
+    if (!aged(end)) return html + (opts && opts.noQ ? '' : oldFlag(end));
     return '<span class="aged" title="' + esc(t('Dato de hace más de 12 meses: no se usa en totales ni indicadores', 'Value more than 12 months old: not used in totals or indicators')) + '">' + html + '</span> <span class="flag old">' + t('> 12 meses', '> 12 months') + '</span><br><span class="small muted">' + t('al ', 'at ') + date(end) + '</span>';
   }
   // capex / operating cash flow: "n.s." when the flow is zero or negative, or smaller than a fifth of capex (ratio above
@@ -329,7 +330,12 @@
     return x.rows.map(function (r) { return [r.c.name, (fmt || money)(r.v).replace(/<[^>]+>/g, '') + ' · ' + fq(r.q.id) + ' · ' + t('cierre ', 'period end ') + date(r.q.end) + (r.offset ? ' (' + t('un mes antes de la ventana', 'one month before the window') + ')' : '')]; });
   }
   function offsetNote(x) {
-    return x.offsets.length ? x.offsets.map(function (r) { return r.c.name; }).join(', ') + t(' cierra su trimestre un mes antes (', ' closes its quarter one month earlier (') + x.offsets.map(function (r) { return date(r.q.end); }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ') + ').' : '';
+    var off = x.offsets.length ? x.offsets.map(function (r) { return r.c.name; }).join(', ') + t(' cierra su trimestre un mes antes (', ' closes its quarter one month earlier (') + x.offsets.map(function (r) { return date(r.q.end); }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ') + ').' : '';
+    // a company whose later quarter is already filed (Oracle's quarter to August while the others end in June): the common
+    // window keeps the earlier quarter; the per-company figures of the hub use the later one, and the reader is told so
+    var later = (x.rows || []).filter(function (r) { return r.c.latest && r.c.latest.end > r.q.end; });
+    var lt = later.length ? ' ' + later.map(function (r) { return t('El trimestre de ' + r.c.name + ' al ' + date(r.c.latest.end) + ' ya está presentado: las cifras por empresa de este centro (tablas, mapa de calor, «qué cambió») lo usan; las sumas y razones del grupo conservan la ventana común al ' + date(x.calEnd) + '.', r.c.name + '\'s quarter to ' + date(r.c.latest.end) + ' is already filed: the hub\'s per-company figures (tables, heat map, "what changed") use it; the group sums and ratios keep the common window to ' + date(x.calEnd) + '.'); }).join(' ') : '';
+    return off + lt;
   }
 
   // ---- jargon: the first visible use of each term on a page gets a dotted underline; hover shows the definition,
@@ -548,7 +554,7 @@
     items.forEach(function (i) {
       var s = i.src || null, qc = s && s.quoteCheck != null ? s.quoteCheck : i.quoteCheck;
       if (i.status === 'verified' && quoteOk(i)) D.quote++;
-      else dqItem(D, 'review', who(i), what(i), i.status !== 'verified' ? (i['reviewNote_' + LANG] || i.reviewNote_en || t('pendiente de la segunda lectura automática', 'pending the automated second read')) : qc === 'other_page' ? t('la cita está en otra página del texto cosechado', 'the quote is on another page of the harvested text') : qc == null ? t('cita sin cotejar contra la página citada', 'quote not checked against the cited page') : t('la cita no está en la página citada', 'quote not on the cited page'));
+      else dqItem(D, 'review', who(i), what(i), i.status !== 'verified' ? (i['reviewNote_' + LANG] || i.reviewNote_en || t('pendiente de la segunda lectura automática', 'pending the automated second read')) : qc === 'other_page' ? t('la cita está en otra página del texto descargado de la presentación', 'the quote is on another page of the stored filing text') : qc == null ? t('cita sin cotejar contra la página citada', 'quote not checked against the cited page') : t('la cita no está en la página citada', 'quote not on the cited page'));
     });
     dqCurated(D, items);
   }

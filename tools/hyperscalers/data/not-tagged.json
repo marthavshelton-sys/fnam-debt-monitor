@@ -1,6 +1,6 @@
 {
  "_comment": "Why a figure the hub shows is absent from the XBRL feed (SEC companyfacts API), one record per company × metric, written after reading the filing or its XBRL (owner's third review, 2026-10-03). result: none = the line does not exist for this company (no such instrument or activity); text = the figure is in the filing text and is shown from it (amountUSDm, src with page and quote, checked by build.mjs against the harvested page); fy_only / ytd_only = tagged only in the annual report / as a year-to-date figure (amountUSDm, period); custom_tag = the company tags the line with a company-specific concept the API does not serve; not_disclosed = searched in the filing (EDGAR full-text search of the primary document, or the harvested text) and absent; unknown = not tagged and not yet resolved (stays 'not tagged' on the page). evidence: what was checked (XBRL companyfacts concepts, EDGAR full-text search hits, harvested page). A cell with a record is shown as an explained gap, never as 'not tagged' without a reason. Metrics follow scripts/hyperscalers/tags.mjs. Amounts in US$ millions. reviewedBy stays null until a person signs off. result last_tagged = the company stopped tagging the concept (the latest fact is shown with its date; no later figure exists). derived = a trailing-twelve-month figure built from tagged facts plus periods whose cash-flow statement carries no such line (listed in zeroPeriods and read as zero: a complete statement omits a line only when it is nil), with every input's accession; rendered as 'derived' with the method in the ⓘ card and counted as a value present (FNAM calculation), never as quote-matched.",
- "updatedAt": "2026-10-08T16:30:00Z",
+ "updatedAt": "2026-10-09T23:00:00Z",
  "readBy": "automated read, 3 Oct 2026 ET (XBRL companyfacts of the covered companies, EDGAR full-text search, harvested filing pages); internal provenance, not emitted to the site",
  "items": [
   {
@@ -152,8 +152,8 @@
    "amountUSDm": 30499,
    "period": "H1 2026",
    "asOf": "2026-06-30",
-   "note_en": "Tagged as a six-month figure only (the trailing twelve months cannot be built: no issuance line in the 2025 quarters). The amount is flagged as an outlier until the filing text is read; the 10-Q mentions an at-the-market program.",
-   "note_es": "Etiquetado solo como cifra de seis meses (no se puede construir el acumulado de doce meses: sin línea de emisión en los trimestres de 2025). El monto está marcado como atípico hasta leer el texto; el 10-Q menciona un programa at-the-market.",
+   "note_en": "Common stock issued in the first half of 2026 (US$30.5bn net of costs), tagged as a six-month figure only (no issuance line in the 2025 quarters); the June 2026 offering and the at-the-market program it came from are listed in the registered-offerings table of module 1.",
+   "note_es": "Acciones comunes emitidas en el primer semestre de 2026 (US$30.5 mil M netos), etiquetadas solo como cifra semestral (sin línea de emisión en los trimestres de 2025); la colocación de junio de 2026 y el programa at-the-market del que salió están en la tabla de colocaciones registradas del módulo 1.",
    "evidence": {
     "en": "XBRL ProceedsFromIssuanceOfCommonStock, 6 months to 2026-06-30 (10-Q 0001652044-26-000071); EDGAR full-text search of that 10-Q for \"at-the-market\": 1 hit",
     "es": "XBRL ProceedsFromIssuanceOfCommonStock, 6 meses al 2026-06-30 (10-Q 0001652044-26-000071); búsqueda de texto completo en ese 10-Q por «at-the-market»: 1 resultado"
@@ -191,7 +191,8 @@
       "why_en": "the Q1 2026 10-Q contains no \"issuance of common stock\" line (EDGAR full-text index, 0 hits in that filing)",
       "why_es": "el 10-Q del 1T 2026 no contiene la línea «issuance of common stock» (índice de texto completo de EDGAR, 0 resultados en esa presentación)"
      }
-    ]
+    ],
+    "end": "2026-06-30"
    },
    "src": {
     "k": "GOOGL 10-Q 2026-06-30",
@@ -246,7 +247,8 @@
       "why_en": "the mandatory convertible preferred stock was issued on 5 June 2026 (tagged issuance date), after the first quarter",
       "why_es": "las acciones preferentes convertibles obligatorias se emitieron el 5 de junio de 2026 (fecha etiquetada), después del primer trimestre"
      }
-    ]
+    ],
+    "end": "2026-06-30"
    },
    "src": {
     "k": "GOOGL 10-Q 2026-06-30",
@@ -379,8 +381,8 @@
    "ticker": "AMZN",
    "metric": "interest_paid",
    "result": "custom_tag",
-   "note_en": "Amazon discloses cash paid for interest net of capitalized interest in its supplemental cash-flow information, under a company-specific tag the SEC API does not serve.",
-   "note_es": "Amazon divulga los intereses pagados netos de capitalizados en su información complementaria de flujos, con una etiqueta propia que la API de la SEC no publica.",
+   "note_en": "Amazon discloses cash paid for interest, net of capitalized interest, in the supplemental cash-flow information of the 10-Q under a company-specific tag the SEC feed does not serve; the figure has not been read from the text yet, so the implied cost of debt is not computed (n.a.).",
+   "note_es": "Amazon divulga los intereses pagados netos de capitalizados en la información complementaria de flujos del 10-Q con una etiqueta propia que el feed de la SEC no publica; la cifra aún no se ha leído del texto, así que el costo implícito de la deuda no se calcula (n.a.).",
    "evidence": {
     "en": "EDGAR full-text search of 10-Q 0001018724-26-000026 for \"net of capitalized interest\": 1 hit; no standard InterestPaid concept in XBRL",
     "es": "Búsqueda de texto completo del 10-Q 0001018724-26-000026 por «net of capitalized interest»: 1 resultado; sin concepto estándar InterestPaid en XBRL"
@@ -522,8 +524,8 @@
    "amountUSDm": 1184,
    "period": "31 Dec 2025",
    "asOf": "2025-12-31",
-   "note_en": "Finance lease liabilities are tagged only in the 10-K (US$1.18bn at 31 Dec 2025, 0001628280-26-003942); the 10-Q balance sheet folds them into other liabilities with no separate tag, so lease-adjusted net debt at 30 Jun 2026 cannot be built on one date (a balance, not a flow: nothing to subtract).",
-   "note_es": "Los pasivos por arrendamiento financiero se etiquetan solo en el 10-K (US$1.18 mil M al 31 dic 2025, 0001628280-26-003942); el balance del 10-Q los incluye en otros pasivos sin etiqueta aparte, así que la deuda neta ajustada al 30 jun 2026 no se puede construir a una sola fecha (es un saldo, no un flujo: nada que restar).",
+   "note_en": "Finance lease liabilities are tagged only in the 10-K (US$1.18bn at 31 Dec 2025, 0001628280-26-003942); the 10-Q balance sheet folds them into other liabilities with no separate tag. The latest annual figure is carried into the quarterly lease-adjusted net debt and the obligation stack with its own date (a balance, not a flow: nothing to subtract), and every figure that uses it says so.",
+   "note_es": "Los pasivos por arrendamiento financiero se etiquetan solo en el 10-K (US$1.18 mil M al 31 dic 2025, 0001628280-26-003942); el balance del 10-Q los incluye en otros pasivos sin etiqueta aparte. La última cifra anual se arrastra a la deuda neta ajustada trimestral y a la pila de obligaciones con su propia fecha (es un saldo, no un flujo: nada que restar), y cada cifra que la usa lo dice.",
    "evidence": {
     "en": "XBRL FinanceLeaseLiability: one fact, 2025-12-31 (10-K 0001628280-26-003942)",
     "es": "XBRL FinanceLeaseLiability: un hecho, 2025-12-31 (10-K 0001628280-26-003942)"
@@ -531,7 +533,10 @@
    "status": "verified",
    "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
    "verifiedOn": "2026-10-03T23:36:10Z",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "carryForward": true,
+   "accn": "0001628280-26-003942",
+   "form": "10-K"
   },
   {
    "ticker": "META",
@@ -585,7 +590,8 @@
       "why_en": "the Q1 2026 10-Q contains no \"Proceeds from issuance of long-term debt\" line (EDGAR full-text index, 0 hits in that filing); the US$25bn notes priced on 30 Apr 2026 (FWP 0001193125-26-197902)",
       "why_es": "el 10-Q del 1T 2026 no contiene la línea «Proceeds from issuance of long-term debt» (índice de texto completo de EDGAR, 0 resultados); las notas por US$25 mil M se colocaron el 30 abr 2026 (FWP 0001193125-26-197902)"
      }
-    ]
+    ],
+    "end": "2026-06-30"
    },
    "src": {
     "k": "META 10-Q 2026-06-30",
@@ -779,7 +785,8 @@
       "accn": "0001193125-26-389274"
      }
     ],
-    "zeroPeriods": []
+    "zeroPeriods": [],
+    "end": "2026-08-31"
    }
   },
   {
@@ -825,7 +832,8 @@
       "accn": "0001193125-26-389274"
      }
     ],
-    "zeroPeriods": []
+    "zeroPeriods": [],
+    "end": "2026-08-31"
    }
   },
   {
@@ -913,7 +921,8 @@
       "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
       "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
      }
-    ]
+    ],
+    "end": "2026-08-31"
    }
   },
   {
@@ -961,7 +970,8 @@
       "accn": "0001193125-26-389274"
      }
     ],
-    "zeroPeriods": []
+    "zeroPeriods": [],
+    "end": "2026-08-31"
    },
    "src": {
     "k": "ORCL 10-Q 2026-08-31",
@@ -1016,7 +1026,8 @@
       "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
       "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
      }
-    ]
+    ],
+    "end": "2026-08-31"
    }
   },
   {
@@ -1065,7 +1076,8 @@
       "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
       "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
      }
-    ]
+    ],
+    "end": "2026-08-31"
    }
   },
   {
@@ -1095,8 +1107,8 @@
    "note_en": "Oracle's FY2026 10-K and August 2026 10-Q contain no variable-interest-entity disclosure.",
    "note_es": "El 10-K del AF2026 y el 10-Q de agosto de 2026 de Oracle no contienen revelación sobre entidades de interés variable.",
    "evidence": {
-    "en": "EDGAR full-text search of 10-Q 0001193125-26-389274 for \"variable interest\": 0 hits; harvested 10-K passages: no VIE hit",
-    "es": "Búsqueda de texto completo del 10-Q 0001193125-26-389274 por «variable interest»: 0 resultados; pasajes cosechados del 10-K: sin EIV"
+    "en": "EDGAR full-text search of 10-Q 0001193125-26-389274 for \"variable interest\": 0 hits; stored 10-K passages: no VIE hit",
+    "es": "Búsqueda de texto completo del 10-Q 0001193125-26-389274 por «variable interest»: 0 resultados; pasajes descargados del 10-K: sin EIV"
    },
    "form": "10-Q",
    "accn": "0001193125-26-389274",
@@ -1128,8 +1140,8 @@
    "ticker": "ORCL",
    "metric": "equity_method",
    "result": "not_disclosed",
-   "note_en": "Oracle tags no equity-method balance; its equity-method investee (TikTok USDS Joint Venture, 15%) sits inside non-marketable investments, whose August 2026 balance is not legible in the harvested text.",
-   "note_es": "Oracle no etiqueta un saldo por método de participación; su participada por método de participación (TikTok USDS Joint Venture, 15%) está dentro de las inversiones no negociables, cuyo saldo a agosto de 2026 no es legible en el texto cosechado.",
+   "note_en": "Oracle tags no equity-method balance; its equity-method investee (TikTok USDS Joint Venture, 15%) sits inside non-marketable investments, whose August 2026 balance is not legible in the stored filing text.",
+   "note_es": "Oracle no etiqueta un saldo por método de participación; su participada por método de participación (TikTok USDS Joint Venture, 15%) está dentro de las inversiones no negociables, cuyo saldo a agosto de 2026 no es legible en el texto descargado de la presentación.",
    "src": {
     "k": "ORCL 10-Q 2026-08-31",
     "page": "7",

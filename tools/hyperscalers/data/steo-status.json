@@ -1,0 +1,9 @@
+{
+ "_comment": "Live edition check of EIA's Short-Term Energy Outlook (scripts/hyperscalers/check-steo.mjs, run by the automated job): the release and next-release dates printed on eia.gov/outlooks/steo. build-modules.mjs compares them with the curated card (power.json → grid → eia-steo-sales): a newer edition than the card's turns the card amber (\"newer edition published\"), and nextExpected follows the live date. Figures stay curated (T3, read from the published table).",
+ "checkedAt": "2026-10-09T22:38:00Z",
+ "releaseDate": "2026-10-06",
+ "forecastCompleted": "2026-10-01",
+ "nextReleaseDate": "2026-11-10",
+ "url": "https://www.eia.gov/outlooks/steo/",
+ "ok": true
+}
