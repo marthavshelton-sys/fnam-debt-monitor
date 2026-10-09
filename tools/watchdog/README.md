@@ -17,7 +17,10 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
 
 ## Rules
 
-- Only scheduled runs count (`event=schedule`); dispatched diagnostics runs never do.
+- Scheduled runs count (`event=schedule`). A run started by hand on `main` (`workflow_dispatch`) counts as a landed refresh
+  only when its `Commit …` step succeeded: a probe or dry run ends green without committing, so a green conclusion alone
+  never counts, and a run on another branch commits there. Added 9-Oct-2026 so a failed nightly refresh re-run by hand does
+  not leave the page "late" until the next schedule; `lastAttempt` still reports the newest scheduled run.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
 - **One run, one record** (9-Oct-2026): `lastSuccess` is the newest landed refresh; `lastAttempt` is the newest completed
@@ -25,14 +28,17 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   (`failure`, `cancelled`...). A run that committed and then failed a later step (OMA's source-link check found a dead
   link on 8/9-Oct-2026) is that landed refresh, recorded as `success` with `afterCommitFailure: true`, never as a failure
   at the same instant as `lastSuccess` (`attemptRecord` in `lib.mjs`, tested in `selftest.mjs`).
-- **Late**: no landed refresh since the second-to-last time the workflow's own cron was due, counting only due times
-  at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
-  workflow file, so changing a cron needs no change here. Since 9-Oct-2026 each cron of a workflow is also judged on its
-  own (`perCronLate`): a run belongs to the latest due time of any of the workflow's crons at or before its start (GitHub
-  starts schedules minutes to hours late, five hours on a weekend), and a cron whose last two due times have no landed run
-  of their own makes the dashboard late even when another cron keeps landing. Why: the ASUR workflow's market-only run
-  (22:50 UTC) succeeded on 8-Oct-2026 while its filings run (14:40 UTC) failed on the 8th and 9th on an unparsed traffic
-  release, and the dashboard read "ok". Due times older than the oldest run on the page fetched (30 runs) are not judged.
+- **Late**: no landed refresh since the last time the workflow's own cron was due, counting only due times at least
+  3 hours old. In words: the last scheduled refresh failed or never ran. Until 9-Oct-2026 two misses in a row were
+  needed, which left the MX fiscal page "up to date" for a day after its 8-Oct refresh failed (the owner asked for a
+  failed or stale refresh to be flagged the same day). The schedule is read from the workflow file, so changing a cron
+  needs no change here. Since 9-Oct-2026 each cron of a workflow is also judged on its own (`perCronLate`): a run belongs
+  to the latest due time of any of the workflow's crons at or before its start (GitHub starts schedules minutes to hours
+  late, five hours on a weekend), and a cron whose last due time has no landed run of its own makes the dashboard late
+  even when another cron keeps landing. Why: the ASUR workflow's market-only run (22:50 UTC) succeeded on 8-Oct-2026 while
+  its filings run (14:40 UTC) failed on the 8th and 9th on an unparsed traffic release, and the dashboard read "ok". A
+  refresh re-run by hand on main that committed counts for the schedule it replaced; due times older than the oldest run
+  on the page fetched (30 runs) are not judged.
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.

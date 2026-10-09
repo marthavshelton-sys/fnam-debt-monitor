@@ -613,11 +613,11 @@
     <div class="rail-item" data-view="banxico"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navBanxico">Tasas y reservas</span></span></div>
 
     <div class="rail-group-label" data-i18n="groupFiscal">Finanzas públicas</div>
-    <a class="rail-item rail-link" href="https://fnam.mx/mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMx">Monitor fiscal de México</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/mx/fiscal/" data-base="https://fnam.mx/mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMx">Monitor fiscal de México</span></span><span class="ext-mark">↗</span></a>
 
     <div class="rail-group-label" data-i18n="groupUS">Estados Unidos</div>
-    <a class="rail-item rail-link" href="https://fnam.mx/macro/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsMacro">Panel macro de EE. UU.</span></span><span class="ext-mark">↗</span></a>
-    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsFiscal">Deuda fiscal de EE. UU.</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/macro/" data-base="https://fnam.mx/macro/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsMacro">Panel macro de EE. UU.</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" data-base="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsFiscal">Deuda fiscal de EE. UU.</span></span><span class="ext-mark">↗</span></a>
   </nav>
 
   <main id="main">
@@ -1355,7 +1355,7 @@ const I18N = {
     sumExDriver: (r12, ry, m1, y1) => "Las remesas acumulan " + r12 + " mmd en 12 meses (" + ry + " anual); el peso se movió " + m1 + " en un mes y " + y1 + " en un año (negativo = peso más fuerte).",
     sumExWhy: "Las remesas son una de las mayores fuentes de dólares del país: sostienen el consumo y respaldan al peso.",
     sumExNextTail: "La señal: la tendencia anual de las remesas.",
-    sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
+    sumBxLatest: (r, chg, eff, dec) => "La tasa objetivo está en " + r + (eff ? ", vigente desde el " + eff + " (decisión del " + dec + "; " + chg + " en tres meses)." : " (" + chg + " en tres meses)."),
     sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
     sumBxNoChange: "sin cambios",
     sumBxDriverAbove: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por arriba del rango neutral que estima Banxico (1.8–3.6%), es decir, terreno restrictivo.",
@@ -1600,6 +1600,7 @@ const I18N = {
     kpiRem12m: "Remesas, 12 meses",
     kpiExports: "Exportaciones",
     kpiImports: "Importaciones",
+    saNote: "desestacionalizadas",
     kpiBalance12m: "Balanza comercial, 12 meses",
     kpiFx: "Tipo de cambio FIX",
     legRem: "Remesas mensuales",
@@ -1607,7 +1608,7 @@ const I18N = {
     legExports: "Exportaciones",
     legImports: "Importaciones",
     exRemCallout: (m, v, y, t) => m + ": " + v + " millones de dólares, " + y + " anual. Últimos 12 meses: " + t + " mil millones.",
-    exTradeCallout: (m, x, i, b) => m + ": exportaciones " + x + ", importaciones " + i + " (anual). Balanza de 12 meses: " + b + " mil millones de dólares.",
+    exTradeCallout: (m, x, i, b) => m + ": exportaciones " + x + ", importaciones " + i + " (anual, cifras desestacionalizadas de INEGI). Balanza de 12 meses: " + b + " mil millones de dólares.",
     exFxCallout: (d, v, m1, y1) => d + ": " + v + " pesos por dólar; " + m1 + " en un mes y " + y1 + " en un año (negativo = peso más fuerte).",
     kpiDeltaFx: "vs. hace un mes",
     usdMn: "millones de dólares",
@@ -1659,7 +1660,7 @@ const I18N = {
     trUsCensus: (m, v, y) => "Del lado estadounidense, el Census Bureau registró importaciones desde México por " + v + " mil millones de dólares en " + m + " (" + y + " anual).",
     trTotCallout: (q, tot, ty, uvx, uvm) => q + ": términos de intercambio en " + tot + " (" + ty + " anual); valor unitario de las exportaciones " + uvx + " y de las importaciones " + uvm + " anual.",
     trUsPxCallout: (m, y) => m + ": los precios de las importaciones de EE. UU. provenientes de México varían " + y + " anual (BLS; excluyen aranceles).",
-    sumTrLatest: (m, x, xy, i, iy, b) => "Exportaciones de " + x + " mmd en " + m + " (" + xy + " anual) e importaciones de " + i + " mmd (" + iy + "); la balanza acumula " + b + " mmd en 12 meses.",
+    sumTrLatest: (m, x, xy, i, iy, b) => "Exportaciones de " + x + " mmd en " + m + " (" + xy + " anual, cifras desestacionalizadas) e importaciones de " + i + " mmd (" + iy + "); la balanza acumula " + b + " mmd en 12 meses.",
     sumTrDriver: (manuf, oil, sh) => "Manufacturas " + manuf + " anual; balanza petrolera de " + oil + " mmd en 12 meses; " + sh + " de las exportaciones va a Estados Unidos.",
     sumTrWhy: "Las exportaciones manufactureras son el motor de la economía abierta de México y su vínculo con Estados Unidos; el déficit petrolero y los precios relativos definen el saldo.",
     sumTrNextTail: "La señal: el ritmo de las manufacturas y el peso de Estados Unidos en las ventas.",
@@ -1722,7 +1723,7 @@ const I18N = {
     iiChangeCallout: (q, d, t, o) => q + ": la posición neta varió " + d + " mmd en el trimestre: " + t + " por transacciones y " + o + " por precios, tipo de cambio y otros ajustes.",
     iiGdpNote: "Porcentajes del PIB de la posición neta, la IED y la deuda externa: cálculo FNAM, saldo o flujo entre el PIB de los últimos cuatro trimestres a precios corrientes (INEGI) convertido a dólares al FIX promedio de cada trimestre (Banxico). La razón de la cuenta corriente es la que publica Banxico.",
     sumIiLatest: (q, ca, pct, di) => "Cuenta corriente de " + ca + " mmd en " + q + " (" + pct + " del PIB). IED en México: " + di + " mmd en el trimestre.",
-    sumIiDriver: (net, pct, di4, hold) => "Posición de inversión internacional neta de " + net + " mmd (" + pct + " del PIB). IED de cuatro trimestres: " + di4 + " mmd; valores gubernamentales en manos de extranjeros: " + hold + " mmd.",
+    sumIiDriver: (net, pct, di4, hold, holdM) => "Posición de inversión internacional neta de " + net + " mmd (" + pct + " del PIB). IED de cuatro trimestres: " + di4 + " mmd; valores gubernamentales en manos de extranjeros: " + hold + " mmd (" + holdM + ").",
     sumIiWhy: "La cuenta corriente mide cuántos dólares necesita México del exterior; la IED es la fuente más estable para financiarla y la posición neta resume cuánto debe el país al mundo.",
     sumIiNextTail: "La señal: si la IED cubre el déficit de cuenta corriente y cómo se mueve la tenencia extranjera de bonos.",
     footerIip: "Balanza de pagos con base en el MBP6 (Banco de México, cuadro CE174 del SIE), millones de dólares, trimestral: cuenta corriente y sus balanzas de bienes, servicios, ingreso primario e ingreso secundario; la razón al PIB de la cuenta corriente es la que publica Banxico (cuadro CE158). Inversión extranjera directa por principio direccional (cuadro CE131): nuevas inversiones, reinversión de utilidades y cuentas entre compañías, la cifra que difunde la Secretaría de Economía; inversión de México en el exterior del mismo cuadro. Pasivos netos de inversión de cartera: cuadro CE174. Tenencia de no residentes en valores gubernamentales: saldo mensual a valor nominal (cuadro CE89). Posición de inversión internacional: estado integrado trimestral (cuadro CE170), saldos al fin de periodo por categoría funcional, con las transacciones y otras variaciones que explican el cambio de la posición neta. Deuda externa bruta: cuadro CE182. Porcentajes del PIB de saldos y flujos: cálculo FNAM con el PIB trimestral a precios corrientes de INEGI convertido al FIX promedio de cada trimestre. La actualización comprueba que los componentes sumen los totales (cuenta corriente, IED, activos y pasivos de la PII y su variación) antes de publicar un bloque.",
@@ -1760,7 +1761,7 @@ const I18N = {
     legTiie: "TIIE 28",
     legBono: "Bono M 10 años",
     legReserves: "Reservas (miles de millones de dólares)",
-    bxPolicyCallout: (d, r, m, i) => "Tasa objetivo " + r + " (" + d + "); inflación anual " + i + " (" + m + ").",
+    bxPolicyCallout: (d, r, m, i, eff, dec) => "Tasa objetivo " + r + " (dato al " + d + (eff ? "; vigente desde el " + eff + ", decisión del " + dec : "") + "); inflación anual " + i + " (" + m + ").",
     bxRealCallout: (m, v, a, am, lm, la, lam) => m + ": tasa real ex post de " + v + (a ? "; ex ante de " + a + " (tasa menos la media de la inflación esperada a 12 meses en la encuesta de Banxico de " + m + ", como la calcula Banxico" + (am ? "; con la mediana, " + am : "") + ")" : "") + (lm && la ? ". Con la encuesta de " + lm + ", la más reciente: ex ante de " + la + (lam ? " (mediana: " + lam + ")" : "") : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
@@ -1870,7 +1871,7 @@ const I18N = {
     sumExDriver: (r12, ry, m1, y1) => "Remittances add up to US$" + r12 + " billion over 12 months (" + ry + " year over year); the peso moved " + m1 + " in a month and " + y1 + " in a year (negative = stronger peso).",
     sumExWhy: "Remittances are one of Mexico's largest sources of dollars: they support consumption and back the peso.",
     sumExNextTail: "Watch the annual trend in remittances.",
-    sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
+    sumBxLatest: (r, chg, eff, dec) => "The policy rate stands at " + r + (eff ? ", effective " + eff + " (decided " + dec + "; " + chg + " over three months)." : " (" + chg + " over three months)."),
     sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
     sumBxNoChange: "unchanged",
     sumBxDriverAbove: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": above the neutral range Banxico estimates (1.8–3.6%), i.e., restrictive territory.",
@@ -2115,6 +2116,7 @@ const I18N = {
     kpiRem12m: "Remittances, 12 months",
     kpiExports: "Exports",
     kpiImports: "Imports",
+    saNote: "seasonally adjusted",
     kpiBalance12m: "Trade balance, 12 months",
     kpiFx: "FIX exchange rate",
     legRem: "Monthly remittances",
@@ -2122,7 +2124,7 @@ const I18N = {
     legExports: "Exports",
     legImports: "Imports",
     exRemCallout: (m, v, y, t) => m + ": US$" + v + " million, " + y + " YoY. Last 12 months: US$" + t + " billion.",
-    exTradeCallout: (m, x, i, b) => m + ": exports " + x + ", imports " + i + " (YoY). 12-month balance: US$" + b + " billion.",
+    exTradeCallout: (m, x, i, b) => m + ": exports " + x + ", imports " + i + " (YoY, INEGI's seasonally adjusted series). 12-month balance: US$" + b + " billion.",
     exFxCallout: (d, v, m1, y1) => d + ": " + v + " pesos per dollar; " + m1 + " over one month and " + y1 + " over one year (negative = stronger peso).",
     kpiDeltaFx: "vs. a month ago",
     usdMn: "US$ million",
@@ -2174,7 +2176,7 @@ const I18N = {
     trUsCensus: (m, v, y) => "On the U.S. side, the Census Bureau recorded US$" + v + " billion of imports from Mexico in " + m + " (" + y + " year over year).",
     trTotCallout: (q, tot, ty, uvx, uvm) => q + ": terms of trade at " + tot + " (" + ty + " year over year); export unit value " + uvx + " and import unit value " + uvm + " year over year.",
     trUsPxCallout: (m, y) => m + ": U.S. import prices from Mexico changed " + y + " year over year (BLS; excludes duties).",
-    sumTrLatest: (m, x, xy, i, iy, b) => "Exports of US$" + x + " billion in " + m + " (" + xy + " year over year) and imports of US$" + i + " billion (" + iy + "); the 12-month balance is US$" + b + " billion.",
+    sumTrLatest: (m, x, xy, i, iy, b) => "Exports of US$" + x + " billion in " + m + " (" + xy + " year over year, seasonally adjusted) and imports of US$" + i + " billion (" + iy + "); the 12-month balance is US$" + b + " billion.",
     sumTrDriver: (manuf, oil, sh) => "Manufacturing exports " + manuf + " year over year; oil balance of US$" + oil + " billion over 12 months; " + sh + " of exports go to the United States.",
     sumTrWhy: "Manufacturing exports are the engine of Mexico's open economy and its link to the United States; the oil deficit and relative prices set the balance.",
     sumTrNextTail: "Watch the pace of manufacturing exports and the weight of the United States in sales.",
@@ -2237,7 +2239,7 @@ const I18N = {
     iiChangeCallout: (q, d, t, o) => q + ": the net position changed by US$" + d + " billion in the quarter: US$" + t + " billion from transactions and US$" + o + " billion from prices, exchange rates and other adjustments.",
     iiGdpNote: "Percentages of GDP for the net position, FDI and external debt: FNAM calculation, the stock or flow over the last four quarters' GDP at current prices (INEGI) converted to dollars at each quarter's average FIX (Banxico). The current-account ratio is the one Banxico publishes.",
     sumIiLatest: (q, ca, pct, di) => "Current account of US$" + ca + " billion in " + q + " (" + pct + " of GDP). FDI in Mexico: US$" + di + " billion in the quarter.",
-    sumIiDriver: (net, pct, di4, hold) => "Net international investment position of US$" + net + " billion (" + pct + " of GDP). Four-quarter FDI: US$" + di4 + " billion; government securities held by foreigners: US$" + hold + " billion.",
+    sumIiDriver: (net, pct, di4, hold, holdM) => "Net international investment position of US$" + net + " billion (" + pct + " of GDP). Four-quarter FDI: US$" + di4 + " billion; government securities held by foreigners: US$" + hold + " billion (" + holdM + ").",
     sumIiWhy: "The current account measures how many dollars Mexico needs from abroad; FDI is the most stable way to finance it, and the net position sums up what the country owes the world.",
     sumIiNextTail: "Watch whether FDI covers the current-account deficit and how foreign holdings of bonds move.",
     footerIip: "Balance of payments on a BPM6 basis (Banco de México, SIE table CE174), millions of US dollars, quarterly: the current account and its goods, services, primary income and secondary income balances; the current-account ratio to GDP is the one Banxico publishes (table CE158). Foreign direct investment on the directional principle (table CE131): new investments, reinvested earnings and intercompany accounts, the figure the Secretaría de Economía headlines; Mexican investment abroad from the same table. Net portfolio investment liabilities: table CE174. Non-resident holdings of government securities: monthly stock at nominal value (table CE89). International investment position: the quarterly integrated statement (table CE170), end-of-period stocks by functional category, with the transactions and other changes that explain the change in the net position. Gross external debt: table CE182. Percentages of GDP for stocks and flows: FNAM calculation with INEGI's quarterly GDP at current prices converted at each quarter's average FIX. The refresh checks that components add up to the totals (current account, FDI, IIP assets and liabilities and their change) before publishing a block.",
@@ -2275,7 +2277,7 @@ const I18N = {
     legTiie: "28-day TIIE",
     legBono: "10-year M bond",
     legReserves: "Reserves (US$ billion)",
-    bxPolicyCallout: (d, r, m, i) => "Policy rate " + r + " (" + d + "); headline inflation " + i + " (" + m + ").",
+    bxPolicyCallout: (d, r, m, i, eff, dec) => "Policy rate " + r + " (as of " + d + (eff ? "; effective " + eff + ", decided " + dec : "") + "); headline inflation " + i + " (" + m + ").",
     bxRealCallout: (m, v, a, am, lm, la, lam) => m + ": ex post real rate of " + v + (a ? "; ex ante " + a + " (policy rate minus the mean 12-month expected inflation in Banxico's " + m + " survey, Banxico's own definition" + (am ? "; with the median, " + am : "") + ")" : "") + (lm && la ? ". On the " + lm + " survey, the latest: ex ante " + la + (lam ? " (median: " + lam + ")" : "") : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
@@ -2330,6 +2332,8 @@ function setLang(lang) {
 function applyStaticStrings() {
   document.querySelectorAll("[data-i18n]").forEach(el => { const v = T[el.getAttribute("data-i18n")]; if (typeof v === "string") el.textContent = v; });
   document.querySelectorAll(".lang-switch").forEach(b => b.setAttribute("aria-label", T.switchAria));
+  // Links to the other dashboards carry the language on screen, so a reader keeps it when moving between pages.
+  document.querySelectorAll("a.rail-link[data-base]").forEach(a => { const b = a.getAttribute("data-base"); a.setAttribute("href", b + (b.includes("?") ? "&" : "?") + "lang=" + LANG); });
 }
 
 // ================================================================
@@ -2458,7 +2462,8 @@ function execSummary(prefix, lines) {
 // ================================================================
 const NS = "http://www.w3.org/2000/svg";
 function svgEl(tag, attrs, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text !== undefined) e.textContent = text; return e; }
-function axisText(x, y, anchor, size, txt) { return svgEl("text", {x, y, "text-anchor": anchor, "font-size": Math.max(11, size), "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, txt); }
+// Axis labels: a leading hyphen on a number becomes a true minus sign (U+2212), whatever formatter built the label.
+function axisText(x, y, anchor, size, txt) { return svgEl("text", {x, y, "text-anchor": anchor, "font-size": Math.max(11, size), "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, String(txt).replace(/^-(?=\d)/, "\u2212")); }
 function niceStep(span, target) {
   const raw = span / (target || 5); const p = Math.pow(10, Math.floor(Math.log10(raw)));
   for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= raw) return m * p;
@@ -2483,7 +2488,7 @@ function kpiTile(row, def) {
   tile.innerHTML = `
     <div class="kpi-label">${esc(def.label)}</div>
     <div class="kpi-value-row"><div class="kpi-value">${esc(def.value)}</div>${def.delta ? `<div class="kpi-delta">${esc(def.delta)}</div>` : ""}</div>
-    ${def.spark ? `<svg class="kpi-spark" id="${sparkId}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` : ""}
+    ${def.spark ? `<svg class="kpi-spark" id="${sparkId}" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"></svg>` : ""}
     <div class="kpi-foot">${esc(def.foot || "")}</div>`;
   row.appendChild(tile);
   if (def.spark) drawSparkline(document.getElementById(sparkId), def.spark, def.color || "--series-single");
@@ -2598,7 +2603,9 @@ function columns(svgId, pts, colorVar, opts) {
     svg.appendChild(hit);
   });
   const every = opts.tickEvery || 6;
-  pts.forEach((p, i) => { if (i % every === 0 || i === pts.length - 1) svg.appendChild(axisText(xOf(i), H - 4, "middle", 8.5, opts.tickFmt ? opts.tickFmt(p.d) : p.d.slice(2, 7))); });
+  // the first tick starts at the plot's left edge and the last ends at its right edge, so neither runs into the value
+  // labels on the left (the lowest one sits beside the first tick) nor past the frame
+  pts.forEach((p, i) => { if (i % every === 0 || i === pts.length - 1) { const first = i === 0, lastT = i === pts.length - 1; svg.appendChild(axisText(first ? padL : lastT ? W - padR : xOf(i), H - 4, first ? "start" : lastT ? "end" : "middle", 8.5, opts.tickFmt ? opts.tickFmt(p.d) : p.d.slice(2, 7))); } });
   // Optional line overlaid on the same dates and axis (values outside the column range are clamped to the frame edge).
   if (opts.overlay && opts.overlay.length) {
     const byD = new Map(opts.overlay.map(p => [p.d, p.v]));
@@ -3053,8 +3060,8 @@ function renderTrade() {
   const UPX = S("usImpPxMx") ? withChanges(P("usImpPxMx")) : null, upxL = UPX ? last(UPX) : null;
 
   const row = document.getElementById("trKpiRow");
-  kpiTile(row, {label: T.kpiExports, value: bn(xL.v), delta: yoyDelta(xL.yoy), foot: fmtMonthYear(xL.d) + " · " + T.usdBn, spark: X.slice(-24).map(p => p.v), color: "--cat-1"});
-  kpiTile(row, {label: T.kpiImports, value: bn(mL.v), delta: yoyDelta(mL.yoy), foot: fmtMonthYear(mL.d) + " · " + T.usdBn, spark: M.slice(-24).map(p => p.v), color: "--cat-2"});
+  kpiTile(row, {label: T.kpiExports, value: bn(xL.v), delta: yoyDelta(xL.yoy), foot: fmtMonthYear(xL.d) + " · " + T.usdBn + " · " + T.saNote, spark: X.slice(-24).map(p => p.v), color: "--cat-1"});
+  kpiTile(row, {label: T.kpiImports, value: bn(mL.v), delta: yoyDelta(mL.yoy), foot: fmtMonthYear(mL.d) + " · " + T.usdBn + " · " + T.saNote, spark: M.slice(-24).map(p => p.v), color: "--cat-2"});
   kpiTile(row, {label: T.kpiBalance12m, value: bnS(bL.v), foot: fmtMonthYear(bL.d) + " · " + T.usdBn, spark: b12.slice(-24).map(p => p.v), color: "--cat-5"});
   if (boL) kpiTile(row, {label: T.kpiBalOil12m, value: bnS(boL.v), foot: fmtMonthYear(boL.d) + " · " + T.usdBn, spark: BO.slice(-24).map(p => p.v), color: "--cat-4"});
   if (shL) kpiTile(row, {label: T.kpiShExpUS, value: fmtLevelPct(shL.v, 1), delta: shAgo ? deltaText(shL.v - shAgo.v, T.kpiDeltaYoy, 1, x => Math.abs(x).toFixed(1) + " pp") : "", foot: fmtMonthYear(shL.d) + " · " + T.kpiShExpUSFoot, spark: SH.slice(-24).map(p => p.v), color: "--cat-7"});
@@ -3249,7 +3256,7 @@ function renderIip() {
 
   execSummary("ii", [
     [T.sumLatest, T.sumIiLatest(fmtQ(caL.d), bnS(caL.v), capL ? fmtLevelPctS(capL.v, 1) : "—", diL ? bnS(diL.v) : "—")],
-    netL ? [T.sumDriver, T.sumIiDriver(bnS(netL.v, 0), netPct !== null ? fmtLevelPctS(netPct, 1) : "—", di4L ? bnS(di4L.v) : "—", nrL ? bn(nrL.v) : "—")] : null,
+    netL ? [T.sumDriver, T.sumIiDriver(bnS(netL.v, 0), netPct !== null ? fmtLevelPctS(netPct, 1) : "—", di4L ? bnS(di4L.v) : "—", nrL ? bn(nrL.v) : "—", nrL ? fmtMonthYear(nrL.d) : "—")] : null,
     [T.sumWhy, T.sumIiWhy],
     [T.sumNext, nextTxt + ". " + T.sumIiNextTail]
   ]);
@@ -3309,6 +3316,11 @@ function renderBanxico() {
   const PR = S("policyRate") ? P("policyRate") : null, TI = S("tiie28") ? P("tiie28") : null, CE = S("cetes28") ? P("cetes28") : null;
   const BO = S("mbono10") ? P("mbono10") : null, RS = S("reserves") ? P("reserves") : null, H = S("inpc") ? withChanges(P("inpc")) : null;
   const prL = PR ? last(PR) : null, hL = H ? lastWith(H, "yoy") : null;
+  // Banxico announces at 13:00 and the new target applies from the next business day: the daily series moves on the
+  // EFFECTIVE date; the DECISION was announced on the business day before it (Banxico decides on Thursdays).
+  const prChg = PR ? [...PR].reverse().find((p, i, a) => i + 1 < a.length && a[i + 1].v !== p.v) || null : null;
+  const prevWeekday = d => { let x = shiftDays(d, -1); while ([0, 6].includes(new Date(x + "T00:00:00Z").getUTCDay())) x = shiftDays(x, -1); return x; };
+  const prEff = prChg && prChg.d.length === 10 ? fmtDateDMY(prChg.d) : null, prDec = prChg && prChg.d.length === 10 ? fmtDateDMY(prevWeekday(prChg.d)) : null;
   const anyBx = [["policyRate", PR], ["tiie28", TI], ["cetes28", CE], ["mbono10", BO], ["reserves", RS]].filter(x => x[1]);
   headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "inflExp12mMean", "inflExp12m", "reserves"].concat(YC_KEYS), true);
   const YC = yieldCurveModel(), SP = bonoUstSpread(), spL = last(SP);
@@ -3355,7 +3367,7 @@ function renderBanxico() {
       {pts: H.filter(p => p.d >= "2012-01" && p.yoy !== null).map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legInflation},
       EX ? {pts: EX.filter(p => p.d >= "2012-01"), color: "--cat-5", label: T.legExp, dashed: true, noDot: true} : null
     ].filter(Boolean), {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
-        calloutLines: [T.bxPolicyCallout(fmtAny(prL.d), fmtLevelPct(prL.v, 2), fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 2))]});
+        calloutLines: [T.bxPolicyCallout(fmtAny(prL.d), fmtLevelPct(prL.v, 2), fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 2), prEff, prDec)]});
     const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea), em = last(exAnteMedian(pm));
     columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8", overlay: ea});
     document.getElementById("bxRealLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-9)"></span>${esc(T.kpiReal)}</div>` + (el ? `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.kpiRealExAnte)}</div>` : "");
@@ -3431,7 +3443,7 @@ function renderBanxico() {
     const slope = ycC && ycB ? ycB.l.v - ycC.l.v : null;
     const spOk = spL && ycB && spL.d === ycB.l.d;
     execSummary("bx", [
-      [T.sumLatest, T.sumBxLatest(fmtLevelPct(prL.v, 2), chgTxt) + (hL ? " " + T.sumBxInfl(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1)) : "")],
+      [T.sumLatest, T.sumBxLatest(fmtLevelPct(prL.v, 2), chgTxt, prEff, prDec) + (hL ? " " + T.sumBxInfl(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1)) : "")],
       drvLine,
       [T.sumWhy, T.sumBxWhy],
       slope !== null ? [T.sumCurve, T.sumBxCurve(slope > 0.25 ? "up" : slope < -0.25 ? "inverted" : "flat", fmtLevelPct(ycB.l.v, 2), fmtDateDMY(ycB.l.d), fmtPP(slope, 2), spOk ? fmtBp(spL.v) : null)] : null,
@@ -3454,6 +3466,7 @@ document.querySelectorAll(".rail-item[data-view]").forEach(item => {
     const v = item.getAttribute("data-view");
     document.querySelectorAll(".rail-item[data-view]").forEach(i => i.classList.toggle("active", i === item));
     document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === "view-" + v));
+    try { const url = new URL(location.href); url.searchParams.set("view", v); url.hash = ""; history.replaceState(null, "", url); } catch (e) {}
     window.scrollTo({top: 0, behavior: "instant"});
   });
 });
@@ -3481,8 +3494,12 @@ document.querySelectorAll(".rail-item[data-view]").forEach(item => item.addEvent
 document.documentElement.setAttribute("lang", T.htmlLang);
 document.title = T.brand;
 document.querySelectorAll(".lang-switch").forEach(b => b.addEventListener("click", () => setLang(LANG === "es" ? "en" : "es")));
-// Deep link to a section: ?view=banxico
-(function () { const v = new URLSearchParams(location.search).get("view"); const item = v && document.querySelector(".rail-item[data-view=\"" + v + "\"]"); if (item) item.click(); })();
+// Deep link to a section: ?view=banxico or #banxico (the hash wins when both are present; "#view-banxico" works too).
+// The rail keeps the address in step (?view=…) so a copied link opens the same section, and a hash change opens its section.
+function openView(name) { const item = name && document.querySelector(".rail-item[data-view=\"" + name + "\"]"); if (item) { item.click(); return true; } return false; }
+function viewFromLocation() { const h = (location.hash || "").replace(/^#(view-)?/, ""); return h || new URLSearchParams(location.search).get("view"); }
+openView(viewFromLocation());
+window.addEventListener("hashchange", () => openView(viewFromLocation()));
 applyStaticStrings();
 buildMobileNav();
 renderAll();
@@ -3490,8 +3507,10 @@ renderAll();
 // Accessible names for the SVG charts: each takes the heading of its panel (or section) in the language on screen.
 function nameChartSvgs() {
   document.querySelectorAll("svg:not([aria-label])").forEach(svg => {
-    if (svg.closest("button, a, .legend, .rail, .brand, .topbar, header, .skip")) return;
-    const box = svg.closest(".panel, .card, section, .view"); const h = box ? box.querySelector("h2, h3, h1, .panel-title, .card-title") : null;
+    if (svg.closest("button, a, .legend, .rail, .brand, .topbar, header, .skip") || svg.classList.contains("kpi-spark")) return;
+    // the heading sits in the section head, outside the panel that wraps the chart: look in the panel first, then the section
+    const box = svg.closest(".panel, .card, section, .view"); let h = box ? box.querySelector("h2, h3, h1, .panel-title, .card-title") : null;
+    if (!h) { const sec = svg.closest("section, .view"); h = sec ? sec.querySelector("h2, h3, h1, .panel-title, .card-title") : null; }
     const txt = h ? h.textContent.replace(/\s+/g, " ").trim() : "";
     if (!txt) return; svg.setAttribute("role", "img"); svg.setAttribute("aria-label", txt);
   });

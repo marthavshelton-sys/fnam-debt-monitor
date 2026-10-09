@@ -13,7 +13,7 @@
 /* Language before first paint: ?lang= wins, then the reader's saved choice, then Spanish (the site default). */
 (function(){ var l = null;
   try { var q = new URLSearchParams(location.search).get('lang'); if(q === 'en' || q === 'es') l = q; } catch(e){}
-  if(!l){ try { var s = localStorage.getItem('fiscal-lang'); if(s === 'en' || s === 'es') l = s; } catch(e){} }
+  if(!l){ try { var s = localStorage.getItem('fnam-lang') || localStorage.getItem('fiscal-lang'); if(s === 'en' || s === 'es') l = s; } catch(e){} }
   if(!l) l = 'es';
   document.documentElement.setAttribute('lang', l === 'es' ? 'es-MX' : 'en');
   document.documentElement.className += ' lang-' + l;
@@ -331,6 +331,8 @@ html.no-data canvas{display:none !important;}
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
         <span class="en" hidden>All dashboards</span><span class="es">Todos los paneles</span>
       </a>
+      <a class="fnam-back" href="/mx/macro/" data-base="/mx/macro/"><span class="en" hidden>Mexico Macro Monitor</span><span class="es">Monitor Macro México</span></a>
+      <a class="fnam-back" href="/mx/fiscal/" data-base="/mx/fiscal/"><span class="en" hidden>Mexico Fiscal Monitor</span><span class="es">Monitor Fiscal de México</span></a>
     </div>
     <h1>
       <span class="en" hidden>U.S. Fiscal Debt Monitor</span>
@@ -1117,12 +1119,14 @@ html.no-data canvas{display:none !important;}
     root.className = root.className.replace(/\blang-(en|es)\b/g, '').trim() + ' lang-' + lang;
     document.title = lang === 'es' ? 'Monitor de la Deuda Fiscal de EE. UU. · FNAM' : 'U.S. Fiscal Debt Monitor · FNAM';
     if(fromUser){
-      try { localStorage.setItem('fiscal-lang', lang); } catch(e){}
+      try { localStorage.setItem('fnam-lang', lang); localStorage.setItem('fiscal-lang', lang); } catch(e){}
       try { var u = new URL(location.href); u.searchParams.set('lang', lang); history.replaceState(null, '', u.toString()); } catch(e){}
     }
     document.getElementById('btnLangEn').classList.toggle('active', lang==='en');
     document.getElementById('btnLangEs').classList.toggle('active', lang==='es');
     document.documentElement.setAttribute('lang', lang==='es' ? 'es-MX' : 'en');
+    // links to the other dashboards carry the language on screen
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-base]'), function(a){ var b = a.getAttribute('data-base'); a.setAttribute('href', b + (b.indexOf('?') >= 0 ? '&' : '?') + 'lang=' + lang); });
     Array.prototype.forEach.call(document.querySelectorAll('.en'), function(el){ el.hidden = (lang!=='en'); });
     Array.prototype.forEach.call(document.querySelectorAll('.es'), function(el){ el.hidden = (lang!=='es'); });
     if(DATA_MISSING) showDataMissing(); else renderAll();

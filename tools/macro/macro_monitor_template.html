@@ -651,7 +651,7 @@
     <a class="rail-item" data-view="profits" href="?view=profits"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navProfits">Corporate Profits &amp; Labor Share</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupFiscal">US Fiscal Overview</div>
-    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMonitor">US Fiscal Debt Monitor</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" data-base="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMonitor">US Fiscal Debt Monitor</span></span><span class="ext-mark">↗</span></a>
     <a class="rail-item" data-view="fiscal" href="?view=fiscal"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalDeficit">Fiscal Deficit</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupHouseholds">Households</div>
@@ -664,13 +664,17 @@
     <a class="rail-item" data-view="nonbank" href="?view=nonbank"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navNonbank">Nonbank Financial System</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupMarkets">Markets &amp; Conditions</div>
-    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/#policyrates" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFedFunds">Federal Funds Rate</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/fiscal/#policyrates" data-base="https://fnam.mx/fiscal/#policyrates" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFedFunds">Federal Funds Rate</span></span><span class="ext-mark">↗</span></a>
     <a class="rail-item" data-view="fincond" href="?view=fincond"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFinConditions">Financial Conditions</span></span></a>
     <a class="rail-item" data-view="supply" href="?view=supply"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSupplyChain">Supply Chain</span></span></a>
     <a class="rail-item" data-view="cape" href="?view=cape"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCape">Shiller CAPE Ratio</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupEnergy">Energy</div>
     <a class="rail-item" data-view="spr" href="?view=spr"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSpr">Strategic Petroleum Reserve</span></span></a>
+    <div class="rail-group-label" data-i18n="groupMexico">Mexico</div>
+    <a class="rail-item rail-link" href="https://fnam.mx/mx/macro/" data-base="https://fnam.mx/mx/macro/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navMxMacro">Mexico Macro Monitor</span></span><span class="ext-mark">↗</span></a>
+    <a class="rail-item rail-link" href="https://fnam.mx/mx/fiscal/" data-base="https://fnam.mx/mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navMxFiscal">Mexico Fiscal Monitor</span></span><span class="ext-mark">↗</span></a>
+
   </nav>
 
   <main id="main">
@@ -4134,6 +4138,9 @@ const I18N = {
     footerPPI: "Datos: Oficina de Estadísticas Laborales de EE. UU. (BLS), Índice de Precios al Productor, estructura de demanda final-demanda intermedia (FD-ID), vía la API pública del BLS. Las variaciones a 12 meses usan series sin ajuste estacional; el impulso mensual usa las ajustadas. La demanda final mide precios de bienes, servicios y construcción vendidos para consumo personal, inversión de capital, gobierno y exportación; la demanda intermedia, los insumos que compran las empresas. Los índices del PPI están sujetos a revisión durante cuatro meses después de su publicación inicial.",
     currencySym: "",
     groupFiscal: "Panorama fiscal de EE. UU.",
+    groupMexico: "México",
+    navMxMacro: "Monitor macro de México",
+    navMxFiscal: "Monitor fiscal de México",
     navFiscalMonitor: "Monitor de deuda fiscal",
     navFiscalDeficit: "Déficit fiscal",
     fiTitle: "Déficit fiscal",
@@ -5720,6 +5727,9 @@ const I18N = {
     footerPPI: "Data: U.S. Bureau of Labor Statistics, Producer Price Index, Final Demand–Intermediate Demand (FD-ID) structure, via the public BLS API. 12-month changes use not-seasonally-adjusted series; monthly momentum uses seasonally adjusted ones. Final demand covers goods, services, and construction sold for personal consumption, capital investment, government, and export; intermediate demand covers the inputs businesses buy. PPI indexes are subject to revision for four months after initial publication.",
     currencySym: "$",
     groupFiscal: "US Fiscal Overview",
+    groupMexico: "Mexico",
+    navMxMacro: "Mexico Macro Monitor",
+    navMxFiscal: "Mexico Fiscal Monitor",
     navFiscalMonitor: "US Fiscal Debt Monitor",
     navFiscalDeficit: "Fiscal Deficit",
     fiTitle: "Fiscal Deficit",
@@ -6703,6 +6713,8 @@ function updateMeta(v) {
 // Section links carry the current language, so a middle-click or a copied link keeps it.
 function syncNavLinks() {
   document.querySelectorAll(".rail-item[data-view]").forEach(a => a.setAttribute("href", "?view=" + a.getAttribute("data-view") + "&lang=" + LANG));
+  // Links to the other dashboards (the fiscal monitor, the Mexico pages) carry the language on screen as well.
+  document.querySelectorAll("a.rail-link[data-base]").forEach(a => { const b = a.getAttribute("data-base"); const [path, hash] = b.split("#"); a.setAttribute("href", path + (path.includes("?") ? "&" : "?") + "lang=" + LANG + (hash ? "#" + hash : "")); });
 }
 // The "not found" state: what was asked for (cleaned for display) and every section, by
 // group, as a link. Drawn again on a language switch.

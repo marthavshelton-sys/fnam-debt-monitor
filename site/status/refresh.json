@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-09T22:00:46Z",
-  "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time), no alert of the pipeline is open and every price feed of the page carries the exchange's last completed session (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
+  "checkedAt": "2026-10-09T22:29:01Z",
+  "rule": "up to date = the last scheduled refresh landed (3 h grace after its due time), no alert of the pipeline is open and every price feed of the page carries the exchange's last completed session (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 3,
   "sections": {
     "us": {
@@ -32,7 +32,7 @@
         "at": "2026-10-09T20:22:39Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-09T13:50:00Z",
+      "requiredSince": "2026-10-09T14:05:00Z",
       "alerts": 0
     },
     {
@@ -50,7 +50,7 @@
         "at": "2026-10-09T21:46:17Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T21:30:00Z",
+      "requiredSince": "2026-10-09T13:15:00Z",
       "alerts": 0
     },
     {
@@ -68,7 +68,7 @@
         "at": "2026-10-09T19:40:24Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-09T12:25:00Z",
+      "requiredSince": "2026-10-09T19:25:00Z",
       "alerts": 0
     },
     {
@@ -81,12 +81,12 @@
       "url": "/mx/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-07T19:40:21Z",
+      "lastSuccess": "2026-10-09T22:27:42Z",
       "lastAttempt": {
         "at": "2026-10-09T19:41:11Z",
         "result": "failure"
       },
-      "requiredSince": "2026-10-07T19:30:00Z",
+      "requiredSince": "2026-10-08T19:30:00Z",
       "alerts": 0
     },
     {
@@ -104,7 +104,7 @@
         "at": "2026-10-09T14:45:24Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T22:40:00Z",
+      "requiredSince": "2026-10-09T14:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -131,7 +131,7 @@
           },
           {
             "name": "Page close GAPB.MX (market.js)",
-            "date": "2026-10-08",
+            "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
           }
@@ -154,7 +154,7 @@
         "result": "success",
         "afterCommitFailure": true
       },
-      "requiredSince": "2026-10-08T22:55:00Z",
+      "requiredSince": "2026-10-09T14:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -181,7 +181,7 @@
           },
           {
             "name": "Page close OMAB.MX (market.js)",
-            "date": "2026-10-08",
+            "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
           }
@@ -196,14 +196,14 @@
         "en": "ASUR"
       },
       "url": "/asur/",
-      "status": "ok",
-      "refreshStatus": "ok",
+      "status": "late",
+      "refreshStatus": "late",
       "lastSuccess": "2026-10-08T22:59:53Z",
       "lastAttempt": {
         "at": "2026-10-09T14:55:48Z",
         "result": "failure"
       },
-      "requiredSince": "2026-10-08T22:50:00Z",
+      "requiredSince": "2026-10-09T14:40:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -230,7 +230,7 @@
           },
           {
             "name": "Page close ASURB.MX (market.js)",
-            "date": "2026-10-08",
+            "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
           }
@@ -252,7 +252,7 @@
         "at": "2026-10-09T17:41:02Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T17:30:00Z",
+      "requiredSince": "2026-10-09T17:30:00Z",
       "alerts": 0
     },
     {
@@ -270,7 +270,7 @@
         "at": "2026-10-09T18:42:57Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T18:20:00Z",
+      "requiredSince": "2026-10-09T18:20:00Z",
       "alerts": 0
     },
     {
@@ -288,7 +288,7 @@
         "at": "2026-10-09T15:04:21Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T23:00:00Z",
+      "requiredSince": "2026-10-09T14:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -344,7 +344,7 @@
         "at": "2026-10-09T14:58:08Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T22:45:00Z",
+      "requiredSince": "2026-10-09T14:35:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -411,7 +411,7 @@
         "at": "2026-10-09T21:58:55Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T21:45:00Z",
+      "requiredSince": "2026-10-09T13:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -446,7 +446,7 @@
               "es": "S&P 500 (FRED SP500)",
               "en": "S&P 500 (FRED SP500)"
             },
-            "date": "2026-10-08",
+            "date": "2026-10-09",
             "needed": "2026-10-08",
             "ok": true
           }
@@ -468,7 +468,7 @@
         "at": "2026-10-09T13:37:22Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-08T22:20:00Z",
+      "requiredSince": "2026-10-09T13:20:00Z",
       "alerts": 0
     }
   ]

@@ -2,6 +2,21 @@
 
 Read with `README.md`. Newest first.
 
+## 2026-10-09 — Deep links, language links, labels
+
+- A section opens from `?view=banxico` or from `#banxico` (`#view-banxico` too; the hash wins), and the rail writes
+  `?view=` into the address when a section is picked, so a copied link opens the same section. Before, `#banxico`
+  and `#external` landed on the inflation view.
+- The rail links to the fiscal monitor and the two U.S. pages carry `?lang=` for the language on screen
+  (`data-base` + `applyStaticStrings`).
+- The trade figures from INEGI's seasonally adjusted series (summary sentence, the two KPI tiles, the level callout)
+  say so; INEGI's unadjusted annual change differs (August 2026: 39.7% vs. 40.4%).
+- The IIP summary dates the foreign holdings of government securities (monthly stock, table CE89).
+- The Banxico summary and the policy-rate callout name the effective date (the day the daily series moved) and the
+  decision date (the business day before: Banxico decides on Thursdays, the rate applies from Friday).
+- SVG axis labels print a true minus sign (U+2212) whatever formatter built them (`axisText`); KPI sparklines are
+  `aria-hidden` and never take the panel's accessible name.
+
 ## 2026-10-08 — Comercio exterior and Inversión extranjera y PII views
 
 - Banxico SIE API titles are the table path plus the row path ("Balanza comercial de mercancías de México

@@ -44,6 +44,30 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   series that reads it fails fast with the same reason. A probe from the runner: dispatch the refresh workflow with
   `probe` = "tls www.secciones.hacienda.gob.mx; url <csv url>" (nothing is written).
 
+- 8 and 9-Oct-2026: two scheduled runs failed in the "Mirror official documents" step (apt could not install
+  poppler-utils: GitHub's Ubuntu mirror answered 404 for the package the runner image's stale index named) and, because
+  the single commit step came after it, the refreshed `data.js` never reached `main` while the freshness test passed on
+  the fresh local file. The page showed 7-Oct data (August INPC, FIX 17.98, the 1-Oct Cetes auction) for two days with
+  the watchdog saying "up to date" (its old two-miss rule). Since 9-Oct-2026 the workflow commits `data.js` right after
+  the fetch (`scripts/mx-fiscal/commit-push.sh`), mirrors the documents afterwards with `continue-on-error`, a 15-minute
+  limit and `apt-get update` first, commits the mirrors separately, and the freshness test fails when the fetch failed
+  or the commit did not land (`MX_FISCAL_FETCH_OUTCOME`, `MX_FISCAL_COMMIT_OUTCOME`). The watchdog flags one missed
+  refresh (`tools/watchdog/README.md`).
+- Inflation on both Mexican pages comes from the same INEGI INPC in Banxico's SIE: this page reads INEGI's published
+  annual change (SP30578), the macro page computes it from the monthly index (SP1); checked 9-Oct-2026, the two agree in
+  all 224 months since 2008, so a disagreement between the pages can only be a stale refresh.
+- Page conventions added 9-Oct-2026: the four head scripts are deferred and the page script waits for DOMContentLoaded;
+  the language toggle rewrites `?lang=`; every chart canvas and donut carries `role="img"` and the heading of its card as
+  `aria-label`; axis ticks use a true minus sign (`mSign`); the peso callout's wording follows the sign of each move
+  (year-to-date decides "más débil / más fuerte"); Section 05 dates every FIX it uses and revalues the dollar stock at the
+  latest FIX; Section 01's external share (component of the SHRFSP, net) and Section 05's (gross federal public-sector
+  debt at the month-end FIX) are explained as different measures; policy decisions show the decision date and the
+  effective date (the series moves the business day after Banxico's announcement; the Fed's decision takes effect the
+  next U.S. business day: `decisionDateOf`, `nextBusinessDay`); the ratings line is dated by the latest rating action.
+- Hacienda links (`finanzaspublicas.hacienda.gob.mx`, `secciones.hacienda.gob.mx`) serve an incomplete certificate
+  chain, so the link check lists them as unverifiable; browsers open them. No gob.mx equivalents exist (five
+  candidates answered 404 on 9-Oct-2026), so the links stay.
+
 ## Facts that were wrong once (and where the truth is)
 
 - **LIF 2026 art. 2** (DOF 07-Nov-2025): net domestic borrowing up to **$1 billón 780 mil millones**; net external up

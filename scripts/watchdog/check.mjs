@@ -11,8 +11,9 @@
 //          'unverified' when the exchange calendar in lib.mjs does not cover the date (extend it); or a monthly data
 //          feed (dashboards.json → data: the airport pages' traffic file) does not carry the month its publisher's
 //          calendar requires (owner, 9-Oct-2026: ASUR showed "ok" on prices while its traffic file was a month behind);
-//   late   two scheduled refreshes in a row failed or never ran (3 h grace after each due time), judged for the
-//          workflow as a whole and for each of its crons (a market-only run must not cover a failing filings run);
+//   late   the last scheduled refresh failed or never ran (3 h grace after its due time; one miss is enough since 9-Oct-2026,
+//          and a refresh re-run by hand on main whose commit step succeeded counts as landed), judged for the workflow as a
+//          whole and for each of its crons (a market-only run must not cover a failing filings run);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
 //
@@ -90,6 +91,19 @@ async function runsOf(file) {
   if (!landed) {
     const { workflow_runs: older } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=schedule&status=success&per_page=1&exclude_pull_requests=true`);
     if (older[0]) landed = { run: older[0], afterCommitFailure: false };
+  }
+  // A run started by hand on main (workflow_dispatch) counts as a landed refresh only when its "Commit …" step succeeded:
+  // a diagnostics (probe) or dry run ends green without committing anything, so a green conclusion alone never counts, and
+  // a run on another branch commits there, not to main. Added 9-Oct-2026: the owner re-runs a failed nightly refresh by
+  // hand, the data is in main, and the page must not stay "late" until the next scheduled run. `attempt` stays the newest
+  // scheduled run, so lastAttempt still reports that the schedule itself failed. Such a run joins `recent` too, so the
+  // per-cron rule credits it to the schedule it replaced.
+  const { workflow_runs: manual } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=workflow_dispatch&status=completed&per_page=5&exclude_pull_requests=true`);
+  for (const run of manual) {
+    if (landed && run.created_at <= landed.run.created_at) break;
+    if (run.head_branch !== 'main') continue;
+    const { jobs } = await gh(`/repos/${REPO}/actions/runs/${run.id}/jobs?per_page=30`);
+    if (refreshLandedBySteps(jobs)) { landed = { run, afterCommitFailure: run.conclusion !== 'success', manual: true }; recent.push({ createdAt: run.created_at, landed: true }); break; }
   }
   // the page of runs covers only so many days: the per-cron rule judges nothing older than its oldest run (a full page) or the lookback
   const since = runs.length >= 30 ? Math.min(...runs.map((r) => Date.parse(r.created_at))) : null;
@@ -193,7 +207,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time, judged per schedule too), no alert of the pipeline is open, every price feed of the page carries the exchange\'s last completed session and every monthly data feed carries the month its publisher\'s calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run\'s conclusion',
+  rule: 'up to date = the last scheduled refresh landed (3 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange\'s last completed session and every monthly data feed carries the month its publisher\'s calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run\'s conclusion',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,
@@ -257,7 +271,7 @@ for (const r of rows) {
   }
   if (r.refreshStatus === 'late' && !mine && r.alerts === 0) {
     actions.push({ kind: 'open', id: r.id, title: `SOURCE DOWN: watchdog - ${d.name.en} refresh late`, body: [
-      `The scheduled refresh of **${d.name.en}** (https://fnam.mx${d.url}) has not landed since ${cdmx(r.requiredSince)}: the last two scheduled runs failed or did not run.`,
+      `The scheduled refresh of **${d.name.en}** (https://fnam.mx${d.url}) has not landed since ${cdmx(r.requiredSince)}: the last scheduled run failed or did not run.`,
       '',
       '| | |', '|---|---|',
       `| Last scheduled refresh that landed | ${landed ? `${cdmx(landed.run.updated_at)} ([run](${landed.run.html_url}))` : 'none in the run history'} |`,

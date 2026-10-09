@@ -35,12 +35,18 @@ assert.equal(attemptRecord(null, null), null);
 
 // verdicts: weekdays 19:30 UTC, 3 h grace
 const base = { crons: ['30 19 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H, openAlerts: 0 };
-// Monday 12:00: due Thu and Fri 19:30; Thursday's success is enough (one miss is tolerated)
-assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).status, 'ok');
-// ...but Wednesday's is not: Thursday and Friday both missed
-assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-09-30T19:36:00Z' }).status, 'late');
+// Monday 12:00: the last due time is Friday 19:30; Friday's success covers it
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'ok');
+// ...but Thursday's does not: one missed refresh is late (the same-day rule, 9-Oct-2026)
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).status, 'late');
+assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-10-01T19:36:00Z' }).requiredSince, t('2026-10-02T19:30:00Z'));
+// the 8-Oct-2026 case: the 19:30 run failed, the 03:50 UTC check the same night (21:50 in Mexico City) flags it
+assert.equal(verdict({ ...base, now: t('2026-10-09T03:50:00Z'), lastLandedCreatedAt: '2026-10-07T19:39:25Z' }).status, 'late');
 // Monday 21:00: Monday's slot is inside the grace, so Friday's success still covers it
 assert.equal(verdict({ ...base, now: t('2026-10-05T21:00:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'ok');
+// Monday 22:31: the grace is over and Monday's refresh has not landed
+assert.equal(verdict({ ...base, now: t('2026-10-05T22:31:00Z'), lastLandedCreatedAt: '2026-10-02T19:35:00Z' }).status, 'late');
+assert.equal(verdict({ ...base, now: t('2026-10-05T22:31:00Z'), lastLandedCreatedAt: '2026-10-05T19:36:00Z' }).status, 'ok');
 // never succeeded
 assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: null }).status, 'late');
 // on time with an open pipeline alert
@@ -48,22 +54,24 @@ assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreate
 // late wins over alert
 assert.equal(verdict({ ...base, now: t('2026-10-05T12:00:00Z'), lastLandedCreatedAt: '2026-09-29T19:35:00Z', openAlerts: 2 }).status, 'late');
 
-// per-schedule lateness: ASUR 8–9 Oct 2026, filings cron 14:40 failing twice while the market cron 22:50 keeps landing
+// per-schedule lateness: ASUR 8–9 Oct 2026, filings cron 14:40 failing while the market cron 22:50 keeps landing (one miss is
+// enough, the same-day rule); a run belongs to the latest due time of any cron at or before its start
 const two = { crons: ['40 14 * * 1-5', '50 22 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H };
-const runsA = [{ createdAt: '2026-10-09T14:54:49Z', landed: false }, { createdAt: '2026-10-08T22:59:08Z', landed: true }, { createdAt: '2026-10-08T14:54:11Z', landed: false }, { createdAt: '2026-10-07T22:58:05Z', landed: true }, { createdAt: '2026-10-07T14:51:56Z', landed: true }];
-assert.equal(verdict({ ...two, now: t('2026-10-09T15:50:00Z'), lastLandedCreatedAt: '2026-10-08T22:59:08Z', openAlerts: 0 }).status, 'ok');   // the combined rule is fooled
-assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA }).map((x) => x.cron), []);                               // 9-Oct 14:40 is inside the grace: one miss so far
-assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // after the grace: two filings runs in a row failed
-assert.equal(new Date(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA })[0].missedSince).toISOString(), '2026-10-08T14:40:00.000Z');
+const runsA = [{ createdAt: '2026-10-09T14:54:49Z', landed: false }, { createdAt: '2026-10-08T22:59:08Z', landed: true }, { createdAt: '2026-10-08T14:54:11Z', landed: false }, { createdAt: '2026-10-07T22:58:05Z', landed: true }, { createdAt: '2026-10-07T14:51:56Z', landed: true }, { createdAt: '2026-10-06T22:57:20Z', landed: true }];
+assert.equal(verdict({ ...two, now: t('2026-10-09T15:50:00Z'), lastLandedCreatedAt: '2026-10-08T22:59:08Z', openAlerts: 0 }).status, 'ok');   // the workflow-level rule is fooled by the market run
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // 8-Oct 14:40 (the last filings due time past the grace) has no landed run
+assert.equal(new Date(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA })[0].missedSince).toISOString(), '2026-10-08T14:40:00.000Z');
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // 9-Oct 14:40 missed too
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T15:10:00Z', landed: true }] }).map((x) => x.cron), []); // a landed run 30 min late belongs to 14:40
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T19:10:00Z', landed: true }] }).map((x) => x.cron), []); // and one 4.5 h late still does (no fixed window)
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-10T03:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T23:10:00Z', landed: true }] }).map((x) => x.cron), ['40 14 * * 1-5']); // a run after the market cron's due time belongs to the market cron
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-07T18:00:00Z'), runs: runsA }).map((x) => x.cron), []);                               // 7-Oct: both crons landed
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-05T12:00:00Z'), runs: [] }).map((x) => x.cron), ['40 14 * * 1-5', '50 22 * * 1-5']);    // nothing ever landed
 // the MX macro weekend cron (15:25 UTC Sat/Sun): GitHub started the 3–4 Oct 2026 runs four and five hours late; they still count
 const wk = { crons: ['25 15 * * 0,6', '40 13 * * 1-5'], graceMs: 3 * H, lookbackMs: 14 * 24 * H };
 const wkRuns = [{ createdAt: '2026-10-05T13:45:00Z', landed: true }, { createdAt: '2026-10-04T20:43:54Z', landed: true }, { createdAt: '2026-10-03T19:43:29Z', landed: true }, { createdAt: '2026-10-02T13:46:00Z', landed: true }];
 assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns }).map((x) => x.cron), []);
-assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns.filter((r) => !/10-0[34]/.test(r.createdAt)) }).map((x) => x.cron), ['25 15 * * 0,6']); // both weekend runs missing
+assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns.filter((r) => !/10-04/.test(r.createdAt)) }).map((x) => x.cron), ['25 15 * * 0,6']); // Sunday's run missing
 // a weekend-only cron whose runs fell off the fetched page is not judged before `since` (the oldest run fetched)
 assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-09T22:00:00Z'), runs: [{ createdAt: '2026-10-09T13:45:00Z', landed: true }, { createdAt: '2026-10-08T13:44:00Z', landed: true }], since: t('2026-10-08T13:44:00Z') }).map((x) => x.cron), []);
 
