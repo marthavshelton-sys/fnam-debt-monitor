@@ -9,3 +9,4 @@ mx-fiscal: log alert 2026-09-13
 2026-10-01 | SHCP Finanzas públicas y deuda pública a agosto 2026 (30-Sep-2026 release) | SHRFSP 19.15 billones de pesos, 51.5% del PIB; déficit presupuestario 739 mmdp vs 1,015 mmdp programa
 2026-10-01 | FIX peso depreciation >3% over five business days (24-Sep to 1-Oct), new 2026 low for the peso | FIX 18.3688, +4.1% vs 24-Sep (17.6425), +1.7% d/d
 2026-10-06 | FIX back below 18.0 pesos per dollar (6-Oct-2026, first close under 18 since 28-Sep) | FIX 17.9670, -0.9% d/d (18.1343), -2.2% vs 1-Oct (18.3688)
+2026-10-09 | FIX back above 18.0 pesos per dollar, new 2026 high (9-Oct-2026) | FIX 18.4163, +2.4% vs 7-Oct (17.978), +1.2% vs 2-Oct (18.1903), above 1-Oct 18.3688
