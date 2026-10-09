@@ -42,7 +42,7 @@
       doc.cover();
       for (const sec of (M.deckList ? M.deckList() : M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) { doc.sec = sec.id; PAGES[sec.id](); }
       doc.sec = null;
-      doc.drawContents(doc.tocEntries(), doc.T('Cada fila es un enlace a su página. La numeración de las secciones es la de fnam.mx/oracle; el DCF (valuación por flujos descontados) se consulta en la página y no forma parte de esta presentación.', 'Every row links to its page. Sections are numbered as on fnam.mx/oracle; the DCF (discounted cash flow valuation) is read on the page and is not part of this presentation.'));
+      doc.drawContents(doc.tocEntries(), doc.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de fnam.mx/oracle. El valor del DCF (valuación por flujos descontados) que cita el resumen ejecutivo se calcula en la sección ${M.secNum('dcf')} ${M.secNav('dcf')} de fnam.mx/oracle (fnam.mx/oracle/#dcf), con sus supuestos, escenarios y sensibilidades; el DCF no se reproduce en esta presentación.`, `Every row links to its page. Sections are numbered as on fnam.mx/oracle. The DCF (discounted cash flow valuation) value quoted in the executive summary is computed in section ${M.secNum('dcf')} ${M.secNav('dcf')} of fnam.mx/oracle (fnam.mx/oracle/#dcf), with its assumptions, scenarios and sensitivities; the DCF itself is not reproduced in this presentation.`));
       doc.finish();
     });
   }

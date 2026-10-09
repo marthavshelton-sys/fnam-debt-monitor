@@ -40,9 +40,13 @@
     "moodys": {
       "rating": "Baa2",
       "outlook": "Negative",
-      "action_date": "2025-07-28",
-      "source_url": "https://www.investing.com/news/stock-market-news/moodys-revises-oracles-outlook-to-negative-amid-ai-expansion-93CH-4155891",
-      "_note": "Moody's affirmed the Baa2 senior unsecured rating and P-2 commercial paper rating but revised the outlook to negative from stable on 2025-07-28. This is the most recent Moody's outlook/rating change we could verify with a specific date; Oracle's FY2026 10-K (filed 2026-06-22) and subsequent SEC free-writing prospectuses continued to reference an expected Moody's rating of Baa2 (negative) for new notes issuances through at least February 2026, suggesting no change since. Moody's own ratings page (moodys.com/credit-ratings/Oracle-Corporation-credit-rating-561300) could not be fetched directly (subscription/JS-gated)."
+      "action": "affirmation",
+      "action_date": "2026-02-02",
+      "source_url": "https://ratings.moodys.com/ratings-news/458628",
+      "source_title": "Moody's Ratings, Feb 2, 2026: Moody's Ratings affirms Oracle's Baa2 rating on equity announcement; outlook remains negative",
+      "outlook_since": "2025-07-28",
+      "outlook_since_url": "https://www.investing.com/news/stock-market-news/moodys-revises-oracles-outlook-to-negative-amid-ai-expansion-93CH-4155891",
+      "_note": "Moody's affirmed Oracle's Baa2 senior unsecured rating and kept the outlook negative on 2026-02-02, on Oracle's equity-funding announcement (release 458628, headline 'Moody's Ratings affirms Oracle's Baa2 rating on equity announcement; Outlook remains negative'). ratings.moodys.com is script-rendered and answers no text to a plain request, so the headline and date were verified on 2026-10-09 against two dated copies: Newsquawk (02-02-2026 12:38 UTC) and StreetInsider (Feb 2, 2026, 'Moody's affirms Oracle rating at Baa2 with negative outlook'). The negative outlook itself dates from 2025-07-28 (outlook revised to negative from stable, rating affirmed; investing.com copy kept in outlook_since_url). Until 2026-10-09 this block carried the 2025-07-28 action as the latest, which made the page flag the rating as aging; corrected after the institutional review of 2026-10-09."
     },
     "sp": {
       "rating": "BBB-",
@@ -54,10 +58,15 @@
     "fitch": {
       "rating": "BBB",
       "outlook": "Stable",
-      "action_date": "2026-02-01",
-      "source_url": "https://www.streetinsider.com/Credit+Ratings/Fitch+rates+Oracle+senior+notes+'BBB',+affirms+IDR+with+stable+outlook/25927130.html",
-      "_note": "Fitch's Long-Term IDR is BBB and Short-Term IDR/commercial paper rating is F2, both Stable outlook. Most recent dated action we could verify is 2026-02-01 (assigned BBB to a new benchmark senior notes issuance and affirmed the IDR at BBB/F2, Stable). An earlier affirmation occurred 2025-10-13 (also BBB/Stable). We found references suggesting Fitch may have taken another action around Oracle's July 2026 notes offering (contemporaneous with the S&P downgrade) but could not confirm an exact date for that action, so 2026-02-01 is reported as the latest VERIFIED date; rating level (BBB/Stable) is consistent across all sources found, including the most recent ones."
-    }
+      "action": "affirmation",
+      "action_date": "2026-02-02",
+      "source_url": "https://www.fitchratings.com/research/corporate-finance/fitch-rates-oracle-senior-notes-bbb-affirms-idr-with-stable-outlook-02-02-2026",
+      "source_title": "Fitch Ratings, Feb 2, 2026: Fitch Rates Oracle's Senior Notes 'BBB'; Affirms IDR with Stable Outlook",
+      "secondary_url": "https://www.streetinsider.com/Credit+Ratings/Fitch+rates+Oracle+senior+notes+'BBB',+affirms+IDR+with+stable+outlook/25927130.html",
+      "_note": "Fitch assigned 'BBB' to Oracle's proposed benchmark senior unsecured notes and affirmed the Long-Term IDR at 'BBB' and the Short-Term IDR at 'F2', Outlook Stable, on 2026-02-02 (the release's own URL carries the date 02-02-2026; the page is script-rendered). Verified 2026-10-09 against Investing.com ('Oracle stock rises after Fitch affirms BBB rating amid debt plans', published Monday Feb 2, 2026, 07:23) and StreetInsider's copy of the release. The earlier 2026-02-01 date in this block was the eve of the action; corrected after the institutional review of 2026-10-09. Earlier Fitch affirmation: 2025-10-13 (BBB/Stable)."
+    },
+    "checked": "2026-10-09",
+    "_checked_note": "Last check for a new agency action (the agencies' own release pages, EDGAR 8-Ks, the wires): 2026-10-09; none since S&P's 2026-07-09 downgrade."
   },
   "debt_instruments": [
     {

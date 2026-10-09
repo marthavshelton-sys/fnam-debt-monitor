@@ -119,9 +119,20 @@ no XBRL concept exists for the disclosure (uncommenced leases, the lessor guaran
 accounting and filings, leadership and governance), a one-line factual summary, why it matters for Oracle's financials,
 and sources ordered primary first (SEC → company → agency → wire → press → trade). The validator checks the ordering,
 that SEC-based items carry an accession number, that every source is https, and that no item is dated after the sweep.
-No rumors or unattributed claims; the sweep prompt forbids them. When the latest item is older than the sweep date the
-page says so in one sentence ("the sweep of <date> found no event between <day after the latest item> and <date> that met
-the rules"); a manual in-session sweep records its scope in `news.json → sweep_note_en/es`, shown beside it.
+No rumors or unattributed claims; the sweep prompt forbids them. **Inclusion rule (made explicit 2026-10-09):** an item
+qualifies when it is an SEC filing, an Oracle release or statement, a rating action, or a report about Oracle's financing,
+contracts, customers, capacity, power, sites, accounting or governance by a named outlet (the wires, the FT, the WSJ, CNBC,
+TechCrunch, the trade press, the local press of a campus, or a research firm they quote). Press reports are in scope, carry
+`basis: press` (tier `trade` for the trade press), say "press-reported" or "unconfirmed" when Oracle has not confirmed the
+fact, and enter no figure; what is out are rumors, unattributed claims and aggregators that add nothing to the original.
+The page's "found no event" sentence names that rule. When the latest item is older than the sweep date the page says so in
+one sentence ("the sweep of <date> found no event between <day after the latest item> and <date> that met the rules") and,
+since 2026-10-09, prints the latest `sweep_log` entry (who ran it, how many searches, which outlets and sources were
+checked), so a day with no additions shows what was actually searched; the routine must run the minimum sweep in
+`NEWS-SWEEP-PROMPT.md` (at least 15 searches across the named outlets) before it may conclude there is nothing. A manual
+in-session sweep records its scope in `news.json → sweep_note_en/es`, shown beside it. A financing structure the press reports
+before any filing (the chip-leasing vehicle of Oct 8, 2026) also goes into `obligations.json → reported_structures` and is
+shown in the VIE / guarantees card as "press · unconfirmed", in no view, figure or ratio.
 
 ## 7. Validation (every build)
 
@@ -169,7 +180,17 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   Base US$112, Bull US$118, management target US$117 (round 3, at US$138.07 and the earlier capex rules: US$70 / 114 / 141 /
   120). The scenarios table shows value per share, the terminal-value share of EV, the WACC the price implies and the implied
   terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual change of the operating inputs
-  makes the scenario *Custom* (the Base button is no longer highlighted and a Custom badge appears).
+  makes the scenario *Custom* (the Base button is no longer highlighted and a Custom badge appears). **Why the rows sit where
+  they do (explained under the table since 2026-10-09, every figure composed from the rows):** the Bull and the management
+  target land within a dollar of each other because both reach the same FY2030 target and neither assumes volume above the
+  contracted RPO: the Bull gets there a year early and rejoins consensus in FY2031 (US$239 bn at 2026-10-09), the management
+  target keeps consensus growth from the target level (US$247 bn), so one has earlier cash flows and the other a larger
+  terminal value; the Bull's present value of the terminal value is below the Base's because after the FY2030 cap the Bull
+  grows 6.4% in FY2031 against the Base's 10% and the fade rule halves growth from there, so its terminal-year revenue is
+  lower (US$278 bn against US$283 bn) and its higher value comes from the explicit years; and the range is asymmetric by
+  construction (+5% / −31% against the Base at 2026-10-09) because the Bull only brings timing forward while the Bear removes
+  volume and delays it. Whether the Bull should instead be merged with the management target, or run above consensus after
+  FY2030 on a sourced basis (the Investor Day targets of Oct 28, 2026, once published), is the owner's call (`PENDING.md`).
 * **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
   gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
   recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,
@@ -231,10 +252,11 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   projection table; its assumption rows are the inputs (one per fiscal year; stock-based compensation as one value) and the
   cash flow, discounting and earnings bridge follow as functions of them. The fade rules for the years after the lever
   years (growth halves to g, margin and D&A hold, capex intensity converges to k × D&A, customer funding fades to zero)
-  fill the table once when a scenario is built and are then just numbers the reader can change. Scenario buttons: FactSet
-  consensus, Management targets (the fourth row of the scenarios table), Bull, Bear, Base case, Reset assumptions. Base
-  case = FactSet consensus as it stands, by construction (the rule of 2026-10-04), so the first and last buttons load the
-  same figures; the note under the bar says so. Any edit makes the scenario Custom; Reset returns every input, the cost of
+  fill the table once when a scenario is built and are then just numbers the reader can change. Scenario buttons: Base case
+  (FactSet consensus), Management targets (the fourth row of the scenarios table), Bull, Bear, Reset assumptions. Base
+  case = FactSet consensus as it stands, by construction (the rule of 2026-10-04); until 2026-10-09 the bar also carried
+  a "FactSet consensus" button that loaded the same figures (removed in the institutional review of that day as a
+  duplicate; the note under the bar says the Base is consensus). Any edit makes the scenario Custom; Reset returns every input, the cost of
   capital included, to the Base case. The scenario range, lease note and verdict still read the four presets.
 * **Earnings bridge and the consensus comparison (2026-10-07; FNAM calculation).** Beside the projections the page compares
   revenue, adjusted EBITDA before stock-based compensation and non-GAAP EPS, for every fiscal year FactSet covers, with the

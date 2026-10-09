@@ -1,6 +1,6 @@
 {
  "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
- "updated": "2026-10-04",
+ "updated": "2026-10-09",
  "capacity": {
   "unit": "MW",
   "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -60,7 +60,9 @@
    "source": "S-CALL-FY2026Q3",
    "page": 6,
    "speaker": "Clay Magouyrk"
-  }
+  },
+  "scope_en": "Company-wide deliveries as stated on the calls (850 MW in 1Q27, 'delivered since the end of Q4'), not broken down by site; the campus table and the Capacity tile count only the energized megawatts Oracle or the developer has stated per named campus, so the two figures do not reconcile by construction and Oracle discloses no total energized MW.",
+  "scope_es": "Entregas a nivel de toda la empresa según las llamadas (850 MW en el 1T27, 'entregados desde el cierre del 4T'), sin desglose por sitio; la tabla de campus y el recuadro de Capacidad cuentan solo los megavatios energizados que Oracle o el desarrollador han declarado por campus nombrado, así que las dos cifras no cuadran por construcción y Oracle no divulga el total de MW energizados."
  },
  "gpu": {
   "utilization": [
@@ -300,6 +302,11 @@
      "title": "DCD: Vantage breaks ground on Texas gigawatt campus for OpenAI",
      "url": "https://www.datacenterdynamics.com/en/news/vantage-breaks-ground-on-texas-gigawatt-data-center-campus-for-openai/",
      "short": "DCD"
+    },
+    {
+     "title": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays",
+     "short": "Bloomberg 8 Oct 2026"
     }
    ],
    "capacity_text_es": "1.4 GW en 10 edificios de un piso sobre ~1,200 acres, inversión de US$25 mil M+ (Vantage); Oracle: “nuestro siguiente campus a escala de gigavatio”",
@@ -316,8 +323,8 @@
    "nameplate_src": "Vantage",
    "energized_mw": 115,
    "energized_as_of": "FY2026Q4",
-   "energized_text_en": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7); first Vera Rubin systems to customers in 2Q27",
-   "energized_text_es": "115 MW de potencia en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7); primeros sistemas Vera Rubin a clientes en el 2T27",
+   "energized_text_en": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7): power energized ahead of the compute; first Vera Rubin systems to customers in 2Q27",
+   "energized_text_es": "115 MW de potencia en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7): energía antes que el cómputo; primeros sistemas Vera Rubin a clientes en el 2T27",
    "power_en": "On-site natural-gas microgrid per press reports; not detailed by Oracle",
    "power_es": "Microrred de gas natural en sitio según la prensa; sin detalle de Oracle",
    "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
@@ -325,7 +332,20 @@
    "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call)",
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
    "status_date": "2026-09-10",
-   "issues": [],
+   "issues": [
+    {
+     "date": "2026-10-08",
+     "kind": "power",
+     "status": "open",
+     "basis": "press",
+     "en": "Bloomberg: early work at the campus is powered by compressed natural gas delivered by truck (suppliers named: Certarus, VoltaGrid) while the pipeline connection is pending; an analyst estimate quoted puts trucked gas at about four times the hub price.",
+     "es": "Bloomberg: las primeras obras del campus se alimentan con gas natural comprimido entregado en camiones (proveedores nombrados: Certarus, VoltaGrid) mientras la conexión al gasoducto está pendiente; una estimación de analista citada pone el gas en camión en unas cuatro veces el precio del centro de distribución.",
+     "source": {
+      "title": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
+     }
+    }
+   ],
    "issues_checked": "2026-10-09",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
    "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
@@ -356,8 +376,8 @@
      "mw": null,
      "basis": "company",
      "src": "4Q26 call p.7",
-     "en": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); first facility in service 2H 2026, completion 2028 (Vantage)",
-     "es": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); primera instalación en servicio en el 2S 2026, terminación en 2028 (Vantage)"
+     "en": "first systems (NVIDIA Vera Rubin) to customers in 2Q27, i.e. the first half of calendar 2027 (Oracle, 4Q26 call); the 115 MW energized in 4Q26 is power capacity online ahead of the compute, not a delivery to customers; first facility in service 2H 2026, completion 2028 (Vantage)",
+     "es": "primeros sistemas (NVIDIA Vera Rubin) a clientes en el 2T27, es decir, el primer semestre de 2027 (Oracle, llamada 4T26); los 115 MW energizados en el 4T26 son capacidad eléctrica en línea antes del cómputo, no una entrega a clientes; primer edificio en servicio 2S 2026, terminación en 2028 (Vantage)"
     }
    ]
   },
@@ -456,6 +476,19 @@
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26); objetivo de operación plena en 2028 (Bloomberg, 24 sep 2026)",
    "status_date": "2026-09-24",
    "issues": [
+    {
+     "date": "2026-10-08",
+     "kind": "power",
+     "status": "open",
+     "basis": "press",
+     "en": "Bloomberg: Oracle is weighing trucked compressed natural gas for the campus while the dedicated pipeline, now with a February 1, 2027 in-service date, is built; trucked gas costs about four times the hub price per an analyst estimate quoted.",
+     "es": "Bloomberg: Oracle evalúa gas natural comprimido en camiones para el campus mientras se construye el gasoducto dedicado, ahora con fecha de entrada en servicio del 1 de febrero de 2027; el gas en camión cuesta unas cuatro veces el precio del centro de distribución según una estimación de analista citada.",
+     "due": "2027-02-01",
+     "source": {
+      "title": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
+     }
+    },
     {
      "date": "2026-09-30",
      "kind": "safety",
@@ -708,6 +741,11 @@
      "title": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)",
      "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832",
      "short": "The Register 2 Oct 2026"
+    },
+    {
+     "title": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever",
+     "url": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/",
+     "short": "WPR 18 Sep 2026"
     }
    ],
    "capacity_text_es": "“Cerca de un gigavatio” en cuatro centros de datos; inversión de US$15 mil M+ (Vantage / DigitalBridge)",
@@ -739,8 +777,8 @@
      "kind": "power",
      "status": "open",
      "basis": "press",
-     "en": "Aterio sees a material risk the campus misses Oracle's 2H 2027 target: the ATC interconnection awaits PSC approval (first application returned in August); base case partial power Dec 2027, full supply Oct 2028. The Register adds Oracle could face more than US$100 million a year to guarantee the power commitments (Oracle's own figure, June 2026 court filing).",
-     "es": "Aterio ve un riesgo material de que el campus no cumpla el 2S 2027 fijado por Oracle: la interconexión de ATC espera la aprobación de la PSC (primera solicitud devuelta en agosto); caso base energía parcial dic 2027, suministro completo oct 2028. The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía (cifra de la propia Oracle, escrito judicial de junio de 2026).",
+     "en": "Aterio sees a material risk the campus misses Oracle's 2H 2027 target: the ATC interconnection awaits PSC approval (first application returned in August); base case first power Dec 2027 and full supply Oct 2028; under an extended review, partial power Jun 2028 and full supply Apr 2029 (Aterio, Oct 2; BigGo, Oct 7). The Register adds Oracle could face more than US$100 million a year to guarantee the power commitments (Oracle's own figure, June 2026 court filing).",
+     "es": "Aterio ve un riesgo material de que el campus no cumpla el 2S 2027 fijado por Oracle: la interconexión de ATC espera la aprobación de la PSC (primera solicitud devuelta en agosto); caso base primera energía dic 2027 y suministro completo oct 2028; con una revisión extendida, energía parcial jun 2028 y suministro completo abr 2029 (Aterio, 2 oct; BigGo, 7 oct). The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía (cifra de la propia Oracle, escrito judicial de junio de 2026).",
      "source": {
       "title": "The Register, Oct 2, 2026: Power approval set to delay Oracle's Wisconsin AI datacenter",
       "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832"
@@ -756,6 +794,19 @@
      "source": {
       "title": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
       "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
+     }
+    },
+    {
+     "date": "2026-09-18",
+     "kind": "regulatory",
+     "status": "open",
+     "basis": "press",
+     "en": "ATC refiled the transmission application for the campus at an estimated US$2.48–2.72 billion (first application: US$1.3–1.7 billion), about US$1.1 billion of it the Decker grid-stabilization system Oracle has committed to fund; the PSC had revoked the first application's completeness finding on Aug 6 for the volume of changes, restarting the statutory review clock (next completeness decision due Oct 19 per Aterio).",
+     "es": "ATC volvió a presentar la solicitud de transmisión del campus por un estimado de US$2.48–2.72 mil millones (primera solicitud: US$1.3–1.7 mil millones), de los cuales unos US$1.1 mil millones son el sistema de estabilización de la red en Decker que Oracle se comprometió a financiar; la PSC había revocado la determinación de integridad de la primera solicitud el 6 ago por el volumen de cambios, reiniciando el reloj legal de revisión (siguiente decisión de integridad el 19 oct según Aterio).",
+     "due": "2026-10-19",
+     "source": {
+      "title": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever",
+      "url": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/"
      }
     },
     {
@@ -811,8 +862,8 @@
      "mw": null,
      "basis": "company",
      "src": "4Q26 call p.7",
-     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage). At risk: the grid interconnection awaits PSC approval; Aterio's base case is partial power Dec 2027, full supply Oct 2028 (press)",
-     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage). En riesgo: la interconexión a la red espera la aprobación de la PSC; caso base de Aterio: energía parcial dic 2027, suministro completo oct 2028 (prensa)",
+     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage). At risk: the grid interconnection awaits PSC approval; Aterio's base case is first power Dec 2027 and full supply Oct 2028, or Apr 2029 under an extended review; ATC refiled the line at US$2.48–2.72 billion on Sep 18 (press)",
+     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage). En riesgo: la interconexión a la red espera la aprobación de la PSC; caso base de Aterio: primera energía dic 2027 y suministro completo oct 2028, o abr 2029 con una revisión extendida; ATC volvió a presentar la línea por US$2.48–2.72 mil millones el 18 sep (prensa)",
      "at_risk": true,
      "risk_src": "The Register 2 Oct 2026"
     }

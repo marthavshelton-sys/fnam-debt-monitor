@@ -1,6 +1,6 @@
 {
   "_comment": "Risk register for the Oracle page (section 'risks'). Each risk names the public evidence behind it (a filing section, a figure already on the page, or a sourced news item), the page section where the figure lives (a {{sec:…}} token resolves to the live section number) and what would change the assessment. Nothing here introduces a figure that is not already in /data; every row carries its source. Reviewed with each 10-Q/10-K and after rating actions; `updated` is the review date.",
-  "updated": "2026-10-03",
+  "updated": "2026-10-09",
   "items": [
     {
       "id": "execution",
@@ -39,8 +39,8 @@
       "id": "funding",
       "en": "Funding and ratings: about US$20 bn still to raise in fiscal 2027, one notch above speculative grade at S&P",
       "es": "Financiamiento y calificaciones: unos US$20 mil millones por levantar en el AF2027, un escalón arriba del grado especulativo en S&P",
-      "evidence_en": "Notes payable US$125.3 bn and net debt US$88.3 bn at 1Q27; S&P BBB-/stable (Jul 9, 2026), Moody's Baa2/negative (Jul 28, 2025), Fitch BBB/stable (Feb 2026); US$19.9 bn ATM done of the US$40 bn fiscal-2027 plan (4Q26 call); 5-year CDS about 203 bp in July 2026 (Bloomberg).",
-      "evidence_es": "Notas por pagar US$125.3 mil millones y deuda neta US$88.3 mil millones al 1T27; S&P BBB-/estable (9 jul 2026), Moody's Baa2/negativa (28 jul 2025), Fitch BBB/estable (feb 2026); US$19.9 mil millones de ATM ejecutados de los US$40 mil millones del plan AF2027 (llamada 4T26); CDS a 5 años cerca de 203 pb en julio de 2026 (Bloomberg).",
+      "evidence_en": "Notes payable US$125.3 bn and net debt US$88.3 bn at 1Q27; S&P BBB-/stable (Jul 9, 2026), Moody's Baa2/negative affirmed Feb 2, 2026 (outlook negative since Jul 28, 2025), Fitch BBB/stable affirmed Feb 2, 2026; US$19.9 bn ATM done of the US$40 bn fiscal-2027 plan (4Q26 call); 5-year CDS about 203 bp in July 2026 (Bloomberg).",
+      "evidence_es": "Notas por pagar US$125.3 mil millones y deuda neta US$88.3 mil millones al 1T27; S&P BBB-/estable (9 jul 2026), Moody's Baa2/negativa reafirmada el 2 feb 2026 (perspectiva negativa desde el 28 jul 2025), Fitch BBB/estable reafirmada el 2 feb 2026; US$19.9 mil millones de ATM ejecutados de los US$40 mil millones del plan AF2027 (llamada 4T26); CDS a 5 años cerca de 203 pb en julio de 2026 (Bloomberg).",
       "where": [
         "financing"
       ],
@@ -51,6 +51,16 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
       },
       "notes": [
+        {
+          "kind": "agency",
+          "date": "2026-02-02",
+          "en": "Moody's affirmed Baa2 and kept the outlook negative on Feb 2, 2026, on the equity-funding announcement (Moody's Ratings release 458628); Fitch assigned BBB to the new notes and affirmed BBB/F2, Stable, the same day. The negative outlook dates from Jul 28, 2025.",
+          "es": "Moody's reafirmó Baa2 y mantuvo la perspectiva negativa el 2 feb 2026, por el anuncio de financiamiento con capital (comunicado 458628 de Moody's Ratings); Fitch asignó BBB a las nuevas notas y reafirmó BBB/F2, estable, el mismo día. La perspectiva negativa data del 28 jul 2025.",
+          "source": {
+            "title": "Moody's Ratings, Feb 2, 2026",
+            "url": "https://ratings.moodys.com/ratings-news/458628"
+          }
+        },
         {
           "kind": "press",
           "date": "2026-07-20",

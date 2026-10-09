@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-09T21:56:00.009Z",
+  "generated": "2026-10-09T22:58:26.837Z",
   "summary": {
     "checks": 464,
     "failed": 0,
@@ -3621,7 +3621,7 @@
     },
     {
       "tag": "summary",
-      "check": "dated 2026-10-04 on or after every source it cites (latest 2026-10-02) and its events_through",
+      "check": "dated 2026-10-09 on or after every source it cites (latest 2026-10-09) and its events_through",
       "status": "ok",
       "diff": null,
       "tol": null,
@@ -3929,7 +3929,7 @@
     {
       "file": "buildout.json",
       "status": "ok",
-      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-04"
+      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-09"
     },
     {
       "file": "obligations.json",
@@ -3944,12 +3944,12 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-09; 3 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-09; 5 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
       "status": "ok",
-      "detail": "3 events; next results estimated 2026-12-09 to 2026-12-11; 1 manual"
+      "detail": "3 events; next results estimated 2026-12-09 to 2026-12-11; 2 manual"
     },
     {
       "file": "press.json",
@@ -4069,7 +4069,7 @@
       "label_es": "Expansión (llamadas)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-04",
+      "lastRefresh": "2026-10-09",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4203,8 +4203,8 @@
       "label_en": "Risk register",
       "label_es": "Registro de riesgos",
       "cadence": "filing",
-      "asOf": "2026-10-03",
-      "lastRefresh": "2026-10-03",
+      "asOf": "2026-10-09",
+      "lastRefresh": "2026-10-09",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -5349,7 +5349,7 @@
     "analysts: consensus history is dated, ascending, no later than as_of, and its rating counts add up",
     "analysts: bilingual library and price notes present",
     "summary: carries its own ISO date (exec_summary.updated)",
-    "summary: dated 2026-10-04 on or after every source it cites (latest 2026-10-02) and its events_through",
+    "summary: dated 2026-10-09 on or after every source it cites (latest 2026-10-09) and its events_through",
     "summary: what-to-watch items are short lines ({ h, lines[] }, each line ≤ 160 characters)",
     "summary: no hand-typed section number (cross-references use {{sec:id}})",
     "sites: every campus has an issues list and the date its sources were checked",
