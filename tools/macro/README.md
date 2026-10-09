@@ -163,12 +163,15 @@ for each of the last 24 months (`fiscal_processed.json` → `breakdown`: `months
 of table 9 in `sources` and `functions`, `revised`, `asOf`). Table 9 prints one "current month"
 column per statement and never restates an earlier month, so each month's figures are the ones its
 own statement published; one FiscalData call (`mts_table_9`, `record_date:gte:` 26 months back,
-keyless) returns them all. Checked on every run: each month's sources sum to total receipts and its
-functions to total outlays (within $0.25 bn), and each total is compared with Table 1, whose months
-carry later revisions. The months that differ by more than $0.05 bn go to `revised` (table 1 minus
-table 9); the page names those of $0.5 bn or more under the chart. If the history call fails, the
-committed block is kept, the statement itself still refreshes, and `refresh_all.ps1` warns while
-`breakdown.asOf` trails the statement's month (three runs in a row open the usual source-down issue).
+keyless) returns them all. The history only changes with a new statement, so the call is made only
+when the committed block does not end on the statement's month (about once a month); every other
+run reuses the committed block. When fetched, each month's sources must sum to total receipts and
+its functions to total outlays (within $0.25 bn). On every run each total is compared with Table 1,
+whose months carry later revisions: the months that differ by more than $0.05 bn go to `revised`
+(table 1 minus table 9) and the page names those of $0.5 bn or more under the chart. If the history
+call fails, the committed block is kept, the statement itself still refreshes, and `refresh_all.ps1`
+warns while `breakdown.asOf` trails the statement's month (three runs in a row open the usual
+source-down issue). To force a fresh fetch, remove `breakdown` from the committed file.
 
 On the page ("Where the money comes from" / "Where the money goes") both headings name the month the
 data runs through, composed from the latest statement, and each panel holds the fiscal-year-to-date

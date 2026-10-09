@@ -4105,10 +4105,10 @@ const I18N = {
     fiSecFunctions: "A dónde va el dinero",
     fiSecFunctionsNote: "Gastos por función · miles de millones de dólares, sin ajuste estacional",
     fiSecThrough: m => ", hasta " + m,
-    fiListTitle: (fy, from, to) => "Año fiscal " + fy + " a la fecha (" + from + " – " + to + "): cambio frente al año anterior, miles de millones de dólares",
-    fiListTitleFull: (fy, from, to) => "Año fiscal " + fy + " completo (" + from + " – " + to + "): cambio frente al año fiscal anterior, miles de millones de dólares",
-    fiSrcMonthlyTitle: (from, to) => "Ingresos por fuente, mes a mes (" + from + " – " + to + "), miles de millones de dólares",
-    fiFnMonthlyTitle: (from, to) => "Gastos por función, mes a mes (" + from + " – " + to + "), miles de millones de dólares",
+    fiListTitle: (fy, range) => "Año fiscal " + fy + " a la fecha (" + range + "): cambio frente al año anterior, miles de millones de dólares",
+    fiListTitleFull: (fy, range) => "Año fiscal " + fy + " completo (" + range + "): cambio frente al año fiscal anterior, miles de millones de dólares",
+    fiSrcMonthlyTitle: range => "Ingresos por fuente, mes a mes (" + range + "), miles de millones de dólares",
+    fiFnMonthlyTitle: range => "Gastos por función, mes a mes (" + range + "), miles de millones de dólares",
     fiGrpSocial: "Seguridad social y retiro",
     fiGrpOtherSrc: "Otros ingresos",
     fiGrpOtherFn: "Otras funciones, neto",
@@ -5689,10 +5689,10 @@ const I18N = {
     fiSecFunctions: "Where the money goes",
     fiSecFunctionsNote: "Outlays by function · $ billions, not seasonally adjusted",
     fiSecThrough: m => ", Through " + m,
-    fiListTitle: (fy, from, to) => "Fiscal year " + fy + " to date (" + from + " – " + to + "): change from a year earlier, $ billions",
-    fiListTitleFull: (fy, from, to) => "Fiscal year " + fy + " in full (" + from + " – " + to + "): change from the prior fiscal year, $ billions",
-    fiSrcMonthlyTitle: (from, to) => "Receipts by source, month by month (" + from + " – " + to + "), $ billions",
-    fiFnMonthlyTitle: (from, to) => "Outlays by function, month by month (" + from + " – " + to + "), $ billions",
+    fiListTitle: (fy, range) => "Fiscal year " + fy + " to date (" + range + "): change from a year earlier, $ billions",
+    fiListTitleFull: (fy, range) => "Fiscal year " + fy + " in full (" + range + "): change from the prior fiscal year, $ billions",
+    fiSrcMonthlyTitle: range => "Receipts by source, month by month (" + range + "), $ billions",
+    fiFnMonthlyTitle: range => "Outlays by function, month by month (" + range + "), $ billions",
     fiGrpSocial: "Social insurance & retirement",
     fiGrpOtherSrc: "Other receipts",
     fiGrpOtherFn: "Other functions, net",
@@ -8596,7 +8596,8 @@ function renderFiscal() {
     const h = document.querySelector('[data-i18n="' + pair[0] + '"]');
     if (h) h.textContent = (LANG === "en" ? tc(pair[1]) : pair[1]) + T.fiSecThrough(monthLong);
   });
-  const listTitle = (fyFull ? T.fiListTitleFull : T.fiListTitle)(cur.fy, fmtMonthYearLong((cur.fy - 1) + "-10"), monthLong);
+  const span = (a, b) => a === b ? a : a + " – " + b;
+  const listTitle = (fyFull ? T.fiListTitleFull : T.fiListTitle)(cur.fy, span(fmtMonthYearLong((cur.fy - 1) + "-10"), monthLong));
   document.getElementById("fiSrcListTitle").textContent = listTitle;
   document.getElementById("fiFnListTitle").textContent = listTitle;
 
@@ -8633,7 +8634,7 @@ function renderFiscal() {
     const rest = all.map((_, i) => Math.round((total[i] - named(i)) * 100) / 100);
     groups.push({name:otherName, color:FI_OTHER, full:rest});
     const first = Math.max(0, n - 12), months = all.slice(first);
-    document.getElementById(ids.title).textContent = titleFn(fmtMonthYearLong(months[0]), fmtMonthYearLong(months[months.length - 1]));
+    document.getElementById(ids.title).textContent = titleFn(span(fmtMonthYearLong(months[0]), fmtMonthYearLong(months[months.length - 1])));
     const drawn = drawStackedColumns(ids.chart, ids.tooltip, ids.legend, months,
       groups.map(g => ({name:g.name, color:g.color, data:g.full.slice(first)})), {
         fmt: v => (v < 0 ? "−$" : "$") + bn(v) + sB,

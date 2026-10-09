@@ -85,8 +85,8 @@ if ([math]::Abs($sumR - $totR.fytd) -gt 0.5 -or [math]::Abs($sumO - $totO.fytd) 
 # month, so monthly receipts by source and outlays by function are assembled from the last
 # 24 statements: each month's figures are the ones its own statement published. Every month
 # must reconcile (the sources sum to total receipts, the functions to total outlays).
-# The history only changes when a new statement arrives and the call is slow (about two
-# minutes), so it is made only when the committed block does not end on the statement's
+# The history only changes when a new statement arrives (and FiscalData is slow some
+# mornings), so the call is made only when the committed block does not end on the statement's
 # month; otherwise the committed block is used as it is. Either way each month's totals are
 # compared with Table 1, whose months do carry later revisions, and the months that differ
 # are stored so the page can say so. A failure here never blocks the section: the committed
