@@ -89,6 +89,65 @@ export function isoSeconds(t) {
   return new Date(t).toISOString().replace(/\.\d{3}Z$/, 'Z');
 }
 
+// ---- lateness per schedule ----
+// A workflow with several crons (the airport refreshes: a filings run at 14:40 and a market-only run at 22:50) can keep landing
+// its market run while every filings run fails; the combined rule above then never turns late (ASUR, 8–9 Oct 2026). Here each
+// cron is judged on its own. A run belongs to the latest due time of any of the workflow's crons at or before its start (GitHub
+// starts a schedule minutes to hours late, up to five hours on a weekend, so no fixed window); a cron is late when its last
+// due time at least `graceMs` old has no landed run of its own (one miss, the same-day rule of 9-Oct-2026). runs:
+// [{ createdAt, landed }]. `since` (ms): the oldest
+// instant the run list covers; due times before it are not judged (a workflow with several runs a day shows only its last few
+// days in one page of runs, and a weekend-only cron must not read as late because its runs fell off that page).
+export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = null }) {
+  const from = Math.max(now - lookbackMs, since != null ? since : -Infinity);
+  const all = dueTimes(crons, from - 864e5, now); // every due time of every cron (a day earlier too, so a run just after `from` is attributed)
+  const covered = new Set();
+  for (const r of runs || []) {
+    if (!r.landed) continue;
+    const t = Date.parse(r.createdAt); if (!Number.isFinite(t)) continue;
+    let d = null; for (const x of all) { if (x <= t) d = x; else break; }
+    if (d != null) covered.add(d);
+  }
+  const out = [];
+  for (const cron of crons) {
+    const due = dueTimes([cron], from, now - graceMs).slice(-1);
+    if (!due.length) continue;
+    if (!covered.has(due[0])) out.push({ cron, missedSince: due[0] });
+  }
+  return out;
+}
+
+// ---- monthly data feeds: is the latest month of a monthly series the one its publisher's calendar requires? ----
+// A monthly series (an airport group's traffic by airport, published around the 5th–8th of the following month) must carry
+// month M−1 once day `dueDay` of month M has ended in `timeZone`, and month M−2 before that. `requiredMonth` names the month
+// required now, the instant it became required and the next month with its own instant, so the pages can judge their own
+// file between two checks. dueDay is 1–28.
+export function requiredMonth({ now, dueDay = 10, timeZone = 'America/Mexico_City' }) {
+  if (!(Number.isInteger(dueDay) && dueDay >= 1 && dueDay <= 28)) throw new Error(`dueDay ${dueDay}: must be 1–28`);
+  const local = localParts(timeZone, now);
+  const ym = (y, m) => { while (m < 1) { m += 12; y--; } while (m > 12) { m -= 12; y++; } return `${y}-${String(m).padStart(2, '0')}`; };
+  const dayAfterDue = (yymm) => zonedToUtc(timeZone, `${yymm}-${String(dueDay).padStart(2, '0')}`, '00:00') + 864e5; // end of the due day
+  const y = +local.date.slice(0, 4), m = +local.date.slice(5, 7);
+  const thisMonth = ym(y, m);
+  const past = now >= dayAfterDue(thisMonth);
+  const month = past ? ym(y, m - 1) : ym(y, m - 2);
+  const requiredFrom = past ? dayAfterDue(thisMonth) : dayAfterDue(ym(y, m - 1));
+  const nextMonth = past ? ym(y, m) : ym(y, m - 1), nextFrom = past ? dayAfterDue(ym(y, m + 1)) : dayAfterDue(thisMonth);
+  return { month, requiredFrom: isoSeconds(requiredFrom), next: { month: nextMonth, requiredFrom: isoSeconds(nextFrom) } };
+}
+
+// One verdict for a dashboard's monthly data feeds. series: [{ name, month | null, dueDay?, timeZone? }]; a feed is ok when its
+// latest month is the required month or later. Status 'stale' when any feed is behind; nothing here is calendar-bound, so
+// there is no 'unverified'.
+export function monthlyVerdict({ now, series, dueDay = 10, timeZone = 'America/Mexico_City' }) {
+  const rows = series.map((s) => {
+    const r = requiredMonth({ now, dueDay: s.dueDay || dueDay, timeZone: s.timeZone || timeZone });
+    const ok = !!(s.month && /^\d{4}-\d{2}$/.test(s.month) && s.month >= r.month);
+    return { name: s.name, month: s.month || null, needed: r.month, ok, requiredFrom: r.requiredFrom, next: r.next };
+  });
+  return { status: rows.every((r) => r.ok) ? 'ok' : 'stale', series: rows };
+}
+
 // "01-Oct-2026 09:12 CDMX": the owner reads every timestamp in Mexico City time.
 export function cdmx(t) {
   const p = {};
@@ -232,4 +291,9 @@ export function lastCsvDate(text) {
 export function jsonDate(obj, path) {
   const v = path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
   return typeof v === 'string' && /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : null;
+}
+// A month (YYYY-MM, or the first seven characters of a longer stamp) at a dotted path; array indexes are plain keys ("coverage.1").
+export function jsonMonth(obj, path) {
+  const v = path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
+  return typeof v === 'string' && /^\d{4}-\d{2}/.test(v) ? v.slice(0, 7) : null;
 }

@@ -12,7 +12,8 @@
 // own CSS keeps it neutral.
 //
 // Prices (owner's rule, 6-Oct-2026): a dashboard whose price feed is behind the exchange's last completed session is
-// "stale": red and pulsing. The watchdog judges every feed from the files in main (refresh.json → prices) and, between its
+// "stale": red and pulsing; so is one whose monthly data feed (refresh.json → data, the airport pages' traffic file, added
+// 9-Oct-2026) does not carry the month its publisher's calendar requires. The tooltip names the feed that is behind. The watchdog judges every feed from the files in main (refresh.json → prices) and, between its
 // checks, this script compares the page's own latest close (OWN_CLOSE, read from the first bytes of the market file) with
 // the session the watchdog said comes next and the time from which it is required; the page can turn red on its own,
 // never green.
@@ -27,7 +28,7 @@
     ok: { es: 'Al día', en: 'Up to date' },
     alert: { es: 'Alerta abierta', en: 'Open alert' },
     late: { es: 'Retrasado', en: 'Late' },
-    stale: { es: 'Precios desactualizados', en: 'Prices out of date' },
+    stale: { es: 'Datos desactualizados', en: 'Data out of date' },
     unverified: { es: 'Sin verificar', en: 'Unverified' }
   };
   // red, pulsing: the stale state on the header dots and the landing page's status cards (static red when the reader asks for reduced motion)
@@ -51,6 +52,11 @@
       p = { year: String(m.getUTCFullYear()), month: String(m.getUTCMonth() + 1), day: pad(m.getUTCDate()), hour: pad(m.getUTCHours()), minute: pad(m.getUTCMinutes()) };
     }
     return p.day + '-' + MON[lang === 'en' ? 'en' : 'es'][Number(p.month) - 1] + '-' + p.year + ' ' + p.hour + ':' + p.minute;
+  }
+  // "sep-2026" for a month (a monthly data feed)
+  function my(ym, lang) {
+    if (!ym || !/^\d{4}-\d{2}/.test(ym)) return '—';
+    return MON[lang === 'en' ? 'en' : 'es'][Number(ym.slice(5, 7)) - 1] + '-' + ym.slice(0, 4);
   }
   // "05-oct-2026" for a plain date (a session), no time
   function dmy(iso, lang) {
@@ -165,6 +171,12 @@
     if (d.prices && d.prices.series) {
       d.prices.series.filter(function (x) { return x.ok === false; }).forEach(function (x) {
         parts.push(feedName(x.name, lg) + ' ' + (x.date ? dmy(x.date, lg) : (lg === 'es' ? 'sin fecha' : 'no date')) + (lg === 'es' ? ', se requiere ' : ', needs ') + dmy(x.needed, lg));
+      });
+    }
+    // a monthly data feed behind the month its publisher's calendar requires (the airport pages' traffic file)
+    if (d.data && d.data.series) {
+      d.data.series.filter(function (x) { return x.ok === false; }).forEach(function (x) {
+        parts.push(feedName(x.name, lg) + ' ' + (x.month ? my(x.month, lg) : (lg === 'es' ? 'sin mes' : 'no month')) + (lg === 'es' ? ', se requiere ' : ', needs ') + my(x.needed, lg));
       });
     }
     return parts.length ? parts.join(' · ') + ' · ' : '';

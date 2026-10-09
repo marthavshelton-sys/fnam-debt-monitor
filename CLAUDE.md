@@ -105,10 +105,17 @@ dashboards, everything built from public data by GitHub Actions.
   18-Nov-2025 signing release; CPC revenue = its EBITDA at the group margin, an FNAM calculation), with the caveat printed on both
   blocks and a switch back to the reported figures above the DCF inputs. The overlay turns itself off once the latest balance sheet
   is dated on or after `proForma.consolidatedFrom` (2026-09-30); decide then whether the LTM EBITDA still needs CPC's missing months.
-- ASUR traffic perimeter (Motiva / CPC airports, closed 1-Sep-2026; ASUR reports them from September 2026 traffic): facts in
-  `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
-  validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
-  Runbook: `tools/asur/README.md` → "Traffic perimeter change".
+  Since 2026-10-09 it is the one basis of the executive summary, section 07 (pro-forma block above the charts) and the deck's debt
+  page too (2.1× = 50,889 / (19,450 + 243 × 17.47)); the 8-Oct-2026 notes (US$1.8 bn) replace the bridges and change no net-debt figure.
+  Airport decks (ASUR, OMA) carry no credits and no confidentiality notice (the Oracle pattern); DCF inputs are bounded
+  (`DCF_LIMITS`, visible warning, last valid value kept). The ASUR workflow commits `market.js` even when the filings validation fails.
+- ASUR traffic perimeter (Motiva / CPC airports, closed 1-Sep-2026; reported since the September 2026 release of 7-Oct-2026):
+  facts in `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and
+  the validator. ASUR prints the new airports as one "Brazil and Others" block (the parser maps it to BR/EC/CR/CW; one-airport
+  countries take their airport; PLU, BHF, BGX are general-aviation-only, `ga: true`) with prior-year comparatives, kept as
+  `months[].comparatives` and printed as "pf" changes (the company's own figures); growth without a comparative prints "n.c."
+  with the legacy-perimeter change beside it; never estimate CPC passengers. The consolidated basis carries a Motiva segment
+  (chip, series, subtotal rows). Runbook: `tools/asur/README.md` → "Traffic perimeter change".
 - Oracle market data: since 2026-10-06 the ORCL price authority is FactSet Global Prices (`tools/oracle/data/prices_orcl_factset.csv`,
   written by the nightly FactSet routine at 7:58 PM New York time); `build-data.mjs` merges it over the runner's Nasdaq/Yahoo series,
   which only fills dates FactSet has not posted yet (owner: every price as of the last close, from FactSet). The S&P 500 stays on
@@ -202,7 +209,10 @@ dashboards, everything built from public data by GitHub Actions.
   (`site/assets/data-status.js`) read it. A late dashboard whose pipeline has not alerted gets a
   "SOURCE DOWN: watchdog - ..." issue (emailed). Nothing on the site is called "live": a dashboard shows as
   "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
-  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Prices (owner, 2026-10-06): a dashboard
+  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Since 2026-10-09 each cron of a workflow is judged on
+  its own (a market-only run never covers a failing filings run) and the airport pages' `traffic.js` latest month is checked against
+  the publisher's calendar (`data` blocks, dueDay 10: September required from 11-Oct) → `stale` ("Datos desactualizados") and a
+  "SOURCE DOWN: watchdog - <name> data stale" issue. Prices (owner, 2026-10-06): a dashboard
   with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 file; GAP,
   ASUR, OMA since 6-Oct-2026: the listing's and the ADS's FactSet close in `tools/gap/raw/factset/prices.json` and the
   page's own `latestClose` in `market.js`, the ADS judged on the NYSE calendar through the series' `exchange`) has each

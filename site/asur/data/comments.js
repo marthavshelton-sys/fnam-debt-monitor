@@ -58,7 +58,7 @@ window.ASUR_COMMENTS = {
         country_PR: { es: "−2.8%: doméstico −3.2%, internacional −0.5%.", en: "−2.8%: domestic −3.2%, international −0.5%." },
         country_CO: { es: "+7.3%: doméstico +8.0%, internacional +4.8%.", en: "+7.3%: domestic +8.0%, international +4.8%." },
         commercialPerPax: { es: "Sube por ASUR US (consolidado desde diciembre de 2025); México cae por el peso fuerte.", en: "Up on ASUR US (consolidated since December 2025); Mexico down on the strong peso." },
-        netDebt: { es: "Ps. 15,138 M al cierre de junio (0.9× EBITDA UDM); el crédito de Motiva (R$5.1 mil millones) se suma en septiembre.", en: "Ps. 15,138 M at end-June (0.9× LTM EBITDA); the Motiva loan (R$5.1 bn) is added in September." }
+        netDebt: { es: "Ps. 15,138 M al cierre de junio (0.9× EBITDA UDM en la Tabla 6); pro forma con CPC y el crédito puente, Ps. 50,889 M al 30-jun-2026 (evento relevante del 28-sep-2026).", en: "Ps. 15,138 M at end-June (0.9× LTM EBITDA in Table 6); pro forma with CPC and the bridge, Ps. 50,889 M at 30-Jun-2026 (evento relevante of 28-Sep-2026)." }
       },
       lines: {
         revTotal: { es: "Semestre: ingresos sin construcción +0.6% (Ps. 15,604.9 M) y construcción +41.2%.", en: "Half-year: revenue ex-construction +0.6% (Ps. 15,604.9 M) and construction +41.2%." },

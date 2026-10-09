@@ -155,21 +155,26 @@
       if (nd && L && M.PF && M.proFormaOn && M.proFormaOn()) { const PFo = M.PF, eb = L.is.ebitda + PFo.ebitdaM * 1000, evPf = mc / 1000 + PFo.netDebtM * 1000 + M.nciOf(lastQ);
         // one short label and the ratios named in the value, so the row stays on one or two lines (the long label wrapped to three
         // and pushed the ASUR table past its limit, 2026-10-07)
-        R(this.T(`Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, ilustrativo)`, `Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, illustrative)`), `${this.T('DN', 'ND')}/EBITDA ${this.x(PFo.netDebtM * 1000 / eb, 1)}  ·  ${this.T('VE', 'EV')}/EBITDA ${this.x(evPf / eb)}  ·  ${this.T('deuda neta', 'net debt')} Ps. ${this.n(PFo.netDebtM, 0)} M`); }
+        R(this.T(`Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, ilustrativo)`, `Pro forma ${M.L(PFo.name)} (${this.date(PFo.asOf)}, illustrative)`), `${this.T('DN', 'ND')}/EBITDA ${this.x(PFo.netDebtM * 1000 / eb, 1)}  ·  ${this.T('VE', 'EV')}/EBITDA ${this.x(evPf / eb)}  ·  ${this.T('DN', 'ND')} Ps. ${this.n(PFo.netDebtM, 0)} M`); }
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
       if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
       R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}${perSfx} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}${perSfx} (million)`), `${this.n(grp(lastM) / 1000, 2)}${prevM ? `  ·  ${pm(g(grp(lastM), grp(prevM)))} ${yy}` : ''}  ·  ${this.T('acum.', 'YTD')} ${pm(g(ytdNow, ytdPrev))}`, this.cls(g(grp(lastM), prevM && grp(prevM))));
-      if (PER && PER.has(lastM)) R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}, consolidado con ${M.L(PER.P.name)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}, consolidated with ${M.L(PER.P.name)} (million)`), `${this.n(PER.consolidated(lastM, 'total') / 1000, 2)}  ·  ${prevM && PER.has(prevM) ? pm(g(PER.consolidated(lastM, 'total'), PER.consolidated(prevM, 'total'))) : 'n.c.'} ${yy}`, 'muted');
-      // one row per legacy country; the new perimeter (the "Brazil and Others" block ASUR prints: Brazil, Ecuador, Costa Rica,
-      // Curaçao) on a single row, so the sheet keeps its page (seven country rows spilled into the sources note, 2026-10-09);
+      const pfS = ' pf'; // pro forma: the company's own prior-year comparative for the new airports (see the note)
+      if (PER && PER.has(lastM)) { const cp = PER.consolidatedPrior(lastM, 'total'); R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}, consolidado con ${M.L(PER.P.name)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}, consolidated with ${M.L(PER.P.name)} (million)`), `${this.n(PER.consolidated(lastM, 'total') / 1000, 2)}  ·  ${cp.v ? pm(g(PER.consolidated(lastM, 'total'), cp.v)) + (cp.pf ? pfS : '') : 'n.c.'} ${yy}`, 'muted'); }
+      // the legacy countries on one row once the new airports are reported (the sheet is at its row limit), one row each before;
+      // the new perimeter (the "Brazil and Others" block ASUR prints) on a single row with the company's pro-forma comparative;
       // the per-country figures are on the traffic page of this deck
-      const newC = PER ? M.CTRY.filter((c) => PER.newCodes.includes(c.code)) : [];
-      for (const c of M.CTRY) { if (newC.includes(c)) continue; const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; if (v) R(this.T(`  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`, `  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`), `${this.n(v.total / 1000, 2)}${p ? `  ·  ${pm(g(v.total, p.total))} ${yy}` : ''}`, 'muted'); }
-      if (newC.length && PER.has(lastM)) { const addedT = newC.reduce((a, c) => a + ((lastM.countries && lastM.countries[c.code] && lastM.countries[c.code].total) || 0), 0); if (addedT) R(`  ${M.L(PER.P.name)} · ${M.ymLabel(lastM.ym)}`, `${this.n(addedT / 1000, 2)}  ·  n.c. ${yy}`, 'muted'); }
+      const legacyC = M.CTRY.filter((x) => !(PER && PER.newCodes.includes(x.code)));
+      const cRow = (c) => { const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; return v ? { label: M.L(c), txt: `${this.n(v.total / 1000, 2)}${p ? ` (${pm(g(v.total, p.total))})` : ''}` } : null; };
+      if (PER && PER.has(lastM)) { const parts = legacyC.map(cRow).filter(Boolean); if (parts.length) R(this.T(`  Por país · ${M.ymLabel(lastM.ym)} (millones, a/a)`, `  By country · ${M.ymLabel(lastM.ym)} (million, y/y)`), parts.map((x) => `${x.label} ${x.txt}`).join('  ·  '), 'muted'); }
+      else for (const c of legacyC) { const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; if (v) R(this.T(`  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`, `  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`), `${this.n(v.total / 1000, 2)}${p ? `  ·  ${pm(g(v.total, p.total))} ${yy}` : ''}`, 'muted'); }
+      if (PER && PER.has(lastM)) { const v = PER.cpc(lastM, 'total'), p = PER.priorOf(lastM, (m, s) => PER.cpc(m, s)); R(this.T(`  ${M.L(PER.P.name)} (${PER.newAir.length} aeropuertos) · ${M.ymLabel(lastM.ym)}`, `  ${M.L(PER.P.name)} (${PER.newAir.length} airports) · ${M.ymLabel(lastM.ym)}`), `${this.n(v / 1000, 2)}${p.v ? `  ·  ${pm(g(v, p.v))}${p.pf ? pfS : ''} ${yy}` : ''}`, 'muted'); }
       R(this.T('Próximos resultados', 'Next results'), this.nextText().replace(/^[^:]*:\s*/, ''), this.next && this.next.kind === 'confirmed' ? 'bold' : '');
-      const noteStr = this.T(`Fuentes: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${M.L(CFG.debtNote)} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
-        `Sources: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${M.L(CFG.debtNote)} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
+      // the tear sheet carries the short leverage note when the config has one (the debt page prints the full note)
+      const debtN = M.L(CFG.debtNoteShort || CFG.debtNote);
+      const noteStr = this.T(`Fuentes: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${debtN} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
+        `Sources: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${debtN} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
       // ASUR's sheet carries more rows than GAP's or OMA's (ADS, pro-forma perimeter, one row per country): the padding is a little
       // tighter than the other tables' and 6.7 pt is the last resort, so the list never spills past the sources note
@@ -321,23 +326,33 @@
       // Airports in country order (ASUR) or as listed (OMA); a subtotal row per country when the data carries countries.
       const groups = M.CTRY.length ? M.CTRY.map((c) => ({ label: M.L(c), code: c.code, codes: AIR.filter((a) => a.country === c.code).map((a) => a.code) })) : [{ label: null, codes: AIR.map((a) => a.code) }];
       const rows = [], meta = [];
-      // nc = { m, y }: the month / year-to-date change mixes traffic perimeters (REF.perimeter) and prints n.c.
-      const push = (label, v, p, yv, yp, dom, intl, tot, b, nc = {}) => { const yoy = nc.m ? null : p ? 100 * (v / p - 1) : null, yoyY = nc.y ? null : yp ? 100 * (yv / yp - 1) : null; rows.push([label, this.n(v, 1), nc.m ? 'n.c.' : this.pct(yoy, 1, true), this.n(dom, 1), this.n(intl, 1), this.n(yv, 1), nc.y ? 'n.c.' : this.pct(yoyY, 1, true), this.pct(100 * v / tot, 1)]); meta.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, this.cls(yoyY) + ' ' + b, b]); };
+      // p / yp may carry { v, pf }: pf marks a change against the company's own prior-year comparative (traffic.js -> comparatives);
+      // a new-perimeter row without a comparative prints n.c.
+      const val = (x) => (x && typeof x === 'object' ? x.v : x), isPf = (x) => !!(x && typeof x === 'object' && x.pf && x.v);
+      const push = (label, v, p, yv, yp, dom, intl, tot, b, nw = false) => { const pv = val(p), ypv = val(yp); const yoy = pv ? 100 * (v / pv - 1) : null, yoyY = ypv ? 100 * (yv / ypv - 1) : null; const nc = (y, cur) => (y == null && nw && cur ? 'n.c.' : ''); rows.push([label, this.n(v, 1), yoy == null ? nc(yoy, v) || this.pct(yoy, 1, true) : this.pct(yoy, 1, true) + (isPf(p) ? ' pf' : ''), this.n(dom, 1), this.n(intl, 1), this.n(yv, 1), yoyY == null ? nc(yoyY, yv) || this.pct(yoyY, 1, true) : this.pct(yoyY, 1, true) + (isPf(yp) ? ' pf' : ''), this.pct(100 * v / tot, 1)]); meta.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, this.cls(yoyY) + ' ' + b, b]); };
       const PER = M.PERIM, perOn = !!(PER && PER.first);
       const ytdYms = (ym) => ms.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).map((m) => m.ym);
-      const lflY = !perOn || !prev || PER.lfl(ytdYms(lastM.ym), ytdYms(prev.ym)), lflM = !perOn || !prev || PER.lfl([lastM.ym], [prev.ym]);
       const totNow = perOn ? PER.consolidated(lastM, 'total') : lastM.total.TOTAL;
+      // prior-year values through the model's rule: the prior month's own figure, else the company's comparative (pf)
+      const priorM = (get) => (PER ? PER.priorOf(lastM, get) : { v: prev ? get(prev, 'total') : null, pf: false });
+      const priorY = (get) => { let sum = 0, pf = false; for (const ym of ytdYms(lastM.ym)) { const m = M.trByYm[ym]; if (get(m, 'total') == null) continue; const r = PER ? PER.priorOf(m, get) : { v: M.trByYm[M.addYm(ym, -12)] ? get(M.trByYm[M.addYm(ym, -12)], 'total') : null, pf: false }; if (r.v == null) return { v: null, pf: false }; sum += r.v; pf = pf || r.pf; } return { v: sum, pf }; };
+      const airGet = (code) => (m, s) => (m && m[s] ? m[s][code] : null), ctryGet = (code) => (m, s) => (m && m.countries && m.countries[code] ? m.countries[code][s] : null);
+      const ytdG = (get) => ytdYms(lastM.ym).reduce((a, x) => a + (get(M.trByYm[x], 'total') || 0), 0);
+      const gaCodes = new Set(AIR.filter((a) => a.ga).map((a) => a.code));
       for (const g of groups) {
-        const nw = !!(PER && PER.newCodes.includes(g.code)), ncNew = (p, yp) => (nw ? { m: !p, y: !yp || !lflY } : {});
+        const nw = !!(PER && PER.newCodes.includes(g.code));
         if (g.label) { rows.push([g.label, '', '', '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head', 'head']); }
-        for (const code of g.codes) { const p = prev && prev.total[code], yp = prev ? ytdOf(prev.ym, code) : null; push(this.airportName(code), lastM.total[code], p, ytdOf(lastM.ym, code), yp, lastM.dom[code], lastM.intl[code], totNow, '', ncNew(p, yp)); }
-        if (g.label && lastM.countries && lastM.countries[g.code]) { const cv = lastM.countries[g.code], cp = prev && prev.countries && prev.countries[g.code]; const ytdC = (mm, k) => ms.filter((m) => m.ym.slice(0, 4) === mm.slice(0, 4) && m.ym <= mm).reduce((a, m) => a + ((m.countries && m.countries[k] && m.countries[k].total) || 0), 0); const ycp = prev ? ytdC(prev.ym, g.code) : null; push(this.T(`Subtotal ${g.label}`, `Subtotal ${g.label}`), cv.total, cp && cp.total, ytdC(lastM.ym, g.code), ycp, cv.dom, cv.intl, totNow, 'bold', ncNew(cp && cp.total, ycp)); }
+        const listed = g.codes.filter((c) => !gaCodes.has(c));
+        for (const code of listed) { const get = airGet(code); push(this.airportName(code), lastM.total[code], priorM(get), ytdG(get), priorY(get), lastM.dom[code], lastM.intl[code], totNow, listed.length === 1 ? 'bold' : '', nw); }
+        if (g.label && listed.length > 1 && lastM.countries && lastM.countries[g.code]) { const cv = lastM.countries[g.code], get = ctryGet(g.code); push(this.T(`Subtotal ${g.label}`, `Subtotal ${g.label}`), cv.total, priorM(get), ytdG(get), priorY(get), cv.dom, cv.intl, totNow, 'bold', nw); }
       }
       if (perOn) {
-        const lg = (m, s) => PER.legacy(m, s), ytdL = (ym, f) => ytdYms(ym).reduce((a, x) => a + (f(M.trByYm[x], 'total') || 0), 0);
-        push(this.T(`${M.t('legacyPax')} (${PER.nLegacyAir} aeropuertos)`, `${M.t('legacyPax')} (${PER.nLegacyAir} airports)`), lg(lastM, 'total'), prev && lg(prev, 'total'), ytdL(lastM.ym, lg), prev ? ytdL(prev.ym, lg) : null, lg(lastM, 'dom'), lg(lastM, 'intl'), totNow, 'bold');
-        const cs = (m, s) => PER.consolidated(m, s);
-        push(this.T(`Total ${this.cfg.short} consolidado (${PER.nConsolidated} aeropuertos)`, `${this.cfg.short} consolidated total (${PER.nConsolidated} airports)`), totNow, prev && cs(prev, 'total'), ytdL(lastM.ym, cs), prev ? ytdL(prev.ym, cs) : null, cs(lastM, 'dom'), cs(lastM, 'intl'), totNow, 'bold', { m: !lflM, y: !lflY });
+        const cg = (m, s) => PER.cpc(m, s), lg = (m, s) => PER.legacy(m, s), cs = (m, s) => PER.consolidated(m, s);
+        push(this.T(`${M.L(PER.P.name)} (${PER.newAir.length} aeropuertos)`, `${M.L(PER.P.name)} (${PER.newAir.length} airports)`), cg(lastM, 'total'), priorM(cg), ytdG(cg), priorY(cg), cg(lastM, 'dom'), cg(lastM, 'intl'), totNow, 'bold', true);
+        push(this.T(`${M.t('legacyPax')} (${PER.nLegacyAir} aeropuertos)`, `${M.t('legacyPax')} (${PER.nLegacyAir} airports)`), lg(lastM, 'total'), priorM(lg), ytdG(lg), priorY(lg), lg(lastM, 'dom'), lg(lastM, 'intl'), totNow, 'bold');
+        // the consolidated total compares with the prior-year consolidated figure on the company's basis (legacy total + its comparatives)
+        let ySum = 0, yPf = false, yOk = true; for (const ym of ytdYms(lastM.ym)) { const r = PER.consolidatedPrior(M.trByYm[ym], 'total'); if (r.v == null) { yOk = false; break; } ySum += r.v; yPf = yPf || r.pf; }
+        push(this.T(`Total ${this.cfg.short} consolidado (${PER.nConsolidated} aeropuertos)`, `${this.cfg.short} consolidated total (${PER.nConsolidated} airports)`), totNow, PER.consolidatedPrior(lastM, 'total'), ytdG(cs), yOk ? { v: ySum, pf: yPf } : { v: null, pf: false }, cs(lastM, 'dom'), cs(lastM, 'intl'), totNow, 'bold', true);
       } else push(this.T(`Total ${this.cfg.short} (${AIR.length} aeropuertos)`, `Total ${this.cfg.short} (${AIR.length} airports)`), totNow, prev && prev.total.TOTAL, ytdOf(lastM.ym, 'TOTAL'), prev ? ytdOf(prev.ym, 'TOTAL') : null, lastM.dom.TOTAL, lastM.intl.TOTAL, totNow, 'bold');
       y = this.heading(this.T(`Último mes: ${M.ymLabel(lastM.ym)}`, `Latest month: ${M.ymLabel(lastM.ym)}`), this.cur.x0, y, 10.5);
       const nt = this.nextTraffic();
@@ -348,9 +363,15 @@
         ? this.T(`Próximo reporte: tráfico de ${nextMonthName}, aún no publicado al ${this.date(todayIso)} (${this.cfg.short} suele publicar alrededor del día ${nt.day}, mediana de los últimos doce reportes; se esperaba hacia el ${this.date(nt.date)}).`, `Next report: ${nextMonthName} traffic, not yet published as of ${this.date(todayIso)} (${this.cfg.short} usually publishes around the ${nt.day}th, median of the last twelve reports; it was expected around ${this.date(nt.date)}).`)
         : this.T(`Próximo reporte: tráfico de ${nextMonthName}, esperado hacia el ${this.date(nt.date)} (${this.cfg.short} publica alrededor del día ${nt.day}, mediana de los últimos doce reportes).`, `Next report: ${nextMonthName} traffic report expected around ${this.date(nt.date)} (${this.cfg.short} publishes around the ${nt.day}th, median of the last twelve reports).`)) : '';
       const i = ms.length - 1; const win = ms.slice(i - 11, i + 1), pwin = ms.slice(i - 23, i - 11);
-      const half = win.length === 12 ? (this.cur.y1 - y) / 2 - 10 : this.cur.y1 - y - 40;
-      y = this.fitTable({ y, head: [M.t('airport'), M.ymLabel(lastM.ym), M.t('yoy'), M.t('dom'), M.t('intl'), `${M.t('ytdShort')} ${lastM.ym.slice(0, 4)}`, M.t('yoy'), M.t('share')], body: rows, meta, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: rows.map((r) => (r[1] === '' ? 8 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], y + half);
-      if (nextLine) y = this.text(nextLine, this.cur.x0, y + 3, this.width(), 8.2, 'bold', ACCENT);
+      // with the new airports reported (ASUR: 36 airports and seven countries) the latest-month table takes the whole page and the
+      // twelve-month table moves to a page of its own; before that both share one page, as GAP's and OMA's do
+      const wide = !!(PER && PER.has(lastM));
+      const noteStr = `${wide && nextLine ? nextLine + ' ' : ''}${M.L(CFG.trafficCap)} ${this.T(`Cobertura ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; acumulado del año vs el mismo periodo del año anterior.`, `Coverage ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; year-to-date vs the same period a year earlier.`)}${perOn ? ' ' + M.perimNote() : ''}`;
+      const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25);
+      const half = wide ? this.cur.y1 - y - noteH - 14 : win.length === 12 ? (this.cur.y1 - y) / 2 - 10 : this.cur.y1 - y - 40;
+      y = this.fitTable({ y, head: [M.t('airport'), M.ymLabel(lastM.ym), M.t('yoy'), M.t('dom'), M.t('intl'), `${M.t('ytdShort')} ${lastM.ym.slice(0, 4)}`, M.t('yoy'), M.t('share')], body: rows, meta, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: rows.map((r) => (r[1] === '' ? 8 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6, 5.8], y + half);
+      if (nextLine && !wide) y = this.text(nextLine, this.cur.x0, y + 3, this.width(), 8.2, 'bold', ACCENT);
+      if (wide) { this.noteAbove(noteStr, y + 6); if (win.length === 12) y = this.page('P', this.T(`Tráfico por aeropuerto · últimos doce meses a ${M.ymLabel(lastM.ym)}`, `Traffic by Airport · Last Twelve Months to ${M.ymLabel(lastM.ym)}`), this.T(`Miles de pasajeros terminales · reportes mensuales de tráfico de ${this.cfg.short}`, `Thousand terminal passengers · ${this.cfg.short} monthly traffic reports`)); }
       if (win.length === 12) {
         const sum = (arr, seg, code) => arr.reduce((a, m) => a + ((m[seg] && m[seg][code]) || 0), 0);
         const r2 = [], m2 = [];
@@ -358,17 +379,39 @@
         const sumF = (arr, seg, f) => arr.reduce((a, m) => a + (f(m, seg) || 0), 0);
         const airF = (code) => (m, seg) => m[seg] && m[seg][code];
         const lflW = !perOn || pwin.length !== 12 || PER.lfl(win.map((m) => m.ym), pwin.map((m) => m.ym));
-        const totF = perOn ? (m, seg) => PER.consolidated(m, seg) : airF('TOTAL'); const tot = sumF(win, 'total', totF);
+        // until the new airports have twelve months the window is the legacy perimeter's (a one-month "LTM" would mislead); the
+        // consolidated total then prints n.c. against the prior window
+        const partialNew = perOn && lastM.ym < PER.comparableFrom;
+        const totF = perOn ? (m, seg) => PER.consolidated(m, seg) : airF('TOTAL'); const tot = sumF(win, 'total', partialNew ? (m, seg) => PER.legacy(m, seg) : totF);
         const push2 = (label, f, b, nc) => { const v = sumF(win, 'total', f), p = pwin.length === 12 ? sumF(pwin, 'total', f) : null; const yoy = nc ? null : p ? 100 * (v / p - 1) : null; r2.push([label, this.n(v, 1), nc ? 'n.c.' : this.pct(yoy, 1, true), this.n(sumF(win, 'dom', f), 1), this.n(sumF(win, 'intl', f), 1), this.pct(100 * sumF(win, 'intl', f) / v, 1), this.pct(100 * v / tot, 1)]); m2.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, b]); };
-        for (const g of groups) { const nw = !!(PER && PER.newCodes.includes(g.code)); if (g.label) { r2.push([g.label, '', '', '', '', '', '']); m2.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head']); } for (const code of g.codes) push2(this.airportName(code), airF(code), '', nw && !lflW); }
+        for (const g of groups) { const nw = !!(PER && PER.newCodes.includes(g.code)); if (nw && partialNew) continue; if (g.label) { r2.push([g.label, '', '', '', '', '', '']); m2.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head']); } for (const code of g.codes.filter((c) => !gaCodes.has(c))) push2(this.airportName(code), airF(code), '', nw && !lflW); }
         if (perOn) {
           push2(this.T(`${M.t('legacyPax')} (${PER.nLegacyAir} aeropuertos)`, `${M.t('legacyPax')} (${PER.nLegacyAir} airports)`), (m, seg) => PER.legacy(m, seg), 'bold');
-          push2(this.T(`Total ${this.cfg.short} consolidado`, `${this.cfg.short} consolidated total`), totF, 'bold', !lflW);
+          if (!partialNew) push2(this.T(`Total ${this.cfg.short} consolidado`, `${this.cfg.short} consolidated total`), totF, 'bold', !lflW);
         } else push2(this.T(`Total ${this.cfg.short}`, `Total ${this.cfg.short}`), airF('TOTAL'), 'bold');
-        y = this.heading(this.T(`Últimos doce meses: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`, `Last twelve months: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`), this.cur.x0, y + 6, 10.5);
-        y = this.fitTable({ y, head: [M.t('airport'), this.T('UDM', 'LTM'), this.T('a/a vs UDM previos', 'y/y vs prior LTM'), M.t('dom'), M.t('intl'), this.T('% internacional', '% international'), M.t('share')], body: r2, meta: m2, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: r2.map((r) => (r[1] === '' ? 7 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 34);
+        const nNew = win.filter((m) => PER && PER.has(m)).length;
+        y = this.heading(partialNew ? this.T(`Últimos doce meses, perímetro anterior: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`, `Last twelve months, legacy perimeter: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`) : this.T(`Últimos doce meses: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`, `Last twelve months: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`), this.cur.x0, y + 6, 10.5);
+        if (partialNew) y = this.text(this.T(`${M.L(PER.P.name)} aparece desde ${M.ymLabel(PER.first.ym)} (${this.n(sumF(win, 'total', (m, seg) => PER.cpc(m, seg)), 1)} mil pasajeros en ${nNew} ${nNew === 1 ? 'mes' : 'meses'}) y entra en esta tabla cuando complete doce meses.`, `${M.L(PER.P.name)} appears from ${M.ymLabel(PER.first.ym)} (${this.n(sumF(win, 'total', (m, seg) => PER.cpc(m, seg)), 1)} thousand passengers in ${nNew} ${nNew === 1 ? 'month' : 'months'}) and joins this table once it has twelve months.`), this.cur.x0, y, this.width(), 8, 'normal', MUTED) + 2;
+        const chartRoom = wide ? 190 : 0; // on the page of its own, a monthly chart fills the lower half
+        y = this.fitTable({ y, head: [M.t('airport'), this.T('UDM', 'LTM'), this.T('a/a vs UDM previos', 'y/y vs prior LTM'), M.t('dom'), M.t('intl'), this.T('% internacional', '% international'), M.t('share')], body: r2, meta: m2, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: r2.map((r) => (r[1] === '' ? 7 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 34 - chartRoom);
+        // monthly chart of the last 24 months: legacy-perimeter passengers (bars) with the new airports stacked on top from their
+        // first month, and the legacy perimeter's y/y change in front (the owner's convention: the y/y line before the bars)
+        const room = this.cur.y1 - y - 40;
+        if (wide && room >= 120) {
+          const m24 = ms.slice(-24), lab = m24.map((m) => M.ymLabel(m.ym));
+          const lg = (m) => PER.legacy(m, 'total'), cp = (m) => PER.cpc(m, 'total');
+          const yoyL = m24.map((m) => { const p = M.trByYm[M.addYm(m.ym, -12)]; const a = lg(m), b = p && lg(p); return a && b ? 100 * (a / b - 1) : null; });
+          const h = Math.min(room - 24, 185);
+          y = this.heading(this.T(`Pasajeros por mes (miles, barras apiladas) y variación a/a del perímetro anterior (línea, eje der.)`, `Passengers per month (thousand, stacked bars) and legacy-perimeter y/y change (line, right axis)`), this.cur.x0, y + 8, 9.5);
+          const img = this.chart({ type: 'bar', data: { labels: lab, datasets: [
+            { type: 'line', label: this.T('Variación a/a, perímetro anterior (%, eje der.)', 'Y/y change, legacy perimeter (%, right axis)'), data: yoyL, borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.2, pointRadius: 3, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0 },
+            { type: 'bar', label: this.T(`Perímetro anterior (miles, eje izq.)`, `Legacy perimeter (thousand, left axis)`), data: m24.map((m) => lg(m)), backgroundColor: PALETTE[0], stack: 's', yAxisID: 'y', maxBarThickness: 22, order: 2 },
+            { type: 'bar', label: this.T(`${M.L(PER.P.name)} (miles, eje izq.)`, `${M.L(PER.P.name)} (thousand, left axis)`), data: m24.map((m) => cp(m)), backgroundColor: PALETTE[1], stack: 's', yAxisID: 'y', maxBarThickness: 22, order: 1 },
+          ] }, options: { scales: { x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } }, y: { stacked: true, beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, ticks: { callback: (v) => this.n(v, 0) + '%' } } } } }, Math.round(this.width() * 1.6), Math.round(h * 1.6));
+          y = this.image(img, this.cur.x0, y, this.width(), h) + 4;
+        }
       }
-      this.noteAbove(`${M.L(CFG.trafficCap)} ${this.T(`Cobertura ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; acumulado del año vs el mismo periodo del año anterior.`, `Coverage ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; year-to-date vs the same period a year earlier.`)}${perOn ? ' ' + M.perimNote() : ''}`, y + 6);
+      this.noteAbove(noteStr, y + 6);
     }
 
     // ================= 10. TRAFFIC CHARTS: COMPANY vs MEXICO =================
@@ -411,11 +454,14 @@
       let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · instrumentos según los informes de ${this.cfg.short}, referencia actualizada ${this.date(M.REF.updatedAt)}`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(this.rel(lastQ))}) · instruments per ${this.cfg.short}'s reports, reference updated ${this.date(M.REF.updatedAt)}`));
       const asOf = this.date(M.qEndDate(lastQ));
       const lev = nd && L ? nd.net / L.is.ebitda : null;
+      // pro-forma basis (REF.proForma: ASUR with Motiva/CPC, while the page's overlay is on): one tile beside the reported ones
+      const PFo = M.PF && M.proFormaOn && M.proFormaOn() && L ? M.PF : null, levPf = PFo ? PFo.netDebtM / (L.is.ebitda / 1000 + PFo.ebitdaM) : null;
       y = this.tiles([
         { v: nd ? `Ps. ${this.m(nd.net)} M` : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
         { v: nd ? `Ps. ${this.m(nd.gross)} M` : '—', l: this.T('Deuda bruta (préstamos y bonos)', 'Gross debt (loans and bonds)') },
         { v: nd ? `Ps. ${this.m(nd.cash)} M` : '—', l: this.T('Efectivo y equivalentes', 'Cash and equivalents') },
-        { v: lev != null ? this.x(lev, 1) : '—', l: this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`) },
+        { v: lev != null ? this.x(lev, 1) : '—', l: this.T(`Deuda neta / ${this.ebitdaL} UDM · reportado`, `Net debt / LTM ${this.ebitdaL} · reported`) },
+        ...(PFo ? [{ v: this.x(levPf, 1), l: this.T(`Pro forma ${M.L(PFo.name)}: deuda neta Ps. ${this.n(PFo.netDebtM, 0)} M al ${this.date(PFo.asOf)}`, `Pro forma ${M.L(PFo.name)}: net debt Ps. ${this.n(PFo.netDebtM, 0)} M at ${this.date(PFo.asOf)}`) }] : []),
         rat ? { v: rat, l: this.T('Calificaciones', 'Ratings'), size: 11 } : { v: nd && L ? this.x(nd.gross / L.is.ebitda, 1) : '—', l: this.T(`Deuda bruta / ${this.ebitdaL} UDM`, `Gross debt / LTM ${this.ebitdaL}`) },
       ], y);
       const gap = 24, wl = this.width() * 0.54, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
@@ -453,8 +499,12 @@
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), `${this.ebitdaL} UDM`, this.T(`Deuda neta / ${this.ebitdaL}`, `Net debt / ${this.ebitdaL}`)], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), cols: { 0: { halign: 'left' } } }, [8, 7.6, 7.2, 6.8], this.cur.y1 - 26);
       const evRight = evs.length && yr + 8 + 15 + this.measureBullets(evs, wr, 7.4, { gap: 3 }) <= this.cur.y1 - 22;
       if (evRight) { yr = this.heading(evH, xr, yr + 8, 10); yr = this.bullets(evs, xr, yr, wr, 7.4, { gap: 3, color: MUTED }); }
-      yl = this.bullets(evRight ? bl : blL, this.cur.x0, yl, wl, 7.8, { gap: 3, color: MUTED });
-      this.noteAbove(this.T(`* estimación. Fuentes: balances trimestrales de ${this.cfg.short}; informes y comunicados sobre instrumentos (referencia actualizada ${this.date(M.REF.updatedAt)}).`, `* estimate. Sources: ${this.cfg.short} quarterly balance sheets; reports and releases on instruments (reference updated ${this.date(M.REF.updatedAt)}).`), Math.max(yl, yr) + 4, 7);
+      // the notes grow with every post-quarter event: shrink them until they fit above the sources line
+      const srcLine = this.T(`* estimación. Fuentes: balances trimestrales de ${this.cfg.short}; informes y comunicados sobre instrumentos (referencia actualizada ${this.date(M.REF.updatedAt)}).`, `* estimate. Sources: ${this.cfg.short} quarterly balance sheets; reports and releases on instruments (reference updated ${this.date(M.REF.updatedAt)}).`);
+      const blText = evRight ? bl : blL, availL = this.cur.y1 - 24 - this.measureText(srcLine, this.width(), 7, 1.25) - yl;
+      let sz = 7.8; for (; sz > 6.2; sz -= 0.2) if (this.measureBullets(blText, wl, sz, { gap: 3 }) <= availL) break;
+      yl = this.bullets(blText, this.cur.x0, yl, wl, sz, { gap: 3, color: MUTED });
+      this.noteAbove(srcLine, Math.max(yl, yr) + 4, 7);
     }
 
     // ================= 12. 08 DIVIDENDS =================

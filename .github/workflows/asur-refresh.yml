@@ -103,14 +103,21 @@ jobs:
         run: |
           if [ -f scripts/asur/validate-data.mjs ]; then node scripts/asur/validate-data.mjs; else echo "validate-data.mjs not present yet"; fi
 
-      # Never commit data that failed validation; market-only runs (no validate step) still commit.
+      # Never commit filings data that failed validation; market-only runs (no validate step) still commit. When the filings
+      # validation fails, the day's prices still land (market.js is written by the fetch step and is not what the tie-outs
+      # judge), so the page's market stamp keeps pace with GAP's and OMA's; the job stays red for the parse failure.
       - name: Commit if anything changed
-        if: always() && steps.validate.outcome != 'failure'
+        if: always()
         shell: bash
         run: |
           git config user.name "asur-refresh[bot]"
           git config user.email "asur-refresh@users.noreply.github.com"
-          git add site/asur/data tools/asur/raw
+          if [ "${{ steps.validate.outcome }}" = "failure" ]; then
+            echo "Validation failed: committing market data only."
+            git add site/asur/data/market.js
+          else
+            git add site/asur/data tools/asur/raw
+          fi
           if git diff --cached --quiet; then
             echo "No data change; nothing to commit."
             exit 0
