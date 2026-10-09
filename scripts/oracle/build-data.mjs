@@ -4,6 +4,7 @@
 // Run: node scripts/oracle/build-data.mjs
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -187,7 +188,12 @@ const pxProv = (() => { const fsLast = ohlcFs.length ? ohlcFs[ohlcFs.length - 1]
   // name is the bare product name: the page adds "daily closes" in its own language and names the runner's fill-in dates itself.
   // fetchedAt is the stamp of the feed that supplied the latest close (the runner's when it filled a date FactSet has not posted yet,
   // otherwise the routine's), so the footer never prints a fetch date earlier than the close it carries; FactSet's own stamp is in factset.fetched.
-  return { name: "FactSet Global Prices", short: "FactSet Global Prices", url: "https://www.factset.com/", fetchedAt: last && last.src === "runner" ? (mref.price_snapshot?.orcl?.accessed || fetched) : fetched, latestFrom: last && last.src, factset: { from: fsFirst, to: fsLast, n: ohlcFs.length, fetched }, fill: { name: runnerName, after: fillAfter, before: fillBefore } }; })();
+  // latestName: the one feed that supplied the latest close when the runner filled it. The runner's source_name reads "Nasdaq" or
+  // "Nasdaq + Yahoo Finance (2026-10-09)" (primary + the feed that topped the series up, with the date it supplied), so the page can
+  // name that feed alone for the close it quotes instead of the whole chain with an ISO date (review of 2026-10-09).
+  const topUp = /^(.+?) \+ (.+?) \((\d{4}-\d{2}-\d{2})\)\s*$/.exec(runnerName || "");
+  const latestName = last && last.src === "runner" ? (topUp && fillAfter.includes(topUp[3]) ? topUp[2] : (runnerName || "").replace(/\s*\(\d{4}-\d{2}-\d{2}\)\s*$/, "")) : null;
+  return { name: "FactSet Global Prices", short: "FactSet Global Prices", url: "https://www.factset.com/", fetchedAt: last && last.src === "runner" ? (mref.price_snapshot?.orcl?.accessed || fetched) : fetched, latestFrom: last && last.src, factset: { from: fsFirst, to: fsLast, n: ohlcFs.length, fetched }, fill: { name: runnerName, latestName, url: mref.price_snapshot?.orcl?.source_url || null, after: fillAfter, before: fillBefore } }; })();
 // 52-week range from the daily intraday highs and lows (the closes-only range understated both ends): the window is the
 // 52 weeks ending at the latest close, excluding the same calendar date a year earlier.
 const range52 = (() => { const w0 = ohlc.filter((x) => Number.isFinite(x.h) && Number.isFinite(x.l)); if (!w0.length) return null; const last = w0[w0.length - 1]; const from = new Date(last.d + "T00:00:00Z"); from.setUTCDate(from.getUTCDate() - 365); const fromIso = from.toISOString().slice(0, 10); const w = w0.filter((x) => x.d > fromIso && x.d <= last.d); if (!w.length) return null; const H = w.reduce((a, x) => (x.h > a.h ? x : a)), Lo = w.reduce((a, x) => (x.l < a.l ? x : a)); return { high: H.h, highDate: H.d, low: Lo.l, lowDate: Lo.d, from: w[0].d, to: last.d, basis: "intraday", source: pxProv.short, note: "52-week high and low from daily intraday highs and lows over the 52 weeks ending at the latest close (window excludes the same date a year earlier)." }; })();
@@ -232,9 +238,9 @@ emit("reference.js", "ORCL_REF", {
   shares: mref.price_snapshot?.orcl?.shares_outstanding_millions ? { total: Math.round(mref.price_snapshot.orcl.shares_outstanding_millions * 1e6), asOf: "2026-09-07", source: { en: "Form 10-Q cover page, quarter ended 31-Aug-2026", es: "Portada del Formulario 10-Q, trimestre terminado el 31-ago-2026" }, history: quarters.filter((q) => q.gaap.diluted_shares).map((q) => ({ asOf: q.period_end, total: Math.round(q.gaap.diluted_shares * 1e6), note: { en: "diluted weighted-average shares of the quarter", es: "acciones diluidas promedio del trimestre" } })) } : null,
   debt: {
     ratings: [
-      mref.credit_ratings?.moodys && { agency: "Moody's", rating: mref.credit_ratings.moodys.rating, outlook: { en: (mref.credit_ratings.moodys.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.moodys.outlook || "") ? "negativa" : "estable" }, scope: { en: "senior unsecured", es: "deuda senior no garantizada" }, date: mref.credit_ratings.moodys.action_date, source: { en: `Rating action ${mref.credit_ratings.moodys.action_date}`, es: `Acción de calificación ${mref.credit_ratings.moodys.action_date}` }, url: mref.credit_ratings.moodys.source_url },
+      mref.credit_ratings?.moodys && { agency: "Moody's", rating: mref.credit_ratings.moodys.rating, outlook: { en: (mref.credit_ratings.moodys.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.moodys.outlook || "") ? "negativa" : "estable" }, outlookSince: mref.credit_ratings.moodys.outlook_since || null, action: mref.credit_ratings.moodys.action || null, sourceTitle: mref.credit_ratings.moodys.source_title || null, scope: { en: "senior unsecured", es: "deuda senior no garantizada" }, date: mref.credit_ratings.moodys.action_date, source: { en: `Rating action ${mref.credit_ratings.moodys.action_date}`, es: `Acción de calificación ${mref.credit_ratings.moodys.action_date}` }, url: mref.credit_ratings.moodys.source_url },
       mref.credit_ratings?.sp && { agency: "S&P Global Ratings", rating: mref.credit_ratings.sp.rating, outlook: { en: (mref.credit_ratings.sp.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.sp.outlook || "") ? "negativa" : "estable" }, scope: { en: "long-term issuer credit rating", es: "calificación de emisor de largo plazo" }, date: mref.credit_ratings.sp.action_date, source: { en: `Rating action ${mref.credit_ratings.sp.action_date}`, es: `Acción de calificación ${mref.credit_ratings.sp.action_date}` }, url: mref.credit_ratings.sp.source_url },
-      mref.credit_ratings?.fitch && { agency: "Fitch", rating: mref.credit_ratings.fitch.rating, outlook: { en: (mref.credit_ratings.fitch.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.fitch.outlook || "") ? "negativa" : "estable" }, scope: { en: "long-term IDR", es: "IDR de largo plazo" }, date: mref.credit_ratings.fitch.action_date, source: { en: `Rating action ${mref.credit_ratings.fitch.action_date}`, es: `Acción de calificación ${mref.credit_ratings.fitch.action_date}` }, url: mref.credit_ratings.fitch.source_url },
+      mref.credit_ratings?.fitch && { agency: "Fitch", rating: mref.credit_ratings.fitch.rating, outlook: { en: (mref.credit_ratings.fitch.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.fitch.outlook || "") ? "negativa" : "estable" }, action: mref.credit_ratings.fitch.action || null, sourceTitle: mref.credit_ratings.fitch.source_title || null, scope: { en: "long-term IDR", es: "IDR de largo plazo" }, date: mref.credit_ratings.fitch.action_date, source: { en: `Rating action ${mref.credit_ratings.fitch.action_date}`, es: `Acción de calificación ${mref.credit_ratings.fitch.action_date}` }, url: mref.credit_ratings.fitch.source_url },
     ].filter(Boolean),
     ratingsChecked: mref.credit_ratings?.checked || null, // the date the agencies, EDGAR and the wires were last checked for a new action (round 4)
     instruments: (mref.debt_instruments || []).map((d) => ({ name: d.series_name, type: /floating/i.test(d.series_name) ? "FRN" : /term loan/i.test(d.series_name) ? { en: "term loan", es: "crédito a plazo" } : /commercial paper/i.test(d.series_name) ? { en: "commercial paper", es: "papel comercial" } : { en: "senior notes", es: "bonos senior" }, issued: d.issued_date, matures: d.maturity_date, principalUsdM: d.principal_millions, ratePct: d.coupon_pct, rate: { en: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "effective" : "fixed"}`, es: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "efectiva" : "fija"}` }, source: "FY2026 Form 10-K, notes payable and other borrowings footnote", url: d.source_url, status: d.status || "outstanding", repaid: d.status === "repaid" ? { quarter: d.repaid_quarter || null, evidence: d.repaid_evidence || null } : null })),
@@ -312,6 +318,19 @@ emit("comments.js", "ORCL_COMMENTS", { updatedAt: cm.updatedAt || now.slice(0, 1
 
 const latestCm = latest ? cm.by_quarter?.[latest.id] : null;
 const sum = latestCm?.exec_summary || null;
+// The summary's own date must follow its text (review of 2026-10-09: the narrative said "written Oct 4" long after it went stale).
+// A hash of the narrative fields is kept in exec_summary.content_hash; when the text changes and the hash does not match, the
+// builder stamps `updated` with today's ET date and writes comments.json back, so the stamp can never lag a rewrite.
+if (sum) {
+  const narrative = JSON.stringify({ o: sum.operations, g: sum.guidance, d: sum.debt, w: sum.watch, s: sum.watch_sources, v: sum.verdict || null, e: sum.events_through || null });
+  const h = createHash("sha1").update(narrative).digest("hex").slice(0, 16);
+  if (sum.content_hash !== h) {
+    sum.content_hash = h; sum.updated = todayET;
+    const cmPath = join(DATA, "comments.json"); const cmRaw = readFileSync(cmPath, "utf8"); const indent = (/^\{\n( +)/.exec(cmRaw) || [0, "  "])[1].length;
+    writeFileSync(cmPath, JSON.stringify(cm, null, indent) + "\n");
+    console.log(`comments.json: executive summary text changed, stamped updated = ${todayET} (hash ${h})`);
+  }
+}
 emit("summary.js", "ORCL_SUMMARY", {
   // the summary's own date (exec_summary.updated, set when it is rewritten), never the date the line comments were drafted
   updatedAt: sum?.updated || latestCm?.drafted || cm.updatedAt || now.slice(0, 10), commentsUpdatedAt: cm.updatedAt || null, eventsThrough: (() => { const nd = (load("news.json", { items: [] }).items || []).map((x) => x.date).sort().pop() || null; const d = sum?.events_through || null; return nd && (!d || nd > d) ? nd : d; })(), eventsThroughBasis: (() => { const nd = (load("news.json", { items: [] }).items || []).map((x) => x.date).sort().pop() || null; const d = sum?.events_through || null; return nd && (!d || nd > d) ? "news" : "summary"; })(), draftedEventsThrough: sum?.events_through || null,
@@ -403,7 +422,7 @@ const nws = load("news.json", null);
 if (nws) {
   const cut = new Date((nws.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (nws.window_days || 120)); const cutIso = cut.toISOString().slice(0, 10);
   const items = (nws.items || []).filter((x) => x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));
-  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], sweepNote: nws.sweep_note_en ? { en: nws.sweep_note_en, es: nws.sweep_note_es, date: nws.sweep_note_date || null } : null, items }, "News and recent events for the Oracle page — refreshed daily by an automated sweep; each item dated, themed, with primary sources first.");
+  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], sweepNote: nws.sweep_note_en ? { en: nws.sweep_note_en, es: nws.sweep_note_es, date: nws.sweep_note_date || null } : null, sweepLog: Array.isArray(nws.sweep_log) ? nws.sweep_log.slice(0, 12) : [], items }, "News and recent events for the Oracle page — refreshed daily by an automated sweep; each item dated, themed, with primary sources first.");
 }
 
 // ---------- xbrl.js (Oracle's own XBRL facts: leases, capex, finance-lease additions, commitments) ----------

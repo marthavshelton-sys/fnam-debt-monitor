@@ -96,9 +96,10 @@ customer-funded share), for every explicit year. The fade rules that used to run
 arrays once when a scenario is built (`extendPath`, same arithmetic; growth rounded to 0.1 pp), and `dcfCompute` reads the
 arrays as they stand, so any cell can be edited. `renderDcfTable` builds the table once per scenario and `updateDcfTable`
 refreshes the computed cells in place after every edit (typing never loses focus); the cash flow, discounting and an
-earnings bridge sit beneath the inputs. Scenario bar (`renderScenarioBar`): FactSet consensus · Management targets · Bull ·
-Bear · Base case · Reset assumptions; the Base case is FactSet consensus as it stands (the owner's rule of 2026-10-04), so
-the first and last buttons load the same figures and the note under the bar says so; every scenario is built on the
+earnings bridge sit beneath the inputs. Scenario bar (`renderScenarioBar`): Base case (FactSet consensus) · Management targets · Bull ·
+Bear · Reset assumptions; the Base case is FactSet consensus as it stands (the owner's rule of 2026-10-04) and the note under
+the bar says so (the duplicate "FactSet consensus" button was removed 2026-10-09; `SCENARIO_BUTTONS` in `app.js`, the render
+check expects five buttons); every scenario is built on the
 consensus basis and carries the cost-of-capital, tax, lease and terminal inputs on screen; Reset returns everything to the
 Base case. The inputs card keeps the frame (basis, explicit years, unwind, leases), taxes, cost of capital and terminal
 value. Beside the projections: `Projection against FactSet consensus` (`renderDcfCons`: revenue, adjusted EBITDA before SBC
@@ -157,7 +158,7 @@ count, so new material goes into collapsed panels; baselines measured 2026-10-04
 added the phone rules: every control at least 44 px tall, DCF inputs at 16 px or more, nothing fixed over the sticky nav, the
 verdict and the six-box chain inside the first screen at 390 and 360 px, and a manual edit of an operating input switching the
 scenario to Custom. `--shots <dir>` saves screenshots. Run it before pushing a page change. Since 2026-10-07 it also checks that the projections
-card is the first card of the DCF section with an input per assumption and explicit year, six scenario-bar buttons, the
+card is the first card of the DCF section with an input per assumption and explicit year, five scenario-bar buttons (since 2026-10-09; six before), the
 consensus comparison (twelve rows with estimate counts), the DCF-implied target with its multiples, the Excel button and writer,
 the needed-margin heading at about half its former width, and that the manual edit it makes in the projection table turns the
 scenario Custom.

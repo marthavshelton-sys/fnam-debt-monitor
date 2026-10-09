@@ -146,6 +146,33 @@
       },
       "first_seen": "2026-06-10",
       "superseded_by": null
+    },
+    {
+      "id": "manual-annual-meeting-2026-11-18",
+      "type": "annual_meeting",
+      "title": "2026 Annual Meeting of Stockholders",
+      "title_es": "Asamblea anual de accionistas 2026",
+      "start": "2026-11-18",
+      "all_day": true,
+      "timezone": "America/Los_Angeles",
+      "location": null,
+      "status": "filed",
+      "links": {
+        "event": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm",
+        "webcast": null,
+        "release": null,
+        "announcement": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402831/orcl-defa14a-2026_notice.htm",
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "Schedule 14A (DEF 14A) filed Sep 25, 2026 (accession 0001193125-26-402816): notice of the annual meeting of stockholders on November 18, 2026",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm",
+        "fetched": "2026-10-09",
+        "note": "Date from the proxy statement; not yet listed on the IR events page. The script marks this entry superseded once the IR list carries an annual-meeting event on that day."
+      },
+      "first_seen": "2026-10-09",
+      "superseded_by": null
     }
   ]
 }

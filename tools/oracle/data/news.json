@@ -438,8 +438,8 @@
    "basis": "press",
    "title_en": "The Register, citing Aterio: Port Washington's grid approval could push first power past Oracle's 2H 2027 target",
    "title_es": "The Register, citando a Aterio: la aprobación de la red de Port Washington podría retrasar la primera energía más allá del 2S 2027 fijado por Oracle",
-   "summary_en": "Project Lighthouse (Port Washington; Vantage, Oracle as tenant; 1.3 GW of demand) cannot operate until American Transmission Co. builds an interconnection still awaiting Wisconsin PSC approval (the first application was returned in August). Aterio's base case: partial power December 2027, full supply October 2028 (extended review: June 2028 and April 2029), against Oracle's 2H 2027 target. The Register adds that Oracle could face more than US$100 million a year to guarantee the power commitments, Oracle's own figure from its June 2026 challenge to the PSC collateral rule. Press; Oracle has not changed its timing.",
-   "summary_es": "Project Lighthouse (Port Washington; Vantage, Oracle como inquilino; 1.3 GW de demanda) no puede operar hasta que American Transmission Co. construya una interconexión que aún espera la aprobación de la PSC de Wisconsin (la primera solicitud fue devuelta en agosto). Caso base de Aterio: energía parcial en diciembre de 2027, suministro completo en octubre de 2028 (con revisión extendida: junio de 2028 y abril de 2029), frente al 2S 2027 fijado por Oracle. The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía, cifra de la propia Oracle en su impugnación de junio de 2026 a la regla de garantías de la PSC. Prensa; Oracle no ha cambiado su calendario.",
+   "summary_en": "Project Lighthouse (Port Washington; Vantage, Oracle as tenant; 1.3 GW of demand) cannot operate until American Transmission Co. builds an interconnection still awaiting Wisconsin PSC approval (the first application was returned in August). Aterio's base case: partial power December 2027, full supply October 2028 (extended review: June 2028 and April 2029), against Oracle's 2H 2027 target. The Register adds that Oracle could face more than US$100 million a year to guarantee the power commitments, Oracle's own figure from its June 2026 challenge to the PSC collateral rule. Press; Oracle has not changed its timing. Aterio's own note (Oct 2) and later coverage (BigGo, Oct 7) set out the scenarios: first power Dec 2027 and full supply Oct 2028 in the base case; partial power Jun 2028 and full supply Apr 2029 under an extended review; ATC's refiled application restarted the statutory clock (press).",
+   "summary_es": "Project Lighthouse (Port Washington; Vantage, Oracle como inquilino; 1.3 GW de demanda) no puede operar hasta que American Transmission Co. construya una interconexión que aún espera la aprobación de la PSC de Wisconsin (la primera solicitud fue devuelta en agosto). Caso base de Aterio: energía parcial en diciembre de 2027, suministro completo en octubre de 2028 (con revisión extendida: junio de 2028 y abril de 2029), frente al 2S 2027 fijado por Oracle. The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía, cifra de la propia Oracle en su impugnación de junio de 2026 a la regla de garantías de la PSC. Prensa; Oracle no ha cambiado su calendario. La nota de Aterio (2 oct) y cobertura posterior (BigGo, 7 oct) detallan los escenarios: primera energía dic 2027 y suministro completo oct 2028 en el caso base; energía parcial jun 2028 y suministro completo abr 2029 con una revisión extendida; la nueva solicitud de ATC reinició el reloj legal (prensa).",
    "why_en": "About 1 GW of the 5.6 GW named in {{sec:sites}}: first power after 2H 2027 defers the revenue the Bull case brings forward and moves this campus toward the Bear case's one-year slip ({{sec:dcf}}). The cost figure is Oracle's, from a court filing, not a 10-Q.",
    "why_es": "Cerca de 1 GW de los 5.6 GW nombrados en {{sec:sites}}: una primera energía posterior al 2S 2027 difiere los ingresos que el escenario optimista adelanta y acerca este campus al retraso de un año del pesimista ({{sec:dcf}}). La cifra de costo es de Oracle, en un escrito judicial, no de un 10-Q.",
    "sources": [
@@ -457,6 +457,16 @@
      "tier": "press",
      "title": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements (the rule could exceed US$100 million a year, per Oracle)",
      "url": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
+    },
+    {
+     "tier": "press",
+     "title": "BigGo Finance, Oct 7, 2026: Power Grid Approval Threatens to Delay Oracle's Wisconsin AI Datacenter (Aterio scenarios: full power Oct 2028 base, spring 2029 bear)",
+     "url": "https://finance.biggo.com/news/5dbc3e5a-2e27-4f66-8a6e-6d64c4411bee"
+    },
+    {
+     "tier": "trade",
+     "title": "Aterio, Oct 2, 2026: Oracle's Project Lighthouse: Power Delays Put 2027 Target at Risk (research note)",
+     "url": "https://www.aterio.io/blog/oracle-project-lighthouse-power-delays"
     }
    ]
   },
@@ -469,8 +479,8 @@
    "title_es": "FT: Tencent habría firmado un arrendamiento de US$7 mil millones a cinco años por cerca de 100,000 chips de IA en centros de datos de Oracle en el sudeste asiático (sin confirmar)",
    "summary_en": "The Financial Times reported (relayed by Reuters) a five-year lease worth about US$7 billion for roughly 100,000 advanced AI chips in several Oracle data centers in Southeast Asia, about 30% paid upfront, Tencent's largest overseas lease with a US cloud provider. Neither company has confirmed it and Oracle has filed nothing. Press-reported, unconfirmed.",
    "summary_es": "El Financial Times reportó (retomado por Reuters) un arrendamiento a cinco años por unos US$7 mil millones por cerca de 100,000 chips de IA avanzados en varios centros de datos de Oracle en el sudeste asiático, con alrededor de 30% pagado por adelantado, el mayor arrendamiento de Tencent en el extranjero con un proveedor de nube estadounidense. Ninguna de las dos empresas lo ha confirmado y Oracle no ha presentado nada. Reporte de prensa, sin confirmar.",
-   "why_en": "If confirmed, about 1% of the US$664 billion RPO ({{sec:rpo}}) and about US$2 billion of prepayments the DCF nets against capex ({{sec:dcf}}); it stays out of the counterparty table ({{sec:circular}}) until Oracle discloses it.",
-   "why_es": "De confirmarse, cerca de 1% del RPO de US$664 mil millones ({{sec:rpo}}) y unos US$2 mil millones de prepagos que el DCF resta del capex ({{sec:dcf}}); queda fuera de la tabla de contrapartes ({{sec:circular}}) hasta que Oracle lo divulgue.",
+   "why_en": "If confirmed, about 1% of the US$664 billion RPO ({{sec:rpo}}) and about US$2 billion of prepayments the DCF nets against capex ({{sec:dcf}}); it stays out of the counterparty table ({{sec:circular}}) until Oracle discloses it. Network World (Oct 9, trade press) notes that remote access to chips located in third countries sits outside U.S. hardware export controls and that the Commerce Department is weighing rules to close that gap: a policy risk to the lease if it exists.",
+   "why_es": "De confirmarse, cerca de 1% del RPO de US$664 mil millones ({{sec:rpo}}) y unos US$2 mil millones de prepagos que el DCF resta del capex ({{sec:dcf}}); queda fuera de la tabla de contrapartes ({{sec:circular}}) hasta que Oracle lo divulgue. Network World (9 oct, prensa especializada) señala que el acceso remoto a chips ubicados en terceros países queda fuera de los controles de exportación de hardware de EE. UU. y que el Departamento de Comercio evalúa reglas para cerrar esa brecha: un riesgo de política para el arrendamiento, si existe.",
    "sources": [
     {
      "tier": "wire",
@@ -481,11 +491,192 @@
      "tier": "wire",
      "title": "Reuters via Investing.com, 30 Sep 2026: Tencent leases 100,000 chips from Oracle for $7 bln - FT",
      "url": "https://www.investing.com/news/stock-market-news/tencent-leases-100000-chips-from-oracle-for-7-bln-ft-4926203"
+    },
+    {
+     "tier": "trade",
+     "title": "Network World, Oct 9, 2026 (citing the FT): Oracle reportedly lands $7B GPU deal for Tencent — about US$2.1 billion upfront; remote access from third countries sits outside hardware export controls",
+     "url": "https://www.networkworld.com/article/4233245/oracle-reportedly-lands-7b-gpu-deal-for-tencent.html"
+    }
+   ]
+  },
+  {
+   "id": "2026-10-08-openai-revenue-ft",
+   "date": "2026-10-08",
+   "theme": "customers",
+   "basis": "press",
+   "title_en": "FT: OpenAI told investors its annualized revenue was about US$50 billion at the end of September, not the US$68 billion in circulation; ORCL −5.5% on the day (press)",
+   "title_es": "FT: OpenAI dijo a sus inversionistas que sus ingresos anualizados eran de unos US$50 mil millones al cierre de septiembre, no los US$68 mil millones que circulaban; ORCL −5.5% en el día (prensa)",
+   "summary_en": "The Financial Times reported, and CNBC confirmed with a person familiar with OpenAI's investor presentation, that OpenAI's annualized revenue was roughly US$50 billion at the end of September 2026; the US$68 billion figure reported in late September included gross revenue from OpenAI's partners, the person said, and the presentation cited 77% run-rate growth in the third quarter. Oracle, Nvidia and CoreWeave fell on the report; ORCL closed at US$135.69 on Oct 8 (−5.5%) and US$141.40 on Oct 9 (+4.2%). OpenAI is private and Oracle has filed nothing. Press-reported.",
+   "summary_es": "El Financial Times reportó, y CNBC confirmó con una persona al tanto de la presentación a inversionistas de OpenAI, que los ingresos anualizados de OpenAI eran de unos US$50 mil millones al cierre de septiembre de 2026; la cifra de US$68 mil millones reportada a fines de septiembre incluía ingresos brutos de los socios de OpenAI, según esa persona, y la presentación citó un crecimiento de 77% en la tasa anualizada del tercer trimestre. Oracle, Nvidia y CoreWeave cayeron con el reporte; ORCL cerró en US$135.69 el 8 oct (−5.5%) y en US$141.40 el 9 oct (+4.2%). OpenAI es privada y Oracle no ha presentado nada. Reporte de prensa.",
+   "why_en": "S&P estimates about half of Oracle's RPO is OpenAI ({{sec:circular}}) and the Bear scenario's third lever is OpenAI volume −25% ({{sec:dcf}}). A lower revenue base does not change the contracted RPO, but it bears on OpenAI's capacity to pay for it and to fund the five named campuses ({{sec:sites}}); nothing on the page changes until Oracle reports.",
+   "why_es": "S&P estima que cerca de la mitad del RPO de Oracle es OpenAI ({{sec:circular}}) y la tercera palanca del escenario pesimista es volumen de OpenAI −25% ({{sec:dcf}}). Una base de ingresos menor no cambia el RPO contratado, pero sí pesa sobre la capacidad de OpenAI para pagarlo y para financiar los cinco campus nombrados ({{sec:sites}}); nada en la página cambia hasta que Oracle reporte.",
+   "sources": [
+    {
+     "tier": "wire",
+     "title": "Reuters via U.S. News, Oct 8, 2026: OpenAI's September Annualized Revenue Nears $50 Billion, Less Than Previously Indicated, Source Says (FT report)",
+     "url": "https://money.usnews.com/investing/news/articles/2026-10-08/openais-annualized-revenue-20-billion-less-than-previously-signaled-ft-reports"
+    },
+    {
+     "tier": "press",
+     "title": "CNBC, Oct 8, 2026: Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report (confirms the FT's US$50 billion figure)",
+     "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html"
+    },
+    {
+     "tier": "press",
+     "title": "Bloomberg, Oct 8, 2026: OpenAI's Revenue Run Rate Nears $50 Billion, Less Than Reported, FT Says",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-08/openai-s-annualized-revenue-nears-50-billion-ft-says"
+    }
+   ]
+  },
+  {
+   "id": "2026-10-08-wsj-chip-lease-vehicle",
+   "date": "2026-10-08",
+   "theme": "financing",
+   "basis": "press",
+   "title_en": "WSJ: Oracle reportedly in talks with Apollo and Goldman Sachs to finance a separate vehicle that would buy AI chips and lease them to Oracle (unconfirmed)",
+   "title_es": "WSJ: Oracle negociaría con Apollo y Goldman Sachs el financiamiento de un vehículo aparte que compraría chips de IA y se los arrendaría a Oracle (sin confirmar)",
+   "summary_en": "The Wall Street Journal reported (relayed by Yahoo Finance) that Oracle is negotiating with Apollo Global Management and Goldman Sachs to fund a large purchase of AI chips through a separate company that would own the chips and lease them to Oracle over time, that other potential partners are also in talks and that Oracle wants a deal this year; no amount was reported, and Oracle has not commented or filed anything. Press-reported, unconfirmed.",
+   "summary_es": "The Wall Street Journal reportó (retomado por Yahoo Finance) que Oracle negocia con Apollo Global Management y Goldman Sachs el financiamiento de una compra grande de chips de IA a través de una sociedad aparte que sería dueña de los chips y se los arrendaría a Oracle a lo largo del tiempo, que también habla con otros posibles socios y que quiere cerrar este año; no se reportó monto y Oracle no ha comentado ni presentado nada. Reporte de prensa, sin confirmar.",
+   "why_en": "A chip-leasing vehicle would move hardware spending from capex and notes payable to lease payments: under ASC 842 the liability and the right-of-use asset come onto the balance sheet at commencement, so the structure would show in the lease-adjusted view and in lease-adjusted leverage ({{sec:obligations}}, {{sec:credit}}), not in gross debt; it enters no figure until Oracle discloses terms.",
+   "why_es": "Un vehículo de arrendamiento de chips movería el gasto en hardware del capex y las notas por pagar a pagos de arrendamiento: bajo ASC 842 el pasivo y el activo por derecho de uso entran al balance al inicio, así que la estructura aparecería en la vista ajustada por arrendamientos y en el apalancamiento ajustado ({{sec:obligations}}, {{sec:credit}}), no en la deuda bruta; no entra en ninguna cifra hasta que Oracle divulgue los términos.",
+   "sources": [
+    {
+     "tier": "press",
+     "title": "Yahoo Finance, Oct 8, 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
+     "url": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-open-ai-revenue-disclosure-180858662.html"
+    },
+    {
+     "tier": "press",
+     "title": "Yahoo Finance / TIKR, Oct 8, 2026: Oracle Courts Apollo and Goldman for AI Chip Financing as Debt Tops $169 Billion (secondary report of the WSJ story)",
+     "url": "https://finance.yahoo.com/technology/ai/articles/oracle-courts-apollo-goldman-ai-072925320.html"
+    }
+   ]
+  },
+  {
+   "id": "2026-10-08-bloomberg-trucked-gas",
+   "date": "2026-10-08",
+   "theme": "power",
+   "basis": "press",
+   "title_en": "Bloomberg: Oracle is trucking compressed natural gas to data centers in Utah and Shackelford County, Texas, while pipelines lag, and is weighing it for Project Jupiter (press)",
+   "title_es": "Bloomberg: Oracle transporta gas natural comprimido en camiones a centros de datos en Utah y el condado de Shackelford, Texas, mientras los gasoductos se retrasan, y lo evalúa para el Proyecto Júpiter (prensa)",
+   "summary_en": "Bloomberg reported, citing people familiar with the work, that truck deliveries of compressed natural gas have kept a data center near Salt Lake City running for more than a year while it awaited a pipeline connection, that the same approach powers early work at the OpenAI campus in Shackelford County, Texas (suppliers named: Certarus and VoltaGrid), and that Oracle is weighing it for Project Jupiter in New Mexico, whose dedicated pipeline now has a February 1, 2027 in-service date; an East Daley Analytics estimate quoted in the report puts delivered trucked gas at about four times the price at a major pipeline hub. Oracle did not comment. Press-reported.",
+   "summary_es": "Bloomberg reportó, citando a personas al tanto del trabajo, que entregas de gas natural comprimido en camiones han mantenido en operación por más de un año un centro de datos cerca de Salt Lake City mientras esperaba la conexión a un gasoducto, que el mismo esquema alimenta las primeras obras del campus de OpenAI en el condado de Shackelford, Texas (proveedores nombrados: Certarus y VoltaGrid), y que Oracle lo evalúa para el Proyecto Júpiter en Nuevo México, cuyo gasoducto dedicado tiene ahora fecha de entrada en servicio del 1 de febrero de 2027; una estimación de East Daley Analytics citada en el reporte pone el gas transportado en camión en unas cuatro veces el precio de un centro de distribución importante. Oracle no comentó. Reporte de prensa.",
+   "why_en": "Trucked gas keeps the energized-megawatt schedule ({{sec:sites}}) while permits lag, at a cost of about four times pipeline gas for the months it runs; it confirms that the Jupiter pipeline's Feb 1, 2027 date is a live constraint on that campus's 1H 2027 first-revenue date ({{sec:risks}}). No figure on the page changes.",
+   "why_es": "El gas en camiones sostiene el calendario de megavatios energizados ({{sec:sites}}) mientras los permisos se retrasan, a un costo de unas cuatro veces el gas por gasoducto durante los meses que dure; confirma que la fecha del 1 feb 2027 del gasoducto de Júpiter es una restricción real para los primeros ingresos de ese campus en el 1S 2027 ({{sec:risks}}). Ninguna cifra de la página cambia.",
+   "sources": [
+    {
+     "tier": "press",
+     "title": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
+     "url": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
+    },
+    {
+     "tier": "press",
+     "title": "Yahoo Finance, Oct 8, 2026 (Bloomberg report): Oracle trucks natural gas to data centers to bridge pipeline delays",
+     "url": "https://finance.yahoo.com/energy/articles/oracle-trucks-natural-gas-data-150844664.html"
+    },
+    {
+     "tier": "press",
+     "title": "Quartz, Oct 9, 2026 (citing Bloomberg): Oracle is trucking natural gas to AI data centers as pipeline delays threaten key projects",
+     "url": "https://qz.com/oracle-trucking-natural-gas-ai-data-centers-100926"
+    }
+   ]
+  },
+  {
+   "id": "2026-09-29-fusion-claw",
+   "date": "2026-09-29",
+   "theme": "customers",
+   "basis": "company",
+   "title_en": "Oracle introduces Fusion Claw, an execution runtime for its Fusion Agentic Applications, with 25 new agentic applications available",
+   "title_es": "Oracle presenta Fusion Claw, un entorno de ejecución para sus Fusion Agentic Applications, con 25 nuevas aplicaciones agénticas disponibles",
+   "summary_en": "Oracle release (Austin, Sep 29, 2026): Fusion Claw, a governed agentic execution runtime for Oracle Fusion Agentic Applications that pairs frontier-model reasoning with deterministic computation, with 25 new Claw-powered agentic applications available, joining 75 agentic applications already offered; the release carries no prices, customer counts or revenue figures (company statement, not audited).",
+   "summary_es": "Comunicado de Oracle (Austin, 29 sep 2026): Fusion Claw, un entorno de ejecución agéntica gobernado para Oracle Fusion Agentic Applications que combina el razonamiento de modelos de frontera con cómputo determinista, con 25 nuevas aplicaciones agénticas impulsadas por Claw disponibles, que se suman a 75 aplicaciones agénticas ya ofrecidas; el comunicado no trae precios, número de clientes ni cifras de ingresos (declaración de la empresa, no auditada).",
+   "why_en": "Applications are the part of Oracle outside the AI buildout: cloud applications and the software line (−3% in 1Q27, {{sec:statements}}) fund part of the capex; the release carries no figure, so it enters no number on the page.",
+   "why_es": "Las aplicaciones son la parte de Oracle fuera de la expansión de IA: las aplicaciones en la nube y el renglón de software (−3% en el 1T27, {{sec:statements}}) financian parte del capex; el comunicado no trae cifras, así que no entra en ningún número de la página.",
+   "sources": [
+    {
+     "tier": "company",
+     "title": "Oracle press release, Sep 29, 2026: Oracle Extends Fusion Agentic Applications with Introduction of Fusion Claw",
+     "url": "https://www.oracle.com/news/announcement/oracle-extends-fusion-agentic-applications-with-introduction-of-fusion-claw-2026-09-29/"
+    },
+    {
+     "tier": "wire",
+     "title": "PR Newswire, Sep 29, 2026: the same release as distributed",
+     "url": "https://www.prnewswire.com/news-releases/oracle-extends-fusion-agentic-applications-with-introduction-of-fusion-claw-302892817.html"
+    }
+   ]
+  },
+  {
+   "id": "2026-09-18-port-washington-atc-refiling",
+   "date": "2026-09-18",
+   "theme": "power",
+   "basis": "press",
+   "title_en": "WPR: ATC refiles the Port Washington transmission application at US$2.48–2.72 billion after the Wisconsin PSC revoked its completeness finding on the first one (press)",
+   "title_es": "WPR: ATC vuelve a presentar la solicitud de transmisión de Port Washington por US$2.48–2.72 mil millones después de que la PSC de Wisconsin revocó la determinación de integridad de la primera (prensa)",
+   "summary_en": "Wisconsin Public Radio reported (Sep 18, 2026, republished by Urban Milwaukee) that American Transmission Co. filed a new application for the lines serving the Port Washington campus with an estimated cost of US$2.48–2.72 billion, about US$1.1 billion of it a Decker grid-stabilization system Oracle has committed to fund with no cost to other customers per the application; the Citizens Utility Board called it possibly the costliest single transmission project in the state. The refiling follows the PSC's unanimous vote of Aug 6, 2026 revoking the completeness determination of the first application (then estimated at US$1.3–1.7 billion) because of the volume of changes to it (WPR, Aug 7). Press-reported; whether Oracle pays depends on FERC's transmission rate rules.",
+   "summary_es": "Wisconsin Public Radio reportó (18 sep 2026, republicado por Urban Milwaukee) que American Transmission Co. presentó una nueva solicitud para las líneas que atenderán el campus de Port Washington con un costo estimado de US$2.48–2.72 mil millones, de los cuales unos US$1.1 mil millones corresponden a un sistema de estabilización de la red en Decker que Oracle se comprometió a financiar sin costo para otros usuarios según la solicitud; el Citizens Utility Board lo llamó posiblemente el proyecto de transmisión individual más caro del estado. La nueva solicitud sigue al voto unánime de la PSC del 6 ago 2026 que revocó la determinación de integridad de la primera (entonces estimada en US$1.3–1.7 mil millones) por el volumen de cambios (WPR, 7 ago). Reporte de prensa; que Oracle pague depende de las reglas tarifarias de transmisión de la FERC.",
+   "why_en": "The grid line is the critical path for Port Washington's first power ({{sec:sites}}): the PSC's statutory clock restarted with the refiling, which is why Aterio's base case puts full power in October 2028 against Oracle's 2H 2027 target; the Decker system Oracle funds is a site-level commitment listed in {{sec:obligations}} (nominal, not in any ratio).",
+   "why_es": "La línea de transmisión es la ruta crítica para la primera energía de Port Washington ({{sec:sites}}): el reloj legal de la PSC se reinició con la nueva solicitud, por eso el caso base de Aterio pone el suministro completo en octubre de 2028 frente al 2S 2027 fijado por Oracle; el sistema de Decker que financia Oracle es un compromiso a nivel de sitio listado en {{sec:obligations}} (nominal, fuera de toda razón).",
+   "sources": [
+    {
+     "tier": "press",
+     "title": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever",
+     "url": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/"
+    },
+    {
+     "tier": "press",
+     "title": "WPR, Aug 7, 2026: PSC deals major blow to transmission project supporting Port Washington data center",
+     "url": "https://www.wpr.org/news/psc-denies-transmission-project-port-washington-data-center"
     }
    ]
   }
  ],
- "sweep_note_en": "Manual sweep on 2026-10-04 (ET; FNAM), Sep 26 to Oct 4: EDGAR (Forms 4 and 144 only), Oracle's newsroom, the wires and the agencies (no rating action). Added: the Tencent lease per the FT (unconfirmed) and the Port Washington grid timing (Aterio, The Register).",
- "sweep_note_es": "Barrido manual del 2026-10-04 (hora del Este; FNAM), del 26 sep al 4 oct: EDGAR (solo Formas 4 y 144), la sala de prensa de Oracle, los cables y las agencias (sin acción de calificación). Agregados: el arrendamiento de Tencent según el FT (sin confirmar) y el calendario de la red de Port Washington (Aterio, The Register).",
- "sweep_note_date": "2026-10-04"
+ "sweep_note_en": "Manual sweep on 2026-10-09 (ET; FNAM, institutional review), Sep 26 to Oct 9. Added: OpenAI's revenue (FT, confirmed by CNBC, Oct 8), the chip-leasing vehicle talks (WSJ, Oct 8), trucked gas (Bloomberg, Oct 8), the Port Washington transmission refiling (WPR, Sep 18) and Fusion Claw (Oracle, Sep 29); Network World (Oct 9) appended to the Tencent item and Aterio's scenarios to the Port Washington item; the Moody's and Fitch dates corrected to Feb 2, 2026 from the agencies' releases. The routine's own sweep that morning ran four searches and found nothing, so its inclusion rule and prompt were rewritten.",
+ "sweep_note_es": "Barrido manual del 2026-10-09 (hora del Este; FNAM, revisión institucional), del 26 sep al 9 oct. Agregados: los ingresos de OpenAI (FT, confirmado por CNBC, 8 oct), las negociaciones del vehículo de arrendamiento de chips (WSJ, 8 oct), el gas en camiones (Bloomberg, 8 oct), la nueva solicitud de transmisión de Port Washington (WPR, 18 sep) y Fusion Claw (Oracle, 29 sep); Network World (9 oct) anexado a la nota de Tencent y los escenarios de Aterio a la de Port Washington; las fechas de Moody's y Fitch corregidas al 2 feb 2026 a partir de los comunicados de las agencias. El barrido de la rutina de esa mañana corrió cuatro búsquedas y no encontró nada, por lo que su regla de inclusión y su prompt se reescribieron.",
+ "sweep_note_date": "2026-10-09",
+ "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
+ "sweep_log": [
+  {
+   "date": "2026-10-09",
+   "by": "manual",
+   "searches": 21,
+   "checked": [
+    "SEC EDGAR",
+    "Oracle newsroom",
+    "Moody's",
+    "S&P Global Ratings",
+    "Fitch Ratings",
+    "Reuters",
+    "Bloomberg",
+    "Financial Times",
+    "Wall Street Journal",
+    "CNBC",
+    "TechCrunch",
+    "Network World",
+    "Wisconsin Public Radio",
+    "Urban Milwaukee",
+    "Aterio"
+   ],
+   "added": [
+    "2026-10-08-openai-revenue-ft",
+    "2026-10-08-wsj-chip-lease-vehicle",
+    "2026-10-08-bloomberg-trucked-gas",
+    "2026-09-29-fusion-claw",
+    "2026-09-18-port-washington-atc-refiling"
+   ],
+   "appended": [
+    "2026-09-30-tencent-lease-ft",
+    "2026-10-02-port-washington-grid"
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "by": "routine",
+   "searches": 4,
+   "checked": [
+    "SEC EDGAR"
+   ],
+   "added": [],
+   "note": "Found nothing; see the manual sweep of the same day."
+  }
+ ]
 }

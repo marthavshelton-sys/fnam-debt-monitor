@@ -32,10 +32,11 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   calls the repayment *inferred* from those two figures and links the filing (round 4, 2026-10-04; a full-text read of the
   10-Q from this sandbox found no sentence naming the note or a US$3.1 bn scheduled repayment). Still to do: add any issuance
   after 31 May 2026 from each 8-K, and re-base the book on the FY2027 10-K when it is filed.
-- Ratings: the Moody's (Jul-2025) and Fitch (Feb-2026) actions are cited to press articles (investing.com,
-  StreetInsider); replace with the agencies' own rating-action releases when accessible (Moody's requires a login).
-  Last check for a new action: 2026-10-04 (`market_reference.json → credit_ratings.checked`, shown in the credit section's
-  source line): none since S&P's 9-Jul-2026 downgrade; no Oracle 8-K since 14-Sep-2026.
+- Ratings (corrected 2026-10-09): Moody's affirmed Baa2 with the outlook still negative on 2026-02-02 (release 458628; the
+  negative outlook dates from 2025-07-28) and Fitch affirmed BBB/F2 Stable on 2026-02-02 (the release URL carries the date);
+  both now link the agencies' own pages, which are script-rendered (verified on dated copies: Newsquawk, StreetInsider,
+  Investing.com). Last check for a new action: 2026-10-09 (`market_reference.json → credit_ratings.checked`, shown in the
+  credit section's source line): none since S&P's 9-Jul-2026 downgrade; no Oracle 8-K since 14-Sep-2026.
 - Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
   source-cited but not machine-checked; the 338 parser checks and 329 tie-outs cover the statements only.
 
@@ -60,16 +61,26 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   second reading" badge; re-run the search after each 10-Q in case Oracle adds a custom tag.
 - Obligations provenance: `page` is null for every note (Oracle files inline XBRL without fixed pagination); the note
   numbers in `obligations.json → sources.10q_1q27.notes` follow the FY2026 10-K order and need a re-read of the 1Q27 10-Q.
-  VIE/SPV and guarantees are text readings flagged *needs review* until the routine greps the archived filings.
+  VIE/SPV: searched 2026-10-09 (EDGAR full-text search of the FY2026 10-K and the 1Q27 10-Q for "variable interest" and
+  "special purpose": 0 hits; control phrases hit both filings), so the row now reads "searched · none disclosed (date)";
+  re-run after each 10-Q (`obligations.json → vie.search`). Guarantees stay a text reading flagged *text · review*.
 - Unit economics (AI buildout): revenue per energized MW and the prepaid / BYOH / Oracle-funded split are marked
   "not derivable" / "not disclosed"; fill them only if Oracle discloses total energized MW or the RPO split by funding type.
 
 ## Owner's decision pending (ideas proposed 2026-10-03, not built)
 
-- 2026-10-07: the scenario bar has both a "FactSet consensus" and a "Base case" button; by the rule of 2026-10-04 the Base
-  case is consensus as it stands, so both load the same figures (the note under the bar says so). If a Base case of FNAM's own
-  is wanted (its own growth, margin or capex path kept apart from consensus), it needs a data definition
-  (`reference.js → dcf`) and the Reset button would return to it instead.
+- 2026-10-07 (resolved 2026-10-09): the duplicate "FactSet consensus" button was removed in the institutional review; one
+  "Base case (FactSet consensus)" button remains. Still open: if a Base case of FNAM's own is wanted (its own growth, margin
+  or capex path kept apart from consensus), it needs a data definition (`reference.js → dcf`) and the Reset button would
+  return to it instead.
+- **2026-10-09, Bull scenario (owner's decision needed; review finding M3).** The Bull (US$118) and the management target
+  (US$117) sit within a dollar because both are capped at the FY2030 target of US$225 bn and the Bull rejoins consensus after
+  FY2030; the page now explains this under the scenarios table. Two ways to separate them, neither built because both need a
+  judgment call: (A) merge the Bull into the management-target row (three scenarios: Bear / Base / Management target as the
+  upside), or (B) let the Bull run above consensus after FY2030 on a sourced basis, for which the only candidate on file is the
+  long-range targets Oracle will present at the Investor Day of Oct 28, 2026 (`long_range_targets.json`); a Bull built on the
+  current FY2030 target's CAGR (31%) extended past FY2030 would be an FNAM assumption, not a source. Until she decides, the
+  four rows stay as built on 2026-10-04.
 
 Interest coverage and cash interest (XBRL, easy); depreciation vs capex with a server useful-life sensitivity (10-K
 policy note, medium); Form 4 insider transactions (EDGAR, easy); rating-agency lease-adjusted leverage replicated

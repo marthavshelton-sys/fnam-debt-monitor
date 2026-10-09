@@ -521,9 +521,45 @@
  },
  "vie": {
   "disclosed": false,
-  "status": "needs_review",
-  "text_en": "No variable-interest-entity or special-purpose-vehicle consolidation disclosure has been identified in the FY2026 10-K (Note 1, consolidation policy) or the 1Q27 10-Q; the data-center developers (Crusoe, Vantage, BorderPlex/Stack, Related) finance their campuses with their own project debt, which is not on Oracle's balance sheet. Maximum exposure to loss: not disclosed. This reading is text-derived and stays flagged needs review until the routine re-reads both filings for 'variable interest' and 'special purpose'.",
-  "text_es": "No se ha identificado ninguna revelación de consolidación de entidades de interés variable (VIE) o vehículos de propósito especial en el 10-K del AF2026 (nota 1, política de consolidación) ni en el 10-Q del 1T27; los desarrolladores de centros de datos (Crusoe, Vantage, BorderPlex/Stack, Related) financian sus campus con deuda de proyecto propia, que no está en el balance de Oracle. Exposición máxima a pérdidas: no divulgada. Esta lectura proviene del texto y conserva la marca de revisión pendiente hasta que la rutina relea ambos reportes buscando 'variable interest' y 'special purpose'.",
+  "status": "searched_none_disclosed",
+  "search": {
+   "date": "2026-10-09",
+   "method": "SEC EDGAR full-text search (efts) over Oracle's 10-K and 10-Q filings dated Jun 1 to Oct 9, 2026",
+   "queries": [
+    {
+     "q": "\"variable interest\"",
+     "forms": "10-K, 10-Q",
+     "hits": 0
+    },
+    {
+     "q": "\"special purpose\"",
+     "forms": "10-K, 10-Q",
+     "hits": 0
+    },
+    {
+     "q": "\"not yet commenced\"",
+     "forms": "10-K, 10-Q",
+     "hits": 1,
+     "note": "control phrase: hits the FY2026 10-K (orcl-20260531.htm, filed 2026-06-22)"
+    },
+    {
+     "q": "\"remaining performance obligations\"",
+     "forms": "10-Q",
+     "hits": 1,
+     "note": "control phrase: hits the 1Q27 10-Q (orcl-20260831.htm, filed 2026-09-11)"
+    },
+    {
+     "q": "\"variable interest\"",
+     "forms": "any, Jun 2024 to Oct 2026",
+     "hits": 4,
+     "note": "only four 424B2 prospectus supplements (Sep 2024, Jan 2025); no 10-K or 10-Q"
+    }
+   ],
+   "method_en": "Full-text search of EDGAR for 'variable interest' and 'special purpose' in Oracle's FY2026 Form 10-K (filed Jun 22, 2026) and 1Q27 Form 10-Q (filed Sep 11, 2026): no hits. Control phrases ('not yet commenced', 'remaining performance obligations') hit those two filings, so the index covers them.",
+   "method_es": "Búsqueda de texto completo en EDGAR de 'variable interest' y 'special purpose' en el Formulario 10-K del AF2026 (presentado el 22 jun 2026) y el 10-Q del 1T27 (presentado el 11 sep 2026) de Oracle: sin coincidencias. Frases de control ('not yet commenced', 'remaining performance obligations') sí localizan esos dos reportes, así que el índice los cubre."
+  },
+  "text_en": "Searched, none disclosed: a full-text search of EDGAR (Oct 9, 2026 ET) finds no 'variable interest' or 'special purpose' text in the FY2026 10-K or the 1Q27 10-Q, so Oracle discloses no variable-interest-entity or special-purpose-vehicle consolidation; the data-center developers (Crusoe, Vantage, BorderPlex/Stack, Related) finance their campuses with their own project debt, which is not on Oracle's balance sheet. Maximum exposure to loss: not disclosed. Re-run the search after each 10-Q.",
+  "text_es": "Buscado, nada divulgado: una búsqueda de texto completo en EDGAR (9 oct 2026, hora del Este) no encuentra 'variable interest' ni 'special purpose' en el 10-K del AF2026 ni en el 10-Q del 1T27, así que Oracle no revela consolidación de entidades de interés variable (VIE) ni de vehículos de propósito especial; los desarrolladores de centros de datos (Crusoe, Vantage, BorderPlex/Stack, Related) financian sus campus con deuda de proyecto propia, que no está en el balance de Oracle. Exposición máxima a pérdidas: no divulgada. Repetir la búsqueda tras cada 10-Q.",
   "source": "10k_fy26"
  },
  "lookthrough": {
@@ -543,5 +579,68 @@
    "method_en": "Present value of the uncommenced leases IF they were level annual payments over 17 years (midpoint of the disclosed 15–19) starting 1.5 years out (midpoint of the 2Q27–FY2029 window), discounted at the 5.7% weighted-average rate of Oracle's existing leases. Every input is an assumption; the result is never added to debt or to any ratio on this page.",
    "method_es": "Valor presente de los arrendamientos no iniciados SI fueran pagos anuales nivelados a 17 años (punto medio de los 15–19 divulgados) iniciando en 1.5 años (punto medio de la ventana 2T27–AF2029), descontados al 5.7% promedio ponderado de los arrendamientos actuales de Oracle. Cada insumo es un supuesto; el resultado nunca se suma a la deuda ni a razón alguna de esta página."
   }
+ },
+ "reported_structures": {
+  "_comment": "Financing structures reported by the press that Oracle has not filed or confirmed. Shown in the VIE / guarantees card as 'press-reported, unconfirmed'; they enter no figure, no view and no ratio until a filing or an Oracle statement carries them.",
+  "items": [
+   {
+    "id": "2026-10-08-chip-lease-vehicle",
+    "date": "2026-10-08",
+    "status": "reported_unconfirmed",
+    "basis": "press",
+    "en": "The Wall Street Journal reported (Oct 8, 2026; relayed by Yahoo Finance) that Oracle is in talks with Apollo Global Management and Goldman Sachs to finance a large purchase of AI chips through a separate company that would own the chips and lease them to Oracle over time, that other partners are also in talks and that Oracle wants a deal this year; no amount was reported and Oracle has not commented or filed anything.",
+    "es": "The Wall Street Journal reportó (8 oct 2026; retomado por Yahoo Finance) que Oracle negocia con Apollo Global Management y Goldman Sachs el financiamiento de una compra grande de chips de IA a través de una sociedad aparte que sería dueña de los chips y se los arrendaría a Oracle a lo largo del tiempo, que también habla con otros socios y que quiere cerrar este año; no se reportó monto y Oracle no ha comentado ni presentado nada.",
+    "accounting_en": "If signed, the chips would reach Oracle as a lease: under ASC 842 the liability and the right-of-use asset come onto the balance sheet at commencement (finance or operating by the lease's terms), not as notes payable, so the structure would show in the lease-adjusted view and in lease-adjusted leverage, and in the uncommenced-lease commitments once signed and not yet commenced.",
+    "accounting_es": "De firmarse, los chips llegarían a Oracle como arrendamiento: bajo ASC 842 el pasivo y el activo por derecho de uso entran al balance al inicio (financiero u operativo según los términos), no como notas por pagar, así que la estructura aparecería en la vista ajustada por arrendamientos y en el apalancamiento ajustado, y entre los compromisos de arrendamientos no iniciados una vez firmado y antes de iniciar.",
+    "source": {
+     "title": "Yahoo Finance, Oct 8, 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
+     "url": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-open-ai-revenue-disclosure-180858662.html"
+    }
+   }
+  ]
+ },
+ "site_commitments": {
+  "_comment": "Site-level amounts Oracle has stated in releases, or that the press attributes to Oracle or its counterparties, outside the 10-Q (commitments and leases notes). Shown under the commitments table as a memo with basis and source; nominal, as printed; never summed and never added to a ratio.",
+  "items": [
+   {
+    "id": "point-beach-energy",
+    "site": "Port Washington, WI",
+    "date": "2026-10-02",
+    "basis": "company",
+    "amount_text": "≈ US$ 300 M",
+    "en": "Point Beach nuclear plant: Oracle commits to subscribe to a portion of the plant's output, which it expects to save Wisconsin utility customers about US$300 million in fuel costs, and to fully fund the campus's energy costs; subject to Wisconsin PSC approval (company statement, not audited; the US$300 million is Oracle's estimate of the customers' saving, not a liability on Oracle's books).",
+    "es": "Planta nuclear Point Beach: Oracle se compromete a suscribir una parte de la generación de la planta, lo que espera ahorre unos US$300 millones en costos de combustible a los usuarios de Wisconsin, y a financiar por completo los costos de energía del campus; sujeto a la aprobación de la PSC de Wisconsin (declaración de la empresa, no auditada; los US$300 millones son la estimación de Oracle del ahorro de los usuarios, no un pasivo en sus libros).",
+    "source": {
+     "title": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
+     "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
+    }
+   },
+   {
+    "id": "wisconsin-financial-assurance",
+    "site": "Port Washington, WI",
+    "date": "2026-08-17",
+    "basis": "press",
+    "amount_text": "> US$ 100 M a year",
+    "en": "Wisconsin's financial-assurance rule for large power customers: Oracle told a court in June 2026 that the requirement could cost it more than US$100 million a year, then dropped the suit (WPR, Aug 17, 2026; The Register, Oct 2, 2026). A collateral or guarantee requirement, not a purchase; the amount is Oracle's own figure as reported.",
+    "es": "Regla de garantía financiera de Wisconsin para grandes usuarios de energía: Oracle dijo a un tribunal en junio de 2026 que el requisito podría costarle más de US$100 millones al año y luego retiró la demanda (WPR, 17 ago 2026; The Register, 2 oct 2026). Un requisito de colateral o garantía, no una compra; la cifra es la de la propia Oracle según la prensa.",
+    "source": {
+     "title": "WPR, Aug 17, 2026: Oracle drops Wisconsin suit over financial requirements for data centers",
+     "url": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
+    }
+   },
+   {
+    "id": "atc-port-washington-line",
+    "site": "Port Washington, WI",
+    "date": "2026-09-18",
+    "basis": "press",
+    "amount_text": "US$ 2.48–2.72 bn (ATC estimate)",
+    "en": "ATC's refiled transmission application for the Port Washington campus is estimated at US$2.48–2.72 billion; about US$1.1 billion of it is the Decker grid-stabilization system that Oracle has committed to fund, with no cost to other customers per the application (WPR via Urban Milwaukee, Sep 18, 2026). The utility's estimate, not an Oracle commitment except the Decker system; whether Oracle pays depends on FERC's transmission rate rules.",
+    "es": "La solicitud de transmisión que ATC volvió a presentar para el campus de Port Washington se estima en US$2.48–2.72 mil millones; unos US$1.1 mil millones corresponden al sistema de estabilización de la red en Decker que Oracle se comprometió a financiar, sin costo para otros usuarios según la solicitud (WPR vía Urban Milwaukee, 18 sep 2026). Estimación de la empresa de transmisión, no un compromiso de Oracle salvo el sistema de Decker; que Oracle pague depende de las reglas tarifarias de la FERC.",
+    "source": {
+     "title": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever",
+     "url": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/"
+    }
+   }
+  ]
  }
 }

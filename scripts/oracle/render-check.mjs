@@ -131,7 +131,7 @@ for (const c of configs) {
     // metrics with estimate counts, the hero is the DCF-implied target with its implied multiples, the Excel button is wired
     const top = await page.evaluate(() => { const M = window.ORCL_MODEL; const d = M.dcfNow(); return { inputs: document.querySelectorAll('#dcfTable input').length, N: d.s.N, buttons: document.querySelectorAll('#dcfScenarioBar button').length, cons: document.querySelectorAll('#dcfCons tbody tr').length, est: (document.querySelector('#dcfCons') || {}).textContent || '', heroK: (document.getElementById('dcfHeroK') || {}).textContent || '', mult: (document.getElementById('dcfHeroMult') || {}).textContent || '', xlsx: !!document.getElementById('dcfXlsx') && !!window.FNAM_XLSX, firstCard: (document.querySelector('#dcf .card') || {}).id, truthW: (() => { const th = document.querySelector('#dcfTruth thead th:nth-child(3)'); return th ? Math.round(th.getBoundingClientRect().width) : 0; })() }; });
     if (top.inputs < 5 * top.N + 1) f(`projection table has ${top.inputs} inputs for ${top.N} years`);
-    if (top.buttons !== 6) f(`${top.buttons} scenario buttons (expected 5 scenarios + reset)`);
+    if (top.buttons !== 5) f(`${top.buttons} scenario buttons (expected 4 scenarios + reset; the duplicate FactSet-consensus button left 2026-10-09)`);
     if (top.cons !== 12 || !/est\./.test(top.est)) f(`consensus comparison incomplete (${top.cons} rows)`);
     if (!/DCF-implied target|Objetivo implícito por el DCF/.test(top.heroK) || !/NTM EPS|UPA NTM/.test(top.mult)) f(`hero is not the DCF-implied target with its multiples (${top.heroK} / ${top.mult})`);
     if (!top.xlsx) f('Excel export button or writer missing');

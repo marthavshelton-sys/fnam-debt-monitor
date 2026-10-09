@@ -139,6 +139,47 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   badge is page-only (`badge`). `deck-check.mjs` now also checks the summary text against the page, the page order, the contents
   links and every word's box (PyMuPDF: none past the right margin or below the footer rule).
 
+## 2026-10-09 (institutional review, 16 findings; owner's reviewer)
+- **News sweep had stopped sweeping.** The daily routine's Oct 9 run (`trig_01UrRS8yehhzptXyHsSyWqZo`, 54 seconds, four web searches, no
+  article opened) bumped `as_of` and committed "found nothing" while Bloomberg, the FT, the WSJ and CNBC had a week of material; the page's
+  gap sentence also misdescribed the rule as "SEC, Oracle, agency or wire" although press items were already on the page. Fixed: the
+  inclusion rule is explicit (`NEWS-SWEEP-PROMPT.md` rule 2, `METHODOLOGY.md` §6: named outlets are in scope as `basis: press`,
+  rumors out), a minimum sweep of 15 named searches is required (rule 3), every sweep writes `news.json → sweep_log` and the page prints
+  the latest entry beside the gap sentence (`newsMeta`), the routine's stored prompt was replaced with the file's text (`update_trigger`).
+  Items added in-session, all verified at a dated copy and labelled press: OpenAI ≈ US$50 bn annualized revenue (FT, CNBC, Oct 8),
+  the Apollo/Goldman chip-leasing vehicle talks (WSJ via Yahoo Finance, Oct 8; also `obligations.json → reported_structures`, shown in
+  the VIE card as "press · unconfirmed"), trucked gas at Utah, Shackelford and possibly Jupiter (Bloomberg, Oct 8; site issues), the
+  Port Washington transmission refiling at US$2.48–2.72 bn (WPR, Sep 18; PSC rescission Aug 6), Fusion Claw (Oracle release, Sep 29);
+  Network World (Oct 9) and Aterio's full-power scenarios appended to existing items. WSJ, FT, Bloomberg and CNBC refuse the sandbox
+  (403): cite the original outlet and link a dated copy (Reuters, Yahoo Finance) when the original cannot be fetched.
+- **Ratings.** Moody's affirmed Baa2 / negative on 2026-02-02 (release 458628; the outlook is negative since 2025-07-28) and Fitch BBB /
+  F2 Stable on 2026-02-02 (release URL dated 02-02-2026); the block carried 2025-07-28 and 2026-02-01, so the page flagged Moody's as
+  "aging · 14 months". Both agencies' pages are script-rendered (no text to curl or WebFetch): verify dates on Newsquawk, StreetInsider
+  or Investing.com and keep the agency URL first. The ratings table prints "outlook negative since <date>" (`outlookSince` from
+  `credit_ratings.<agency>.outlook_since`) and the source cell is composed ("agency release, <date>"), no ISO date typed.
+- **Summary stamp.** `build-data.mjs` hashes the executive summary's narrative (`exec_summary.content_hash`) and stamps `updated` with
+  today's ET date when the text changed, writing `comments.json` back; the stamp can no longer say "written Oct 4" after a rewrite.
+  Watch lines stay ≤ 160 characters (validator) and about five groups of three or four lines (the deck's executive summary).
+- **DCF scenario bar.** One Base button ("Base case (FactSet consensus)"; `SCENARIO_BUTTONS`, render check expects 5 buttons). The
+  scenarios caption now explains, from the rows, why the Bull ≈ the management target (both capped at the FY2030 target, no volume
+  above RPO), why the Bull's PV of TV is below the Base's (growth 6.4% vs 10% in FY2031 after the cap, then the fade halves it) and why
+  the range is asymmetric (timing only vs volume and timing). Merging the Bull with the management target, or giving the Bull a sourced
+  path above consensus after FY2030, is the owner's decision (`PENDING.md`).
+- **Other fixes.** R2 "so what": the Management targets scenario runs on the FY2030 target, which also caps the Bull. Capacity: the
+  850 MW of 1Q27 deliveries is company-wide and Oracle gives no site split, so it does not reconcile with the campus table's energized
+  MW (`buildout.json → capacity.scope_en/es`, printed on the tile and the sites caption); Shackelford's 115 MW is power energized ahead
+  of the compute, first systems to customers in 2Q27. Port Washington's site-level amounts (Point Beach ≈ US$300 M, > US$100 M a year of
+  financial assurance, the ATC line and Oracle's Decker system) sit in `obligations.json → site_commitments`, a memo table under the
+  commitments table, in no ratio. Annual meeting Nov 18, 2026 in `calendar.json → manual_events` (status `filed`, DEF 14A). VIE row:
+  EDGAR full-text search (efts, works through WebFetch) found no "variable interest" / "special purpose" in the FY2026 10-K or 1Q27 10-Q;
+  `obligations.json → vie.search` holds the queries and the row reads "searched · none disclosed (date)". Price label: when the runner
+  filled a close FactSet had not posted, the page names that one feed ("Yahoo Finance (close of Oct 9, 2026; FactSet Global Prices through
+  Oct 8, 2026)"; `provenance.fill.latestName` parsed from the runner's source_name). News cards' "Why it matters" is a closed `<details>`
+  (word ceiling); phone tap targets (arrow-only links, brand, switch, summaries) reach 44 px through padding and negative margins; the
+  landscape bar is 38 px; the chain's valuation detail leads with the delta; the phone menu separates number and name; Spanish view
+  translates the curated English source shorts (`srcLabel`); the deck's contents note names the DCF section of the page. The link checker
+  already treats 401/403/429 as "unverifiable" (never broken): nothing to change.
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
