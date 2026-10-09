@@ -3,7 +3,7 @@
 // something (see the GAP runbook, "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-10-06",
+  updatedAt: "2026-10-09",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -197,7 +197,7 @@ window.GAP_REF = {
       ],
     },
   },
-  // Share repurchase authorisations (AGM item VI). The AGM cancels whatever is left of the prior year's
+  // Share repurchase authorizations (AGM item VI). The AGM cancels whatever is left of the prior year's
   // program and sets the maximum for the next 12 months.
   buyback: [
     { agmDate: "2025-04-24", maxMxnM: 2500, note: { en: "Unused balance canceled by the 22-Apr-2026 AGM.", es: "El saldo no utilizado se canceló en la asamblea del 22-abr-2026." }, source: { en: "GAP release 24-Apr-2026 (AGM resolutions, item VI)", es: "Comunicado de GAP 24-abr-2026 (resoluciones de la asamblea, punto VI)" } },
@@ -216,27 +216,36 @@ window.GAP_REF = {
   calendar: {
     nextResults: null,   // e.g. { date: "2026-10-21", source: { title: "GAP announces 3Q26 results date", url: "https://...", date: "2026-10-01" } }
   },
-  // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million.
+  // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million. The page anchors the first projected
+  // year on the guidance midpoints in guidance.js and the next two fiscal years on FactSet's consensus EBITDA in peers.js
+  // (anchorConsensus; minAnalysts = fewest estimates for a year to count); the drivers below take over afterward.
   dcf: {
     horizonYears: 5,
     terminalMethod: "annuity",        // annuity to concession end | perpetuity | exit multiple
     concessionEnd: 2048,
-    trafficGrowthPct: [2.0, 4.0, 4.0, 3.5, 3.5],   // 2027e–2031e; 2026 guidance −3% to 0% (World Cup base, Jamaica)
-    revPerPaxGrowthPct: 6.0,          // maximum-tariff path 2025-29 + inflation + commercial yield (LTM: +11%)
-    ebitdaMarginPct: null,            // null = latest LTM margin (ex-IFRIC 12)
-    capexMxnM: [12000, 10000, 8000, 7000, 7000],   // PMD 2025-29 (> Ps. 52 bn) tapering after 2029; 2026 guidance Ps. 12 bn
+    renewalPct: 0,                    // annuity method: weight of a perpetuity after the concession's end (0 = contractual term only, 100 = perpetuity)
+    anchorConsensus: true, minAnalysts: 3,
+    trafficGrowthPct: [2.0, 4.0, 4.0, 3.5, 3.5],   // the five fiscal years after the guided one; 2026 guidance −3% to 0% (World Cup base, Jamaica)
+    revPerPaxGrowthPct: 6.0,          // maximum-tariff path 2025-29 indexed to inflation + commercial yield (LTM to 2Q26: +11%)
+    ebitdaMarginPct: null,            // null = the guided year's margin midpoint, else the latest LTM margin (ex-IFRIC 12)
+    capexMxnM: null,                  // null = the PMD's annual pace (regulation.mdp: over Ps. 52 bn over 2025–2029 = Ps. 10,400 M a year) for every year after the guided one; an array of five fixes a profile
     daPctRevenue: null,               // null = LTM D&A / revenue
     taxRatePct: 30,
     nwcPctDeltaRevenue: 5,
-    riskFreePct: null,                // null = latest MX 10-year yield in market.js (FRED IRLTLT01MXM156N)
-    erpPct: 5.0,
-    beta: 0.85,
-    costOfDebtPct: 9.9,               // GAP 26-2 coupon 9.87% (10-yr fixed, Mar-2026)
-    targetDebtPct: 25,
-    terminalGrowthPct: 4.0,           // nominal MXN (≈ 3.5–4% inflation + modest real growth)
-    exitMultiple: 11.0,
+    riskFreePct: null,                // null = latest MX 10-year auction yield in market.js (Banxico SIE SF44071)
+    erpPct: 5.0,                      // mature-market implied ERP 4.23% (Damodaran, Jan-2026) + 0.8 pp; the peso sovereign yield already carries Mexico's default spread
+    beta: 0.85,                       // fallback; the page computes two years of weekly GAPB vs IPC returns
+    costOfDebtPct: 9.9,               // fallback; the page reads the latest fixed-rate bond (GAP 26-2 coupon 9.87%, 10-yr, Mar-2026)
+    targetDebtPct: 25,                // GAP at market values (Oct-2026): gross debt about 24% of EV, net debt about 17%
+    terminalGrowthPct: 4.0,           // nominal MXN: Banxico's 3% inflation target + about 1 pp of real growth
+    exitMultiple: 11.0,               // about GAP's own NTM EV/EBITDA over the last five years (FactSet, peers.js)
+    notes: {
+      erp: { en: "mature-market implied ERP 4.2% (Damodaran, Jan-2026) + 0.8 pp; the M bond's yield already carries Mexico's spread", es: "prima madura implícita 4.2% (Damodaran, ene-2026) + 0.8 pp; el rendimiento del bono M ya incluye el riesgo país" },
+      g: { en: "nominal pesos: 3% inflation target + about 1 pp of real growth", es: "pesos nominales: meta de inflación de 3% + alrededor de 1 pp de crecimiento real" },
+      renew: { en: "annuity method: 0 = no value after the concession ends, 100 = perpetuity; extensions of up to 50 years are at the government's discretion (20-F)", es: "método de anualidad: 0 = sin valor tras el fin de la concesión, 100 = perpetuidad; prórrogas de hasta 50 años a discreción del gobierno (20-F)" },
+    },
   },
   // Peer set for relative valuation. Multiples are placeholders until the FactSet connector is
-  // authorised; see peers.js.
+  // authorized; see peers.js.
   peers: ["ASUR", "OMA", "AENA", "Fraport", "Flughafen Zürich", "Auckland International"],
 };

@@ -75,6 +75,8 @@ git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the mar
   liabilities + equity; cash begin + net change = cash end; CF cash end = BS cash; YTD = sum of
   quarters for revenue / net income / EBITDA; domestic + international = total per airport; airports
   sum to the group total; no missing quarter in the 12-quarter window; no missing month since 2019.
+  Since 9-Oct-2026 it also warns (never fails) when an English string of `comments.js`, `summary.js` or `reference.js` carries a
+  British spelling (the English view is American English, the owner's convention); the quality page lists the words.
 
 ### When a release changes format
 
@@ -175,6 +177,38 @@ daily turnover (volume × VWAP, USD) over the last three months, with the produc
 snapshot as `adtv.productUsdM`. If the routine
 fails, it pushes a `peers-failed-<date>` branch and writes `notify-state.json → lastPeersFailure`; the quality page
 flags `peers.js` once its prices are older than 45 days.
+
+## DCF (section 05 of the page; rebuilt 9-Oct-2026)
+
+The deck does not carry this section. Everything below is computed at render time in `app.js` (`dcfDefaults`,
+`dcfCompute`, both exposed on `window.GAP_MODEL` together with `DCF_LIMITS` for headless checks).
+
+* **Timing.** Flows start at the latest balance sheet (net debt and non-controlling interest at that date; shares outstanding
+  now; the last FactSet close): the rest of the current fiscal year (the full-year figures less the year-to-date statements,
+  shown as one column such as `2H26E`) plus five full fiscal years, each flow discounted at mid-period from the balance-sheet
+  date; the terminal value is measured at the mid-point of the last explicit year (an exit multiple at its end).
+* **Anchors, in this order.** The first projected year follows the midpoints of GAP's latest guidance vintage for it
+  (`guidance.js`: traffic, revenue ex-IFRIC 12, EBITDA or margin, capex). The fiscal years with a FactSet consensus EBITDA of at
+  least `dcf.minAnalysts` estimates (`peers.js → own.fy`) take the consensus mean (revenue = EBITDA / the margin input); the
+  switch at the top of the card turns this off. Every other year follows the drivers in the card (traffic growth per year,
+  revenue per passenger growth, EBITDA margin, capex per year, D&A, tax, working capital). The table's basis row names the
+  anchor of each column and the note under it compares every anchored year with the consensus mean.
+* **Defaults** (`reference.js → dcf`): capex = the PMD's annual pace (`regulation.mdp`: over Ps. 52 bn over 2025–2029 = Ps. 10,400 M a
+  year) unless `dcf.capexMxnM` fixes a five-year profile; margin = the guided year's midpoint, else the LTM margin; WACC by CAPM on
+  the latest Banxico 10-year auction yield, the beta computed from two years of weekly GAPB vs IPC returns, the coupon of the latest
+  fixed-rate bond, `dcf.erpPct` and `dcf.targetDebtPct` (`dcf.notes` holds the source lines the card prints under ERP, terminal
+  growth and renewal). Terminal value: an annuity to `dcf.concessionEnd` with `dcf.renewalPct` weighting a perpetuity after it
+  (0 = contractual term only, 100 = perpetuity), or a Gordon perpetuity, or an exit multiple on the last year's EBITDA.
+* **Bridges to the market price**, all recomputations of the same model: the market-implied WACC (bisection on the risk-free
+  rate), the value with the concessions renewed, the renewal probability or exit multiple the price implies, the value at GAP's
+  5-year average NTM EV/EBITDA (FactSet) and FactSet's mean target. The "Gap to market" callout composes them into sentences;
+  nothing in it is typed.
+* **Validation.** Every input has a range (`DCF_LIMITS`; the concession end must follow the last explicit year). A value outside
+  it, or an empty field, is refused: the field turns red, the row prints the allowed range, the status line under the hero
+  counts the refused inputs, and the last valid value stays in force. A terminal growth at or above the WACC while flows continue
+  after the explicit period is flagged under the input.
+* **Checks before pushing a change here:** `node --check site/gap/app.js`, then the page at 1280 and 390 px in both languages
+  (no console errors, no `NaN`, no horizontal overflow; the warnings appear on an out-of-range entry and clear on a valid one).
 
 ## Access (password)
 
