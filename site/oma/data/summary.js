@@ -1,18 +1,18 @@
 // Executive summary shown at the top of the page. Rewritten when results, traffic or an event land;
 // each bullet cites its source period. Basis periods drive the "as of" line.
 window.OMA_SUMMARY = {
-  updatedAt: "2026-09-23",
-  basis: { quarter: "2026Q2", resultsDate: "2026-07-27", trafficMonth: "2026-08", guidanceDate: null },
+  updatedAt: "2026-10-09",
+  basis: { quarter: "2026Q2", resultsDate: "2026-07-27", trafficMonth: "2026-09", guidanceDate: null },
   sections: [
     { k: "ops", title: { es: "Operación", en: "Operations" },
       es: [
         "2T26: ingresos aeronáuticos + no aeronáuticos +5.4% (Ps. 3,622 M) y EBITDA ajustado +6.2% (Ps. 2,722 M; margen 75.2%, +0.6 pp) con tráfico +0.4% (7.23 M). TUA doméstica +7.7% por las tarifas máximas 2026; TUA internacional −8.7% por el peso fuerte. Utilidad neta +10.2% (Ps. 1,478 M) con menor gasto financiero.",
-        "Tráfico enero–agosto +2.8% (doméstico +3.1%, internacional +1.3%); agosto +4.0% (internacional +7.0%). Crecen San Luis Potosí, Durango y Chihuahua; Monterrey −1.6% y Mazatlán −7.8% en el 2T26; 24 rutas nuevas en el trimestre.",
+        "Tráfico enero–septiembre +2.0% (21.63 M; doméstico +2.1%, internacional +1.4%); septiembre −4.8% (2.16 M; doméstico −5.9%, internacional +2.8%). Monterrey −7.5% (doméstico −9.5%), Ciudad Juárez −12.1% y Mazatlán −6.1%; crecen San Luis Potosí +18.3% y Acapulco +6.0%. 3T26: +1.3% (internacional +6.0%).",
         "No aeronáuticos +9.8%: comercial +6.7% (Ps. 66.4 por pasajero), OMA Carga +29.1%, parque industrial +9.1%. Costo de servicios + G&A por pasajero Ps. 74.3 (+2.0%); la provisión de mantenimiento mayor se duplica (Ps. 99 M) con el nuevo PMD."
       ],
       en: [
         "2Q26: aeronautical + non-aeronautical revenue +5.4% (Ps. 3,622 M) and Adjusted EBITDA +6.2% (Ps. 2,722 M; margin 75.2%, +0.6 pp) on traffic +0.4% (7.23 M). Domestic TUA +7.7% on the 2026 maximum tariffs; international TUA −8.7% on the strong peso. Net income +10.2% (Ps. 1,478 M) with lower financing expense.",
-        "January–August traffic +2.8% (domestic +3.1%, international +1.3%); August +4.0% (international +7.0%). San Luis Potosí, Durango and Chihuahua grow; Monterrey −1.6% and Mazatlán −7.8% in 2Q26; 24 new routes in the quarter.",
+        "January–September traffic +2.0% (21.63 M; domestic +2.1%, international +1.4%); September −4.8% (2.16 M; domestic −5.9%, international +2.8%). Monterrey −7.5% (domestic −9.5%), Ciudad Juárez −12.1% and Mazatlán −6.1%; San Luis Potosí +18.3% and Acapulco +6.0% grow. 3Q26: +1.3% (international +6.0%).",
         "Non-aeronautical +9.8%: commercial +6.7% (Ps. 66.4 per passenger), OMA Carga +29.1%, industrial park +9.1%. Cost of services + G&A per passenger Ps. 74.3 (+2.0%); the major-maintenance provision doubles (Ps. 99 M) under the new MDP."
       ] },
     { k: "guidance", title: { es: "PMD y regulación", en: "MDP and regulation" },
@@ -39,12 +39,12 @@ window.OMA_SUMMARY = {
       ] },
     { k: "watch", title: { es: "Qué vigilar", en: "What to watch" },
       es: [
-        "Tráfico de septiembre (≈5-oct) y resultados del 3T26 ({{nextResults}}): Monterrey (≈55% del tráfico) frente a capacidad de las aerolíneas y rutas a EE. UU.; efecto del peso en la TUA internacional.",
+        "Resultados del 3T26 ({{nextResults}}; tráfico del trimestre +1.3%) y tráfico de octubre (≈5-nov): si se recupera el doméstico de Monterrey (≈54% del tráfico, −9.5% en septiembre); efecto del peso en la TUA internacional.",
         "Ejecución del PMD 2026–2030 (Ps. 1,152 M comprometidos en 2026) y ritmo de la provisión de mantenimiento mayor; margen ajustado sostenido ≈75%.",
         "Segunda exhibición del dividendo (≤30-nov) y recompras; vencimiento de OMA 22L (Ps. 1,700 M, mar-2027)."
       ],
       en: [
-        "September traffic (≈5-Oct) and 3Q26 results ({{nextResults}}): Monterrey (≈55% of traffic) versus airline capacity and US routes; peso effect on international TUA.",
+        "3Q26 results ({{nextResults}}; quarter traffic +1.3%) and October traffic (≈5-Nov): whether Monterrey domestic (≈54% of traffic, −9.5% in September) recovers; peso effect on international TUA.",
         "Execution of the 2026–2030 MDP (Ps. 1,152 M committed for 2026) and the pace of the major-maintenance provision; adjusted margin holding ≈75%.",
         "Second dividend installment (by 30-Nov) and buybacks; OMA 22L maturity (Ps. 1,700 M, Mar-2027)."
       ] }
