@@ -117,6 +117,10 @@ dashboards, everything built from public data by GitHub Actions.
   5-Oct-2026 the page showed the 2-Oct close all evening). Dividends: paid points only in `market.js → dividends.points`; a
   declared-not-yet-paid one sits in `announced`. The compact header and the "More figures" button are phone-only; the third
   `<style>` block must stay closed (an unclosed one let them show on desktop and ran the stamps together, 2026-10-05).
+  Market caps on the Oracle page (tables 22 and 23, the deck) are close × the company-level share count FF_COM_SHS_OUT (every class) at
+  the snapshot's close, never FactSet's `market_value` figure, which posts a session's value hours after the 7:58 PM run (it lagged a
+  day on 2026-10-08) and omits Alphabet's unlisted Class B; the weekly history behind the peers' 1/3/5-year averages uses the same
+  count on the US trading calendar (the security-level `shares_outstanding` is one class for Alphabet and Workday). Owner, 2026-10-09: tables 22 and 23 always at the prior close.
 - Oracle page (rebuilt 2026-10-03): sections, figure/table numbers, navigation and cross-references are generated from
   `tools/oracle/data/sections.json` (`ref('id')`, `{{sec:id}}`); never type a section number (the validator fails).
   Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
