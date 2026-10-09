@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-09T14:56:21.640Z",
+  "generated": "2026-10-09T21:56:00.009Z",
   "summary": {
     "checks": 464,
     "failed": 0,
@@ -3807,16 +3807,16 @@
     },
     {
       "series": "Share price (ORCL close, runner feed)",
-      "lastDate": "2026-10-08",
-      "ageDays": 2,
+      "lastDate": "2026-10-09",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet"
     },
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
-      "lastDate": "2026-10-08",
-      "ageDays": 2,
+      "lastDate": "2026-10-09",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
@@ -3944,7 +3944,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-08; 3 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-09; 3 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -4098,8 +4098,8 @@
       "label_en": "Market (daily closes)",
       "label_es": "Mercado (cierres diarios)",
       "cadence": "daily",
-      "asOf": "2026-10-08",
-      "lastRefresh": "2026-10-08",
+      "asOf": "2026-10-09",
+      "lastRefresh": "2026-10-09",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
