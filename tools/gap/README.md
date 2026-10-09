@@ -267,12 +267,13 @@ FactSet peers table exactly as the page prints it (GAP's row through `GAP_MODEL.
 method note read from the page's `#peersLead` / `#peersNote`, the analyst-consensus tiles, 1-, 3- and 5-year averages and
 ADTV), then the weekly history of GAP's NTM EV/EBITDA and NTM P/E (`peers.js` → `own.history.series`) beside ASUR's and OMA's
 with GAP's 5-year average dashed, one chart above the other (`peersPage` and `multiplesHistoryPage` in the shared engine) ·
-sources and methodology. Every page after the cover carries the confidentiality footer and "Page X of Y".
+sources and methodology. Every page after the cover carries the source-line footer and "Page X of Y".
 
 Next results date: `reference.js` → `calendar.nextResults` when GAP has announced it (shown as *confirmed*); otherwise
 the PDF assumes the median lag between quarter-end and release for the same quarter over the previous three years and
-labels it *assumed*. The authorship line reads "Powered by <name>"; the name defaults to "Claude (Anthropic)" and can be
-overridden by defining `window.FNAM_MODEL_NAME` before `present.js` loads.
+labels it *assumed*. Since 2026-10-09 no deck carries an authorship line ("Powered by", "Prompted by") or a confidentiality
+notice: the cover, the footers and the sources page print the source line instead (`confidential()` in the shared engine,
+"Source: public information and FactSet consensus; not investment advice."; a builder may override it with `cfg.confidential`).
 
 Conventions the data files feed the PDF with: `summary.js` bullets may wrap their two to four most important words in
 `**double asterisks**` (rendered bold on the page and in the PDF) and section titles are written in Title Case in both

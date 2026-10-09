@@ -20,6 +20,11 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
 - Only scheduled runs count (`event=schedule`); dispatched diagnostics runs never do.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
+- **One run, one record** (9-Oct-2026): `lastSuccess` is the newest landed refresh; `lastAttempt` is the newest completed
+  scheduled run with its *refresh* outcome: `result: "success"` when its data landed, else the run's own conclusion
+  (`failure`, `cancelled`...). A run that committed and then failed a later step (OMA's source-link check found a dead
+  link on 8/9-Oct-2026) is that landed refresh, recorded as `success` with `afterCommitFailure: true`, never as a failure
+  at the same instant as `lastSuccess` (`attemptRecord` in `lib.mjs`, tested in `selftest.mjs`).
 - **Late**: no landed refresh since the second-to-last time the workflow's own cron was due, counting only due times
   at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
   workflow file, so changing a cron needs no change here.
