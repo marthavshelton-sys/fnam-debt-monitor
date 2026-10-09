@@ -2,13 +2,29 @@
  "issuer": "ASUR-6001-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ASUR-6001-CGEN_CAPIT",
  "since": "2024-01-01",
- "checkedAt": "2026-10-07T14:52:50.823Z",
- "rows": 118,
+ "checkedAt": "2026-10-09T22:04:23.915Z",
+ "rows": 120,
  "archived": 0,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1594244",
+   "date": "2026-10-08",
+   "title": "ASUR ANUNCIA LA COLOCACIÓN EXITOSA, A TRAVÉS DE SU SUBSIDIARIA AEROPUERTO DE CANCÚN, S.A. DE C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1594244_1.pdf",
+   "coveredBy": "2026-10-08_prn302902737_en.txt"
+  },
+  {
+   "id": "1593965",
+   "date": "2026-10-07",
+   "title": "ASUR anuncia el total de tráfico para Septiembre del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1593965_1.pdf",
+   "coveredBy": "2026-10-07_prn302901630_en.txt"
+  },
   {
    "id": "1591573",
    "date": "2026-09-28",
