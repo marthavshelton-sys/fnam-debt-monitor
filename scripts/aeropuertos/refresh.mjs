@@ -109,7 +109,7 @@ async function refreshAicm() {
   const prev = sources.aicm || {}, newestFile = newest.href.split('/').pop();
   // the server re-stamps Last-Modified on every request, so a file is dated by the day this pipeline first saw it
   const years = [...new Set(Object.keys(aicm.pax).map((k) => k.slice(0, 4)))].sort();
-  sources.aicm = { title: `AICM en Cifras - ${MESES[newest.m - 1]} ${newest.y} y cierres anuales ${years[0]}-${newest.y - 1}`, url: LIST, file: newestFile, lastMonth: newestYm, updated: prev.file === newestFile && prev.updated ? prev.updated : today, fetchedAt: today };
+  sources.aicm = { title: `AICM en Cifras - ${MESES[newest.m - 1]} ${newest.y} y cierres anuales ${years[0]}-${newest.y - 1}`, url: LIST, file: newestFile, fileUrl: newest.href, lastMonth: newestYm, updated: prev.file === newestFile && prev.updated ? prev.updated : today, fetchedAt: today };
   status.aicm = added ? 'updated' : 'unchanged';
   console.log(`AICM: ${newest.text} (${sources.aicm.file}, first seen ${sources.aicm.updated}, server last-modified ${updated}); ${added} month-values changed`);
 }
@@ -127,7 +127,8 @@ async function refreshAifa() {
   if (!(out.asOf && out.pax > 1e6 && out.ops > 1e4 && out.cargoTons > 0)) throw new Error('AIFA counters not found: ' + JSON.stringify(out));
   if (prev.pax && (out.pax < prev.pax || out.ops < prev.ops)) throw new Error(`AIFA counters went down: ${JSON.stringify(prev)} -> ${JSON.stringify(out)}`);
   fs.writeFileSync(path.join(RAW, 'aifa.json'), JSON.stringify(out, null, 1));
-  sources.aifa = { title: 'AIFA - numeralia del portal', url: 'https://www.aifa.aero/', updated: out.asOf, fetchedAt: today };
+  // the counters have no page of their own: the link opens the home page at the counters' heading (text fragment)
+  sources.aifa = { title: 'AIFA - numeralia del portal', url: 'https://www.aifa.aero/#:~:text=Fecha%20de%20los%20datos', updated: out.asOf, fetchedAt: today };
   status.aifa = prev.asOf === out.asOf && prev.pax === out.pax ? 'unchanged' : 'updated';
   console.log(`AIFA: ${out.since} - ${out.asOf}: ${out.pax} passengers, ${out.ops} movements, ${out.cargoTons} t (${status.aifa})`);
 }

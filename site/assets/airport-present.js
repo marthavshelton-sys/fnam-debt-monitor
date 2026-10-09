@@ -161,14 +161,24 @@
       if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
       R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}${perSfx} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}${perSfx} (million)`), `${this.n(grp(lastM) / 1000, 2)}${prevM ? `  ·  ${pm(g(grp(lastM), grp(prevM)))} ${yy}` : ''}  ·  ${this.T('acum.', 'YTD')} ${pm(g(ytdNow, ytdPrev))}`, this.cls(g(grp(lastM), prevM && grp(prevM))));
       if (PER && PER.has(lastM)) R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}, consolidado con ${M.L(PER.P.name)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}, consolidated with ${M.L(PER.P.name)} (million)`), `${this.n(PER.consolidated(lastM, 'total') / 1000, 2)}  ·  ${prevM && PER.has(prevM) ? pm(g(PER.consolidated(lastM, 'total'), PER.consolidated(prevM, 'total'))) : 'n.c.'} ${yy}`, 'muted');
-      for (const c of M.CTRY) { const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; if (v) R(this.T(`  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`, `  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`), `${this.n(v.total / 1000, 2)}${p ? `  ·  ${pm(g(v.total, p.total))} ${yy}` : ''}`, 'muted'); }
+      // one row per legacy country; the new perimeter (the "Brazil and Others" block ASUR prints: Brazil, Ecuador, Costa Rica,
+      // Curaçao) on a single row, so the sheet keeps its page (seven country rows spilled into the sources note, 2026-10-09);
+      // the per-country figures are on the traffic page of this deck
+      const newC = PER ? M.CTRY.filter((c) => PER.newCodes.includes(c.code)) : [];
+      for (const c of M.CTRY) { if (newC.includes(c)) continue; const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; if (v) R(this.T(`  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`, `  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`), `${this.n(v.total / 1000, 2)}${p ? `  ·  ${pm(g(v.total, p.total))} ${yy}` : ''}`, 'muted'); }
+      if (newC.length && PER.has(lastM)) { const addedT = newC.reduce((a, c) => a + ((lastM.countries && lastM.countries[c.code] && lastM.countries[c.code].total) || 0), 0); if (addedT) R(`  ${M.L(PER.P.name)} · ${M.ymLabel(lastM.ym)}`, `${this.n(addedT / 1000, 2)}  ·  n.c. ${yy}`, 'muted'); }
       R(this.T('Próximos resultados', 'Next results'), this.nextText().replace(/^[^:]*:\s*/, ''), this.next && this.next.kind === 'confirmed' ? 'bold' : '');
       const noteStr = this.T(`Fuentes: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${M.L(CFG.debtNote)} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
         `Sources: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${M.L(CFG.debtNote)} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
       // ASUR's sheet carries more rows than GAP's or OMA's (ADS, pro-forma perimeter, one row per country): the padding is a little
       // tighter than the other tables' and 6.7 pt is the last resort, so the list never spills past the sources note
-      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta: meta2, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.2, bottom: 2.2, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4, 7, 6.7], limitY);
+      // when the list would still spill past the note at the smallest size (the Spanish labels wrap more), the indented
+      // per-country rows go first: the traffic page of this deck carries every country and airport
+      const tblOpts = (b, m) => ({ y, w: colW, head: null, body: b, meta: m, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.2, bottom: 2.2, left: 4, right: 4 } });
+      let body = rows, metaB = meta2;
+      { const r = this.measureTable({ ...tblOpts(body, metaB), size: 6.7, pageBreak: 'auto' }); if (!(r.pages === 1 && r.finalY <= limitY)) { const keep = rows.map((row, i) => !(meta2[i][1] === 'muted' && /^  /.test(row[0]))); body = rows.filter((_, i) => keep[i]); metaB = meta2.filter((_, i) => keep[i]); } }
+      const fy = this.fitTable(tblOpts(body, metaB), [8.6, 8.3, 8, 7.7, 7.4, 7, 6.7], limitY);
       const base = M.addDays(px[0], -365);
       const series = [{ id: M.HOME, label: CFG.homeLabel }, { id: '^MXX', label: 'S&P/BMV IPC' }].map((s) => ({ ...s, pts: M.px(s.id).filter((p) => p[0] >= base) })).filter((s) => s.pts.length > 5);
       const dates = series[0].pts.map((p) => p[0]);

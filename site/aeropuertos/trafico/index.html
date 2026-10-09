@@ -106,6 +106,10 @@ body{
 a{color:inherit;}
 html[lang="es"] .en{display:none !important;}
 html[lang="en"] .es{display:none !important;}
+.skip{position:absolute; left:8px; top:-80px; z-index:1000; background:var(--accent); color:#fff; padding:8px 14px; border-radius:8px; font-weight:600; text-decoration:none;}
+.skip:focus{top:8px;}
+#tbl th .sortbtn{all:unset; cursor:pointer; font:inherit; color:inherit; display:inline;}
+#tbl th .sortbtn:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;}
 .wrap{width:min(1120px, 100% - 48px); margin:0 auto;}
 @media (max-width:640px){ .wrap{width:min(1120px, 100% - 32px);} }
 
@@ -240,6 +244,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 </style>
 </head>
 <body>
+<a class="skip" href="#main"><span class="en">Skip to content</span><span class="es">Ir al contenido</span></a>
 
 <header class="topbar">
   <div class="wrap">
@@ -256,7 +261,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <section class="pagehead">
     <div class="wrap">
       <a class="backlink" href="/aeropuertos/">
@@ -704,6 +709,14 @@ window.addEventListener("DOMContentLoaded", function(){
     var axis = months.slice();
     if (co) { var extra = {}; ["GAP","OMA","ASUR"].forEach(function(g){ Object.keys(companies[g]).forEach(function(ym){ if (ym > months[last]) extra[ym] = 1; }); }); Object.keys(extra).sort().forEach(function(ym){ axis.push(ym); }); }
     var NA = axis.length;
+    // a month that some group has not reported yet is partial: each group's own figure is drawn, the month is never summed,
+    // and every caption names the groups missing from it
+    var COS = ["GAP","OMA","ASUR"], partial = {}, coStart = -1;
+    if (co) axis.forEach(function(ym, i){ var have = COS.filter(function(g){ return companies[g][ym] != null; }); if (have.length === COS.length && coStart < 0) coStart = i; if (coStart >= 0 && have.length && have.length < COS.length) partial[i] = COS.filter(function(g){ return have.indexOf(g) < 0; }); }); // months before the three series overlap are not "partial", just earlier history
+    var partialIdx = Object.keys(partial).map(Number).sort(function(a, b){ return a - b; });
+    var lastFull = NA - 1; if (co) { while (lastFull >= 0 && (partial[lastFull] || !COS.some(function(g){ return companies[g][axis[lastFull]] != null; }))) lastFull--; }
+    var partialNote = function(i){ return partial[i] ? T(" (parcial: sin ", " (partial: without ") + partial[i].join(", ") + ")" : ""; };
+    var partialText = partialIdx.length ? T(" " + partialIdx.map(function(i){ return monthLabel(axis[i], true) + " es parcial (falta " + partial[i].join(", ") + ")"; }).join("; ") + ": se muestra por grupo y no se suma.", " " + partialIdx.map(function(i){ return monthLabel(axis[i], true) + " is partial (" + partial[i].join(", ") + " missing)"; }).join("; ") + ": shown per group, not summed.") : "";
     function grpSeries(g){
       if (co) { if (["GAP","OMA","ASUR"].indexOf(g) < 0) return null; return axis.map(function(ym){ var v = companies[g][ym]; return v == null ? null : v; }); }
       var r = raw(D.byGroup[g], measure, seg); while (r.length < NA) r.push(null); return r;
@@ -719,28 +732,30 @@ window.addEventListener("DOMContentLoaded", function(){
     if (S.view === "annual") {
       type = "bar";
       var yrs = []; for (var y = S.from; y <= yearNow; y++) yrs.push(y);
-      labels = yrs.map(function(y){ return y === yearNow && lastM < 12 ? y + " (" + monName(1) + "–" + monName(lastM) + ")" : String(y); });
+      var lastMco = co ? +axis[NA - 1].slice(5, 7) : lastM, yPartial = partialIdx.filter(function(i){ return axis[i].slice(0, 4) === String(yearNow); });
+      labels = yrs.map(function(y){ return y === yearNow && (lastMco < 12 || yPartial.length) ? y + " (" + monName(1) + "–" + monName(lastMco) + (yPartial.length ? T(", parcial", ", partial") : "") + ")" : String(y); });
       sel.forEach(function(g){ var s = grpSeries(g); if (!s) return; datasets.push({label:gshort(g), data:yrs.map(function(y){ return sumYear(s, y); }), backgroundColor:alpha(col(g), .85), borderColor:col(g), borderWidth:0, stack:stacked ? "g" : g}); });
       if (S.total) datasets.push({type:"line", label:T("Total nacional (AFAC)", "National total (AFAC)"), data:yrs.map(function(y){ return sumYear(natArr, y); }), borderColor:cssVar("--text-primary"), backgroundColor:cssVar("--text-primary"), borderWidth:1.5, pointRadius:3, order:0});
       opts.scales.x.stacked = stacked; opts.scales.y.stacked = stacked;
       opts.scales.y.ticks.callback = axisFmt(measure);
-      opts.plugins.tooltip.callbacks = {label:function(c){ return " " + c.dataset.label + ": " + fmtBy(measure, c.parsed.y); }, footer:function(items){ var t = 0, n = 0; items.forEach(function(it){ if (it.dataset.type !== "line") { t += it.parsed.y || 0; n++; } }); return n > 1 ? T("Suma: ", "Sum: ") + fmtBy(measure, t) : ""; }};
+      opts.plugins.tooltip.callbacks = {label:function(c){ return " " + c.dataset.label + ": " + fmtBy(measure, c.parsed.y); }, footer:function(items){ var yP = items.length && yrs[items[0].dataIndex] === yearNow ? yPartial : []; if (yP.length) return T("Año parcial: falta ", "Partial year: missing ") + partial[yP[yP.length - 1]].join(", ") + T(" en ", " in ") + yP.map(function(i){ return monthLabel(axis[i]); }).join(", ") + T("; sin suma", "; no sum"); var t = 0, n = 0; items.forEach(function(it){ if (it.dataset.type !== "line") { t += it.parsed.y || 0; n++; } }); return n > 1 ? T("Suma: ", "Sum: ") + fmtBy(measure, t) : ""; }};
     } else {
       labels = axis.slice(startIdx);
       var tf = S.view === "ttm" ? ttm : S.view === "yoy" ? yoy : S.view === "share" ? function(a){ return share(a, natFull); } : function(a){ return a; };
       sel.forEach(function(g, i){
         var s = grpSeries(g); if (!s) return;
         datasets.push({label:gshort(g), data:tf(s).slice(startIdx), borderColor:col(g), backgroundColor:alpha(col(g), stacked ? .55 : .12), borderWidth:1.5, pointRadius:0, pointHitRadius:6, tension:.15, spanGaps:false,
-          fill:stacked ? (i === 0 ? "origin" : "-1") : false, stack:stacked ? "g" : g + "_" + i, order:1});
+          fill:stacked ? (i === 0 ? "origin" : "-1") : false, stack:stacked ? "g" : g + "_" + i, order:1,
+          segment:partialIdx.length ? {borderDash:function(c){ return partial[c.p1DataIndex + startIdx] ? [4, 3] : undefined; }} : undefined});
       });
       if (S.total && S.view !== "share") datasets.push({label:T("Total nacional (AFAC)", "National total (AFAC)"), data:tf(natFull).slice(startIdx), borderColor:cssVar("--text-primary"), backgroundColor:cssVar("--text-primary"), borderWidth:1.5, borderDash:S.view === "yoy" ? [5, 3] : [], pointRadius:0, pointHitRadius:6, tension:.15, fill:false, stack:"nat", order:0});
       opts.scales.y.stacked = stacked;
       opts.scales.x.ticks.callback = yearTicks(labels, "mainchart");
       opts.scales.y.ticks.callback = axisFmt(measure, isPct ? "pct" : null);
       if (S.view === "share") { opts.scales.y.min = 0; if (sel.length === GROUPS.length && stacked) opts.scales.y.max = 100; }
-      opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true); },
+      opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true) + partialNote(items[0].dataIndex + startIdx); },
         label:function(c){ var v = c.parsed.y; if (v == null) return null; return " " + c.dataset.label + ": " + (isPct ? (S.view === "yoy" ? pct(v / 100) : nf(v, 1) + "%") : fmtBy(measure, v)); },
-        footer:function(items){ if (isPct || !stacked) return ""; var t = 0, n = 0; items.forEach(function(it){ if (it.dataset.stack === "g" && it.parsed.y != null) { t += it.parsed.y; n++; } }); return n > 1 ? T("Suma de los seleccionados: ", "Sum of selected: ") + fmtBy(measure, t) : ""; }};
+        footer:function(items){ if (isPct || !stacked) return ""; var i = items[0].dataIndex + startIdx; if (partial[i]) return T("Mes parcial: falta ", "Partial month: missing ") + partial[i].join(", ") + T("; sin suma", "; no sum"); var t = 0, n = 0; items.forEach(function(it){ if (it.dataset.stack === "g" && it.parsed.y != null) { t += it.parsed.y; n++; } }); return n > 1 ? T("Suma de los seleccionados: ", "Sum of selected: ") + fmtBy(measure, t) : ""; }};
     }
     opts.plugins.legend.display = datasets.length > 1;
     mount("mainchart", {type:type, data:{labels:labels, datasets:datasets}, options:opts});
@@ -748,7 +763,10 @@ window.addEventListener("DOMContentLoaded", function(){
     // footer text
     var f = "";
     if (co) {
-      f = T("Base: cifras reportadas por las propias empresas (pasajeros terminales, solo aeropuertos en México; GAP excluye Jamaica y ASUR excluye Puerto Rico y Colombia), tal como las publican sus reportes mensuales de tráfico, hasta ", "Basis: figures as reported by the companies themselves (terminal passengers, Mexican airports only; GAP excludes Jamaica and ASUR excludes Puerto Rico and Colombia), from their monthly traffic reports, to ") + monthLabel(axis[NA - 1]) + ". " +
+      // the countries ASUR reports outside Mexico, from its own traffic file (Puerto Rico, Colombia and, from Sep-2026, the Motiva countries)
+      var asurEx = (window.ASUR_TRAFFIC && window.ASUR_TRAFFIC.countries || []).filter(function(c){ return c.code !== "MX"; }).map(function(c){ return es() ? c.es : c.en; });
+      var asurExTxt = asurEx.length ? asurEx.slice(0, -1).join(", ") + (asurEx.length > 1 ? T(" y ", " and ") : "") + asurEx[asurEx.length - 1] : T("Puerto Rico y Colombia", "Puerto Rico and Colombia");
+      f = T("Base: cifras reportadas por las propias empresas (pasajeros terminales, solo aeropuertos en México; GAP excluye Jamaica y ASUR excluye " + asurExTxt + "), tal como las publican sus reportes mensuales de tráfico, hasta ", "Basis: figures as reported by the companies themselves (terminal passengers, Mexican airports only; GAP excludes Jamaica and ASUR excludes " + asurExTxt + "), from their monthly traffic reports, to ") + monthLabel(axis[lastFull >= 0 ? lastFull : NA - 1]) + T(" (los tres grupos)", " (all three groups)") + "." + partialText + " " +
           T("La línea de total nacional sigue siendo la de la AFAC. Las definiciones difieren ligeramente de las de la AFAC (tránsitos, aviación general), así que las series no son exactamente comparables.", "The national total line is still AFAC's. Definitions differ slightly from AFAC's (transit, general aviation), so the series are not exactly comparable.");
     } else {
       f = T("Base: AFAC, estadística operativa de aeropuertos, ", "Basis: AFAC airport operating statistics, ") + unitLabel + T(" por mes hasta ", " per month to ") + monthLabel(months[last]) + ". " +
@@ -785,7 +803,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var k = S.sort.k, d = S.sort.d;
     rows.sort(function(a, b){ var x = a[k], y = b[k]; if (typeof x === "string") return d * x.localeCompare(y, es() ? "es" : "en"); x = x == null ? -Infinity : x; y = y == null ? -Infinity : y; return d * (x - y); });
     var byTtm = rows.slice().sort(function(a, b){ return b.ttm - a.ttm; }); byTtm.forEach(function(v, i){ v.rank = i + 1; });
-    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '"' + (c.t ? ' title="' + esc(L(c.t)) + '"' : "") + '>' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</th>"; }).join("") + "</tr>";
+    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th scope="col"' + (S.sort.k === c.k ? ' aria-sort="' + (d < 0 ? "descending" : "ascending") + '"' : "") + ' class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '"' + (c.t ? ' title="' + esc(L(c.t)) + '"' : "") + '><button type="button" class="sortbtn">' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</button></th>"; }).join("") + "</tr>";
     document.querySelector("#tbl tbody").innerHTML = rows.map(function(v){
       var full = opFull(v.r.a) || (v.r.grp !== "OTROS" ? L(GNAME[v.r.grp]) : "");
       return '<tr data-code="' + v.r.code + '" class="' + (v.r.code === S.airport ? "sel" : "") + '"><td class="l">' + v.rank + '</td><td class="l name"><span class="dot" style="--c:' + col(v.r.grp) + '"></span>' + esc(v.name) + '<span class="code">' + v.r.code + '</span></td><td class="l"' + (full ? ' title="' + esc(full) + '"' : "") + '>' + esc(v.op) + '</td><td>' + fmtN(v.ttm) + '</td><td class="' + cls(v.yoy) + '">' + pct(v.yoy) + '</td><td class="' + cls(v.ytdyoy) + '">' + pct(v.ytdyoy) + '</td><td>' + nf(v.intl * 100, 0) + '%</td><td>' + nf(v.shareN * 100, 1) + '%</td></tr>';
@@ -929,8 +947,8 @@ window.addEventListener("DOMContentLoaded", function(){
     var a = function(url, text){ return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + text + "</a>"; };
     if (s.afac) li.push("<li>" + a(s.afac.url, T("AFAC — Estadística operativa de aeropuertos " + y0 + "–" + y1, "AFAC — Airport operating statistics " + y0 + "–" + y1)) + " (" + esc(s.afac.file || "") + T(", publicado el ", ", published ") + day(s.afac.published) + "). " + T("Pasajeros, operaciones y carga por aeropuerto y mes, nacional e internacional, con el operador de cada aeropuerto por año.", "Passengers, aircraft operations and cargo by airport and month, domestic and international, with each airport's operator by year.") + "</li>");
     // AICM coverage is stated from the data, in the same words as the note under the AICM chart
-    if (s.aicm) li.push("<li>" + a(s.aicm.url, T("AICM — «AICM en Cifras»", "AICM — “AICM en Cifras”")) + " (" + T("PDF mensual de " + mesLargo(aicmLast) + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", detectado el ", mesLargo(aicmLast) + " monthly PDF" + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", first seen ") + day(s.aicm.updated) + T(", y ediciones de cierre de año, que traen también el año anterior; serie mensual de " + mesLargo(aicmFirst) + " a " + mesLargo(aicmLast), ", and the year-end editions, which also carry the year before; monthly series from " + mesLargo(aicmFirst) + " to " + mesLargo(aicmLast)) + "). " + T("Pasajeros comerciales, operaciones y carga, nacional e internacional.", "Commercial passengers, operations and cargo, domestic and international.") + "</li>");
-    if (s.aifa) li.push("<li>" + a(s.aifa.url, T("AIFA — numeralia de su sitio", "AIFA — counters on its website")) + ": " + T("acumulado de operaciones, pasajeros y toneladas desde la apertura, al ", "cumulative operations, passengers and tons since opening, as of ") + day(D.aifa && D.aifa.asOf) + ".</li>");
+    if (s.aicm) li.push("<li>" + a(s.aicm.url, T("AICM — «AICM en Cifras», página de estadísticas", "AICM — “AICM en Cifras”, statistics page")) + " (" + T("PDF mensual de " + mesLargo(aicmLast) + (s.aicm.file ? " (" + (s.aicm.fileUrl ? a(s.aicm.fileUrl, esc(s.aicm.file)) : esc(s.aicm.file)) + ")" : "") + ", detectado el ", mesLargo(aicmLast) + " monthly PDF" + (s.aicm.file ? " (" + (s.aicm.fileUrl ? a(s.aicm.fileUrl, esc(s.aicm.file)) : esc(s.aicm.file)) + ")" : "") + ", first seen ") + day(s.aicm.updated) + T(", y ediciones de cierre de año, que traen también el año anterior; serie mensual de " + mesLargo(aicmFirst) + " a " + mesLargo(aicmLast), ", and the year-end editions, which also carry the year before; monthly series from " + mesLargo(aicmFirst) + " to " + mesLargo(aicmLast)) + "). " + T("Pasajeros comerciales, operaciones y carga, nacional e internacional.", "Commercial passengers, operations and cargo, domestic and international.") + "</li>");
+    if (s.aifa) li.push("<li>" + a(s.aifa.url, T("AIFA — numeralia al pie de la portada de su sitio", "AIFA — counters at the foot of its home page")) + ": " + T("acumulado de operaciones, pasajeros y toneladas desde la apertura, al ", "cumulative operations, passengers and tons since opening, as of ") + day(D.aifa && D.aifa.asOf) + ".</li>");
     li.push("<li>" + T("Reportes mensuales de tráfico de GAP, OMA y ASUR (base «Reportes de las empresas»), tomados de los modelos de cada grupo en este sitio.", "GAP, OMA and ASUR monthly traffic reports (the “Company reports” basis), taken from each group's model on this site.") + "</li>");
     li.push("<li>" + T("Operadores: clasificación de la AFAC por año. Fusión del GACM en el AICM (Grupo Aeroportuario Marina): ", "Operators: AFAC's classification by year. GACM's merger into AICM (Grupo Aeroportuario Marina): ") + a("https://www.aicm.com.mx/concluye-proceso-de-fusion-para-el-surgimiento-de-grupo-aeroportuario-marina/30-06-2025", T("comunicado del AICM, 30 de junio de 2025", "AICM release, June 30, 2025")) + T(". GAFSACOMM (Sedena) y GATM (SICT): resoluciones de constitución en el Diario Oficial de la Federación — ", ". GAFSACOMM (SEDENA) and GATM (SICT): incorporation resolutions in the Official Gazette (DOF) — ") + a("https://www.diariooficial.gob.mx/nota_detalle.php?codigo=5649068&fecha=13/04/2022", T("GAFSACOMM, DOF 13-abr-2022", "GAFSACOMM, DOF Apr 13, 2022")) + ", " + a("https://www.diariooficial.gob.mx/nota_detalle.php?codigo=5664492&fecha=15/09/2022", T("GATM, DOF 15-sep-2022", "GATM, DOF Sep 15, 2022")) + T("; coinversión con Mota-Engil: ", "; Mota-Engil co-investment: ") + a("https://www.gob.mx/cms/uploads/attachment/file/948826/09_PS_GATM_AyR2324.pdf", T("GATM, Avance y Resultados 2023-2024, p. 8", "GATM, 2023-2024 Progress and Results report, p. 8")) + ".</li>");
     var ST = window.MX_AIRPORTS_STATUS || {}, fmtTs = function(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? esc(d.toLocaleString(es() ? "es-MX" : "en-US", {dateStyle:"medium", timeStyle:"short", timeZone:"America/Mexico_City"})) : "—"; };
@@ -987,6 +1005,18 @@ window.addEventListener("DOMContentLoaded", function(){
   function renderAll(){ renderKpis(); renderOpChips(); renderMain(); renderTblChips(); renderTable(); renderApSelect(); renderAirport(); renderAicm(); renderAifa(); renderSources(); renderStamps(); }
   renderAll();
   loadCompanies().then(function(){ renderNextRelease(); }); // the groups' release calendar, once their traffic files arrive
+  // Every chart canvas gets an accessible name: the section's heading plus the heading of its own block, in the current language.
+  (function(){
+    function labelCharts(){
+      Array.prototype.forEach.call(document.querySelectorAll("canvas"), function(cv){
+        var sec = cv.closest("section"), h2 = sec && sec.querySelector("h2"), box = cv.parentElement, hh = null;
+        while (box && box !== sec && !(hh = box.querySelector("h3, h4"))) box = box.parentElement;
+        var parts = [h2 ? h2.innerText : "", hh && hh !== h2 ? hh.innerText : ""].map(function(x){ return x.replace(/\s+/g, " ").trim(); }).filter(Boolean);
+        cv.setAttribute("role", "img"); cv.setAttribute("aria-label", parts.join(" · ") + T(" (gráfica)", " (chart)"));
+      });
+    }
+    labelCharts(); new MutationObserver(labelCharts).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
+  })();
   if (q.get("airport")) { var sec = document.getElementById("aeropuertos"); if (sec) setTimeout(function(){ sec.scrollIntoView({block:"start"}); }, 50); }
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
   var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", function(){ renderAll(); });
