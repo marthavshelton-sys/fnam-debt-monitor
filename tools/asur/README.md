@@ -141,6 +141,9 @@ unadjusted comparison would show ≈+66% with no real growth; FNAM calculation).
 * Open item for 3Q26 results (≈22-Oct): the DCF base passengers (`dcfDefaults`) sum the last four reported quarters on the
   consolidated basis plus `proForma.paxM`; once a reported quarter carries a CPC month, that month is counted twice. Revisit
   with the first consolidated quarter (and the LTM EBITDA overlay, below).
+* ASUR's codes are kept as printed: "BHA" for Belo Horizonte (Confins) and "BHF" for Bacacheri are ASUR's labels, not IATA's
+  (CNF, BFH). The 2025-09 month keeps the 16-airport perimeter of its own release; the consolidated total becomes comparable
+  month on month without a comparative from Sep-2027.
 
 ### When a release changes format
 

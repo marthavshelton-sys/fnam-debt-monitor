@@ -140,6 +140,46 @@ Next results date: `reference.js` → `calendar.nextResults` once OMA announces 
 assumed from the median lag between quarter-end and release for the same quarter over the previous three years.
 To review the output headlessly, open the page with Playwright, click `#btnPrint`, save the download and rasterise it.
 
+Cover and footers (owner, 2026-10-09): no deck carries an authorship line ("Powered by", "Prompted by", the owner's role) or a
+confidentiality notice; the cover, every footer and the sources page print the source line of the shared engine instead
+("Fuente: información pública y consenso de FactSet; no es asesoría de inversión." / "Source: public information and FactSet
+consensus; not investment advice."), the pattern the Oracle deck set on 2026-10-04.
+
+## DCF (page section 05; not in the deck)
+
+Shared engine `site/assets/airport-model.js` (ASUR runs the same code), defaults in `reference.js` → `dcf`.
+
+- **Capex path (9-Oct-2026).** `capexMxnM` is the path of the five projected years, which start the year after the latest reported
+  fiscal year (2027–2031 while the base is FY2026; shift the vector when the base year moves). 2027–2030 = each year's MDP
+  commitment (`regulation.mdp.byYear`, Dec-2024 pesos) indexed 4% a year to the middle of that year plus Ps. 400 M a year of
+  strategic investments and major maintenance (6M26: Ps. 191 M); 2031, beyond the MDP, = the MDP's annual average (Ps. 3,201 M)
+  indexed the same way plus the Ps. 400 M: 3,100 / 4,900 / 5,500 / 5,600 / 4,500. Until then the vector carried a 2026–2030
+  profile one year late (2,000 / 3,000 / 4,400 / 4,800 / 4,700); the base-case value moved from Ps. 95 to Ps. 88 on the 8-Oct-2026 close.
+- **Exit multiple.** The default is OMA's own 5-year average NTM EV/EBITDA from the FactSet peers snapshot (`peers.js` →
+  `own.evEbitdaNtmAvg5y`, 8.7x on 8-Oct-2026), with the input's caption naming the source and date; `exitMultiple` in
+  `reference.js` is only the fallback when the snapshot lacks it.
+- **"El DCF frente al mercado" / "The DCF against the market"** (`#dcfGap`, composed at render time from the same run, never
+  typed): value vs the close, the multiple the market pays vs the one the DCF implies, the WACC that would reproduce the price
+  (the solver that was already behind the WACC tile), the three terminal methods side by side (annuity / perpetuity / exit
+  multiple, each with its distance to the price) and what the capex path absorbs. The sentence naming the market's
+  implicit assumption (concession extension or dollar discount rates) is labeled an FNAM reading and prints only when the
+  exit-multiple value lands within 15% of the price. Why the base case sits far below the market on the 8-Oct-2026 data: a
+  12.5% nominal-peso WACC (CAPM on the 9.35% M bond) against 4% terminal growth, and a 17-year annuity to 2048 with no value
+  after the concession (the perpetuity gives Ps. 116, the FactSet exit multiple Ps. 192, within 7% of the Ps. 205.60 close).
+- **Input bounds** (`LIM` / `limOf`): every numeric input carries `min`/`max` (traffic −30…30%, revenue per passenger −20…30%,
+  margin 30…90%, capex 0…50,000 Ps. M, D&A 0…30%, tax 0…60%, working capital −50…50%, risk-free 0…30%, ERP 0…15%, beta 0…3,
+  cost of debt 0…30%, debt weight 0…90%, terminal growth −5…10%, exit multiple 1…30x, concession end from the year after the
+  last projected year to 2100). A blank, non-numeric or out-of-range entry is marked red with the bounds under the field
+  (`.inp-warn`, styles injected by the engine) and a banner above the result (`#dcfWarn`, `role="alert"`); the model keeps the
+  last valid value. The banner also says when a perpetuity has no terminal value (g ≥ WACC). Reset clears everything.
+- **Guidance chart slot.** OMA publishes no guidance, so the "Guidance vs actual" card (`#guideChartCard`) shows the MDP
+  commitments by year (`regulation.mdp.byYear`, the chart the deck already drew) instead of staying hidden with a blank canvas:
+  every one of the page's ten charts renders with data.
+
+Data-file headers (`financials.js`, `traffic.js`, `guidance.js`) no longer name the builder script or the raw folder
+(`GEN` in `scripts/oma/build-data.mjs`, owner's rule of 2026-10-05); `peers.js` and `quality.js` are written by the shared
+FactSet and validator libraries and still carry theirs.
+
 ## Local preview
 
 ```

@@ -244,6 +244,16 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sens td.center{text-align:center;}
 .sens td.hi{background:rgba(42,120,214,.12);}
 .sens td.now{outline:2px solid var(--accent); outline-offset:-2px; font-weight:700;}
+.inp .warn{grid-column:1 / -1; font-size:11.5px; color:var(--critical); line-height:1.35;}
+.inp input.bad{border-color:var(--critical); box-shadow:0 0 0 2px rgba(208,59,59,.18);}
+.inputs .anchor{font-size:12px; color:var(--text-secondary); line-height:1.45; padding:9px 11px; border:1px solid var(--border); border-radius:8px; background:var(--surface-2); margin-bottom:6px;}
+.inputs .anchor b{color:var(--text-primary);}
+.inputs .anchor .switch{margin-top:7px; font-size:12px; color:var(--text-primary);}
+.inputs .anchor .switch input{width:36px; height:20px;} .inputs .anchor .switch input:after{width:16px; height:16px;} .inputs .anchor .switch input:checked:after{left:18px;}
+.warnline{font-size:12px; font-weight:600; color:var(--critical); margin-top:8px;} .warnline:empty{display:none;}
+.callout:empty{display:none;}
+table tr.basis th{font-size:11px; font-weight:600; color:var(--muted); text-transform:none; letter-spacing:0; padding-top:0; padding-bottom:6px;}
+table tr.sub td{font-size:11.5px; color:var(--muted);}
 
 /* ---------- Timeline ---------- */
 .sum-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
@@ -654,8 +664,8 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
   <section class="block" id="dcf">
     <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por Flujos Descontados (DCF)</span><span class="en" hidden>Discounted-Cash-Flow Valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Flujo de efectivo libre a la firma en pesos nominales durante cinco años explícitos, descontado a un WACC construido con CAPM sobre el bono mexicano a 10 años. Como las concesiones mexicanas vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b>, no una perpetuidad; puede cambiarlo a perpetuidad o a múltiplo de salida. Todos los supuestos son editables y el resultado se recalcula al instante.</span>
-      <span class="en" hidden>Unlevered free cash flow in nominal pesos over five explicit years, discounted at a CAPM-based WACC built on the Mexican 10-year bond. Because the Mexican concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b>, not a perpetuity; switch to perpetuity or an exit multiple if you prefer. Every assumption is editable and the result recalculates instantly.</span>
+      <span class="es">Flujo de efectivo libre a la firma en pesos nominales: el resto del año fiscal en curso y cinco años fiscales completos, descontados a mitad de periodo a un WACC construido con CAPM sobre el bono mexicano a 10 años. El primer año proyectado sigue el punto medio de la guía de GAP y los dos siguientes el EBITDA del consenso FactSet (se puede desactivar); el resto, los supuestos editables. Como las concesiones mexicanas vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b> sin valor posterior; puede ponderar una renovación, usar una perpetuidad o un múltiplo de salida. Cada entrada tiene un rango admisible y el resultado se recalcula al instante.</span>
+      <span class="en" hidden>Unlevered free cash flow in nominal pesos: the rest of the current fiscal year and five full fiscal years, discounted at mid-period at a CAPM-based WACC built on the Mexican 10-year bond. The first projected year follows the midpoint of GAP's guidance and the next two the FactSet consensus EBITDA (switchable); the rest follow the editable drivers. Because the Mexican concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b> with no value after it; you can weight a renewal, use a perpetuity or an exit multiple. Every input has an allowed range and the result recalculates instantly.</span>
     </p>
     <p class="sec-meta" id="dcfMeta"></p>
     <div class="dcf-grid">
@@ -663,13 +673,16 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       <div>
         <div class="card">
           <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
+          <div class="warnline" id="dcfWarn" role="status"></div>
           <div class="out-grid" id="dcfOutputs"></div>
           <div class="callout" id="dcfNote"></div>
+          <div class="callout" id="dcfGap"></div>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Proyección de Flujos</span><span class="en" hidden>Cash-Flow Projection</span></h3>
           <p class="cap"><span class="es">Ps. millones, nominales</span><span class="en" hidden>Ps. million, nominal</span></p>
           <div class="tblwrap" id="dcfTable"></div>
+          <p class="cap" id="dcfTableNote"></p>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Sensibilidad: Valor por Acción</span><span class="en" hidden>Sensitivity: Value per Share</span></h3>
@@ -815,7 +828,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       <div class="prose">
         <p><span class="es"><b>IFRIC 12.</b> Bajo IFRS, el operador de una concesión registra las obras que construye para el concedente como ingreso por servicios de construcción y, al mismo tiempo, como costo por el mismo importe (margen cero) y como activo intangible (mejoras a bienes concesionados). Por eso el margen EBITDA "reportado" de GAP baja cuando invierte más. La vista sin IFRIC 12 resta ese ingreso y ese costo; el EBITDA no cambia, el margen sí.</span><span class="en" hidden><b>IFRIC 12.</b> Under IFRS, a concession operator books the works it builds for the grantor as construction-service revenue and, simultaneously, as cost for the same amount (zero margin) and as an intangible asset (improvements to concession assets). That is why GAP's "reported" EBITDA margin falls when it invests more. The ex-IFRIC 12 view removes that revenue and cost; EBITDA is unchanged, the margin is not.</span></p>
         <p><span class="es"><b>Acumulado y UDM.</b> El acumulado del año usa las columnas de nueve, seis o doce meses que GAP reporta en cada informe; los últimos doce meses suman los cuatro trimestres más recientes (o año anterior + acumulado − acumulado del año previo). El balance siempre es al cierre del periodo.</span><span class="en" hidden><b>Year-to-date and LTM.</b> Year-to-date uses the six-, nine- or twelve-month columns GAP reports each quarter; last-twelve-months adds the four most recent quarters (or prior year + YTD − prior-year YTD). The balance sheet is always the period-end position.</span></p>
-        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = bono M a 10 años. Valor terminal por anualidad: flujo del año 5 creciendo a g y descontado hasta 2048; por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA₅ × múltiplo. Valor del capital = VE − deuda neta − participación no controladora (valor en libros). Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year M bond. Annuity terminal value: year-5 flow growing at g and discounted until 2048; perpetuity: FCF₆/(WACC−g); multiple: EBITDA₅ × multiple. Equity value = EV − net debt − non-controlling interest (book value). It is a sensitivity tool, not a recommendation.</span></p>
+        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo, por el resto del año fiscal en curso (año completo menos lo ya reportado) y cinco años fiscales; cada flujo se descuenta a mitad de periodo desde la fecha del último balance. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = bono M a 10 años. Valor terminal por anualidad: flujo del último año creciendo a g hasta 2048, más la fracción de una perpetuidad posterior igual a la probabilidad de renovación; por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA del último año × múltiplo. Valor del capital = VE − deuda neta − participación no controladora (valor en libros). El consenso y los precios objetivo con los que se compara vienen de FactSet. Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital, over the rest of the current fiscal year (full year less the figures already reported) and five fiscal years; each flow is discounted at mid-period from the latest balance-sheet date. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year M bond. Annuity terminal value: last-year flow growing at g until 2048, plus the fraction of a perpetuity beyond it equal to the renewal probability; perpetuity: FCF₆/(WACC−g); multiple: last-year EBITDA × multiple. Equity value = EV − net debt − non-controlling interest (book value). The consensus and target prices it is compared with come from FactSet. It is a sensitivity tool, not a recommendation.</span></p>
       </div>
       <div class="card">
         <h3><span class="es">Cómo Se Actualiza Cada Bloque</span><span class="en" hidden>How Each Block Is Refreshed</span></h3>

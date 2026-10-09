@@ -38,10 +38,7 @@
       const co = M.REF.company || {}, tk = co.tickers || {};
       const tickerLine = [tk.bmv ? `BMV: ${String(tk.bmv).split(' ')[0]}` : null, tk.nyse ? `NYSE: ${String(tk.nyse).split(' ')[0]}` : null, tk.nasdaq ? `Nasdaq: ${String(tk.nasdaq).split(' ')[0]}` : null].filter(Boolean).join('  ·  ');
       const short = co.short || CFG.short;
-      // no "Powered by / Prompted by" credits and no confidentiality notice on the airport decks (the Oracle deck's pattern, owner's
-      // request 2026-10-04, extended to ASUR and OMA 2026-10-09): the footer line names the sources instead; CFG.deck can override
-      super(M, { slug: CFG.slug, short, name: co.name || short, tickerLine, url: `fnam.mx/${CFG.slug}`, fileStem: `${short}_${(tk.nyse || tk.nasdaq || short).split(' ')[0]}`, publicSources: 'BMV, SEC, comunicados de la empresa', publicSourcesEn: 'BMV, SEC, company releases',
-        credits: false, confidential: { es: `Fuente: informes y comunicados públicos de ${short}, FactSet; no es asesoría de inversión.`, en: `Source: ${short}'s public reports and releases, FactSet; not investment advice.` }, ...(CFG.deck || {}) });
+      super(M, { slug: CFG.slug, short, name: co.name || short, tickerLine, url: `fnam.mx/${CFG.slug}`, fileStem: `${short}_${(tk.nyse || tk.nasdaq || short).split(' ')[0]}`, publicSources: 'BMV, SEC, comunicados de la empresa', publicSourcesEn: 'BMV, SEC, company releases' });
       this.MX = window.MX_AIRPORTS || null;
       this.next = this.nextResults();
       this.ebitdaL = M.L(CFG.ebitdaLabel || { es: 'EBITDA', en: 'EBITDA' });
@@ -163,9 +160,11 @@
       H(this.T('Operación', 'Operations'));
       if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
       R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}${perSfx} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}${perSfx} (million)`), `${this.n(grp(lastM) / 1000, 2)}${prevM ? `  ·  ${pm(g(grp(lastM), grp(prevM)))} ${yy}` : ''}  ·  ${this.T('acum.', 'YTD')} ${pm(g(ytdNow, ytdPrev))}`, this.cls(g(grp(lastM), prevM && grp(prevM))));
-      const pfS = this.T(' pf', ' pf'); // pro forma: the company's own prior-year comparative for the new airports (see the note)
+      const pfS = ' pf'; // pro forma: the company's own prior-year comparative for the new airports (see the note)
       if (PER && PER.has(lastM)) { const cp = PER.consolidatedPrior(lastM, 'total'); R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}, consolidado con ${M.L(PER.P.name)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}, consolidated with ${M.L(PER.P.name)} (million)`), `${this.n(PER.consolidated(lastM, 'total') / 1000, 2)}  ·  ${cp.v ? pm(g(PER.consolidated(lastM, 'total'), cp.v)) + (cp.pf ? pfS : '') : 'n.c.'} ${yy}`, 'muted'); }
-      // the legacy countries on one row once the new airports are reported (the sheet is at its row limit), one row each before
+      // the legacy countries on one row once the new airports are reported (the sheet is at its row limit), one row each before;
+      // the new perimeter (the "Brazil and Others" block ASUR prints) on a single row with the company's pro-forma comparative;
+      // the per-country figures are on the traffic page of this deck
       const legacyC = M.CTRY.filter((x) => !(PER && PER.newCodes.includes(x.code)));
       const cRow = (c) => { const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; return v ? { label: M.L(c), txt: `${this.n(v.total / 1000, 2)}${p ? ` (${pm(g(v.total, p.total))})` : ''}` } : null; };
       if (PER && PER.has(lastM)) { const parts = legacyC.map(cRow).filter(Boolean); if (parts.length) R(this.T(`  Por país · ${M.ymLabel(lastM.ym)} (millones, a/a)`, `  By country · ${M.ymLabel(lastM.ym)} (million, y/y)`), parts.map((x) => `${x.label} ${x.txt}`).join('  ·  '), 'muted'); }
@@ -179,7 +178,12 @@
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
       // ASUR's sheet carries more rows than GAP's or OMA's (ADS, pro-forma perimeter, one row per country): the padding is a little
       // tighter than the other tables' and 6.7 pt is the last resort, so the list never spills past the sources note
-      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta: meta2, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.2, bottom: 2.2, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4, 7, 6.7], limitY);
+      // when the list would still spill past the note at the smallest size (the Spanish labels wrap more), the indented
+      // per-country rows go first: the traffic page of this deck carries every country and airport
+      const tblOpts = (b, m) => ({ y, w: colW, head: null, body: b, meta: m, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.2, bottom: 2.2, left: 4, right: 4 } });
+      let body = rows, metaB = meta2;
+      { const r = this.measureTable({ ...tblOpts(body, metaB), size: 6.7, pageBreak: 'auto' }); if (!(r.pages === 1 && r.finalY <= limitY)) { const keep = rows.map((row, i) => !(meta2[i][1] === 'muted' && /^  /.test(row[0]))); body = rows.filter((_, i) => keep[i]); metaB = meta2.filter((_, i) => keep[i]); } }
+      const fy = this.fitTable(tblOpts(body, metaB), [8.6, 8.3, 8, 7.7, 7.4, 7, 6.7], limitY);
       const base = M.addDays(px[0], -365);
       const series = [{ id: M.HOME, label: CFG.homeLabel }, { id: '^MXX', label: 'S&P/BMV IPC' }].map((s) => ({ ...s, pts: M.px(s.id).filter((p) => p[0] >= base) })).filter((s) => s.pts.length > 5);
       const dates = series[0].pts.map((p) => p[0]);
@@ -629,7 +633,9 @@
         this.T(`Mercado: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; precio, sin dividendos reinvertidos; tipo de cambio FIX de Banxico (SIE SF43718), con FRED DEXMXUS como respaldo.`, `Market: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; price only, dividends not reinvested; Banxico FIX exchange rate (SIE SF43718), FRED DEXMXUS as the fallback.`),
       ];
       yl = this.heading(this.T('Metodología', 'Methodology'), this.cur.x0, yl + 10, 10);
-      yl = this.bullets(meth, this.cur.x0, yl, wl, 7.7, { gap: 3 });
+      // the methodology bullets shrink (7.7 → 6.5 pt) until they end above the footer rule: the Spanish list ran into the footer (OMA, 9-Oct-2026)
+      const methSize = [7.7, 7.4, 7.1, 6.8, 6.5].find((sz) => yl + this.measureBullets(meth, wl, sz, { gap: 3 }) <= this.cur.y1 - 6) || 6.5;
+      yl = this.bullets(meth, this.cur.x0, yl, wl, methSize, { gap: 3 });
       const srcs = (CFG.sources || []).map((s) => [M.L(s.t), M.L(s.d), s.u.replace(/^https?:\/\/(www\.)?/, '').split('?')[0].slice(0, 44)]);
       let yr = this.heading(this.T('Fuentes', 'Sources'), xr, y, 10);
       yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Fuente', 'Source'), this.T('Qué aporta', 'What it provides'), 'URL'], body: srcs, meta: srcs.map(() => ['bold left', 'left small', 'left small']), size: 7.6, cols: { 0: { halign: 'left', cellWidth: wr * 0.3 }, 1: { halign: 'left' }, 2: { halign: 'left', cellWidth: wr * 0.28 } } });

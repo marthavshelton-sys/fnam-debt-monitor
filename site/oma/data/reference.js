@@ -1,7 +1,7 @@
 // Slow-moving reference facts for the OMA model. Every entry carries its source; edit by hand or via the
 // weekday routine when a release changes a fact (dividends, debt, share count, MDP, VINCI).
 window.OMA_REF = {
-  updatedAt: "2026-09-29",
+  updatedAt: "2026-10-09",
   company: {
     name: "Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",
     short: "OMA",
@@ -115,9 +115,15 @@ window.OMA_REF = {
   dcf: {
     horizonYears: 5, terminalMethod: "annuity", concessionEnd: 2048,
     trafficGrowthPct: [2.5, 3, 3, 3, 3], revPerPaxGrowthPct: 4, ebitdaMarginPct: null,
-    capexMxnM: [2000, 3000, 4400, 4800, 4700], daPctRevenue: null, taxRatePct: 30, nwcPctDeltaRevenue: 5,
+    // capexMxnM is the path of the five projected years, which start the year after the latest reported fiscal year (2027–2031 while
+    // the base is FY2026; shift the vector when the base year moves). 2027–2030: the MDP commitment of each year (regulation.mdp.byYear,
+    // Dec-2024 pesos) indexed at 4% a year to the middle of that year, plus Ps. 400 M a year of strategic investments and major
+    // maintenance (6M26: Ps. 191 M); 2031, beyond the MDP: the 2026–2030 annual average (Ps. 3,201 M) indexed the same way plus the
+    // Ps. 400 M. Rounded to Ps. 100 M: 2,466×1.103+400 ≈ 3,100; 3,904×1.147+400 ≈ 4,900; 4,280×1.193+400 ≈ 5,500; 4,203×1.241+400 ≈ 5,600;
+    // 3,201×1.290+400 ≈ 4,500. Until 2026-10-09 the vector carried a 2026–2030 profile applied one year late.
+    capexMxnM: [3100, 4900, 5500, 5600, 4500], daPctRevenue: null, taxRatePct: 30, nwcPctDeltaRevenue: 5,
     riskFreePct: null, erpPct: 5, beta: 0.85, costOfDebtPct: 9.2, targetDebtPct: 25, terminalGrowthPct: 4, exitMultiple: 11,
-    note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 2.5% in 2026 after +2.4% in 6M26, then 3%; capex = MDP commitments indexed ≈4% for inflation plus ≈Ps. 400 M of strategic investments a year; cost of debt = the OMA 26-2 coupon (9.17%) plus fees. Beta and the risk-free rate are derived from market data at render time.", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 2.5% en 2026 tras +2.4% en 6M26, luego 3%; capex = compromisos del PMD indexados ≈4% por inflación más ≈Ps. 400 M anuales de inversiones estratégicas; costo de deuda = cupón de OMA 26-2 (9.17%) más comisiones. La beta y la tasa libre de riesgo se derivan del mercado al renderizar." }
+    note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 2.5% in the first projected year after +2.4% in 6M26, then 3%; capex 2027–2030 = each year's MDP commitment indexed 4% a year plus ≈Ps. 400 M of strategic investments and major maintenance, 2031 = the MDP's annual average indexed the same way plus the Ps. 400 M; cost of debt = the OMA 26-2 coupon (9.17%) plus fees. Beta and the risk-free rate are derived from market data at render time, and the exit multiple is OMA's own 5-year average NTM EV/EBITDA from the FactSet peers snapshot (exitMultiple is the fallback).", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 2.5% en el primer año proyectado tras +2.4% en 6M26, luego 3%; capex 2027–2030 = compromiso del PMD de cada año indexado 4% anual más ≈Ps. 400 M de inversiones estratégicas y mantenimiento mayor, 2031 = promedio anual del PMD indexado igual más los Ps. 400 M; costo de deuda = cupón de OMA 26-2 (9.17%) más comisiones. La beta y la tasa libre de riesgo se derivan del mercado al renderizar, y el múltiplo de salida es el promedio de 5 años del VE/EBITDA NTM de OMA según el snapshot de pares de FactSet (exitMultiple es el respaldo)." }
   },
   peers: ["GAP", "ASUR", "AENA", "Fraport", "Flughafen Zürich", "Auckland International"]
 };

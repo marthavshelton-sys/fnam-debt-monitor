@@ -136,7 +136,7 @@ Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, U
     en: `${withFs.length ? `${withFs[0].f && mk.prices[withFs[0].id].provenance.authority}: ${list(false)}` : 'no series carries FactSet closes'}${without.length ? `; NO FactSet (Yahoo only): ${without.map((r) => r.id).join(', ')}` : ''}`,
   });
 }
-// Dividends: the exchange record is compared with the latest AGM resolution, so an instalment not yet paid
+// Dividends: the exchange record is compared with the latest AGM resolution, so an installment not yet paid
 // inside its 12-month window reads as an outstanding balance, not as a stalled feed.
 {
   const pts = (((mk.dividends || {})['GAPB.MX'] || {}).points) || [];
@@ -173,6 +173,18 @@ Q.curated('reference.js', ra != null && ra <= 120, { es: `referencia revisada el
 const pr = await loadJs('../../site/gap/data/peers.js', 'GAP_PEERS');
 const pa = ageDays(pr.pricesAsOf);
 Q.curated('peers.js', pa != null && pa <= 45, { es: `pares y consenso FactSet con precios al ${pr.pricesAsOf || '?'} (hace ${pa} días); rutina nocturna`, en: `FactSet peers and consensus with prices as of ${pr.pricesAsOf || '?'} (${pa} days ago); nightly routine` });
+
+// ---- English copy: American spelling in the English strings of the curated files (the owner's convention site-wide).
+// A warning only: the quality page names the words so the next draft fixes them.
+{
+  const UK = /\b(?:travellers?|colours?|centres?|(?:kilo)?metres?|litres?|programmes?|licence|favour\w*|behaviour\w*|neighbour\w*|labour\w*|honour\w*|endeavour\w*|harbour\w*|analys(?:e|ed|es|ing)|catalogues?|modell(?:ed|ing)|labell(?:ed|ing)|cancell(?:ed|ing)|instalments?|amortis\w+|capitalis\w+|annualis\w+|normalis\w+|authoris\w+|organis\w+|recognis\w+|realis\w+|optimis\w+|minimis\w+|maximis\w+|utilis\w+|stabilis\w+|finalis\w+|prioritis\w+|itemis\w+|summaris\w+|standardis\w+|categoris\w+|monetis\w+|emphasis(?:e|ed|es|ing)|whilst|amongst|grey|defence|tonnes?|judgement|ageing|focuss\w+|totall(?:ed|ing)|signall(?:ed|ing)|fulfil(?:s|led|ling|ment)?|enrol(?:s|led|ling|ment)?|cheques?|tyres?|aluminium)\b/gi;
+  const enStrings = (o, out = [], inEn = false) => { if (typeof o === 'string') { if (inEn) out.push(o); } else if (Array.isArray(o)) o.forEach((x) => enStrings(x, out, inEn)); else if (o && typeof o === 'object') for (const [k, x] of Object.entries(o)) enStrings(x, out, inEn || k === 'en' || k.endsWith('_en')); return out; };
+  const files = { 'comments.js': cm, 'summary.js': sm, 'reference.js': rf };
+  for (const [name, obj] of Object.entries(files)) {
+    const words = new Set(); for (const s of enStrings(obj)) for (const m of s.matchAll(UK)) words.add(m[0]);
+    record(name, 'English copy: American spelling', words.size ? 'warn' : 'ok', words.size, 0, words.size ? { es: 'grafías británicas: ' + [...words].join(', '), en: 'British spellings: ' + [...words].join(', ') } : null);
+  }
+}
 
 Q.card((fin.coverage || {}).releasesParsed, 'informes parseados', 'releases parsed');
 Q.card(traffic.months.length, 'meses de tráfico', 'traffic months');

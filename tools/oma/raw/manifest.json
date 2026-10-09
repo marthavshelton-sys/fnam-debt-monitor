@@ -2,9 +2,9 @@
  "entity": "Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-09T15:09:52.703Z",
+ "updatedAt": "2026-10-09T22:12:43.932Z",
  "kept": {
-  "traffic": 145,
+  "traffic": 146,
   "results": 116,
   "other": 41
  },
@@ -6629,6 +6629,15 @@
    "title": "OMA Announces Change in Investor Relation Officer",
    "class": "other",
    "path": "tools/oma/raw/releases/2026-09-28_omaOrganizational-change-RI-vf_en.txt"
+  },
+  {
+   "source": "newsroom",
+   "id": "oma-september-2026-traffic-report-vf",
+   "url": "https://news.oma.aero/assets/oma-september-2026-traffic-report-vf-pdf-7687c-f8d04.html?dl=1",
+   "date": "2026-10-07",
+   "title": "OMA reports a 4.8% decrease in September 2026 passenger traffic",
+   "class": "traffic",
+   "path": "tools/oma/raw/releases/2026-10-07_omaoma-september-2026-traffic-report-vf_en.txt"
   },
   {
    "source": "/en/traffic-reports/",

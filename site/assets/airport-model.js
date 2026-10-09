@@ -586,6 +586,7 @@
       txt('guideCurTitle', tc(L(CFG.noGuidanceTitle || { es: 'Sin guía formal', en: 'No formal guidance' })));
       txt('guideCurCap', reg.updatedAt ? `${t('src')}: reference.js · ${fmtDate(reg.updatedAt)}` : '');
       document.querySelectorAll('#guidance .only-with-guidance').forEach((e) => { e.hidden = true; });
+      renderMdpChart(reg.mdp);
       return;
     }
     const fy = Math.max(...GV.map((v) => v.fy));
@@ -635,6 +636,24 @@
       { type: 'line', label: t('actual'), data: fys.map((y, i) => (acts[i] ? acts[i].v[m.k] : null)), showLine: false, pointRadius: 6, pointHoverRadius: 7, pointStyle: fys.map((y, i) => (acts[i] && acts[i].kind === 'ytd' ? 'triangle' : 'circle')), borderColor: c[1], backgroundColor: c[1], pointBackgroundColor: c[1], pointBorderColor: c[1] },
     ];
     mkChart('chartGuide', { type: 'bar', data: { labels: fys.map((y) => 'FY' + y), datasets: ds }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' } }, scales: { x: { grid: { display: false } }, y: { ticks: m.kind === 'amount' ? { callback: (v) => fmtN(v) } : { callback: (v) => v + '%' }, beginAtZero: m.kind !== 'level' } }, datasets: { bar: { maxBarThickness: 28 } } } });
+  }
+  // No formal guidance: the chart slot of the section shows the committed MDP investment by year from reference.js
+  // (regulation.mdp.byYear; the deck draws the same chart on its guidance page), so no chart on the page stays blank.
+  // Without a yearly profile the card stays hidden with the other guidance-only cards.
+  function renderMdpChart(mdp) {
+    const card = el('guideChartCard'), cv = el('chartGuide'); if (!card) return;
+    const yrs = mdp && mdp.byYear ? Object.keys(mdp.byYear).sort() : [];
+    if (!yrs.length || !cv) { card.hidden = true; return; }
+    const es = LANG === 'es'; card.hidden = false;
+    const title = es ? `PMD ${mdp.period || ''} por año: inversión comprometida`.replace('  ', ' ') : `MDP ${mdp.period || ''} by year: committed investment`.replace('  ', ' ');
+    const h3 = card.querySelector('h3'); if (h3) h3.textContent = tc(title);
+    const cap = card.querySelector('.cap'); if (cap) cap.textContent = es ? 'Ps. millones por año según el programa aprobado; la nota bajo la gráfica dice en qué pesos están expresados.' : 'Ps. million a year per the approved program; the note under the chart says which pesos they are expressed in.';
+    const seg = el('segGuideMetric'); if (seg && seg.parentElement) seg.parentElement.hidden = true;
+    cv.setAttribute('aria-label', title);
+    const c = SERIES();
+    mkChart('chartGuide', { type: 'bar', data: { labels: yrs, datasets: [{ label: es ? 'Inversión comprometida (Ps. M)' : 'Committed investment (Ps. M)', data: yrs.map((k) => mdp.byYear[k]), backgroundColor: c[0], maxBarThickness: 44 }] },
+      options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (x) => `Ps. ${fmtN(x.parsed.y, 0)} M` } } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: axisM(0) } } } });
+    html('guideChartSrc', `${t('src')}: ${LS(mdp.source)}${mdp.note ? ' · ' + L(mdp.note) : ''}`);
   }
 
   // ================= 03 TRAFFIC =================
@@ -919,6 +938,23 @@
     return fx2.length ? { issued: '', rate: fx2[fx2.length - 1].rate.fixedPct, name: fx2[fx2.length - 1].name, fromReport: true } : null;
   }
   const BETA = betaFromMarket(), KD = kdFromDebt();
+  // Exit multiple: the company's own 5-year average NTM EV/EBITDA from the FactSet peers snapshot (a sourced figure) when the
+  // snapshot carries it; the reference default otherwise (owner, 2026-10-09).
+  const MULT = (() => { const o = PEERS && PEERS.own; const v = o && o.evEbitdaNtmAvg5y; return v != null && isFinite(v) && v > 0 ? { v: Math.round(v * 10) / 10, asOf: o.asOf || PEERS.updatedAt || null } : null; })();
+  // Bounds of every editable input (owner, 2026-10-09): a value outside them, blank or not a number is flagged under the field
+  // and never reaches the model; the last valid value stays in force. The concession end must lie after the last projected
+  // year (limOf computes it from the base year).
+  const LIM = { trafficG: [-30, 30], revPaxG: [-20, 30], margin: [30, 90], capex: [0, 50000], daPct: [0, 30], tax: [0, 60], nwc: [-50, 50], rf: [0, 30], erp: [0, 15], beta: [0, 3], kd: [0, 30], dw: [0, 90], g: [-5, 10], mult: [1, 30], endYear: [2030, 2100] };
+  const limOf = (k, s) => (k === 'endYear' ? [s && s.baseYear ? s.baseYear + 6 : LIM.endYear[0], LIM.endYear[1]] : LIM[k]);
+  (function dcfStyle() { // styles of the validation marks, shared by every page that runs this engine
+    if (document.getElementById('dcfValidStyle')) return;
+    const st = document.createElement('style'); st.id = 'dcfValidStyle';
+    st.textContent = '.inp .inp-warn{grid-column:1 / -1; display:block; color:#b42318; font-size:11.5px; line-height:1.35; margin-top:2px}' +
+      ' .inp input.bad{border-color:#b42318 !important; box-shadow:0 0 0 2px rgba(180,35,24,.18)} #dcfWarn{margin:0 0 14px}' +
+      ' :root[data-theme="dark"] .inp .inp-warn{color:#ff8a7a} :root[data-theme="dark"] .inp input.bad{border-color:#ff8a7a !important}' +
+      ' @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .inp .inp-warn{color:#ff8a7a} :root:not([data-theme="light"]) .inp input.bad{border-color:#ff8a7a !important}}';
+    document.head.appendChild(st);
+  })();
   function dcfDefaults() {
     const ltm = lastLTM && lastLTM.is ? lastLTM.is : {};
     const revEx = exRev(ltm) ? exRev(ltm) / 1000 : 0;
@@ -932,68 +968,41 @@
       margin: marginPct, capex: (D.capexMxnM || [5000, 5000, 5000, 5000, 5000]).slice(),
       daPct: D.daPctRevenue ?? (revEx && ltm.da ? Math.round(1000 * (ltm.da / 1000) / revEx) / 10 : 9), tax: D.taxRatePct ?? 30, nwc: D.nwcPctDeltaRevenue ?? 5,
       rf: D.riskFreePct ?? (mx10.length ? mx10[mx10.length - 1][1] : 9.5), erp: D.erpPct ?? 5.5, beta: BETA ? BETA.beta : (D.beta ?? 0.9), kd: KD ? KD.rate : (D.costOfDebtPct ?? 10), dw: D.targetDebtPct ?? 20,
-      method: D.terminalMethod || 'annuity', g: D.terminalGrowthPct ?? 3.5, mult: D.exitMultiple ?? 11, endYear: D.concessionEnd || 2048,
+      method: D.terminalMethod || 'annuity', g: D.terminalGrowthPct ?? 3.5, mult: MULT ? MULT.v : (D.exitMultiple ?? 11), endYear: D.concessionEnd || 2048,
       baseYear: lastQ ? lastQ.fy : new Date().getFullYear(),
     };
   }
-  // Bounds for the editable assumptions (percent unless noted). A value outside them is rejected: the field turns red, the
-  // warning line under the inputs says which bound it broke, and the outputs keep the last valid value (owner, 2026-10-09:
-  // a negative risk-free rate must be refused with a message, never answered with a silent "—").
-  const DCF_LIMITS = {
-    trafficG: [-50, 50], revPaxG: [-30, 50], margin: [10, 95], capex: [0, 200000], daPct: [0, 60], tax: [0, 60], nwc: [-100, 100],
-    rf: [0, 40], erp: [0, 20], beta: [0.05, 4], kd: [0, 40], dw: [0, 95], g: [-10, 15], mult: [0.5, 50], endYear: [2027, 2120],
-  };
-  const dcfLimitLabel = (k) => ({
-    trafficG: LANG === 'es' ? 'Crecimiento de pasajeros' : 'Passenger growth', revPaxG: LANG === 'es' ? 'Ingreso por pasajero, crecimiento' : 'Revenue per passenger growth', margin: LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin',
-    capex: 'Capex', daPct: 'D&A', tax: LANG === 'es' ? 'Tasa de impuestos' : 'Tax rate', nwc: LANG === 'es' ? 'Δ capital de trabajo' : 'Δ working capital', rf: LANG === 'es' ? 'Tasa libre de riesgo' : 'Risk-free rate',
-    erp: LANG === 'es' ? 'Prima de riesgo' : 'Equity risk premium', beta: 'Beta', kd: LANG === 'es' ? 'Costo de deuda' : 'Cost of debt', dw: LANG === 'es' ? 'Deuda / (deuda + capital)' : 'Debt / (debt + equity)',
-    g: LANG === 'es' ? 'Crecimiento terminal' : 'Terminal growth', mult: LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple', endYear: LANG === 'es' ? 'Fin de concesión' : 'Concession end',
-  }[k] || k);
-  const dcfUnit = (k) => (k === 'beta' || k === 'endYear' ? '' : k === 'mult' ? 'x' : k === 'capex' ? ' Ps. M' : '%');
-  // null when the value is acceptable, else the message to show
-  function dcfInvalid(k, v) {
-    const lim = DCF_LIMITS[k]; if (!lim) return null;
-    const fmtB = (b) => (k === 'endYear' ? String(b) : fmtN(b, k === 'beta' ? 2 : 0) + dcfUnit(k));
-    if (!Number.isFinite(v)) return LANG === 'es' ? `${dcfLimitLabel(k)}: escriba un número.` : `${dcfLimitLabel(k)}: enter a number.`;
-    if (v < lim[0] || v > lim[1]) return LANG === 'es' ? `${dcfLimitLabel(k)}: ${fmtN(v, 2)}${dcfUnit(k)} rechazado; debe estar entre ${fmtB(lim[0])} y ${fmtB(lim[1])}. Se conserva el último valor válido.` : `${dcfLimitLabel(k)}: ${fmtN(v, 2)}${dcfUnit(k)} rejected; it must be between ${fmtB(lim[0])} and ${fmtB(lim[1])}. The last valid value is kept.`;
-    return null;
-  }
-  const dcfWarnings = []; // messages shown under the inputs (invalid entries and model-consistency warnings)
-  function showDcfWarnings(extra) {
-    const box = el('dcfInputs'); if (!box) return;
-    let w = el('dcfWarn'); if (!w) { w = document.createElement('p'); w.id = 'dcfWarn'; w.setAttribute('role', 'alert'); w.setAttribute('aria-live', 'polite'); w.style.cssText = 'margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#b42318;font-weight:600;'; box.appendChild(w); }
-    const msgs = [...dcfWarnings, ...(extra || [])];
-    w.hidden = !msgs.length; w.innerHTML = msgs.map((m) => `<span style="display:block">⚠ ${m}</span>`).join('');
-  }
   function dcfInputsHtml(s) {
-    const num = (k, step = 0.1, min, max) => { const lim = DCF_LIMITS[k] || []; const lo = min != null ? min : lim[0], hi = max != null ? max : lim[1]; return `<input type="number" step="${step}" ${lo != null ? `min="${lo}"` : ''} ${hi != null ? `max="${hi}"` : ''} data-k="${k}" value="${s[k]}">`; };
-    const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}</div>`;
+    const es = LANG === 'es';
+    const num = (k, step = 0.1) => { const [lo, hi] = limOf(k, s); return `<input type="number" step="${step}" min="${lo}" max="${hi}" data-k="${k}" value="${s[k]}" aria-describedby="dcfw-${k}">`; };
+    const warn = (k) => `<small class="inp-warn" id="dcfw-${k}" aria-live="polite" hidden></small>`;
+    const row = (name, sub, ctl, k) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}${k ? warn(k) : ''}</div>`;
     const years = Array.from({ length: 5 }, (_, i) => s.baseYear + 1 + i);
-    const arr = (k, step) => { const lim = DCF_LIMITS[k] || []; return `<div class="inp years"><div class="name">${k === 'trafficG' ? t('trafficG') + ' (%)' : 'Capex (Ps. M)'}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" ${lim[0] != null ? `min="${lim[0]}" max="${lim[1]}"` : ''} data-k="${k}" data-i="${i}" value="${v}">`).join('')}</div></div>`; };
+    const arr = (k, step) => { const [lo, hi] = limOf(k, s); return `<div class="inp years"><div class="name">${k === 'trafficG' ? t('trafficG') + ' (%)' : 'Capex (Ps. M)'}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" min="${lo}" max="${hi}" data-k="${k}" data-i="${i}" value="${v}" aria-describedby="dcfw-${k}">`).join('')}</div>${warn(k)}</div>`; };
     const lm = lastLTM && lastLTM.is ? lastLTM.is.ebitdaMarginExIfric : null;
     const perimRow = PF && !PF.consolidated ? row(LANG === 'es' ? 'Perímetro' : 'Perimeter', LANG === 'es' ? `reportado al ${lastQ ? qLabel(lastQ) : '—'} o pro forma con ${L(PF.name)}` : `reported at ${lastQ ? qLabel(lastQ) : '—'} or pro forma with ${L(PF.name)}`, `<select data-k="perim"><option value="proforma"${s.perim === 'proforma' ? ' selected' : ''}>${L(PF.label)}</option><option value="reported"${s.perim === 'reported' ? ' selected' : ''}>${LANG === 'es' ? 'Reportado' : 'Reported'} (${lastQ ? qLabel(lastQ) : '—'})</option></select>`) : '';
     return `
-      ${perimRow ? `<h4>${tc(LANG === 'es' ? 'Base' : 'Base')}</h4>${perimRow}` : ''}
-      <h4>${tc(LANG === 'es' ? 'Operación' : 'Operations')}</h4>
+      ${perimRow ? `<h4>${tc(es ? 'Base' : 'Base')}</h4>${perimRow}` : ''}
+      <h4>${tc(es ? 'Operación' : 'Operations')}</h4>
       ${arr('trafficG', 0.5)}
-      ${row(LANG === 'es' ? 'Ingreso por pasajero, crecimiento anual (%)' : 'Revenue per passenger, annual growth (%)', LANG === 'es' ? 'tarifa máxima + inflación + comercial' : 'tariff + inflation + commercial', num('revPaxG', 0.5))}
-      ${row(`${t('ebitdaMarginEx')}`, `${LANG === 'es' ? 'UDM' : 'LTM'}: ${fmtPct(lm)}`, num('margin', 0.5, 30, 90))}
+      ${row(es ? 'Ingreso por pasajero, crecimiento anual (%)' : 'Revenue per passenger, annual growth (%)', es ? 'tarifa máxima + inflación + comercial' : 'tariff + inflation + commercial', num('revPaxG', 0.5), 'revPaxG')}
+      ${row(`${t('ebitdaMarginEx')}`, `${es ? 'UDM' : 'LTM'}: ${fmtPct(lm)}`, num('margin', 0.5), 'margin')}
       ${arr('capex', 500)}
-      ${row(LANG === 'es' ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', '', num('daPct', 0.5))}
-      ${row(LANG === 'es' ? 'Tasa de impuestos (%)' : 'Tax rate (%)', '', num('tax', 1, 0, 60))}
-      ${row(LANG === 'es' ? 'Δ capital de trabajo (% de Δ ingresos)' : 'Δ working capital (% of Δ revenue)', '', num('nwc', 1))}
-      <h4>${tc(LANG === 'es' ? 'Costo de capital' : 'Cost of capital')}</h4>
-      ${row(LANG === 'es' ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', LANG === 'es' ? `Bono M 10 años (Banxico, subasta): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/d'}` : `MX 10-yr bond (Banxico auction): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/a'}`, num('rf', 0.1))}
-      ${row(LANG === 'es' ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', '', num('erp', 0.25))}
-      ${row('Beta', BETA ? (LANG === 'es' ? `calculada: ${BETA.weeks} rendimientos semanales ${CFG.short} B vs IPC desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns ${CFG.short} B vs IPC since ${fmtDate(BETA.from)}`) : (LANG === 'es' ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05))}
-      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (LANG === 'es' ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija, último bono a tasa fija${KD.fromReport ? ' (tabla de deuda del informe)' : ''}` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed, latest fixed-rate bond${KD.fromReport ? ' (debt table of the report)' : ''}`) : '', num('kd', 0.1))}
-      ${row(LANG === 'es' ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', '', num('dw', 1, 0, 90))}
+      ${row(es ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', '', num('daPct', 0.5), 'daPct')}
+      ${row(es ? 'Tasa de impuestos (%)' : 'Tax rate (%)', '', num('tax', 1), 'tax')}
+      ${row(es ? 'Δ capital de trabajo (% de Δ ingresos)' : 'Δ working capital (% of Δ revenue)', '', num('nwc', 1), 'nwc')}
+      <h4>${tc(es ? 'Costo de capital' : 'Cost of capital')}</h4>
+      ${row(LANG === 'es' ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', LANG === 'es' ? `Bono M 10 años (Banxico, subasta): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/d'}` : `MX 10-yr bond (Banxico auction): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/a'}`, num('rf', 0.1), 'rf')}
+      ${row(es ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', '', num('erp', 0.25), 'erp')}
+      ${row('Beta', BETA ? (LANG === 'es' ? `calculada: ${BETA.weeks} rendimientos semanales ${CFG.short} B vs IPC desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns ${CFG.short} B vs IPC since ${fmtDate(BETA.from)}`) : (LANG === 'es' ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05), 'beta')}
+      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (LANG === 'es' ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija, último bono a tasa fija${KD.fromReport ? ' (tabla de deuda del informe)' : ''}` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed, latest fixed-rate bond${KD.fromReport ? ' (debt table of the report)' : ''}`) : '', num('kd', 0.1), 'kd')}
+      ${row(es ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', '', num('dw', 1), 'dw')}
       <h4>${tc(t('tv'))}</h4>
       ${row(LANG === 'es' ? 'Método' : 'Method', '', `<select data-k="method"><option value="annuity"${s.method === 'annuity' ? ' selected' : ''}>${LANG === 'es' ? 'Anualidad hasta ' + s.endYear : 'Annuity to ' + s.endYear}</option><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${LANG === 'es' ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
-      ${row(LANG === 'es' ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', LANG === 'es' ? 'nominal, en pesos' : 'nominal, pesos', num('g', 0.25))}
-      ${row(LANG === 'es' ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', '', num('mult', 0.5))}
-      ${row(LANG === 'es' ? 'Fin de concesión (año)' : 'Concession end (year)', L(CFG.concessionNote || { es: '', en: '' }), num('endYear', 1, 2030, 2100))}
-      <div style="margin-top:14px"><button type="button" class="btn" id="dcfReset">${LANG === 'es' ? 'Restablecer supuestos' : 'Reset assumptions'}</button></div>`;
+      ${row(es ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', es ? 'nominal, en pesos; menor que el WACC' : 'nominal, pesos; below the WACC', num('g', 0.25), 'g')}
+      ${row(es ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', MULT ? (es ? `promedio de 5 años del VE/EBITDA NTM de ${CFG.short} (FactSet${MULT.asOf ? ', ' + fmtDate(MULT.asOf) : ''})` : `${CFG.short}'s 5-year average NTM EV/EBITDA (FactSet${MULT.asOf ? ', ' + fmtDate(MULT.asOf) : ''})`) : (es ? 'supuesto de referencia' : 'reference default'), num('mult', 0.5), 'mult')}
+      ${row(es ? 'Fin de concesión (año)' : 'Concession end (year)', L(CFG.concessionNote || { es: '', en: '' }), num('endYear', 1), 'endYear')}
+      <div style="margin-top:14px"><button type="button" class="btn" id="dcfReset">${es ? 'Restablecer supuestos' : 'Reset assumptions'}</button></div>`;
   }
   function dcfCompute(s, over = {}) {
     const p = { ...s, ...over };
@@ -1020,19 +1029,17 @@
     if (reset || !dcfState.s) dcfState.s = dcfDefaults();
     const s = dcfState.s;
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s); box.querySelectorAll('.inp').forEach((r, ri) => { const name = ((r.querySelector('.name') || {}).textContent || '').replace(/\s+/g, ' ').trim(); const yrs = [...r.querySelectorAll('.row5 span')].map((x) => x.textContent.trim()); r.querySelectorAll('input').forEach((inp, i) => { inp.id = inp.id || `dcf-${ri}-${i}`; inp.setAttribute('aria-label', yrs.length ? `${name} ${yrs[i] || ''}`.trim() : name); }); });
-    const markBad = (inp, msg) => { inp.classList.toggle('bad', !!msg); inp.setAttribute('aria-invalid', msg ? 'true' : 'false'); inp.style.borderColor = msg ? '#b42318' : ''; inp.style.background = msg ? 'rgba(180,35,24,.08)' : ''; inp.title = msg || ''; };
     box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => {
-      const k = inp.dataset.k; if (k === 'perim') { dcfState.perim = inp.value; renderDcf(true); renderRelative(); renderHeader(); return; }
-      const v = inp.tagName === 'SELECT' ? inp.value : (inp.value.trim() === '' ? NaN : Number(inp.value));
-      const msg = inp.tagName === 'SELECT' ? null : dcfInvalid(k, v);
-      const key = k + (inp.dataset.i != null ? ':' + inp.dataset.i : ''); inp.dataset.msgKey = key;
-      const i = dcfWarnings.findIndex((m) => m.key === key); if (i >= 0) dcfWarnings.splice(i, 1);
-      markBad(inp, msg);
-      if (msg) { const m = new String(msg); m.key = key; dcfWarnings.push(m); showDcfWarnings(dcfModelWarnings(dcfCompute(s), s)); return; } // the state keeps its last valid value
-      if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; renderDcfOutputs();
+      const k = inp.dataset.k;
+      if (k === 'perim') { dcfState.perim = inp.value; renderDcf(true); renderRelative(); renderHeader(); return; }
+      if (inp.tagName === 'SELECT') { s[k] = inp.value; renderDcfOutputs(); return; }
+      // numbers are checked against limOf before they reach the model: an invalid entry is flagged and the last valid value stays
+      const v = inp.value.trim() === '' ? NaN : Number(inp.value); const [lo, hi] = limOf(k, s); const ok = isFinite(v) && v >= lo && v <= hi;
+      inp.classList.toggle('bad', !ok); inp.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (ok) { if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; }
+      dcfWarnRow(box, k, s); renderDcfOutputs();
     }));
-    el('dcfReset').addEventListener('click', () => { dcfWarnings.length = 0; renderDcf(true); });
-    dcfWarnings.length = 0;
+    el('dcfReset').addEventListener('click', () => renderDcf(true));
     renderDcfOutputs();
     const pf = usePF();
     html('dcfMeta', LANG === 'es'
@@ -1040,19 +1047,32 @@
       : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (${CFG.marginShort ? L(CFG.marginShort) : 'ex-IFRIC 12'})${pf ? ` plus ${L(PF.name)}'s EBITDA at the group's margin; pro-forma net debt at ${fmtDate(PF.asOf)}` : '; net debt'} and non-controlling interest at the same quarter-end; ${fmtN(sharesNow)} shares.`);
     const cav = el('dcfCaveat'); if (cav) { cav.hidden = !pf; cav.innerHTML = pf ? pfCaveat() : ''; }
   }
-  // Warnings about the model itself (not about a single entry): a WACC at or below the terminal growth has no finite perpetuity,
-  // a discount rate under the growth rate makes the annuity meaningless, a negative value per share is a sign to revisit the inputs.
-  function dcfModelWarnings(r, s) {
-    const out = [], es = LANG === 'es';
-    if (s.method === 'perpetuity' && !(r.wacc > s.g / 100)) out.push(es ? `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ crecimiento terminal (${fmtPct(s.g, 2)}): la perpetuidad no tiene valor finito; baje g o suba el costo de capital.` : `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ terminal growth (${fmtPct(s.g, 2)}): the perpetuity has no finite value; lower g or raise the cost of capital.`);
-    else if (s.method === 'annuity' && !(r.wacc > s.g / 100)) out.push(es ? `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ crecimiento terminal (${fmtPct(s.g, 2)}): el flujo terminal crece más rápido que la tasa de descuento; revise g o el costo de capital.` : `WACC (${fmtPct(100 * r.wacc, 2)}) ≤ terminal growth (${fmtPct(s.g, 2)}): the terminal flow grows faster than the discount rate; revisit g or the cost of capital.`);
-    if (!(r.wacc > 0)) out.push(es ? 'El WACC resultante no es positivo; revise la tasa libre de riesgo, la beta, la prima y el costo de deuda.' : 'The resulting WACC is not positive; check the risk-free rate, beta, premium and cost of debt.');
-    if (r.perShare != null && isFinite(r.perShare) && r.perShare < 0) out.push(es ? 'El valor por acción es negativo con estos supuestos (deuda neta y minoritarios superan el valor de la empresa).' : 'Value per share is negative under these assumptions (net debt and minorities exceed enterprise value).');
-    return out;
+  // The warning under one input row: which entries are out of range and the bounds that apply.
+  function dcfWarnRow(box, k, s) {
+    const w = el(`dcfw-${k}`); if (!w) return;
+    const bad = [...box.querySelectorAll(`input[data-k="${k}"].bad`)];
+    if (!bad.length) { w.hidden = true; w.textContent = ''; return; }
+    const [lo, hi] = limOf(k, s); const es = LANG === 'es';
+    const yrs = bad.filter((i) => i.dataset.i != null).map((i) => s.baseYear + 1 + +i.dataset.i);
+    w.hidden = false;
+    w.textContent = `${yrs.length ? yrs.join(', ') + ': ' : ''}${es ? `fuera de rango (de ${fmtN(lo, 0)} a ${fmtN(hi, 0)}); se mantiene el último valor válido` : `out of range (${fmtN(lo, 0)} to ${fmtN(hi, 0)}); the last valid value stays in force`}`;
+  }
+  // Banner above the result while an input is out of range or the terminal value is undefined (a perpetuity needs g < WACC).
+  function renderDcfWarn(s, r) {
+    const hero = el('dcfHero'); if (!hero) return;
+    let w = el('dcfWarn');
+    if (!w) { w = document.createElement('div'); w.className = 'notice warn'; w.id = 'dcfWarn'; w.setAttribute('role', 'alert'); const card = hero.closest('.card') || hero.parentElement; card.insertBefore(w, card.firstChild); }
+    const es = LANG === 'es'; const msgs = [];
+    const box = el('dcfInputs'); const bad = box ? [...box.querySelectorAll('input.bad')] : [];
+    if (bad.length) {
+      const names = [...new Set(bad.map((i) => { const n = i.closest('.inp') && i.closest('.inp').querySelector('.name'); return n && n.childNodes[0] ? n.childNodes[0].textContent.trim() : i.dataset.k; }))];
+      msgs.push(es ? `${bad.length === 1 ? 'Un supuesto está' : bad.length + ' supuestos están'} fuera de rango (${names.join('; ')}): el resultado usa ${bad.length === 1 ? 'su último valor válido' : 'sus últimos valores válidos'}.` : `${bad.length === 1 ? 'One assumption is' : bad.length + ' assumptions are'} out of range (${names.join('; ')}): the result uses ${bad.length === 1 ? 'its last valid value' : 'their last valid values'}.`);
+    }
+    if (s.method === 'perpetuity' && !(r.wacc > s.g / 100)) msgs.push(es ? `La perpetuidad exige un crecimiento terminal menor que el WACC (${fmtPct(100 * r.wacc, 2)}); con ${fmtPct(s.g, 2)} el valor terminal no está definido.` : `A perpetuity needs terminal growth below the WACC (${fmtPct(100 * r.wacc, 2)}); at ${fmtPct(s.g, 2)} the terminal value is undefined.`);
+    w.hidden = !msgs.length; w.textContent = msgs.join(' ');
   }
   function renderDcfOutputs() {
     const s = dcfState.s; const r = dcfCompute(s);
-    showDcfWarnings(dcfModelWarnings(r, s));
     const price = lastPx ? lastPx[1] : null;
     txt('dcfHero', r.perShare != null && isFinite(r.perShare) ? 'Ps. ' + fmtN(r.perShare, 0) : '—');
     txt('dcfHeroLbl', `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (Ps. ${fmtN(price, 2)})` : ''}`);
@@ -1089,6 +1109,37 @@
     const cell = (w, g) => { const over = s.method === 'multiple' ? { mult: g } : { g }; const deltaW = w / 100 - r.wacc; over.rf = s.rf + 100 * deltaW / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
     html('dcfSens', `<table class="sens"><thead><tr><th scope="col">WACC ↓ / ${s.method === 'multiple' ? (LANG === 'es' ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gsv.map((g) => `<th scope="col">${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gsv.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
     txt('sensCap', LANG === 'es' ? `Ps. por acción; sombreado = por encima del precio actual (Ps. ${fmtN(price, 2)}); recuadro = caso base` : `Ps. per share; shaded = above the current price (Ps. ${fmtN(price, 2)}); outlined = base case`);
+    renderDcfWarn(s, r); renderDcfGap(s, r, price, implied);
+  }
+  // The DCF against the market, composed from the same run (owner, 2026-10-09): the value against the close, the multiple the
+  // market pays against the one the DCF implies, the WACC that would reproduce the price, the three terminal methods side by
+  // side and what the capex path absorbs. Nothing here is typed, so the reader always sees why the model sits where it sits.
+  function renderDcfGap(s, r, price, implied) {
+    let box = el('dcfGap');
+    if (!box) { const note = el('dcfNote'); if (!note) return; box = document.createElement('div'); box.className = 'callout'; box.id = 'dcfGap'; note.insertAdjacentElement('afterend', box); }
+    if (!(price > 0) || !sharesNow || r.perShare == null || !isFinite(r.perShare) || !r.ev) { box.hidden = true; box.innerHTML = ''; return; }
+    const es = LANG === 'es';
+    const per = (m) => dcfCompute(s, { method: m }).perShare;
+    const alt = { annuity: per('annuity'), perpetuity: per('perpetuity'), multiple: per('multiple') };
+    const mcM = price * sharesNow / 1e6, evMkt = mcM + r.netDebtM + r.nciM, base = s.baseEbitda || r.rows[0].ebitda;
+    const mktMult = base ? evMkt / base : null, gap = 100 * (r.perShare / price - 1);
+    const capexSum = r.rows.reduce((a, x) => a + x.capex, 0), ebitdaSum = r.rows.reduce((a, x) => a + x.ebitda, 0);
+    const y1 = r.rows[0].year, y5 = r.rows[4].year, n = Math.max(0, s.endYear - y5), spread = 100 * r.wacc - s.g;
+    const ps = (x) => (x != null && isFinite(x) ? `Ps. ${fmtN(x, 0)}` : '—');
+    const vs = (x) => (x != null && isFinite(x) ? ` (${fmtPct(100 * (x / price - 1), 0, true)})` : '');
+    const rfD = mx10.length ? mx10[mx10.length - 1][0] : null;
+    const impliedOk = implied != null && isFinite(implied);
+    const nearMult = alt.multiple != null && isFinite(alt.multiple) && Math.abs(alt.multiple / price - 1) <= 0.15;
+    const multSrc = MULT ? (es ? `promedio de cinco años del VE/EBITDA NTM de ${CFG.short} según FactSet` : `${CFG.short}'s five-year average NTM EV/EBITDA per FactSet`) : (es ? 'supuesto de referencia' : 'reference assumption');
+    const ebitdaL = es ? `${t('ebitda')} UDM` : `LTM ${t('ebitda')}`;
+    const curMethod = s.method === 'annuity' ? (es ? `la anualidad de ${n} años hasta ${s.endYear} no asigna valor después del fin de la concesión` : `the ${n}-year annuity to ${s.endYear} assigns no value after the concession ends`)
+      : s.method === 'perpetuity' ? (es ? 'el método vigente es la perpetuidad' : 'the method in force is the perpetuity') : (es ? `el método vigente es el múltiplo de salida de ${fmtX(s.mult)}` : `the method in force is the exit multiple of ${fmtX(s.mult)}`);
+    const lead = Math.abs(gap) >= 10 ? (es ? 'Tres factores explican la diferencia.' : 'Three factors explain the gap.') : (es ? 'Lo que mueve el valor.' : 'What moves the value.');
+    const reading = nearMult ? (es ? ': el precio de mercado corresponde a un múltiplo, lo que equivale a suponer la prórroga de las concesiones o a descontar los flujos a tasas en dólares (lectura FNAM)' : ': the market price corresponds to a multiple, which amounts to assuming the concessions are extended or discounting the flows at dollar rates (FNAM reading)') : '';
+    box.hidden = false;
+    box.innerHTML = es
+      ? `<b>El DCF frente al mercado.</b> Con los supuestos actuales el valor es ${ps(r.perShare)} por acción, ${fmtPct(gap, 1, true)} frente al cierre de Ps. ${fmtN(price, 2)} (${fmtDate(lastPx[0])}): el mercado paga ${fmtX(mktMult)} el ${ebitdaL} (VE Ps. ${fmtN(evMkt, 0)} M) y el DCF implica ${fmtX(r.impliedMult)}. ${lead} (1) La tasa de descuento: un WACC de ${fmtPct(100 * r.wacc, 2)} en pesos nominales (CAPM sobre el bono M a 10 años${rfD ? `, ${fmtPct(s.rf, 2)} en la subasta del ${fmtDate(rfD)}` : ''}) frente a un crecimiento terminal de ${fmtPct(s.g, 1)}, un diferencial de ${fmtN(spread, 1)} pp; ${impliedOk ? `con estos flujos el precio sólo se reproduce con un WACC de ${fmtPct(100 * implied, 1)}` : 'ningún WACC entre 0% y 40% reproduce el precio con estos flujos'}. (2) El valor terminal, ${fmtPct(100 * r.pvTv / r.ev, 0)} del VE: ${curMethod}; la anualidad daría ${ps(alt.annuity)}${vs(alt.annuity)}, la perpetuidad ${ps(alt.perpetuity)}${vs(alt.perpetuity)} y un múltiplo de salida de ${fmtX(s.mult)} sobre el EBITDA de ${y5} (${multSrc}) ${ps(alt.multiple)}${vs(alt.multiple)}${reading}. (3) El capex: Ps. ${fmtN(capexSum, 0)} M en ${y1}–${y5} absorbe ${fmtPct(100 * capexSum / ebitdaSum, 0)} del ${t('ebitda')} del periodo. El modelo no se ajusta al precio; cada supuesto es editable para ver qué tendría que cumplirse.`
+      : `<b>The DCF against the market.</b> On the current assumptions the value is ${ps(r.perShare)} per share, ${fmtPct(gap, 1, true)} vs. the Ps. ${fmtN(price, 2)} close (${fmtDate(lastPx[0])}): the market pays ${fmtX(mktMult)} ${ebitdaL} (EV Ps. ${fmtN(evMkt, 0)} M) and the DCF implies ${fmtX(r.impliedMult)}. ${lead} (1) The discount rate: a WACC of ${fmtPct(100 * r.wacc, 2)} in nominal pesos (CAPM on the 10-year M bond${rfD ? `, ${fmtPct(s.rf, 2)} at the ${fmtDate(rfD)} auction` : ''}) against terminal growth of ${fmtPct(s.g, 1)}, a spread of ${fmtN(spread, 1)} pp; ${impliedOk ? `with these cash flows the price is reproduced only at a WACC of ${fmtPct(100 * implied, 1)}` : 'no WACC between 0% and 40% reproduces the price with these cash flows'}. (2) The terminal value, ${fmtPct(100 * r.pvTv / r.ev, 0)} of EV: ${curMethod}; the annuity would give ${ps(alt.annuity)}${vs(alt.annuity)}, the perpetuity ${ps(alt.perpetuity)}${vs(alt.perpetuity)} and an exit multiple of ${fmtX(s.mult)} on ${y5} EBITDA (${multSrc}) ${ps(alt.multiple)}${vs(alt.multiple)}${reading}. (3) Capex: Ps. ${fmtN(capexSum, 0)} M over ${y1}–${y5} absorbs ${fmtPct(100 * capexSum / ebitdaSum, 0)} of the period's ${t('ebitda')}. The model is not fitted to the price; every assumption is editable to see what would have to hold.`;
   }
 
   // ================= 06 RELATIVE =================
