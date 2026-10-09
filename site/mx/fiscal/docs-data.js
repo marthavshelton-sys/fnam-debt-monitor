@@ -1,13 +1,13 @@
 // Document-sourced figures for the Mexico fiscal monitor: values that exist only in PDFs and
 // press releases (Paquete Económico / CGPE, Plan Anual de Financiamiento, Ley de Ingresos,
 // Presupuesto de Egresos, Pemex quarterly reports, rating actions, Banxico's decision calendar,
-// the analysts' survey). Everything with a time series lives in data.js and is refreshed daily by
-// scripts/mx-fiscal/fetch.mjs; this file is refreshed by a daily Claude routine that re-reads the
-// document mirrors in tools/mx-fiscal/docs/ and commits when a value changed. Every block carries
-// `asOf` (the document's date) and `url` (the official source the footer links to); the page prints
-// the date next to the figures. `approx: true` marks values taken from press coverage rather than
-// the official table; the page shows them with "~". scripts/mx-fiscal/check-docs.mjs cross-checks
-// the values below against the mirrored documents on every workflow run.
+// the analysts' survey). Everything with a time series lives in data.js and is refreshed daily by the
+// scheduled fetch; this file is refreshed every business day by the document check, which re-reads the
+// text mirrors of the official documents and commits when a value changed. Every block carries `asOf`
+// (the document's date) and `url` (the official source the footer links to); the page prints the date
+// next to the figures. `approx: true` marks values taken from press coverage rather than the official
+// table; the page shows them with "~". The daily refresh cross-checks the values below against the
+// mirrored documents on every run.
 window.MX_DOCS = {
   "updatedAt": "2026-10-07",
   "cgpe": {

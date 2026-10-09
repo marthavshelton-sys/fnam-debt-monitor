@@ -29,6 +29,12 @@ const rows = [], problems = [], notes = [];
 const run = MX.generatedAt ? MX.generatedAt.slice(0, 10) : null;
 const runAge = run ? P.businessDays(run, nowIso, 'mx') : Infinity;
 if (runAge > 2) problems.push(`data.js was last refreshed on ${run}, ${runAge} Mexican business days before ${nowIso} (allowance 2): the daily workflow is not running or not committing`);
+// The workflow passes the outcomes of its fetch and commit steps: a run whose fetch failed, or whose refreshed data.js could not
+// be pushed, leaves main (and the page) on the previous run however fresh the file on this runner looks. On 8 and 9-Oct-2026 the
+// fetch wrote the day's series, a later step failed before the commit, and this test still reported "healthy" from the local file.
+const outcome = (k) => String(process.env[k] || '').toLowerCase();
+if (outcome('MX_FISCAL_FETCH_OUTCOME') === 'failure') problems.push('the fetch step failed this run: data.js was not refreshed and the page shows the previous run');
+if (outcome('MX_FISCAL_COMMIT_OUTCOME') === 'failure' || outcome('MX_FISCAL_COMMIT_OUTCOME') === 'cancelled') problems.push('the refreshed data.js could not be committed and pushed this run: main and the page still show the previous run');
 
 for (const [key, s] of Object.entries(MX.series)) {
   const rule = rules.bySeries[key] || rules.byFreq[s.freq] || { days: 90 };

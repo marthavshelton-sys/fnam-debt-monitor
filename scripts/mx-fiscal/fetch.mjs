@@ -243,7 +243,7 @@ function render(payload) {
 // Each series: {title, provider, id, unit, freq, url, fetchedAt, stale, points:[[date, value], ...]}.
 // A stale series kept its last good points because the latest fetch failed or was rejected by a
 // plausibility guard; the page shows "sin actualizar desde <fetchedAt>" for it. \`freshness\` holds the
-// age allowances (tools/mx-fiscal/freshness.json): past them the page shows the block in amber.
+// age allowance of every series: past it the page shows the block in amber.
 window.MX_DATA = ${JSON.stringify(payload)};
 `;
 }

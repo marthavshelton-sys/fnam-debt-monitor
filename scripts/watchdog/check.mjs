@@ -9,7 +9,7 @@
 //   stale  a price feed of the page (dashboards.json → prices) is behind the exchange's last completed session,
 //          judged from the data files in main (the owner's rule, 6-Oct-2026: any price not updated turns the dot red);
 //          'unverified' when the exchange calendar in lib.mjs does not cover the date (extend it);
-//   late   two scheduled refreshes in a row failed or never ran (3 h grace after each due time);
+//   late   the last scheduled refresh failed or never ran (3 h grace after its due time; one miss is enough since 9-Oct-2026);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
 //
@@ -155,7 +155,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time), no alert of the pipeline is open and every price feed of the page carries the exchange\'s last completed session (stale otherwise); checked every 12 hours',
+  rule: 'up to date = the last scheduled refresh landed (3 h grace after its due time), no alert of the pipeline is open and every price feed of the page carries the exchange\'s last completed session (stale otherwise); checked every 12 hours',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,
@@ -201,7 +201,7 @@ for (const r of rows) {
   }
   if (r.refreshStatus === 'late' && !mine && r.alerts === 0) {
     actions.push({ kind: 'open', id: r.id, title: `SOURCE DOWN: watchdog - ${d.name.en} refresh late`, body: [
-      `The scheduled refresh of **${d.name.en}** (https://fnam.mx${d.url}) has not landed since ${cdmx(r.requiredSince)}: the last two scheduled runs failed or did not run.`,
+      `The scheduled refresh of **${d.name.en}** (https://fnam.mx${d.url}) has not landed since ${cdmx(r.requiredSince)}: the last scheduled run failed or did not run.`,
       '',
       '| | |', '|---|---|',
       `| Last scheduled refresh that landed | ${landed ? `${cdmx(landed.run.updated_at)} ([run](${landed.run.html_url}))` : 'none in the run history'} |`,

@@ -5,9 +5,10 @@
 # data refresh" panel and the status dot on each company page read. A dashboard is shown as up to date
 # ("Al día") only while this check says so; the site calls nothing "live".
 #
-# A dashboard whose last two scheduled refreshes both failed or never ran is late. If its own pipeline has
-# no alert open, one "SOURCE DOWN: watchdog - <dashboard> refresh late" issue (label data-watchdog) is
-# opened, which the owner's email routine sends like every "SOURCE DOWN: " issue; the first on-time check
+# A dashboard whose last scheduled refresh failed or never ran (3 h grace after its due time) is late; since
+# 9-Oct-2026 one miss is enough, so a failed nightly run shows on the site the same evening. If its own
+# pipeline has no alert open, one "SOURCE DOWN: watchdog - <dashboard> refresh late" issue (label data-watchdog)
+# is opened, which the owner's email routine sends like every "SOURCE DOWN: " issue; the first on-time check
 # comments and closes it. A dashboard with price feeds listed in dashboards.json (Oracle) is "stale" when
 # any of them is behind the exchange's last completed session (red, pulsing on the site) and gets one
 # "SOURCE DOWN: watchdog - <dashboard> prices stale" issue, closed when every feed is current again.

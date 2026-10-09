@@ -560,7 +560,19 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     buttons.forEach(function(b){
       b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
     });
+    langLinks(lang);
   }
+  // Links to the dashboards carry the language on screen (?lang=), so a reader keeps it when moving between pages.
+  // Run again whenever links are added (the status grid builds its own), and exposed for that.
+  function langLinks(lang){
+    Array.prototype.forEach.call(document.querySelectorAll('a[href^="/"]'), function(a){
+      var base = a.getAttribute("data-base") || a.getAttribute("href");
+      if (!/^\/(macro|fiscal|mx)\//.test(base)) return;
+      a.setAttribute("data-base", base);
+      a.setAttribute("href", base + (base.indexOf("?") >= 0 ? "&" : "?") + "lang=" + lang);
+    });
+  }
+  window.__fnamLangLinks = function(){ langLinks(document.documentElement.getAttribute("lang") === "en" ? "en" : "es"); };
 
   // Spanish by default; only an explicit choice (stored) switches to English.
   var lang = "es";
@@ -625,10 +637,12 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       '</li>';
     }
     grid.innerHTML = s.dashboards.map(function(d){ return card(d, null); }).join("");
+    if (window.__fnamLangLinks) window.__fnamLangLinks();
     // second pass: each dashboard's own data stamp, and the page-side price check (a close behind the required session turns a card stale)
     Promise.all([S.stamps(s.dashboards.map(function(d){ return d.id; })), S.ownCloses(s)]).then(function(r){
       var st = r[0];
       grid.innerHTML = s.dashboards.map(function(d){ return card(d, st[d.id]); }).join("");
+      if (window.__fnamLangLinks) window.__fnamLangLinks();
     });
   });
 })();

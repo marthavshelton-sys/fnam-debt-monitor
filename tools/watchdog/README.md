@@ -20,9 +20,11 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
 - Only scheduled runs count (`event=schedule`); dispatched diagnostics runs never do.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
-- **Late**: no landed refresh since the second-to-last time the workflow's own cron was due, counting only due times
-  at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
-  workflow file, so changing a cron needs no change here.
+- **Late**: no landed refresh since the last time the workflow's own cron was due, counting only due times at least
+  3 hours old. In words: the last scheduled refresh failed or never ran. Until 9-Oct-2026 two misses in a row were
+  needed, which left the MX fiscal page "up to date" for a day after its 8-Oct refresh failed (the owner asked for a
+  failed or stale refresh to be flagged the same day). The schedule is read from the workflow file, so changing a cron
+  needs no change here.
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.

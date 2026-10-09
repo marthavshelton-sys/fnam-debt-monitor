@@ -6,7 +6,7 @@ file, `site/fiscal/index.html`, renders everything in the browser from two data 
 no hand-typed figures left in it.
 
 Language: Spanish by default, like the rest of the site. `?lang=en|es` wins, then the reader's last
-choice (`localStorage` key `fiscal-lang`), then Spanish; it is applied before first paint, so the
+choice (the site-wide `localStorage` key `fnam-lang`, with the page's old `fiscal-lang` read as a fallback), then Spanish; it is applied before first paint, so the
 page never flashes the other language. The EN/ES toggle saves the choice and rewrites `?lang=` in
 the address bar, so a copied link keeps the language. `document.title` and `<html lang>` follow.
 
