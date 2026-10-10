@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-09T23:09:45.334Z",
+  "generated": "2026-10-10T00:02:27.724Z",
   "summary": {
     "checks": 464,
     "failed": 0,
@@ -3799,8 +3799,8 @@
   "freshness": [
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
-      "lastDate": "2026-10-08",
-      "ageDays": 2,
+      "lastDate": "2026-10-09",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "nightly FactSet routine, 7:58 PM New York time; the page's price authority"
@@ -3959,7 +3959,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-08; prices 2026-10-08; 8 peers; fetched 2026-10-09"
+      "detail": "consensus 2026-10-09; prices 2026-10-09; 8 peers; fetched 2026-10-09"
     },
     {
       "file": "peer_leverage.json",
@@ -4128,7 +4128,7 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-08",
+      "asOf": "2026-10-09",
       "lastRefresh": "2026-10-09",
       "nextExpected": null,
       "nextExpectedBasis": null,
@@ -4218,8 +4218,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-09",
-      "lastRefresh": "2026-10-09",
+      "asOf": "2026-10-10",
+      "lastRefresh": "2026-10-10",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4233,8 +4233,8 @@
       "label_en": "Change log",
       "label_es": "Bitácora de cambios",
       "cadence": "daily",
-      "asOf": "2026-10-09",
-      "lastRefresh": "2026-10-09",
+      "asOf": "2026-10-10",
+      "lastRefresh": "2026-10-10",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
