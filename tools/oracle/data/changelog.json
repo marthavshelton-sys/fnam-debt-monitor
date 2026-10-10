@@ -4,48 +4,6 @@
   {
    "at": "2026-10-09T22:49:22.403Z",
    "file": "reference.js",
-   "path": "debt.ratings[0].url",
-   "old": "https://www.investing.com/news/stock-market-news/moodys-revises-oracles-outlook-to-negative-amid-ai-expansion-93CH-4155891",
-   "new": "https://ratings.moodys.com/ratings-news/458628"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
-   "path": "debt.ratings[2].date",
-   "old": "2026-02-01",
-   "new": "2026-02-02"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
-   "path": "debt.ratings[2].source.en",
-   "old": "Rating action 2026-02-01",
-   "new": "Rating action 2026-02-02"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
-   "path": "debt.ratings[2].source.es",
-   "old": "Acción de calificación 2026-02-01",
-   "new": "Acción de calificación 2026-02-02"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
-   "path": "debt.ratings[2].url",
-   "old": "https://www.streetinsider.com/Credit+Ratings/Fitch+rates+Oracle+senior+notes+'BBB',+affirms+IDR+with+stable+outlook/25927130.html",
-   "new": "https://www.fitchratings.com/research/corporate-finance/fitch-rates-oracle-senior-notes-bbb-affirms-idr-with-stable-outlook-02-02-2026"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
-   "path": "debt.ratingsChecked",
-   "old": null,
-   "new": "2026-10-09"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "reference.js",
    "path": "debt.ratings[0].outlookSince",
    "old": null,
    "new": "2025-07-28"
@@ -4200,7 +4158,49 @@
    "path": "(more)",
    "old": null,
    "new": "422 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-09)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-09&todate=2026-10-09&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-10&todate=2026-10-10&limit=10000"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-09)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-09",
+   "new": "2026-10-10"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-09",
+   "new": "2026-10-10"
+  },
+  {
+   "at": "2026-10-10T13:39:03.433Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-09",
+   "new": "2026-10-10"
   }
  ],
- "generated": "2026-10-10T00:02:28.013Z"
+ "generated": "2026-10-10T13:39:03.433Z"
 }

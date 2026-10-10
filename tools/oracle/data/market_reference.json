@@ -1,30 +1,30 @@
 {
-  "as_of": "2026-10-09",
+  "as_of": "2026-10-10",
   "price_snapshot": {
     "orcl": {
-      "close": 141.39999389648438,
+      "close": 141.4,
       "close_date": "2026-10-09",
       "week52_high": 313,
       "week52_high_date": "2025-10-16",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 427556.25,
+      "market_cap_millions": 427556.27,
       "one_day_change_pct": 4.21,
       "one_year_change_pct": -52.38,
-      "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-09&todate=2026-10-09&limit=10000",
-      "accessed": "2026-10-09",
+      "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-10&todate=2026-10-10&limit=10000",
+      "accessed": "2026-10-10",
       "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
-      "source_name": "Nasdaq + Yahoo Finance (2026-10-09)"
+      "source_name": "Nasdaq"
     },
     "sp500": {
-      "close": 7811.5400390625,
+      "close": 7811.54,
       "close_date": "2026-10-09",
       "one_day_change_pct": 0.59,
       "one_year_change_pct": 15.98,
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-      "source_name": "FRED SP500 + Yahoo Finance (2026-10-09)",
-      "accessed": "2026-10-09"
+      "source_name": "FRED SP500",
+      "accessed": "2026-10-10"
     }
   },
   "treasury_10y": {
@@ -34,7 +34,7 @@
     "source_name": "U.S. Treasury daily par yield curve",
     "series": "10-year par yield, daily",
     "fetch_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv",
-    "accessed": "2026-10-09"
+    "accessed": "2026-10-10"
   },
   "credit_ratings": {
     "moodys": {
@@ -563,9 +563,9 @@
     "riskfree_used_pct": 5.29,
     "source_url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm",
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
-    "accessed": "2026-10-09"
+    "accessed": "2026-10-10"
   },
-  "refreshed_at": "2026-10-09T23:04:49.461Z",
+  "refreshed_at": "2026-10-10T13:38:55.928Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
@@ -575,7 +575,7 @@
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",
-    "accessed": "2026-10-09",
+    "accessed": "2026-10-10",
     "note": "Proxy for Oracle's rating bucket (BBB+ to BBB-), not Oracle's own spread; FRED publishes the index with a one-business-day lag."
   }
 }
