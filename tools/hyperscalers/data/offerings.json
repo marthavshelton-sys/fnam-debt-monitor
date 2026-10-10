@@ -1,6 +1,6 @@
 {
  "_comment": "Security type of every SEC-registered offering (424B prospectus) the hub lists from the filing-fee exhibits: the fee exhibit gives only the total, so the type is read from the prospectus cover. items keyed by accession: type = debt (notes) | common (common stock offering) | preferred (mandatory convertible preferred, offered as depositary shares) | atm_program (an at-the-market program: the amount is a ceiling for future sales, not proceeds); title = the cover line(s); quote = the cover sentence the type rests on; method = cover-read (a person or the automated reader read the cover) | cover-regex (scripts/hyperscalers/classify-offerings.mjs, which runs on the automated job for new 424B filings). An accession absent here shows \"type pending\" on the page.",
- "updatedAt": "2026-10-09T23:00:00Z",
+ "updatedAt": "2026-10-10T13:32:40Z",
  "items": {
   "0001193125-26-252439": {
    "ticker": "GOOGL",
@@ -115,6 +115,402 @@
    "quote": "$3,000,000,000 4.550% Senior Notes due 2031 … $4,000,000,000 6.450% Senior Notes due 2066",
    "classifiedOn": "2026-10-09",
    "method": "cover-read"
+  },
+  "0001193125-26-336853": {
+   "ticker": "GOOGL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": ".001 par value (“Class C Capital Stock”), through Goldman Sachs & Co. LLC, J.P. Morgan Securities LLC and Morgan Stanley & Co. LLC, as managers, pursuant to an equity distribution agreement (“Equity Distribution Agreement”) entered into with such managers on that date, as amended from time to time. This Supplement is being filed to reflect the add",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-336798": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-252392": {
+   "ticker": "GOOGL",
+   "type": "preferred",
+   "currency": "USD",
+   "title": null,
+   "quote": "r or sale is not permitted. SUBJECT TO COMPLETION, DATED JUNE 1, 2026 PRELIMINARY PROSPECTUS SUPPLEMENT (To Prospectus dated June 1, 2026) 150,000,000 Series B Depositary Shares Each Representing a 1/20th Interest in a Share of % Series B Mandatory Convertible Preferred Stock Alphabet Inc. % Series B Mandatory Convertible Preferred Sto",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-252374": {
+   "ticker": "GOOGL",
+   "type": "preferred",
+   "currency": "USD",
+   "title": null,
+   "quote": "r or sale is not permitted. SUBJECT TO COMPLETION, DATED JUNE 1, 2026 PRELIMINARY PROSPECTUS SUPPLEMENT (To Prospectus dated June 1, 2026) 150,000,000 Series A Depositary Shares Each Representing a 1/20th Interest in a Share of % Series A Mandatory Convertible Preferred Stock Alphabet Inc. % Series A Mandatory Convertible Preferred Sto",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-252362": {
+   "ticker": "GOOGL",
+   "type": "common",
+   "currency": "USD",
+   "title": null,
+   "quote": "spectus dated June 1, 2026) $15,000,000,000 Alphabet Inc. Class A Common Stock Class C Capital Stock We are offering $15,000,000,000 of our stock consisting of shares of our Class A Common Stock, $0.001 par value (“Class A Common Stock”), and shares of our Class C Capital Stock, $0.001 par value (“Class C Capital Stock”). Our Class A Common Stock and C",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-215570": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-205120": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "CAD",
+   "title": "may redeem any series of the notes in whole or in part at any time or from time to time (in C$1,000 increments, provided that any remaining principal amount thereof shall be at least the minimum authorized denomination thereof) at the redem",
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-204938": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-048730": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "uant to Rule 424B2 Registration No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) &pound;5,500,000,000 Alphabet Inc. &pound;750,000,000 4.125% Notes due 2029 &pound;1,250,000,000 4.625% Notes due 2032 &pound;1,250,000,000 5.500% Notes due 2041 &pound;1,250,000,000 5.875% Notes due 2058 &pound;1,000,000,000 6.125% No",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-046846": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "iled Pursuant to Rule 424b2 Registration No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) $20,000,000,000 Alphabet Inc. $2,500,000,000 3.700% Notes due 2029 $3,000,000,000 4.100% Notes due 2031 $3,000,000,000 4.400% Notes due 2033 $4,250,000,000 4.800% Notes due 2036 $1,500,000,000 5.500% Notes due 2046 $4,000,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-043583": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-041936": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-267244": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "ion No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) $17,500,000,000 Alphabet Inc. $500,000,000 Floating Notes due 2028 $1,000,000,000 3.875% Notes due 2028 $2,500,000,000 4.100% Notes due 2030 $1,250,000,000 4.375% Notes due 2032 $3,500,000,000 4.700% Notes due 2035 $2,000,000,000 5.350% Notes due 2045 $4,000,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-267232": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "d Pursuant to Rule 424(b)(2) Registration No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) 6,500,000,000 Alphabet Inc. 1,000,000,000 2.375% Notes due 2028 1,000,000,000 2.875% Notes due 2031 1,000,000,000 3.125% Notes due 2034 1,000,000,000 3.500% Notes due 2038 1,250,000,000 4.000% Notes due 2044 1,250,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-261740": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-261546": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-110061": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "d Pursuant to Rule 424(b)(2) Registration No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) 6,750,000,000 Alphabet Inc. 1,500,000,000 2.500% Notes due 2029 1,500,000,000 3.000% Notes due 2033 1,250,000,000 3.375% Notes due 2037 1,250,000,000 3.875% Notes due 2045 1,250,000,000 4.000% Notes due 2054 We are offe",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-107005": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "led Pursuant to Rule 424(b)(2) Registration No. 333-286752 PROSPECTUS SUPPLEMENT (To Prospectus dated April 25, 2025) $5,000,000,000 Alphabet Inc. $750,000,000 4.000% Notes due 2030 $1,250,000,000 4.500% Notes due 2035 $1,500,000,000 5.250% Notes due 2055 $1,500,000,000 5.300% Notes due 2065 We are offering $750,000,000 aggregate principal",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-101705": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-098380": {
+   "ticker": "GOOGL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-106115": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-098339": {
+   "ticker": "AMZN",
+   "type": "common",
+   "currency": "USD",
+   "title": null,
+   "quote": "eration: (i) $90.00 in cash minus the per share adjustment amount (as defined below) (if any), without interest (the “cash consideration”); or (ii) a number of shares of common stock, par value $0.01 per share, of Amazon (the “Amazon common stock”) equal to the exchange ratio described below (which includes an adjustment for the per share a",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-080950": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-071190": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-027669": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "ed Pursuant to Rule 424(b)(5) ​ Registration No. 333-293246 ​ PROSPECTUS SUPPLEMENT (To prospectus dated February 6, 2026) Amazon.com, Inc. &euro;1,750,000,000 FLOATING RATE NOTES DUE 2028 &euro;1,250,000,000 2.800% NOTES DUE 2028 &euro;2,000,000,000 3.100% NOTES DUE 2030 &euro;2,250,000,000 3.350% NOTES DUE 2032 &euro;2,500,000,000 3.700% NOTES",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-027125": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "NTS Filed Pursuant to Rule 424(b)(5) Registration No. 333-293246 ​ PROSPECTUS SUPPLEMENT (To prospectus dated February 6, 2026) Amazon.com, Inc. $1,750,000,000 FLOATING RATE NOTES DUE 2028 $1,000,000,000 FLOATING RATE NOTES DUE 2029 $2,250,000,000 3.850% NOTES DUE 2028 $3,000,000,000 4.000% NOTES DUE 2029 $5,000,000,000 4.250% NOTES DUE 2031 $4,0",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-026082": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-26-025560": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-25-114098": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "NTS Filed Pursuant to Rule 424(b)(5) Registration No. 333-269547 ​ PROSPECTUS SUPPLEMENT (To prospectus dated February 3, 2023) Amazon.com, Inc. $2,500,000,000 3.900% NOTES DUE 2028 $2,500,000,000 4.100% NOTES DUE 2030 $1,500,000,000 4.350% NOTES DUE 2033 $3,500,000,000 4.650% NOTES DUE 2035 $3,000,000,000 5.450% NOTES DUE 2055 $2,000,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001104659-25-112970": {
+   "ticker": "AMZN",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-194082": {
+   "ticker": "META",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-261217": {
+   "ticker": "META",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "ursuant to Rule 424(b)(2) Registration No. 333-271535 PROSPECTUS SUPPLEMENT TO PROSPECTUS DATED MAY 1, 2023 $30,000,000,000 Meta Platforms, Inc. $4,000,000,000 4.200% Senior Notes due 2030 $4,000,000,000 4.600% Senior Notes due 2032 $6,500,000,000 4.875% Senior Notes due 2035 $4,500,000,000 5.500% Senior Notes due 2045 $6,500,000,000 5.625% Senio",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-257437": {
+   "ticker": "META",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": null,
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-278585": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "Inc., Citigroup Global Markets Inc., Deutsche Bank Securities Inc., Goldman Sachs & Co. LLC and J.P. Morgan Securities LLC, as our sales agents, pursuant to an equity distribution agreement, or Equity Distribution Agreement, entered into with such sales agents on that date. This Supplement supersedes and replaces the prospectus supplement dated Fe",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-037818": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "the offering thereof, the “Notes Offering”). In addition, concurrently with this offering and pursuant to a separate prospectus supplement, we entered into an Equity Distribution Agreement with certain agents under which we may sell up to $20 billion of shares of our common stock in “at-the-market” transactions from time to time (the “ATM Program",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-035662": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "Inc., Citigroup Global Markets Inc., Deutsche Bank Securities Inc., Goldman Sachs & Co. LLC and J.P. Morgan Securities LLC, as our sales agents, pursuant to an equity distribution agreement, or Equity Distribution Agreement, entered into with such sales agents on that date. This Supplement is being filed to reflect the addition of HSBC Securities",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-035603": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "tock (the “Depositary Shares Offering”). In addition, concurrently with this offering and pursuant to a separate prospectus supplement, we are entering into an Equity Distribution Agreement with certain agents under which we may sell up to $20 billion of shares of our common stock in “at-the-market” transactions from time to time (the “ATM Program",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-032756": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "24(b)(5) Registration No. 333-277990 Prospectus Supplement (To Prospectus dated February 2, 2026) Up to $20,000,000,000 of Common Stock We have entered into an equity distribution agreement, or the equity distribution agreement, with BofA Securities, Inc., Citigroup Global Markets Inc., Deutsche Bank Securities Inc., Goldman Sachs & Co. LLC and J.",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-032739": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "tock (the “Depositary Shares Offering”). In addition, concurrently with this offering and pursuant to a separate prospectus supplement, we are entering into an Equity Distribution Agreement with certain agents under which we may sell up to $20 billion of shares of our common stock in “at-the-market” transactions from time to time (the “ATM Program",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-032654": {
+   "ticker": "ORCL",
+   "type": "atm_program",
+   "currency": "USD",
+   "title": null,
+   "quote": "offering thereof, the “Notes Offering”). In addition, concurrently with this offering and pursuant to a separate prospectus supplement, we are entering into an Equity Distribution Agreement with certain agents under which we may sell up to $20 billion of shares of our common stock in “at-the-market” transactions from time to time (the “ATM Program",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-217490": {
+   "ticker": "ORCL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "uant to Rule 424(b)(2) Registration No. 333-277990 Prospectus Supplement (To Prospectus dated March 15, 2024) $18,000,000,000 ORACLE CORPORATION $3,000,000,000 4.450% Notes due 2030 $3,000,000,000 4.800% Notes due 2032 $4,000,000,000 5.200% Notes due 2035 $2,500,000,000 5.875% Notes due 2045 $3,500,000,000 5.950% Notes due 2055 $2,000,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-214032": {
+   "ticker": "ORCL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "e is not permitted. SUBJECT TO COMPLETION, DATED SEPTEMBER 24, 2025 Preliminary Prospectus Supplement (To Prospectus dated March 15, 2024) ORACLE CORPORATION $ Floating Rate Notes due 2030 $ % Notes due 2030 $ % Notes due 2032 $ % Notes due 2035 $ % Notes due 2045 $ % Notes due 2055 $ % Notes due 2065 Oracle Corporation is offering $ aggregate pr",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-018491": {
+   "ticker": "ORCL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "0482d424b2.htm 424B2 424B2 Filed Pursuant to Rule 424(b)(2) Registration No. 333-277990 Prospectus Supplement (To Prospectus dated March 15, 2024) $500,000,000 Floating Rate Notes due 2028 $1,500,000,000 4.800% Notes due 2028 $1,250,000,000 5.250% Notes due 2032 $1,750,000,000 5.500% Notes due 2035 $1,750,000,000 6.000% Notes due 2055 $1,000,000,",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-25-016274": {
+   "ticker": "ORCL",
+   "type": "debt",
+   "currency": "USD",
+   "title": null,
+   "quote": "le 424(b)(2) Registration No. 333-277990 SUBJECT TO COMPLETION, DATED JANUARY 30, 2025 Preliminary Prospectus Supplement (To Prospectus dated March 15, 2024) $ Floating Rate Notes due 2028 $ % Notes due 2028 $ % Notes due 2032 $ % Notes due 2035 $ % Notes due 2055 $ % Notes due 2065 Oracle Corporation is offering $ aggregate principal amount of f",
+   "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
   }
  }
 }
