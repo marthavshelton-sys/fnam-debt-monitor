@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-10T03:59:48Z",
+  "checkedAt": "2026-10-10T15:57:52Z",
   "rule": "up to date = the last scheduled refresh landed (3 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 3,
   "sections": {
@@ -27,9 +27,9 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T20:22:39Z",
+      "lastSuccess": "2026-10-10T14:21:25Z",
       "lastAttempt": {
-        "at": "2026-10-09T20:22:39Z",
+        "at": "2026-10-10T14:21:25Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T20:05:00Z",
@@ -45,9 +45,9 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T21:46:17Z",
+      "lastSuccess": "2026-10-10T13:35:53Z",
       "lastAttempt": {
-        "at": "2026-10-09T21:46:17Z",
+        "at": "2026-10-10T13:35:53Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T21:30:00Z",
@@ -63,9 +63,9 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T22:36:59Z",
+      "lastSuccess": "2026-10-10T15:34:50Z",
       "lastAttempt": {
-        "at": "2026-10-09T22:36:59Z",
+        "at": "2026-10-10T15:34:50Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T22:25:00Z",
@@ -342,9 +342,9 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T23:06:13Z",
+      "lastSuccess": "2026-10-10T15:00:10Z",
       "lastAttempt": {
-        "at": "2026-10-09T23:06:13Z",
+        "at": "2026-10-10T15:00:10Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T23:00:00Z",
@@ -465,9 +465,9 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T21:58:55Z",
+      "lastSuccess": "2026-10-10T13:42:15Z",
       "lastAttempt": {
-        "at": "2026-10-09T21:58:55Z",
+        "at": "2026-10-10T13:42:15Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T21:45:00Z",
@@ -522,9 +522,9 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-09T22:30:56Z",
+      "lastSuccess": "2026-10-10T13:32:46Z",
       "lastAttempt": {
-        "at": "2026-10-09T22:30:56Z",
+        "at": "2026-10-10T13:32:46Z",
         "result": "success"
       },
       "requiredSince": "2026-10-09T22:20:00Z",
