@@ -1,165 +1,44 @@
 [
  {
-  "name": "pest-enigh",
-  "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/data/pestana/pestanadata.js",
+  "name": "pm-contenido",
+  "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
   "html": "raw",
-  "keep": 3500
- },
- {
-  "name": "pest-enif",
-  "url": "https://www.inegi.org.mx/programas/enif/2024/data/pestana/pestanadata.js",
-  "html": "raw",
-  "keep": 3500
- },
- {
-  "name": "pest-enfih",
-  "url": "https://www.inegi.org.mx/programas/enfih/2019/data/pestana/pestanadata.js",
-  "html": "raw",
-  "keep": 3500
- },
- {
-  "name": "pest-pm",
-  "url": "https://www.inegi.org.mx/desarrollosocial/pm/data/pestana/pestanadata.js",
-  "html": "raw",
-  "keep": 3500
- },
- {
-  "name": "pest-enoe",
-  "url": "https://www.inegi.org.mx/programas/enoe/15ymas/data/pestana/pestanadata.js",
-  "html": "raw",
-  "keep": 3500
- },
- {
-  "name": "pm-vjs",
-  "url": "https://www.inegi.org.mx/desarrollosocial/scripts/v.js?v=0.0.0",
-  "html": "raw",
-  "keep": 3000
- },
- {
-  "name": "pm-links",
-  "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
-  "html": "raw",
-  "find": "(?:href|src)=[\"'][^\"']+[\"']",
-  "keep": 5000
- },
- {
-  "name": "enif-da",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/datosabiertos/conjunto_de_datos_enif_2024_csv.zip",
-  "zip": "diccionario|catalogo|metadatos|\\.txt$",
-  "keep": 0,
-  "enc": "utf8"
- },
- {
-  "name": "enfih-da",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
-  "zip": "list",
-  "save": "enfih2019_da.zip"
- },
- {
-  "name": "enif-fd",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_fd.pdf",
-  "head": true
- },
- {
-  "name": "biemeta-test",
-  "kind": "biemeta",
-  "ids": [
-   "734407",
-   "718942",
-   "444610",
-   "446595",
-   "446596",
-   "446597",
-   "446598",
-   "446599",
-   "446600"
-  ]
- },
- {
-  "name": "bie4-00",
-  "kind": "bie",
-  "q": "poblacion ocupada nivel de ingresos mas de 1 hasta 2 salarios minimos",
-  "n": 60
- },
- {
-  "name": "bie4-01",
-  "kind": "bie",
-  "q": "producto interno bruto precios corrientes trimestral",
-  "n": 60
- },
- {
-  "name": "bie4-02",
-  "kind": "bie",
-  "q": "venta al publico camiones ligeros",
-  "n": 60
- },
- {
-  "name": "bie4-03",
-  "kind": "bie",
-  "q": "ingresos por suministro de bienes y servicios comercio al por menor indice",
-  "n": 60
- },
- {
-  "name": "bie4-04",
-  "kind": "bie",
-  "q": "consumo privado bienes duraderos semiduraderos no duraderos servicios mercado interior",
-  "n": 60
- },
- {
-  "name": "cuadro-CF844-full",
-  "kind": "cuadro",
-  "id": "CF844",
-  "sector": 19,
-  "grep": "Demanda|estándares|Tarjetas|Nómina|Personales|Automotriz|Índices generales|Últimos tres meses|Bancos con",
   "keep": 9000
  },
  {
-  "name": "bmv-soriana",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
-  "grep": "result|trimestre|ventas|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "pm-contenido-urls",
+  "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
+  "find": "[\"'`][^\"'`]*(?:api|json|xlsx|zip|contenidos|indicador)[^\"'`]*[\"'`]",
+  "keep": 0,
+  "max": 150
  },
  {
-  "name": "bmv-liverpool",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
-  "grep": "result|trimestre|ventas|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "dm-js",
+  "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+  "find": "[\"'`][^\"'`]*(?:api|json|svc|ashx|descarga)[^\"'`]*[\"'`]",
+  "keep": 0,
+  "max": 150
  },
  {
-  "name": "bmv-alsea",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
-  "grep": "result|trimestre|ventas|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "dm-js-fetch",
+  "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+  "find": "(?:fetch|ajax|XMLHttpRequest|\\.get|\\.post)\\([^)]{0,300}\\)",
+  "keep": 0,
+  "max": 60
  },
  {
-  "name": "bmv-chedraui",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/CHDRAUI-5209-CGEN_CAPIT",
-  "grep": "result|trimestre|ventas|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "dm-guess1",
+  "url": "https://www.inegi.org.mx/app/api/descargamasiva/v1/3428/5",
+  "keep": 1500
  },
  {
-  "name": "bmv-lacomer",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
-  "grep": "result|trimestre|ventas|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "dm-guess2",
+  "url": "https://www.inegi.org.mx/app/descarga/?ti=5&ag=0&id=3428",
+  "keep": 1500
  },
  {
-  "name": "bmv-gfnorte",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GFNORTE-5433-CGEN_CAPIT",
-  "grep": "result|trimestre|reporte",
-  "keep": 2500,
-  "ua": "bot"
- },
- {
-  "name": "bmv-femsa",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/FEMSA-5305-CGEN_CAPIT",
-  "grep": "result|trimestre|reporte",
-  "keep": 2500,
-  "ua": "bot"
+  "name": "dm-guess3",
+  "url": "https://www.inegi.org.mx/app/api/descarga/v1/proyecto/3428/5/es",
+  "keep": 1500
  }
 ]

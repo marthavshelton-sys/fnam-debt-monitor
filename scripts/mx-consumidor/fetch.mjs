@@ -21,13 +21,14 @@
 // so a quiet run commits nothing. A source that fails keeps its stored file; failures are counted in raw/status.json (the
 // workflow opens a SOURCE DOWN issue after three in a row). Every series is checked against its published title before
 // it is accepted. API tokens come from the environment and are removed from everything written.
-import { writeFileSync, mkdtempSync, readdirSync, statSync, rmSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdtempSync, readdirSync, statSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { RAW, readJson, writeJson, exists, get, getJson, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, stateCode, BOT_UA } from './lib/common.mjs';
+import { RAW, readJson, writeJson, writeText, exists, get, getJson, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, stateCode, BOT_UA } from './lib/common.mjs';
 import { BANXICO, CARD_GIROS, INEGI } from './lib/series.mjs';
 import { aggregate } from './lib/enigh.mjs';
+import { aggregateEnif } from './lib/enif.mjs';
 
 const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
@@ -228,7 +229,51 @@ async function fetchFred() {
 }
 
 // ------------------------------------------------------------------------------------------------------------------
-const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, fred: fetchFred };
+// INEGI and CNBV · ENIF microdata
+// ------------------------------------------------------------------------------------------------------------------
+const ENIF_V = 1;
+const enifUrl = (y) => `${INEGI_FILES}/enif/${y}/microdatos/enif_${y}_bd_csv.zip`;
+async function fetchEnif(prev) {
+  const Y = new Date().getUTCFullYear();
+  let year = null, head = null;
+  for (let y = Y; y >= 2024; y--) { const h = await headOf(enifUrl(y)); if (isZipHead(h)) { year = y; head = h; break; } await sleep(300); }
+  if (!year) throw new Error('no ENIF microdata file answered');
+  if (prev && prev.v === ENIF_V && prev.year === year && prev.lastModified === head.lastModified && !FORCE) return SKIP;
+  const dir = await downloadZip(enifUrl(year), `enif${year}`);
+  const data = aggregateEnif(year, { modulo: findFile(dir, /TMODULO\.csv$/i) });
+  return { v: ENIF_V, year, lastModified: head.lastModified, ...data, source: { name: 'INEGI y CNBV, Encuesta Nacional de Inclusión Financiera (ENIF), microdatos', url: `https://www.inegi.org.mx/programas/enif/${year}/` } };
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+// Published documents kept as text (the figures curated from them are checked against this text by the builder)
+// ------------------------------------------------------------------------------------------------------------------
+const DOCS = {
+  enfih2019: { url: `${INEGI_FILES}/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf`, name: 'INEGI y Banco de México, Encuesta Nacional sobre las Finanzas de los Hogares (ENFIH) 2019, presentación de resultados', page: 'https://www.inegi.org.mx/programas/enfih/2019/', must: /Riqueza neta|RIQUEZA NETA/ },
+};
+async function fetchDocs(prev) {
+  const out = { docs: {} }; let changed = false;
+  for (const id of Object.keys(DOCS)) {
+    const d = DOCS[id], h = await headOf(d.url), old = prev && prev.docs ? prev.docs[id] : null;
+    if (!h.ok || !/pdf/i.test(h.type)) throw new Error(`${id}: ${d.url} did not answer with a PDF (${h.error || h.type})`);
+    if (old && old.lastModified === h.lastModified && exists(old.file) && !FORCE) { out.docs[id] = old; continue; }
+    const buf = await getBuffer(d.url, { timeoutMs: 180_000 });
+    if (buf.subarray(0, 4).toString('latin1') !== '%PDF') throw new Error(`${id}: not a PDF`);
+    const pdf = join(tmp, `${id}.pdf`), txt = join(tmp, `${id}.txt`);
+    writeFileSync(pdf, buf);
+    execFileSync('python3', [new URL('./lib/pdf2text.py', import.meta.url).pathname, pdf, txt], { maxBuffer: 64 * 1024 * 1024 });
+    const text = readFileSync(txt, 'utf8');
+    if (!d.must.test(text) || text.length < 5000) throw new Error(`${id}: the text of the PDF does not look like the document (${text.length} characters)`);
+    const file = `${RAW}docs/${id}.txt`;
+    writeText(file, `# source: ${d.url}\n# document: ${d.name}\n# last-modified: ${h.lastModified || ''}\n\n${text}`);
+    out.docs[id] = { file, url: d.url, page: d.page, name: d.name, lastModified: h.lastModified, chars: text.length };
+    changed = true;
+  }
+  if (!changed && prev) return SKIP;
+  return out;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, fred: fetchFred, enif: fetchEnif, docs: fetchDocs };
 const status = readJson(RAW + 'status.json', { sources: {} });
 status.sources = status.sources || {};
 let ran = 0, failed = 0;
