@@ -1,0 +1,246 @@
+{
+ "_comment": "Measurements and estimates of the K-shaped economy published by others, for section 08 of the American Consumer page. Curated in a session; every figure was read in the document its `url` opens (or, when `via` names an intermediary, in that intermediary's text) and carries its period and publication date. `kind`: private = a third-party estimate (badged as such, never mixed into an official series); fed = research by the Federal Reserve Board or a Reserve Bank; official = a statistic or prototype of a federal statistical agency. `measure: spendTop10` puts the figure in the chart that compares the top 10%'s share of spending across measurements (`measureLabel` is its bar label, `rank` says how households are ranked); `superseded: true` marks a figure its publisher later revised. `headline: true` marks the one estimate quoted in the section's stat row and summary. Quotes are short and shown in their original language. `reviewed` is the date of the last pass.",
+ "reviewed": "2026-10-11",
+ "estimates": [
+  {
+   "id": "moodys-top10-2025",
+   "kind": "private",
+   "headline": true,
+   "measure": "spendTop10",
+   "label": {
+    "en": "Share of consumer spending done by the top 10% of households by income",
+    "es": "Parte del gasto de consumo que hace el 10% de hogares de mayor ingreso"
+   },
+   "measureLabel": {
+    "en": "Moody's Analytics (income minus estimated saving)",
+    "es": "Moody's Analytics (ingreso menos ahorro estimado)"
+   },
+   "short": {
+    "en": "of consumer spending done by the top 10% of households by income",
+    "es": "del gasto de consumo lo hace el 10% de hogares de mayor ingreso"
+   },
+   "v": 45.8,
+   "unit": "%",
+   "period": {
+    "en": "2025",
+    "es": "2025"
+   },
+   "publisher": "Moody's Analytics (Mark Zandi)",
+   "via": {
+    "en": "as reported by Bloomberg Opinion (Justin Fox)",
+    "es": "según Bloomberg Opinion (Justin Fox)"
+   },
+   "published": "2026-04-07",
+   "url": "https://www.advisorperspectives.com/articles/2026/04/07/k-shaped-economys-statistic-problems",
+   "note": {
+    "en": "Not a count of purchases: Moody's estimates each income group's saving from the Federal Reserve's financial accounts and its survey of family finances, and treats the disposable income left over (personal outlays) as spending. Four-quarter moving average; figure after a change of method to reflect taxes.",
+    "es": "No es un conteo de compras: Moody's estima el ahorro de cada grupo de ingreso con las cuentas financieras de la Reserva Federal y su encuesta de finanzas familiares, y trata como gasto el ingreso disponible restante (desembolsos personales). Promedio móvil de cuatro trimestres; cifra posterior a un cambio de método para reflejar los impuestos."
+   }
+  },
+  {
+   "id": "moodys-top10-2025q2",
+   "kind": "private",
+   "superseded": true,
+   "measure": "spendTop10",
+   "label": {
+    "en": "The same share before Moody's changed its method",
+    "es": "La misma participación antes de que Moody's cambiara su método"
+   },
+   "measureLabel": {
+    "en": "Moody's Analytics, earlier method",
+    "es": "Moody's Analytics, método anterior"
+   },
+   "v": 49.2,
+   "unit": "%",
+   "period": {
+    "en": "Q2 2025",
+    "es": "2T 2025"
+   },
+   "publisher": "Moody's Analytics (Mark Zandi)",
+   "via": {
+    "en": "as reported by Bloomberg News (Jonnelle Marte)",
+    "es": "según Bloomberg News (Jonnelle Marte)"
+   },
+   "published": "2025-09-16",
+   "url": "https://news.bgov.com/daily-labor-report/top-10-of-earners-drive-a-growing-share-of-us-consumer-spending",
+   "note": {
+    "en": "Then the highest in data back to 1989, up from 48.5% in Q1 2025. Moody's later lowered the figure with a change of method to reflect taxes.",
+    "es": "Entonces el nivel más alto en datos desde 1989, frente a 48.5% en el 1T 2025. Moody's bajó después la cifra con un cambio de método para reflejar los impuestos."
+   }
+  },
+  {
+   "id": "moodys-top10-2024q3",
+   "kind": "private",
+   "superseded": true,
+   "label": {
+    "en": "The same share as first widely reported, earlier method (households making about $250,000 a year or more)",
+    "es": "La misma participación en su primera publicación muy citada, método anterior (hogares con ingreso de unos $250,000 al año o más)"
+   },
+   "v": 49.7,
+   "unit": "%",
+   "period": {
+    "en": "Q3 2024",
+    "es": "3T 2024"
+   },
+   "publisher": "Moody's Analytics (Mark Zandi)",
+   "via": {
+    "en": "as reported by The Wall Street Journal (edition republished by To Vima)",
+    "es": "según The Wall Street Journal (edición republicada por To Vima)"
+   },
+   "published": "2025-03-05",
+   "url": "https://www.tovima.com/wsj/the-u-s-economy-depends-more-than-ever-on-rich-people/",
+   "note": {
+    "en": "The widely quoted \"nearly half\" figure; about 36% three decades earlier, by the same estimate.",
+    "es": "La cifra muy citada de \"casi la mitad\"; cerca de 36% tres décadas antes, según la misma estimación."
+   }
+  },
+  {
+   "id": "moodys-top20-2025q3",
+   "kind": "private",
+   "label": {
+    "en": "Share of consumer spending done by the top 20% of households by income",
+    "es": "Parte del gasto de consumo que hace el 20% de hogares de mayor ingreso"
+   },
+   "v": 59,
+   "dp": 0,
+   "unit": "%",
+   "period": {
+    "en": "Q3 2025",
+    "es": "3T 2025"
+   },
+   "publisher": "Moody's Analytics (Mark Zandi)",
+   "via": {
+    "en": "as cited by the Federal Reserve Bank of Minneapolis",
+    "es": "citado por el Banco de la Reserva Federal de Minneapolis"
+   },
+   "published": "2026-03-20",
+   "url": "https://www.minneapolisfed.org/article/2026/have-us-consumers-gone-k-shaped-a-review-of-the-data",
+   "note": {
+    "en": "In the same estimate the bottom 60% of households do 23% of spending.",
+    "es": "En la misma estimación, el 60% de hogares de menor ingreso hace el 23% del gasto."
+   }
+  },
+  {
+   "id": "moodys-growth-top10",
+   "kind": "private",
+   "label": {
+    "en": "Growth of spending by the top 10% of households by income, in current dollars",
+    "es": "Crecimiento del gasto del 10% de hogares de mayor ingreso, en dólares corrientes"
+   },
+   "v": 62,
+   "dp": 0,
+   "unit": "%",
+   "period": {
+    "en": "Q3 2020 to Q3 2025",
+    "es": "3T 2020 a 3T 2025"
+   },
+   "publisher": "Moody's Analytics (Mark Zandi)",
+   "via": {
+    "en": "published by The Washington Post, as cited by the Federal Reserve Bank of Minneapolis",
+    "es": "publicado por The Washington Post, citado por el Banco de la Reserva Federal de Minneapolis"
+   },
+   "published": "2026-03-20",
+   "url": "https://www.minneapolisfed.org/article/2026/have-us-consumers-gone-k-shaped-a-review-of-the-data",
+   "note": {
+    "en": "More than any other income group. Over about the same years the New York Fed's household panel shows retail spending up 29% for low-income households and 36% for high-income ones.",
+    "es": "Más que cualquier otro grupo de ingreso. En casi los mismos años, el panel de hogares de la Fed de Nueva York muestra un aumento del gasto minorista de 29% en los hogares de ingreso bajo y de 36% en los de ingreso alto."
+   }
+  },
+  {
+   "id": "fed-scf-top10-2025",
+   "kind": "fed",
+   "measure": "spendTop10",
+   "rank": "income",
+   "label": {
+    "en": "Share of spending done by the top 10% of families by income, in the Fed's survey of family finances",
+    "es": "Parte del gasto que hace el 10% de familias de mayor ingreso, en la encuesta de finanzas familiares de la Fed"
+   },
+   "measureLabel": {
+    "en": "Federal Reserve, Survey of Consumer Finances",
+    "es": "Reserva Federal, Encuesta de Finanzas del Consumidor"
+   },
+   "v": 28,
+   "dp": 0,
+   "unit": "%",
+   "period": {
+    "en": "2025",
+    "es": "2025"
+   },
+   "publisher": "Federal Reserve Board, FEDS Notes (Aladangady, Bricker, Chang, Goodman and Li)",
+   "published": "2026-10-09",
+   "url": "https://www.federalreserve.gov/econres/notes/feds-notes/measuring-spending-in-the-survey-of-consumer-finances-20261009.html",
+   "note": {
+    "en": "From the 2025 survey's measure of family spending (the note's chart measures spending other than housing). The survey oversamples wealthy families, whom household spending surveys cover poorly; the same share holds ranking families by wealth. The top 1% of spenders do 9% of spending, against 19% of income and 32% of wealth for the top 1% of each.",
+    "es": "Con la medición del gasto familiar de la encuesta de 2025 (la gráfica de la nota mide el gasto distinto de vivienda). La encuesta sobremuestrea a las familias ricas, que las encuestas de gasto cubren mal; la participación es la misma al ordenar a las familias por riqueza. El 1% que más gasta hace el 9% del gasto, frente a 19% del ingreso y 32% de la riqueza del 1% superior de cada uno."
+   }
+  },
+  {
+   "id": "dallasfed-top20",
+   "kind": "fed",
+   "label": {
+    "en": "Share of consumption of the top 20% of earners, a variant of the Moody's method that deducts taxes",
+    "es": "Parte del consumo del 20% de mayor ingreso, con una variante del método de Moody's que descuenta impuestos"
+   },
+   "v": 57,
+   "dp": 0,
+   "unit": "%",
+   "period": {
+    "en": "average, 2020 to Q2 2025",
+    "es": "promedio, 2020 a 2T 2025"
+   },
+   "publisher": "Federal Reserve Bank of Dallas (Benjamin Hoham and Fang Yang)",
+   "published": "2025-11-25",
+   "url": "https://www.dallasfed.org/research/economics/2025/1125-yang-consume",
+   "note": {
+    "en": "53% on average in 1990–99: by this measure concentration is high but rose 4 points in three decades. The authors note that in the BEA and BLS joint distribution of income and consumption the top 10% of earners do roughly 20% of consumption and the top 20% about 35%, stable since 2004.",
+    "es": "53% en promedio en 1990–99: con esta medida la concentración es alta pero subió 4 puntos en tres décadas. Los autores señalan que en la distribución conjunta de ingreso y consumo de la BEA y la BLS el 10% de mayor ingreso hace cerca de 20% del consumo y el 20% superior cerca de 35%, estable desde 2004."
+   }
+  }
+ ],
+ "quotes": [
+  {
+   "text": "I feel more confident in the historical trajectory than I do in the actual levels",
+   "by": "Mark Zandi",
+   "role": {
+    "en": "chief economist, Moody's Analytics, on his own estimates",
+    "es": "economista en jefe de Moody's Analytics, sobre sus propias estimaciones"
+   },
+   "date": "2026-04-07",
+   "source": "Bloomberg Opinion",
+   "url": "https://www.advisorperspectives.com/articles/2026/04/07/k-shaped-economys-statistic-problems"
+  },
+  {
+   "text": "For now, the available data do not align to tell a clear, K-shaped story.",
+   "by": "Jeff Horwich",
+   "role": {
+    "en": "senior economics writer, Federal Reserve Bank of Minneapolis",
+    "es": "redactor sénior de economía, Banco de la Reserva Federal de Minneapolis"
+   },
+   "date": "2026-03-20",
+   "source": "Federal Reserve Bank of Minneapolis",
+   "url": "https://www.minneapolisfed.org/article/2026/have-us-consumers-gone-k-shaped-a-review-of-the-data"
+  },
+  {
+   "text": "The recent growth in consumption has not been broad based. Rather, it has been driven by the high-income households.",
+   "by": "Liberty Street Economics",
+   "role": {
+    "en": "Federal Reserve Bank of New York, on retail spending since 2023",
+    "es": "Banco de la Reserva Federal de Nueva York, sobre el gasto minorista desde 2023"
+   },
+   "date": "2026-05-01",
+   "source": "Federal Reserve Bank of New York",
+   "url": "https://libertystreeteconomics.newyorkfed.org/2026/05/tracking-the-k-shaped-economy-whos-driving-spending/"
+  },
+  {
+   "text": "higher-income families do not appear to be pulling away but at least some lower-income families appear worse off",
+   "by": "FEDS Notes",
+   "role": {
+    "en": "Federal Reserve Board, on the 2025 Survey of Consumer Finances",
+    "es": "Junta de la Reserva Federal, sobre la Encuesta de Finanzas del Consumidor 2025"
+   },
+   "date": "2026-10-09",
+   "source": "Federal Reserve Board",
+   "url": "https://www.federalreserve.gov/econres/notes/feds-notes/measuring-spending-in-the-survey-of-consumer-finances-20261009.html"
+  }
+ ]
+}
