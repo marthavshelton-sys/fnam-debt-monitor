@@ -1116,11 +1116,6 @@
    ]
   }
  },
- "errors": [
-  {
-   "ticker": "FINDEP",
-   "error": "no quarterly XBRL package is linked on the issuer's financial-information page"
-  }
- ],
+ "errors": [],
  "checkedAt": "2026-10-11T20:09:48.483Z"
 }
