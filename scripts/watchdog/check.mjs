@@ -167,7 +167,13 @@ for (const d of CONFIG.dashboards) {
   }
   if (!crons.length) throw new Error(`${d.id}: no schedule in ${d.workflows.join(', ')}`);
   const alerts = issues.filter((i) => i.labels.some((l) => (d.alertLabels || []).includes(l.name)));
+  // `since` on a dashboard (the instant its refresh workflow reached main): a schedule that was due before the dashboard existed
+  // is not a miss. Without it the American Consumer page read "late" on its first day (11-Oct-2026, merged 18:03 UTC): the
+  // 21:40 schedule of the evening before had no run, because there was no workflow to run.
+  const started = d.since ? Date.parse(d.since) : NaN;
+  if (Number.isFinite(started) && (since == null || started > since)) since = started;
   const v = verdict({ crons, now: NOW, graceMs: GRACE, lookbackMs: LOOKBACK, lastLandedCreatedAt: landed ? landed.run.created_at : null, openAlerts: alerts.length });
+  if (Number.isFinite(started) && v.status === 'late' && v.requiredSince !== null && v.requiredSince < started) v.status = alerts.length ? 'alert' : 'ok';
   // a cron of its own whose last two due times both lack a landed run makes the dashboard late even when another cron keeps landing
   const lateCrons = perCronLate({ crons, now: NOW, graceMs: GRACE, lookbackMs: LOOKBACK, runs: recent, since });
   if (lateCrons.length && v.status !== 'late') { v.status = 'late'; v.requiredSince = Math.min(...lateCrons.map((x) => x.missedSince)); }
