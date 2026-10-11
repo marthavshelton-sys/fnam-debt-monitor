@@ -64,6 +64,13 @@ assert.equal(new Date(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // 9-Oct 14:40 missed too
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T15:10:00Z', landed: true }] }).map((x) => x.cron), []); // a landed run 30 min late belongs to 14:40
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T19:10:00Z', landed: true }] }).map((x) => x.cron), []); // and one 4.5 h late still does (no fixed window)
+// a dashboard's first day (American Consumer, merged 11-Oct-2026 18:03 UTC, a hand run right after): the 21:40 schedule of the
+// evening before could not have run; with the dashboard's `since` it is not a miss, and a real miss afterwards still is
+const cons = { crons: ['10 14 * * *', '40 21 * * *'], graceMs: 3 * H, lookbackMs: 14 * 24 * H }, consHand = [{ createdAt: '2026-10-11T18:03:36Z', landed: true, manual: true }], consSince = t('2026-10-11T18:03:29Z');
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consHand }).map((x) => x.cron), ['40 21 * * *']);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consHand, since: consSince }).map((x) => x.cron), []);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-12T03:50:00Z'), runs: [...consHand, { createdAt: '2026-10-11T21:52:00Z', landed: true }], since: consSince }).map((x) => x.cron), []);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-12T03:50:00Z'), runs: consHand, since: consSince }).map((x) => x.cron), ['40 21 * * *']);
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-10T03:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T23:10:00Z', landed: true }] }).map((x) => x.cron), ['40 14 * * 1-5']); // a run after the market cron's due time belongs to the market cron
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-07T18:00:00Z'), runs: runsA }).map((x) => x.cron), []);                               // 7-Oct: both crons landed
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-05T12:00:00Z'), runs: [] }).map((x) => x.cron), ['40 14 * * 1-5', '50 22 * * 1-5']);    // nothing ever landed
