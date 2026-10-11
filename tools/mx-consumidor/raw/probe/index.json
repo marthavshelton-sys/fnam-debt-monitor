@@ -1,166 +1,76 @@
 {
- "ranAt": "2026-10-11T19:04:44.196Z",
+ "ranAt": "2026-10-11T19:12:07.578Z",
+ "requestHash": "0a13115cef38d89a",
  "requests": [
   {
-   "name": "js-sitio",
-   "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
+   "name": "pest-enigh",
+   "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/data/pestana/pestanadata.js",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
-   "lastModified": "Wed, 15 Oct 2025 17:50:23 GMT",
-   "bytes": 70842
+   "finalUrl": "https://www.inegi.org.mx/programas/enigh/nc/2024/data/pestana/pestanadata.js",
+   "lastModified": "Fri, 27 Mar 2026 22:00:02 GMT",
+   "bytes": 2775
   },
   {
-   "name": "js-sitio-tags",
-   "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
+   "name": "pest-enif",
+   "url": "https://www.inegi.org.mx/programas/enif/2024/data/pestana/pestanadata.js",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
-   "lastModified": "Wed, 15 Oct 2025 17:50:23 GMT",
-   "bytes": 70842
+   "finalUrl": "https://www.inegi.org.mx/programas/enif/2024/data/pestana/pestanadata.js",
+   "lastModified": "Fri, 21 Mar 2025 22:00:05 GMT",
+   "bytes": 2551
   },
   {
-   "name": "js-recursos",
-   "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
+   "name": "pest-enfih",
+   "url": "https://www.inegi.org.mx/programas/enfih/2019/data/pestana/pestanadata.js",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
-   "lastModified": "Tue, 17 Oct 2023 22:50:46 GMT",
-   "bytes": 1835
+   "finalUrl": "https://www.inegi.org.mx/programas/enfih/2019/data/pestana/pestanadata.js",
+   "lastModified": "Fri, 18 Aug 2023 16:05:57 GMT",
+   "bytes": 3100
   },
   {
-   "name": "js-recursos-tags",
-   "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
+   "name": "pest-pm",
+   "url": "https://www.inegi.org.mx/desarrollosocial/pm/data/pestana/pestanadata.js",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
-   "lastModified": "Tue, 17 Oct 2023 22:50:46 GMT",
-   "bytes": 1835
+   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/data/pestana/pestanadata.js",
+   "lastModified": "Wed, 13 Aug 2025 12:00:46 GMT",
+   "bytes": 1163
   },
   {
-   "name": "js-react",
-   "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
+   "name": "pest-enoe",
+   "url": "https://www.inegi.org.mx/programas/enoe/15ymas/data/pestana/pestanadata.js",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
-   "lastModified": "Wed, 07 Jun 2023 18:21:55 GMT",
-   "bytes": 143008
+   "finalUrl": "https://www.inegi.org.mx/programas/enoe/15ymas/data/pestana/pestanadata.js",
+   "lastModified": "Fri, 27 Mar 2026 12:00:09 GMT",
+   "bytes": 4682
   },
   {
-   "name": "js-react-tags",
-   "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
+   "name": "pm-vjs",
+   "url": "https://www.inegi.org.mx/desarrollosocial/scripts/v.js?v=0.0.0",
    "method": "GET",
    "status": 200,
    "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
-   "lastModified": "Wed, 07 Jun 2023 18:21:55 GMT",
-   "bytes": 143008
+   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/scripts/v.js?v=0.0.0",
+   "lastModified": "Mon, 11 Aug 2025 12:01:11 GMT",
+   "bytes": 4535
   },
   {
-   "name": "inegi-pm-raw",
+   "name": "pm-links",
    "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
    "method": "GET",
    "status": 200,
    "type": "text/html",
    "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/",
-   "lastModified": "Wed, 13 Aug 2025 12:00:46 GMT",
+   "lastModified": "Wed, 13 Aug 2025 12:00:34 GMT",
    "bytes": 4081
-  },
-  {
-   "name": "inegi-enif-raw",
-   "url": "https://www.inegi.org.mx/programas/enif/2024/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enif/2024/",
-   "lastModified": "Thu, 13 Mar 2025 12:00:18 GMT",
-   "bytes": 3715
-  },
-  {
-   "name": "inegi-enfih-raw",
-   "url": "https://www.inegi.org.mx/programas/enfih/2019/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enfih/2019/",
-   "lastModified": "Fri, 08 Mar 2024 22:00:08 GMT",
-   "bytes": 3952
-  },
-  {
-   "name": "enif-micro",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
-   "lastModified": "Thu, 13 Mar 2025 12:01:07 GMT",
-   "bytes": 3131148,
-   "saved": "enif2024_bd_csv.zip"
-  },
-  {
-   "name": "enif-pres",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
-   "method": "GET",
-   "status": 200,
-   "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
-   "lastModified": "Thu, 13 Mar 2025 15:00:06 GMT",
-   "bytes": 711731
-  },
-  {
-   "name": "enfih-pres",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
-   "method": "GET",
-   "status": 200,
-   "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
-   "lastModified": "Fri, 05 Nov 2021 17:02:31 GMT",
-   "bytes": 2523700
-  },
-  {
-   "name": "enigh-fd",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/889463924494.pdf",
-   "method": "GET",
-   "status": 200,
-   "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/889463924494.pdf",
-   "lastModified": "Wed, 30 Jul 2025 12:00:30 GMT",
-   "bytes": 2967447
-  },
-  {
-   "name": "enfih-micro1",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih_2019_bd_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih_2019_bd_csv.zip",
-   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
-   "bytes": 1428
-  },
-  {
-   "name": "enfih-micro2",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih2019_bd_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih2019_bd_csv.zip",
-   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
-   "bytes": 1428
-  },
-  {
-   "name": "enfih-da",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
-   "lastModified": "Fri, 25 Mar 2022 22:00:03 GMT",
-   "bytes": 7428206
   },
   {
    "name": "enif-da",
@@ -173,109 +83,130 @@
    "bytes": 3086077
   },
   {
-   "name": "pm-da",
-   "url": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/datosabiertos/pm_2024_csv.zip",
+   "name": "enfih-da",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
+   "lastModified": "Fri, 25 Mar 2022 22:00:03 GMT",
+   "bytes": 7428206,
+   "saved": "enfih2019_da.zip"
+  },
+  {
+   "name": "enif-fd",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_fd.pdf",
    "method": "GET",
    "status": 200,
    "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/datosabiertos/pm_2024_csv.zip",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_fd.pdf",
    "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
    "bytes": 1428
   },
   {
-   "name": "bie-series-a",
-   "kind": "bieseries",
+   "name": "biemeta-test",
+   "kind": "biemeta",
    "ok": true
   },
   {
-   "name": "bie3-00",
+   "name": "bie4-00",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie3-01",
+   "name": "bie4-01",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie3-02",
+   "name": "bie4-02",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie3-03",
+   "name": "bie4-03",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie3-04",
+   "name": "bie4-04",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie3-05",
-   "kind": "bie",
+   "name": "cuadro-CF844-full",
+   "kind": "cuadro",
    "ok": true
   },
   {
-   "name": "bie3-06",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie3-07",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie3-08",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie3-09",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie3-10",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie3-11",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "sie-meta",
-   "kind": "siemeta",
-   "ok": true
-  },
-  {
-   "name": "sie-series",
-   "kind": "sieseries",
-   "ok": true
-  },
-  {
-   "name": "bmv-walmex-links",
-   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "name": "bmv-soriana",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
    "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 143717
+   "bytes": 118178
   },
   {
-   "name": "bmv-walmex-fin",
-   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/WALMEX-5214-CGEN_CAPIT",
+   "name": "bmv-liverpool",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
    "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/WALMEX-5214-CGEN_CAPIT",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 74622
+   "bytes": 123817
+  },
+  {
+   "name": "bmv-alsea",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 169301
+  },
+  {
+   "name": "bmv-chedraui",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/CHDRAUI-5209-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/CHDRAUI-5209-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 104570
+  },
+  {
+   "name": "bmv-lacomer",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 122556
+  },
+  {
+   "name": "bmv-gfnorte",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GFNORTE-5433-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GFNORTE-5433-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 107501
+  },
+  {
+   "name": "bmv-femsa",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/FEMSA-5305-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/FEMSA-5305-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 190056
   }
  ]
 }

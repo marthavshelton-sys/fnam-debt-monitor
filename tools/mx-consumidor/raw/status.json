@@ -1,0 +1,28 @@
+{
+ "sources": {
+  "enigh": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "banxico": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "cards": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "states": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "inegi": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "fred": {
+   "ok": "2026-10-11",
+   "failures": 0
+  }
+ }
+}

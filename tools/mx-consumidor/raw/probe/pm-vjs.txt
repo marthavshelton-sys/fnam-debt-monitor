@@ -1,0 +1,86 @@
+GET https://www.inegi.org.mx/desarrollosocial/scripts/v.js?v=0.0.0
+-> HTTP 200 application/javascript 4535 bytes · Last-Modified Mon, 11 Aug 2025 12:01:11 GMT
+
+﻿
+
+function v(fun) {
+    //console.log("v. INICIO");
+    var v_scriptlist = document.getElementsByTagName('head');
+    v_scriptlist = v_scriptlist[0];
+
+    var s = document.createElement("script");
+    //s.src = "/programas/scripts/estructurasV2.js";
+    s.src = "/desarrollosocial/scripts/estructuras.min.js?v=0." + Math.random();
+    //s.type = "text/javascript";
+
+    var existEstruc, existConten;
+    existEstruc = (v_scriptlist.outerHTML).includes("/desarrollosocial/scripts/estructuras");
+    existConten = (v_scriptlist.outerHTML).includes("js/contenido");
+
+    if (!existEstruc) {
+        // console.log("v. '/programas/scripts/estructurasV2' No existe");
+        document.head.appendChild(s);
+        //console.log("v. '/programas/scripts/estructurasV2' LISTO!");
+        s.onload = function () {
+            contentCont();
+            // the script creates a variable "_"
+            //alert(s.VERSION); // shows library version
+        };
+        s.onerror = function () {
+            console.log("Error loading " + this.src); // Error loading https://example.com/404.js
+        };
+    }
+    else {
+        contentCont();
+    }
+
+    function contentCont() {
+        if (!existConten) {
+            //console.log("v. 'js/contenido' No existe");
+            var s1 = document.createElement("script");
+            s1.src = "js/contenido.min.js?v=0." + Math.random();
+            //s1.src = "js/contenido.min.js"; //?v=0." + Math.random();
+            document.head.appendChild(s1);
+            //console.log("v. 'js/contenido' LISTO!");
+            s1.onload = function () {
+                var fn = new Function(fun);
+                fn();
+                //// the script creates a variable "_"
+                //console.log(s1.src + ": " + s1.VERSION); // shows library version
+
+                //console.log("v. " + fun + " onload");
+                //console.log("v. " + fun + " onload FIN");
+            };
+
+            s1.onerror = function () {
+                console.log("Error loading " + this.src); // Error loading https://example.com/404.js
+            };
+
+        } else {
+            var fn = new Function(fun);
+            fn();
+            //console.log("v. " + fun + " onload");
+        }
+    }
+
+
+}
+
+function vredirect(url) {
+    //console.log("v. INICIO");
+    var v_scriptlist = document.getElementsByTagName('head');
+    v_scriptlist = v_scriptlist[0];
+
+    var s = document.createElement("script");
+    //s.src = "/programas/scripts/estructurasV2.js";
+    s.src = "/desarrollosocial/scripts/estructuras.min.js?v=0." + Math.random();
+    //s.type = "text/javascript";
+
+    var existEstruc;
+    existEstruc = (v_scriptlist.outerHTML).includes("/desarrollosocial/scripts/estructuras");
+
+    if (!existEstruc) {
+        //console.log("v. '/programas/scripts/estructurasV2' No existe");
+        document.head.appendChild(s);
+        //console.log("v. '/programas/scripts/estructurasV2' LISTO!")
+… (1533 more characters)
