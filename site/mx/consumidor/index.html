@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://fnam.mx/mx/consumidor/">
+<title>El Consumidor Mexicano · FNAM</title>
+<meta name="description" content="El consumidor de México por decil de ingreso, edad, estado y grupo demográfico: ingreso, fuentes y usos de fondos, gasto, crédito, estrés financiero y riqueza, con datos oficiales de INEGI y Banco de México. The Mexican consumer by income decile, age, state and demographic group.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FNAM">
+<meta property="og:title" content="El Consumidor Mexicano · FNAM">
+<meta property="og:description" content="Ingreso, gasto por decil, crédito y riqueza de los hogares de México, con datos oficiales.">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://fnam.mx/mx/consumidor/">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+/* Language before first paint: ?lang= wins, then the reader's saved choice, then Spanish (the site default). */
+(function(){ var l = null;
+  try { var q = new URLSearchParams(location.search).get('lang'); if(q === 'en' || q === 'es'){ l = q; try { localStorage.setItem('fnam-lang', q); } catch(e){} } } catch(e){}
+  if(!l){ try { var s = localStorage.getItem('fnam-lang'); if(s === 'en' || s === 'es') l = s; } catch(e){} }
+  if(!l) l = 'es';
+  document.documentElement.setAttribute('lang', l);
+  window.__MXC_LANG = l; })();
+</script>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --accent-soft-border:rgba(27,67,50,0.22);
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --series-5:#e87ba4; --series-6:#3c7a52; --series-7:#4a3aa7; --series-8:#e34948;
+  --neutral-mark:#b9b8b0;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  --up:#006300; --down:#b42318;
+  --shadow: 0 1px 2px rgba(11,11,11,0.04);
+  /* sequential ramp (one hue, near zero recedes toward the surface) */
+  --seq-1:#cde2fb; --seq-2:#9ec5f4; --seq-3:#6da7ec; --seq-4:#3987e5; --seq-5:#256abf; --seq-6:#184f95; --seq-7:#0d366b; --seq-none:#eceae4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+    --grid:#2c2c2a; --baseline:#3a3a37; --border:rgba(255,255,255,0.10);
+    --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#5fae7e; --series-7:#9085e9; --series-8:#e66767;
+    --neutral-mark:#5a5954;
+    --up:#0ca30c; --down:#f07167;
+    --seq-1:#0d366b; --seq-2:#184f95; --seq-3:#256abf; --seq-4:#3987e5; --seq-5:#6da7ec; --seq-6:#9ec5f4; --seq-7:#cde2fb; --seq-none:#2a2927;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+  --grid:#2c2c2a; --baseline:#3a3a37; --border:rgba(255,255,255,0.10);
+  --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#5fae7e; --series-7:#9085e9; --series-8:#e66767;
+  --neutral-mark:#5a5954;
+  --up:#0ca30c; --down:#f07167;
+  --seq-1:#0d366b; --seq-2:#184f95; --seq-3:#256abf; --seq-4:#3987e5; --seq-5:#6da7ec; --seq-6:#9ec5f4; --seq-7:#cde2fb; --seq-none:#2a2927;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0; background:var(--page); color:var(--text-primary); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif; text-wrap:balance; margin:0;}
+p{margin:0;}
+.num{font-variant-numeric: tabular-nums;}
+a{color:var(--series-1);}
+::selection{background:var(--accent-soft);}
+html[lang="en"] .es{display:none !important;}
+html:not([lang="en"]) .en{display:none !important;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+@media (max-width:640px){ .wrap{padding:0 16px;} }
+canvas{max-width:100%;}
+
+/* ---------- header ---------- */
+header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
+.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
+.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
+.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
+.fnam-mark svg{width:13px; height:13px; display:block;}
+.fnam-word{font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:.04em;}
+.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
+.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
+.fnam-back svg{width:13px; height:13px; flex:none;}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); padding:4px 10px; border-radius:100px;}
+.eyebrow .live{width:8px; height:8px; border-radius:50%; background:var(--muted); opacity:.45; flex:none;}
+.eyebrow .live.is-ok{background:var(--good); opacity:1; box-shadow:0 0 0 3px rgba(12,163,12,.18);}
+.eyebrow .live.is-alert{background:#c27c0e; opacity:1;}
+.eyebrow .live.is-late{background:#c0392b; opacity:1;}
+header.top h1{font-size:clamp(28px,4vw,42px); font-weight:700; margin-top:14px; color:var(--text-primary);}
+header.top .sub{margin-top:10px; max-width:68ch; color:var(--text-secondary); font-size:15.5px; line-height:1.55;}
+.asof-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:20px; font-size:13px; color:var(--muted);}
+.asof-row b{color:var(--text-primary); font-weight:600;}
+.legend-top{margin-top:14px;}
+.data-warn{margin-top:18px; padding:10px 14px; border:1px solid #e0b84d; border-left-width:4px; border-radius:8px; background:#fdf6e3; color:var(--text-primary); font-size:13px; line-height:1.5;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .data-warn{background:#3a3220; border-color:#a8862e;} }
+:root[data-theme="dark"] .data-warn{background:#3a3220; border-color:#a8862e;}
+
+/* ---------- nav ---------- */
+nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border);}
+nav.jump .jump-bar{display:flex; align-items:center; gap:12px;}
+nav.jump .jump-strip-wrap{position:relative; flex:1 1 auto; min-width:0;}
+nav.jump .jump-strip{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth;}
+nav.jump .jump-strip::-webkit-scrollbar{display:none;}
+nav.jump .jump-strip-wrap::before, nav.jump .jump-strip-wrap::after{content:""; position:absolute; top:0; bottom:0; width:36px; pointer-events:none; opacity:0; transition:opacity .15s ease;}
+nav.jump .jump-strip-wrap::before{left:0; background:linear-gradient(to right, var(--page) 20%, transparent);}
+nav.jump .jump-strip-wrap::after{right:0; background:linear-gradient(to left, var(--page) 20%, transparent);}
+nav.jump .jump-strip-wrap[data-fade~="left"]::before{opacity:1;}
+nav.jump .jump-strip-wrap[data-fade~="right"]::after{opacity:1;}
+nav.jump a{flex:0 0 auto; padding:12px 13px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
+nav.jump a:hover{color:var(--text-primary);}
+nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
+.lang-btn{flex:0 0 auto; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden; margin:6px 0;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:7px 14px; cursor:pointer;}
+.lang-btn button.active{background:var(--accent); color:#fff;}
+.lang-btn button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
+@media (max-width:640px){ nav.jump .jump-bar{gap:8px;} nav.jump a{padding:12px 10px;} .lang-btn button{padding:6px 11px; font-size:11.5px;} }
+
+/* ---------- KPI strip ---------- */
+.kpi-strip{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
+.kpi{background:var(--surface); padding:18px 18px 16px; min-width:0;}
+.kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
+.kpi .val{font-family:"Source Serif 4",serif; font-size:clamp(20px,2.2vw,27px); font-weight:700; margin-top:6px; line-height:1.1;}
+.kpi .val .unit{font-family:Inter,sans-serif; font-size:13px; font-weight:600; color:var(--text-secondary); white-space:nowrap;}
+.kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary); line-height:1.45;}
+.kpi .delta .pk{margin-left:0; margin-top:2px;}
+@media (max-width:1100px){.kpi-strip{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:640px){.kpi-strip{grid-template-columns:repeat(2,1fr);} .kpi{padding:14px 14px 12px;}}
+
+/* ---------- sections ---------- */
+main{padding:28px 0 20px;}
+section.block{padding:46px 0; border-top:1px solid var(--border); scroll-margin-top:var(--jump-h,60px);}
+section.block:first-of-type{border-top:none; padding-top:22px;}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+.sec-num{font-family:"Source Serif 4",serif; font-size:14px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px; padding:1px 8px;}
+.sec-head h2{font-size:24px; font-weight:700;}
+.sec-desc{color:var(--text-secondary); font-size:14.5px; line-height:1.6; max-width:76ch; margin-top:10px;}
+.sec-meta{margin-top:8px; font-size:12.5px; color:var(--muted); line-height:1.6;}
+.sec-meta a{color:var(--muted); text-decoration:underline;}
+.sub-head{margin-top:34px; font-family:Inter,sans-serif; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:12px;}
+.sub-head::after{content:""; flex:1; height:1px; background:var(--grid);}
+
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:20px;}
+.grid-2.wide-left{grid-template-columns:1.25fr 1fr;}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;}
+@media (max-width:980px){.grid-3{grid-template-columns:1fr 1fr;}}
+@media (max-width:860px){.grid-2,.grid-2.wide-left{grid-template-columns:1fr;}}
+@media (max-width:640px){.grid-3{grid-template-columns:1fr;}}
+[hidden]{display:none !important;}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
+.card.full{margin-top:20px;}
+.card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:Inter,sans-serif; line-height:1.4;}
+.card .cap{font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5;}
+.chart-wrap{position:relative; height:300px; margin-top:14px; --h:300px;}
+.chart-wrap.short{height:230px; --h:230px;}
+.chart-wrap.tall{height:380px; --h:380px;}
+.chart-wrap.xtall{height:520px; --h:520px;}
+.chart-wrap canvas{position:absolute; left:0; top:0;}
+/* cards that share a row end at the same height: the chart takes the spare room instead of leaving a blank band */
+.grid-2 > .card, .grid-3 > .card{display:flex; flex-direction:column;}
+.grid-2 > .card > .chart-wrap, .grid-3 > .card > .chart-wrap{flex:1 0 var(--h); height:auto; min-height:var(--h); max-height:calc(var(--h) + 220px);}
+.grid-2 > .card > .chart-src, .grid-3 > .card > .chart-src{margin-top:auto; padding-top:8px;}
+p.chart-src{font-size:11px; color:var(--muted); margin-top:10px; line-height:1.5;}
+p.chart-src a{color:var(--muted); text-decoration:underline; text-underline-offset:2px;}
+p.chart-src a:hover{color:var(--series-1);}
+@media (max-width:640px){ .card{padding:16px 14px 14px;} .chart-wrap{height:270px; --h:270px;} .chart-wrap.short{--h:230px;} .chart-wrap.tall{height:340px; --h:340px;} .chart-wrap.xtall{height:560px; --h:560px;} }
+
+details.tbl{margin-top:12px;}
+details.tbl summary{cursor:pointer; font-size:12.5px; font-weight:600; color:var(--series-1); list-style:none;}
+details.tbl summary::-webkit-details-marker{display:none;}
+details.tbl summary:before{content:"▸ ";}
+details.tbl[open] summary:before{content:"▾ ";}
+table{width:100%; border-collapse:collapse; margin-top:10px; font-size:12.8px;}
+table th{text-align:right; font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding:6px 8px; border-bottom:1px solid var(--baseline); vertical-align:bottom;}
+table th:first-child, table td:first-child{text-align:left;}
+table td{padding:6px 8px; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums; text-align:right;}
+table tr:last-child td{border-bottom:none;}
+table tr.total td{font-weight:700; border-top:1px solid var(--baseline);}
+.tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+@media (max-width:640px){table{font-size:12px;} table th, table td{padding:5px 6px;}}
+
+.legend-row{display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:12px; font-size:12px; color:var(--text-secondary);}
+.legend-row .li{display:inline-flex; align-items:center; gap:6px;}
+.legend-row .dot{display:inline-block; width:9px; height:9px; border-radius:2px; flex:none;}
+.legend-row .ln{display:inline-block; width:14px; height:2px; border-radius:1px; flex:none;}
+.callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.6;}
+.callout b{color:var(--text-primary);}
+.stat-row{display:grid; grid-template-columns:repeat(var(--n,6),minmax(0,1fr)); gap:20px 26px; margin-top:18px; max-width:calc(var(--n,6) * 236px);}
+.stat{min-width:0;}
+.stat .v{font-family:"Source Serif 4",serif; font-size:24px; font-weight:700; line-height:1.15;}
+.stat .l{font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.4; max-width:22ch;}
+@media (max-width:900px){ .stat-row{grid-template-columns:repeat(3,minmax(0,1fr)); max-width:none;} }
+@media (max-width:640px){ .stat-row{grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 18px;} .stat .v{font-size:21px;} }
+
+/* ---------- summary ---------- */
+.glance{display:grid; grid-template-columns:1fr 1fr; gap:0 34px; margin-top:20px;}
+@media (max-width:860px){.glance{grid-template-columns:1fr;}}
+.glance .pt{display:flex; gap:12px; padding:13px 0; border-bottom:1px solid var(--grid); font-size:14px; line-height:1.55; color:var(--text-secondary);}
+.glance .pt b{color:var(--text-primary);}
+.glance .pt:last-child:nth-child(odd){grid-column:1 / -1;}
+.glance .pt .ix{flex:none; width:22px; height:22px; border-radius:50%; background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink); font-size:11.5px; font-weight:700; display:grid; place-items:center; margin-top:1px;}
+.links-row{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:18px; font-size:13px; color:var(--text-secondary);}
+.links-row .lbl{font-weight:600; color:var(--muted);}
+.links-row a{color:var(--accent-ink); font-weight:600; text-decoration:none; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:4px 11px; white-space:nowrap;}
+.links-row a:hover, .links-row a:focus-visible{border-color:var(--accent); outline:none;}
+
+/* ---------- segmented control ---------- */
+.seg{display:inline-flex; flex-wrap:wrap; gap:4px; margin-top:12px; padding:3px; border-radius:10px; background:var(--surface-2); border:1px solid var(--border);}
+.seg button{appearance:none; border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; line-height:1.2; padding:7px 11px; border-radius:7px; cursor:pointer;}
+.seg button:hover{color:var(--text-primary);}
+.seg button[aria-pressed="true"]{background:var(--surface); color:var(--text-primary); box-shadow:0 0 0 1px var(--border), var(--shadow);}
+.seg button:focus-visible{outline:2px solid var(--accent); outline-offset:1px;}
+
+/* ---------- state map ---------- */
+.map-grid{display:grid; grid-template-columns:minmax(0,1.9fr) minmax(220px,1fr); gap:22px; margin-top:14px; align-items:start;}
+@media (max-width:900px){.map-grid{grid-template-columns:1fr;}}
+.map-box{position:relative; min-width:0;}
+.map-box svg{width:100%; height:auto; display:block; overflow:hidden;}
+.map-box .st{stroke:var(--surface); stroke-width:1.2; stroke-linejoin:round; cursor:pointer; outline:none; transition:opacity .12s ease;}
+.map-box .st:hover, .map-box .st:focus-visible, .map-box .st.on{stroke:var(--text-primary); stroke-width:1.8;}
+.map-box .lab{font-family:Inter,sans-serif; font-size:14px; font-weight:600; pointer-events:none; text-anchor:middle; dominant-baseline:central;}
+.map-chips{display:flex; flex-wrap:wrap; gap:5px; margin-top:8px;}
+.map-chips .chip{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; border-radius:6px; padding:3px 7px; cursor:pointer; border:1px solid var(--border); outline:none;}
+.map-chips .chip:hover, .map-chips .chip:focus-visible, .map-chips .chip.on{box-shadow:0 0 0 1.5px var(--text-primary);}
+.map-scale{display:flex; align-items:center; gap:8px; margin-top:12px; font-size:11.5px; color:var(--text-secondary); flex-wrap:wrap;}
+.map-scale .steps{display:flex; gap:2px;}
+.map-scale .steps i{display:block; width:30px; height:10px; border-radius:2px;}
+.map-scale .note{flex:1 0 100%; color:var(--muted);}
+@media (max-width:700px){ .map-box .lab{display:none;} .map-scale .steps i{width:22px;} }
+.map-tip{position:absolute; z-index:5; pointer-events:none; background:var(--text-primary); color:var(--page); border-radius:7px; padding:8px 10px; font-size:12px; line-height:1.45; box-shadow:0 6px 20px rgba(0,0,0,.18); max-width:240px; opacity:0; transform:translate(-50%,-100%); transition:opacity .1s ease;}
+.map-tip b{display:block; font-size:12.5px;}
+.map-tip.show{opacity:1;}
+.rank h4{margin:0; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);}
+.rank ol{list-style:none; margin:6px 0 16px; padding:0;}
+.rank li{display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--grid); font-size:12.8px;}
+.rank li:last-child{border-bottom:none;}
+.rank li .n{flex:none; width:18px; color:var(--muted); font-variant-numeric:tabular-nums; font-size:11.5px;}
+.rank li .nm{flex:1 1 auto; min-width:0; font-weight:600;}
+.rank li .vl{flex:none; font-variant-numeric:tabular-nums; color:var(--text-secondary);}
+.rank .us{font-size:12.5px; color:var(--text-secondary); padding:8px 10px; background:var(--surface-2); border-radius:8px; border:1px solid var(--border);}
+.rank .us b{color:var(--text-primary);}
+
+/* ---------- heat table ---------- */
+.heat{border-collapse:separate; border-spacing:2px; font-size:12px; margin-top:14px;}
+.heat th{border-bottom:none; padding:4px 4px 6px; font-size:11px; text-align:center; white-space:nowrap;}
+.heat th:first-child{text-align:left;}
+.heat td{border-bottom:none; padding:6px 4px; text-align:center; border-radius:3px; font-weight:600; min-width:44px;}
+.heat td:first-child{text-align:left; font-weight:600; color:var(--text-primary); background:transparent; white-space:nowrap; padding-right:10px;}
+.heat td.all{box-shadow:inset 0 0 0 1px var(--border); background:transparent; color:var(--text-primary);}
+.heat tr.sep td{padding-top:10px;}
+.heat.compact{table-layout:fixed; width:100%; border-spacing:1px; font-size:11px;}
+.heat.compact th:first-child, .heat.compact td:first-child{width:34%; white-space:normal; padding-right:4px; line-height:1.25; font-size:11.5px;}
+.heat.compact td{min-width:0; padding:6px 0; font-weight:600; letter-spacing:-.02em;}
+.heat.compact th{padding:4px 0 6px;}
+
+/* ---------- flow (sources and uses) ---------- */
+.flow svg{width:100%; height:auto; display:block; overflow:visible; margin-top:10px;}
+.flow .node-l{font-family:Inter,sans-serif; font-size:12px; font-weight:600; fill:var(--text-primary);}
+.flow .node-v{font-family:Inter,sans-serif; font-size:11px; fill:var(--text-secondary); font-variant-numeric:tabular-nums;}
+.flow .mid-l{font-family:"Source Serif 4",serif; font-size:15px; font-weight:700; fill:var(--text-primary); text-anchor:middle;}
+.flow .mid-v{font-family:Inter,sans-serif; font-size:12px; fill:var(--text-secondary); text-anchor:middle;}
+.flow .band{opacity:.28; transition:opacity .12s ease;}
+.flow .band:hover{opacity:.5;}
+.flow .col-h{font-family:Inter,sans-serif; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; fill:var(--muted);}
+.flow-bars{display:none; margin-top:12px;}
+.flow-bars h4{margin:14px 0 6px; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted);}
+.flow-bars .bar{display:flex; height:22px; border-radius:4px; overflow:hidden; gap:2px;}
+.flow-bars .bar i{display:block; height:100%; min-width:2px;}
+.flow-bars ul{list-style:none; margin:8px 0 0; padding:0;}
+.flow-bars li{display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--grid); font-size:12.5px;}
+.flow-bars li .sw{flex:none; width:9px; height:9px; border-radius:2px; align-self:center;}
+.flow-bars li .nm{flex:1 1 auto; min-width:0;}
+.flow-bars li .vl{flex:none; color:var(--text-secondary); font-variant-numeric:tabular-nums;}
+@media (max-width:760px){ .flow svg{display:none;} .flow-bars{display:block;} }
+
+/* ---------- companies ---------- */
+.co-group{margin-top:22px;}
+.co-group h3{font-family:Inter,sans-serif; font-size:13.5px; font-weight:700;}
+.co-table td, .co-table th{vertical-align:top;}
+.co-table{table-layout:fixed; width:100%;}
+.co-table th:last-child{text-align:left; padding-left:18px;}
+.co-table .sub{display:block; font-size:11px; color:var(--muted); font-weight:400; font-variant-numeric:normal;}
+.est-table td, .est-table th{text-align:left;}
+.est-table td.fig{font-family:"Source Serif 4",serif; font-size:17px; font-weight:700; color:var(--text-primary); white-space:nowrap;}
+.badge-ext{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.02em; color:#7a2e0e; background:#fff1e6; border:1px dashed #d9824a; border-radius:5px; padding:1px 6px; white-space:nowrap;}
+:root[data-theme="dark"] .badge-ext{color:#ffcfae; background:#3a2413; border-color:#a8602e;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .badge-ext{color:#ffcfae; background:#3a2413; border-color:#a8602e;} }
+.grid-2.in-card{margin-top:6px; gap:22px;}
+.grid-2.one{grid-template-columns:1fr;}
+h4.mini{margin:8px 0 6px; font-size:12.5px; font-weight:700; letter-spacing:.01em; color:var(--text-secondary);}
+.co-table.gig td, .co-table.gig th{text-align:left;}
+.co-table.gig .usm{display:block; margin:0 0 7px;}
+.co-table.gig .usm:last-child{margin-bottom:0;}
+.co-table.gig .usm b{font-weight:700; color:var(--text-primary);}
+.co-table.gig .chg{color:var(--text-secondary); font-weight:400;}
+.co-table.gig .scope{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.02em; padding:1px 6px; border-radius:5px; border:1px solid var(--border); color:var(--text-secondary); background:var(--surface-2); margin-bottom:6px; white-space:nowrap;}
+.co-table.gig .scope.us{color:var(--accent); border-color:var(--accent);}
+.badge-ext.pub{color:#12456b; background:#e8f1f8; border:1px solid #8fb3cf;}
+:root[data-theme="dark"] .badge-ext.pub{color:#cfe4f5; background:#16293a; border-color:#3f6788;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .badge-ext.pub{color:#cfe4f5; background:#16293a; border-color:#3f6788;} }
+.est-table td.fig.old{text-decoration:line-through; text-decoration-thickness:1px; color:var(--muted);}
+.kquote{margin-top:14px; padding:12px 14px; border-left:3px solid var(--accent); background:var(--surface-2); border-radius:0 8px 8px 0; font-size:13px; line-height:1.55; color:var(--text-secondary);}
+.kquote q{color:var(--text-primary); quotes:"“" "”";}
+.kquote .by{display:block; margin-top:4px; font-size:11.5px; color:var(--muted);}
+.co-table .tk{font-weight:700; color:var(--text-primary);}
+.co-table .nm{display:block; font-size:11.5px; color:var(--muted); font-weight:500; white-space:normal;}
+.co-table td.txt{text-align:left; font-variant-numeric:normal; color:var(--text-secondary); font-size:12.3px; line-height:1.5; padding-left:18px;}
+.co-table td.txt q{quotes:"“" "”"; color:var(--text-primary);}
+.co-table td.txt .by{display:block; color:var(--muted); font-size:11.5px; margin-top:2px;}
+.co-table td.txt .xt{display:block; margin-top:4px;}
+.co-table .per{display:block; font-size:11px; color:var(--muted);}
+.co-table .new{display:inline-block; margin-top:3px; font-size:10.5px; font-weight:700; color:#6b4b00; background:#fff4d6; border:1px solid #e0a800; border-radius:100px; padding:0 7px; white-space:nowrap;}
+.co-table a.srcl{color:var(--muted); font-size:11px; text-decoration:underline; white-space:nowrap;}
+.up{color:var(--up);} .down{color:var(--down);}
+.nd{color:var(--muted); font-weight:400;}
+@media (max-width:760px){
+  .co-table thead{display:none;}
+  .co-table, .co-table tbody, .co-table tr, .co-table td{display:block; width:100%;}
+  .co-table tr{padding:12px 0; border-bottom:1px solid var(--grid);}
+  .co-table td{border:none; padding:2px 0; text-align:left;}
+  .co-table td[data-l]::before{content:attr(data-l) ": "; color:var(--muted); font-size:11.5px; font-weight:500;}
+  .co-table colgroup{display:none;}
+  .co-table td.empty{display:none;}
+  .co-table td.txt{padding-left:0; margin-top:4px;}
+}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--border); background:var(--surface); padding:36px 0 44px; margin-top:10px; scroll-margin-top:var(--jump-h,60px);}
+footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-family:Inter; font-weight:700;}
+.src-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px 28px; margin-top:16px;}
+@media (max-width:900px){.src-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:600px){.src-grid{grid-template-columns:1fr;}}
+.src-grid .item{font-size:12.8px; border-top:1px solid var(--border); padding-top:10px; line-height:1.5;}
+.src-grid .item .t{font-weight:600; color:var(--text-primary);}
+.src-grid .item .d{color:var(--muted); margin-top:2px;}
+.src-grid .item a{color:var(--series-1); text-decoration:none;}
+.src-grid .item a:hover{text-decoration:underline;}
+footer .fine{margin-top:22px; font-size:12px; color:var(--muted); max-width:92ch; line-height:1.65;}
+footer .fine b{color:var(--text-secondary);}
+footer dl.defs{margin:14px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:10px 28px; font-size:12.5px; line-height:1.55; color:var(--text-secondary);}
+footer dl.defs dt{font-weight:700; color:var(--text-primary);}
+footer dl.defs dd{margin:0;}
+@media (max-width:760px){footer dl.defs{grid-template-columns:1fr;}}
+
+/* ---------- page-specific ---------- */
+.map-box .lab{font-size:13.6px; letter-spacing:-.02em;}
+.fact-list{list-style:none; margin:14px 0 0; padding:0;}
+.fact-list li{display:flex; align-items:baseline; gap:10px; padding:8px 0; border-bottom:1px solid var(--grid); font-size:13px; line-height:1.45; color:var(--text-secondary);}
+.fact-list li:last-child{border-bottom:none;}
+.fact-list li .fv{flex:none; min-width:74px; font-family:"Source Serif 4",serif; font-size:18px; font-weight:700; color:var(--text-primary); font-variant-numeric:tabular-nums;}
+.fact-list li .fl{flex:1 1 auto; min-width:0;}
+.co-table td.fig-cell{font-variant-numeric:tabular-nums;}
+.co-table .lbl{display:block; font-size:11px; color:var(--muted); font-weight:400;}
+.co-table .big{font-weight:700; color:var(--text-primary);}
+.note-line{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.55;}
+
+.skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important; scroll-behavior:auto !important;} }
+</style>
+</head>
+<body>
+<a class="skip" href="#resumen"><span class="en">Skip to content</span><span class="es">Saltar al contenido</span></a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="fnam-bar">
+      <a class="fnam-brand" href="/" aria-label="FNAM">
+        <span class="fnam-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg></span>
+        <span class="fnam-word">FNAM</span>
+      </a>
+      <a class="fnam-back" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="en">All dashboards</span><span class="es">Todos los paneles</span>
+      </a>
+      <a class="fnam-back" href="/mx/macro/" data-base="/mx/macro/"><span class="en">Mexico Macro Monitor</span><span class="es">Monitor Macro México</span></a>
+      <a class="fnam-back" href="/mx/fiscal/" data-base="/mx/fiscal/"><span class="en">Mexico Fiscal Monitor</span><span class="es">Monitor Fiscal de México</span></a>
+      <a class="fnam-back" href="/consumidor/" data-base="/consumidor/"><span class="en">The American Consumer</span><span class="es">El Consumidor Estadounidense</span></a>
+    </div>
+    <span class="eyebrow"><span class="live" data-status-dot="mx-consumer"></span><span class="en">Mexico · Official data</span><span class="es">México · Datos oficiales</span></span>
+    <h1><span class="en">The Mexican Consumer</span><span class="es">El Consumidor Mexicano</span></h1>
+    <p class="sub">
+      <span class="en">Who they are, what they earn, where their money comes from and where it goes, what they owe and what they own: Mexico's consumer by income level, age, state and demographic group.</span><span class="es">Quién es, cuánto gana, de dónde obtiene su dinero y en qué lo gasta, cuánto debe y cuánto tiene: el consumidor de México por nivel de ingreso, edad, estado y grupo demográfico.</span>
+    </p>
+    <div class="data-warn" id="dataWarn" role="status" hidden></div>
+    <noscript><div class="data-warn">Esta página dibuja sus gráficas y calcula sus cifras en el navegador; sin JavaScript solo se muestran los títulos y las fuentes. / This page draws its charts and computes its figures in the browser; without JavaScript only the headings and the sources are shown.</div></noscript>
+    <div class="asof-row" id="asofRow"></div>
+    <div class="legend-top" id="legendTop"></div>
+    <div class="kpi-strip" id="kpiStrip"></div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Secciones / Sections">
+  <div class="wrap jump-bar">
+    <div class="jump-strip-wrap">
+      <div class="jump-strip" id="jumpNav">
+        <a href="#resumen"><span class="en">At a Glance</span><span class="es">Resumen</span></a>
+        <a href="#demografia"><span class="en">Demographics</span><span class="es">Demografía</span></a>
+        <a href="#ingreso"><span class="en">Income</span><span class="es">Ingreso</span></a>
+        <a href="#fondos"><span class="en">Sources and Uses</span><span class="es">Fuentes y Usos</span></a>
+        <a href="#deciles"><span class="en">Spending by Decile</span><span class="es">Gasto por Decil</span></a>
+        <a href="#credito"><span class="en">Credit</span><span class="es">Crédito</span></a>
+        <a href="#estres"><span class="en">Leverage and Stress</span><span class="es">Apalancamiento y Estrés</span></a>
+        <a href="#riqueza"><span class="en">Wealth</span><span class="es">Riqueza</span></a>
+        <a href="#economia-k"><span class="en">K-Shaped Economy</span><span class="es">Economía en K</span></a>
+        <a href="#empresas"><span class="en">Companies</span><span class="es">Empresas</span></a>
+        <a href="#fuentes"><span class="en">Sources</span><span class="es">Fuentes</span></a>
+      </div>
+    </div>
+    <div class="lang-btn" role="group" aria-label="Idioma / Language">
+      <button type="button" id="btnLangEs" lang="es">ES</button>
+      <button type="button" id="btnLangEn" lang="en">EN</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap" id="main">
+
+  <section class="block" id="resumen">
+    <div class="sec-head"><span class="sec-num">01</span><h2><span class="en">At a Glance</span><span class="es">En Resumen</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">The points below are written from the page's own data each time it loads, so they always match the charts.</span><span class="es">Los puntos siguientes se redactan con los datos de la propia página cada vez que se carga, así que siempre coinciden con las gráficas.</span>
+    </p>
+    <div class="glance" id="glance"></div>
+    <div class="links-row" id="macroLinks">
+      <span class="lbl"><span class="en">Monthly series in the Mexico Macro Monitor:</span><span class="es">Series mensuales en el Monitor Macro México:</span></span>
+      <a href="/mx/macro/?view=activity" data-base="/mx/macro/?view=activity"><span class="en">Activity and consumption</span><span class="es">Actividad y consumo</span></a>
+      <a href="/mx/macro/?view=labor" data-base="/mx/macro/?view=labor"><span class="en">Jobs and wages</span><span class="es">Empleo y salarios</span></a>
+      <a href="/mx/macro/?view=inpc" data-base="/mx/macro/?view=inpc"><span class="en">Inflation</span><span class="es">Inflación</span></a>
+      <a href="/mx/macro/?view=confidence" data-base="/mx/macro/?view=confidence"><span class="en">Consumer confidence</span><span class="es">Confianza del consumidor</span></a>
+      <a href="/mx/macro/?view=external" data-base="/mx/macro/?view=external"><span class="en">Remittances and the peso</span><span class="es">Remesas y el peso</span></a>
+    </div>
+  </section>
+
+  <section class="block" id="demografia">
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="en">Who the Consumer Is</span><span class="es">Quién Es el Consumidor</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">Household consumption is about seven tenths of Mexico's GDP. Before looking at what households earn and spend, it helps to know who they are: how many there are, how old, where and how they live and how much schooling they have. The figures come from INEGI's household income and expenditure survey (ENIGH), which is also the source of the income and spending sections.</span><span class="es">El consumo de los hogares es alrededor de siete décimas partes del PIB de México. Antes de ver cuánto ganan y gastan, conviene saber quiénes son: cuántos hogares hay, de qué edad, dónde y cómo viven y qué estudiaron. Las cifras provienen de la Encuesta Nacional de Ingresos y Gastos de los Hogares (ENIGH) del INEGI, que también es la fuente de las secciones de ingreso y gasto.</span>
+    </p>
+    <p class="sec-meta" data-meta="enigh,informality"></p>
+    <div class="stat-row" id="demoStats"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Population by Age</span><span class="es">Población por Edad</span></h3><p class="cap"><span class="en">Millions of people and share of the total</span><span class="es">Millones de personas y participación en el total</span></p><div class="chart-wrap"><canvas id="chAge" role="img"></canvas></div><div data-tbl="chAge"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Schooling, Ages 25 and Over</span><span class="es">Escolaridad, 25 Años y Más</span></h3><p class="cap"><span class="en">Highest level completed, share of people 25 and over</span><span class="es">Nivel más alto concluido, participación en las personas de 25 años y más</span></p><div class="chart-wrap"><canvas id="chEdu" role="img"></canvas></div><div data-tbl="chEdu"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-3">
+      <div class="card"><h3><span class="en">Households by Type</span><span class="es">Hogares por Tipo</span></h3><p class="cap"><span class="en">Share of households</span><span class="es">Participación en el total de hogares</span></p><div class="chart-wrap short"><canvas id="chHhTypes" role="img"></canvas></div><div data-tbl="chHhTypes"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Where Households Live</span><span class="es">Dónde Viven los Hogares</span></h3><p class="cap"><span class="en">Share of households by size of the locality</span><span class="es">Participación de los hogares por tamaño de la localidad</span></p><div class="chart-wrap short"><canvas id="chLocality" role="img"></canvas></div><div data-tbl="chLocality"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Homeownership by Age of the Head</span><span class="es">Vivienda Propia por Edad del Jefe del Hogar</span></h3><p class="cap"><span class="en">Share of households that own their home, paid off or being paid</span><span class="es">Porcentaje de hogares con vivienda propia, pagada o pagándose</span></p><div class="chart-wrap short"><canvas id="chOwnAge" role="img"></canvas></div><div data-tbl="chOwnAge"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">How Households Hold Their Home</span><span class="es">Tenencia de la Vivienda</span></h3><p class="cap"><span class="en">Share of households</span><span class="es">Participación en el total de hogares</span></p><div class="chart-wrap short"><canvas id="chTenure" role="img"></canvas></div><div data-tbl="chTenure"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">What Households Have</span><span class="es">Qué Tienen los Hogares</span></h3><p class="cap"><span class="en">Share of households with each good or service</span><span class="es">Porcentaje de hogares con cada bien o servicio</span></p><div class="chart-wrap"><canvas id="chEquip" role="img"></canvas></div><div data-tbl="chEquip"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="callout" id="demoCallout"></div>
+  </section>
+
+  <section class="block" id="ingreso">
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="en">Income</span><span class="es">Ingreso</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">What households earn, how it is distributed and how it varies with age, schooling and place of residence. The survey measures current income: pay from work, income from own businesses, rents, pensions, government programs, remittances and other transfers, plus the estimated rent of an owned home. INEGI publishes quarterly amounts; this page shows them per month (quarterly ÷ 3).</span><span class="es">Cuánto ganan los hogares, cómo se reparte y cómo cambia con la edad, la escolaridad y el lugar de residencia. La encuesta mide el ingreso corriente: remuneraciones al trabajo, ingresos de negocios propios, rentas, jubilaciones, programas de gobierno, remesas y otras transferencias, más el alquiler estimado de la vivienda propia. El INEGI publica cifras trimestrales; esta página las muestra por mes (trimestre ÷ 3).</span>
+    </p>
+    <p class="sec-meta" data-meta="enigh,poverty,statesBanxico"></p>
+    <div class="stat-row" id="incomeStats"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Household Income Since 2016</span><span class="es">Ingreso de los Hogares Desde 2016</span></h3><p class="cap" id="capIncHist"></p><div class="chart-wrap"><canvas id="chIncHist" role="img"></canvas></div><div data-legend="chIncHist"></div><div data-tbl="chIncHist"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Households by Monthly Income</span><span class="es">Hogares por Ingreso Mensual</span></h3><p class="cap"><span class="en">Millions of households by current income per month, thousands of pesos</span><span class="es">Millones de hogares según su ingreso corriente mensual, miles de pesos</span></p><div class="chart-wrap"><canvas id="chBrackets" role="img"></canvas></div><div data-tbl="chBrackets"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Average Income by Decile</span><span class="es">Ingreso Promedio por Decil</span></h3><p class="cap"><span class="en">Mean current income per household, pesos a month; each decile holds 10% of households</span><span class="es">Ingreso corriente promedio por hogar, pesos al mes; cada decil reúne al 10% de los hogares</span></p><div class="chart-wrap"><canvas id="chDecileMeans" role="img"></canvas></div><div data-tbl="chDecileMeans"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Who Gets the Income</span><span class="es">Quién Recibe el Ingreso</span></h3><p class="cap"><span class="en">Share of all household current income received by each group of households</span><span class="es">Participación de cada grupo de hogares en el ingreso corriente total</span></p><div id="incomeShares"></div><div class="callout" id="incomeCallout"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Average Household Income by Group</span><span class="es">Ingreso Promedio del Hogar por Grupo</span></h3><p class="cap"><span class="en">Pesos a month; by age, sex and schooling of the head of household, and by size of the locality</span><span class="es">Pesos al mes; por edad, sexo y escolaridad del jefe del hogar, y por tamaño de la localidad</span></p><div class="chart-wrap tall"><canvas id="chIncGroups" role="img"></canvas></div><div data-legend="chIncGroups"></div><div data-tbl="chIncGroups"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Households Receiving Each Type of Income</span><span class="es">Hogares que Reciben Cada Tipo de Ingreso</span></h3><p class="cap"><span class="en">Share of households</span><span class="es">Porcentaje de hogares</span></p><div class="chart-wrap"><canvas id="chReceive" role="img"></canvas></div><div data-tbl="chReceive"></div><div class="callout" id="receiveCallout"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="card full" id="incomeMapCard">
+      <h3><span class="en">Income by State</span><span class="es">Ingreso por Estado</span></h3>
+      <p class="cap" id="capIncomeMap"></p>
+      <div class="seg" id="segIncomeMap" role="group" aria-label="Indicador / Measure"></div>
+      <div class="map-grid"><div><div class="map-box" id="mapIncome"></div><div class="map-chips" id="chipsIncome"></div><div class="map-scale" id="scaleIncome"></div></div><div class="rank" id="rankIncome"></div></div>
+      <div data-tbl="mapIncome"></div>
+      <p class="chart-src" id="srcIncomeMap"></p>
+    </div>
+  </section>
+
+  <section class="block" id="fondos">
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="en">Sources and Uses of Funds</span><span class="es">Fuentes y Usos de Fondos</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">The survey is the most detailed map of a household's budget: where the average household's income comes from (work, own businesses, pensions, government programs, remittances) and where it goes (food, transport, housing and the rest), with what is left after consumption. The national accounts and Banco de México's payment data then show the same consumer from the side of the economy.</span><span class="es">La encuesta es el mapa más detallado del presupuesto de un hogar: de dónde viene el ingreso del hogar promedio (trabajo, negocios propios, jubilaciones, programas de gobierno, remesas) y a dónde va (alimentos, transporte, vivienda y lo demás), con lo que queda después del consumo. Las cuentas nacionales y los datos de pagos del Banco de México muestran después al mismo consumidor desde el lado de la economía.</span>
+    </p>
+    <p class="sec-meta" data-meta="enigh,accounts,consumption,cardPayments,remittances"></p>
+    <div class="stat-row" id="fundsStats"></div>
+    <div class="card full flow">
+      <h3><span class="en">Where the Money Comes From and Where It Goes</span><span class="es">De Dónde Viene el Dinero y a Dónde Va</span></h3>
+      <p class="cap" id="capFlow"></p>
+      <div id="flowSvg"></div>
+      <div class="flow-bars" id="flowBars"></div>
+      <div data-tbl="flow"></div>
+      <p class="chart-src" data-src="enigh"></p>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Sources of Household Income Since 2016</span><span class="es">Fuentes del Ingreso de los Hogares Desde 2016</span></h3><p class="cap"><span class="en">Share of current income, by edition of the survey</span><span class="es">Participación en el ingreso corriente, por edición de la encuesta</span></p><div class="chart-wrap"><canvas id="chSrcHist" role="img"></canvas></div><div data-legend="chSrcHist"></div><div data-tbl="chSrcHist"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">What Households Spend On Since 2016</span><span class="es">En Qué Gastan los Hogares Desde 2016</span></h3><p class="cap"><span class="en">Share of monetary spending, by edition of the survey</span><span class="es">Participación en el gasto monetario, por edición de la encuesta</span></p><div class="chart-wrap"><canvas id="chUseHist" role="img"></canvas></div><div data-legend="chUseHist"></div><div data-tbl="chUseHist"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">What Households Buy</span><span class="es">En Qué Gastan los Hogares</span></h3><p class="cap" id="capBuy"></p><div class="chart-wrap xtall"><canvas id="chBuy" role="img"></canvas></div><div data-legend="chBuy"></div><div data-tbl="chBuy"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Money That Is Not Consumption</span><span class="es">El Dinero que No Es Consumo</span></h3><p class="cap" id="capFinFlows"></p><div class="chart-wrap"><canvas id="chFinFlows" role="img"></canvas></div><div data-legend="chFinFlows"></div><div data-tbl="chFinFlows"></div><div class="callout" id="fundsCallout"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="sub-head"><span class="en">Consumption in the National Accounts and at the Checkout</span><span class="es">El Consumo en las Cuentas Nacionales y en la Caja</span></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Private Consumption, Monthly Indicator</span><span class="es">Consumo Privado, Indicador Mensual</span></h3><p class="cap" id="capIndicator"></p><div class="chart-wrap"><canvas id="chIndicator" role="img"></canvas></div><div data-legend="chIndicator"></div><div data-tbl="chIndicator"></div><p class="chart-src" data-src="consumption"></p></div>
+      <div class="card"><h3><span class="en">Remittances</span><span class="es">Remesas</span></h3><p class="cap" id="capRemit"></p><div class="chart-wrap"><canvas id="chRemit" role="img"></canvas></div><div data-tbl="chRemit"></div><p class="chart-src" data-src="remittances"></p></div>
+    </div>
+    <div class="card full" id="cardPayCard">
+      <h3><span class="en">Where Cards Are Used</span><span class="es">Dónde Se Usan las Tarjetas</span></h3>
+      <p class="cap" id="capCardPay"></p>
+      <div class="chart-wrap tall"><canvas id="chCardPay" role="img"></canvas></div><div data-tbl="chCardPay"></div>
+      <p class="chart-src" data-src="cardPayments"></p>
+    </div>
+  </section>
+
+  <section class="block" id="deciles">
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="en">Spending by Income Decile</span><span class="es">Gasto por Decil de Ingreso</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">The survey ranks households by current income and splits them into ten equal groups. Decile I is the 10% with the lowest income; decile X the highest. It shows what each group spends, on what, and with what income. Spending is monetary spending on consumption: it leaves out the estimated rent of an owned home and what households receive in kind.</span><span class="es">La encuesta ordena a los hogares por su ingreso corriente y los divide en diez grupos iguales. El decil I es el 10% de menor ingreso; el decil X, el de mayor. Muestra cuánto gasta cada grupo, en qué y con qué ingresos. El gasto es el gasto monetario en consumo: no incluye el alquiler estimado de la vivienda propia ni lo que los hogares reciben en especie.</span>
+    </p>
+    <p class="sec-meta" data-meta="enigh"></p>
+    <div class="stat-row" id="decStats"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Spending and Income by Decile</span><span class="es">Gasto e Ingreso por Decil</span></h3><p class="cap"><span class="en">Monetary spending and current income per household, pesos a month</span><span class="es">Gasto monetario e ingreso corriente por hogar, pesos al mes</span></p><div class="chart-wrap"><canvas id="chDecSpendInc" role="img"></canvas></div><div data-legend="chDecSpendInc"></div><div data-tbl="chDecSpendInc"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Share of All Household Spending by Decile</span><span class="es">Participación de Cada Decil en el Gasto Total</span></h3><p class="cap"><span class="en">Each decile's share of total monetary spending; every decile holds 10% of households</span><span class="es">Participación de cada decil en el gasto monetario total; cada decil reúne al 10% de los hogares</span></p><div class="chart-wrap"><canvas id="chDecShare" role="img"></canvas></div><div data-tbl="chDecShare"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="callout" id="decCallout"></div>
+    <div class="card full">
+      <h3><span class="en">What Each Decile Spends On</span><span class="es">En Qué Gasta Cada Decil</span></h3>
+      <p class="cap" id="capHeat"></p>
+      <div class="seg" id="segHeat" role="group" aria-label="Unidad / Unit"></div>
+      <div class="tblwrap"><table class="heat" id="heatDeciles"></table></div>
+      <div class="map-scale" id="scaleHeat"></div>
+      <p class="chart-src" data-src="enigh"></p>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Basics and Everything Else</span><span class="es">Lo Básico y Todo lo Demás</span></h3><p class="cap"><span class="en">Share of each decile's monetary spending; basics = food at home, housing and utilities, health care, public transport and fuel</span><span class="es">Participación en el gasto monetario de cada decil; básico = alimentos dentro del hogar, vivienda y servicios, salud, transporte público y combustibles</span></p><div class="chart-wrap"><canvas id="chBasics" role="img"></canvas></div><div data-legend="chBasics"></div><div data-tbl="chBasics"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Where Each Decile's Income Comes From</span><span class="es">De Dónde Viene el Ingreso de Cada Decil</span></h3><p class="cap"><span class="en">Share of current income</span><span class="es">Participación en el ingreso corriente</span></p><div class="chart-wrap"><canvas id="chDecSources" role="img"></canvas></div><div data-legend="chDecSources"></div><div data-tbl="chDecSources"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Spending and Income by Age</span><span class="es">Gasto e Ingreso por Edad</span></h3><p class="cap"><span class="en">Average per household by age of the head, pesos a month</span><span class="es">Promedio por hogar según la edad del jefe del hogar, pesos al mes</span></p><div class="chart-wrap"><canvas id="chAgeSpend" role="img"></canvas></div><div data-legend="chAgeSpend"></div><div data-tbl="chAgeSpend"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">What Each Decile Has</span><span class="es">Qué Tiene Cada Decil</span></h3><p class="cap"><span class="en">Share of the households of each decile</span><span class="es">Porcentaje de los hogares de cada decil</span></p><div class="chart-wrap"><canvas id="chDecOwn" role="img"></canvas></div><div data-legend="chDecOwn"></div><div data-tbl="chDecOwn"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+  </section>
+
+  <section class="block" id="credito">
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="en">Consumer Credit</span><span class="es">Crédito al Consumo</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">How much households owe and to whom, how fast bank credit is growing, what it costs and who has access to it. Household debt in Mexico is small next to the economy, and a large part of the population borrows outside the financial system or not at all, so the section looks at both the lenders' books and the survey of who uses credit.</span><span class="es">Cuánto deben los hogares y a quién, qué tan rápido crece el crédito bancario, cuánto cuesta y quién tiene acceso a él. La deuda de los hogares en México es pequeña frente a la economía, y una parte grande de la población se endeuda fuera del sistema financiero o no se endeuda, así que la sección mira tanto los libros de quienes prestan como la encuesta de quién usa el crédito.</span>
+    </p>
+    <p class="sec-meta" data-meta="financing,bankCredit,rates,enif"></p>
+    <div class="stat-row" id="creditStats"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Household Financing by Type and Lender</span><span class="es">Financiamiento a los Hogares por Tipo y Otorgante</span></h3><p class="cap" id="capFinParts"></p><div class="chart-wrap"><canvas id="chFinParts" role="img"></canvas></div><div data-legend="chFinParts"></div><div data-tbl="chFinParts"></div><p class="chart-src" data-src="financing"></p></div>
+      <div class="card"><h3><span class="en">Household Debt Against the Economy</span><span class="es">Deuda de los Hogares Frente a la Economía</span></h3><p class="cap" id="capFinGdp"></p><div class="chart-wrap"><canvas id="chFinGdp" role="img"></canvas></div><div data-legend="chFinGdp"></div><div data-tbl="chFinGdp"></div><p class="chart-src" id="srcFinGdp"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Bank Consumer Credit by Product</span><span class="es">Crédito Bancario al Consumo por Producto</span></h3><p class="cap" id="capBankProd"></p><div class="chart-wrap"><canvas id="chBankProd" role="img"></canvas></div><div data-tbl="chBankProd"></div><p class="chart-src" data-src="bankCredit"></p></div>
+      <div class="card"><h3><span class="en">Real Growth of Bank Credit</span><span class="es">Crecimiento Real del Crédito Bancario</span></h3><p class="cap"><span class="en">Change from a year earlier in the performing portfolio, adjusted for inflation, percent</span><span class="es">Variación anual de la cartera vigente, descontada la inflación, porcentaje</span></p><div class="chart-wrap"><canvas id="chBankGrowth" role="img"></canvas></div><div data-legend="chBankGrowth"></div><div data-tbl="chBankGrowth"></div><p class="chart-src" data-src="bankCredit"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">What Credit Costs</span><span class="es">Cuánto Cuesta el Crédito</span></h3><p class="cap" id="capRates"></p><div class="chart-wrap"><canvas id="chRates" role="img"></canvas></div><div data-legend="chRates"></div><div data-tbl="chRates"></div><p class="chart-src" data-src="rates"></p></div>
+      <div class="card"><h3><span class="en">Credit Cards in Force</span><span class="es">Tarjetas de Crédito Vigentes</span></h3><p class="cap"><span class="en">Millions of cards at the end of each quarter, all brands</span><span class="es">Millones de tarjetas al cierre de cada trimestre, todas las marcas</span></p><div class="chart-wrap"><canvas id="chCards" role="img"></canvas></div><div data-tbl="chCards"></div><p class="chart-src" data-src="cardsInForce"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Who Has Credit, and of What Kind</span><span class="es">Quién Tiene Crédito y de Qué Tipo</span></h3><p class="cap" id="capEnifCredit"></p><div class="chart-wrap tall"><canvas id="chEnifCredit" role="img"></canvas></div><div data-legend="chEnifCredit"></div><div data-tbl="chEnifCredit"></div><p class="chart-src" data-src="enif"></p></div>
+      <div class="card"><h3><span class="en">Credit Cards by Income Decile</span><span class="es">Tarjetas de Crédito por Decil de Ingreso</span></h3><p class="cap"><span class="en">Share of the households of each decile</span><span class="es">Porcentaje de los hogares de cada decil</span></p><div class="chart-wrap"><canvas id="chDecCard" role="img"></canvas></div><div data-legend="chDecCard"></div><div data-tbl="chDecCard"></div><div class="callout" id="cardCallout"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="card full" id="enifGroupCard">
+      <h3><span class="en">Access to Financial Products by Group</span><span class="es">Acceso a Productos Financieros por Grupo</span></h3>
+      <p class="cap" id="capEnifGroups"></p>
+      <div class="seg" id="segEnifGroups" role="group" aria-label="Indicador / Measure"></div>
+      <div class="chart-wrap tall"><canvas id="chEnifGroups" role="img"></canvas></div><div data-legend="chEnifGroups"></div><div data-tbl="chEnifGroups"></div>
+      <p class="chart-src" data-src="enif"></p>
+    </div>
+    <div class="card full" id="debtMapCard">
+      <h3><span class="en">Credit by State</span><span class="es">Crédito por Estado</span></h3>
+      <p class="cap" id="capDebtMap"></p>
+      <div class="seg" id="segDebtMap" role="group" aria-label="Indicador / Measure"></div>
+      <div class="map-grid"><div><div class="map-box" id="mapDebt"></div><div class="map-chips" id="chipsDebt"></div><div class="map-scale" id="scaleDebt"></div></div><div class="rank" id="rankDebt"></div></div>
+      <div data-tbl="mapDebt"></div>
+      <p class="chart-src" id="srcDebtMap"></p>
+    </div>
+  </section>
+
+  <section class="block" id="estres">
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="en">Leverage and Financial Stress</span><span class="es">Apalancamiento y Estrés Financiero</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">Where the strain shows: loans past due at banks, who fell behind on which kind of credit, who is turned down, how thin the savings cushion is and what people do when the money does not reach, how many households spend more than they earn, and how many people live in poverty. The stress of the Mexican consumer is less about the size of the debt than about low and irregular income.</span><span class="es">Dónde aparece la tensión: cartera vencida en los bancos, quién se atrasó en qué tipo de crédito, a quién le niegan el crédito, qué tan delgado es el colchón de ahorro y qué hace la gente cuando el dinero no alcanza, cuántos hogares gastan más de lo que ganan y cuántas personas viven en pobreza. El estrés del consumidor mexicano tiene menos que ver con el tamaño de la deuda que con un ingreso bajo e irregular.</span>
+    </p>
+    <p class="sec-meta" data-meta="bankCredit,enif,enigh,enfih,poverty,lending"></p>
+    <div class="stat-row" id="stressStats"></div>
+    <div class="callout" id="stressCallout"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Past-Due Loans at Banks, by Product</span><span class="es">Cartera Vencida en los Bancos, por Producto</span></h3><p class="cap" id="capImor"></p><div class="chart-wrap"><canvas id="chImor" role="img"></canvas></div><div data-legend="chImor"></div><div data-tbl="chImor"></div><p class="chart-src" data-src="bankCredit"></p></div>
+      <div class="card"><h3><span class="en">Who Fell Behind, by Type of Credit</span><span class="es">Quién Se Atrasó, por Tipo de Crédito</span></h3><p class="cap" id="capLate"></p><div class="chart-wrap"><canvas id="chLate" role="img"></canvas></div><div data-tbl="chLate"></div><p class="chart-src" data-src="enif"></p></div>
+    </div>
+    <div class="card full" id="stressGroupCard">
+      <h3><span class="en">Where the Strain Is: Financial Stress by Group</span><span class="es">Dónde Está la Tensión: Estrés Financiero por Grupo</span></h3>
+      <p class="cap" id="capStressGroups"></p>
+      <div class="seg" id="segStressGroups" role="group" aria-label="Indicador / Measure"></div>
+      <div class="chart-wrap tall"><canvas id="chStressGroups" role="img"></canvas></div><div data-legend="chStressGroups"></div><div data-tbl="chStressGroups"></div>
+      <p class="chart-src" data-src="enif"></p>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">When the Money Does Not Reach</span><span class="es">Cuando el Dinero No Alcanza</span></h3><p class="cap" id="capCoping"></p><div class="chart-wrap"><canvas id="chCoping" role="img"></canvas></div><div data-tbl="chCoping"></div><p class="chart-src" data-src="enif"></p></div>
+      <div class="card"><h3><span class="en">How Long Savings Would Last</span><span class="es">Cuánto Durarían los Ahorros</span></h3><p class="cap" id="capCushion"></p><div class="chart-wrap"><canvas id="chCushion" role="img"></canvas></div><div data-tbl="chCushion"></div><div class="callout" id="cushionCallout"></div><p class="chart-src" data-src="enif"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Why Credit Was Denied</span><span class="es">Por Qué Se Negó el Crédito</span></h3><p class="cap" id="capReject"></p><div class="chart-wrap"><canvas id="chReject" role="img"></canvas></div><div data-tbl="chReject"></div><div class="callout" id="accessCallout"></div><p class="chart-src" data-src="enif"></p></div>
+      <div class="card"><h3><span class="en">What Banks Say About Card Lending</span><span class="es">Lo que Dicen los Bancos Sobre el Crédito en Tarjetas</span></h3><p class="cap" id="capLending"></p><div class="chart-wrap"><canvas id="chLending" role="img"></canvas></div><div data-legend="chLending"></div><div data-tbl="chLending"></div><p class="chart-src" data-src="lending"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Spending More Than Is Earned, and Rent</span><span class="es">Gastar Más de lo que Se Gana, y la Renta</span></h3><p class="cap" id="capOverspend"></p><div class="chart-wrap"><canvas id="chOverspend" role="img"></canvas></div><div data-legend="chOverspend"></div><div data-tbl="chOverspend"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card" id="burdenCard"><h3><span class="en">The Weight of Debt in the Household Finances Survey</span><span class="es">El Peso de la Deuda en la Encuesta de Finanzas de los Hogares</span></h3><p class="cap" id="capBurden"></p><ul class="fact-list" id="burdenFacts"></ul><h4 class="mini" style="margin-top:18px"><span class="en">How an Unexpected Expense Equal to a Month's Income Would Be Paid</span><span class="es">Cómo Se Pagaría un Imprevisto Igual al Ingreso de un Mes</span></h4><div class="chart-wrap short"><canvas id="chEmergency" role="img"></canvas></div><div data-tbl="chEmergency"></div><p class="chart-src" data-src="enfih"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Poverty Since 2016</span><span class="es">Pobreza Desde 2016</span></h3><p class="cap" id="capPoverty"></p><div class="chart-wrap"><canvas id="chPoverty" role="img"></canvas></div><div data-legend="chPoverty"></div><div data-tbl="chPoverty"></div><p class="chart-src" data-src="poverty"></p></div>
+      <div class="card"><h3><span class="en">Income and Social Deprivations</span><span class="es">Ingreso y Carencias Sociales</span></h3><p class="cap"><span class="en">Share of the population, percent</span><span class="es">Porcentaje de la población</span></p><div class="chart-wrap"><canvas id="chPovLines" role="img"></canvas></div><div data-legend="chPovLines"></div><div data-tbl="chPovLines"></div><p class="chart-src" data-src="poverty"></p></div>
+    </div>
+    <div class="card full" id="stressMapCard">
+      <h3><span class="en">Poverty and Vulnerability by State</span><span class="es">Pobreza y Vulnerabilidad por Estado</span></h3>
+      <p class="cap" id="capStressMap"></p>
+      <div class="seg" id="segStressMap" role="group" aria-label="Indicador / Measure"></div>
+      <div class="map-grid"><div><div class="map-box" id="mapStress"></div><div class="map-chips" id="chipsStress"></div><div class="map-scale" id="scaleStress"></div></div><div class="rank" id="rankStress"></div></div>
+      <div data-tbl="mapStress"></div>
+      <p class="chart-src" id="srcStressMap"></p>
+    </div>
+  </section>
+
+  <section class="block" id="riqueza">
+    <div class="sec-head"><span class="sec-num">08</span><h2><span class="en">Wealth</span><span class="es">Riqueza</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">What households own and owe. Mexico measured household wealth once: the household finances survey of INEGI and Banco de México (ENFIH), in 2019. It is the only official source of net worth and its distribution, and it has not been repeated, so its figures are a photograph of 2019. Banco de México's monetary and savings statistics show the financial part every month.</span><span class="es">Qué tienen y qué deben los hogares. México midió la riqueza de los hogares una vez: la Encuesta Nacional sobre las Finanzas de los Hogares (ENFIH) del INEGI y el Banco de México, en 2019. Es la única fuente oficial de la riqueza neta y su distribución, y no se ha repetido, así que sus cifras son una fotografía de 2019. Las estadísticas monetarias y de ahorro del Banco de México muestran la parte financiera cada mes.</span>
+    </p>
+    <p class="sec-meta" data-meta="enfih,savings,enif"></p>
+    <div class="stat-row" id="wealthStats"></div>
+    <div class="callout" id="wealthCallout"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Who Holds the Wealth</span><span class="es">Quién Tiene la Riqueza</span></h3><p class="cap" id="capWealthShare"></p><div class="chart-wrap"><canvas id="chWealthShare" role="img"></canvas></div><div data-legend="chWealthShare"></div><div data-tbl="chWealthShare"></div><p class="chart-src" data-src="enfih"></p></div>
+      <div class="card"><h3><span class="en">Net Worth by Wealth Group</span><span class="es">Riqueza Neta por Grupo de Riqueza</span></h3><p class="cap"><span class="en">Mean and median net worth of the households of each group, thousands of pesos of 2019</span><span class="es">Promedio y mediana de la riqueza neta de los hogares de cada grupo, miles de pesos de 2019</span></p><div class="chart-wrap"><canvas id="chWealthGroups" role="img"></canvas></div><div data-legend="chWealthGroups"></div><div data-tbl="chWealthGroups"></div><p class="chart-src" data-src="enfih"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Net Worth by Income</span><span class="es">Riqueza Neta por Nivel de Ingreso</span></h3><p class="cap"><span class="en">Households ranked by their income; mean and median net worth, thousands of pesos of 2019</span><span class="es">Hogares ordenados por su ingreso; promedio y mediana de la riqueza neta, miles de pesos de 2019</span></p><div class="chart-wrap"><canvas id="chWealthIncome" role="img"></canvas></div><div data-legend="chWealthIncome"></div><div data-tbl="chWealthIncome"></div><p class="chart-src" data-src="enfih"></p></div>
+      <div class="card"><h3><span class="en">Net Worth by Sex and Schooling of the Head</span><span class="es">Riqueza Neta por Sexo y Escolaridad del Jefe del Hogar</span></h3><p class="cap"><span class="en">Median and mean net worth, thousands of pesos of 2019</span><span class="es">Mediana y promedio de la riqueza neta, miles de pesos de 2019</span></p><div class="chart-wrap"><canvas id="chWealthDemo" role="img"></canvas></div><div data-legend="chWealthDemo"></div><div data-tbl="chWealthDemo"></div><p class="chart-src" data-src="enfih"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">What Households Own</span><span class="es">Qué Tienen los Hogares</span></h3><p class="cap" id="capAssetsOwn"></p><div class="chart-wrap tall"><canvas id="chAssetsOwn" role="img"></canvas></div><div data-legend="chAssetsOwn"></div><div data-tbl="chAssetsOwn"></div><p class="chart-src" data-src="enfih"></p></div>
+      <div class="card"><h3><span class="en">What the Wealth Is Made Of</span><span class="es">De Qué Está Hecha la Riqueza</span></h3><p class="cap" id="capAssetMix"></p><div id="assetMix"></div><div class="callout" id="assetCallout"></div><p class="chart-src" data-src="enfih"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">What Households Owe</span><span class="es">Qué Deben los Hogares</span></h3><p class="cap" id="capDebtTypes"></p><div class="chart-wrap"><canvas id="chDebtTypes" role="img"></canvas></div><div data-tbl="chDebtTypes"></div><p class="chart-src" data-src="enfih"></p></div>
+      <div class="card"><h3><span class="en">Debt and How Homes Are Paid For</span><span class="es">La Deuda y Cómo Se Pagan las Viviendas</span></h3><p class="cap" id="capDebtFacts"></p><ul class="fact-list" id="debtFacts"></ul><p class="chart-src" data-src="enfih"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Household Financial Savings</span><span class="es">Ahorro Financiero de los Hogares</span></h3><p class="cap" id="capSavings"></p><div class="chart-wrap"><canvas id="chSavings" role="img"></canvas></div><div data-legend="chSavings"></div><div data-tbl="chSavings"></div><p class="chart-src" data-src="savings"></p></div>
+      <div class="card"><h3><span class="en">Accounts and Savings Instruments</span><span class="es">Cuentas e Instrumentos de Ahorro</span></h3><p class="cap" id="capEnifAccounts"></p><div class="chart-wrap"><canvas id="chEnifAccounts" role="img"></canvas></div><div data-legend="chEnifAccounts"></div><div data-tbl="chEnifAccounts"></div><div class="callout" id="savingCallout"></div><p class="chart-src" data-src="enif"></p></div>
+    </div>
+  </section>
+
+  <section class="block" id="economia-k">
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="en">The K-Shaped Economy</span><span class="es">La Economía en Forma de K</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">"K-shaped" describes an economy whose two arms move apart: households with high incomes and financial assets pull ahead while the rest stall or fall behind. This section asks whether that is what the official statistics show in Mexico: income and spending by decile since 2016, the minimum wage against average pay, who receives government programs, and how concentrated income, spending and wealth are.</span><span class="es">"En forma de K" describe una economía cuyos dos brazos se separan: los hogares de ingreso alto y con activos financieros avanzan mientras el resto se estanca o retrocede. Esta sección pregunta si eso es lo que muestran las estadísticas oficiales en México: ingreso y gasto por decil desde 2016, el salario mínimo frente a la remuneración promedio, quién recibe programas de gobierno, y qué tan concentrados están el ingreso, el gasto y la riqueza.</span>
+    </p>
+    <p class="sec-meta" data-meta="enigh,wages,enoe,enfih"></p>
+    <div class="stat-row" id="kStats"></div>
+    <div class="callout" id="kCallout"></div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Real Income Growth by Decile</span><span class="es">Crecimiento del Ingreso Real por Decil</span></h3><p class="cap" id="capKGrowth"></p><div class="chart-wrap"><canvas id="chKGrowth" role="img"></canvas></div><div data-legend="chKGrowth"></div><div data-tbl="chKGrowth"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Lowest, Middle and Highest Incomes</span><span class="es">Ingresos Más Bajos, Medios y Más Altos</span></h3><p class="cap" id="capKIndex"></p><div class="chart-wrap"><canvas id="chKIndex" role="img"></canvas></div><div data-legend="chKIndex"></div><div data-tbl="chKIndex"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Who Receives the Income</span><span class="es">Quién Recibe el Ingreso</span></h3><p class="cap"><span class="en">Share of all household current income, by edition of the survey</span><span class="es">Participación en el ingreso corriente total de los hogares, por edición de la encuesta</span></p><div class="chart-wrap"><canvas id="chKShares" role="img"></canvas></div><div data-legend="chKShares"></div><div data-tbl="chKShares"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Inequality With and Without Transfers</span><span class="es">Desigualdad con y sin Transferencias</span></h3><p class="cap" id="capKGini"></p><div class="chart-wrap"><canvas id="chKGini" role="img"></canvas></div><div data-legend="chKGini"></div><div data-tbl="chKGini"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">What Moved Each Decile</span><span class="es">Qué Movió a Cada Decil</span></h3><p class="cap" id="capKDrivers"></p><div class="chart-wrap"><canvas id="chKDrivers" role="img"></canvas></div><div data-legend="chKDrivers"></div><div data-tbl="chKDrivers"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">Who Receives Government Programs</span><span class="es">Quién Recibe Programas de Gobierno</span></h3><p class="cap" id="capKPrograms"></p><div class="chart-wrap"><canvas id="chKPrograms" role="img"></canvas></div><div data-legend="chKPrograms"></div><div data-tbl="chKPrograms"></div><p class="chart-src" data-src="enigh"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">The Minimum Wage and Average Pay</span><span class="es">El Salario Mínimo y la Remuneración Promedio</span></h3><p class="cap" id="capKWages"></p><div class="chart-wrap"><canvas id="chKWages" role="img"></canvas></div><div data-legend="chKWages"></div><div data-tbl="chKWages"></div><p class="chart-src" data-src="wages"></p></div>
+      <div class="card"><h3><span class="en">Workers by Multiples of the Minimum Wage</span><span class="es">Trabajadores por Múltiplos del Salario Mínimo</span></h3><p class="cap" id="capKWork"></p><div class="chart-wrap"><canvas id="chKWork" role="img"></canvas></div><div data-legend="chKWork"></div><div data-tbl="chKWork"></div><div class="callout" id="workCallout"></div><p class="chart-src" data-src="enoe"></p></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><h3><span class="en">Real Spending Growth by Decile</span><span class="es">Crecimiento del Gasto Real por Decil</span></h3><p class="cap" id="capKSpend"></p><div class="chart-wrap"><canvas id="chKSpend" role="img"></canvas></div><div data-legend="chKSpend"></div><div data-tbl="chKSpend"></div><p class="chart-src" data-src="enigh"></p></div>
+      <div class="card"><h3><span class="en">How Concentrated: Income, Spending and Wealth</span><span class="es">Qué Tan Concentrados: Ingreso, Gasto y Riqueza</span></h3><p class="cap" id="capKTop"></p><div class="chart-wrap"><canvas id="chKTop" role="img"></canvas></div><div data-tbl="chKTop"></div><div class="callout" id="kTopCallout"></div><p class="chart-src" id="srcKTop"></p></div>
+    </div>
+  </section>
+
+  <section class="block" id="empresas">
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="en">What Companies Report</span><span class="es">Lo que Reportan las Empresas</span></h2></div>
+    <p class="sec-desc">
+      <span class="en">The companies that sell and lend to the Mexican consumer measure it every quarter. Same-store sales, traffic and average ticket at supermarkets, discount and convenience stores, department stores and restaurants, volumes at the makers of everyday goods, and credit quality at the lenders that reach the households banks do not, taken from the results releases they file with the Mexican stock exchange (BMV) and the U.S. SEC.</span><span class="es">Las empresas que le venden y le prestan al consumidor mexicano lo miden cada trimestre. Ventas a tiendas iguales, tráfico y ticket promedio de autoservicios, tiendas de descuento y conveniencia, departamentales y restaurantes, volúmenes de los fabricantes de productos de uso diario, y calidad del crédito de quienes prestan a los hogares que la banca no alcanza, tomados de los reportes de resultados que presentan ante la Bolsa Mexicana de Valores (BMV) y la SEC de Estados Unidos.</span>
+    </p>
+    <p class="sec-meta" id="metaCompanies"></p>
+    <div class="callout" id="coCallout"></div>
+    <div class="card full" id="compsCard">
+      <h3><span class="en">Same-Store Sales in Mexico, Latest Quarter Reported</span><span class="es">Ventas a Tiendas Iguales en México, Último Trimestre Reportado</span></h3>
+      <p class="cap"><span class="en">Year-over-year change, percent; each company's own definition (see the tables)</span><span class="es">Variación anual, porcentaje; definición propia de cada empresa (ver las tablas)</span></p>
+      <div class="chart-wrap tall"><canvas id="chComps" role="img"></canvas></div>
+      <div data-legend="chComps"></div>
+    </div>
+    <div id="coTables"></div>
+  </section>
+</main>
+
+<footer id="fuentes">
+  <div class="wrap">
+    <h3><span class="en">Sources and Methodology</span><span class="es">Fuentes y Metodología</span></h3>
+    <div class="src-grid" id="srcGrid"></div>
+    <dl class="defs">
+      <div><dt><span class="en">Current income, monetary income</span><span class="es">Ingreso corriente, ingreso monetario</span></dt><dd><span class="en">The ENIGH's current income adds to the money a household receives the estimated rent of the home it owns and what it receives in kind. Monetary spending covers only consumption paid with money. That is why income exceeds spending by a wide margin: the difference is not all saving.</span><span class="es">El ingreso corriente de la ENIGH suma al dinero que recibe un hogar el alquiler estimado de la vivienda propia y lo que recibe en especie. El gasto monetario cubre solo el consumo pagado con dinero. Por eso el ingreso supera al gasto por un margen amplio: la diferencia no es toda ahorro.</span></dd></div>
+      <div><dt><span class="en">Pesos a month</span><span class="es">Pesos al mes</span></dt><dd><span class="en">INEGI publishes the survey's income and spending as quarterly amounts per household. This page divides them by three; the headline figures keep the published quarterly amount beside them.</span><span class="es">El INEGI publica el ingreso y el gasto de la encuesta como cifras trimestrales por hogar. Esta página las divide entre tres; las cifras principales conservan a su lado la cifra trimestral publicada.</span></dd></div>
+      <div><dt><span class="en">Income deciles</span><span class="es">Deciles de ingreso</span></dt><dd><span class="en">Ten groups with the same number of households, ranked by current income. In the lowest decile monetary spending is close to or above income: it includes households with an income that is low only for a time and households that live on savings or loans, and household surveys do not capture the highest incomes well, so the top decile is understated.</span><span class="es">Diez grupos con el mismo número de hogares, ordenados por su ingreso corriente. En el decil más bajo el gasto monetario se acerca al ingreso o lo supera: incluye hogares con ingreso bajo solo por un tiempo y hogares que viven de ahorros o préstamos, y las encuestas de hogares no captan bien los ingresos más altos, por lo que el decil superior está subestimado.</span></dd></div>
+      <div><dt><span class="en">Median and mean</span><span class="es">Mediana y promedio</span></dt><dd><span class="en">The median is the household in the middle: half have more, half have less. The mean (average) divides the total by the number of households and is pulled up by the largest incomes and fortunes. The page says which one each figure is.</span><span class="es">La mediana es el hogar de en medio: la mitad tiene más y la mitad tiene menos. El promedio (media) divide el total entre el número de hogares y lo elevan los ingresos y las fortunas más grandes. La página indica cuál es cada cifra.</span></dd></div>
+      <div><dt><span class="en">Real figures</span><span class="es">Cifras reales</span></dt><dd><span class="en">Figures of earlier editions of the survey are restated at the prices of the latest edition with the yearly average of the consumer price index (INPC), the way INEGI does it. Real growth of credit and savings deflates each balance with the INPC of its own month.</span><span class="es">Las cifras de ediciones anteriores de la encuesta se expresan a precios de la edición más reciente con el promedio anual del índice de precios al consumidor (INPC), como lo hace el INEGI. El crecimiento real del crédito y del ahorro deflacta cada saldo con el INPC de su propio mes.</span></dd></div>
+      <div><dt><span class="en">Past-due ratio</span><span class="es">Índice de morosidad</span></dt><dd><span class="en">Past-due portfolio divided by total portfolio of the same product at commercial banks. It does not count loans already written off, so a bank that writes off quickly shows a lower ratio; companies' own definitions differ and each table names them.</span><span class="es">Cartera vencida entre cartera total del mismo producto en la banca comercial. No cuenta los créditos ya castigados, por lo que un banco que castiga pronto muestra un índice menor; las definiciones de las empresas difieren y cada tabla las nombra.</span></dd></div>
+      <div><dt><span class="en">Formal and informal</span><span class="es">Formal e informal</span></dt><dd><span class="en">Formal credit and savings are those held with a bank or another regulated institution, including store cards. Informal ones are loans from family, friends, savings clubs or pawnshops, and savings kept at home, in a savings club (tanda) or with relatives.</span><span class="es">El crédito y el ahorro formales son los que se tienen con un banco u otra institución regulada, incluidas las tarjetas de tiendas. Los informales son préstamos de familiares, amistades, cajas de ahorro o casas de empeño, y ahorros guardados en casa, en una tanda o con familiares.</span></dd></div>
+      <div><dt><span class="en">Poverty</span><span class="es">Pobreza</span></dt><dd><span class="en">A person is poor when their income is below the poverty line and they have at least one social deprivation (schooling, health services, social security, housing, basic services, food). INEGI measures it every two years with the ENIGH; before 2025 the measurement was CONEVAL's.</span><span class="es">Una persona está en pobreza cuando su ingreso es inferior a la línea de pobreza y tiene al menos una carencia social (educación, servicios de salud, seguridad social, vivienda, servicios básicos, alimentación). El INEGI la mide cada dos años con la ENIGH; antes de 2025 la medición era del CONEVAL.</span></dd></div>
+      <div><dt><span class="en">Reported, calculated</span><span class="es">Reportado, calculado</span></dt><dd><span class="en">"Reported" figures are printed by the source or tabulated from its public microdata with its own method (the tabulations are checked against the figures INEGI prints). "FNAM calculation" figures are computed here from reported ones: shares, ratios, monthly amounts, real changes, per-household averages.</span><span class="es">Las cifras "Reportado" las publica la fuente o se tabulan con sus microdatos públicos y su propio método (las tabulaciones se cotejan contra las cifras que imprime el INEGI). Las de "Cálculo FNAM" se obtienen aquí a partir de cifras reportadas: participaciones, razones, montos mensuales, variaciones reales, promedios por hogar.</span></dd></div>
+    </dl>
+    <p class="fine" id="fineUpdate"></p>
+    <p class="fine">
+      <span class="en">The Spanish and English versions are generated from one set of figures; if they ever disagree, it is a translation error. Figures may not add up exactly because of rounding. This page is for information only and is not investment advice.</span><span class="es">Las versiones en español e inglés se generan con un único conjunto de cifras; si llegaran a discrepar, se trata de un error de traducción. Las cifras pueden no sumar exactamente por redondeo. Esta página es informativa y no constituye una recomendación de inversión.</span>
+    </p>
+  </div>
+</footer>
+
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
+<script src="/assets/provenance.js"></script>
+<script src="/assets/mx-states.js"></script>
+<script src="data/data.js"></script>
+<script src="data/companies.js"></script>
+<script src="lib.js"></script>
+<script src="app.js"></script>
+<script src="/assets/data-status.js" defer></script>
+</body>
+</html>

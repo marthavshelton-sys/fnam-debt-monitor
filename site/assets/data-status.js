@@ -87,6 +87,7 @@
     'us-consumer': { url: '/consumidor/data/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'mx-macro': { url: '/mx/macro/index.html', re: /REFRESHED_AT = "([^"]+)"/, bytes: 400000 },
     'mx-fiscal': { url: '/mx/fiscal/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
+    'mx-consumer': { url: '/mx/consumidor/data/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'gap': { url: '/gap/data/market.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'oma': { url: '/oma/data/market.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'asur': { url: '/asur/data/market.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },

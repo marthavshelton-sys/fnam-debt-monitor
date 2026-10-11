@@ -1,0 +1,184 @@
+# Keeps the Mexican Consumer page (site/mx/consumidor) current. Runbook: tools/mx-consumidor/README.md.
+#
+#   Every day at 15:20 UTC (09:20 in Mexico City: after INEGI's 06:00 releases and Banco de México's 09:00 ones) and at
+#   23:20 UTC (17:20 in Mexico City: after the BMV's close, when issuers start to post their results):
+#
+#   fetch    INEGI's ENIGH and ENIF microdata (read again only when the publisher's file changes: the day of its
+#            Last-Modified header and its size), INEGI's BIE series (employment, wages, consumption, national accounts)
+#            and multidimensional poverty indicators, Banco de México's SIE tables (credit to households, bank portfolio
+#            and past-due loans by product, rates, cards, card payments by line of business, savings, remittances and
+#            housing credit by state, bank lending survey), BIS household credit through FRED and the ENFIH 2019
+#            presentation kept as text. Every series is checked against its published title. A source that fails keeps
+#            its stored file and is counted in tools/mx-consumidor/raw/status.json.
+#   build    site/mx/consumidor/data/data.js: every tie-out must hold (the microdata reproduce INEGI's published figures,
+#            the parts add up to their totals) or the page keeps its last data and the run ends red.
+#   releases the two latest results releases of the covered companies, kept as text, from the disclosure channel each one
+#            files with: the BMV's eventos relevantes, the BMV quarterly report (XBRL, management commentary) or SEC
+#            EDGAR (6-K / 8-K). Their figures reach the page only through the curated file
+#            tools/mx-consumidor/data/companies-kpis.json, which the page's daily scheduled task (prompt in
+#            tools/mx-consumidor/ROUTINE-PROMPT.md) updates the day a release is stored; the page flags a company
+#            whose release is newer until then. Every curated figure and quote must be in the release it cites.
+#
+# A run commits only when a source published something; bot commits carry [skip actions]. The data commit comes right
+# after the build (and runs even when the build stopped); everything after it is optional (continue-on-error, time-limited)
+# except the check of the curated company figures, which ends the run red when a figure is not in its release. A source
+# that fails three runs in a row opens one "SOURCE DOWN: Mexican Consumer - ..." issue (label mx-consumidor-source-down),
+# closed on recovery.
+name: Refresh Mexican Consumer data
+
+on:
+  schedule:
+    - cron: "20 15 * * *"
+    - cron: "20 23 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "true = read every source again even when the publisher shows nothing new"
+        default: "false"
+      probe:
+        description: "true = diagnostics on a feature branch: answer the requests in tools/mx-consumidor/probe.json and commit the answers there (never on main)"
+        default: "false"
+
+concurrency:
+  group: mx-consumidor-refresh-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      # the branch as it stands when the job starts (a queued run must not work on the commit that queued it)
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # reads the PDFs (the ENFIH presentation, BMV results releases); without it those sources keep their stored text
+      - name: PDF reader (optional)
+        continue-on-error: true
+        timeout-minutes: 4
+        run: pip install --quiet pdfplumber
+
+      - name: Diagnostics (probe requests; answers are committed to a feature branch only)
+        if: github.event_name == 'workflow_dispatch' && inputs.probe == 'true' && github.ref_name != 'main' && hashFiles('tools/mx-consumidor/probe.json') != ''
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+          INEGI_TOKEN: ${{ secrets.INEGI_TOKEN }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx mexican-consumer (contact via repository)' }}
+        run: node scripts/mx-consumidor/probe.mjs tools/mx-consumidor/probe.json tools/mx-consumidor/raw/probe "$RUNNER_TEMP/scratch"
+
+      # Never fails the run: a source that does not answer keeps its stored file and is counted in status.json.
+      - name: Fetch the sources (INEGI, Banco de México, FRED)
+        timeout-minutes: 25
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+          INEGI_TOKEN: ${{ secrets.INEGI_TOKEN }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        shell: bash
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force }}" = "true" ]; then FORCE="--force"; fi
+          node scripts/mx-consumidor/fetch.mjs $FORCE
+
+      # A tie-out that does not hold stops the build: the page keeps its last data and the run ends red, which the
+      # site's watchdog reports the same day. The steps after it still run, so what was fetched is not lost.
+      - name: Build the page data (tie-outs)
+        run: node scripts/mx-consumidor/build.mjs
+
+      - name: Commit if anything changed
+        if: always()
+        shell: bash
+        run: |
+          bash scripts/mx-consumidor/commit.sh "mx-consumidor: refresh data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+
+      # ---- the refresh has landed; the company releases follow ----
+
+      # A BMV or EDGAR outage never fails the run: the stored releases stand.
+      - name: Results releases of the covered companies (BMV and SEC EDGAR)
+        continue-on-error: true
+        timeout-minutes: 20
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx mexican-consumer (contact via repository)' }}
+        run: node scripts/mx-consumidor/harvest-releases.mjs
+
+      - name: Check the curated company figures against their releases
+        if: always()
+        timeout-minutes: 3
+        run: node scripts/mx-consumidor/build-companies.mjs
+
+      - name: Commit the releases if anything changed
+        if: always()
+        shell: bash
+        run: |
+          bash scripts/mx-consumidor/commit.sh "mx-consumidor: company releases $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+
+      # ---- everything below is optional ----
+
+      - name: SOURCE DOWN issue (a source failing three runs in a row) / close on recovery
+        if: always() && github.ref_name == 'main'
+        continue-on-error: true
+        timeout-minutes: 3
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let s = {};
+            try { s = JSON.parse(fs.readFileSync('tools/mx-consumidor/raw/status.json', 'utf8')).sources || {}; } catch (e) { return; }
+            const names = { enigh: 'INEGI (ENIGH microdata)', enif: 'INEGI and CNBV (ENIF microdata)', inegi: 'INEGI (BIE series)', poverty: 'INEGI (multidimensional poverty)', banxico: 'Banco de México (SIE: credit, rates, savings)', cards: 'Banco de México (SIE: card payments)', states: 'Banco de México (SIE: remittances and housing credit by state)', fred: 'FRED (BIS household credit)', docs: 'INEGI and Banco de México (ENFIH 2019 presentation)', releases: 'BMV and SEC EDGAR (company results releases)' };
+            const down = Object.keys(s).filter((k) => (s[k].failures || 0) >= 3);
+            const label = 'mx-consumidor-source-down';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (down.length) {
+              const body = `The refresh of the Mexican Consumer page (https://fnam.mx/mx/consumidor/) could not read ${down.length === 1 ? 'one source' : down.length + ' sources'} for three runs or more:\n\n` +
+                down.map((k) => `- ${names[k] || k}: ${s[k].failures} failed runs since ${s[k].since || 'n/a'}. Last error: ${s[k].error || 'n/a'}`).join('\n') +
+                `\n\nThe page keeps the last data it obtained from each of them, labeled with its date. Run: ${runUrl}`;
+              const title = `SOURCE DOWN: Mexican Consumer - ${down.map((k) => names[k] || k).join('; ')}`.slice(0, 240);
+              const marker = `<!-- down:${down.join(',')} -->`;
+              if (issue) {
+                // one issue per outage: its text follows the list of sources, without a comment on every run
+                if (!(issue.body || '').includes(marker)) await github.rest.issues.update({ ...context.repo, issue_number: issue.number, title, body: `${body}\n\n${marker}` });
+              } else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Mexican Consumer page: a source is not answering' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title, labels: [label], body: `${body}\n\n${marker}` });
+              }
+            } else if (issue && !Object.keys(s).some((k) => (s[k].failures || 0) > 0)) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every source answered again in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
+
+      # Broken source links (404/410, dead host) fail this step only; hosts that refuse scripts are listed as notices.
+      - name: Check the page's source links
+        if: github.event_name == 'schedule' && github.event.schedule == '20 15 * * *'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: node scripts/check-links.mjs site/mx/consumidor/index.html
+
+      - name: Large diagnostic answers go to a scratch branch (deleted when the work is done)
+        if: always() && github.event_name == 'workflow_dispatch' && inputs.probe == 'true' && github.ref_name != 'main'
+        continue-on-error: true
+        timeout-minutes: 5
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          S="$RUNNER_TEMP/scratch"
+          if [ -d "$S" ] && [ -n "$(ls -A "$S" 2>/dev/null)" ]; then
+            cd "$S"; ls -la
+            git init -q; git checkout -q -b scratch
+            git config user.name "mx-consumidor-refresh[bot]"; git config user.email "mx-consumidor-refresh@users.noreply.github.com"
+            git add -A; git commit -q -m "scratch files of a probe [skip actions]"
+            git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/claude/mx-consumer-scratch
+          fi

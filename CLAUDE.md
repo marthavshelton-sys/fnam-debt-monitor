@@ -225,6 +225,24 @@ dashboards, everything built from public data by GitHub Actions.
   involvement; freshness allowances live in `build.mjs`, one table); the page flags a company whose release is newer.
   Every sentence is composed from the data in both languages; before pushing run `scripts/consumidor/render-check.mjs`. Runbook
   and memory: `tools/consumidor/README.md`, `MEMORY.md`.
+- Mexican Consumer `site/mx/consumidor/` (`/mx/consumer` redirects; Mexico section; built 11-Oct-2026 as the Mexican equivalent of
+  the American Consumer page, same ten sections, same rules: every sentence composed from the data in both languages, official
+  sources first, nothing may go stale without her involvement). Sources: INEGI's ENIGH microdata (every edition from 2016; income,
+  spending and financial flows by decile, group and state, shown as pesos a month = the published quarterly figure ÷ 3), the ENIF
+  microdata (INEGI and CNBV), multidimensional poverty, the ENOE and the national accounts through the BIE; Banco de México's SIE
+  (financing to households CF297, bank portfolio by product CF835, total and past-due balances CF762 / CF766, rates, cards, card
+  payments by line of business, savings, remittances and housing credit by state, the bank lending survey); BIS household credit
+  through FRED; the ENFIH 2019 for wealth (the only edition; curated from INEGI's presentation and checked against its stored
+  text). 18 companies in "What Companies Report", each read from the channel it files with (BMV eventos relevantes, the BMV
+  quarterly XBRL report's management commentary, or SEC 6-K / 8-K); no listed bank posts results through a scriptable official
+  channel, so the bank read-through is Banxico's system data. Data: `mx-consumidor-refresh.yml` (15:20 and 23:20 UTC) →
+  `scripts/mx-consumidor/fetch.mjs` → `build.mjs` → `data/data.js` (tie-outs: the microdata must reproduce INEGI's published
+  figures or the page keeps its last data); releases → `build-companies.mjs` → `data/companies.js`. The scheduled task "FNAM
+  Mexican Consumer: daily upkeep" (16:25 and 00:25 UTC; prompt `tools/mx-consumidor/ROUTINE-PROMPT.md`; worklist
+  `scripts/mx-consumidor/pending.mjs`) curates company figures the day a release is stored, adds a new edition's published check
+  figures, checks publishers past their usual date and repairs a broken reader. The workflow's commit steps go through
+  `scripts/mx-consumidor/commit.sh` (never merges a data file line by line). Before pushing run
+  `scripts/mx-consumidor/render-check.mjs`. Runbook and memory: `tools/mx-consumidor/README.md`, `MEMORY.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

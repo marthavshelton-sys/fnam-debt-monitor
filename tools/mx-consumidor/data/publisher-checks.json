@@ -1,0 +1,4 @@
+{
+ "_comment": "Dated checks at the publisher for a source past its usual date: { id: { latest: the period the publisher's page shows as its newest, checked: the date it was looked at } }. While a check is at most 45 days old and its `latest` equals the period on the page, the block says the publisher has nothing newer instead of showing an overdue mark. Written by the daily upkeep task.",
+ "checks": {}
+}

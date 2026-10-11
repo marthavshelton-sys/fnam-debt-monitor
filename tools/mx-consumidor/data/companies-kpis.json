@@ -1,0 +1,729 @@
+{
+ "_comment": "Curated figures and short quotes for the 'What Companies Report' section of the Mexican Consumer page. Every value and quote is taken from the company's own results release (stored as text under raw/releases/ by the harvester) and carries the text it was read from (`find`): the builder refuses a record whose text is not in the stored document of the release dated `filed`, or whose number is not in its text. Figures are the ones the company gives for Mexico (or for the narrowest segment that contains it, named in `segment`). comp = same-store sales, sales = total sales, traffic, ticket: year-over-year change in percent. npl = past-due loan ratio (`prev`: a year earlier, read from the same text; `chgBp`: the change in basis points the text states). extra: other figures, each with `label` and `unit` (chg = signed percent change, rate = percent, mm = millions, n = count, usdBn = billions of U.S. dollars). Updated by the daily upkeep task the day a release is stored; `reviewed` is the date of the last pass.",
+ "reviewed": "2026-10-11",
+ "companies": {
+  "WALMEX": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-22",
+   "segment": {
+    "es": "México",
+    "en": "Mexico"
+   },
+   "comp": {
+    "v": 1.8,
+    "find": "Crecimiento en ventas a unidades iguales de 1.8% en"
+   },
+   "sales": {
+    "v": 3.1,
+    "find": "Total ingresos 209,188 100.0 202,883 100.0 3.1"
+   },
+   "traffic": {
+    "v": -1.1,
+    "find": "México: el ticket creció 2.9% y tráfico -1.1%."
+   },
+   "ticket": {
+    "v": 2.9,
+    "find": "México: el ticket creció 2.9% y tráfico -1.1%."
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Ventas en línea en México",
+      "en": "E-commerce sales in Mexico"
+     },
+     "v": 16.2,
+     "find": "16.2%, impulsado por el crecimiento de On-Demand de"
+    }
+   ],
+   "quote": {
+    "text": "Mientras el consumo continúa mostrando debilidad, seguimos enfocados en lo que está bajo nuestro control, ejecutando con disciplina nuestras tres prioridades de negocio, lo que nos permite crecer por encima del mercado y sentar las bases para un crecimiento sostenible de largo plazo.",
+    "by": "Cristian Barrientos Pozo",
+    "role": {
+     "es": "Presidente Ejecutivo y Director General",
+     "en": "President and Chief Executive Officer"
+    },
+    "lang": "es"
+   }
+  },
+  "SORIANA": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-31",
+   "segment": {
+    "es": "Toda la empresa (opera en México)",
+    "en": "Whole company (it operates in Mexico)"
+   },
+   "comp": {
+    "v": -4.5,
+    "find": "El indicador ventas mismas tiendas del 2T26 fue de -4.5%."
+   },
+   "sales": {
+    "v": -4.9,
+    "find": "representó un decremento de 4.9% vs el mismo periodo del año"
+   }
+  },
+  "CHDRAUI": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-22",
+   "segment": {
+    "es": "Chedraui México",
+    "en": "Chedraui Mexico"
+   },
+   "comp": {
+    "v": 1.3,
+    "find": "Chedraui México: Las VMT del trimestre tuvieron un crecimiento de 1.3% con respecto al 2T'25"
+   },
+   "sales": {
+    "v": 5.1,
+    "find": "un crecimiento de 5.1% con respecto al segundo trimestre de 2025"
+   },
+   "traffic": {
+    "v": -0.9,
+    "find": "un aumento del 2.2% en el ticket promedio y un número de transacciones 0.9% por debajo de las observadas en el 2T'25"
+   },
+   "ticket": {
+    "v": 2.2,
+    "find": "un aumento del 2.2% en el ticket promedio y un número de transacciones 0.9% por debajo de las observadas en el 2T'25"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Autoservicios de la ANTAD, ventas a tiendas iguales (cifra que cita Chedraui)",
+      "en": "ANTAD supermarkets, same-store sales (figure cited by Chedraui)"
+     },
+     "v": -0.1,
+     "find": "en comparación con un decremento de -0.1% en las ventas reportadas por la ANTAD en tiendas de autoservicio"
+    }
+   ],
+   "quote": {
+    "text": "El esfuerzo de nuestros colaboradores nos ha permitido mantener la preferencia por parte de los clientes, observada en el desempeño de nuestras Ventas Mismas Tiendas (VMT) en México, que crecieron 1.3% en el segundo trimestre de 2026, por encima de la contracción de -0.1% de la ANTAD.",
+    "by": "Antonio Chedraui",
+    "role": {
+     "es": "Director General",
+     "en": "Chief Executive Officer"
+    },
+    "lang": "es"
+   }
+  },
+  "LACOMER": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-22",
+   "segment": {
+    "es": "Toda la empresa (opera en México)",
+    "en": "Whole company (it operates in Mexico)"
+   },
+   "comp": {
+    "v": 2.9,
+    "find": "Las ventas mismas tiendas del trimestre tuvieron un crecimiento de 2.9%."
+   },
+   "sales": {
+    "v": 5.7,
+    "find": "presentando un incremento de 5.7% contra el mismo periodo de 2025"
+   }
+  },
+  "FEMSA": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-28",
+   "segment": {
+    "es": "OXXO México",
+    "en": "OXXO Mexico"
+   },
+   "comp": {
+    "v": 9.5,
+    "find": "reflecting a 9.5% increase in same-store sales, coupled with 3.5% store expansion"
+   },
+   "sales": {
+    "v": 11.8,
+    "find": "Total revenues increased 11.8% in 2Q26"
+   },
+   "traffic": {
+    "v": 2.0,
+    "find": "driven by an increase of 7.4% in the average ticket, and an increase of 2.0% in store traffic"
+   },
+   "ticket": {
+    "v": 7.4,
+    "find": "driven by an increase of 7.4% in the average ticket, and an increase of 2.0% in store traffic"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Tiendas OXXO en México",
+      "en": "OXXO stores in Mexico"
+     },
+     "v": 24708,
+     "unit": "n",
+     "find": "OXXO Mexico had a total of 24,708 stores"
+    }
+   ],
+   "quote": {
+    "text": "We should highlight the quarter at OXXO Mexico, which delivered double-digit revenue and profit growth and, importantly, a return to positive customer traffic after several quarters of decline.",
+    "by": "José Antonio Fernández Garza-Lagüera",
+    "role": {
+     "es": "Director General de FEMSA",
+     "en": "FEMSA's Chief Executive Officer"
+    },
+    "lang": "en"
+   }
+  },
+  "TBBB": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-08-12",
+   "segment": {
+    "es": "Toda la empresa (opera en México)",
+    "en": "Whole company (it operates in Mexico)"
+   },
+   "comp": {
+    "v": 20.0,
+    "prev": 17.7,
+    "find": "Same Store Sales grew by 20.0% for 2Q26, compared to 17.7% for 2Q25."
+   },
+   "sales": {
+    "v": 38.7,
+    "find": "Total revenue increased 38.7% year over year to Ps. 26,037 million"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Tiendas",
+      "en": "Stores"
+     },
+     "v": 3624,
+     "unit": "n",
+     "find": "reaching 3,624 stores as of June 30, 2026"
+    }
+   ],
+   "quote": {
+    "text": "Despite a soft consumer environment in Mexico, same-store sales (SSS) grew 20.0%, driven by our compelling value proposition, strong brand recognition, and growing customer loyalty.",
+    "by": "K. Anthony Hatoum",
+    "role": {
+     "es": "Presidente del Consejo y Director General",
+     "en": "Chairman and Chief Executive Officer"
+    },
+    "lang": "en"
+   }
+  },
+  "FRAGUA": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-29",
+   "segment": {
+    "es": "Toda la empresa (opera en México)",
+    "en": "Whole company (it operates in Mexico)"
+   },
+   "comp": {
+    "v": 3.4,
+    "find": "tuvieron un crecimiento de 3.4% en relación con el segundo trimestre del año anterior"
+   },
+   "sales": {
+    "v": 6.5,
+    "find": "logrando un crecimiento de 6.5% en relación con el segundo trimestre del 2025"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Sucursales",
+      "en": "Stores"
+     },
+     "v": 3084,
+     "unit": "n",
+     "find": "llegando a 3,084 sucursales"
+    }
+   ],
+   "quote": {
+    "text": "la rentabilidad mostró una moderación en comparación con el año anterior debido a la baja en el consumo en el país y a la presión por costos laborales",
+    "role": {
+     "es": "Reporte trimestral de la empresa",
+     "en": "Company quarterly report"
+    },
+    "lang": "es"
+   }
+  },
+  "LIVEPOL": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-27",
+   "segment": {
+    "es": "Tiendas Liverpool; las ventas totales son del segmento comercial",
+    "en": "Liverpool stores; total sales are those of the commercial segment"
+   },
+   "comp": {
+    "v": 1.7,
+    "find": "Liverpool registró un crecimiento en ventas de 1.7%"
+   },
+   "sales": {
+    "v": 1.8,
+    "find": "con un incremento interanual del 1.8%"
+   },
+   "npl": {
+    "v": 4.7,
+    "chgBp": 72,
+    "label": {
+     "es": "Cartera vencida de sus tarjetas",
+     "en": "Past-due loans on its cards"
+    },
+    "find": "El Índice de Cartera Vencida (ICV) se ubicó en 4.7% al final del segundo trimestre, un incremento de 72 puntos base en comparación con el mismo trimestre del año anterior"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Suburbia, ventas a tiendas iguales",
+      "en": "Suburbia, same-store sales"
+     },
+     "v": -6.4,
+     "find": "mientras que Suburbia registró una variación de -6.4%"
+    },
+    {
+     "label": {
+      "es": "Cartera de crédito",
+      "en": "Credit portfolio"
+     },
+     "v": 9.5,
+     "find": "una expansión de 9.5% en el portafolio bruto de crédito"
+    },
+    {
+     "label": {
+      "es": "Tarjetahabientes",
+      "en": "Cardholders"
+     },
+     "v": 8.8,
+     "unit": "mm",
+     "find": "la base de tarjetahabientes alcanzó 8.8 millones"
+    }
+   ],
+   "quote": {
+    "text": "El segundo trimestre estuvo marcado por una desaceleración del entorno macroeconómico que continúa generando un comportamiento cauteloso por parte del consumidor",
+    "role": {
+     "es": "Reporte de resultados de la empresa",
+     "en": "Company results release"
+    },
+    "lang": "es"
+   }
+  },
+  "GCARSO": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-27",
+   "segment": {
+    "es": "Grupo Sanborns (Sears, Sanborns, iShop, Dax)",
+    "en": "Grupo Sanborns (Sears, Sanborns, iShop, Dax)"
+   },
+   "sales": {
+    "v": 8.4,
+    "find": "LOS INGRESOS DE GRUPO SANBORNS CRECIERON EL 8.4% EN EL 2T26"
+   }
+  },
+  "ALSEA": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-20",
+   "segment": {
+    "es": "Alsea México (Starbucks, Domino's, Burger King, Vips, Chili's y otras)",
+    "en": "Alsea Mexico (Starbucks, Domino's, Burger King, Vips, Chili's and others)"
+   },
+   "comp": {
+    "v": 1.1,
+    "prev": 4.5,
+    "find": "Ventas Mismas Tiendas 1.1% 4.5% N.A. N.A. 1.1% 4.5% N.A. N.A."
+   },
+   "sales": {
+    "v": 4.2,
+    "find": "las ventas en México crecieron 4.2%"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Restaurantes de servicio completo, ventas a tiendas iguales",
+      "en": "Full-service restaurants, same-store sales"
+     },
+     "v": 5.4,
+     "find": "fue del 5.4% y 2.1% para Restaurantes de Servicio Completo y Comida Rápida, respectivamente"
+    },
+    {
+     "label": {
+      "es": "Comida rápida",
+      "en": "Fast food"
+     },
+     "v": 2.1,
+     "find": "fue del 5.4% y 2.1% para Restaurantes de Servicio Completo y Comida Rápida, respectivamente"
+    },
+    {
+     "label": {
+      "es": "Cafeterías",
+      "en": "Coffee shops"
+     },
+     "v": -2.0,
+     "find": "mitigando la caída de 2.0% en Cafeterías"
+    }
+   ],
+   "quote": {
+    "text": "Durante el segundo trimestre de 2026 enfrentamos un entorno de consumo retador en México.",
+    "by": "Christian Gurría",
+    "role": {
+     "es": "Director General",
+     "en": "Chief Executive Officer"
+    },
+    "lang": "es"
+   }
+  },
+  "BIMBO": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-23",
+   "segment": {
+    "es": "México",
+    "en": "Mexico"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Ventas netas en México",
+      "en": "Net sales in Mexico"
+     },
+     "v": 4.7,
+     "find": "México aumentó sus Ventas Netas 4.7%"
+    }
+   ],
+   "quote": {
+    "text": "Logramos un trimestre sólido, con crecimiento en volumen y una mezcla de precios favorable, incluso frente a un entorno de consumo desafiante en varios de nuestros mercados",
+    "by": "Alejandro Rodríguez Bas",
+    "role": {
+     "es": "Director General",
+     "en": "Chief Executive Officer"
+    },
+    "lang": "es"
+   }
+  },
+  "KIMBER": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-21",
+   "segment": {
+    "es": "Toda la empresa (pañales, papel higiénico y productos de cuidado personal)",
+    "en": "Whole company (diapers, tissue and personal-care products)"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Ventas de productos al consumidor",
+      "en": "Sales of consumer products"
+     },
+     "v": 5,
+     "find": "Productos al Consumidor creció 5%"
+    },
+    {
+     "label": {
+      "es": "Ventas netas",
+      "en": "Net sales"
+     },
+     "v": 3,
+     "find": "Las ventas netas del segundo trimestre aumentaron 3%"
+    },
+    {
+     "label": {
+      "es": "Ventas a negocios e instituciones (Away from Home)",
+      "en": "Sales to businesses and institutions (Away from Home)"
+     },
+     "v": -5,
+     "find": "Away from Home decreció 5%"
+    }
+   ]
+  },
+  "AC": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-22",
+   "segment": {
+    "es": "México (Coca-Cola y botanas)",
+    "en": "Mexico (Coca-Cola and snacks)"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Volumen de bebidas en México, sin garrafón",
+      "en": "Beverage volume in Mexico, excluding jug water"
+     },
+     "v": -3.0,
+     "find": "Volumen sin Garrafón 295.3 304.5 -3.0"
+    },
+    {
+     "label": {
+      "es": "Ventas netas en México",
+      "en": "Net sales in Mexico"
+     },
+     "v": 1.5,
+     "find": "Las Ventas Netas en México aumentaron 1.5% en el segundo trimestre"
+    },
+    {
+     "label": {
+      "es": "Precio promedio por caja",
+      "en": "Average price per case"
+     },
+     "v": 4.5,
+     "find": "El precio promedio por caja unidad, sin garrafón, tuvo un incremento de 4.5%"
+    }
+   ],
+   "quote": {
+    "text": "En un entorno de consumo retador, volatilidad en algunos mercados y la entrada en vigor del nuevo impuesto en México, avanzamos con una gestión financiera efectiva, al tiempo que fortalecimos nuestra conexión con los consumidores durante la Copa Mundial de la FIFA 2026",
+    "by": "Arturo Gutiérrez",
+    "role": {
+     "es": "Director General",
+     "en": "Chief Executive Officer"
+    },
+    "lang": "es"
+   }
+  },
+  "KOF": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-27",
+   "segment": {
+    "es": "México",
+    "en": "Mexico"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Volumen de bebidas en México",
+      "en": "Beverage volume in Mexico"
+     },
+     "v": 1.0,
+     "find": "Mexico 366.3 39.8 95.3 43.4 544.8 359.7 37.7 98.5 43.5 539.4 1.0%"
+    }
+   ],
+   "quote": {
+    "text": "While Mexico continued to navigate a challenging consumer environment and the effects of the excise tax increase, our affordability strategy, segmentation, and disciplined commercial execution enabled us to further strengthen our competitive position.",
+    "by": "Ian Craig",
+    "role": {
+     "es": "Director General",
+     "en": "Chief Executive Officer"
+    },
+    "lang": "en"
+   }
+  },
+  "GENTERA": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-22",
+   "segment": {
+    "es": "Consolidado: Compartamos Banco en México y Perú, y ConCrédito",
+    "en": "Consolidated: Compartamos Banco in Mexico and Peru, and ConCrédito"
+   },
+   "npl": {
+    "v": 4.04,
+    "prev": 3.32,
+    "find": "del 2T26 cerró en 4.04%, un nivel mayor respecto al 3.32% del 2T25"
+   },
+   "loans": {
+    "v": 13.1,
+    "find": "lo que representa un crecimiento anual de 13.1%"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Costo de riesgo",
+      "en": "Cost of risk"
+     },
+     "v": 14.5,
+     "prev": 12.7,
+     "unit": "rate",
+     "find": "El Costo de Riesgo para el 2T26 fue de 14.5%, comparado con el 12.7% registrado en el 2T25."
+    },
+    {
+     "label": {
+      "es": "Banco Compartamos México, cartera vencida",
+      "en": "Banco Compartamos Mexico, past-due loans"
+     },
+     "v": 4.59,
+     "prev": 3.32,
+     "unit": "rate",
+     "find": "El índice de cartera vencida (etapa 3) para el 2T26 cerró en 4.59%, comparado con el 4.86% del 1T26 y el 3.32% alcanzado en el 2T25."
+    },
+    {
+     "label": {
+      "es": "Personas atendidas",
+      "en": "People served"
+     },
+     "v": 6.79,
+     "unit": "mm",
+     "find": "atendiendo a un número récord de 6.79 millones de personas"
+    }
+   ]
+  },
+  "NU": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-08-13",
+   "segment": {
+    "es": "México",
+    "en": "Mexico"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Clientes en México",
+      "en": "Customers in Mexico"
+     },
+     "v": 15.8,
+     "unit": "mm",
+     "find": "In Mexico, Nu reached 15.8 million customers"
+    },
+    {
+     "label": {
+      "es": "Parte de la población adulta de México",
+      "en": "Share of Mexico's adult population"
+     },
+     "v": 16.5,
+     "unit": "rate",
+     "find": "Nu reaches 16.5% of Mexico's adult population"
+    },
+    {
+     "label": {
+      "es": "Depósitos en México",
+      "en": "Deposits in Mexico"
+     },
+     "v": 5.7,
+     "unit": "usdBn",
+     "find": "Mexico at $5.7 billion"
+    }
+   ]
+  },
+  "MELI": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-08-05",
+   "segment": {
+    "es": "México, variaciones sin efecto cambiario",
+    "en": "Mexico, FX-neutral changes"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Ingresos netos en México",
+      "en": "Net revenues in Mexico"
+     },
+     "v": 38,
+     "find": "Mexico 41 % 42 % 41 % 39 % 38 %"
+    },
+    {
+     "label": {
+      "es": "Valor de la mercancía vendida en México",
+      "en": "Gross merchandise volume in Mexico"
+     },
+     "v": 26,
+     "find": "Mexico 32 % 34 % 35 % 28 % 26 %"
+    },
+    {
+     "label": {
+      "es": "Usuarios activos de servicios financieros en México",
+      "en": "Fintech monthly active users in Mexico"
+     },
+     "v": 45,
+     "find": "Brazil and Mexico were the standout performers, growing 38% and 45% YoY, respectively"
+    }
+   ]
+  },
+  "FCFS": {
+   "period": {
+    "es": "2T 2026",
+    "en": "Q2 2026"
+   },
+   "periodEnd": "2026-06-30",
+   "filed": "2026-07-23",
+   "segment": {
+    "es": "Casas de empeño en América Latina, en moneda constante; la mayoría de las sucursales está en México",
+    "en": "Latin America pawn stores, constant currency; most of the stores are in Mexico"
+   },
+   "extra": [
+    {
+     "label": {
+      "es": "Préstamos prendarios por cobrar, mismas sucursales",
+      "en": "Pawn receivables, same-store"
+     },
+     "v": 22,
+     "find": "increased 32% on a U.S. dollar basis while increasing 22% on a constant currency basis"
+    },
+    {
+     "label": {
+      "es": "Comisiones por préstamos prendarios",
+      "en": "Pawn loan fees"
+     },
+     "v": 19,
+     "find": "both increased 33% on a U.S. dollar basis and 19% on a constant currency basis"
+    },
+    {
+     "label": {
+      "es": "Venta de mercancía",
+      "en": "Retail merchandise sales"
+     },
+     "v": 15,
+     "find": "both total and same-store retail merchandise sales increased 15% in the second quarter"
+    },
+    {
+     "label": {
+      "es": "Sucursales en México",
+      "en": "Stores in Mexico"
+     },
+     "v": 1729,
+     "unit": "n",
+     "find": "1,729 stores in 32 states in Mexico"
+    }
+   ]
+  }
+ }
+}

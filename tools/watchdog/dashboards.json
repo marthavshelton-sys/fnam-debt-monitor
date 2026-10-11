@@ -13,6 +13,7 @@
     { "id": "us-consumer", "section": "us", "name": { "es": "Consumidor EE.\u00a0UU.", "en": "American Consumer" }, "url": "/consumidor/", "since": "2026-10-11T18:03:29Z", "workflows": ["consumidor-refresh.yml"], "alertLabels": ["consumidor-source-down"] },
     { "id": "mx-macro", "section": "mx", "name": { "es": "Macro México", "en": "Mexico Macro" }, "url": "/mx/macro/", "workflows": ["mx-macro-refresh.yml"], "alertLabels": ["mx-macro-health"] },
     { "id": "mx-fiscal", "section": "mx", "name": { "es": "Fiscal México", "en": "Mexico Fiscal" }, "url": "/mx/fiscal/", "workflows": ["refresh-mx-data.yml"], "alertLabels": ["mx-fiscal-health"] },
+    { "id": "mx-consumer", "section": "mx", "name": { "es": "Consumidor Mexicano", "en": "Mexican Consumer" }, "url": "/mx/consumidor/", "since": "2026-10-11T20:50:00Z", "workflows": ["mx-consumidor-refresh.yml"], "alertLabels": ["mx-consumidor-source-down"] },
     { "id": "gap", "section": "companies", "name": { "es": "GAP", "en": "GAP" }, "url": "/gap/", "workflows": ["gap-refresh.yml"], "alertLabels": [],
       "prices": { "exchange": "BMV", "settleHours": 5, "series": [
         { "name": "GAPB.MX close (FactSet Global Prices)", "file": "tools/gap/raw/factset/prices.json", "kind": "json", "field": "latestClose.GAPB-MX" },

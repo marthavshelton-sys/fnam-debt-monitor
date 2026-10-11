@@ -1,0 +1,9 @@
+{
+ "_comment": "Shares INEGI and the CNBV print in the main results of the ENIF 2024 (people aged 18 to 70). The builder computes the same shares from the public microdata and stops if they differ by more than 0.1 point.",
+ "source": "https://www.inegi.org.mx/programas/enif/2024/",
+ "year": 2024,
+ "all": { "anyProduct": 76.5, "anyAccount": 63.0, "anyCredit": 37.3 },
+ "bySex": { "men": { "anyCredit": 38.8 }, "women": { "anyCredit": 36.1 } },
+ "saving": { "onlyInformal": 36.6, "none": 33.6, "both": 21.6, "onlyFormal": 8.2 },
+ "byRegion": { "northwest": 84.6, "northeast": 84.9, "west": 72.8, "cdmx": 80.0, "center": 76.1, "south": 67.7 }
+}

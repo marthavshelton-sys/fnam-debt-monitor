@@ -1,0 +1,125 @@
+{
+ "_comment": "Figures of the Encuesta Nacional sobre las Finanzas de los Hogares (ENFIH) 2019, INEGI and Banco de México: the only edition, so this file changes only if a new edition is published. Every figure was read in the results presentation stored as text by the fetcher (raw/docs/enfih2019.txt) and carries the text it was read from (`find`) and its page; the builder refuses a figure whose text is not on that page or whose number is not in its text. The presentation is a set of charts, so a figure's place in a chart was settled with the document's own arithmetic, which the builder repeats: (1) net worth by net-worth percentile: the group means weighted by the size of the groups (20, 20, 20, 20, 10, 5, 5 percent of households) give the published national mean of 759.0; (2) net worth by income percentile: the same weighting gives 758.6, and the median of the 40-to-59 group of net worth is the national median, 263.2. Left out because the text does not settle which column is which: term deposits and capitalizable life insurance (ownership, median and mean), the split of mortgage debt between the main home and other properties, and the perception figures by sex. Thousands of pesos unless stated.",
+ "doc": "enfih2019",
+ "year": 2019,
+ "reviewed": "2026-10-11",
+ "totals": {
+  "households": { "v": 36.6, "unit": "millions", "page": 24, "find": "Total de hogares: 36.6 millones" },
+  "netWorth": { "v": 27.8, "unit": "billones", "page": 24, "find": "La riqueza neta de los hogares del país (27.8 billones de pesos) en 2019, equivale a 1.5 veces" },
+  "gdpMultiple": { "v": 1.5, "unit": "x", "page": 24, "find": "(27.8 billones de pesos) en 2019, equivale a 1.5 veces" },
+  "assets": { "v": 29.4, "unit": "billones", "page": 24, "find": "$ 29.4 billones $ 1.6 billones" },
+  "debts": { "v": 1.6, "unit": "billones", "page": 24, "find": "$ 29.4 billones $ 1.6 billones" },
+  "nonFinancial": { "v": 27.2, "unit": "billones", "page": 24, "find": "$ 27.2 billones $ 0.9 billones" },
+  "mortgageDebt": { "v": 0.9, "unit": "billones", "page": 24, "find": "$ 27.2 billones $ 0.9 billones" },
+  "financial": { "v": 2.2, "unit": "billones", "page": 24, "find": "$ 2.2 billones $ 0.7 billones" },
+  "otherDebt": { "v": 0.7, "unit": "billones", "page": 24, "find": "$ 2.2 billones $ 0.7 billones" },
+  "mean": { "v": 759.0, "page": 24, "find": "759.0 Promedio: $ mil" },
+  "median": { "v": 263.2, "page": 24, "find": "263.2 Mediana: $ mil" },
+  "assetsMean": { "v": 828.2, "page": 14, "find": "99.5% 828.2 324.0" },
+  "assetsMedian": { "v": 324.0, "page": 14, "find": "99.5% 828.2 324.0" },
+  "financialOwn": { "v": 81.4, "unit": "pct", "page": 14, "find": "81.4% 118.4 28.5" },
+  "financialOwnWithBalance": { "v": 51.2, "unit": "pct", "page": 14, "find": "96.8% 51.2%" },
+  "financialMean": { "v": 118.4, "page": 14, "find": "81.4% 118.4 28.5" },
+  "financialMedian": { "v": 28.5, "page": 14, "find": "81.4% 118.4 28.5" }
+ },
+ "groupSizes": [20, 20, 20, 20, 10, 5, 5],
+ "groupKeys": ["p0_20", "p20_40", "p40_60", "p60_80", "p80_90", "p90_95", "p95_100"],
+ "byNetWorth": {
+  "page": 27,
+  "mean": [ { "v": -4.3, "find": "-$4.3" }, { "v": 81.8, "find": "$81.8" }, { "v": 275.4, "find": "$275.4" }, { "v": 642.5, "find": "$642.5" }, { "v": 1164.0, "find": "$1,164.0" }, { "v": 1885.0, "find": "$1,885.0" }, { "v": 6986.3, "find": "$6,986.3" } ],
+  "median": [ { "v": 6.0, "find": "$6.0" }, { "v": 77.5, "find": "$77.5" }, { "v": 263.2, "find": "$263.2" }, { "v": 620.0, "find": "$620.0" }, { "v": 1118.0, "find": "$1,118.0" }, { "v": 1864.9, "find": "$1,864.9" }, { "v": 3481.7, "find": "$3,481.7" } ]
+ },
+ "byIncome": {
+  "page": 25,
+  "mean": [ { "v": 425.0, "find": "$425.0" }, { "v": 459.7, "find": "$459.7" }, { "v": 483.3, "find": "$483.3" }, { "v": 675.4, "find": "$675.4" }, { "v": 987.2, "find": "$987.2" }, { "v": 1994.8, "find": "$1,994.8" }, { "v": 3028.5, "find": "$3,028.50" } ],
+  "median": [ { "v": 112.2, "find": "$112.2" }, { "v": 163.0, "find": "$163.0" }, { "v": 220.0, "find": "$220.0" }, { "v": 342.0, "find": "$342.0" }, { "v": 569.5, "find": "$569.5" }, { "v": 819.0, "find": "$819.0" }, { "v": 1384.0, "find": "$1,384.00" } ]
+ },
+ "bySex": {
+  "page": 26,
+  "men": { "median": { "v": 285.0, "find": "Hombre 285.0 821.8" }, "mean": { "v": 821.8, "find": "Hombre 285.0 821.8" } },
+  "women": { "median": { "v": 215.0, "find": "Mujer 215.0 619.8" }, "mean": { "v": 619.8, "find": "Mujer 215.0 619.8" } }
+ },
+ "byEdu": {
+  "page": 26,
+  "none": { "median": { "v": 203.0, "find": "Sin escolaridad 203.0 473.0" }, "mean": { "v": 473.0, "find": "Sin escolaridad 203.0 473.0" } },
+  "basic": { "median": { "v": 223.5, "find": "Educación básica 223.5 586.2" }, "mean": { "v": 586.2, "find": "Educación básica 223.5 586.2" } },
+  "highSchool": { "median": { "v": 283.4, "find": "Educación media superior 283.4 613.5" }, "mean": { "v": 613.5, "find": "Educación media superior 283.4 613.5" } },
+  "college": { "median": { "v": 520.0, "find": "Licenciatura o equivalente 520.0 1 352.7" }, "mean": { "v": 1352.7, "find": "Licenciatura o equivalente 520.0 1 352.7" } },
+  "graduate": { "median": { "v": 920.7, "find": "Posgrado 920.7 2 824.0" }, "mean": { "v": 2824.0, "find": "Posgrado 920.7 2 824.0" } }
+ },
+ "assets": {
+  "page": 15,
+  "order": ["household", "home", "vehicle", "otherProperty", "business", "other"],
+  "own": { "find": "Tenencia 97.8% ±0.33 64.6% ±1.06 44.6% ±1.12 22.5% ±1.03 22.3% ±0.91 10.4% ±0.92", "v": [97.8, 64.6, 44.6, 22.5, 22.3, 10.4] },
+  "median": { "find": "20.0 450.0 45.0 300.0 20.0 5.0", "v": [20.0, 450.0, 45.0, 300.0, 20.0, 5.0] },
+  "mean": { "find": "51.6 678.5 116.9 730.2 321.6 256.5", "v": [51.6, 678.5, 116.9, 730.2, 321.6, 256.5] }
+ },
+ "assetValue": {
+  "page": 16,
+  "order": ["home", "otherProperty", "business", "vehicle", "household", "other"],
+  "share": { "find": "54.4% 20.1% 9.0% 6.8% 6.2% 3.5%", "v": [54.4, 20.1, 9.0, 6.8, 6.2, 3.5] }
+ },
+ "financial": {
+  "page": 17,
+  "order": ["retirement", "payroll", "informal", "benefits", "formal"],
+  "own": { "find": "53.9% 49.9% 28.0% 18.3% 17.2% 2.4% 1.5%", "v": [53.9, 49.9, 28.0, 18.3, 17.2] },
+  "median": { "find": "72.0 5.0 5.0 1.5 7.0 4.8 50.0", "v": [72.0, 5.0, 5.0, 1.5, 7.0] },
+  "mean": { "find": "169.1 20.8 15.6 5.7 30.4 17.3 313.4", "v": [169.1, 20.8, 15.6, 5.7, 30.4] }
+ },
+ "financialValue": {
+  "page": 18,
+  "order": ["retirement", "informal", "formal", "termFunds", "payroll", "lifeInsurance", "benefits"],
+  "share": { "find": "78.5% 6.6% 6.0% 5.8% 2.6% 0.4% 0.1%", "v": [78.5, 6.6, 6.0, 5.8, 2.6, 0.4, 0.1] }
+ },
+ "debt": {
+  "page": 19,
+  "any": { "own": { "v": 56.9, "find": "56.9% ± 1.30 83.0 13.3" }, "mean": { "v": 83.0, "find": "56.9% ± 1.30 83.0 13.3" }, "median": { "v": 13.3, "find": "56.9% ± 1.30 83.0 13.3" } },
+  "mortgage": { "own": { "v": 11.6, "find": "11.6% ± 0.89 317 250.0" }, "mean": { "v": 317, "find": "11.6% ± 0.89 317 250.0" }, "median": { "v": 250.0, "find": "11.6% ± 0.89 317 250.0" } },
+  "other": { "own": { "v": 53.8, "find": "53.8% ± 1.24 38.5 10.0" }, "mean": { "v": 38.5, "find": "53.8% ± 1.24 38.5 10.0" }, "median": { "v": 10.0, "find": "53.8% ± 1.24 38.5 10.0" } },
+  "householdsWithDebt": { "v": 20.9, "unit": "millions", "find": "20.9 millones" }
+ },
+ "debtTypes": {
+  "page": 21,
+  "base": "households with debt",
+  "order": ["card", "otherLoans", "payrollPersonal", "vehicle"],
+  "own": { "find": "60.2% 47.0% 18.8% 11.6%", "v": [60.2, 47.0, 18.8, 11.6] },
+  "median": { "find": "7.0 6.5 17.0 90.0", "v": [7.0, 6.5, 17.0, 90.0] },
+  "mean": { "find": "15.7 26.4 37.2 109.9", "v": [15.7, 26.4, 37.2, 109.9] }
+ },
+ "debtValue": {
+  "page": 22,
+  "mortgage": { "v": 55.4, "find": "Deuda hipotecaria 55.4% Deuda no hipotecaria 44.6%" },
+  "other": { "v": 44.6, "find": "Deuda hipotecaria 55.4% Deuda no hipotecaria 44.6%" },
+  "order": ["otherLoans", "card", "payrollPersonal", "vehicle"],
+  "share": { "find": "16.7% 38.7% 15.4% 11.5% 8.4% 9.3%", "v": [15.4, 11.5, 8.4, 9.3] }
+ },
+ "burden": {
+  "page": 23,
+  "paymentToIncome": { "v": 17.0, "find": "entre ingreso corriente efectivo 17.0%" },
+  "debtToIncome": { "v": 10.0, "find": "ingresos corrientes efectivos 10.0%" },
+  "debtToAssets": { "v": 6.0, "find": "6.0% activos totales" },
+  "mortgageToHome": { "v": 50.0, "find": "con el valor de la vivienda 50.0%" },
+  "mortgageServiceToIncome": { "v": 15.0, "find": "hipotecaria en relación con el 15.0%" }
+ },
+ "perception": {
+  "page": 29,
+  "canSave": { "v": 12.8, "find": "Le queda para ahorrar 12.8%" },
+  "justEnough": { "v": 66.5, "find": "necesario 66.5%" },
+  "notEnough": { "v": 20.7, "find": "para lo necesario 20.7%" }
+ },
+ "emergency": {
+  "page": 31,
+  "family": { "v": 64.9, "find": "Préstamo de familiares, amigos o conocidos 64.9%" },
+  "sellOrPawn": { "v": 35.5, "find": "Venta o empeño de algún bien 35.5%" },
+  "wageAdvance": { "v": 21.7, "find": "Adelanto de sueldo 21.7%" },
+  "savings": { "v": 19.7, "find": "Ahorros 19.7%" },
+  "bankCredit": { "v": 17.9, "find": "Crédito bancario 17.9%" }
+ },
+ "housingFinance": {
+  "page": 20,
+  "mortgage": { "v": 27.5, "find": "El 27.5% de las viviendas habitadas se han financiado con crédito hipotecario, 8.7% con un" },
+  "informalLoan": { "v": 8.7, "find": "El 27.5% de las viviendas habitadas se han financiado con crédito hipotecario, 8.7% con un" },
+  "subsidy": { "v": 4.4, "find": "préstamo informal, 4.4% con subsidio de gobierno, y el 62.0% no ha tenido financiamiento" },
+  "none": { "v": 62.0, "find": "préstamo informal, 4.4% con subsidio de gobierno, y el 62.0% no ha tenido financiamiento" }
+ }
+}

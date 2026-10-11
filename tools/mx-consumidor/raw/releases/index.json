@@ -1,0 +1,1121 @@
+{
+ "companies": {
+  "WALMEX": {
+   "ticker": "WALMEX",
+   "name": "Walmart de México y Centroamérica",
+   "channel": "bmv",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "listing": [
+    {
+     "date": "2026-07-22",
+     "title": "Walmart de Mexico y Centroamerica Reporta Resultados del Segundo Trimestre 2026",
+     "id": "1576009",
+     "kind": "results"
+    },
+    {
+     "date": "2026-07-15",
+     "title": "Walmart de Mexico y Centroamerica Invitacion para Reporte de Resultados 2T26",
+     "id": "1574579",
+     "kind": null
+    },
+    {
+     "date": "2026-04-28",
+     "title": "Walmart de México y Centroamérica Reporta Resultados del Primer Trimestre de 2026",
+     "id": "1552394",
+     "kind": "results"
+    },
+    {
+     "date": "2026-04-21",
+     "title": "Walmart de México y Centroamérica Invitación para Reporte Resultados 1T26",
+     "id": "1549891",
+     "kind": null
+    },
+    {
+     "date": "2026-04-20",
+     "title": "Walmart de México y Centroamérica Informa Sobre los Principales Acuerdos de su Asamblea de Accionistas y Consejo de Administración",
+     "id": "1549609",
+     "kind": null
+    },
+    {
+     "date": "2026-03-25",
+     "title": "Walmart de México y Centroamérica detalla las propuestas que el Consejo de Administración someterá para aprobación en su próxima Asamblea Anual de Accionistas",
+     "id": "1544023",
+     "kind": null
+    },
+    {
+     "date": "2026-03-25",
+     "title": "Walmart de México y Centroamérica Anuncia su Programa de Inversión 2026 y su Propuesta de Pago de Dividendos y Recompra de Acciones",
+     "id": "1543943",
+     "kind": null
+    },
+    {
+     "date": "2026-03-18",
+     "title": "Walmart de México y Centroamérica Anuncia Transición de su Vicepresidente Senior de Finanzas (Chief Financial Officer)",
+     "id": "1542061",
+     "kind": null
+    },
+    {
+     "date": "2026-02-26",
+     "title": "Walmart de México y Centroamérica Anuncia cambios en el Consejo de Administración",
+     "id": "1537193",
+     "kind": null
+    },
+    {
+     "date": "2026-02-18",
+     "title": "Walmart de México y Centroamérica Reporta Resultados del Cuarto Trimestre y Año Completo del 2025",
+     "id": "1534519",
+     "kind": "results"
+    },
+    {
+     "date": "2026-02-12",
+     "title": "Walmart de México y Centroamérica Anuncia cambios en el Consejo de Administración",
+     "id": "1533112",
+     "kind": null
+    },
+    {
+     "date": "2026-02-11",
+     "title": "Walmex publicará Resultados del 4T25",
+     "id": "1532769",
+     "kind": null
+    },
+    {
+     "date": "2026-01-15",
+     "title": "Calendario de Información 2026 Walmart de México y Centroamérica",
+     "id": "1524201",
+     "kind": null
+    },
+    {
+     "date": "2025-10-28",
+     "title": "Walmart de México y Centroamérica Reporta Resultados del Tercer Trimestre y Nueve Meses del 2025",
+     "id": "1502576",
+     "kind": "results"
+    }
+   ],
+   "filings": [
+    {
+     "accn": "bmv1576009",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "title": "Walmart de Mexico y Centroamerica Reporta Resultados del Segundo Trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Walmart de Mexico y Centroamerica Reporta Resultados del Segundo Trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576009_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/WALMEX/2026-07-22_bmv1576009.txt",
+       "chars": 30267
+      }
+     ]
+    },
+    {
+     "accn": "bmv1552394",
+     "filed": "2026-04-28",
+     "kind": "results",
+     "title": "Walmart de México y Centroamérica Reporta Resultados del Primer Trimestre de 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Walmart de México y Centroamérica Reporta Resultados del Primer Trimestre de 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1552394_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/WALMEX/2026-04-28_bmv1552394.txt",
+       "chars": 24100
+      }
+     ]
+    }
+   ]
+  },
+  "SORIANA": {
+   "ticker": "SORIANA",
+   "name": "Organización Soriana",
+   "channel": "bmv",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
+   "listing": [
+    {
+     "date": "2026-09-15",
+     "title": "Soriana Informa",
+     "id": "1589132",
+     "kind": null
+    },
+    {
+     "date": "2026-07-31",
+     "title": "Soriana anuncia los resultados del segundo trimestre 2026",
+     "id": "1578826",
+     "kind": "results"
+    },
+    {
+     "date": "2026-04-24",
+     "title": "Soriana anuncia los resultados del primer trimestre 2026",
+     "id": "1551221",
+     "kind": "results"
+    },
+    {
+     "date": "2026-02-20",
+     "title": "Soriana anuncia los resultados del cuarto trimestre y año completo 2025",
+     "id": "1535499",
+     "kind": "results"
+    },
+    {
+     "date": "2025-12-16",
+     "title": "Soriana informa",
+     "id": "1516290",
+     "kind": null
+    },
+    {
+     "date": "2025-10-24",
+     "title": "Soriana anuncia los resultados del tercer trimestre 2025",
+     "id": "1501451",
+     "kind": "results"
+    },
+    {
+     "date": "2025-07-28",
+     "title": "Soriana anuncia los resultados del segundo trimestre 2025",
+     "id": "1482156",
+     "kind": "results"
+    },
+    {
+     "date": "2025-04-30",
+     "title": "Soriana anuncia los resultados del primer trimestre 2025",
+     "id": "1459850",
+     "kind": "results"
+    },
+    {
+     "date": "2025-02-21",
+     "title": "Soriana anuncia los resultados del cuarto trimestre y año completo 2024",
+     "id": "1442794",
+     "kind": "results"
+    },
+    {
+     "date": "2024-11-22",
+     "title": "COLOCACION CEBURES SORIANA 24",
+     "id": "1421451",
+     "kind": null
+    },
+    {
+     "date": "2024-10-25",
+     "title": "Soriana anuncia los resultados del tercer trimestre 2024",
+     "id": "1414466",
+     "kind": "results"
+    },
+    {
+     "date": "2024-07-26",
+     "title": "Soriana anuncia los resultados del segundo trimestre 2024",
+     "id": "1394695",
+     "kind": "results"
+    },
+    {
+     "date": "2024-04-25",
+     "title": "Soriana anuncia los resultados del primer trimestre 2024",
+     "id": "1366854",
+     "kind": "results"
+    },
+    {
+     "date": "2024-02-23",
+     "title": "Soriana anuncia los resultados del cuatro trimestre y año completo 2023",
+     "id": "1349581",
+     "kind": "results"
+    }
+   ],
+   "filings": [
+    {
+     "accn": "bmv1578826",
+     "filed": "2026-07-31",
+     "kind": "results",
+     "title": "Soriana anuncia los resultados del segundo trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Soriana anuncia los resultados del segundo trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1578826_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/SORIANA/2026-07-31_bmv1578826.txt",
+       "chars": 17211
+      }
+     ]
+    },
+    {
+     "accn": "bmv1551221",
+     "filed": "2026-04-24",
+     "kind": "results",
+     "title": "Soriana anuncia los resultados del primer trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Soriana anuncia los resultados del primer trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1551221_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/SORIANA/2026-04-24_bmv1551221.txt",
+       "chars": 12741
+      }
+     ]
+    }
+   ]
+  },
+  "CHDRAUI": {
+   "ticker": "CHDRAUI",
+   "name": "Grupo Comercial Chedraui",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1575980",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1575980_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/CHDRAUI/2026-07-22_xbrl1575980.txt",
+       "chars": 87781
+      }
+     ]
+    }
+   ]
+  },
+  "LACOMER": {
+   "ticker": "LACOMER",
+   "name": "La Comer",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1575986",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1575986_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LACOMER/2026-07-22_xbrl1575986.txt",
+       "chars": 11026
+      }
+     ]
+    }
+   ]
+  },
+  "FEMSA": {
+   "ticker": "FEMSA",
+   "name": "FEMSA (OXXO)",
+   "channel": "sec",
+   "cik": 1061736,
+   "secName": "MEXICAN ECONOMIC DEVELOPMENT INC",
+   "filings": [
+    {
+     "accn": "0001104659-26-087338",
+     "filed": "2026-07-28",
+     "report": "2026-07-28",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926087338/0001104659-26-087338-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926087338/tm2621462d1_ex99-1.htm",
+       "file": "tools/mx-consumidor/raw/releases/FEMSA/2026-07-28_0001104659-26-087338_ex-99-1.txt",
+       "chars": 100201
+      }
+     ]
+    },
+    {
+     "accn": "0001104659-26-052276",
+     "filed": "2026-04-30",
+     "report": "2026-04-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926052276/0001104659-26-052276-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926052276/tm2613197d1_ex99-1.htm",
+       "file": "tools/mx-consumidor/raw/releases/FEMSA/2026-04-30_0001104659-26-052276_ex-99-1.txt",
+       "chars": 81505
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001628280-26-063236",
+    "0001628280-26-061700",
+    "0001628280-26-041394",
+    "0001628280-26-038837"
+   ],
+   "match": "results|resultados"
+  },
+  "TBBB": {
+   "ticker": "TBBB",
+   "name": "Tiendas 3B (BBB Foods)",
+   "channel": "sec",
+   "cik": 1978954,
+   "secName": "BBB FOODS INC",
+   "filings": [
+    {
+     "accn": "0001193125-26-346965",
+     "filed": "2026-08-12",
+     "report": "2026-08-12",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526346965/0001193125-26-346965-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526346965/6k_tbbb_2q26_earnings_re.htm",
+       "file": "tools/mx-consumidor/raw/releases/TBBB/2026-08-12_0001193125-26-346965_6-k.txt",
+       "chars": 37646
+      }
+     ]
+    },
+    {
+     "accn": "0001193125-26-241914",
+     "filed": "2026-05-27",
+     "report": "2026-05-27",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526241914/0001193125-26-241914-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526241914/tbbb-ex99_1.htm",
+       "file": "tools/mx-consumidor/raw/releases/TBBB/2026-05-27_0001193125-26-241914_ex-99-1.txt",
+       "chars": 66688
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526241914/tbbb-ex99_2.htm",
+       "file": "tools/mx-consumidor/raw/releases/TBBB/2026-05-27_0001193125-26-241914_ex-99-2.txt",
+       "chars": 31930
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/1978954/000119312526241914/tbbb-ex99_3.htm",
+       "file": "tools/mx-consumidor/raw/releases/TBBB/2026-05-27_0001193125-26-241914_ex-99-3.txt",
+       "chars": 10662
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001193125-26-251437",
+    "0001193125-26-246212",
+    "0001193125-26-241958"
+   ],
+   "match": "quarter|results"
+  },
+  "FRAGUA": {
+   "ticker": "FRAGUA",
+   "name": "Farmacias Guadalajara (Corporativo Fragua)",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1577979",
+     "filed": "2026-07-29",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577979_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/FRAGUA/2026-07-29_xbrl1577979.txt",
+       "chars": 9071
+      }
+     ]
+    }
+   ]
+  },
+  "LIVEPOL": {
+   "ticker": "LIVEPOL",
+   "name": "El Puerto de Liverpool",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1577202",
+     "filed": "2026-07-27",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LIVEPOL/2026-07-27_xbrl1577202.txt",
+       "chars": 30850
+      }
+     ]
+    }
+   ]
+  },
+  "GCARSO": {
+   "ticker": "GCARSO",
+   "name": "Grupo Carso (Sanborns y Sears)",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GCARSO-5393-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1577242",
+     "filed": "2026-07-27",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GCARSO-5393-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577242_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/GCARSO/2026-07-27_xbrl1577242.txt",
+       "chars": 135788
+      }
+     ]
+    }
+   ]
+  },
+  "ALSEA": {
+   "ticker": "ALSEA",
+   "name": "Alsea",
+   "channel": "bmv",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+   "listing": [
+    {
+     "date": "2026-09-22",
+     "title": "ALSEA INFORMA SOBRE LOS MOVIMIENTOS INUSITADOS EN EL MERCADO DEL VIERNES 18 DE SEPTIEMBRE",
+     "id": "1590588",
+     "kind": null
+    },
+    {
+     "date": "2026-09-08",
+     "title": "ALSEA ANUNCIA LA CONTRATACIÓN DE SERVICIOS DE FORMADOR DE MERCADO",
+     "id": "1587501",
+     "kind": null
+    },
+    {
+     "date": "2026-09-04",
+     "title": "Ratificación del Auditor Externo Independiente \"ALSEA, S.A.B. DE C.V.\"",
+     "id": "1586992",
+     "kind": null
+    },
+    {
+     "date": "2026-07-20",
+     "title": "Resultados y Hechos Relevantes del Segundo Trimestre 2026",
+     "id": "1575402",
+     "kind": "results"
+    },
+    {
+     "date": "2026-05-19",
+     "title": "ALSEA Y STARBUCKS RENUEVAN NUEVOS ACUERDOS PARA LOS SIGUIENTES 20 AÑOS",
+     "id": "1561048",
+     "kind": null
+    },
+    {
+     "date": "2026-04-28",
+     "title": "Resultados y Hechos Relevantes del Primer Trimestre 2026",
+     "id": "1552418",
+     "kind": "results"
+    },
+    {
+     "date": "2026-04-24",
+     "title": "ALSEA ANUNCIA LA EXITOSA EMISIÓN DE CERTIFICADOS BURSÁTILES EN MÉXICO",
+     "id": "1551345",
+     "kind": null
+    },
+    {
+     "date": "2026-03-25",
+     "title": "ALSEA INFORMA SOBRE LOS MOVIMIENTOS INUSITADOS EN EL MERCADO, MISMOS QUE SE DEBEN A MOVIMIENTOS PROPIOS DEL MERCADO",
+     "id": "1544191",
+     "kind": null
+    },
+    {
+     "date": "2026-03-18",
+     "title": "ALSEA ANUNCIA SU GUÍA PARA EL 2026",
+     "id": "1541990",
+     "kind": null
+    },
+    {
+     "date": "2026-02-25",
+     "title": "Resultados y Hechos Relevantes del Cuarto Trimestre 2025",
+     "id": "1536686",
+     "kind": "results"
+    },
+    {
+     "date": "2026-01-22",
+     "title": "ALSEA CONCLUYE EXITOSAMENTE LA AMORTIZACIÓN ANTICIPADA TOTAL DE SUS NOTAS SENIOR DENOMINADAS EN USD Y EUR",
+     "id": "1525981",
+     "kind": null
+    },
+    {
+     "date": "2025-12-08",
+     "title": "ALSEA FIRMA UN ACUERDO DE DESARROLLO CON RAISING CANE'S PARA ABRIR RESTAURANTES EN MÉXICO",
+     "id": "1514496",
+     "kind": null
+    },
+    {
+     "date": "2025-11-06",
+     "title": "ALSEA ANUNCIA LA VENTA RESTAURANTES DE LAS MARCAS CHILIS Y P.F. CHANGS EN CHILE, ASÍ COMO FRIDAYS EN ESPAÑA",
+     "id": "1506173",
+     "kind": null
+    },
+    {
+     "date": "2025-10-22",
+     "title": "Resultados y Hechos Relevantes del Tercer Trimestre 2025",
+     "id": "1500731",
+     "kind": "results"
+    }
+   ],
+   "filings": [
+    {
+     "accn": "bmv1575402",
+     "filed": "2026-07-20",
+     "kind": "results",
+     "title": "Resultados y Hechos Relevantes del Segundo Trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Resultados y Hechos Relevantes del Segundo Trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575402_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/ALSEA/2026-07-20_bmv1575402.txt",
+       "chars": 38061
+      }
+     ]
+    },
+    {
+     "accn": "bmv1552418",
+     "filed": "2026-04-28",
+     "kind": "results",
+     "title": "Resultados y Hechos Relevantes del Primer Trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Resultados y Hechos Relevantes del Primer Trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1552418_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/ALSEA/2026-04-28_bmv1552418.txt",
+       "chars": 34982
+      }
+     ]
+    }
+   ]
+  },
+  "BIMBO": {
+   "ticker": "BIMBO",
+   "name": "Grupo Bimbo",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1576474",
+     "filed": "2026-07-23",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1576474_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/BIMBO/2026-07-23_xbrl1576474.txt",
+       "chars": 18371
+      }
+     ]
+    }
+   ]
+  },
+  "KIMBER": {
+   "ticker": "KIMBER",
+   "name": "Kimberly-Clark de México",
+   "channel": "bmv",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
+   "listing": [
+    {
+     "date": "2026-09-30",
+     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de KIMBER, serie A",
+     "id": "1592395",
+     "kind": null
+    },
+    {
+     "date": "2026-09-18",
+     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de KIMBER, serie A",
+     "id": "1589771",
+     "kind": null
+    },
+    {
+     "date": "2026-07-21",
+     "title": "SECOND QUARTER 2026 RESULTS",
+     "id": "1575821",
+     "kind": null
+    },
+    {
+     "date": "2026-07-21",
+     "title": "RESULTADOS DEL SEGUNDO TRIMESTRE 2026",
+     "id": "1575820",
+     "kind": "results"
+    },
+    {
+     "date": "2026-04-21",
+     "title": "FIRST QUARTER 2026 RESULTS",
+     "id": "1549958",
+     "kind": null
+    },
+    {
+     "date": "2026-04-21",
+     "title": "RESULTADOS DEL PRIMER TRIMESTRE 2026",
+     "id": "1549956",
+     "kind": "results"
+    },
+    {
+     "date": "2026-03-10",
+     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de KIMBER, serie B",
+     "id": "1540299",
+     "kind": null
+    },
+    {
+     "date": "2026-03-05",
+     "title": "Kimber announced that it has priced its Certificados Bursátiles",
+     "id": "1539441",
+     "kind": null
+    },
+    {
+     "date": "2026-03-05",
+     "title": "Kimber anuncia la colocación de Certificados Bursátiles",
+     "id": "1539440",
+     "kind": null
+    },
+    {
+     "date": "2026-01-28",
+     "title": "RETRANSMISION INFORMACION FINANCIERA 3TRIM25",
+     "id": "1527722",
+     "kind": null
+    },
+    {
+     "date": "2026-01-22",
+     "title": "FOURTH QUARTER AND FULL YEAR 2025 RESULTS",
+     "id": "1526237",
+     "kind": null
+    },
+    {
+     "date": "2026-01-22",
+     "title": "RESULTADOS DEL CUARTO TRIMESTRE Y AÑO COMPLETO 2025",
+     "id": "1526236",
+     "kind": "results"
+    },
+    {
+     "date": "2025-12-19",
+     "title": "Movimientos inusitados en operaciones de valores representativos del capital social de KIMBER, serie A",
+     "id": "1517545",
+     "kind": null
+    },
+    {
+     "date": "2025-10-23",
+     "title": "THIRD QUARTER 2025 RESULTS",
+     "id": "1501099",
+     "kind": null
+    }
+   ],
+   "filings": [
+    {
+     "accn": "bmv1575820",
+     "filed": "2026-07-21",
+     "kind": "results",
+     "title": "RESULTADOS DEL SEGUNDO TRIMESTRE 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "RESULTADOS DEL SEGUNDO TRIMESTRE 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575820_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/KIMBER/2026-07-21_bmv1575820.txt",
+       "chars": 7379
+      }
+     ]
+    },
+    {
+     "accn": "bmv1549956",
+     "filed": "2026-04-21",
+     "kind": "results",
+     "title": "RESULTADOS DEL PRIMER TRIMESTRE 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "RESULTADOS DEL PRIMER TRIMESTRE 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1549956_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/KIMBER/2026-04-21_bmv1549956.txt",
+       "chars": 8148
+      }
+     ]
+    }
+   ]
+  },
+  "AC": {
+   "ticker": "AC",
+   "name": "Arca Continental",
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1576200",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1576200_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/AC/2026-07-22_xbrl1576200.txt",
+       "chars": 138910
+      }
+     ]
+    }
+   ]
+  },
+  "KOF": {
+   "ticker": "KOF",
+   "name": "Coca-Cola FEMSA",
+   "channel": "sec",
+   "cik": 910631,
+   "secName": "COCA COLA FEMSA SAB DE CV",
+   "filings": [
+    {
+     "accn": "0001292814-26-003916",
+     "filed": "2026-07-27",
+     "report": "2026-06-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/910631/000129281426003916/0001292814-26-003916-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/910631/000129281426003916/kofpr2q26_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/KOF/2026-07-27_0001292814-26-003916_6-k.txt",
+       "chars": 42786
+      }
+     ]
+    },
+    {
+     "accn": "0001292814-26-002657",
+     "filed": "2026-04-29",
+     "report": "2026-03-31",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/910631/000129281426002657/0001292814-26-002657-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/910631/000129281426002657/kofpr1q26_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/KOF/2026-04-29_0001292814-26-002657_6-k.txt",
+       "chars": 33774
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001292814-26-004470",
+    "0001292814-26-003432",
+    "0001292814-26-003260",
+    "0001292814-26-003175"
+   ],
+   "match": "results|resultados"
+  },
+  "GENTERA": {
+   "ticker": "GENTERA",
+   "name": "Gentera (Compartamos)",
+   "channel": "bmv",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
+   "listing": [
+    {
+     "date": "2026-09-29",
+     "title": "GENTERA announces debt issuance by its subsidiary FinCrementar, a company within ConCrédito",
+     "id": "1592057",
+     "kind": null
+    },
+    {
+     "date": "2026-09-29",
+     "title": "GENTERA anuncia colocación de deuda por su subsidiaria FinCrementar, empresa que conforma ConCrédito",
+     "id": "1592053",
+     "kind": null
+    },
+    {
+     "date": "2026-09-23",
+     "title": "GENTERA announces the renewal of of its Market Maker agreement with BTG Pactual",
+     "id": "1590954",
+     "kind": null
+    },
+    {
+     "date": "2026-09-23",
+     "title": "GENTERA anuncia la renovación de servicio de Formador de Mercado con BTG Pactual",
+     "id": "1590953",
+     "kind": null
+    },
+    {
+     "date": "2026-09-11",
+     "title": "GENTERA informs the actions taken by FITCH Ratings over Banco Compartamos' ratings",
+     "id": "1588437",
+     "kind": null
+    },
+    {
+     "date": "2026-09-11",
+     "title": "GENTERA informa acciones de FITCH Ratings sobre las calificaciones de Compartamos Banco",
+     "id": "1588434",
+     "kind": null
+    },
+    {
+     "date": "2026-08-31",
+     "title": "GENTERA, informa sobre los movimientos en el volumen de los valores representativos del capital social de \"GENTERA\", serie \"*\"",
+     "id": "1585646",
+     "kind": null
+    },
+    {
+     "date": "2026-08-25",
+     "title": "GENTERA Announces Successful Placement of Four Social Bonds COMPART 26S, COMPART 26-2S, COMPART 26-3S, and COMPART 26-4S Issued by its Subsidiary Banco Comparta",
+     "id": "1584330",
+     "kind": null
+    },
+    {
+     "date": "2026-08-25",
+     "title": "GENTERA anuncia exitosa colocación de cuatro Bonos Sociales COMPART 26S, COMPART26-2S, COMPART26-3S y COMPART 26-4S realizada por su subsidiaria Banco Compartam",
+     "id": "1584327",
+     "kind": null
+    },
+    {
+     "date": "2026-07-22",
+     "title": "GENTERA REPORTS 2Q26 RESULTS",
+     "id": "1576004",
+     "kind": null
+    },
+    {
+     "date": "2026-07-22",
+     "title": "GENTERA REPORTA RESULTADOS DEL 2T26",
+     "id": "1576000",
+     "kind": "results"
+    },
+    {
+     "date": "2026-07-06",
+     "title": "GENTERA announces that S&P Global affirmed Banco Compartamos' national scale ratings",
+     "id": "1572702",
+     "kind": null
+    },
+    {
+     "date": "2026-07-06",
+     "title": "GENTERA informa ratificación de calificaciones en escala nacional por S&P Global a Banco Compartamos",
+     "id": "1572701",
+     "kind": null
+    },
+    {
+     "date": "2026-06-17",
+     "title": "GENTERA announces that Moody's Local affirmed Banco Compartamos' ratings.",
+     "id": "1568420",
+     "kind": null
+    }
+   ],
+   "filings": [
+    {
+     "accn": "bmv1576000",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "title": "GENTERA REPORTA RESULTADOS DEL 2T26",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "GENTERA REPORTA RESULTADOS DEL 2T26",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576000_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/GENTERA/2026-07-22_bmv1576000.txt",
+       "chars": 65338
+      }
+     ]
+    },
+    {
+     "accn": "bmv1550312",
+     "filed": "2026-04-22",
+     "kind": "results",
+     "title": "GENTERA REPORTA RESULTADOS DEL 1T26",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "GENTERA REPORTA RESULTADOS DEL 1T26",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550312_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/GENTERA/2026-04-22_bmv1550312.txt",
+       "chars": 61028
+      }
+     ]
+    }
+   ]
+  },
+  "NU": {
+   "ticker": "NU",
+   "name": "Nu (Nu Holdings)",
+   "channel": "sec",
+   "cik": 1691493,
+   "secName": "Nu Holdings Ltd.",
+   "filings": [
+    {
+     "accn": "0001292814-26-004222",
+     "filed": "2026-08-13",
+     "report": "2026-06-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426004222/0001292814-26-004222-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426004222/nupr2q26_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/NU/2026-08-13_0001292814-26-004222_6-k.txt",
+       "chars": 18466
+      }
+     ]
+    },
+    {
+     "accn": "0001292814-26-003057",
+     "filed": "2026-05-14",
+     "report": "2026-03-31",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426003057/0001292814-26-003057-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/1691493/000129281426003057/nu20260514_6k2.htm",
+       "file": "tools/mx-consumidor/raw/releases/NU/2026-05-14_0001292814-26-003057_6-k.txt",
+       "chars": 20719
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001292814-26-004752",
+    "0001292814-26-004518",
+    "0001292814-26-004456",
+    "0001292814-26-004228",
+    "0001292814-26-004226",
+    "0001292814-26-004225",
+    "0001292814-26-004121",
+    "0001292814-26-003814",
+    "0001292814-26-003723",
+    "0001292814-26-003697",
+    "0001292814-26-003695",
+    "0001292814-26-003693",
+    "0001292814-26-003326",
+    "0001292814-26-003267",
+    "0001292814-26-003059"
+   ],
+   "match": "quarter|results"
+  },
+  "MELI": {
+   "ticker": "MELI",
+   "name": "Mercado Libre (Mercado Pago)",
+   "channel": "sec",
+   "cik": 1099590,
+   "secName": "MERCADOLIBRE INC",
+   "filings": [
+    {
+     "accn": "0001099590-26-000021",
+     "filed": "2026-08-05",
+     "report": "2026-08-05",
+     "kind": "results",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1099590/000109959026000021/0001099590-26-000021-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1099590/000109959026000021/meli-20260805xex991.htm",
+       "file": "tools/mx-consumidor/raw/releases/MELI/2026-08-05_0001099590-26-000021_ex-99-1.txt",
+       "chars": 56493
+      }
+     ]
+    },
+    {
+     "accn": "0001099590-26-000014",
+     "filed": "2026-05-07",
+     "report": "2026-05-07",
+     "kind": "results",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1099590/000109959026000014/0001099590-26-000014-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1099590/000109959026000014/meli-20260507xex991.htm",
+       "file": "tools/mx-consumidor/raw/releases/MELI/2026-05-07_0001099590-26-000014_ex-99-1.txt",
+       "chars": 57177
+      }
+     ]
+    }
+   ]
+  },
+  "FCFS": {
+   "ticker": "FCFS",
+   "name": "FirstCash (First Cash, casas de empeño)",
+   "channel": "sec",
+   "cik": 840489,
+   "secName": "FirstCash Holdings, Inc.",
+   "filings": [
+    {
+     "accn": "0000840489-26-000082",
+     "filed": "2026-07-23",
+     "report": "2026-07-23",
+     "kind": "results",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000082/0000840489-26-000082-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000082/fcfs07232026exhibit991.htm",
+       "file": "tools/mx-consumidor/raw/releases/FCFS/2026-07-23_0000840489-26-000082_ex-99-1.txt",
+       "chars": 65940
+      }
+     ]
+    },
+    {
+     "accn": "0000840489-26-000047",
+     "filed": "2026-04-23",
+     "report": "2026-04-23",
+     "kind": "results",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/0000840489-26-000047-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/fcfs04232026exhibit991.htm",
+       "file": "tools/mx-consumidor/raw/releases/FCFS/2026-04-23_0000840489-26-000047_ex-99-1.txt",
+       "chars": 55695
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "checkedAt": "2026-10-11T20:09:48.483Z"
+}

@@ -1,0 +1,176 @@
+{
+ "_comment": "Companies of the 'What Companies Report' section of the Mexican Consumer page. The release harvester reads each company's results release from the official disclosure channel it files with: the BMV's list of eventos relevantes of the issuer (`bmv`: the issuer key of its page on bmv.com.mx; the PDF is stored as text), the BMV quarterly report (`xbrl: true` with the same key: the management-commentary text blocks of the latest quarter's XBRL package, where many issuers put their release) or SEC EDGAR (`sec`: the ticker; `form` 6-K for a foreign private issuer, whose exhibits are opened until one matches `match`, or 8-K, Item 2.02). `match`: pattern a BMV notice title (or the opening text of a 6-K exhibit) must match to count as a results release; `skip`: pattern of titles that never count. `also`: other notices worth storing, each { id, match }. `short`: the name used in charts. The curated figures and quotes in data/companies-kpis.json are checked against the stored text. `curated: false`: releases are stored but no figure is on the page yet.",
+ "groups": [
+  {
+   "id": "grocery",
+   "es": "Autoservicios y Clubes de Precio",
+   "en": "Supermarkets and Warehouse Clubs"
+  },
+  {
+   "id": "value",
+   "es": "Descuento, Conveniencia y Farmacias",
+   "en": "Discount, Convenience and Pharmacies"
+  },
+  {
+   "id": "department",
+   "es": "Tiendas Departamentales y Restaurantes",
+   "en": "Department Stores and Restaurants"
+  },
+  {
+   "id": "staples",
+   "es": "Productos de Consumo Básico",
+   "en": "Consumer Staples"
+  },
+  {
+   "id": "credit",
+   "es": "Crédito, Banca Digital y Casas de Empeño",
+   "en": "Credit, Digital Banking and Pawn"
+  }
+ ],
+ "companies": [
+  {
+   "ticker": "WALMEX",
+   "name": "Walmart de México y Centroamérica",
+   "short": "Walmex",
+   "group": "grocery",
+   "bmv": "WALMEX-5214-CGEN_CAPIT",
+   "match": "resultados (del|de su)? ?(primer|segundo|tercer|cuarto) trimestre|resultados \\d\\s?t"
+  },
+  {
+   "ticker": "SORIANA",
+   "name": "Organización Soriana",
+   "short": "Soriana",
+   "group": "grocery",
+   "bmv": "SORIANA-5693-CGEN_CAPIT"
+  },
+  {
+   "ticker": "CHDRAUI",
+   "name": "Grupo Comercial Chedraui",
+   "short": "Chedraui México",
+   "group": "grocery",
+   "bmv": "CHDRAUI-5209-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "LACOMER",
+   "name": "La Comer",
+   "short": "La Comer",
+   "group": "grocery",
+   "bmv": "LACOMER-32096-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "FEMSA",
+   "name": "FEMSA (OXXO)",
+   "short": "OXXO México",
+   "group": "value",
+   "sec": "FMX",
+   "form": "6-K",
+   "match": "results|resultados"
+  },
+  {
+   "ticker": "TBBB",
+   "name": "Tiendas 3B (BBB Foods)",
+   "short": "Tiendas 3B",
+   "group": "value",
+   "sec": "TBBB",
+   "form": "6-K",
+   "match": "quarter|results"
+  },
+  {
+   "ticker": "FRAGUA",
+   "name": "Farmacias Guadalajara (Corporativo Fragua)",
+   "short": "Farmacias Guadalajara",
+   "group": "value",
+   "bmv": "FRAGUA-5368-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "LIVEPOL",
+   "name": "El Puerto de Liverpool",
+   "short": "Liverpool",
+   "group": "department",
+   "bmv": "LIVEPOL-5536-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "GCARSO",
+   "name": "Grupo Carso (Sanborns y Sears)",
+   "short": "Grupo Sanborns",
+   "group": "department",
+   "bmv": "GCARSO-5393-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "ALSEA",
+   "name": "Alsea",
+   "short": "Alsea México",
+   "group": "department",
+   "bmv": "ALSEA-5059-CGEN_CAPIT"
+  },
+  {
+   "ticker": "BIMBO",
+   "name": "Grupo Bimbo",
+   "short": "Bimbo",
+   "group": "staples",
+   "bmv": "BIMBO-5163-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "KIMBER",
+   "name": "Kimberly-Clark de México",
+   "short": "Kimberly-Clark",
+   "group": "staples",
+   "bmv": "KIMBER-5524-CGEN_CAPIT"
+  },
+  {
+   "ticker": "AC",
+   "name": "Arca Continental",
+   "short": "Arca Continental",
+   "group": "staples",
+   "bmv": "AC-6081-CGEN_CAPIT",
+   "xbrl": true
+  },
+  {
+   "ticker": "KOF",
+   "name": "Coca-Cola FEMSA",
+   "short": "Coca-Cola FEMSA",
+   "group": "staples",
+   "sec": "KOF",
+   "form": "6-K",
+   "match": "results|resultados"
+  },
+  {
+   "ticker": "GENTERA",
+   "name": "Gentera (Compartamos)",
+   "short": "Gentera",
+   "group": "credit",
+   "bmv": "GENTERA-7472-CGEN_CAPIT"
+  },
+  {
+   "ticker": "NU",
+   "name": "Nu (Nu Holdings)",
+   "short": "Nu México",
+   "group": "credit",
+   "sec": "NU",
+   "form": "6-K",
+   "match": "quarter|results"
+  },
+  {
+   "ticker": "MELI",
+   "name": "Mercado Libre (Mercado Pago)",
+   "short": "Mercado Libre",
+   "group": "credit",
+   "sec": "MELI",
+   "form": "8-K"
+  },
+  {
+   "ticker": "FCFS",
+   "name": "FirstCash (First Cash, casas de empeño)",
+   "short": "First Cash",
+   "group": "credit",
+   "sec": "FCFS",
+   "form": "8-K"
+  }
+ ]
+}
