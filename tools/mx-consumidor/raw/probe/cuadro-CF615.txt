@@ -1,0 +1,737 @@
+cuadro {"id":"CF615","sector":19}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Banca comercial
+                                                            # Financiamiento otorgado a sectores residentes del país no bancarios
+                                                            # Total de monedas (M.N. + M.E.)
+                                                            # Saldos nominales en millones de pesos
+SF269135  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Financiamiento Total ( A + B )
+SF269136  Mensual    Millones de Pesos      Jul 2009    Ago 2026      A.Cartera de sectores residentes
+SF269137  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.1 Otorgado por banca interna
+SF269138  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.1 Sector privado
+SF235248  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.1 Consumo
+SF235249  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269141  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269142  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269143  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269144  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269145  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269146  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269147  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269148  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269149  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269150  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269151  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269152  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269153  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269154  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269155  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269156  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235253  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235254  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266059  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266060  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235255  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266061  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266062  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235256  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF346109  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF235257  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.2 Vivienda
+SF235258  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269167  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269168  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269169  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF269170  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269171  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269172  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF235261  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235262  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Interes social
+SF235263  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Media y residencial
+SF346115  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF269176  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.3 Empresas y personas físicas con actividad empresarial
+SF235265  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235266  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269179  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269180  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235267  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF346110  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valor razonable
+SF269182  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269183  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269184  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269185  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269186  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269187  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269188  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.4 Intermediarios financieros no bancarios
+SF235270  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235271  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269191  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269192  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235272  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269194  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269195  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269196  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269197  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269198  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269199  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269200  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.2 Sector público
+SF269201  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.1 Gobierno federal, organismos y empresas
+SF235275  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235276  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269204  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269205  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235277  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269207  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269208  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269209  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269210  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269211  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269212  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269213  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.2 Intermediarios financieros no bancarios
+SF235280  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235281  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269216  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269217  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235282  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269219  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269220  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269221  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269222  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269223  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.3 Gobierno de la Ciudad de México, estados y municipios
+SF235285  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235286  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269226  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269227  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235287  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269229  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269230  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269231  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269232  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269233  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269234  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269235  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.4 Otros sectores residentes
+SF269236  Mensual    Millones de Pesos      Jul 2009    Ago 2026              IPAB 1/
+SF235291  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269238  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269239  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269240  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269241  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269242  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269243  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269244  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269245  Mensual    Millones de Pesos      Jul 2009    Ago 2026              PIDIREGAS 2/
+SF235296  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269247  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269248  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269249  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269250  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269251  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269252  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269253  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269254  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269255  Mensual    Millones de Pesos      Jul 2009    Ago 2026              FONADIN 3/
+SF235299  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269257  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269258  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269259  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269260  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269261  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269262  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269263  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269264  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269265  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.2 Otorgado por agencias en el extranjero de la banca comercial
+SF269266  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.1 Sector privado
+SF235303  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.2.1.1 Consumo
+SF235304  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269269  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269270  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269271  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269272  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269273  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269274  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269275  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269276  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269277  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269278  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269279  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269280  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269281  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269282  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269283  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269284  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235308  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235309  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266067  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266068  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235310  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266069  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266070  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235311  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF269293  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.2 Empresas y personas físicas con actividad empresarial
+SF235320  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235321  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269296  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269297  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235322  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269299  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269300  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269301  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269302  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269303  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269304  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269305  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.3 Intermediarios financieros no bancarios
+SF235325  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235326  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269308  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269309  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235327  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269311  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269312  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269313  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269314  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269315  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269316  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269317  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.2 Sector público
+SF269318  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.2.1 Gobierno federal, organismos y empresas
+SF235330  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235331  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269321  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269322  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235332  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269324  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269325  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269326  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269327  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269328  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269329  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269330  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.3 Otros sectores residentes
+SF269331  Mensual    Millones de Pesos      Jul 2009    Ago 2026            PIDIREGAS 2/
+SF235339  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF269333  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269334  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269335  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269336  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269337  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269338  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269339  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269340  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF235341  Mensual    Millones de Pesos      Dic 1994    Ago 2026        B. Cartera asociada a programas de reestructura
+SF235342  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.1 Acuerdo de apoyo a deudores (ADES)
+SF235344  Mensual    Millones de Pesos      Dic 1994    Ago 2026            Vivienda
+SF235346  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.2 UDIS
+SF235347  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.1 Sector privado
+SF235357  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vivienda
+SF235358  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235360  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235361  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235363  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235364  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Empresas y personas físicas con actividad empresarial
+SF235365  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235366  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235368  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.2 Estados y municipios
+SF235369  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF235370  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencida
+                                                            # MEMO:
+SF235395  Mensual    Millones de Pesos      Dic 1994    Ago 2026    Personas físicas con act. Empresarial
+SF235396  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vigente
+SF235397  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vencido
+SF269360  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Total CETES
+SF269361  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales sector privado
+SF269362  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269363  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+SF269364  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales estados y municipios
+SF269365  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269366  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+                                                            # Banca Comercial
+                                                            # Financiamiento otorgado a sectores residentes del país no bancarios
+                                                            # Moneda nacional
+                                                            # Saldos nominales en millones de pesos
+SF269367  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Financiamiento Total ( A + B )
+SF269368  Mensual    Millones de Pesos      Jul 2009    Ago 2026      A.Cartera de sectores residentes
+SF269369  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.1 Otorgado por banca interna
+SF269370  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.1 Sector privado
+SF235401  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.1 Consumo
+SF235402  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269373  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269374  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269375  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269376  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269377  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269378  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269379  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269380  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269381  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269382  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269383  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269384  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269385  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269386  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269387  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269388  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235406  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235407  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266075  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266076  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235408  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266077  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266078  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235409  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF346111  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF235410  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.2 Vivienda
+SF235411  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269399  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269400  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269401  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF269402  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269403  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269404  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF235414  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235415  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Interes social
+SF235416  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Media y residencial
+SF346116  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF269408  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.3 Empresas y personas físicas con actividad empresarial
+SF235418  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235419  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269411  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269412  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235420  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF346112  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valor razonable
+SF269414  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269415  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269416  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269417  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269418  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción con con restricción
+SF269419  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269420  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.4 Intermediarios financieros no bancarios
+SF235423  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235424  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269423  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269424  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235425  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269426  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269427  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269428  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269429  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269430  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269431  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269432  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.2 Sector público
+SF269433  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.1 Gobierno federal, organismos y empresas
+SF235428  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235429  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269436  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269437  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235430  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269439  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269440  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269441  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269442  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269443  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269444  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269445  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.2 Intermediarios financieros no bancarios
+SF235433  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235434  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269448  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269449  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235435  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269451  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269452  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269453  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269454  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269455  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.3 Gobierno de la Ciudad de México, estados y municipios
+SF235438  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235439  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269458  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269459  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235440  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269461  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269462  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269463  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269464  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269465  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269466  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269467  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.4 Otros sectores residentes
+SF269468  Mensual    Millones de Pesos      Jul 2009    Ago 2026              IPAB 1/
+SF235444  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269470  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269471  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269472  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269473  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269474  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269475  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269476  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269477  Mensual    Millones de Pesos      Jul 2009    Ago 2026              PIDIREGAS 2/
+SF235449  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269479  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269480  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269481  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269482  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269483  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269484  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269485  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269486  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269487  Mensual    Millones de Pesos      Jul 2009    Ago 2026              FONADIN 3/
+SF235452  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269489  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269490  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269491  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269492  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269493  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269494  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269495  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269496  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269497  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.2 Otorgado por agencias en el extranjero de la banca comercial
+SF269498  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.1 Sector privado
+SF235456  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.2.1.1 Consumo
+SF235457  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269501  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269502  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269503  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269504  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269505  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269506  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269507  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269508  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269509  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269510  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269511  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269512  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269513  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269514  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269515  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269516  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235461  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235462  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266083  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266084  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235463  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266085  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266086  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235464  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF269525  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.2 Empresas y personas físicas con actividad empresarial
+SF235473  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235474  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269528  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269529  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235475  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269531  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269532  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269533  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269534  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269535  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269536  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269537  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.3 Intermediarios financieros no bancarios
+SF235478  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235479  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269540  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269541  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235480  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269543  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269544  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269545  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269546  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269547  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269548  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269549  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.2 Sector público
+SF269550  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.2.1 Gobierno federal, organismos y empresas
+SF235483  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235484  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269553  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269554  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235485  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269556  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269557  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269558  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269559  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269560  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269561  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269562  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.3 Otros sectores residentes
+SF269563  Mensual    Millones de Pesos      Jul 2009    Ago 2026            PIDIREGAS 2/
+SF235492  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF269565  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269566  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269567  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269568  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269569  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269570  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269571  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269572  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF235494  Mensual    Millones de Pesos      Dic 1994    Ago 2026        B. Cartera asociada a programas de reestructura
+SF235495  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.1 Acuerdo de apoyo a deudores (ADES)
+SF235497  Mensual    Millones de Pesos      Dic 1994    Ago 2026            Vivienda
+SF235499  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.2 UDIS
+SF235500  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.1 Sector privado
+SF235510  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vivienda
+SF235511  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235513  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235514  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235516  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235517  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Empresas y personas físicas con actividad empresarial
+SF235518  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235519  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235521  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.2 Estados y municipios
+SF235522  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF235523  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencida
+                                                            # MEMO:
+SF235548  Mensual    Millones de Pesos      Dic 1994    Ago 2026    Personas físicas con act. Empresarial
+SF235549  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vigente
+SF235550  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vencido
+SF269592  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Total CETES
+SF269593  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales sec privado
+SF269594  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269595  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+SF269596  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales estados y municipios
+SF269597  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269598  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+                                                            # Banca comercial
+                                                            # Financiamiento otorgado a sectores residentes del país no bancarios
+                                                            # Moneda extranjera
+                                                            # Saldos nominales en millones de pesos
+SF269599  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Financiamiento Total ( A + B )
+SF269600  Mensual    Millones de Pesos      Jul 2009    Ago 2026      A.Cartera de sectores residentes
+SF269601  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.1 Otorgado por banca interna
+SF269602  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.1 Sector privado
+SF235554  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.1 Consumo
+SF235555  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269605  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269606  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269607  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269608  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269609  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269610  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269611  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269612  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269613  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269614  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269615  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269616  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269617  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269618  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269619  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269620  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235559  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235560  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266091  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266092  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235561  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266093  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266094  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235562  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF346113  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF235563  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.1.1.2 Vivienda
+SF235564  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269631  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269632  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269633  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF269634  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269635  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Interés social
+SF269636  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Media y residencial
+SF235567  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235568  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Interes social
+SF235569  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Media y residencial
+SF346117  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valor razonable
+SF269640  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.3 Empresas y personas físicas con actividad empresarial
+SF235571  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235572  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269643  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269644  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235573  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF346114  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valor razonable
+SF269646  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269647  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269648  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269649  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269650  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269651  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269652  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.1.4 Intermediarios financieros no bancarios
+SF235576  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235577  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269655  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269656  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235578  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269658  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269659  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269660  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269661  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269662  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269663  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269664  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.1.2 Sector público
+SF269665  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.1 Gobierno federal, organismos y empresas
+SF235581  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235582  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269668  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269669  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235583  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269671  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269672  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269673  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269674  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269675  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269676  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269677  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.2.2 Intermediarios financieros no bancarios
+SF235586  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235587  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269680  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269681  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235588  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269683  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269684  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269685  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269686  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269687  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.3 Gobierno de la Ciudad de México, estados y municipios
+SF235591  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235592  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269690  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269691  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235593  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269693  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269694  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269695  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269696  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269697  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269698  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269699  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.1.4 Otros sectores residentes
+SF269700  Mensual    Millones de Pesos      Jul 2009    Ago 2026              IPAB 1/
+SF235597  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269702  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269703  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269704  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269705  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269706  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269707  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269708  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269709  Mensual    Millones de Pesos      Jul 2009    Ago 2026              PIDIREGAS 2/
+SF235602  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269711  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269712  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269713  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269714  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269715  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269716  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269717  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269718  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269719  Mensual    Millones de Pesos      Jul 2009    Ago 2026              FONADIN 3/
+SF235605  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Crédito
+SF269721  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269722  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269723  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Valores
+SF269724  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tenencia propia
+SF269725  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Sin restricción
+SF269726  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Con restricción
+SF269727  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Operaciones de reportos con restricción
+SF269728  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Préstamos de valores con restricción
+SF269729  Mensual    Millones de Pesos      Jul 2009    Ago 2026        a.2 Otorgado por agencias en el extranjero de la banca comercial
+SF269730  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.1 Sector privado
+SF235609  Mensual    Millones de Pesos      Dic 1994    Ago 2026            a.2.1.1 Consumo
+SF235610  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF269733  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269734  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269735  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269736  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269737  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269738  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269739  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269740  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF269741  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269742  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Tarjeta de crédito
+SF269743  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Nómina
+SF269744  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Personales
+SF269745  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Bienes de consumo duradero
+SF269746  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Automotriz
+SF269747  Mensual    Millones de Pesos      Jul 2009    Ago 2026                    Adquisición de bienes muebles
+SF269748  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Otros
+SF235614  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencido
+SF235615  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Tarjeta de crédito
+SF266099  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Nómina
+SF266100  Mensual    Millones de Pesos      Mar 2008    Ago 2026                Personales
+SF235616  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Bienes de consumo duradero
+SF266101  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Automotriz
+SF266102  Mensual    Millones de Pesos      Mar 2008    Ago 2026                  Adquisición de bienes muebles
+SF235617  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Otros
+SF269757  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.2 Empresas y personas físicas con actividad empresarial
+SF235626  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235627  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269760  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269761  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235628  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269763  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269764  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269765  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269766  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269767  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269768  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269769  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.1.3 Intermediarios financieros no bancarios
+SF235631  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235632  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269772  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269773  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235633  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269775  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269776  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269777  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269778  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269779  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269780  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269781  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.2 Sector Público
+SF269782  Mensual    Millones de Pesos      Jul 2009    Ago 2026            a.2.2.1 Gobierno federal, organismos y empresas
+SF235636  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF235637  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF269785  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269786  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF235638  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencido
+SF269788  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269789  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269790  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269791  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269792  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269793  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF269794  Mensual    Millones de Pesos      Jul 2009    Ago 2026          a.2.3 Otros sectores residentes
+SF269795  Mensual    Millones de Pesos      Jul 2009    Ago 2026            PIDIREGAS 2/
+SF235645  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Crédito
+SF269797  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Sin restricción
+SF269798  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Con restricción
+SF269799  Mensual    Millones de Pesos      Jul 2009    Ago 2026              Valores
+SF269800  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Tenencia propia
+SF269801  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Sin restricción
+SF269802  Mensual    Millones de Pesos      Jul 2009    Ago 2026                  Con restricción
+SF269803  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Operaciones de reportos con restricción
+SF269804  Mensual    Millones de Pesos      Jul 2009    Ago 2026                Préstamos de valores con restricción
+SF235647  Mensual    Millones de Pesos      Dic 1994    Ago 2026        B. Cartera asociada a programas de reestructura
+SF235648  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.1 Acuerdo de apoyo a deudores (ADES)
+SF235650  Mensual    Millones de Pesos      Dic 1994    Ago 2026            Vivienda
+SF235652  Mensual    Millones de Pesos      Dic 1994    Ago 2026          b.2 UDIS
+SF235653  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.1 Sector privado
+SF235663  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vivienda
+SF235664  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235666  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235667  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235669  Mensual    Millones de Pesos      Dic 1994    Ago 2026                  Media y residencial
+SF235670  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Empresas y personas físicas con actividad empresarial
+SF235671  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vigente
+SF235672  Mensual    Millones de Pesos      Dic 1994    Ago 2026                Vencida
+SF235674  Mensual    Millones de Pesos      Dic 1994    Ago 2026            b.2.2 Estados y municipios
+SF235675  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vigente
+SF235676  Mensual    Millones de Pesos      Dic 1994    Ago 2026              Vencida
+                                                            # MEMO:
+SF235701  Mensual    Millones de Pesos      Dic 1994    Ago 2026    Personas físicas con act. Empresarial
+SF235702  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vigente
+SF235703  Mensual    Millones de Pesos      Dic 1994    Ago 2026      Vencido
+SF269824  Mensual    Millones de Pesos      Jul 2009    Ago 2026    Total CETES
+SF269825  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales sec privado
+SF269826  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269827  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+SF269828  Mensual    Millones de Pesos      Jul 2009    Ago 2026      Cetes especiales estados y municipios
+SF269829  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Sin restricción
+SF269830  Mensual    Millones de Pesos      Jul 2009    Ago 2026        Con restricción
+                                                            # */ El 31 de enero de 2018 se publicó el Comunicado de Prensa de los Agregados Monetarios y Actividad Financiera en diciembre de 2017, en el cual se informa sobr
+                                                            # Este catálogo integra información sectorizada proporcionada por la banca a partir del Catálogo Mínimo que solicita la Comisión Nacional Bancaria y de Valores y 
+                                                            # Las cifras de los últimos 3 meses son preliminares y están sujetas a revisión. Ello se debe a la reciente implementación de nuevos criterios contables en los re
+                                                            # El financiamiento otorgado por la banca comercial incluye aquel que canalizan las instituciones de crédito privadas residentes en el país, que comprenden bancos
+                                                            # Como resultado del redondeo de cifras, los niveles agregados pueden no coincidir con la suma de sus componentes.
+                                                            # El crédito incluye: Cartera vigente,vencida,redescontada,intereses
+                                                            # devengados vigentes y vencidos así como la cartera correspondiente a programas de reestructura. Los valores se refieren a la tenencia propia.
+                                                            # Cartera de Crédito Vigente: Hasta diciembre de 2021, corresponde a los créditos que están al corriente en sus pagos tanto de principal como de intereses, así co
+                                                            # Cartera de Crédito Vencida: Hasta diciembre de 2021, se refiere al total de los créditos que no cumplieron con su pago en las fechas establecidas entre las inst
+                                                            # Cartera a valor razonable: Son los créditos sujetos a operaciones de compraventa, los cuales son valuados y registrados con el precio de la transacción.
+                                                            # 1/ Incluye crédito directo al IPAB y las operaciones de crédito derivadas de programas de saneamiento financiero. No incluye las operaciones derivadas de Progra
+                                                            # 2/ Se refiere al financiamiento otorgado a Proyectos de Infraestructura Productiva de Largo Plazo en moneda nacional y en moneda extranjera.
+                                                            # 3/ Se refiere al financiamiento a través de créditos y valores del Fideicomiso Fondo Nacional de Infraestructura D.O.F. 7/02/2008.

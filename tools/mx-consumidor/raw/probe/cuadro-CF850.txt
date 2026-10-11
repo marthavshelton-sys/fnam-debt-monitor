@@ -1,0 +1,369 @@
+cuadro {"id":"CF850","sector":19}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+SF314977  Mensual    Miles de Pesos         Jun 2015    Jul 2026    Recursos totales
+SF314978  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Disponibilidades
+SF314979  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Caja
+SF314980  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Bancos
+SF314981  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Depósitos en Banco de México
+SF314982  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Depósitos en otras entidades financieras
+SF314983  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Otras disponibilidades
+SF314984  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Documentos de cobro inmediato
+SF314985  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otras disponibilidades
+SF314986  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Disponibilidades restringidas o dadas en garantía
+SF314987  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Cuentas de margen
+SF314988  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Efectivo
+SF314989  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Valores
+SF314990  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros activos
+SF314991  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Inversiones en valores
+SF314992  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Títulos para negociar
+SF314993  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda gubernamental
+SF314994  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda bancaria
+SF314995  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros títulos de deuda
+SF314996  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Instrumentos de patrimonio neto
+SF314997  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Títulos disponibles para la venta
+SF314998  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda gubernamental
+SF314999  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda bancaria
+SF315000  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros títulos de deuda
+SF315001  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Instrumentos de patrimonio neto
+SF315002  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Títulos conservados a vencimiento
+SF315003  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda gubernamental
+SF315004  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda bancaria
+SF315005  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros títulos de deuda
+SF315006  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Títulos recibidos en reporto
+SF315007  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda gubernamental
+SF315008  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deuda bancaria
+SF315009  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros títulos de deuda
+SF118416  Mensual    Miles de Pesos         Dic 1996    Jul 2026      Cartera de crédito
+SF118417  Mensual    Miles de Pesos         Dic 1996    Jul 2026        Cartera de crédito vigente
+SF315012  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Créditos comerciales
+SF315013  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Actividad empresarial o comercial
+SF315014  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Créditos a distribuidores
+SF315015  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Creditos de consumo
+SF315016  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Tarjeta de credito
+SF315017  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Personales
+SF315018  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Automotriz
+SF315019  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Adquisicion de bienes muebles
+SF315020  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Operaciones de arrendamiento
+SF315021  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros creditos de consumo
+SF315022  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Nomina
+SF315023  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Créditos a la vivienda
+SF315024  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Media y residencial
+SF315025  Mensual    Miles de Pesos         Jun 2015    Jul 2026            De interes social
+SF315026  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Remodelacion o mejoramiento con gtia otorgada por la bd o fideicomisos pub
+SF118418  Mensual    Miles de Pesos         Dic 1996    Jul 2026        Cartera de crédito vencida
+SF315028  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Créditos vencidos comerciales
+SF315029  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Actividad empresarial o comercial
+SF315030  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Créditos a distribuidores
+SF315031  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Creditos de consumo
+SF315032  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Tarjeta de credito
+SF315033  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Personales
+SF315034  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Automotriz
+SF315035  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Adquisicion de bienes muebles
+SF315036  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Operaciones de arrendamiento
+SF315037  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros creditos de consumo
+SF315038  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Nomina
+SF315039  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Créditos vencidos a la vivienda
+SF315040  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Créditos tradicionales
+SF315041  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Créditos en coparticipación con entidades financieras
+SF315042  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Remodelacion o mejoramiento con gtia otorgada por la bd o fideicomisos pub
+SF315043  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Reserva territorial
+SF315044  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Reserva territorial
+SF315045  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Reserva territorial en breña
+SF315046  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Reserva territorial semiurbanizada
+SF315047  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Reserva territorial urbanizada
+SF315048  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Operaciones con valores y derivadas (Saldo deudor)
+SF315049  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Operaciones de reporto (Saldo deudor)
+SF315050  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Deudores por reporto
+SF315051  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Operaciones con instrumentos financieros derivados (Saldo deudor)
+SF315052  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Futuros a recibir
+SF315053  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315054  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315055  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315056  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315057  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315058  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Contratos adelantados a recibir
+SF315059  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociacion
+SF315060  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315061  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315062  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315063  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315064  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315065  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315066  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Opciones
+SF315067  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315068  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315069  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315070  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315071  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315072  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315073  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315074  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Swaps
+SF315075  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociacion
+SF315076  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315077  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315078  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315079  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315080  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315081  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315082  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Paquetes de instrumentos financieros derivados
+SF315083  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315084  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315085  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315086  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315087  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315088  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315089  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deterioro
+SF315090  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Ajustes de valuación por cobertura de activos financieros
+SF315091  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Otros recursos
+SF315092  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otras cuentas por cobrar
+SF315093  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cuentas por cobrar a empleadores1/
+SF315094  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Deudores por liquidación de operaciones
+SF315095  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Inversiones en valores
+SF315096  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Reportos
+SF315097  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Instrumentos financieros derivados
+SF315098  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Por emision de titulos
+SF315099  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Deudores por colaterales otorgados en efectivo
+SF315100  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones con valores
+SF315101  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones de crédito
+SF315102  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones no realizadas en mercados reconocidos (OTC)
+SF315103  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras
+SF315104  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Derechos de cobro
+SF315105  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Derechos fiduciarios
+SF315106  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Derivados de créditos deteriorados
+SF315107  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otros derechos de cobro
+SF315108  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Deudores diversos
+SF315109  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Comisiones y derechos por cobrar sobre operaciones vigentes no crediticias
+SF315110  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deudores por seguro de daños
+SF315111  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Partidas asociadas a operaciones crediticias
+SF315112  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Impuestos acreditables
+SF315113  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Préstamos y otros adeudos del personal
+SF315114  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deudores en trámite de regularización o liquidación
+SF315115  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Adeudos vencidos
+SF315116  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Deudores por cuentas de margen
+SF315117  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otros deudores
+SF315118  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Estimación por irrecuperabilidad o difícil cobro
+SF315119  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Cuentas por cobrar a patrones
+SF315120  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Derechos de cobro
+SF315121  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Derechos fiduciarios
+SF315122  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Otros derechos de cobro
+SF315123  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Cuentas por cobrar a entidades o dependencias
+SF315124  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras cuentas por cobrar
+SF315125  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros activos
+SF315126  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cargos diferidos, pagos anticipados e intangibles
+SF315127  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Cargos diferidos
+SF315128  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Costo financiero por amortizar en operaciones de arrendamiento capitalizable
+SF315129  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Costos y gastos asociados con el otorgamiento del crédito
+SF315130  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Seguros por amortizar
+SF315131  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Gastos por emision de titulos
+SF315132  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Descuento por amortizar en títulos colocados
+SF315133  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Premios por amortizar
+SF315134  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Otros cargos diferidos
+SF315135  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Pagos anticipados
+SF315136  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Intereses pagados por anticipado
+SF315137  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Comisiones pagadas por anticipado
+SF315138  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Rentas pagadas por anticipado
+SF315139  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Otros pagos anticipados
+SF315140  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Intangibles
+SF315141  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Gastos de organización
+SF315142  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Revaluación de gastos de organización (1)
+SF315143  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Amortización acumulada de gastos de organización
+SF315144  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Revaluación de la amortización acumulada de gastos de organización (1)
+SF315145  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Otros intangibles
+SF315146  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Revaluación de otros intangibles (1)
+SF315147  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Amortización acumulada de otros intangibles
+SF315148  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Revaluación de la amortización acumulada de otros intangibles (1)
+SF315149  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Beneficios por recibir en operaciones de bursatilización
+SF315150  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Beneficios sobre el remanente en operaciones de bursatilización
+SF315151  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Activo por administración de activos financieros transferidos
+SF315152  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros activos a corto y largo plazo
+SF315153  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Activos del plan para cubrir beneficios a los empleados
+SF315154  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Pensiones
+SF315155  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Prima de antigüedad
+SF315156  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Beneficios por terminacion
+SF315157  Mensual    Miles de Pesos         Jun 2015    Jul 2026                  Beneficios por terminación por causas distintas a la reestructuración
+SF315158  Mensual    Miles de Pesos         Jun 2015    Jul 2026                  Beneficios por terminación por causa de reestructuración
+SF315159  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Otros beneficios posteriores al retiro
+SF315160  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Beneficios directos a largo plazo
+SF315161  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otros
+SF315162  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Bienes adjudicados
+SF315163  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Bienes muebles, valores y derechos adjudicados
+SF315164  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Muebles adjudicados restringidos
+SF315165  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Inmuebles adjudicados
+SF315166  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Inmuebles adjudicados restringidos
+SF315167  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Estimación por pérdida de valor de bienes adjudicados
+SF315168  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Incremento por actualización de bienes adjudicados (1)
+SF315169  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Propiedades, mobiliario y equipo
+SF315170  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Propiedades, mobiliario y equipo
+SF315171  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Terrenos
+SF315172  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones
+SF315173  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones en proceso
+SF315174  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de transporte
+SF315175  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de cómputo
+SF315176  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Mobiliario
+SF315177  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Adaptaciones y mejoras
+SF315178  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras propiedades, mobiliario y equipo
+SF315179  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Revaluación de propiedades, mobiliario y equipo (1)
+SF315180  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Terrenos
+SF315181  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones
+SF315182  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones en proceso
+SF315183  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de transporte
+SF315184  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de cómputo
+SF315185  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Mobiliario
+SF315186  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Adaptaciones y mejoras
+SF315187  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras revaluaciones de propiedades, mobiliario y equipo
+SF315188  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Depreciación acumulada de propiedades, mobiliario y equipo
+SF315189  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones
+SF315190  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de transporte
+SF315191  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de cómputo
+SF315192  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Mobiliario
+SF315193  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Adaptaciones y mejoras
+SF315194  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras depreciaciones acumuladas de propiedades, mobiliario y equipo
+SF315195  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Revaluación de la depreciación acumulada de propiedades, mobiliario y equipo (1)
+SF315196  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Construcciones
+SF315197  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de transporte
+SF315198  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Equipo de cómputo
+SF315199  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Mobiliario
+SF315200  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Adaptaciones y mejoras
+SF315201  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras revaluaciones de la depreciación acumulada de propiedades, mobiliario y equipo
+SF315202  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Activos de larga duración disponibles para la venta
+SF315203  Mensual    Miles de Pesos         Jun 2015    Jul 2026    Obligaciones totales
+SF315204  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Pasivo
+SF315205  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Captación tradicional
+SF315206  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Depósitos del Gobierno Federal
+SF315207  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Títulos de crédito emitidos
+SF315208  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Aportaciones a favor de los trabajadores
+SF315209  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Intereses provenientes del remanente de operación
+SF315210  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Préstamos o apoyos del gobierno federal y de otros organismos
+SF315211  Mensual    Miles de Pesos         Jun 2015    Jul 2026          de corto plazo
+SF315212  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de instituciones de banca comercial
+SF315213  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de instituciones de banca de desarrollo
+SF315214  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de fideicomisos públicos
+SF315215  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de otros organismos
+SF315216  Mensual    Miles de Pesos         Jun 2015    Jul 2026            del Gobierno Federal
+SF315217  Mensual    Miles de Pesos         Jun 2015    Jul 2026          de largo plazo
+SF315218  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de instituciones de banca comercial
+SF315219  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de instituciones de banca de desarrollo
+SF315220  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de fideicomisos públicos
+SF315221  Mensual    Miles de Pesos         Jun 2015    Jul 2026            de otros organismos
+SF315222  Mensual    Miles de Pesos         Jun 2015    Jul 2026            del Gobierno Federal
+SF315223  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Traspasos de recursos provenientes de otros institutos
+SF315224  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Operaciones con instrumentos financieros derivados (Saldo acreedor)
+SF315225  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Futuros a entregar
+SF315226  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315227  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Futuros a entregar
+SF315228  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Valuación
+SF315229  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315230  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315231  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315232  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Contratos adelantados a entregar
+SF315233  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociacion
+SF315234  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315235  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315236  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315237  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315238  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Opciones
+SF315239  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315240  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315241  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315242  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315243  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315244  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Swaps
+SF315245  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociacion
+SF315246  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315247  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315248  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315249  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315250  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Paquetes de instrumentos derivados
+SF315251  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Negociación
+SF315252  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315253  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobertura
+SF315254  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación
+SF315255  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Valuación de la posición primaria
+SF315256  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Ajustes de valuación por cobertura de pasivos financieros
+SF315257  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Obligaciones en operaciones de bursatilización
+SF315258  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Pasivos por administración de activos financieros transferidos
+SF315259  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Otros pasivos
+SF315260  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Acreedores diversos
+SF315261  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Provisiones para obligaciones diversas
+SF315262  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Honorarios y rentas
+SF315263  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Gastos de promocion y publicidad
+SF315264  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Gastos en tecnologia
+SF315265  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Beneficios directos a corto plazo
+SF315266  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Provisión para beneficios a los empleados
+SF315267  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Pensiones
+SF315268  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Prima de antigüedad
+SF315269  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Beneficios por terminacion
+SF315270  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Beneficios por terminación por causas distintas a la reestructuración
+SF315271  Mensual    Miles de Pesos         Jun 2015    Jul 2026                Beneficios por terminación por causa de reestructuración
+SF315272  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otros beneficios posteriores al retiro
+SF315273  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Beneficios directos a largo plazo
+SF315274  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Otras provisiones
+SF315275  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros acreedores diversos
+SF315276  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otras cuentas por pagar
+SF315277  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Aportaciones para futuros aumentos de patrimonio pendientes de formalizar por el Gobierno Federal
+SF315278  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cuentas por pagar a desarrolladores
+SF315279  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Acreedores por liquidación de operaciones
+SF315280  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Inversiones en valores
+SF315281  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Reportos
+SF315282  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Instrumentos financieros derivados
+SF315283  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Acreedores por colaterales recibidos en efectivo
+SF315284  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones con valores
+SF315285  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones de crédito
+SF315286  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Operaciones no realizadas en mercados reconocidos (OTC)
+SF315287  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Pasivos derivados de la prestación de servicios
+SF315288  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Avales
+SF315289  Mensual    Miles de Pesos         Jun 2015    Jul 2026              Administración de bienes
+SF315290  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Comisiones por pagar sobre operaciones vigentes
+SF315291  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Acreedores por cuentas de margen
+SF315292  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Pasivo por arrendamiento capitalizable
+SF315293  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Acreedores por adquisición de activos
+SF315294  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Acreedores por servicio de mantenimiento
+SF315295  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros impuestos y derechos por pagar
+SF315296  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Impuestos y aportaciones de seguridad social retenidos por enterar
+SF315297  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Impuesto al valor agregado
+SF315298  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cuentas por pagar a entidades financieras por cartera de crédito cedida
+SF315299  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros acreedores diversos
+SF315300  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Créditos diferidos y cobros anticipados
+SF315301  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Créditos diferidos
+SF315302  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Comisiones por el otorgamiento del crédito
+SF315303  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Efecto por valorización de los créditos en VSM
+SF315304  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros ingresos por aplicar
+SF315305  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Excedente por amortizar en adquisiciones de cartera de crédito
+SF315306  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Prima por amortizar por colocacion de deuda
+SF315307  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros créditos diferidos
+SF315308  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Cobros anticipados
+SF315309  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Intereses cobrados por anticipado
+SF315310  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Comisiones cobradas por anticipado
+SF315311  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Cobros anticipados de bienes prometidos en venta o con reserva de dominio
+SF315312  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros cobros anticipados
+SF315313  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Estimación preventiva para riesgos crediticios
+SF315314  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Patrimonio contable
+SF315315  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Patrimonio contribuido
+SF315316  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Capital social
+SF315317  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Capital social no exhibido
+SF315318  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Incremento por actualizacion del capital social pagado
+SF315319  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Aport. para futuros aumentos de cap. acordados en asamblea de accionistas
+SF315320  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Incremento por actualiz. de aport. para futuros aumentos de capital acordados en
+SF315321  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Patrimonio ganado
+SF315322  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Reservas de patrimonio
+SF315323  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Resultado por valuación de títulos disponibles para la venta
+SF315324  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Resultado de ejercicios anteriores
+SF315325  Mensual    Miles de Pesos         Jun 2015    Jul 2026      Utilidad del ejercicio
+SF315326  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Ingresos
+SF315327  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Financieros
+SF315328  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Ingresos por intereses
+SF315329  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Resultado por posición monetaria neto (margen financiero)
+SF315330  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Comisiones y tarifas cobradas
+SF315331  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Resultado por intermediación
+SF315332  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros
+SF315333  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Otros ingresos (egresos) de la operación
+SF315334  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Operaciones discontinuadas
+SF315335  Mensual    Miles de Pesos         Jun 2015    Jul 2026        Egresos
+SF315336  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Financieros
+SF315337  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Gastos por intereses
+SF315338  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Estimación preventiva para riesgos crediticios
+SF315339  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Comisiones y tarifas pagadas
+SF315340  Mensual    Miles de Pesos         Jun 2015    Jul 2026          Otros
+SF315341  Mensual    Miles de Pesos         Jun 2015    Jul 2026            Gastos de administración y promoción

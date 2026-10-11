@@ -1,0 +1,64 @@
+cuadro {"id":"CF807","sector":3}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Agregados Monetarios
+SF311408  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M1
+SF311409  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Billetes y monedas en poder del público 1/
+SF311410  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Depósitos de exigibilidad inmediata en bancos 2/
+SF311411  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Cuentas de cheques
+SF311412  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311413  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+SF311414  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Depósitos en cuenta corriente
+SF311415  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311416  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+SF311417  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Depósitos de exigibilidad inmediata en entidades de ahorro y crédito popular 3/
+SF311418  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M2 = M1 + instrumentos monetarios a plazo en poder de residentes
+SF311419  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos monetarios a plazo en poder de residentes 4/
+SF311420  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Captación a plazo
+SF311421  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En bancos 5/
+SF311422  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda nacional
+SF311423  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda extranjera
+SF311424  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En otras instituciones no bancarias
+SF311425  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Uniones de crédito
+SF311426  Mensual    Miles de Pesos         Dic 2000    Ago 2026                En moneda nacional
+SF311427  Mensual    Miles de Pesos         Dic 2000    Ago 2026                En moneda extranjera
+SF311428  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Entidades de ahorro y crédito popular 3/
+SF311429  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Acciones de los fondos de inversión de deuda
+SF311430  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Acreedores por reporto de valores 6/
+SF311431  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311432  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+SF311433  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M3 = M2 + valores públicos en poder de residentes
+SF311434  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Valores públicos en poder de residentes
+SF311435  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Emitidos por el Gobierno Federal
+SF311436  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Emitidos por el Banco de México (BREMS) 7/
+SF311437  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Emitidos por el IPAB 8/
+SF311438  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M4 = M3 + instrumentos monetarios en poder de no residentes
+SF311439  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos monetarios en poder de no residentes
+SF311440  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Depósitos de exigibilidad inmediata en bancos 2/
+SF311441  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311442  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+SF311443  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Captación a plazo en bancos 5/
+SF311444  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311445  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+SF311446  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Acciones de los fondos de inversión de deuda
+SF311447  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Valores públicos en poder de no residentes
+SF311448  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por el Gobierno Federal
+SF311449  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por el Banco de México (BREMS) 7/
+SF311450  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por el IPAB 8/
+SF311451  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Acreedores por reportos 6/
+SF311452  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda nacional
+SF311453  Mensual    Miles de Pesos         Dic 2000    Ago 2026            En moneda extranjera
+                                                            # Memo: clasificados por moneda
+SF311408  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M1
+SF311454  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311455  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311418  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M2
+SF311456  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311457  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311433  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M3
+SF311458  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311459  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311438  Mensual    Miles de Pesos         Dic 2000    Ago 2026      M4
+SF311460  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311461  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera

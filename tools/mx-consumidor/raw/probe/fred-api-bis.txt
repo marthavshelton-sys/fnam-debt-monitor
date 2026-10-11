@@ -1,0 +1,5 @@
+GET https://api.stlouisfed.org/fred/series?series_id=QMXHAM770A&api_key=***&file_type=json
+-> HTTP 200 application/json; charset=UTF-8 2075 bytes · Last-Modified Mon, 15 Jun 2026 18:07:54 GMT
+
+{"realtime_start":"2026-10-11","realtime_end":"2026-10-11","seriess":[{"id":"QMXHAM770A","realtime_start":"2026-10-11","realtime_end":"2026-10-11","title":"Total Credit to Households and NPISHs, Adjusted for Breaks, for Mexico","observation_start":"1994-10-01","observation_end":"2025-10-01","frequency":"Quarterly, End of Quarter","frequency_short":"Q","units":"Percentage of GDP","units_short":"Percentage of GDP","seasonal_adjustment":"Not Seasonally Adjusted","seasonal_adjustment_short":"NSA","last_updated":"2026-06-15 13:07:54-05","popularity":1,"notes":"Credit is provided by domestic banks, all other sectors of the economy and non-residents. The \"private non-financial sector\" includes non-financial corporations (both private-owned and public-owned), households and non-profit institutio
+… (1275 more characters)

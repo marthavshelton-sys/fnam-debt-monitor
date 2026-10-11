@@ -1,396 +1,395 @@
 {
- "ranAt": "2026-10-11T18:53:54.231Z",
+ "ranAt": "2026-10-11T18:58:41.481Z",
  "requests": [
   {
-   "name": "inegi-enigh2024",
-   "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+   "name": "inegi-js-generales",
+   "url": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+   "method": "GET",
+   "status": 200,
+   "type": "application/javascript",
+   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+   "lastModified": "Wed, 03 Jun 2026 16:49:53 GMT",
+   "bytes": 47069
+  },
+  {
+   "name": "inegi-js-urls",
+   "url": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+   "method": "GET",
+   "status": 200,
+   "type": "application/javascript",
+   "finalUrl": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+   "lastModified": "Wed, 03 Jun 2026 16:49:53 GMT",
+   "bytes": 47069
+  },
+  {
+   "name": "inegi-api-a",
+   "url": "https://www.inegi.org.mx/app/api/programas/v1/pestanas/3434",
+   "method": "GET",
+   "status": 404,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/app/api/programas/v1/pestanas/3434",
+   "lastModified": null,
+   "bytes": 1245
+  },
+  {
+   "name": "inegi-api-b",
+   "url": "https://www.inegi.org.mx/app/api/contenidos/v1/programa/3434",
    "method": "GET",
    "status": 200,
    "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
-   "lastModified": "Wed, 30 Jul 2025 12:00:45 GMT",
-   "bytes": 3918
+   "finalUrl": "https://www.inegi.org.mx/app/api/contenidos/v1/programa/3434",
+   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
+   "bytes": 2263
   },
   {
-   "name": "inegi-enif2024",
-   "url": "https://www.inegi.org.mx/programas/enif/2024/",
+   "name": "inegi-api-c",
+   "url": "https://www.inegi.org.mx/app/api/programas/pestanas/es/3434",
    "method": "GET",
-   "status": 200,
+   "status": 404,
    "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enif/2024/",
-   "lastModified": "Thu, 13 Mar 2025 12:00:18 GMT",
-   "bytes": 3715
+   "finalUrl": "https://www.inegi.org.mx/app/api/programas/pestanas/es/3434",
+   "lastModified": null,
+   "bytes": 1245
   },
   {
-   "name": "inegi-enfih2019",
-   "url": "https://www.inegi.org.mx/programas/enfih/2019/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enfih/2019/",
-   "lastModified": "Fri, 08 Mar 2024 22:00:04 GMT",
-   "bytes": 3952
-  },
-  {
-   "name": "inegi-enoe",
-   "url": "https://www.inegi.org.mx/programas/enoe/15ymas/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enoe/15ymas/",
-   "lastModified": "Thu, 08 Feb 2024 20:00:21 GMT",
-   "bytes": 5765
-  },
-  {
-   "name": "inegi-pm",
-   "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/",
-   "lastModified": "Wed, 13 Aug 2025 12:00:34 GMT",
-   "bytes": 4081
-  },
-  {
-   "name": "inegi-pobreza",
-   "url": "https://www.inegi.org.mx/temas/pobreza/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/temas/pobreza/",
-   "lastModified": "Fri, 17 Jan 2025 16:31:24 GMT",
-   "bytes": 13370
-  },
-  {
-   "name": "inegi-enco",
-   "url": "https://www.inegi.org.mx/programas/enco/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enco/",
-   "lastModified": "Fri, 06 Feb 2026 12:00:28 GMT",
-   "bytes": 4026
-  },
-  {
-   "name": "inegi-enigh2024-raw",
-   "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
-   "lastModified": "Wed, 30 Jul 2025 12:00:45 GMT",
-   "bytes": 3918
-  },
-  {
-   "name": "enigh2024-concentrado",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_concentradohogar_csv.zip",
+   "name": "enigh2024-poblacion",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_poblacion_csv.zip",
    "method": "GET",
    "status": 200,
    "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_concentradohogar_csv.zip",
-   "lastModified": "Wed, 30 Jul 2025 12:00:31 GMT",
-   "bytes": 13171058,
-   "saved": "enigh2024_concentradohogar.zip"
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_poblacion_csv.zip",
+   "lastModified": "Wed, 30 Jul 2025 12:00:34 GMT",
+   "bytes": 9055376,
+   "saved": "enigh2024_poblacion.zip"
   },
   {
-   "name": "enigh2022-concentrado",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2022/microdatos/enigh2022_ns_concentradohogar_csv.zip",
+   "name": "enif-tab",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/tabulados/enif_2024_tabulados.xlsx",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/tabulados/enif_2024_tabulados.xlsx",
+   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
+   "bytes": 1428
+  },
+  {
+   "name": "enif-micro",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
    "method": "GET",
    "status": 200,
    "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2022/microdatos/enigh2022_ns_concentradohogar_csv.zip",
-   "lastModified": "Wed, 26 Jul 2023 12:01:25 GMT",
-   "bytes": 12542624,
-   "saved": "enigh2022_concentradohogar.zip"
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
+   "lastModified": "Thu, 13 Mar 2025 12:01:07 GMT",
+   "bytes": 3131148
   },
   {
-   "name": "enigh2020-concentrado",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2020/microdatos/enigh2020_ns_concentradohogar_csv.zip",
+   "name": "enfih-tab",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/tabulados/enfih_2019_tabulados.xlsx",
    "method": "GET",
    "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2020/microdatos/enigh2020_ns_concentradohogar_csv.zip",
-   "lastModified": "Wed, 28 Jul 2021 11:01:00 GMT",
-   "bytes": 12079700,
-   "saved": "enigh2020_concentradohogar.zip"
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/tabulados/enfih_2019_tabulados.xlsx",
+   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
+   "bytes": 1428
   },
   {
-   "name": "enigh2018-concentrado",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip",
-   "lastModified": "Mon, 29 Nov 2021 18:03:38 GMT",
-   "bytes": 10834143,
-   "saved": "enigh2018_concentradohogar.zip"
-  },
-  {
-   "name": "enigh2016-concentrado",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2016/microdatos/enigh2016_ns_concentradohogar_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2016/microdatos/enigh2016_ns_concentradohogar_csv.zip",
-   "lastModified": "Mon, 29 Nov 2021 18:03:37 GMT",
-   "bytes": 10273472,
-   "saved": "enigh2016_concentradohogar.zip"
-  },
-  {
-   "name": "enigh2024-viviendas",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip",
-   "lastModified": "Wed, 30 Jul 2025 12:00:28 GMT",
-   "bytes": 1848886,
-   "saved": "enigh2024_viviendas.zip"
-  },
-  {
-   "name": "enigh2024-hogares",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_hogares_csv.zip",
-   "method": "GET",
-   "status": 200,
-   "type": "application/x-zip-compressed",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_hogares_csv.zip",
-   "lastModified": "Wed, 30 Jul 2025 12:00:21 GMT",
-   "bytes": 3330147,
-   "saved": "enigh2024_hogares.zip"
-  },
-  {
-   "name": "enigh2024-presentacion",
-   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
+   "name": "enif-pres",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
    "method": "GET",
    "status": 200,
    "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
-   "lastModified": "Wed, 30 Jul 2025 17:44:48 GMT",
-   "bytes": 1217208
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
+   "lastModified": "Thu, 13 Mar 2025 15:00:06 GMT",
+   "bytes": 711731
   },
   {
-   "name": "siedir-01",
-   "kind": "siedir",
+   "name": "enfih-pres",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
+   "method": "GET",
+   "status": 200,
+   "type": "application/pdf",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
+   "lastModified": "Fri, 05 Nov 2021 17:02:31 GMT",
+   "bytes": 2523700
+  },
+  {
+   "name": "pm-pres",
+   "url": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/doc/pm_2024_presentacion.pdf",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/doc/pm_2024_presentacion.pdf",
+   "lastModified": "Fri, 07 Dec 2018 22:52:56 GMT",
+   "bytes": 1428
+  },
+  {
+   "name": "biemeta-sectores",
+   "kind": "biemeta",
    "ok": true
   },
   {
-   "name": "siedir-02",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-03",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-04",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-05",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-06",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-07",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-08",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-09",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-10",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-11",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-12",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-13",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-14",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-15",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=15&locale=es"
-  },
-  {
-   "name": "siedir-16",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=16&locale=es"
-  },
-  {
-   "name": "siedir-17",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=17&locale=es"
-  },
-  {
-   "name": "siedir-18",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-19",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-20",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-21",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-22",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-23",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-24",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-25",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-26",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-27",
-   "kind": "siedir",
-   "ok": true
-  },
-  {
-   "name": "siedir-28",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=28&locale=es"
-  },
-  {
-   "name": "siedir-29",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=29&locale=es"
-  },
-  {
-   "name": "siedir-30",
-   "kind": "siedir",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=30&locale=es"
-  },
-  {
-   "name": "bie-00",
+   "name": "bie2-00",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-01",
+   "name": "bie2-01",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-02",
+   "name": "bie2-02",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-03",
+   "name": "bie2-03",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-04",
+   "name": "bie2-04",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-05",
+   "name": "bie2-05",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-06",
+   "name": "bie2-06",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-07",
+   "name": "bie2-07",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-08",
+   "name": "bie2-08",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-09",
+   "name": "bie2-09",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-10",
+   "name": "bie2-10",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-11",
+   "name": "bie2-11",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-12",
+   "name": "bie2-12",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-13",
+   "name": "bie2-13",
    "kind": "bie",
    "ok": true
   },
   {
-   "name": "bie-14",
+   "name": "bie2-14",
    "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF297",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF616",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF615",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF835",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF765",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF766",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF762",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF829",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF303",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF815",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF840",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF870",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF844",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF845",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF256",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF888",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF958",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CE100",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CE81",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF886",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF808",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF807",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF851",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF834",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF797",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF848",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF849",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF850",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CA601",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CL289",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CL297",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CR362",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF806",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF631",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF632",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CP154",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "cuadro-CF953",
+   "kind": "cuadro",
+   "ok": true
+  },
+  {
+   "name": "sie-inpc",
+   "kind": "sieseries",
    "ok": true
   },
   {
@@ -404,46 +403,24 @@
    "bytes": 488275
   },
   {
-   "name": "bmv-walmex",
-   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "name": "fred-api-bis",
+   "url": "https://api.stlouisfed.org/fred/series?series_id=QMXHAM770A&api_key=***&file_type=json",
    "method": "GET",
    "status": 200,
-   "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
-   "lastModified": null,
-   "bytes": 143718
+   "type": "application/json; charset=UTF-8",
+   "finalUrl": "https://api.stlouisfed.org/fred/series?series_id=QMXHAM770A&api_key=***&file_type=json",
+   "lastModified": "Mon, 15 Jun 2026 18:07:54 GMT",
+   "bytes": 2075
   },
   {
-   "name": "fred-bis-hh",
-   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=QMXHAM770A",
-   "method": "GET",
-   "error": "fetch failed"
-  },
-  {
-   "name": "cnbv-inclusion",
-   "url": "https://www.cnbv.gob.mx/Inclusi%C3%B3n/Paginas/Bases-de-Datos.aspx",
-   "method": "GET",
-   "error": "fetch failed"
-  },
-  {
-   "name": "consar-siset",
-   "url": "https://www.consar.gob.mx/gobmx/aplicativo/siset/Enlace.aspx?md=5",
+   "name": "cnbv-home",
+   "url": "https://www.gob.mx/cnbv/acciones-y-programas/bases-de-datos-de-inclusion-financiera",
    "method": "GET",
    "status": 200,
-   "type": "text/html; charset=utf-8",
-   "finalUrl": "https://www.consar.gob.mx/gobmx/aplicativo/siset/Enlace.aspx?md=5",
+   "type": "text/html",
+   "finalUrl": "https://www.gob.mx/cnbv/acciones-y-programas/bases-de-datos-de-inclusion-financiera",
    "lastModified": null,
-   "bytes": 10427
-  },
-  {
-   "name": "sec-fmx",
-   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=FMX&type=6-K&dateb=&owner=include&count=10",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=UTF-8",
-   "finalUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=FMX&type=6-K&dateb=&owner=include&count=10",
-   "lastModified": null,
-   "bytes": 14691
+   "bytes": 1881
   }
  ]
 }

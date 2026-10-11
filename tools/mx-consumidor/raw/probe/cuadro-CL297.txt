@@ -1,0 +1,21 @@
+cuadro {"id":"CL297","sector":10}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Remuneraciones y Productividad (Base 2018=100) p/
+                                                            # Remuneraciones Medias Nominales por Persona Ocupada
+SL11453   Mensual    Sin Unidad             Ene 2007    Jul 2026      Industria Manufacturera 1/
+SL11426   Mensual    Sin Unidad             Ene 2008    Jul 2026      Comercio 2/
+                                                            # Remuneraciones Medias Reales por Persona Ocupada
+SL11439   Mensual    Sin Unidad             Ene 2007    Jul 2026      Industria Manufacturera 1/
+SL11432   Mensual    Sin Unidad             Ene 2008    Jul 2026      Comercio 2/
+                                                            # Productividad Laboral por Persona Ocupada
+SL11447   Mensual    Sin Unidad             Ene 2007    Jul 2026      Industria Manufacturera 1/ 3/
+SL11435   Mensual    Sin Unidad             Ene 2008    Jul 2026      Comercio 2/
+                                                            # Costo Unitario de la Mano de Obra por Persona Ocupada
+SL11451   Mensual    Sin Unidad             Ene 2007    Jul 2026      Industria Manufacturera 1/
+SL11438   Mensual    Sin Unidad             Ene 2008    Jul 2026      Comercio 2/
+                                                            # p/ Cifras preliminares.
+                                                            # 1/ La información proviene de la Encuesta Mensual de la Industria Manufacturera (EMIM), la cual cuenta con infomación a partir de enero de 2007. Dicha encuesta 
+                                                            # 2/ Esta información fue generada utilizando la nueva metodología de la Encuesta Mensual sobre Empresas Comerciales (EMEC), adoptada por el INEGI. Por ello se en
+                                                            # 3/ El cálculo de la productividad laboral se realiza con base en el Índice de Volumen Físico de la Producción Manufacturera (IVFPM).

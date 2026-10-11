@@ -1,0 +1,47 @@
+cuadro {"id":"CF834","sector":3}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Fondos de ahorro para la vivienda y el retiro
+SF320848  Mensual    Miles de Pesos         May 1992    Ago 2026      Total
+SF320849  Mensual    Miles de Pesos         May 1992    Ago 2026        Vivienda
+SF320850  Mensual    Miles de Pesos         May 1992    Ago 2026          Infonavit
+SF320851  Mensual    Miles de Pesos         May 1992    Ago 2026          Fovissste
+SF320852  Mensual    Miles de Pesos         May 1992    Ago 2026        Retiro
+SF320853  Mensual    Miles de Pesos         May 1992    Ago 2026          Acciones de las Siefores 1/
+SF320854  Mensual    Miles de Pesos         May 1992    Ago 2026          En Banco de México
+SF320855  Mensual    Miles de Pesos         May 1992    Ago 2026            IMSS
+SF320856  Mensual    Miles de Pesos         May 1992    Ago 2026            ISSSTE
+SF364663  Mensual    Miles de Pesos         Dic 1985    Ago 2026            Fondo de pensiones para el bienestar 2/
+SF320857  Mensual    Miles de Pesos         May 1992    Ago 2026          Bono de Pension ISSSTE 3/
+                                                            # Memo:
+SF320858  Mensual    Miles de Pesos         May 1992    Ago 2026      Inversiones de las Siefores 4/
+SF320859  Mensual    Miles de Pesos         May 1992    Ago 2026        Inversión en valores internos
+SF320860  Mensual    Miles de Pesos         May 1992    Ago 2026          Gubernamentales
+SF320861  Mensual    Miles de Pesos         May 1992    Ago 2026            Cetes
+SF320862  Mensual    Miles de Pesos         May 1992    Ago 2026            Bondes
+SF320863  Mensual    Miles de Pesos         May 1992    Ago 2026            Bondes D
+SF345516  Mensual    Miles de Pesos         Ene 1997    Ago 2026            Bondes F
+SF347923  Mensual    Miles de Pesos         Ene 1997    Ago 2026            Bondes G
+SF320864  Mensual    Miles de Pesos         May 1992    Ago 2026            Udibonos
+SF320866  Mensual    Miles de Pesos         May 1992    Ago 2026            Bonos a tasa fija
+SF355629  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Bonos MS
+SF320868  Mensual    Miles de Pesos         May 1992    Ago 2026          Emitidos por el Banco de México (BREMS)
+SF320869  Mensual    Miles de Pesos         May 1992    Ago 2026          Emitidos por el IPAB 5/
+SF320870  Mensual    Miles de Pesos         May 1992    Ago 2026          Otros valores públicos
+SF320871  Mensual    Miles de Pesos         May 1992    Ago 2026            Estados y municipios
+SF320872  Mensual    Miles de Pesos         May 1992    Ago 2026            Organismos y empresas 6/
+SF320873  Mensual    Miles de Pesos         May 1992    Ago 2026            PICs y CBICs 7/
+SF320874  Mensual    Miles de Pesos         May 1992    Ago 2026          Privados no bancarios 8/
+SF320875  Mensual    Miles de Pesos         May 1992    Ago 2026          Bancarios
+SF320876  Mensual    Miles de Pesos         May 1992    Ago 2026            Banca comercial
+SF320877  Mensual    Miles de Pesos         May 1992    Ago 2026            Banca de desarrollo
+SF320878  Mensual    Miles de Pesos         May 1992    Ago 2026        Inversión en otros instrumentos
+SF320879  Mensual    Miles de Pesos         May 1992    Ago 2026          Valores de deuda externa
+SF320880  Mensual    Miles de Pesos         May 1992    Ago 2026            UMS 9/
+SF320881  Mensual    Miles de Pesos         May 1992    Ago 2026            Otros valores de deuda externa 10/
+SF320882  Mensual    Miles de Pesos         May 1992    Ago 2026          Certificados de Capital de Desarrollo
+SF320883  Mensual    Miles de Pesos         May 1992    Ago 2026          Valores de renta variable 11/
+SF320884  Mensual    Miles de Pesos         May 1992    Ago 2026          Depósitos efectivo (Banxico)
+SF320885  Mensual    Miles de Pesos         May 1992    Ago 2026        Depósitos en Banco de México (ISSSTE) 12/
+SF320886  Mensual    Miles de Pesos         May 1992    Ago 2026      Títulos comprados en reporto

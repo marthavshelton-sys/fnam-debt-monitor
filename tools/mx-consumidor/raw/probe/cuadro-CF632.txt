@@ -1,0 +1,175 @@
+cuadro {"id":"CF632","sector":19}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Recursos y Obligaciones de las Sociedades Financieras Populares
+SF229153  Mensual    Miles de Pesos         Ene 2013    Jul 2026    Recursos totales
+SF229154  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Disponibilidades
+SF229155  Mensual    Miles de Pesos         Ene 2013    Jul 2026        En caja
+SF229156  Mensual    Miles de Pesos         Ene 2013    Jul 2026        En bancos
+SF310357  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Depósitos en Otras Entidades Financieras
+SF310358  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Divisas a Entregar
+SF229157  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Otras
+SF310359  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Documentos de cobro inmediato
+SF310360  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Otras
+SF229158  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Cartera de títulos y valores
+SF229159  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Gubernamentales
+SF310361  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos para negociar
+SF310362  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos disponibles para la venta
+SF310363  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos conservados al vencimiento
+SF229160  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Bancarios
+SF310364  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos para negociar
+SF310365  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos disponibles para la venta
+SF310366  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Títulos conservados al vencimiento
+SF229161  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Privados
+SF229162  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Acciones
+SF310367  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos para negociar
+SF310368  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos disponibles para la venta
+SF310369  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos conservados al vencimiento
+SF229163  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Otros títulos de deuda
+SF310370  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos para negociar
+SF310371  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos disponibles para la venta
+SF310372  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Títulos conservados al vencimiento
+SF229164  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Cartera de crédito
+SF229165  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Cartera vigente
+SF229166  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Comerciales
+SF229167  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Actividad empresarial o comercial
+SF229168  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones quirografarias
+SF229169  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones prendarias
+SF229170  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Créditos puente
+SF229171  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones de factoraje
+SF229172  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones de arrendamiento
+SF235815  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Microcréditos
+SF229173  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Otros créditos
+SF229174  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Prestamos de liquidez a otras ent. de ahorro y crédito popular
+SF229175  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Al consumo
+SF229176  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Tarjeta de crédito
+SF229177  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Personales
+SF235816  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Nómina
+SF235817  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Automotriz
+SF229178  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Adquisición de bienes muebles
+SF229179  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Operaciones de arrendamiento
+SF229180  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Otros créditos
+SF229181  Mensual    Miles de Pesos         Ene 2013    Jul 2026          A la vivienda
+SF229182  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Media y residencial
+SF229183  Mensual    Miles de Pesos         Ene 2013    Jul 2026            De interés social
+SF229184  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Cartera vencida
+SF229185  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Comerciales
+SF229186  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Actividad empresarial o comercial
+SF229187  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones quirografarias
+SF229188  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones prendarias
+SF229189  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Créditos puente
+SF229190  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones de factoraje
+SF229191  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Operaciones de arrendamiento
+SF235818  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Microcréditos
+SF407717  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Entidades Financieras
+SF229192  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Otros créditos
+SF229193  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Prestamos de liquidez a otras ent. de ahorro y crédito popular
+SF229194  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Al consumo
+SF229195  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Tarjeta de crédito
+SF229196  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Personales
+SF235819  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Nómina
+SF235820  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Automotriz
+SF229197  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Adquisición de bienes muebles
+SF229198  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Operaciones de arrendamiento
+SF229199  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Otros créditos
+SF229200  Mensual    Miles de Pesos         Ene 2013    Jul 2026          A la vivienda
+SF229201  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Media y residencial
+SF229202  Mensual    Miles de Pesos         Ene 2013    Jul 2026            De interés social
+SF229203  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Otros recursos
+SF229204  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Otras cuentas por cobrar
+SF229205  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Prestamos y otros adeudos del personal
+SF229206  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Partidas asociadas a operaciones crediticias
+SF229207  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Otras cuentas por cobrar
+SF229208  Mensual    Miles de Pesos         Ene 2013    Jul 2026          (-) Estimación por irrecuperabilidad
+SF229209  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Activos diferidos
+SF229210  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Impuestos y PTU diferidos
+SF229211  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Cargos diferidos pagos anticipados e intangibles
+SF229212  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Inmuebles, mobiliario y equipo
+SF276079  Mensual    Miles de Pesos         Ene 1997    Jul 2026          Memo: Depreciación acumulada de Inmuebles, mobiliario y equipo
+SF229213  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Bienes adjudicados
+SF310373  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Bienes Muebles, Valores y Derechos Adjudicados
+SF310374  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Inmuebles Adjudicados
+SF310375  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Incremento por Actualización de Bienes Adjudicados (1)
+SF310376  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Otras inversiones
+SF229214  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Inversiones permanentes en acciones
+SF235821  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Empresas pertenecientes al sector financiero
+SF235822  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Empresas no pertenecientes al sector financiero
+SF229215  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Otros activos
+SF229216  Mensual    Miles de Pesos         Ene 2013    Jul 2026    Obligaciones totales
+SF229217  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Pasivo total
+SF310377  Mensual    Miles de Pesos         Sep 2013    Jul 2026        Captación de recursos
+SF229219  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Depositos de exigibilidad inmediata
+SF229220  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Depositos a la vista
+SF235823  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Sin intereses
+SF235824  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Con intereses
+SF229221  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Depositos de ahorro
+SF229222  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Depositos a plazo
+SF229223  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Titulos de crédito emitidos
+SF310378  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Cuentas sin movimiento
+SF229224  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Préstamos de entidades financieras
+SF229225  Mensual    Miles de Pesos         Ene 2013    Jul 2026          De Banca comercial
+SF310379  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De corto plazo
+SF310380  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De largo plazo
+SF229226  Mensual    Miles de Pesos         Ene 2013    Jul 2026          De Banca de desarrollo
+SF310381  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De corto plazo
+SF310382  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De largo plazo
+SF229227  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Préstamos de otros intermediarios financieros
+SF229228  Mensual    Miles de Pesos         Ene 2013    Jul 2026          De Fideicomisos públicos
+SF310383  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De corto plazo
+SF310384  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De largo plazo
+SF229229  Mensual    Miles de Pesos         Ene 2013    Jul 2026          De Entidades de ahorro y crédito popular
+SF310385  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De corto plazo
+SF310386  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De largo plazo
+SF229230  Mensual    Miles de Pesos         Ene 2013    Jul 2026          De otros organismos
+SF310387  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De corto plazo
+SF310388  Mensual    Miles de Pesos         Sep 2013    Jul 2026            De largo plazo
+SF271883  Mensual    Miles de Pesos         Sep 2013    Jul 2026        Préstamos del Gobierno Federal o estatal
+SF310389  Mensual    Miles de Pesos         Sep 2013    Jul 2026          De corto plazo
+SF310390  Mensual    Miles de Pesos         Sep 2013    Jul 2026          De largo plazo
+SF310391  Mensual    Miles de Pesos         Sep 2013    Jul 2026        Otros pasivos
+SF310392  Mensual    Miles de Pesos         Sep 2013    Jul 2026          Otras cuentas por pagar
+SF310393  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Acreedores diversos
+SF229234  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Pasivo por arrendamiento capitalizable
+SF229235  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Acreedores por adquisición de activos
+SF229236  Mensual    Miles de Pesos         Ene 2013    Jul 2026              Provisiones para obligaciones diversas
+SF310394  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Otros acreedores
+SF229238  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Otras cuentas por pagar
+SF229239  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Pasivos diferidos
+SF229240  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Impuestos y PTU diferidos
+SF229241  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Créditos diferidos y cobros anticipados
+SF229242  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Reservas preventivas para riesgos crediticios
+SF229243  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Otras obligaciones
+SF229244  Mensual    Miles de Pesos         Ene 2013    Jul 2026      Capital contable
+SF229245  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Capital contribuido
+SF229246  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Capital social pagado
+SF229247  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Capital social
+SF229248  Mensual    Miles de Pesos         Ene 2013    Jul 2026            (-) Capital social no exhibido
+SF229249  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Aportaciones para futuros aumentos de capital
+SF229250  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Prima en venta de acciones
+SF229251  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Efecto por incorp. al regimen de entidades de ahorro y credito popular
+SF229252  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Otros
+SF229253  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Capital ganado
+SF229254  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Reservas de capital
+SF229255  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Resultados por valuación
+SF229256  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Resultado de ejercicios anteriores
+SF229257  Mensual    Miles de Pesos         Ene 2013    Jul 2026        Resultados del ejercicio 1/
+SF229258  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Ingresos
+SF310395  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Financieros
+SF310396  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Resultado por posición monetaria neto (margen financiero)
+SF310397  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Comisiones y tarifas cobradas
+SF310398  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Resultado por intermediación
+SF310399  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Ingresos por intereses
+SF310400  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Otros ingresos (egresos) de la operación
+SF310401  Mensual    Miles de Pesos         Sep 2013    Jul 2026            Otros
+SF310402  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Participación en el resulatdo de subisdiarias y asociadas
+SF310403  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Operaciones discontinuadas
+SF310404  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Otros productos
+SF229261  Mensual    Miles de Pesos         Ene 2013    Jul 2026          Egresos
+SF229262  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Financieros
+SF310405  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Gastos por intereses
+SF310406  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Estimación preventiva para riesgos crediticios
+SF310407  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Comisiones y tarifas pagadas
+SF229263  Mensual    Miles de Pesos         Ene 2013    Jul 2026            Otros
+SF310408  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Gastos de administración y promoción
+SF310409  Mensual    Miles de Pesos         Sep 2013    Jul 2026              Otros

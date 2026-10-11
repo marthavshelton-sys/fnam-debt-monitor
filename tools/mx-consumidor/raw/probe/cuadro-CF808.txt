@@ -1,0 +1,71 @@
+cuadro {"id":"CF808","sector":3}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Activos Financieros Internos
+SF311348  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F1 (en poder de residentes excluyendo renta variable) =
+SF311349  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos monetarios en poder de residentes (M3)
+SF311350  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos no monetarios en poder de residentes
+SF311351  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Fondos de ahorro para la vivienda y el retiro
+SF311352  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Vivienda
+SF311353  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Infonavit
+SF311354  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Fovissste
+SF311355  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Retiro
+SF311356  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Acciones de las Siefores 1/
+SF311357  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En Banco de México
+SF311358  Mensual    Miles de Pesos         Dic 2000    Ago 2026                IMSS
+SF311359  Mensual    Miles de Pesos         Dic 2000    Ago 2026                ISSSTE
+SF364663  Mensual    Miles de Pesos         Dic 1985    Ago 2026                Fondo de pensiones para el bienestar 2/
+SF311360  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Bono de Pensión ISSSTE 3/
+SF311361  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Valores privados 4/
+SF311362  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Otros valores públicos
+SF311363  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por estados, municipios y OyEs 5/
+SF311364  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por Fonadin 6/
+SF311365  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Otros pasivos bancarios
+SF311366  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Captación a plazo mayor a 5 años 7/
+SF311367  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda nacional
+SF311368  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda extranjera
+SF311369  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Obligaciones subordinadas
+SF311370  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda nacional
+SF311371  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda extranjera
+SF311372  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F2 (en poder de residentes) = F1 +
+SF311373  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Renta variable en poder de residentes
+SF311374  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Acciones de empresas privadas listadas en Bolsa
+SF311375  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Otros
+SF311376  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Acciones de los fondos de inversión de renta variable
+SF311377  Mensual    Miles de Pesos         Dic 2000    Ago 2026            CBFIs 8/
+SF311378  Mensual    Miles de Pesos         Dic 2000    Ago 2026            CKDs 9/
+SF311379  Mensual    Miles de Pesos         Dic 2000    Ago 2026      FNR (en poder de no residentes) =
+SF311380  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos monetarios en poder de no residentes (M4-M3)
+SF311381  Mensual    Miles de Pesos         Dic 2000    Ago 2026        Instrumentos no monetarios en poder de no residentes
+SF311382  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Renta variable en poder de no residentes
+SF311383  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Acciones de empresas privadas listadas en Bolsa
+SF311384  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Otros
+SF311385  Mensual    Miles de Pesos         Dic 2000    Ago 2026              Acciones de los fondos de inversión de renta variable
+SF311386  Mensual    Miles de Pesos         Dic 2000    Ago 2026              CBFIs 8/
+SF311387  Mensual    Miles de Pesos         Dic 2000    Ago 2026              CKDs 9/
+SF311388  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Valores privados 4/
+SF311389  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Otros valores públicos
+SF311390  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por estados, municipios y OyEs 5/
+SF311391  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Emitidos por Fonadin 6/
+SF311392  Mensual    Miles de Pesos         Dic 2000    Ago 2026          Otros pasivos bancarios
+SF311393  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Captación a plazo mayor a 5 años 7/
+SF311394  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda nacional
+SF311395  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda extranjera
+SF311396  Mensual    Miles de Pesos         Dic 2000    Ago 2026            Obligaciones subordinadas
+SF311397  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda nacional
+SF311398  Mensual    Miles de Pesos         Dic 2000    Ago 2026              En moneda extranjera
+SF311399  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F (Total) = (F2 + FNR)
+                                                            # Memo: clasificados por moneda
+SF311348  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F1
+SF311400  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311401  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311372  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F2
+SF311402  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311403  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311379  Mensual    Miles de Pesos         Dic 2000    Ago 2026      FNR
+SF311404  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311405  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera
+SF311399  Mensual    Miles de Pesos         Dic 2000    Ago 2026      F
+SF311406  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda nacional
+SF311407  Mensual    Miles de Pesos         Dic 2000    Ago 2026        En moneda extranjera

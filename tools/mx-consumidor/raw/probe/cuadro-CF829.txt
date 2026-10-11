@@ -1,0 +1,900 @@
+cuadro {"id":"CF829","sector":19}
+-> ok
+
+# Estructura de información (SIE, Banco de México)
+                                                            # Banca comercial 1/
+                                                            # Crédito por entidad federativa, sector económico
+                                                            # y situación de la cartera ( total, vigente y vencida ).
+                                                            # Sistema de Clasificación Industrial para América del Norte (SCIAN)
+                                                            # Total de monedas (MN + ME)
+                                                            # Saldos nominales en millones de pesos
+SF318994  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026   Resumen por situación de la cartera (I a X)
+SF318995  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026     Cartera total ( vigente y vencida de I a X )
+SF318996  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       República Mexicana + sector externo
+SF318997  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         República Mexicana 2/
+SF318998  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF318999  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319000  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319001  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319002  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319003  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319004  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319005  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319006  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319007  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319008  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319009  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319010  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319011  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319012  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319013  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319014  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319015  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319016  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319017  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319018  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319019  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319020  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319021  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319022  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319023  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319024  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319025  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319026  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319027  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319028  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319029  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319030  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Vivienda 7/
+SF319031  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Consumo 3/
+SF319032  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ajuste estadístico 3/ 4/
+SF319033  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Otros sectores residentes 3/
+SF319034  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Sector externo
+SF319035  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Canadá
+SF319036  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estados Unidos de Norteamérica
+SF319037  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Bahamas
+SF319038  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guyana
+SF319039  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chile
+SF319040  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Cuba
+SF319041  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Argentina
+SF319042  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           España
+SF319043  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Países Bajos
+SF319044  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           El Salvador
+SF319045  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Brasil
+SF319046  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Belice
+SF319047  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Reino Unido
+SF319048  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Otros países
+SF319049  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026     Cartera vigente
+SF319050  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       República Mexicana + sector externo
+SF319051  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         República Mexicana 2/
+SF319052  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319053  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319054  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319055  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319056  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319057  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319058  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319059  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319060  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319061  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319062  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319063  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319064  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319065  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319066  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319067  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319068  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319069  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319070  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319071  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319072  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319073  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319074  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319075  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319076  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319077  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319078  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319079  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319080  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319081  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319082  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319083  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319084  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Vivienda 7/
+SF319085  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Consumo 3/
+SF319086  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ajuste estadístico 3/ 4/
+SF319087  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Otros sectores residentes 3/
+SF319088  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Sector externo
+SF319089  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Canadá
+SF319090  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estados Unidos de Norteamérica
+SF319091  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Bahamas
+SF319092  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guyana
+SF319093  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chile
+SF319094  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Cuba
+SF319095  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Argentina
+SF319096  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           España
+SF319097  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Países Bajos
+SF319098  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           El Salvador
+SF319099  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Brasil
+SF319100  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Belice
+SF319101  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Reino Unido
+SF319102  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Otros países
+SF319103  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026     Cartera vencida
+SF319104  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       República Mexicana + sector externo
+SF319105  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         República Mexicana 2/
+SF319106  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319107  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319108  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319109  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319110  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319111  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319112  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319113  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319114  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319115  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319116  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319117  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319118  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319119  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319120  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319121  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319122  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319123  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319124  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319125  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319126  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319127  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319128  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319129  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319130  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319131  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319132  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319133  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319134  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319135  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319136  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319137  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319138  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Vivienda 7/
+SF319139  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Consumo 3/
+SF319140  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ajuste estadístico 3/ 4/
+SF319141  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Sector externo
+SF319142  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Canadá
+SF319143  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estados Unidos de Norteamérica
+SF319144  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Bahamas
+SF319145  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guyana
+SF319146  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chile
+SF319147  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Cuba
+SF319148  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Argentina
+SF319149  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           España
+SF319150  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Países Bajos
+SF319151  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           El Salvador
+SF319152  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Brasil
+SF319153  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Belice
+SF319154  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Reino Unido
+SF319155  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Otros países
+SF319156  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026     Por sector económico y situación de la cartera (I a X)
+SF319157  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       I. Sector agropecuario, silvícola y pesquero
+SF319158  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319159  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319160  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319161  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319162  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319163  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319164  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319165  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319166  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319167  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319168  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319169  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319170  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319171  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319172  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319173  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319174  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319175  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319176  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319177  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319178  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319179  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319180  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319181  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319182  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319183  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319184  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319185  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319186  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319187  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319188  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319189  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319190  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319191  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319192  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319193  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319194  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319195  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319196  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319197  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319198  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319199  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319200  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319201  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319202  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319203  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319204  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319205  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319206  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319207  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319208  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319209  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319210  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319211  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319212  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319213  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319214  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319215  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319216  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319217  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319218  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319219  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319220  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319221  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319222  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319223  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319224  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319225  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319226  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319227  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319228  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319229  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319230  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319231  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319232  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319233  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319234  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319235  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319236  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319237  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319238  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319239  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319240  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319241  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319242  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319243  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319244  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319245  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319246  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319247  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319248  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319249  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319250  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319251  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319252  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319253  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319254  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319255  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319256  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319257  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       II. Sector industrial
+SF319258  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319259  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319260  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319261  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319262  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319263  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319264  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319265  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319266  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319267  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319268  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319269  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319270  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319271  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319272  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319273  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319274  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319275  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319276  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319277  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319278  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319279  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319280  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319281  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319282  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319283  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319284  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319285  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319286  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319287  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319288  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319289  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319290  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319291  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319292  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319293  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319294  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319295  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319296  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319297  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319298  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319299  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319300  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319301  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319302  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319303  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319304  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319305  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319306  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319307  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319308  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319309  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319310  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319311  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319312  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319313  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319314  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319315  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319316  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319317  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319318  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319319  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319320  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319321  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319322  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319323  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319324  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319325  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319326  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319327  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319328  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319329  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319330  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319331  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319332  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319333  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319334  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319335  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319336  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319337  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319338  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319339  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319340  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319341  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319342  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319343  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319344  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319345  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319346  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319347  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319348  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319349  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319350  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319351  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319352  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319353  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319354  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319355  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319356  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319357  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       III. Sector servicios y otras actividades
+SF319358  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319359  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319360  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319361  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319362  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319363  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319364  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319365  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319366  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319367  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319368  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319369  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319370  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319371  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319372  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319373  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319374  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319375  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319376  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319377  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319378  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319379  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319380  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319381  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319382  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319383  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319384  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319385  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319386  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319387  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319388  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319389  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319390  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319391  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319392  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319393  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319394  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319395  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319396  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319397  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319398  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319399  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319400  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319401  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319402  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319403  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319404  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319405  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319406  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319407  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319408  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319409  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319410  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319411  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319412  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319413  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319414  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319415  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319416  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319417  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319418  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319419  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319420  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319421  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319422  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319423  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319424  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319425  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319426  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319427  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319428  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319429  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319430  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319431  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319432  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319433  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319434  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319435  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319436  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319437  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319438  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319439  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319440  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319441  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319442  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319443  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319444  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319445  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319446  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319447  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319448  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319449  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319450  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319451  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319452  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319453  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319454  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319455  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319456  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319457  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       IV. Vivienda 7/
+SF319458  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319459  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319460  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319461  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319462  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319463  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319464  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319465  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319466  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319467  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319468  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319469  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319470  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319471  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319472  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319473  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319474  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319475  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319476  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319477  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319478  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319479  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319480  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319481  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319482  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319483  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319484  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319485  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319486  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319487  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319488  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319489  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319490  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319491  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319492  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319493  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319494  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319495  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319496  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319497  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319498  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319499  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319500  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319501  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319502  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319503  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319504  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319505  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319506  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319507  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319508  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319509  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319510  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319511  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319512  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319513  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319514  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319515  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319516  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319517  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319518  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319519  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319520  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319521  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319522  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319523  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319524  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319525  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319526  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319527  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319528  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319529  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319530  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319531  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319532  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319533  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319534  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319535  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319536  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319537  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319538  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319539  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319540  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319541  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319542  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319543  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319544  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319545  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319546  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319547  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319548  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319549  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319550  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319551  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319552  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319553  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319554  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319555  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319556  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319557  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       V. Consumo 3/
+SF319558  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319559  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319560  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319561  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       VI. Ajuste estadístico 3/ 4/
+SF319562  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319563  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319564  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319565  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       VII. Sector financiero del país
+SF319566  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319567  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319568  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319569  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319570  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319571  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319572  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319573  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319574  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319575  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319576  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319577  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319578  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319579  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319580  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319581  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319582  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319583  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319584  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319585  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319586  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319587  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319588  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319589  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319590  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319591  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319592  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319593  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319594  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319595  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319596  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319597  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319598  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319599  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319600  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319601  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319602  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319603  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319604  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319605  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319606  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319607  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319608  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319609  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319610  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319611  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319612  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319613  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319614  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319615  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319616  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319617  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319618  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319619  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319620  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319621  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319622  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319623  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319624  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319625  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319626  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319627  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319628  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319629  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319630  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319631  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319632  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319633  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319634  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319635  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319636  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319637  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319638  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319639  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319640  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319641  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319642  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319643  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319644  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319645  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319646  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319647  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319648  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319649  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319650  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319651  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319652  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319653  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319654  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319655  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319656  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319657  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319658  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319659  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319660  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319661  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319662  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319663  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319664  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319665  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       VIII. Sector público
+SF319666  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319667  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319668  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319669  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319670  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319671  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319672  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319673  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319674  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319675  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319676  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319677  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319678  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319679  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319680  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319681  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319682  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319683  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319684  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319685  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319686  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319687  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319688  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319689  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319690  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319691  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319692  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319693  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319694  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319695  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319696  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319697  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319698  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319699  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319700  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319701  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319702  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319703  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319704  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319705  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319706  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319707  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319708  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319709  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319710  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319711  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319712  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319713  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319714  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319715  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319716  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319717  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319718  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319719  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319720  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319721  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319722  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319723  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319724  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319725  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319726  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319727  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319728  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319729  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319730  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319731  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319732  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319733  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Aguascalientes
+SF319734  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California
+SF319735  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Baja California Sur
+SF319736  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Campeche
+SF319737  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Coahuila
+SF319738  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Colima
+SF319739  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chiapas
+SF319740  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Chihuahua
+SF319741  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Ciudad de México
+SF319742  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Durango
+SF319743  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guanajuato
+SF319744  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Guerrero
+SF319745  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Hidalgo
+SF319746  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Jalisco
+SF319747  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Estado de México
+SF319748  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Michoacán
+SF319749  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Morelos
+SF319750  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nayarit
+SF319751  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Nuevo León
+SF319752  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Oaxaca
+SF319753  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Puebla
+SF319754  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Querétaro
+SF319755  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Quintana Roo
+SF319756  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           San Luis Potosí
+SF319757  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sinaloa
+SF319758  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Sonora
+SF319759  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tabasco
+SF319760  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tamaulipas
+SF319761  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Tlaxcala
+SF319762  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Veracruz
+SF319763  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Yucatán
+SF319764  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Zacatecas
+SF319765  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       IX. Otros sectores residentes 3/
+SF319766  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319767  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           A. PIDIREGAS 5/
+SF319768  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           B. IPAB (antes FOBAPROA)
+SF319769  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           C. FONADIN 6/
+SF319770  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319771  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           A. PIDIREGAS 5/
+SF319772  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           B. IPAB (antes FOBAPROA)
+SF319773  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           C. FONADIN 6/
+SF319774  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       X. Sector externo
+SF319775  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera total
+SF319776  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades financieras
+SF319777  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319778  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319779  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319780  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guayana Inglesa
+SF319781  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319782  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319783  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319784  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319785  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Holanda
+SF319786  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319787  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319788  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319789  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Inglaterra
+SF319790  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319791  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades no financieras
+SF319792  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319793  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319794  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319795  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guayana Inglesa
+SF319796  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319797  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319798  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319799  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319800  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Holanda
+SF319801  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319802  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319803  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319804  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Reino Unido
+SF319805  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319806  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319807  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades financieras
+SF319808  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319809  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319810  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319811  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guyana
+SF319812  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319813  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319814  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319815  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319816  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Países Bajos
+SF319817  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319818  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319819  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319820  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Reino Unido
+SF319821  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319822  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades no financieras
+SF319823  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319824  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319825  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319826  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guyana
+SF319827  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319828  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319829  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319830  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319831  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Países Bajos
+SF319832  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319833  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319834  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319835  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Reino Unido
+SF319836  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319837  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+SF319838  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades financieras
+SF319839  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319840  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319841  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319842  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guyana
+SF319843  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319844  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319845  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319846  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319847  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Países Bajos
+SF319848  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319849  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319850  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319851  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Reino Unido
+SF319852  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319853  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026           Entidades no financieras
+SF319854  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Canadá
+SF319855  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Estados Unidos de Norteamérica
+SF319856  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Bahamas
+SF319857  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Guyana
+SF319858  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Chile
+SF319859  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Cuba
+SF319860  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Argentina
+SF319861  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             España
+SF319862  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Países Bajos
+SF319863  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             El Salvador
+SF319864  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Brasil
+SF319865  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Belice
+SF319866  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Reino Unido
+SF319867  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026             Otros países
+SF319868  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026       Memorándum: Crédito a la Banca comercial
+SF319869  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vigente
+SF319870  Trimestral Millones de Pesos      Oct-Dic 2003 Abr-Jun 2026         Cartera vencida
+                                                            # 1/ La clasificación por sector económico se realiza con base en el Sistema de Clasificación Industrial para América del Norte (SCIAN) 2013.
+                                                            # - La banca comercial o banca múltiple agrupa instituciones de crédito privadas residentes en el país, que incluyen bancos nacionales, filiales de bancos extranj
+                                                            # - A partir de la información de diciembre de 2004 se desincorporan los bancos que se encontraban en proceso de liquidación o en quiebra.
+                                                            # - El crédito incluye cartera vigente, vencida, redescontada, intereses devengados sobre préstamos y créditos vigentes, intereses vencidos; la cartera afecta al 
+                                                            # - Como resultado del redondeo de las cifras, los niveles agregados pueden no coincidir con la suma de sus componentes.
+                                                            # - Las cifras de los últimos 3 trimestres son preliminares y están sujetas a revisión. Ello se debe a la reciente implementación de nuevos criterios contables en
+                                                            # -En febrero de 2023 los datos de este cuadro fueron revisados a partir de enero 2022 como resultado de la actualización de sus fuentes de información.
+                                                            # 2/ Los rubros de vivienda, consumo, ajuste estadístico y otros sectores residentes están incluidos en la suma, pero no presentan detalle por entidad federativa.
+                                                            # 3/ El reporte recibido de las instituciones referente a crédito al consumo, ajuste estadístico y a otros sectores presenta imprecisiones significativas, por lo 
+                                                            # 4/ Corresponde a la diferencia entre la fuente de información contable (ICS y ACM) y el reporte detallado de cartera de créditos (Relación de Responsabilidades)
+                                                            # 5/ Se refiere al financiamiento otorgado a Proyectos de Infraestructura Productiva de Largo Plazo en moneda nacional y en moneda extranjera.
+                                                            # 6/ Fideicomiso Fondo Nacional de Infraestructura D. O. F. 7/02/2008.
+                                                            # 7/ Debido a la fusión de Santander Vivienda, S.A. de C.V., SOFOM E.R con Banco Santander México, S.A., Institución de Banca Múltiple, a partir de octubre 2020 e

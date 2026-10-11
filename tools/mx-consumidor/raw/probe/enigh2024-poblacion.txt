@@ -1,0 +1,10 @@
+GET https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_poblacion_csv.zip
+-> HTTP 200 application/x-zip-compressed 9055376 bytes · Last-Modified Wed, 30 Jul 2025 12:00:34 GMT
+
+Archive:  /tmp/probe-YTVMaS/file.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 92763046  2025-06-25 15:15   poblacion.csv
+---------                     -------
+ 92763046                     1 file
+
