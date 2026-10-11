@@ -354,24 +354,29 @@ if (fin && fin.length > 40) {
     hist: { q: qs, total: ratio('finHH'), consumer: ratio('finCons'), housing: ratio('finViv') } };
   src('financing', 'banxico', { name: 'Banco de México, financiamiento total a los hogares (CF297)', url: cuadro('finHH'), asOf: q });
 }
-const tc = obs('totCons');
-if (tc && tc.length > 60) {
+// Two tables of Banco de México: CF835 (performing portfolio by product; a continuous series, so balances and growth come
+// from it) and CF762 / CF766 (total and past-due portfolio by product; the past-due ratio = past due ÷ total of the same
+// table). The coverage of CF762 changed in February 2026 (its card portfolio rises by a third in one month while CF835
+// shows no jump), so its balances are used only inside that ratio.
+const tc = obs('totCons'), bk = obs('bkCons');
+if (tc && bk && tc.length > 60 && bk.length > 60) {
   const m = last(tc)[0], T = (k, mm = m) => mapOf(obs(k)).get(mm);
-  const PROD = [['card', 'totCard', 'pdCard'], ['payroll', 'totPayroll', 'pdPayroll'], ['personal', 'totPersonal', 'pdPersonal'], ['auto', 'totAuto', 'pdAuto']];
-  const dur = T('totDurables'), known = T('totCard') + T('totPayroll') + T('totPersonal') + dur, other = T('totCons') - known;
-  must('Banxico bank credit', 'the consumer products do not exceed the consumer portfolio', other >= -1 && dur >= T('totAuto') - 1);
-  const products = PROD.map(([k, t, p]) => ({ k, v: r1(T(t) / 1000), pct: pct(T(t), T('totCons')), imor: r2(T(p) / T(t) * 100), imorYearAgo: r2(T(p, monthAdd(m, -12)) / T(t, monthAdd(m, -12)) * 100), yoyReal: realGrowth(obs(t), m, 12) }));
-  products.push({ k: 'otherDurables', v: r1((dur - T('totAuto')) / 1000), pct: pct(dur - T('totAuto'), T('totCons')), imor: r2((T('pdDurables') - T('pdAuto')) / (dur - T('totAuto')) * 100), imorYearAgo: null, yoyReal: null });
-  products.push({ k: 'other', v: r1(other / 1000), pct: pct(other, T('totCons')), imor: null, imorYearAgo: null, yoyReal: null });
+  const mb = last(bk)[0], B = (k, mm = mb) => mapOf(obs(k)).get(mm);
+  const PROD = [['card', 'bkCard', 'totCard', 'pdCard'], ['payroll', 'bkPayroll', 'totPayroll', 'pdPayroll'], ['personal', 'bkPersonal', 'totPersonal', 'pdPersonal'], ['auto', 'bkAuto', 'totAuto', 'pdAuto'], ['goods', 'bkGoods', null, null], ['other', 'bkOther', null, null]];
+  tie('Banxico bank credit', 'performing consumer portfolio = its six products (millions of pesos)', sum(PROD.map((p) => B(p[1]))), B('bkCons'), 2);
+  must('Banxico bank credit', 'both tables end in the same month', m === mb, true);
+  const ratio = (t, p, mm = m) => (T(t, mm) > 0 && T(p, mm) != null ? r2(T(p, mm) / T(t, mm) * 100) : null);
+  const products = PROD.map(([k, b, t, p]) => ({ k, v: r1(B(b) / 1000), pct: pct(B(b), B('bkCons')), yoyReal: realGrowth(obs(b), mb, 12), imor: t ? ratio(t, p) : null, imorYearAgo: t ? ratio(t, p, monthAdd(m, -12)) : null }));
   const months = tc.map((x) => x[0]).filter((mm) => mm >= '2011-02');
-  const imor = (t, p) => { const A = mapOf(obs(t)), B = mapOf(obs(p)); return months.map((mm) => (A.get(mm) > 0 && B.get(mm) != null ? r2(B.get(mm) / A.get(mm) * 100) : null)); };
-  const bank = { asOf: m, consumer: r1(T('totCons') / 1000), housing: r1(T('totHousing') / 1000), products, consumerYoyReal: realGrowth(tc, m, 12), housingYoyReal: realGrowth(obs('totHousing'), m, 12),
-    imor: { consumer: r2(T('pdCons') / T('totCons') * 100), consumerYearAgo: r2(T('pdCons', monthAdd(m, -12)) / T('totCons', monthAdd(m, -12)) * 100), housing: r2(T('pdHousing') / T('totHousing') * 100), housingYearAgo: r2(T('pdHousing', monthAdd(m, -12)) / T('totHousing', monthAdd(m, -12)) * 100) },
+  const imor = (t, p) => { const A = mapOf(obs(t)), P2 = mapOf(obs(p)); return months.map((mm) => (A.get(mm) > 0 && P2.get(mm) != null ? r2(P2.get(mm) / A.get(mm) * 100) : null)); };
+  const gm = bk.map((x) => x[0]).filter((mm) => mm >= '2016-01');
+  const bank = { asOf: mb, imorAsOf: m, consumer: r1(B('bkCons') / 1000), housing: r1(B('bkHousing') / 1000), products, consumerYoyReal: realGrowth(bk, mb, 12), housingYoyReal: realGrowth(obs('bkHousing'), mb, 12),
+    imor: { consumer: ratio('totCons', 'pdCons'), consumerYearAgo: ratio('totCons', 'pdCons', monthAdd(m, -12)), housing: ratio('totHousing', 'pdHousing'), housingYearAgo: ratio('totHousing', 'pdHousing', monthAdd(m, -12)) },
     hist: { months, consumer: imor('totCons', 'pdCons'), card: imor('totCard', 'pdCard'), payroll: imor('totPayroll', 'pdPayroll'), personal: imor('totPersonal', 'pdPersonal'), auto: imor('totAuto', 'pdAuto'), housing: imor('totHousing', 'pdHousing') },
-    growth: { months: months.filter((mm) => mm >= '2016-01'), consumer: months.filter((mm) => mm >= '2016-01').map((mm) => realGrowth(tc, mm, 12)), card: months.filter((mm) => mm >= '2016-01').map((mm) => realGrowth(obs('totCard'), mm, 12)), housing: months.filter((mm) => mm >= '2016-01').map((mm) => realGrowth(obs('totHousing'), mm, 12)) } };
+    growth: { months: gm, consumer: gm.map((mm) => realGrowth(bk, mm, 12)), card: gm.map((mm) => realGrowth(obs('bkCard'), mm, 12)), payroll: gm.map((mm) => realGrowth(obs('bkPayroll'), mm, 12)), personal: gm.map((mm) => realGrowth(obs('bkPersonal'), mm, 12)), auto: gm.map((mm) => realGrowth(obs('bkAuto'), mm, 12)), housing: gm.map((mm) => realGrowth(obs('bkHousing'), mm, 12)) } };
   must('Banxico bank credit', 'past-due ratios are between 0 and 25%', [bank.imor.consumer, bank.imor.housing, ...products.map((p) => p.imor).filter((x) => x != null)].every((x) => x >= 0 && x < 25));
   D.bank = bank;
-  src('bankCredit', 'banxico', { name: 'Banco de México, crédito de la banca comercial a los hogares: cartera total y vencida (CF762, CF766)', url: cuadro('totCons'), asOf: m });
+  src('bankCredit', 'banxico', { name: 'Banco de México, crédito de la banca comercial a los hogares: cartera vigente por producto (CF835), cartera total y vencida (CF762, CF766)', url: cuadro('bkCons'), asOf: mb });
 }
 const rc = obs('rtCardRev');
 if (rc && rc.length > 20) {
