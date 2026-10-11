@@ -5,6 +5,9 @@
 //   · BMV, eventos relevantes of the issuer (bmv.com.mx): the notices whose title is a results release (or matches one
 //     of the company's `also` patterns, e.g. Walmex's monthly sales) are downloaded as PDF and stored as text, one block
 //     per page;
+//   · BMV, quarterly report of the issuer (`xbrl: true`; many issuers file their results release only inside it): the
+//     page "información financiera" of the issuer links the latest quarter's XBRL package; the management-commentary
+//     text blocks of the package (the results release and its tables) are stored as text;
 //   · SEC EDGAR: the latest results 8-K (Item 2.02) or, for a foreign private issuer, the latest 6-Ks whose exhibit
 //     opens with text matching the company's `match`; every EX-99 exhibit in HTML is stored as text (tables one row
 //     per line, cells separated by " | ").
@@ -77,6 +80,49 @@ async function harvestBmv(c, prev, pins) {
   // a release the curated figures cite that has left the BMV's first page keeps its stored text
   for (const f of prev.filings || []) if (pins.has(f.filed) && !entry.filings.some((x) => x.accn === f.accn) && f.exhibits.every((e) => existsSync(p(e.file)))) entry.filings.push(f);
   if (!entry.filings.some((f) => f.kind === 'results')) throw Object.assign(new Error(`no results release among the ${rows.length} notices on the BMV list (latest: "${rows[0].title.slice(0, 90)}")`), { entry });
+  return entry;
+}
+
+// ---------- BMV, quarterly report (XBRL package) ----------
+const MONTHS = { ene: 1, jan: 1, feb: 2, mar: 3, abr: 4, apr: 4, may: 5, jun: 6, jul: 7, ago: 8, aug: 8, sep: 9, set: 9, oct: 10, nov: 11, dic: 12, dec: 12 };
+// a table cell holds one figure or label: its inner paragraphs are flattened so a row stays on one line
+const flatCells = (html) => html.replace(/<t([dh])\b[^>]*>([\s\S]*?)<\/t\1>/gi, (m, t, inner) => `<td>${inner.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()}</td>`);
+async function harvestXbrl(c, prev, pins) {
+  const url = `${BMV}/es/emisoras/informacionfinanciera/${c.bmv}`;
+  const html = await getText(url, { tries: 3, timeoutMs: 60_000 });
+  // rows of the quarterly table: date, "Información Del Trimestre N Del Año YYYY", link to the package
+  const rows = [...html.matchAll(/<span>\s*(\d{1,2})-([A-Za-z]{3})-(\d{4})[^<]*<\/span>[\s\S]{0,400}?Informaci[oó]n Del Trimestre\s+(\d)\s+Del A[nñ]o\s+(\d{4})[\s\S]{0,600}?docins=\.\.\/ifrsxbrl\/(ifrsxbrl_(\d+)_[0-9-]+_\d+\.zip)/gi)]
+    .map((m) => ({ filed: `${m[3]}-${String(MONTHS[m[2].toLowerCase()] || 0).padStart(2, '0')}-${m[1].padStart(2, '0')}`, quarter: `${m[5]}-Q${m[4]}`, zip: m[6], id: m[7] }))
+    .filter((r) => !/-00-/.test(r.filed));
+  if (!rows.length) throw new Error('no quarterly XBRL package is linked on the issuer\'s financial-information page');
+  const entry = { ticker: c.ticker, name: c.name, channel: 'xbrl', listUrl: url, filings: [] };
+  for (const r of rows.slice(0, KEEP)) {
+    const known = (prev.filings || []).find((f) => f.accn === `xbrl${r.id}`);
+    if (known && !force && known.exhibits.every((e) => existsSync(p(e.file)))) { entry.filings.push(known); continue; }
+    mkdirSync(tmp, { recursive: true });
+    const zip = join(tmp, `${c.ticker}-${r.id}.zip`), dir = join(tmp, `${c.ticker}-${r.id}`);
+    writeFileSync(zip, await getBuffer(`${BMV}/docs-pub/ifrsxbrl/${r.zip}`, { tries: 3, timeoutMs: 180_000 }));
+    execFileSync('unzip', ['-o', '-q', zip, '-d', dir], { maxBuffer: 64 * 1024 * 1024 });
+    const jf = readdirSync(dir).find((f) => /\.json$/i.test(f));
+    if (!jf) throw new Error(`the package ${r.zip} holds no JSON document (${readdirSync(dir).join(', ').slice(0, 120)})`);
+    const doc = JSON.parse(readFileSync(join(dir, jf), 'utf8'));
+    const facts = Object.values(doc.HechosPorId || {}).filter((f) => typeof f.Valor === 'string' && f.Valor.length > 200 && /^(ifrs-mc_|mc_mx-cor)/.test(f.IdConcepto || ''));
+    // the release itself first, then the results discussion, then the rest of the commentary
+    const rank = (f) => (/ManagementCommentaryExplanatory$/.test(f.IdConcepto) ? 0 : /ResultsOfOperations/.test(f.IdConcepto) ? 1 : 2);
+    facts.sort((a, b) => rank(a) - rank(b) || b.Valor.length - a.Valor.length);
+    let text = facts.map((f) => `==== ${f.IdConcepto} ====\n${htmlToText(flatCells(f.Valor))}`).join('\n\n');
+    const full = text.length;
+    if (full < 1500) throw new Error(`the quarterly report ${r.quarter} carries no management commentary (${full} characters)`);
+    if (full > MAX_CHARS) text = text.slice(0, MAX_CHARS) + `\n… (truncated: ${full - MAX_CHARS} more characters in the document)`;
+    const view = `${BMV}/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/${r.zip}`;
+    const file = `${DIR}${c.ticker}/${r.filed}_xbrl${r.id}.txt`;
+    writeText(file, `# ${c.name} (${c.ticker}) · BMV, reporte trimestral ${r.quarter} (XBRL), comentarios de la administración · presentado ${r.filed}\n# ${view}\n\n${text}\n`);
+    entry.filings.push({ accn: `xbrl${r.id}`, filed: r.filed, kind: 'results', quarter: r.quarter, title: `Reporte trimestral ${r.quarter}`, indexUrl: url, exhibits: [{ type: 'XBRL', description: `Reporte trimestral ${r.quarter}, comentarios de la administración`, url: view, file, chars: full }] });
+    rmSync(dir, { recursive: true, force: true }); rmSync(zip, { force: true });
+  }
+  // the page lists only the latest quarter: the previous one and any release the curated figures cite keep their stored text
+  const older = (prev.filings || []).filter((f) => !entry.filings.some((x) => x.accn === f.accn) && f.exhibits.every((e) => existsSync(p(e.file)))).sort((a, b) => (a.filed < b.filed ? 1 : -1));
+  for (const f of older) if (entry.filings.length < KEEP || pins.has(f.filed)) entry.filings.push(f);
   return entry;
 }
 
@@ -173,7 +219,7 @@ for (const c of cfg.companies) {
   const kp = (kpis.companies || {})[c.ticker] || {};
   const pins = new Set([kp.filed, ...(kp.pins || [])].filter(Boolean));
   try {
-    const entry = c.bmv ? await harvestBmv(c, prev, pins) : await harvestSec(c, prev, pins);
+    const entry = c.xbrl ? await harvestXbrl(c, prev, pins) : c.bmv ? await harvestBmv(c, prev, pins) : await harvestSec(c, prev, pins);
     // drop the texts of releases no longer kept
     const keepFiles = new Set(entry.filings.flatMap((f) => f.exhibits.map((e) => e.file.split('/').pop())));
     const dir = p(`${DIR}${c.ticker}`);

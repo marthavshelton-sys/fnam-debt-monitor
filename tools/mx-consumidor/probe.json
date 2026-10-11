@@ -1,7 +1,0 @@
-[
- { "name": "bmv-fin-livepol-row", "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT", "html": "raw", "grep": "Del Trimestre|ifrsxbrl", "context": 9, "keep": 6000 },
- { "name": "xbrl-livepol", "url": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip", "zip": "list", "save": "livepol-2026-02.zip" },
- { "name": "xbrl-chdraui", "url": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1575980_2026-02_1.zip", "zip": "list", "save": "chdraui-2026-02.zip" },
- { "name": "bmv-fin-gfnorte-links", "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GFNORTE-5433-CGEN_CAPIT", "links": "ifrsxbrl|xbrl|constrim", "keep": 3000 },
- { "kind": "bieseries", "name": "bie-cons-q", "ids": ["737411", "734407", "724119"], "from": 2023 }
-]
