@@ -60,7 +60,7 @@ out.editions = {
 };
 out.needsCheckFigures = ['enigh', 'enif'].filter((k) => out.editions[k].checkFigures === false);
 out.curated = { companiesReviewed: kpis.reviewed || null, lastRun: state.lastRun || null, open: state.open || [] };
-out.quiet = !out.companies.length && !out.sources.length && !out.build.fail && !out.overdue.length && !out.recheck.length && !out.needsCheckFigures.length && !(out.curated.open || []).length;
+out.quiet = !out.companies.length && !out.missing.length && !out.sources.length && !out.build.fail && !out.overdue.length && !out.recheck.length && !out.needsCheckFigures.length && !(out.curated.open || []).length;
 
 if (!SUMMARY) console.log(JSON.stringify(out, null, 1));
 else {

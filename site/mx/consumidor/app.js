@@ -852,6 +852,20 @@
   // =====================================================================================================================
   function median(a) { var s = a.slice().sort(function (x, y) { return x - y; }); return s.length ? (s.length % 2 ? s[(s.length - 1) / 2] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null; }
   var RETAIL = { grocery: 1, value: 1, department: 1 };
+  // "k of the n that report it" as a sentence that also reads well when k is none, all, or n is one
+  function tally(k, n, es, subj, verb, noun, relOne, relMany, verbNot) {
+    var one = n === 1, rel = one ? relOne : relMany;
+    if (es) {
+      var nn = noun ? (one ? noun + ' ' : noun + 's ') : '';
+      if (k === 0) return subj + ' no ' + verb + (one ? ' en la única ' : ' en ninguna de las ' + n + ' ') + nn + rel + '.';
+      if (k === n) return subj + ' ' + verb + (one ? ' en la única ' : ' en las ' + n + ' ') + nn + rel + '.';
+      return subj + ' ' + verb + ' en ' + k + ' de las ' + n + ' ' + nn + rel + '.';
+    }
+    var en = noun ? (one ? noun + ' ' : noun.replace(/y$/, 'ie') + 's ') : (one ? 'one ' : '');
+    if (k === 0) return subj + ' ' + verbNot + (one ? ' at the only ' : ' at any of the ' + n + ' ') + en + rel + '.';
+    if (k === n) return subj + ' ' + verb + (one ? ' at the only ' : ' at all ' + n + ' ') + en + rel + '.';
+    return subj + ' ' + verb + ' at ' + k + ' of the ' + n + ' ' + en + rel + '.';
+  }
   function companySummary() {
     if (!CO || !CO.companies.length) return null;
     var comps = CO.companies.filter(function (c) { return c.comp; }), pos = comps.filter(function (c) { return c.comp.v > 0; }), med = median(comps.map(function (c) { return c.comp.v; }));
@@ -860,8 +874,8 @@
     if (!comps.length) return null;
     var best = comps.slice().sort(function (x, y) { return y.comp.v - x.comp.v; })[0], worst = comps.slice().sort(function (x, y) { return x.comp.v - y.comp.v; })[0];
     return bi(
-      'Lo que ven las empresas: de ' + comps.length + ' cadenas que reportan ventas a tiendas iguales en México, ' + pos.length + ' crecieron; la mediana es de <b>' + UI.signed(med) + '</b>, de ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') a ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' El tráfico cayó en ' + trDown.length + ' de las ' + tr2.length + ' que lo reportan.' : '') + (npl.length ? ' La cartera vencida subió frente al año anterior en ' + nplUp.length + ' de las ' + npl.length + ' empresas que la reportan.' : ''),
-      'What companies see: of ' + comps.length + ' chains that report same-store sales in Mexico, ' + pos.length + ' grew; the median is <b>' + UI.signed(med) + '</b>, from ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') to ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' Traffic fell at ' + trDown.length + ' of the ' + tr2.length + ' that report it.' : '') + (npl.length ? ' Past-due loans rose from a year earlier at ' + nplUp.length + ' of the ' + npl.length + ' companies that report them.' : ''));
+      'Lo que ven las empresas: de ' + comps.length + ' cadenas que reportan ventas a tiendas iguales en México, ' + pos.length + ' crecieron; la mediana es de <b>' + UI.signed(med) + '</b>, de ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') a ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' ' + tally(trDown.length, tr2.length, true, 'El tráfico', 'cayó', '', 'que lo reporta', 'que lo reportan') : '') + (npl.length ? ' ' + tally(nplUp.length, npl.length, true, 'La cartera vencida', 'subió frente al año anterior', 'empresa', 'que la reporta', 'que la reportan') : ''),
+      'What companies see: of ' + comps.length + ' chains that report same-store sales in Mexico, ' + pos.length + ' grew; the median is <b>' + UI.signed(med) + '</b>, from ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') to ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' ' + tally(trDown.length, tr2.length, false, 'Traffic', 'fell', '', 'that reports it', 'that report it', 'did not fall') : '') + (npl.length ? ' ' + tally(nplUp.length, npl.length, false, 'Past-due loans', 'rose from a year earlier', 'company', 'that reports them', 'that report them', 'did not rise from a year earlier') : ''));
   }
   // one figure of a company, in the unit its report gives
   function figVal(m) {
