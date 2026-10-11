@@ -4,34 +4,6 @@
   {
    "at": "2026-10-09T22:49:22.403Z",
    "file": "calendar.js",
-   "path": "manualEvents[1].start",
-   "old": null,
-   "new": "2026-11-18"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "calendar.js",
-   "path": "manualEvents[1].all_day",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "calendar.js",
-   "path": "manualEvents[1].timezone",
-   "old": null,
-   "new": "America/Los_Angeles"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "calendar.js",
-   "path": "manualEvents[1].location",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "calendar.js",
    "path": "manualEvents[1].status",
    "old": null,
    "new": "filed"
@@ -4200,7 +4172,35 @@
    "path": "peers[7].adtv.product_of_averages_usd_m",
    "old": 9279,
    "new": 9279.5
+  },
+  {
+   "at": "2026-10-11T13:39:19.245Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-10&todate=2026-10-10&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-11&todate=2026-10-11&limit=10000"
+  },
+  {
+   "at": "2026-10-11T13:39:19.245Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-10",
+   "new": "2026-10-11"
+  },
+  {
+   "at": "2026-10-11T13:39:19.245Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-10",
+   "new": "2026-10-11"
+  },
+  {
+   "at": "2026-10-11T13:39:19.245Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-10",
+   "new": "2026-10-11"
   }
  ],
- "generated": "2026-10-11T00:02:46.974Z"
+ "generated": "2026-10-11T13:39:19.245Z"
 }
