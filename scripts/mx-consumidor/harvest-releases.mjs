@@ -39,8 +39,9 @@ const errors = [];
 
 // ---------- BMV ----------
 // titles that are never a results release (the notice of its date, the invitation to the call) and titles that are
-const SKIP = /fecha de (publicaci|reporte)|conferencia|llamada|invitaci|convocatoria|webcast|calendario|recompra|asamblea|dividendo/i;
-const RESULTS = /resultados?[^.]{0,80}(trimestre|\b[1-4]\s?[tq]\s?(20)?\d\d\b)|reporte (de resultados|trimestral)|informe trimestral|(primer|segundo|tercer|cuarto) trimestre|\b[1-4]\s?[tq]\s?(20)?\d\d\b/i;
+// (an issuer that files the same release in Spanish and in English is read in Spanish)
+const SKIP = /fecha de (publicaci|reporte)|conferencia|llamada|invitaci|convocatoria|webcast|calendario|recompra|asamblea|dividendo|periodo de silencio|\b(reports|results|announces|quarter)\b/i;
+const RESULTS = /resultados?[^.]{0,80}(trimestre|\b[1-4]\s?[tq]\s?(20)?\d\d\b)|reporte (de resultados|trimestral)|informe trimestral|(primer|segundo|tercer|cuarto|1er\.?|2do\.?|3er\.?|4to\.?) trimestre|\b[1-4]\s?[tq]\s?(20)?\d\d\b/i;
 const tmp = join(tmpdir(), 'mxc-releases');
 function pdfToText(buf, name) {
   mkdirSync(tmp, { recursive: true });

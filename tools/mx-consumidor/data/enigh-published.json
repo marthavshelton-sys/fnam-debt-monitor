@@ -1,0 +1,26 @@
+{
+ "_comment": "Figures INEGI prints in the results presentation of the ENIGH 2024 (enigh2024_ns_presentacion_resultados.pdf, read on the runner on 11-Oct-2026). The builder computes the same figures from the public microdata and stops if they differ: a change in the microdata layout or in the method can never reach the page unnoticed. Quarterly pesos per household; `real` = pesos of 2024 as INEGI deflates them. When INEGI publishes a new edition, add its year here from the new presentation (the page keeps working without it, with a warning).",
+ "source": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
+ "latest": 2024,
+ "editions": {
+  "2024": {
+   "households": 38830230,
+   "meanIncome": 77864,
+   "meanSpending": 47674,
+   "householdSize": 3.35,
+   "gini": 0.391,
+   "giniNoTransfers": 0.450,
+   "deciles": [16795, 28297, 36845, 45245, 54308, 64600, 77451, 95291, 123712, 236095],
+   "spendingDeciles": [16955, 23334, 28330, 32817, 37470, 43026, 48844, 57488, 70492, 117988],
+   "income": { "ingtrab": 51099, "trabajo": 43665, "negocio": 6057, "otros_trab": 1378, "rentas": 3834, "transfer": 13799, "jubilacion": 6244, "becas": 136, "donativos": 1546, "remesas": 598, "bene_gob": 2500, "transf_hog": 1812, "trans_inst": 963, "estim_alqu": 9066, "otros_ing": 65 },
+   "spending": { "alimentos": 17982, "transporte": 9319, "educa_espa": 4593, "vivienda": 4346, "personales": 3709, "limpieza": 3014, "vesti_calz": 1830, "salud": 1605, "transf_gas": 1276 },
+   "bySex": { "men": 81232, "women": 71190 },
+   "urban": { "urban": 85550, "rural": 48004 },
+   "states": { "01": 89819, "02": 101187, "03": 104728, "04": 66236, "05": 87652, "06": 86241, "07": 41084, "08": 92363, "09": 110685, "10": 69589, "11": 74545, "12": 48548, "13": 59461, "14": 87199, "15": 74162, "16": 68234, "17": 66195, "18": 74601, "19": 117034, "20": 52025, "21": 62162, "22": 97615, "23": 88754, "24": 73205, "25": 82837, "26": 94721, "27": 65001, "28": 77302, "29": 58834, "30": 53030, "31": 79972, "32": 60292 }
+  },
+  "2022": { "meanIncomeReal": 70391, "meanSpendingReal": 44166, "householdSize": 3.43, "gini": 0.402, "giniNoTransfers": 0.460, "decilesReal": [14820, 24778, 32270, 39726, 47897, 57382, 68972, 84801, 111468, 221792] },
+  "2020": { "meanIncomeReal": 63400, "meanSpendingReal": 37693, "householdSize": 3.55, "gini": 0.415, "giniNoTransfers": 0.468, "decilesReal": [12524, 21250, 28070, 34729, 42049, 50544, 61335, 76366, 101367, 205769] },
+  "2018": { "meanIncomeReal": 67319, "meanSpendingReal": 43262, "householdSize": 3.60, "gini": 0.426, "giniNoTransfers": 0.475, "decilesReal": [12359, 21832, 29051, 36185, 43807, 52799, 64074, 79832, 106583, 226665] },
+  "2016": { "meanIncomeReal": 70247, "meanSpendingReal": 42453, "householdSize": 3.66, "gini": 0.449, "giniNoTransfers": 0.499, "decilesReal": [12312, 21420, 28524, 35517, 43444, 52534, 63991, 80527, 108669, 255530] }
+ }
+}

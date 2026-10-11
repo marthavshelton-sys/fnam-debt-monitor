@@ -1,0 +1,8 @@
+[
+ { "name": "bmv-fin-livepol", "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT", "html": "raw", "grep": "docs-pub|visor|xbrl|trimestr|\\.pdf|\\.zip", "context": 0, "keep": 9000 },
+ { "name": "bmv-fin-livepol-links", "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT", "links": "docs-pub|visor|xbrl|pdf|zip|informacion", "keep": 9000 },
+ { "name": "bmv-fin-chdraui-links", "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT", "links": "docs-pub|visor|xbrl|pdf|zip", "keep": 6000 },
+ { "name": "bmv-perfil-livepol-links", "url": "https://www.bmv.com.mx/es/emisoras/perfil/LIVEPOL-5536", "links": "emisoras/|docs-pub|visor", "keep": 5000 },
+ { "kind": "bie", "name": "bie-consumo-trimestral", "q": "consumo privado trimestral precios corrientes oferta y demanda" },
+ { "kind": "bie", "name": "bie-consumo-privado", "q": "gasto de consumo final privado valores a precios corrientes" }
+]

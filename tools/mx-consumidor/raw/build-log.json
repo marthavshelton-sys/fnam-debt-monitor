@@ -1,0 +1,48 @@
+{
+ "checks": [],
+ "counts": {
+  "ok": 212,
+  "warn": 0,
+  "fail": 0
+ },
+ "missing": [],
+ "stale": [],
+ "sourceStatus": {
+  "enigh": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "banxico": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "cards": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "states": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "inegi": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "fred": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "enif": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "docs": {
+   "ok": "2026-10-11",
+   "failures": 0
+  },
+  "poverty": {
+   "ok": "2026-10-11",
+   "failures": 0
+  }
+ }
+}
