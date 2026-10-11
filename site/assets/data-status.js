@@ -84,6 +84,7 @@
   var STAMPS = {
     'us-macro': { url: '/macro/status.json', re: /"runAt":"([^"]+)"/ },
     'us-fiscal': { url: '/fiscal/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
+    'us-consumer': { url: '/consumidor/data/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'mx-macro': { url: '/mx/macro/index.html', re: /REFRESHED_AT = "([^"]+)"/, bytes: 400000 },
     'mx-fiscal': { url: '/mx/fiscal/data.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },
     'gap': { url: '/gap/data/market.js', re: /generatedAt"?\s*:\s*"([^"]+)"/ },

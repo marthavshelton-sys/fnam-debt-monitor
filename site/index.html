@@ -168,6 +168,9 @@ main{flex:1; padding-top:12px;}
   grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
 }
 @media (max-width:360px){ .grid{grid-template-columns:1fr;} }
+/* a row of four cards: four across, or two by two, never three and one */
+@media (min-width:1100px){ .grid.grid-4{grid-template-columns:repeat(4, minmax(0, 1fr));} }
+@media (min-width:640px) and (max-width:1099px){ .grid.grid-4{grid-template-columns:repeat(2, minmax(0, 1fr));} }
 
 .card{
   position:relative;
@@ -294,7 +297,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="es">Estados Unidos</span>
         </h2>
       </div>
-      <div class="grid">
+      <div class="grid grid-4">
 
         <a class="card" href="/macro/">
           <span class="kicker">
@@ -354,6 +357,28 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <span class="src">
               <span class="en">Treasury · MTS</span>
               <span class="es">Tesoro · MTS</span>
+            </span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+          </div>
+        </a>
+
+        <a class="card" href="/consumidor/">
+          <span class="kicker">
+            <span class="en">Households</span>
+            <span class="es">Hogares</span>
+          </span>
+          <h3>
+            <span class="en">The American Consumer</span>
+            <span class="es">El Consumidor Estadounidense</span>
+          </h3>
+          <p>
+            <span class="en">Income, spending by income decile, sources and uses of funds, credit, leverage and financial stress, wealth by group and by state, the K-shaped economy, and what consumer companies report.</span>
+            <span class="es">Ingreso, gasto por decil de ingreso, fuentes y usos de fondos, crédito, apalancamiento y estrés financiero, riqueza por grupo y por estado, la economía en forma de K y lo que reportan las empresas de consumo.</span>
+          </p>
+          <div class="card-foot">
+            <span class="src">
+              <span class="en">Census · BLS · BEA · Fed · SEC</span>
+              <span class="es">Censo · BLS · BEA · Fed · SEC</span>
             </span>
             <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
@@ -531,6 +556,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       <a href="/macro/"><span class="en">U.S. Macro</span><span class="es">Macro EE. UU.</span></a>
       <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es">Deuda Fiscal EE. UU.</span></a>
       <a href="/macro/?view=fiscal"><span class="en">U.S. Fiscal Deficit</span><span class="es">Déficit Fiscal EE. UU.</span></a>
+      <a href="/consumidor/"><span class="en">American Consumer</span><span class="es">Consumidor EE. UU.</span></a>
       <a href="/mx/macro/"><span class="en">Mexico Macro</span><span class="es">Macro México</span></a>
       <a href="/mx/fiscal/"><span class="en">Mexico Fiscal</span><span class="es">Fiscal México</span></a>
       <a href="/aeropuertos/"><span class="en">Mexican Airports</span><span class="es">Aeropuertos Mexicanos</span></a>
@@ -567,7 +593,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   function langLinks(lang){
     Array.prototype.forEach.call(document.querySelectorAll('a[href^="/"]'), function(a){
       var base = a.getAttribute("data-base") || a.getAttribute("href");
-      if (!/^\/(macro|fiscal|mx)\//.test(base)) return;
+      if (!/^\/(macro|fiscal|mx|consumidor)\//.test(base)) return;
       a.setAttribute("data-base", base);
       a.setAttribute("href", base + (base.indexOf("?") >= 0 ? "&" : "?") + "lang=" + lang);
     });

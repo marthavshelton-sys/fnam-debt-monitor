@@ -11,6 +11,10 @@
 /fiscal/monthly-data.js
   Cache-Control: no-store
 
+# American Consumer data files are refreshed under the same URLs when a source publishes.
+/consumidor/data/*
+  Cache-Control: no-store
+
 # GAP model data files are refreshed daily / after each release under the same URLs.
 /gap/data/*
   Cache-Control: no-store

@@ -1,5 +1,8 @@
 # The primary-source research experiment was retired; its address goes to the Oracle model.
 /oracle/research/* /oracle/ 301
+# English address of the American Consumer page (the page lives under its Spanish path, like the rest of the site).
+/consumer /consumidor/ 301
+/consumer/* /consumidor/:splat 301
 # English address of the Hyperscaler Hub (the hub lives under its Spanish path, like the rest of the site).
 /hyperscalers /hiperescaladores/ 301
 /hyperscalers/* /hiperescaladores/:splat 301
