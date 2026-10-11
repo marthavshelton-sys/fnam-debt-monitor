@@ -1,0 +1,12 @@
+GET https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js
+-> HTTP 200 application/javascript 70842 bytes · Last-Modified Wed, 15 Oct 2025 17:50:23 GMT
+
+(8 distinct matches)
+"/app/api/authIndicadores/login/isBloqueada/?"
+"/app/api/authIndicadores/estilos/login.css"
+"/app/api/authIndicadores/login/paginaBloqueada/?"
+"/app/api/authIndicadores/token"
+"/data.json"
+"/app/api/Sugerencias/CSugerencias/"
+`/menu/${this.url}/arbol.json`
+`/app/api/catalogos/search/findTopics?fuente=${this.programa}&tema=${this.tema}&tematica=&leng=${this._lang}`

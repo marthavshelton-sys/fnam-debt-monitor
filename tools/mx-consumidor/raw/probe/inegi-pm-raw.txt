@@ -1,0 +1,66 @@
+GET https://www.inegi.org.mx/desarrollosocial/pm/
+-> HTTP 200 text/html 4081 bytes · Last-Modified Wed, 13 Aug 2025 12:00:46 GMT
+
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Pobreza Multidimensional (PM)</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Pobreza, Multidimensional, PM">
+    <meta name="description" content="El Instituto Nacional de Estadística y Geografía (INEGI) pone a disposición del público los resultados de la medición de la pobreza multidimensional correspondiente a 2024. Las bases de la metodología utilizada para la medición de la pobreza en México se encuentran en la Ley General de Desarrollo Social (LGDS), que norma las dimensiones que deben incluirse, la periodicidad mínima de las mediciones, así como los niveles de agregación y las fuentes de información de carácter obligatorio.">
+    <meta name="url_imagen" content="/img/desarrollosocial/presentacion/pm.png" />
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Instituto Nacional de Estadística y Geografía(INEGI)">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="/estilos/sitio/sd_inegi/sdinegi.min.css" rel="stylesheet">
+    <link href="/estilos/sitio/sd_inegi/inegi-iconos1.1.1.min.css" rel="stylesheet">
+    <link href="/estilos/genericos/sd_inegi/generales.min.css" rel="stylesheet">
+    <link href="/programas/css/style.min.css" rel="stylesheet">
+    <link href=/componentes/mapad3v2/css/style.css rel=stylesheet />
+
+    <script src="/componentes/genericos/generales/recursos.min.js"></script>
+    <script src="/componentes/genericos/framework/sitioinegi.com.js"></script>
+
+    <script src="/lib/jquery/jquery-1.11.2.min.js"></script>
+    <script src="/componentes/biinegi/preloadjs.min.js "></script>
+    <script src="/componentes/noticias/js/noticias.min.js"></script>
+    <script src="/componentes/biinegi/generaGraficaComponente_V2.min.js"></script>
+    <script src="/componentes/biinegi/dibujaCuadros_V2.min.js"></script>
+    <script src="/componentes/biinegi/valoresIndicadorComponente_V2.min.js "></script>
+    <script src="/componentes/mapad3v2/js/mapa-d3.js"></script>
+    <script src="/desarrollosocial/scripts/v.js?v=0.0.0"></script>
+    <script>vers('menuPadre(\"100\",\"/desarrollosocial/\");');</script>
+</head>
+<body class="bg-sd-plantilla">
+    <div>
+        <header>
+            <div id="rootEncabezado" data-temselec="3" data-tema="0" data-english='1'></div>
+        </header>
+    </div>
+    <div class="container mb-5">
+        <main>
+            <bnavegacion-inegi titulo="" seccion="desarrollosocial"></bnavegacion-inegi>
+            <titulo-inegi texto=""></titulo-inegi>
+            <div class="row">
+                <menu-gen idm="102" url="desarrollosocial" tipo="1" class="col-lg-3 col-12"></menu-gen>
+                <div class="col-12 col-lg-9 ps-lg-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <presentacion-gen></presentacion-gen>
+                            <relaciontp-gen idc="3427"></relaciontp-gen>
+                            <!--Próximas publicaciones-->
+                            <div id='calProy' data-idindicador='995' data-esprensa='1'></div>
+                            <pestanas-gen></pestanas-gen>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="PiePagina"></div>
+    <script src="/cdn/react/react.inegi.min.js"></script>
+    <script src="/componentes/genericos/sd_inegi/generales.min.js"></script>
+    <script src="/cdn/bootstrap@5.2.3/bootstrap.bundle.min.js"></script>
+    <script>(function (i, s, o, g, r, a, m, z) { if (document.getElementById(z)) return; a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.id = z; a.async = 1; a.src = g; if (r !== '') { a.setAttribute('onload', r); } m.parentNode.insertBefore(a, m); })(window, document, 'script', `/componentes/calendarioProyecto/js/calendarioProyecto.com.min.js?v=${Date.now()}`, 'CalendarioPubProyecto();', '', '', 'compPubProy');</script>
+</body>
+</html>

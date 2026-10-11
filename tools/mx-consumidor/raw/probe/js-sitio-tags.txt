@@ -1,0 +1,26 @@
+GET https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js
+-> HTTP 200 application/javascript 70842 bytes · Last-Modified Wed, 15 Oct 2025 17:50:23 GMT
+
+(22 distinct matches)
+pestanasGen extends HTMLElement{constructor(){super(),this._elemento={tag:"",text:"",attr:"",html:"",child:[]}}connectedCallback(){this.validarAuth()}llamadoJson(){fetch("data/pestana/pestanadata.js").then(t=
+pestanas.length||e<0||isNaN(e))&&(e="0")
+pestanas.length
+pestanas[l].titulo.toLowerCase().replace(/ /g,"_")),r=Object.assign({},this._elemento,{})
+pestanas[l].componente[0].funcionIni,r.attr["data-bs-toggle"]="pill",r.attr["data-bs-target"]=`#conpes_${l}`,r.attr["aria-controls"]=`conpes_${l}`,r.attr["aria-selected"]=""==n&&0==l||n==a?"true":"false",r.at
+pestanas[l].titulo,r.event=[{ev:"focus",param:{_this:this,funIni:t.pestanas[l].componente[0].funcionIni,idP:a},fun:this.clickEventFocusin},{ev:"click",param:{_this:this,idP:a},fun:this.addCallTab}],e.child.pu
+pestanas[l].titulo}`,c.child.push(o)
+pestanas[l].componente,d)),s.child.push(c)}this.cr_elemJson(a,this),this.cr_elemJson(s,this)}cr_elemJson(t,e){var a=document.createElement(t.tag)
+pestanas[a].titulo.toLowerCase().replace(/ /g,"_")))return t.pestanas[a].componente[0].funcionIni
+pestanas-gen",pestanasGen)},401:t=>{class e extends HTMLElement{constructor(){super(),this.id="",this.qid="",this.texto="",this.image="",this.titulo="",this.texto="",this.url="",this.callback,this._elemento={
+MENU-GEN"==t.nodeName||(null!=t.previousElementSibling&&"BUTTON"==t.previousElementSibling.nodeName&&this.open_close_branch("param",t.previousElementSibling),this.open_id_branch(t.parentElement))}open_close_b
+menu-gen")[0].classList.toggle("col-3"),document.getElementsByTagName("menu-gen")[0].classList.toggle("col-1"),document.getElementsByTagName("menu-gen")[0].classList.toggle("pe-0"),document.getElementsByTagNa
+menu-gen")[0].nextElementSibling.classList.toggle("col-lg-9"),document.getElementsByTagName("menu-gen")[0].nextElementSibling.classList.toggle("col-lg-11"),document.getElementsByTagName("menu-gen")[0].classLi
+menu-gen")[0].style="width: 55px
+menu-gen")[0].style="",e.parentElement.classList.toggle("rounded-top"),e.parentElement.classList.toggle("border-bottom"),e.parentElement.classList.toggle("rounded-start"),e.parentElement.classList.toggle("mt-
+menu-gen",t)},760:()=>{class t extends HTMLElement{constructor(){super(),this._elemento={tag:"",text:"",attr:"",html:"",child:[]},this.tema="",this.tipo="",this.programa="",this.tipoC,this.idc
+RelacionTp(t))}static get observedAttributes(){return["idc","tipo"]}attributeChangedCallback(t,e,a){e!==a&&(this[t]=a,"idc"==t&&""!=this.innerHTML&&console.log(this[t]),"tipo"==t&&""!=this.innerHTML&&console.lo
+RelacionTp(t){this.id=t.detail.id}llamadoJson(){this.innerHTML="",this.tema="",this.programa="","tema"==this.tipo?(this.tema=this.idc,this.tipoC=0):(this.programa=this.idc,this.tipoC=1)
+relaciontp_${this.id}`,class:"d-none"},{}),s.text=this.lngCombo[2]+this.lngCombo[this.tipoC]
+relaciontp_${this.id}`,name:`relaciontp_${this.id}`,class:"form-select"},{}),i.event=[{ev:"change",param:"",fun:this.goUrl}],i.child=new Array
+relaciontp-gen",t)},806:()=>{class t extends HTMLElement{constructor(){super(),this["data-id"]="",this["data-tipo"]="",this["data-mapas"]="",this["data-hespec"]="",this._elemento={tag:"",text:"",attr:"",html:""
+presentacion-gen",class extends e{constructor(){super(),super._url="data/presentacion/presentacionData.js",console.warn("Llamado a componente Obsoleto cambiar de presentacion-gen a inegi-presentacion o alguno de sus 

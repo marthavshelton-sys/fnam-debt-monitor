@@ -1,0 +1,8 @@
+GET https://www.inegi.org.mx/programas/enfih/2019/
+-> HTTP 200 text/html 3952 bytes · Last-Modified Fri, 08 Mar 2024 22:00:08 GMT
+
+(4 distinct matches)
+<menu-gen idm='3099' tipo='1' url='' class='col-lg-3 col-12'>
+<presentacion-gen>
+<relaciontp-gen idc='3099'>
+<pestanas-gen>
