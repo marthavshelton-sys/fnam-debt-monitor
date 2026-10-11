@@ -1,0 +1,8 @@
+GET https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GFNORTE-5433-CGEN_CAPIT
+-> HTTP 200 text/html;charset=utf-8 70173 bytes
+
+(4 links)
+/es/empresas-listadas/informacion-financiera-xbrl
+/docs-pub/constrim/constrim_1575723_2026-02_1.pdf
+/docs-pub/cmpcxbrl/cmpcxbrl_1564026_2025_1.html
+/docs-pub/visor/visorXbrl.html?docins=../anexon/anexon_1553684_2025_1.zip

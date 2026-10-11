@@ -1,0 +1,10 @@
+GET https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip
+-> HTTP 200 application/zip 965182 bytes · Last-Modified Mon, 27 Jul 2026 22:02:45 GMT
+
+Archive:  /tmp/probe-xBbzRd/file.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 10932163  2026-07-27 16:02   ifrsxbrl_1577202_2026-02_1.json
+---------                     -------
+ 10932163                     1 file
+

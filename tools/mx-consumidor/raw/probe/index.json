@@ -1,55 +1,52 @@
 {
- "ranAt": "2026-10-11T19:39:47.307Z",
- "requestHash": "8003c2bb1f24b7db",
+ "ranAt": "2026-10-11T19:44:46.623Z",
+ "requestHash": "1a8d699d4ed7998f",
  "requests": [
   {
-   "name": "bmv-fin-livepol",
+   "name": "bmv-fin-livepol-row",
    "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
    "type": "text/html;charset=utf-8",
    "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 78462
+   "bytes": 78463
   },
   {
-   "name": "bmv-fin-livepol-links",
-   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+   "name": "xbrl-livepol",
+   "url": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/zip",
+   "finalUrl": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip",
+   "lastModified": "Mon, 27 Jul 2026 22:02:45 GMT",
+   "bytes": 965182,
+   "saved": "livepol-2026-02.zip"
+  },
+  {
+   "name": "xbrl-chdraui",
+   "url": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1575980_2026-02_1.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/zip",
+   "finalUrl": "https://www.bmv.com.mx/docs-pub/ifrsxbrl/ifrsxbrl_1575980_2026-02_1.zip",
+   "lastModified": "Wed, 22 Jul 2026 20:13:55 GMT",
+   "bytes": 1019128,
+   "saved": "chdraui-2026-02.zip"
+  },
+  {
+   "name": "bmv-fin-gfnorte-links",
+   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GFNORTE-5433-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
    "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GFNORTE-5433-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 78465
+   "bytes": 70173
   },
   {
-   "name": "bmv-fin-chdraui-links",
-   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
-   "lastModified": null,
-   "bytes": 84123
-  },
-  {
-   "name": "bmv-perfil-livepol-links",
-   "url": "https://www.bmv.com.mx/es/emisoras/perfil/LIVEPOL-5536",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html;charset=utf-8",
-   "finalUrl": "https://www.bmv.com.mx/es/emisoras/perfil/LIVEPOL-5536",
-   "lastModified": null,
-   "bytes": 73563
-  },
-  {
-   "name": "bie-consumo-trimestral",
-   "kind": "bie",
-   "ok": true
-  },
-  {
-   "name": "bie-consumo-privado",
-   "kind": "bie",
+   "name": "bie-cons-q",
+   "kind": "bieseries",
    "ok": true
   }
  ]

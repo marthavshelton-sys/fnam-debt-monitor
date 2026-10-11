@@ -1,0 +1,26 @@
+GET https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT
+-> HTTP 200 text/html;charset=utf-8 78463 bytes
+
+(22 lines)
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr>
+                  <td>
+                    
+                    <span>27-Jul-2026 16:02</span>
+                  </td>
+                  <td>Información Del Trimestre 2 Del Año 2026 </td>
+                  <td>
+                    
+                        <a href="/docs-pub/ifrsxbrl/../visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip" target="_blank" class="lnk-download">
+                          <span class="icon"></span>
+                          <span class="text">Descargar</span>
+                          <span class='zip'></span>
+                         </a>
+                      
+                  </td>
+                </tr>
+              
+              </tbody>
