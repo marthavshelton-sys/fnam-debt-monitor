@@ -253,190 +253,53 @@
    ]
   },
   "CHDRAUI": {
-   "listing": [
-    {
-     "date": "2026-09-18",
-     "title": "Movimientos inusitados en el volumen de operaciones",
-     "id": "1589754",
-     "kind": null
-    },
-    {
-     "date": "2026-05-29",
-     "title": "Movimientos inusitados en el volumen de operaciones",
-     "id": "1563998",
-     "kind": null
-    },
-    {
-     "date": "2026-01-12",
-     "title": "Guía de resultados para el año 2026",
-     "id": "1522661",
-     "kind": null
-    },
-    {
-     "date": "2025-11-11",
-     "title": "Renovación de contrato con Formador de mercado",
-     "id": "1507942",
-     "kind": null
-    },
-    {
-     "date": "2025-06-30",
-     "title": "Retransmisión de Información",
-     "id": "1475844",
-     "kind": null
-    },
-    {
-     "date": "2025-04-29",
-     "title": "Aviso de cambio de política contable y en critério de información por segmento",
-     "id": "1459179",
-     "kind": null
-    },
-    {
-     "date": "2025-01-13",
-     "title": "Guía de resultados para el año 2025",
-     "id": "1433922",
-     "kind": null
-    },
-    {
-     "date": "2024-11-13",
-     "title": "Renovación contrato de Formador de Mercado",
-     "id": "1419401",
-     "kind": null
-    },
-    {
-     "date": "2024-08-30",
-     "title": "Movimientos inusitados en el mercado",
-     "id": "1402707",
-     "kind": null
-    },
-    {
-     "date": "2024-08-13",
-     "title": "Inclusión al Índice MSCI México",
-     "id": "1398783",
-     "kind": null
-    },
-    {
-     "date": "2024-06-21",
-     "title": "Movimientos inusitados respecto al volumen de los valores",
-     "id": "1384748",
-     "kind": null
-    },
-    {
-     "date": "2024-01-15",
-     "title": "Guía de Resultados para el ejercicio 2024",
-     "id": "1339116",
-     "kind": null
-    },
-    {
-     "date": "2023-11-09",
-     "title": "Renovación de Contrato de Formador de Mercado",
-     "id": "1322850",
-     "kind": null
-    },
-    {
-     "date": "2023-11-06",
-     "title": "REAPERTURA DE TIENDAS EN ACAPULCO",
-     "id": "1321796",
-     "kind": null
-    }
-   ],
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/CHDRAUI-5209-CGEN_CAPIT",
-   "channel": "bmv",
    "ticker": "CHDRAUI",
    "name": "Grupo Comercial Chedraui",
-   "filings": []
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1575980",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1575980_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/CHDRAUI/2026-07-22_xbrl1575980.txt",
+       "chars": 87781
+      }
+     ]
+    }
+   ]
   },
   "LACOMER": {
    "ticker": "LACOMER",
    "name": "La Comer",
-   "channel": "bmv",
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
-   "listing": [
-    {
-     "date": "2025-06-20",
-     "title": "MOVIMIENTOS DE LA ACCIÓN",
-     "id": "1473794",
-     "kind": null
-    },
-    {
-     "date": "2025-06-20",
-     "title": "Aclaración",
-     "id": "1473737",
-     "kind": null
-    },
-    {
-     "date": "2025-01-23",
-     "title": "MOVIMIENTOS DE LA ACCIÓN",
-     "id": "1436435",
-     "kind": null
-    },
-    {
-     "date": "2024-04-10",
-     "title": "PERIODO DE SILENCIO 1Q 2024",
-     "id": "1363239",
-     "kind": null
-    },
-    {
-     "date": "2023-09-14",
-     "title": "Formador de Mercado",
-     "id": "1309972",
-     "kind": null
-    },
-    {
-     "date": "2023-05-24",
-     "title": "Reapertura de Fresko Sátelite",
-     "id": "1284120",
-     "kind": null
-    },
-    {
-     "date": "2023-04-12",
-     "title": "Periodo de silencio 1Q 2023",
-     "id": "1270345",
-     "kind": null
-    },
-    {
-     "date": "2022-07-13",
-     "title": "Anuncio Periodo de Silencio",
-     "id": "1204957",
-     "kind": null
-    },
-    {
-     "date": "2022-05-04",
-     "title": "Apertura La Comer Puebla La Animas",
-     "id": "1187647",
-     "kind": null
-    },
-    {
-     "date": "2022-04-13",
-     "title": "Anuncio de periodo de silencio",
-     "id": "1179764",
-     "kind": null
-    },
-    {
-     "date": "2022-03-02",
-     "title": "Apertura Fresko Cumbres",
-     "id": "1169227",
-     "kind": null
-    },
-    {
-     "date": "2022-02-25",
-     "title": "Movimientos de la acción",
-     "id": "1167604",
-     "kind": null
-    },
-    {
-     "date": "2022-02-09",
-     "title": "Anuncio de Periodo de silencio",
-     "id": "1163954",
-     "kind": null
-    },
-    {
-     "date": "2022-01-24",
-     "title": "Movimiento de la acción",
-     "id": "1159904",
-     "kind": null
-    }
-   ],
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
    "filings": [
+    {
+     "accn": "xbrl1575986",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1575986_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LACOMER/2026-07-22_xbrl1575986.txt",
+       "chars": 11026
+      }
+     ]
+    },
     {
      "accn": "bmv1363239",
      "filed": "2024-04-10",
@@ -450,22 +313,6 @@
        "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1363239_1.pdf",
        "file": "tools/mx-consumidor/raw/releases/LACOMER/2024-04-10_bmv1363239.txt",
        "chars": 2003
-      }
-     ]
-    },
-    {
-     "accn": "bmv1270345",
-     "filed": "2023-04-12",
-     "kind": "results",
-     "title": "Periodo de silencio 1Q 2023",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "Periodo de silencio 1Q 2023",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1270345_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/LACOMER/2023-04-12_bmv1270345.txt",
-       "chars": 2005
       }
      ]
     }
@@ -585,160 +432,53 @@
    "match": "quarter|results"
   },
   "FRAGUA": {
-   "listing": [
-    {
-     "date": "2026-02-27",
-     "title": "Nombramiento de nuevo consejero",
-     "id": "1537652",
-     "kind": null
-    },
-    {
-     "date": "2025-03-18",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1449249",
-     "kind": null
-    },
-    {
-     "date": "2025-02-27",
-     "title": "Nombramientos de Consejero y miembro de los Comités de Auditoría y de Prácticas Societarias.",
-     "id": "1444959",
-     "kind": null
-    },
-    {
-     "date": "2025-01-17",
-     "title": "Nombramiento de Miembro de los Comités de Auditoria y Prácticas Societarias",
-     "id": "1435312",
-     "kind": null
-    },
-    {
-     "date": "2024-11-25",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1421614",
-     "kind": null
-    },
-    {
-     "date": "2024-07-15",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1391742",
-     "kind": null
-    },
-    {
-     "date": "2024-05-20",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1375923",
-     "kind": null
-    },
-    {
-     "date": "2024-02-02",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1344547",
-     "kind": null
-    },
-    {
-     "date": "2023-03-22",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de FRAGUA, serie B.",
-     "id": "1264724",
-     "kind": null
-    }
-   ],
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/FRAGUA-5368-CGEN_CAPIT",
-   "channel": "bmv",
    "ticker": "FRAGUA",
    "name": "Farmacias Guadalajara (Corporativo Fragua)",
-   "filings": []
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1577979",
+     "filed": "2026-07-29",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577979_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/FRAGUA/2026-07-29_xbrl1577979.txt",
+       "chars": 9071
+      }
+     ]
+    }
+   ]
   },
   "LIVEPOL": {
    "ticker": "LIVEPOL",
    "name": "El Puerto de Liverpool",
-   "channel": "bmv",
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
-   "listing": [
-    {
-     "date": "2026-09-18",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1589665",
-     "kind": null
-    },
-    {
-     "date": "2026-09-10",
-     "title": "El Puerto de Liverpool, S.A.B. de C.V (\"Liverpool\") anuncia alianza estratégica para la introducción de Primark en México",
-     "id": "1587919",
-     "kind": null
-    },
-    {
-     "date": "2026-08-20",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1583327",
-     "kind": null
-    },
-    {
-     "date": "2026-06-19",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1569213",
-     "kind": null
-    },
-    {
-     "date": "2026-03-20",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1542677",
-     "kind": null
-    },
-    {
-     "date": "2026-02-04",
-     "title": "Liverpool informa la colocación de valores de deuda en los mercados internacionales por un monto total de USD$500 millones.",
-     "id": "1529606",
-     "kind": null
-    },
-    {
-     "date": "2026-02-03",
-     "title": "Resultados preliminares del año y del cuarto trimestre de 2025",
-     "id": "1528880",
-     "kind": "results"
-    },
-    {
-     "date": "2025-12-19",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1¨",
-     "id": "1517446",
-     "kind": null
-    },
-    {
-     "date": "2025-10-23",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"1\"",
-     "id": "1501017",
-     "kind": null
-    },
-    {
-     "date": "2025-06-20",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1473776",
-     "kind": null
-    },
-    {
-     "date": "2025-06-10",
-     "title": "Liverpool comunica el fin de su alianza con BYD",
-     "id": "1471411",
-     "kind": null
-    },
-    {
-     "date": "2025-05-20",
-     "title": "Liverpool informa sobre la consumación de la adquisición de Nordstrom, Inc.",
-     "id": "1466128",
-     "kind": null
-    },
-    {
-     "date": "2025-05-19",
-     "title": "Liverpool informa resultados de la votación Asamblea Especial de Accionistas Nordstrom Inc.",
-     "id": "1465963",
-     "kind": null
-    },
-    {
-     "date": "2025-04-09",
-     "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de \"El Puerto de Liverpool, S.A.B. de C.V.\" serie \"C-1\"",
-     "id": "1454576",
-     "kind": null
-    }
-   ],
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "filings": [
+    {
+     "accn": "xbrl1577202",
+     "filed": "2026-07-27",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577202_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LIVEPOL/2026-07-27_xbrl1577202.txt",
+       "chars": 30850
+      }
+     ]
+    },
     {
      "accn": "bmv1528880",
      "filed": "2026-02-03",
@@ -754,117 +494,33 @@
        "chars": 5044
       }
      ]
-    },
-    {
-     "accn": "bmv1433757",
-     "filed": "2025-01-13",
-     "kind": "results",
-     "title": "Resultados preliminares del cuarto trimestre de 2024",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "Resultados preliminares del cuarto trimestre de 2024",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1433757_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/LIVEPOL/2025-01-13_bmv1433757.txt",
-       "chars": 4285
-      }
-     ]
     }
    ]
   },
   "GCARSO": {
-   "listing": [
-    {
-     "date": "2026-07-16",
-     "title": "Grupo Carso informa sobre acuerdo vinculante con TotalEnergies EP Mexico Bloque 30.",
-     "id": "1574846",
-     "kind": null
-    },
-    {
-     "date": "2026-05-06",
-     "title": "Grupo Carso informa sobre acuerdo vinculante con Harbour Energy.",
-     "id": "1557614",
-     "kind": null
-    },
-    {
-     "date": "2026-05-04",
-     "title": "Grupo Carso informa sobre transacción concluida.",
-     "id": "1556026",
-     "kind": null
-    },
-    {
-     "date": "2026-03-25",
-     "title": "Cierre de la adquisición, a través Zamajal, de un 30.10% adicional del capital social de Talos México.",
-     "id": "1544024",
-     "kind": null
-    },
-    {
-     "date": "2026-01-19",
-     "title": "Grupo Carso, S.A.B. de C.V., anuncia acuerdo con Lukoil International Upstream Holding B.V. y Lukoil International Holding GMBH para adquirir el 100% de Fieldwo",
-     "id": "1524683",
-     "kind": null
-    },
-    {
-     "date": "2026-01-19",
-     "title": "Grupo Carso, S.A.B. de C.V., anuncia acuerdo con Lukoil International Upstream Holding B.V. y Lukoil International Holding GMBH para adquirir el 100% de Fieldwo",
-     "id": "1524681",
-     "kind": null
-    },
-    {
-     "date": "2026-01-08",
-     "title": "Grupo Carso informa sobre acuerdo vinculante de sus subsidiarias sus subsidiarias Fortaleza USA LLC y Trituradora y Procesadora de Materiales Santa Anita, S.A. ",
-     "id": "1522273",
-     "kind": null
-    },
-    {
-     "date": "2025-09-29",
-     "title": "Firma de Contrato de Servicios de Perforación de Pozos Financiados con Petróleos Mexicanos para el Campo Ixachi.",
-     "id": "1495934",
-     "kind": null
-    },
-    {
-     "date": "2025-09-15",
-     "title": "Adjudicación de contrato para la construcción y diseño del tren de pasajeros Saltillo - Tren Saltillo - Santa Catarina",
-     "id": "1493314",
-     "kind": null
-    },
-    {
-     "date": "2025-04-02",
-     "title": "Grupo Carso, S.A.B. de C.V. informa sobre el cierre de la transacción de venta de Giant Cement Holding, Inc.",
-     "id": "1452983",
-     "kind": null
-    },
-    {
-     "date": "2024-12-16",
-     "title": "Grupo Carso, S.A.B. de C.V., anuncia acuerdo con Talos Energy Inc. para incrementar su participación en su subsidiaria mexicana Talos Mexico.",
-     "id": "1426877",
-     "kind": null
-    },
-    {
-     "date": "2024-11-28",
-     "title": "Grupo Carso ha llegado a un acuerdo vinculante con Heidelberg Materials Us, Inc., para la venta de Giant Cement Holding, Inc., subsidiaria de Fortaleza Material",
-     "id": "1422543",
-     "kind": null
-    },
-    {
-     "date": "2024-07-05",
-     "title": "Firma del Contrato de Servicios Integrales de Exploración y Extracción Campo Lakach con Pemex Exploración y Producción",
-     "id": "1389829",
-     "kind": null
-    },
-    {
-     "date": "2024-06-20",
-     "title": "Grupo Carso, S.A.B. de C.V. formalizó la adquisición del 100% del capital social de PetroBal",
-     "id": "1384194",
-     "kind": null
-    }
-   ],
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GCARSO-5393-CGEN_CAPIT",
-   "channel": "bmv",
    "ticker": "GCARSO",
    "name": "Grupo Carso (Sanborns y Sears)",
-   "filings": []
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GCARSO-5393-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1577242",
+     "filed": "2026-07-27",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/GCARSO-5393-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1577242_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/GCARSO/2026-07-27_xbrl1577242.txt",
+       "chars": 135788
+      }
+     ]
+    }
+   ]
   },
   "ALSEA": {
    "ticker": "ALSEA",
@@ -993,97 +649,29 @@
    ]
   },
   "BIMBO": {
-   "listing": [
-    {
-     "date": "2026-05-05",
-     "title": "Grupo Bimbo Anuncia una Inversión Aproximada de US $1,000 Millones en Estados Unidos entre 2026 y 2028",
-     "id": "1556427",
-     "kind": null
-    },
-    {
-     "date": "2026-02-04",
-     "title": "Grupo Bimbo Anuncia la Exitosa Colocación de Certificados Bursátiles por $12,000 Millones de Pesos",
-     "id": "1529591",
-     "kind": null
-    },
-    {
-     "date": "2026-01-26",
-     "title": "Grupo Bimbo Anuncia la Potencial Amortización Anticipada Total de los Certificados Bursátiles con Clave de Pizarra 'BIMBO 16'",
-     "id": "1527020",
-     "kind": null
-    },
-    {
-     "date": "2025-11-06",
-     "title": "Grupo Bimbo nombra a nuevo director general",
-     "id": "1506014",
-     "kind": null
-    },
-    {
-     "date": "2025-09-17",
-     "title": "Grupo Bimbo recibe aprobación regulatoria para adquirir Wickbold en Brasil",
-     "id": "1493584",
-     "kind": null
-    },
-    {
-     "date": "2025-07-31",
-     "title": "Grupo Bimbo Extiende Exitosamente su Línea de Crédito Revolvente",
-     "id": "1483568",
-     "kind": null
-    },
-    {
-     "date": "2025-07-29",
-     "title": "Grupo Bimbo se compromete a eliminar colorantes artificiales de todos sus productos para finales del 2026",
-     "id": "1482758",
-     "kind": null
-    },
-    {
-     "date": "2025-06-20",
-     "title": "Volumen Operado",
-     "id": "1473863",
-     "kind": null
-    },
-    {
-     "date": "2025-02-12",
-     "title": "Grupo Bimbo Anuncia la Exitosa Colocación de Certificados Bursátiles por $15,000 Millones de Pesos",
-     "id": "1440873",
-     "kind": null
-    },
-    {
-     "date": "2024-11-29",
-     "title": "Grupo Bimbo presenta demanda contra Maple Leaf Foods Inc. y antiguos funcionarios, en busca de más de CAD $2 mil millones en daños",
-     "id": "1422853",
-     "kind": null
-    },
-    {
-     "date": "2024-08-30",
-     "title": "Grupo Bimbo Firma un Acuerdo para Adquirir Wickbold en Brasil",
-     "id": "1402695",
-     "kind": null
-    },
-    {
-     "date": "2024-04-18",
-     "title": "Nombra a Daniel Servitje Presidente Ejecutivo; Rafael Pamias asume Dirección General",
-     "id": "1364863",
-     "kind": null
-    },
-    {
-     "date": "2024-02-16",
-     "title": "Grupo Bimbo Informa el Fallecimiento del Sr. Mauricio Jorba Servitje, Miembro del Consejo de Grupo Bimbo",
-     "id": "1347961",
-     "kind": null
-    },
-    {
-     "date": "2024-01-04",
-     "title": "Grupo Bimbo Anuncia la Exitosa Emisión de Notas por US$1,250 Millones a través de BBU",
-     "id": "1336809",
-     "kind": null
-    }
-   ],
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/BIMBO-5163-CGEN_CAPIT",
-   "channel": "bmv",
    "ticker": "BIMBO",
    "name": "Grupo Bimbo",
-   "filings": []
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1576474",
+     "filed": "2026-07-23",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1576474_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/BIMBO/2026-07-23_xbrl1576474.txt",
+       "chars": 18371
+      }
+     ]
+    }
+   ]
   },
   "KIMBER": {
    "ticker": "KIMBER",
@@ -1212,97 +800,29 @@
    ]
   },
   "AC": {
-   "listing": [
-    {
-     "date": "2026-03-24",
-     "title": "Inversión Arca Continental 2026",
-     "id": "1543657",
-     "kind": null
-    },
-    {
-     "date": "2026-02-04",
-     "title": "AC Bebidas completa emisión exitosa de Certificados Bursátiles en México",
-     "id": "1529597",
-     "kind": null
-    },
-    {
-     "date": "2025-08-01",
-     "title": "Arca Continental concreta la adquisición de la empresa Imperial, LLC en Estados Unidos.",
-     "id": "1484025",
-     "kind": null
-    },
-    {
-     "date": "2025-06-20",
-     "title": "Movimientos inusitados en el mercado relativos al precio o volumen de operación de los valores de AC*",
-     "id": "1473853",
-     "kind": null
-    },
-    {
-     "date": "2025-06-06",
-     "title": "Arca Continental suscribe acuerdos para adquirir la empresa Imperial, LLC y operar territorios en el negocio de máquinas \"vending\" y \"micro mercados\" en Estados",
-     "id": "1470913",
-     "kind": null
-    },
-    {
-     "date": "2025-03-25",
-     "title": "Inversión Arca Continental 2025",
-     "id": "1450864",
-     "kind": null
-    },
-    {
-     "date": "2024-04-05",
-     "title": "Actualización: AC Bebidas Realiza Colocación de Certificados Bursátiles en México Vinculados a la Sostenibilidad",
-     "id": "1361968",
-     "kind": null
-    },
-    {
-     "date": "2024-04-05",
-     "title": "Actualización: AC Bebidas Realiza Colocación de Certificados Bursátiles en México Vinculados a la Sostenibilidad",
-     "id": "1361797",
-     "kind": null
-    },
-    {
-     "date": "2024-04-05",
-     "title": "AC Bebidas Realiza Colocación de Certificados Bursátiles en México Vinculados a la Sostenibilidad",
-     "id": "1361709",
-     "kind": null
-    },
-    {
-     "date": "2024-03-21",
-     "title": "Inversión Arca Continental 2024",
-     "id": "1357322",
-     "kind": null
-    },
-    {
-     "date": "2023-05-31",
-     "title": "Evento Relevante",
-     "id": "1286230",
-     "kind": null
-    },
-    {
-     "date": "2023-03-30",
-     "title": "Inversión Arca Continental 2023",
-     "id": "1267098",
-     "kind": null
-    },
-    {
-     "date": "2022-10-03",
-     "title": "Movimientos inusitados en el volumen de operación de las acciones de ARCA Continental, S.A.B. de C.V.",
-     "id": "1223127",
-     "kind": null
-    },
-    {
-     "date": "2022-09-19",
-     "title": "Acuerdan AC y Compañía Coca-Cola nuevo marco de colaboración a largo plazo",
-     "id": "1219926",
-     "kind": null
-    }
-   ],
-   "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/AC-6081-CGEN_CAPIT",
-   "channel": "bmv",
    "ticker": "AC",
    "name": "Arca Continental",
-   "filings": []
+   "channel": "xbrl",
+   "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
+   "filings": [
+    {
+     "accn": "xbrl1576200",
+     "filed": "2026-07-22",
+     "kind": "results",
+     "quarter": "2026-Q2",
+     "title": "Reporte trimestral 2026-Q2",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q2, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1576200_2026-02_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/AC/2026-07-22_xbrl1576200.txt",
+       "chars": 138910
+      }
+     ]
+    }
+   ]
   },
   "KOF": {
    "ticker": "KOF",
@@ -2082,49 +1602,132 @@
      ]
     }
    ]
+  },
+  "BBVA": {
+   "ticker": "BBVA",
+   "name": "BBVA (BBVA México)",
+   "channel": "sec",
+   "cik": 842180,
+   "secName": "BANCO BILBAO VIZCAYA ARGENTARIA, S.A.",
+   "filings": [
+    {
+     "accn": "0001628280-26-051321",
+     "filed": "2026-07-31",
+     "report": "2026-06-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/842180/000162828026051321/0001628280-26-051321-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/842180/000162828026051321/bbva-20260630.htm",
+       "file": "tools/mx-consumidor/raw/releases/BBVA/2026-07-31_0001628280-26-051321_6-k.txt",
+       "chars": 401388
+      }
+     ]
+    },
+    {
+     "accn": "0001193125-26-324969",
+     "filed": "2026-07-30",
+     "report": "2026-07-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/842180/000119312526324969/0001193125-26-324969-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/842180/000119312526324969/d115667d6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/BBVA/2026-07-30_0001193125-26-324969_6-k.txt",
+       "chars": 40111
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001104659-26-112990",
+    "0001193125-26-409738",
+    "0001104659-26-112264",
+    "0001104659-26-109893",
+    "0001104659-26-109413",
+    "0001104659-26-107252",
+    "0001104659-26-105656",
+    "0001104659-26-104980",
+    "0001104659-26-103520",
+    "0001104659-26-099993",
+    "0001104659-26-097522",
+    "0001104659-26-093035",
+    "0001104659-26-089988"
+   ],
+   "match": "results|quarterly report|january|interim"
+  },
+  "SAN": {
+   "ticker": "SAN",
+   "name": "Banco Santander (Santander México)",
+   "channel": "sec",
+   "cik": 891478,
+   "secName": "Banco Santander, S.A.",
+   "filings": [
+    {
+     "accn": "0000950103-26-014666",
+     "filed": "2026-09-29",
+     "report": "2026-09-29",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/891478/000095010326014666/0000950103-26-014666-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "FORM 6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/891478/000095010326014666/dp254007_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/SAN/2026-09-29_0000950103-26-014666_6-k.txt",
+       "chars": 13664
+      }
+     ]
+    },
+    {
+     "accn": "0000950103-26-012104",
+     "filed": "2026-08-10",
+     "report": "2026-08-10",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/891478/000095010326012104/0000950103-26-012104-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "FORM 6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/891478/000095010326012104/dp251544_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/SAN/2026-08-10_0000950103-26-012104_6-k.txt",
+       "chars": 21978
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0000950103-26-015335",
+    "0000950103-26-014895",
+    "0000950103-26-014421",
+    "0000950103-26-014067",
+    "0000950103-26-013742",
+    "0000950103-26-013701",
+    "0000950103-26-013535",
+    "0000950103-26-013322",
+    "0000950103-26-013308",
+    "0000950103-26-012959",
+    "0001193125-26-365115",
+    "0000950103-26-012763",
+    "0000950103-26-012672",
+    "0000950103-26-012282"
+   ],
+   "match": "financial report|results|january"
   }
  },
  "errors": [
   {
-   "ticker": "CHDRAUI",
-   "error": "no results release among the 26 notices on the BMV list (latest: \"Movimientos inusitados en el volumen de operaciones\")"
-  },
-  {
-   "ticker": "LACOMER",
-   "error": "no results release among the 20 notices on the BMV list (latest: \"MOVIMIENTOS DE LA ACCIÓN\")"
-  },
-  {
-   "ticker": "FRAGUA",
-   "error": "no results release among the 9 notices on the BMV list (latest: \"Nombramiento de nuevo consejero\")"
-  },
-  {
-   "ticker": "GCARSO",
-   "error": "no results release among the 26 notices on the BMV list (latest: \"Grupo Carso informa sobre acuerdo vinculante con TotalEnergies EP Mexico Bloque 30.\")"
-  },
-  {
-   "ticker": "BIMBO",
-   "error": "no results release among the 25 notices on the BMV list (latest: \"Grupo Bimbo Anuncia una Inversión Aproximada de US $1,000 Millones en Estados Unidos entre\")"
-  },
-  {
-   "ticker": "AC",
-   "error": "no results release among the 17 notices on the BMV list (latest: \"Inversión Arca Continental 2026\")"
-  },
-  {
-   "ticker": "GFNORTE",
-   "error": "no results release among the 42 notices on the BMV list (latest: \"Variación en Volumen Operado de la Acción GFNORTE O\")"
-  },
-  {
-   "ticker": "GFINBUR",
-   "error": "no results release among the 7 notices on the BMV list (latest: \"Aviso al Público Inversionista\")"
-  },
-  {
-   "ticker": "R",
-   "error": "no results release among the 21 notices on the BMV list (latest: \"Cambios en la composición accionaria de la emisora\")"
-  },
-  {
    "ticker": "FINDEP",
-   "error": "no results release among the 79 notices on the BMV list (latest: \"FINDEP anuncia designación de Comisario para sus empresas Subsidiarias en México\")"
+   "error": "no quarterly XBRL package is linked on the issuer's financial-information page"
   }
  ],
- "checkedAt": "2026-10-11T19:42:27.052Z"
+ "checkedAt": "2026-10-11T20:09:48.483Z"
 }
