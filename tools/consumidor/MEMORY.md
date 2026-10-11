@@ -33,6 +33,11 @@ Read with `README.md` (the runbook) before touching `site/consumidor/` or `scrip
   accounts pay only the minimum"); the Spanish view does the same with "de" / "del". Sentences that begin a
   paragraph keep their capital.
 
+- Nothing on the page may go stale, and its upkeep takes nothing from the owner (11-Oct-2026). The workflow keeps
+  the sources; the scheduled task "FNAM American Consumer: daily upkeep" keeps the curated parts and the health of the
+  refresh (README → "What keeps the page current"). Its note reaches her only on a day with changes or problems.
+  Typed sample sizes and other figures that are not read from data stay out of the page's text.
+
 ## Pitfalls already met
 
 - A workflow that is not on main cannot be started by hand, and a session cannot read run logs: while building the
@@ -77,7 +82,8 @@ Read with `README.md` (the runbook) before touching `site/consumidor/` or `scrip
 
 - ACS 2025 and CE 2025: not on the publishers' APIs on 11-Oct-2026; the fetcher takes them when they appear. When the
   CE year changes, check that every item title still matches (`raw/status.json → notes`).
-- Third-quarter 2026 results: banks from mid-October, retailers in November. Update `data/companies-kpis.json` then.
+- Third-quarter 2026 results: banks from mid-October, retailers in November. The daily task curates them; read its
+  first notes to see that the records it writes keep each company's segment and definitions.
 - Moody's Analytics publishes its estimates through the press and social media; no primary page exists to link. When a
   newer figure appears, read it in an article that can be opened and add it to `data/kshape.json` with its date.
 - Federal Reserve survey of household well-being: the 2026 edition (data for 2026) should appear in May 2027; the reader

@@ -44,6 +44,7 @@ scripts/consumidor/harvest-releases.mjs SEC EDGAR → tools/consumidor/raw/relea
 scripts/consumidor/build.mjs            raw → site/consumidor/data/data.js   (tie-outs → raw/build-log.json)
 scripts/consumidor/build-companies.mjs  data/companies-kpis.json + releases → site/consumidor/data/companies.js
 scripts/consumidor/render-check.mjs     Playwright check of the page (see "Before pushing")
+scripts/consumidor/pending.mjs          what is waiting for attention: the worklist of the daily scheduled task
 scripts/consumidor/probe.mjs            runner diagnostics (answers committed to a feature branch; never on main)
 scripts/consumidor/lib/                 http helpers, CSV and xlsx readers, parsers (DFA, SCF, New York Fed), states
 tools/assets/build-us-states.mjs        site/assets/us-states.js (state shapes from us-atlas; rebuild only if the map changes)
@@ -67,19 +68,48 @@ commit → optional steps (SOURCE DOWN issue, link check on the 14:10 run).
 
 Secrets used: `CENSUS_API_KEY`, `BLS_API_KEY`, `FRED_API_KEY` (keys are removed from everything written).
 
-## Company figures: update after each earnings season
+## What keeps the page current (owner, 11-Oct-2026: nothing may go stale, and without her involvement)
 
-1. The scheduled run already stores the two latest results releases of every company under `raw/releases/` and the
-   page shows "newer report to review" beside a company whose stored release is at least 60 days newer than the
-   curated one.
-2. In a session, read the new exhibit(s) and edit `data/companies-kpis.json`: `period`, `periodEnd`, `filed`, the
-   metrics (`comp`, `traffic`, `ticket` or `sales`; lenders: `nco`, `dq30`, `spend`), each with `v`, the exact `find`
-   text from the release and, when the text is not in the first exhibit, `ex`; `prev` for the year-earlier rate;
-   `quote`. Set `reviewed` to the date.
-3. `node scripts/consumidor/build-companies.mjs` must end "N of N verified; problems: 0".
+| What | Kept by | How often |
+|---|---|---|
+| Every official source (all sections) and every sentence, label and chart composed from it | the refresh workflow | 14:10 and 21:40 UTC; a newer edition (survey year, quarter, report) is found by itself |
+| Revisions of a period already shown | the workflow's Sunday 14:10 run (`--force`: every source read again in full) | weekly |
+| Company figures, quotes and period labels | the scheduled task "FNAM American Consumer: daily upkeep" (prompt: `ROUTINE-PROMPT.md`) | the day a release is stored (15:07 and 22:25 UTC) |
+| Estimates of the K-shaped section (`data/kshape.json`) | the same task | weekly check |
+| The Board notes the survey block reads (`data/notes.json`) | the same task | monthly check |
+| A source past its publisher's usual date | the same task opens the publisher's page and records the check (`data/publisher-checks.json`) | when due, renewed every 30 days |
+| A reader broken by a publisher's new layout, a failed tie-out, a failed run | the same task (repair on a branch, tested on the runner, merged only if every check passes) or its note to the owner | daily |
+| A tab left open in a browser | the page itself: on return to the tab it asks whether the data files changed and reloads | on return |
+
+- Allowances: one table (`ALLOW` in `build.mjs`), days after the END of the period a source is stamped with. The
+  builder puts `allowDays` and `dueBy` on every source; the page turns a block amber from them in the reader's browser.
+  A source past `dueBy` is listed in `raw/build-log.json → stale` unless a check of the publisher's own page, at most
+  45 days old and naming the same period, is on file: then the page says "the latest the source publishes, checked
+  <date>" instead of "no recent update". A check is only ever written from the publisher's page opened that day.
+- `node scripts/consumidor/pending.mjs --summary` prints what is waiting: newer releases than the curated ones,
+  figures citing a superseded 10-Q / 10-K, failing sources, failed tie-outs, overdue sources, checks about to lapse.
+- `routine-state.json` (written only when it changes): filings the task judged not to be results (`skipped`), the
+  date the notes were last checked, problems still open with their branch.
+- What cannot be made automatic: a publisher that has not published. The page then shows the last period with its
+  date and the check; nothing is estimated or carried forward as if it were new.
+- The schedule and the task act on `main`: until the page is merged, the preview shows the data of the last run on
+  the branch.
+
+## Company figures: updated the day a release is stored
+
+1. The scheduled run stores the two latest results releases of every company under `raw/releases/` and the page shows
+   "newer report to review" beside a company whose stored release is at least 60 days newer than the curated one.
+2. The daily scheduled task (`ROUTINE-PROMPT.md`, STEP 2 and 3) reads the new exhibit(s) and rewrites the company's
+   record in `data/companies-kpis.json` for the new period: `period`, `periodEnd`, `filed`, the metrics (`comp`,
+   `traffic`, `ticket` or `sales`; lenders: `nco`, `dq30`, `spend`), each with `v`, the exact `find` text from the
+   release and, when the text is not in the first exhibit, `ex`; `prev` for the year-earlier rate; `quote`; `reviewed`.
+   A session does the same by hand when asked.
+3. `node scripts/consumidor/build-companies.mjs` must end "N of N verified; problems: 0", and the render check must
+   be clean, before anything is pushed.
 4. Segments are the company's own (Walmart U.S. ex fuel, Costco U.S. ex gasoline and FX, McDonald's U.S., Taco Bell
    for Yum!, Chili's for Brinker, Domestic Card for Capital One…). Never mix a consolidated figure with a segment
-   one without saying so in `segment`. Direction-only disclosures use `trafficSign` / `ticketSign` (+1 / −1).
+   one without saying so in `segment`. Direction-only disclosures use `trafficSign` / `ticketSign` (+1 / −1). A new
+   period keeps the metrics and definitions of the record it replaces.
 
 ## K-shaped economy (section 09)
 

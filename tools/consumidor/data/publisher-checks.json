@@ -1,0 +1,11 @@
+{
+ "_comment": "Written by the page's daily scheduled task (ROUTINE-PROMPT.md), never by hand. When a source is past the date by which its publisher normally brings the next period (build-log.json -> stale), the task opens the publisher's own page and records here the latest period it carries. A check whose `latest` equals the period the page shows keeps the source off the overdue list for 45 days, and the page then says the publisher has nothing newer (with the date of the check) instead of 'no recent update'.",
+ "checks": {
+  "pceDist": {
+   "checked": "2026-10-11",
+   "latest": "2023",
+   "url": "https://www.bls.gov/cex/pce-ce-distributions.htm",
+   "note": "BLS lists \"PCE distributional results for 2000–2023\" as its latest file; page last modified March 14, 2025; no date given for the next update."
+  }
+ }
+}

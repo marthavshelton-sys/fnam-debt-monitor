@@ -1,0 +1,6 @@
+{
+ "_comment": "Notes of the Federal Reserve Board that break down its yearly household survey beyond the report itself (the page reads their accessible tables). Kept by the page's daily scheduled task (ROUTINE-PROMPT.md): when the Board publishes a newer note on the same subject, it is added here with an id that sorts after the older one (subject-year-month) and the builder takes the newest. Only addresses on federalreserve.gov are read.",
+ "shed": [
+  { "id": "bnpl-2026-08", "url": "https://www.federalreserve.gov/publications/2026-august-consumer-community-context-accessible.htm", "title": "Consumer & Community Context, August 2026 (Buy Now, Pay Later)" }
+ ]
+}

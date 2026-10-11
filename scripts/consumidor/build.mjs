@@ -39,7 +39,39 @@ const MONTHS = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06
 const fredMonth = (s) => { const m = /^([A-Z][a-z]{2}) (\d{4})$/.exec(String(s || '')); return m ? `${m[2]}-${MONTHS[m[1]]}` : null; };
 
 const D = { generatedAt: null, sources: {} };
-const src = (id, extra) => { const st = (status.sources || {})[id] || {}; D.sources[id] = { ...extra, fetchedAt: meta[id] ? meta[id].fetchedAt : null, ...(st.error ? { stored: true, since: st.since || null } : {}) }; };
+// How long after the END of the period a source is stamped with its publisher normally brings the next one (days): past
+// that, the page marks the block and the build lists the source as overdue (build-log.json -> stale), unless the daily
+// routine confirmed at the publisher that nothing newer exists (data/publisher-checks.json, valid for CHECK_VALID_DAYS).
+const ALLOW = { census: 700, cps: 660, cex: 730, cexHist: 730, bea: 80, beaDist: 800, board: 85, nyfed: 150, nyfedStates: 530, dfa: 185, scf: 1400, beaStates: 660, atlWages: 80, umich: 80, nes: 1000, pceDist: 800,
+  phillyCards: 200, sce: 75, shed: 560, fsa: 200, courts: 200, jointDist: 1250 };
+const NEVER = new Set(['cfpbBnpl']);   // a one-off study: dated on the page, never overdue
+const CHECK_VALID_DAYS = 45;
+const TODAY = nowIso().slice(0, 10);
+const addDays = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') + n * 864e5).toISOString().slice(0, 10);
+// last day of the period a source is stamped with: '2025' | '2026-Q2' | '2026-08' | '2026-06-30'
+const periodEnd = (asOf) => { const t = String(asOf || ''); let m;
+  if ((m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(t))) return t;
+  if ((m = /^(\d{4})-Q([1-4])$/.exec(t))) return new Date(Date.UTC(+m[1], +m[2] * 3, 0)).toISOString().slice(0, 10);
+  if ((m = /^(\d{4})-(\d{2})$/.exec(t))) return new Date(Date.UTC(+m[1], +m[2], 0)).toISOString().slice(0, 10);
+  if ((m = /^(\d{4})$/.exec(t))) return `${t}-12-31`;
+  return null; };
+const pubChecks = (readJson(TOOLS + 'data/publisher-checks.json', { checks: {} }) || {}).checks || {};
+const stale = [];
+const src = (id, extra) => {
+  const st = (status.sources || {})[id] || {};
+  const o = { ...extra, fetchedAt: meta[id] ? meta[id].fetchedAt : null, ...(st.error ? { stored: true, since: st.since || null } : {}) };
+  const end = periodEnd(o.asOf);
+  if (end && !NEVER.has(id)) {
+    o.allowDays = ALLOW[id] || 400; o.dueBy = addDays(end, o.allowDays);
+    if (TODAY > o.dueBy) {
+      // overdue: either the publisher has nothing newer (confirmed by a dated check of its page) or the page is behind
+      const c = pubChecks[id];
+      if (c && c.checked && String(c.latest) === String(o.asOf) && TODAY <= addDays(c.checked, CHECK_VALID_DAYS)) o.publisherChecked = c.checked;
+      else stale.push({ id, name: o.name || id, asOf: String(o.asOf), dueBy: o.dueBy });
+    }
+  } else if (NEVER.has(id)) o.allowDays = null;
+  D.sources[id] = o;
+};
 
 // ------------------------------------------------------------------------------------------------------------------
 // Census ACS: who they are, what they earn, by state
@@ -525,7 +557,7 @@ const qLabel = (d) => `${d.slice(0, 4)}-Q${Math.floor((Number(d.slice(5, 7)) - 1
 
     // --- buy now, pay later
     const useB = find(/^Figure \d+\. Use of Buy Now, Pay Later/i), demB = find(/^Table \d+\. Buy Now, Pay Later \(BNPL\) use \(by demographic/i), whyB = find(/Main reason for using Buy Now, Pay Later/i);
-    const note = (SH.notes || []).find((n) => /bnpl/i.test(n.id)), nb = note ? note.blocks || [] : [];
+    const note = (SH.notes || []).filter((n) => /^bnpl/i.test(n.id)).sort((a, b) => (a.id < b.id ? -1 : 1)).pop() || null, nb = note ? note.blocks || [] : [];   // the newest note on the subject
     const nYear = find(/Used Buy Now, Pay Later in past year, by year and gender/i, nb), nSav = find(/Buy Now, Pay Later use, by largest emergency expense/i, nb), nOd = find(/payment triggered an overdraft or non-sufficient funds fee/i, nb), nFee = find(/charged extra for paying late or incurred an overdraft/i, nb);
     if (useB) {
       const a = yearRows(useB), years = a.map((r) => Number(r[0]));
@@ -541,6 +573,8 @@ const qLabel = (d) => `${d.slice(0, 4)}-Q${Math.floor((Number(d.slice(5, 7)) - 1
       if (nOd) { const o = rowOf(nOd, /^Overall/i), lo = nOd.rows[1]; if (o) BN.overdraft = nn(o[1]); if (lo && nn(lo[1]) != null) BN.overdraftLow = { label: lab(lo[0]), v: nn(lo[1]) }; }
       if (nFee) { const o = rowOf(nFee, /^Overall/i), gro = rowOf(nFee, /Groceries/i); if (o) BN.lateAll = nn(o[1]); if (gro) BN.lateGroceries = nn(gro[1]); }
       if (note) { BN.noteUrl = note.url; BN.noteTitle = note.title; }
+      // the note's own survey year: its breakdowns (by savings, overdrafts, by purchase) stay dated with it when a newer report arrives
+      if (nYear && yearRows(nYear).length) BN.noteYear = Number(last(yearRows(nYear))[0]);
       D.bnpl = BN;
     }
   }
@@ -733,8 +767,9 @@ for (const c of fails) console.log(`::error::${c.tag}: ${c.check}${c.diff != nul
 for (const c of warns.slice(0, 20)) console.log(`::warning::${c.tag}: ${c.check}${c.diff != null ? ` (diff ${c.diff}, tolerance ${c.tol})` : ''}${c.note ? ` (${c.note})` : ''}`);
 const missing = ['demo', 'income', 'states', 'funds', 'cex', 'wealth', 'scf', 'debt', 'creditTerms'].filter((k) => !D[k]);
 console.log(`tie-outs: ${checks.length} (${checks.length - fails.length - warns.length} ok, ${warns.length} warn, ${fails.length} fail); blocks missing: ${missing.join(', ') || 'none'}`);
+for (const x of stale) console.log(`::warning::overdue: ${x.id} is stamped ${x.asOf}; a newer period was due by ${x.dueBy}`);
 if (!CHECK) {
-  const log = { checks: checks.filter((c) => c.status !== 'ok'), counts: { ok: checks.length - fails.length - warns.length, warn: warns.length, fail: fails.length }, missing, sourceStatus: status.sources || {} };
+  const log = { checks: checks.filter((c) => c.status !== 'ok'), counts: { ok: checks.length - fails.length - warns.length, warn: warns.length, fail: fails.length }, missing, stale, sourceStatus: status.sources || {} };
   if (JSON.stringify(readJson(RAW + 'build-log.json')) !== JSON.stringify(log)) writeJson(RAW + 'build-log.json', log);
 }
 if (fails.length) process.exit(1);

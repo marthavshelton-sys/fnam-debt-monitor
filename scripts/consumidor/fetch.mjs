@@ -490,7 +490,8 @@ async function fetchSce(prev) {
 // Community Context notes built on it. The report's address changes every year: the newest one is read from the list.
 // ------------------------------------------------------------------------------------------------------------------
 const SHED_LIST = 'https://www.federalreserve.gov/publications/report-economic-well-being-us-households.htm';
-const SHED_NOTES = [{ id: 'bnpl-2026-08', url: 'https://www.federalreserve.gov/publications/2026-august-consumer-community-context-accessible.htm', title: 'Consumer & Community Context, August 2026 (Buy Now, Pay Later)' }];
+// (the notes are listed in tools/consumidor/data/notes.json, kept by the page's daily scheduled task: a newer note is a line there, not code)
+const SHED_NOTES = ((readJson('tools/consumidor/data/notes.json', { shed: [] }) || {}).shed || []).filter((n) => n && n.id && /^https:\/\/www\.federalreserve\.gov\//.test(n.url || ''));
 // Every <table> of a Board web publication with the "Table N." / "Figure N." heading that precedes it (the accessible
 // version of a figure is a table too). Cells are read from the markup: in these pages each cell sits on its own line.
 function fedBlocks(html) {
@@ -520,7 +521,7 @@ async function fetchShed(prev) {
   const R = reports[0], origin = 'https://www.federalreserve.gov';
   const execUrl = `${origin}${R.base}executive-summary.htm`;
   const lm = await lastModifiedOf(execUrl);
-  if (prev && prev.year === R.year && prev.notes && prev.notes.length === SHED_NOTES.length && prev.parsed === 2 && !FORCE) return SKIP;
+  if (prev && prev.year === R.year && prev.notes && prev.notes.map((n) => n.id).join() === SHED_NOTES.map((n) => n.id).join() && prev.parsed === 2 && !FORCE) return SKIP;
   const exec = await getText(execUrl, { tries: 2 });
   const chapters = [...new Set([...exec.matchAll(new RegExp(`href="(${R.base.replace(/[-/]/g, '\\$&')}[a-z0-9-]+\\.htm)"`, 'g'))].map((m) => m[1]))].filter((u) => !/acknowledgements|description/.test(u));
   if (chapters.length < 5) throw new Error(`SHED ${R.year}: only ${chapters.length} chapter pages linked from the summary`);
@@ -533,7 +534,11 @@ async function fetchShed(prev) {
   // headline sentences of the executive summary (kept as text: the report states them in words)
   const summary = htmlToText(exec).split('\n').filter((l) => /percent/i.test(l) && l.length > 60 && l.length < 700);
   const notes = [];
-  for (const n of SHED_NOTES) { const html = await getText(n.url, { tries: 2 }); notes.push({ ...n, blocks: fedBlocks(html) }); await sleep(250); }
+  for (const n of SHED_NOTES) {
+    try { const html = await getText(n.url, { tries: 2 }); notes.push({ id: n.id, url: n.url, title: n.title, blocks: fedBlocks(html) }); }
+    catch (e) { const old = ((prev && prev.notes) || []).find((x) => x.id === n.id); if (old) notes.push(old); note(`Board note ${n.id} not read: ${e.message}`); }
+    await sleep(250);
+  }
   const nBlocks = pages.reduce((a, p) => a + p.blocks.length, 0);
   if (nBlocks < 5) throw new Error(`SHED ${R.year}: only ${nBlocks} tables and figures could be read from ${pages.length} pages`);
   note(`SHED ${R.year}: ${nBlocks} tables and figures read from ${pages.length} pages (${pages.filter((p) => p.kind === 'accessible').length} accessible-version pages)`);

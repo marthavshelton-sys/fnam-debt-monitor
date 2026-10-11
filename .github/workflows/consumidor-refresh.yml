@@ -15,11 +15,13 @@
 #            Table F-2, and the BEA / Federal Reserve / Census / Philadelphia Fed series the page reads through
 #            FRED (each checked against its title). A source that fails keeps its stored file and is counted in
 #            tools/consumidor/raw/status.json.
+#            On Sundays the first run reads every source again in full (revisions of a period already shown).
 #   releases the two latest results releases (Form 8-K, Item 2.02) of the covered companies from SEC EDGAR, kept as
 #            text; for the gig platforms and some lenders also the passages of the latest 10-Q and 10-K that give
-#            figures by country, and the company pages listed in companies.json. Their figures reach the page only through the curated
-#            file tools/consumidor/data/companies-kpis.json, which a session updates after each earnings season; the
-#            page flags a company whose release is newer.
+#            figures by country, and the company pages listed in companies.json. Their figures reach the page only
+#            through the curated file tools/consumidor/data/companies-kpis.json, which the page's daily scheduled
+#            task (prompt in tools/consumidor/ROUTINE-PROMPT.md) updates the day a release is stored; the page flags
+#            a company whose release is newer until then.
 #   build    site/consumidor/data/data.js (every tie-out must hold or the page keeps its last data) and
 #            site/consumidor/data/companies.js (every curated figure and quote must be in the release it cites).
 #
@@ -78,7 +80,14 @@ jobs:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
           CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-        run: node scripts/consumidor/fetch.mjs ${{ inputs.force == 'true' && '--force' || '' }}
+        shell: bash
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force }}" = "true" ]; then FORCE="--force"; fi
+          # Sundays, first run of the day: every source is read again in full, so a revision of a period the page
+          # already shows (same year, same quarter) is picked up; unchanged data is not rewritten, so nothing is committed.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "10 14 * * *" ] && [ "$(date -u +%u)" = "7" ]; then FORCE="--force"; fi
+          node scripts/consumidor/fetch.mjs $FORCE
 
       - name: Results releases of the covered companies (SEC EDGAR)
         continue-on-error: true

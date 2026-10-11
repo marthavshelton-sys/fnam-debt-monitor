@@ -207,7 +207,11 @@ dashboards, everything built from public data by GitHub Actions.
   and BEA / Board / CPS / Philadelphia Fed series through FRED, each title-checked; BEA's own API answers 503 on the runner) → `scripts/consumidor/build.mjs`
   → `data/data.js` (tie-outs must hold or the page keeps its last data). Company figures are curated
   (`tools/consumidor/data/companies-kpis.json`, each figure and quote checked against the stored 8-K exhibit by
-  `build-companies.mjs`) and updated in a session after each earnings season; the page flags a company whose release is newer.
+  `build-companies.mjs`) and updated the day a release is stored by the scheduled task "FNAM American Consumer: daily upkeep"
+  (15:07 and 22:25 UTC; prompt `tools/consumidor/ROUTINE-PROMPT.md`; worklist `scripts/consumidor/pending.mjs`), which also keeps
+  the K-shaped estimates, the Board notes list, the check of publishers past their usual date (`data/publisher-checks.json`) and
+  repairs a reader a publisher's new layout broke (owner, 11-Oct-2026: nothing on this page may go stale, without her
+  involvement; freshness allowances live in `build.mjs`, one table); the page flags a company whose release is newer.
   Every sentence is composed from the data in both languages; before pushing run `scripts/consumidor/render-check.mjs`. Runbook
   and memory: `tools/consumidor/README.md`, `MEMORY.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
