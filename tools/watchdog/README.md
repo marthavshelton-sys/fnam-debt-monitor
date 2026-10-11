@@ -107,7 +107,9 @@ In a Claude session the GitHub API answers only through the egress proxy: prefix
 
 ## Adding a dashboard
 
-Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels). For a company
+Add an entry to `dashboards.json` (id, section, name es/en, url, workflow file names, alert labels) with `since` = the
+instant its refresh workflow reaches `main` (ISO, UTC): schedules due before it are not judged, so the dashboard does not
+read "late" on its first day for runs that could not have happened (American Consumer, 11-Oct-2026). For a company
 page, give the eyebrow dot `data-status-dot="<id>"` and load `/assets/data-status.js`. To watch a monthly data file, add a `data` block (`timeZone`, `dueDay`, `series` of `{ name, file, kind: "js" | "json", field }`). To watch its prices, add a
 `prices` block (`exchange`, `settleHours`, `series` of `{ name, file, kind: "csv" | "json" | "js", field?, lagSessions?,
 exchange? }`), and, for the page-side check, an `OWN_CLOSE` entry in `data-status.js` plus a `latestClose` stamp in the

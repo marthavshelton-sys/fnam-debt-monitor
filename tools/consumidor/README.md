@@ -63,8 +63,9 @@ commit → optional steps (SOURCE DOWN issue, link check on the 14:10 run).
   when the number is not in its own `find` text; that company is left out. The decimals shown for each company figure
   are the ones its release prints (`dp`).
 - Watchdog: entry `us-consumer` in `tools/watchdog/dashboards.json`; status stamp from `data.js → generatedAt`.
-  **After merging to main for the first time, start the workflow once by hand on main** (its Commit step counts as a
-  landed refresh), or the watchdog will read the schedule's earlier due time as missed.
+  The entry carries `since` (11-Oct-2026 18:03 UTC, the merge): schedules due before the page was on main are not
+  judged. On its first day the watchdog read the page "late" for the 21:40 run of the evening before, which could not
+  have happened; `since` was added for that.
 
 Secrets used: `CENSUS_API_KEY`, `BLS_API_KEY`, `FRED_API_KEY` (keys are removed from everything written).
 
