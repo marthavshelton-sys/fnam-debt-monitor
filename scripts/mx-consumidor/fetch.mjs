@@ -13,7 +13,7 @@
 //   fred      FRED (St. Louis Fed) mirror of the BIS series of total credit to households as a percent of GDP
 //   enif      INEGI and CNBV, Encuesta Nacional de Inclusión Financiera (public microdata): who has credit, savings, cushions
 //   docs      Published documents kept as text for the figures curated from them (ENFIH 2019 results)
-//   poverty   INEGI, multidimensional poverty by state
+//   poverty   INEGI, multidimensional poverty, national and by state (the indicators of INEGI's own poverty page)
 //
 //   node scripts/mx-consumidor/fetch.mjs [--only=enigh,banxico] [--force]
 //
@@ -25,7 +25,7 @@ import { writeFileSync, readFileSync, mkdtempSync, readdirSync, statSync, rmSync
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { RAW, readJson, writeJson, writeText, exists, get, getJson, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, stateCode, BOT_UA } from './lib/common.mjs';
+import { RAW, readJson, writeJson, writeText, exists, get, getJson, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, inegiToken, stateCode, BOT_UA } from './lib/common.mjs';
 import { BANXICO, CARD_GIROS, INEGI } from './lib/series.mjs';
 import { aggregate } from './lib/enigh.mjs';
 import { aggregateEnif } from './lib/enif.mjs';
@@ -273,7 +273,47 @@ async function fetchDocs(prev) {
 }
 
 // ------------------------------------------------------------------------------------------------------------------
-const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, fred: fetchFred, enif: fetchEnif, docs: fetchDocs };
+// INEGI · multidimensional poverty (the measurement INEGI took over from Coneval), national and by state
+// ------------------------------------------------------------------------------------------------------------------
+// percent of the population; the indicator ids are the ones INEGI's own poverty page charts, each checked against its description and unit
+const POVERTY = {
+  poverty: ['8999998769', /^Población en situación de pobreza$/i], extreme: ['8999998767', /^Población en situación de pobreza extrema$/i], moderate: ['8999998768', /^Población en situación de pobreza moderada$/i],
+  vulnerableDeprivation: ['8999998766', /^Población vulnerable por carencias sociales$/i], vulnerableIncome: ['8999998765', /^Población vulnerable por ingresos$/i], notPoor: ['8999998764', /^Población no pobre y no vulnerable$/i],
+  noSocialSecurity: ['8999998759', /^Carencia por acceso a la seguridad social$/i], noHealth: ['8999998760', /^Carencia por acceso a los servicios de salud$/i], food: ['8999998756', /^Carencia por acceso a la alimentación nutritiva y de calidad$/i],
+  belowIncomeLine: ['8999998754', /^Población con ingreso inferior a la línea de pobreza por ingresos$/i], belowExtremeLine: ['8999998755', /^Población con ingreso inferior a la línea de pobreza extrema por ingresos$/i],
+};
+const POVERTY_COUNT = ['8999998751', /^Población en situación de pobreza$/i];   // thousands of people
+async function fetchPoverty() {
+  const token = inegiToken();
+  const base = 'https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml';
+  const ids = [...Object.values(POVERTY).map((x) => x[0]), POVERTY_COUNT[0]];
+  const names = {};
+  for (const c of (await getJson(`${base}/CL_INDICATOR/${ids.join(',')}/es/BISE/2.0/${token}?type=json`, { ua: BOT_UA })).CODE || []) names[c.value] = String(c.Description || '').trim();
+  for (const k of Object.keys(POVERTY)) if (!POVERTY[k][1].test(names[POVERTY[k][0]] || '')) throw new Error(`poverty indicator ${POVERTY[k][0]} is "${names[POVERTY[k][0]] || 'missing'}", not ${k}`);
+  if (!POVERTY_COUNT[1].test(names[POVERTY_COUNT[0]] || '')) throw new Error(`poverty count indicator is "${names[POVERTY_COUNT[0]] || 'missing'}"`);
+  const areas = ['00', ...Array.from({ length: 32 }, (_, i) => String(i + 1).padStart(2, '0'))];
+  const read = async (area) => (await getJson(`${base}/INDICATOR/${ids.join(',')}/es/${area}/false/BISE/2.0/${token}?type=json`, { ua: BOT_UA })).Series || [];
+  const out = { national: {}, states: {}, countNational: {} };
+  const put = (series, area) => {
+    for (const k of Object.keys(POVERTY)) {
+      const s = series.find((x) => x.INDICADOR === POVERTY[k][0]); if (!s) throw new Error(`poverty: ${k} missing for area ${area}`);
+      if (String(s.UNIT) !== '3') throw new Error(`poverty: ${k} has unit ${s.UNIT}, expected 3 (percent)`);
+      const obs = Object.fromEntries((s.OBSERVATIONS || []).filter((o) => o.OBS_VALUE != null && o.OBS_VALUE !== '').map((o) => [o.TIME_PERIOD, Math.round(Number(o.OBS_VALUE) * 100) / 100]));
+      if (area === '00') out.national[k] = obs; else (out.states[area] || (out.states[area] = {}))[k] = obs;
+    }
+    if (area === '00') { const c = series.find((x) => x.INDICADOR === POVERTY_COUNT[0]); if (c) out.countNational = Object.fromEntries((c.OBSERVATIONS || []).map((o) => [o.TIME_PERIOD, Math.round(Number(o.OBS_VALUE) * 1000)])); }
+  };
+  for (const a of areas) { put(await read(a), a); await sleep(250); }
+  if (Object.keys(out.states).length !== 32) throw new Error(`poverty: ${Object.keys(out.states).length} states answered`);
+  const years = Object.keys(out.national.poverty).sort();
+  if (!years.length) throw new Error('poverty: no national observations');
+  out.latest = years[years.length - 1]; out.years = years;
+  out.source = { name: 'INEGI, Pobreza multidimensional', url: 'https://www.inegi.org.mx/desarrollosocial/pm/' };
+  return out;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, fred: fetchFred, enif: fetchEnif, docs: fetchDocs, poverty: fetchPoverty };
 const status = readJson(RAW + 'status.json', { sources: {} });
 status.sources = status.sources || {};
 let ran = 0, failed = 0;
