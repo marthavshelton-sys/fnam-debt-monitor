@@ -1,0 +1,7 @@
+{
+ "_comment": "Written by the page's daily scheduled task (ROUTINE-PROMPT.md), only when its content changes: filings judged not to be results (skipped.<TICKER>.<accession> = reason), the date the Board notes list was last checked against federalreserve.gov (notesChecked), and problems still open (open: id, since, branch, cause).",
+ "notesChecked": "2026-10-11",
+ "open": [
+  { "id": "schedule-not-started", "since": "2026-10-11", "branch": null, "cause": "No scheduled run of the refresh workflow had started on main by 22:26 UTC on 2026-10-11 (workflow merged 18:03 UTC, first slot 21:40 UTC); a run started by hand at 22:27 UTC succeeded. Solved when a scheduled run concludes success." }
+ ]
+}
