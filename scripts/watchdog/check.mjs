@@ -32,7 +32,7 @@
 // In Actions: GITHUB_TOKEN (actions: read, issues: write) and GITHUB_REPOSITORY. Exits 1 only when GitHub
 // cannot be read: an unverifiable state is never written as a verdict.
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
-import { verdict, perCronLate, cronsInWorkflow, refreshLandedBySteps, attemptRecord, priceVerdict, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth, isoSeconds, cdmx } from './lib.mjs';
+import { verdict, perCronLate, handRunsToCheck, creditHandRun, cronsInWorkflow, refreshLandedBySteps, attemptRecord, priceVerdict, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth, isoSeconds, cdmx } from './lib.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const argv = process.argv.slice(2);
@@ -96,14 +96,14 @@ async function runsOf(file) {
   // a diagnostics (probe) or dry run ends green without committing anything, so a green conclusion alone never counts, and
   // a run on another branch commits there, not to main. Added 9-Oct-2026: the owner re-runs a failed nightly refresh by
   // hand, the data is in main, and the page must not stay "late" until the next scheduled run. `attempt` stays the newest
-  // scheduled run, so lastAttempt still reports that the schedule itself failed. Such a run joins `recent` too, so the
-  // per-cron rule credits it to the schedule it replaced.
+  // scheduled run, so lastAttempt still reports that the schedule itself failed. Every such run of the lookback joins
+  // `recent`, so the per-cron rule credits it to the schedule it replaced even after a later schedule of another cron lands
+  // (lib.mjs handRunsToCheck / creditHandRun, 11-Oct-2026: the credit used to stop at the newest scheduled landed run, and
+  // ASUR read "late" all weekend); the newest of them is lastSuccess when it is newer than every scheduled run.
   const { workflow_runs: manual } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=workflow_dispatch&status=completed&per_page=5&exclude_pull_requests=true`);
-  for (const run of manual) {
-    if (landed && run.created_at <= landed.run.created_at) break;
-    if (run.head_branch !== 'main') continue;
+  for (const run of handRunsToCheck(manual, { now: NOW, lookbackMs: LOOKBACK })) {
     const { jobs } = await gh(`/repos/${REPO}/actions/runs/${run.id}/jobs?per_page=30`);
-    if (refreshLandedBySteps(jobs)) { landed = { run, afterCommitFailure: run.conclusion !== 'success', manual: true }; recent.push({ createdAt: run.created_at, landed: true }); break; }
+    if (refreshLandedBySteps(jobs)) landed = creditHandRun({ landed, recent, run, afterCommitFailure: run.conclusion !== 'success' });
   }
   // the page of runs covers only so many days: the per-cron rule judges nothing older than its oldest run (a full page) or the lookback
   const since = runs.length >= 30 ? Math.min(...runs.map((r) => Date.parse(r.created_at))) : null;

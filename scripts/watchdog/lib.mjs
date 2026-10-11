@@ -117,6 +117,21 @@ export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = nul
   return out;
 }
 
+// ---- refreshes started by hand on main ----
+// A refresh re-run by hand on main (workflow_dispatch) whose "Commit …" step succeeded counts for the schedule it replaced: it
+// joins the runs the per-cron rule attributes, and it is the last landed refresh only when it is newer than the newest scheduled
+// one. Every hand run of the lookback is a candidate, not only those newer than the newest scheduled landed run: until
+// 11-Oct-2026 the credit stopped there, so ASUR's hand run of Friday 9-Oct 22:34 UTC (which landed the filings the 14:40
+// schedule had failed) was forgotten as soon as the 22:50 market schedule landed that evening, and the dashboard read "late"
+// all weekend with every file current. `manual`: GitHub's page of workflow_dispatch runs, newest first.
+export function handRunsToCheck(manual, { now, lookbackMs }) {
+  return (manual || []).filter((r) => r.head_branch === 'main' && Number.isFinite(Date.parse(r.created_at)) && Date.parse(r.created_at) >= now - lookbackMs);
+}
+export function creditHandRun({ landed, recent, run, afterCommitFailure = false }) {
+  recent.push({ createdAt: run.created_at, landed: true, manual: true });
+  return landed && landed.run.created_at >= run.created_at ? landed : { run, afterCommitFailure, manual: true };
+}
+
 // ---- monthly data feeds: is the latest month of a monthly series the one its publisher's calendar requires? ----
 // A monthly series (an airport group's traffic by airport, published around the 5th–8th of the following month) must carry
 // month M−1 once day `dueDay` of month M has ended in `timeZone`, and month M−2 before that. `requiredMonth` names the month

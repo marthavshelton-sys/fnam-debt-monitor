@@ -1,7 +1,7 @@
 // Offline checks of the watchdog's rules (scripts/watchdog/lib.mjs). Run before every check:
 //   node scripts/watchdog/selftest.mjs
 import assert from 'node:assert/strict';
-import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, attemptRecord, verdict, perCronLate, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, requiredMonth, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth } from './lib.mjs';
+import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, attemptRecord, verdict, perCronLate, handRunsToCheck, creditHandRun, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, requiredMonth, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth } from './lib.mjs';
 
 const t = (s) => Date.parse(s);
 const H = 36e5;
@@ -74,6 +74,21 @@ assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRu
 assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-05T22:00:00Z'), runs: wkRuns.filter((r) => !/10-04/.test(r.createdAt)) }).map((x) => x.cron), ['25 15 * * 0,6']); // Sunday's run missing
 // a weekend-only cron whose runs fell off the fetched page is not judged before `since` (the oldest run fetched)
 assert.deepEqual(perCronLate({ ...wk, now: t('2026-10-09T22:00:00Z'), runs: [{ createdAt: '2026-10-09T13:45:00Z', landed: true }, { createdAt: '2026-10-08T13:44:00Z', landed: true }], since: t('2026-10-08T13:44:00Z') }).map((x) => x.cron), []);
+// a refresh re-run by hand on main: ASUR, Friday 9-Oct-2026. The 14:40 schedule failed (14:54), a hand run at 22:34 landed the
+// filings, the 22:50 market schedule landed at 22:58. On Sunday the hand run must still cover the 14:40 due time (until
+// 11-Oct-2026 the credit stopped at the first hand run older than the newest scheduled landed run: "late" all weekend)
+const hand = { id: 52, created_at: '2026-10-09T22:34:05Z', head_branch: 'main', conclusion: 'success' };
+const sched = { id: 53, created_at: '2026-10-09T22:58:53Z', conclusion: 'success' };
+const handPage = [{ id: 60, created_at: '2026-10-09T22:40:00Z', head_branch: 'claude/a-branch', conclusion: 'success' }, hand, { id: 40, created_at: '2026-09-20T12:00:00Z', head_branch: 'main', conclusion: 'success' }];
+assert.deepEqual(handRunsToCheck(handPage, { now: t('2026-10-11T15:58:00Z'), lookbackMs: 14 * 24 * H }).map((r) => r.id), [52]);  // main only, within the lookback; a newer scheduled run cuts nothing
+const fri = [{ createdAt: '2026-10-09T22:58:53Z', landed: true }, ...runsA];
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-11T15:58:00Z'), runs: fri }).map((x) => x.cron), ['40 14 * * 1-5']);        // without the hand run: the weekend's false "late"
+const credited = [...fri];
+const last = creditHandRun({ landed: { run: sched, afterCommitFailure: false }, recent: credited, run: hand });
+assert.equal(last.run.id, 53);                                                                                                    // lastSuccess stays the newer scheduled run
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-11T15:58:00Z'), runs: credited }).map((x) => x.cron), []);                // the hand run covers Friday 14:40
+assert.equal(creditHandRun({ landed: { run: { created_at: '2026-10-08T22:59:08Z' } }, recent: [], run: hand }).run.id, 52);       // a hand run newer than every scheduled one is lastSuccess
+assert.equal(creditHandRun({ landed: null, recent: [], run: hand, afterCommitFailure: true }).afterCommitFailure, true);
 
 // Mexico City time (UTC-6, no daylight saving since 2022)
 assert.equal(cdmx('2026-10-01T15:12:00Z'), '01-Oct-2026 09:12 CDMX');

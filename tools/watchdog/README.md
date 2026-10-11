@@ -20,7 +20,11 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
 - Scheduled runs count (`event=schedule`). A run started by hand on `main` (`workflow_dispatch`) counts as a landed refresh
   only when its `Commit …` step succeeded: a probe or dry run ends green without committing, so a green conclusion alone
   never counts, and a run on another branch commits there. Added 9-Oct-2026 so a failed nightly refresh re-run by hand does
-  not leave the page "late" until the next schedule; `lastAttempt` still reports the newest scheduled run.
+  not leave the page "late" until the next schedule; `lastAttempt` still reports the newest scheduled run. Every hand run of
+  the last 14 days is credited to the schedule it replaced (`handRunsToCheck`, `creditHandRun` in `lib.mjs`), not only those
+  newer than the newest scheduled landed run: on 10/11-Oct-2026 ASUR read "late" all weekend, with every file current,
+  because the credit for its Friday hand run (the filings the 14:40 schedule had failed) stopped once the evening market
+  schedule landed.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
 - **One run, one record** (9-Oct-2026): `lastSuccess` is the newest landed refresh; `lastAttempt` is the newest completed
