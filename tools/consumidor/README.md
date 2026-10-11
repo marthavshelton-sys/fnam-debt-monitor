@@ -74,7 +74,7 @@ Secrets used: `CENSUS_API_KEY`, `BLS_API_KEY`, `FRED_API_KEY` (keys are removed 
 |---|---|---|
 | Every official source (all sections) and every sentence, label and chart composed from it | the refresh workflow | 14:10 and 21:40 UTC; a newer edition (survey year, quarter, report) is found by itself |
 | Revisions of a period already shown | the workflow's Sunday 14:10 run (`--force`: every source read again in full) | weekly |
-| Company figures, quotes and period labels | the scheduled task "FNAM American Consumer: daily upkeep" (prompt: `ROUTINE-PROMPT.md`) | the day a release is stored (15:07 and 22:25 UTC) |
+| Company figures, quotes and period labels | the scheduled task "FNAM American Consumer: daily upkeep" (prompt: `ROUTINE-PROMPT.md`) | the day a release is stored (15:25 and 22:25 UTC) |
 | Estimates of the K-shaped section (`data/kshape.json`) | the same task | weekly check |
 | The Board notes the survey block reads (`data/notes.json`) | the same task | monthly check |
 | A source past its publisher's usual date | the same task opens the publisher's page and records the check (`data/publisher-checks.json`) | when due, renewed every 30 days |

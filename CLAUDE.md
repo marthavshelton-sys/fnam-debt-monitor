@@ -208,7 +208,7 @@ dashboards, everything built from public data by GitHub Actions.
   → `data/data.js` (tie-outs must hold or the page keeps its last data). Company figures are curated
   (`tools/consumidor/data/companies-kpis.json`, each figure and quote checked against the stored 8-K exhibit by
   `build-companies.mjs`) and updated the day a release is stored by the scheduled task "FNAM American Consumer: daily upkeep"
-  (15:07 and 22:25 UTC; prompt `tools/consumidor/ROUTINE-PROMPT.md`; worklist `scripts/consumidor/pending.mjs`), which also keeps
+  (15:25 and 22:25 UTC; prompt `tools/consumidor/ROUTINE-PROMPT.md`; worklist `scripts/consumidor/pending.mjs`), which also keeps
   the K-shaped estimates, the Board notes list, the check of publishers past their usual date (`data/publisher-checks.json`) and
   repairs a reader a publisher's new layout broke (owner, 11-Oct-2026: nothing on this page may go stale, without her
   involvement; freshness allowances live in `build.mjs`, one table); the page flags a company whose release is newer.

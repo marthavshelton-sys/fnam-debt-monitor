@@ -36,6 +36,9 @@ Read with `README.md` (the runbook) before touching `site/consumidor/` or `scrip
 - Nothing on the page may go stale, and its upkeep takes nothing from the owner (11-Oct-2026). The workflow keeps
   the sources; the scheduled task "FNAM American Consumer: daily upkeep" keeps the curated parts and the health of the
   refresh (README → "What keeps the page current"). Its note reaches her only on a day with changes or problems.
+  Task id `trig_01SvWsQ6xkKnArusWZLwFUpo` (created 11-Oct-2026 from a session; 15:25 and 22:25 UTC; runs without
+  asking for approvals; email notification on). It does nothing until the page is on `main`. Its prompt is the text
+  between the two rules of `ROUTINE-PROMPT.md`: change both together.
   Typed sample sizes and other figures that are not read from data stay out of the page's text.
 
 ## Pitfalls already met
