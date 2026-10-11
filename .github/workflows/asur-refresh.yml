@@ -14,7 +14,7 @@ name: Refresh ASUR model data
 
 on:
   schedule:
-    - cron: "50 22 * * 1-5"      # market, weekdays (after the BMV close)
+    - cron: "50 22 * * 1-5"      # filings + market, weekdays (after the BMV close; a release published during the day lands the same evening)
     - cron: "40 14 * * 1-5"      # filings + market, weekdays (after the previous evening's releases)
   workflow_dispatch:
     inputs:
@@ -57,8 +57,8 @@ jobs:
         shell: bash
         run: |
           MODE="${{ github.event.inputs.mode || 'all' }}"
-          # The daily 22:40 schedule refreshes market data only; every other trigger does both.
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "50 22 * * 1-5" ]; then MODE=market; fi
+          # Every scheduled run harvests filings and refreshes market data (owner, 11-Oct-2026: a release must not wait for the
+          # next morning's run); a hand run can still choose market or filings.
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "Running mode: $MODE"
 

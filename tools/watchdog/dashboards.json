@@ -38,7 +38,8 @@
         { "name": "Page close ASURB.MX (market.js)", "file": "site/asur/data/market.js", "kind": "js", "field": "latestClose" }
       ] },
       "data": { "timeZone": "America/Mexico_City", "dueDay": 10, "series": [
-        { "name": { "es": "Tráfico mensual por aeropuerto (traffic.js)", "en": "Monthly traffic by airport (traffic.js)" }, "file": "site/asur/data/traffic.js", "kind": "js", "field": "coverage.1" }
+        { "name": { "es": "Tráfico mensual por aeropuerto (traffic.js)", "en": "Monthly traffic by airport (traffic.js)" }, "file": "site/asur/data/traffic.js", "kind": "js", "field": "coverage.1" },
+        { "name": { "es": "Resumen y comentarios al mes de tráfico vigente (rutina de mantenimiento)", "en": "Summary and comments at the current traffic month (upkeep routine)" }, "file": "tools/asur/notify-state.json", "kind": "json", "field": "lastTrafficMonth" }
       ] } },
     { "id": "airport-traffic", "section": "companies", "name": { "es": "Tráfico por Aeropuerto", "en": "Traffic by Airport" }, "url": "/aeropuertos/trafico/", "workflows": ["aeropuertos-refresh.yml"], "alertLabels": [] },
     { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },

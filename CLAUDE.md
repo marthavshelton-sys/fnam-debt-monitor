@@ -116,6 +116,17 @@ dashboards, everything built from public data by GitHub Actions.
   `months[].comparatives` and printed as "pf" changes (the company's own figures); growth without a comparative prints "n.c."
   with the legacy-perimeter change beside it; never estimate CPC passengers. The consolidated basis carries a Motiva segment
   (chip, series, subtotal rows). Runbook: `tools/asur/README.md` → "Traffic perimeter change".
+- ASUR page upkeep (owner, 11-Oct-2026: nothing on the page may go stale without her involvement; runbook `tools/asur/README.md` →
+  "What refreshes on its own"): the data-bearing sentences of the executive summary are composed by the engine from the data files
+  (`summary.js` → `compose: true` and the bullets `{{auto:traffic}}`, `{{auto:results}}`, `{{auto:debt}}`, `{{auto:calendar}}`;
+  tokens such as `{{netDebt}}`, `{{pfLev}}`, `{{lastQ}}`, `{{capexQ}}` in curated notes; `config.js → debtMethod` replaces the typed
+  `debtNote`, and the engine appends the composed basis on the page and in the deck); the hand-written commentary is withheld
+  automatically while its basis quarter is behind `financials.js`. `asur-refresh.yml` harvests filings on every scheduled run
+  (14:40 and 22:50 UTC on weekdays). The routine "FNAM ASUR: daily upkeep" (15:40 and 23:40 UTC on weekdays; prompt
+  `tools/asur/ROUTINE-PROMPT.md`) rewrites commentary, comments and reference facts and repairs the parser on a branch when a
+  release does not parse; the validator's curated rows and the watchdog's `tools/asur/notify-state.json → lastTrafficMonth` series
+  flag a routine that falls behind. `scripts/airports/render-check.mjs --company=asur|oma` is the headless page check (ES/EN,
+  1280 and 390 px) to run before pushing a page change.
 - Oracle market data: since 2026-10-06 the ORCL price authority is FactSet Global Prices (`tools/oracle/data/prices_orcl_factset.csv`,
   written by the nightly FactSet routine at 7:58 PM New York time); `build-data.mjs` merges it over the runner's Nasdaq/Yahoo series,
   which only fills dates FactSet has not posted yet (owner: every price as of the last close, from FactSet). The S&P 500 stays on
