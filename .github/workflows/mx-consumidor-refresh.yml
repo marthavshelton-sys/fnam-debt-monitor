@@ -82,6 +82,28 @@ jobs:
           done
           exit 1
 
+      # Company results releases (BMV eventos relevantes and SEC EDGAR) stored as text; a failure here never loses the data commit above.
+      - name: Harvest company results releases
+        continue-on-error: true
+        timeout-minutes: 20
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx mexican-consumer (contact via repository)' }}
+        run: node scripts/mx-consumidor/harvest-releases.mjs
+
+      - name: Commit the releases if anything changed
+        if: always()
+        shell: bash
+        run: |
+          git add -A tools/mx-consumidor site/mx/consumidor 2>/dev/null || git add -A tools/mx-consumidor
+          if git diff --cached --quiet; then echo "No new release."; exit 0; fi
+          git commit -q -m "mx-consumidor: company releases $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
+
       - name: Large diagnostic answers go to a scratch branch (deleted when the work is done)
         if: always() && github.ref_name != 'main'
         continue-on-error: true
