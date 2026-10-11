@@ -12,7 +12,8 @@
 //     "ua": "browser" | "bot" | "sec",       user agent (default browser)
 //     "enc": "latin1",                       decode the answer as ISO-8859-1 (Banxico's SIE pages)
 //     "keep": 4000,                          characters of the answer to keep (default 4000; 0 = all)
-//     "grep": "regex",                       keep only the lines that match (case-insensitive)
+//     "grep": "regex", "context": 2,         keep only the lines that match (case-insensitive), with lines around them
+//     "find": "regex",                       list every distinct match instead (for minified scripts)
 //     "links": "regex",                      an HTML answer: list the href/src values that match
 //     "html": "strip" | "raw",               HTML answers: strip the tags (default) or keep them
 //     "zip": "list" | "regex",               a ZIP answer: list its entries, or also save the head of the entries matching
@@ -83,10 +84,16 @@ function stripHtml(s) {
 }
 function clip(text, r) {
   let t = text;
-  if (r.grep) {
+  if (r.find) {   // every distinct match of a regular expression (minified scripts are one long line)
+    const seen = new Set();
+    for (const m of t.matchAll(new RegExp(r.find, 'gi'))) { seen.add(m[0].slice(0, 400)); if (seen.size >= (r.max || 300)) break; }
+    t = `(${seen.size} distinct matches)\n` + [...seen].join('\n');
+  } else if (r.grep) {
     const re = new RegExp(r.grep, 'i');
-    const lines = t.split(/\r?\n/).filter((l) => re.test(l));
-    t = `(${lines.length} matching lines)\n` + lines.join('\n');
+    const all = t.split(/\r?\n/), c = r.context || 0, keepIdx = new Set();
+    all.forEach((l, i) => { if (re.test(l)) for (let j = Math.max(0, i - c); j <= Math.min(all.length - 1, i + c); j++) keepIdx.add(j); });
+    const lines = all.filter((_, i) => keepIdx.has(i));
+    t = `(${lines.length} lines)\n` + lines.join('\n');
   }
   const keep = r.keep == null ? 4000 : r.keep;
   if (keep > 0 && t.length > keep) t = t.slice(0, keep) + `\n… (${t.length - keep} more characters)`;
@@ -190,7 +197,7 @@ for (const r of requests) {
           text = `(${seen.size} links)\n` + [...seen].join('\n');
           text = clip(text, { ...r, grep: null });
         } else {
-          if (r.html !== 'raw' && (/text\/html/i.test(type) || /^\s*<!doctype html|^\s*<html/i.test(body))) body = stripHtml(body);
+          if (r.html !== 'raw' && !r.find && (/text\/html/i.test(type) || /^\s*<!doctype html|^\s*<html/i.test(body))) body = stripHtml(body);
           text = clip(body, r);
         }
       }

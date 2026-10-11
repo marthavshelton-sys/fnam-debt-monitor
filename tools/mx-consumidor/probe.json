@@ -1,541 +1,355 @@
 [
  {
-  "name": "inegi-js-generales",
-  "url": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+  "name": "js-sitio",
+  "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
+  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
+  "keep": 0,
+  "max": 200
+ },
+ {
+  "name": "js-sitio-tags",
+  "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
+  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
+  "keep": 6000,
+  "max": 40
+ },
+ {
+  "name": "js-recursos",
+  "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
+  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
+  "keep": 0,
+  "max": 200
+ },
+ {
+  "name": "js-recursos-tags",
+  "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
+  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
+  "keep": 6000,
+  "max": 40
+ },
+ {
+  "name": "js-react",
+  "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
+  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
+  "keep": 0,
+  "max": 200
+ },
+ {
+  "name": "js-react-tags",
+  "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
+  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
+  "keep": 6000,
+  "max": 40
+ },
+ {
+  "name": "inegi-pm-raw",
+  "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
   "html": "raw",
-  "grep": "api/|\\.svc|json",
-  "keep": 7000
+  "keep": 4200
  },
  {
-  "name": "inegi-js-urls",
-  "url": "https://www.inegi.org.mx/componentes/genericos/sd_inegi/generales.min.js",
+  "name": "inegi-enif-raw",
+  "url": "https://www.inegi.org.mx/programas/enif/2024/",
   "html": "raw",
-  "links": ".",
-  "keep": 3000
- },
- {
-  "name": "inegi-api-a",
-  "url": "https://www.inegi.org.mx/app/api/programas/v1/pestanas/3434",
+  "find": "id[mc]=\"\\d+\"|<[a-z]+-gen[^>]*>",
   "keep": 1500
  },
  {
-  "name": "inegi-api-b",
-  "url": "https://www.inegi.org.mx/app/api/contenidos/v1/programa/3434",
+  "name": "inegi-enfih-raw",
+  "url": "https://www.inegi.org.mx/programas/enfih/2019/",
+  "html": "raw",
+  "find": "id[mc]=\"\\d+\"|<[a-z]+-gen[^>]*>",
   "keep": 1500
- },
- {
-  "name": "inegi-api-c",
-  "url": "https://www.inegi.org.mx/app/api/programas/pestanas/es/3434",
-  "keep": 1500
- },
- {
-  "name": "enigh2024-poblacion",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_poblacion_csv.zip",
-  "zip": "list",
-  "save": "enigh2024_poblacion.zip"
- },
- {
-  "name": "enif-tab",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/tabulados/enif_2024_tabulados.xlsx",
-  "head": true
  },
  {
   "name": "enif-micro",
   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
-  "head": true
- },
- {
-  "name": "enfih-tab",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/tabulados/enfih_2019_tabulados.xlsx",
-  "head": true
+  "zip": "list",
+  "save": "enif2024_bd_csv.zip"
  },
  {
   "name": "enif-pres",
   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
-  "head": true
+  "pdf": true,
+  "from": 0,
+  "to": 140,
+  "keep": 0
  },
  {
   "name": "enfih-pres",
   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
-  "head": true
- },
- {
-  "name": "pm-pres",
-  "url": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/doc/pm_2024_presentacion.pdf",
-  "head": true
- },
- {
-  "name": "biemeta-sectores",
-  "kind": "biemeta",
-  "ids": [
-   "509990",
-   "509991",
-   "509992",
-   "509993",
-   "509994",
-   "509995",
-   "509996",
-   "509997",
-   "509998",
-   "509999",
-   "510000",
-   "510001",
-   "510002",
-   "510003",
-   "510004",
-   "510005",
-   "510006",
-   "510007",
-   "510008",
-   "510009",
-   "510010",
-   "510011",
-   "510012",
-   "510013",
-   "510014",
-   "510015",
-   "510016",
-   "510017",
-   "510018",
-   "510019",
-   "510020",
-   "510021",
-   "510022",
-   "510023",
-   "510024",
-   "510025",
-   "510026",
-   "510027",
-   "510028",
-   "510029",
-   "510030",
-   "510031",
-   "510032",
-   "510033",
-   "510034",
-   "510035",
-   "510036",
-   "510037",
-   "510038",
-   "510039",
-   "510040",
-   "510041",
-   "510042",
-   "510043",
-   "510044",
-   "510045",
-   "510046",
-   "510047",
-   "510048",
-   "510049",
-   "510050",
-   "510051",
-   "510052",
-   "510053",
-   "510054",
-   "510055",
-   "510056",
-   "510057",
-   "510058",
-   "510059",
-   "510060",
-   "510061",
-   "510062",
-   "510063",
-   "510064",
-   "510065",
-   "510066",
-   "510067",
-   "510068",
-   "510069",
-   "510070",
-   "510071",
-   "510072",
-   "510073",
-   "510074",
-   "510075",
-   "510076",
-   "510077",
-   "510078",
-   "510079",
-   "510080",
-   "510081",
-   "510082",
-   "510083",
-   "510084",
-   "510085",
-   "510086",
-   "510087",
-   "510088",
-   "510089",
-   "510090",
-   "510091",
-   "510092",
-   "510093",
-   "510094",
-   "510095",
-   "510096",
-   "510097",
-   "510098",
-   "510099",
-   "510100",
-   "510101",
-   "510102",
-   "510103",
-   "510104",
-   "510105",
-   "510106",
-   "510107",
-   "510108",
-   "510109",
-   "510110",
-   "510111",
-   "510112",
-   "510113",
-   "510114",
-   "510115",
-   "510116",
-   "510117",
-   "510118",
-   "510119"
-  ]
- },
- {
-  "name": "bie2-00",
-  "kind": "bie",
-  "q": "consumo privado oferta y demanda",
-  "n": 40
- },
- {
-  "name": "bie2-01",
-  "kind": "bie",
-  "q": "canasta alimentaria",
-  "n": 40
- },
- {
-  "name": "bie2-02",
-  "kind": "bie",
-  "q": "lineas de pobreza por ingresos",
-  "n": 40
- },
- {
-  "name": "bie2-03",
-  "kind": "bie",
-  "q": "comercio al por menor ingresos indice serie desestacionalizada",
-  "n": 40
- },
- {
-  "name": "bie2-04",
-  "kind": "bie",
-  "q": "vehiculos ligeros venta al publico",
-  "n": 40
- },
- {
-  "name": "bie2-05",
-  "kind": "bie",
-  "q": "informalidad laboral Aguascalientes",
-  "n": 40
- },
- {
-  "name": "bie2-06",
-  "kind": "bie",
-  "q": "salario base de cotizacion",
-  "n": 40
- },
- {
-  "name": "bie2-07",
-  "kind": "bie",
-  "q": "poblacion ocupada nivel de ingresos",
-  "n": 40
- },
- {
-  "name": "bie2-08",
-  "kind": "bie",
-  "q": "consumo de los hogares",
-  "n": 40
- },
- {
-  "name": "bie2-09",
-  "kind": "bie",
-  "q": "indicador oportuno del consumo privado",
-  "n": 40
- },
- {
-  "name": "bie2-10",
-  "kind": "bie",
-  "q": "poblacion total",
-  "n": 40
- },
- {
-  "name": "bie2-11",
-  "kind": "bie",
-  "q": "tasa de condiciones criticas de ocupacion",
-  "n": 40
- },
- {
-  "name": "bie2-12",
-  "kind": "bie",
-  "q": "pobreza laboral ingreso laboral real",
-  "n": 40
- },
- {
-  "name": "bie2-13",
-  "kind": "bie",
-  "q": "indice de precios canasta de consumo minimo",
-  "n": 40
- },
- {
-  "name": "bie2-14",
-  "kind": "bie",
-  "q": "ingreso disponible bruto hogares trimestral",
-  "n": 40
- },
- {
-  "name": "cuadro-CF297",
-  "kind": "cuadro",
-  "id": "CF297",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF616",
-  "kind": "cuadro",
-  "id": "CF616",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF615",
-  "kind": "cuadro",
-  "id": "CF615",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF835",
-  "kind": "cuadro",
-  "id": "CF835",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF765",
-  "kind": "cuadro",
-  "id": "CF765",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF766",
-  "kind": "cuadro",
-  "id": "CF766",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF762",
-  "kind": "cuadro",
-  "id": "CF762",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF829",
-  "kind": "cuadro",
-  "id": "CF829",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF303",
-  "kind": "cuadro",
-  "id": "CF303",
-  "sector": 18
- },
- {
-  "name": "cuadro-CF815",
-  "kind": "cuadro",
-  "id": "CF815",
-  "sector": 18
- },
- {
-  "name": "cuadro-CF840",
-  "kind": "cuadro",
-  "id": "CF840",
-  "sector": 18
- },
- {
-  "name": "cuadro-CF870",
-  "kind": "cuadro",
-  "id": "CF870",
-  "sector": 18
- },
- {
-  "name": "cuadro-CF844",
-  "kind": "cuadro",
-  "id": "CF844",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF845",
-  "kind": "cuadro",
-  "id": "CF845",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF256",
-  "kind": "cuadro",
-  "id": "CF256",
-  "sector": 21
- },
- {
-  "name": "cuadro-CF888",
-  "kind": "cuadro",
-  "id": "CF888",
-  "sector": 21
- },
- {
-  "name": "cuadro-CF958",
-  "kind": "cuadro",
-  "id": "CF958",
-  "sector": 27
- },
- {
-  "name": "cuadro-CE100",
-  "kind": "cuadro",
-  "id": "CE100",
-  "sector": 1
- },
- {
-  "name": "cuadro-CE81",
-  "kind": "cuadro",
-  "id": "CE81",
-  "sector": 1
- },
- {
-  "name": "cuadro-CF886",
-  "kind": "cuadro",
-  "id": "CF886",
-  "sector": 3
- },
- {
-  "name": "cuadro-CF808",
-  "kind": "cuadro",
-  "id": "CF808",
-  "sector": 3
- },
- {
-  "name": "cuadro-CF807",
-  "kind": "cuadro",
-  "id": "CF807",
-  "sector": 3
- },
- {
-  "name": "cuadro-CF851",
-  "kind": "cuadro",
-  "id": "CF851",
-  "sector": 3
- },
- {
-  "name": "cuadro-CF834",
-  "kind": "cuadro",
-  "id": "CF834",
-  "sector": 3
- },
- {
-  "name": "cuadro-CF797",
-  "kind": "cuadro",
-  "id": "CF797",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF848",
-  "kind": "cuadro",
-  "id": "CF848",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF849",
-  "kind": "cuadro",
-  "id": "CF849",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF850",
-  "kind": "cuadro",
-  "id": "CF850",
-  "sector": 19
- },
- {
-  "name": "cuadro-CA601",
-  "kind": "cuadro",
-  "id": "CA601",
-  "sector": 10
- },
- {
-  "name": "cuadro-CL289",
-  "kind": "cuadro",
-  "id": "CL289",
-  "sector": 10
- },
- {
-  "name": "cuadro-CL297",
-  "kind": "cuadro",
-  "id": "CL297",
-  "sector": 10
- },
- {
-  "name": "cuadro-CR362",
-  "kind": "cuadro",
-  "id": "CR362",
-  "sector": 2
- },
- {
-  "name": "cuadro-CF806",
-  "kind": "cuadro",
-  "id": "CF806",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF631",
-  "kind": "cuadro",
-  "id": "CF631",
-  "sector": 19
- },
- {
-  "name": "cuadro-CF632",
-  "kind": "cuadro",
-  "id": "CF632",
-  "sector": 19
- },
- {
-  "name": "cuadro-CP154",
-  "kind": "cuadro",
-  "id": "CP154",
-  "sector": 8
- },
- {
-  "name": "cuadro-CF953",
-  "kind": "cuadro",
-  "id": "CF953",
-  "sector": 27
- },
- {
-  "name": "sie-inpc",
-  "kind": "sieseries",
-  "ids": [
-   "SP1"
-  ],
-  "since": "2015-01-01",
-  "last": 130
- },
- {
-  "name": "bmv-issuers",
-  "url": "https://www.bmv.com.mx/es/Grupo_BMV/BmvJsonGeneric?idSitioPagina=4",
-  "grep": "\"(cveCorta|idEmisora|razonSocial|idTpvalor)\"",
+  "pdf": true,
+  "from": 0,
+  "to": 90,
   "keep": 0
  },
  {
-  "name": "fred-api-bis",
-  "url": "https://api.stlouisfed.org/fred/series?series_id=QMXHAM770A&api_key={{FRED_API_KEY}}&file_type=json",
-  "keep": 800
+  "name": "enigh-fd",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/889463924494.pdf",
+  "pdf": true,
+  "from": 0,
+  "to": 400,
+  "grep": "tarjeta|pagotarjet|finan_|tenencia|tipo_adqui|nivelaprob|parentesco|educa_jefe|tam_loc|clase_hog|prestamos|deposito|pago_tarje|deudas|retiro_inv|cuota_viv|percep_tot|erogac_tot|otras_perc|otras_erog|prest_terc|balance",
+  "context": 3,
+  "keep": 0
  },
  {
-  "name": "cnbv-home",
-  "url": "https://www.gob.mx/cnbv/acciones-y-programas/bases-de-datos-de-inclusion-financiera",
-  "links": "xls|zip|csv|cnbv",
-  "keep": 4000
+  "name": "enfih-micro1",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih_2019_bd_csv.zip",
+  "head": true
+ },
+ {
+  "name": "enfih-micro2",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih2019_bd_csv.zip",
+  "head": true
+ },
+ {
+  "name": "enfih-da",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
+  "head": true
+ },
+ {
+  "name": "enif-da",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/datosabiertos/conjunto_de_datos_enif_2024_csv.zip",
+  "head": true
+ },
+ {
+  "name": "pm-da",
+  "url": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/datosabiertos/pm_2024_csv.zip",
+  "head": true
+ },
+ {
+  "name": "bie-series-a",
+  "kind": "bieseries",
+  "ids": [
+   "510038",
+   "510046",
+   "724119",
+   "734407",
+   "718942",
+   "740987",
+   "444610",
+   "702134",
+   "15169",
+   "446593",
+   "446594",
+   "454186"
+  ],
+  "from": 2010,
+  "last": 4
+ },
+ {
+  "name": "bie3-00",
+  "kind": "bie",
+  "q": "registro administrativo de la industria automotriz de vehiculos ligeros",
+  "n": 40
+ },
+ {
+  "name": "bie3-01",
+  "kind": "bie",
+  "q": "ingreso promedio de la poblacion ocupada",
+  "n": 40
+ },
+ {
+  "name": "bie3-02",
+  "kind": "bie",
+  "q": "tasa de informalidad laboral entidad federativa",
+  "n": 40
+ },
+ {
+  "name": "bie3-03",
+  "kind": "bie",
+  "q": "producto interno bruto a precios corrientes oferta y utilizacion trimestral",
+  "n": 40
+ },
+ {
+  "name": "bie3-04",
+  "kind": "bie",
+  "q": "cuentas por sectores institucionales base 2018 hogares",
+  "n": 40
+ },
+ {
+  "name": "bie3-05",
+  "kind": "bie",
+  "q": "gasto de consumo final privado",
+  "n": 40
+ },
+ {
+  "name": "bie3-06",
+  "kind": "bie",
+  "q": "remuneracion de asalariados hogares",
+  "n": 40
+ },
+ {
+  "name": "bie3-07",
+  "kind": "bie",
+  "q": "poblacion de 15 años y mas",
+  "n": 40
+ },
+ {
+  "name": "bie3-08",
+  "kind": "bie",
+  "q": "pobreza",
+  "n": 40
+ },
+ {
+  "name": "bie3-09",
+  "kind": "bie",
+  "q": "inclusion financiera",
+  "n": 40
+ },
+ {
+  "name": "bie3-10",
+  "kind": "bie",
+  "q": "salario minimo",
+  "n": 40
+ },
+ {
+  "name": "bie3-11",
+  "kind": "bie",
+  "q": "ingreso corriente hogares",
+  "n": 40
+ },
+ {
+  "name": "sie-meta",
+  "kind": "siemeta",
+  "ids": [
+   "SF42790",
+   "SF46335",
+   "SF46336",
+   "SF235712",
+   "SF235713",
+   "SF266103",
+   "SF266104",
+   "SF266105",
+   "SF266106",
+   "SF235715",
+   "SF235716",
+   "SF311900",
+   "SF311901",
+   "SF311902",
+   "SF311903",
+   "SF311904",
+   "SF311905",
+   "SF311897",
+   "SF289723",
+   "SF289724",
+   "SF289725",
+   "SF289726",
+   "SF289727",
+   "SF289728",
+   "SF289720",
+   "SF43313",
+   "SF43423",
+   "SF43426",
+   "SF320890",
+   "SF320891",
+   "SF320892",
+   "SF316115",
+   "SF316116",
+   "SF316117",
+   "SF310049",
+   "SF309941",
+   "SF61870",
+   "SL11298",
+   "SL11297",
+   "SR17449",
+   "SE27803",
+   "SF335881",
+   "SF335863",
+   "SF335872",
+   "SF320848",
+   "SF320849",
+   "SF320852",
+   "SF320853",
+   "SF351084",
+   "SF351162",
+   "SF351156",
+   "SE29670",
+   "SF319459",
+   "SF319525",
+   "SF311741",
+   "SF311742"
+  ]
+ },
+ {
+  "name": "sie-series",
+  "kind": "sieseries",
+  "ids": [
+   "SF42790",
+   "SF46335",
+   "SF46336",
+   "SF235712",
+   "SF235713",
+   "SF266103",
+   "SF266104",
+   "SF266105",
+   "SF266106",
+   "SF235715",
+   "SF235716",
+   "SF311900",
+   "SF311901",
+   "SF311902",
+   "SF311903",
+   "SF311904",
+   "SF311905",
+   "SF311897",
+   "SF289723",
+   "SF289724",
+   "SF289725",
+   "SF289726",
+   "SF289727",
+   "SF289728",
+   "SF289720",
+   "SF43313",
+   "SF43423",
+   "SF43426",
+   "SF320890",
+   "SF320891",
+   "SF320892",
+   "SF316115",
+   "SF316116",
+   "SF316117",
+   "SF310049",
+   "SF309941",
+   "SF61870",
+   "SL11298",
+   "SL11297",
+   "SR17449",
+   "SE27803",
+   "SF335881",
+   "SF335863",
+   "SF335872",
+   "SF320848",
+   "SF320849",
+   "SF320852",
+   "SF320853",
+   "SF351084",
+   "SF351162",
+   "SF351156",
+   "SE29670",
+   "SF319459",
+   "SF319525",
+   "SF311741",
+   "SF311742"
+  ],
+  "since": "2024-01-01",
+  "last": 2
+ },
+ {
+  "name": "bmv-walmex-links",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+  "html": "raw",
+  "find": "<tr>\\s*<td>\\d\\d-\\d\\d-\\d{4} \\d\\d:\\d\\d</td>[\\s\\S]{0,700}?</tr>",
+  "keep": 7000,
+  "max": 12,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-walmex-fin",
+  "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/WALMEX-5214-CGEN_CAPIT",
+  "links": "docs-pub|\\.pdf|\\.zip|xbrl",
+  "keep": 4000,
+  "ua": "bot"
  }
 ]
