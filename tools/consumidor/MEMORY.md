@@ -29,6 +29,10 @@ Read with `README.md` (the runbook) before touching `site/consumidor/` or `scrip
   by spending decile, saving by income decile, and auto / installment / pawn lenders. Official or SEC-filed sources
   only; buy now, pay later lenders get the same United States-first treatment as the gig platforms.
 
+- Stat tiles (owner, 11-Oct-2026): when the label under a number starts with "of", it is lower case ("10.2% / of card
+  accounts pay only the minimum"); the Spanish view does the same with "de" / "del". Sentences that begin a
+  paragraph keep their capital.
+
 ## Pitfalls already met
 
 - A workflow that is not on main cannot be started by hand, and a session cannot read run logs: while building the

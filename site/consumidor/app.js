@@ -324,7 +324,7 @@
     var d = X.deciles, idx = d.columns.map(function (_, i) { return i; }), ten = idx.slice(1), labels10 = ten.map(dec);
     var s = decileShares(), st = function (v, l, kind) { return '<div class="stat"><div class="v num">' + v + '</div><div class="l">' + l + ' ' + UI.kind(kind || 'R') + '</div></div>'; };
     $('cexStats').innerHTML = [st(UI.usd(d.total[0]), tr('Gasto anual promedio por hogar', 'Average annual spending per household')), st(UI.usd(d.incomeBefore[0]), tr('Ingreso promedio antes de impuestos', 'Average income before taxes')),
-      st(UI.usd(d.total[1]) + ' – ' + UI.usd(d.total[10]), tr('Gasto del decil 1 al decil 10', 'Spending, decile 1 to decile 10')), st(UI.nf(d.total[10] / d.total[1], 1) + '×', tr('Gasto del decil 10 frente al decil 1', 'Decile 10 spending relative to decile 1'), 'C'), st(UI.pct(s[8] + s[9], 0), tr('Del gasto total lo hace el 20% superior', 'Of all spending is done by the top 20%'), 'C')].join('');
+      st(UI.usd(d.total[1]) + ' – ' + UI.usd(d.total[10]), tr('Gasto del decil 1 al decil 10', 'Spending, decile 1 to decile 10')), st(UI.nf(d.total[10] / d.total[1], 1) + '×', tr('Gasto del decil 10 frente al decil 1', 'Decile 10 spending relative to decile 1'), 'C'), st(UI.pct(s[8] + s[9], 0), tr('del gasto total lo hace el 20% superior', 'of all spending is done by the top 20%'), 'C')].join('');
     var kf = function (v) { return '$' + UI.nf(v / 1000, 1) + (UI.lang === 'en' ? 'K' : ' mil'); };
     UI.bar('chDecSpendInc', { labels: labels10, datasets: [{ label: tr('Gasto', 'Spending'), data: ten.map(function (i) { return d.total[i]; }), color: S(1) }, { label: tr('Ingreso antes de impuestos', 'Income before taxes'), data: ten.map(function (i) { return d.incomeBefore[i]; }), color: S(2) }], fmt: function (v) { return UI.usd(v); }, axisFmt: function (v) { return '$' + v / 1000 + (UI.lang === 'en' ? 'K' : ' mil'); }, thickness: 16, tipTitle: function (i) { return tr('Decil ', 'Decile ') + (i + 1); } });
     UI.legend('chDecSpendInc', [{ c: S(1), l: tr('Gasto anual promedio', 'Average annual expenditures') }, { c: S(2), l: tr('Ingreso antes de impuestos', 'Income before taxes') }]);
@@ -520,13 +520,13 @@
     var st = function (v, l, kind) { return '<div class="stat"><div class="v num">' + v + '</div><div class="l">' + l + ' ' + UI.kind(kind || 'R') + '</div></div>'; };
     var stats = [];
     if (f.d2a != null) stats.push(st(UI.pct(f.d2a), tr('Deuda de los hogares como parte de sus activos, ', 'Household debt as a share of assets, ') + UI.date(f.levQ) + (f.d2a19 != null ? tr(' (', ' (') + UI.pct(f.d2a19) + tr(' a fines de 2019)', ' at the end of 2019)') : ''), 'C'));
-    if (f.payMin != null) stats.push(st(UI.pct(f.payMin), tr('De las cuentas de tarjeta paga solo el mínimo, ', 'Of card accounts pay only the minimum, ') + UI.date(f.cq)));
+    if (f.payMin != null) stats.push(st(UI.pct(f.payMin), tr('de las cuentas de tarjeta paga solo el mínimo, ', 'of card accounts pay only the minimum, ') + UI.date(f.cq)));
     if (f.miss != null) stats.push(st(UI.pct(f.miss), tr('Probabilidad promedio de no poder hacer un pago mínimo en tres meses, ', 'Average probability of missing a minimum payment within three months, ') + UI.date(f.em)));
-    if (f.rejected != null) stats.push(st(UI.pct(f.rejected), tr('De quienes pidieron crédito fueron rechazados, ', 'Of those who applied for credit were turned down, ') + UI.date(f.aw)));
-    if (f.bnpl != null) stats.push(st(UI.pct(f.bnpl, 0), tr('De los adultos usó "compra ahora, paga después" en ', 'Of adults used buy now, pay later in ') + f.bnplY));
+    if (f.rejected != null) stats.push(st(UI.pct(f.rejected), tr('de quienes pidieron crédito fueron rechazados, ', 'of those who applied for credit were turned down, ') + UI.date(f.aw)));
+    if (f.bnpl != null) stats.push(st(UI.pct(f.bnpl, 0), tr('de los adultos usó "compra ahora, paga después" en ', 'of adults used buy now, pay later in ') + f.bnplY));
     if (f.cash400 != null) stats.push(st(UI.pct(f.cash400, 0), tr('Cubriría un gasto imprevisto de $400 con efectivo o su equivalente, ', 'Would cover a $400 emergency with cash or its equivalent, ') + f.bfY));
     if (f.slDefault != null) stats.push(st(UI.money(f.slDefault, 0), tr('En préstamos estudiantiles federales en incumplimiento, ', 'In federal student loans in default, ') + UI.date(f.sd) + ' (' + UI.nf(f.slDefaultPeople, 1) + tr(' millones de personas)', ' million people)')));
-    if (f.rent30 != null) stats.push(st(UI.pct(f.rent30), tr('De los inquilinos paga 30% o más de su ingreso en renta, ', 'Of renters pay 30% or more of income in rent, ') + f.ry, 'C'));
+    if (f.rent30 != null) stats.push(st(UI.pct(f.rent30), tr('de los inquilinos paga 30% o más de su ingreso en renta, ', 'of renters pay 30% or more of income in rent, ') + f.ry, 'C'));
     $('stressStats').innerHTML = stats.join('');
 
     // the section in two halves: where the balance sheet is sound, and where the strain shows
@@ -648,10 +648,10 @@
       BN.years.slice().reverse().map(function (y) { var i = BN.years.indexOf(y); return [y].concat(sets.map(function (x) { return UI.pct(x.data[i], 0); })).concat(BN.paidLate ? [UI.pct(BN.paidLate[i], 0)] : []); })
         .concat((BN.byIncome || []).concat(BN.byAge || []).map(function (g) { return [tr(g.label.es, g.label.en) + (/^\d/.test(g.label.en) && !/\$/.test(g.label.en) ? tr(' años', ' years old') : '') + ', ' + BN.asOf, UI.pct(g.used, 0)].concat(sets.slice(1).map(function () { return '—'; })).concat(BN.paidLate ? [UI.pct(g.late, 0)] : []); })));
     var st = function (v, l, k) { return '<div class="stat"><div class="v num">' + v + '</div><div class="l">' + l + ' ' + UI.kind(k || 'R') + '</div></div>'; }, stats = [];
-    stats.push(st(UI.pct(f.bnpl, 0), tr('De los adultos lo usó en ', 'Of adults used it in ') + BN.asOf + ' (' + UI.pct(f.bnpl0, 0) + tr(' en ', ' in ') + f.bnplY0 + ')'));
-    if (BN.late != null) stats.push(st(UI.pct(BN.late, 0), tr('De quienes lo usan pagó tarde al menos una vez', 'Of users paid late at least once')));
-    if (BN.overdraft != null) stats.push(st(UI.pct(BN.overdraft, 0), tr('De quienes lo usan tuvo un sobregiro o cargo por fondos insuficientes por un pago', 'Of users had an overdraft or insufficient-funds fee from a payment')));
-    if (ST) { stats.push(st(UI.pct(ST.multi, 0), tr('De los deudores tuvo varios préstamos a la vez (', 'Of borrowers held several loans at once (') + ST.dataYear + ')')); stats.push(st(UI.pct(ST.approvedSub, 0), tr('De las solicitudes de puntaje bajo fue aprobado (', 'Of applications from low-score borrowers were approved (') + ST.dataYear + ')')); }
+    stats.push(st(UI.pct(f.bnpl, 0), tr('de los adultos lo usó en ', 'of adults used it in ') + BN.asOf + ' (' + UI.pct(f.bnpl0, 0) + tr(' en ', ' in ') + f.bnplY0 + ')'));
+    if (BN.late != null) stats.push(st(UI.pct(BN.late, 0), tr('de quienes lo usan pagó tarde al menos una vez', 'of users paid late at least once')));
+    if (BN.overdraft != null) stats.push(st(UI.pct(BN.overdraft, 0), tr('de quienes lo usan tuvo un sobregiro o cargo por fondos insuficientes por un pago', 'of users had an overdraft or insufficient-funds fee from a payment')));
+    if (ST) { stats.push(st(UI.pct(ST.multi, 0), tr('de los deudores tuvo varios préstamos a la vez (', 'of borrowers held several loans at once (') + ST.dataYear + ')')); stats.push(st(UI.pct(ST.approvedSub, 0), tr('de las solicitudes de puntaje bajo fue aprobado (', 'of applications from low-score borrowers were approved (') + ST.dataYear + ')')); }
     $('bnplStats').innerHTML = stats.join('');
     $('capBnpl').innerHTML = bi('Adultos que usaron "compra ahora, paga después" en los 12 meses previos, según la encuesta anual de la Reserva Federal a hogares, ' + BN.years[0] + '–' + BN.asOf + '; y uso según el gasto de emergencia más grande que la persona podría cubrir hoy solo con sus ahorros. ' + UI.kind('R'),
       'Adults who used buy now, pay later in the prior 12 months, from the Federal Reserve\'s yearly survey of households, ' + BN.years[0] + '–' + BN.asOf + '; and use by the largest emergency expense the person could cover today from savings alone. ' + UI.kind('R'));
@@ -756,7 +756,7 @@
     var top1 = (g('TopPt1').nw + g('RemainingTop1').nw) / T * 100, stats = [st(UI.money(T), tr('Riqueza neta de los hogares, ', 'Household net worth, ') + UI.date(W.asOf))];
     if (W.households) stats.push(st(UI.usd(T * 1e9 / W.households), tr('Promedio por hogar', 'Mean per household'), 'C'));
     if (D.scf) stats.push(st(UI.usd(D.scf.all.medNW * 1000), tr('Mediana por familia, ', 'Median per family, ') + D.scf.asOf));
-    stats.push(st(UI.pct(top1), tr('De la riqueza la tiene el 1% más rico', 'Of wealth is held by the top 1%'), 'C'), st(UI.pct(g('Bottom50').nw / T * 100), tr('De la riqueza la tiene el 50% inferior', 'Of wealth is held by the bottom 50%'), 'C'));
+    stats.push(st(UI.pct(top1), tr('de la riqueza la tiene el 1% más rico', 'of wealth is held by the top 1%'), 'C'), st(UI.pct(g('Bottom50').nw / T * 100), tr('de la riqueza la tiene el 50% inferior', 'of wealth is held by the bottom 50%'), 'C'));
     if (D.z1 && D.z1.netWorthToDpi) stats.push(st(UI.nf(D.z1.netWorthToDpi / 100, 1) + '×', tr('Riqueza neta ÷ ingreso disponible', 'Net worth ÷ disposable income')));
     $('wealthStats').innerHTML = stats.join('');
     var hhT = sum(G.map(function (x) { return x.households || 0; }));
@@ -854,9 +854,9 @@
     var CT = S(1), CM = S(2), CB = S(7), CX = S(5), f = kFacts();
     var st = function (v, l, tag) { return '<div class="stat"><div class="v num">' + v + '</div><div class="l">' + l + ' ' + tag + '</div></div>'; };
     var stats = [];
-    if (f.eq != null) stats.push(st(UI.pct(f.eq, 0), tr('De las acciones y fondos, en manos del 10% más rico, ', 'Of stocks and mutual funds, held by the wealthiest 10%, ') + UI.date(f.q), UI.kind('C')));
-    if (f.inc10 != null) stats.push(st(UI.pct(f.inc10), tr('Del ingreso personal lo recibe el 10% de mayor ingreso, ', 'Of personal income goes to the top 10% by income, ') + f.incY1, UI.kind('R')));
-    if (f.s20 != null) stats.push(st(UI.pct(f.s20), tr('Del gasto lo hace el 20% de mayor ingreso, ', 'Of spending is done by the top 20% by income, ') + f.sY1 + tr(' (encuesta de la BLS)', ' (BLS survey)'), UI.kind('C')));
+    if (f.eq != null) stats.push(st(UI.pct(f.eq, 0), tr('de las acciones y fondos, en manos del 10% más rico, ', 'of stocks and mutual funds, held by the wealthiest 10%, ') + UI.date(f.q), UI.kind('C')));
+    if (f.inc10 != null) stats.push(st(UI.pct(f.inc10), tr('del ingreso personal lo recibe el 10% de mayor ingreso, ', 'of personal income goes to the top 10% by income, ') + f.incY1, UI.kind('R')));
+    if (f.s20 != null) stats.push(st(UI.pct(f.s20), tr('del gasto lo hace el 20% de mayor ingreso, ', 'of spending is done by the top 20% by income, ') + f.sY1 + tr(' (encuesta de la BLS)', ' (BLS survey)'), UI.kind('C')));
     if (f.est) stats.push(st(estVal(f.est), tr(f.est.label.es, f.est.label.en) + ', ' + tr(f.est.period.es, f.est.period.en) + ' (' + esc(f.est.publisher) + ')', extBadge(f.est.kind)));
     if (f.sentGap != null) stats.push(st(UI.nf(f.sentGap, 1) + tr(' puntos', ' points'), tr('Separan la confianza del tercio de mayor ingreso de la del tercio de menor, ', 'Separate the confidence of the upper income third from the lower third, ') + UI.date(f.sentAsOf), UI.kind('C')));
     if (f.w1 != null) stats.push(st(UI.pct(f.w1) + ' / ' + UI.pct(f.w4), tr('Crecimiento salarial anual del cuarto peor pagado y del mejor pagado, ', 'Annual wage growth of the lowest-paid and highest-paid quarter of workers, ') + UI.date(f.wAsOf), UI.kind('R')));
