@@ -45,6 +45,9 @@ async function headOf(url) {
   catch (e) { return { ok: false, error: e.message }; }
 }
 const isZipHead = (h) => h.ok && /zip|octet-stream/i.test(h.type) && h.length > 100_000;
+// What identifies a publisher's file between runs: the day of its Last-Modified header and its size. INEGI's servers answer
+// with Last-Modified times a few seconds apart for the same file, so the full header would read as a new file on every run.
+const mark = (h) => `${String(h.lastModified || '').slice(0, 16).trim()}|${h.length || 0}`;
 async function downloadZip(url, name) {
   const buf = await getBuffer(url, { timeoutMs: 300_000 });
   if (!(buf.length > 4 && buf[0] === 0x50 && buf[1] === 0x4b)) throw new Error(`${url} did not return a ZIP file (${buf.length} bytes)`);
@@ -75,11 +78,11 @@ async function fetchEnigh(prev) {
   const old = prev && prev.v === ENIGH_V ? prev.editions || {} : {};
   const editions = {}; let changed = false;
   for (const y of have) {
-    const lm = heads[y].lastModified;
+    const lm = mark(heads[y]);
     const detail = y === latest ? 'full' : 'states';
     const tables = y === latest ? ['viviendas', 'hogares', 'poblacion'] : [];
     const lmExtra = {};
-    for (const t of tables) { const h = await headOf(enighUrl(y, t)); if (!isZipHead(h)) throw new Error(`ENIGH ${y}: ${t} file missing`); lmExtra[t] = h.lastModified; }
+    for (const t of tables) { const h = await headOf(enighUrl(y, t)); if (!isZipHead(h)) throw new Error(`ENIGH ${y}: ${t} file missing`); lmExtra[t] = mark(h); }
     const stamp = JSON.stringify([lm, lmExtra, detail]);
     if (old[y] && old[y].stamp === stamp && !FORCE) { editions[y] = old[y]; continue; }
     const files = { concentrado: findFile(await downloadZip(enighUrl(y, 'concentradohogar'), `c${y}`), /concentradohogar\.csv$/i) };
@@ -238,10 +241,10 @@ async function fetchEnif(prev) {
   let year = null, head = null;
   for (let y = Y; y >= 2024; y--) { const h = await headOf(enifUrl(y)); if (isZipHead(h)) { year = y; head = h; break; } await sleep(300); }
   if (!year) throw new Error('no ENIF microdata file answered');
-  if (prev && prev.v === ENIF_V && prev.year === year && prev.lastModified === head.lastModified && !FORCE) return SKIP;
+  if (prev && prev.v === ENIF_V && prev.year === year && prev.lastModified === mark(head) && !FORCE) return SKIP;
   const dir = await downloadZip(enifUrl(year), `enif${year}`);
   const data = aggregateEnif(year, { modulo: findFile(dir, /TMODULO\.csv$/i) });
-  return { v: ENIF_V, year, lastModified: head.lastModified, ...data, source: { name: 'INEGI y CNBV, Encuesta Nacional de Inclusión Financiera (ENIF), microdatos', url: `https://www.inegi.org.mx/programas/enif/${year}/` } };
+  return { v: ENIF_V, year, lastModified: mark(head), ...data, source: { name: 'INEGI y CNBV, Encuesta Nacional de Inclusión Financiera (ENIF), microdatos', url: `https://www.inegi.org.mx/programas/enif/${year}/` } };
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -255,7 +258,7 @@ async function fetchDocs(prev) {
   for (const id of Object.keys(DOCS)) {
     const d = DOCS[id], h = await headOf(d.url), old = prev && prev.docs ? prev.docs[id] : null;
     if (!h.ok || !/pdf/i.test(h.type)) throw new Error(`${id}: ${d.url} did not answer with a PDF (${h.error || h.type})`);
-    if (old && old.lastModified === h.lastModified && exists(old.file) && !FORCE) { out.docs[id] = old; continue; }
+    if (old && old.lastModified === mark(h) && exists(old.file) && !FORCE) { out.docs[id] = old; continue; }
     const buf = await getBuffer(d.url, { timeoutMs: 180_000 });
     if (buf.subarray(0, 4).toString('latin1') !== '%PDF') throw new Error(`${id}: not a PDF`);
     const pdf = join(tmp, `${id}.pdf`), txt = join(tmp, `${id}.txt`);
@@ -264,8 +267,8 @@ async function fetchDocs(prev) {
     const text = readFileSync(txt, 'utf8');
     if (!d.must.test(text) || text.length < 5000) throw new Error(`${id}: the text of the PDF does not look like the document (${text.length} characters)`);
     const file = `${RAW}docs/${id}.txt`;
-    writeText(file, `# source: ${d.url}\n# document: ${d.name}\n# last-modified: ${h.lastModified || ''}\n\n${text}`);
-    out.docs[id] = { file, url: d.url, page: d.page, name: d.name, lastModified: h.lastModified, chars: text.length };
+    writeText(file, `# source: ${d.url}\n# document: ${d.name}\n# last-modified: ${String(h.lastModified || '').slice(0, 16).trim()}\n\n${text}`);
+    out.docs[id] = { file, url: d.url, page: d.page, name: d.name, lastModified: mark(h), chars: text.length };
     changed = true;
   }
   if (!changed && prev) return SKIP;

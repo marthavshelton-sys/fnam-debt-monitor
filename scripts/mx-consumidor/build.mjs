@@ -309,8 +309,10 @@ if (D.funds) {
       const qs = pcq.map((x) => x[0]).filter((qq) => qq >= '2006-Q4' && c4(qq) && gdp4(qq));
       D.funds.consGdp = { asOf: q, v: r1(c / g * 100), cons: r1(c / 1e6), gdp: r1(g / 1e6), q: qs, series: qs.map((qq) => r1(c4(qq) / gdp4(qq) * 100)) };   // billones de pesos
       must('Accounts', 'private consumption is between 55% and 80% of GDP', D.funds.consGdp.v > 55 && D.funds.consGdp.v < 80);
-      // the yearly accounts give the same share for the last full year both series cover
-      if (pca && pca.length) { const yr = pca.map((x) => x[0]).filter((yy) => C.get(`${yy}-Q4`) != null && gdpQ.get(`${yy}-Q4`) != null).pop(); if (yr) { const A = mapOf(pca); tie('Accounts', `consumption share of GDP in ${yr}: quarterly and yearly accounts agree (points)`, c4(`${yr}-Q4`) / gdp4(`${yr}-Q4`) * 100, A.get(yr) / gdp4(`${yr}-Q4`) * 100, 1.5, true); } }
+      // The yearly accounts give the same share for a year both series cover. The check uses the third-latest year of the yearly
+      // series: its two latest years are preliminary and are not restated when the quarterly accounts are revised (2025 read
+      // 25.76 billones in the yearly series against 24.84 in the four quarters, while 2018-2023 agree to the peso).
+      if (pca && pca.length > 3) { const yrs = pca.map((x) => x[0]).filter((yy) => C.get(`${yy}-Q4`) != null && gdpQ.get(`${yy}-Q4`) != null), yr = yrs[yrs.length - 3]; if (yr) { const A = mapOf(pca); tie('Accounts', `consumption share of GDP in ${yr}: quarterly and yearly accounts agree (points)`, c4(`${yr}-Q4`) / gdp4(`${yr}-Q4`) * 100, A.get(yr) / gdp4(`${yr}-Q4`) * 100, 0.3, true); } }
       src('accounts', 'inegi', { name: 'INEGI, Sistema de Cuentas Nacionales de México: oferta y demanda global y PIB trimestral a precios corrientes', url: 'https://www.inegi.org.mx/programas/ofyd/2018/', asOf: q });
     }
   }

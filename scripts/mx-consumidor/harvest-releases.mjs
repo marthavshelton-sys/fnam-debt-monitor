@@ -121,7 +121,7 @@ async function harvestXbrl(c, prev, pins) {
     rmSync(dir, { recursive: true, force: true }); rmSync(zip, { force: true });
   }
   // the page lists only the latest quarter: the previous one and any release the curated figures cite keep their stored text
-  const older = (prev.filings || []).filter((f) => !entry.filings.some((x) => x.accn === f.accn) && f.exhibits.every((e) => existsSync(p(e.file)))).sort((a, b) => (a.filed < b.filed ? 1 : -1));
+  const older = (prev.filings || []).filter((f) => (/^xbrl/.test(f.accn) || pins.has(f.filed)) && !entry.filings.some((x) => x.accn === f.accn) && f.exhibits.every((e) => existsSync(p(e.file)))).sort((a, b) => (a.filed < b.filed ? 1 : -1));
   for (const f of older) if (entry.filings.length < KEEP || pins.has(f.filed)) entry.filings.push(f);
   return entry;
 }
@@ -234,6 +234,12 @@ for (const c of cfg.companies) {
     console.log(`::warning::${c.ticker}: ${(e && e.message) || e}`);
   }
   await sleep(c.bmv ? 1200 : 300);
+}
+// a company that left companies.json leaves the index and its folder of stored releases
+if (!only.length) {
+  const listed = new Set(cfg.companies.map((c) => c.ticker));
+  for (const t of Object.keys(index.companies)) if (!listed.has(t)) delete index.companies[t];
+  if (existsSync(p(DIR))) for (const d of readdirSync(p(DIR), { withFileTypes: true })) if (d.isDirectory() && !listed.has(d.name)) rmSync(p(DIR + d.name), { recursive: true, force: true });
 }
 const before = JSON.stringify({ ...readJson(DIR + 'index.json', {}), checkedAt: null, errors: null });
 index.errors = errors;

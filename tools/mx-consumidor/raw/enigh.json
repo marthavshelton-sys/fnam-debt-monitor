@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
- "fetchedAt": "2026-10-11T20:07:52.593Z",
-=======
  "fetchedAt": "2026-10-11T20:11:36.271Z",
->>>>>>> 76f910a (mx-consumidor: refresh data 2026-10-11 20:12 UTC [skip actions])
  "data": {
   "v": 3,
   "latest": 2024,
@@ -6698,13 +6694,8 @@
     }
    },
    "2024": {
-<<<<<<< HEAD
-    "stamp": "[\"Wed, 30 Jul 2025 12:00:31 GMT\",{\"viviendas\":\"Wed, 30 Jul 2025 12:00:28 GMT\",\"hogares\":\"Wed, 30 Jul 2025 12:00:33 GMT\",\"poblacion\":\"Wed, 30 Jul 2025 12:00:34 GMT\"},\"full\"]",
-    "lastModified": "Wed, 30 Jul 2025 12:00:31 GMT",
-=======
     "stamp": "[\"Wed, 30 Jul 2025 12:00:12 GMT\",{\"viviendas\":\"Wed, 30 Jul 2025 12:00:28 GMT\",\"hogares\":\"Wed, 30 Jul 2025 12:00:33 GMT\",\"poblacion\":\"Wed, 30 Jul 2025 12:00:24 GMT\"},\"full\"]",
     "lastModified": "Wed, 30 Jul 2025 12:00:12 GMT",
->>>>>>> 76f910a (mx-consumidor: refresh data 2026-10-11 20:12 UTC [skip actions])
     "detail": "full",
     "data": {
      "year": 2024,
