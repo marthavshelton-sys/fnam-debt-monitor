@@ -1,116 +1,56 @@
 {
- "ranAt": "2026-10-11T19:20:35.577Z",
- "requestHash": "dbb22936453d81d8",
+ "ranAt": "2026-10-11T19:39:47.307Z",
+ "requestHash": "8003c2bb1f24b7db",
  "requests": [
   {
-   "name": "bise-nat",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769,8999998752,8999998767/es/00/false/BISE/2.0/***?type=json",
+   "name": "bmv-fin-livepol",
+   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769,8999998752,8999998767/es/00/false/BISE/2.0/***?type=json",
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 3725
+   "bytes": 78462
   },
   {
-   "name": "bise-07",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769/es/07/false/BISE/2.0/***?type=json",
+   "name": "bmv-fin-livepol-links",
+   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "method": "GET",
    "status": 200,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769/es/07/false/BISE/2.0/***?type=json",
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 1919
+   "bytes": 78465
   },
   {
-   "name": "bise-0700",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/070000070000/false/BISE/2.0/***?type=json",
+   "name": "bmv-fin-chdraui-links",
+   "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
    "method": "GET",
-   "status": 400,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/070000070000/false/BISE/2.0/***?type=json",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
    "lastModified": null,
-   "bytes": 102
+   "bytes": 84123
   },
   {
-   "name": "bise-multi",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/01,07,09,19/true/BISE/2.0/***?type=json",
+   "name": "bmv-perfil-livepol-links",
+   "url": "https://www.bmv.com.mx/es/emisoras/perfil/LIVEPOL-5536",
    "method": "GET",
    "status": 200,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/01,07,09,19/true/BISE/2.0/***?type=json",
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/perfil/LIVEPOL-5536",
    "lastModified": null,
-   "bytes": 863
+   "bytes": 73563
   },
   {
-   "name": "bise-biebise",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/***?type=json",
-   "method": "GET",
-   "status": 400,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/***?type=json",
-   "lastModified": null,
-   "bytes": 102
+   "name": "bie-consumo-trimestral",
+   "kind": "bie",
+   "ok": true
   },
   {
-   "name": "bise-meta",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/***?type=json",
-   "method": "GET",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/***?type=json",
-   "lastModified": null,
-   "bytes": 603
-  },
-  {
-   "name": "bise-unit",
-   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_UNIT/null/es/BISE/2.0/***?type=json",
-   "method": "GET",
-   "status": 200,
-   "type": "application/json; charset=utf-8",
-   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_UNIT/null/es/BISE/2.0/***?type=json",
-   "lastModified": null,
-   "bytes": 12571
-  },
-  {
-   "name": "dm-archivoscompaginacion",
-   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "method": "GET",
-   "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
-   "bytes": 240153
-  },
-  {
-   "name": "dm-totalarchivosdescarga",
-   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "method": "GET",
-   "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
-   "bytes": 240153
-  },
-  {
-   "name": "dm-obteneragrupacionescom",
-   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "method": "GET",
-   "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
-   "bytes": 240153
-  },
-  {
-   "name": "dm-areasgeograficaspordisponibilidadarchivos",
-   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "method": "GET",
-   "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
-   "bytes": 240153
+   "name": "bie-consumo-privado",
+   "kind": "bie",
+   "ok": true
   }
  ]
 }

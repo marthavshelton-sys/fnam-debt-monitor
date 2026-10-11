@@ -1,13 +1,13 @@
 {
- "fetchedAt": "2026-10-11T19:32:00.737Z",
+ "fetchedAt": "2026-10-11T19:41:04.316Z",
  "data": {
   "v": 3,
   "latest": 2024,
   "before": 2022,
   "editions": {
    "2016": {
-    "stamp": "[\"Mon, 29 Nov 2021 18:03:39 GMT\",{},\"states\"]",
-    "lastModified": "Mon, 29 Nov 2021 18:03:39 GMT",
+    "stamp": "[\"Mon, 29 Nov 2021 18:03:37 GMT\",{},\"states\"]",
+    "lastModified": "Mon, 29 Nov 2021 18:03:37 GMT",
     "detail": "states",
     "data": {
      "year": 2016,
@@ -1678,8 +1678,8 @@
     }
    },
    "2018": {
-    "stamp": "[\"Mon, 29 Nov 2021 18:03:38 GMT\",{},\"states\"]",
-    "lastModified": "Mon, 29 Nov 2021 18:03:38 GMT",
+    "stamp": "[\"Mon, 29 Nov 2021 18:03:40 GMT\",{},\"states\"]",
+    "lastModified": "Mon, 29 Nov 2021 18:03:40 GMT",
     "detail": "states",
     "data": {
      "year": 2018,
@@ -5022,8 +5022,8 @@
     }
    },
    "2022": {
-    "stamp": "[\"Wed, 26 Jul 2023 12:01:14 GMT\",{},\"states\"]",
-    "lastModified": "Wed, 26 Jul 2023 12:01:14 GMT",
+    "stamp": "[\"Wed, 26 Jul 2023 12:01:25 GMT\",{},\"states\"]",
+    "lastModified": "Wed, 26 Jul 2023 12:01:25 GMT",
     "detail": "states",
     "data": {
      "year": 2022,
@@ -6694,7 +6694,7 @@
     }
    },
    "2024": {
-    "stamp": "[\"Wed, 30 Jul 2025 12:00:12 GMT\",{\"viviendas\":\"Wed, 30 Jul 2025 12:00:34 GMT\",\"hogares\":\"Wed, 30 Jul 2025 12:00:33 GMT\",\"poblacion\":\"Wed, 30 Jul 2025 12:00:34 GMT\"},\"full\"]",
+    "stamp": "[\"Wed, 30 Jul 2025 12:00:12 GMT\",{\"viviendas\":\"Wed, 30 Jul 2025 12:00:28 GMT\",\"hogares\":\"Wed, 30 Jul 2025 12:00:33 GMT\",\"poblacion\":\"Wed, 30 Jul 2025 12:00:34 GMT\"},\"full\"]",
     "lastModified": "Wed, 30 Jul 2025 12:00:12 GMT",
     "detail": "full",
     "data": {

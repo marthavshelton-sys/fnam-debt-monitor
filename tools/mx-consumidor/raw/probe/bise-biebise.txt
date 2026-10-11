@@ -1,4 +1,0 @@
-GET https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/***?type=json
--> HTTP 400 application/json; charset=utf-8 102 bytes
-
-["ErrorInfo:No se encontraron resultados","ErrorDetails:No se encontraron resultados","ErrorCode:100"]
