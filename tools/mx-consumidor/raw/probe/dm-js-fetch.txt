@@ -1,0 +1,57 @@
+GET https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js
+-> HTTP 200 application/javascript 240153 bytes · Last-Modified Fri, 18 Sep 2026 21:56:24 GMT
+
+(21 distinct matches)
+.get(
+                              "/app/microdatos/laboratoriodatos/laboratorioMicrodatos2.html?v=" + Date.now()
+.get(
+                              "/app/microdatos/laboratoriodatos/laboratorioMicrodatos_en2.html?v=" + Date.now()
+.get("/app/microdatos/laboratoriodatos/procesamientoRemoto.html", function (e)
+.get("/app/microdatos/laboratoriodatos/procesamientoRemoto_en.html", function (e)
+ajax({ method: "GET", async: !1, url: a })
+ajax({
+            url: B,
+            dataType: "json",
+            success: function (t)
+ajax({
+                    url: d,
+                    dataType: "json",
+                    success: function (t)
+ajax({
+                                url: d,
+                                dataType: "json",
+                                success: function (t)
+ajax({
+                                            url: d,
+                                            dataType: "json",
+                                            success: function (t)
+ajax({
+                                                    url: d,
+                                                    dataType: "json",
+                                                    success: function (e)
+.get(t[G])
+ajax({
+                                                            url:
+                                                                "/app/api/descarga/componente/descargamasiva/lista/serviciosmicrodatos?proyecto=" +
+                                                                (null == w ? A : w)
+ajax({
+            url: url,
+            dataType: "json",
+            success: function (i)
+ajax({ url: m, dataType: "json", success: function (e)
+.get(i[A])
+.get(arrayDescargaMicrodatos[m])
+ajax({
+            url: e,
+            dataType: "json",
+            success: function (e)
+ajax({
+            method: "POST",
+            async: !1,
+            dataType: "text",
+            contentType: "application/json",
+            url: "/app/api/descarga/componente/descargamasiva/lista/archivosdescarga",
+            data: JSON.stringify(c)
+.get(e)
+.get("nivel1")
+.get(key)

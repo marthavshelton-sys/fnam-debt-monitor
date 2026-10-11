@@ -1,0 +1,1967 @@
+{
+ "fetchedAt": "2026-10-11T19:19:19.644Z",
+ "data": {
+  "v": 1,
+  "year": 2024,
+  "lastModified": "Thu, 13 Mar 2025 12:01:07 GMT",
+  "universe": "18-70",
+  "all": {
+   "people": 86621605,
+   "sample": 12379,
+   "anyProduct": 76.5,
+   "insurance": 22.9,
+   "anyAccount": 63,
+   "anyCredit": 37.3,
+   "anyInformalCredit": 28.9,
+   "afore": 42.2,
+   "noCredit": 45.6,
+   "onlyInformalCredit": 17,
+   "credit": {
+    "storeCard": 22.6,
+    "bankCard": 15.7,
+    "payroll": 3.2,
+    "personal": 4.3,
+    "auto": 1.8,
+    "housing": 5.6,
+    "group": 2.4,
+    "online": 1.4,
+    "other": 0
+   },
+   "informalCredit": {
+    "savingsClub": 5.8,
+    "pawn": 2.6,
+    "friends": 11.2,
+    "family": 19.9,
+    "other": 0.1
+   },
+   "accounts": {
+    "payroll": 32.5,
+    "pension": 4.3,
+    "benefits": 11.6,
+    "savings": 24,
+    "checking": 2.1,
+    "term": 2,
+    "fund": 2,
+    "app": 10.3,
+    "other": 0.1
+   },
+   "late": {
+    "storeCard": 20.3,
+    "bankCard": 16.7,
+    "payroll": 5.3,
+    "personal": 14.6,
+    "auto": 6.7,
+    "housing": 20.5,
+    "group": 8.2,
+    "online": 20.1,
+    "other": null
+   },
+   "lateAny": 22.3,
+   "saving": {
+    "onlyInformal": 36.6,
+    "none": 33.6,
+    "both": 21.6,
+    "onlyFormal": 8.2
+   },
+   "informalSaving": {
+    "lending": 5.6,
+    "goods": 6.8,
+    "savingsClub": 13.3,
+    "family": 9.2,
+    "tanda": 19.9,
+    "home": 40.7
+   },
+   "notEnough": 40.1,
+   "coping": {
+    "family": 52.4,
+    "savings": 43.6,
+    "cutSpending": 70.5,
+    "pawn": 13.7,
+    "extraWork": 17.5,
+    "credit": 11,
+    "latePayment": 9.3
+   },
+   "cushion": {
+    "lt1w": 30.2,
+    "lt1m": 20.8,
+    "lt3m": 27.8,
+    "lt6m": 10.4,
+    "gte6m": 10.7
+   },
+   "debtView": {
+    "canPay": 86.6,
+    "some": 10.1,
+    "cannot": 3.3,
+    "withDebts": 35.5
+   },
+   "everApplied": 55.2,
+   "rejected": 33.6,
+   "rejectWhy": {
+    "bureau": 33.4,
+    "income": 22.3,
+    "documents": 8.7,
+    "noHistory": 27.1,
+    "noCollateral": 3.1,
+    "other": 1
+   },
+   "leftover": {
+    "always": 15.1,
+    "sometimes": 49.7,
+    "never": 35.2
+   },
+   "ownsHome": 31.4,
+   "ownsVehicle": 28.9,
+   "benefits": 13
+  },
+  "bySex": {
+   "men": {
+    "people": 40132625,
+    "sample": 5592,
+    "anyProduct": 80.9,
+    "insurance": 28.2,
+    "anyAccount": 68,
+    "anyCredit": 38.8,
+    "anyInformalCredit": 29.3,
+    "afore": 51.4,
+    "noCredit": 44.3,
+    "onlyInformalCredit": 16.9,
+    "credit": {
+     "storeCard": 21.6,
+     "bankCard": 17.9,
+     "payroll": 4,
+     "personal": 4.8,
+     "auto": 2.4,
+     "housing": 7.2,
+     "group": 1.2,
+     "online": 1.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 6.9,
+     "pawn": 2.7,
+     "friends": 12.6,
+     "family": 19.2,
+     "other": 0.1
+    },
+    "accounts": {
+     "payroll": 39.4,
+     "pension": 4.7,
+     "benefits": 9.5,
+     "savings": 26.2,
+     "checking": 3.1,
+     "term": 2.6,
+     "fund": 2.9,
+     "app": 12.8,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 20.3,
+     "bankCard": 18.1,
+     "payroll": 6.1,
+     "personal": 14.1,
+     "auto": 7.6,
+     "housing": 19.1,
+     "group": 6.4,
+     "online": 26.3,
+     "other": null
+    },
+    "lateAny": 23,
+    "saving": {
+     "onlyInformal": 34,
+     "none": 32.7,
+     "both": 24,
+     "onlyFormal": 9.3
+    },
+    "informalSaving": {
+     "lending": 6.1,
+     "goods": 8.6,
+     "savingsClub": 15.3,
+     "family": 9.7,
+     "tanda": 17.7,
+     "home": 42
+    },
+    "notEnough": 35.8,
+    "coping": {
+     "family": 53,
+     "savings": 41.5,
+     "cutSpending": 67.7,
+     "pawn": 16.8,
+     "extraWork": 23.1,
+     "credit": 11.3,
+     "latePayment": 10.4
+    },
+    "cushion": {
+     "lt1w": 25.7,
+     "lt1m": 22.2,
+     "lt3m": 28.6,
+     "lt6m": 11.5,
+     "gte6m": 12
+    },
+    "debtView": {
+     "canPay": 87.1,
+     "some": 9.7,
+     "cannot": 3.2,
+     "withDebts": 37.3
+    },
+    "everApplied": 59.4,
+    "rejected": 38.8,
+    "rejectWhy": {
+     "bureau": 33.1,
+     "income": 21.7,
+     "documents": 9,
+     "noHistory": 28.3,
+     "noCollateral": 2.1,
+     "other": 0.8
+    },
+    "leftover": {
+     "always": 17.6,
+     "sometimes": 50.9,
+     "never": 31.4
+    },
+    "ownsHome": 38.5,
+    "ownsVehicle": 43.3,
+    "benefits": 10.9
+   },
+   "women": {
+    "people": 46488980,
+    "sample": 6787,
+    "anyProduct": 72.8,
+    "insurance": 18.3,
+    "anyAccount": 58.6,
+    "anyCredit": 36.1,
+    "anyInformalCredit": 28.5,
+    "afore": 34.2,
+    "noCredit": 46.7,
+    "onlyInformalCredit": 17.1,
+    "credit": {
+     "storeCard": 23.5,
+     "bankCard": 13.7,
+     "payroll": 2.5,
+     "personal": 3.9,
+     "auto": 1.3,
+     "housing": 4.3,
+     "group": 3.5,
+     "online": 0.9,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 4.8,
+     "pawn": 2.5,
+     "friends": 10.1,
+     "family": 20.5,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 26.5,
+     "pension": 3.9,
+     "benefits": 13.5,
+     "savings": 22.1,
+     "checking": 1.3,
+     "term": 1.5,
+     "fund": 1.3,
+     "app": 8.1,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 20.2,
+     "bankCard": 15.1,
+     "payroll": 4.1,
+     "personal": 15.2,
+     "auto": 5.1,
+     "housing": 22.6,
+     "group": 8.7,
+     "online": 9.6,
+     "other": null
+    },
+    "lateAny": 21.6,
+    "saving": {
+     "onlyInformal": 38.9,
+     "none": 34.4,
+     "both": 19.5,
+     "onlyFormal": 7.2
+    },
+    "informalSaving": {
+     "lending": 5.3,
+     "goods": 5.4,
+     "savingsClub": 11.6,
+     "family": 8.8,
+     "tanda": 21.8,
+     "home": 39.6
+    },
+    "notEnough": 43.8,
+    "coping": {
+     "family": 52,
+     "savings": 45.1,
+     "cutSpending": 72.6,
+     "pawn": 11.6,
+     "extraWork": 13.6,
+     "credit": 10.7,
+     "latePayment": 8.6
+    },
+    "cushion": {
+     "lt1w": 34.2,
+     "lt1m": 19.6,
+     "lt3m": 27.1,
+     "lt6m": 9.5,
+     "gte6m": 9.6
+    },
+    "debtView": {
+     "canPay": 86.2,
+     "some": 10.4,
+     "cannot": 3.3,
+     "withDebts": 34
+    },
+    "everApplied": 51.7,
+    "rejected": 28.6,
+    "rejectWhy": {
+     "bureau": 33.9,
+     "income": 23.1,
+     "documents": 8.3,
+     "noHistory": 25.6,
+     "noCollateral": 4.4,
+     "other": 1.3
+    },
+    "leftover": {
+     "always": 12.8,
+     "sometimes": 48.6,
+     "never": 38.5
+    },
+    "ownsHome": 25.3,
+    "ownsVehicle": 16.5,
+    "benefits": 14.9
+   }
+  },
+  "byAge": {
+   "18-29": {
+    "people": 23639912,
+    "sample": 2924,
+    "anyProduct": 71.4,
+    "insurance": 17.7,
+    "anyAccount": 61.8,
+    "anyCredit": 32.3,
+    "anyInformalCredit": 30.1,
+    "afore": 30,
+    "noCredit": 49.7,
+    "onlyInformalCredit": 18,
+    "credit": {
+     "storeCard": 22,
+     "bankCard": 13.4,
+     "payroll": 2.3,
+     "personal": 3.8,
+     "auto": 0.5,
+     "housing": 1.5,
+     "group": 1.3,
+     "online": 2,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 6.3,
+     "pawn": 1.7,
+     "friends": 13.2,
+     "family": 22.2,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 32.5,
+     "pension": 0.3,
+     "benefits": 6.2,
+     "savings": 26.7,
+     "checking": 1.4,
+     "term": 1.7,
+     "fund": 1.8,
+     "app": 15.9,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 21.7,
+     "bankCard": 18.3,
+     "payroll": 6,
+     "personal": 19,
+     "auto": null,
+     "housing": 24.9,
+     "group": 3.3,
+     "online": 27.1,
+     "other": null
+    },
+    "lateAny": 24.3,
+    "saving": {
+     "onlyInformal": 43.2,
+     "none": 22.7,
+     "both": 27.3,
+     "onlyFormal": 6.8
+    },
+    "informalSaving": {
+     "lending": 10.4,
+     "goods": 6.9,
+     "savingsClub": 16.4,
+     "family": 19,
+     "tanda": 20.7,
+     "home": 53.6
+    },
+    "notEnough": 29.5,
+    "coping": {
+     "family": 52.8,
+     "savings": 49.2,
+     "cutSpending": 69.2,
+     "pawn": 11,
+     "extraWork": 22.8,
+     "credit": 10.8,
+     "latePayment": 6.7
+    },
+    "cushion": {
+     "lt1w": 24.2,
+     "lt1m": 21.5,
+     "lt3m": 33.9,
+     "lt6m": 10.9,
+     "gte6m": 9.5
+    },
+    "debtView": {
+     "canPay": 87,
+     "some": 8.8,
+     "cannot": 4.3,
+     "withDebts": 30.8
+    },
+    "everApplied": 48.8,
+    "rejected": 33.9,
+    "rejectWhy": {
+     "bureau": 18,
+     "income": 19.8,
+     "documents": 7.2,
+     "noHistory": 47.2,
+     "noCollateral": 1.7,
+     "other": 1.3
+    },
+    "leftover": {
+     "always": 21.8,
+     "sometimes": 56.3,
+     "never": 22
+    },
+    "ownsHome": 6.8,
+    "ownsVehicle": 18.7,
+    "benefits": 7.1
+   },
+   "30-44": {
+    "people": 27912352,
+    "sample": 4256,
+    "anyProduct": 79.5,
+    "insurance": 26.7,
+    "anyAccount": 66.4,
+    "anyCredit": 43.2,
+    "anyInformalCredit": 32,
+    "afore": 52,
+    "noCredit": 39.2,
+    "onlyInformalCredit": 17.6,
+    "credit": {
+     "storeCard": 25.4,
+     "bankCard": 20.1,
+     "payroll": 4.1,
+     "personal": 4.7,
+     "auto": 2.6,
+     "housing": 8.2,
+     "group": 2.7,
+     "online": 1.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 7.1,
+     "pawn": 2.4,
+     "friends": 12.8,
+     "family": 21.8,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 41.3,
+     "pension": 0.9,
+     "benefits": 7,
+     "savings": 27.4,
+     "checking": 2.9,
+     "term": 2.3,
+     "fund": 3,
+     "app": 12.7,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 20.2,
+     "bankCard": 18.3,
+     "payroll": 1.9,
+     "personal": 14.6,
+     "auto": 5.8,
+     "housing": 20.4,
+     "group": 9.9,
+     "online": 16.5,
+     "other": null
+    },
+    "lateAny": 23.5,
+    "saving": {
+     "onlyInformal": 37.6,
+     "none": 28.5,
+     "both": 24.9,
+     "onlyFormal": 9
+    },
+    "informalSaving": {
+     "lending": 5.8,
+     "goods": 8.4,
+     "savingsClub": 17.5,
+     "family": 8.3,
+     "tanda": 24.6,
+     "home": 41.4
+    },
+    "notEnough": 40.5,
+    "coping": {
+     "family": 56.2,
+     "savings": 46.2,
+     "cutSpending": 70.9,
+     "pawn": 16.2,
+     "extraWork": 19.7,
+     "credit": 12.3,
+     "latePayment": 11.4
+    },
+    "cushion": {
+     "lt1w": 25.6,
+     "lt1m": 20.4,
+     "lt3m": 29,
+     "lt6m": 12.3,
+     "gte6m": 12.6
+    },
+    "debtView": {
+     "canPay": 86.1,
+     "some": 10.8,
+     "cannot": 3.2,
+     "withDebts": 42
+    },
+    "everApplied": 61.2,
+    "rejected": 38.4,
+    "rejectWhy": {
+     "bureau": 36,
+     "income": 20.3,
+     "documents": 9.5,
+     "noHistory": 24.9,
+     "noCollateral": 3.8,
+     "other": 0.4
+    },
+    "leftover": {
+     "always": 14.4,
+     "sometimes": 52,
+     "never": 33.6
+    },
+    "ownsHome": 29.8,
+    "ownsVehicle": 33.8,
+    "benefits": 8.6
+   },
+   "45-59": {
+    "people": 23404403,
+    "sample": 3411,
+    "anyProduct": 76.2,
+    "insurance": 24.9,
+    "anyAccount": 56.1,
+    "anyCredit": 40.2,
+    "anyInformalCredit": 29.5,
+    "afore": 51.7,
+    "noCredit": 42.6,
+    "onlyInformalCredit": 17.2,
+    "credit": {
+     "storeCard": 23.4,
+     "bankCard": 14.5,
+     "payroll": 3.7,
+     "personal": 4.9,
+     "auto": 2.3,
+     "housing": 8.2,
+     "group": 3.6,
+     "online": 0.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 5.5,
+     "pawn": 4.1,
+     "friends": 10.1,
+     "family": 19.1,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 32.1,
+     "pension": 3,
+     "benefits": 6.1,
+     "savings": 20.8,
+     "checking": 1.8,
+     "term": 2,
+     "fund": 1.4,
+     "app": 6,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 21.2,
+     "bankCard": 15.5,
+     "payroll": 4,
+     "personal": 13.6,
+     "auto": 5.5,
+     "housing": 20,
+     "group": 6.6,
+     "online": 11.5,
+     "other": null
+    },
+    "lateAny": 21.3,
+    "saving": {
+     "onlyInformal": 32.8,
+     "none": 42.9,
+     "both": 16.8,
+     "onlyFormal": 7.6
+    },
+    "informalSaving": {
+     "lending": 2.7,
+     "goods": 6.2,
+     "savingsClub": 9.6,
+     "family": 4.1,
+     "tanda": 17.8,
+     "home": 32.3
+    },
+    "notEnough": 49.1,
+    "coping": {
+     "family": 52.4,
+     "savings": 41.9,
+     "cutSpending": 72.5,
+     "pawn": 14.3,
+     "extraWork": 16.7,
+     "credit": 11.7,
+     "latePayment": 10.5
+    },
+    "cushion": {
+     "lt1w": 36.4,
+     "lt1m": 20.7,
+     "lt3m": 24.3,
+     "lt6m": 9.1,
+     "gte6m": 9.5
+    },
+    "debtView": {
+     "canPay": 86.1,
+     "some": 11.5,
+     "cannot": 2.5,
+     "withDebts": 38.1
+    },
+    "everApplied": 57.8,
+    "rejected": 33,
+    "rejectWhy": {
+     "bureau": 39.9,
+     "income": 27.2,
+     "documents": 9.6,
+     "noHistory": 16.5,
+     "noCollateral": 2.9,
+     "other": 1.5
+    },
+    "leftover": {
+     "always": 10.1,
+     "sometimes": 44.3,
+     "never": 45.6
+    },
+    "ownsHome": 46.2,
+    "ownsVehicle": 33.5,
+    "benefits": 6.9
+   },
+   "60-70": {
+    "people": 11664938,
+    "sample": 1788,
+    "anyProduct": 80.4,
+    "insurance": 20,
+    "anyAccount": 71.1,
+    "anyCredit": 27.7,
+    "anyInformalCredit": 17.8,
+    "afore": 24.1,
+    "noCredit": 58.9,
+    "onlyInformalCredit": 13.5,
+    "credit": {
+     "storeCard": 15.8,
+     "bankCard": 11.9,
+     "payroll": 1.8,
+     "personal": 3.5,
+     "auto": 1.8,
+     "housing": 2.6,
+     "group": 1.7,
+     "online": 0,
+     "other": 0.1
+    },
+    "informalCredit": {
+     "savingsClub": 2.3,
+     "pawn": 1.5,
+     "friends": 6,
+     "family": 12.3,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 12,
+     "pension": 22.9,
+     "benefits": 44.8,
+     "savings": 16.6,
+     "checking": 2.3,
+     "term": 2.3,
+     "fund": 1.4,
+     "app": 1.7,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 13.5,
+     "bankCard": 9.2,
+     "payroll": 26.7,
+     "personal": 8,
+     "auto": 6.4,
+     "housing": 19.3,
+     "group": 15.8,
+     "online": null,
+     "other": null
+    },
+    "lateAny": 15.9,
+    "saving": {
+     "onlyInformal": 28.8,
+     "none": 49.1,
+     "both": 11.9,
+     "onlyFormal": 10.2
+    },
+    "informalSaving": {
+     "lending": 1.7,
+     "goods": 4.5,
+     "savingsClub": 4.3,
+     "family": 1.8,
+     "tanda": 11.2,
+     "home": 29.7
+    },
+    "notEnough": 42.5,
+    "coping": {
+     "family": 43.2,
+     "savings": 33.8,
+     "cutSpending": 67,
+     "pawn": 10.6,
+     "extraWork": 7.1,
+     "credit": 6.4,
+     "latePayment": 5.6
+    },
+    "cushion": {
+     "lt1w": 41.5,
+     "lt1m": 20.5,
+     "lt3m": 19.4,
+     "lt6m": 7.6,
+     "gte6m": 10.9
+    },
+    "debtView": {
+     "canPay": 90.1,
+     "some": 5.9,
+     "cannot": 4,
+     "withDebts": 24.5
+    },
+    "everApplied": 48.9,
+    "rejected": 20.4,
+    "rejectWhy": {
+     "bureau": 45.7,
+     "income": 23.5,
+     "documents": 6,
+     "noHistory": 13.3,
+     "noCollateral": 4.5,
+     "other": 1
+    },
+    "leftover": {
+     "always": 13.1,
+     "sometimes": 41.6,
+     "never": 45.3
+    },
+    "ownsHome": 55.5,
+    "ownsVehicle": 28.8,
+    "benefits": 48.1
+   }
+  },
+  "byEdu": {
+   "basic": {
+    "people": 41886465,
+    "sample": 6020,
+    "anyProduct": 66.4,
+    "insurance": 10.6,
+    "anyAccount": 49,
+    "anyCredit": 25.4,
+    "anyInformalCredit": 29.5,
+    "afore": 31.7,
+    "noCredit": 53.4,
+    "onlyInformalCredit": 21.2,
+    "credit": {
+     "storeCard": 15.3,
+     "bankCard": 5.4,
+     "payroll": 1.7,
+     "personal": 3,
+     "auto": 0.3,
+     "housing": 3.5,
+     "group": 2.8,
+     "online": 0.5,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 4.4,
+     "pawn": 2.6,
+     "friends": 11.3,
+     "family": 20.9,
+     "other": 0.1
+    },
+    "accounts": {
+     "payroll": 17.8,
+     "pension": 4.2,
+     "benefits": 16.8,
+     "savings": 14.7,
+     "checking": 0.4,
+     "term": 0.4,
+     "fund": 0.2,
+     "app": 4.4,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 24.9,
+     "bankCard": 19.2,
+     "payroll": 9.1,
+     "personal": 17,
+     "auto": null,
+     "housing": 28.5,
+     "group": 11.4,
+     "online": 15.7,
+     "other": null
+    },
+    "lateAny": 25.5,
+    "saving": {
+     "onlyInformal": 39.9,
+     "none": 44.7,
+     "both": 11,
+     "onlyFormal": 4.3
+    },
+    "informalSaving": {
+     "lending": 3.9,
+     "goods": 6.8,
+     "savingsClub": 7.8,
+     "family": 5.6,
+     "tanda": 18.4,
+     "home": 35.3
+    },
+    "notEnough": 47.5,
+    "coping": {
+     "family": 53,
+     "savings": 39.3,
+     "cutSpending": 70.1,
+     "pawn": 12.9,
+     "extraWork": 17.2,
+     "credit": 6.5,
+     "latePayment": 7.8
+    },
+    "cushion": {
+     "lt1w": 39.9,
+     "lt1m": 24.1,
+     "lt3m": 23.3,
+     "lt6m": 6.4,
+     "gte6m": 6.4
+    },
+    "debtView": {
+     "canPay": 82.1,
+     "some": 12.8,
+     "cannot": 5.1,
+     "withDebts": 23.8
+    },
+    "everApplied": 45.5,
+    "rejected": 31.9,
+    "rejectWhy": {
+     "bureau": 36.2,
+     "income": 23.3,
+     "documents": 11,
+     "noHistory": 19.7,
+     "noCollateral": 3.5,
+     "other": 1.4
+    },
+    "leftover": {
+     "always": 10.2,
+     "sometimes": 43.5,
+     "never": 46.3
+    },
+    "ownsHome": 33.6,
+    "ownsVehicle": 20.8,
+    "benefits": 18.4
+   },
+   "highSchool": {
+    "people": 23828842,
+    "sample": 3266,
+    "anyProduct": 80.2,
+    "insurance": 23.9,
+    "anyAccount": 65.8,
+    "anyCredit": 38.3,
+    "anyInformalCredit": 30.8,
+    "afore": 47.5,
+    "noCredit": 44.7,
+    "onlyInformalCredit": 17,
+    "credit": {
+     "storeCard": 24.3,
+     "bankCard": 13.9,
+     "payroll": 3.2,
+     "personal": 4.5,
+     "auto": 1.5,
+     "housing": 5.9,
+     "group": 2.2,
+     "online": 1.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 7.4,
+     "pawn": 3.2,
+     "friends": 12.9,
+     "family": 20.2,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 35.9,
+     "pension": 3.4,
+     "benefits": 8,
+     "savings": 25.6,
+     "checking": 1.4,
+     "term": 1.5,
+     "fund": 1.5,
+     "app": 12.5,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 20,
+     "bankCard": 18.8,
+     "payroll": 8.3,
+     "personal": 17.2,
+     "auto": 7.2,
+     "housing": 22.4,
+     "group": 3.7,
+     "online": 17.1,
+     "other": null
+    },
+    "lateAny": 23,
+    "saving": {
+     "onlyInformal": 39.8,
+     "none": 27.4,
+     "both": 25.1,
+     "onlyFormal": 7.7
+    },
+    "informalSaving": {
+     "lending": 6.7,
+     "goods": 6.8,
+     "savingsClub": 15.8,
+     "family": 13.4,
+     "tanda": 23.6,
+     "home": 47.1
+    },
+    "notEnough": 35.9,
+    "coping": {
+     "family": 51.8,
+     "savings": 46.7,
+     "cutSpending": 68.6,
+     "pawn": 15.4,
+     "extraWork": 19.1,
+     "credit": 12.3,
+     "latePayment": 10.5
+    },
+    "cushion": {
+     "lt1w": 25.7,
+     "lt1m": 20.6,
+     "lt3m": 32.2,
+     "lt6m": 11.4,
+     "gte6m": 10.1
+    },
+    "debtView": {
+     "canPay": 87.4,
+     "some": 9.9,
+     "cannot": 2.7,
+     "withDebts": 36.2
+    },
+    "everApplied": 57.2,
+    "rejected": 36.3,
+    "rejectWhy": {
+     "bureau": 32,
+     "income": 25.7,
+     "documents": 8.3,
+     "noHistory": 31.1,
+     "noCollateral": 3,
+     "other": 0.5
+    },
+    "leftover": {
+     "always": 16,
+     "sometimes": 56.4,
+     "never": 27.5
+    },
+    "ownsHome": 26.8,
+    "ownsVehicle": 29.2,
+    "benefits": 9.1
+   },
+   "college": {
+    "people": 20868814,
+    "sample": 3090,
+    "anyProduct": 92.7,
+    "insurance": 46.3,
+    "anyAccount": 87.8,
+    "anyCredit": 60.3,
+    "anyInformalCredit": 25.5,
+    "afore": 57.2,
+    "noCredit": 31,
+    "onlyInformalCredit": 8.7,
+    "credit": {
+     "storeCard": 35.4,
+     "bankCard": 38.3,
+     "payroll": 6.3,
+     "personal": 6.9,
+     "auto": 5.1,
+     "housing": 9.6,
+     "group": 1.9,
+     "online": 2.6,
+     "other": 0.1
+    },
+    "informalCredit": {
+     "savingsClub": 6.7,
+     "pawn": 1.8,
+     "friends": 9,
+     "family": 17.5,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 58.1,
+     "pension": 5.3,
+     "benefits": 5.4,
+     "savings": 40.9,
+     "checking": 6.5,
+     "term": 5.9,
+     "fund": 6.3,
+     "app": 19.6,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 16.5,
+     "bankCard": 15.1,
+     "payroll": 1.4,
+     "personal": 10.6,
+     "auto": 5.5,
+     "housing": 13.4,
+     "group": 4.4,
+     "online": 24.2,
+     "other": null
+    },
+    "lateAny": 19.2,
+    "saving": {
+     "onlyInformal": 26.3,
+     "none": 18.5,
+     "both": 38.8,
+     "onlyFormal": 16.4
+    },
+    "informalSaving": {
+     "lending": 7.9,
+     "goods": 7,
+     "savingsClub": 21.4,
+     "family": 11.7,
+     "tanda": 18.6,
+     "home": 44.1
+    },
+    "notEnough": 29.9,
+    "coping": {
+     "family": 51.2,
+     "savings": 53.1,
+     "cutSpending": 74.5,
+     "pawn": 14.2,
+     "extraWork": 16.5,
+     "credit": 23.4,
+     "latePayment": 12.8
+    },
+    "cushion": {
+     "lt1w": 16.2,
+     "lt1m": 14.5,
+     "lt3m": 31.9,
+     "lt6m": 17.3,
+     "gte6m": 20.1
+    },
+    "debtView": {
+     "canPay": 89.9,
+     "some": 7.9,
+     "cannot": 2.2,
+     "withDebts": 58.3
+    },
+    "everApplied": 72.6,
+    "rejected": 33.4,
+    "rejectWhy": {
+     "bureau": 31.5,
+     "income": 17.6,
+     "documents": 6.4,
+     "noHistory": 32.2,
+     "noCollateral": 2.7,
+     "other": 0.9
+    },
+    "leftover": {
+     "always": 23.7,
+     "sometimes": 54.5,
+     "never": 21.8
+    },
+    "ownsHome": 32.4,
+    "ownsVehicle": 45.1,
+    "benefits": 6.9
+   }
+  },
+  "byLocality": {
+   "urban": {
+    "people": 56723537,
+    "sample": 8151,
+    "anyProduct": 82.3,
+    "insurance": 28.6,
+    "anyAccount": 69.1,
+    "anyCredit": 43.3,
+    "anyInformalCredit": 28.1,
+    "afore": 49.7,
+    "noCredit": 41.4,
+    "onlyInformalCredit": 15.3,
+    "credit": {
+     "storeCard": 25.5,
+     "bankCard": 20.1,
+     "payroll": 3.9,
+     "personal": 4.9,
+     "auto": 2.5,
+     "housing": 8,
+     "group": 2.3,
+     "online": 1.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 6.4,
+     "pawn": 3.2,
+     "friends": 10.1,
+     "family": 18.5,
+     "other": 0.1
+    },
+    "accounts": {
+     "payroll": 39.4,
+     "pension": 5.6,
+     "benefits": 8.6,
+     "savings": 27,
+     "checking": 2.8,
+     "term": 2.7,
+     "fund": 2.6,
+     "app": 12.4,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 19.1,
+     "bankCard": 16.4,
+     "payroll": 5.9,
+     "personal": 12.9,
+     "auto": 7.4,
+     "housing": 20.1,
+     "group": 10.3,
+     "online": 20.2,
+     "other": null
+    },
+    "lateAny": 22.1,
+    "saving": {
+     "onlyInformal": 34,
+     "none": 30.8,
+     "both": 25.3,
+     "onlyFormal": 9.9
+    },
+    "informalSaving": {
+     "lending": 5.6,
+     "goods": 4.7,
+     "savingsClub": 15.2,
+     "family": 9.3,
+     "tanda": 20.9,
+     "home": 40.5
+    },
+    "notEnough": 38.1,
+    "coping": {
+     "family": 49.2,
+     "savings": 42.3,
+     "cutSpending": 69,
+     "pawn": 14.1,
+     "extraWork": 17.2,
+     "credit": 12.8,
+     "latePayment": 10.9
+    },
+    "cushion": {
+     "lt1w": 27.5,
+     "lt1m": 20.3,
+     "lt3m": 29.2,
+     "lt6m": 11.6,
+     "gte6m": 11.5
+    },
+    "debtView": {
+     "canPay": 86.6,
+     "some": 10.1,
+     "cannot": 3.4,
+     "withDebts": 41.3
+    },
+    "everApplied": 61.9,
+    "rejected": 34.8,
+    "rejectWhy": {
+     "bureau": 34.3,
+     "income": 22.3,
+     "documents": 6.7,
+     "noHistory": 30.1,
+     "noCollateral": 3,
+     "other": 0.8
+    },
+    "leftover": {
+     "always": 16.9,
+     "sometimes": 52.9,
+     "never": 30.2
+    },
+    "ownsHome": 31.4,
+    "ownsVehicle": 32,
+    "benefits": 9.8
+   },
+   "small": {
+    "people": 29898068,
+    "sample": 4228,
+    "anyProduct": 65.5,
+    "insurance": 12,
+    "anyAccount": 51.4,
+    "anyCredit": 26,
+    "anyInformalCredit": 30.4,
+    "afore": 27.9,
+    "noCredit": 53.7,
+    "onlyInformalCredit": 20.3,
+    "credit": {
+     "storeCard": 17.2,
+     "bankCard": 7.3,
+     "payroll": 2,
+     "personal": 3.2,
+     "auto": 0.5,
+     "housing": 1.2,
+     "group": 2.6,
+     "online": 0.5,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 4.6,
+     "pawn": 1.4,
+     "friends": 13.4,
+     "family": 22.7,
+     "other": 0.1
+    },
+    "accounts": {
+     "payroll": 19.4,
+     "pension": 1.8,
+     "benefits": 17.3,
+     "savings": 18.3,
+     "checking": 0.9,
+     "term": 0.8,
+     "fund": 0.9,
+     "app": 6.3,
+     "other": 0.1
+    },
+    "late": {
+     "storeCard": 23.5,
+     "bankCard": 18.1,
+     "payroll": 2.9,
+     "personal": 19.6,
+     "auto": 0,
+     "housing": 26.3,
+     "group": 4.6,
+     "online": null,
+     "other": null
+    },
+    "lateAny": 23,
+    "saving": {
+     "onlyInformal": 41.6,
+     "none": 38.9,
+     "both": 14.7,
+     "onlyFormal": 4.9
+    },
+    "informalSaving": {
+     "lending": 5.7,
+     "goods": 10.9,
+     "savingsClub": 9.6,
+     "family": 9,
+     "tanda": 18,
+     "home": 41.1
+    },
+    "notEnough": 43.8,
+    "coping": {
+     "family": 57.6,
+     "savings": 45.7,
+     "cutSpending": 73,
+     "pawn": 13.2,
+     "extraWork": 18,
+     "credit": 8,
+     "latePayment": 6.8
+    },
+    "cushion": {
+     "lt1w": 35.6,
+     "lt1m": 21.8,
+     "lt3m": 25.1,
+     "lt6m": 8.2,
+     "gte6m": 9.3
+    },
+    "debtView": {
+     "canPay": 86.9,
+     "some": 10.1,
+     "cannot": 3,
+     "withDebts": 24.5
+    },
+    "everApplied": 42.7,
+    "rejected": 30.5,
+    "rejectWhy": {
+     "bureau": 30.7,
+     "income": 22.4,
+     "documents": 15,
+     "noHistory": 17.9,
+     "noCollateral": 3.2,
+     "other": 1.6
+    },
+    "leftover": {
+     "always": 11.5,
+     "sometimes": 43.7,
+     "never": 44.7
+    },
+    "ownsHome": 31.5,
+    "ownsVehicle": 23.1,
+    "benefits": 19.2
+   }
+  },
+  "byRegion": {
+   "northwest": {
+    "people": 11221652,
+    "sample": 2260,
+    "anyProduct": 84.6,
+    "insurance": 32.4,
+    "anyAccount": 71.3,
+    "anyCredit": 46,
+    "anyInformalCredit": 26.8,
+    "afore": 53.1,
+    "noCredit": 41.2,
+    "onlyInformalCredit": 12.8,
+    "credit": {
+     "storeCard": 29,
+     "bankCard": 18.7,
+     "payroll": 5,
+     "personal": 5.3,
+     "auto": 2.3,
+     "housing": 10.2,
+     "group": 2.5,
+     "online": 1.3,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 6.9,
+     "pawn": 3.2,
+     "friends": 10.2,
+     "family": 16.4,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 42.3,
+     "pension": 5.1,
+     "benefits": 8.7,
+     "savings": 25.6,
+     "checking": 2.8,
+     "term": 2.2,
+     "fund": 2.1,
+     "app": 13.9,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 22.4,
+     "bankCard": 16.2,
+     "payroll": 2.3,
+     "personal": 16.5,
+     "auto": 11.7,
+     "housing": 19.1,
+     "group": 13.9,
+     "online": 10.4,
+     "other": null
+    },
+    "lateAny": 24.3,
+    "saving": {
+     "onlyInformal": 28.6,
+     "none": 34,
+     "both": 25.4,
+     "onlyFormal": 11.9
+    },
+    "informalSaving": {
+     "lending": 6.4,
+     "goods": 4.5,
+     "savingsClub": 14.1,
+     "family": 10.3,
+     "tanda": 13.7,
+     "home": 39.2
+    },
+    "notEnough": 39.3,
+    "coping": {
+     "family": 41.1,
+     "savings": 36.4,
+     "cutSpending": 61.9,
+     "pawn": 11.3,
+     "extraWork": 16.6,
+     "credit": 12.8,
+     "latePayment": 12.5
+    },
+    "cushion": {
+     "lt1w": 32.6,
+     "lt1m": 21.4,
+     "lt3m": 26.2,
+     "lt6m": 10.2,
+     "gte6m": 9.6
+    },
+    "debtView": {
+     "canPay": 84.3,
+     "some": 12.6,
+     "cannot": 3,
+     "withDebts": 44
+    },
+    "everApplied": 58.2,
+    "rejected": 30.5,
+    "rejectWhy": {
+     "bureau": 37,
+     "income": 17.9,
+     "documents": 5.4,
+     "noHistory": 26.9,
+     "noCollateral": 1.5,
+     "other": 0.5
+    },
+    "leftover": {
+     "always": 17.8,
+     "sometimes": 55,
+     "never": 27.2
+    },
+    "ownsHome": 38.2,
+    "ownsVehicle": 39.3,
+    "benefits": 10
+   },
+   "northeast": {
+    "people": 10489776,
+    "sample": 2289,
+    "anyProduct": 84.9,
+    "insurance": 29.6,
+    "anyAccount": 69.6,
+    "anyCredit": 46.2,
+    "anyInformalCredit": 25.2,
+    "afore": 54.8,
+    "noCredit": 41.5,
+    "onlyInformalCredit": 12.3,
+    "credit": {
+     "storeCard": 22.7,
+     "bankCard": 17.9,
+     "payroll": 5.6,
+     "personal": 4.5,
+     "auto": 2.9,
+     "housing": 13.1,
+     "group": 2.7,
+     "online": 2.2,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 6.6,
+     "pawn": 2.7,
+     "friends": 9.4,
+     "family": 15.5,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 41.6,
+     "pension": 6.6,
+     "benefits": 7.3,
+     "savings": 22.9,
+     "checking": 3.3,
+     "term": 2.7,
+     "fund": 2.5,
+     "app": 14.5,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 21,
+     "bankCard": 14.9,
+     "payroll": 2.2,
+     "personal": 8.6,
+     "auto": 4.6,
+     "housing": 26.6,
+     "group": 9,
+     "online": 22,
+     "other": null
+    },
+    "lateAny": 22.9,
+    "saving": {
+     "onlyInformal": 32.2,
+     "none": 32.9,
+     "both": 26.8,
+     "onlyFormal": 8.1
+    },
+    "informalSaving": {
+     "lending": 7.5,
+     "goods": 5.7,
+     "savingsClub": 18.2,
+     "family": 8.4,
+     "tanda": 19.6,
+     "home": 39.7
+    },
+    "notEnough": 33.5,
+    "coping": {
+     "family": 48,
+     "savings": 43.4,
+     "cutSpending": 70.7,
+     "pawn": 17.9,
+     "extraWork": 23.4,
+     "credit": 13,
+     "latePayment": 10.9
+    },
+    "cushion": {
+     "lt1w": 31.4,
+     "lt1m": 19.5,
+     "lt3m": 28.9,
+     "lt6m": 10.7,
+     "gte6m": 9.6
+    },
+    "debtView": {
+     "canPay": 85.1,
+     "some": 10.6,
+     "cannot": 4.3,
+     "withDebts": 45
+    },
+    "everApplied": 62.1,
+    "rejected": 34.9,
+    "rejectWhy": {
+     "bureau": 36.8,
+     "income": 22,
+     "documents": 7.5,
+     "noHistory": 24.5,
+     "noCollateral": 3.9,
+     "other": 1.2
+    },
+    "leftover": {
+     "always": 18.7,
+     "sometimes": 53.7,
+     "never": 27.6
+    },
+    "ownsHome": 37.7,
+    "ownsVehicle": 36.1,
+    "benefits": 8.7
+   },
+   "west": {
+    "people": 18200076,
+    "sample": 2368,
+    "anyProduct": 72.8,
+    "insurance": 23.4,
+    "anyAccount": 57.8,
+    "anyCredit": 32.9,
+    "anyInformalCredit": 25,
+    "afore": 42.6,
+    "noCredit": 50.4,
+    "onlyInformalCredit": 16.6,
+    "credit": {
+     "storeCard": 20,
+     "bankCard": 16.7,
+     "payroll": 2.4,
+     "personal": 4.6,
+     "auto": 2.1,
+     "housing": 4,
+     "group": 1.1,
+     "online": 0.8,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 4.7,
+     "pawn": 1.8,
+     "friends": 9.6,
+     "family": 18.1,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 32.4,
+     "pension": 3.4,
+     "benefits": 9.2,
+     "savings": 22.1,
+     "checking": 2.5,
+     "term": 2.3,
+     "fund": 2.5,
+     "app": 8.6,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 18,
+     "bankCard": 17.1,
+     "payroll": 8.6,
+     "personal": 11,
+     "auto": 4.1,
+     "housing": 15.6,
+     "group": null,
+     "online": null,
+     "other": null
+    },
+    "lateAny": 20.9,
+    "saving": {
+     "onlyInformal": 38.2,
+     "none": 35.3,
+     "both": 19.6,
+     "onlyFormal": 6.9
+    },
+    "informalSaving": {
+     "lending": 5.1,
+     "goods": 4.2,
+     "savingsClub": 13.6,
+     "family": 9.2,
+     "tanda": 21.8,
+     "home": 41.1
+    },
+    "notEnough": 36.5,
+    "coping": {
+     "family": 52.4,
+     "savings": 42.6,
+     "cutSpending": 66.1,
+     "pawn": 11.9,
+     "extraWork": 15.2,
+     "credit": 9.3,
+     "latePayment": 9.2
+    },
+    "cushion": {
+     "lt1w": 26.4,
+     "lt1m": 19.3,
+     "lt3m": 28.8,
+     "lt6m": 10.8,
+     "gte6m": 14.6
+    },
+    "debtView": {
+     "canPay": 87.3,
+     "some": 10,
+     "cannot": 2.7,
+     "withDebts": 31
+    },
+    "everApplied": 54.4,
+    "rejected": 27.5,
+    "rejectWhy": {
+     "bureau": 32.6,
+     "income": 18.6,
+     "documents": 6.5,
+     "noHistory": 29.9,
+     "noCollateral": 3.5,
+     "other": 0.8
+    },
+    "leftover": {
+     "always": 17.8,
+     "sometimes": 44.8,
+     "never": 37.4
+    },
+    "ownsHome": 27.3,
+    "ownsVehicle": 32,
+    "benefits": 9.9
+   },
+   "cdmx": {
+    "people": 6922699,
+    "sample": 845,
+    "anyProduct": 80,
+    "insurance": 30,
+    "anyAccount": 69.9,
+    "anyCredit": 40,
+    "anyInformalCredit": 27.6,
+    "afore": 48.5,
+    "noCredit": 40.8,
+    "onlyInformalCredit": 19.2,
+    "credit": {
+     "storeCard": 24.1,
+     "bankCard": 28.4,
+     "payroll": 1.8,
+     "personal": 1.6,
+     "auto": 2.1,
+     "housing": 3.8,
+     "group": 0.3,
+     "online": 1.3,
+     "other": 0.2
+    },
+    "informalCredit": {
+     "savingsClub": 2.4,
+     "pawn": 2.7,
+     "friends": 8.8,
+     "family": 21.2,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 41.7,
+     "pension": 6.6,
+     "benefits": 10,
+     "savings": 31,
+     "checking": 3.3,
+     "term": 4.5,
+     "fund": 4.9,
+     "app": 7.3,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 13.1,
+     "bankCard": 14.5,
+     "payroll": null,
+     "personal": null,
+     "auto": null,
+     "housing": 12.9,
+     "group": null,
+     "online": null,
+     "other": null
+    },
+    "lateAny": 17.8,
+    "saving": {
+     "onlyInformal": 23.5,
+     "none": 33.8,
+     "both": 25.2,
+     "onlyFormal": 17.5
+    },
+    "informalSaving": {
+     "lending": 3.7,
+     "goods": 3.1,
+     "savingsClub": 13.2,
+     "family": 8.3,
+     "tanda": 17.9,
+     "home": 30.7
+    },
+    "notEnough": 37.4,
+    "coping": {
+     "family": 49.6,
+     "savings": 31.8,
+     "cutSpending": 70,
+     "pawn": 11.4,
+     "extraWork": 8.7,
+     "credit": 9.7,
+     "latePayment": 6
+    },
+    "cushion": {
+     "lt1w": 31.7,
+     "lt1m": 22.3,
+     "lt3m": 21,
+     "lt6m": 11.6,
+     "gte6m": 13.3
+    },
+    "debtView": {
+     "canPay": 90.4,
+     "some": 7.4,
+     "cannot": 2.2,
+     "withDebts": 37.9
+    },
+    "everApplied": 62.6,
+    "rejected": 41.5,
+    "rejectWhy": {
+     "bureau": 24.2,
+     "income": 32.8,
+     "documents": 4.7,
+     "noHistory": 41.6,
+     "noCollateral": 5.6,
+     "other": 0.2
+    },
+    "leftover": {
+     "always": 19.5,
+     "sometimes": 53.4,
+     "never": 27
+    },
+    "ownsHome": 27.3,
+    "ownsVehicle": 26.7,
+    "benefits": 12.4
+   },
+   "center": {
+    "people": 25927264,
+    "sample": 2291,
+    "anyProduct": 76.1,
+    "insurance": 17.1,
+    "anyAccount": 62.5,
+    "anyCredit": 36.4,
+    "anyInformalCredit": 33,
+    "afore": 36.7,
+    "noCredit": 44.9,
+    "onlyInformalCredit": 18.7,
+    "credit": {
+     "storeCard": 23.7,
+     "bankCard": 11.4,
+     "payroll": 2.8,
+     "personal": 4.8,
+     "auto": 1.2,
+     "housing": 2.6,
+     "group": 3.6,
+     "online": 1.4,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 7.3,
+     "pawn": 2.3,
+     "friends": 13.7,
+     "family": 23.4,
+     "other": 0
+    },
+    "accounts": {
+     "payroll": 28.2,
+     "pension": 3.9,
+     "benefits": 13.3,
+     "savings": 24.9,
+     "checking": 1.1,
+     "term": 1.1,
+     "fund": 0.9,
+     "app": 9.3,
+     "other": 0
+    },
+    "late": {
+     "storeCard": 21,
+     "bankCard": 17.3,
+     "payroll": 8.6,
+     "personal": 18.4,
+     "auto": null,
+     "housing": 14.5,
+     "group": 6.7,
+     "online": 22.4,
+     "other": null
+    },
+    "lateAny": 21.6,
+    "saving": {
+     "onlyInformal": 43.6,
+     "none": 30.6,
+     "both": 19.4,
+     "onlyFormal": 6.3
+    },
+    "informalSaving": {
+     "lending": 5.6,
+     "goods": 8.1,
+     "savingsClub": 12,
+     "family": 9.2,
+     "tanda": 21.4,
+     "home": 45.8
+    },
+    "notEnough": 41.9,
+    "coping": {
+     "family": 58,
+     "savings": 47.9,
+     "cutSpending": 76.9,
+     "pawn": 13.8,
+     "extraWork": 17.9,
+     "credit": 11.7,
+     "latePayment": 9.3
+    },
+    "cushion": {
+     "lt1w": 28.3,
+     "lt1m": 23.9,
+     "lt3m": 29.7,
+     "lt6m": 10.1,
+     "gte6m": 8.1
+    },
+    "debtView": {
+     "canPay": 85.7,
+     "some": 10.1,
+     "cannot": 4.2,
+     "withDebts": 34.5
+    },
+    "everApplied": 55.2,
+    "rejected": 35,
+    "rejectWhy": {
+     "bureau": 31.2,
+     "income": 23.7,
+     "documents": 13.8,
+     "noHistory": 24.5,
+     "noCollateral": 2.5,
+     "other": 1.1
+    },
+    "leftover": {
+     "always": 10.9,
+     "sometimes": 50.8,
+     "never": 38.2
+    },
+    "ownsHome": 25.7,
+    "ownsVehicle": 22.6,
+    "benefits": 14.4
+   },
+   "south": {
+    "people": 13860138,
+    "sample": 2326,
+    "anyProduct": 67.7,
+    "insurance": 16.6,
+    "anyAccount": 55.5,
+    "anyCredit": 29.9,
+    "anyInformalCredit": 31.4,
+    "afore": 30.1,
+    "noCredit": 49.8,
+    "onlyInformalCredit": 20.4,
+    "credit": {
+     "storeCard": 18,
+     "bankCard": 11.6,
+     "payroll": 2.6,
+     "personal": 3.6,
+     "auto": 1.1,
+     "housing": 4.9,
+     "group": 2.8,
+     "online": 1.5,
+     "other": 0
+    },
+    "informalCredit": {
+     "savingsClub": 4.5,
+     "pawn": 3.4,
+     "friends": 12.2,
+     "family": 21.3,
+     "other": 0.2
+    },
+    "accounts": {
+     "payroll": 21,
+     "pension": 2.3,
+     "benefits": 18.3,
+     "savings": 20.8,
+     "checking": 1.6,
+     "term": 1.5,
+     "fund": 1.6,
+     "app": 9.6,
+     "other": 0.3
+    },
+    "late": {
+     "storeCard": 23,
+     "bankCard": 20,
+     "payroll": 5.9,
+     "personal": 18,
+     "auto": 0,
+     "housing": 24.7,
+     "group": 5.4,
+     "online": 20.7,
+     "other": null
+    },
+    "lateAny": 25.8,
+    "saving": {
+     "onlyInformal": 37.9,
+     "none": 37.1,
+     "both": 19.5,
+     "onlyFormal": 5.5
+    },
+    "informalSaving": {
+     "lending": 5.5,
+     "goods": 12.7,
+     "savingsClub": 10.9,
+     "family": 9.4,
+     "tanda": 20.8,
+     "home": 37.5
+    },
+    "notEnough": 48.3,
+    "coping": {
+     "family": 54.2,
+     "savings": 47,
+     "cutSpending": 70.5,
+     "pawn": 15.8,
+     "extraWork": 20,
+     "credit": 9.6,
+     "latePayment": 7.9
+    },
+    "cushion": {
+     "lt1w": 35.5,
+     "lt1m": 16.7,
+     "lt3m": 26.8,
+     "lt6m": 9.9,
+     "gte6m": 11
+    },
+    "debtView": {
+     "canPay": 90.2,
+     "some": 8,
+     "cannot": 1.8,
+     "withDebts": 28.3
+    },
+    "everApplied": 45.3,
+    "rejected": 36.6,
+    "rejectWhy": {
+     "bureau": 40.1,
+     "income": 19.7,
+     "documents": 7.5,
+     "noHistory": 21,
+     "noCollateral": 2.4,
+     "other": 1.8
+    },
+    "leftover": {
+     "always": 11.9,
+     "sometimes": 44.9,
+     "never": 43.2
+    },
+    "ownsHome": 39.4,
+    "ownsVehicle": 24,
+    "benefits": 20.8
+   }
+  },
+  "source": {
+   "name": "INEGI y CNBV, Encuesta Nacional de Inclusión Financiera (ENIF), microdatos",
+   "url": "https://www.inegi.org.mx/programas/enif/2024/"
+  }
+ }
+}
