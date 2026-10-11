@@ -86,7 +86,8 @@
         meta.data.forEach(function (el, i) {
           var v = ds.data[i]; if (v == null) return;
           var t = o.fmt(v, i), w = ctx.measureText(t).width;
-          if (horiz) { var x = el.x + 6; if (v < 0) x = el.x - w - 6;
+          if (horiz) { var x = el.x + 6; if (v < 0) x = el.base + 6;   // a negative bar is labeled at the zero line, on the empty side
+           
             if (x + w > chart.width - 2) { var bg = Array.isArray(ds.backgroundColor) ? ds.backgroundColor[i] : ds.backgroundColor; if (el.x - el.base < w + 14) return; ctx.save(); ctx.fillStyle = UI.inkOn(bg); ctx.textAlign = 'right'; ctx.fillText(t, el.x - 7, el.y); ctx.restore(); return; }
             ctx.textAlign = 'left'; ctx.fillText(t, x, el.y); }
           else { if (w > (el.width || 0) + 14) return; ctx.textAlign = 'center'; ctx.fillText(t, el.x, v < 0 ? el.y + 10 : el.y - 9); }

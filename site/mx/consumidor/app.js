@@ -856,12 +856,12 @@
     if (!CO || !CO.companies.length) return null;
     var comps = CO.companies.filter(function (c) { return c.comp; }), pos = comps.filter(function (c) { return c.comp.v > 0; }), med = median(comps.map(function (c) { return c.comp.v; }));
     var tr2 = CO.companies.filter(function (c) { return c.traffic; }), trDown = tr2.filter(function (c) { return c.traffic.v < 0; });
-    var npl = CO.companies.filter(function (c) { return c.npl && c.npl.prev != null; }), nplUp = npl.filter(function (c) { return c.npl.v > c.npl.prev; });
+    var npl = CO.companies.filter(function (c) { return c.npl && (c.npl.prev != null || c.npl.chgBp != null); }), nplUp = npl.filter(function (c) { return c.npl.prev != null ? c.npl.v > c.npl.prev : c.npl.chgBp > 0; });
     if (!comps.length) return null;
     var best = comps.slice().sort(function (x, y) { return y.comp.v - x.comp.v; })[0], worst = comps.slice().sort(function (x, y) { return x.comp.v - y.comp.v; })[0];
     return bi(
-      'Lo que ven las empresas: de ' + comps.length + ' cadenas que reportan ventas a tiendas iguales en México, ' + pos.length + ' crecieron; la mediana es de <b>' + UI.signed(med) + '</b>, de ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') a ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' El tráfico cayó en ' + trDown.length + ' de las ' + tr2.length + ' que lo reportan.' : '') + (npl.length ? ' La cartera vencida subió frente al año anterior en ' + nplUp.length + ' de ' + npl.length + ' prestamistas.' : ''),
-      'What companies see: of ' + comps.length + ' chains that report same-store sales in Mexico, ' + pos.length + ' grew; the median is <b>' + UI.signed(med) + '</b>, from ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') to ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' Traffic fell at ' + trDown.length + ' of the ' + tr2.length + ' that report it.' : '') + (npl.length ? ' Past-due loans rose from a year earlier at ' + nplUp.length + ' of ' + npl.length + ' lenders.' : ''));
+      'Lo que ven las empresas: de ' + comps.length + ' cadenas que reportan ventas a tiendas iguales en México, ' + pos.length + ' crecieron; la mediana es de <b>' + UI.signed(med) + '</b>, de ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') a ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' El tráfico cayó en ' + trDown.length + ' de las ' + tr2.length + ' que lo reportan.' : '') + (npl.length ? ' La cartera vencida subió frente al año anterior en ' + nplUp.length + ' de las ' + npl.length + ' empresas que la reportan.' : ''),
+      'What companies see: of ' + comps.length + ' chains that report same-store sales in Mexico, ' + pos.length + ' grew; the median is <b>' + UI.signed(med) + '</b>, from ' + UI.signed(worst.comp.v, worst.comp.dp) + ' (' + esc(worst.short || worst.name) + ') to ' + UI.signed(best.comp.v, best.comp.dp) + ' (' + esc(best.short || best.name) + ').' + (tr2.length ? ' Traffic fell at ' + trDown.length + ' of the ' + tr2.length + ' that report it.' : '') + (npl.length ? ' Past-due loans rose from a year earlier at ' + nplUp.length + ' of the ' + npl.length + ' companies that report them.' : ''));
   }
   // one figure of a company, in the unit its report gives
   function figVal(m) {
@@ -873,9 +873,10 @@
     if (m.unit === 'n') return UI.nf(v, dp);
     if (m.unit === 'mxnM') return UI.cur() + UI.nf(v, dp) + tr(' millones', ' million');
     if (m.unit === 'usdM') return 'US$' + UI.nf(v, dp) + tr(' millones', ' million');
+    if (m.unit === 'usdBn') return 'US$' + UI.nf(v, dp) + tr(' mil millones', ' billion');
     return '<span class="' + (v > 0 ? 'up' : v < 0 ? 'down' : '') + '">' + UI.signed(v, dp) + '</span>';
   }
-  function figPrev(m) { if (m.prev == null) return ''; var dp = m.dp == null ? 1 : m.dp; return ' <span class="nd">(' + (m.unit === 'rate' ? UI.pct(m.prev, dp) : m.unit === 'x' ? UI.nf(m.prev, dp) + '×' : m.unit === 'chg' || !m.unit ? UI.signed(m.prev, dp) : UI.nf(m.prev, dp)) + tr(' un año antes', ' a year earlier') + ')</span>'; }
+  function figPrev(m) { if (m.prev == null && m.chgBp != null) return ' <span class="nd">(' + (m.chgBp > 0 ? '+' : m.chgBp < 0 ? '−' : '') + UI.nf(Math.abs(m.chgBp), 0) + tr(' puntos base frente a un año antes', ' basis points from a year earlier') + ')</span>'; if (m.prev == null) return ''; var dp = m.dp == null ? 1 : m.dp; return ' <span class="nd">(' + (m.unit === 'rate' ? UI.pct(m.prev, dp) : m.unit === 'x' ? UI.nf(m.prev, dp) + '×' : m.unit === 'chg' || !m.unit ? UI.signed(m.prev, dp) : UI.nf(m.prev, dp)) + tr(' un año antes', ' a year earlier') + ')</span>'; }
   function companies() {
     if (!CO || !CO.companies.length) { $('empresas').hidden = true; return; }
     var newer = CO.companies.filter(function (c) { return c.newerFiling; });
@@ -883,7 +884,7 @@
       (newer.length ? ' ' + UI.amber(tr(newer.length + ' con reporte más reciente por revisar', newer.length + ' with a newer report to review'), newer.map(function (c) { return c.ticker; }).join(', ')) : '');
     $('coCallout').innerHTML = (companySummary() || '') + ' ' + UI.kind('C') + bi(' Las definiciones difieren entre empresas; las cifras no son estrictamente comparables entre sí.', ' Definitions differ across companies; the figures are not strictly comparable with one another.');
     var gname = {}; CO.groups.forEach(function (g) { gname[g.id] = tr(g.es, g.en); });
-    var gcol = { grocery: S(1), value: S(2), department: S(5), staples: S(3) };
+    var gcol = { grocery: S(1), value: S(2), department: S(5), staples: S(3), credit: S(4) };
     var order = CO.groups.map(function (g) { return g.id; });
     var comps = CO.companies.filter(function (c) { return c.comp; });
     comps.sort(function (x, y) { return order.indexOf(x.group) - order.indexOf(y.group) || y.comp.v - x.comp.v; });
@@ -905,7 +906,8 @@
       html += '<div class="card full co-group"><h3>' + gname[g.id] + '</h3><div class="tblwrap"><table class="co-table"><colgroup>' + (retail ? [21, 12, 11, 9, 10, 37] : [21, 39, 40]).map(function (w) { return '<col style="width:' + w + '%">'; }).join('') + '</colgroup><thead><tr>' + head.map(function (h) { return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead><tbody>';
       list.forEach(function (c) {
         var first = '<td><span class="tk">' + esc(c.name) + '</span> <span class="nd">' + esc(c.ticker) + '</span><span class="per">' + tr(c.period.es, c.period.en) + ' · ' + UI.date(c.periodEnd) + '</span>' + (c.newerFiling ? '<span class="new" title="' + esc(tr('Ya hay un reporte de resultados más reciente, del ', 'A newer results release exists, dated ') + UI.date(c.newerFiling)) + '">' + tr('reporte más reciente por revisar', 'newer report to review') + '</span>' : '') + '</td>';
-        var extras = (c.extra || []).map(function (x) { return tr(x.label.es, x.label.en) + ': ' + figVal(x) + figPrev(x); });
+        var nplL = c.npl ? (c.npl.label || { es: 'Cartera vencida', en: 'Past-due loans' }) : null;
+        var extras = (c.npl ? [tr(nplL.es, nplL.en) + ': ' + figVal(c.npl) + figPrev(c.npl)] : []).concat((c.extra || []).map(function (x) { return tr(x.label.es, x.label.en) + ': ' + figVal(x) + figPrev(x); }));
         var txt = '<td class="txt"><b>' + tr(c.segment.es, c.segment.en) + '.</b>' + (retail && extras.length ? '<span class="xt">' + extras.join(' · ') + '</span>' : '') +
           (c.quote ? '<span class="xt"><q lang="' + (c.quote.lang || 'es') + '">' + esc(c.quote.text) + '</q>' + (c.quote.by || c.quote.role ? '<span class="by">' + (c.quote.by ? esc(c.quote.by) : '') + (c.quote.by && c.quote.role ? ', ' : '') + (c.quote.role ? tr(c.quote.role.es, c.quote.role.en) : '') + '</span>' : '') + '</span>' : '') + '<span class="xt">' + srcA(c) + ' · ' + tr('presentado el ', 'filed ') + UI.date(c.filed) + '</span></td>';
         if (retail) html += '<tr>' + first + td(head[1], cellOf(c.comp)) + td(head[2], cellOf(c.sales)) + td(head[3], cellOf(c.traffic)) + td(head[4], cellOf(c.ticket)) + txt + '</tr>';

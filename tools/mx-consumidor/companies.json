@@ -22,14 +22,9 @@
    "en": "Consumer Staples"
   },
   {
-   "id": "lenders",
-   "es": "Bancos y Tarjetas",
-   "en": "Banks and Cards"
-  },
-  {
-   "id": "stress",
-   "es": "Microcrédito, Crédito Digital y Casas de Empeño",
-   "en": "Microcredit, Digital Credit and Pawn"
+   "id": "credit",
+   "es": "Crédito, Banca Digital y Casas de Empeño",
+   "en": "Credit, Digital Banking and Pawn"
   }
  ],
  "companies": [
@@ -146,51 +141,17 @@
    "match": "results|resultados"
   },
   {
-   "ticker": "BBVA",
-   "name": "BBVA (BBVA México)",
-   "short": "BBVA México",
-   "group": "lenders",
-   "sec": "BBVA",
-   "form": "6-K",
-   "match": "results|quarterly report|january|interim"
-  },
-  {
-   "ticker": "SAN",
-   "name": "Banco Santander (Santander México)",
-   "short": "Santander México",
-   "group": "lenders",
-   "sec": "SAN",
-   "form": "6-K",
-   "match": "financial report|results|january"
-  },
-  {
-   "ticker": "BBAJIO",
-   "name": "Banco del Bajío",
-   "short": "BanBajío",
-   "group": "lenders",
-   "bmv": "BBAJIO-31431-CGEN_CAPIT",
-   "match": "resultados"
-  },
-  {
    "ticker": "GENTERA",
    "name": "Gentera (Compartamos)",
    "short": "Gentera",
-   "group": "stress",
+   "group": "credit",
    "bmv": "GENTERA-7472-CGEN_CAPIT"
-  },
-  {
-   "ticker": "FINDEP",
-   "name": "Financiera Independencia",
-   "short": "Findep",
-   "group": "stress",
-   "bmv": "FINDEP-5321-CGEN_CAPIT",
-   "xbrl": true
   },
   {
    "ticker": "NU",
    "name": "Nu (Nu Holdings)",
    "short": "Nu México",
-   "group": "stress",
+   "group": "credit",
    "sec": "NU",
    "form": "6-K",
    "match": "quarter|results"
@@ -199,7 +160,7 @@
    "ticker": "MELI",
    "name": "Mercado Libre (Mercado Pago)",
    "short": "Mercado Libre",
-   "group": "stress",
+   "group": "credit",
    "sec": "MELI",
    "form": "8-K"
   },
@@ -207,7 +168,7 @@
    "ticker": "FCFS",
    "name": "FirstCash (First Cash, casas de empeño)",
    "short": "First Cash",
-   "group": "stress",
+   "group": "credit",
    "sec": "FCFS",
    "form": "8-K"
   }
