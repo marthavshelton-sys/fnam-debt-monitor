@@ -1,0 +1,73 @@
+# Keeps the Mexican Consumer page (site/mx/consumidor) current. Runbook: tools/mx-consumidor/README.md.
+name: Refresh Mexican Consumer data
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "true = read every source again even when the publisher shows nothing new"
+        default: "false"
+      probe:
+        description: "true = diagnostics on a feature branch: answer the requests in tools/mx-consumidor/probe.json and commit the answers there (never on main)"
+        default: "false"
+  push:
+    branches: ["claude/mexican-consumer"]
+    paths:
+      - "tools/mx-consumidor/probe.json"
+
+concurrency:
+  group: mx-consumidor-refresh-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  probe:
+    if: github.ref_name != 'main' && (github.event_name == 'push' || inputs.probe == 'true')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: PDF reader (optional)
+        continue-on-error: true
+        timeout-minutes: 4
+        run: pip install --quiet pdfplumber
+      - name: Diagnostics (answers are committed to this feature branch only)
+        continue-on-error: true
+        timeout-minutes: 18
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+          INEGI_TOKEN: ${{ secrets.INEGI_TOKEN }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx mexican-consumer (contact via repository)' }}
+        run: node scripts/mx-consumidor/probe.mjs tools/mx-consumidor/probe.json tools/mx-consumidor/raw/probe "$RUNNER_TEMP/scratch"
+      - name: Commit the answers
+        shell: bash
+        run: |
+          git config user.name "mx-consumidor-refresh[bot]"
+          git config user.email "mx-consumidor-refresh@users.noreply.github.com"
+          git add -A tools/mx-consumidor/raw/probe
+          if git diff --cached --quiet; then echo "no answers"; else
+            git commit -q -m "mx-consumidor: probe answers $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+            for i in 1 2 3; do if git push origin HEAD:${GITHUB_REF_NAME}; then break; fi; git pull --rebase origin ${GITHUB_REF_NAME} || true; sleep $((i * 4)); done
+          fi
+      - name: Large answers go to a scratch branch (deleted when the work is done)
+        if: always()
+        continue-on-error: true
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          S="$RUNNER_TEMP/scratch"
+          if [ -d "$S" ] && [ -n "$(ls -A "$S" 2>/dev/null)" ]; then
+            cd "$S"; ls -la
+            git init -q; git checkout -q -b scratch
+            git config user.name "mx-consumidor-refresh[bot]"; git config user.email "mx-consumidor-refresh@users.noreply.github.com"
+            git add -A; git commit -q -m "scratch files of a probe [skip actions]"
+            git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/claude/mx-consumer-scratch
+          fi

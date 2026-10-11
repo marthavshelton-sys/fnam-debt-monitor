@@ -1,0 +1,376 @@
+[
+ {
+  "name": "inegi-enigh2024",
+  "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-enif2024",
+  "url": "https://www.inegi.org.mx/programas/enif/2024/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-enfih2019",
+  "url": "https://www.inegi.org.mx/programas/enfih/2019/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-enoe",
+  "url": "https://www.inegi.org.mx/programas/enoe/15ymas/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-pm",
+  "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-pobreza",
+  "url": "https://www.inegi.org.mx/temas/pobreza/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-enco",
+  "url": "https://www.inegi.org.mx/programas/enco/",
+  "links": "contenidos/|\\.zip|\\.xlsx?|\\.csv|\\.pdf",
+  "keep": 9000
+ },
+ {
+  "name": "inegi-enigh2024-raw",
+  "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+  "html": "raw",
+  "grep": "tabulad|microdato|api|\\.js|ajax|json",
+  "keep": 6000
+ },
+ {
+  "name": "enigh2024-concentrado",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_concentradohogar_csv.zip",
+  "zip": "list",
+  "save": "enigh2024_concentradohogar.zip"
+ },
+ {
+  "name": "enigh2022-concentrado",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2022/microdatos/enigh2022_ns_concentradohogar_csv.zip",
+  "zip": "list",
+  "save": "enigh2022_concentradohogar.zip"
+ },
+ {
+  "name": "enigh2020-concentrado",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2020/microdatos/enigh2020_ns_concentradohogar_csv.zip",
+  "zip": "list",
+  "save": "enigh2020_concentradohogar.zip"
+ },
+ {
+  "name": "enigh2018-concentrado",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip",
+  "zip": "list",
+  "save": "enigh2018_concentradohogar.zip"
+ },
+ {
+  "name": "enigh2016-concentrado",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2016/microdatos/enigh2016_ns_concentradohogar_csv.zip",
+  "zip": "list",
+  "save": "enigh2016_concentradohogar.zip"
+ },
+ {
+  "name": "enigh2024-viviendas",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip",
+  "zip": "list",
+  "save": "enigh2024_viviendas.zip"
+ },
+ {
+  "name": "enigh2024-hogares",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_hogares_csv.zip",
+  "zip": "list",
+  "save": "enigh2024_hogares.zip"
+ },
+ {
+  "name": "enigh2024-presentacion",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
+  "pdf": true,
+  "from": 0,
+  "to": 70,
+  "keep": 0
+ },
+ {
+  "name": "siedir-01",
+  "kind": "siedir",
+  "sector": 1
+ },
+ {
+  "name": "siedir-02",
+  "kind": "siedir",
+  "sector": 2
+ },
+ {
+  "name": "siedir-03",
+  "kind": "siedir",
+  "sector": 3
+ },
+ {
+  "name": "siedir-04",
+  "kind": "siedir",
+  "sector": 4
+ },
+ {
+  "name": "siedir-05",
+  "kind": "siedir",
+  "sector": 5
+ },
+ {
+  "name": "siedir-06",
+  "kind": "siedir",
+  "sector": 6
+ },
+ {
+  "name": "siedir-07",
+  "kind": "siedir",
+  "sector": 7
+ },
+ {
+  "name": "siedir-08",
+  "kind": "siedir",
+  "sector": 8
+ },
+ {
+  "name": "siedir-09",
+  "kind": "siedir",
+  "sector": 9
+ },
+ {
+  "name": "siedir-10",
+  "kind": "siedir",
+  "sector": 10
+ },
+ {
+  "name": "siedir-11",
+  "kind": "siedir",
+  "sector": 11
+ },
+ {
+  "name": "siedir-12",
+  "kind": "siedir",
+  "sector": 12
+ },
+ {
+  "name": "siedir-13",
+  "kind": "siedir",
+  "sector": 13
+ },
+ {
+  "name": "siedir-14",
+  "kind": "siedir",
+  "sector": 14
+ },
+ {
+  "name": "siedir-15",
+  "kind": "siedir",
+  "sector": 15
+ },
+ {
+  "name": "siedir-16",
+  "kind": "siedir",
+  "sector": 16
+ },
+ {
+  "name": "siedir-17",
+  "kind": "siedir",
+  "sector": 17
+ },
+ {
+  "name": "siedir-18",
+  "kind": "siedir",
+  "sector": 18
+ },
+ {
+  "name": "siedir-19",
+  "kind": "siedir",
+  "sector": 19
+ },
+ {
+  "name": "siedir-20",
+  "kind": "siedir",
+  "sector": 20
+ },
+ {
+  "name": "siedir-21",
+  "kind": "siedir",
+  "sector": 21
+ },
+ {
+  "name": "siedir-22",
+  "kind": "siedir",
+  "sector": 22
+ },
+ {
+  "name": "siedir-23",
+  "kind": "siedir",
+  "sector": 23
+ },
+ {
+  "name": "siedir-24",
+  "kind": "siedir",
+  "sector": 24
+ },
+ {
+  "name": "siedir-25",
+  "kind": "siedir",
+  "sector": 25
+ },
+ {
+  "name": "siedir-26",
+  "kind": "siedir",
+  "sector": 26
+ },
+ {
+  "name": "siedir-27",
+  "kind": "siedir",
+  "sector": 27
+ },
+ {
+  "name": "siedir-28",
+  "kind": "siedir",
+  "sector": 28
+ },
+ {
+  "name": "siedir-29",
+  "kind": "siedir",
+  "sector": 29
+ },
+ {
+  "name": "siedir-30",
+  "kind": "siedir",
+  "sector": 30
+ },
+ {
+  "name": "bie-00",
+  "kind": "bie",
+  "q": "consumo privado en el mercado interior",
+  "n": 40
+ },
+ {
+  "name": "bie-01",
+  "kind": "bie",
+  "q": "ingresos por suministro de bienes y servicios comercio al por menor",
+  "n": 40
+ },
+ {
+  "name": "bie-02",
+  "kind": "bie",
+  "q": "cuentas por sectores institucionales hogares ingreso disponible",
+  "n": 40
+ },
+ {
+  "name": "bie-03",
+  "kind": "bie",
+  "q": "hogares ahorro bruto",
+  "n": 40
+ },
+ {
+  "name": "bie-04",
+  "kind": "bie",
+  "q": "tasa de informalidad laboral",
+  "n": 40
+ },
+ {
+  "name": "bie-05",
+  "kind": "bie",
+  "q": "indice nacional de precios al consumidor estrato de ingreso",
+  "n": 40
+ },
+ {
+  "name": "bie-06",
+  "kind": "bie",
+  "q": "pobreza laboral",
+  "n": 40
+ },
+ {
+  "name": "bie-07",
+  "kind": "bie",
+  "q": "venta de vehiculos ligeros",
+  "n": 40
+ },
+ {
+  "name": "bie-08",
+  "kind": "bie",
+  "q": "masa salarial real",
+  "n": 40
+ },
+ {
+  "name": "bie-09",
+  "kind": "bie",
+  "q": "ingreso laboral per capita",
+  "n": 40
+ },
+ {
+  "name": "bie-10",
+  "kind": "bie",
+  "q": "producto interno bruto consumo privado",
+  "n": 40
+ },
+ {
+  "name": "bie-11",
+  "kind": "bie",
+  "q": "poblacion grupos de edad",
+  "n": 40
+ },
+ {
+  "name": "bie-12",
+  "kind": "bie",
+  "q": "hogares valor neto balance",
+  "n": 40
+ },
+ {
+  "name": "bie-13",
+  "kind": "bie",
+  "q": "remuneraciones medias reales",
+  "n": 40
+ },
+ {
+  "name": "bie-14",
+  "kind": "bie",
+  "q": "indicador de confianza del consumidor",
+  "n": 40
+ },
+ {
+  "name": "bmv-issuers",
+  "url": "https://www.bmv.com.mx/es/Grupo_BMV/BmvJsonGeneric?idSitioPagina=4",
+  "keep": 3000
+ },
+ {
+  "name": "bmv-walmex",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 5000,
+  "ua": "bot"
+ },
+ {
+  "name": "fred-bis-hh",
+  "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=QMXHAM770A",
+  "keep": 300
+ },
+ {
+  "name": "cnbv-inclusion",
+  "url": "https://www.cnbv.gob.mx/Inclusi%C3%B3n/Paginas/Bases-de-Datos.aspx",
+  "links": "\\.xls|\\.zip|\\.csv|Documents|Anexos",
+  "keep": 6000
+ },
+ {
+  "name": "consar-siset",
+  "url": "https://www.consar.gob.mx/gobmx/aplicativo/siset/Enlace.aspx?md=5",
+  "links": ".",
+  "keep": 4000
+ },
+ {
+  "name": "sec-fmx",
+  "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=FMX&type=6-K&dateb=&owner=include&count=10",
+  "ua": "sec",
+  "keep": 1500
+ }
+]
