@@ -1,0 +1,28 @@
+GET https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js
+-> HTTP 200 application/javascript 240153 bytes · Last-Modified Fri, 18 Sep 2026 21:56:24 GMT
+
+(2 distinct matches)
+archivoscompaginacion?tema=" +
+                                        a +
+                                        "&subtema=" +
+                                        o +
+                                        "&areaGeografica=" +
+                                        (arrayAG.length <= 1 ? i : arrayAG[0].idAreaGeografica) +
+                                        "&proyecto=" +
+      
+archivoscompaginacion?tema=" +
+            g +
+            "&subtema=" +
+            c +
+            "&areaGeografica=" +
+            (null == p ? "0" : p) +
+            "&proyecto=" +
+            h +
+            "&anio=" +
+            i +
+            "&tipodocto=" +
+            e +
+            "&agrupacion=" +
+            b64EncodeUnicode(m) +
+            "&idBiinegi=" +
+          

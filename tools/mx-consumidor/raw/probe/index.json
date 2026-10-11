@@ -1,29 +1,79 @@
 {
- "ranAt": "2026-10-11T19:17:50.140Z",
- "requestHash": "1c86fa4002e6d4b0",
+ "ranAt": "2026-10-11T19:20:35.577Z",
+ "requestHash": "dbb22936453d81d8",
  "requests": [
   {
-   "name": "pm-contenido",
-   "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
+   "name": "bise-nat",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769,8999998752,8999998767/es/00/false/BISE/2.0/***?type=json",
    "method": "GET",
    "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
-   "lastModified": "Thu, 28 Aug 2025 17:16:51 GMT",
-   "bytes": 5590
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769,8999998752,8999998767/es/00/false/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 3725
   },
   {
-   "name": "pm-contenido-urls",
-   "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
+   "name": "bise-07",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769/es/07/false/BISE/2.0/***?type=json",
    "method": "GET",
    "status": 200,
-   "type": "application/javascript",
-   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
-   "lastModified": "Thu, 28 Aug 2025 17:16:51 GMT",
-   "bytes": 5590
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769/es/07/false/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 1919
   },
   {
-   "name": "dm-js",
+   "name": "bise-0700",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/070000070000/false/BISE/2.0/***?type=json",
+   "method": "GET",
+   "status": 400,
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/070000070000/false/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 102
+  },
+  {
+   "name": "bise-multi",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/01,07,09,19/true/BISE/2.0/***?type=json",
+   "method": "GET",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/01,07,09,19/true/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 863
+  },
+  {
+   "name": "bise-biebise",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/***?type=json",
+   "method": "GET",
+   "status": 400,
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 102
+  },
+  {
+   "name": "bise-meta",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/***?type=json",
+   "method": "GET",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 603
+  },
+  {
+   "name": "bise-unit",
+   "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_UNIT/null/es/BISE/2.0/***?type=json",
+   "method": "GET",
+   "status": 200,
+   "type": "application/json; charset=utf-8",
+   "finalUrl": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_UNIT/null/es/BISE/2.0/***?type=json",
+   "lastModified": null,
+   "bytes": 12571
+  },
+  {
+   "name": "dm-archivoscompaginacion",
    "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
    "method": "GET",
    "status": 200,
@@ -33,7 +83,7 @@
    "bytes": 240153
   },
   {
-   "name": "dm-js-fetch",
+   "name": "dm-totalarchivosdescarga",
    "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
    "method": "GET",
    "status": 200,
@@ -43,34 +93,24 @@
    "bytes": 240153
   },
   {
-   "name": "dm-guess1",
-   "url": "https://www.inegi.org.mx/app/api/descargamasiva/v1/3428/5",
-   "method": "GET",
-   "status": 404,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/app/api/descargamasiva/v1/3428/5",
-   "lastModified": null,
-   "bytes": 1245
-  },
-  {
-   "name": "dm-guess2",
-   "url": "https://www.inegi.org.mx/app/descarga/?ti=5&ag=0&id=3428",
+   "name": "dm-obteneragrupacionescom",
+   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
    "method": "GET",
    "status": 200,
-   "type": "text/html",
-   "finalUrl": "https://www.inegi.org.mx/app/descarga/?ti=5&ag=0&id=3428",
-   "lastModified": "Fri, 15 Sep 2023 19:00:12 GMT",
-   "bytes": 31650
+   "type": "application/javascript",
+   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
+   "bytes": 240153
   },
   {
-   "name": "dm-guess3",
-   "url": "https://www.inegi.org.mx/app/api/descarga/v1/proyecto/3428/5/es",
+   "name": "dm-areasgeograficaspordisponibilidadarchivos",
+   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
    "method": "GET",
    "status": 200,
-   "type": "application/json",
-   "finalUrl": "https://www.inegi.org.mx/app/api/descarga/v1/proyecto/3428/5/es",
-   "lastModified": null,
-   "bytes": 0
+   "type": "application/javascript",
+   "finalUrl": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+   "lastModified": "Fri, 18 Sep 2026 21:56:24 GMT",
+   "bytes": 240153
   }
  ]
 }

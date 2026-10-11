@@ -1,0 +1,4 @@
+GET https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/***?type=json
+-> HTTP 200 application/json; charset=utf-8 603 bytes
+
+{"id":"CL_INDICATOR","agencyID":"INEGI","version":"1.0","lang":"es","CODE":[{"value":"8999998738","Description":"Población con ingreso inferior a la línea de pobreza por ingresos"},{"value":"8999998743","Description":"Carencia por acceso a la seguridad social"},{"value":"8999998751","Description":"Población en situación de pobreza"},{"value":"8999998754","Description":"Población con ingreso inferior a la línea de pobreza por ingresos"},{"value":"8999998759","Description":"Carencia por acceso a la seguridad social"},{"value":"8999998769","Description":"Población en situación de pobreza"}]}
