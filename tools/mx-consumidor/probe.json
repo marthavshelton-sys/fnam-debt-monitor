@@ -1,44 +1,66 @@
 [
  {
-  "name": "pm-contenido",
-  "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
-  "html": "raw",
-  "keep": 9000
+  "name": "bise-nat",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769,8999998752,8999998767/es/00/false/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 2500
  },
  {
-  "name": "pm-contenido-urls",
-  "url": "https://www.inegi.org.mx/desarrollosocial/pm/js/contenido.min.js",
-  "find": "[\"'`][^\"'`]*(?:api|json|xlsx|zip|contenidos|indicador)[^\"'`]*[\"'`]",
-  "keep": 0,
-  "max": 150
+  "name": "bise-07",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751,8999998769/es/07/false/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 1500
  },
  {
-  "name": "dm-js",
+  "name": "bise-0700",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/070000070000/false/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 1500
+ },
+ {
+  "name": "bise-multi",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/01,07,09,19/true/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 2500
+ },
+ {
+  "name": "bise-biebise",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/8999998751/es/07/false/BIE-BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 1500
+ },
+ {
+  "name": "bise-meta",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_INDICATOR/8999998751,8999998769,8999998743,8999998759,8999998738,8999998754/es/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "keep": 2500
+ },
+ {
+  "name": "bise-unit",
+  "url": "https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/CL_UNIT/null/es/BISE/2.0/{{INEGI_TOKEN}}?type=json",
+  "grep": "Porcentaje|Personas|Miles",
+  "keep": 1200
+ },
+ {
+  "name": "dm-archivoscompaginacion",
   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-  "find": "[\"'`][^\"'`]*(?:api|json|svc|ashx|descarga)[^\"'`]*[\"'`]",
-  "keep": 0,
-  "max": 150
+  "find": "archivoscompaginacion\\?[\\s\\S]{0,900}",
+  "keep": 2500,
+  "max": 3
  },
  {
-  "name": "dm-js-fetch",
+  "name": "dm-totalarchivosdescarga",
   "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
-  "find": "(?:fetch|ajax|XMLHttpRequest|\\.get|\\.post)\\([^)]{0,300}\\)",
-  "keep": 0,
-  "max": 60
+  "find": "totalarchivosdescarga\\?[\\s\\S]{0,900}",
+  "keep": 2500,
+  "max": 3
  },
  {
-  "name": "dm-guess1",
-  "url": "https://www.inegi.org.mx/app/api/descargamasiva/v1/3428/5",
-  "keep": 1500
+  "name": "dm-obteneragrupacionescom",
+  "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+  "find": "obteneragrupacionescom\\?[\\s\\S]{0,900}",
+  "keep": 2500,
+  "max": 3
  },
  {
-  "name": "dm-guess2",
-  "url": "https://www.inegi.org.mx/app/descarga/?ti=5&ag=0&id=3428",
-  "keep": 1500
- },
- {
-  "name": "dm-guess3",
-  "url": "https://www.inegi.org.mx/app/api/descarga/v1/proyecto/3428/5/es",
-  "keep": 1500
+  "name": "dm-areasgeograficaspordisponibilidadarchivos",
+  "url": "https://www.inegi.org.mx/componentes/descargaMasiva/js/descargaMasivaV2.min.js",
+  "find": "areasgeograficaspordisponibilidadarchivos\\?[\\s\\S]{0,900}",
+  "keep": 2500,
+  "max": 3
  }
 ]
