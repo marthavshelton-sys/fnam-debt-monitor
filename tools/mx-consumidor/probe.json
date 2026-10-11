@@ -1,355 +1,165 @@
 [
  {
-  "name": "js-sitio",
-  "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
-  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
-  "keep": 0,
-  "max": 200
+  "name": "pest-enigh",
+  "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/data/pestana/pestanadata.js",
+  "html": "raw",
+  "keep": 3500
  },
  {
-  "name": "js-sitio-tags",
-  "url": "https://www.inegi.org.mx/componentes/genericos/framework/sitioinegi.com.js",
-  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
-  "keep": 6000,
-  "max": 40
+  "name": "pest-enif",
+  "url": "https://www.inegi.org.mx/programas/enif/2024/data/pestana/pestanadata.js",
+  "html": "raw",
+  "keep": 3500
  },
  {
-  "name": "js-recursos",
-  "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
-  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
-  "keep": 0,
-  "max": 200
+  "name": "pest-enfih",
+  "url": "https://www.inegi.org.mx/programas/enfih/2019/data/pestana/pestanadata.js",
+  "html": "raw",
+  "keep": 3500
  },
  {
-  "name": "js-recursos-tags",
-  "url": "https://www.inegi.org.mx/componentes/genericos/generales/recursos.min.js",
-  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
-  "keep": 6000,
-  "max": 40
+  "name": "pest-pm",
+  "url": "https://www.inegi.org.mx/desarrollosocial/pm/data/pestana/pestanadata.js",
+  "html": "raw",
+  "keep": 3500
  },
  {
-  "name": "js-react",
-  "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
-  "find": "[\"'`](?:https?:)?/[A-Za-z0-9_./?=&{}$-]*(?:api|json|svc|ashx)[A-Za-z0-9_./?=&{}$-]*[\"'`]",
-  "keep": 0,
-  "max": 200
+  "name": "pest-enoe",
+  "url": "https://www.inegi.org.mx/programas/enoe/15ymas/data/pestana/pestanadata.js",
+  "html": "raw",
+  "keep": 3500
  },
  {
-  "name": "js-react-tags",
-  "url": "https://www.inegi.org.mx/cdn/react/react.inegi.min.js",
-  "find": "(?:pestanas|menu-gen|relaciontp|presentacion-gen)[^;]{0,200}",
-  "keep": 6000,
-  "max": 40
+  "name": "pm-vjs",
+  "url": "https://www.inegi.org.mx/desarrollosocial/scripts/v.js?v=0.0.0",
+  "html": "raw",
+  "keep": 3000
  },
  {
-  "name": "inegi-pm-raw",
+  "name": "pm-links",
   "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
   "html": "raw",
-  "keep": 4200
- },
- {
-  "name": "inegi-enif-raw",
-  "url": "https://www.inegi.org.mx/programas/enif/2024/",
-  "html": "raw",
-  "find": "id[mc]=\"\\d+\"|<[a-z]+-gen[^>]*>",
-  "keep": 1500
- },
- {
-  "name": "inegi-enfih-raw",
-  "url": "https://www.inegi.org.mx/programas/enfih/2019/",
-  "html": "raw",
-  "find": "id[mc]=\"\\d+\"|<[a-z]+-gen[^>]*>",
-  "keep": 1500
- },
- {
-  "name": "enif-micro",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
-  "zip": "list",
-  "save": "enif2024_bd_csv.zip"
- },
- {
-  "name": "enif-pres",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/doc/enif_2024_resultados.pdf",
-  "pdf": true,
-  "from": 0,
-  "to": 140,
-  "keep": 0
- },
- {
-  "name": "enfih-pres",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
-  "pdf": true,
-  "from": 0,
-  "to": 90,
-  "keep": 0
- },
- {
-  "name": "enigh-fd",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/889463924494.pdf",
-  "pdf": true,
-  "from": 0,
-  "to": 400,
-  "grep": "tarjeta|pagotarjet|finan_|tenencia|tipo_adqui|nivelaprob|parentesco|educa_jefe|tam_loc|clase_hog|prestamos|deposito|pago_tarje|deudas|retiro_inv|cuota_viv|percep_tot|erogac_tot|otras_perc|otras_erog|prest_terc|balance",
-  "context": 3,
-  "keep": 0
- },
- {
-  "name": "enfih-micro1",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih_2019_bd_csv.zip",
-  "head": true
- },
- {
-  "name": "enfih-micro2",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/microdatos/enfih2019_bd_csv.zip",
-  "head": true
- },
- {
-  "name": "enfih-da",
-  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
-  "head": true
+  "find": "(?:href|src)=[\"'][^\"']+[\"']",
+  "keep": 5000
  },
  {
   "name": "enif-da",
   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/datosabiertos/conjunto_de_datos_enif_2024_csv.zip",
+  "zip": "diccionario|catalogo|metadatos|\\.txt$",
+  "keep": 0,
+  "enc": "utf8"
+ },
+ {
+  "name": "enfih-da",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/datosabiertos/conjunto_de_datos_enfih_2019_csv.zip",
+  "zip": "list",
+  "save": "enfih2019_da.zip"
+ },
+ {
+  "name": "enif-fd",
+  "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_fd.pdf",
   "head": true
  },
  {
-  "name": "pm-da",
-  "url": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/datosabiertos/pm_2024_csv.zip",
-  "head": true
- },
- {
-  "name": "bie-series-a",
-  "kind": "bieseries",
+  "name": "biemeta-test",
+  "kind": "biemeta",
   "ids": [
-   "510038",
-   "510046",
-   "724119",
    "734407",
    "718942",
-   "740987",
    "444610",
-   "702134",
-   "15169",
-   "446593",
-   "446594",
-   "454186"
-  ],
-  "from": 2010,
-  "last": 4
- },
- {
-  "name": "bie3-00",
-  "kind": "bie",
-  "q": "registro administrativo de la industria automotriz de vehiculos ligeros",
-  "n": 40
- },
- {
-  "name": "bie3-01",
-  "kind": "bie",
-  "q": "ingreso promedio de la poblacion ocupada",
-  "n": 40
- },
- {
-  "name": "bie3-02",
-  "kind": "bie",
-  "q": "tasa de informalidad laboral entidad federativa",
-  "n": 40
- },
- {
-  "name": "bie3-03",
-  "kind": "bie",
-  "q": "producto interno bruto a precios corrientes oferta y utilizacion trimestral",
-  "n": 40
- },
- {
-  "name": "bie3-04",
-  "kind": "bie",
-  "q": "cuentas por sectores institucionales base 2018 hogares",
-  "n": 40
- },
- {
-  "name": "bie3-05",
-  "kind": "bie",
-  "q": "gasto de consumo final privado",
-  "n": 40
- },
- {
-  "name": "bie3-06",
-  "kind": "bie",
-  "q": "remuneracion de asalariados hogares",
-  "n": 40
- },
- {
-  "name": "bie3-07",
-  "kind": "bie",
-  "q": "poblacion de 15 años y mas",
-  "n": 40
- },
- {
-  "name": "bie3-08",
-  "kind": "bie",
-  "q": "pobreza",
-  "n": 40
- },
- {
-  "name": "bie3-09",
-  "kind": "bie",
-  "q": "inclusion financiera",
-  "n": 40
- },
- {
-  "name": "bie3-10",
-  "kind": "bie",
-  "q": "salario minimo",
-  "n": 40
- },
- {
-  "name": "bie3-11",
-  "kind": "bie",
-  "q": "ingreso corriente hogares",
-  "n": 40
- },
- {
-  "name": "sie-meta",
-  "kind": "siemeta",
-  "ids": [
-   "SF42790",
-   "SF46335",
-   "SF46336",
-   "SF235712",
-   "SF235713",
-   "SF266103",
-   "SF266104",
-   "SF266105",
-   "SF266106",
-   "SF235715",
-   "SF235716",
-   "SF311900",
-   "SF311901",
-   "SF311902",
-   "SF311903",
-   "SF311904",
-   "SF311905",
-   "SF311897",
-   "SF289723",
-   "SF289724",
-   "SF289725",
-   "SF289726",
-   "SF289727",
-   "SF289728",
-   "SF289720",
-   "SF43313",
-   "SF43423",
-   "SF43426",
-   "SF320890",
-   "SF320891",
-   "SF320892",
-   "SF316115",
-   "SF316116",
-   "SF316117",
-   "SF310049",
-   "SF309941",
-   "SF61870",
-   "SL11298",
-   "SL11297",
-   "SR17449",
-   "SE27803",
-   "SF335881",
-   "SF335863",
-   "SF335872",
-   "SF320848",
-   "SF320849",
-   "SF320852",
-   "SF320853",
-   "SF351084",
-   "SF351162",
-   "SF351156",
-   "SE29670",
-   "SF319459",
-   "SF319525",
-   "SF311741",
-   "SF311742"
+   "446595",
+   "446596",
+   "446597",
+   "446598",
+   "446599",
+   "446600"
   ]
  },
  {
-  "name": "sie-series",
-  "kind": "sieseries",
-  "ids": [
-   "SF42790",
-   "SF46335",
-   "SF46336",
-   "SF235712",
-   "SF235713",
-   "SF266103",
-   "SF266104",
-   "SF266105",
-   "SF266106",
-   "SF235715",
-   "SF235716",
-   "SF311900",
-   "SF311901",
-   "SF311902",
-   "SF311903",
-   "SF311904",
-   "SF311905",
-   "SF311897",
-   "SF289723",
-   "SF289724",
-   "SF289725",
-   "SF289726",
-   "SF289727",
-   "SF289728",
-   "SF289720",
-   "SF43313",
-   "SF43423",
-   "SF43426",
-   "SF320890",
-   "SF320891",
-   "SF320892",
-   "SF316115",
-   "SF316116",
-   "SF316117",
-   "SF310049",
-   "SF309941",
-   "SF61870",
-   "SL11298",
-   "SL11297",
-   "SR17449",
-   "SE27803",
-   "SF335881",
-   "SF335863",
-   "SF335872",
-   "SF320848",
-   "SF320849",
-   "SF320852",
-   "SF320853",
-   "SF351084",
-   "SF351162",
-   "SF351156",
-   "SE29670",
-   "SF319459",
-   "SF319525",
-   "SF311741",
-   "SF311742"
-  ],
-  "since": "2024-01-01",
-  "last": 2
+  "name": "bie4-00",
+  "kind": "bie",
+  "q": "poblacion ocupada nivel de ingresos mas de 1 hasta 2 salarios minimos",
+  "n": 60
  },
  {
-  "name": "bmv-walmex-links",
-  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
-  "html": "raw",
-  "find": "<tr>\\s*<td>\\d\\d-\\d\\d-\\d{4} \\d\\d:\\d\\d</td>[\\s\\S]{0,700}?</tr>",
-  "keep": 7000,
-  "max": 12,
+  "name": "bie4-01",
+  "kind": "bie",
+  "q": "producto interno bruto precios corrientes trimestral",
+  "n": 60
+ },
+ {
+  "name": "bie4-02",
+  "kind": "bie",
+  "q": "venta al publico camiones ligeros",
+  "n": 60
+ },
+ {
+  "name": "bie4-03",
+  "kind": "bie",
+  "q": "ingresos por suministro de bienes y servicios comercio al por menor indice",
+  "n": 60
+ },
+ {
+  "name": "bie4-04",
+  "kind": "bie",
+  "q": "consumo privado bienes duraderos semiduraderos no duraderos servicios mercado interior",
+  "n": 60
+ },
+ {
+  "name": "cuadro-CF844-full",
+  "kind": "cuadro",
+  "id": "CF844",
+  "sector": 19,
+  "grep": "Demanda|estándares|Tarjetas|Nómina|Personales|Automotriz|Índices generales|Últimos tres meses|Bancos con",
+  "keep": 9000
+ },
+ {
+  "name": "bmv-soriana",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 2500,
   "ua": "bot"
  },
  {
-  "name": "bmv-walmex-fin",
-  "url": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/WALMEX-5214-CGEN_CAPIT",
-  "links": "docs-pub|\\.pdf|\\.zip|xbrl",
-  "keep": 4000,
+  "name": "bmv-liverpool",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LIVEPOL-5536-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 2500,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-alsea",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 2500,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-chedraui",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/CHDRAUI-5209-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 2500,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-lacomer",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/LACOMER-32096-CGEN_CAPIT",
+  "grep": "result|trimestre|ventas|reporte",
+  "keep": 2500,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-gfnorte",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GFNORTE-5433-CGEN_CAPIT",
+  "grep": "result|trimestre|reporte",
+  "keep": 2500,
+  "ua": "bot"
+ },
+ {
+  "name": "bmv-femsa",
+  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/FEMSA-5305-CGEN_CAPIT",
+  "grep": "result|trimestre|reporte",
+  "keep": 2500,
   "ua": "bot"
  }
 ]

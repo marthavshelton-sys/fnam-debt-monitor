@@ -34,6 +34,7 @@
 // index.json lists them. The script exits 0 whatever the answers were.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, mkdtempSync, readdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,7 +54,10 @@ const UAS = {
 const TIMEOUT_MS = 180_000;
 
 if (!existsSync(reqFile)) { console.log(`no request file at ${reqFile}; nothing to probe`); process.exit(0); }
-const requests = JSON.parse(readFileSync(reqFile, 'utf8'));
+const reqText = readFileSync(reqFile, 'utf8');
+const requests = JSON.parse(reqText);
+const reqHash = createHash('sha256').update(reqText).digest('hex').slice(0, 16);
+try { if (JSON.parse(readFileSync(join(outDir, 'index.json'), 'utf8')).requestHash === reqHash && !process.argv.includes('--again')) { console.log('these requests are already answered; nothing to probe'); process.exit(0); } } catch { /* no answers yet */ }
 rmSync(outDir, { recursive: true, force: true });
 mkdirSync(outDir, { recursive: true });
 mkdirSync(scratch, { recursive: true });
@@ -211,4 +215,4 @@ for (const r of requests) {
   index.push(entry);
   console.log(`${name}: ${entry.error ? 'ERROR ' + entry.error : 'HTTP ' + entry.status + ' ' + entry.bytes + ' bytes'}`);
 }
-writeFileSync(join(outDir, 'index.json'), redact(JSON.stringify({ ranAt: new Date().toISOString(), requests: index }, null, 1)) + '\n');
+writeFileSync(join(outDir, 'index.json'), redact(JSON.stringify({ ranAt: new Date().toISOString(), requestHash: reqHash, requests: index }, null, 1)) + '\n');

@@ -94,9 +94,11 @@ export const HH_CLASS = { 1: 'alone', 2: 'nuclear', 3: 'extended', 4: 'composite
 // monthly current income brackets, pesos a month (the survey reports quarterly amounts; ÷ 3)
 export const BRACKETS = [[0, 5000], [5000, 10000], [10000, 15000], [15000, 20000], [20000, 30000], [30000, 50000], [50000, 100000], [100000, null]];
 
-// One edition. files: { concentrado, viviendas?, hogares?, poblacion? } (paths of the CSV files); full = the detailed cut
-// (states, groups, ownership) kept for the latest edition and the one before it.
-export function aggregate(year, files, { full = true } = {}) {
+// One edition. files: { concentrado, viviendas?, hogares?, poblacion? } (paths of the CSV files). detail: 'full' (the latest
+// edition: states, groups of households, ownership, people), 'states' (earlier editions: national, deciles and the state
+// averages) or 'lite' (national and deciles only).
+export function aggregate(year, files, { detail = 'full' } = {}) {
+  const full = detail === 'full';
   const T = readTable(files.concentrado);
   const ix = Object.fromEntries(T.head.map((h, i) => [h, i]));
   for (const need of ['folioviv', 'foliohog', 'ubica_geo', 'tam_loc', 'factor', 'clase_hog', 'sexo_jefe', 'edad_jefe', 'educa_jefe', 'tot_integ', ...VARS]) if (!(need in ix)) throw new Error(`ENIGH ${year}: column ${need} missing from concentradohogar`);
@@ -158,13 +160,17 @@ export function aggregate(year, files, { full = true } = {}) {
   const pc = hh.filter((h) => h.tot_integ > 0).map((h) => ({ v: h.ing_cor / h.tot_integ, w: h.w * h.tot_integ }));
   out.perCapita = { mean: round(all.sums.ing_cor / all.persons, 1), median: round(quantiles(pc, [0.5])[0], 1) };
 
-  if (!full) return out;
+  if (detail === 'lite') return out;
 
   const group = (keyOf, keys) => { const A = {}; for (const h of hh) { const k = keyOf(h); if (k == null) continue; (A[k] || (A[k] = makeAcc())); add(A[k], h, h.w); } const o = {}; for (const k of keys || Object.keys(A).sort()) if (A[k]) o[k] = finish(A[k]); return o; };
   const medianOf = (sel) => { const it = hh.filter(sel).map((h) => ({ v: h.ing_cor, w: h.w })); return it.length ? round(quantiles(it, [0.5])[0]) : null; };
   // states
   const st = group((h) => h.state);
-  out.states = Object.keys(st).map((code) => {
+  if (!full) {   // an earlier edition: what the comparisons over time need
+    out.states = Object.keys(st).sort().map((code) => { const s = st[code]; return { code, households: s.households, sample: s.sample, persons: s.persons, mean: { ing_cor: s.mean.ing_cor, gasto_mon: s.mean.gasto_mon, ingtrab: s.mean.ingtrab, transfer: s.mean.transfer, remesas: s.mean.remesas, bene_gob: s.mean.bene_gob }, receive: { remesas: s.receive.remesas, bene_gob: s.receive.bene_gob, pago_tarje: s.receive.pago_tarje }, median: medianOf((h) => h.state === code) }; });
+    return out;
+  }
+  out.states = Object.keys(st).sort().map((code) => {
     const s = st[code], inS = hh.filter((h) => h.state === code);
     const pS = assignDeciles(inS, 'ing_cor'), m = new Array(10).fill(0), wv = new Array(10).fill(0);
     inS.forEach((h, i) => { for (const [d, w] of pS[i]) { m[d] += h.ing_cor * w; wv[d] += w; } });
@@ -211,16 +217,18 @@ export function aggregate(year, files, { full = true } = {}) {
     let pop = 0, p25 = 0;
     for (const r of P.rows) {
       const h = byId.get(r[px.folioviv].trim() + '|' + r[px.foliohog].trim()); if (!h) continue;
-      // members of the household only: domestic workers, their relatives and lodgers (parentesco 4xx, 5xx, 7xx) are outside INEGI's count
-      const par = r[px.parentesco].trim(); if (/^[457]/.test(par)) continue;
+      // members of the household only: domestic workers, their relatives (parentesco 4xx) and lodgers (7xx) are outside INEGI's count
+      const par = r[px.parentesco].trim(); if (/^[47]/.test(par)) continue;
       const a = numOf(r[px.edad]), w = h.w; pop += w; ages.push({ v: a, w });
       const b = bands.find((x) => a >= x[1] && a <= x[2]); if (b) age[b[0]] += w;
       if (r[px.sexo].trim() === '1') sex.men += w; else sex.women += w;
       if (a >= 25 && 'nivelaprob' in px) {
-        p25 += w; const n = numOf(r[px.nivelaprob]), g = 'gradoaprob' in px ? numOf(r[px.gradoaprob]) : 0;
-        // nivelaprob: 0 none, 1 preschool, 2 primary, 3 secondary, 4 high school, 5 teacher training, 6 technical, 7 university, 8 master's, 9 doctorate
-        const k = n <= 1 ? 'none' : n === 2 ? (g >= 6 ? 'primary' : 'none') : n === 3 ? (g >= 3 ? 'secondary' : 'primary') : n === 4 || n === 6 ? (g >= 3 || n === 6 ? 'highSchool' : 'secondary') : n === 5 || n === 7 ? (g >= 4 ? 'college' : 'highSchool') : 'college';
-        edu[k] += w;
+        // the same construction INEGI uses for the schooling of the head of household (educa_jefe), applied to every person 25 and over
+        p25 += w; const n = numOf(r[px.nivelaprob]), g = 'gradoaprob' in px ? numOf(r[px.gradoaprob]) : 0, ant = 'antec_esc' in px ? numOf(r[px.antec_esc]) : 0;
+        const tech = n === 5 || n === 6;
+        const code = n === 0 ? '01' : n === 1 ? '02' : n === 2 ? (g < 6 ? '03' : '04') : n === 3 ? (g < 3 ? '05' : '06') : n === 4 ? (g < 3 ? '07' : '08') : n === 7 ? (g < 4 ? '09' : '10') : n >= 8 ? '11'
+          : tech ? (ant === 1 ? '04' : ant === 2 ? '06' : ant === 3 ? '08' : ant === 4 ? '10' : ant === 5 ? '11' : '04') : '01';
+        const grp = EDU_GROUPS.find((x) => x[1].includes(code)); edu[grp ? grp[0] : 'none'] += w;
       }
     }
     out.people = { pop: round(pop), medianAge: round(quantiles(ages, [0.5])[0]), age: Object.keys(age).map((k) => ({ k, n: round(age[k]) })), sex: { men: round(sex.men), women: round(sex.women) }, pop25: round(p25), edu: Object.keys(edu).map((k) => ({ k, n: round(edu[k]) })) };
