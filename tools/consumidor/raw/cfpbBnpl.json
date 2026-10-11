@@ -1,0 +1,35 @@
+{
+ "fetchedAt": "2026-10-11T15:52:45.355Z",
+ "data": {
+  "parsed": 1,
+  "dataYear": 2022,
+  "published": "2025-01-13",
+  "facts": {
+   "used22": 21.2,
+   "used21": 17.6,
+   "multi": 63,
+   "multiLender": 33,
+   "approvedSub": 78,
+   "young": 28,
+   "allAges": 17,
+   "orig21": 8.5,
+   "orig22": 9.5,
+   "heavy22": 20,
+   "heavy21": 18,
+   "notReported": true
+  },
+  "lenders": [
+   "Affirm",
+   "Afterpay",
+   "Klarna",
+   "PayPal",
+   "Sezzle",
+   "Zip"
+  ],
+  "source": {
+   "name": "Consumer Financial Protection Bureau, Consumer Use of Buy Now, Pay Later and Other Unsecured Debt (January 2025)",
+   "url": "https://www.consumerfinance.gov/data-research/research-reports/consumer-use-of-buy-now-pay-later-and-other-unsecured-debt/",
+   "announcement": "https://www.consumerfinance.gov/about-us/newsroom/cfpb-research-reveals-heavy-buy-now-pay-later-use-among-borrowers-with-high-credit-balances-and-multiple-pay-in-four-loans/"
+  }
+ }
+}

@@ -1,0 +1,210 @@
+{
+ "fetchedAt": "2026-10-11T15:09:52.939Z",
+ "data": {
+  "years": [
+   {
+    "year": 2012,
+    "taxi": {
+     "estab": 202320,
+     "receipts": 7480920,
+     "naics": 2012,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 158080,
+     "receipts": 3777131,
+     "naics": 2012,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2013,
+    "taxi": {
+     "estab": 223814,
+     "receipts": 8351579,
+     "naics": 2012,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 160657,
+     "receipts": 3836304,
+     "naics": 2012,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2014,
+    "taxi": {
+     "estab": 296119,
+     "receipts": 9836223,
+     "naics": 2012,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 167235,
+     "receipts": 4040900,
+     "naics": 2012,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2015,
+    "taxi": {
+     "estab": 480304,
+     "receipts": 11997152,
+     "naics": 2012,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 178564,
+     "receipts": 4207966,
+     "naics": 2012,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2016,
+    "taxi": {
+     "estab": 700565,
+     "receipts": 14821346,
+     "naics": 2012,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 197355,
+     "receipts": 4387722,
+     "naics": 2012,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2017,
+    "taxi": {
+     "estab": 973753,
+     "receipts": 19137156,
+     "naics": 2017,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 262122,
+     "receipts": 5085192,
+     "naics": 2017,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2018,
+    "taxi": {
+     "estab": 1196282,
+     "receipts": 25892132,
+     "naics": 2017,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 361689,
+     "receipts": 6121031,
+     "naics": 2017,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2019,
+    "taxi": {
+     "estab": 1330311,
+     "receipts": 31177778,
+     "naics": 2017,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 496796,
+     "receipts": 7281790,
+     "naics": 2017,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2020,
+    "taxi": {
+     "estab": 1133877,
+     "receipts": 19362089,
+     "naics": 2017,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 967206,
+     "receipts": 10661200,
+     "naics": 2017,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2021,
+    "taxi": {
+     "estab": 1131658,
+     "receipts": 29019773,
+     "naics": 2017,
+     "label": "Taxi and limousine service"
+    },
+    "courier": {
+     "estab": 1313678,
+     "receipts": 14569701,
+     "naics": 2017,
+     "label": "Couriers and messengers"
+    }
+   },
+   {
+    "year": 2022,
+    "taxi": {
+     "estab": 1254689,
+     "receipts": 39051236,
+     "naics": 2022,
+     "label": "Taxi and Limousine Service"
+    },
+    "courier": {
+     "estab": 1343160,
+     "receipts": 17715049,
+     "naics": 2022,
+     "label": "Couriers and Messengers"
+    }
+   },
+   {
+    "year": 2023,
+    "taxi": {
+     "estab": 1376397,
+     "receipts": 41988732,
+     "naics": 2022,
+     "label": "Taxi and Limousine Service"
+    },
+    "courier": {
+     "estab": 1438339,
+     "receipts": 19672657,
+     "naics": 2022,
+     "label": "Couriers and Messengers"
+    }
+   },
+   {
+    "year": 2024,
+    "taxi": {
+     "estab": 1602297,
+     "receipts": 47947528,
+     "naics": 2022,
+     "label": "Taxi and Limousine Service"
+    },
+    "courier": {
+     "estab": 1595662,
+     "receipts": 23732741,
+     "naics": 2022,
+     "label": "Couriers and Messengers"
+    }
+   }
+  ],
+  "units": {
+   "estab": "nonemployer establishments",
+   "receipts": "thousands of dollars"
+  },
+  "source": {
+   "name": "U.S. Census Bureau, Nonemployer Statistics",
+   "url": "https://www.census.gov/programs-surveys/nonemployer-statistics.html"
+  }
+ }
+}

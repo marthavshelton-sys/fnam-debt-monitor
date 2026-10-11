@@ -1,0 +1,2151 @@
+{
+ "companies": {
+  "WMT": {
+   "ticker": "WMT",
+   "name": "Walmart",
+   "cik": 104169,
+   "secName": "Walmart Inc.",
+   "fiscalYearEnd": "0131",
+   "filings": [
+    {
+     "accn": "0000104169-26-000145",
+     "filed": "2026-08-20",
+     "report": "2026-08-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000145/0000104169-26-000145-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000145/earningsreleasefy27q2.htm",
+       "file": "tools/consumidor/raw/releases/WMT/2026-08-20_0000104169-26-000145_ex-99-1.txt",
+       "chars": 48647
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000145/earningspresentationfy27.htm",
+       "file": "tools/consumidor/raw/releases/WMT/2026-08-20_0000104169-26-000145_ex-99-2.txt",
+       "chars": 56446
+      }
+     ]
+    },
+    {
+     "accn": "0000104169-26-000095",
+     "filed": "2026-05-21",
+     "report": "2026-05-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000095/0000104169-26-000095-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000095/earningsreleasefy27q1.htm",
+       "file": "tools/consumidor/raw/releases/WMT/2026-05-21_0000104169-26-000095_ex-99-1.txt",
+       "chars": 42115
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/104169/000010416926000095/earningspresentationfy27.htm",
+       "file": "tools/consumidor/raw/releases/WMT/2026-05-21_0000104169-26-000095_ex-99-2.txt",
+       "chars": 55147
+      }
+     ]
+    }
+   ]
+  },
+  "COST": {
+   "ticker": "COST",
+   "name": "Costco",
+   "cik": 909832,
+   "secName": "COSTCO WHOLESALE CORP /NEW",
+   "fiscalYearEnd": "0830",
+   "filings": [
+    {
+     "accn": "0000909832-26-000084",
+     "filed": "2026-09-24",
+     "report": "2026-09-24",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000084/0000909832-26-000084-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000084/costex9918-k92426.htm",
+       "file": "tools/consumidor/raw/releases/COST/2026-09-24_0000909832-26-000084_ex-99-1.txt",
+       "chars": 9150
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000084/costex9928-k92426.htm",
+       "file": "tools/consumidor/raw/releases/COST/2026-09-24_0000909832-26-000084_ex-99-2.txt",
+       "chars": 5773
+      }
+     ]
+    },
+    {
+     "accn": "0000909832-26-000046",
+     "filed": "2026-05-28",
+     "report": "2026-05-28",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000046/0000909832-26-000046-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000046/costex9918-k52826.htm",
+       "file": "tools/consumidor/raw/releases/COST/2026-05-28_0000909832-26-000046_ex-99-1.txt",
+       "chars": 8843
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983226000046/costex9928-k52826.htm",
+       "file": "tools/consumidor/raw/releases/COST/2026-05-28_0000909832-26-000046_ex-99-2.txt",
+       "chars": 5456
+      }
+     ]
+    }
+   ]
+  },
+  "TGT": {
+   "ticker": "TGT",
+   "name": "Target",
+   "cik": 27419,
+   "secName": "TARGET CORP",
+   "fiscalYearEnd": "0201",
+   "filings": [
+    {
+     "accn": "0000027419-26-000034",
+     "filed": "2026-08-19",
+     "report": "2026-08-19",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000034/0000027419-26-000034-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99",
+       "description": "EX-99",
+       "url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000034/a2026q2ex-99.htm",
+       "file": "tools/consumidor/raw/releases/TGT/2026-08-19_0000027419-26-000034_ex-99.txt",
+       "chars": 27496
+      }
+     ]
+    },
+    {
+     "accn": "0000027419-26-000020",
+     "filed": "2026-05-20",
+     "report": "2026-05-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000020/0000027419-26-000020-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99",
+       "description": "EX-99",
+       "url": "https://www.sec.gov/Archives/edgar/data/27419/000002741926000020/a2026q1ex-99.htm",
+       "file": "tools/consumidor/raw/releases/TGT/2026-05-20_0000027419-26-000020_ex-99.txt",
+       "chars": 23319
+      }
+     ]
+    }
+   ]
+  },
+  "AMZN": {
+   "ticker": "AMZN",
+   "name": "Amazon",
+   "cik": 1018724,
+   "secName": "AMAZON COM INC",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001018724-26-000024",
+     "filed": "2026-07-30",
+     "report": "2026-07-30",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/0001018724-26-000024-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-07-30_0001018724-26-000024_ex-99-1.txt",
+       "chars": 41010
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex992.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-07-30_0001018724-26-000024_ex-99-2.txt",
+       "chars": 2329
+      }
+     ]
+    },
+    {
+     "accn": "0001018724-26-000012",
+     "filed": "2026-04-29",
+     "report": "2026-04-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/0001018724-26-000012-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/amzn-20260331xex991.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-04-29_0001018724-26-000012_ex-99-1.txt",
+       "chars": 38803
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/amzn-20260331xex992.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-04-29_0001018724-26-000012_ex-99-2.txt",
+       "chars": 2329
+      }
+     ]
+    }
+   ]
+  },
+  "DG": {
+   "ticker": "DG",
+   "name": "Dollar General",
+   "cik": 29534,
+   "secName": "DOLLAR GENERAL CORP",
+   "fiscalYearEnd": "0129",
+   "filings": [
+    {
+     "accn": "0001104659-26-101918",
+     "filed": "2026-08-27",
+     "report": "2026-08-27",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/29534/000110465926101918/0001104659-26-101918-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99",
+       "description": "EXHIBIT 99",
+       "url": "https://www.sec.gov/Archives/edgar/data/29534/000110465926101918/tm2623914d1_ex99.htm",
+       "file": "tools/consumidor/raw/releases/DG/2026-08-27_0001104659-26-101918_ex-99.txt",
+       "chars": 29982
+      }
+     ]
+    },
+    {
+     "accn": "0001104659-26-069198",
+     "filed": "2026-06-02",
+     "report": "2026-05-28",
+     "items": "2.02,5.07,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/29534/000110465926069198/0001104659-26-069198-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99",
+       "description": "EXHIBIT 99",
+       "url": "https://www.sec.gov/Archives/edgar/data/29534/000110465926069198/tm2616084d1_ex99.htm",
+       "file": "tools/consumidor/raw/releases/DG/2026-06-02_0001104659-26-069198_ex-99.txt",
+       "chars": 27262
+      }
+     ]
+    }
+   ]
+  },
+  "DLTR": {
+   "ticker": "DLTR",
+   "name": "Dollar Tree",
+   "cik": 935703,
+   "secName": "DOLLAR TREE, INC.",
+   "fiscalYearEnd": "0130",
+   "filings": [
+    {
+     "accn": "0000935703-26-000108",
+     "filed": "2026-08-27",
+     "report": "2026-08-27",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000108/0000935703-26-000108-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000108/ex991q2-26earningspressrel.htm",
+       "file": "tools/consumidor/raw/releases/DLTR/2026-08-27_0000935703-26-000108_ex-99-1.txt",
+       "chars": 34426
+      }
+     ]
+    },
+    {
+     "accn": "0000935703-26-000064",
+     "filed": "2026-05-28",
+     "report": "2026-05-28",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000064/0000935703-26-000064-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/935703/000093570326000064/ex991q1-26earningspressrel.htm",
+       "file": "tools/consumidor/raw/releases/DLTR/2026-05-28_0000935703-26-000064_ex-99-1.txt",
+       "chars": 29829
+      }
+     ]
+    }
+   ]
+  },
+  "TJX": {
+   "ticker": "TJX",
+   "name": "TJX",
+   "cik": 109198,
+   "secName": "TJX COMPANIES INC /DE/",
+   "fiscalYearEnd": "0201",
+   "filings": [
+    {
+     "accn": "0000109198-26-000045",
+     "filed": "2026-08-19",
+     "report": "2026-08-19",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/109198/000010919826000045/0000109198-26-000045-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/109198/000010919826000045/tjxq2fy27earningspressrele.htm",
+       "file": "tools/consumidor/raw/releases/TJX/2026-08-19_0000109198-26-000045_ex-99-1.txt",
+       "chars": 31663
+      }
+     ]
+    },
+    {
+     "accn": "0000109198-26-000023",
+     "filed": "2026-05-20",
+     "report": "2026-05-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/109198/000010919826000023/0000109198-26-000023-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/109198/000010919826000023/tjxq1fy27earningspressrele.htm",
+       "file": "tools/consumidor/raw/releases/TJX/2026-05-20_0000109198-26-000023_ex-99-1.txt",
+       "chars": 23247
+      }
+     ]
+    }
+   ]
+  },
+  "ROST": {
+   "ticker": "ROST",
+   "name": "Ross Stores",
+   "cik": 745732,
+   "secName": "ROSS STORES, INC.",
+   "fiscalYearEnd": "0201",
+   "filings": [
+    {
+     "accn": "0000745732-26-000038",
+     "filed": "2026-08-20",
+     "report": "2026-08-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/745732/000074573226000038/0000745732-26-000038-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/745732/000074573226000038/q226exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/ROST/2026-08-20_0000745732-26-000038_ex-99-1.txt",
+       "chars": 15895
+      }
+     ]
+    },
+    {
+     "accn": "0000745732-26-000025",
+     "filed": "2026-05-21",
+     "report": "2026-05-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/745732/000074573226000025/0000745732-26-000025-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/745732/000074573226000025/q126exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/ROST/2026-05-21_0000745732-26-000025_ex-99-1.txt",
+       "chars": 13781
+      }
+     ]
+    }
+   ]
+  },
+  "KR": {
+   "ticker": "KR",
+   "name": "Kroger",
+   "cik": 56873,
+   "secName": "KROGER CO",
+   "fiscalYearEnd": "0130",
+   "filings": [
+    {
+     "accn": "0001104659-26-106890",
+     "filed": "2026-09-11",
+     "report": "2026-09-11",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/56873/000110465926106890/0001104659-26-106890-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/56873/000110465926106890/tm2625060d1_ex99-1.htm",
+       "file": "tools/consumidor/raw/releases/KR/2026-09-11_0001104659-26-106890_ex-99-1.txt",
+       "chars": 33263
+      }
+     ]
+    },
+    {
+     "accn": "0001104659-26-075395",
+     "filed": "2026-06-18",
+     "report": "2026-06-18",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/56873/000110465926075395/0001104659-26-075395-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/56873/000110465926075395/tm2618219d1_ex99-1.htm",
+       "file": "tools/consumidor/raw/releases/KR/2026-06-18_0001104659-26-075395_ex-99-1.txt",
+       "chars": 29073
+      }
+     ]
+    }
+   ]
+  },
+  "ACI": {
+   "ticker": "ACI",
+   "name": "Albertsons",
+   "cik": 1646972,
+   "secName": "Albertsons Companies, Inc.",
+   "fiscalYearEnd": "0227",
+   "filings": [
+    {
+     "accn": "0001646972-26-000041",
+     "filed": "2026-07-23",
+     "report": "2026-07-23",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000041/0001646972-26-000041-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000041/aciq126earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/ACI/2026-07-23_0001646972-26-000041_ex-99-1.txt",
+       "chars": 28252
+      }
+     ]
+    },
+    {
+     "accn": "0001646972-26-000028",
+     "filed": "2026-04-14",
+     "report": "2026-04-14",
+     "items": "2.02,7.01,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/0001646972-26-000028-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/aciq425earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-1.txt",
+       "chars": 30335
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/ex992-opioid.htm",
+       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-2.txt",
+       "chars": 4198
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/ex993-dividendrelease.htm",
+       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-3.txt",
+       "chars": 4162
+      }
+     ]
+    }
+   ]
+  },
+  "HD": {
+   "ticker": "HD",
+   "name": "Home Depot",
+   "cik": 354950,
+   "secName": "HOME DEPOT, INC.",
+   "fiscalYearEnd": "0131",
+   "filings": [
+    {
+     "accn": "0000354950-26-000145",
+     "filed": "2026-08-18",
+     "report": "2026-08-18",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/354950/000035495026000145/0000354950-26-000145-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/354950/000035495026000145/hd_exhibit991x08022026.htm",
+       "file": "tools/consumidor/raw/releases/HD/2026-08-18_0000354950-26-000145_ex-99-1.txt",
+       "chars": 18567
+      }
+     ]
+    },
+    {
+     "accn": "0000354950-26-000101",
+     "filed": "2026-05-19",
+     "report": "2026-05-19",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/354950/000035495026000101/0000354950-26-000101-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/354950/000035495026000101/hd_exhibit991x05032026.htm",
+       "file": "tools/consumidor/raw/releases/HD/2026-05-19_0000354950-26-000101_ex-99-1.txt",
+       "chars": 17167
+      }
+     ]
+    }
+   ]
+  },
+  "LOW": {
+   "ticker": "LOW",
+   "name": "Lowe's",
+   "cik": 60667,
+   "secName": "LOWES COMPANIES INC",
+   "fiscalYearEnd": "0131",
+   "filings": [
+    {
+     "accn": "0000060667-26-000113",
+     "filed": "2026-08-19",
+     "report": "2026-08-19",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000113/0000060667-26-000113-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000113/exhibit991-07312026.htm",
+       "file": "tools/consumidor/raw/releases/LOW/2026-08-19_0000060667-26-000113_ex-99-1.txt",
+       "chars": 17992
+      },
+      {
+       "type": "EX-99.2",
+       "description": "INFOGRAPHIC",
+       "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000113/exhibit992-081926.htm",
+       "file": "tools/consumidor/raw/releases/LOW/2026-08-19_0000060667-26-000113_ex-99-2.txt",
+       "chars": 8032
+      }
+     ]
+    },
+    {
+     "accn": "0000060667-26-000062",
+     "filed": "2026-05-20",
+     "report": "2026-05-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000062/0000060667-26-000062-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000062/exhibit991-05012026.htm",
+       "file": "tools/consumidor/raw/releases/LOW/2026-05-20_0000060667-26-000062_ex-99-1.txt",
+       "chars": 15863
+      },
+      {
+       "type": "EX-99.2",
+       "description": "INFOGRAPHIC",
+       "url": "https://www.sec.gov/Archives/edgar/data/60667/000006066726000062/exhibit992-05202026.htm",
+       "file": "tools/consumidor/raw/releases/LOW/2026-05-20_0000060667-26-000062_ex-99-2.txt",
+       "chars": 7393
+      }
+     ]
+    }
+   ]
+  },
+  "MCD": {
+   "ticker": "MCD",
+   "name": "McDonald's",
+   "cik": 63908,
+   "secName": "MCDONALDS CORP",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000063908-26-000067",
+     "filed": "2026-08-04",
+     "report": "2026-08-04",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000067/0000063908-26-000067-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000067/exhibit991-6302026.htm",
+       "file": "tools/consumidor/raw/releases/MCD/2026-08-04_0000063908-26-000067_ex-99-1.txt",
+       "chars": 13573
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000067/exhibit992-6302026.htm",
+       "file": "tools/consumidor/raw/releases/MCD/2026-08-04_0000063908-26-000067_ex-99-2.txt",
+       "chars": 73377
+      }
+     ]
+    },
+    {
+     "accn": "0000063908-26-000048",
+     "filed": "2026-05-07",
+     "report": "2026-05-07",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000048/0000063908-26-000048-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000048/exhibit991-33126xq1.htm",
+       "file": "tools/consumidor/raw/releases/MCD/2026-05-07_0000063908-26-000048_ex-99-1.txt",
+       "chars": 10712
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/63908/000006390826000048/exhibit992-33126xq1.htm",
+       "file": "tools/consumidor/raw/releases/MCD/2026-05-07_0000063908-26-000048_ex-99-2.txt",
+       "chars": 66948
+      }
+     ]
+    }
+   ]
+  },
+  "YUM": {
+   "ticker": "YUM",
+   "name": "Yum! Brands",
+   "cik": 1041061,
+   "secName": "YUM BRANDS INC",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001041061-26-000149",
+     "filed": "2026-07-30",
+     "report": "2026-07-30",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000149/0001041061-26-000149-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000149/a8kex9917302026.htm",
+       "file": "tools/consumidor/raw/releases/YUM/2026-07-30_0001041061-26-000149_ex-99-1.txt",
+       "chars": 47837
+      }
+     ]
+    },
+    {
+     "accn": "0001041061-26-000108",
+     "filed": "2026-04-29",
+     "report": "2026-04-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000108/0001041061-26-000108-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000108/a8kex9914292026.htm",
+       "file": "tools/consumidor/raw/releases/YUM/2026-04-29_0001041061-26-000108_ex-99-1.txt",
+       "chars": 36143
+      }
+     ]
+    }
+   ]
+  },
+  "SBUX": {
+   "ticker": "SBUX",
+   "name": "Starbucks",
+   "cik": 829224,
+   "secName": "STARBUCKS CORP",
+   "fiscalYearEnd": "0928",
+   "filings": [
+    {
+     "accn": "0000829224-26-000129",
+     "filed": "2026-07-29",
+     "report": "2026-07-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000129/0000829224-26-000129-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000129/sbux-06282026xearningsrele.htm",
+       "file": "tools/consumidor/raw/releases/SBUX/2026-07-29_0000829224-26-000129_ex-99-1.txt",
+       "chars": 45246
+      }
+     ]
+    },
+    {
+     "accn": "0000829224-26-000078",
+     "filed": "2026-04-28",
+     "report": "2026-04-28",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000078/0000829224-26-000078-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000078/sbux-03292026xearningsrele.htm",
+       "file": "tools/consumidor/raw/releases/SBUX/2026-04-28_0000829224-26-000078_ex-99-1.txt",
+       "chars": 46779
+      }
+     ]
+    }
+   ]
+  },
+  "CMG": {
+   "ticker": "CMG",
+   "name": "Chipotle",
+   "cik": 1058090,
+   "secName": "CHIPOTLE MEXICAN GRILL INC",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001058090-26-000063",
+     "filed": "2026-07-29",
+     "report": "2026-07-29",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000063/0001058090-26-000063-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000063/cmg-20260729xex991.htm",
+       "file": "tools/consumidor/raw/releases/CMG/2026-07-29_0001058090-26-000063_ex-99-1.txt",
+       "chars": 29079
+      }
+     ]
+    },
+    {
+     "accn": "0001058090-26-000027",
+     "filed": "2026-04-29",
+     "report": "2026-04-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000027/0001058090-26-000027-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000027/cmg-20260429xex991.htm",
+       "file": "tools/consumidor/raw/releases/CMG/2026-04-29_0001058090-26-000027_ex-99-1.txt",
+       "chars": 27937
+      }
+     ]
+    }
+   ]
+  },
+  "DPZ": {
+   "ticker": "DPZ",
+   "name": "Domino's",
+   "cik": 1286681,
+   "secName": "DOMINOS PIZZA INC",
+   "fiscalYearEnd": "0102",
+   "filings": [
+    {
+     "accn": "0001286681-26-000034",
+     "filed": "2026-07-20",
+     "report": "2026-07-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000034/0001286681-26-000034-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000034/dpz-ex99_1.htm",
+       "file": "tools/consumidor/raw/releases/DPZ/2026-07-20_0001286681-26-000034_ex-99-1.txt",
+       "chars": 32250
+      }
+     ]
+    },
+    {
+     "accn": "0001286681-26-000024",
+     "filed": "2026-04-27",
+     "report": "2026-04-27",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000024/0001286681-26-000024-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000024/dpz-ex99_1.htm",
+       "file": "tools/consumidor/raw/releases/DPZ/2026-04-27_0001286681-26-000024_ex-99-1.txt",
+       "chars": 30617
+      }
+     ]
+    }
+   ]
+  },
+  "DRI": {
+   "ticker": "DRI",
+   "name": "Darden",
+   "cik": 940944,
+   "secName": "DARDEN RESTAURANTS INC",
+   "fiscalYearEnd": "0530",
+   "filings": [
+    {
+     "accn": "0000940944-26-000032",
+     "filed": "2026-09-24",
+     "report": "2026-09-24",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/940944/000094094426000032/0000940944-26-000032-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/940944/000094094426000032/exhibit991-q1fy27.htm",
+       "file": "tools/consumidor/raw/releases/DRI/2026-09-24_0000940944-26-000032_ex-99-1.txt",
+       "chars": 16457
+      }
+     ]
+    },
+    {
+     "accn": "0000940944-26-000016",
+     "filed": "2026-06-25",
+     "report": "2026-06-24",
+     "items": "2.02,5.03,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/940944/000094094426000016/0000940944-26-000016-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/940944/000094094426000016/exhibit991-q4fy26.htm",
+       "file": "tools/consumidor/raw/releases/DRI/2026-06-25_0000940944-26-000016_ex-99-1.txt",
+       "chars": 23492
+      }
+     ]
+    }
+   ]
+  },
+  "TXRH": {
+   "ticker": "TXRH",
+   "name": "Texas Roadhouse",
+   "cik": 1289460,
+   "secName": "Texas Roadhouse, Inc.",
+   "fiscalYearEnd": "1229",
+   "filings": [
+    {
+     "accn": "0001104659-26-091980",
+     "filed": "2026-08-06",
+     "report": "2026-08-05",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1289460/000110465926091980/0001104659-26-091980-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1289460/000110465926091980/txrh-20260805xex99d1.htm",
+       "file": "tools/consumidor/raw/releases/TXRH/2026-08-06_0001104659-26-091980_ex-99-1.txt",
+       "chars": 18301
+      }
+     ]
+    },
+    {
+     "accn": "0001104659-26-057105",
+     "filed": "2026-05-07",
+     "report": "2026-05-06",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1289460/000110465926057105/0001104659-26-057105-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1289460/000110465926057105/txrh-20260506xex99d1.htm",
+       "file": "tools/consumidor/raw/releases/TXRH/2026-05-07_0001104659-26-057105_ex-99-1.txt",
+       "chars": 16037
+      }
+     ]
+    }
+   ]
+  },
+  "EAT": {
+   "ticker": "EAT",
+   "name": "Brinker (Chili's)",
+   "cik": 703351,
+   "secName": "BRINKER INTERNATIONAL, INC",
+   "fiscalYearEnd": "0624",
+   "filings": [
+    {
+     "accn": "0000703351-26-000026",
+     "filed": "2026-08-12",
+     "report": "2026-08-10",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/703351/000070335126000026/0000703351-26-000026-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/703351/000070335126000026/fy26q4ex991-earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/EAT/2026-08-12_0000703351-26-000026_ex-99-1.txt",
+       "chars": 28109
+      }
+     ]
+    },
+    {
+     "accn": "0000703351-26-000013",
+     "filed": "2026-04-29",
+     "report": "2026-04-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/703351/000070335126000013/0000703351-26-000013-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/703351/000070335126000013/fy26q3ex991-earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/EAT/2026-04-29_0000703351-26-000013_ex-99-1.txt",
+       "chars": 24869
+      }
+     ]
+    }
+   ]
+  },
+  "JPM": {
+   "ticker": "JPM",
+   "name": "JPMorgan Chase",
+   "cik": 19617,
+   "secName": "JPMORGAN CHASE & CO",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001628280-26-048078",
+     "filed": "2026-07-14",
+     "report": "2026-07-14",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/19617/000162828026048078/0001628280-26-048078-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE - SECOND QUARTER 2026 RESULTS",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026048078/a2q26erfexhibit991narrative.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-07-14_0001628280-26-048078_ex-99-1.txt",
+       "chars": 25777
+      },
+      {
+       "type": "EX-99.2",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE FINANCIAL SUPPLEMENT - SECOND QUARTER 2026",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026048078/a2q26erfex992supplement.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-07-14_0001628280-26-048078_ex-99-2.txt",
+       "chars": 102843
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-024990",
+     "filed": "2026-04-14",
+     "report": "2026-04-14",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/0001628280-26-024990-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE - FIRST QUARTER 2026 RESULTS",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/a1q26erfexhibit991narrative.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-04-14_0001628280-26-024990_ex-99-1.txt",
+       "chars": 23068
+      },
+      {
+       "type": "EX-99.2",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE FINANCIAL SUPPLEMENT - FIRST QUARTER 2026",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/a1q26erfex992supplement.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-04-14_0001628280-26-024990_ex-99-2.txt",
+       "chars": 88690
+      }
+     ]
+    }
+   ]
+  },
+  "BAC": {
+   "ticker": "BAC",
+   "name": "Bank of America",
+   "cik": 70858,
+   "secName": "BANK OF AMERICA CORP /DE/",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000070858-26-000353",
+     "filed": "2026-07-14",
+     "report": "2026-07-14",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000353/0000070858-26-000353-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "THE PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000353/bac06302026ex991.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-07-14_0000070858-26-000353_ex-99-1.txt",
+       "chars": 64365
+      },
+      {
+       "type": "EX-99.2",
+       "description": "THE PRESENTATION MATERIALS",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000353/bac06302026ex992.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-07-14_0000070858-26-000353_ex-99-2.txt",
+       "chars": 61386
+      },
+      {
+       "type": "EX-99.3",
+       "description": "THE SUPPLEMENTAL INFORMATION",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000353/bac-06302026ex993.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-07-14_0000070858-26-000353_ex-99-3.txt",
+       "chars": 101878
+      }
+     ]
+    },
+    {
+     "accn": "0000070858-26-000222",
+     "filed": "2026-04-15",
+     "report": "2026-04-15",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/0000070858-26-000222-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "THE PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac03312026ex991.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-1.txt",
+       "chars": 60653
+      },
+      {
+       "type": "EX-99.2",
+       "description": "THE PRESENTATION MATERIALS",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac03312026ex992.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-2.txt",
+       "chars": 68167
+      },
+      {
+       "type": "EX-99.3",
+       "description": "THE SUPPLEMENTAL INFORMATION",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac-03312026ex993.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-3.txt",
+       "chars": 88221
+      }
+     ]
+    }
+   ]
+  },
+  "COF": {
+   "ticker": "COF",
+   "name": "Capital One",
+   "cik": 927628,
+   "secName": "CAPITAL ONE FINANCIAL CORP",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000927628-26-000083",
+     "filed": "2026-07-21",
+     "report": "2026-07-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000083/0000927628-26-000083-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000083/ex991q22026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-07-21_0000927628-26-000083_ex-99-1.txt",
+       "chars": 8688
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000083/ex992q22026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-07-21_0000927628-26-000083_ex-99-2.txt",
+       "chars": 69689
+      }
+     ]
+    },
+    {
+     "accn": "0000927628-26-000039",
+     "filed": "2026-04-21",
+     "report": "2026-04-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/0000927628-26-000039-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/ex991q12026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-04-21_0000927628-26-000039_ex-99-1.txt",
+       "chars": 8361
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/ex992q12026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-04-21_0000927628-26-000039_ex-99-2.txt",
+       "chars": 57372
+      }
+     ]
+    }
+   ]
+  },
+  "SYF": {
+   "ticker": "SYF",
+   "name": "Synchrony",
+   "cik": 1601712,
+   "secName": "Synchrony Financial",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001601712-26-000035",
+     "filed": "2026-08-17",
+     "report": "2026-08-17",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000035/0001601712-26-000035-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000035/creditstatsfinancialtables.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-08-17_0001601712-26-000035_ex-99-1.txt",
+       "chars": 3917
+      }
+     ]
+    },
+    {
+     "accn": "0001601712-26-000030",
+     "filed": "2026-07-21",
+     "report": "2026-07-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/0001601712-26-000030-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/earningsrelease2q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-1.txt",
+       "chars": 17803
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/financialtables2q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-2.txt",
+       "chars": 36213
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/a2q26earningspresentatio.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-3.txt",
+       "chars": 17962
+      },
+      {
+       "type": "EX-99.4",
+       "description": "EX-99.4",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/non-gaapmeasures2q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-4.txt",
+       "chars": 1323
+      }
+     ]
+    }
+   ]
+  },
+  "AXP": {
+   "ticker": "AXP",
+   "name": "American Express",
+   "cik": 4962,
+   "secName": "AMERICAN EXPRESS CO",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000004962-26-000318",
+     "filed": "2026-07-24",
+     "report": "2026-07-24",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000318/0000004962-26-000318-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000318/q226exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/AXP/2026-07-24_0000004962-26-000318_ex-99-1.txt",
+       "chars": 14388
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000318/q226exhibit992.htm",
+       "file": "tools/consumidor/raw/releases/AXP/2026-07-24_0000004962-26-000318_ex-99-2.txt",
+       "chars": 29095
+      }
+     ]
+    },
+    {
+     "accn": "0000004962-26-000188",
+     "filed": "2026-04-23",
+     "report": "2026-04-23",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000188/0000004962-26-000188-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000188/q126exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/AXP/2026-04-23_0000004962-26-000188_ex-99-1.txt",
+       "chars": 16011
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/4962/000000496226000188/q126exhibit992.htm",
+       "file": "tools/consumidor/raw/releases/AXP/2026-04-23_0000004962-26-000188_ex-99-2.txt",
+       "chars": 26264
+      }
+     ]
+    }
+   ]
+  },
+  "UBER": {
+   "ticker": "UBER",
+   "name": "Uber",
+   "cik": 1543151,
+   "secName": "Uber Technologies, Inc",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001543151-26-000027",
+     "filed": "2026-08-05",
+     "report": "2026-08-05",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000027/0001543151-26-000027-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000027/uberq226earningspressrelea.htm",
+       "file": "tools/consumidor/raw/releases/UBER/2026-08-05_0001543151-26-000027_ex-99-1.txt",
+       "chars": 36201
+      }
+     ]
+    },
+    {
+     "accn": "0001543151-26-000019",
+     "filed": "2026-05-06",
+     "report": "2026-05-06",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000019/0001543151-26-000019-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000019/uberq126earningspressrelea.htm",
+       "file": "tools/consumidor/raw/releases/UBER/2026-05-06_0001543151-26-000019_ex-99-1.txt",
+       "chars": 33783
+      }
+     ]
+    },
+    {
+     "accn": "0001543151-25-000004",
+     "filed": "2025-02-05",
+     "report": "2025-02-05",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1543151/000154315125000004/0001543151-25-000004-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315125000004/uberq424earningspressrelea.htm",
+       "file": "tools/consumidor/raw/releases/UBER/2025-02-05_0001543151-25-000004_ex-99-1.txt",
+       "chars": 47911
+      }
+     ]
+    },
+    {
+     "accn": "0001543151-26-000015",
+     "filed": "2026-02-13",
+     "report": "2025-12-31",
+     "form": "10-K",
+     "pattern": "^(United States|United Kingdom|All other countries|Total revenue|United States and Canada|Latin America|Europe, Middle East and Africa|Asia Pacific)[^|]{0,60}\\|.*\\d|(Drivers and couriers|drivers and couriers|Drivers|Earners)[^.]{0,200}(earn|earned)[^.]{0,160}(million|billion)|(million|billion)[^.]{0,200}(Drivers and couriers|drivers and couriers)[^.]{0,120}(earn|active|platform)|United States[^.]{0,200}(% of|percent of)[^.]{0,80}(revenue|Gross Bookings)|(revenue|Gross Bookings)[^.]{0,200}(% |percent )[^.]{0,80}United States",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/0001543151-26-000015-index.htm",
+     "exhibits": [
+      {
+       "type": "10-K",
+       "description": "Annual report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm",
+       "file": "tools/consumidor/raw/releases/UBER/2026-02-13_0001543151-26-000015_10-k.txt",
+       "chars": 588
+      }
+     ]
+    },
+    {
+     "accn": "0001543151-26-000032",
+     "filed": "2026-08-05",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "^(United States|United Kingdom|All other countries|Total revenue|United States and Canada|Latin America|Europe, Middle East and Africa|Asia Pacific)[^|]{0,60}\\|.*\\d|United States[^.]{0,220}(Gross Bookings|Trips|MAPCs)|(Gross Bookings|Trips)[^.]{0,220}United States",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000032/0001543151-26-000032-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000032/uber-20260630.htm",
+       "file": "tools/consumidor/raw/releases/UBER/2026-08-05_0001543151-26-000032_10-q.txt",
+       "chars": 331
+      }
+     ]
+    }
+   ]
+  },
+  "LYFT": {
+   "ticker": "LYFT",
+   "name": "Lyft",
+   "cik": 1759509,
+   "secName": "Lyft, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001628280-26-054305",
+     "filed": "2026-08-06",
+     "report": "2026-08-06",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026054305/0001628280-26-054305-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026054305/lyft-20260630xpressrelease.htm",
+       "file": "tools/consumidor/raw/releases/LYFT/2026-08-06_0001628280-26-054305_ex-99-1.txt",
+       "chars": 25963
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-032102",
+     "filed": "2026-05-07",
+     "report": "2026-05-07",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026032102/0001628280-26-032102-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026032102/lyft-20260331xpressrelease.htm",
+       "file": "tools/consumidor/raw/releases/LYFT/2026-05-07_0001628280-26-032102_ex-99-1.txt",
+       "chars": 24549
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-006960",
+     "filed": "2026-02-11",
+     "report": "2025-12-31",
+     "form": "10-K",
+     "pattern": "^(United States|Canada|Europe|Germany|All other countries|International|Rest of world|Total revenue)[^|]{0,60}\\|.*\\d|(United States|North America|outside (of )?the United States|international)[^.]{0,220}(revenue|Rides|Gross Bookings|Active Riders)[^.]{0,120}(%|million|billion|material)|drivers[^.]{0,200}(earn|earned)[^.]{0,160}(million|billion)|(million|billion)[^.]{0,160}drivers[^.]{0,80}(earn|platform|active)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026006960/0001628280-26-006960-index.htm",
+     "exhibits": [
+      {
+       "type": "10-K",
+       "description": "Annual report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026006960/lyft-20251231.htm",
+       "file": "tools/consumidor/raw/releases/LYFT/2026-02-11_0001628280-26-006960_10-k.txt",
+       "chars": 175
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-054499",
+     "filed": "2026-08-07",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "^(United States|Canada|Europe|Germany|All other countries|International|Rest of world|Total revenue)[^|]{0,60}\\|.*\\d|(United States|North America|outside (of )?the United States)[^.]{0,220}(revenue|Rides|Gross Bookings|Active Riders)[^.]{0,120}(%|million|billion|material)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026054499/0001628280-26-054499-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1759509/000162828026054499/lyft-20260630.htm",
+       "file": "tools/consumidor/raw/releases/LYFT/2026-08-07_0001628280-26-054499_10-q.txt",
+       "chars": 0
+      }
+     ]
+    }
+   ]
+  },
+  "DASH": {
+   "ticker": "DASH",
+   "name": "DoorDash",
+   "cik": 1792789,
+   "secName": "DoorDash, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001792789-26-000048",
+     "filed": "2026-08-05",
+     "report": "2026-08-05",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000048/0001792789-26-000048-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000048/proddashex991-pressrelease.htm",
+       "file": "tools/consumidor/raw/releases/DASH/2026-08-05_0001792789-26-000048_ex-99-1.txt",
+       "chars": 51982
+      }
+     ]
+    },
+    {
+     "accn": "0001792789-26-000036",
+     "filed": "2026-05-06",
+     "report": "2026-05-06",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000036/0001792789-26-000036-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000036/proddashex991-pressrelease.htm",
+       "file": "tools/consumidor/raw/releases/DASH/2026-05-06_0001792789-26-000036_ex-99-1.txt",
+       "chars": 42910
+      }
+     ]
+    },
+    {
+     "accn": "0001792789-26-000013",
+     "filed": "2026-02-18",
+     "report": "2025-12-31",
+     "form": "10-K",
+     "pattern": "(Dashers|dashed)[^.]{0,160}(million|billion)|(million|billion)[^.]{0,160}(Dashers|dashed)|^(United States|International|Total revenue)[^|]{0,60}\\|.*\\d",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000013/0001792789-26-000013-index.htm",
+     "exhibits": [
+      {
+       "type": "10-K",
+       "description": "Annual report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000013/dash-20251231.htm",
+       "file": "tools/consumidor/raw/releases/DASH/2026-02-18_0001792789-26-000013_10-k.txt",
+       "chars": 347
+      }
+     ]
+    },
+    {
+     "accn": "0001792789-26-000050",
+     "filed": "2026-08-05",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "^(United States|International|Total revenue)[^|]{0,60}\\|.*\\d|U\\.S\\.[^.]{0,220}(Total Orders|Marketplace GOV|MAUs|DashPass)[^.]{0,160}(%|million|billion)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000050/0001792789-26-000050-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000050/dash-20260630.htm",
+       "file": "tools/consumidor/raw/releases/DASH/2026-08-05_0001792789-26-000050_10-q.txt",
+       "chars": 123
+      }
+     ]
+    },
+    {
+     "accn": "page:us-dashers-2025",
+     "filed": "page:us-dashers-2025",
+     "read": "2026-10-11",
+     "form": "page",
+     "pattern": "dashed in the U\\.S\\.|Dashers in the U\\.S\\.|sales on DoorDash Marketplace in the U\\.S\\.|commissioned Public First|typical Dasher",
+     "title": "DoorDash 2025 U.S. economic impact report (prepared by Public First for DoorDash)",
+     "indexUrl": "https://doordash2025.publicfirst.co/",
+     "exhibits": [
+      {
+       "type": "page",
+       "description": "DoorDash 2025 U.S. economic impact report (prepared by Public First for DoorDash)",
+       "url": "https://doordash2025.publicfirst.co/",
+       "file": "tools/consumidor/raw/releases/DASH/page_us-dashers-2025.txt",
+       "chars": 1960
+      }
+     ]
+    }
+   ]
+  },
+  "CART": {
+   "ticker": "CART",
+   "name": "Instacart",
+   "cik": 1579091,
+   "secName": "Maplebear Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001579091-26-000040",
+     "filed": "2026-08-06",
+     "report": "2026-08-06",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000040/0001579091-26-000040-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000040/q22026pressrelease.htm",
+       "file": "tools/consumidor/raw/releases/CART/2026-08-06_0001579091-26-000040_ex-99-1.txt",
+       "chars": 31997
+      }
+     ]
+    },
+    {
+     "accn": "0001579091-26-000032",
+     "filed": "2026-05-06",
+     "report": "2026-05-01",
+     "items": "1.01,2.02,2.03,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000032/0001579091-26-000032-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000032/q12026pressrelease.htm",
+       "file": "tools/consumidor/raw/releases/CART/2026-05-06_0001579091-26-000032_ex-99-1.txt",
+       "chars": 30224
+      }
+     ]
+    },
+    {
+     "accn": "0001579091-26-000018",
+     "filed": "2026-02-26",
+     "report": "2025-12-31",
+     "form": "10-K",
+     "pattern": "approximately [0-9,]+ shoppers|^(United States|Canada|International|Total revenue)[^|]{0,60}\\|.*\\d|(United States|Canada)[^.]{0,220}(% of|substantially all|majority)[^.]{0,120}(revenue|GTV|orders)|(revenue|GTV|orders)[^.]{0,200}(substantially all|primarily|majority)[^.]{0,120}(United States|Canada)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000018/0001579091-26-000018-index.htm",
+     "exhibits": [
+      {
+       "type": "10-K",
+       "description": "Annual report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000018/cart-20251231.htm",
+       "file": "tools/consumidor/raw/releases/CART/2026-02-26_0001579091-26-000018_10-k.txt",
+       "chars": 368
+      }
+     ]
+    },
+    {
+     "accn": "0001579091-26-000042",
+     "filed": "2026-08-07",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "^(United States|Canada|International|Total revenue)[^|]{0,60}\\|.*\\d|(United States|Canada)[^.]{0,220}(% of|substantially all|majority)[^.]{0,120}(revenue|GTV|orders)|largely throughout the United States and Canada",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000042/0001579091-26-000042-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1579091/000157909126000042/cart-20260630.htm",
+       "file": "tools/consumidor/raw/releases/CART/2026-08-07_0001579091-26-000042_10-q.txt",
+       "chars": 1278
+      }
+     ]
+    }
+   ]
+  },
+  "AFRM": {
+   "ticker": "AFRM",
+   "name": "Affirm",
+   "cik": 1820953,
+   "secName": "Affirm Holdings, Inc.",
+   "fiscalYearEnd": "0630",
+   "filings": [
+    {
+     "accn": "0001628280-26-059271",
+     "filed": "2026-08-27",
+     "report": "2026-08-25",
+     "items": "2.02,5.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026059271/0001628280-26-059271-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026059271/affirmfq426shareholderle.htm",
+       "file": "tools/consumidor/raw/releases/AFRM/2026-08-27_0001628280-26-059271_ex-99-1.txt",
+       "chars": 71
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-032105",
+     "filed": "2026-05-07",
+     "report": "2026-05-07",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026032105/0001628280-26-032105-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026032105/affirmfq326shareholderle.htm",
+       "file": "tools/consumidor/raw/releases/AFRM/2026-05-07_0001628280-26-032105_ex-99-1.txt",
+       "chars": 59359
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-059279",
+     "filed": "2026-08-27",
+     "report": "2026-06-30",
+     "form": "10-K",
+     "pattern": "^(GMV|Active consumers|Transactions per active consumer|Active merchants|Total revenue[s, net]*|United States|Canada|United Kingdom|Provision for credit losses)[^|]{0,60}\\|.*\\d|^\\(in billions\\)[^|]{0,40}\\|.*\\d|GMV[^|]{0,260}\\$ ?[\\d.,]+ (billion|million)|(delinquen|charged? off|charge-offs?)[^|]{0,320}\\d(\\.\\d+)?%|Gross Merchandise Volume[^.]{0,220}(billion|%)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026059279/0001628280-26-059279-index.htm",
+     "exhibits": [
+      {
+       "type": "10-K",
+       "description": "Annual report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1820953/000162828026059279/afrm-20260630.htm",
+       "file": "tools/consumidor/raw/releases/AFRM/2026-08-27_0001628280-26-059279_10-k.txt",
+       "chars": 4784
+      }
+     ]
+    }
+   ]
+  },
+  "KLAR": {
+   "ticker": "KLAR",
+   "name": "Klarna",
+   "cik": 2003292,
+   "secName": "Klarna Group plc",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001628280-26-057573",
+     "filed": "2026-08-18",
+     "report": "2026-06-30",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/0001628280-26-057573-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1 PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/klarnareportssecondquart.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-08-18_0001628280-26-057573_ex-99-1.txt",
+       "chars": 10051
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2 EARNINGS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/q22026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-08-18_0001628280-26-057573_ex-99-2.txt",
+       "chars": 44545
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3 INVESTOR PRESENTATION",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/q22026investorpresentati.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-08-18_0001628280-26-057573_ex-99-3.txt",
+       "chars": 93
+      },
+      {
+       "type": "EX-99.4",
+       "description": "EX-99.4 KLARNA GROUP PLC INTERIM FINANCIAL STATEMENTS",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/h126exno994klarnagrouppl.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-08-18_0001628280-26-057573_ex-99-4.txt",
+       "chars": 73850
+      },
+      {
+       "type": "EX-99.5",
+       "description": "EX-99.5 FINANCIAL STATEMENTS AND SUPPLEMENTARY METRICS",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026057573/financialstatementsandsu.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-08-18_0001628280-26-057573_ex-99-5.txt",
+       "chars": 12457
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-034877",
+     "filed": "2026-05-14",
+     "report": "2026-03-31",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/0001628280-26-034877-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1 PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/exhibitno991pressrelease.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-05-14_0001628280-26-034877_ex-99-1.txt",
+       "chars": 7100
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2 EARNINGS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/exhibitno992q126earnings.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-05-14_0001628280-26-034877_ex-99-2.txt",
+       "chars": 42654
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3 EARNINGS PRESENTATION",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/exhibitno993q12026earnin.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-05-14_0001628280-26-034877_ex-99-3.txt",
+       "chars": 93
+      },
+      {
+       "type": "EX-99.4",
+       "description": "EX.99.4 KLARNA GROUP PLC INTERIM FINANCIAL STATEMENTS",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/exhibitno994klarnagroupplc.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-05-14_0001628280-26-034877_ex-99-4.txt",
+       "chars": 61504
+      },
+      {
+       "type": "EX-99.5",
+       "description": "EX-99.5 SUPPLEMENTARY METRICS",
+       "url": "https://www.sec.gov/Archives/edgar/data/2003292/000162828026034877/exhibitno995financialsta.htm",
+       "file": "tools/consumidor/raw/releases/KLAR/2026-05-14_0001628280-26-034877_ex-99-5.txt",
+       "chars": 9173
+      }
+     ]
+    }
+   ],
+   "skipped": [
+    "0001628280-26-049939",
+    "0001628280-26-047131",
+    "0001628280-26-046370",
+    "0001628280-26-044898",
+    "0001628280-26-038366"
+   ],
+   "match": "(interim|quarterly) (report|results)|results for the (first|second|third|fourth) quarter|(first|second|third|fourth)[- ]quarter (20\\d\\d )?results|Q[1-4] 20\\d\\d"
+  },
+  "XYZ": {
+   "ticker": "XYZ",
+   "name": "Block (Afterpay)",
+   "cik": 1512673,
+   "secName": "Block, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001193125-26-335117",
+     "filed": "2026-08-05",
+     "report": "2026-08-05",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1512673/000119312526335117/0001193125-26-335117-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1512673/000119312526335117/d91486dex991.htm",
+       "file": "tools/consumidor/raw/releases/XYZ/2026-08-05_0001193125-26-335117_ex-99-1.txt",
+       "chars": 73769
+      }
+     ]
+    },
+    {
+     "accn": "0001193125-26-212032",
+     "filed": "2026-05-07",
+     "report": "2026-05-07",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1512673/000119312526212032/0001193125-26-212032-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1512673/000119312526212032/d132441dex991.htm",
+       "file": "tools/consumidor/raw/releases/XYZ/2026-05-07_0001193125-26-212032_ex-99-1.txt",
+       "chars": 76048
+      }
+     ]
+    },
+    {
+     "accn": "0001628280-26-053368",
+     "filed": "2026-08-05",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "(BNPL|Afterpay|buy now, pay later)[^.]{0,320}(billion|million|%)|(billion|million)[^.]{0,220}(BNPL|Afterpay)|^(United States|International|Total net revenue)[^|]{0,60}\\|.*\\d",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1512673/000162828026053368/0001628280-26-053368-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1512673/000162828026053368/xyz-20260630.htm",
+       "file": "tools/consumidor/raw/releases/XYZ/2026-08-05_0001628280-26-053368_10-q.txt",
+       "chars": 1914
+      }
+     ]
+    }
+   ]
+  },
+  "PYPL": {
+   "ticker": "PYPL",
+   "name": "PayPal",
+   "cik": 1633917,
+   "secName": "PayPal Holdings, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001633917-26-000080",
+     "filed": "2026-07-28",
+     "report": "2026-07-28",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/0001633917-26-000080-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/PYPL/2026-07-28_0001633917-26-000080_ex-99-1.txt",
+       "chars": 41709
+      }
+     ]
+    },
+    {
+     "accn": "0001633917-26-000065",
+     "filed": "2026-05-05",
+     "report": "2026-05-05",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/0001633917-26-000065-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/PYPL/2026-05-05_0001633917-26-000065_ex-99-1.txt",
+       "chars": 40063
+      }
+     ]
+    },
+    {
+     "accn": "0001633917-26-000082",
+     "filed": "2026-07-28",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "(buy now, pay later|BNPL|installment (loans|products))[^.]{0,320}(billion|million|%)|(billion|million)[^.]{0,220}(buy now, pay later|BNPL)",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/0001633917-26-000082-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/pypl-20260630.htm",
+       "file": "tools/consumidor/raw/releases/PYPL/2026-07-28_0001633917-26-000082_10-q.txt",
+       "chars": 807
+      }
+     ]
+    }
+   ]
+  },
+  "SEZL": {
+   "ticker": "SEZL",
+   "name": "Sezzle",
+   "cik": 1662991,
+   "secName": "Sezzle Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001662991-26-000165",
+     "filed": "2026-10-08",
+     "report": "2026-10-08",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000165/0001662991-26-000165-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000165/sezl-20261008ex9901.htm",
+       "file": "tools/consumidor/raw/releases/SEZL/2026-10-08_0001662991-26-000165_ex-99-1.txt",
+       "chars": 2380
+      }
+     ]
+    },
+    {
+     "accn": "0001662991-26-000124",
+     "filed": "2026-08-06",
+     "report": "2026-08-06",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000124/0001662991-26-000124-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000124/sezl-20260806ex9901.htm",
+       "file": "tools/consumidor/raw/releases/SEZL/2026-08-06_0001662991-26-000124_ex-99-1.txt",
+       "chars": 34707
+      }
+     ]
+    },
+    {
+     "accn": "0001662991-26-000126",
+     "filed": "2026-08-07",
+     "report": "2026-06-30",
+     "form": "10-Q",
+     "pattern": "^(United States|Canada|Total income|Total revenue)[^|]{0,60}\\|.*\\d|(United States|Canada)[^.]{0,220}(% of|substantially all|primarily)[^.]{0,160}",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000126/0001662991-26-000126-index.htm",
+     "exhibits": [
+      {
+       "type": "10-Q",
+       "description": "Quarterly report (passages)",
+       "url": "https://www.sec.gov/Archives/edgar/data/1662991/000166299126000126/szl-20260630.htm",
+       "file": "tools/consumidor/raw/releases/SEZL/2026-08-07_0001662991-26-000126_10-q.txt",
+       "chars": 254
+      }
+     ]
+    }
+   ]
+  },
+  "ALLY": {
+   "ticker": "ALLY",
+   "name": "Ally Financial",
+   "cik": 40729,
+   "secName": "Ally Financial Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001193125-26-309539",
+     "filed": "2026-07-21",
+     "report": "2026-07-21",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/40729/000119312526309539/0001193125-26-309539-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526309539/d40046dex991.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-07-21_0001193125-26-309539_ex-99-1.txt",
+       "chars": 42013
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526309539/d40046dex992.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-07-21_0001193125-26-309539_ex-99-2.txt",
+       "chars": 55426
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526309539/d40046dex993.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-07-21_0001193125-26-309539_ex-99-3.txt",
+       "chars": 70404
+      }
+     ]
+    },
+    {
+     "accn": "0001193125-26-160281",
+     "filed": "2026-04-17",
+     "report": "2026-04-17",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/0001193125-26-160281-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex991.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-1.txt",
+       "chars": 41576
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex992.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-2.txt",
+       "chars": 54766
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex993.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-3.txt",
+       "chars": 72179
+      }
+     ]
+    }
+   ]
+  },
+  "KMX": {
+   "ticker": "KMX",
+   "name": "CarMax",
+   "cik": 1170010,
+   "secName": "CARMAX INC",
+   "fiscalYearEnd": "0228",
+   "filings": [
+    {
+     "accn": "0001170010-26-000102",
+     "filed": "2026-09-29",
+     "report": "2026-09-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1170010/000117001026000102/0001170010-26-000102-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1170010/000117001026000102/q2fy27earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/KMX/2026-09-29_0001170010-26-000102_ex-99-1.txt",
+       "chars": 34764
+      }
+     ]
+    },
+    {
+     "accn": "0001170010-26-000053",
+     "filed": "2026-06-17",
+     "report": "2026-06-17",
+     "items": "2.02,2.03,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1170010/000117001026000053/0001170010-26-000053-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1170010/000117001026000053/q1fy27earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/KMX/2026-06-17_0001170010-26-000053_ex-99-1.txt",
+       "chars": 29720
+      }
+     ]
+    }
+   ]
+  },
+  "CACC": {
+   "ticker": "CACC",
+   "name": "Credit Acceptance",
+   "cik": 885550,
+   "secName": "CREDIT ACCEPTANCE CORP",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000885550-26-000181",
+     "filed": "2026-08-04",
+     "report": "2026-08-04",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000181/0000885550-26-000181-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000181/caccq22026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/CACC/2026-08-04_0000885550-26-000181_ex-99-1.txt",
+       "chars": 59868
+      }
+     ]
+    },
+    {
+     "accn": "0000885550-26-000079",
+     "filed": "2026-05-05",
+     "report": "2026-05-05",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000079/0000885550-26-000079-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000079/caccq12026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/CACC/2026-05-05_0000885550-26-000079_ex-99-1.txt",
+       "chars": 57947
+      }
+     ]
+    }
+   ]
+  },
+  "OMF": {
+   "ticker": "OMF",
+   "name": "OneMain",
+   "cik": 1584207,
+   "secName": "OneMain Holdings, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0001584207-26-000028",
+     "filed": "2026-07-29",
+     "report": "2026-07-29",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1584207/000158420726000028/0001584207-26-000028-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1584207/000158420726000028/exhibit991earningsreleaseo.htm",
+       "file": "tools/consumidor/raw/releases/OMF/2026-07-29_0001584207-26-000028_ex-99-1.txt",
+       "chars": 32044
+      }
+     ]
+    },
+    {
+     "accn": "0001584207-26-000018",
+     "filed": "2026-05-01",
+     "report": "2026-05-01",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1584207/000158420726000018/0001584207-26-000018-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1584207/000158420726000018/exhibit991earningsreleaseo.htm",
+       "file": "tools/consumidor/raw/releases/OMF/2026-05-01_0001584207-26-000018_ex-99-1.txt",
+       "chars": 32003
+      }
+     ]
+    }
+   ]
+  },
+  "FCFS": {
+   "ticker": "FCFS",
+   "name": "FirstCash",
+   "cik": 840489,
+   "secName": "FirstCash Holdings, Inc.",
+   "fiscalYearEnd": "1231",
+   "filings": [
+    {
+     "accn": "0000840489-26-000082",
+     "filed": "2026-07-23",
+     "report": "2026-07-23",
+     "items": "2.02,8.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000082/0000840489-26-000082-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000082/fcfs07232026exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/FCFS/2026-07-23_0000840489-26-000082_ex-99-1.txt",
+       "chars": 65940
+      }
+     ]
+    },
+    {
+     "accn": "0000840489-26-000047",
+     "filed": "2026-04-23",
+     "report": "2026-04-23",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/0000840489-26-000047-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/fcfs04232026exhibit991.htm",
+       "file": "tools/consumidor/raw/releases/FCFS/2026-04-23_0000840489-26-000047_ex-99-1.txt",
+       "chars": 55695
+      }
+     ]
+    }
+   ]
+  },
+  "EZPW": {
+   "ticker": "EZPW",
+   "name": "EZCORP",
+   "cik": 876523,
+   "secName": "EZCORP INC",
+   "fiscalYearEnd": "0930",
+   "filings": [
+    {
+     "accn": "0000876523-26-000064",
+     "filed": "2026-08-05",
+     "report": "2026-08-05",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/876523/000087652326000064/0000876523-26-000064-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/876523/000087652326000064/a2026-q3pressreleaseex991.htm",
+       "file": "tools/consumidor/raw/releases/EZPW/2026-08-05_0000876523-26-000064_ex-99-1.txt",
+       "chars": 35049
+      }
+     ]
+    },
+    {
+     "accn": "0000876523-26-000046",
+     "filed": "2026-05-06",
+     "report": "2026-05-06",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/876523/000087652326000046/0000876523-26-000046-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/876523/000087652326000046/a2026-q2pressreleaseex991.htm",
+       "file": "tools/consumidor/raw/releases/EZPW/2026-05-06_0000876523-26-000046_ex-99-1.txt",
+       "chars": 35019
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "errors": [],
+ "checkedAt": "2026-10-11T16:24:34.503Z"
+}
