@@ -100,6 +100,7 @@ export const INEGI = {
   empNoIncome: { id: '446599', search: 'poblacion ocupada nivel de ingresos', title: /Nacional > Total > Población ocupada > Por nivel de ingresos > No recibe ingresos$/i, freq: 'Q' },
   empUnspecified: { id: '446600', search: 'poblacion ocupada nivel de ingresos', title: /Nacional > Total > Población ocupada > Por nivel de ingresos > No especificado$/i, freq: 'Q' },
   privateCons: { id: '724119', search: 'consumo privado oferta y demanda', title: /base 2018 > A precios corrientes > Oferta y utilización total de bienes y servicios > Utilización > Demanda final > Gastos de consumo final > Consumo privado$/i, freq: 'A' },
+  privateConsQ: { id: '737411', search: 'consumo privado oferta y demanda precios corrientes', title: /Oferta y demanda global de bienes y servicios, base 2018 > Series Originales > A precios corrientes > Valores absolutos > Demanda > Consumo privado$/i, freq: 'Q' },
   gdpNominal: { id: '734407', search: 'producto interno bruto precios corrientes trimestral', title: /Producto interno bruto trimestral, base 2018.*Valores a precios corrientes.*Producto Interno Bruto$/i, freq: 'Q' },
   autos: { id: '15169', search: 'venta de vehiculos ligeros', title: /Venta al público de automóviles y camiones > Automóviles > Total$/i, freq: 'M' },
 };

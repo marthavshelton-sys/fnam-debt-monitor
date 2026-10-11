@@ -44,7 +44,7 @@ const D = { generatedAt: null, sources: {} };
 // each ENIGH. Bank credit: monthly, about 35 days later. Household financing and the ENOE's income table: quarterly.
 // Card rates: every two months, with a lag of half a year. BIS debt ratio: quarterly, with a lag of two quarters.
 const ALLOW = { enigh: 960, enif: 1340, poverty: 960, bankCredit: 80, financing: 175, rates: 300, cardsInForce: 290, cardPayments: 75, savings: 80, wages: 80, consumption: 115, remittances: 80, statesBanxico: 175,
-  inegiMonthly: 115, informality: 80, enoe: 175, accounts: 520, bis: 340, lending: 175 };
+  inegiMonthly: 115, informality: 80, enoe: 175, accounts: 175, bis: 340, lending: 175 };
 const NEVER = new Set(['enfih']);   // the only edition of a survey: dated on the page, never overdue
 const CHECK_VALID_DAYS = 45;
 const TODAY = nowIso().slice(0, 10);
@@ -189,14 +189,15 @@ if (L) {
   const SPEND = ['alimentos', 'transporte', 'educa_espa', 'vivienda', 'personales', 'limpieza', 'vesti_calz', 'salud', 'transf_gas'];
   const rest = T.ing_cor - T.gasto_mon - T.estim_alqu;
   const uses = SPEND.map((k) => [k, T[k]]).concat([['estim_alqu', T.estim_alqu], ['rest', rest]]);
-  const DETAIL = [['ali_dentro', 'alimentos'], ['ali_fuera', 'alimentos'], ['tabaco', 'alimentos'], ['publico', 'transporte'], ['foraneo', 'transporte'], ['adqui_vehi', 'transporte'], ['mantenim', 'transporte'], ['refaccion', 'transporte'], ['combus', 'transporte'], ['comunica', 'transporte'],
+  const DETAIL = [['ali_dentro', 'alimentos'], ['ali_fuera', 'alimentos'], ['tabaco', 'alimentos'], ['publico', 'transporte'], ['foraneo', 'transporte'], ['adqui_vehi', 'transporte'], ['combus', 'transporte'], ['refaccion', 'transporte'], ['comunica', 'transporte'],
     ['educacion', 'educa_espa'], ['esparci', 'educa_espa'], ['paq_turist', 'educa_espa'], ['alquiler', 'vivienda'], ['pred_cons', 'vivienda'], ['agua', 'vivienda'], ['energia', 'vivienda'], ['cuida_pers', 'personales'], ['acces_pers', 'personales'], ['otros_gas', 'personales']];
   tie('ENIGH', 'food = at home + away from home + tobacco', T.ali_dentro + T.ali_fuera + T.tabaco, T.alimentos, 1);
   tie('ENIGH', 'housing = rent + property tax and upkeep + water + energy', T.alquiler + T.pred_cons + T.agua + T.energia, T.vivienda, 1);
   tie('ENIGH', 'education and recreation = education + recreation + package tours', T.educacion + T.esparci + T.paq_turist, T.educa_espa, 1);
   tie('ENIGH', 'personal = personal care + accessories + other', T.cuida_pers + T.acces_pers + T.otros_gas, T.personales, 1);
-  // transport: INEGI's group also holds vehicle upkeep (mantenim) whose own sub-lines are parts and fuel
-  must('ENIGH', 'transport sub-lines stay within the group', T.publico + T.foraneo + T.adqui_vehi + T.mantenim + T.comunica <= T.transporte + 1, true);
+  // transport: vehicle upkeep (mantenim) is the sum of parts and fuel, which are shown instead of it
+  tie('ENIGH', 'vehicle upkeep = parts + fuel', T.refaccion + T.combus, T.mantenim, 1);
+  tie('ENIGH', 'transport = public + intercity + vehicle purchases + parts + fuel + communications', T.publico + T.foraneo + T.adqui_vehi + T.refaccion + T.combus + T.comunica, T.transporte, 1.5);
   const FIN_IN = ['retiro_inv', 'prestamos', 'otras_perc'], FIN_OUT = ['deposito', 'pago_tarje', 'cuota_viv', 'deudas', 'mater_serv', 'balance', 'prest_terc', 'otras_erog'];
   // receipts: the summary file's total also holds capital receipts in kind, which it does not itemize; they are shown as one residual line
   must('ENIGH', 'the itemized financial receipts do not exceed their total', sum(FIN_IN.map((k) => T[k])) <= T.percep_tot + 1);
@@ -298,12 +299,20 @@ if (L) {
 // Macro aggregates beside the survey: consumption in the national accounts, the monthly indicator, card payments, remittances
 // ------------------------------------------------------------------------------------------------------------------
 if (D.funds) {
-  const pc = iobs('privateCons');
-  if (pc && pc.length) {
-    const yr = last(pc)[0], g = [1, 2, 3, 4].map((q) => gdpQ.get(`${yr}-Q${q}`));
-    if (g.every((x) => x != null)) { const gdpY = sum(g) / 4; D.funds.consGdp = { asOf: String(yr), v: r1(last(pc)[1] / gdpY * 100), cons: r1(last(pc)[1] / 1e6), gdp: r1(gdpY / 1e6) };   // billones de pesos
+  // private consumption and GDP at current prices, both quarterly (annualized levels): the last four quarters of each
+  const pcq = iobs('privateConsQ'), pca = iobs('privateCons');
+  if (pcq && pcq.length > 8) {
+    const q = last(pcq)[0] <= lastGdpQ ? last(pcq)[0] : lastGdpQ, C = mapOf(pcq);
+    const c4 = (qq) => { const v = [0, 1, 2, 3].map((n) => C.get(prevQ(qq, n))); return v.every((x) => x != null) ? sum(v) / 4 : null; };
+    const c = c4(q), g = gdp4(q);
+    if (c && g) {
+      const qs = pcq.map((x) => x[0]).filter((qq) => qq >= '2006-Q4' && c4(qq) && gdp4(qq));
+      D.funds.consGdp = { asOf: q, v: r1(c / g * 100), cons: r1(c / 1e6), gdp: r1(g / 1e6), q: qs, series: qs.map((qq) => r1(c4(qq) / gdp4(qq) * 100)) };   // billones de pesos
       must('Accounts', 'private consumption is between 55% and 80% of GDP', D.funds.consGdp.v > 55 && D.funds.consGdp.v < 80);
-      src('accounts', 'inegi', { name: 'INEGI, Sistema de Cuentas Nacionales de México: consumo privado y PIB a precios corrientes', url: 'https://www.inegi.org.mx/programas/pib/2018/', asOf: String(yr) }); }
+      // the yearly accounts give the same share for the last full year both series cover
+      if (pca && pca.length) { const yr = pca.map((x) => x[0]).filter((yy) => C.get(`${yy}-Q4`) != null && gdpQ.get(`${yy}-Q4`) != null).pop(); if (yr) { const A = mapOf(pca); tie('Accounts', `consumption share of GDP in ${yr}: quarterly and yearly accounts agree (points)`, c4(`${yr}-Q4`) / gdp4(`${yr}-Q4`) * 100, A.get(yr) / gdp4(`${yr}-Q4`) * 100, 1.5, true); } }
+      src('accounts', 'inegi', { name: 'INEGI, Sistema de Cuentas Nacionales de México: oferta y demanda global y PIB trimestral a precios corrientes', url: 'https://www.inegi.org.mx/programas/ofyd/2018/', asOf: q });
+    }
   }
   const ct = obs('consTotal');
   if (ct && ct.length > 60) {
