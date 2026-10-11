@@ -38,11 +38,6 @@ on:
       probe:
         description: "true = diagnostics on a feature branch: answer the requests in tools/mx-consumidor/probe.json and commit the answers there (never on main)"
         default: "false"
-  push:
-    branches: ["claude/mexican-consumer"]
-    paths:
-      - "scripts/mx-consumidor/**"
-      - ".github/workflows/mx-consumidor-refresh.yml"
 
 concurrency:
   group: mx-consumidor-refresh-${{ github.ref_name }}
