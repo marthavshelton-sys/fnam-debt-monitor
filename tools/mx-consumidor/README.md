@@ -59,7 +59,8 @@ only when a source published something (`data.js` keeps its `generatedAt` when n
 - `build-companies.mjs` fails when a curated `find` text or quote is not in the stored release of the cited filing, or
   when the number is not in its own `find` text; that company is left out. The decimals shown for each company figure
   are the ones its release prints (`dp`).
-- Watchdog: entry `mx-consumer` in `tools/watchdog/dashboards.json`; status stamp from `data.js → generatedAt`
+- Watchdog: entry `mx-consumer` in `tools/watchdog/dashboards.json`, with `since` = when the workflow reached `main`
+  (11-Oct-2026, 20:50 UTC, minutes before the merge): schedules due before it are not judged. Status stamp from `data.js → generatedAt`
   (`STAMPS` in `site/assets/data-status.js`).
 
 Secrets used: `BANXICO_TOKEN`, `INEGI_TOKEN`, `FRED_API_KEY` (removed from everything written). A session cannot reach
