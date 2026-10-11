@@ -1,0 +1,11 @@
+GET https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip
+-> HTTP 200 application/x-zip-compressed 10834143 bytes · Last-Modified Mon, 29 Nov 2021 18:03:38 GMT
+
+Archive:  /tmp/probe-IaJg3b/file.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 36518790  2021-11-26 17:59   concentradohogar.csv
+      233  2021-11-26 21:24   nota_bases_datos_enigh2018_ns.txt
+---------                     -------
+ 36519023                     2 files
+

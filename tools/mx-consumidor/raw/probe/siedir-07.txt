@@ -1,0 +1,87 @@
+siedir {"sector":7}
+-> ok
+
+CA192	Emisiones de títulos de deuda clasificadas por emisor, plazo, tasa de interés, calificación crediticia y tipo de moneda
+CA727	Emisiones de títulos de deuda por sector, moneda, vencimiento, tasa de Interés y mercado de emisión
+CA726	Emisiones de títulos de deuda por sector, moneda, vencimiento, tasa de Interés y mercado de emisión, a valor de mercado
+CA209	Tenencia de emisiones de deuda en el mercado local por plazo original
+CA210	Tenencia de emisiones de deuda en el mercado local por plazo remanente
+CA211	Tenencia de emisiones de deuda en el mercado local por tipo de tasa
+CA212	Tenencia de emisiones de deuda en el mercado local por tipo de calificación
+CA213	Tenencia de emisiones de deuda en el mercado local por tipo de moneda
+CA214	Tenencia de títulos respaldados por hipotecas emitidos en el mercado local
+CA728	Tenencia de títulos de deuda por sector, residencia emisor, moneda, vencimiento, tasa de Interés y mercado
+CA725	Tenencia de títulos de deuda por sector, residencia emisor, moneda, vencimiento, tasa de Interés y mercado,
+CA725	a valor de mercado
+CA138	Total de valores gubernamentales
+CA129	Cetes
+CA724	BONDES F (Saldos a valor nominal en millones de pesos)
+CA740	BONDES G (Saldos a valor nominal en millones de pesos)
+CA137	Total Udibonos
+CA135	Udibonos no segregados
+CA136	Udibonos segregados
+CA134	Total Bonos
+CA132	Bonos no segregados
+CA133	Bonos segregados
+CA765	BONOS MS (Saldos a valor nominal en millones de pesos)
+CA131	Bondes
+CA253	Ajustabonos
+CA254	Tesobonos
+CA255	Pagafes
+CA130	Bondes D
+CA145	Total en Circulación
+CA170	Sector Bancario
+CA175	Residentes en el Extranjero
+CA146	Residentes en el País
+CA171	Siefores
+CA172	Sociedades de Inversión
+CA147	Reportos con Banxico
+CA169	Garantías Recibidas por Banxico
+CA173	Aseguradoras y Afianzadoras
+CA174	Otros Residentes en el País
+CA256	Valores adquiridos por Banxico
+CA144	Total de valores del IPAB
+CA141	BPAS
+CA143	BPAT
+CA142	BPA182
+CA200	BPAG28
+CA201	BPAG91
+CA158	Total en Circulación
+CA163	Sector Bancario
+CA168	Residentes en el Extranjero
+CA159	Residentes en el País
+CA164	Siefores
+CA165	Sociedades de Inversión
+CA160	Reportos con Banxico
+CA162	Valores Comprados por Banxico
+CA161	Garantías Recibidas por Banxico
+CA166	Aseguradoras y Afianzadoras
+CA167	Otros Residentes en el País
+CA140	Total de valores de Banxico
+CA139	BREMS
+CA257	BREMS XR (Saldos a valor nominal en millones de pesos)
+CA148	Total en Circulación
+CA152	Sector Bancario
+CA157	Residentes en el Extranjero
+CA149	Residentes en el País
+CA153	Siefores
+CA154	Sociedades de Inversión
+CA150	Reportos con Banxico
+CA151	Garantías Recibidas por Banxico
+CA155	Aseguradoras y Afianzadoras
+CA156	Otros Residentes en el País
+CA54	Indice de Precios y Cotizaciones (IPC)
+CF460	Emisiones de títulos de deuda clasificadas por emisor, plazo, tasa de interés, calificación crediticia y tipo de moneda
+CF457	Tenencia de valores gubernamentales
+CF478	Circulación y tenencia de valores gubernamentales
+CF70	Circulación de la deuda interna del sector púb por valores
+CF69	Total de valores del sector publico por residentes
+CG11	Plazo promedio de vencimiento de valores gubernamentales
+CF133	Indicadores de Valores Privados de Corto Plazo
+CF301	Saldo en Circulación de Valores Privados y Otros Valores Públicos
+CF304	Colocaciones Mensuales de Valores Privados y Otros Valores Públicos
+CF103	Indicadores de la Bolsa Mexicana de Valores
+CF57	Indice de Precios y Cotizaciones
+CF56	Valor de las Acciones en Circulación
+CF58	Operaciones en el mercado bursátil
+CF448	Posición de No Residentes en Títulos de Renta Variable

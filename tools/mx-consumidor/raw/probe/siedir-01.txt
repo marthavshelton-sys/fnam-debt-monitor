@@ -1,0 +1,106 @@
+siedir {"sector":1}
+-> ok
+
+CA410	Balanza de pagos con base en MBP6 (a partir de 2002)
+CA176	Balanza comercial de mercancías de México (sin apertura de maquiladoras)
+CA179	Balanza comercial de mercancías de México (con apertura de maquiladoras, hasta diciembre de 2006)
+CA181	Balanza de productos manufacturados
+CA81	Balanza de productos manufacturados maquila
+CA180	Balanza de productos manufacturados no maquila
+CA186	Balanza de productos agropecuarios
+CA187	Balanza de productos agropecuarios, pesqueros y agroindustriales.
+CA188	Balanza de productos petroleros
+CA189	Balanza de productos petroquímicos y de origen petroquímico
+CA7	Total
+CA177	Petrolera
+CA178	No Petrolera
+CA6	Total
+CA182	Petrolera
+CA183	No Petrolera
+CA8	Total
+CA184	Petrolera
+CA185	No Petrolera
+CA739	Índices de Términos de Intercambio, Valor Unitario y Volumen Implícito
+CA198	Viajeros Internacionales Ingresos
+CA199	Viajeros Internacionales Egresos
+CA11	Remesas
+CA79	Remesas por Entidad Federativa
+CA737	Estado Integrado de la Posición de Inversión Internacional (trimestral)
+CE174	Balanza de pagos con base en MBP6 (a partir de 2002)
+CE139	Balanza de pagos (1980 - 2001)
+CE175	Balanza de pagos (1950 - 1979)
+CE204	Antecedentes de la estadística oficial de balanza de pagos: 1930 a 1949
+CE158	Principales agregados de la balanza de pagos como proporcion del PIB
+CE203	Principales agregados anuales de balanza de pagos
+CE159	Variación de la reserva internacional
+CE125	Balanza comercial de mercancías de México (sin apertura de maquiladoras)
+CE197	Balanza comercial de mercancías de México con los Estados Unidos de América
+CE198	Balanza comercial de mercancías de México con países distintos de EEUU
+CE130	Balanza comercial de mercancías de México (con apertura de maquiladoras, hasta diciembre de 2006)
+CE132	Balanza comercial de mercancías de México (1980 a 1992)
+CE134	Balanza comercial de mercancías de México, datos desestacionalizados
+CE135	Balanza comercial de mercancías de México, datos de tendencia
+CE160	Indicadores en materia de balanza comercial de mercancías de México
+CE171	Exportación de productos manufacturados
+CE172	Exportación de productos manufacturados, datos desestacionalizados
+CE173	Exportación de productos manufacturados, datos de tendencia
+CE199	Balanza de productos manufacturados con los Estados Unidos de América
+CE200	Balanza de productos manufacturados con países distintos de EEUU
+CE127	Balanza de productos manufacturados
+CE79	Balanza de productos manufacturados maquila
+CE126	Balanza de productos manufacturados no maquila
+CE122	Balanza de productos agropecuarios
+CE191	Balanza de productos agropecuarios con los Estados Unidos de América
+CE192	Balanza de productos agropecuarios con países distintos de EEUU
+CE121	Balanza de productos petroleros
+CE201	Balanza de productos petroleros con los Estados Unidos de América
+CE202	Balanza de productos petroleros con países distintos de EEUU
+CE124	Balanza de productos petroquímicos y de origen petroquímico
+CE195	Balanza de productos petroquímicos y de origen petroquímico con los Estados Unidos de América
+CE196	Balanza de productos petroquímicos y de origen petroquímico con países distintos de EEUU
+CE123	Balanza de productos agropecuarios, pesqueros y agroindustriales.
+CE193	Balanza de productos agropecuarios, pesqueros y agroindustriales con los Estados Unidos de América
+CE194	Balanza de productos agropecuarios, pesqueros y agroindustriales con países distintos de EEUU
+CE37	Exportaciones totales
+CE45	Exportaciones totales -maquila-
+CE41	Exportaciones totales -no maquila-
+CE49	Importaciones totales
+CE55	Importaciones totales -maquila-
+CE51	Importaciones totales -no maquila-
+CE86	Total
+CE114	Petrolera
+CE115	No petrolera
+CE85	Total
+CE116	Petrolera
+CE117	No petrolera
+CE87	Total
+CE128	Petrolera
+CE129	No petrolera
+CE187	Índices de Términos de Intercambio, Valor Unitario y Volumen Implícito
+CE36	Cuenta de Viajeros Internacionales
+CE81	Ingresos por Remesas
+CE164	Ingresos de Remesas por Bancos y No Bancos
+CE165	Egresos por Remesas
+CE181	Ingresos, Egresos y Saldo de la Cuenta de Remesas, Datos Desestacionalizados y de Tendencia-Ciclo
+CE80	Ingresos por Remesas
+CE190	Ingresos por Remesas Electrónicas, Pago en Efectivo y Depósito a Cuenta
+CE100	Ingresos por Remesas, Distribución por Entidad Federativa
+CE99	Ingresos por Remesas, Distribución Porcentual por Entidad Federativa
+CE166	Ingresos por Remesas, Distribución por Municipio
+CE167	País de Origen de los Ingresos por Remesas
+CE168	Estado de Origen de los Ingresos por Remesas Provenientes de Estados Unidos
+CE169	País de Destino de los Egresos por Remesas
+CE179	Encuesta Anual sobre Remesas
+CE183	Información complementaria de los flujos financieros de inversión de cartera y otra inversión
+CE131	Inversión Directa de México (principio direccional)
+CF448	Posición de No Residentes en Títulos de Renta Variable
+CE89	Posición de no residentes en valores gubernamentales
+CE97	Posición de inversión internacional anual
+CE170	Posición de inversión internacional trimestral
+CE182	Posición de Deuda Externa Bruta
+CE188	Posición de Deuda Externa Bruta. Sector Público y Privado (Cuadro Puente)
+CE101	Posición de deuda externa bruta. Clasificación por residencia.
+CE103	Posición de deuda externa bruta. Sectorización de ajustes.
+CR60	ITCR con precios consumidor y con respecto a 111 países
+CR183	ITCR bilateral con precios consumidor y con respecto a los Estados Unidos de América
+CR184	Indice del tipo de cambio real del peso mexicano con precios consumidor, respecto a 49 países y ponderados con comercio

@@ -1,0 +1,449 @@
+{
+ "ranAt": "2026-10-11T18:53:54.231Z",
+ "requests": [
+  {
+   "name": "inegi-enigh2024",
+   "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+   "lastModified": "Wed, 30 Jul 2025 12:00:45 GMT",
+   "bytes": 3918
+  },
+  {
+   "name": "inegi-enif2024",
+   "url": "https://www.inegi.org.mx/programas/enif/2024/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enif/2024/",
+   "lastModified": "Thu, 13 Mar 2025 12:00:18 GMT",
+   "bytes": 3715
+  },
+  {
+   "name": "inegi-enfih2019",
+   "url": "https://www.inegi.org.mx/programas/enfih/2019/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enfih/2019/",
+   "lastModified": "Fri, 08 Mar 2024 22:00:04 GMT",
+   "bytes": 3952
+  },
+  {
+   "name": "inegi-enoe",
+   "url": "https://www.inegi.org.mx/programas/enoe/15ymas/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enoe/15ymas/",
+   "lastModified": "Thu, 08 Feb 2024 20:00:21 GMT",
+   "bytes": 5765
+  },
+  {
+   "name": "inegi-pm",
+   "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/desarrollosocial/pm/",
+   "lastModified": "Wed, 13 Aug 2025 12:00:34 GMT",
+   "bytes": 4081
+  },
+  {
+   "name": "inegi-pobreza",
+   "url": "https://www.inegi.org.mx/temas/pobreza/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/temas/pobreza/",
+   "lastModified": "Fri, 17 Jan 2025 16:31:24 GMT",
+   "bytes": 13370
+  },
+  {
+   "name": "inegi-enco",
+   "url": "https://www.inegi.org.mx/programas/enco/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enco/",
+   "lastModified": "Fri, 06 Feb 2026 12:00:28 GMT",
+   "bytes": 4026
+  },
+  {
+   "name": "inegi-enigh2024-raw",
+   "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+   "lastModified": "Wed, 30 Jul 2025 12:00:45 GMT",
+   "bytes": 3918
+  },
+  {
+   "name": "enigh2024-concentrado",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_concentradohogar_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_concentradohogar_csv.zip",
+   "lastModified": "Wed, 30 Jul 2025 12:00:31 GMT",
+   "bytes": 13171058,
+   "saved": "enigh2024_concentradohogar.zip"
+  },
+  {
+   "name": "enigh2022-concentrado",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2022/microdatos/enigh2022_ns_concentradohogar_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2022/microdatos/enigh2022_ns_concentradohogar_csv.zip",
+   "lastModified": "Wed, 26 Jul 2023 12:01:25 GMT",
+   "bytes": 12542624,
+   "saved": "enigh2022_concentradohogar.zip"
+  },
+  {
+   "name": "enigh2020-concentrado",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2020/microdatos/enigh2020_ns_concentradohogar_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2020/microdatos/enigh2020_ns_concentradohogar_csv.zip",
+   "lastModified": "Wed, 28 Jul 2021 11:01:00 GMT",
+   "bytes": 12079700,
+   "saved": "enigh2020_concentradohogar.zip"
+  },
+  {
+   "name": "enigh2018-concentrado",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2018/microdatos/enigh2018_ns_concentradohogar_csv.zip",
+   "lastModified": "Mon, 29 Nov 2021 18:03:38 GMT",
+   "bytes": 10834143,
+   "saved": "enigh2018_concentradohogar.zip"
+  },
+  {
+   "name": "enigh2016-concentrado",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2016/microdatos/enigh2016_ns_concentradohogar_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2016/microdatos/enigh2016_ns_concentradohogar_csv.zip",
+   "lastModified": "Mon, 29 Nov 2021 18:03:37 GMT",
+   "bytes": 10273472,
+   "saved": "enigh2016_concentradohogar.zip"
+  },
+  {
+   "name": "enigh2024-viviendas",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip",
+   "lastModified": "Wed, 30 Jul 2025 12:00:28 GMT",
+   "bytes": 1848886,
+   "saved": "enigh2024_viviendas.zip"
+  },
+  {
+   "name": "enigh2024-hogares",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_hogares_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_hogares_csv.zip",
+   "lastModified": "Wed, 30 Jul 2025 12:00:21 GMT",
+   "bytes": 3330147,
+   "saved": "enigh2024_hogares.zip"
+  },
+  {
+   "name": "enigh2024-presentacion",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
+   "method": "GET",
+   "status": 200,
+   "type": "application/pdf",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/doc/enigh2024_ns_presentacion_resultados.pdf",
+   "lastModified": "Wed, 30 Jul 2025 17:44:48 GMT",
+   "bytes": 1217208
+  },
+  {
+   "name": "siedir-01",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-02",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-03",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-04",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-05",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-06",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-07",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-08",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-09",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-10",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-11",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-12",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-13",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-14",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-15",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=15&locale=es"
+  },
+  {
+   "name": "siedir-16",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=16&locale=es"
+  },
+  {
+   "name": "siedir-17",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=17&locale=es"
+  },
+  {
+   "name": "siedir-18",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-19",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-20",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-21",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-22",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-23",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-24",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-25",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-26",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-27",
+   "kind": "siedir",
+   "ok": true
+  },
+  {
+   "name": "siedir-28",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=28&locale=es"
+  },
+  {
+   "name": "siedir-29",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=29&locale=es"
+  },
+  {
+   "name": "siedir-30",
+   "kind": "siedir",
+   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarDirectorioCuadros&sector=30&locale=es"
+  },
+  {
+   "name": "bie-00",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-01",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-02",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-03",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-04",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-05",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-06",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-07",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-08",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-09",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-10",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-11",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-12",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-13",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bie-14",
+   "kind": "bie",
+   "ok": true
+  },
+  {
+   "name": "bmv-issuers",
+   "url": "https://www.bmv.com.mx/es/Grupo_BMV/BmvJsonGeneric?idSitioPagina=4",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=UTF-8",
+   "finalUrl": "https://www.bmv.com.mx/es/Grupo_BMV/BmvJsonGeneric?idSitioPagina=4",
+   "lastModified": null,
+   "bytes": 488275
+  },
+  {
+   "name": "bmv-walmex",
+   "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html;charset=utf-8",
+   "finalUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
+   "lastModified": null,
+   "bytes": 143718
+  },
+  {
+   "name": "fred-bis-hh",
+   "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=QMXHAM770A",
+   "method": "GET",
+   "error": "fetch failed"
+  },
+  {
+   "name": "cnbv-inclusion",
+   "url": "https://www.cnbv.gob.mx/Inclusi%C3%B3n/Paginas/Bases-de-Datos.aspx",
+   "method": "GET",
+   "error": "fetch failed"
+  },
+  {
+   "name": "consar-siset",
+   "url": "https://www.consar.gob.mx/gobmx/aplicativo/siset/Enlace.aspx?md=5",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html; charset=utf-8",
+   "finalUrl": "https://www.consar.gob.mx/gobmx/aplicativo/siset/Enlace.aspx?md=5",
+   "lastModified": null,
+   "bytes": 10427
+  },
+  {
+   "name": "sec-fmx",
+   "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=FMX&type=6-K&dateb=&owner=include&count=10",
+   "method": "GET",
+   "status": 200,
+   "type": "text/html; charset=UTF-8",
+   "finalUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=FMX&type=6-K&dateb=&owner=include&count=10",
+   "lastModified": null,
+   "bytes": 14691
+  }
+ ]
+}

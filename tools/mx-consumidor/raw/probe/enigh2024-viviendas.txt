@@ -1,0 +1,10 @@
+GET https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/microdatos/enigh2024_ns_viviendas_csv.zip
+-> HTTP 200 application/x-zip-compressed 1848886 bytes · Last-Modified Wed, 30 Jul 2025 12:00:28 GMT
+
+Archive:  /tmp/probe-a9PgMG/file.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+ 16096736  2025-07-18 09:26   viviendas.csv
+---------                     -------
+ 16096736                     1 file
+

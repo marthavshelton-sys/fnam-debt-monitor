@@ -1,0 +1,33 @@
+siedir {"sector":21}
+-> ok
+
+CF282	Cheques 1/
+CF256	Número de tarjetas de crédito y débito 2/
+CF873	Operaciones con tarjetas procesadas por las cámaras de compensación 3/
+CF888	Monto operado a través de tarjetas
+CF914	Monto operado a través de tarjetas
+CF889	Número de operaciones realizadas con tarjetas
+CF915	Número de operaciones realizadas con tarjetas
+CF262	Operaciones en cajeros automáticos
+CF266	Cajeros automáticos por entidad
+CF268	Operaciones en TPV
+CF621	Operaciones con tarjetas en sitios de Comercio Electrónico 6/
+CF272	TPV por entidad
+CF258	Transferencias por medio de acceso 7/
+CF620	Transferencias interbancarias mismo día por monto operado (SPEI) II/
+CF890	Monto operado tercero a tercero en SPEI
+CF891	Número de operaciones tercero a tercero en SPEI
+CF818	Información diaria
+CF819	Información anual en corte por hora
+CF820	Información anual por participante (sólo banca múltiple)
+CF816	Información diaria
+CF817	Información anual por participante
+CF286	Domiciliaciones 8/
+CF358	Operaciones internacionales 9/
+CF274	Swift 10/
+CF311	Directo a México 11/
+CF881	Cuentas validadas
+CF882	Cuentas que han realizado al menos una transacción
+CF883	Apps móviles de los participantes enrolados en CoDi
+CF884	Operaciones realizadas a través de CoDi
+CF885	Monto procesado a través de CoDi

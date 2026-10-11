@@ -1,0 +1,273 @@
+siedir {"sector":19}
+-> ok
+
+CA111	Matriz de flujo de fondos del sistema financiero institucional
+CA393	Tipos de cambio "Forward" promedio (pesos por dólar de los E.U.A.) en operaciones conocidas como "Swaps" cambiarios
+CA394	Tipos de cambio "Forward" promedio (pesos por dólar de los E.U.A.) en operaciones distintas a "Swaps" cambiarios
+CA395	Volumen negociado en "Forwards" sobre el dólar de los E.U.A. VS el peso mexicano relativos a "Swaps" cambiarios
+CA396	Volumen negociado en "Forwards" sobre el dólar de los E.U.A. VS el peso mexicano distintos a "Swaps" cambiarios
+CA454	Resultados Principales de la Encuesta sobre Condiciones Generales y Estándares en el Mercado de Crédito Bancario
+CF150	Banco central
+CF151	Otras sociedades de depósito
+CF152	Sociedades de depósito
+CF153	Otras sociedades financieras
+CF154	Sociedades financieras, excluye agencias en el exterior
+CF155	Sociedades financieras, incluye agencias en el exterior
+CF832	Principales activos y pasivos
+CF480	Recursos y Obligaciones
+CF481	Banca interna
+CF483	Agencias en el exterior
+CF833	Principales activos y pasivos
+CF482	Recursos y Obligaciones
+CF806	Entidades de ahorro y crédito popular
+CF631	Sociedades cooperativas de ahorro y préstamo
+CF632	Sociedades financieras populares
+CF140	Uniones de crédito
+CF805	Fondos de inversión
+CF837	Deuda
+CF838	Renta variable
+CF353	Sociedades financieras de objeto múltiple, entidades reguladas
+CF356	Subsidiarias de grupos financieros
+CF357	Subsidiarias de instituciones bancarias
+CF630	Otras instituciones
+CF800	Instituciones de seguros
+CF803	Instituciones de pensiones
+CF804	Instituciones de seguros especializadas en salud
+CF801	Instituciones de seguros de garantía financiera
+CF802	Instituciones de seguros de crédito a la vivienda
+CF44	Almacenes de depósito
+CF43	Fondos de fomento económico
+CF45	Casas de bolsa
+CF799	Instituciones de fianzas
+CF796	Sociedades de inversión especializadas en fondos para el retiro
+CF797	Siefores básicas
+CF798	Siefores adicionales
+CF847	Organismos de servicio social
+CF848	Infonavit
+CF849	Fovissste
+CF850	Infonacot
+CF297	Financiamiento total al sector privado no financiero
+CF88	Financiamiento al sector privado del país a través del crédito bancario y otras fuentes alternativas
+CF616	Financiamiento resumen metodología 2018
+CF615	Financiamiento detallado metodología 2018
+CF835	Cartera vigente otorgada al sector privado no bancario (metodología 2018)
+CF762	Crédito por la principal actividad del acreditado (total)
+CF763	Moneda nacional
+CF764	Moneda extranjera
+CF765	Cartera vigente
+CF766	Cartera vencida
+CF767	Total de agencias en el exterior
+CF829	Crédito por entidad federativa, sector económico y situación de la cartera
+CF455	Financiamiento resumen metodología 2018
+CF454	Financiamiento detallado metodología 2018
+CF836	Cartera vigente otorgada al sector privado no bancario (metodología 2018)
+CF768	Crédito por la principal actividad del acreditado (total)
+CF769	Moneda nacional
+CF809	Moneda extranjera
+CF810	Cartera vigente
+CF811	Cartera vencida
+CF830	Crédito por entidad federativa, sector económico y situación de la cartera
+CF662	Saldos de los principales instrumentos de la captación
+CF661	Números de contratos de los principales instrumentos de la captación
+CF664	Saldos de los principales instrumentos de la captación
+CF663	Números de contratos de los principales instrumentos de la captación
+CF209	Rangos (m.n.)
+CF667	Saldos de los principales instrumentos de la captación
+CF666	Números de contratos de los principales instrumentos de la captación
+CF669	Saldos de los principales instrumentos de la captación
+CF668	Números de contratos de los principales instrumentos de la captación
+CF660	Banca comercial
+CF665	Banca de desarrollo
+CF910	Resultados de la encuesta. Diseño muestral Censos Económicos 2019
+CF471	Resultados de la encuesta. Diseño muestral Censos Económicos 2009
+CF795	Crédito a Empresas Grandes No Financieras
+CF842	Crédito a Pequeñas y Medianas Empresas No Financieras
+CF843	Crédito a Intermediarios Financieros No Bancarios
+CF844	Crédito al Consumo
+CF845	Crédito Hipotecario
+CF846	Factores Relacionados con la Demanda y/o las Condiciones Generales y Estándares de Aprobación de Crédito
+CF578	Volumen de operaciones derivadas concertado por instituciones de crédito y casas de bolsa mexicanas
+CF579	Volumen de operaciones derivadas concertado por casas de bolsa mexicanas
+CF580	Volumen de operaciones derivadas concertado por instituciones de crédito mexicanas
+CF581	Operaciones derivadas vigentes, de bancos y casas de bolsa residentes en México
+CF582	Operaciones derivadas vigentes del total de Casas de Bolsa en México
+CF583	Operaciones derivadas vigentes del total de Instituciones de Crédito en México
+CF772	Indicadores de Operaciones Adelantadas ("Forwards") sobre el dólar y el euro negociadas por bancos y casas de bolsa
+CF775	Indicadores de Opciones OTC sobre el dólar y el euro negociados por instituciones de crédito y casas de bolsa
+CF792	Indicadores de Swaps OTC que intercambian tasa fija VS TIIE de fondeo a plazo de 28 días, tasa fija VS LIBOR a 90 días
+CF792	o tasa fija VS SOFR
+CF317	Banco central
+CF318	Banca interna
+CF319	Banca de desarrollo
+CF320	Arrendadoras
+CF321	Factoraje
+CF322	Sociedades Financieras de Objeto Limitado (Sofoles)
+CF323	Sociedades de Ahorro y Préstamo (SAPs)
+CF332	Fondos de inversión de renta variable
+CF333	Fondos de inversión de deuda
+CF334	Fondos de inversión de capitales
+CF324	Uniones de crédito
+CF344	Otras sociedades de depósito
+CF345	Otras sociedades financieras
+CF325	Aseguradoras
+CF326	Instituciones de pensiones
+CF327	Instituciones de salud
+CF335	Afianzadoras
+CF331	Almacenes de depósito
+CF329	Fondos de fomento
+CF328	Sociedades de inversión especializadas en fondos para el retiro
+CF330	Casas de Bolsa
+CF338	Agencias de bancos en el exterior
+CF339	Sociedades financieras, excluye agencias en el exterior
+CF340	Sociedades financieras, incluye agencias en el exterior
+CF172	Principales activos y pasivos
+CF124	Recursos y Obligaciones
+CF445	Resumen
+CF125	Banca interna
+CF145	Agencias en el exterior
+CF144	Metodología 1997
+CF174	Principales activos y pasivos
+CF126	Recursos y Obligaciones
+CF446	Resumen
+CF294	Otras sociedades de depósito no bancarias
+CF39	Metodología 1990
+CF128	Metodología 2000
+CF73	Cartera de crédito
+CF38	Metodología 1990
+CF127	Metodología 2000
+CF40	Cartera de crédito
+CF80	Sociedades financieras de objeto limitado
+CF78	Inmobiliarias
+CF79	No inmobiliarias
+CF74	Entidades de ahorro y crédito popular
+CF47	Fondos de inversión
+CF46	Cartera de valores a precios de mercado
+CF839	Capitales
+CF295	Otras sociedades financieras
+CF42	Del sector privado
+CF41	Del sector público
+CF98	Compañías de seguros especializadas en pensiones
+CF97	Afianzadoras
+CF296	Compañías de seguros especializadas en salud
+CF633	Compañías de seguros de garantía financiera
+CF634	Compañías de seguros de crédito a la vivienda
+CF68	Sociedades de inversión especializadas en fondos para el retiro
+CF597	Total metodología 2016
+CF596	Detallado metodología 2016
+CF598	Cartera vigente otorgada al sector privado no bancario (metodología 2016)
+CF129	Total metodología 2000
+CF92	Detallado metodología 2000
+CF249	Cartera vigente otorgado al sector privado no bancario (metodología 2000)
+CF29	Crédito por actividad principal de prestatarios (total)
+CF31	Moneda extranjera
+CF245	Cartera vigente
+CF34	Cartera vencida
+CF33	Por agencias en el exterior
+CF246	Crédito por entidad federativa, sector económico y situación de la cartera
+CF131	Financiamiento metodología 2000
+CF93	Detallado
+CF30	Crédito por actividad principal de prestatarios (total)
+CF32	Moneda extranjera
+CF35	Cartera vencida
+CF248	Crédito por entidad federativa, sector económico y situación de la cartera
+CF378	Total, República y Agencias (metodología 2008)
+CF380	Aguascalientes
+CF381	Baja California Norte
+CF382	Baja California Sur
+CF383	Campeche
+CF384	Coahuila
+CF385	Colima
+CF386	Chiapas
+CF387	Chihuahua
+CF388	Distrito Federal
+CF389	Durango
+CF390	Guanajuato
+CF391	Guerrero
+CF392	Hidalgo
+CF393	Jalisco
+CF394	México
+CF395	Michoacán
+CF396	Morelos
+CF397	Nayarit
+CF398	Nuevo León
+CF399	Oaxaca
+CF400	Puebla
+CF401	Querétaro
+CF402	Quintana Roo
+CF403	San Luis Potosí
+CF404	Sinaloa
+CF405	Sonora
+CF406	Tabasco
+CF407	Tamaulipas
+CF408	Tlaxcala
+CF409	Veracruz
+CF410	Yucatán
+CF411	Zacatecas
+CF208	Agencias en el exterior (metodología 2008)
+CF175	Total, República y Agencias (metodología 2002)
+CF176	Aguascalientes
+CF177	Baja California Norte
+CF178	Baja California Sur
+CF179	Campeche
+CF180	Coahuila
+CF181	Colima
+CF182	Chiapas
+CF183	Chihuahua
+CF184	Distrito Federal
+CF185	Durango
+CF186	Guanajuato
+CF187	Guerrero
+CF188	Hidalgo
+CF189	Jalisco
+CF190	México
+CF191	Michoacán
+CF192	Morelos
+CF193	Nayarit
+CF194	Nuevo León
+CF195	Oaxaca
+CF196	Puebla
+CF197	Querétaro
+CF198	Quintana Roo
+CF199	San Luis Potosí
+CF200	Sinaloa
+CF201	Sonora
+CF202	Tabasco
+CF203	Tamaulipas
+CF204	Tlaxcala
+CF205	Veracruz
+CF206	Yucatán
+CF207	Zacatecas
+CF412	Total, República y Agencias (metodología 2008)
+CF413	Aguascalientes
+CF414	Baja California Norte
+CF415	Baja California Sur
+CF416	Campeche
+CF417	Coahuila
+CF418	Colima
+CF419	Chiapas
+CF420	Chihuahua
+CF421	Distrito Federal
+CF422	Durango
+CF423	Guanajuato
+CF424	Guerrero
+CF425	Hidalgo
+CF426	Jalisco
+CF427	México
+CF428	Michoacán
+CF429	Morelos
+CF430	Nayarit
+CF431	Nuevo León
+CF432	Oaxaca
+CF433	Puebla
+CF434	Querétaro
+CF435	Quintana Roo
+CF436	San Luis Potosí
+CF437	Sinaloa
+CF438	Sonora
+CF439	Tabasco
+CF440	Tamaulipas
+CF441	Tlaxcala
+CF442	Veracruz
+CF443	Yucatán
+CF444	Zacatecas
+CF89	Resultados de la encuesta (presentación anterior)
