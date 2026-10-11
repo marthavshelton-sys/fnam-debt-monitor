@@ -1,0 +1,166 @@
+# Keeps the American Consumer page (site/consumidor) current. Runbook: tools/consumidor/README.md.
+#
+#   Every day at 14:10 UTC (after the 08:30 New York releases: BEA Personal Income and Outlays, Census) and at
+#   21:40 UTC (after the New York Fed's 11:00 report, the Fed's afternoon releases and the G.19 at 15:00 New York):
+#
+#   fetch    Census ACS and BLS Consumer Expenditure Surveys (their APIs; a new survey year is picked up when it
+#            appears), the Fed's Distributional Financial Accounts and Survey of Consumer Finances (release
+#            packages, read only when their Last-Modified changes), the New York Fed's Household Debt and Credit
+#            workbook and state file, BEA's Distribution of Personal Income, the BLS Distribution of Personal
+#            Consumption Expenditures, the University of Michigan's sentiment by income, Census Nonemployer
+#            Statistics, the BEA and BLS joint distribution of income, consumption and saving, the New York Fed's
+#            Survey of Consumer Expectations and Credit Access Survey, the Federal Reserve's yearly survey of
+#            household well-being (its tables, plus the Board's note on buy now, pay later), the CFPB's study of
+#            buy now, pay later borrowers, Federal Student Aid's portfolio tables, the U.S. Courts' bankruptcy
+#            Table F-2, and the BEA / Federal Reserve / Census / Philadelphia Fed series the page reads through
+#            FRED (each checked against its title). A source that fails keeps its stored file and is counted in
+#            tools/consumidor/raw/status.json.
+#            On Sundays the first run reads every source again in full (revisions of a period already shown).
+#   releases the two latest results releases (Form 8-K, Item 2.02) of the covered companies from SEC EDGAR, kept as
+#            text; for the gig platforms and some lenders also the passages of the latest 10-Q and 10-K that give
+#            figures by country, and the company pages listed in companies.json. Their figures reach the page only
+#            through the curated file tools/consumidor/data/companies-kpis.json, which the page's daily scheduled
+#            task (prompt in tools/consumidor/ROUTINE-PROMPT.md) updates the day a release is stored; the page flags
+#            a company whose release is newer until then.
+#   build    site/consumidor/data/data.js (every tie-out must hold or the page keeps its last data) and
+#            site/consumidor/data/companies.js (every curated figure and quote must be in the release it cites).
+#
+# A run commits only when a source published something; bot commits carry [skip actions]. The commit comes right
+# after the build (and runs even when the build stopped); what follows is optional (continue-on-error, time-limited). A source that fails three runs in a
+# row opens one "SOURCE DOWN: American Consumer - ..." issue (label consumidor-source-down), closed on recovery.
+name: Refresh American Consumer data
+
+on:
+  schedule:
+    - cron: "10 14 * * *"
+    - cron: "40 21 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "true = read every source again even when the publisher shows nothing new"
+        default: "false"
+      probe:
+        description: "true = diagnostics on a feature branch: answer the requests in tools/consumidor/probe.json and commit the answers there (never on main)"
+        default: "false"
+
+concurrency:
+  group: consumidor-refresh-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Diagnostics (probe requests; answers are committed to a feature branch only)
+        if: github.event_name == 'workflow_dispatch' && inputs.probe == 'true' && github.ref_name != 'main' && hashFiles('tools/consumidor/probe.json') != ''
+        continue-on-error: true
+        timeout-minutes: 12
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: node scripts/consumidor/probe.mjs
+
+      # Never fails the run: a source that does not answer keeps its stored file and is counted in status.json.
+      - name: Fetch the sources (Census, BLS, Federal Reserve, New York Fed, FRED)
+        timeout-minutes: 20
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        shell: bash
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force }}" = "true" ]; then FORCE="--force"; fi
+          # Sundays, first run of the day: every source is read again in full, so a revision of a period the page
+          # already shows (same year, same quarter) is picked up; unchanged data is not rewritten, so nothing is committed.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "10 14 * * *" ] && [ "$(date -u +%u)" = "7" ]; then FORCE="--force"; fi
+          node scripts/consumidor/fetch.mjs $FORCE
+
+      - name: Results releases of the covered companies (SEC EDGAR)
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx american-consumer (contact via repository)' }}
+        run: node scripts/consumidor/harvest-releases.mjs
+
+      # A tie-out that does not hold stops the build: the page keeps its last data and the run ends red, which the
+      # site's watchdog reports the same day. The steps after it still run, so what was fetched is not lost.
+      - name: Build the page data (tie-outs)
+        run: node scripts/consumidor/build.mjs
+
+      - name: Check the curated company figures against their releases
+        if: always()
+        run: node scripts/consumidor/build-companies.mjs
+
+      - name: Commit if anything changed
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "consumidor-refresh[bot]"
+          git config user.email "consumidor-refresh@users.noreply.github.com"
+          git add -A tools/consumidor site/consumidor
+          if git diff --cached --quiet; then echo "Nothing new at the sources; nothing to commit."; exit 0; fi
+          git commit -q -m "consumidor: refresh data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
+
+      # ---- everything below is optional: the refresh has already landed ----
+
+      - name: SOURCE DOWN issue (a source failing three runs in a row) / close on recovery
+        if: always() && github.ref_name == 'main'
+        continue-on-error: true
+        timeout-minutes: 3
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let s = {};
+            try { s = JSON.parse(fs.readFileSync('tools/consumidor/raw/status.json', 'utf8')).sources || {}; } catch (e) { return; }
+            const names = { census: 'Census Bureau (ACS)', cex: 'BLS (Consumer Expenditure Surveys)', dfa: 'Federal Reserve (Distributional Financial Accounts)', scf: 'Federal Reserve (Survey of Consumer Finances)', nyfed: 'New York Fed (Household Debt and Credit)', nyfedStates: 'New York Fed (state-level file)', fred: 'FRED (BEA, Federal Reserve and Census series)', edgar: 'SEC EDGAR (company results releases)', cexHist: 'BLS (Consumer Expenditure Surveys by quintile)', beaDist: 'BEA (Distribution of Personal Income)', umich: 'University of Michigan (Surveys of Consumers)', nes: 'Census Bureau (Nonemployer Statistics)', pceDist: 'BLS (Distribution of Personal Consumption Expenditures)', jointDist: 'BEA and BLS (joint distribution of income, consumption and saving)', sce: 'New York Fed (Survey of Consumer Expectations)', shed: 'Federal Reserve (Economic Well-Being of U.S. Households)', cfpbBnpl: 'CFPB (buy now, pay later study)', fsa: 'Federal Student Aid (loan portfolio)', courts: 'U.S. Courts (bankruptcy Table F-2)' };
+            const down = Object.keys(s).filter((k) => (s[k].failures || 0) >= 3);
+            const label = 'consumidor-source-down';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (down.length) {
+              const body = `The refresh of the American Consumer page (https://fnam.mx/consumidor/) could not read ${down.length === 1 ? 'one source' : down.length + ' sources'} for three runs or more:\n\n` +
+                down.map((k) => `- ${names[k] || k}: ${s[k].failures} failed runs since ${s[k].since || 'n/a'}. Last error: ${s[k].error || 'n/a'}`).join('\n') +
+                `\n\nThe page keeps the last data it obtained from each of them, labeled with its date. Run: ${runUrl}`;
+              const title = `SOURCE DOWN: American Consumer - ${down.map((k) => names[k] || k).join('; ')}`.slice(0, 240);
+              const marker = `<!-- down:${down.join(',')} -->`;
+              if (issue) {
+                // one issue per outage: its text follows the list of sources, without a comment on every run
+                if (!(issue.body || '').includes(marker)) await github.rest.issues.update({ ...context.repo, issue_number: issue.number, title, body: `${body}\n\n${marker}` });
+              } else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'American Consumer page: a source is not answering' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title, labels: [label], body: `${body}\n\n${marker}` });
+              }
+            } else if (issue && !Object.keys(s).some((k) => (s[k].failures || 0) > 0)) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every source answered again in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
+
+      # Broken source links (404/410, dead host) fail this step only; hosts that refuse scripts are listed as notices.
+      - name: Check the page's source links
+        if: github.event_name == 'schedule' && github.event.schedule == '10 14 * * *'
+        continue-on-error: true
+        timeout-minutes: 6
+        run: node scripts/check-links.mjs site/consumidor/index.html

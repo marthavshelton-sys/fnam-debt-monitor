@@ -186,6 +186,34 @@ dashboards, everything built from public data by GitHub Actions.
   `derived` TTM figure (injected into `q.ttm` at its end date) or `carryForward: true` (a 10-K-only balance carried ≤ 366 days,
   `q.d._carried`); `offerings.json` classifies every 424B (runner step `classify-offerings.mjs` reads new covers); `check-steo.mjs`
   flags a newer EIA STEO edition; `notices.json` feeds "What changed"; reader text never names tools, files or the runner.
+- American Consumer `site/consumidor/` (`/consumer` redirects; United States section; owner, 11-Oct-2026): who the U.S. consumer
+  is, income (state heat maps), sources and uses of funds, spending by income decile, consumer credit, leverage and financial
+  stress (section 07, owner 11-Oct-2026: debt against assets and cash by group, how cards are paid, credit access, buy now, pay
+  later, cash cushions, student loans, bankruptcies and rent burden by state; the distribution only, since the macro page carries
+  the household-debt aggregates), wealth by group, the
+  K-shaped economy (official series in the time-series charts; Moody's Analytics / Zandi and Federal Reserve research only as
+  dated, linked figures badged by who produced them, from `tools/consumidor/data/kshape.json`, compared in one bar chart and
+  never mixed into an official series; a figure enters that file only after it was read in the document its link opens) and
+  what 40 consumer companies report (retail, grocery, restaurants, gig platforms, card lenders, buy now, pay later lenders, and
+  auto / installment / pawn lenders; the count on the page comes from the data). Gig work is United States only (owner, 11-Oct-2026): the official count is Census
+  Nonemployer Statistics (drivers and couriers with no employees); the platforms' own U.S. figures come from their 10-Q / 10-K
+  (`us` in the curated file, each citing `filed` + `form`), and their worldwide trips and orders sit in a separate, labeled
+  column, never summed. The spending-share and income-share charts of the K section are two-axis by the owner's instruction
+  (left axis from 35%, right axis from 20%); leave them so. It complements the macro page (structure and distribution here, monthly series there; never
+  duplicate them). Data: `consumidor-refresh.yml` (14:10 and 21:40 UTC; Census ACS and Nonemployer Statistics, BLS CE and its
+  experimental distribution of consumption, BEA's distribution of personal income, Fed DFA and SCF, New York Fed, Michigan sentiment,
+  the BEA and BLS joint distribution, the New York Fed's expectations and credit-access surveys, the Federal Reserve's yearly
+  household survey, the CFPB's buy now, pay later study, Federal Student Aid, the U.S. Courts' Table F-2,
+  and BEA / Board / CPS / Philadelphia Fed series through FRED, each title-checked; BEA's own API answers 503 on the runner) → `scripts/consumidor/build.mjs`
+  → `data/data.js` (tie-outs must hold or the page keeps its last data). Company figures are curated
+  (`tools/consumidor/data/companies-kpis.json`, each figure and quote checked against the stored 8-K exhibit by
+  `build-companies.mjs`) and updated the day a release is stored by the scheduled task "FNAM American Consumer: daily upkeep"
+  (15:25 and 22:25 UTC; prompt `tools/consumidor/ROUTINE-PROMPT.md`; worklist `scripts/consumidor/pending.mjs`), which also keeps
+  the K-shaped estimates, the Board notes list, the check of publishers past their usual date (`data/publisher-checks.json`) and
+  repairs a reader a publisher's new layout broke (owner, 11-Oct-2026: nothing on this page may go stale, without her
+  involvement; freshness allowances live in `build.mjs`, one table); the page flags a company whose release is newer.
+  Every sentence is composed from the data in both languages; before pushing run `scripts/consumidor/render-check.mjs`. Runbook
+  and memory: `tools/consumidor/README.md`, `MEMORY.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

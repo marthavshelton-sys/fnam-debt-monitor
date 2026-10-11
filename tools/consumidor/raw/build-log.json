@@ -1,0 +1,72 @@
+{
+ "checks": [],
+ "counts": {
+  "ok": 211,
+  "warn": 0,
+  "fail": 0
+ },
+ "missing": [],
+ "stale": [],
+ "sourceStatus": {
+  "census": {
+   "failures": 0
+  },
+  "cex": {
+   "failures": 0
+  },
+  "dfa": {
+   "failures": 0
+  },
+  "scf": {
+   "failures": 0
+  },
+  "nyfed": {
+   "failures": 0
+  },
+  "nyfedStates": {
+   "failures": 0
+  },
+  "fred": {
+   "failures": 0
+  },
+  "edgar": {
+   "failures": 0
+  },
+  "cexHist": {
+   "failures": 0
+  },
+  "beaDist": {
+   "failures": 0
+  },
+  "umich": {
+   "failures": 0
+  },
+  "nes": {
+   "failures": 0
+  },
+  "pceDist": {
+   "failures": 0
+  },
+  "jointDist": {
+   "failures": 0
+  },
+  "sce": {
+   "failures": 0
+  },
+  "shed": {
+   "failures": 0,
+   "notes": [
+    "SHED 2025: 85 tables and figures read from 11 pages (1 accessible-version pages)"
+   ]
+  },
+  "cfpbBnpl": {
+   "failures": 0
+  },
+  "fsa": {
+   "failures": 0
+  },
+  "courts": {
+   "failures": 0
+  }
+ }
+}
