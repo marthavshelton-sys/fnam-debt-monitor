@@ -99,8 +99,10 @@
 
     // ================= 2. EXECUTIVE SUMMARY =================
     execSummary() {
-      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(x)) }));
-      super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''));
+      // the page's resolved bullets (composed sentences, live tokens, commentary withheld while its quarter is behind)
+      const M = this.M, raw = typeof M.summarySections === 'function' ? M.summarySections() : (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: s[M.LANG] || s.en || [] }));
+      const secs = raw.map((s) => ({ title: s.title, items: s.items.map((x) => this.autoBold(x)) }));
+      super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : '') + (M.SUM.compose ? this.T(' · cifras de tráfico, resultados, deuda y calendario compuestas de los datos', ' · traffic, results, debt and calendar figures composed from the data') : ''));
     }
 
     // ================= 3. TEAR SHEET =================
@@ -172,7 +174,7 @@
       if (PER && PER.has(lastM)) { const v = PER.cpc(lastM, 'total'), p = PER.priorOf(lastM, (m, s) => PER.cpc(m, s)); R(this.T(`  ${M.L(PER.P.name)} (${PER.newAir.length} aeropuertos) · ${M.ymLabel(lastM.ym)}`, `  ${M.L(PER.P.name)} (${PER.newAir.length} airports) · ${M.ymLabel(lastM.ym)}`), `${this.n(v / 1000, 2)}${p.v ? `  ·  ${pm(g(v, p.v))}${p.pf ? pfS : ''} ${yy}` : ''}`, 'muted'); }
       R(this.T('Próximos resultados', 'Next results'), this.nextText().replace(/^[^:]*:\s*/, ''), this.next && this.next.kind === 'confirmed' ? 'bold' : '');
       // the tear sheet carries the short leverage note when the config has one (the debt page prints the full note)
-      const debtN = M.L(CFG.debtNoteShort || CFG.debtNote);
+      const debtN = typeof M.debtNoteShortText === 'function' ? M.debtNoteShortText() : M.L(CFG.debtNoteShort || CFG.debtNote);
       const noteStr = this.T(`Fuentes: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${debtN} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
         `Sources: ${M.marketSrcNote([M.HOME, M.ADS, '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${debtN} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
@@ -476,7 +478,7 @@
         options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, min: levMin, ticks: { precision: 1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
-      const bl = [M.L(CFG.debtNote) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemized balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
+      const bl = [(typeof M.debtNoteText === 'function' ? M.debtNoteText() : M.L(CFG.debtNote)) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemized balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
       // Post-quarter events (reference.js debt.events) go under the right-hand tables when they fit there, else in this column.
       const evs = (D2.events || []).map((e) => `**${this.date(e.date)}.** ${M.L(e.deck || e)}`), evH = this.T('Después del cierre del trimestre', 'After the quarter-end');
       const blL = evs.length ? [...bl, evs.map((e) => e.replace(/\*\*/g, '')).join(' ')] : bl;
@@ -629,7 +631,7 @@
         this.T('IFRIC 12: el operador de una concesión registra las obras que construye para el concedente como ingreso y costo de construcción. La vista «sin IFRIC 12» resta ese ingreso y ese costo; el EBITDA (ajustado) no cambia, el margen sí.', 'IFRIC 12: a concession operator books the works it builds for the grantor as construction revenue and cost. The "ex-IFRIC 12" view removes that revenue and cost; (adjusted) EBITDA is unchanged, the margin is not.'),
         this.T('Acumulado y UDM: el acumulado usa las columnas de seis, nueve o doce meses de cada informe; los últimos doce meses suman los cuatro trimestres más recientes. El balance es siempre al cierre del periodo.', 'YTD and LTM: year-to-date uses the six-, nine- or twelve-month columns of each report; last twelve months adds the four most recent quarters. The balance sheet is always the period-end position.'),
         this.T(`Próximos resultados: cuando ${short} publica su calendario, la fecha se marca «confirmada»; mientras tanto se supone la mediana del rezago entre el cierre del trimestre y la publicación del mismo trimestre en los tres años anteriores. El próximo reporte de tráfico se estima con la mediana del día de publicación de los últimos doce.`, `Next results: once ${short} publishes its calendar the date is marked "confirmed"; until then it is assumed from the median lag between quarter-end and release for the same quarter in the previous three years. The next traffic report is estimated from the median release day of the last twelve.`),
-        M.L(CFG.debtNote),
+        (typeof M.debtNoteText === 'function' ? M.debtNoteText() : M.L(CFG.debtNote)),
         this.T(`Mercado: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; precio, sin dividendos reinvertidos; tipo de cambio FIX de Banxico (SIE SF43718), con FRED DEXMXUS como respaldo.`, `Market: ${M.marketSrcNote(Object.keys(M.MK.prices || {}))}; price only, dividends not reinvested; Banxico FIX exchange rate (SIE SF43718), FRED DEXMXUS as the fallback.`),
       ];
       yl = this.heading(this.T('Metodología', 'Methodology'), this.cur.x0, yl + 10, 10);

@@ -228,7 +228,141 @@
     const n = nextResults(); if (!n || !n.date) return LANG === 'es' ? 'fecha por confirmar' : 'date to be confirmed';
     return n.kind === 'confirmed' ? `${fmtDate(n.date)}${LANG === 'es' ? ', confirmada' : ', confirmed'}` : `≈${fmtDate(n.date)}${LANG === 'es' ? ', fecha supuesta' : ', assumed'}`;
   }
-  const liveTokens = (x) => String(x).replace(/\{\{nextResults\}\}/g, nextResultsText());
+  // ---- live tokens and composed sentences (11-Oct-2026: nothing on the page may go stale without the owner's involvement) ----
+  // Curated texts (summary.js, the config notes) carry tokens instead of typed figures: {{nextResults}}, {{lastQ}}, {{bsDate}},
+  // {{capexQ}}, {{netDebt}}, {{totalDebt}}, {{cash}}, {{ltmEbitda}}, {{lev}}, {{pfNetDebt}}, {{pfTotalDebt}}, {{pfCash}}, {{pfEbitda}},
+  // {{pfLev}}, {{pfAsOf}}. A summary bullet that is exactly {{auto:traffic}}, {{auto:results}}, {{auto:debt}} or {{auto:calendar}}
+  // is composed here from the data files every time the page loads (the macro dashboards' rule: a sentence is written from the
+  // same data as the charts, never by hand), and the deck prints the same sentences through summarySections(). With
+  // summary.js → compose: true, the hand-written commentary is withheld while its basis quarter is older than the latest
+  // quarter in financials.js, so a new report never shows beside last quarter's words.
+  const ymLong = (ym) => { const [y, m] = ym.split('-'); return new Date(Date.UTC(+y, +m - 1, 1)).toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }); };
+  const pctS = (v, pf) => (v == null || !isFinite(v) ? 'n.c.' : fmtPct(Math.abs(v) < 0.05 ? 0 : v, 1, true) + (pf ? ' pf' : ''));
+  const ppS = (v) => (v == null || !isFinite(v) ? '' : `${v > 0 ? '+' : ''}${fmtN(v, 1)} pp`);
+  const gr = (a, b) => (a != null && b ? 100 * (a / b - 1) : null);
+  const TOKENS = () => {
+    const nd = netDebt(lastQ), e = lastLTM && lastLTM.is ? lastLTM.is.ebitda : null, pf = PF && !PF.consolidated ? PF : null;
+    return {
+      nextResults: nextResultsText(), lastQ: lastQ ? qLabel(lastQ) : '—', bsDate: lastQ ? fmtDate(qEndDate(lastQ)) : '—',
+      capexQ: lastQ && lastQ.kpi && lastQ.kpi.capex != null ? fmtM(lastQ.kpi.capex) : '—',
+      netDebt: nd ? fmtM(nd.net) : '—', totalDebt: nd ? fmtM(nd.gross) : '—', cash: lastQ && lastQ.bs && lastQ.bs.cash != null ? fmtM(lastQ.bs.cash) : '—',
+      ltmEbitda: e ? fmtM(e) : '—', lev: nd && e ? fmtX(nd.net / e, 1) : '—',
+      pfNetDebt: pf ? fmtN(pf.netDebtM, 0) : '—', pfTotalDebt: pf ? fmtN(pf.totalDebtMxnM, 0) : '—', pfCash: pf ? fmtN(pf.cashMxnM, 0) : '—',
+      pfEbitda: pf ? fmtN(pf.ebitdaM, 0) : '—', pfLev: pf && e ? fmtX(pf.netDebtM * 1000 / (e + pf.ebitdaM * 1000), 1) : '—', pfAsOf: pf ? fmtDate(pf.asOf) : '—',
+    };
+  };
+  const liveTokens = (x) => { let T = null; return String(x).replace(/\{\{(\w+)\}\}/g, (m, k) => { if (!T) T = TOKENS(); return k in T ? T[k] : m; }); };
+  const ctryName = (code) => { const c = (TR.countries || []).find((x) => x.code === code) || (PERIM && (PERIM.P.countries || []).find((x) => x.code === code)); return c ? L(c) : code; };
+  // Latest traffic month: group total and change (pro forma when the company's own comparative is the only prior-year
+  // figure), the comparable perimeter by country, the busiest airport, the new segment, and the year to date.
+  function autoTraffic() {
+    const ms = TR.months; if (!ms.length) return '';
+    const m = ms[ms.length - 1], es = LANG === 'es', p = trByYm[addYm(m.ym, -12)] || null;
+    const rel = m.source && m.source.date ? (es ? ` (reporte del ${fmtDate(m.source.date)})` : ` (report of ${fmtDate(m.source.date)})`) : '';
+    const per = !!(PERIM && PERIM.has(m));
+    const tot = (x, s = 'total') => (x ? (PERIM ? PERIM.legacy(x, s) : x[s] ? x[s].TOTAL : null) : null);
+    const cTot = (x, c) => (x && x.countries && x.countries[c] ? x.countries[c].total : null);
+    const legacyAir = PERIM ? PERIM.legacyAir : AIR.map((a) => a.code);
+    let big = null; for (const c of legacyAir) { const v = m.total ? m.total[c] : null; if (v != null && (!big || v > big.v)) big = { code: c, v }; }
+    const bigA = big ? AIR.find((a) => a.code === big.code) : null;
+    const bigTxt = big && p && p.total && p.total[big.code] != null ? `${bigA ? (bigA[LANG] || bigA.en) : big.code} ${pctS(gr(big.v, p.total[big.code]))}` : '';
+    const y = +m.ym.slice(0, 4), mm = +m.ym.slice(5, 7); let ytd = 0, ytdP = 0, full = true;
+    for (let i = 1; i <= mm; i++) { const k = String(i).padStart(2, '0'), va = tot(trByYm[`${y}-${k}`]), vb = tot(trByYm[`${y - 1}-${k}`]); if (va == null || vb == null) { full = false; break; } ytd += va; ytdP += vb; }
+    const legacyTag = PERIM && PERIM.first ? (es ? ', perímetro anterior' : ', legacy perimeter') : '';
+    const monthName = ymLong(m.ym).split(' ')[0];
+    const ytdTxt = full && mm > 1 ? (es ? ` Enero–${monthName}${legacyTag}: ${pctS(gr(ytd, ytdP))} (${fmtN(ytd / 1000, 2)} M).` : ` January–${monthName}${legacyTag}: ${pctS(gr(ytd, ytdP))} (${fmtN(ytd / 1000, 2)} M).`) : '';
+    if (per) {
+      const cons = PERIM.consolidated(m, 'total'), cp = PERIM.consolidatedPrior(m, 'total'), leg = tot(m), legP = tot(p);
+      const cpc = PERIM.cpc(m, 'total'), cpcP = PERIM.priorOf(m, (x, s) => PERIM.cpc(x, s), 'total');
+      const legacyC = PERIM.legacyCodes.map((c) => { const v = cTot(m, c), pv = cTot(p, c); return v != null && pv ? `${ctryName(c)} ${pctS(gr(v, pv))}` : null; }).filter(Boolean).join(', ');
+      const newC = PERIM.newCodes.map((c) => { const v = cTot(m, c), pr = PERIM.priorOf(m, (x) => cTot(x, c), 'total'); return v != null && pr.v ? `${ctryName(c)} ${pctS(gr(v, pr.v))}` : null; }).filter(Boolean).join(', '); // the segment's own change carries the pf mark
+      const nm = L(PERIM.P.name), n0 = PERIM.nLegacyAir;
+      const consTxt = cp.v != null ? `${pctS(gr(cons, cp.v), cp.pf)} ${es ? 'frente a' : 'versus'} ${ymLong(addYm(m.ym, -12))}` : (es ? 'sin comparable' : 'no comparable');
+      const cpcTxt = cpcP.v != null ? ` (${pctS(gr(cpc, cpcP.v), cpcP.pf)}${newC ? ': ' + newC : ''})` : '';
+      const pfTail = cp.pf || cpcP.pf ? (es ? ` pf: frente al comparativo del año anterior que ${CFG.short} publica para esos aeropuertos.` : ` pf: against the prior-year comparative ${CFG.short} prints for those airports.`) : '';
+      return es
+        ? `Tráfico de ${ymLong(m.ym)}${rel}: ${fmtN(cons / 1000, 2)} M de pasajeros en el grupo, ${consTxt}; los ${n0} aeropuertos anteriores ${pctS(gr(leg, legP))} (${fmtN(leg / 1000, 2)} M)${legacyC ? ': ' + legacyC : ''}${bigTxt ? '; ' + bigTxt : ''}; ${nm} ${fmtN(cpc / 1000, 2)} M${cpcTxt}.${ytdTxt}${pfTail}`
+        : `${ymLong(m.ym)} traffic${rel}: ${fmtN(cons / 1000, 2)} M group passengers, ${consTxt}; the ${n0} legacy airports ${pctS(gr(leg, legP))} (${fmtN(leg / 1000, 2)} M)${legacyC ? ': ' + legacyC : ''}${bigTxt ? '; ' + bigTxt : ''}; ${nm} ${fmtN(cpc / 1000, 2)} M${cpcTxt}.${ytdTxt}${pfTail}`;
+    }
+    const total = tot(m), totalP = tot(p), dom = tot(m, 'dom'), domP = tot(p, 'dom'), intl = tot(m, 'intl'), intlP = tot(p, 'intl');
+    if (total == null) return '';
+    const ctry = (TR.countries || []).length > 1 ? (TR.countries || []).map((c) => { const v = cTot(m, c.code), pv = cTot(p, c.code); return v != null && pv ? `${L(c)} ${pctS(gr(v, pv))}` : null; }).filter(Boolean).join(', ') : '';
+    const di = dom != null && domP && intl != null && intlP ? (es ? `; nacional ${pctS(gr(dom, domP))}, internacional ${pctS(gr(intl, intlP))}` : `; domestic ${pctS(gr(dom, domP))}, international ${pctS(gr(intl, intlP))}`) : '';
+    return es
+      ? `Tráfico de ${ymLong(m.ym)}${rel}: ${fmtN(total / 1000, 2)} M de pasajeros (${pctS(gr(total, totalP))} a/a${di})${ctry ? '; ' + ctry : ''}${bigTxt ? '; ' + bigTxt : ''}.${ytdTxt}`
+      : `${ymLong(m.ym)} traffic${rel}: ${fmtN(total / 1000, 2)} M passengers (${pctS(gr(total, totalP))} y/y${di})${ctry ? '; ' + ctry : ''}${bigTxt ? '; ' + bigTxt : ''}.${ytdTxt}`;
+  }
+  // Latest quarter: revenue ex-construction, EBITDA and margin, majority net income, the quarter's passengers.
+  function autoResults() {
+    if (!lastQ || !lastQ.is) return '';
+    const q = lastQ, y = qById[yoyQid(q)] || null, es = LANG === 'es', is = q.is, yis = y && y.is ? y.is : null;
+    const rev = exRev(is), revY = exRev(yis), ni = niCtrl(is), niY = niCtrl(yis), mg = is.ebitdaMarginExIfric, mgY = yis ? yis.ebitdaMarginExIfric : null;
+    const rel = q.sources && q.sources.is && q.sources.is.date ? (es ? ` (informe del ${fmtDate(q.sources.is.date)})` : ` (report of ${fmtDate(q.sources.is.date)})`) : '';
+    const o = opsFor(q, 'q'), oy = y ? opsFor(y, 'q') : null;
+    const lfl = !PERIM || !y || PERIM.lfl(periodYms(q, 'q'), periodYms(y, 'q'));
+    let pax = '';
+    if (o && o.total != null) {
+      pax = lfl ? (es ? `; pasajeros ${fmtN(o.total / 1000, 2)} M (${pctS(gr(o.total, oy && oy.total))})` : `; passengers ${fmtN(o.total / 1000, 2)} M (${pctS(gr(o.total, oy && oy.total))})`)
+        : (es ? `; pasajeros ${fmtN(o.total / 1000, 2)} M (perímetro anterior ${pctS(gr(o.legacyTotal, oy && oy.legacyTotal))})` : `; passengers ${fmtN(o.total / 1000, 2)} M (legacy perimeter ${pctS(gr(o.legacyTotal, oy && oy.legacyTotal))})`);
+    }
+    const eb = CFG.ebitdaLabel ? L(CFG.ebitdaLabel) : 'EBITDA', msh = CFG.marginShort ? L(CFG.marginShort) : t('exIfric');
+    const revL = CFG.revExLabel ? L(CFG.revExLabel) : (es ? 'ingresos sin construcción' : 'revenue ex-construction');
+    return es
+      ? `${qLabel(q)}${rel}: ${revL} Ps. ${fmtM(rev)} M (${pctS(gr(rev, revY))} a/a), ${eb} Ps. ${fmtM(is.ebitda)} M (${pctS(gr(is.ebitda, yis && yis.ebitda))}; margen ${eb} ${msh} ${fmtPct(mg)}${mgY != null ? ', ' + ppS(mg - mgY) : ''}), utilidad neta mayoritaria Ps. ${fmtM(ni)} M (${pctS(gr(ni, niY))})${pax}.`
+      : `${qLabel(q)}${rel}: ${revL} Ps. ${fmtM(rev)} M (${pctS(gr(rev, revY))} y/y), ${eb} Ps. ${fmtM(is.ebitda)} M (${pctS(gr(is.ebitda, yis && yis.ebitda))}; ${eb} margin ${msh} ${fmtPct(mg)}${mgY != null ? ', ' + ppS(mg - mgY) : ''}), majority net income Ps. ${fmtM(ni)} M (${pctS(gr(ni, niY))})${pax}.`;
+  }
+  // Debt basis: the pro-forma perimeter while it is on (reference.js → proForma), then the reported balance sheet and leverage;
+  // the company's own printed ratio (REF.debt.companyLeverage) is quoted only while it belongs to the latest quarter.
+  function autoDebt() {
+    const nd = netDebt(lastQ); const e = lastLTM && lastLTM.is ? lastLTM.is.ebitda : null;
+    if (!nd || !e) return '';
+    const es = LANG === 'es', bsDate = fmtDate(qEndDate(lastQ)), cash = lastQ.bs ? lastQ.bs.cash : null, estT = nd.basis === 'est' ? (es ? ' (estimación a partir de los flujos de financiamiento)' : ' (estimated from financing flows)') : '';
+    const cl = REF.debt && REF.debt.companyLeverage;
+    const clTxt = cl && cl.quarter === lastQ.id && cl.value != null ? (es ? `; ${CFG.short} imprime ${fmtX(cl.value, 1)} en ${L(cl.source) || 'su informe'} con un denominador que no desglosa` : `; ${CFG.short} prints ${fmtX(cl.value, 1)} in ${L(cl.source) || 'its report'} on a denominator it does not itemize`) : '';
+    const rep = es
+      ? `Reportado al ${bsDate}${estT}: deuda total Ps. ${fmtM(nd.gross)} M, efectivo Ps. ${fmtM(cash)} M y deuda neta Ps. ${fmtM(nd.net)} M = ${fmtX(nd.net / e, 1)} el EBITDA UDM (Ps. ${fmtM(e)} M)${clTxt}.`
+      : `Reported at ${bsDate}${estT}: total debt Ps. ${fmtM(nd.gross)} M, cash Ps. ${fmtM(cash)} M and net debt Ps. ${fmtM(nd.net)} M = ${fmtX(nd.net / e, 1)} LTM EBITDA (Ps. ${fmtM(e)} M)${clTxt}.`;
+    if (!usePF()) return rep;
+    const nm = L(PF.name), levPf = PF.netDebtM * 1000 / (e + PF.ebitdaM * 1000), src = (PF.sources || [])[0];
+    const srcTxt = src ? ` (${L(src).split(':')[0]}, ${fmtDate(src.date)})` : '';
+    return (es
+      ? `Base pro forma con ${nm} (la del encabezado, el apalancamiento y el DCF de esta página hasta que ${CFG.short} consolide): deuda total Ps. ${fmtN(PF.totalDebtMxnM, 0)} M, efectivo Ps. ${fmtN(PF.cashMxnM, 0)} M y deuda neta Ps. ${fmtN(PF.netDebtM, 0)} M según el balance pro forma de ${CFG.short} al ${fmtDate(PF.asOf)}${srcTxt} = ${fmtX(levPf, 1)} el EBITDA UDM más el EBITDA proporcional de ${nm} (Ps. ${fmtM(e)} M + Ps. ${fmtN(PF.ebitdaM, 0)} M; cálculo FNAM sobre cifras de ${CFG.short}). `
+      : `Pro-forma basis with ${nm} (the one the header, the leverage section and the DCF of this page use until ${CFG.short} consolidates): total debt Ps. ${fmtN(PF.totalDebtMxnM, 0)} M, cash Ps. ${fmtN(PF.cashMxnM, 0)} M and net debt Ps. ${fmtN(PF.netDebtM, 0)} M per ${CFG.short}'s pro-forma balance sheet at ${fmtDate(PF.asOf)}${srcTxt} = ${fmtX(levPf, 1)} LTM EBITDA plus ${nm}'s proportionate EBITDA (Ps. ${fmtM(e)} M + Ps. ${fmtN(PF.ebitdaM, 0)} M; FNAM calculation on ${CFG.short}'s figures). `) + rep;
+  }
+  function autoDebtShort() {
+    const nd = netDebt(lastQ); const e = lastLTM && lastLTM.is ? lastLTM.is.ebitda : null;
+    if (!nd || !e) return '';
+    const es = LANG === 'es', cl = REF.debt && REF.debt.companyLeverage;
+    const clTxt = cl && cl.quarter === lastQ.id && cl.value != null ? (es ? ` (${CFG.short} imprime ${fmtX(cl.value, 1)} con otro denominador)` : ` (${CFG.short} prints ${fmtX(cl.value, 1)} on another denominator)`) : '';
+    const rep = es ? `Apalancamiento: deuda neta reportada al ${fmtDate(qEndDate(lastQ))} / EBITDA UDM consolidado = ${fmtX(nd.net / e, 1)}${clTxt}` : `Leverage: reported net debt at ${fmtDate(qEndDate(lastQ))} / consolidated LTM EBITDA = ${fmtX(nd.net / e, 1)}${clTxt}`;
+    if (!usePF()) return rep + '.';
+    const levPf = PF.netDebtM * 1000 / (e + PF.ebitdaM * 1000);
+    return rep + (es ? `; pro forma con ${L(PF.name)} = deuda neta del balance pro forma de ${CFG.short} al ${fmtDate(PF.asOf)} (Ps. ${fmtN(PF.netDebtM, 0)} M) sobre EBITDA UDM + EBITDA de ${L(PF.name)} = ${fmtX(levPf, 1)}.` : `; pro forma with ${L(PF.name)} = net debt of ${CFG.short}'s pro-forma balance sheet at ${fmtDate(PF.asOf)} (Ps. ${fmtN(PF.netDebtM, 0)} M) over LTM EBITDA + ${L(PF.name)} EBITDA = ${fmtX(levPf, 1)}.`);
+  }
+  // Next dates: the next quarterly report (confirmed or assumed by the release-lag rule), the next monthly traffic report,
+  // and dividend payments still ahead (reference.js → dividends[].payments).
+  function autoCalendar() {
+    const es = LANG === 'es', items = [];
+    const n = nextResults(); if (n && n.q) items.push(es ? `resultados del ${qLabel(n.q)} (${nextResultsText()})` : `${qLabel(n.q)} results (${nextResultsText()})`);
+    const nx = nextTrafficRelease(); if (nx) items.push(es ? `tráfico de ${ymLong(nx.ym)} hacia el ${fmtDate(nx.date)} (día ${nx.day}, mediana de los últimos doce reportes)` : `${ymLong(nx.ym)} traffic around ${fmtDate(nx.date)} (day ${nx.day}, median of the last twelve reports)`);
+    const today = new Date().toISOString().slice(0, 10);
+    const pays = (REF.dividends || []).flatMap((d) => (d.payments || [])).filter((p) => p.date && p.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+    if (pays.length) items.push((es ? 'dividendos: ' : 'dividends: ') + pays.map((p) => `Ps. ${fmtN(p.dps, 2)} ${es ? 'por acción el' : 'per share on'} ${fmtDate(p.date)}${p.kind ? ` (${L(p.kind)})` : ''}`).join(es ? ' y ' : ' and '));
+    return items.length ? (es ? 'Próximas fechas: ' : 'Next dates: ') + items.join('; ') + '.' : '';
+  }
+  // The debt note: the config's method sentences (no figures) plus the composed basis; a config that still carries a typed
+  // debtNote (OMA) prints it unchanged.
+  const debtNoteText = () => (CFG.debtMethod ? `${liveTokens(L(CFG.debtMethod))} ${autoDebt()}`.trim() : L(CFG.debtNote || { es: '', en: '' }));
+  const debtNoteShortText = () => (CFG.debtMethod ? autoDebtShort() : L(CFG.debtNoteShort || CFG.debtNote || { es: '', en: '' }));
+  const AUTO = { traffic: autoTraffic, results: autoResults, debt: autoDebt, calendar: autoCalendar };
+  function summaryState() {
+    const b = SUM.basis || {}, lastM = TR.months[TR.months.length - 1] || null;
+    return { compose: !!SUM.compose, quarterBehind: !!(SUM.compose && lastQ && b.quarter && b.quarter < lastQ.id), trafficBehind: !!(lastM && b.trafficMonth && b.trafficMonth < lastM.ym), basisQuarter: b.quarter || null, lastQuarter: lastQ ? lastQ.id : null, lastMonth: lastM ? lastM.ym : null };
+  }
+  function summarySections() {
+    const stt = summaryState();
+    return (SUM.sections || []).map((sec) => ({ k: sec.k, title: L(sec.title), items: (sec[LANG] || sec.en || []).map((x) => { const m = String(x).match(/^\s*\{\{auto:(\w+)\}\}\s*$/); if (m) return AUTO[m[1]] ? AUTO[m[1]]() : ''; return stt.quarterBehind ? '' : liveTokens(x); }).filter(Boolean) })).filter((s) => s.items.length);
+  }
   const TITLE_TAIL = (document.title.split(' | ')[1] || '').trim();
   // ================= HEADER =================
   function renderHeader() {
@@ -263,12 +397,15 @@
 
   // ================= 00 EXECUTIVE SUMMARY =================
   function renderSummary() {
-    const b = SUM.basis || {};
+    const b = SUM.basis || {}, stt = summaryState(), es = LANG === 'es';
     const qq = b.quarter && (qById[b.quarter] || { fy: +b.quarter.slice(0, 4), q: +b.quarter.slice(5) });
-    html('sumMeta', LANG === 'es'
-      ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}) y el tráfico de ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} · redactado el ${fmtDate(SUM.updatedAt)}; se reescribe con cada reporte nuevo. Las cifras de mercado del encabezado son diarias.`
-      : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}) and ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} traffic · written ${fmtDate(SUM.updatedAt)}; rewritten with each new report. Market figures in the header are daily.`);
-    html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${tc(L(sec.title))}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${liveTokens(x)}</li>`).join('')}</ul></div>`).join(''));
+    const tm = stt.compose && stt.lastMonth ? stt.lastMonth : b.trafficMonth; // composed bullets follow the data, not the basis
+    const composed = stt.compose ? (es ? ' Las cifras de tráfico, resultados, deuda y calendario se componen de los archivos de datos al cargar la página.' : ' Traffic, results, debt and calendar figures are composed from the data files when the page loads.') : '';
+    const behind = stt.quarterBehind ? `<b>${es ? `El comentario redactado para el ${qq ? qLabel(qq) : '—'} se retiene hasta reescribirse para el ${qLabel(lastQ)}; las cifras mostradas vienen del informe del ${qLabel(lastQ)}.` : `The commentary written for ${qq ? qLabel(qq) : '—'} is withheld until it is rewritten for ${qLabel(lastQ)}; the figures shown come from the ${qLabel(lastQ)} report.`}</b> ` : '';
+    html('sumMeta', behind + (es
+      ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}) y el tráfico de ${tm ? ymLabel(tm) : '—'} · redactado el ${fmtDate(SUM.updatedAt)}; se reescribe con cada reporte nuevo.${composed} Las cifras de mercado del encabezado son diarias.`
+      : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}) and ${tm ? ymLabel(tm) : '—'} traffic · written ${fmtDate(SUM.updatedAt)}; rewritten with each new report.${composed} Market figures in the header are daily.`));
+    html('sumGrid', summarySections().map((sec) => `<div class="card"><h3>${tc(sec.title)}</h3><ul>${sec.items.map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
   }
 
   // ================= 01 STATEMENTS =================
@@ -1088,8 +1225,8 @@
     ];
     html('dcfOutputs', outs.map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
     html('dcfNote', LANG === 'es'
-      ? `<b>Lectura.</b> El valor terminal se calcula por ${s.method === 'annuity' ? `anualidad de ${Math.max(0, s.endYear - r.rows[4].year)} años (flujo del año 5 creciendo ${fmtPct(s.g)} hasta ${s.endYear}), sin valor residual después del fin de la concesión` : s.method === 'perpetuity' ? 'perpetuidad de Gordon; sobreestima el valor de un activo con concesión finita' : `múltiplo de salida ${fmtX(s.mult)} sobre el EBITDA del año 5`}. Los flujos son a la firma, en pesos nominales; los impuestos se aplican sobre la utilidad operativa (EBITDA − D&amp;A). ${L(CFG.dcfCapexNote || { es: '', en: '' })}`
-      : `<b>Reading it.</b> The terminal value uses ${s.method === 'annuity' ? `a ${Math.max(0, s.endYear - r.rows[4].year)}-year annuity (year-5 cash flow growing ${fmtPct(s.g)} until ${s.endYear}) with no residual value after the concession ends` : s.method === 'perpetuity' ? 'a Gordon perpetuity, which overstates a finite-concession asset' : `a ${fmtX(s.mult)} exit multiple on year-5 EBITDA`}. Flows are to the firm in nominal pesos; taxes are charged on operating profit (EBITDA − D&amp;A). ${L(CFG.dcfCapexNote || { es: '', en: '' })}`);
+      ? `<b>Lectura.</b> El valor terminal se calcula por ${s.method === 'annuity' ? `anualidad de ${Math.max(0, s.endYear - r.rows[4].year)} años (flujo del año 5 creciendo ${fmtPct(s.g)} hasta ${s.endYear}), sin valor residual después del fin de la concesión` : s.method === 'perpetuity' ? 'perpetuidad de Gordon; sobreestima el valor de un activo con concesión finita' : `múltiplo de salida ${fmtX(s.mult)} sobre el EBITDA del año 5`}. Los flujos son a la firma, en pesos nominales; los impuestos se aplican sobre la utilidad operativa (EBITDA − D&amp;A). ${liveTokens(L(CFG.dcfCapexNote || { es: '', en: '' }))}`
+      : `<b>Reading it.</b> The terminal value uses ${s.method === 'annuity' ? `a ${Math.max(0, s.endYear - r.rows[4].year)}-year annuity (year-5 cash flow growing ${fmtPct(s.g)} until ${s.endYear}) with no residual value after the concession ends` : s.method === 'perpetuity' ? 'a Gordon perpetuity, which overstates a finite-concession asset' : `a ${fmtX(s.mult)} exit multiple on year-5 EBITDA`}. Flows are to the firm in nominal pesos; taxes are charged on operating profit (EBITDA − D&amp;A). ${liveTokens(L(CFG.dcfCapexNote || { es: '', en: '' }))}`);
     const hdr = `<tr><th>${t('year')}</th>${r.rows.map((x) => `<th>${x.year}E</th>`).join('')}</tr>`;
     const line = (l, f, d = 0) => `<tr><td>${l}</td>${r.rows.map((x) => `<td>${fmtN(f(x), d)}</td>`).join('')}</tr>`;
     html('dcfTable', `<table><thead>${hdr}</thead><tbody>
@@ -1267,7 +1404,8 @@
       { label: t('nd'), type: 'line', data: nds.map((x) => (x.nd ? x.nd.net / 1000 : null)), borderColor: c[7], backgroundColor: c[7], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] },
       options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => tip(x, x.parsed.y) } } }, scales: { x: { grid: { display: false } }, y: { ticks: axisM() } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     mkChart('chartLeverage', { type: 'line', data: { labels: qs.map(qLabel), datasets: [{ label: t('lev'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: c[1], backgroundColor: c[1], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 1)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { precision: 1, callback: (v) => fmtX(v, 1) } } } } });
-    html('debtSrc', L(CFG.debtNote));
+    html('debtSrc', debtNoteText());
+    document.querySelectorAll('[data-pf-only]').forEach((e) => { e.hidden = !usePF(); }); // prose that is true only while the overlay is on
     const D2 = REF.debt || {};
     // Pro-forma basis (REF.proForma, ASUR with Motiva/CPC): the owner's one basis for the summary, this section and the DCF while the
     // company has not consolidated the acquisition. The charts above stay on reported quarter-ends; this block states the pro-forma
@@ -1337,7 +1475,7 @@
   }
 
   // ================= 09 SPECIAL SITUATION / 10 EXPLAINER (from reference.js) =================
-  const fmtFact = (f) => (f.fmt === 'int' ? fmtN(f.v) : f.fmt === 'x' ? fmtX(f.v, 1) : f.fmt === 'usdM' ? 'US$ ' + fmtN(f.v, 1) + ' M' : f.fmt === 'mxnM' ? 'Ps. ' + fmtN(f.v, 0) + ' M' : f.fmt === 'pct' ? fmtPct(100 * f.v) : f.fmt === 'M' ? fmtN(f.v, 1) + ' M' : f.fmt === 'text' ? LS(f.v) : fmtN(f.v));
+  const fmtFact = (f) => (f.live && TOKENS()[f.live] != null ? TOKENS()[f.live] : f.fmt === 'int' ? fmtN(f.v) : f.fmt === 'x' ? fmtX(f.v, 1) : f.fmt === 'usdM' ? 'US$ ' + fmtN(f.v, 1) + ' M' : f.fmt === 'mxnM' ? 'Ps. ' + fmtN(f.v, 0) + ' M' : f.fmt === 'pct' ? fmtPct(100 * f.v) : f.fmt === 'M' ? fmtN(f.v, 1) + ' M' : f.fmt === 'text' ? LS(f.v) : fmtN(f.v));
   function renderSpecial() {
     const E = REF.event || {};
     html('evTimeline', (E.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
@@ -1454,6 +1592,7 @@
     CFG, FIN, TR, MK, REF, PEERS, peersOwnRows, GD, CM, SUM, HOME, ADS,
     Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, sumParts, exRev, fixRatios, niCtrl, ytdFor, ltmFor, lastLTM,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, homePx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt, nciOf, PF, proFormaOn: usePF, pfCaveat,
+    summarySections, summaryState, liveTokens, debtNoteText, debtNoteShortText, autoText: AUTO,
     avgFx, yoyCommentsFor, trByYm, periodYms, opsFor, opsForMode, AIR, CTRY, PERIM, perimNote, nextTrafficRelease, addYm, GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual, fmtFact, betaFromMarket, kdFromDebt, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
   };
   let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem(CFG.slug + '-lang') || 'es'; } catch (e) { /* ignore */ }

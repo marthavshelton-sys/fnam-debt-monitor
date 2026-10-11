@@ -225,15 +225,19 @@ silent "—".
 python3 -m http.server 8123 --directory site    # then open http://localhost:8123/asur/
 ```
 
-## Change notifications (email)
+## What refreshes on its own (owner, 11-Oct-2026: nothing on the page may go stale without her involvement)
 
-A Claude Code Routine ("FNAM ASUR: email material changes") runs each weekday at 15:40 UTC, one hour
-after the release harvest. It compares the newest quarter, the newest traffic month, the newest event
-release and the `reference.js` blob against `tools/asur/notify-state.json`; when something material
-changed it drafts the comments for a new quarter, updates `reference.js` for events (dividends, loans,
-acquisitions, share count), rewrites the affected sections of `summary.js`, commits to `main`, and its
-final message is a concise note delivered by email. If nothing changed the note is the single line "No
-material change in ASUR data today."
+| Layer | How it refreshes | Watched by |
+|---|---|---|
+| Statements, traffic, guidance (`financials.js`, `traffic.js`, `guidance.js`) | `asur-refresh.yml` harvests PR Newswire, asur.com.mx and the BMV list and parses them on every scheduled run: 14:40 and 22:50 UTC on weekdays (since 11-Oct-2026 the evening run harvests too, so a release published during the day lands the same evening). The job turns red on a parse or tie-out failure and still commits `market.js`. | The watchdog (each cron on its own; `traffic.js` latest month against the publisher's calendar), the validator's `period` rows. |
+| Prices, FX, rates (`market.js`) | The same runs; FactSet closes from the nightly routine "FNAM Airports: FactSet peers refresh" (19:52 New York). | The watchdog's `prices` block (FactSet listing and ADS, page close). |
+| Peers and consensus (`peers.js`) | The nightly FactSet routine. | The validator (`FactSet closes`), the page's "as of" labels. |
+| Figures, labels and the data-bearing sentences of the executive summary | Composed by `site/assets/airport-model.js` from the data files every time the page loads: `summary.js` carries `compose: true` and four bullets written exactly as `{{auto:traffic}}`, `{{auto:results}}`, `{{auto:debt}}` and `{{auto:calendar}}` (latest month with the legacy perimeter, the Motiva segment and the year to date; latest quarter; the pro-forma and reported debt basis with the company's own printed ratio while it belongs to the latest quarter, `reference.js → debt.companyLeverage`; next results, next traffic report and dividend payments ahead, `dividends[].payments`). Curated notes carry tokens instead of typed figures (`{{netDebt}}`, `{{ltmEbitda}}`, `{{lev}}`, `{{pfNetDebt}}`, `{{pfLev}}`, `{{lastQ}}`, `{{capexQ}}`…); `config.js → debtMethod` holds the method sentences only and the engine appends the composed basis (`debtNoteText()`, also in the deck). The hand-written commentary is withheld automatically while `basis.quarter` is older than the latest quarter in `financials.js`, with a note in the "as of" line, so a new report is never shown beside last quarter's words. | The validator's curated row "the four composed markers are present"; `scripts/airports/render-check.mjs --company=asur` (composed sentences present and resolved, no `{{`, no blank chart, ES/EN at 1280 and 390 px). |
+| Commentary, reference facts, comments (`summary.js` narrative, `reference.js`, `comments.js`) | The Claude Code Routine "FNAM ASUR: daily upkeep" (prompt `tools/asur/ROUTINE-PROMPT.md`; 15:40 and 23:40 UTC on weekdays, one hour after each refresh): new quarter → comments and commentary; new month → basis and state; events → reference facts; a failed run or an unparsed release → it reproduces the harvest locally, fixes the parser on a branch by labels and structure, verifies (validator, render check, public-copy audit) and merges its own pull request; it commits to `main` with `[skip actions]` and emails a note (quiet line: "No material change in ASUR data today."). | The validator's curated row `notify-state.json` (routine behind the data), the watchdog's `data` series `tools/asur/notify-state.json → lastTrafficMonth` under the same calendar rule as `traffic.js` (stale, red, and a SOURCE DOWN issue when the routine has not processed the required month), the owner's email. |
+
+Prose that is true only while the pro-forma overlay is on sits in `<span data-pf-only>` in `index.html`; the engine hides it once the
+latest balance sheet is dated on or after `proForma.consolidatedFrom`. Section 09's fact `motivaProForma` carries `live: "pfLev"`,
+so the tile prints the engine's figure, not a typed one.
 
 
 ## Conventions and pipeline notes (29-Sep-2026)

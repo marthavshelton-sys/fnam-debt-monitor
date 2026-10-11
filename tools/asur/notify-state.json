@@ -1,10 +1,11 @@
 {
   "lastQuarter": "2026Q2",
-  "lastTrafficMonth": "2026-08",
+  "lastTrafficMonth": "2026-09",
   "lastGuidanceDate": null,
-  "lastEventFile": "2026-09-28_bmv1591573_es.txt",
-  "lastReferenceSha": "0282f93c3795fc3c63fefe63b36cc76c2fac5e03",
+  "lastEventFile": "2026-10-08_prn302902737_en.txt",
+  "lastReferenceSha": "421b4f903244f3bd132307236c680af9bc45b31e",
   "lastNotifiedAt": "2026-10-06T15:41:50Z",
   "lastFailureNote": null,
-  "note": "Updated by the ASUR change-notification routine (see tools/asur/README.md)."
+  "note": "Updated by the ASUR upkeep routine (tools/asur/ROUTINE-PROMPT.md; see tools/asur/README.md).",
+  "open": []
 }

@@ -166,6 +166,21 @@ if (last) {
 Q.curated('guidance.js', true, (guidance.vintages || []).length ? { es: `${guidance.vintages.length} vintages`, en: `${guidance.vintages.length} vintages` } : { es: `${KEY} no publica una tabla formal de guía; el archivo lo registra`, en: `${KEY} publishes no formal guidance table; the file records that fact` });
 const ra = ageDays(rf.updatedAt);
 Q.curated('reference.js', ra != null && ra <= 120, { es: `referencia revisada el ${rf.updatedAt || '?'} (hace ${ra} días)`, en: `reference facts last reviewed ${rf.updatedAt || '?'} (${ra} days ago)` });
+// The upkeep routine (tools/<company>/ROUTINE-PROMPT.md) must have processed the latest traffic month and quarter the data files
+// carry; a summary with compose: true keeps its four composed bullets, which the page writes from the data when it loads.
+try {
+  const ns = JSON.parse(await readFile(new URL(`../../tools/${COMPANY}/notify-state.json`, import.meta.url), 'utf8'));
+  const bm = !!(lastM && ns.lastTrafficMonth && ns.lastTrafficMonth < lastM.ym), bq = !!(last && ns.lastQuarter && ns.lastQuarter < last.id);
+  Q.curated('notify-state.json', !bm && !bq, {
+    es: `rutina: tráfico procesado ${ns.lastTrafficMonth || '?'}${bm ? ` (ATRASADA: el archivo llega a ${lastM.ym})` : ''}, trimestre ${ns.lastQuarter || '?'}${bq ? ` (ATRASADA: el último es ${last.id})` : ''}`,
+    en: `routine: traffic processed ${ns.lastTrafficMonth || '?'}${bm ? ` (BEHIND: the file reaches ${lastM.ym})` : ''}, quarter ${ns.lastQuarter || '?'}${bq ? ` (BEHIND: the latest is ${last.id})` : ''}`,
+  });
+} catch { /* optional */ }
+if (sm.compose) {
+  const all = (sm.sections || []).flatMap((s) => [...(s.es || []), ...(s.en || [])]);
+  const missing = ['traffic', 'results', 'debt', 'calendar'].filter((k) => !all.some((x) => String(x).trim() === `{{auto:${k}}}`));
+  Q.curated('summary.js', !missing.length, missing.length ? { es: `faltan marcadores compuestos: ${missing.join(', ')}`, en: `composed markers missing: ${missing.join(', ')}` } : { es: 'los cuatro marcadores compuestos están presentes (tráfico, resultados, deuda, calendario)', en: 'the four composed markers are present (traffic, results, debt, calendar)' });
+}
 
 Q.card((fin.coverage || {}).releasesParsed, 'informes parseados', 'releases parsed');
 Q.card(traffic.months.length, 'meses de tráfico', 'traffic months');
