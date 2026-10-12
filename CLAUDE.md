@@ -83,6 +83,11 @@ dashboards, everything built from public data by GitHub Actions.
   since 2026-10-06 FactSet Global Prices is the share-price authority of the airport pages (header, charts, EV, multiples,
   DCF, decks); Yahoo/Stooq fill only the sessions FactSet has not posted yet, the S&P/BMV IPC (the connector rejects
   index ids) and the dividend record. Page and deck source labels are composed from `provenance` in market.js.
+- Airport DCFs hidden and paused (owner, 12-Oct-2026): the DCF section of the GAP, OMA and ASUR pages is removed from the page,
+  menu and decks, the sections renumbered (05 Relative valuation … 10 Methodology), and the three DCFs are NOT maintained until
+  she says otherwise: never update `reference.js → dcf`, the DCF code or a DCF note, and do not restore the section on your own.
+  The engines switch on the presence of `#dcf` (`DCF_ON`); the removed markup sits in `tools/<slug>/parked/dcf-section.html`;
+  how to restore it: each runbook's "DCF: hidden and paused". Notes below that describe the airport DCF apply only if it returns.
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see

@@ -138,7 +138,7 @@ unadjusted comparison would show ≈+66% with no real growth; FNAM calculation).
   period carries it, and a row in the deck's tear sheet (the three legacy countries share one row there). The deck's
   twelve-month table stays on the legacy perimeter until the new airports have twelve months (a one-month "LTM" would mislead)
   and sits on a page of its own with a 24-month chart (legacy bars, Motiva stacked, legacy y/y line): 19 pages since 9-Oct-2026.
-* Open item for 3Q26 results (≈22-Oct): the DCF base passengers (`dcfDefaults`) sum the last four reported quarters on the
+* Paused with the DCF on 12-Oct-2026 (no action while it is hidden). Open item for 3Q26 results (≈22-Oct): the DCF base passengers (`dcfDefaults`) sum the last four reported quarters on the
   consolidated basis plus `proForma.paxM`; once a reported quarter carries a CPC month, that month is counted twice. Revisit
   with the first consolidated quarter (and the LTM EBITDA overlay, below).
 * ASUR's codes are kept as printed: "BHA" for Belo Horizonte (Confins) and "BHF" for Bacacheri are ASUR's labels, not IATA's
@@ -153,6 +153,29 @@ subtotal no longer reconciles, the validator fails and nothing is committed. Fix
 variant to the regex (or a new row to the catalogue, which also adds it to the page), run
 `node scripts/asur/build-data.mjs && node scripts/asur/validate-data.mjs`, commit.
 
+## DCF: hidden and paused (owner, 12-Oct-2026)
+
+The owner asked to hide the DCF section of the GAP, OMA and ASUR pages so it is neither visible nor reachable (page, menu,
+deck), to renumber the sections, and to **stop maintaining the three DCFs until she says otherwise**. Only the DCF is paused;
+everything else on the page is maintained as before.
+
+* **What was removed.** The section, its menu link, its methodology paragraph and every sentence of the page that named the DCF.
+  The removed markup is kept, unchanged, in `tools/asur/parked/dcf-section.html` (not served: it sits outside `site/`).
+  The sections after 04 moved up one: 05 Relative valuation, 06 Leverage and debt, 07 Dividends, 08–09 the company's own two
+  sections, 10 Methodology. The decks read the numbers from the page's headings (`secNo()` / `secLabel()` in
+  `present-core.js`), so they renumbered with it.
+* **The switch.** `site/assets/airport-model.js` sets `DCF_ON` from the presence of the `#dcf` section: without it nothing of the DCF renders, no
+  composed sentence names it and `window.*_MODEL` does not expose `dcfDefaults` / `dcfCompute` / `DCF_LIMITS`. The code and
+  `reference.js → dcf` stay in the repository, frozen.
+* **Not maintained while paused.** Do not update `reference.js → dcf` (defaults, capex profile, notes, concession horizon), the
+  DCF code, or the DCF items listed elsewhere in this runbook; routines never touch the `dcf` block. Nothing reads it now, so a
+  stale value has no effect on the page.
+* **To bring it back (only on her instruction).** Put the three blocks of `parked/dcf-section.html` back where its notes say,
+  give the sections after 04 their old numbers (05 DCF … 11 Methodology), restore the DCF wording removed on 12-Oct-2026
+  (`git show` the commit "Hide the DCF section of the GAP, OMA and ASUR pages" for the exact lines: meta description, fine
+  print, the pro-forma notes), then review every `dcf` default against the latest filings before
+  publishing, since nothing was updated while it was paused.
+
 ## Manual updates
 
 **`site/asur/data/reference.js`** — the routine handles the usual events; update by hand when:
@@ -163,7 +186,7 @@ variant to the regex (or a new row to the catalogue, which also adds it to the p
   converted at the quarter-end rate and noted); a rating → `debt.ratings[]`;
 * Motiva / ASUR US / ITA milestones → `event.timeline[]`, `event.facts[]`; Aerostar / Airplan facts →
   `explainer.rows[]`; qualitative targets from the call → `regulation.facts[]`;
-* the DCF fallbacks (`dcf`) when the capex programme or the concession horizon changes.
+* ~~the DCF fallbacks (`dcf`)~~: paused since 12-Oct-2026 (see "DCF: hidden and paused").
 
 **`site/asur/data/comments.js`** — add the earnings-call colour once the transcript is archived
 (`tools/asur/raw/releases/<date>_ir<nQyy>tx_en.txt`); percentages quoted are ASUR's.

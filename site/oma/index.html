@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>OMA · Modelo Financiero Interactivo | Grupo Aeroportuario del Centro Norte</title>
-<meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Centro Norte (OMA): estados financieros comparables por trimestre, tráfico de pasajeros en 13 aeropuertos, acción, DCF y valuación relativa. Datos públicos.">
+<meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Centro Norte (OMA): estados financieros comparables por trimestre, tráfico de pasajeros en 13 aeropuertos, acción y valuación relativa. Datos públicos.">
 <link rel="canonical" href="https://fnam.mx/oma/">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
@@ -426,7 +426,6 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     <a href="#guidance"><span class="es">Guía</span><span class="en" hidden>Guidance</span></a>
     <a href="#traffic"><span class="es">Tráfico</span><span class="en" hidden>Traffic</span></a>
     <a href="#share"><span class="es">Acción</span><span class="en" hidden>Share price</span></a>
-    <a href="#dcf"><span class="es">DCF</span><span class="en" hidden>DCF</span></a>
     <a href="#relative"><span class="es">Múltiplos</span><span class="en" hidden>Multiples</span></a>
     <a href="#debt"><span class="es">Deuda</span><span class="en" hidden>Debt</span></a>
     <a href="#dividends"><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></a>
@@ -564,7 +563,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     <details class="tbl only-with-guidance" id="guideAllWrap"><summary><span class="es">Todas las guías publicadas (con enlace al comunicado)</span><span class="en" hidden>Every guidance vintage (with a link to the release)</span></summary><div class="tblwrap" id="guideAll"></div></details>
   </section>
 
-  <!-- 02 TRAFFIC -->
+  <!-- 03 TRAFFIC -->
   <section class="block" id="traffic">
     <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Tráfico de Pasajeros</span><span class="en" hidden>Passenger Traffic</span></h2></div>
     <p class="sec-desc">
@@ -604,7 +603,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     </div>
   </section>
 
-  <!-- 03 SHARE PRICE -->
+  <!-- 04 SHARE PRICE -->
   <section class="block" id="share">
     <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Desempeño de la Acción</span><span class="en" hidden>Share-Price Performance</span></h2></div>
     <p class="sec-desc">
@@ -645,38 +644,9 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     </div>
   </section>
 
-  <!-- 04 DCF -->
-  <section class="block" id="dcf">
-    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por Flujos Descontados (DCF)</span><span class="en" hidden>Discounted-Cash-Flow Valuation</span></h2></div>
-    <p class="sec-desc">
-      <span class="es">Flujo de efectivo libre a la firma en pesos nominales durante cinco años explícitos, descontado a un WACC construido con CAPM sobre el bono mexicano a 10 años. Como las 13 concesiones vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b>, no una perpetuidad; puede cambiarlo a perpetuidad o a múltiplo de salida. El EBITDA base es el ajustado (excluye la provisión de mantenimiento mayor, que sí es un desembolso futuro: el capex del modelo debe incluirla). Todos los supuestos son editables.</span><span class="en" hidden>Unlevered free cash flow in nominal pesos over five explicit years, discounted at a CAPM-based WACC built on the Mexican 10-year bond. Because the 13 concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b>, not a perpetuity; switch to perpetuity or an exit multiple if you prefer. The base EBITDA is the adjusted one (it excludes the major-maintenance provision, which is a real future outlay: the model's capex should include it). Every assumption is editable.</span>
-    </p>
-    <p class="sec-meta" id="dcfMeta"></p>
-    <div class="dcf-grid">
-      <div class="card inputs" id="dcfInputs"></div>
-      <div>
-        <div class="card">
-          <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
-          <div class="out-grid" id="dcfOutputs"></div>
-          <div class="callout" id="dcfNote"></div>
-        </div>
-        <div class="card" style="margin-top:20px">
-          <h3><span class="es">Proyección de Flujos</span><span class="en" hidden>Cash-Flow Projection</span></h3>
-          <p class="cap"><span class="es">Ps. millones, nominales</span><span class="en" hidden>Ps. million, nominal</span></p>
-          <div class="tblwrap" id="dcfTable"></div>
-        </div>
-        <div class="card" style="margin-top:20px">
-          <h3><span class="es">Sensibilidad: Valor por Acción</span><span class="en" hidden>Sensitivity: Value per Share</span></h3>
-          <p class="cap" id="sensCap"></p>
-          <div class="tblwrap" id="dcfSens"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 05 RELATIVE -->
   <section class="block" id="relative">
-    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación Relativa</span><span class="en" hidden>Relative Valuation</span></h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación Relativa</span><span class="en" hidden>Relative Valuation</span></h2></div>
     <p class="sec-desc">
       <span class="es">Múltiplos de OMA calculados con el precio más reciente, las 386.2 millones de acciones en circulación y las cifras de los últimos doce meses (EBITDA ajustado). La tabla de pares (GAP, ASUR, Aena, Fraport, Zúrich, Auckland) proviene de FactSet (precios, capitalización, balances y consenso), actualizada cada noche a las 20:00 hora de Nueva York; muestra primero los múltiplos a futuro (VE/EBITDA y P/U PDM), cada uno con sus promedios de 1, 3 y 5 años, y la fecha de los precios bajo la capitalización.</span><span class="en" hidden>OMA multiples computed from the latest price, the 386.2 million shares outstanding and last-twelve-month figures (Adjusted EBITDA). The peer table (GAP, ASUR, Aena, Fraport, Zurich, Auckland) comes from FactSet (prices, market caps, balance sheets and consensus), refreshed nightly at 8 PM New York time; it shows the forward multiples (NTM EV/EBITDA and P/E) first, each with its 1-, 3- and 5-year averages, and the pricing date under the market cap.</span>
     </p>
@@ -704,7 +674,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
 
   <!-- 06 DEBT -->
   <section class="block" id="debt">
-    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Apalancamiento y Perfil de Deuda</span><span class="en" hidden>Leverage and Debt Profile</span></h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Apalancamiento y Perfil de Deuda</span><span class="en" hidden>Leverage and Debt Profile</span></h2></div>
     <p class="sec-desc">
       <span class="es">Deuda neta (deuda financiera menos efectivo) y su relación con el EBITDA ajustado de los últimos doce meses, más los instrumentos vigentes: certificados bursátiles en pesos a tasa fija y variable (varios ligados a sostenibilidad), tomados directamente de la tabla de deuda que OMA publica cada trimestre, y líneas bancarias de corto plazo. La emisión de Ps. 3,000 millones de julio de 2026 refinanció el crédito de Ps. 1,700 millones y el OMA 23L.</span><span class="en" hidden>Net debt (financial debt less cash) and its ratio to last-twelve-month Adjusted EBITDA, plus the outstanding instruments: peso certificados bursátiles at fixed and floating rates (several sustainability-linked), taken directly from the debt table OMA publishes every quarter, and short-term bank lines. The Ps. 3,000 million issuance of July 2026 refinanced the Ps. 1,700 million loan and OMA 23L.</span>
     </p>
@@ -727,7 +697,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
 
   <!-- 07 DIVIDENDS -->
   <section class="block" id="dividends">
-    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
     <p class="sec-desc">
       <span class="es">Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente (Ps. 4,900 millones en abril de 2026, en dos exhibiciones: la de mayo se registró en bolsa a Ps. 6.28 por acción); razón de pago contra la utilidad neta de la participación controladora y rendimiento sobre el precio de cierre del año.</span><span class="en" hidden>Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM (Ps. 4,900 million in April 2026, in two installments: the May one was recorded by the exchange at Ps. 6.28 per share); payout ratio against net income of the controlling interest and yield on the year-end price.</span>
     </p>
@@ -747,15 +717,15 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     </div>
   </section>
 
-  <!-- 09 SPECIAL SITUATION -->
+  <!-- 08 SPECIAL SITUATION -->
   <section class="block" id="event">
-    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Programa Maestro de Desarrollo 2026–2030 y Tarifa Máxima</span><span class="en" hidden>Master Development Program 2026–2030 and Maximum Tariff</span></h2></div>
+    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Programa Maestro de Desarrollo 2026–2030 y Tarifa Máxima</span><span class="en" hidden>Master Development Program 2026–2030 and Maximum Tariff</span></h2></div>
     <div class="grid-2">
       <div>
         <div class="prose">
           <p><span class="es"><b>Qué es.</b> Cada cinco años la Secretaría de Infraestructura, Comunicaciones y Transportes (SICT) y la Agencia Federal de Aviación Civil aprueban para cada aeropuerto concesionado un Programa Maestro de Desarrollo (PMD): el plan de inversiones y mantenimiento mayor que el concesionario se compromete a ejecutar, y la <b>tarifa máxima</b> por unidad de tráfico que puede cobrar por los servicios regulados (TUA, aterrizajes, estacionamiento de aeronaves, arrendamientos regulados). La tarifa se fija en pesos constantes y se ajusta por inflación y por un factor de eficiencia; el cumplimiento se revisa anualmente.</span><span class="en" hidden><b>What it is.</b> Every five years the Ministry of Infrastructure, Communications and Transport (SICT) and the Federal Civil Aviation Agency approve, for each concessioned airport, a Master Development Program (MDP): the investment and major-maintenance plan the concessionaire commits to execute, and the <b>maximum tariff</b> per traffic unit it may charge for regulated services (TUA, landings, aircraft parking, regulated leases). The tariff is set in constant pesos and adjusted for inflation and an efficiency factor; compliance is reviewed annually.</span></p>
           <p><span class="es"><b>El PMD 2026–2030.</b> Aprobado por la SICT/AFAC el 18 de diciembre de 2025 para los 13 aeropuertos de OMA: Ps. 16,005 millones en pesos de diciembre de 2024, la mitad en Monterrey, con prioridad en la ampliación y modernización de terminales, infraestructura aeronáutica, equipo y tecnología y sostenibilidad; incluye el mantenimiento mayor (que OMA provisiona en resultados y reversa en el EBITDA ajustado). El monto comprometido por año y aeropuerto y las tarifas máximas 2026–2030 se toman del comunicado de OMA del 18 de diciembre de 2025 (ficha y cronología abajo).</span><span class="en" hidden><b>The 2026–2030 MDP.</b> Approved by SICT/AFAC on 18 December 2025 for OMA's 13 airports: Ps. 16,005 million in December-2024 pesos, half of it at Monterrey, prioritizing terminal expansion and modernization, airfield infrastructure, equipment and technology and sustainability; it includes major maintenance (which OMA provisions through the income statement and adds back in Adjusted EBITDA). The committed amount by year and airport and the 2026–2030 maximum tariffs are taken from OMA's 18 December 2025 release (fact sheet and timeline below).</span></p>
-          <p><span class="es"><b>Qué cambia en el modelo.</b> El capex del DCF sigue el perfil del PMD; los ingresos por construcción (IFRIC 12) subirán con la ejecución de obra sin afectar el EBITDA ajustado; la provisión de mantenimiento mayor crece con el nuevo programa (Ps. 99 millones en el 2T26 frente a Ps. 50 millones un año antes). Las tarifas máximas bajan 0.8% real al año (factor de eficiencia), así que el crecimiento de la TUA por pasajero depende de la inflación y de la mezcla doméstico/internacional.</span><span class="en" hidden><b>What changes in the model.</b> DCF capex follows the MDP profile; construction revenue (IFRIC 12) will rise with execution without affecting Adjusted EBITDA; the major-maintenance provision grows with the new program (Ps. 99 million in 2Q26 versus Ps. 50 million a year earlier). Maximum tariffs fall 0.8% a year in real terms (efficiency factor), so TUA growth per passenger depends on inflation and the domestic/international mix.</span></p>
+          <p><span class="es"><b>Qué cambia en el modelo.</b> Los ingresos por construcción (IFRIC 12) subirán con la ejecución de obra sin afectar el EBITDA ajustado; la provisión de mantenimiento mayor crece con el nuevo programa (Ps. 99 millones en el 2T26 frente a Ps. 50 millones un año antes). Las tarifas máximas bajan 0.8% real al año (factor de eficiencia), así que el crecimiento de la TUA por pasajero depende de la inflación y de la mezcla doméstico/internacional.</span><span class="en" hidden><b>What changes in the model.</b> Construction revenue (IFRIC 12) will rise with execution without affecting Adjusted EBITDA; the major-maintenance provision grows with the new program (Ps. 99 million in 2Q26 versus Ps. 50 million a year earlier). Maximum tariffs fall 0.8% a year in real terms (efficiency factor), so TUA growth per passenger depends on inflation and the domestic/international mix.</span></p>
         </div>
         <div class="fact-grid" id="evFacts"></div>
       </div>
@@ -767,9 +737,9 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     </div>
   </section>
 
-  <!-- 10 EXPLAINER -->
+  <!-- 09 EXPLAINER -->
   <section class="block" id="explainer">
-    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">VINCI Airports y los Bonos Ligados a Sostenibilidad</span><span class="en" hidden>VINCI Airports and the Sustainability-Linked Bonds</span></h2></div>
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">VINCI Airports y los Bonos Ligados a Sostenibilidad</span><span class="en" hidden>VINCI Airports and the Sustainability-Linked Bonds</span></h2></div>
     <div class="grid-2">
       <div class="prose">
           <p><span class="es"><b>El accionista estratégico.</b> El 31 de julio de 2022 Fintech Advisory anunció la venta de su participación indirecta de 29.99% en OMA a VINCI Airports; el cierre se comunicó el 7 de diciembre de 2022 (informe 4T22). Desde entonces OMA se describe como parte de VINCI Airports y paga a su socio estratégico una cuota de asistencia técnica calculada sobre el EBITDA (Ps. 69.0 millones en el 2T26, +2.9%). El resto del capital cotiza en la BMV (serie B) y como ADS en el Nasdaq (1 ADS = 8 acciones).</span><span class="en" hidden><b>The strategic shareholder.</b> On 31 July 2022 Fintech Advisory announced the sale of its indirect 29.99% stake in OMA to VINCI Airports; the closing was reported on 7 December 2022 (4Q22 report). Since then OMA describes itself as part of VINCI Airports and pays its strategic partner a technical-assistance fee computed on EBITDA (Ps. 69.0 million in 2Q26, +2.9%). The rest of the capital trades on the BMV (series B) and as ADSs on Nasdaq (1 ADS = 8 shares).</span></p>
@@ -787,12 +757,11 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
 
   <!-- 10 METHOD -->
   <section class="block" id="method">
-    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Metodología y Actualización</span><span class="en" hidden>Methodology and Refresh</span></h2></div>
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">Metodología y Actualización</span><span class="en" hidden>Methodology and Refresh</span></h2></div>
     <div class="grid-2 eq">
       <div class="prose">
         <p><span class="es"><b>IFRIC 12 y EBITDA ajustado.</b> Bajo IFRS, el operador de una concesión registra las obras que construye para el concedente como ingreso por construcción y como costo por el mismo importe (margen cero) y como activo intangible. OMA además reconoce en resultados la provisión de mantenimiento mayor. Su EBITDA ajustado = EBITDA − ingresos por construcción + costos de construcción + provisión de mantenimiento mayor, con margen sobre ingresos aeronáuticos + no aeronáuticos (2T26: 75.2% ajustado frente a 58.7% reportado). Es la medida de este modelo.</span><span class="en" hidden><b>IFRIC 12 and Adjusted EBITDA.</b> Under IFRS, a concession operator books the works it builds for the grantor as construction revenue and as cost for the same amount (zero margin) and as an intangible asset. OMA also expenses the major-maintenance provision. Its Adjusted EBITDA = EBITDA − construction revenue + construction cost + major-maintenance provision, with the margin over aeronautical + non-aeronautical revenue (2Q26: 75.2% adjusted versus 58.7% reported). It is the measure this model uses.</span></p>
         <p><span class="es"><b>Acumulado y UDM.</b> El acumulado del año usa las columnas de seis, nueve o doce meses del informe trimestral de OMA (que reporta cada estado en ambas bases); los últimos doce meses suman los cuatro trimestres más recientes. El balance siempre es al cierre del periodo; OMA lo compara con el mismo trimestre del año anterior y con diciembre.</span><span class="en" hidden><b>Year-to-date and LTM.</b> Year-to-date uses the six-, nine- or twelve-month columns of OMA's quarterly report (which prints every statement on both bases); last-twelve-months adds the four most recent quarters. The balance sheet is always the period-end position; OMA compares it with the same quarter a year earlier and with December.</span></p>
-        <p><span class="es"><b>DCF.</b> FCF = EBITDA ajustado − impuestos sobre la utilidad operativa − capex (incluido mantenimiento mayor) − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = bono M a 10 años, β calculada con dos años de rendimientos semanales de OMA B contra el IPC y Kd = cupón del último certificado a tasa fija. Valor terminal por anualidad hasta 2048, por perpetuidad o por múltiplo. Valor del capital = VE − deuda neta − participación no controladora. Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = Adjusted EBITDA − taxes on operating profit − capex (including major maintenance) − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year M bond, β computed from two years of weekly OMA B returns against the IPC and Kd = the coupon of the latest fixed-rate bond. Terminal value by annuity to 2048, perpetuity or multiple. Equity value = EV − net debt − non-controlling interest. It is a sensitivity tool, not a recommendation.</span></p>
       </div>
       <div class="card">
         <h3><span class="es">Cómo Se Actualiza Cada Bloque</span><span class="en" hidden>How Each Block Is Refreshed</span></h3>
@@ -811,7 +780,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
     <h3><span class="es">Fuentes</span><span class="en" hidden>Sources</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
-      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, reportes de tráfico y comunicados de OMA; Formas 20-F; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. Las proyecciones del DCF son ilustrativas y dependen de los supuestos elegidos por la persona usuaria; no constituyen una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span class="genStamp"></span>.</span><span class="en" hidden>This model is built exclusively from public information (OMA's quarterly reports, traffic reports and releases; Forms 20-F; market prices; FRED series). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span class="genStamp"></span>.</span>
+      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, reportes de tráfico y comunicados de OMA; Formas 20-F; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. No constituye una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span class="genStamp"></span>.</span><span class="en" hidden>This model is built exclusively from public information (OMA's quarterly reports, traffic reports and releases; Forms 20-F; market prices; FRED series). It contains, and must not be fed, any material non-public information. It is not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span class="genStamp"></span>.</span>
     </p>
   </div>
 </footer>

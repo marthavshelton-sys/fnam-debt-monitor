@@ -1,0 +1,45 @@
+<!-- Parked 12-Oct-2026 (owner: hide the DCF section of the GAP, OMA and ASUR pages until instructed otherwise).
+     Nothing here is served. To put the section back on the GAP page, follow "DCF: hidden and paused" in this
+     company's runbook: the three blocks below go back where each note says, and the sections after 04 take
+     their old numbers again (05 DCF, 06 relative valuation, ... 11 methodology). -->
+
+<!-- 1. Menu entry: inside <nav class="jump">, between the "#share" and "#relative" links. -->
+    <a href="#dcf"><span class="es">DCF</span><span class="en" hidden>DCF</span></a>
+
+<!-- 2. Section: in <main>, between the share-price section and the relative-valuation section. -->
+  <!-- 04 DCF -->
+  <section class="block" id="dcf">
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por Flujos Descontados (DCF)</span><span class="en" hidden>Discounted-Cash-Flow Valuation</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Flujo de efectivo libre a la firma en pesos nominales: el resto del año fiscal en curso y cinco años fiscales completos, descontados a mitad de periodo a un WACC construido con CAPM sobre el bono mexicano a 10 años. El primer año proyectado sigue el punto medio de la guía de GAP y los dos siguientes el EBITDA del consenso FactSet (se puede desactivar); el resto, los supuestos editables. Como las concesiones mexicanas vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b> sin valor posterior; puede ponderar una renovación, usar una perpetuidad o un múltiplo de salida. Cada entrada tiene un rango admisible y el resultado se recalcula al instante.</span>
+      <span class="en" hidden>Unlevered free cash flow in nominal pesos: the rest of the current fiscal year and five full fiscal years, discounted at mid-period at a CAPM-based WACC built on the Mexican 10-year bond. The first projected year follows the midpoint of GAP's guidance and the next two the FactSet consensus EBITDA (switchable); the rest follow the editable drivers. Because the Mexican concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b> with no value after it; you can weight a renewal, use a perpetuity or an exit multiple. Every input has an allowed range and the result recalculates instantly.</span>
+    </p>
+    <p class="sec-meta" id="dcfMeta"></p>
+    <div class="dcf-grid">
+      <div class="card inputs" id="dcfInputs"></div>
+      <div>
+        <div class="card">
+          <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
+          <div class="warnline" id="dcfWarn" role="status"></div>
+          <div class="out-grid" id="dcfOutputs"></div>
+          <div class="callout" id="dcfNote"></div>
+          <div class="callout" id="dcfGap"></div>
+        </div>
+        <div class="card" style="margin-top:20px">
+          <h3><span class="es">Proyección de Flujos</span><span class="en" hidden>Cash-Flow Projection</span></h3>
+          <p class="cap"><span class="es">Ps. millones, nominales</span><span class="en" hidden>Ps. million, nominal</span></p>
+          <div class="tblwrap" id="dcfTable"></div>
+          <p class="cap" id="dcfTableNote"></p>
+        </div>
+        <div class="card" style="margin-top:20px">
+          <h3><span class="es">Sensibilidad: Valor por Acción</span><span class="en" hidden>Sensitivity: Value per Share</span></h3>
+          <p class="cap" id="sensCap"></p>
+          <div class="tblwrap" id="dcfSens"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- 3. Methodology paragraph: last paragraph of the prose column of the methodology section. -->
+        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo, por el resto del año fiscal en curso (año completo menos lo ya reportado) y cinco años fiscales; cada flujo se descuenta a mitad de periodo desde la fecha del último balance. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = bono M a 10 años. Valor terminal por anualidad: flujo del último año creciendo a g hasta 2048, más la fracción de una perpetuidad posterior igual a la probabilidad de renovación; por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA del último año × múltiplo. Valor del capital = VE − deuda neta − participación no controladora (valor en libros). El consenso y los precios objetivo con los que se compara vienen de FactSet. Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital, over the rest of the current fiscal year (full year less the figures already reported) and five fiscal years; each flow is discounted at mid-period from the latest balance-sheet date. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year M bond. Annuity terminal value: last-year flow growing at g until 2048, plus the fraction of a perpetuity beyond it equal to the renewal probability; perpetuity: FCF₆/(WACC−g); multiple: last-year EBITDA × multiple. Equity value = EV − net debt − non-controlling interest (book value). The consensus and target prices it is compared with come from FactSet. It is a sensitivity tool, not a recommendation.</span></p>
