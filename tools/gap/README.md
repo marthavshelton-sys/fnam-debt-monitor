@@ -127,7 +127,7 @@ run; the data-quality page shows the line "BMV eventos relevantes" and turns it 
   `check` entry and `statusAsOf` carry the date of the last check of GAP's releases and the BMV eventos relevantes
   list, not a claim about EDGAR (blocked from the session). Bump both on every check that finds nothing new; when
   the offering prices or closes, set `placed`, `placedDate` and add the `filing` entry;
-* the PMD / maximum-tariff cycle is renewed → `regulation`, and the DCF `capexMxnM` profile.
+* the PMD / maximum-tariff cycle is renewed → `regulation` (the DCF `capexMxnM` profile is paused since 12-Oct-2026).
 
 **`site/gap/data/peers.js`** — never hand-edit. Written every night (19:52 New York time) by the cloud routine
 "FNAM Airports: FactSet peers refresh (cloud)" (prompt in `FACTSET-PEERS-PROMPT.md`; owner asked for 8 PM ET,
@@ -178,7 +178,30 @@ snapshot as `adtv.productUsdM`. If the routine
 fails, it pushes a `peers-failed-<date>` branch and writes `notify-state.json → lastPeersFailure`; the quality page
 flags `peers.js` once its prices are older than 45 days.
 
-## DCF (section 05 of the page; rebuilt 9-Oct-2026)
+## DCF: hidden and paused (owner, 12-Oct-2026)
+
+The owner asked to hide the DCF section of the GAP, OMA and ASUR pages so it is neither visible nor reachable (page, menu,
+deck), to renumber the sections, and to **stop maintaining the three DCFs until she says otherwise**. Only the DCF is paused;
+everything else on the page is maintained as before.
+
+* **What was removed.** The section, its menu link, its methodology paragraph and every sentence of the page that named the DCF.
+  The removed markup is kept, unchanged, in `tools/gap/parked/dcf-section.html` (not served: it sits outside `site/`).
+  The sections after 04 moved up one: 05 Relative valuation, 06 Leverage and debt, 07 Dividends, 08–09 the company's own two
+  sections, 10 Methodology. The decks read the numbers from the page's headings (`secNo()` / `secLabel()` in
+  `present-core.js`), so they renumbered with it.
+* **The switch.** `site/gap/app.js` sets `DCF_ON` from the presence of the `#dcf` section: without it nothing of the DCF renders, no
+  composed sentence names it and `window.*_MODEL` does not expose `dcfDefaults` / `dcfCompute` / `DCF_LIMITS`. The code and
+  `reference.js → dcf` stay in the repository, frozen.
+* **Not maintained while paused.** Do not update `reference.js → dcf` (defaults, capex profile, notes, concession horizon), the
+  DCF code, or the DCF items listed elsewhere in this runbook; routines never touch the `dcf` block. Nothing reads it now, so a
+  stale value has no effect on the page.
+* **To bring it back (only on her instruction).** Put the three blocks of `parked/dcf-section.html` back where its notes say,
+  give the sections after 04 their old numbers (05 DCF … 11 Methodology), restore the DCF wording removed on 12-Oct-2026
+  (`git show` the commit "Hide the DCF section of the GAP, OMA and ASUR pages" for the exact lines: meta description, fine
+  print), then review every `dcf` default against the latest filings before
+  publishing, since nothing was updated while it was paused.
+
+## DCF (rebuilt 9-Oct-2026; hidden and not maintained since 12-Oct-2026, see above)
 
 The deck does not carry this section. Everything below is computed at render time in `app.js` (`dcfDefaults`,
 `dcfCompute`, both exposed on `window.GAP_MODEL` together with `DCF_LIMITS` for headless checks).

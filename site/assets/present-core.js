@@ -386,6 +386,10 @@
       for (const s of document.querySelectorAll('section.block[id]')) { const num = s.querySelector('.sec-head .sec-num'), h = s.querySelector(`.sec-head h2 .${lang}`); if (num && h) out[s.id] = { label: num.textContent.trim(), title: h.textContent.replace(/\s+/g, ' ').trim() }; }
       return out;
     }
+    // "NN · " of a page section as the page numbers it today (empty when the page has no such section), so a deck title
+    // never carries a typed section number: hiding or adding a section on the page renumbers the deck with it.
+    secNo(id) { const m = this.pageSectionMeta()[id]; return m && m.label ? `${m.label} · ` : ''; }
+    secLabel(id) { const m = this.pageSectionMeta()[id]; return m && m.label ? m.label : ''; }
     // Contents rows from the pages page() recorded (trackPages): one row per section in deck order, labeled with the page's
     // section number when `meta` (pageSectionMeta()) knows the section. A section drawn on one page is listed under that
     // page's title (its "NN · " prefix dropped); one spanning several pages is listed under the page's section title with one

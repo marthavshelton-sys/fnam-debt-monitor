@@ -96,7 +96,7 @@ run; the data-quality page shows the line "BMV eventos relevantes" and turns it 
   the indebtedness table, principal in Ps. M, `rate` with the word "fixed" for fixed coupons so the
   DCF picks the latest one); a rating → `debt.ratings[]`;
 * a new MDP or tariff decision → `regulation.mdp`, `regulation.facts[]`, `explainer.rows[]` and the
-  DCF `capexMxnM` profile;
+  DCF `capexMxnM` profile (paused since 12-Oct-2026: leave it);
 * VINCI Airports milestones → `event.timeline[]`, `event.facts[]`; a change in the share count →
   `shares` + `shares.history[]`.
 
@@ -145,7 +145,30 @@ confidentiality notice; the cover, every footer and the sources page print the s
 ("Fuente: información pública y consenso de FactSet; no es asesoría de inversión." / "Source: public information and FactSet
 consensus; not investment advice."), the pattern the Oracle deck set on 2026-10-04.
 
-## DCF (page section 05; not in the deck)
+## DCF: hidden and paused (owner, 12-Oct-2026)
+
+The owner asked to hide the DCF section of the GAP, OMA and ASUR pages so it is neither visible nor reachable (page, menu,
+deck), to renumber the sections, and to **stop maintaining the three DCFs until she says otherwise**. Only the DCF is paused;
+everything else on the page is maintained as before.
+
+* **What was removed.** The section, its menu link, its methodology paragraph and every sentence of the page that named the DCF.
+  The removed markup is kept, unchanged, in `tools/oma/parked/dcf-section.html` (not served: it sits outside `site/`).
+  The sections after 04 moved up one: 05 Relative valuation, 06 Leverage and debt, 07 Dividends, 08–09 the company's own two
+  sections, 10 Methodology. The decks read the numbers from the page's headings (`secNo()` / `secLabel()` in
+  `present-core.js`), so they renumbered with it.
+* **The switch.** `site/assets/airport-model.js` sets `DCF_ON` from the presence of the `#dcf` section: without it nothing of the DCF renders, no
+  composed sentence names it and `window.*_MODEL` does not expose `dcfDefaults` / `dcfCompute` / `DCF_LIMITS`. The code and
+  `reference.js → dcf` stay in the repository, frozen.
+* **Not maintained while paused.** Do not update `reference.js → dcf` (defaults, capex profile, notes, concession horizon), the
+  DCF code, or the DCF items listed elsewhere in this runbook; routines never touch the `dcf` block. Nothing reads it now, so a
+  stale value has no effect on the page.
+* **To bring it back (only on her instruction).** Put the three blocks of `parked/dcf-section.html` back where its notes say,
+  give the sections after 04 their old numbers (05 DCF … 11 Methodology), restore the DCF wording removed on 12-Oct-2026
+  (`git show` the commit "Hide the DCF section of the GAP, OMA and ASUR pages" for the exact lines: meta description, fine
+  print, the MDP note of section 08), then review every `dcf` default against the latest filings before
+  publishing, since nothing was updated while it was paused.
+
+## DCF (not in the deck; hidden and not maintained since 12-Oct-2026, see above)
 
 Shared engine `site/assets/airport-model.js` (ASUR runs the same code), defaults in `reference.js` → `dcf`.
 

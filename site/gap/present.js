@@ -18,7 +18,7 @@
     await P.run(M, window.MX_AIRPORTS ? [] : [MX_TRAFFIC], async () => {
       const doc = new GapDoc(M);
       // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
-      // executive summary) can list the sections with fnam.mx/gap's numbers and link each row; the relative valuation (06)
+      // executive summary) can list the sections with fnam.mx/gap's numbers and link each row; the relative valuation
       // sits just before Sources and Methodology (owner, 2026-10-07)
       doc.cover();
       doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
@@ -43,7 +43,7 @@
     }
     at(sec) { this.sec = sec; }
     // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
-    // naming the sections of fnam.mx/gap the deck does not carry (share-price performance, DCF), composed from the same headings.
+    // naming the sections of fnam.mx/gap the deck does not carry (share-price performance), composed from the same headings.
     contentsPage() {
       const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta);
       const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
@@ -343,12 +343,12 @@
       this.note(this.T(`Ambas series cuentan pasajeros en cada aeropuerto (llegadas y salidas), por lo que un vuelo nacional cuenta en origen y destino. El total de GAP incluye Montego Bay y Kingston (Jamaica); el de México solo aeropuertos mexicanos. Fuentes: reportes mensuales de tráfico de GAP; AFAC, Estadística operativa de aeropuertos (${MX && MX.sources && MX.sources.afac ? MX.sources.afac.file + ', publicado el ' + this.date(MX.sources.afac.published) : 'archivo mensual'}).`, `Both series count passengers at each airport (arrivals and departures), so a domestic flight counts at both ends. GAP's total includes Montego Bay and Kingston (Jamaica); Mexico's covers Mexican airports only. Sources: GAP monthly traffic reports; AFAC, airport operating statistics (${MX && MX.sources && MX.sources.afac ? MX.sources.afac.file + ', published ' + this.date(MX.sources.afac.published) : 'monthly file'}).`), Math.max(y + 4, this.cur.y1 - 30));
     }
 
-    // ================= 11. 07 LEVERAGE AND DEBT =================
+    // ================= LEVERAGE AND DEBT (page section "debt") =================
     debtPage() {
       const M = this.M, qs = M.Q.slice(-8), lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ);
       const nds = qs.map((q) => ({ q, nd: M.netDebt(q), l: M.ltmFor(q) })); const est = nds.map((x) => x.nd && x.nd.basis === 'est');
       const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => `${r.agency.replace("Moody's Local MX", "Moody's").replace('S&P Global Ratings', 'S&P')} ${r.rating}`).join(' · ');
-      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según FactSet al 30-jun-2026 y comunicados de GAP (referencia del ${this.date(M.REF.updatedAt)})`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per FactSet at 30-Jun-2026 and GAP releases (reference of ${this.date(M.REF.updatedAt)})`));
+      let y = this.page('L', this.secNo('debt') + this.T('Apalancamiento y perfil de deuda', 'Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según FactSet al 30-jun-2026 y comunicados de GAP (referencia del ${this.date(M.REF.updatedAt)})`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per FactSet at 30-Jun-2026 and GAP releases (reference of ${this.date(M.REF.updatedAt)})`));
       const asOf = this.date(M.qEndDate(lastQ));
       y = this.tiles([
         { v: nd ? `Ps. ${this.m(nd.net)} M` : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
@@ -379,19 +379,19 @@
       const tot = [...byYear.values()].reduce((x, g) => ({ n: x.n + g.n, cb: x.cb + g.cb, loan: x.loan + g.loan, fixed: x.fixed + g.fixed }), { n: 0, cb: 0, loan: 0, fixed: 0 });
       rows.push([this.T('Total', 'Total'), String(tot.n), this.n(tot.cb), this.n(tot.loan), this.n(tot.cb + tot.loan), this.n(100 * tot.fixed / (tot.cb + tot.loan), 0) + '%']);
       yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('matures'), this.T('CB (n)', 'CB (n)'), this.T('CB (Ps. M)', 'CB (Ps. M)'), this.T('Préstamos (Ps. M)', 'Loans (Ps. M)'), this.T('Total (Ps. M)', 'Total (Ps. M)'), this.T('% fija', '% fixed')], body: rows, meta: rows.map((r, i) => (i === rows.length - 1 ? ['bold', 'bold', 'bold', 'bold', 'bold', 'bold'] : ['left', '', '', '', '', ''])), size: 8, cols: { 0: { halign: 'left' } } });
-      yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.events && D2.events.length ? '. ' + this.date(D2.events[D2.events.length - 1].date) + ': ' + M.L(D2.events[D2.events.length - 1]) : '') + this.T(' Detalle por instrumento en la página del modelo (sección 07).', ' Instrument-level detail on the model page (section 07).'), yr + 3, 7, xr, wr);
+      yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.events && D2.events.length ? '. ' + this.date(D2.events[D2.events.length - 1].date) + ': ' + M.L(D2.events[D2.events.length - 1]) : '') + this.T(` Detalle por instrumento en la página del modelo (sección ${this.secLabel('debt')}).`, ` Instrument-level detail on the model page (section ${this.secLabel('debt')}).`), yr + 3, 7, xr, wr);
       const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
       yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('Deuda neta / EBITDA', 'Net debt / EBITDA')], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), size: 8, cols: { 0: { halign: 'left' } } });
       this.note(this.T(`* estimación. Fuentes: balances trimestrales de GAP; comunicados de emisión y de calificación (referencia actualizada ${this.date(M.REF.updatedAt)}).`, `* estimate. Sources: GAP quarterly balance sheets; issuance and rating releases (reference updated ${this.date(M.REF.updatedAt)}).`), yr + 4, 7, xr, wr);
     }
 
-    // ================= 12. 08 DIVIDENDS =================
+    // ================= DIVIDENDS (page section "dividends") =================
     dividendPage() {
       const M = this.M, divs = (M.MK.dividends && M.MK.dividends['GAPB.MX'] && M.MK.dividends['GAPB.MX'].points) || [];
       const byYear = {}; for (const [d, v] of divs) byYear[d.slice(0, 4)] = (byYear[d.slice(0, 4)] || 0) + v;
       const lastYear = Math.max(...Object.keys(byYear).map(Number)); const years = []; for (let yv = 2015; yv <= lastYear; yv++) { years.push(String(yv)); byYear[yv] ??= 0; }
-      let y = this.page('L', this.T('08 · Dividendos', '08 · Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa, incluye reembolsos de capital) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share, including capital reductions) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
+      let y = this.page('L', this.secNo('dividends') + this.T('Dividendos', 'Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa, incluye reembolsos de capital) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share, including capital reductions) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
       const gap = 20, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       // AGM bullets
       // One bullet per AGM: the approved amount and the installments the exchange has recorded since that AGM
@@ -433,10 +433,10 @@
       this.noteAbove(cfNote, y2 + 4);
     }
 
-    // ================= 13. 09 CBX =================
+    // ================= CBX (page section "cbx") =================
     cbxPage() {
       const M = this.M, C = M.REF.cbx || {}, lastQ = M.lastQ;
-      let y = this.page('L', this.T('09 · Adquisición de Cross Border Xpress (CBX)', '09 · The Cross Border Xpress (CBX) Acquisition'), this.T(`Consolidado desde ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · cifras de los comunicados de GAP (Form 6-K) y del informe del ${this.qlab(lastQ)}`, `Consolidated from ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · figures from GAP's releases (Form 6-K) and the ${this.qlab(lastQ)} report`));
+      let y = this.page('L', this.secNo('cbx') + this.T('Adquisición de Cross Border Xpress (CBX)', 'The Cross Border Xpress (CBX) Acquisition'), this.T(`Consolidado desde ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · cifras de los comunicados de GAP (Form 6-K) y del informe del ${this.qlab(lastQ)}`, `Consolidated from ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · figures from GAP's releases (Form 6-K) and the ${this.qlab(lastQ)} report`));
       const facts = (C.facts || []).slice(0, 6); const fmtFact = (f) => (f.fmt === 'int' ? this.n(f.v) : f.fmt === 'usdM' ? 'US$ ' + this.n(f.v, 1) + ' M' : f.fmt === 'pct' ? this.pct(100 * f.v) : f.fmt === 'M' ? this.n(f.v, 1) + ' M' : this.n(f.v));
       y = this.tiles(facts.map((f) => ({ v: fmtFact(f), l: this.es ? f.label_es : f.label_en })), y, 48);
       const gap = 22, wl = this.width() * 0.58, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
@@ -481,7 +481,7 @@
     fibraPage() {
       const M = this.M, F = M.REF.fibra || {}, R = M.REF.regulation || {};
       const placedTag = F.placed ? '' : this.T(' (aún no colocada)', ' (Not Yet Placed)');
-      let y = this.page('L', this.T('10 · FIBRA GAP explicada' + placedTag, '10 · FIBRA GAP Explained' + placedTag), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', this.secNo('fibra') + this.T('FIBRA GAP explicada' + placedTag, 'FIBRA GAP Explained' + placedTag), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
       const gap = 24, wl = this.width() * 0.38, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap; // 38%: the right column's bullets set the height; keeps the status timeline and the diagram on one page in both languages
       const rows = [[this.T('Vehículo', 'Vehicle'), F.name], [this.T('Clave', 'Ticker'), F.ticker], [this.T('Bolsa', 'Exchange'), F.exchange], [this.T('Monto objetivo', 'Target size'), 'Ps. ' + this.n(F.targetMxnM) + ' M'], ['CBFEs', this.n(F.certificates) + ' × Ps. ' + this.n(F.priceMxn)], [this.T('Participación en cada concesionaria mexicana', 'Stake in each Mexican concessionaire'), this.pct(F.stakePct)], [this.T('Uso de recursos', 'Use of proceeds'), this.T(`PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), principalmente Guadalajara`, `2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), mainly Guadalajara`)]];
       let yl = this.heading(this.T('Ficha', 'Fact sheet'), this.cur.x0, y, 10.5);
@@ -533,7 +533,7 @@
     }
 
     // ================= 15. SOURCES AND METHODOLOGY =================
-    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // ================= RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
     // The peers table as the page prints it (GAP's row through the model, lead sentence and method note read from the page) and
     // the weekly history of GAP's NTM EV/EBITDA and NTM P/E beside ASUR's and OMA's; both pages live in the shared engine.
     relativePages() {

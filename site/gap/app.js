@@ -746,6 +746,10 @@
   // the rest on the drivers in the card. The terminal value is an annuity to the concession's end (nothing after it unless a
   // renewal probability is entered), a Gordon perpetuity or an exit multiple. Every input has a plausible range: a value
   // outside it is refused with a visible warning and the last valid value stays in force.
+  // The section's markup is the switch (owner, 12-Oct-2026: the DCF is hidden on the GAP, OMA and ASUR pages and not maintained
+  // until she says otherwise): without a #dcf section nothing below renders, no text of the page names the DCF and the model
+  // object does not expose it. The removed markup is parked beside the runbook (parked/dcf-section.html).
+  const DCF_ON = !!document.getElementById('dcf');
   const D = Object.assign({}, REF.dcf || {});
   const dcfState = { s: null, bad: {} };
   const DCF_LIMITS = { trafficG: [-30, 30], revPaxG: [-20, 30], margin: [30, 90], capex: [0, 60000], daPct: [0, 40], tax: [0, 60], nwc: [-50, 50], rf: [0, 30], erp: [0, 15], beta: [0, 3], kd: [0, 30], dw: [0, 90], g: [-5, 10], renew: [0, 100], mult: [1, 40], endYear: [2030, 2100] };
@@ -925,6 +929,7 @@
     const wl = el('dcfWarn'); if (wl) wl.textContent = nBad ? (es ? `${nBad} ${nBad === 1 ? 'entrada fuera de rango' : 'entradas fuera de rango'}: los resultados usan el último valor válido.` : `${nBad} ${nBad === 1 ? 'input is' : 'inputs are'} out of range: the results use the last valid value.`) : '';
   }
   function renderDcf(reset) {
+    if (!DCF_ON) return;
     if (reset || !dcfState.s) dcfState.s = dcfDefaults();
     dcfState.bad = {};
     const s = dcfState.s;
@@ -1276,7 +1281,7 @@
       [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
       [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', marketCadence(Object.keys(MK.prices || {})), `${marketSrcNote(['GAPB.MX', 'PAC', 'ASURB.MX', 'OMAB.MX', '^MXX'])} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
-      [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
+      [LANG === 'es' ? `Referencia: acciones, concesiones, deuda, CBX, FIBRA${DCF_ON ? ', supuestos DCF' : ''}` : `Reference: shares, concessions, debt, CBX, FIBRA${DCF_ON ? ', DCF defaults' : ''}`, LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Pares y consenso FactSet' : 'FactSet peers and consensus', LANG === 'es' ? 'cada noche, 20:00 hora de Nueva York (rutina en la nube)' : 'nightly, 8 PM New York time (cloud routine)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th scope="col">${t('block')}</th><th scope="col">${t('cadence')}</th><th scope="col">${t('mechanism')}</th><th scope="col">${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
@@ -1378,7 +1383,7 @@
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
-    betaFromMarket, kdFromDebt, dcfDefaults, dcfCompute, DCF_LIMITS, PEERS, peersOwnRow, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
+    betaFromMarket, kdFromDebt, ...(DCF_ON ? { dcfDefaults, dcfCompute, DCF_LIMITS } : {}), PEERS, peersOwnRow, priceSrcLabel, priceSources, marketSrcNote, marketCadence,
   };
 
     let initial = 'es'; try { initial = localStorage.getItem('fnam-lang') || localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }

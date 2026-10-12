@@ -1,6 +1,6 @@
 /* Board presentation for the airport pages built on the shared engine (ASUR, OMA): one click builds a Letter PDF
    from the same data the page renders. Every figure comes from window.<PREFIX>_MODEL (airport-model.js), i.e. the
-   calculations already on screen; section prose for 09 and 10 is read from the page itself (the same paragraphs the
+   calculations already on screen; the prose of the event and explainer sections is read from the page itself (the same paragraphs the
    reader sees), trimmed to bullets. The generic engine (pages, tables, charts, cover, footers) lives in
    /assets/present-core.js. Language follows the page toggle. */
 (function () {
@@ -17,7 +17,7 @@
     await P.run(M, window.MX_AIRPORTS ? [] : [MX_TRAFFIC], async () => {
       const doc = new AirportDoc(M);
       // every page is drawn under the id of the page's section it carries (doc.sec), so the contents page (right after the
-      // executive summary) can list the sections with the page's numbers and link each row; the relative valuation (06)
+      // executive summary) can list the sections with the page's numbers and link each row; the relative valuation
       // sits just before Sources and Methodology (owner, 2026-10-07)
       doc.cover();
       doc.at('summary'); doc.execSummary(); doc.at(null); doc.contents();
@@ -47,13 +47,13 @@
     }
     at(sec) { this.sec = sec; }
     // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
-    // naming the sections of the page the deck does not carry (share-price performance, DCF), composed from the same headings.
+    // naming the sections of the page the deck does not carry (share-price performance), composed from the same headings.
     contentsPage() {
       const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta), url = this.cfg.url;
       const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');
       this.drawContents(this.tocEntries(meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${url}${out.length ? `; ${out.length > 1 ? 'las secciones' : 'la sección'} ${list} se ${out.length > 1 ? 'consultan' : 'consulta'} en la página y no ${out.length > 1 ? 'forman' : 'forma'} parte de esta presentación` : ''}.`, `Every row links to its page. Sections are numbered as on ${url}${out.length ? `; ${out.length > 1 ? 'sections' : 'section'} ${list} ${out.length > 1 ? 'are' : 'is'} read on the page and ${out.length > 1 ? 'are' : 'is'} not part of this presentation` : ''}.`));
     }
-    // ================= 06 RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
+    // ================= RELATIVE VALUATION (two pages, before Sources and Methodology; owner, 2026-10-07) =================
     // The peers table as the page prints it (the company's rows through the model, incl. the pro-forma row while ASUR's overlay
     // is on; lead sentence and method note read from the page) and the weekly history of the company's NTM EV/EBITDA and NTM P/E
     // beside the other Mexican groups'; both pages live in the shared engine.
@@ -153,7 +153,7 @@
       if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M  ·  ${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
       if (nd && L) R(this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`), this.x(nd.net / L.is.ebitda, 1), 'bold');
       if (L) R(this.T(`VE / ${this.ebitdaL} UDM  ·  P/U UDM`, `EV / LTM ${this.ebitdaL}  ·  LTM P/E`), `${this.x(ev / L.is.ebitda)}  ·  ${M.niCtrl(L.is) ? this.x(mc / 1000 / M.niCtrl(L.is)) : '—'}`);
-      // pro-forma perimeter (REF.proForma, ASUR with Motiva/CPC): the page's DCF and multiples use it while it is on; the deck prints it beside the reported figures
+      // pro-forma perimeter (REF.proForma, ASUR with Motiva/CPC): the page's multiples use it while it is on; the deck prints it beside the reported figures
       if (nd && L && M.PF && M.proFormaOn && M.proFormaOn()) { const PFo = M.PF, eb = L.is.ebitda + PFo.ebitdaM * 1000, evPf = mc / 1000 + PFo.netDebtM * 1000 + M.nciOf(lastQ);
         // one short label and the ratios named in the value, so the row stays on one or two lines (the long label wrapped to three
         // and pushed the ASUR table past its limit, 2026-10-07)
@@ -448,12 +448,12 @@
       this.noteAbove(this.T(`Ambas series cuentan pasajeros en cada aeropuerto (llegadas y salidas), por lo que un vuelo nacional cuenta en origen y destino${mxCountry ? `; para la comparación se usan solo los aeropuertos mexicanos de ${short}` : ''}. Fuentes: reportes mensuales de tráfico de ${short}; AFAC, Estadística operativa de aeropuertos (${MX && MX.sources && MX.sources.afac ? MX.sources.afac.file + ', publicado el ' + this.date(MX.sources.afac.published) : 'archivo mensual'}).`, `Both series count passengers at each airport (arrivals and departures), so a domestic flight counts at both ends${mxCountry ? `; only ${short}'s Mexican airports are used for the comparison` : ''}. Sources: ${short} monthly traffic reports; AFAC, airport operating statistics (${MX && MX.sources && MX.sources.afac ? MX.sources.afac.file + ', published ' + this.date(MX.sources.afac.published) : 'monthly file'}).`), Math.max(y + 4, this.cur.y1 - 30));
     }
 
-    // ================= 11. 07 LEVERAGE AND DEBT =================
+    // ================= LEVERAGE AND DEBT (page section "debt") =================
     debtPage() {
       const M = this.M, qs = M.Q.slice(-8), lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ);
       const nds = qs.map((q) => ({ q, nd: M.netDebt(q), l: M.ltmFor(q) })); const est = nds.map((x) => x.nd && x.nd.basis === 'est');
       const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => `${r.agency.replace("Moody's Local MX", "Moody's").replace('S&P Global Ratings', 'S&P')} ${r.rating}`).join(' · ');
-      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · instrumentos según los informes de ${this.cfg.short}, referencia actualizada ${this.date(M.REF.updatedAt)}`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(this.rel(lastQ))}) · instruments per ${this.cfg.short}'s reports, reference updated ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', this.secNo('debt') + this.T('Apalancamiento y perfil de deuda', 'Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · instrumentos según los informes de ${this.cfg.short}, referencia actualizada ${this.date(M.REF.updatedAt)}`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(this.rel(lastQ))}) · instruments per ${this.cfg.short}'s reports, reference updated ${this.date(M.REF.updatedAt)}`));
       const asOf = this.date(M.qEndDate(lastQ));
       const lev = nd && L ? nd.net / L.is.ebitda : null;
       // pro-forma basis (REF.proForma: ASUR with Motiva/CPC, while the page's overlay is on): one tile beside the reported ones
@@ -509,12 +509,12 @@
       this.noteAbove(srcLine, Math.max(yl, yr) + 4, 7);
     }
 
-    // ================= 12. 08 DIVIDENDS =================
+    // ================= DIVIDENDS (page section "dividends") =================
     dividendPage() {
       const M = this.M, divs = (M.MK.dividends && M.MK.dividends[M.HOME] && M.MK.dividends[M.HOME].points) || [];
       const byYear = {}; for (const [d, v] of divs) byYear[d.slice(0, 4)] = (byYear[d.slice(0, 4)] || 0) + v;
       const lastYear = Math.max(...Object.keys(byYear).map(Number)); const years = []; for (let yv = 2015; yv <= lastYear; yv++) { years.push(String(yv)); byYear[yv] ??= 0; }
-      let y = this.page('L', this.T('08 · Dividendos', '08 · Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
+      let y = this.page('L', this.secNo('dividends') + this.T('Dividendos', 'Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
       const gap = 20, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       const ag = (M.REF.dividends || []).map((d) => this.T(`Asamblea ${d.agmYear} (${this.date(d.agmDate)}): Ps. ${this.n(d.dps, 2)} por acción. ${M.LS(d.note)}`, `AGM ${d.agmYear} (${this.date(d.agmDate)}): Ps. ${this.n(d.dps, 2)} per share. ${M.LS(d.note)}`));
       const px = M.lastPx; const last = (M.REF.dividends || []).slice(-1)[0];
@@ -542,10 +542,10 @@
       this.noteAbove(cfNote, y2 + 4);
     }
 
-    // ================= 13. 09 EVENT (expansion / MDP): facts, timeline and the page's own prose =================
+    // ================= EVENT (page section "event"; expansion / MDP): facts, timeline and the page's own prose =================
     eventPage() {
       const M = this.M, E = M.REF.event || {}, title = this.sectionTitle('event', this.T('Evento', 'Event'));
-      let y = this.page('L', `09 · ${title}`, this.T(`Hechos y cronología de los comunicados de ${this.cfg.short}; referencia actualizada ${this.date(M.REF.updatedAt)}`, `Facts and timeline from ${this.cfg.short}'s releases; reference updated ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', `${this.secNo('event')}${title}`, this.T(`Hechos y cronología de los comunicados de ${this.cfg.short}; referencia actualizada ${this.date(M.REF.updatedAt)}`, `Facts and timeline from ${this.cfg.short}'s releases; reference updated ${this.date(M.REF.updatedAt)}`));
       const facts = E.facts || [];
       y = this.tiles(facts.slice(0, 5).map((f) => ({ v: M.fmtFact(f), l: M.L(f.label), size: 12.5 })), y, 52);
       const gap = 24, wl = this.width() * 0.55, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
@@ -576,7 +576,7 @@
     // ================= 14. 10 EXPLAINER: fact sheet, status, the page's own prose and a company graphic =================
     explainerPage() {
       const M = this.M, X = M.REF.explainer || {}, title = this.sectionTitle('explainer', this.T('Explicación', 'Explainer'));
-      let y = this.page('L', `10 · ${title}`, this.T(`Ficha y contexto de los informes y comunicados de ${this.cfg.short}; referencia actualizada ${this.date(M.REF.updatedAt)}`, `Fact sheet and context from ${this.cfg.short}'s reports and releases; reference updated ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', `${this.secNo('explainer')}${title}`, this.T(`Ficha y contexto de los informes y comunicados de ${this.cfg.short}; referencia actualizada ${this.date(M.REF.updatedAt)}`, `Fact sheet and context from ${this.cfg.short}'s reports and releases; reference updated ${this.date(M.REF.updatedAt)}`));
       const gap = 24, wl = this.width() * 0.5 - gap / 2, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       const srcNote = X.sources ? `${M.t('src')}: ${(M.LS(X.sources) || []).join(' · ')}` : '';
       const noteH = srcNote ? this.measureText(srcNote, this.width(), 7.5, 1.25) : 0;
