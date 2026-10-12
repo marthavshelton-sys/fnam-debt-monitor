@@ -7,7 +7,7 @@
  "archived": 0,
  "pending": 0,
  "unmatched": [],
- "error": null,
+ "error": "the listing parsed to zero rows (page layout changed?)",
  "seen": [
   {
    "id": "1594244",
