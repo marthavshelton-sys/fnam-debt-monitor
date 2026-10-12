@@ -21,6 +21,13 @@ Decisions, pitfalls and open items of `site/mx/consumidor/`. Runbook: `README.md
 - K-shaped section: official series only (ENIGH by decile, wages, ENOE). It carries no third-party estimates (the
   American page's Moody's / Federal Reserve block has no counterpart here); none was searched for or added.
 
+## Decisions (owner, 12-Oct-2026)
+
+- "At a Glance" reads down: points 1–5 in the left column, 6–10 in the right (one column on a phone).
+- The page has a PDF presentation like the company models' (button in the navigation bar, deep link `?present=1`), with
+  a contents page whose rows are links. The deck's executive summary keeps the same 1–5 / 6–10 columns.
+- The dashboard is watched by the site's watchdog: refresh on time, source down, and data past its usual date.
+
 ## Pitfalls already met
 
 - INEGI's file servers answer the same file with `Last-Modified` times a few seconds apart, so a stamp built on the
@@ -44,6 +51,18 @@ Decisions, pitfalls and open items of `site/mx/consumidor/`. Runbook: `README.md
   several issuers post an English duplicate of each release; most issuers post no release there at all and their
   quarterly report (XBRL package on the financial-information page, management-commentary text blocks) is the channel.
   Financial groups post neither.
+- The header tiles clip what does not fit, so a figure that ran out of its tile ("MX$19,739 a mo" in English) never
+  showed as an overflow of the page and the render check passed. The figure and its unit now wrap as two pieces, a figure
+  wider than its tile is set smaller, and the render check measures the text of every tile.
+- jsPDF measures a line a little narrower than it prints: text wrapped to the exact width of a page or a cell can end a
+  few points past it. The deck wraps its own text glyph by glyph and a little short (`wrap()` in `present.js`).
+- The engine's `tx()` collapses line breaks: a table cell or a subtitle cannot carry "\n".
+- Chart.js gives every row of a horizontal bar chart the same height and cuts the label axis at half the canvas: the
+  tallest label sets the height the whole chart needs, and a label line longer than half the canvas loses its first letters.
+- A chart picture with transparent parts prints a gray fringe around every filled patch (the white backing of a value
+  label) when a PDF reader resamples it: the deck draws its charts on an opaque white sheet (`printSheet` in `lib.js`).
+- A newly merged workflow's first scheduled run can start hours late (11-Oct-2026: the 23:20 UTC slot ran at 02:27);
+  later runs start within minutes of their time.
 - Maps: Mexico City, Tlaxcala, Morelos, Aguascalientes, Colima and Querétaro are too small for a label and get chips.
 - A session cannot reach INEGI, Banxico, the BMV or the SEC, and cannot read a run's log: questions go to the runner
   through the probe file and come back as committed files.

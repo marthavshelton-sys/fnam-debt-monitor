@@ -23,7 +23,8 @@
 # after the build (and runs even when the build stopped); everything after it is optional (continue-on-error, time-limited)
 # except the check of the curated company figures, which ends the run red when a figure is not in its release. A source
 # that fails three runs in a row opens one "SOURCE DOWN: Mexican Consumer - ..." issue (label mx-consumidor-source-down),
-# closed on recovery.
+# closed on recovery; a source stamped with a period past its publisher's usual date for two days opens another (label
+# mx-consumidor-stale). The site's watchdog reads both labels as alerts of this page.
 name: Refresh Mexican Consumer data
 
 on:
@@ -156,6 +157,44 @@ jobs:
               }
             } else if (issue && !Object.keys(s).some((k) => (s[k].failures || 0) > 0)) {
               await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every source answered again in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
+
+      # The run can land while a publisher has gone quiet or a reader returns an old period: the builder lists every source
+      # stamped with a period older than its publisher's usual calendar allows (raw/build-log.json -> stale; allowances in
+      # build.mjs), unless the daily task has recorded that the publisher itself carries nothing newer. A source still on
+      # that list two days after its due date opens one issue (label mx-consumidor-stale, which the site's watchdog reads
+      # as an alert of this page); it closes when the list is empty again.
+      - name: Data past its usual date (issue) / close when current
+        if: always() && github.ref_name == 'main'
+        continue-on-error: true
+        timeout-minutes: 3
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let stale = [];
+            try { stale = JSON.parse(fs.readFileSync('tools/mx-consumidor/raw/build-log.json', 'utf8')).stale || []; } catch (e) { return; }
+            const day = 864e5, now = Date.now();
+            const late = stale.filter((x) => x.dueBy && now - Date.parse(x.dueBy + 'T00:00:00Z') > 2 * day);
+            const label = 'mx-consumidor-stale';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (late.length) {
+              const body = `The Mexican Consumer page (https://fnam.mx/mx/consumidor/) shows ${late.length === 1 ? 'a source' : late.length + ' sources'} at a period older than the publisher's usual calendar allows, with no recent check on file that the publisher has nothing newer:\n\n` +
+                late.map((x) => `- ${x.name}: data through ${x.asOf}; a newer period was due by ${x.dueBy}`).join('\n') +
+                `\n\nThe page marks these blocks "no recent update". Either the publisher is late (the daily upkeep task records that once it has read the publisher's page) or the refresh is not reading the new period (the reader needs repair). Run: ${runUrl}`;
+              const title = `SOURCE DOWN: Mexican Consumer - data past its usual date (${late.map((x) => x.id).join(', ')})`.slice(0, 240);
+              const marker = `<!-- stale:${late.map((x) => x.id + '@' + x.asOf).join(',')} -->`;
+              if (issue) {
+                if (!(issue.body || '').includes(marker)) await github.rest.issues.update({ ...context.repo, issue_number: issue.number, title, body: `${body}\n\n${marker}` });
+              } else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Mexican Consumer page: a source is past its usual date' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title, labels: [label], body: `${body}\n\n${marker}` });
+              }
+            } else if (issue && !stale.length) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every source is within its usual calendar again in ${runUrl}. Closing.` });
               await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
             }
 

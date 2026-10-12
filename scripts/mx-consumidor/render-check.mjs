@@ -77,6 +77,16 @@ for (const c of configs) {
       if (!vis(el)) continue; const r = el.getBoundingClientRect();
       if (r.right > W + 1.5 && !el.closest('nav.jump,details.tbl')) { const k = 'ovf ' + (el.id || el.className || el.tagName); if (!seen.has(k)) { seen.add(k); P(`overflow: <${el.tagName.toLowerCase()} ${el.id ? '#' + el.id : '.' + String(el.className.baseVal != null ? el.className.baseVal : el.className).split(' ')[0]}> right=${Math.round(r.right)} (viewport ${W})`); } }
     }
+    // text inside its box: the header tiles and the stat tiles clip what does not fit, so the page never "overflows" when a
+    // figure runs out of its tile (the English header read "MX$19,739 a mo" on 12-Oct-2026); each text block is measured
+    for (const t of document.querySelectorAll('#kpiStrip .kpi, .stat-row .stat')) {
+      if (!vis(t)) continue; const cs = getComputedStyle(t), inner = t.getBoundingClientRect().right - parseFloat(cs.paddingRight);
+      for (const e of t.querySelectorAll('.lbl, .val > *, .delta, .v, .l')) { const q = e.getBoundingClientRect(); if (q.width && q.right > inner + 0.5) { const k = 'tile ' + e.textContent.slice(0, 30); if (!seen.has(k)) { seen.add(k); P(`text out of its tile by ${Math.round(q.right - inner)}px: "${e.textContent.trim().slice(0, 40)}" in #${(t.closest('[id]') || {}).id}`); } } }
+    }
+    // At a Glance reads down each column: the numbers of the left column come before those of the right
+    const gcols = [...document.querySelectorAll('#glance .gcol')].map((c) => [...c.querySelectorAll('.ix')].map((x) => +x.textContent));
+    const flat = gcols.flat();
+    if (gcols.length !== 2 || flat.some((n, i) => n !== i + 1) || Math.abs(gcols[0].length - gcols[1].length) > 1) P(`At a Glance columns: ${JSON.stringify(gcols)}`);
     out.title = document.title; out.lang = document.documentElement.lang; out.h = document.documentElement.scrollHeight;
     out.canvases = document.querySelectorAll('canvas').length; out.h1 = (document.querySelector('h1') || {}).textContent;
     return out;
