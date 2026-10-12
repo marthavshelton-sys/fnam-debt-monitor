@@ -4,34 +4,6 @@
   {
    "at": "2026-10-09T22:49:22.403Z",
    "file": "obligations.js",
-   "path": "site_commitments.items[0].source.url",
-   "old": null,
-   "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].id",
-   "old": null,
-   "new": "wisconsin-financial-assurance"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].site",
-   "old": null,
-   "new": "Port Washington, WI"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].date",
-   "old": null,
-   "new": "2026-08-17"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "obligations.js",
    "path": "site_commitments.items[1].basis",
    "old": null,
    "new": "press"
@@ -4200,7 +4172,35 @@
    "path": "peers[7].evSalesNtm",
    "old": 7.0889033756391715,
    "new": 7.085042376116668
+  },
+  {
+   "at": "2026-10-12T13:55:12.167Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-11&todate=2026-10-11&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-12&todate=2026-10-12&limit=10000"
+  },
+  {
+   "at": "2026-10-12T13:55:12.167Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-11",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-12T13:55:12.167Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-11",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-12T13:55:12.167Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-11",
+   "new": "2026-10-12"
   }
  ],
- "generated": "2026-10-12T00:01:47.285Z"
+ "generated": "2026-10-12T13:55:12.167Z"
 }
