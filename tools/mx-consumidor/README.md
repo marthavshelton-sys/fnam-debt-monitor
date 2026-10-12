@@ -41,6 +41,7 @@ scripts/mx-consumidor/harvest-releases.mjs BMV and SEC EDGAR → tools/mx-consum
 scripts/mx-consumidor/build-companies.mjs  data/companies-kpis.json + releases → site/mx/consumidor/data/companies.js
 scripts/mx-consumidor/commit.sh            the workflow's commit step (see "Pitfalls" in MEMORY.md)
 scripts/mx-consumidor/render-check.mjs     Playwright check of the page (see "Before pushing")
+scripts/mx-consumidor/deck-check.mjs       builds the PDF presentation in both languages and checks it (see "PDF presentation")
 scripts/mx-consumidor/pending.mjs          what is waiting for attention: the worklist of the daily scheduled task
 scripts/mx-consumidor/probe.mjs            runner diagnostics (answers committed to a feature branch; never on main)
 scripts/mx-consumidor/lib/                 http helpers, series manifest (ids + title patterns), ENIGH and ENIF tabulators, CSV / xlsx / PDF readers
@@ -59,7 +60,11 @@ only when a source published something (`data.js` keeps its `generatedAt` when n
 - `build-companies.mjs` fails when a curated `find` text or quote is not in the stored release of the cited filing, or
   when the number is not in its own `find` text; that company is left out. The decimals shown for each company figure
   are the ones its release prints (`dp`).
-- Watchdog: entry `mx-consumer` in `tools/watchdog/dashboards.json`, with `since` = when the workflow reached `main`
+- A source stamped with a period older than its publisher's usual calendar allows (`raw/build-log.json → stale`) for
+  two days, with no publisher check on file, opens one issue "SOURCE DOWN: Mexican Consumer - data past its usual date
+  (…)" (label `mx-consumidor-stale`), closed when the list is empty again: a run can land while the data is old.
+- Watchdog: entry `mx-consumer` in `tools/watchdog/dashboards.json` (alert labels `mx-consumidor-source-down` and
+  `mx-consumidor-stale`), with `since` = when the workflow reached `main`
   (11-Oct-2026, 20:50 UTC, minutes before the merge): schedules due before it are not judged. Status stamp from `data.js → generatedAt`
   (`STAMPS` in `site/assets/data-status.js`).
 
@@ -112,6 +117,30 @@ INEGI, Banxico, the BMV or the SEC: the runner fetches, the session reads the co
 4. `node scripts/mx-consumidor/build-companies.mjs` must end "N of N verified … problems: 0" and the render check must
    be clean before anything is pushed.
 
+## PDF presentation
+
+The PDF button in the navigation bar (and the address `/mx/consumidor/?present=1&lang=es|en`) builds a Letter deck in the
+reader's browser, in the language on screen: cover, executive summary (the ten points of "At a Glance", 1–5 down the left
+column and 6–10 down the right, under the six header figures), a contents page whose rows link to their pages, one or
+more pages per section (income and poverty also by state, with the map and the table of the 32 states; the company
+figures in two tables, with the quotes), sources and methodology. About 19 pages, 4 MB.
+
+- Builder `site/mx/consumidor/present.js` on the site's shared engine `site/assets/present-core.js` (do not change the
+  engine for this page: the builder subclasses it). The list `PAGES` at its top is the deck: which charts go on which
+  page, in which columns.
+- Nothing is typed or computed in the builder. Figures come from `window.MXC_MODEL` (set at the end of `app.js`); the
+  sentences, tile labels, chart titles, captions and legends are read from the page's own elements in the language on
+  screen; every chart is drawn again off-screen from the options the page drew it with (`MXC_UI.specs` →
+  `MXC_UI.printConfig`). A chart the page hides (its data block is missing) leaves the deck; a page left empty is not printed.
+- Charts are drawn in the light theme: with the page in its dark theme, the builder puts the light one on, redraws,
+  builds and puts the reader's theme back.
+- A horizontal bar chart gives every row the height of its tallest label, so one with many rows needs a tall cell:
+  give it a column of its own in `PAGES`. The builder draws such a chart on a larger canvas and scales it down (its text
+  never prints below 6.8 pt); when that is not enough the labels touch, which only the eye catches.
+- `node scripts/mx-consumidor/deck-check.mjs --shots <dir>` builds both decks and the deep link, reads the PDFs with
+  PyMuPDF (`pip install pymupdf`) and rasterises every page: look at all of them in both languages before pushing a
+  change to the builder, to `lib.js` or to a section's charts.
+
 ## Method notes
 
 - ENIGH groups: schooling of the head from `educa_jefe` (none or incomplete primary 01–03, primary 04–05, secondary
@@ -138,12 +167,14 @@ node scripts/mx-consumidor/build.mjs --check            # 0 fail
 node scripts/mx-consumidor/build-companies.mjs --check  # N of N verified, problems: 0
 (setsid nohup python3 -m http.server 8123 --directory site >/dev/null 2>&1 &)
 node scripts/mx-consumidor/render-check.mjs [--shots <dir>] [--only=es-1280-light]
+node scripts/mx-consumidor/deck-check.mjs --shots <dir>   # after a change to present.js, lib.js or a section's charts
 node tools/audit-public-copy.mjs                        # no repository paths, workflow names or links in reader text
 ```
 
 The render check loads the page in twelve configurations (ES / EN × 1280, 390 and 360 px × light / dark), checks every
-chart, table and map (32 states each), looks for `undefined` / `NaN`, overflow and text under 11 px, and repeats with
-each data block removed (a missing block must hide its cards, never break the page).
+chart, table and map (32 states each), looks for `undefined` / `NaN`, overflow, text under 11 px, text that runs out
+of a header or stat tile, and the reading order of "At a Glance" (down each column), and repeats with each data block
+removed (a missing block must hide its cards, never break the page).
 
 To ask a publisher something from the runner: write `tools/mx-consumidor/probe.json` (format at the top of
 `probe.mjs`), push the branch and dispatch the workflow on it with `probe=true`; answers land in

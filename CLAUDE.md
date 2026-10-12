@@ -241,8 +241,14 @@ dashboards, everything built from public data by GitHub Actions.
   Mexican Consumer: daily upkeep" (16:25 and 00:25 UTC; prompt `tools/mx-consumidor/ROUTINE-PROMPT.md`; worklist
   `scripts/mx-consumidor/pending.mjs`) curates company figures the day a release is stored, adds a new edition's published check
   figures, checks publishers past their usual date and repairs a broken reader. The workflow's commit steps go through
-  `scripts/mx-consumidor/commit.sh` (never merges a data file line by line). Before pushing run
-  `scripts/mx-consumidor/render-check.mjs`. Runbook and memory: `tools/mx-consumidor/README.md`, `MEMORY.md`.
+  `scripts/mx-consumidor/commit.sh` (never merges a data file line by line). Since 12-Oct-2026 (owner): "At a Glance" reads
+  down each column (1–5 left, 6–10 right); the navigation bar carries a PDF button (`site/mx/consumidor/present.js` on the
+  shared engine, deep link `?present=1&lang=`; cover, executive summary, linked contents page, sections with their charts
+  redrawn from the page's own options, income and poverty by state, company tables, sources and methodology; nothing typed
+  or computed in the builder); a source past its usual date for two days opens an issue labeled `mx-consumidor-stale`,
+  which the watchdog reads with `mx-consumidor-source-down`. Before pushing run `scripts/mx-consumidor/render-check.mjs`
+  and, after a change to the deck, `lib.js` or a section's charts, `scripts/mx-consumidor/deck-check.mjs --shots <dir>`
+  (look at every page in both languages). Runbook and memory: `tools/mx-consumidor/README.md`, `MEMORY.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
