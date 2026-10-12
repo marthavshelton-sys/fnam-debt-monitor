@@ -1,0 +1,6 @@
+{
+ "_comment": "Written by the page's daily scheduled task (ROUTINE-PROMPT.md), only when its content changes: filings judged not to be results (skipped.<TICKER>.<accn> = reason), companies with no stored release (missing.<TICKER>.since) and problems still open (open: id, since, branch, cause).",
+ "open": [
+  { "id": "schedule-not-started", "since": "2026-10-11", "branch": null, "cause": "No scheduled run of the refresh workflow had started on main by 00:27 UTC on 2026-10-12 (workflow on main since 20:50 UTC on 2026-10-11, first slot 23:20 UTC); a run started by hand at 00:27 UTC succeeded and found nothing new. Solved when a scheduled run concludes success." }
+ ]
+}
