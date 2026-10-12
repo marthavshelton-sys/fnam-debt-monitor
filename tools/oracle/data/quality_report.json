@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-12T14:57:53.612Z",
+  "generated": "2026-10-12T21:55:37.467Z",
   "summary": {
     "checks": 464,
     "failed": 0,
@@ -3807,8 +3807,8 @@
     },
     {
       "series": "Share price (ORCL close, runner feed)",
-      "lastDate": "2026-10-09",
-      "ageDays": 4,
+      "lastDate": "2026-10-12",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet"
@@ -3944,7 +3944,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-09; 5 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-12; 5 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -4098,8 +4098,8 @@
       "label_en": "Market (daily closes)",
       "label_es": "Mercado (cierres diarios)",
       "cadence": "daily",
-      "asOf": "2026-10-09",
-      "lastRefresh": "2026-10-09",
+      "asOf": "2026-10-12",
+      "lastRefresh": "2026-10-12",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,

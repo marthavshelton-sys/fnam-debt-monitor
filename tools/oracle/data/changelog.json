@@ -4,83 +4,6 @@
   {
    "at": "2026-10-09T22:49:22.403Z",
    "file": "news.js",
-   "path": "items[3].date",
-   "old": "2026-09-30",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].theme",
-   "old": "customers",
-   "new": "power"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].title_en",
-   "old": "FT: Tencent reportedly signed a US$7 billion, five-year lease of about 100,000 AI chips in Oracle's Southeast Asia data centers (unconfirmed)",
-   "new": "Oracle commits to subscribe to Point Beach nuclear output for the Port Washington campus; says it will fully fund the site's energy costs"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].title_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].summary_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].why_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].sources[0].tier",
-   "old": "wire",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
-   "path": "items[3].sources[0].title",
-   "old": "Reuters via U.S. News, 30 Sep 2026: China's Tencent Leases 100,000 Chips From Oracle to Accelerate AI Push, FT Reports",
-   "new": "Oracle press release, 2 Oct 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents"
-  },
-  {
-   "at": "2026-10-09T22:49:22.403Z",
-   "file": "news.js",
    "path": "items[3].sources[0].url",
    "old": "https://money.usnews.com/investing/news/articles/2026-09-30/chinas-tencent-leases-100-000-chips-from-oracle-to-accelerate-ai-push-ft-reports",
    "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
@@ -4200,7 +4123,84 @@
    "path": "sweepLog[4].checked[0]",
    "old": null,
    "new": "SEC EDGAR"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-11",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-12)"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2960,
+   "new": 2961
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-12)"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2514,
+   "new": 2515
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-10",
+   "new": "2025-10-13"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-09",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-12T21:55:37.657Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-09",
+   "new": "2026-10-12"
   }
  ],
- "generated": "2026-10-12T14:57:53.729Z"
+ "generated": "2026-10-12T21:55:37.657Z"
 }
