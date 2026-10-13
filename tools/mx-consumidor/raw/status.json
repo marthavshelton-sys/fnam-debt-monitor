@@ -1,42 +1,50 @@
 {
  "sources": {
   "enigh": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "banxico": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "cards": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "states": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "inegi": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "fred": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "enif": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "docs": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "poverty": {
-   "ok": "2026-10-11",
+   "ok": "2026-10-13",
    "failures": 0
   },
   "releases": {
+   "failures": 0
+  },
+  "bis": {
+   "ok": "2026-10-13",
+   "failures": 0
+  },
+  "calendar": {
+   "ok": "2026-10-13",
    "failures": 0
   }
  }
