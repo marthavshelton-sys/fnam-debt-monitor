@@ -377,7 +377,7 @@
 
     // ================= sources and methodology =================
     sourcesPage() {
-      const items = Array.prototype.map.call(document.querySelectorAll('#srcGrid .item'), (it) => [this.plain(it.querySelector('.t')), this.plain(it.querySelector('.d')), this.plain(it.querySelector('a'))]); if (!items.length) return;
+      const items = Array.prototype.map.call(document.querySelectorAll('#srcGrid .item'), (it) => [this.plain(it.querySelector('.t')), this.plain(it.querySelector('.d')), this.plain(it.querySelector(':scope > a'))]);   // the site link, not a link inside the description if (!items.length) return;
       const y = this.page('L', this.T('Fuentes', 'Sources'), this.T('Todo el contenido proviene de información pública; cada fuente indica el periodo de su dato más reciente', 'All content comes from public information; each source shows the period of its latest data'));
       const W = this.width();
       this.fitTable({ y, w: W, head: [this.T('Fuente', 'Source'), this.T('Qué aporta y hasta cuándo llegan sus datos', 'What it provides and how far its data go'), this.T('Sitio', 'Site')], body: items, meta: items.map(() => ['bold left', 'left', 'left small']),

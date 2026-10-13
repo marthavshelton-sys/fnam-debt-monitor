@@ -86,17 +86,18 @@
   }
   var PUB = { INEGI: ['el INEGI', 'INEGI'], 'Banco de México': ['Banco de México', 'Banco de México'], BIS: ['el BIS', 'the BIS'] };
   var pubName = function (n, es) { var x = PUB[n] || [n, n]; return es ? x[0] : x[1]; };
+  var dePub = function (n) { return pubName(n, true).replace(/^el /, 'del ').replace(/^(?!del )/, 'de '); };   // "del INEGI", "de Banco de México"
   var scheduled = function (s) { return s && s.next && s.next.date && (s.next.basis === 'calendar' || s.next.basis === 'rule'); };
   // "Next release (Sep 2026): 22 Oct 2026, 06:00 (INEGI's calendar)" — the date the publisher itself scheduled, or the usual timing
   function nextLine(id) {
     var s = D.sources[id], n = s && s.next; if (!s) return '';
     if (scheduled(s)) {
       var at = UI.date(n.date) + (n.time ? ', ' + n.time + tr(' h', '') : '');
-      var how = n.basis === 'calendar' ? tr('calendario de ' + pubName(n.publisher, true), pubName(n.publisher, false) + '\u2019s calendar') : tr('regla de publicación de ' + pubName(n.publisher, true), pubName(n.publisher, false) + '\u2019s publication rule');
+      var how = n.basis === 'calendar' ? tr('calendario ' + dePub(n.publisher), pubName(n.publisher, false) + '\u2019s calendar') : tr('regla de publicación ' + dePub(n.publisher), pubName(n.publisher, false) + '\u2019s publication rule');
       return tr('Próxima publicación', 'Next release') + (n.period ? ' (' + UI.date(n.period) + ')' : '') + ': <b>' + at + '</b> (' + (n.url ? '<a href="' + esc(n.url) + '" target="_blank" rel="noopener">' + how + '</a>' : how) + ').';
     }
-    if (n && n.basis === 'none') return n.period ? tr('Siguiente edición (' + n.period + '): aún sin fecha en el calendario de ' + pubName(n.publisher, true) + '.', 'Next edition (' + n.period + '): not yet in ' + pubName(n.publisher, false) + '\u2019s calendar.') : '';
-    if (n && n.basis === 'gap') return tr('Próxima publicación (' + UI.date(n.period) + '): ' + pubName(n.publisher, true) + ' aún no la fecha en su calendario; se espera a más tardar el ' + UI.date(s.dueBy) + ' (plazo habitual).', 'Next release (' + UI.date(n.period) + '): not yet dated in ' + pubName(n.publisher, false) + '\u2019s calendar; expected by ' + UI.date(s.dueBy) + ' (usual timing).');
+    if (n && n.basis === 'none') return n.period ? tr('Siguiente edición (' + n.period + '): aún sin fecha en el calendario ' + dePub(n.publisher) + '.', 'Next edition (' + n.period + '): not yet in ' + pubName(n.publisher, false) + '\u2019s calendar.') : '';
+    if (n && n.basis === 'gap') return tr('Próxima publicación (' + UI.date(n.period) + '): aún sin fecha en el calendario ' + dePub(n.publisher) + '; se espera a más tardar el ' + UI.date(s.dueBy) + ' (plazo habitual).', 'Next release (' + UI.date(n.period) + '): not yet dated in ' + pubName(n.publisher, false) + '\u2019s calendar; expected by ' + UI.date(s.dueBy) + ' (usual timing).');
     return s.dueBy ? tr('Siguiente periodo: se espera a más tardar el ' + UI.date(s.dueBy) + ' (plazo habitual; la fuente no publica una fecha).', 'Next period: expected by ' + UI.date(s.dueBy) + ' (usual timing; the source posts no date).') : '';
   }
   function srcLine(id) {
@@ -933,8 +934,9 @@
     var today = window.FNAM_PROV ? window.FNAM_PROV.today() : '';
     var lateCos = CO.companies.filter(function (c) { return c.due && c.due.quarter === nx.quarter && today > c.due.date && !c.newerFiling; });
     var link = function (t) { return nx.url ? '<a href="' + esc(nx.url) + '" target="_blank" rel="noopener">' + t + '</a>' : t; };
-    return ' ' + bi('Siguientes resultados: ' + UI.date(nx.quarter) + '; las emisoras de la BMV deben presentarlos a más tardar el <b>' + UI.date(nx.bmvDate) + '</b> (' + link('calendario de la BMV') + '), y la tabla se actualiza el día que cada una lo hace.',
-        'Next results: ' + UI.date(nx.quarter) + '; BMV-listed companies must file them by <b>' + UI.date(nx.bmvDate) + '</b> (' + link('BMV reporting calendar') + '), and the table updates the day each one does.') +
+    var f = function (d, l) { return window.FNAM_PROV ? window.FNAM_PROV.fmt(d, l) : d; };
+    return ' ' + bi('Siguientes resultados: ' + f(nx.quarter, 'es') + '; las emisoras de la BMV deben presentarlos a más tardar el <b>' + f(nx.bmvDate, 'es') + '</b> (' + link('calendario de la BMV') + '), y la tabla se actualiza el día que cada una lo hace.',
+        'Next results: ' + f(nx.quarter, 'en') + '; BMV-listed companies must file them by <b>' + f(nx.bmvDate, 'en') + '</b> (' + link('BMV reporting calendar') + '), and the table updates the day each one does.') +
       (lateCos.length ? ' ' + UI.amber(tr(lateCos.length + ' sin reporte al vencer su plazo', lateCos.length + ' past their deadline with no report'), lateCos.map(function (c) { return c.ticker + ' (' + UI.date(c.due.date) + ')'; }).join(', ')) : '');
   }
   function companies() {
@@ -1005,7 +1007,7 @@
       enoe: ['Población ocupada por nivel de ingresos en múltiplos del salario mínimo, trimestral.', 'Employed population by income level in multiples of the minimum wage, quarterly.']
     };
     var items = Object.keys(D.sources).map(function (id) { var s = D.sources[id], d = desc[id] || ['', ''], nx = nextLine(id); return '<div class="item"><div class="t">' + esc(nm('srcShort', id)) + '</div><div class="d">' + tr(d[0], d[1]) + ' <span class="data-through">' + UI.through(s.asOf) + '</span>.' + (s.via ? ' ' + tr('Serie leída a través de FRED (Fed de San Luis), verificada contra su título.', 'Series read through FRED (St. Louis Fed), checked against its title.') : '') + (nx ? ' <span class="next">' + nx + '</span>' : '') + '</div><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + ' ↗</a></div>'; });
-    if (CO && CO.companies.length) items.push('<div class="item"><div class="t">' + tr('Reportes de resultados de las empresas', 'Company results releases') + '</div><div class="d">' + tr('Reportes de ' + CO.companies.length + ' empresas, presentados como eventos relevantes o reportes trimestrales ante la Bolsa Mexicana de Valores, o como formularios 6-K y 8-K ante la SEC de Estados Unidos. Cada cifra y cita se coteja contra el texto del documento. Última revisión: ', 'Releases of ' + CO.companies.length + ' companies, filed as material events or quarterly reports with the Mexican stock exchange (BMV), or as Forms 6-K and 8-K with the U.S. SEC. Every figure and quote is checked against the text of the document. Last reviewed: ') + '<span class="data-through">' + UI.date(CO.reviewed) + '</span>.</div><a href="https://www.bmv.com.mx/" target="_blank" rel="noopener">bmv.com.mx ↗</a></div>');
+    if (CO && CO.companies.length) items.push('<div class="item"><div class="t">' + tr('Reportes de resultados de las empresas', 'Company results releases') + '</div><div class="d">' + tr('Reportes de ' + CO.companies.length + ' empresas, presentados como eventos relevantes o reportes trimestrales ante la Bolsa Mexicana de Valores, o como formularios 6-K y 8-K ante la SEC de Estados Unidos. Cada cifra y cita se coteja contra el texto del documento. Última revisión: ', 'Releases of ' + CO.companies.length + ' companies, filed as material events or quarterly reports with the Mexican stock exchange (BMV), or as Forms 6-K and 8-K with the U.S. SEC. Every figure and quote is checked against the text of the document. Last reviewed: ') + '<span class="data-through">' + UI.date(CO.reviewed) + '</span>.' + (CO.next ? ' <span class="next">' + tr('Siguientes resultados (' + UI.date(CO.next.quarter) + '): las emisoras de la BMV, a más tardar el <b>' + UI.date(CO.next.bmvDate) + '</b> (calendario de la BMV).', 'Next results (' + UI.date(CO.next.quarter) + '): BMV-listed companies by <b>' + UI.date(CO.next.bmvDate) + '</b> (BMV reporting calendar).') + '</span>' : '') + '</div><a href="https://www.bmv.com.mx/" target="_blank" rel="noopener">bmv.com.mx ↗</a></div>');
     $('srcGrid').innerHTML = items.join('');
     var SC = D.schedule || {}, cdmx = (SC.refreshUtc || []).map(function (t) { var h = (+t.slice(0, 2) + 18) % 24; return { h: h, t: ('0' + h).slice(-2) + t.slice(2) }; }).sort(function (a, b) { return a.h - b.h; }).map(function (x) { return x.t; });
     var NUM = { es: ['', 'una vez', 'dos veces', 'tres veces', 'cuatro veces', 'cinco veces', 'seis veces'], en: ['', 'once', 'twice', 'three times', 'four times', 'five times', 'six times'] };
