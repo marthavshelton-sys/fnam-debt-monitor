@@ -99,7 +99,7 @@
     if (stored.length) { warn.hidden = false; warn.innerHTML = tr('La última descarga falló para: ', 'The last download failed for: ') + stored.map(function (k) { return esc(nm('srcShort', k)); }).join('; ') + tr('. Se muestran los últimos datos obtenidos, con su fecha.', '. The last data obtained are shown, with their date.'); } else warn.hidden = true;
 
     var k = [];
-    var tile = function (lbl, val, unit, delta, kind) { k.push('<div class="kpi"><div class="lbl">' + lbl + '</div><div class="val">' + val + (unit ? '<span class="unit"> ' + unit + '</span>' : '') + '</div><div class="delta">' + delta + '</div><div class="delta">' + UI.kind(kind) + '</div></div>'); };
+    var tile = function (lbl, val, unit, delta, kind) { k.push('<div class="kpi"><div class="lbl">' + lbl + '</div><div class="val"><span class="n">' + val + '</span>' + (unit ? '<span class="unit"> ' + unit + '</span>' : '') + '</div><div class="delta">' + delta + '</div><div class="delta">' + UI.kind(kind) + '</div></div>'); };
     if (D.funds && D.funds.pceShareGdp) tile(tr('Consumo de los hogares', 'Household consumption'), UI.pct(D.funds.pceShareGdp.v), tr('del PIB', 'of GDP'), UI.date(D.funds.pceShareGdp.asOf) + ' · ' + UI.money(D.funds.pceTotal) + tr(' al año', ' a year'), 'R');
     if (D.income && D.income.cps) { var c = D.income.cps, rl = c.real, ch = rl && rl.length > 1 ? (last(rl)[1] / rl[rl.length - 2][1] - 1) * 100 : null; tile(tr('Mediana del ingreso del hogar', 'Median household income'), UI.usd(c.median), '', c.asOf + (ch != null ? ' · ' + UI.signed(ch) + tr(' real vs. ', ' real vs. ') + (Number(c.asOf) - 1) : ''), 'R'); }
     if (D.funds) tile(tr('Tasa de ahorro personal', 'Personal saving rate'), UI.pct(D.funds.savingRate), '', UI.date(D.funds.asOf) + ' · ' + tr('del ingreso disponible', 'of disposable income'), 'R');
@@ -114,24 +114,24 @@
   // =====================================================================================================================
   function decileShares() { var t = D.cex.deciles.total.slice(1), s = sum(t); return t.map(function (v) { return v / s * 100; }); }
   function glance() {
-    var pts = [];
-    if (D.demo && D.income) pts.push(bi(
+    var pts = [], keys = [], add = function (k, html) { pts.push(html); keys.push(k); };   // each point carries its topic (the PDF deck titles it)
+    if (D.demo && D.income) add('households', bi(
       'Hay <b>' + UI.mill(D.demo.households) + ' de hogares</b> y ' + UI.mill(D.demo.pop) + ' de personas (' + D.demo.asOf + '). La edad mediana es de ' + UI.nf(D.demo.medianAge, 1) + ' años; el ' + UI.pct(D.demo.owner) + ' de los hogares es dueño de su vivienda y el ' + UI.pct(by(D.demo.hhTypes, 'alone').n / D.demo.households * 100) + ' son personas que viven solas.',
       'There are <b>' + UI.mill(D.demo.households) + ' households</b> and ' + UI.mill(D.demo.pop) + ' people (' + D.demo.asOf + '). The median age is ' + UI.nf(D.demo.medianAge, 1) + '; ' + UI.pct(D.demo.owner) + ' of households own their home and ' + UI.pct(by(D.demo.hhTypes, 'alone').n / D.demo.households * 100) + ' are people living alone.'));
     if (D.income) { var q = D.income.quintiles, c = D.income.cps;
-      pts.push(bi(
+      add('income', bi(
         (c ? 'El hogar típico ganó <b>' + UI.usd(c.median) + '</b> en ' + c.asOf + ' (mediana nacional). ' : '') + 'El 20% de mayor ingreso recibe el <b>' + UI.pct(q.shares[4]) + '</b> del ingreso de todos los hogares y el 20% de menor ingreso, el ' + UI.pct(q.shares[0]) + ' (' + D.income.asOf + '); el promedio por hogar va de ' + UI.usd(q.means[0]) + ' a ' + UI.usd(q.means[4]) + ' entre esos dos grupos.',
         (c ? 'The typical household earned <b>' + UI.usd(c.median) + '</b> in ' + c.asOf + ' (national median). ' : '') + 'The top 20% by income receive <b>' + UI.pct(q.shares[4]) + '</b> of all household income and the bottom 20% receive ' + UI.pct(q.shares[0]) + ' (' + D.income.asOf + '); the average per household runs from ' + UI.usd(q.means[0]) + ' to ' + UI.usd(q.means[4]) + ' between those two groups.')); }
     if (D.funds) { var f = D.funds, sh = function (v) { return UI.pct(v / f.pi * 100, 0); };
-      pts.push(bi(
+      add('funds', bi(
         'De cada dólar de ingreso personal, <b>' + sh(f.compensation) + '</b> viene del trabajo asalariado, ' + sh(f.assets) + ' de intereses y dividendos y <b>' + sh(f.transfers) + '</b> de transferencias, sobre todo del gobierno (' + UI.date(f.asOf) + '). Los hogares gastan en consumo el ' + UI.pct(f.pceTotal / f.dpi * 100, 0) + ' de su ingreso disponible y ahorran el <b>' + UI.pct(f.savingRate) + '</b>.',
         'Of every dollar of personal income, <b>' + sh(f.compensation) + '</b> comes from employee compensation, ' + sh(f.assets) + ' from interest and dividends and <b>' + sh(f.transfers) + '</b> from transfers, mostly from government (' + UI.date(f.asOf) + '). Households spend ' + UI.pct(f.pceTotal / f.dpi * 100, 0) + ' of their disposable income on consumption and save <b>' + UI.pct(f.savingRate) + '</b>.')); }
     if (D.cex) { var s = decileShares(), top20 = s[8] + s[9], bot40 = s[0] + s[1] + s[2] + s[3], d = D.cex.deciles, basics = basicsShare();
-      pts.push(bi(
+      add('deciles', bi(
         'El gasto está concentrado: el 20% de hogares de mayor ingreso hace el <b>' + UI.pct(top20, 0) + '</b> del gasto de consumo y el 40% de menor ingreso, el ' + UI.pct(bot40, 0) + ' (' + D.cex.asOf + '). Lo básico (alimentos en casa, vivienda, servicios, salud y combustible) absorbe el <b>' + UI.pct(basics[1], 0) + '</b> del gasto del decil más bajo y el ' + UI.pct(basics[10], 0) + ' del más alto.',
         'Spending is concentrated: the top 20% of households by income do <b>' + UI.pct(top20, 0) + '</b> of consumer spending and the bottom 40% do ' + UI.pct(bot40, 0) + ' (' + D.cex.asOf + '). Basics (food at home, shelter, utilities, healthcare and fuel) take <b>' + UI.pct(basics[1], 0) + '</b> of the lowest decile\'s spending and ' + UI.pct(basics[10], 0) + ' of the highest\'s.')); }
     if (D.debt) { var b = D.debt.balance, t = D.debt.t90.card, lr = t ? last(t.rows) : null, ct = D.creditTerms;
-      pts.push(bi(
+      add('credit', bi(
         'Los hogares deben <b>$' + UI.nf(b.total, 2) + ' billones</b> (' + UI.date(D.debt.asOf) + '): ' + UI.pct(b.mortgage / b.total * 100, 0) + ' en hipotecas, y $' + UI.nf(b.card, 2) + ' billones en tarjetas' + (ct && ct.rates.card ? ' a una tasa promedio de <b>' + UI.pct(last(ct.rates.card)[1], 1) + '</b>' : '') + '.' + (lr ? ' El estrés se concentra en los jóvenes: en tarjetas, el ' + UI.pct(lr[1]) + ' del saldo de los de 18 a 29 años cayó en morosidad grave en el último año, frente al ' + UI.pct(lr[lr.length - 1]) + ' del total.' : ''),
         'Households owe <b>$' + UI.nf(b.total, 2) + ' trillion</b> (' + UI.date(D.debt.asOf) + '): ' + UI.pct(b.mortgage / b.total * 100, 0) + ' in mortgages, and $' + UI.nf(b.card, 2) + ' trillion on credit cards' + (ct && ct.rates.card ? ' at an average rate of <b>' + UI.pct(last(ct.rates.card)[1], 1) + '</b>' : '') + '.' + (lr ? ' Stress is concentrated among the young: on cards, ' + UI.pct(lr[1]) + ' of the balances of those 18 to 29 became seriously delinquent over the past year, against ' + UI.pct(lr[lr.length - 1]) + ' overall.' : ''))); }
     var sf = D.leverage ? stressFacts() : null;
@@ -143,20 +143,20 @@
       if (sf.cash400 != null) { bEs.push('el ' + UI.pct(100 - sf.cash400, 0) + ' no cubriría un imprevisto de $400 con efectivo'); bEn.push(UI.pct(100 - sf.cash400, 0) + ' would not cover a $400 emergency with cash'); }
       if (sf.slDefault != null) { bEs.push(UI.money(sf.slDefault, 0) + ' de préstamos estudiantiles federales están en incumplimiento' + (sf.slDefaultPrev != null ? ' (' + UI.money(sf.slDefaultPrev, 0) + ' un año antes)' : '')); bEn.push(UI.money(sf.slDefault, 0) + ' of federal student loans are in default' + (sf.slDefaultPrev != null ? ' (' + UI.money(sf.slDefaultPrev, 0) + ' a year earlier)' : '')); }
       var cmp = sf.d2a < sf.d2a19;
-      pts.push(bi(
+      add('stress', bi(
         'El apalancamiento es ' + (cmp ? 'menor' : 'mayor') + ' que antes de la pandemia: la deuda equivale al <b>' + UI.pct(sf.d2a) + '</b> de los activos de los hogares (' + UI.pct(sf.d2a19) + ' a fines de 2019).' + (bEs.length ? ' La tensión está en el flujo de quienes tienen poco margen: ' + bEs.join('; ') + '.' : ''),
         'Leverage is ' + (cmp ? 'lower' : 'higher') + ' than before the pandemic: debt equals <b>' + UI.pct(sf.d2a) + '</b> of household assets (' + UI.pct(sf.d2a19) + ' at the end of 2019).' + (bEn.length ? ' The strain is in the cash flow of those with little room: ' + bEn.join('; ') + '.' : '')));
     }
     if (D.wealth) { var w = D.wealth.dims.networth, T = D.wealth.total, top1 = (by(w, 'TopPt1').nw + by(w, 'RemainingTop1').nw) / T * 100, b50 = by(w, 'Bottom50').nw / T * 100;
-      pts.push(bi(
+      add('wealth', bi(
         'La riqueza neta de los hogares suma <b>' + UI.money(T) + '</b> (' + UI.date(D.wealth.asOf) + '). El 1% más rico tiene el <b>' + UI.pct(top1) + '</b> y la mitad con menos riqueza, el ' + UI.pct(b50) + '.' + (D.scf ? ' La familia típica tiene ' + UI.usdK(D.scf.all.medNW * 1000, 0) + ' (mediana, ' + D.scf.asOf + '), frente a un promedio de ' + UI.usd(D.scf.all.meanNW * 1000) + '.' : ''),
         'Household net worth totals <b>' + UI.money(T) + '</b> (' + UI.date(D.wealth.asOf) + '). The top 1% hold <b>' + UI.pct(top1) + '</b> and the less wealthy half hold ' + UI.pct(b50) + '.' + (D.scf ? ' The typical family has ' + UI.usdK(D.scf.all.medNW * 1000, 0) + ' (median, ' + D.scf.asOf + '), against an average of ' + UI.usd(D.scf.all.meanNW * 1000) + '.' : ''))); }
     var kf = kFacts();
-    if (kf && kf.eq != null && kf.s20 != null) pts.push(bi(
+    if (kf && kf.eq != null && kf.s20 != null) add('kshape', bi(
       'La economía en forma de K se ve en los activos más que en el gasto medido por encuesta: el 10% más rico tiene el <b>' + UI.pct(kf.eq, 0) + '</b> de las acciones y fondos (' + UI.date(kf.q) + ')' + (kf.sentGap != null ? ' y ' + UI.nf(kf.sentGap, 0) + ' puntos separan la confianza del tercio de mayor ingreso de la del menor' : '') + ', mientras que el 20% de mayor ingreso hace el ' + UI.pct(kf.s20) + ' del gasto, ' + (Math.abs(kf.s20 - kf.s20first) < 2.5 ? 'casi igual que' : kf.s20 > kf.s20first ? 'más que' : 'menos que') + ' en ' + kf.sY0 + ' (' + UI.pct(kf.s20first) + ').' + (kf.est ? ' ' + esc(kf.est.publisher) + ' estima ' + estVal(kf.est) + ' ' + kf.est.short.es + ' (' + kf.est.period.es + ')' + (kf.offLo != null && kf.offHi > kf.offLo ? '; las mediciones oficiales, entre ' + UI.pct(kf.offLo) + ' y ' + UI.pct(kf.offHi, kf.offHiDp) : '') + '.' : ''),
       'The K-shaped economy shows in assets more than in survey-measured spending: the wealthiest 10% hold <b>' + UI.pct(kf.eq, 0) + '</b> of stocks and mutual funds (' + UI.date(kf.q) + ')' + (kf.sentGap != null ? ' and ' + UI.nf(kf.sentGap, 0) + ' points separate the confidence of the upper income third from the lower third' : '') + ', while the top 20% by income do ' + UI.pct(kf.s20) + ' of spending, ' + (Math.abs(kf.s20 - kf.s20first) < 2.5 ? 'about the same as' : kf.s20 > kf.s20first ? 'more than' : 'less than') + ' in ' + kf.sY0 + ' (' + UI.pct(kf.s20first) + ').' + (kf.est ? ' ' + esc(kf.est.publisher) + ' estimates ' + estVal(kf.est) + ' ' + kf.est.short.en + ' (' + kf.est.period.en + ')' + (kf.offLo != null && kf.offHi > kf.offLo ? '; official measurements, between ' + UI.pct(kf.offLo) + ' and ' + UI.pct(kf.offHi, kf.offHiDp) : '') + '.' : '')));
-    var cs = companySummary(); if (cs) pts.push(cs);
-    $('glance').innerHTML = pts.map(function (p, i) { return '<div class="pt"><span class="ix">' + (i + 1) + '</span><div>' + p + '</div></div>'; }).join('');
+    var cs = companySummary(); if (cs) add('companies', cs);
+    $('glance').innerHTML = pts.map(function (p, i) { return '<div class="pt" data-k="' + keys[i] + '"><span class="ix">' + (i + 1) + '</span><div>' + p + '</div></div>'; }).join('');
   }
 
   // =====================================================================================================================
@@ -230,6 +230,7 @@
     UI.table('chReceive', [tr('Tipo de ingreso', 'Type of income'), tr('% de hogares que lo recibe', '% of households receiving it')], rc.map(function (a) { return [nm('receive', a.k), UI.pct(a.pct)]; }));
     incomeMap();
   }
+  var MAPS = {};   // the metrics of the state maps as last built, with the note under each (the PDF deck prints them)
   function incomeMap() {
     var T = D.states; if (!T) return;
     var usdF = function (v) { return UI.usd(v); }, kF = function (v) { return '$' + UI.nf(v / 1000, 0) + (UI.lang === 'en' ? 'K' : ' mil'); }, pF = function (v) { return UI.pct(v); };
@@ -249,6 +250,7 @@
       poverty: bi('Porcentaje de personas con ingreso por debajo del umbral oficial de pobreza. ' + T.acsYear + '.', 'Share of people with income below the official poverty threshold. ' + T.acsYear + '.'),
       gini: bi('0 = todos los hogares ganan lo mismo; 1 = un hogar recibe todo el ingreso. ' + T.acsYear + '.', '0 = every household earns the same; 1 = one household receives all income. ' + T.acsYear + '.')
     };
+    MAPS.income = { metrics: M, note: function (m) { return notes[m.id] + ' ' + UI.kind(m.kind); } };
     function draw() {
       UI.seg('segIncomeMap', M.map(function (m) { return { id: m.id, label: m.btn }; }), state.incomeMap, function (id) { state.incomeMap = id; draw(); });
       var m = UI.stateMap({ box: 'mapIncome', chips: 'chipsIncome', scale: 'scaleIncome', rank: 'rankIncome', tblKey: 'mapIncome', states: T.list, metrics: M, current: state.incomeMap });
@@ -478,13 +480,14 @@
       { id: 'dqAuto', label: tr('Automotriz: saldo con 90+ días de atraso', 'Auto: balance 90+ days delinquent'), btn: tr('Morosidad: automotriz', 'Delinquency: auto'), get: g('dqAuto'), us: T.us.debt.dqAuto, fmt: pF, short: pS },
       { id: 'dqMortgage', label: tr('Hipotecas: saldo con 90+ días de atraso', 'Mortgages: balance 90+ days delinquent'), btn: tr('Morosidad: hipotecas', 'Delinquency: mortgages'), get: g('dqMortgage'), us: T.us.debt.dqMortgage, fmt: pF, short: pS }
     ];
+    var note = function (m) { var dq = /^dq/.test(m.id); return bi(
+        (dq ? 'Porcentaje del saldo con 90 días o más de atraso' : 'Saldo promedio por persona con historial crediticio, dólares') + ', al cuarto trimestre de ' + T.debtAsOf.slice(0, 4) + '. Los totales de esta base estatal pueden diferir ligeramente del informe trimestral nacional. ' + UI.kind('R'),
+        (dq ? 'Percent of the balance 90 or more days delinquent' : 'Average balance per person with a credit report, dollars') + ', as of the fourth quarter of ' + T.debtAsOf.slice(0, 4) + '. Totals in this state file can differ slightly from the national quarterly report. ' + UI.kind('R')); };
+    MAPS.debt = { metrics: M, note: note, src: 'nyfedStates' };
     function draw() {
       UI.seg('segDebtMap', M.map(function (m) { return { id: m.id, label: m.btn }; }), state.debtMap, function (id) { state.debtMap = id; draw(); });
       var m = UI.stateMap({ box: 'mapDebt', chips: 'chipsDebt', scale: 'scaleDebt', rank: 'rankDebt', tblKey: 'mapDebt', states: T.list, metrics: M, current: state.debtMap });
-      var dq = /^dq/.test(m.id);
-      $('capDebtMap').innerHTML = bi(
-        (dq ? 'Porcentaje del saldo con 90 días o más de atraso' : 'Saldo promedio por persona con historial crediticio, dólares') + ', al cuarto trimestre de ' + T.debtAsOf.slice(0, 4) + '. Los totales de esta base estatal pueden diferir ligeramente del informe trimestral nacional. ' + UI.kind('R'),
-        (dq ? 'Percent of the balance 90 or more days delinquent' : 'Average balance per person with a credit report, dollars') + ', as of the fourth quarter of ' + T.debtAsOf.slice(0, 4) + '. Totals in this state file can differ slightly from the national quarterly report. ' + UI.kind('R'));
+      $('capDebtMap').innerHTML = note(m);
     }
     draw();
   }
@@ -734,15 +737,16 @@
       { id: 'bkYoy', label: tr('Quiebras personales, variación anual', 'Personal bankruptcies, change from a year earlier'), btn: tr('Quiebras: variación anual', 'Bankruptcies: change'), get: function (s) { return s.bankruptcy ? s.bankruptcy.yoy : null; }, us: T.us.bankruptcy ? T.us.bankruptcy.yoy : null, fmt: function (v) { return UI.signed(v); }, short: function (v) { return UI.signed(v, 0); }, kind: 'C', src: 'courts' }
     ].filter(function (m) { return T.list.some(function (s) { return m.get(s) != null; }); });
     if (!M.some(function (m) { return m.id === state.stressMap; })) state.stressMap = M[0].id;
-    function draw() {
-      UI.seg('segStressMap', M.map(function (m) { return { id: m.id, label: m.btn }; }), state.stressMap, function (id) { state.stressMap = id; draw(); });
-      var m = UI.stateMap({ box: 'mapStress', chips: 'chipsStress', scale: 'scaleStress', rank: 'rankStress', tblKey: 'mapStress', states: T.list, metrics: M, current: state.stressMap });
-      var bk = /^bk/.test(m.id), C = D.bankruptcy;
-      $('capStressMap').innerHTML = bk && C
+    var note = function (m) { var bk = /^bk/.test(m.id), C = D.bankruptcy; return bk && C
         ? bi('Casos de quiebra no empresariales presentados en los 12 meses al ' + UI.date(C.asOf) + ', sumados por estado, por cada 1,000 hogares. En los 50 estados y el Distrito de Columbia: ' + UI.nf(T.us.bankruptcy.cases) + ' casos (' + UI.signed(T.us.bankruptcy.yoy, 1) + ' anual); con los territorios, ' + UI.nf(C.total.nb) + ', ' + UI.pct(C.total.nb7 / C.total.nb * 100, 0) + ' bajo el capítulo 7 (liquidación) y ' + UI.pct(C.total.nb13 / C.total.nb * 100, 0) + ' bajo el capítulo 13 (plan de pagos). ' + UI.kind('C'),
           'Nonbusiness bankruptcy cases filed in the 12 months to ' + UI.date(C.asOf) + ', added up by state, per 1,000 households. In the 50 states and the District of Columbia: ' + UI.nf(T.us.bankruptcy.cases) + ' cases (' + UI.signed(T.us.bankruptcy.yoy, 1) + ' from a year earlier); with the territories, ' + UI.nf(C.total.nb) + ', ' + UI.pct(C.total.nb7 / C.total.nb * 100, 0) + ' under Chapter 7 (liquidation) and ' + UI.pct(C.total.nb13 / C.total.nb * 100, 0) + ' under Chapter 13 (repayment plan). ' + UI.kind('C'))
         : bi('Inquilinos cuya renta bruta (renta más servicios) equivale a ' + (m.id === 'p50' ? '50%' : '30%') + ' o más del ingreso del hogar, como porcentaje de los inquilinos para los que se calcula. ' + T.acsYear + '. ' + UI.kind('C'),
-          'Renters whose gross rent (rent plus utilities) equals ' + (m.id === 'p50' ? '50%' : '30%') + ' or more of household income, as a percent of the renters for whom it is computed. ' + T.acsYear + '. ' + UI.kind('C'));
+          'Renters whose gross rent (rent plus utilities) equals ' + (m.id === 'p50' ? '50%' : '30%') + ' or more of household income, as a percent of the renters for whom it is computed. ' + T.acsYear + '. ' + UI.kind('C')); };
+    MAPS.stress = { metrics: M, note: note };
+    function draw() {
+      UI.seg('segStressMap', M.map(function (m) { return { id: m.id, label: m.btn }; }), state.stressMap, function (id) { state.stressMap = id; draw(); });
+      var m = UI.stateMap({ box: 'mapStress', chips: 'chipsStress', scale: 'scaleStress', rank: 'rankStress', tblKey: 'mapStress', states: T.list, metrics: M, current: state.stressMap });
+      $('capStressMap').innerHTML = note(m);
       $('srcStressMap').innerHTML = srcLine(m.src);
     }
     draw();
@@ -785,8 +789,7 @@
       var Hs = D.scf.history, yl = Hs.map(function (h) { return h.y; });
       $('capScfHist').innerHTML = bi('Riqueza neta de las familias, mediana y promedio, dólares de ' + D.scf.dollars + ' (escala logarítmica; M = millones)', 'Family net worth, median and mean, ' + D.scf.dollars + ' dollars (logarithmic scale; M = millions)');
       var kM = function (v) { return v >= 1000 ? '$' + UI.nf(v / 1000, v % 1000 ? 2 : 0) + ' M' : '$' + UI.nf(v, 0) + (UI.lang === 'en' ? 'K' : ' mil'); };
-      UI.line('chScfHist', { labels: yl, datasets: [{ label: tr('Promedio', 'Mean'), data: Hs.map(function (h) { return h.meanNW; }), color: S(2), points: true }, { label: tr('Mediana', 'Median'), data: Hs.map(function (h) { return h.medNW; }), color: S(1), points: true }], fmt: kM, xTicks: 13 });
-      var ch = UI.charts.chScfHist; ch.options.scales.y.type = 'logarithmic'; ch.options.scales.y.min = 50; ch.options.scales.y.max = 2000; ch.options.scales.y.ticks.callback = function (v) { return [50, 100, 200, 500, 1000, 2000].indexOf(v) >= 0 ? kM(v) : ''; }; ch.options.scales.y.ticks.maxTicksLimit = 20; ch.update();
+      UI.line('chScfHist', { labels: yl, datasets: [{ label: tr('Promedio', 'Mean'), data: Hs.map(function (h) { return h.meanNW; }), color: S(2), points: true }, { label: tr('Mediana', 'Median'), data: Hs.map(function (h) { return h.medNW; }), color: S(1), points: true }], fmt: kM, xTicks: 13, log: { min: 50, max: 2000, ticks: [50, 100, 200, 500, 1000, 2000] } });
       UI.legend('chScfHist', [{ c: S(2), l: tr('Promedio (lo elevan las grandes fortunas)', 'Mean (pulled up by large fortunes)'), line: 1 }, { c: S(1), l: tr('Mediana (la familia típica)', 'Median (the typical family)'), line: 1 }]);
       UI.table('chScfHist', [tr('Encuesta', 'Survey'), tr('Mediana', 'Median'), tr('Promedio', 'Mean'), tr('Promedio ÷ mediana', 'Mean ÷ median'), tr('Mediana del ingreso', 'Median income')], Hs.slice().reverse().map(function (h) { return [h.y, UI.usd(h.medNW * 1000), UI.usd(h.meanNW * 1000), UI.nf(h.meanNW / h.medNW, 1) + '×', UI.usd(h.medIncome * 1000)]; }));
       var I2 = D.scf.income, own = [['residence', tr('Vivienda principal', 'Primary residence'), S(1)], ['retirement', tr('Cuentas de retiro', 'Retirement accounts'), S(3)], ['stocks', tr('Acciones (directas o en fondos)', 'Stocks (direct or through funds)'), S(2)], ['business', tr('Negocio propio', 'Business equity'), S(4)]];
@@ -1122,7 +1125,8 @@
     return '<span class="usm"><b>' + figVal(u) + '</b>' + figUp(u) + (prevNote ? '<span class="chg">' + prevNote + '</span>' : '') + '<span class="sub">' + tr(u.label.es, u.label.en) + ' · ' + tr(u.period.es, u.period.en) + share + ' · ' + figLink(u) + '</span></span>';
   };
   var coFirstCell = function (c) { return '<td><span class="tk">' + esc(c.name) + '</span> <span class="nd">' + c.ticker + '</span><span class="per">' + tr(c.period.es, c.period.en) + ' · ' + UI.date(c.periodEnd) + '</span>' + (c.newerFiling ? '<span class="new">' + tr('reporte más reciente por revisar', 'newer report to review') + '</span>' : '') + '</td>'; };
-  var coTxtCell = function (c, label) { return '<td class="txt" data-l="' + label + '"><b>' + tr(c.segment.es, c.segment.en) + '.</b>' +
+  var stop = function (t) { return /\.$/.test(t) ? t : t + '.'; };   // a segment that ends in an abbreviation ("EE. UU.") takes no second period
+  var coTxtCell = function (c, label) { return '<td class="txt" data-l="' + label + '"><b>' + stop(tr(c.segment.es, c.segment.en)) + '</b>' +
     (c.quote ? '<span class="xt"><q lang="en">' + esc(c.quote.text) + '</q><span class="by">' + (c.quote.by ? esc(c.quote.by) + ', ' : '') + tr(c.quote.role.es, c.quote.role.en) + '</span></span>' : '') + '<span class="xt"><a class="srcl" href="' + esc(c.url) + '" target="_blank" rel="noopener">' + tr('Comunicado ↗', 'Release ↗') + '</a> · ' + tr('presentado el ', 'filed ') + UI.date(c.filed) + '</span></td>'; };
   var usCellOf = function (c) {
     var scopes = (c.us || []).map(function (u) { return u.scope; }), sc = scopes.indexOf('us') >= 0 ? 'us' : scopes.length ? 'usca' : null;
@@ -1257,7 +1261,7 @@
       html += '<div class="card full co-group"><h3>' + gname[g.id] + '</h3><div class="tblwrap"><table class="co-table ' + (lend ? 'lend' : 'retail') + '"><colgroup>' + (lend ? [21, 10, 10, 14, 13, 32] : [22, 14, 10, 12, 42]).map(function (w) { return '<col style="width:' + w + '%">'; }).join('') + '</colgroup><thead><tr>' + head.map(function (h) { return '<th scope="col">' + h + '</th>'; }).join('') + '</tr></thead><tbody>';
       list.forEach(function (c) {
         var first = '<td><span class="tk">' + esc(c.name) + '</span> <span class="nd">' + c.ticker + '</span><span class="per">' + tr(c.period.es, c.period.en) + ' · ' + UI.date(c.periodEnd) + '</span>' + (c.newerFiling ? '<span class="new" title="' + esc(tr('La SEC ya tiene un comunicado de resultados más reciente, del ', 'The SEC already has a newer results release, dated ') + UI.date(c.newerFiling)) + '">' + tr('reporte más reciente por revisar', 'newer report to review') + '</span>' : '') + '</td>';
-        var txt = '<td class="txt"><b>' + tr(c.segment.es, c.segment.en) + '.</b>' + (c.extra && c.extra.length ? '<span class="xt">' + c.extra.map(function (x) { return tr(x.label.es, x.label.en) + ': ' + UI.signed(x.v, x.dp == null ? 1 : x.dp); }).join(' · ') + '</span>' : '') +
+        var txt = '<td class="txt"><b>' + stop(tr(c.segment.es, c.segment.en)) + '</b>' + (c.extra && c.extra.length ? '<span class="xt">' + c.extra.map(function (x) { return tr(x.label.es, x.label.en) + ': ' + UI.signed(x.v, x.dp == null ? 1 : x.dp); }).join(' · ') + '</span>' : '') +
           (c.spend && c.spend.basis ? '<span class="xt">' + tr('Gasto: ', 'Spending: ') + tr(c.spend.basis.es, c.spend.basis.en) + '.</span>' : '') +
           (c.quote ? '<span class="xt"><q lang="en">' + esc(c.quote.text) + '</q><span class="by">' + (c.quote.by ? esc(c.quote.by) + ', ' : '') + tr(c.quote.role.es, c.quote.role.en) + '</span></span>' : '') + '<span class="xt">' + srcA(c) + ' · ' + tr('presentado el ', 'filed ') + UI.date(c.filed) + '</span></td>';
         var td = function (label, inner) { return '<td data-l="' + label + '"' + (inner === UI.nd() ? ' class="empty"' : '') + '>' + inner + '</td>'; };
@@ -1376,4 +1380,12 @@
 
   setLang(UI.lang);
   window.CONS_APP = { render: renderAll, state: state };
+  // What the PDF presentation reads (present.js): the page's data, its formatters and what it last composed. The deck
+  // draws from this and from the page's own text; it computes no figure of its own.
+  window.CONS_MODEL = {
+    get LANG() { return UI.lang; },
+    D: D, CO: CO, UI: UI, maps: MAPS, render: renderAll, when: when, name: nm,
+    fmtN: UI.nf, fmtM: UI.nf, fmtPct: function (v, d, signed) { return signed ? UI.signed(v, d) : UI.pct(v, d); }, fmtX: function (v, d) { return UI.nf(v, d == null ? 1 : d) + '×'; }, fmtDate: UI.date, qLabel: function (q) { return UI.date(q); }
+  };
+  var pb = $('btnPrint'); if (pb) pb.addEventListener('click', function () { if (window.CONS_PRESENT && window.CONS_PRESENT.build) window.CONS_PRESENT.build(); });
 })();

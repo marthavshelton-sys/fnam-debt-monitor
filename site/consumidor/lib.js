@@ -44,7 +44,9 @@
       '</tbody></table></div></details>';
     el.innerHTML = h;
   };
+  UI.legends = {};   // the legend of each chart as last drawn (the PDF deck prints the same one)
   UI.legend = function (key, items) {
+    UI.legends[key] = items;
     var el = document.querySelector('[data-legend="' + key + '"]'); if (!el) return;
     el.innerHTML = '<div class="legend-row">' + items.map(function (it) { return '<span class="li"><span class="' + (it.line ? 'ln' : 'dot') + '" style="background:' + it.c + '"></span>' + UI.esc(it.l) + '</span>'; }).join('') + '</div>';
   };
@@ -83,6 +85,7 @@
           var t = o.fmt(v, i), w = ctx.measureText(t).width;
           if (horiz) { var x = el.x + 6; if (v < 0) x = el.x - w - 6;
             if (x + w > chart.width - 2) { var bg = Array.isArray(ds.backgroundColor) ? ds.backgroundColor[i] : ds.backgroundColor; if (el.x - el.base < w + 14) return; ctx.save(); ctx.fillStyle = UI.inkOn(bg); ctx.textAlign = 'right'; ctx.fillText(t, el.x - 7, el.y); ctx.restore(); return; }
+            if (o.back) { var ph = Math.min(13, (el.height || 13) + 2); ctx.save(); ctx.fillStyle = o.back; ctx.fillRect(x - 2, el.y - ph / 2, w + 4, ph); ctx.restore(); }   // in print a grid line never runs through a figure
             ctx.textAlign = 'left'; ctx.fillText(t, x, el.y); }
           else { if (w > (el.width || 0) + 14) return; ctx.textAlign = 'center'; ctx.fillText(t, el.x, v < 0 ? el.y + 10 : el.y - 9); }
         });
@@ -102,9 +105,32 @@
     return UI.charts[id];
   };
   // o: { labels, data | datasets:[{label,data,color}], horizontal, stacked, fmt (value -> text), axisFmt, color | colors[], max, min, valueLabels, aria, thickness, tipTitle, tipExtra }
+  // The configuration of a chart is built apart from the canvas it is drawn on, so the PDF deck draws the same chart
+  // off-screen from the same options (UI.specs keeps them; UI.printConfig rebuilds the configuration for a given width).
+  UI.specs = {};
+  // `force`: a wrap width that wins over the chart's own (the PDF deck sets it for vertical bars, from the width of a slot)
+  function barLabels(o, narrow, wrap, force) { var horiz = !!o.horizontal, wrapN = force || (o.wrap != null ? o.wrap : (wrap || (horiz ? (narrow ? 17 : 26) : (narrow ? 9 : 0)))); return o.labels.map(function (l) { return wrapLabel(l, wrapN); }); }
+  function barConfig(o, env) {
+    var horiz = !!o.horizontal, narrow = !!env.narrow, labels = barLabels(o, narrow, env.wrap, env.force);
+    var datasets = (o.datasets || [{ label: o.label || '', data: o.data, color: o.color || UI.series(1) }]).map(function (d, i) {
+      return { label: d.label, data: d.data, backgroundColor: d.colors || o.colors || d.color, stack: o.stacked ? 's' : (d.stack || undefined), borderRadius: o.stacked ? 0 : 3, borderSkipped: 'start',
+        maxBarThickness: o.thickness || 22, borderColor: UI.css('--surface'), borderWidth: o.stacked ? (horiz ? { right: 2 } : { top: 2 }) : 0, categoryPercentage: o.catPct || 0.78, barPercentage: o.barPct || 0.9 };
+    });
+    var val = { grid: { color: UI.css('--grid'), drawTicks: false }, border: { display: false }, stacked: !!o.stacked, ticks: Object.assign(tick(o.axisFmt || o.fmt), { padding: 6, maxTicksLimit: o.valTicks || (narrow && horiz ? 5 : 7), maxRotation: 0 }), beginAtZero: true };
+    if (env.print) val.ticks.autoSkipPadding = 10;
+    if (o.max != null) val.max = o.max; if (o.min != null) val.min = o.min;
+    var cat = { grid: { display: false }, border: { color: UI.css('--baseline') }, stacked: !!o.stacked, ticks: Object.assign(tick(), { autoSkip: !!o.autoSkip, maxRotation: o.rot != null ? o.rot : env.flat ? 0 : (narrow && !horiz ? 55 : 0), font: { size: Math.max(11, o.catSize || 11) }, color: UI.css('--text-secondary') }) };
+    return { type: 'bar', data: { labels: labels, datasets: datasets },
+      options: { indexAxis: horiz ? 'y' : 'x', responsive: !env.print, maintainAspectRatio: false, layout: { padding: horiz ? { right: o.valueLabels ? 46 : 6 } : { top: o.valueLabels ? 16 : 4 } },
+        interaction: { mode: 'index', intersect: false, axis: horiz ? 'y' : 'x' },
+        plugins: { valueLabels: o.valueLabels ? { fmt: o.valueLabels === true ? o.fmt : o.valueLabels, dataset: o.labelDataset, back: env.print ? '#ffffff' : null } : false,
+          tooltip: { callbacks: { title: function (it) { return o.tipTitle ? o.tipTitle(it[0].dataIndex) : String(o.labels[it[0].dataIndex]); },
+            label: function (c) { var v = horiz ? c.parsed.x : c.parsed.y; return (c.dataset.label ? c.dataset.label + ': ' : '') + (o.fmt ? o.fmt(v, c.dataIndex, c.datasetIndex) : v); },
+            afterBody: o.tipExtra ? function (it) { return o.tipExtra(it[0].dataIndex); } : undefined } } },
+        scales: horiz ? { x: val, y: cat } : { x: cat, y: val } } };
+  }
   UI.bar = function (id, o) {
-    var horiz = !!o.horizontal, host = $(id), narrow = host && host.parentNode.clientWidth < 430;
-    var wrapN = o.wrap != null ? o.wrap : (horiz ? (narrow ? 17 : 26) : (narrow ? 9 : 0)), labels = o.labels.map(function (l) { return wrapLabel(l, wrapN); });
+    var horiz = !!o.horizontal, host = $(id), narrow = !!(host && host.parentNode.clientWidth < 430), labels = barLabels(o, narrow);
     // a horizontal chart grows with its rows, so wrapped labels and grouped bars never run into each other
     if (horiz && host) {
       var box = host.parentNode; box.style.height = ''; box.style.removeProperty('--h');
@@ -112,25 +138,13 @@
       var need = 46 + labels.reduce(function (a, l) { return a + Math.max((Array.isArray(l) ? l.length : 1) * 14 + 8, per); }, 0);
       if (need > base) { box.style.setProperty('--h', need + 'px'); box.style.height = need + 'px'; }
     }
-    var datasets = (o.datasets || [{ label: o.label || '', data: o.data, color: o.color || UI.series(1) }]).map(function (d, i) {
-      return { label: d.label, data: d.data, backgroundColor: d.colors || o.colors || d.color, stack: o.stacked ? 's' : (d.stack || undefined), borderRadius: o.stacked ? 0 : 3, borderSkipped: 'start',
-        maxBarThickness: o.thickness || 22, borderColor: UI.css('--surface'), borderWidth: o.stacked ? (horiz ? { right: 2 } : { top: 2 }) : 0, categoryPercentage: o.catPct || 0.78, barPercentage: o.barPct || 0.9 };
-    });
-    var val = { grid: { color: UI.css('--grid'), drawTicks: false }, border: { display: false }, stacked: !!o.stacked, ticks: Object.assign(tick(o.axisFmt || o.fmt), { padding: 6, maxTicksLimit: o.valTicks || (narrow && horiz ? 5 : 7), maxRotation: 0 }), beginAtZero: true };
-    if (o.max != null) val.max = o.max; if (o.min != null) val.min = o.min;
-    var cat = { grid: { display: false }, border: { color: UI.css('--baseline') }, stacked: !!o.stacked, ticks: Object.assign(tick(), { autoSkip: !!o.autoSkip, maxRotation: o.rot != null ? o.rot : (narrow && !horiz ? 55 : 0), font: { size: Math.max(11, o.catSize || 11) }, color: UI.css('--text-secondary') }) };
-    return UI.mk(id, { type: 'bar', data: { labels: labels, datasets: datasets },
-      options: { indexAxis: horiz ? 'y' : 'x', responsive: true, maintainAspectRatio: false, layout: { padding: horiz ? { right: o.valueLabels ? 46 : 6 } : { top: o.valueLabels ? 16 : 4 } },
-        interaction: { mode: 'index', intersect: false, axis: horiz ? 'y' : 'x' },
-        plugins: { valueLabels: o.valueLabels ? { fmt: o.valueLabels === true ? o.fmt : o.valueLabels, dataset: o.labelDataset } : false,
-          tooltip: { callbacks: { title: function (it) { return o.tipTitle ? o.tipTitle(it[0].dataIndex) : String(o.labels[it[0].dataIndex]); },
-            label: function (c) { var v = horiz ? c.parsed.x : c.parsed.y; return (c.dataset.label ? c.dataset.label + ': ' : '') + (o.fmt ? o.fmt(v, c.dataIndex, c.datasetIndex) : v); },
-            afterBody: o.tipExtra ? function (it) { return o.tipExtra(it[0].dataIndex); } : undefined } } },
-        scales: horiz ? { x: val, y: cat } : { x: cat, y: val } } }, o.aria);
+    UI.specs[id] = { kind: 'bar', o: o };
+    return UI.mk(id, barConfig(o, { narrow: narrow }), o.aria);
   };
   // o: { labels, datasets:[{label,data,color,dash,fill,points,axis}], fmt, axisFmt, xTicks, min, max, aria, yTitle,
-  //      y2: { min, max, grace, title } }   a dataset with axis: 'y2' is read on the right-hand axis (the titles say which is which)
-  UI.line = function (id, o) {
+  //      y2: { min, max, grace, title }, log: { min, max, ticks: [values labeled] } }
+  //      a dataset with axis: 'y2' is read on the right-hand axis (the titles say which is which); `log` puts the left axis on a logarithmic scale
+  function lineConfig(o, env) {
     var datasets = o.datasets.map(function (d) {
       return { label: d.label, data: d.data, borderColor: d.color, backgroundColor: d.fill ? d.color + '1c' : d.color, fill: !!d.fill, borderWidth: d.width || 2, tension: 0.15, spanGaps: true, yAxisID: d.axis === 'y2' && o.y2 ? 'y2' : 'y',
         pointRadius: d.points ? 3 : 0, pointHoverRadius: 4, pointBackgroundColor: d.color, pointBorderColor: UI.css('--surface'), pointBorderWidth: 2, borderDash: d.dash || undefined };
@@ -138,15 +152,59 @@
     var title = function (t) { return t ? { display: true, text: t, color: UI.css('--text-secondary'), font: { size: 11, weight: '600' }, padding: { top: 0, bottom: 4 } } : { display: false }; };
     var y = { grid: { color: UI.css('--grid'), drawTicks: false }, border: { display: false }, ticks: Object.assign(tick(o.axisFmt || o.fmt), { padding: 6, maxTicksLimit: 7 }), title: title(o.yTitle) };
     if (o.min != null) y.min = o.min; if (o.max != null) y.max = o.max;
-    var scales = { x: { grid: { display: false }, border: { color: UI.css('--baseline') }, ticks: Object.assign(tick(), { autoSkip: true, maxTicksLimit: o.xTicks || 9, maxRotation: 0 }) }, y: y };
+    if (o.log) { var lf = o.axisFmt || o.fmt; y.type = 'logarithmic'; y.min = o.log.min; y.max = o.log.max; y.ticks.maxTicksLimit = 20; y.ticks.callback = function (v) { return o.log.ticks.indexOf(v) >= 0 ? lf(v) : ''; }; }
+    var scales = { x: { grid: { display: false }, border: { color: UI.css('--baseline') }, ticks: Object.assign(tick(), { autoSkip: true, maxTicksLimit: env.narrow ? Math.min(6, o.xTicks || 9) : (o.xTicks || 9), maxRotation: 0 }) }, y: y };
     if (o.y2) {
       scales.y2 = { position: 'right', grid: { drawOnChartArea: false, drawTicks: false }, border: { display: false }, ticks: Object.assign(tick(o.axisFmt || o.fmt), { padding: 6, maxTicksLimit: 7 }), title: title(o.y2.title) };
       if (o.y2.min != null) scales.y2.min = o.y2.min; if (o.y2.max != null) scales.y2.max = o.y2.max; if (o.y2.grace != null) scales.y2.grace = o.y2.grace;
     }
-    return UI.mk(id, { type: 'line', data: { labels: o.labels, datasets: datasets },
-      options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+    return { type: 'line', data: { labels: o.labels, datasets: datasets },
+      options: { responsive: !env.print, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
         plugins: { tooltip: { itemSort: function (a, b) { return b.parsed.y - a.parsed.y; }, callbacks: { label: function (c) { return c.dataset.label + ': ' + (o.fmt ? o.fmt(c.parsed.y) : c.parsed.y); } } } },
-        scales: scales } }, o.aria);
+        scales: scales } };
+  }
+  UI.line = function (id, o) { UI.specs[id] = { kind: 'line', o: o }; return UI.mk(id, lineConfig(o, {}), o.aria); };
+  // The chart `id` as the page last drew it, as a configuration for an off-screen canvas `width` pixels wide (the PDF deck):
+  // same data, colors, axes and value labels; no tooltips and no legend (the deck prints the chart's legend, UI.legends, itself).
+  // The category labels of a horizontal bar chart are wrapped to the widest line the label axis can hold: Chart.js gives
+  // that axis at most half the canvas (less the room kept for the value labels), and a longer line loses its first letters.
+  // Lines are measured, not counted. The result says how tall such a chart must be for its rows not to touch (`need`,
+  // pixels), so the deck can draw it larger and scale it down. (The same function as the Mexican Consumer page's toolkit.)
+  var _mc = null;
+  // measured in the font the chart's axis labels are drawn with (Inter where it has loaded, else the fallback the browser picks)
+  function measureCtx() { if (!_mc) { _mc = document.createElement('canvas').getContext('2d'); } _mc.font = '11px ' + ((window.Chart && Chart.defaults.font.family) || 'Helvetica, Arial, sans-serif'); return _mc; }
+  UI.printConfig = function (id, width) {
+    var sp = UI.specs[id]; if (!sp) return null;
+    var env = { print: true, narrow: width < 430 };
+    if (sp.kind === 'bar' && sp.o.horizontal) {   // (a chart with a wrap width of its own keeps it unless the print canvas needs shorter lines)
+      var hc = measureCtx(), hpx = 0, hch = 0, cap = (width - (sp.o.valueLabels ? 46 : 6)) / 2 - 14;
+      sp.o.labels.forEach(function (l) { hpx += hc.measureText(String(l)).width; hch += String(l).length; });
+      var fits = function (n) { return sp.o.labels.every(function (l) { var w = wrapLabel(l, n); return (Array.isArray(w) ? w : [w]).every(function (line) { return hc.measureText(line).width <= cap; }); }); };
+      var wn = Math.floor(cap / (hpx / Math.max(1, hch))) + 4; while (wn > 8 && !fits(wn)) wn--;
+      if (sp.o.wrap == null) env.wrap = wn; else if (wn < sp.o.wrap) env.force = wn;
+    }
+    // vertical bars: the category labels are wrapped to the width of a bar's slot and stay level when every line fits it
+    // (on paper a level label in two lines reads better than a slanted one)
+    if (sp.kind === 'bar' && !sp.o.horizontal) {
+      // measured, not counted: "D10" is three characters and narrower than "2022"
+      var mc = measureCtx(), slotPx = (width - 60) / Math.max(1, sp.o.labels.length) - 2, chars = 0, px = 0, widest = 0;
+      sp.o.labels.forEach(function (l) { String(l).split(' ').forEach(function (w) { var wpx = mc.measureText(w).width; widest = Math.max(widest, wpx); px += wpx; chars += w.length; }); });
+      env.flat = widest <= slotPx;
+      env.force = env.flat ? Math.max(1, Math.floor(slotPx / (px / Math.max(1, chars)))) : 99;   // slanted labels stay on one line: wrapped and slanted, they collide
+    }
+    var cfg = sp.kind === 'bar' ? barConfig(sp.o, env) : lineConfig(sp.o, env);
+    // an opaque sheet: a picture with transparent parts prints a gray fringe around every filled patch when a reader resamples it
+    cfg.plugins = [{ id: 'printSheet', beforeDraw: function (chart) { var c = chart.ctx; c.save(); c.fillStyle = '#ffffff'; c.fillRect(0, 0, chart.width, chart.height); c.restore(); } }, valueLabels];
+    cfg.options.animation = false; cfg.options.events = [];
+    cfg.options.plugins.tooltip = { enabled: false };
+    cfg.options.plugins.legend = { display: false };
+    if (sp.kind === 'bar' && sp.o.horizontal) {
+      // every row of a category axis gets the same height, so the tallest label sets the height of all of them
+      var per = sp.o.datasets && !sp.o.stacked ? sp.o.datasets.length * 10 + 8 : 18;
+      var tallest = cfg.data.labels.reduce(function (a, l) { return Math.max(a, (Array.isArray(l) ? l.length : 1) * 13 + 5); }, per);
+      cfg.need = 44 + cfg.data.labels.length * tallest;
+    }
+    return cfg;
   };
 
   // ---------- sequential color classes ----------
@@ -165,6 +223,7 @@
   // o: { box, chips, scale, rank, tblKey, metrics:[{id, label, short, get(state), us, fmt(v), kind, note}], current, onChange, source(metric) }
   var SMALL = { DC: 1, RI: 1, DE: 1, CT: 1, NJ: 1, MA: 1, NH: 1, VT: 1, MD: 1, HI: 1 };
   var NUDGE = { FL: [16, 10], LA: [-8, -2], MI: [10, 14], ID: [0, 14], CA: [-6, 0], KY: [6, 2], WV: [-3, 4], NY: [6, 0], VA: [8, 2], OK: [10, 0], TN: [0, 1], MN: [-6, 0], AK: [4, -4], NC: [6, 0], SC: [2, 0], MS: [0, 2], IL: [0, 2], TX: [4, 0], WA: [4, 2], ME: [0, 2], AL: [0, 2], IN: [0, 2], MO: [-2, 0], PA: [0, 1] };
+  UI.mapLayout = { small: SMALL, nudge: NUDGE };   // the PDF deck draws the same map on a canvas
   UI.stateMap = function (o) {
     var M = window.FNAM_US_STATES, box = $(o.box); if (!M || !box) return;
     var metric = o.metrics.filter(function (m) { return m.id === o.current; })[0] || o.metrics[0];

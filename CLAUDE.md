@@ -228,7 +228,13 @@ dashboards, everything built from public data by GitHub Actions.
   the K-shaped estimates, the Board notes list, the check of publishers past their usual date (`data/publisher-checks.json`) and
   repairs a reader a publisher's new layout broke (owner, 11-Oct-2026: nothing on this page may go stale, without her
   involvement; freshness allowances live in `build.mjs`, one table); the page flags a company whose release is newer.
-  Every sentence is composed from the data in both languages; before pushing run `scripts/consumidor/render-check.mjs`. Runbook
+  Every sentence is composed from the data in both languages; before pushing run `scripts/consumidor/render-check.mjs`. Since
+  13-Oct-2026 (owner) the page carries the company models' language pill with the PDF button at the top right and a board
+  presentation (`site/consumidor/present.js` on the shared engine, `window.CONS_MODEL`, deep link `?present=1&lang=`, about 32
+  pages: cover, executive summary, linked contents, every section with its charts redrawn from the page's options, state
+  maps with the 51 states in two columns, the heat table, company tables read from the page, quotes, sources, methodology;
+  nothing typed or computed in the builder); after a change to the deck, `lib.js` or a section's charts run
+  `scripts/consumidor/deck-check.mjs --shots <dir>` and look at every page in both languages. Runbook
   and memory: `tools/consumidor/README.md`, `MEMORY.md`.
 - Mexican Consumer `site/mx/consumidor/` (`/mx/consumer` redirects; Mexico section; built 11-Oct-2026 as the Mexican equivalent of
   the American Consumer page, same ten sections, same rules: every sentence composed from the data in both languages, official
@@ -248,7 +254,8 @@ dashboards, everything built from public data by GitHub Actions.
   `scripts/mx-consumidor/pending.mjs`) curates company figures the day a release is stored, adds a new edition's published check
   figures, checks publishers past their usual date and repairs a broken reader. The workflow's commit steps go through
   `scripts/mx-consumidor/commit.sh` (never merges a data file line by line). Since 12-Oct-2026 (owner): "At a Glance" reads
-  down each column (1–5 left, 6–10 right); the navigation bar carries a PDF button (`site/mx/consumidor/present.js` on the
+  down each column (1–5 left, 6–10 right); the language pill at the top right carries a PDF button (the company models'
+  pattern since 13-Oct-2026; `site/mx/consumidor/present.js` on the
   shared engine, deep link `?present=1&lang=`; cover, executive summary, linked contents page, sections with their charts
   redrawn from the page's own options, income and poverty by state, company tables, sources and methodology; nothing typed
   or computed in the builder); a source past its usual date for two days opens an issue labeled `mx-consumidor-stale`,
@@ -391,7 +398,8 @@ dashboards, everything built from public data by GitHub Actions.
   next-results rule). Per-company builders extend `Doc`: `site/gap/present.js`, `site/oracle/present.js`,
   `site/assets/airport-present.js` (ASUR, OMA), `site/qualitas/present.js`, `site/gentera/present.js`.
 - Each `app.js` exposes a read-only `window.<PREFIX>_MODEL`; builders read only that, never recompute figures.
-- Deep link `/<slug>/?present=1&lang=es|en` builds the PDF on arrival; the landing pages link to it.
+- Deep link `/<slug>/?present=1&lang=es|en` builds the PDF on arrival; the landing pages link to it (the landing page's "Board
+  presentations" row: the six company models, then the American and the Mexican Consumer).
 - Text measurement: jsPDF applies kerning that the written PDF does not, so the engine sums per-glyph widths.
 - Chart conventions the owner asked for: y/y and margin lines in front of bars (red, white-filled points);
   two-axis charts say which series is on which axis; bold only a few key words per bullet; sections 04–05 of the
@@ -458,7 +466,8 @@ dashboards, everything built from public data by GitHub Actions.
 - One language setting for the whole site (owner, 2026-10-05): every page reads and writes `localStorage["fnam-lang"]`
   (legacy keys such as `gap-lang`, `orcl-lang`, `fiscal-lang`, `macrodash-lang`, `mxmacro-lang`, `hyp-lang` are read once as a
   fallback) and honors `?lang=en|es`, which wins over the stored choice; `document.title` follows the language.
-- Model pages: the language pill (ES/EN/PDF) is fixed inside the band the sticky jump-nav occupies (pill ≤ 37 px tall at
+- Model pages and the two consumer dashboards (since 13-Oct-2026, owner: the same button, look and behavior as GAP's): the
+  language pill (ES/EN/PDF) is fixed inside the band the sticky jump-nav occupies (pill ≤ 37 px tall at
   `top:6px`; `nav.jump .wrap::after` is a sticky spacer that keeps the band's right end free), so it never covers the nav,
   charts or DCF inputs once the page scrolls; the PDF button stays on phones. The second "Data last generated" stamp is
   `class="genStamp"` (never a duplicate id). Each model sets `data-status-time` on its status dot (the header's data time), and
