@@ -1,32 +1,30 @@
 {
- "ranAt": "2026-10-13T02:00:55.859Z",
- "requestHash": "a9d044cfe584265b",
+ "ranAt": "2026-10-13T02:06:39.577Z",
+ "requestHash": "562a07cb8330a7c6",
  "requests": [
   {
-   "name": "inegi-cal-2026",
-   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf",
+   "name": "fred-325-dates",
+   "url": "https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key=***&file_type=json",
    "method": "GET",
    "status": 200,
-   "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf",
-   "lastModified": "Thu, 09 Jul 2026 16:55:14 GMT",
-   "bytes": 286364,
-   "saved": "cal_2026.pdf"
+   "type": "application/json; charset=UTF-8",
+   "finalUrl": "https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key=***&file_type=json",
+   "lastModified": "Tue, 13 Oct 2026 02:06:35 GMT",
+   "bytes": 546
   },
   {
-   "name": "inegi-cal-2027",
-   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2027.pdf",
+   "name": "fred-qmxham-obs",
+   "url": "https://api.stlouisfed.org/fred/series/observations?series_id=QMXHAM770A&observation_start=2025-01-01&realtime_start=2025-01-01&realtime_end=9999-12-31&api_key=***&file_type=json",
    "method": "GET",
    "status": 200,
-   "type": "application/pdf",
-   "finalUrl": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2027.pdf",
-   "lastModified": "Thu, 09 Jul 2026 16:55:08 GMT",
-   "bytes": 191083,
-   "saved": "cal_2027.pdf"
+   "type": "application/json; charset=UTF-8",
+   "finalUrl": "https://api.stlouisfed.org/fred/series/observations?series_id=QMXHAM770A&observation_start=2025-01-01&realtime_start=2025-01-01&realtime_end=9999-12-31&api_key=***&file_type=json",
+   "lastModified": "Mon, 15 Jun 2026 18:07:54 GMT",
+   "bytes": 844
   },
   {
-   "name": "bis-relcal",
-   "url": "https://www.bis.org/statistics/relcal.htm",
+   "name": "bis-portal-links",
+   "url": "https://data.bis.org/release-calendar",
    "method": "GET",
    "status": 200,
    "type": "text/html; charset=utf-8",
@@ -35,114 +33,24 @@
    "bytes": 158336
   },
   {
-   "name": "fred-series-release",
-   "url": "https://api.stlouisfed.org/fred/series/release?series_id=QMXHAM770A&api_key=***&file_type=json",
+   "name": "bis-api-calendar",
+   "url": "https://data.bis.org/api/v1/release-calendar",
    "method": "GET",
-   "status": 200,
-   "type": "application/json; charset=UTF-8",
-   "finalUrl": "https://api.stlouisfed.org/fred/series/release?series_id=QMXHAM770A&api_key=***&file_type=json",
-   "lastModified": "Tue, 13 Oct 2026 02:00:53 GMT",
-   "bytes": 660
-  },
-  {
-   "name": "fred-release-dates",
-   "url": "https://api.stlouisfed.org/fred/releases/dates?realtime_start=2026-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&limit=1000&sort_order=asc&api_key=***&file_type=json",
-   "method": "GET",
-   "status": 200,
-   "type": "application/json; charset=UTF-8",
-   "finalUrl": "https://api.stlouisfed.org/fred/releases/dates?realtime_start=2026-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&limit=1000&sort_order=asc&api_key=***&file_type=json",
-   "lastModified": "Tue, 13 Oct 2026 02:00:54 GMT",
-   "bytes": 135784
-  },
-  {
-   "name": "bx-publicaciones",
-   "url": "https://www.banxico.org.mx/publicaciones-y-prensa/",
-   "method": "GET",
-   "status": 403,
-   "type": "text/html",
-   "finalUrl": "https://www.banxico.org.mx/publicaciones-y-prensa/",
+   "status": 404,
+   "type": "application/json",
+   "finalUrl": "https://data.bis.org/api/v1/release-calendar",
    "lastModified": null,
-   "bytes": 1233
+   "bytes": 22
   },
   {
-   "name": "bx-sie-home",
-   "url": "https://www.banxico.org.mx/SieInternet/",
+   "name": "bis-rss",
+   "url": "https://data.bis.org/feed/release-calendar.xml",
    "method": "GET",
-   "status": 200,
-   "type": "text/html;charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "finalUrl": "https://data.bis.org/feed/release-calendar.xml",
    "lastModified": null,
-   "bytes": 41040
-  },
-  {
-   "name": "bx-cf958",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF958&sector=27&locale=es",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF958&sector=27&locale=es",
-   "lastModified": null,
-   "bytes": 1752270
-  },
-  {
-   "name": "bx-cf297",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF297&sector=19",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF297&sector=19",
-   "lastModified": null,
-   "bytes": 497395
-  },
-  {
-   "name": "bx-cf840",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF840&sector=18",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF840&sector=18",
-   "lastModified": null,
-   "bytes": 164030
-  },
-  {
-   "name": "bx-cf256",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF256&sector=21",
-   "method": "GET",
-   "status": 429,
-   "type": "text/html;charset=UTF-8",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF256&sector=21",
-   "lastModified": null,
-   "bytes": 523
-  },
-  {
-   "name": "bx-ce100",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CE100&sector=1&locale=es",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CE100&sector=1&locale=es",
-   "lastModified": null,
-   "bytes": 396716
-  },
-  {
-   "name": "bx-cl289",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CL289&sector=10",
-   "method": "GET",
-   "status": 429,
-   "type": "text/html;charset=UTF-8",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CL289&sector=10",
-   "lastModified": null,
-   "bytes": 523
-  },
-  {
-   "name": "bx-cf835",
-   "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF835&sector=19",
-   "method": "GET",
-   "status": 200,
-   "type": "text/html; charset=ISO-8859-1",
-   "finalUrl": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF835&sector=19",
-   "lastModified": null,
-   "bytes": 483649
+   "bytes": 14199
   }
  ]
 }

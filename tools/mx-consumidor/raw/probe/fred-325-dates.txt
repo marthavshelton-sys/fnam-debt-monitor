@@ -1,0 +1,4 @@
+GET https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key=***&file_type=json
+-> HTTP 200 application/json; charset=UTF-8 546 bytes · Last-Modified Tue, 13 Oct 2026 02:06:35 GMT
+
+{"realtime_start":"2024-01-01","realtime_end":"2027-12-31","order_by":"release_date","sort_order":"asc","count":10,"offset":0,"limit":200,"release_dates":[{"release_id":325,"date":"2024-03-04"},{"release_id":325,"date":"2024-06-10"},{"release_id":325,"date":"2024-09-16"},{"release_id":325,"date":"2024-12-09"},{"release_id":325,"date":"2025-03-11"},{"release_id":325,"date":"2025-06-16"},{"release_id":325,"date":"2025-09-15"},{"release_id":325,"date":"2025-12-08"},{"release_id":325,"date":"2026-03-16"},{"release_id":325,"date":"2026-06-15"}]}

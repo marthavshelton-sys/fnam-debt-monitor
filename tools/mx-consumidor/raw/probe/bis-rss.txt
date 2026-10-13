@@ -1,12 +1,12 @@
-GET https://www.bis.org/statistics/relcal.htm
--> HTTP 200 text/html; charset=utf-8 158336 bytes · final https://data.bis.org/release-calendar
+GET https://data.bis.org/feed/release-calendar.xml
+-> HTTP 404 text/html; charset=utf-8 14199 bytes
 
- Release calendar of BIS statistics | BIS Data Portal 
+ 404 Page not found 
  Skip to content 
  Topics Releases Help Search 
- Release calendar of BIS statistics
- Find the latest publication dates of BIS statistics on this page. Data are released no later than the specified date.
- RSS feed Export 
+ Page not found
+ The page you are looking for might have been removed, renamed, or is momentarily unavailable.
+ Return to homepage 
  Page Footer
  Helpful links
  Bulk downloads 
