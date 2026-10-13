@@ -44,6 +44,7 @@ scripts/consumidor/harvest-releases.mjs SEC EDGAR → tools/consumidor/raw/relea
 scripts/consumidor/build.mjs            raw → site/consumidor/data/data.js   (tie-outs → raw/build-log.json)
 scripts/consumidor/build-companies.mjs  data/companies-kpis.json + releases → site/consumidor/data/companies.js
 scripts/consumidor/render-check.mjs     Playwright check of the page (see "Before pushing")
+scripts/consumidor/deck-check.mjs       builds the PDF presentation in both languages and checks it (see "PDF presentation")
 scripts/consumidor/pending.mjs          what is waiting for attention: the worklist of the daily scheduled task
 scripts/consumidor/probe.mjs            runner diagnostics (answers committed to a feature branch; never on main)
 scripts/consumidor/lib/                 http helpers, CSV and xlsx readers, parsers (DFA, SCF, New York Fed), states
@@ -202,6 +203,36 @@ section is the distribution (who), never the aggregate again.
   the U.S. interest-free installment loans are held for sale since Q3 2025, and the loan balance. A change FNAM
   computed from two reported levels prints with "†".
 
+## PDF presentation
+
+The pill at the top right (ES · EN · 📄 Presentación (PDF), the same pill, place and behavior as the company models, GAP
+first; added 13-Oct-2026 at the owner's request) and the address `/consumidor/?present=1&lang=es|en` (linked from the
+landing page's "Board presentations" row) build a Letter deck in the reader's browser, in the language on screen: cover,
+executive summary (the nine points of "At a Glance" under the six header figures), a contents page whose rows link to
+their pages, one or more pages per section (income, debt and rent / bankruptcies also by state: the map or maps and the
+50 states and the District of Columbia in two ranked columns; the spending-by-decile heat table with the page's colors;
+the company tables read from the page, one line per reported figure, and every quote on a page of its own), sources and
+methodology. About 32 pages, 4.5 MB.
+
+- Builder `site/consumidor/present.js` on the shared engine `site/assets/present-core.js` (do not change the engine for this
+  page: the builder subclasses it, and overrides `table()` only to split a cell's lines, joined with ¶, and to color the
+  heat table's cells). It follows the Mexican Consumer deck; the list `PAGES` at its top is the deck: which charts go on
+  which page, in which columns; two ids in brackets are the two charts of one card, printed side by side under the card's
+  heading.
+- Nothing is typed or computed in the builder. Figures come from `window.CONS_MODEL` (set at the end of `app.js`, with the
+  state maps' metrics and notes in `maps`); sentences, tile labels, chart titles, captions, legends and the company tables
+  are read from the page's own elements in the language on screen; every chart is drawn again off-screen from the options
+  the page drew it with (`CONS_UI.specs` → `CONS_UI.printConfig`, which measures label lines in the chart's own font and
+  shortens them when the paper cell is narrower than the screen). A chart the page hides leaves the deck; a page left
+  empty is not printed. A log axis is an option of `UI.line` (`log: { min, max, ticks }`), so the deck draws it too.
+- Charts are drawn in the light theme (the builder switches a dark page to light while it builds and back after). An axis
+  title longer than the paper chart is tall is set smaller, and left out when it still does not fit (the legend names the
+  axis of every series).
+- `node scripts/consumidor/deck-check.mjs --shots <dir>` builds both decks and the deep link, reads them with PyMuPDF
+  (`pip install pymupdf`; placeholders, the other language, repository paths, the header figures, the contents links,
+  text past the margin or the footer) and rasterises every page: look at all of them in both languages before pushing a
+  change to the builder, to `lib.js` or to a section's charts.
+
 ## Method notes
 
 - Sources-and-uses diagram: both sides total personal income plus contributions for government social insurance
@@ -226,10 +257,12 @@ node --check site/consumidor/app.js site/consumidor/lib.js
 node scripts/consumidor/build.mjs --check            # tie-outs against the committed raw files
 node scripts/consumidor/build-companies.mjs --check
 node scripts/consumidor/render-check.mjs --shots /tmp/shots   # 12 configurations; look at the crops
+node scripts/consumidor/deck-check.mjs --shots /tmp/deck    # both decks; look at every page
 node tools/audit-public-copy.mjs
 ```
 
 `render-check.mjs` loads ES/EN × 1280/390/360 px × light/dark and fails on a script error, `undefined`/`NaN` in the
 text, an empty chart or table twin, horizontal overflow, text under 11 px or a map without 51 states; two
 configurations also press every selector, switch language and back, and load the page with each data block removed
-and with no data at all.
+and with no data at all. Every configuration also checks the language and PDF pill: on screen with its PDF button, never
+covering a link of the site bar or of the navigation, and inside the navigation's band once the page scrolls (desktop).

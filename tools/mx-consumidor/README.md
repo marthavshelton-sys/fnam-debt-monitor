@@ -159,7 +159,9 @@ calendarGaps` and the daily task adds the new file or dates.
 
 ## PDF presentation
 
-The PDF button in the navigation bar (and the address `/mx/consumidor/?present=1&lang=es|en`) builds a Letter deck in the
+The PDF button in the pill at the top right (ES · EN · 📄 Presentación (PDF), the same pill, place and behavior as the company
+models and the American Consumer page since 13-Oct-2026; it was in the navigation bar before) and the address
+`/mx/consumidor/?present=1&lang=es|en` (linked from the landing page's "Board presentations" row) build a Letter deck in the
 reader's browser, in the language on screen: cover, executive summary (the ten points of "At a Glance", 1–5 down the left
 column and 6–10 down the right, under the six header figures), a contents page whose rows link to their pages, one or
 more pages per section (income and poverty also by state, with the map and the table of the 32 states; the company

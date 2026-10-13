@@ -83,7 +83,7 @@ html:not([lang="en"]) .en{display:none !important;}
 canvas{max-width:100%;}
 
 /* ---------- header ---------- */
-header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
+header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:54px 0 28px;}
 .fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
 .fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
 .fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
@@ -120,15 +120,20 @@ nav.jump .jump-strip-wrap[data-fade~="right"]::after{opacity:1;}
 nav.jump a{flex:0 0 auto; padding:12px 13px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
 nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
-.lang-btn{flex:0 0 auto; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden; margin:6px 0;}
-.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:7px 14px; cursor:pointer;}
+@media (max-width:640px){ nav.jump .jump-bar{gap:8px;} nav.jump a{padding:12px 10px;} }
+/* ---------- language and PDF buttons: the same pill as the company models (GAP): fixed at the top right, inside the band
+   the sticky navigation occupies once the page scrolls (the navigation keeps its right end free for it); on a phone it sits
+   at the top of the page and scrolls away with the header ---------- */
+.lang-btn{position:fixed; top:6px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter, system-ui, sans-serif; font-size:12.5px; font-weight:700; padding:7px 14px; min-height:35px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
 .lang-btn button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
-.lang-btn .print-btn{border-left:1px solid var(--border); display:inline-flex; align-items:center; gap:5px; white-space:nowrap;}
+.lang-btn .print-btn{border-left:1px solid var(--border);}
 .lang-btn .print-btn:disabled{opacity:.65; cursor:progress;}
-.lang-btn .print-btn .pl-short{display:none;}
-@media (max-width:980px){ .lang-btn .print-btn .pl-long{display:none;} .lang-btn .print-btn .pl-short{display:inline;} }
-@media (max-width:640px){ nav.jump .jump-bar{gap:8px;} nav.jump a{padding:12px 10px;} .lang-btn button{padding:6px 11px; font-size:11.5px;} }
+nav.jump .jump-bar{padding-right:300px;}
+nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--page); pointer-events:none;}
+@media (max-width:640px){ .lang-btn{position:absolute; top:8px; right:8px;} body{position:relative;} .lang-btn button{min-height:33px; padding:6px 10px; font-size:11.5px;} nav.jump .jump-bar{padding-right:16px;} nav.jump::after{display:none;} .lang-btn .print-btn{display:inline-flex;} }
+@media print{ .lang-btn{display:none !important;} }
 
 /* ---------- KPI strip ---------- */
 .kpi-strip{display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
@@ -381,6 +386,12 @@ footer dl.defs dd{margin:0;}
 <body>
 <a class="skip" href="#resumen"><span class="en">Skip to content</span><span class="es">Saltar al contenido</span></a>
 
+<div class="lang-btn" role="group" aria-label="Idioma y presentación / Language and presentation">
+  <button type="button" id="btnLangEs" lang="es">ES</button>
+  <button type="button" id="btnLangEn" lang="en">EN</button>
+  <button type="button" id="btnPrint" class="print-btn" title="Descargar la presentación en PDF / Download the presentation as PDF">📄 <span class="es">Presentación (PDF)</span><span class="en">Presentation (PDF)</span></button>
+</div>
+
 <header class="top">
   <div class="wrap">
     <div class="fnam-bar">
@@ -425,11 +436,6 @@ footer dl.defs dd{margin:0;}
         <a href="#empresas"><span class="en">Companies</span><span class="es">Empresas</span></a>
         <a href="#fuentes"><span class="en">Sources</span><span class="es">Fuentes</span></a>
       </div>
-    </div>
-    <div class="lang-btn" role="group" aria-label="Idioma / Language">
-      <button type="button" id="btnLangEs" lang="es">ES</button>
-      <button type="button" id="btnLangEn" lang="en">EN</button>
-      <button type="button" id="btnPrint" class="print-btn" title="Descargar la presentación en PDF / Download the presentation as PDF"><span aria-hidden="true">📄</span> <span class="pl-long"><span class="es">Presentación (PDF)</span><span class="en">Presentation (PDF)</span></span><span class="pl-short">PDF</span></button>
     </div>
   </div>
 </nav>

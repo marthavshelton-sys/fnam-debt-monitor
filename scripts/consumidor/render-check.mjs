@@ -83,6 +83,25 @@ for (const c of configs) {
   });
   const res = await audit();
   const extra = [];
+  // the language and PDF pill (the company models' pattern): on screen with its PDF button; on a desktop it stays in the
+  // band of the sticky navigation without covering a link once the page scrolls; on a phone it sits above the site bar
+  {
+    const pill = await page.evaluate(async (wide) => {
+      const out = [], R = (el) => el.getBoundingClientRect(), hit = (a, b) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+      const p = document.querySelector('.lang-btn'), pr = document.getElementById('btnPrint');
+      if (!p || !pr) return ['no pill or no PDF button'];
+      const W = document.documentElement.clientWidth;
+      const check = (where) => { const r = R(p); if (r.width < 1 || r.top < 0 || r.right > W + 0.5) out.push(`${where}: pill off screen (${Math.round(r.left)}–${Math.round(r.right)}, top ${Math.round(r.top)})`); if (R(pr).width < 1) out.push(`${where}: PDF button not shown`);
+        // a navigation link counts where it shows: clipped to its scrolling strip (the links scrolled out of it are hidden)
+        const clip = (a) => { const ar = R(a), st = a.closest('#jumpNav'); if (!st) return ar; const sr = R(st); return { left: Math.max(ar.left, sr.left), right: Math.min(ar.right, sr.right), top: Math.max(ar.top, sr.top), bottom: Math.min(ar.bottom, sr.bottom) }; };
+        for (const a of document.querySelectorAll('.fnam-bar a, #jumpNav a')) { if (a.closest('[hidden]')) continue; const ar = clip(a); if (ar.right > ar.left && ar.bottom > Math.max(0, ar.top) && hit(r, ar)) { out.push(`${where}: pill covers "${a.textContent.trim().slice(0, 30)}"`); break; } } };
+      window.scrollTo(0, 0); await new Promise((f) => setTimeout(f, 80)); check('top of page');
+      if (wide) { const s = document.querySelector('section.block:nth-of-type(4)') || document.querySelector('main'); window.scrollTo(0, s.offsetTop + 200); await new Promise((f) => setTimeout(f, 120));
+        check('scrolled'); const nav = document.querySelector('nav.jump'); if (nav && R(p).bottom > R(nav).bottom + 0.5) out.push('scrolled: pill hangs below the navigation band'); window.scrollTo(0, 0); }
+      return out;
+    }, c.w > 640);
+    for (const p of pill) extra.push('pill: ' + p);
+  }
   if (c.id === 'es-1280-light' || c.id === 'en-390-dark') {
     // every selector state
     const n = await page.locator('.seg button').count();
