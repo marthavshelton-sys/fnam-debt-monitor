@@ -1122,7 +1122,15 @@
    "error": "no quarterly XBRL package is linked on the issuer's financial-information page"
   },
   {
-   "ticker": "AC",
+   "ticker": "LIVEPOL",
+   "error": "no quarterly XBRL package is linked on the issuer's financial-information page"
+  },
+  {
+   "ticker": "ALSEA",
+   "error": "the BMV list of notices parsed to zero rows"
+  },
+  {
+   "ticker": "BIMBO",
    "error": "no quarterly XBRL package is linked on the issuer's financial-information page"
   }
  ],
