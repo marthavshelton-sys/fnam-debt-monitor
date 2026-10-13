@@ -24,7 +24,13 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   the last 14 days is credited to the schedule it replaced (`handRunsToCheck`, `creditHandRun` in `lib.mjs`), not only those
   newer than the newest scheduled landed run: on 10/11-Oct-2026 ASUR read "late" all weekend, with every file current,
   because the credit for its Friday hand run (the filings the 14:40 schedule had failed) stopped once the evening market
-  schedule landed.
+  schedule landed. Since 12-Oct-2026 a hand run that committed also stands in for the latest due time at or before its start of
+  **each** schedule of its own workflow (it does the whole job of every schedule), not only the latest due time overall: on
+  12-Oct GitHub never started the 13:50 UTC U.S. macro, 14:10 UTC American Consumer and 19:25 UTC MX macro schedules, later
+  schedules landed, and a hand run was credited to a slot already covered, so the three read "late" with every file current.
+  A scheduled run still covers only the slot it belongs to; a hand run never covers a slot after its start or another
+  workflow's schedule (`creditHandRun` carries its workflow's crons; `perCronLate`; tested in `selftest.mjs`). So when GitHub
+  skips a schedule, dispatch that workflow on main and then the watchdog.
 - A run's refresh **landed** when the run succeeded, or when it failed only after its `Commit …` step (source-link
   checks and alert steps run once the data is already in `main`).
 - **One run, one record** (9-Oct-2026): `lastSuccess` is the newest landed refresh; `lastAttempt` is the newest completed
