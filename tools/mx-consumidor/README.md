@@ -17,7 +17,7 @@ languages, official sources first, nothing may go stale and nothing may need her
 | 03 | Income | ENIGH microdata, every edition of the new series (2016 on): mean, median, deciles, Gini, by age, sex, schooling and locality of the head, by state (maps); real pesos with the INPC | every two years |
 | 04 | Sources and uses of funds | ENIGH (income by source, spending by item, financial and capital flows); INEGI national accounts (private consumption ÷ GDP, quarterly, current prices); INEGI's monthly indicator of private consumption (through Banxico's SIE); Banxico remittances; Banxico card payments by line of business | every two years / quarterly / monthly |
 | 05 | Spending by decile | ENIGH microdata (spending, basics, food, sources of income, card payments, deposits, rent burden by decile and by age) | every two years |
-| 06 | Consumer credit | Banxico SIE: total financing to households (CF297), commercial banks' performing portfolio by product (CF835), rates on cards, payroll, personal, auto and mortgage loans, cards in force; BIS household credit ÷ GDP through FRED; ENIF microdata (who has which credit); ENIGH (card payments by decile) | quarterly / monthly / every three years |
+| 06 | Consumer credit | Banxico SIE: total financing to households (CF297), commercial banks' performing portfolio by product (CF835), rates on cards, payroll, personal, auto and mortgage loans, cards in force; BIS household credit ÷ GDP from the BIS's statistics API (FRED's mirror as a fallback); ENIF microdata (who has which credit); ENIGH (card payments by decile) | quarterly / monthly / every three years |
 | 07 | Leverage and financial stress | Banxico: total and past-due balances by product (CF762, CF766) and the bank lending survey (EnBan); ENIF microdata (late payments, what people did when money ran short, cushions, rejected applications); ENIGH (households that spend more than they earn, rent burden); INEGI multidimensional poverty, national and by state (maps) | monthly / quarterly / every two or three years |
 | 08 | Wealth | INEGI and Banxico, ENFIH 2019 (the only household balance-sheet survey; figures curated from the results presentation, each checked against its stored text); Banxico household savings (M2 by holder, housing and retirement funds, CF886 and CF834); ENIF (accounts) | one edition / monthly |
 | 09 | K-shaped economy | ENIGH editions by decile in real pesos (income, spending, labor income, programs, pensions, remittances, shares, Gini with and without transfers); Banxico minimum wage (real index) and INEGI real average pay; ENOE employed people by level of income (BIE); INEGI retail sales | every two years / monthly / quarterly |
@@ -43,14 +43,23 @@ scripts/mx-consumidor/commit.sh            the workflow's commit step (see "Pitf
 scripts/mx-consumidor/render-check.mjs     Playwright check of the page (see "Before pushing")
 scripts/mx-consumidor/deck-check.mjs       builds the PDF presentation in both languages and checks it (see "PDF presentation")
 scripts/mx-consumidor/pending.mjs          what is waiting for attention: the worklist of the daily scheduled task
+scripts/mx-consumidor/schedule-check.mjs   did the latest scheduled refresh start? (--dispatch starts a missed one; the daily task runs it)
+scripts/mx-consumidor/lib/calendar.mjs     release calendar: next release and due date of each source, banking days, reporting deadlines
+scripts/mx-consumidor/lib/inegi_calendar.py  INEGI's release calendar PDF → products with their dates and periods
 scripts/mx-consumidor/probe.mjs            runner diagnostics (answers committed to a feature branch; never on main)
 scripts/mx-consumidor/lib/                 http helpers, series manifest (ids + title patterns), ENIGH and ENIF tabulators, CSV / xlsx / PDF readers
-tools/mx-consumidor/data/                  published check figures (ENIGH, ENIF), curated ENFIH figures, curated company figures, publisher checks
+tools/mx-consumidor/data/                  published check figures (ENIGH, ENIF), curated ENFIH figures, curated company figures, publisher checks,
+                                           release-calendar.json (what schedules each source; see "Release calendar")
 ```
 
-Workflow `mx-consumidor-refresh.yml`: 15:20 and 23:20 UTC every day (09:20 and 17:20 in Mexico City). A run commits
-only when a source published something (`data.js` keeps its `generatedAt` when nothing changed). Order: fetch → build
-→ commit → releases → company check → commit → optional steps (SOURCE DOWN issue, link check on the 15:20 run).
+Workflow `mx-consumidor-refresh.yml`: four runs a day, each shortly after the hour publishers release (Mexico City time,
+UTC-6 all year): 12:20 UTC (06:20; INEGI publishes at 06:00), 15:20 UTC (09:20; Banco de México at 09:00), 23:20 UTC
+(17:20; after the BMV's close and the 14:00 bank lending survey) and 03:20 UTC (21:20; results posted in the evening). A
+run commits only when a source published something (`data.js` keeps its `generatedAt` when nothing changed). Order: fetch
+→ build → commit → releases → company check → commit → optional steps (SOURCE DOWN issue, stale issue, link check on the
+15:20 run). GitHub sometimes starts a scheduled run hours late or drops it (12-Oct-2026: the 15:20 slot started at 22:30
+and the 23:20 slot had not started by 02:18); the daily task runs `schedule-check.mjs --dispatch`, which starts the
+refresh by hand when no run began after the latest scheduled time.
 
 - A source that fails keeps its stored file; `raw/status.json` counts consecutive failures and the page labels the
   block "stored value". Three in a row → one issue "SOURCE DOWN: Mexican Consumer - …" (label
@@ -60,15 +69,16 @@ only when a source published something (`data.js` keeps its `generatedAt` when n
 - `build-companies.mjs` fails when a curated `find` text or quote is not in the stored release of the cited filing, or
   when the number is not in its own `find` text; that company is left out. The decimals shown for each company figure
   are the ones its release prints (`dp`).
-- A source stamped with a period older than its publisher's usual calendar allows (`raw/build-log.json → stale`) for
-  two days, with no publisher check on file, opens one issue "SOURCE DOWN: Mexican Consumer - data past its usual date
-  (…)" (label `mx-consumidor-stale`), closed when the list is empty again: a run can land while the data is old.
+- A source past its due date (`raw/build-log.json → stale`: the date its publisher scheduled plus a banking day, or its
+  usual timing; see "Release calendar") a day longer (two for usual timing), with no publisher check on file, opens one
+  issue "SOURCE DOWN: Mexican Consumer - data past its usual date (…)" (label `mx-consumidor-stale`), closed when the
+  list is empty again: a run can land while the data is old.
 - Watchdog: entry `mx-consumer` in `tools/watchdog/dashboards.json` (alert labels `mx-consumidor-source-down` and
   `mx-consumidor-stale`), with `since` = when the workflow reached `main`
   (11-Oct-2026, 20:50 UTC, minutes before the merge): schedules due before it are not judged. Status stamp from `data.js → generatedAt`
   (`STAMPS` in `site/assets/data-status.js`).
 
-Secrets used: `BANXICO_TOKEN`, `INEGI_TOKEN`, `FRED_API_KEY` (removed from everything written). A session cannot reach
+Secrets used: `BANXICO_TOKEN`, `INEGI_TOKEN`, `FRED_API_KEY` (removed from everything written; the BIS's API needs none). A session cannot reach
 INEGI, Banxico, the BMV or the SEC: the runner fetches, the session reads the committed files.
 
 ## Tie-outs (what the build proves before the page changes)
@@ -86,20 +96,50 @@ INEGI, Banxico, the BMV or the SEC: the runner fetches, the session reads the co
 
 | What | Kept by | How often |
 |---|---|---|
-| Every official source and every sentence, label and chart composed from it | the refresh workflow | 15:20 and 23:20 UTC; a newer edition (survey year, quarter, month) is found by itself |
-| Company figures, quotes and period labels | the scheduled task "FNAM Mexican Consumer: daily upkeep" (prompt: `ROUTINE-PROMPT.md`) | the day a release is stored (16:25 and 00:25 UTC) |
+| Every official source and every sentence, label and chart composed from it | the refresh workflow | 12:20, 15:20, 23:20 and 03:20 UTC, after the publishers' release hours; a newer edition (survey year, quarter, month) is found by itself |
+| Each source's next release (INEGI's calendar, Banco de México's rules and dates, the BIS's next release date) | the refresh (INEGI's calendar PDFs and the BIS's topic page, every run) and the daily task (a new calendar file, next year's dates) | every run / when a source runs out of dates |
+| A scheduled refresh GitHub started late or dropped | the daily task (`schedule-check.mjs --dispatch`) | 16:25 and 04:25 UTC |
+| Company figures, quotes and period labels | the scheduled task "FNAM Mexican Consumer: daily upkeep" (prompt: `ROUTINE-PROMPT.md`) | the day a release is stored (16:25 and 04:25 UTC) |
+| A company past its reporting deadline with nothing stored | the same task checks whether it published (harvest repair) or is late | daily |
 | Published check figures of a new ENIGH or ENIF edition | the same task | when a new edition appears |
 | A source past its publisher's usual date | the same task opens the publisher's page and records the check (`data/publisher-checks.json`) | when due, renewed every 30 days |
 | A reader broken by a publisher's new layout, a failed tie-out, a failed run | the same task (repair on a branch, tested on the runner, merged only if every check passes) or its note to the owner | daily |
 | A tab left open in a browser | the page itself: on return to the tab it asks whether the data files changed and reloads | on return |
 
-- Allowances: one table (`ALLOW` in `build.mjs`), days after the END of the period a source is stamped with. The
-  builder puts `allowDays` and `dueBy` on every source; the page turns a block amber from them in the reader's browser.
+- Due dates: a source its publisher schedules is due one banking day after the scheduled date (three for the monthly
+  consumption indicator, read through Banco de México's mirror of INEGI's series; two for the BIS); the others fall back
+  to one table of allowances (`ALLOW` in `build.mjs`), days after the END of the period a source is stamped with. The
+  builder puts `next` (the scheduled release), `dueBy` and `allowDays` on every source; the page turns a block amber from
+  `dueBy` in the reader's browser and prints the next release in the source list.
   A source past `dueBy` is listed in `raw/build-log.json → stale` unless a check of the publisher's own page, at most
   45 days old and naming the same period, is on file. The ENFIH (one edition, 2019) is dated and never overdue.
 - `node scripts/mx-consumidor/pending.mjs --summary` prints what is waiting.
 - `routine-state.json` (created by the task, written only when it changes): filings judged not to be results
   (`skipped`), problems still open with their branch (`open`).
+
+## Release calendar
+
+`tools/mx-consumidor/data/release-calendar.json` says who schedules each source (owner, 13-Oct-2026: everything on the
+page updated on time, aligned with scheduled releases); `lib/calendar.mjs` turns it into each source's `next` release and
+due date. Bases, in order:
+
+| Source | Scheduled by | Read from |
+|---|---|---|
+| informality (ENOE monthly), enoe (ENOE quarterly), consumption (IMCP), accounts (Oferta y Utilización Trimestral), wages (IGPERSE) | INEGI's release calendar, 06:00 | the calendar PDFs (`cal_<year>.pdf`, read on every run when the file changes; `lib/inegi_calendar.py` → `raw/calendar.json`) |
+| remittances | Banco de México: "se publica el primer día hábil bancario del mes a las 9:00 horas." | rule, with the CNBV's banking holidays |
+| savings, bankCredit (monetary aggregates release, Cuadros 2, 3 and 5) | Banco de México: "Se publica el último día hábil bancario de cada mes a las 9:00 horas." | rule |
+| lending (EnBan) | Banco de México: "En 2026, los resultados de la EnBan estarán disponibles los días 6 de febrero, 8 de mayo, 7 de agosto y 6 de noviembre a las 14:00 horas." | dates (next year's added by the daily task) |
+| bis | the BIS's "Next release date" on its topic page | `raw/bis.json → release` (every run) |
+| financing, statesBanxico, cardPayments, rates, cardsInForce | no published date | usual timing (`ALLOW`) |
+| enigh, poverty, enif, enfih | next edition not in any calendar yet (enfih: the only edition) | `editions` |
+| companies | BMV: within the month after each of the first three quarters (Circular Única de Emisoras, art. 33, DOF 2-Dec-2025; the BMV's 2026 list: 30 Apr, 31 Jul, 30 Oct; Q4 preliminary 27 Feb); SEC: 10-Q in 40 days, 10-K in 60 (MELI, FCFS); NYSE-only foreign issuers (TBBB, NU): their usual lag + 7 days | `companies` |
+
+The page's source list prints "Next release (Sep 2026): 22 Oct 2026, 06:00 (INEGI's calendar)" or the usual timing; the
+companies section prints the BMV's deadline for the next quarter and flags a company past its own deadline. Banking
+holidays: the CNBV's standing list (DOF each December; 2026 confirmed by the DOF of 10-Dec-2025), computed in
+`lib/calendar.mjs`; both Banco de México rules give the six publication dates their pages list for April–September 2026.
+A source that runs out of dates (INEGI publishes its calendar a year or a half-year at a time) is listed by `pending.mjs →
+calendarGaps` and the daily task adds the new file or dates.
 
 ## Company figures
 

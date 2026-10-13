@@ -10,10 +10,14 @@
 //   states    Banco de México, remittances and bank housing credit by state (ids read from the public table pages)
 //   inegi     INEGI, Banco de Información Económica: retail sales, real wages, informality, employed people by level of
 //             income, private consumption and GDP at current prices, car sales
-//   fred      FRED (St. Louis Fed) mirror of the BIS series of total credit to households as a percent of GDP
+//   bis       BIS statistics API: total credit to households as a percent of GDP (the BIS's own series), and the next and
+//             last release dates the BIS prints on the statistics' topic page
+//   fred      FRED (St. Louis Fed) mirror of the same BIS series, kept as a fallback (it skipped the September 2026 release)
 //   enif      INEGI and CNBV, Encuesta Nacional de Inclusión Financiera (public microdata): who has credit, savings, cushions
 //   docs      Published documents kept as text for the figures curated from them (ENFIH 2019 results)
 //   poverty   INEGI, multidimensional poverty, national and by state (the indicators of INEGI's own poverty page)
+//   calendar  INEGI's release calendar PDFs (the dates of the products the page uses; tools/mx-consumidor/data/release-calendar.json
+//             names them), read again only when a file changes
 //
 //   node scripts/mx-consumidor/fetch.mjs [--only=enigh,banxico] [--force]
 //
@@ -25,7 +29,8 @@ import { writeFileSync, readFileSync, mkdtempSync, readdirSync, statSync, rmSync
 import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { RAW, readJson, writeJson, writeText, exists, get, getJson, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, inegiToken, stateCode, BOT_UA } from './lib/common.mjs';
+import { RAW, TOOLS, readJson, writeJson, writeText, exists, get, getJson, getText, getBuffer, secret, redact, sleep, nowIso, fold, sieSeries, sieCuadro, bieSeries, bieSearch, bieMeta, inegiToken, stateCode, BOT_UA } from './lib/common.mjs';
+import { csvObjects } from './lib/csv.mjs';
 import { BANXICO, CARD_GIROS, INEGI } from './lib/series.mjs';
 import { aggregate } from './lib/enigh.mjs';
 import { aggregateEnif } from './lib/enif.mjs';
@@ -316,7 +321,85 @@ async function fetchPoverty() {
 }
 
 // ------------------------------------------------------------------------------------------------------------------
-const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, fred: fetchFred, enif: fetchEnif, docs: fetchDocs, poverty: fetchPoverty };
+// BIS · total credit to households, from the BIS's own statistics API (SDMX), and the BIS's release dates
+// ------------------------------------------------------------------------------------------------------------------
+const BIS_SERIES = { hhCreditGdp: { key: 'Q.MX.H.A.M.770.A', title: /^Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks$/i } };
+const BIS_TOPIC = 'https://data.bis.org/topics/TOTAL_CREDIT';
+const MONTH_EN = { january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12 };
+const enDate = (m) => (m && MONTH_EN[m[2].toLowerCase()] ? `${m[3]}-${String(MONTH_EN[m[2].toLowerCase()]).padStart(2, '0')}-${String(+m[1]).padStart(2, '0')}` : null);
+async function fetchBis() {
+  const series = {};
+  for (const k of Object.keys(BIS_SERIES)) {
+    const s = BIS_SERIES[k];
+    const rows = csvObjects(await getText(`https://stats.bis.org/api/v1/data/WS_TC/${s.key}?startPeriod=2000-Q1&format=csv`, { ua: BOT_UA, timeoutMs: 60_000 }));
+    if (!rows.length) throw new Error(`BIS ${s.key}: no rows`);
+    const title = rows[0].TITLE_TS || '';
+    if (!s.title.test(title) || rows.some((r) => r.TITLE_TS !== title)) throw new Error(`BIS ${s.key}: title "${title}" does not match`);
+    const obs = rows.filter((r) => /^\d{4}-Q[1-4]$/.test(r.TIME_PERIOD) && r.OBS_VALUE !== '' && Number.isFinite(Number(r.OBS_VALUE))).map((r) => [r.TIME_PERIOD, Number(r.OBS_VALUE)]).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+    if (obs.length < 40) throw new Error(`BIS ${s.key}: ${obs.length} observations`);
+    series[k] = { key: s.key, title, units: 'Percentage of GDP', url: BIS_TOPIC, obs };
+  }
+  // the BIS prints the next and the last release of these statistics on their topic page; a page that no longer carries them
+  // leaves the release dates out (the page then falls back to the usual timing) and says so in the run log
+  let release = null;
+  try {
+    const t = (await getText(BIS_TOPIC, { timeoutMs: 60_000 })).replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;|&#160;/g, ' ').replace(/\s+/g, ' ');
+    const next = enDate(/Next release date\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(t)), lastR = enDate(/Last release date\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/.exec(t));
+    if (next || lastR) release = { next, last: lastR, url: BIS_TOPIC }; else note('BIS topic page: no "Next release date" found');
+  } catch (e) { note(`BIS topic page: ${e.message}`); }
+  return { series, release, source: { name: 'Bank for International Settlements, total credit to households (statistics API)', url: BIS_TOPIC } };
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+// INEGI · release calendar (the dates of the products the page uses)
+// ------------------------------------------------------------------------------------------------------------------
+const normProduct = (t) => fold(String(t)).replace(/\s+/g, ' ').replace(/\.$/, '').trim();
+const bareProduct = (t) => normProduct(t).replace(/\s*\([^)]*\)$/, '').trim();
+async function fetchCalendar(prev) {
+  const cfg = (readJson(TOOLS + 'data/release-calendar.json', {}) || {}).inegi;
+  if (!cfg || !cfg.sources) throw new Error('data/release-calendar.json has no INEGI section');
+  const y = new Date().getUTCFullYear();
+  const listed = cfg.files || [];
+  const urls = [...new Set([...listed, ...(cfg.fileTemplate ? [y, y + 1].map((n) => cfg.fileTemplate.replace('{year}', n)) : [])])];
+  const files = []; let changed = false;
+  for (const url of urls) {
+    const h = await headOf(url);
+    if (!h.ok || !/pdf/i.test(h.type)) {   // INEGI answers a missing file with an HTML page
+      if (listed.includes(url)) throw new Error(`${url} did not answer with a PDF (${h.error || h.type})`);
+      continue;
+    }
+    const old = prev && (prev.files || []).find((f) => f.url === url);
+    if (old && old.mark === mark(h) && !FORCE) { files.push(old); continue; }
+    const buf = await getBuffer(url, { timeoutMs: 120_000 });
+    if (buf.subarray(0, 4).toString('latin1') !== '%PDF') throw new Error(`${url}: not a PDF`);
+    const pdf = join(tmp, 'calendar.pdf'), out = join(tmp, 'calendar.json');
+    writeFileSync(pdf, buf);
+    execFileSync('python3', [new URL('./lib/inegi_calendar.py', import.meta.url).pathname, pdf, out], { maxBuffer: 64 * 1024 * 1024, timeout: 240_000 });
+    const cal = JSON.parse(readFileSync(out, 'utf8'));
+    const sources = {};
+    for (const [id, spec] of Object.entries(cfg.sources)) {
+      const want = normProduct(spec.product);
+      let hits = cal.products.filter((p) => p.periodicity === spec.periodicity && normProduct(p.product).startsWith(want) && p.releases.length);
+      if (hits.length > 1) hits = hits.filter((p) => bareProduct(p.product) === bareProduct(spec.product));
+      if (hits.length > 1) throw new Error(`${url}: "${spec.product}" (${spec.periodicity}) matches ${hits.length} products`);
+      if (hits.length) sources[id] = hits[0].releases.filter((r) => r.period).map((r) => ({ date: r.date, period: r.period }));
+    }
+    files.push({ url, mark: mark(h), title: cal.title, year: cal.year, time: cal.time, products: cal.products.length, sources });
+    changed = true;
+  }
+  if (!files.length) throw new Error('no INEGI calendar file answered');
+  // one list per source; a later file wins for a period two files carry (a calendar of changes, a new half-year)
+  const merged = {};
+  for (const f of files) for (const [id, list] of Object.entries(f.sources)) for (const r of list) (merged[id] || (merged[id] = new Map())).set(r.period, r);
+  const sources = Object.fromEntries(Object.entries(merged).map(([id, m]) => [id, [...m.values()].sort((a, b) => (a.date < b.date ? -1 : 1))]));
+  for (const id of Object.keys(cfg.sources)) if (!sources[id]) note(`INEGI calendar: no file lists "${cfg.sources[id].product}" (${cfg.sources[id].periodicity})`);
+  const sameFiles = prev && JSON.stringify((prev.files || []).map((f) => f.url)) === JSON.stringify(files.map((f) => f.url));
+  if (!changed && sameFiles) return SKIP;
+  return { time: files.find((f) => f.time) ? files.find((f) => f.time).time : null, files, sources };
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+const SOURCES = { enigh: fetchEnigh, banxico: fetchBanxico, cards: fetchCards, states: fetchStates, inegi: fetchInegi, bis: fetchBis, fred: fetchFred, enif: fetchEnif, docs: fetchDocs, poverty: fetchPoverty, calendar: fetchCalendar };
 const status = readJson(RAW + 'status.json', { sources: {} });
 status.sources = status.sources || {};
 let ran = 0, failed = 0;

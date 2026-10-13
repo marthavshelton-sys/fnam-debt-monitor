@@ -14,11 +14,13 @@
 // Units: the ENIGH reports quarterly pesos per household; the page shows pesos a month (quarterly ÷ 3) and keeps the
 // published quarterly figure beside the headline ones. Banxico balances are converted to billions of pesos ("miles de
 // millones") here.
-import { RAW, SITE, TOOLS, readJson, readText, writeText, writeJson, nowIso, STATES } from './lib/common.mjs';
+import { readFileSync } from 'node:fs';
+import { RAW, SITE, TOOLS, p as rootPath, readJson, readText, writeText, writeJson, nowIso, STATES } from './lib/common.mjs';
+import { nextRelease, addBankingDays } from './lib/calendar.mjs';
 
 const CHECK = process.argv.includes('--check');
 const raw = {}; const meta = {};
-for (const id of ['enigh', 'banxico', 'cards', 'states', 'inegi', 'fred', 'enif', 'docs', 'poverty']) { const j = readJson(`${RAW}${id}.json`); raw[id] = j ? j.data : null; meta[id] = j ? { fetchedAt: j.fetchedAt } : null; }
+for (const id of ['enigh', 'banxico', 'cards', 'states', 'inegi', 'bis', 'fred', 'enif', 'docs', 'poverty', 'calendar']) { const j = readJson(`${RAW}${id}.json`); raw[id] = j ? j.data : null; meta[id] = j ? { fetchedAt: j.fetchedAt } : null; }
 const status = readJson(RAW + 'status.json', { sources: {} });
 
 const checks = [];   // { tag, check, status: ok | warn | fail, diff, tol }
@@ -37,9 +39,13 @@ const last = (a) => (a && a.length ? a[a.length - 1] : null);
 const mo = (v) => (v == null ? null : Math.round(v / 3));   // quarterly pesos -> pesos a month
 
 const D = { generatedAt: null, sources: {} };
-// How long after the END of the period a source is stamped with its publisher normally brings the next one (days): past
-// that, the page marks the block and the build lists the source as overdue (build-log.json -> stale), unless the daily
-// task confirmed at the publisher that nothing newer exists (data/publisher-checks.json, valid for CHECK_VALID_DAYS).
+// When each source's next period is due. First the publisher's own schedule (data/release-calendar.json, lib/calendar.mjs):
+// the date in INEGI's release calendar, the rule or the dates Banco de México states on the release's page, the BIS's next
+// release date; the source is due one banking day after that date (more for a series read through another publisher's
+// mirror). A source the publisher does not schedule falls back to ALLOW: how long after the END of the period it is stamped
+// with the publisher normally brings the next one (days). Past its due date the page marks the block and the build lists
+// the source as overdue (build-log.json -> stale), unless the daily task confirmed at the publisher that nothing newer
+// exists (data/publisher-checks.json, valid for CHECK_VALID_DAYS).
 // ENIGH: every two years, published about seven months after the year ends. ENIF: every three years. Poverty: with
 // each ENIGH. Bank credit: monthly, about 35 days later. Household financing and the ENOE's income table: quarterly.
 // Card rates: every two months, with a lag of half a year. BIS debt ratio: quarterly, with a lag of two quarters.
@@ -58,16 +64,24 @@ const periodEnd = (asOf) => { const t = String(asOf || ''); let m;
 const pubChecks = (readJson(TOOLS + 'data/publisher-checks.json', { checks: {} }) || {}).checks || {};
 const stale = [];
 // id: the block of the page; file: the stored source it was built from (its fetch status decides `stored`)
+const CAL = readJson(TOOLS + 'data/release-calendar.json', null);
+const calGaps = [];
 const src = (id, file, extra) => {
   const st = (status.sources || {})[file] || {};
   const o = { ...extra, fetchedAt: meta[file] ? meta[file].fetchedAt : null, ...(st.error ? { stored: true, since: st.since || null } : {}) };
   const end = periodEnd(o.asOf);
+  const nx = nextRelease(id, o.asOf, CAL, raw.calendar, { bis: raw.bis && raw.bis.release });
+  if (nx) {
+    o.next = { basis: nx.basis, publisher: nx.publisher, period: nx.period || null, ...(nx.date ? { date: nx.date } : {}), ...(nx.time ? { time: nx.time } : {}), ...(nx.url ? { url: nx.url } : {}) };
+    if (nx.basis === 'gap') calGaps.push({ id, publisher: nx.publisher, period: nx.period, note: nx.note });
+  }
   if (end && !NEVER.has(id)) {
     o.allowDays = ALLOW[id] || 400; o.dueBy = addDays(end, o.allowDays);
+    if (nx && nx.date && (nx.basis === 'calendar' || nx.basis === 'rule')) { o.dueBy = addBankingDays(nx.date, nx.graceDays != null ? nx.graceDays : ((CAL && CAL.graceBankingDays) || 1)); o.dueBasis = nx.basis; }
     if (TODAY > o.dueBy) {
       const c = pubChecks[id];
       if (c && c.checked && String(c.latest) === String(o.asOf) && TODAY <= addDays(c.checked, CHECK_VALID_DAYS)) o.publisherChecked = c.checked;
-      else stale.push({ id, name: o.name || id, asOf: String(o.asOf), dueBy: o.dueBy });
+      else stale.push({ id, name: o.name || id, asOf: String(o.asOf), dueBy: o.dueBy, basis: o.dueBasis || 'usual', ...(o.next && o.next.date ? { scheduled: o.next.date, publisher: o.next.publisher } : {}) });
     }
   } else if (NEVER.has(id)) o.allowDays = null;
   D.sources[id] = o;
@@ -405,12 +419,18 @@ if (cif && cif.length > 8) {
   D.cardsInForce = { asOf: q, v: r1(last(cif)[1] / 1e6), yoy: ya ? r1((last(cif)[1] / ya - 1) * 100) : null, q: cif.map((x) => x[0]).filter((qq) => qq >= '2010-Q1'), series: cif.filter((x) => x[0] >= '2010-Q1').map((x) => r1(x[1] / 1e6)) };
   src('cardsInForce', 'banxico', { name: 'Banco de México, sistemas de pago de bajo valor: tarjetas de crédito vigentes', url: cuadro('cardsInForce'), asOf: q });
 }
-const bis = raw.fred && raw.fred.series && raw.fred.series.hhCreditGdp;
+// the BIS's own statistics API first; FRED's mirror only when it carries a later quarter (it skipped the BIS's September 2026
+// release, so the page stood a quarter behind the publisher until 13-Oct-2026)
+const bisDirect = raw.bis && raw.bis.series && raw.bis.series.hhCreditGdp, bisFred = raw.fred && raw.fred.series && raw.fred.series.hhCreditGdp;
+const lastQ = (b) => (b && b.obs && b.obs.length ? last(b.obs)[0] : '');
+const useFred = bisFred && bisFred.obs && bisFred.obs.length > 20 && !(bisDirect && bisDirect.obs && bisDirect.obs.length > 20 && lastQ(bisDirect) >= lastQ(bisFred));
+const bis = useFred ? bisFred : bisDirect;
 if (bis && bis.obs && bis.obs.length > 20) {
   must('BIS', 'the series is household credit as a percent of GDP for Mexico', /households/i.test(bis.title) && /mexico/i.test(bis.title) && /percent/i.test(bis.units || ''));
+  if (bisDirect && bisFred && bisDirect.obs && bisFred.obs) { const F = new Map(bisFred.obs), common = bisDirect.obs.filter((x) => F.has(x[0]) && x[0] >= '2015-Q1'); must('BIS', 'the BIS series and its FRED mirror agree on the quarters both carry since 2015 (0.3 pp)', common.length > 8 && common.every((x) => Math.abs(x[1] - F.get(x[0])) <= 0.3), true); }
   const o = bis.obs.filter((x) => x[0] >= '2000-Q1');
   D.bis = { asOf: last(o)[0], v: r1(last(o)[1]), q: o.map((x) => x[0]), series: o.map((x) => r1(x[1])) };
-  src('bis', 'fred', { name: 'Banco de Pagos Internacionales (BIS), crédito total a los hogares, México', url: bis.url, via: true, asOf: last(o)[0] });
+  src('bis', useFred ? 'fred' : 'bis', { name: 'Banco de Pagos Internacionales (BIS), crédito total a los hogares, México', url: bis.url, ...(useFred ? { via: true } : {}), asOf: last(o)[0] });
 }
 const sv = obs('svDemand'), ss = obs('svStandards');
 if (sv && ss && sv.length > 8) {
@@ -535,15 +555,23 @@ if (emp && emp.length > 20) {
   src('enoe', 'inegi', { name: 'INEGI, Encuesta Nacional de Ocupación y Empleo (ENOE), población ocupada por nivel de ingresos', url: IN.employed.url || 'https://www.inegi.org.mx/programas/enoe/15ymas/', asOf: q });
 }
 
+// the times the refresh runs, read from its workflow (the page states them; it never types them)
+try {
+  const wf = readFileSync(rootPath('.github/workflows/mx-consumidor-refresh.yml'), 'utf8');
+  const times = [...wf.matchAll(/cron:\s*"(\d{1,2}) (\d{1,2}) \* \* \*"/g)].map((m) => `${String(m[2]).padStart(2, '0')}:${String(m[1]).padStart(2, '0')}`).sort();
+  if (times.length) D.schedule = { refreshUtc: times, inegiTime: (raw.calendar && raw.calendar.time) || ((CAL || {}).inegi || {}).time || null, banxicoTime: (((CAL || {}).banxico || {}).remittances || {}).time || null };
+} catch (e) { /* no workflow file: the page leaves the times out */ }
+for (const g of calGaps) console.log(`::warning::calendar: ${g.id} (${g.publisher}): no scheduled date for ${g.period} in the files on hand`);
+
 // ------------------------------------------------------------------------------------------------------------------
 const fails = checks.filter((c) => c.status === 'fail'), warns = checks.filter((c) => c.status === 'warn');
 for (const c of fails) console.log(`::error::${c.tag}: ${c.check}${c.diff != null ? ` (diff ${c.diff}, tolerance ${c.tol})` : ''}`);
 for (const c of warns.slice(0, 20)) console.log(`::warning::${c.tag}: ${c.check}${c.diff != null ? ` (diff ${c.diff}, tolerance ${c.tol})` : ''}${c.note ? ` (${c.note})` : ''}`);
 const missing = ['demo', 'income', 'states', 'funds', 'deciles', 'kshape', 'poverty', 'credit', 'bank', 'rates', 'enif', 'enfih', 'savings', 'wages', 'work', 'cardPayments'].filter((k) => !D[k]);
 console.log(`tie-outs: ${checks.length} (${checks.length - fails.length - warns.length} ok, ${warns.length} warn, ${fails.length} fail); blocks missing: ${missing.join(', ') || 'none'}`);
-for (const x of stale) console.log(`::warning::overdue: ${x.id} is stamped ${x.asOf}; a newer period was due by ${x.dueBy}`);
+for (const x of stale) console.log(`::warning::overdue: ${x.id} is stamped ${x.asOf}; a newer period was due by ${x.dueBy}${x.scheduled ? ` (${x.publisher} scheduled it for ${x.scheduled})` : ' (usual timing)'}`);
 if (!CHECK) {
-  const log = { checks: checks.filter((c) => c.status !== 'ok'), counts: { ok: checks.length - fails.length - warns.length, warn: warns.length, fail: fails.length }, missing, stale, sourceStatus: status.sources || {} };
+  const log = { checks: checks.filter((c) => c.status !== 'ok'), counts: { ok: checks.length - fails.length - warns.length, warn: warns.length, fail: fails.length }, missing, stale, calendarGaps: calGaps, sourceStatus: status.sources || {} };
   if (JSON.stringify(readJson(RAW + 'build-log.json')) !== JSON.stringify(log)) writeJson(RAW + 'build-log.json', log);
 }
 if (fails.length) process.exit(1);
