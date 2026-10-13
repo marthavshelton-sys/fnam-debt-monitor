@@ -1,6 +1,6 @@
 {
  "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
- "as_of": "2026-10-12",
+ "as_of": "2026-10-13",
  "window_days": 120,
  "themes": [
   {
@@ -635,29 +635,52 @@
  "sweep_note_date": "2026-10-09",
  "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
  "sweep_log": [
-    {
-      "date": "2026-10-12",
-      "by": "routine",
-      "searches": 20,
-      "checked": [
-        "SEC EDGAR",
-        "Bloomberg",
-        "Reuters",
-        "Financial Times",
-        "Wall Street Journal",
-        "CNBC",
-        "Moody's",
-        "S&P Global Ratings",
-        "Fitch Ratings",
-        "Data Center Dynamics",
-        "Oracle Newsroom",
-        "Aterio",
-        "Wisconsin Public Radio",
-        "Michigan Public"
-      ],
-      "added": [],
-      "note": "No new items in the last 3 days: the reports found (FT Tencent chip lease, Bloomberg and DCD on Project Jupiter, Aterio on Port Washington) are already on the page or older than 3 days; no EDGAR accession after 1-Oct-2026 (Form 4); no new agency action."
-    },
+  {
+   "date": "2026-10-13",
+   "by": "routine",
+   "searches": 22,
+   "checked": [
+    "SEC EDGAR",
+    "Bloomberg",
+    "Reuters",
+    "Financial Times",
+    "Wall Street Journal",
+    "CNBC",
+    "Moody's",
+    "S&P Global Ratings",
+    "Fitch Ratings",
+    "Data Center Dynamics",
+    "Oracle Newsroom",
+    "Aterio",
+    "Wisconsin Public Radio",
+    "Michigan Public"
+   ],
+   "added": [],
+   "note": "No new items in the last 3 days: no EDGAR accession after 1-Oct-2026 (Form 4); no new agency action (S&P BBB- of 9-Jul-2026, Moody's Baa2 negative, Fitch BBB stable already on the page or earlier); searches on Project Jupiter, Port Washington, Saline, Shackelford, Abilene, bonds and chip leases returned only items already recorded or older than 3 days; the Super Micro rack-order report dates from April 2026. Oracle's newsroom page answered 403."
+  },
+  {
+   "date": "2026-10-12",
+   "by": "routine",
+   "searches": 20,
+   "checked": [
+    "SEC EDGAR",
+    "Bloomberg",
+    "Reuters",
+    "Financial Times",
+    "Wall Street Journal",
+    "CNBC",
+    "Moody's",
+    "S&P Global Ratings",
+    "Fitch Ratings",
+    "Data Center Dynamics",
+    "Oracle Newsroom",
+    "Aterio",
+    "Wisconsin Public Radio",
+    "Michigan Public"
+   ],
+   "added": [],
+   "note": "No new items in the last 3 days: the reports found (FT Tencent chip lease, Bloomberg and DCD on Project Jupiter, Aterio on Port Washington) are already on the page or older than 3 days; no EDGAR accession after 1-Oct-2026 (Form 4); no new agency action."
+  },
   {
    "date": "2026-10-11",
    "by": "routine",
