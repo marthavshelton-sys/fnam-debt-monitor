@@ -75,7 +75,7 @@ async function openIssues() {
 
 // The newest completed scheduled run, the newest one whose refresh landed, and every recent run with whether it landed
 // (for the per-cron rule: a failed run landed when its commit step succeeded before the failure).
-async function runsOf(file) {
+async function runsOf(file, crons) {
   const { workflow_runs: runs } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=schedule&status=completed&per_page=30&exclude_pull_requests=true`);
   let landed = null;
   const recent = [];
@@ -99,11 +99,12 @@ async function runsOf(file) {
   // scheduled run, so lastAttempt still reports that the schedule itself failed. Every such run of the lookback joins
   // `recent`, so the per-cron rule credits it to the schedule it replaced even after a later schedule of another cron lands
   // (lib.mjs handRunsToCheck / creditHandRun, 11-Oct-2026: the credit used to stop at the newest scheduled landed run, and
-  // ASUR read "late" all weekend); the newest of them is lastSuccess when it is newer than every scheduled run.
+  // ASUR read "late" all weekend), and to the latest due time before it of each of this workflow's schedules (12-Oct-2026:
+  // schedules GitHub never started); the newest of them is lastSuccess when it is newer than every scheduled run.
   const { workflow_runs: manual } = await gh(`/repos/${REPO}/actions/workflows/${file}/runs?event=workflow_dispatch&status=completed&per_page=5&exclude_pull_requests=true`);
   for (const run of handRunsToCheck(manual, { now: NOW, lookbackMs: LOOKBACK })) {
     const { jobs } = await gh(`/repos/${REPO}/actions/runs/${run.id}/jobs?per_page=30`);
-    if (refreshLandedBySteps(jobs)) landed = creditHandRun({ landed, recent, run, afterCommitFailure: run.conclusion !== 'success' });
+    if (refreshLandedBySteps(jobs)) landed = creditHandRun({ landed, recent, run, afterCommitFailure: run.conclusion !== 'success', crons });
   }
   // the page of runs covers only so many days: the per-cron rule judges nothing older than its oldest run (a full page) or the lookback
   const since = runs.length >= 30 ? Math.min(...runs.map((r) => Date.parse(r.created_at))) : null;
@@ -158,8 +159,9 @@ for (const d of CONFIG.dashboards) {
   const crons = [], recent = [];
   let attempt = null, landed = null, since = null;
   for (const file of d.workflows) {
-    crons.push(...cronsInWorkflow(await readFile(new URL(`.github/workflows/${file}`, ROOT), 'utf8')));
-    const r = await runsOf(file);
+    const fileCrons = cronsInWorkflow(await readFile(new URL(`.github/workflows/${file}`, ROOT), 'utf8'));
+    crons.push(...fileCrons);
+    const r = await runsOf(file, fileCrons);
     if (r.attempt && (!attempt || r.attempt.created_at > attempt.created_at)) attempt = r.attempt;
     if (r.landed && (!landed || r.landed.run.created_at > landed.run.created_at)) landed = r.landed;
     recent.push(...(r.recent || []));

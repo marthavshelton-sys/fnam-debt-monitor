@@ -290,7 +290,8 @@ dashboards, everything built from public data by GitHub Actions.
   "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
   A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`. Since 2026-10-09 each cron of a workflow is judged on
   its own (a market-only run never covers a failing filings run; a refresh re-run by hand on main that committed covers the schedule
-  it replaced for 14 days, even after a later schedule lands, fixed 11-Oct-2026) and the airport pages' `traffic.js` latest month is checked against
+  it replaced for 14 days, even after a later schedule lands, fixed 11-Oct-2026, and since 12-Oct-2026 the latest due time before it
+  of each of its workflow's schedules, so a schedule GitHub never started is cleared by dispatching that workflow and then the watchdog) and the airport pages' `traffic.js` latest month is checked against
   the publisher's calendar (`data` blocks, dueDay 10: September required from 11-Oct) → `stale` ("Datos desactualizados") and a
   "SOURCE DOWN: watchdog - <name> data stale" issue. Prices (owner, 2026-10-06): a dashboard
   with a `prices` block there (Oracle: the FactSet ORCL file, the FactSet snapshot's price date, the S&P 500 file; GAP,
