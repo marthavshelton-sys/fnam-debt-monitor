@@ -27,10 +27,7 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0,
-   "notes": [
-    "FRED: 1 problem(s): RCCCBPURCHASEAS660T719: HTTP 429 https://api.stlouisfed.org/fred/series?series_id=RCCCBPURCHASEAS660T719&api_key=***&file_type=json"
-   ]
+   "failures": 0
   },
   "edgar": {
    "failures": 0
