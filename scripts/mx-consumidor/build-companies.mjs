@@ -9,14 +9,20 @@
 // release dated `filed`, and each figure's number (and its year-earlier figure or change in basis points, when given) is
 // in its `find` text. A company that fails is left out and listed in `problems` (the run fails, so a typo in the curated
 // file never reaches the page). `newerFiling` tells the page that a later results release than the one curated is
-// stored, so the reader sees the figures are a quarter behind.
+// stored, so the reader sees the figures are a quarter behind. `due` is the company's reporting deadline for the next quarter
+// (lib/calendar.mjs -> reportingDeadline, from tools/mx-consumidor/data/release-calendar.json), so the page and the daily
+// task can tell when a release is late.
 import { readFileSync, existsSync } from 'node:fs';
 import { p, TOOLS, RAW, SITE, readJson, writeText, readText } from './lib/common.mjs';
+import { reportingDeadline } from './lib/calendar.mjs';
 
 const CHECK = process.argv.includes('--check');
 const cfg = readJson(TOOLS + 'companies.json');
 const kpis = readJson(TOOLS + 'data/companies-kpis.json');
 const index = readJson(RAW + 'releases/index.json', { companies: {} });
+const CAL = readJson(TOOLS + 'data/release-calendar.json', {}) || {};
+const quarterOf = (iso) => { const m = /^(\d{4})-(\d{2})/.exec(String(iso || '')); return m ? `${m[1]}-Q${Math.ceil(+m[2] / 3)}` : null; };
+const nextQuarter = (q) => { const m = /^(\d{4})-Q([1-4])$/.exec(q || ''); return m ? (+m[2] === 4 ? `${+m[1] + 1}-Q1` : `${m[1]}-Q${+m[2] + 1}`) : null; };
 if (!cfg || !kpis) { console.error('companies.json or data/companies-kpis.json missing'); process.exit(1); }
 
 // same text on both sides: one space for any run of whitespace, straight quotes and apostrophes, plain hyphen
@@ -76,13 +82,21 @@ for (const c of cfg.companies) {
   // a results release at least 60 days newer than the curated one = a new quarter the curated file does not carry yet
   const newer = (idx.filings || []).filter((f) => (f.kind || 'results') === 'results' && f.exhibits.reduce((a, e) => a + (e.chars || 0), 0) >= 4000).map((f) => f.filed).filter((d) => (Date.parse(d) - Date.parse(k.filed)) / 864e5 >= 60).sort().pop();
   if (newer) rec.newerFiling = newer;
+  const nq = nextQuarter(quarterOf(k.periodEnd)), lag = Math.round((Date.parse(k.filed) - Date.parse(k.periodEnd)) / 864e5);
+  const due = nq ? reportingDeadline(c, nq, CAL, Number.isFinite(lag) ? lag : null) : null;
+  if (due) rec.due = { quarter: nq, date: due.date, basis: due.basis, who: due.who };
   out.push(rec);
 }
 
 for (const pr of problems) console.log(`::error::${pr}`);
 console.log(`companies: ${out.length} of ${cfg.companies.filter((c) => c.curated !== false || (kpis.companies[c.ticker] || {}).filed).length} verified against their releases; problems: ${problems.length}`);
 if (!CHECK) {
-  const data = { reviewed: kpis.reviewed, groups: cfg.groups, companies: out };
+  // the quarter most companies report next and the BMV's deadline for it (the page's line on the coming results)
+  const bmvDue = out.filter((r) => r.due && r.due.who === 'BMV').map((r) => r.due);
+  const nextQ = bmvDue.length ? bmvDue.map((d) => d.quarter).sort().slice(-1)[0] : null;
+  const bmv = nextQ ? bmvDue.find((d) => d.quarter === nextQ) : null;
+  const comp = CAL.companies || {};
+  const data = { reviewed: kpis.reviewed, groups: cfg.groups, companies: out, ...(bmv ? { next: { quarter: nextQ, bmvDate: bmv.date, basis: bmv.basis, url: comp.bmvUrl || null } } : {}) };
   const body = '// What companies report: results-release figures of companies that sell and lend to the Mexican consumer, each read from the company\'s own filing and checked against it.\nwindow.MXC_COMPANIES = ' + JSON.stringify(data) + ';\n';
   if (readText(SITE + 'data/companies.js') !== body) writeText(SITE + 'data/companies.js', body);
 }

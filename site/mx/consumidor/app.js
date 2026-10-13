@@ -78,14 +78,34 @@
   var moreLess = function (a, b, es, en) { return a > b ? tr(es[0], en[0]) : a < b ? tr(es[1], en[1]) : tr(es[2], en[2]); };
 
   // ---------- provenance: source lines, "data through", freshness ----------
-  function fresh(id) { var s = D.sources[id]; if (!s || !s.asOf || !s.allowDays || !window.FNAM_PROV) return null; return window.FNAM_PROV.freshness(s.asOf, { days: s.allowDays }, 'mx'); }
+  // a block is late once its due date has passed: the publisher's scheduled date plus a banking day, or its usual timing (build.mjs)
+  function fresh(id) {
+    var s = D.sources[id]; if (!s || !s.asOf || !window.FNAM_PROV) return null;
+    if (s.dueBy) return { level: window.FNAM_PROV.today() > s.dueBy ? 'amber' : 'ok' };
+    return s.allowDays ? window.FNAM_PROV.freshness(s.asOf, { days: s.allowDays }, 'mx') : null;
+  }
+  var PUB = { INEGI: ['el INEGI', 'INEGI'], 'Banco de México': ['Banco de México', 'Banco de México'], BIS: ['el BIS', 'the BIS'] };
+  var pubName = function (n, es) { var x = PUB[n] || [n, n]; return es ? x[0] : x[1]; };
+  var scheduled = function (s) { return s && s.next && s.next.date && (s.next.basis === 'calendar' || s.next.basis === 'rule'); };
+  // "Next release (Sep 2026): 22 Oct 2026, 06:00 (INEGI's calendar)" — the date the publisher itself scheduled, or the usual timing
+  function nextLine(id) {
+    var s = D.sources[id], n = s && s.next; if (!s) return '';
+    if (scheduled(s)) {
+      var at = UI.date(n.date) + (n.time ? ', ' + n.time + tr(' h', '') : '');
+      var how = n.basis === 'calendar' ? tr('calendario de ' + pubName(n.publisher, true), pubName(n.publisher, false) + '\u2019s calendar') : tr('regla de publicación de ' + pubName(n.publisher, true), pubName(n.publisher, false) + '\u2019s publication rule');
+      return tr('Próxima publicación', 'Next release') + (n.period ? ' (' + UI.date(n.period) + ')' : '') + ': <b>' + at + '</b> (' + (n.url ? '<a href="' + esc(n.url) + '" target="_blank" rel="noopener">' + how + '</a>' : how) + ').';
+    }
+    if (n && n.basis === 'none') return n.period ? tr('Siguiente edición (' + n.period + '): aún sin fecha en el calendario de ' + pubName(n.publisher, true) + '.', 'Next edition (' + n.period + '): not yet in ' + pubName(n.publisher, false) + '\u2019s calendar.') : '';
+    if (n && n.basis === 'gap') return tr('Próxima publicación (' + UI.date(n.period) + '): ' + pubName(n.publisher, true) + ' aún no la fecha en su calendario; se espera a más tardar el ' + UI.date(s.dueBy) + ' (plazo habitual).', 'Next release (' + UI.date(n.period) + '): not yet dated in ' + pubName(n.publisher, false) + '\u2019s calendar; expected by ' + UI.date(s.dueBy) + ' (usual timing).');
+    return s.dueBy ? tr('Siguiente periodo: se espera a más tardar el ' + UI.date(s.dueBy) + ' (plazo habitual; la fuente no publica una fecha).', 'Next period: expected by ' + UI.date(s.dueBy) + ' (usual timing; the source posts no date).') : '';
+  }
   function srcLine(id) {
     var s = D.sources[id]; if (!s) return '';
     var f = fresh(id), late = f && f.level === 'amber';
     return tr('Fuente: ', 'Source: ') + '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(nm('srcShort', id)) + ' ↗</a>' + (s.via ? tr(' (vía FRED)', ' (through FRED)') : '') + ' · ' + UI.through(s.asOf) +
       (s.stored ? UI.amber(tr('dato guardado', 'stored value'), tr('La última descarga de esta fuente falló; se muestra el último dato obtenido.', 'The last download of this source failed; the last value obtained is shown.')) : '') +
       (late && s.publisherChecked ? ' · <span class="chk">' + tr('lo más reciente que publica la fuente, verificado el ', 'the latest the source publishes, checked ') + UI.date(s.publisherChecked) + '</span>'
-        : late ? UI.amber(tr('sin actualización reciente', 'no recent update'), tr('La fuente no ha publicado un periodo más nuevo dentro de su calendario habitual.', 'The source has not published a newer period within its usual calendar.')) : '');
+        : late ? UI.amber(tr('sin actualización reciente', 'no recent update'), scheduled(s) ? tr(pubName(s.next.publisher, true).replace(/^el /, 'El ') + ' programó el siguiente periodo para el ' + UI.date(s.next.date) + ' y aún no llega a la página.', pubName(s.next.publisher, false).replace(/^the /, 'The ') + ' scheduled the next period for ' + UI.date(s.next.date) + ' and it has not reached the page yet.') : tr('La fuente no ha publicado un periodo más nuevo dentro de su calendario habitual.', 'The source has not published a newer period within its usual calendar.')) : '');
   }
   function paintProvenance() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-src]'), function (el) { el.innerHTML = srcLine(el.getAttribute('data-src')); });
@@ -907,11 +927,21 @@
     return '<span class="' + (v > 0 ? 'up' : v < 0 ? 'down' : '') + '">' + UI.signed(v, dp) + '</span>';
   }
   function figPrev(m) { if (m.prev == null && m.chgBp != null) return ' <span class="nd">(' + (m.chgBp > 0 ? '+' : m.chgBp < 0 ? '−' : '') + UI.nf(Math.abs(m.chgBp), 0) + tr(' puntos base frente a un año antes', ' basis points from a year earlier') + ')</span>'; if (m.prev == null) return ''; var dp = m.dp == null ? 1 : m.dp; return ' <span class="nd">(' + (m.unit === 'rate' ? UI.pct(m.prev, dp) : m.unit === 'x' ? UI.nf(m.prev, dp) + '×' : m.unit === 'chg' || !m.unit ? UI.signed(m.prev, dp) : UI.nf(m.prev, dp)) + tr(' un año antes', ' a year earlier') + ')</span>'; }
+  // the coming results: the BMV's deadline for the next quarter, and any company past its own deadline with nothing filed
+  function companyDue() {
+    var nx = CO && CO.next; if (!nx) return '';
+    var today = window.FNAM_PROV ? window.FNAM_PROV.today() : '';
+    var lateCos = CO.companies.filter(function (c) { return c.due && c.due.quarter === nx.quarter && today > c.due.date && !c.newerFiling; });
+    var link = function (t) { return nx.url ? '<a href="' + esc(nx.url) + '" target="_blank" rel="noopener">' + t + '</a>' : t; };
+    return ' ' + bi('Siguientes resultados: ' + UI.date(nx.quarter) + '; las emisoras de la BMV deben presentarlos a más tardar el <b>' + UI.date(nx.bmvDate) + '</b> (' + link('calendario de la BMV') + '), y la tabla se actualiza el día que cada una lo hace.',
+        'Next results: ' + UI.date(nx.quarter) + '; BMV-listed companies must file them by <b>' + UI.date(nx.bmvDate) + '</b> (' + link('BMV reporting calendar') + '), and the table updates the day each one does.') +
+      (lateCos.length ? ' ' + UI.amber(tr(lateCos.length + ' sin reporte al vencer su plazo', lateCos.length + ' past their deadline with no report'), lateCos.map(function (c) { return c.ticker + ' (' + UI.date(c.due.date) + ')'; }).join(', ')) : '');
+  }
   function companies() {
     if (!CO || !CO.companies.length) { $('empresas').hidden = true; return; }
     var newer = CO.companies.filter(function (c) { return c.newerFiling; });
     $('metaCompanies').innerHTML = bi('Fuente: reportes de resultados de cada empresa, presentados ante la Bolsa Mexicana de Valores o la SEC de Estados Unidos; cada empresa enlaza a su documento. Última revisión: <span class="data-through">' + UI.date(CO.reviewed) + '</span>.', 'Source: each company\'s results release, filed with the Mexican stock exchange (BMV) or the U.S. SEC; every company links to its document. Last reviewed: <span class="data-through">' + UI.date(CO.reviewed) + '</span>.') +
-      (newer.length ? ' ' + UI.amber(tr(newer.length + ' con reporte más reciente por revisar', newer.length + ' with a newer report to review'), newer.map(function (c) { return c.ticker; }).join(', ')) : '');
+      (newer.length ? ' ' + UI.amber(tr(newer.length + ' con reporte más reciente por revisar', newer.length + ' with a newer report to review'), newer.map(function (c) { return c.ticker; }).join(', ')) : '') + companyDue();
     $('coCallout').innerHTML = (companySummary() || '') + ' ' + UI.kind('C') + bi(' Las definiciones difieren entre empresas; las cifras no son estrictamente comparables entre sí.', ' Definitions differ across companies; the figures are not strictly comparable with one another.');
     var gname = {}; CO.groups.forEach(function (g) { gname[g.id] = tr(g.es, g.en); });
     var gcol = { grocery: S(1), value: S(2), department: S(5), staples: S(3), credit: S(4) };
@@ -974,12 +1004,17 @@
       wages: ['Índice real del salario mínimo general e índice global de remuneraciones medias reales, mensual.', 'Real index of the general minimum wage and global index of average real pay, monthly.'],
       enoe: ['Población ocupada por nivel de ingresos en múltiplos del salario mínimo, trimestral.', 'Employed population by income level in multiples of the minimum wage, quarterly.']
     };
-    var items = Object.keys(D.sources).map(function (id) { var s = D.sources[id], d = desc[id] || ['', '']; return '<div class="item"><div class="t">' + esc(nm('srcShort', id)) + '</div><div class="d">' + tr(d[0], d[1]) + ' <span class="data-through">' + UI.through(s.asOf) + '</span>.' + (s.via ? ' ' + tr('Serie leída a través de FRED (Fed de San Luis), verificada contra su título.', 'Series read through FRED (St. Louis Fed), checked against its title.') : '') + '</div><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + ' ↗</a></div>'; });
+    var items = Object.keys(D.sources).map(function (id) { var s = D.sources[id], d = desc[id] || ['', ''], nx = nextLine(id); return '<div class="item"><div class="t">' + esc(nm('srcShort', id)) + '</div><div class="d">' + tr(d[0], d[1]) + ' <span class="data-through">' + UI.through(s.asOf) + '</span>.' + (s.via ? ' ' + tr('Serie leída a través de FRED (Fed de San Luis), verificada contra su título.', 'Series read through FRED (St. Louis Fed), checked against its title.') : '') + (nx ? ' <span class="next">' + nx + '</span>' : '') + '</div><a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + ' ↗</a></div>'; });
     if (CO && CO.companies.length) items.push('<div class="item"><div class="t">' + tr('Reportes de resultados de las empresas', 'Company results releases') + '</div><div class="d">' + tr('Reportes de ' + CO.companies.length + ' empresas, presentados como eventos relevantes o reportes trimestrales ante la Bolsa Mexicana de Valores, o como formularios 6-K y 8-K ante la SEC de Estados Unidos. Cada cifra y cita se coteja contra el texto del documento. Última revisión: ', 'Releases of ' + CO.companies.length + ' companies, filed as material events or quarterly reports with the Mexican stock exchange (BMV), or as Forms 6-K and 8-K with the U.S. SEC. Every figure and quote is checked against the text of the document. Last reviewed: ') + '<span class="data-through">' + UI.date(CO.reviewed) + '</span>.</div><a href="https://www.bmv.com.mx/" target="_blank" rel="noopener">bmv.com.mx ↗</a></div>');
     $('srcGrid').innerHTML = items.join('');
+    var SC = D.schedule || {}, cdmx = (SC.refreshUtc || []).map(function (t) { var h = (+t.slice(0, 2) + 18) % 24; return { h: h, t: ('0' + h).slice(-2) + t.slice(2) }; }).sort(function (a, b) { return a.h - b.h; }).map(function (x) { return x.t; });
+    var NUM = { es: ['', 'una vez', 'dos veces', 'tres veces', 'cuatro veces', 'cinco veces', 'seis veces'], en: ['', 'once', 'twice', 'three times', 'four times', 'five times', 'six times'] };
+    var join = function (a, es) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + (es ? ' y ' : ' and ') + a[a.length - 1]; };
+    var runs = function (es) { var k = cdmx.length, w = (es ? NUM.es : NUM.en)[k] || (k + (es ? ' veces' : ' times')); return k ? (es ? 'La página consulta las fuentes oficiales ' + w + ' al día (' + join(cdmx, true) + ' h, hora de la Ciudad de México)' : 'The page checks the official sources ' + w + ' a day (' + join(cdmx, false) + ', Mexico City time)') : (es ? 'La página consulta las fuentes oficiales cada día' : 'The page checks the official sources every day'); };
+    var hours = function (es) { var a = []; if (SC.inegiTime) a.push((es ? 'el INEGI a las ' : 'INEGI at ') + SC.inegiTime); if (SC.banxicoTime) a.push((es ? 'Banco de México a las ' : 'Banco de México at ') + SC.banxicoTime); return a.length ? (es ? ', poco después de las horas en que publican (' : ', shortly after the hours the publishers release (') + join(a, es) + ')' : ''; };
     $('fineUpdate').innerHTML = bi(
-      '<b>Actualización.</b> Las fuentes oficiales se consultan dos veces al día y la página cambia solo cuando alguna publica un dato nuevo: crédito, ahorro, salarios y pagos cada mes; financiamiento, cuentas nacionales y empleo cada trimestre; y las encuestas (ENIGH y pobreza cada dos años, ENIF cada tres) cuando sale su siguiente edición. Cada bloque indica el periodo de sus datos. Las cifras de las empresas se revisan cuando publican resultados. Datos generados: ' + when(D.generatedAt) + ' (hora de la Ciudad de México).',
-      '<b>Updates.</b> The official sources are checked twice a day and the page changes only when one of them publishes something new: credit, savings, wages and payments every month; financing, national accounts and employment every quarter; and the surveys (ENIGH and poverty every two years, ENIF every three) when their next edition comes out. Every block states the period of its data. Company figures are reviewed when results are published. Data generated: ' + when(D.generatedAt) + ' (Mexico City time).');
+      '<b>Actualización.</b> ' + runs(true) + hours(true) + ', y cambia solo cuando alguna publica un dato nuevo: crédito, ahorro, salarios y pagos cada mes; financiamiento, cuentas nacionales y empleo cada trimestre; y las encuestas (ENIGH y pobreza cada dos años, ENIF cada tres) cuando sale su siguiente edición. Cada fuente de la lista indica su próxima publicación según el calendario o la regla del publicador, o el plazo habitual cuando no publica una fecha; si un dato programado no llega a más tardar el día hábil siguiente, su bloque lo marca. Las cifras de las empresas se revisan el día que cada una publica resultados. Datos generados: ' + when(D.generatedAt) + ' (hora de la Ciudad de México).',
+      '<b>Updates.</b> ' + runs(false) + hours(false) + ', and changes only when one of them publishes something new: credit, savings, wages and payments every month; financing, national accounts and employment every quarter; and the surveys (ENIGH and poverty every two years, ENIF every three) when their next edition comes out. Every source in the list states its next release from the publisher\u2019s calendar or rule, or its usual timing when it posts no date; if a scheduled release has not arrived by the next business day, its block says so. Company figures are reviewed the day each company publishes results. Data generated: ' + when(D.generatedAt) + ' (Mexico City time).');
   }
 
   // =====================================================================================================================

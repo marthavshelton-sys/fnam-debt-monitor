@@ -1,0 +1,46 @@
+{
+  "_comment": "When each source of the Mexican Consumer page publishes its next period, as the publishers themselves schedule it (owner, 13-Oct-2026: everything on the page updated on time, aligned with scheduled releases). Read by scripts/mx-consumidor/lib/calendar.mjs. inegi: the dates come from INEGI's own release calendar PDFs, read on every refresh (fetch.mjs -> raw/calendar.json; the reader also tries cal_<this year>.pdf and cal_<next year>.pdf); `files` lists any other calendar file INEGI publishes (a second-half calendar, a calendar of changes): the daily task adds it when a source below runs out of future dates (pending.mjs -> calendarGaps). Each source names the product exactly as the calendar prints it and its periodicity. banxico: the rule or the dates each release's own page states, quoted verbatim with the day it was read; re-read them when a date is missed. bis: the 'Next release date' the BIS prints on its topic page (read on every refresh, raw/bis.json). editions: surveys whose next edition is not in any calendar yet. companies: reporting deadlines (BMV list of dates for 2026; the rule of the Circular Única de Emisoras after that; SEC 10-Q / 10-K deadlines for U.S. domestic filers). graceBankingDays: banking days after the scheduled date before the page marks a source as late (1 by default: the page reads INEGI's 06:00 and Banco de México's 09:00 releases the same morning; a series read through another publisher's mirror gets more).",
+  "graceBankingDays": 1,
+  "inegi": {
+    "time": "06:00",
+    "fileTemplate": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_{year}.pdf",
+    "files": [
+      "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf",
+      "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2027.pdf"
+    ],
+    "sources": {
+      "informality": { "product": "Indicadores de Ocupación y Empleo", "periodicity": "Mensual" },
+      "enoe": { "product": "Encuesta Nacional de Ocupación y Empleo", "periodicity": "Trimestral" },
+      "consumption": { "product": "Indicador Mensual del Consumo Privado", "periodicity": "Mensual", "graceBankingDays": 3, "via": "read through Banco de México's SIE, which republishes INEGI's series" },
+      "accounts": { "product": "Oferta y Utilización Trimestral", "periodicity": "Trimestral" },
+      "wages": { "product": "Índices Globales de Personal y Remuneraciones de los Sectores Económicos", "periodicity": "Mensual", "note": "the block's period is the older of INEGI's average real pay index (this product) and Banco de México's real minimum wage, which follows the INPC and is always ahead" }
+    }
+  },
+  "banxico": {
+    "remittances": { "rule": "firstBankingDay", "monthsAfter": 2, "time": "09:00", "url": "https://www.banxico.org.mx/publicaciones-y-prensa/remesas/remesas-balanza-pagos-banco.html", "quote": "se publica el primer día hábil bancario del mes a las 9:00 horas.", "read": "2026-10-13", "checked": "the rule gives the six publication dates the page lists, 4-May to 1-Oct-2026" },
+    "bankCredit": { "rule": "lastBankingDay", "monthsAfter": 1, "time": "09:00", "url": "https://www.banxico.org.mx/publicaciones-y-prensa/agregados-monetarios-y-actividad-financiera/agregados-monetarios-activida.html", "quote": "Se publica el último día hábil bancario de cada mes a las 9:00 horas.", "read": "2026-10-13", "checked": "the release (Agregados monetarios y actividad financiera) carries commercial banks' performing consumer credit by product in its Cuadro 5 (report of March 2026, published 30-Apr-2026); the block's period is that of the performing portfolio (CF835)" },
+    "savings": { "rule": "lastBankingDay", "monthsAfter": 1, "time": "09:00", "url": "https://www.banxico.org.mx/publicaciones-y-prensa/agregados-monetarios-y-actividad-financiera/agregados-monetarios-activida.html", "quote": "Se publica el último día hábil bancario de cada mes a las 9:00 horas.", "read": "2026-10-13", "checked": "the rule gives the six publication dates the page lists, 30-Apr to 30-Sep-2026" },
+    "lending": { "time": "14:00", "url": "https://www.banxico.org.mx/publicaciones-y-prensa/encuesta-sobre-condiciones-generales-y-estandares-/condiciones-en-credito-bancar.html", "quote": "En 2026, los resultados de la EnBan estarán disponibles los días 6 de febrero, 8 de mayo, 7 de agosto y 6 de noviembre a las 14:00 horas.", "read": "2026-10-13",
+      "dates": [ { "date": "2026-02-06", "period": "2025-Q4" }, { "date": "2026-05-08", "period": "2026-Q1" }, { "date": "2026-08-07", "period": "2026-Q2" }, { "date": "2026-11-06", "period": "2026-Q3" } ] }
+  },
+  "bis": {
+    "url": "https://data.bis.org/topics/TOTAL_CREDIT",
+    "sources": { "bis": { "graceBankingDays": 2 } }
+  },
+  "editions": {
+    "enigh": { "publisher": "INEGI", "next": "2026", "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/", "note": "every two years; the 2026 edition is not in INEGI's calendars yet" },
+    "poverty": { "publisher": "INEGI", "next": "2026", "url": "https://www.inegi.org.mx/desarrollosocial/pm/", "note": "every two years, with the ENIGH; not in INEGI's calendars yet" },
+    "enif": { "publisher": "INEGI", "next": null, "url": "https://www.inegi.org.mx/programas/enif/2024/", "note": "the next edition is not in INEGI's calendars yet" },
+    "enfih": { "publisher": "INEGI", "next": null, "url": "https://www.inegi.org.mx/programas/enfih/2019/", "note": "the only edition" }
+  },
+  "companies": {
+    "bmvListed": ["FEMSA", "KOF"],
+    "secDomestic": ["MELI", "FCFS"],
+    "usualGraceDays": 7,
+    "bmvUrl": "https://bmv.com.mx/docs-pub/SERVICIOS_EMISORAS/8477c1l2g62f86i845dv.pdf",
+    "bmvQuote": "dentro del mes inmediato posterior a la conclusión de los tres primeros trimestres del ejercicio",
+    "bmvDates": { "2025-Q4": "2026-02-27", "2026-Q1": "2026-04-30", "2026-Q2": "2026-07-31", "2026-Q3": "2026-10-30" },
+    "secUrl": "https://www.sec.gov/files/form10-q.pdf",
+    "read": "2026-10-13"
+  }
+}

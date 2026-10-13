@@ -1,13 +1,19 @@
 # Keeps the Mexican Consumer page (site/mx/consumidor) current. Runbook: tools/mx-consumidor/README.md.
 #
-#   Every day at 15:20 UTC (09:20 in Mexico City: after INEGI's 06:00 releases and Banco de México's 09:00 ones) and at
-#   23:20 UTC (17:20 in Mexico City: after the BMV's close, when issuers start to post their results):
+#   Four times a day, each shortly after the hour publishers release (Mexico City time, UTC-6 all year):
+#     12:20 UTC  06:20  INEGI publishes at 06:00 (its release calendar)
+#     15:20 UTC  09:20  Banco de México publishes at 09:00 (remittances, monetary aggregates)
+#     23:20 UTC  17:20  after the BMV's close and Banco de México's 14:00 bank lending survey; issuers start to post results
+#     03:20 UTC  21:20  results posted in the evening
+#   GitHub sometimes starts a scheduled run hours late or drops it; the page's daily task starts a run by hand when the
+#   latest scheduled time has passed with no run (scripts/mx-consumidor/schedule-check.mjs).
 #
 #   fetch    INEGI's ENIGH and ENIF microdata (read again only when the publisher's file changes: the day of its
 #            Last-Modified header and its size), INEGI's BIE series (employment, wages, consumption, national accounts)
 #            and multidimensional poverty indicators, Banco de México's SIE tables (credit to households, bank portfolio
 #            and past-due loans by product, rates, cards, card payments by line of business, savings, remittances and
-#            housing credit by state, bank lending survey), BIS household credit through FRED and the ENFIH 2019
+#            housing credit by state, bank lending survey), BIS household credit from the BIS's statistics API (FRED's
+#            mirror as a fallback) with the BIS's next release date, INEGI's release calendar PDFs, and the ENFIH 2019
 #            presentation kept as text. Every series is checked against its published title. A source that fails keeps
 #            its stored file and is counted in tools/mx-consumidor/raw/status.json.
 #   build    site/mx/consumidor/data/data.js: every tie-out must hold (the microdata reproduce INEGI's published figures,
@@ -29,8 +35,10 @@ name: Refresh Mexican Consumer data
 
 on:
   schedule:
+    - cron: "20 12 * * *"
     - cron: "20 15 * * *"
     - cron: "20 23 * * *"
+    - cron: "20 3 * * *"
   workflow_dispatch:
     inputs:
       force:
@@ -80,7 +88,7 @@ jobs:
         run: node scripts/mx-consumidor/probe.mjs tools/mx-consumidor/probe.json tools/mx-consumidor/raw/probe "$RUNNER_TEMP/scratch"
 
       # Never fails the run: a source that does not answer keeps its stored file and is counted in status.json.
-      - name: Fetch the sources (INEGI, Banco de México, FRED)
+      - name: Fetch the sources (INEGI, Banco de México, BIS, FRED)
         timeout-minutes: 25
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
@@ -136,7 +144,7 @@ jobs:
             const fs = require('fs');
             let s = {};
             try { s = JSON.parse(fs.readFileSync('tools/mx-consumidor/raw/status.json', 'utf8')).sources || {}; } catch (e) { return; }
-            const names = { enigh: 'INEGI (ENIGH microdata)', enif: 'INEGI and CNBV (ENIF microdata)', inegi: 'INEGI (BIE series)', poverty: 'INEGI (multidimensional poverty)', banxico: 'Banco de México (SIE: credit, rates, savings)', cards: 'Banco de México (SIE: card payments)', states: 'Banco de México (SIE: remittances and housing credit by state)', fred: 'FRED (BIS household credit)', docs: 'INEGI and Banco de México (ENFIH 2019 presentation)', releases: 'BMV and SEC EDGAR (company results releases)' };
+            const names = { enigh: 'INEGI (ENIGH microdata)', enif: 'INEGI and CNBV (ENIF microdata)', inegi: 'INEGI (BIE series)', poverty: 'INEGI (multidimensional poverty)', banxico: 'Banco de México (SIE: credit, rates, savings)', cards: 'Banco de México (SIE: card payments)', states: 'Banco de México (SIE: remittances and housing credit by state)', bis: 'BIS (statistics API: household credit)', fred: 'FRED (BIS household credit mirror)', calendar: 'INEGI (release calendar)', docs: 'INEGI and Banco de México (ENFIH 2019 presentation)', releases: 'BMV and SEC EDGAR (company results releases)' };
             const down = Object.keys(s).filter((k) => (s[k].failures || 0) >= 3);
             const label = 'mx-consumidor-source-down';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
@@ -161,10 +169,11 @@ jobs:
             }
 
       # The run can land while a publisher has gone quiet or a reader returns an old period: the builder lists every source
-      # stamped with a period older than its publisher's usual calendar allows (raw/build-log.json -> stale; allowances in
-      # build.mjs), unless the daily task has recorded that the publisher itself carries nothing newer. A source still on
-      # that list two days after its due date opens one issue (label mx-consumidor-stale, which the site's watchdog reads
-      # as an alert of this page); it closes when the list is empty again.
+      # stamped with a period older than its due date allows (raw/build-log.json -> stale): the date the publisher scheduled
+      # (INEGI's calendar, Banco de México's stated rule or dates, the BIS's next release date) plus a banking day, or the
+      # usual timing where no date is published (build.mjs), unless the daily task has recorded that the publisher itself
+      # carries nothing newer. A source still on that list a day after its due date (two for usual timing) opens one issue
+      # (label mx-consumidor-stale, which the site's watchdog reads as an alert of this page); it closes when the list is empty.
       - name: Data past its usual date (issue) / close when current
         if: always() && github.ref_name == 'main'
         continue-on-error: true
@@ -176,14 +185,15 @@ jobs:
             let stale = [];
             try { stale = JSON.parse(fs.readFileSync('tools/mx-consumidor/raw/build-log.json', 'utf8')).stale || []; } catch (e) { return; }
             const day = 864e5, now = Date.now();
-            const late = stale.filter((x) => x.dueBy && now - Date.parse(x.dueBy + 'T00:00:00Z') > 2 * day);
+            // a release the publisher scheduled: one day after its due date (the scheduled date plus a banking day); usual timing: two
+            const late = stale.filter((x) => x.dueBy && now - Date.parse(x.dueBy + 'T00:00:00Z') > (x.basis && x.basis !== 'usual' ? 1 : 2) * day);
             const label = 'mx-consumidor-stale';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
             const issue = open[0];
             if (late.length) {
               const body = `The Mexican Consumer page (https://fnam.mx/mx/consumidor/) shows ${late.length === 1 ? 'a source' : late.length + ' sources'} at a period older than the publisher's usual calendar allows, with no recent check on file that the publisher has nothing newer:\n\n` +
-                late.map((x) => `- ${x.name}: data through ${x.asOf}; a newer period was due by ${x.dueBy}`).join('\n') +
+                late.map((x) => `- ${x.name}: data through ${x.asOf}; a newer period was due by ${x.dueBy}${x.scheduled ? ` (${x.publisher} scheduled it for ${x.scheduled})` : ' (usual timing)'}`).join('\n') +
                 `\n\nThe page marks these blocks "no recent update". Either the publisher is late (the daily upkeep task records that once it has read the publisher's page) or the refresh is not reading the new period (the reader needs repair). Run: ${runUrl}`;
               const title = `SOURCE DOWN: Mexican Consumer - data past its usual date (${late.map((x) => x.id).join(', ')})`.slice(0, 240);
               const marker = `<!-- stale:${late.map((x) => x.id + '@' + x.asOf).join(',')} -->`;

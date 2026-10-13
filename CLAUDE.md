@@ -237,13 +237,14 @@ dashboards, everything built from public data by GitHub Actions.
   microdata (INEGI and CNBV), multidimensional poverty, the ENOE and the national accounts through the BIE; Banco de México's SIE
   (financing to households CF297, bank portfolio by product CF835, total and past-due balances CF762 / CF766, rates, cards, card
   payments by line of business, savings, remittances and housing credit by state, the bank lending survey); BIS household credit
-  through FRED; the ENFIH 2019 for wealth (the only edition; curated from INEGI's presentation and checked against its stored
+  from the BIS's statistics API (FRED's mirror only as fallback: it skipped the BIS's September 2026 release); the ENFIH 2019 for wealth (the only edition; curated from INEGI's presentation and checked against its stored
   text). 18 companies in "What Companies Report", each read from the channel it files with (BMV eventos relevantes, the BMV
   quarterly XBRL report's management commentary, or SEC 6-K / 8-K); no listed bank posts results through a scriptable official
-  channel, so the bank read-through is Banxico's system data. Data: `mx-consumidor-refresh.yml` (15:20 and 23:20 UTC) →
+  channel, so the bank read-through is Banxico's system data. Data: `mx-consumidor-refresh.yml` (12:20, 15:20, 23:20 and 03:20 UTC,
+  each shortly after a publisher's release hour: INEGI 06:00, Banco de México 09:00, issuers after the close, Mexico City time) →
   `scripts/mx-consumidor/fetch.mjs` → `build.mjs` → `data/data.js` (tie-outs: the microdata must reproduce INEGI's published
   figures or the page keeps its last data); releases → `build-companies.mjs` → `data/companies.js`. The scheduled task "FNAM
-  Mexican Consumer: daily upkeep" (16:25 and 00:25 UTC; prompt `tools/mx-consumidor/ROUTINE-PROMPT.md`; worklist
+  Mexican Consumer: daily upkeep" (16:25 and 04:25 UTC; prompt `tools/mx-consumidor/ROUTINE-PROMPT.md`; worklist
   `scripts/mx-consumidor/pending.mjs`) curates company figures the day a release is stored, adds a new edition's published check
   figures, checks publishers past their usual date and repairs a broken reader. The workflow's commit steps go through
   `scripts/mx-consumidor/commit.sh` (never merges a data file line by line). Since 12-Oct-2026 (owner): "At a Glance" reads
@@ -253,7 +254,13 @@ dashboards, everything built from public data by GitHub Actions.
   or computed in the builder); a source past its usual date for two days opens an issue labeled `mx-consumidor-stale`,
   which the watchdog reads with `mx-consumidor-source-down`. Before pushing run `scripts/mx-consumidor/render-check.mjs`
   and, after a change to the deck, `lib.js` or a section's charts, `scripts/mx-consumidor/deck-check.mjs --shots <dir>`
-  (look at every page in both languages). Runbook and memory: `tools/mx-consumidor/README.md`, `MEMORY.md`.
+  (look at every page in both languages). Since 13-Oct-2026 (owner: everything updated on time, aligned with scheduled
+  releases) the page follows each publisher's own schedule: `tools/mx-consumidor/data/release-calendar.json` +
+  `scripts/mx-consumidor/lib/calendar.mjs` (INEGI's calendar PDFs read every run, Banco de México's stated rules and
+  dates quoted with their pages, the BIS's next release date, the BMV's and SEC's reporting deadlines; CNBV banking
+  holidays); each source shows its next release, is due a banking day after it, and the daily task starts a refresh GitHub
+  dropped (`schedule-check.mjs --dispatch`), adds new calendar files and checks companies past their deadline. Never type
+  a release date: read it in the publisher's document. Runbook and memory: `tools/mx-consumidor/README.md`, `MEMORY.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

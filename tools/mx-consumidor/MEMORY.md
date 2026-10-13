@@ -28,6 +28,16 @@ Decisions, pitfalls and open items of `site/mx/consumidor/`. Runbook: `README.md
   a contents page whose rows are links. The deck's executive summary keeps the same 1–5 / 6–10 columns.
 - The dashboard is watched by the site's watchdog: refresh on time, source down, and data past its usual date.
 
+## Decisions (owner, 13-Oct-2026)
+
+- "Resume daily updates, refreshes and routines; everything on this page should be regularly updated, aligned with
+  scheduled releases." The page now follows each publisher's own schedule (README → "Release calendar"): the refresh runs
+  four times a day after the publishers' release hours, every source shows its next release, a scheduled release that
+  has not arrived a banking day later marks its block and opens the stale issue a day after, and the daily task starts
+  a refresh GitHub dropped, keeps the calendars current and checks companies past their reporting deadline.
+- BIS household credit is read from the BIS's own statistics API; FRED's mirror is the fallback.
+- The daily task moved from 00:25 to 04:25 UTC (with 16:25) so evening results are curated the same night.
+
 ## Pitfalls already met
 
 - INEGI's file servers answer the same file with `Last-Modified` times a few seconds apart, so a stamp built on the
@@ -61,8 +71,15 @@ Decisions, pitfalls and open items of `site/mx/consumidor/`. Runbook: `README.md
   tallest label sets the height the whole chart needs, and a label line longer than half the canvas loses its first letters.
 - A chart picture with transparent parts prints a gray fringe around every filled patch (the white backing of a value
   label) when a PDF reader resamples it: the deck draws its charts on an opaque white sheet (`printSheet` in `lib.js`).
-- A newly merged workflow's first scheduled run can start hours late (11-Oct-2026: the 23:20 UTC slot ran at 02:27);
-  later runs start within minutes of their time.
+- GitHub starts scheduled runs late or drops them, not only a new workflow's first one: 11-Oct-2026 the 23:20 UTC slot
+  ran at 02:27; 12-Oct the 15:20 slot ran at 22:30 and the 23:20 slot had not started by 02:18 (the watchdog's 15:50 run
+  started at 22:37 too). Hence four slots and the daily task's `schedule-check.mjs --dispatch`.
+- FRED's mirror of the BIS credit series skipped the BIS's 14-Sep-2026 release: the page showed 2025-Q4 while the BIS
+  had 2026-Q1. A mirror is a fallback, never the authority; the BIS's own API is read first.
+- A generic allowance can be wrong both ways: 80 days after July put the real pay index "late" on 19-Oct, while INEGI's
+  calendar dates August for 30-Oct. Due dates come from the publisher's schedule where one exists.
+- INEGI's calendar PDF has no cell borders: products are separated by thin rules, and the date and period columns are
+  found from the header words on each page (`lib/inegi_calendar.py`); a period without a year is the calendar's year.
 - Maps: Mexico City, Tlaxcala, Morelos, Aguascalientes, Colima and Querétaro are too small for a label and get chips.
 - A session cannot reach INEGI, Banxico, the BMV or the SEC, and cannot read a run's log: questions go to the runner
   through the probe file and come back as committed files.
