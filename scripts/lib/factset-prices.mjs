@@ -220,9 +220,13 @@ export function applyFile({ prices, pages }) {
     let n = 0;
     for (const id of Object.keys(mk.prices || {})) { if (fs.series[id]) { mk.prices[id] = overlayFactSet(mk.prices[id], id, fs); n++; } }
     mk.generatedAt = new Date().toISOString();
-    // the close the page prints, in the first bytes of the file (the watchdog and the page-side status check read it there)
+    // the close the page prints, in the first bytes of the file (the watchdog and the page-side status check read it there).
+    // The old stamp is dropped before the spread: spreading `mk` after the new key let the stamp the file already carried win
+    // (12-Oct-2026: Quálitas' series ended on the 12-Oct FactSet close while the stamp still said 9-Oct, because the evening
+    // market run that normally rewrites it had not started yet, and the watchdog read the page's price as stale).
     const homePts = (mk.prices[page.home] || {}).points || [];
-    mk = { generatedAt: mk.generatedAt, latestClose: homePts.length ? homePts[homePts.length - 1][0] : null, ...mk };
+    const { generatedAt, latestClose: _oldClose, ...rest } = mk;
+    mk = { generatedAt, latestClose: homePts.length ? homePts[homePts.length - 1][0] : null, ...rest };
     delete mk.priceAuthority; // (written by apply until 2026-10-06; nothing reads it, the pages use each series' provenance)
     const head2 = head.replace(/\/\/ Last refreshed: .*\n/, `// Last refreshed: ${mk.generatedAt} (FactSet closes applied by the nightly FactSet routine)\n`);
     writeFileSync(file, head2 + `window.${page.prefix}_MARKET = ` + JSON.stringify(mk) + ';\n');
