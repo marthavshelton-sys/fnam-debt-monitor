@@ -88,6 +88,11 @@ dashboards, everything built from public data by GitHub Actions.
   she says otherwise: never update `reference.js → dcf`, the DCF code or a DCF note, and do not restore the section on your own.
   The engines switch on the presence of `#dcf` (`DCF_ON`); the removed markup sits in `tools/<slug>/parked/dcf-section.html`;
   how to restore it: each runbook's "DCF: hidden and paused". Notes below that describe the airport DCF apply only if it returns.
+- Quálitas and Gentera valuation sections hidden, not deleted (owner, 13-Oct-2026): section 05 (residual income / excess
+  return, the financials' DCF equivalent) carries `hidden`, as do its jump-menu link and methodology paragraph (every
+  `data-valuation` element); the engines keep computing it, `numberSections()` renumbers the sections on show (06–11 print as
+  05–10) and `pageSectionMeta()` skips hidden sections, so the decks follow. Unlike the airports, the markup stays in the page;
+  restore = remove those `hidden` attributes, and only when she asks (each runbook: "Valuation section: hidden, not deleted").
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see

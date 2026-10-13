@@ -718,6 +718,9 @@
   }
 
   // ================= 05 VALUATION (excess return on book equity) =================
+  // Hidden by the owner (13-Oct-2026), not deleted: the section keeps its markup and keeps computing, but `hidden` keeps it off
+  // the page, the jump menu and the numbering. VAL_ON follows that attribute (index.html: every `data-valuation` element).
+  const VAL_ON = !document.getElementById('valuation').hidden;
   const VD = Object.assign({}, REF.valuation || {});
   const V = { slots: [] };
   function betaFromMarket() {
@@ -1054,7 +1057,7 @@
       [es ? 'Comentarios de los estados financieros' : 'Statement comments', es ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [es ? 'Resumen ejecutivo' : 'Executive summary', es ? 'con cada informe (rutina)' : 'with each release (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
       [es ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', marketCadence(Object.keys(MK.prices || {})), `${marketSrcNote(Object.keys(MK.prices || {}))} · Banxico SIE (SF43718, SF44071) · FRED (DGS10)`, MK.generatedAt ? fmtDate(MK.generatedAt.slice(0, 10)) : (es ? 'pendiente de la primera corrida' : 'pending first run')],
-      [es ? 'Referencia: acciones, subsidiarias, dividendos, ConCrédito, Perú, glosario, supuestos de valuación' : 'Reference: shares, subsidiaries, dividends, ConCrédito, Perú, glossary, valuation defaults', es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/reference.js', fmtDate(REF.updatedAt)],
+      [es ? 'Referencia: acciones, subsidiarias, dividendos, ConCrédito, Perú, glosario' + (VAL_ON ? ', supuestos de valuación' : '') : 'Reference: shares, subsidiaries, dividends, ConCrédito, Perú, glossary' + (VAL_ON ? ', valuation defaults' : ''), es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [es ? 'Múltiplos de pares y consenso' : 'Peer multiples and consensus', es ? 'cada noche (conector FactSet, rutina en la nube)' : 'nightly (FactSet connector, cloud routine)', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
       [es ? 'Alertas por correo (rutina de revisión)' : 'Email alerts (reviewing routine)', es ? 'días hábiles 15:35 UTC, sólo días materiales' : 'weekdays 15:35 UTC, material days only', es ? 'umbrales: movimiento diario ≥ 5%, etapa 3 > 4.5%, guía fuera de rango' : 'thresholds: daily move ≥ 5%, stage 3 > 4.5%, guidance outside range', '—'],
     ];
@@ -1068,8 +1071,12 @@
 
   // ================= wiring =================
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => { const on = x === b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on); }); onChange(b.dataset.v); })); }
+  // Section numbers follow the sections on show (owner, 13-Oct-2026: the valuation section is hidden, not deleted): a section
+  // carrying `hidden` drops out and the ones after it move up, so the page and the deck's contents, which reads these numbers,
+  // never skip one. With nothing hidden this reproduces the numbers typed in index.html.
+  function numberSections() { let n = 0; document.querySelectorAll('main section.block[id]').forEach((s) => { const b = s.querySelector('.sec-head .sec-num'); if (b && !s.hidden) b.textContent = String(n++).padStart(2, '0'); }); }
   function renderAll() {
-    chartDefaults();
+    numberSections(); chartDefaults();
     renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderDrivers(); renderShare(); renderValuation(); renderRelative(); renderAssetQuality(); renderDividends(); renderSpecial(); renderMethod(); applyGlossary();
   }
   function setLang(lang) {

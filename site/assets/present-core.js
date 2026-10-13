@@ -373,7 +373,8 @@
       if (note) this.note(note, pg.y1 - noteH + 4);
       this.cur = saved; this.pdf.setPage(last);
     }
-    // Section numbers and titles as the page prints them (every `section.block` with a `.sec-num`), in the deck's language, so
+    // Section numbers and titles as the page prints them (every `section.block` with a `.sec-num` that is not `hidden`: a section
+    // hidden on the page is neither in the deck nor named on its contents page), in the deck's language, so
     // the contents page carries the same labels as fnam.mx. Used by the decks whose pages share that markup (the airports).
     // Text of a page element with its <b> runs as **bold**, so a sentence the page composes prints in the deck unchanged.
     richTextOf(id) {
@@ -383,7 +384,7 @@
     }
     pageSectionMeta() {
       const out = {}, lang = this.es ? 'es' : 'en';
-      for (const s of document.querySelectorAll('section.block[id]')) { const num = s.querySelector('.sec-head .sec-num'), h = s.querySelector(`.sec-head h2 .${lang}`); if (num && h) out[s.id] = { label: num.textContent.trim(), title: h.textContent.replace(/\s+/g, ' ').trim() }; }
+      for (const s of document.querySelectorAll('section.block[id]')) { if (s.hidden) continue; const num = s.querySelector('.sec-head .sec-num'), h = s.querySelector(`.sec-head h2 .${lang}`); if (num && h) out[s.id] = { label: num.textContent.trim(), title: h.textContent.replace(/\s+/g, ' ').trim() }; }
       return out;
     }
     // "NN · " of a page section as the page numbers it today (empty when the page has no such section), so a deck title

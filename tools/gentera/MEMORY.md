@@ -21,6 +21,8 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 ## Decisions the owner made (do not re-litigate)
 
 - Mirror the Quálitas model structure exactly (sections 00–11, bilingual single page, nine data files).
+- Valuation section hidden, not deleted (owner, 13-Oct-2026): `hidden` on every `data-valuation` element; the model
+  still computes; README → "Valuation section: hidden, not deleted". Do not show it again unless she asks.
 - Valuation: excess-return model on book value; Ke = live MX 10-year (Banxico SIE `SF44071`) + 6% ERP × beta
   vs IPC (clipped 0.5–1.4); drivers loan growth, NIM, cost of risk, efficiency, tax rate, payout; Gordon or
   exit P/BV; implied Ke by bisection.
