@@ -225,6 +225,11 @@ methodology. About 32 pages, 4.5 MB.
   the page drew it with (`CONS_UI.specs` → `CONS_UI.printConfig`, which measures label lines in the chart's own font and
   shortens them when the paper cell is narrower than the screen). A chart the page hides leaves the deck; a page left
   empty is not printed. A log axis is an option of `UI.line` (`log: { min, max, ticks }`), so the deck draws it too.
+- The contents page is drawn by the builder (`contentsPage()`, owner, 13-Oct-2026: two columns, easy to read) from the
+  engine's rows (`tocEntries`): a section and its pages never split across the columns, the split leaves the columns
+  closest in height, the type is the largest that fits (section rows up to 11.5 pt), a long title wraps instead of being
+  cut, and every row is a link. The footer stays on one line: when it does not fit (the Spanish one), it drops the word
+  "Presentación" and then the address, which the cover and the contents page carry.
 - Charts are drawn in the light theme (the builder switches a dark page to light while it builds and back after). An axis
   title longer than the paper chart is tall is set smaller, and left out when it still does not fit (the legend names the
   axis of every series).
