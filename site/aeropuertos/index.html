@@ -539,18 +539,24 @@ table.reg .ref a:hover{text-decoration:underline;}
 }
 @media (prefers-reduced-motion: reduce){ .tile, .tile-foot .cta svg, .tile-foot .deck{transition:none;} .tile:hover{transform:none;} }
 </style>
+<link rel="stylesheet" href="/assets/search.css">
 </head>
 <body>
 <a class="skip" href="#main"><span class="en">Skip to content</span><span class="es">Ir al contenido</span></a>
 
 <header class="topbar">
-  <div class="wrap">
+  <div class="wrap fs-topbar">
     <a class="brand" href="/" aria-label="FNAM home">
       <span class="mark" aria-hidden="true">
         <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg>
       </span>
       <span class="word">FNAM</span>
     </a>
+    <button type="button" class="fs-field" data-search-open aria-haspopup="dialog" aria-keyshortcuts="/ Control+K Meta+K">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg>
+      <span class="fs-label" data-es="Buscar empresas, tickers, temas…" data-en="Search companies, tickers, topics…"></span>
+      <kbd class="fs-kbd" aria-hidden="true">/</kbd>
+    </button>
     <div class="lang-switch" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="es" aria-pressed="true" lang="es">Español</button>
       <button type="button" data-lang="en" aria-pressed="false" lang="en">English</button>
@@ -1325,5 +1331,6 @@ window.addEventListener("DOMContentLoaded", function(){
   }
 });
 </script>
+<script src="/assets/search.js" defer></script>
 </body>
 </html>

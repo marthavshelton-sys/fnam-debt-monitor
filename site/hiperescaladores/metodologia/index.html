@@ -25,9 +25,10 @@
      dated FactSet snapshot; refreshed by the scheduled job. -->
 <script src="/hiperescaladores/data/scope.js"></script>
 <script src="/hiperescaladores/assets/hub.js"></script>
+<link rel="stylesheet" href="/assets/search.css">
 </head>
 <body data-title-es="Metodología · Hiperescaladores | FNAM" data-title-en="Methodology · Hyperscalers | FNAM">
-<div class="lang-btn"><button type="button" id="btnLangEs" class="active">ES</button><button type="button" id="btnLangEn">EN</button></div>
+<div class="lang-btn"><button type="button" class="fs-icon" data-search-open aria-haspopup="dialog" aria-label="Buscar en FNAM" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg></button><button type="button" id="btnLangEs" class="active">ES</button><button type="button" id="btnLangEn">EN</button></div>
 
 <header class="top">
   <div class="wrap">
@@ -129,5 +130,6 @@
 // scope notes (data/scope.js), rendered in the reader's language
 (function () { var H = window.HUB, S = window.HYP_SCOPE; if (!H || !S) return; H.onLang(function () { var el = document.getElementById('scopeList'); if (el) el.innerHTML = S.notes.map(function (n) { return '<div class="card">' + H.scopeHtml(n).replace(/<br><a href="\/hiperescaladores\/metodologia\/#scope">.*?<\/a>$/, '') + '</div>'; }).join(''); }); })();
 </script>
+<script src="/assets/search.js" defer></script>
 </body>
 </html>

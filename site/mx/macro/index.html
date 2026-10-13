@@ -109,8 +109,10 @@
     .shell { grid-template-columns: minmax(0, 1fr); }
     main { min-width: 0; padding: 20px 16px 48px; }
     .rail { display: none; }
+    /* Two rows, as on the US page: FNAM, the title and the language toggle on the first; the section picker and the
+       site search on the second, so a long section name is not cut short. */
     .mobilebar {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
       position: sticky; top: 0; z-index: 20;
       padding: 10px 14px;
       background: var(--surface-1);
@@ -120,13 +122,13 @@
     .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
     .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
     .mobilebar select {
-      flex: 1 1 auto; min-width: 0;
+      flex: 1 1 calc(100% - 48px); min-width: 0;
       font-family: inherit; font-size: 15px; font-weight: 600;
       padding: 9px 10px;
       color: var(--text-primary); background: var(--page-plane);
       border: 1px solid var(--baseline); border-radius: 8px;
     }
-    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
+    .mobilebar .lang-switch { width: auto; margin: 0 0 0 auto; padding: 9px 10px; font-size: 13px; flex: none; }
     main { padding: 16px 14px 48px; }
     .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
     .page-header h2.view-title { font-size: 20px; }
@@ -586,13 +588,16 @@
 .skip:focus{left:8px;}
 </style>
 
+<link rel="stylesheet" href="/assets/search.css">
+<script src="/assets/search.js" defer></script>
 </head>
 <body>
 <div class="mobilebar" id="mobileBar">
   <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
   <h1 class="brand" data-i18n="brand">Monitor Macro México</h1>
-  <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">English</span></button>
+  <select id="mobileNav" aria-label="Section"></select>
+  <button type="button" class="fs-icon fs-boxed" data-search-open aria-haspopup="dialog" aria-label="Buscar en FNAM" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg></button>
 </div>
 <a class="skip" href="#main"><span data-i18n="skipLink">Saltar al contenido</span></a>
 <div class="shell">
@@ -602,6 +607,8 @@
     <div class="rail-sub" data-i18n="railSub">Indicadores económicos de México</div>
 
     <button class="lang-switch" id="langSwitch" type="button"><span data-i18n="switchTo">English</span></button>
+
+    <button type="button" class="fs-field fs-rail" data-search-open aria-haspopup="dialog" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg><span class="fs-label" data-es="Buscar en FNAM" data-en="Search FNAM"></span><kbd class="fs-kbd" aria-hidden="true">/</kbd></button>
 
     <div class="rail-group-label" data-i18n="groupPrices">Precios</div>
     <div class="rail-item active" data-view="inpc"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navInpc">Inflación (INPC)</span></span></div>

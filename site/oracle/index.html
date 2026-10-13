@@ -461,8 +461,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 /* Language pill + PDF button: fixed inside the band the sticky jump-nav occupies, so it never covers content once the page
    scrolls; the nav keeps that band's right end free (owner's review, 2026-10-05). */
 .lang-btn{top:6px;} .lang-btn button{min-height:35px; padding:7px 14px;}
-nav.jump .wrap{padding-right:300px;}
-nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:300px; background:var(--page); pointer-events:none;}
+nav.jump .wrap{padding-right:340px;}
+nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:340px; background:var(--page); pointer-events:none;}
 @media (max-width:640px){ .lang-btn{position:absolute; top:8px; right:8px;} body{position:relative;} .lang-btn button{min-height:33px; padding:6px 10px; font-size:11.5px;} nav.jump .wrap{padding-right:16px;} nav.jump::after{display:none;} }
 </style>
 
@@ -709,6 +709,7 @@ table.mw td{white-space:normal; vertical-align:top;}
 }
 @media print{.hdr-compact, .hdr-more, .kr-btn, .vmore, .chart-tip, #mobar{display:none !important;} header.top #asofRow, header.top #kpiStrip{display:block !important;} .kpi-strip{display:grid !important;} .verdict .vt{display:block !important; -webkit-line-clamp:unset !important;} .tblwrap tr.kr-hide{display:table-row !important;}}
 </style>
+<link rel="stylesheet" href="/assets/search.css">
 </head>
 
 <body>
@@ -727,6 +728,7 @@ table.mw td{white-space:normal; vertical-align:top;}
       </a>
       <!-- language and PDF controls: fixed top-right on desktop, part of this bar on phones (round 4) -->
       <div class="lang-btn">
+        <button type="button" class="fs-icon" data-search-open aria-haspopup="dialog" aria-label="Buscar en FNAM" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg></button>
         <button type="button" id="btnLangEs" class="active">ES</button>
         <button type="button" id="btnLangEn">EN</button>
         <button type="button" id="btnPrint" class="print-btn" title="Descargar la presentación en PDF / Download the presentation as PDF">📄 <span class="es">Presentación (PDF)</span><span class="en" hidden>Presentation (PDF)</span></button>
@@ -1590,5 +1592,6 @@ table.mw td{white-space:normal; vertical-align:top;}
 <script src="app.js" defer></script>
 <script src="/assets/present-core.js" defer></script>
 <script src="present.js" defer></script>
+<script src="/assets/search.js" defer></script>
 </body>
 </html>

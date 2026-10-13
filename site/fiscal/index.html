@@ -316,6 +316,7 @@ html.no-data canvas{display:none !important;}
 .skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent, #1b4332); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
 .skip:focus{left:8px;}
 </style>
+<link rel="stylesheet" href="/assets/search.css">
 </head>
 <body>
 <a class="skip" href="#outstanding"><span class="en" hidden>Skip to content</span><span class="es">Saltar al contenido</span></a>
@@ -368,6 +369,7 @@ html.no-data canvas{display:none !important;}
       </div>
     </div>
     <div class="lang-btn" role="group" aria-label="Language / Idioma">
+      <button type="button" class="fs-icon" data-search-open aria-haspopup="dialog" aria-label="Buscar en FNAM" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg></button>
       <button type="button" id="btnLangEn" lang="en">EN</button>
       <button type="button" id="btnLangEs" lang="es" class="active">ES</button>
     </div>
@@ -3005,5 +3007,6 @@ html.no-data canvas{display:none !important;}
 })();
 </script>
 <script src="blocks.js"></script>
+<script src="/assets/search.js" defer></script>
 </body>
 </html>
