@@ -1,0 +1,5 @@
+GET https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CL289&sector=10
+-> HTTP 429 text/html;charset=UTF-8 523 bytes
+
+(0 lines)
+

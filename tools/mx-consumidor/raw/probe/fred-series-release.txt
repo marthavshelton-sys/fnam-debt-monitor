@@ -1,0 +1,4 @@
+GET https://api.stlouisfed.org/fred/series/release?series_id=QMXHAM770A&api_key=***&file_type=json
+-> HTTP 200 application/json; charset=UTF-8 660 bytes · Last-Modified Tue, 13 Oct 2026 02:00:53 GMT
+
+{"realtime_start":"2026-10-12","realtime_end":"2026-10-12","releases":[{"id":325,"realtime_start":"2026-10-12","realtime_end":"2026-10-12","name":"Credit to Non-Financial Sector","press_release":false,"link":"https:\/\/data.bis.org\/topics\/TOTAL_CREDIT","notes":"All series on credit to the non-financial sector cover 40 economies, both advanced and emerging. They capture the outstanding amount of credit at the end of the reference quarter. Credit is provided by domestic banks, all other sectors of the economy and non-residents. In terms of financial instruments, credit covers the core debt, defined as loans, debt securities and currency & deposits."}]}
