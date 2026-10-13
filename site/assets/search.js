@@ -1,28 +1,60 @@
-/* FNAM site search: the button in the landing page's top bar opens a dialog that suggests pages, sections, macro
-   indicators and board presentations as the reader types. The index (/assets/search-index.js) is read from the pages
-   themselves in Spanish and English; this file only ranks and shows it.
+/* FNAM site search: every page carries a button that opens a dialog suggesting pages, sections, macro indicators and
+   board presentations as the reader types. The index (/assets/search-index.js) is read from the pages themselves in
+   Spanish and English; this file only ranks and shows it. Styles: /assets/search.css.
+
+   A page opts in with any element carrying data-search-open (the field in the landing page's and hubs' top bar, the
+   magnifier in the models' and dashboards' language pill, the macro dashboards' rail and phone bar, the 404 page). The
+   dialog is built here, so pages carry no markup for it. data-search-prefetch="idle" on a button fetches the index
+   once the page is idle (the landing page); elsewhere it is fetched when the reader reaches for the search.
+   data-search-prefill="path" opens it with the words of the address (the 404 page). "/" and Ctrl/Cmd+K open it too.
 
    Ranking, in order of weight: a company's own identifiers (ticker, name: "ORCL" or "oracle" puts the Oracle model
    first), the identifiers of a page that covers it (the Hyperscaler Hub for "ORCL"), titles, the page a section sits
    in, descriptions, then the words of each section's sub-headings and table labels (rarer words weigh more). Accents,
    case and punctuation are ignored, both languages match whichever is on screen, every word typed must match
-   (a prefix counts: "remes" finds "remesas"), and a word of five letters or more that matches nothing is read as a typo of the closest one. */
+   (a prefix counts: "remes" finds "remesas"), and a word of five letters or more that matches nothing is read as a typo
+   of the closest one. */
 (function () {
   'use strict';
   var root = document.documentElement;
-  var openBtn = document.getElementById('searchOpen');
-  var dlg = document.getElementById('searchDialog');
-  if (!openBtn || !dlg || typeof dlg.showModal !== 'function') { if (openBtn) openBtn.hidden = true; return; }
-  var input = document.getElementById('searchInput');
-  var list = document.getElementById('searchList');
-  var msg = document.getElementById('searchMsg');
-  var status = document.getElementById('searchStatus');
-  var closeBtn = document.getElementById('searchClose');
+  var triggers = Array.prototype.slice.call(document.querySelectorAll('[data-search-open]'));
+  if (!triggers.length) return;
+  var probe = document.createElement('dialog');
+  if (typeof probe.showModal !== 'function') { triggers.forEach(function (b) { b.hidden = true; }); return; }
 
   var MAX = 12;
-  var lang = function () { return root.getAttribute('lang') === 'en' ? 'en' : 'es'; };
+  // the page's language: <html lang> (every page keeps it in step with its own toggle); data-search-lang overrides it
+  // where a page shows both languages at once (the 404 page)
+  var lang = function () { return /^en/i.test(root.getAttribute('data-search-lang') || root.getAttribute('lang') || '') ? 'en' : 'es'; };
   var L = function (es, en) { return lang() === 'en' ? en : es; };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var MAG = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg>';
+
+  // ---------- the dialog ----------
+  var dlg = document.getElementById('fsDialog');
+  if (!dlg) {
+    dlg = document.createElement('dialog');
+    dlg.className = 'fs-dialog';
+    dlg.id = 'fsDialog';
+    dlg.setAttribute('aria-labelledby', 'fsTitle');
+    dlg.innerHTML =
+      '<h2 class="fs-vh" id="fsTitle"></h2>' +
+      '<div class="fs-bar" role="search">' + MAG +
+        '<input class="fs-input" id="fsInput" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="fsList" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go">' +
+        '<button type="button" class="fs-close" id="fsClose"></button>' +
+      '</div>' +
+      '<div class="fs-body"><div class="fs-list" id="fsList" role="listbox"></div><div class="fs-msg" id="fsMsg" hidden></div></div>' +
+      '<div class="fs-foot" id="fsFoot" aria-hidden="true"></div>' +
+      '<p class="fs-vh" id="fsStatus" aria-live="polite"></p>';
+    document.body.appendChild(dlg);
+  }
+  var input = document.getElementById('fsInput');
+  var list = document.getElementById('fsList');
+  var msg = document.getElementById('fsMsg');
+  var status = document.getElementById('fsStatus');
+  var closeBtn = document.getElementById('fsClose');
+  var foot = document.getElementById('fsFoot');
+  var title = document.getElementById('fsTitle');
 
   // ---------- text normalization: the index builder applies the same rule ----------
   var MARKS = /\p{M}+/gu, NONWORD = /[^\p{L}\p{N}]+/gu;
@@ -274,8 +306,8 @@
   }
   var SUGGEST = { es: ['ORCL', 'GAP', 'inflación', 'remesas', 'deuda pública', 'capex', 'Walmart'], en: ['ORCL', 'GAP', 'inflation', 'remittances', 'public debt', 'capex', 'Walmart'] };
   function hint(text) {
-    msg.innerHTML = '<p class="sd-hint">' + text + '</p><div class="sd-chips" role="group" aria-label="' + esc(L('Sugerencias', 'Suggestions')) + '">' +
-      SUGGEST[lang()].map(function (s) { return '<button type="button" class="sd-chip" data-q="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>';
+    msg.innerHTML = '<p class="fs-hint">' + text + '</p><div class="fs-chips" role="group" aria-label="' + esc(L('Sugerencias', 'Suggestions')) + '">' +
+      SUGGEST[lang()].map(function (s) { return '<button type="button" class="fs-chip" data-q="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>';
     msg.hidden = false;
   }
   function render() {
@@ -283,7 +315,7 @@
     current.q = q;
     if (!IX) {
       list.innerHTML = ''; input.setAttribute('aria-expanded', 'false');
-      msg.innerHTML = '<p class="sd-hint">' + esc(L('Cargando el índice…', 'Loading the index…')) + '</p>'; msg.hidden = false;
+      msg.innerHTML = '<p class="fs-hint">' + esc(L('Cargando el índice…', 'Loading the index…')) + '</p>'; msg.hidden = false;
       return;
     }
     if (!norm(q)) {
@@ -303,15 +335,15 @@
     var k = lang() === 'en' ? 1 : 0;
     list.innerHTML = r.results.map(function (x, n) {
       var e = x.e;
-      var ticks = (e.ticks || []).map(function (t) { return '<span class="sr-tick">' + esc(t) + '</span>'; }).join('');
-      return '<a class="sr" role="option" tabindex="-1" aria-selected="false" id="sr-' + n + '" href="' + esc(href(e)) + '" data-kind="' + e.k + '">' +
-        '<span class="sr-ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICON[e.k] + '</svg></span>' +
-        '<span class="sr-main"><span class="sr-title"><span class="sr-t">' + highlight(e.t[k], r.tokens) + '</span>' + ticks + '</span>' +
-        '<span class="sr-sub">' + esc(sub(e)) + '</span></span>' +
-        '<span class="sr-kind">' + esc(KIND[e.k][k]) + '</span></a>';
+      var ticks = (e.ticks || []).map(function (t) { return '<span class="fs-tick">' + esc(t) + '</span>'; }).join('');
+      return '<a class="fs-res" role="option" tabindex="-1" aria-selected="false" id="fs-' + n + '" href="' + esc(href(e)) + '" data-kind="' + e.k + '">' +
+        '<span class="fs-ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ICON[e.k] + '</svg></span>' +
+        '<span class="fs-main"><span class="fs-title"><span class="fs-t">' + highlight(e.t[k], r.tokens) + '</span>' + ticks + '</span>' +
+        '<span class="fs-sub">' + esc(sub(e)) + '</span></span>' +
+        '<span class="fs-kind">' + esc(KIND[e.k][k]) + '</span></a>';
     }).join('');
     var note = r.partial ? L('Ninguna página tiene todas las palabras; estas son las más cercanas.', 'No page has every word; these are the closest.') : '';
-    msg.innerHTML = note ? '<p class="sd-note">' + esc(note) + '</p>' : '';
+    msg.innerHTML = note ? '<p class="fs-note">' + esc(note) + '</p>' : '';
     msg.hidden = !note;
     input.setAttribute('aria-expanded', 'true');
     list.parentNode.scrollTop = 0;
@@ -319,34 +351,56 @@
     status.textContent = r.count === 1 ? L('1 resultado', '1 result') : (r.count > MAX ? L('Más de ' + MAX + ' resultados', 'Over ' + MAX + ' results') : L(r.count + ' resultados', r.count + ' results'));
   }
 
+  var KBD = function (k) { return '<kbd>' + k + '</kbd>'; };
   function labels() {
+    title.textContent = L('Buscar en FNAM', 'Search FNAM');
     input.placeholder = L('Empresa, ticker, tema o sección', 'Company, ticker, topic or section');
     input.setAttribute('aria-label', L('Buscar en FNAM', 'Search FNAM'));
     list.setAttribute('aria-label', L('Resultados', 'Results'));
+    closeBtn.textContent = L('Cerrar', 'Close');
+    foot.innerHTML = '<span>' + KBD('↑') + KBD('↓') + ' ' + L('recorrer', 'move') + '</span><span>' + KBD('↵') + ' ' + L('abrir', 'open') + '</span>' +
+      '<span>' + KBD('Ctrl') + '/' + KBD('⌘') + ' + ' + KBD('↵') + ' ' + L('abrir en otra pestaña', 'open in a new tab') + '</span><span>' + KBD('Esc') + ' ' + L('cerrar', 'close') + '</span>';
+    // a magnifier alone needs a name; a field-like button is named by its visible label
+    triggers.forEach(function (b) {
+      if (!b.classList.contains('fs-field')) b.setAttribute('aria-label', L('Buscar en FNAM', 'Search FNAM'));
+      b.setAttribute('title', L('Buscar en FNAM (atajo: /)', 'Search FNAM (shortcut: /)'));
+    });
   }
 
   // ---------- open / close / keys ----------
   var lastFocus = null;
-  function open(prefill) {
+  // the words of the address asked for ("/oracel/" → "oracel"), for the 404 page
+  function pathWords() {
+    var p = location.pathname;
+    try { p = decodeURIComponent(p); } catch (e) { /* keep it as is */ }
+    return p.replace(/\/index\.html?$/i, '').replace(/[\/_.\-+]+/g, ' ').trim();
+  }
+  function open(prefill, opener) {
     if (dlg.open) { input.focus(); return; }
-    lastFocus = document.activeElement;
+    // the focus goes back to the button that opened it (Safari does not focus a clicked button), else where it was
+    lastFocus = opener || document.activeElement;
     labels();
-    if (typeof prefill === 'string') input.value = prefill;
+    if (typeof prefill === 'string' && prefill) input.value = prefill;
     dlg.showModal();
-    root.classList.add('sd-open');
+    root.classList.add('fs-open');
     input.focus(); input.select();
     render();
     loadIndex().then(render, function () {
-      msg.innerHTML = '<p class="sd-hint">' + esc(L('No se pudo cargar el índice de búsqueda. Vuelve a intentarlo en un momento.', 'The search index could not be loaded. Try again in a moment.')) + '</p>';
+      msg.innerHTML = '<p class="fs-hint">' + esc(L('No se pudo cargar el índice de búsqueda. Vuelve a intentarlo en un momento.', 'The search index could not be loaded. Try again in a moment.')) + '</p>';
       msg.hidden = false;
     });
   }
-  function close() { if (dlg.open) dlg.close(); root.classList.remove('sd-open'); }
+  function close() { if (dlg.open) dlg.close(); root.classList.remove('fs-open'); }
   dlg.addEventListener('close', function () {
-    root.classList.remove('sd-open');
+    root.classList.remove('fs-open');
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   });
-  openBtn.addEventListener('click', function () { open(); });
+  var warm = function () { loadIndex().catch(function () {}); };
+  triggers.forEach(function (b) {
+    b.addEventListener('click', function () { open(b.getAttribute('data-search-prefill') === 'path' && !input.value ? pathWords() : undefined, b); });
+    // fetch the index as the reader reaches for the button, so it is there by the first keystroke
+    ['pointerenter', 'focus', 'touchstart'].forEach(function (t) { b.addEventListener(t, warm, { once: true, passive: true }); });
+  });
   closeBtn.addEventListener('click', close);
   dlg.addEventListener('click', function (ev) { if (ev.target === dlg) close(); }); // the backdrop
   var timer = 0;
@@ -365,36 +419,63 @@
       go(o, ev.metaKey || ev.ctrlKey);
     }
   });
+  // A result on the page being read is reached in place: an anchor scrolls there (the Oracle model opens a collapsed
+  // section from its anchor), a macro view is switched by the page's own navigation; anything else is a navigation.
+  function inPlace(h) {
+    var u;
+    try { u = new URL(h, location.href); } catch (e) { return false; }
+    if (u.origin !== location.origin || u.pathname !== location.pathname) return false;
+    var here = new URLSearchParams(location.search), there = new URLSearchParams(u.search);
+    here.delete('lang'); there.delete('lang');
+    var view = there.get('view');
+    if (view && view !== here.get('view')) {
+      there.delete('view'); here.delete('view');
+      if (here.toString() !== there.toString()) return false;
+      var item = document.querySelector('.rail-item[data-view="' + view.replace(/[^\w-]/g, '') + '"]');
+      if (!item) return false;
+      close(); item.click(); return true;
+    }
+    if (here.toString() !== there.toString() || !u.hash) return false;
+    close();
+    if (location.hash === u.hash) { var t = document.getElementById(decodeURIComponent(u.hash.slice(1))); if (t) t.scrollIntoView(); }
+    else location.hash = u.hash;
+    return true;
+  }
   function go(a, newTab) {
     var h = a.getAttribute('href');
     if (newTab) { window.open(h, '_blank', 'noopener'); return; }
-    if (h.charAt(0) === '#') { close(); location.hash = h; return; }
+    if (inPlace(h)) return;
     location.assign(h);
   }
   list.addEventListener('click', function (ev) {
-    var a = ev.target.closest && ev.target.closest('a.sr'); if (!a) return;
-    if (a.getAttribute('href').charAt(0) === '#') { ev.preventDefault(); go(a, false); }
+    var a = ev.target.closest && ev.target.closest('a.fs-res'); if (!a) return;
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return; // the browser's own new tab or window
+    if (inPlace(a.getAttribute('href'))) ev.preventDefault();
   });
   list.addEventListener('mousemove', function (ev) {
-    var a = ev.target.closest && ev.target.closest('a.sr'); if (!a) return;
+    var a = ev.target.closest && ev.target.closest('a.fs-res'); if (!a) return;
     var opts = Array.prototype.indexOf.call(list.querySelectorAll('[role="option"]'), a);
     if (opts >= 0 && opts !== current.active) setActive(opts);
   });
   msg.addEventListener('click', function (ev) {
-    var b = ev.target.closest && ev.target.closest('.sd-chip'); if (!b) return;
+    var b = ev.target.closest && ev.target.closest('.fs-chip'); if (!b) return;
     input.value = b.getAttribute('data-q'); input.focus(); render();
   });
   // "/" or Ctrl/Cmd+K opens the search from anywhere on the page, unless the reader is typing somewhere.
   document.addEventListener('keydown', function (ev) {
     var t = ev.target, typing = t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
-    if ((ev.key === 'k' || ev.key === 'K') && (ev.metaKey || ev.ctrlKey) && !ev.altKey) { ev.preventDefault(); open(); return; }
-    if (ev.key === '/' && !typing && !ev.metaKey && !ev.ctrlKey && !ev.altKey) { ev.preventDefault(); open(); }
+    if ((ev.key === 'k' || ev.key === 'K') && (ev.metaKey || ev.ctrlKey) && !ev.altKey) { ev.preventDefault(); warm(); open(); return; }
+    if (ev.key === '/' && !typing && !ev.metaKey && !ev.ctrlKey && !ev.altKey) { ev.preventDefault(); warm(); open(); }
   });
-  // The language toggle re-renders the open dialog in the other language.
-  new MutationObserver(function () { labels(); if (dlg.open) render(); }).observe(root, { attributes: true, attributeFilter: ['lang'] });
-  // Fetch the index once the page is idle, so the first keystroke finds it ready.
-  var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200); };
-  window.addEventListener('load', function () { idle(function () { loadIndex().catch(function () {}); }); });
+  // The language toggle re-renders the open dialog in the other language (and renames the buttons).
+  new MutationObserver(function () { labels(); if (dlg.open) render(); }).observe(root, { attributes: true, attributeFilter: ['lang', 'data-search-lang'] });
+  labels();
+  // The landing page fetches the index once it is idle, so the first keystroke finds it ready.
+  if (triggers.some(function (b) { return b.getAttribute('data-search-prefetch') === 'idle'; })) {
+    var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1200); };
+    var start = function () { idle(warm); };
+    if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
+  }
 
   // For checks and for the console: FNAM_SEARCH.query('orcl') → [{url, title}]
   window.FNAM_SEARCH = {

@@ -540,13 +540,14 @@
     .mobilebar .brand { flex: 1 1 0; min-width: 0; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
     .mobilebar select {
-      flex: 1 1 100%; min-width: 0; order: 2;
+      flex: 1 1 calc(100% - 48px); min-width: 0; order: 2;
       font-family: inherit; font-size: 15px; font-weight: 600;
       padding: 9px 10px;
       color: var(--text-primary); background: var(--page-plane);
       border: 1px solid var(--baseline); border-radius: 8px;
     }
     .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
+    .mobilebar .fs-icon { order: 2; }
     main { padding: 16px 14px 48px; }
     .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
     .page-header h1 { font-size: 20px; }
@@ -580,6 +581,8 @@
 .skip:focus{left:8px;}
 </style>
 
+<link rel="stylesheet" href="/assets/search.css">
+<script src="/assets/search.js" defer></script>
 </head>
 <body>
 <div class="mobilebar" id="mobileBar">
@@ -587,6 +590,7 @@
   <div class="brand" data-i18n="brand">Macro Monitor</div>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
   <select id="mobileNav" aria-label="Secciones"></select>
+  <button type="button" class="fs-icon fs-boxed" data-search-open aria-haspopup="dialog" aria-label="Buscar en FNAM" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg></button>
 </div>
 <a class="skip" href="#main"><span data-i18n="skipLink">Saltar al contenido</span></a>
 <div class="shell">
@@ -596,6 +600,8 @@
     <div class="rail-sub" data-i18n="railSub">U.S. economic indicators</div>
 
     <button class="lang-switch" id="langSwitch" type="button"><span data-i18n="switchTo">Español</span></button>
+
+    <button type="button" class="fs-field fs-rail" data-search-open aria-haspopup="dialog" aria-keyshortcuts="/ Control+K Meta+K"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="m10.4 10.4 3.4 3.4"/></svg><span class="fs-label" data-es="Buscar en FNAM" data-en="Search FNAM"></span><kbd class="fs-kbd" aria-hidden="true">/</kbd></button>
 
     <div class="rail-group-label" data-i18n="groupPrices">Inflation</div>
     <a class="rail-item active" data-view="cpi" href="?view=cpi" aria-current="page"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCPI">Consumer Price Index</span></span></a>

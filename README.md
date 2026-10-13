@@ -5,7 +5,7 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 
 | Path | What | Refresh |
 |---|---|---|
-| `/` | Landing page (Spanish default, ES/EN toggle) with the site search (runbook: `tools/search/README.md`) | page static; search index rebuilt by `search-index.yml` on merges to main and daily |
+| `/` | Landing page (Spanish default, ES/EN toggle). Every page carries the site search (runbook: `tools/search/README.md`) | page static; search index rebuilt by `search-index.yml` on merges to main and daily |
 | `/macro/` | U.S. macro dashboard | `macro-refresh.yml` |
 | `/fiscal/` | U.S. fiscal debt monitor (runbook: `tools/fiscal/README.md`) | twice-daily `refresh-data.yml` (Treasury/Fed/FRED → `data.js`, then a per-data-point freshness check that opens a `fiscal-health` issue) + Mon/Wed/Fri research routine committing `monthly-data.js` (CBO, FedWatch) |
 | `/mx/macro/` | Mexico macro dashboard | `mx-macro-refresh.yml` (Banxico SIE, FRED, INEGI) |

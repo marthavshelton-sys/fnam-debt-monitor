@@ -1,4 +1,4 @@
-# Keeps the site search on the landing page current: rebuilds site/assets/search-index.js from the pages themselves
+# Keeps the site search (on every page) current: rebuilds site/assets/search-index.js from the pages themselves
 # (every public page rendered in Spanish and English: titles, sections, macro views, sub-headings, table labels and the
 # curated identifiers of tools/search/aliases.json) and commits it when it changed. Runbook: tools/search/README.md.
 #

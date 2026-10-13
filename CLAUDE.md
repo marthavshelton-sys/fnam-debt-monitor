@@ -278,17 +278,26 @@ dashboards, everything built from public data by GitHub Actions.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
   Pages' single-page fallback served the home page with 200). Links inside it are absolute. `site/favicon.ico` is the
   site's "F" mark; pages carry the same mark as a data-URI icon.
-- Site search (owner, 13-Oct-2026: "oracle" or "ORCL" must suggest the Oracle page, and so on): a button in the landing
-  page's top bar (also `/`, Ctrl/⌘+K) opens a dialog (`site/assets/search.js`) over `site/assets/search-index.js`, which
-  `scripts/search/build-index.mjs` builds by rendering every public page in both languages (pages, every h2 section by its
-  anchor, the macro `?view=`s, the PDF links, sub-headings and table labels as keywords). Never edit the index by hand; the
-  only curated input is `tools/search/aliases.json` (tickers, names, abbreviations; each must appear on its page or the build
-  fails). `search-index.yml` rebuilds and commits it on merges to main and daily at 09:37 UTC after
+- Site search (owner, 13-Oct-2026: "oracle" or "ORCL" must suggest the Oracle page, and so on; the same day: on every
+  page): one shared component, `site/assets/search.js` + `search.css` (the script builds the dialog; a page carries only a
+  button with `data-search-open`, the two asset tags, and nothing else). Where the button sits: the landing page and the five
+  hubs, a field in the top bar (`.fs-topbar`); the six models, both consumer pages, both fiscal monitors and the eight
+  Hyperscaler Hub pages, a magnifier as the first button of the language pill (the models' and consumer pages' desktop band
+  for the pill is 340 px, `nav.jump … padding-right` and `::after`); the macro dashboards, a field under the language toggle
+  in the rail and a magnifier beside the section picker on the phone bar's second row (template and page, both pages now two
+  rows on phones); the 404 page, a field that opens with the words of the missing address (`data-search-prefill="path"`).
+  Not on the owner-only quality pages. A result on the page being read is reached in place (anchor, collapsed Oracle
+  section, macro `?view=`). The index `site/assets/search-index.js` is built by `scripts/search/build-index.mjs`, which
+  renders every public page in both languages (pages, every h2 section by its anchor, the macro `?view=`s, the PDF links,
+  sub-headings and table labels as keywords). Never edit the index by hand; the only curated input is
+  `tools/search/aliases.json` (tickers, names, abbreviations; each must appear on its page or the build fails).
+  `search-index.yml` rebuilds and commits it on merges to main and daily at 09:37 UTC after
   `scripts/search/check.mjs --queries-only` passes (fixed first results: oracle/ORCL → /oracle/, every ticker, the
   abbreviations); a failure keeps the last index and opens a "SEARCH INDEX: build failing" issue. A new page or section is
-  indexed by itself; renaming a section that `check.mjs → EXPECT` or `aliases.json` names means updating them in the same
-  change. Before pushing a landing-page or search change run `node scripts/search/check.mjs --shots <dir>`. Runbook
-  `tools/search/README.md`.
+  indexed by itself; a new page gets the button by adding its two asset tags and a `data-search-open` button. Renaming a
+  section that `check.mjs → EXPECT` or `aliases.json` names means updating them in the same change. Before pushing a change
+  to a page header or the search, run `node scripts/search/check.mjs --shots <dir>` (every page, ES desktop and EN phone).
+  Runbook `tools/search/README.md`.
 
 ## Scheduled refreshes — rules that apply to every pipeline
 
