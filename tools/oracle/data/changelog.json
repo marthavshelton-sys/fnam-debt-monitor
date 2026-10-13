@@ -4,90 +4,6 @@
   {
    "at": "2026-10-10T00:02:21.857Z",
    "file": "peers.js",
-   "path": "peers[2].divYieldPct",
-   "old": 0.7726075504828797,
-   "new": 0.7681228996639462
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.as_of",
-   "old": "2026-10-02",
-   "new": "2026-10-09"
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y1",
-   "old": 15.26,
-   "new": 15.16
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y3",
-   "old": 22.23,
-   "new": 22.18
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y5",
-   "old": 27.07,
-   "new": 26.87
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.spot_last_week",
-   "old": 14.4,
-   "new": 14.07
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y1",
-   "old": 10.56,
-   "new": 10.52
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y3",
-   "old": 14.26,
-   "new": 14.24
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y5",
-   "old": 15.8,
-   "new": 15.72
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.spot_last_week",
-   "old": 11.05,
-   "new": 10.81
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].adtvUsdM",
-   "old": 2850.4,
-   "new": 2835.1
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.usd_m",
-   "old": 2850.4,
-   "new": 2835.1
-  },
-  {
-   "at": "2026-10-10T00:02:21.857Z",
-   "file": "peers.js",
    "path": "peers[2].adtv.product_of_averages_usd_m",
    "old": 2808.7,
    "new": 2794.9
@@ -4200,7 +4116,91 @@
    "path": "sweepLog[5].checked[0]",
    "old": null,
    "new": "SEC EDGAR"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-12)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-12&todate=2026-10-12&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-13&todate=2026-10-13&limit=10000"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-12)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2515,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-09",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.24,
+   "new": 5.21
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16179,
+   "new": 16180
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-08",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-13T19:54:45.846Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 791,
+   "new": 793
   }
  ],
- "generated": "2026-10-13T14:57:02.329Z"
+ "generated": "2026-10-13T19:54:45.846Z"
 }
