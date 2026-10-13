@@ -1,0 +1,30 @@
+GET https://data.bis.org/release-calendar
+-> HTTP 200 text/html; charset=utf-8 158336 bytes
+
+(26 distinct matches)
+/_next/static/chunks/polyfills-42372ed130431b0a.js
+/_next/static/chunks/webpack-d3ffeddbbec76205.js
+/_next/static/chunks/framework-13a24cd7d57633c0.js
+/_next/static/chunks/main-dba022ba04ee75df.js
+/_next/static/chunks/pages/_app-6e0b881de5f48b3c.js
+/_next/static/chunks/36b109df-6db8cd51a3357465.js
+/_next/static/chunks/83931905-3a5d6e2ca5f2bf68.js
+/_next/static/chunks/974-cf3647b27ae8e2d1.js
+/_next/static/chunks/2067-f9277d39425db4e1.js
+/_next/static/chunks/7002-0e2bb22d01ba7763.js
+/_next/static/chunks/1981-a8eaf5189da04e68.js
+/_next/static/chunks/9432-a235edaf6d29f2d6.js
+/_next/static/chunks/pages/release-calendar-aaa987e29ee7b846.js
+/_next/static/23f141a220724635c403a30f9307e9c99b9cab14/_buildManifest.js
+/_next/static/23f141a220724635c403a30f9307e9c99b9cab14/_ssgManifest.js
+release-calendar
+ReleaseCalendarPage_pageHeader__gqBv5
+ReleaseCalendarToolbar_pageActions__zLQJ0
+ReleaseCalendarToolbar_alignLeft__c0QPw
+ReleaseCalendarToolbar_alignRight__6qXlZ
+ReleaseCalendarPage_separator__YbO45
+ReleaseCalendar_root__mGvp5
+ReleaseCalendarHeader_root__Gl_KL
+ReleaseCalendar_row__FSk9W
+ReleaseCalendarPage_exportTable__C_gP4
+/api/v0/releasecalendar

@@ -1,0 +1,14 @@
+GET https://stats.bis.org/api/v2/data/dataflow/BIS/WS_TC/2.0/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv
+-> HTTP 200 text/csv;charset=UTF-8 1628 bytes
+
+FREQ,BORROWERS_CTY,TC_BORROWERS,TC_LENDERS,VALUATION,UNIT_TYPE,TC_ADJUST,COLLECTION,DECIMALS,UNIT_MULT,UNIT_MEASURE,TITLE_TS,TIME_PERIOD,OBS_VALUE,OBS_STATUS,OBS_PRE_BREAK,OBS_CONF
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2024-Q1,16.4,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2024-Q2,16.6,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2024-Q3,16.7,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2024-Q4,16.9,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2025-Q1,16.9,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2025-Q2,17,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2025-Q3,17.2,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2025-Q4,17.4,A,,F
+Q,MX,H,A,M,770,A,E,1,0,367,Mexico - Credit to Households and NPISHs from All sectors at Market value - Percentage of GDP - Adjusted for breaks,2026-Q1,17.4,A,,F
+

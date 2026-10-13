@@ -1,6 +1,0 @@
-GET https://data.bis.org/release-calendar
--> HTTP 200 text/html; charset=utf-8 158336 bytes
-
-(2 distinct matches)
-https://stats.bis.org/api-doc/v2/
-https://www.bis.org/rss/index.htm

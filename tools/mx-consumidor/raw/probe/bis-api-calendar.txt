@@ -1,4 +1,0 @@
-GET https://data.bis.org/api/v1/release-calendar
--> HTTP 404 application/json 22 bytes
-
-{"detail":"Not Found"}

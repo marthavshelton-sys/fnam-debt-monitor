@@ -1,29 +1,29 @@
 {
- "ranAt": "2026-10-13T02:06:39.577Z",
- "requestHash": "562a07cb8330a7c6",
+ "ranAt": "2026-10-13T02:08:51.091Z",
+ "requestHash": "7bb7c14d8576d808",
  "requests": [
   {
-   "name": "fred-325-dates",
-   "url": "https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key=***&file_type=json",
+   "name": "bis-tc-v1",
+   "url": "https://stats.bis.org/api/v1/data/WS_TC/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv",
    "method": "GET",
    "status": 200,
-   "type": "application/json; charset=UTF-8",
-   "finalUrl": "https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key=***&file_type=json",
-   "lastModified": "Tue, 13 Oct 2026 02:06:35 GMT",
-   "bytes": 546
+   "type": "text/csv;charset=UTF-8",
+   "finalUrl": "https://stats.bis.org/api/v1/data/WS_TC/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv",
+   "lastModified": null,
+   "bytes": 1628
   },
   {
-   "name": "fred-qmxham-obs",
-   "url": "https://api.stlouisfed.org/fred/series/observations?series_id=QMXHAM770A&observation_start=2025-01-01&realtime_start=2025-01-01&realtime_end=9999-12-31&api_key=***&file_type=json",
+   "name": "bis-tc-v2",
+   "url": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_TC/2.0/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv",
    "method": "GET",
    "status": 200,
-   "type": "application/json; charset=UTF-8",
-   "finalUrl": "https://api.stlouisfed.org/fred/series/observations?series_id=QMXHAM770A&observation_start=2025-01-01&realtime_start=2025-01-01&realtime_end=9999-12-31&api_key=***&file_type=json",
-   "lastModified": "Mon, 15 Jun 2026 18:07:54 GMT",
-   "bytes": 844
+   "type": "text/csv;charset=UTF-8",
+   "finalUrl": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_TC/2.0/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv",
+   "lastModified": null,
+   "bytes": 1628
   },
   {
-   "name": "bis-portal-links",
+   "name": "bis-portal-api",
    "url": "https://data.bis.org/release-calendar",
    "method": "GET",
    "status": 200,
@@ -33,24 +33,14 @@
    "bytes": 158336
   },
   {
-   "name": "bis-api-calendar",
-   "url": "https://data.bis.org/api/v1/release-calendar",
+   "name": "bis-statistics-page",
+   "url": "https://www.bis.org/statistics/totcredit.htm",
    "method": "GET",
-   "status": 404,
-   "type": "application/json",
-   "finalUrl": "https://data.bis.org/api/v1/release-calendar",
-   "lastModified": null,
-   "bytes": 22
-  },
-  {
-   "name": "bis-rss",
-   "url": "https://data.bis.org/feed/release-calendar.xml",
-   "method": "GET",
-   "status": 404,
+   "status": 200,
    "type": "text/html; charset=utf-8",
-   "finalUrl": "https://data.bis.org/feed/release-calendar.xml",
+   "finalUrl": "https://data.bis.org/topics/TOTAL_CREDIT",
    "lastModified": null,
-   "bytes": 14199
+   "bytes": 246658
   }
  ]
 }

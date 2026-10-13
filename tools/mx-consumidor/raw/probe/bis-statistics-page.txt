@@ -1,0 +1,36 @@
+GET https://www.bis.org/statistics/totcredit.htm
+-> HTTP 200 text/html; charset=utf-8 246658 bytes · final https://data.bis.org/topics/TOTAL_CREDIT
+
+ Credit to the non-financial sector - overview | BIS Data Portal 
+ Skip to content 
+ Topics Releases Help Search 
+ Credit to the non-financial sector
+ Overview 
+ About
+ The data set on credit to the non-financial sector captures borrowing activity by the government sector and the private non-financial sector in more than 40 economies. 
+ Quarterly data on credit to the government sector cover on average 20 years, while those on credit to the private non-financial sector on average more than 45 years. The statistics follow the framework of the System of National Accounts. 
+ On the lending side, two credit data series are provided. On the one hand, total credit comprises financing from all sources, including domestic banks, other domestic financial corporations, non-financial corporations and non-residents. On the other, bank credit includes credit extended by domestic banks to the private non-financial sector. 
+ On the borrowing side, total credit to the non-financial sector is broken down into credit to the government sector and the private non-financial sector, and the latter is further split between non-financial corporations and households (including non-profit institutions serving households). 
+ The financial instruments covered comprise currency and deposits (which are mostly zero in the case of credit to the private non-financial sector), loans and debt securities. The sum of these three instruments is defined here as “core debt”. For the government sector, core debt generally represents the bulk of total debt. 
+ The statistics follow the framework of the System of National Accounts 2008, which stipulates that outstanding credit instruments should be valued at market values. For credit to the government, data are also provided in nominal (face) values, since these can be useful in some forms of debt sustainability analysis. 
+ Metadata
+ Seasonal adjustment Non seasonally adjusted 
+ Frequencies Quarterly 
+ Contact BIS statistics 
+ Units Domestic currency (incl. conv. to current ccy made using a fix parity) 
+ Percentage of GDP 
+ Percentage of GDP (using PPP exchange rates) 
+ US dollar 
+ Collection indicators End of period 
+ Next release date 7 December 2026 
+ Last release date 14 September 2026 
+ View all 
+ Methodology
+ Explanatory Notes Technical Documents 
+ How much does the private sector really borrow - a new database for total credit to the private non-financial sector
+ 18 Mar 2013 Christian Dembiermont, Mathias Drehmann and Siriporn Muksakunratana
+ Despite their importance, data capturing total credit to the private non-financial sector are scarce. This article introduces a new BIS database that provides this information for 40 economies with, on average, more than 45 years of quarterly data, reaching back to the 1940s and 1950s in some cases. It explains the key concepts underlying the compilation of the new series, including a description of the high-level statistical criteria applied, the characteristics of the underlying series used and the statistical techniques employed. For illustration purposes, some facets of the historical evolution of total credit are explored, revealing interesting similarities and differences across countries. 
+ A new database on general government debt
+ 13 Sept 2015 Christian Dembiermont, Michela Scatigna, Robert Szemere and Bruno Tissot
+ We present a new data set on credit to the general government sector for 26 advanced and 14 emerging market economies. The main benefit of these new BIS series for 'public debt' is that they provide data with similar characteristics from across the globe, facilitating cross-country comparisons. Another distinctive feature is that the data set contains series expressed in both nominal and market value terms, allowing for a wide range of analyses. Lastly, the statistical concepts are identical to those underlying the BIS data set on credit to the private non-financial sector, published since 2013. Taken together, the data sets can thus provide a useful pic
+… (8778 more characters)
