@@ -1,7 +1,6 @@
 [
-  { "name": "fred-325-dates", "url": "https://api.stlouisfed.org/fred/release/dates?release_id=325&realtime_start=2024-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&sort_order=asc&limit=200&api_key={{FRED_API_KEY}}&file_type=json", "keep": 0 },
-  { "name": "fred-qmxham-obs", "url": "https://api.stlouisfed.org/fred/series/observations?series_id=QMXHAM770A&observation_start=2025-01-01&realtime_start=2025-01-01&realtime_end=9999-12-31&api_key={{FRED_API_KEY}}&file_type=json", "keep": 0 },
-  { "name": "bis-portal-links", "url": "https://data.bis.org/release-calendar", "html": "raw", "find": "https?://[^\"' ]*(rss|feed|export|calendar|ical|ics|csv|api)[^\"' ]*" },
-  { "name": "bis-api-calendar", "url": "https://data.bis.org/api/v1/release-calendar", "keep": 6000 },
-  { "name": "bis-rss", "url": "https://data.bis.org/feed/release-calendar.xml", "keep": 6000 }
+  { "name": "bis-tc-v1", "url": "https://stats.bis.org/api/v1/data/WS_TC/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv", "keep": 4000, "ua": "bot" },
+  { "name": "bis-tc-v2", "url": "https://stats.bis.org/api/v2/data/dataflow/BIS/WS_TC/2.0/Q.MX.H.A.M.770.A?startPeriod=2024-Q1&format=csv", "keep": 4000, "ua": "bot" },
+  { "name": "bis-portal-api", "url": "https://data.bis.org/release-calendar", "html": "raw", "find": "(/api/[A-Za-z0-9_./?=&-]+|/_next/static/[A-Za-z0-9_./-]+\\.js|release[_-]?calendar[A-Za-z0-9_./?=&-]*)" },
+  { "name": "bis-statistics-page", "url": "https://www.bis.org/statistics/totcredit.htm", "keep": 4000 }
 ]
