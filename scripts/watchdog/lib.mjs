@@ -101,12 +101,24 @@ export function isoSeconds(t) {
 export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = null }) {
   const from = Math.max(now - lookbackMs, since != null ? since : -Infinity);
   const all = dueTimes(crons, from - 864e5, now); // every due time of every cron (a day earlier too, so a run just after `from` is attributed)
-  const covered = new Set();
+  const covered = new Set(), hand = [];
   for (const r of runs || []) {
     if (!r.landed) continue;
     const t = Date.parse(r.createdAt); if (!Number.isFinite(t)) continue;
     let d = null; for (const x of all) { if (x <= t) d = x; else break; }
     if (d != null) covered.add(d);
+    if (r.manual) hand.push({ t, crons: r.crons || crons });
+  }
+  // A refresh re-run by hand on main does the whole job of every schedule of its workflow, so it also stands in for the latest
+  // due time at or before its start of EACH of those schedules (12-Oct-2026: GitHub never started the 13:50 UTC U.S. macro, the
+  // 14:10 UTC American Consumer and the 19:25 UTC MX macro schedules; later schedules landed, so a hand run was credited to a slot
+  // already covered and the three read "late" for a day or more with every file current). A scheduled run still covers only the
+  // slot it belongs to (a market-only run never covers a failing filings run), and a slot after the hand run is not covered.
+  for (const h of hand) {
+    for (const cron of h.crons) {
+      const d = dueTimes([cron], from - 864e5, h.t).slice(-1)[0];
+      if (d != null) covered.add(d);
+    }
   }
   const out = [];
   for (const cron of crons) {
@@ -127,8 +139,10 @@ export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = nul
 export function handRunsToCheck(manual, { now, lookbackMs }) {
   return (manual || []).filter((r) => r.head_branch === 'main' && Number.isFinite(Date.parse(r.created_at)) && Date.parse(r.created_at) >= now - lookbackMs);
 }
-export function creditHandRun({ landed, recent, run, afterCommitFailure = false }) {
-  recent.push({ createdAt: run.created_at, landed: true, manual: true });
+// `crons`: the schedules of the hand run's own workflow (a dashboard can watch several workflows; a hand run of one never stands
+// in for another's schedule). perCronLate credits the run to the latest due time of each of them at or before its start.
+export function creditHandRun({ landed, recent, run, afterCommitFailure = false, crons = null }) {
+  recent.push({ createdAt: run.created_at, landed: true, manual: true, ...(crons ? { crons } : {}) });
   return landed && landed.run.created_at >= run.created_at ? landed : { run, afterCommitFailure, manual: true };
 }
 

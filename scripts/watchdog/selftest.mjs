@@ -67,7 +67,10 @@ assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [..
 // a dashboard's first day (American Consumer, merged 11-Oct-2026 18:03 UTC, a hand run right after): the 21:40 schedule of the
 // evening before could not have run; with the dashboard's `since` it is not a miss, and a real miss afterwards still is
 const cons = { crons: ['10 14 * * *', '40 21 * * *'], graceMs: 3 * H, lookbackMs: 14 * 24 * H }, consHand = [{ createdAt: '2026-10-11T18:03:36Z', landed: true, manual: true }], consSince = t('2026-10-11T18:03:29Z');
-assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consHand }).map((x) => x.cron), ['40 21 * * *']);
+const consSched = [{ createdAt: '2026-10-11T18:03:36Z', landed: true }]; // the same instant as a scheduled run: it covers only 14:10
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consSched }).map((x) => x.cron), ['40 21 * * *']);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consSched, since: consSince }).map((x) => x.cron), []);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consHand }).map((x) => x.cron), []);              // a hand run stands in for 10-Oct 21:40 too (12-Oct-2026 rule)
 assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-11T18:30:00Z'), runs: consHand, since: consSince }).map((x) => x.cron), []);
 assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-12T03:50:00Z'), runs: [...consHand, { createdAt: '2026-10-11T21:52:00Z', landed: true }], since: consSince }).map((x) => x.cron), []);
 assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-12T03:50:00Z'), runs: consHand, since: consSince }).map((x) => x.cron), ['40 21 * * *']);
@@ -96,6 +99,27 @@ assert.equal(last.run.id, 53);                                                  
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-11T15:58:00Z'), runs: credited }).map((x) => x.cron), []);                // the hand run covers Friday 14:40
 assert.equal(creditHandRun({ landed: { run: { created_at: '2026-10-08T22:59:08Z' } }, recent: [], run: hand }).run.id, 52);       // a hand run newer than every scheduled one is lastSuccess
 assert.equal(creditHandRun({ landed: null, recent: [], run: hand, afterCommitFailure: true }).afterCommitFailure, true);
+// schedules GitHub never started, 12-Oct-2026 (the runs as GitHub listed them). U.S. macro: no run for 13:50 UTC; later schedules
+// landed at 21:52 and 22:01, which belong to 20:05. A hand run afterwards is credited to the latest due time of EACH schedule of
+// its workflow before it, so it covers 13:50; a hand run before the missed slot does not.
+const usm = { crons: ['50 12,13 * * 1-5', '5 14,20 * * *', '45 14,15 * * 3', '20 17 * * 4'], graceMs: 3 * H, lookbackMs: 14 * 24 * H, since: t('2026-10-11T14:14:42Z') }; // since: the oldest run of the fixture
+const usmRuns = ['2026-10-12T22:01:22Z', '2026-10-12T21:52:54Z', '2026-10-12T13:21:38Z', '2026-10-11T20:14:36Z', '2026-10-11T14:14:42Z'].map((c) => ({ createdAt: c, landed: true }));
+assert.deepEqual(perCronLate({ ...usm, now: t('2026-10-13T03:50:00Z'), runs: usmRuns }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+const usmHand = [];
+creditHandRun({ landed: null, recent: usmHand, run: { id: 70, created_at: '2026-10-13T02:20:00Z' }, crons: usm.crons });
+assert.deepEqual(usmHand[0].crons, usm.crons);
+assert.deepEqual(perCronLate({ ...usm, now: t('2026-10-13T03:50:00Z'), runs: [...usmRuns, ...usmHand] }).map((x) => x.cron), []);
+assert.deepEqual(perCronLate({ ...usm, now: t('2026-10-13T03:50:00Z'), runs: [...usmRuns, { createdAt: '2026-10-12T13:40:00Z', landed: true, manual: true }] }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+// a hand run of another workflow of the same dashboard never stands in for these schedules
+assert.deepEqual(perCronLate({ ...usm, now: t('2026-10-13T03:50:00Z'), runs: [...usmRuns, { createdAt: '2026-10-13T02:20:00Z', landed: true, manual: true, crons: ['0 6 * * *'] }] }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+// a hand run that did not land (no commit) covers nothing
+assert.deepEqual(perCronLate({ ...usm, now: t('2026-10-13T03:50:00Z'), runs: [...usmRuns, { createdAt: '2026-10-13T02:20:00Z', landed: false, manual: true }] }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+// American Consumer: no run for 14:10 UTC; the 21:40 schedule landed at 22:05
+const consRuns = [{ createdAt: '2026-10-12T22:05:30Z', landed: true }, { createdAt: '2026-10-12T00:43:12Z', landed: true }, ...consHand];
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-13T03:50:00Z'), runs: consRuns, since: consSince }).map((x) => x.cron), ['10 14 * * *']);
+assert.deepEqual(perCronLate({ ...cons, now: t('2026-10-13T03:50:00Z'), runs: [...consRuns, { createdAt: '2026-10-13T02:20:00Z', landed: true, manual: true }], since: consSince }).map((x) => x.cron), []);
+// and the ASUR case is unchanged: a failed filings schedule stays late until a run lands for it
+assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);
 
 // Mexico City time (UTC-6, no daylight saving since 2022)
 assert.equal(cdmx('2026-10-01T15:12:00Z'), '01-Oct-2026 09:12 CDMX');
