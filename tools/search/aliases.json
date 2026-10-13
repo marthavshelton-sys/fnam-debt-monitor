@@ -1,0 +1,30 @@
+{
+  "about": "Curated terms for the site search, keyed by the address of a page (/oracle/), a section (/mx/fiscal/#pemex) or a macro view (/macro/?view=cpi). 'ids' name what the entry IS (a company, its tickers, the abbreviation of an indicator): typing one in full puts the entry first. 'aliases' name what it COVERS: typing one in full ranks it high, below the entry it is. Every term must appear in the text of its page (either language) and every address must exist, or the index build fails, so a renamed or retired term cannot linger. Everything else (titles, sections, sub-headings, table labels) is read from the pages automatically.",
+  "exclude": [],
+  "entries": {
+    "/oracle/": { "ids": ["Oracle", "ORCL", "Oracle Corporation"], "aliases": ["OCI"] },
+    "/mauricio/": { "ids": ["Mauricio"], "aliases": ["Oracle", "ORCL"] },
+    "/gap/": { "ids": ["GAP", "GAPB", "PAC", "Grupo Aeroportuario del Pacífico"] },
+    "/oma/": { "ids": ["OMA", "OMAB", "Grupo Aeroportuario del Centro Norte"] },
+    "/asur/": { "ids": ["ASUR", "ASURB", "ASR", "Grupo Aeroportuario del Sureste"] },
+    "/aeropuertos/": { "aliases": ["GAP", "OMA", "ASUR"] },
+    "/qualitas/": { "ids": ["Quálitas", "Q*", "Quálitas Controladora"] },
+    "/gentera/": { "ids": ["Gentera", "GENTERA"], "aliases": ["Compartamos"] },
+    "/otras-empresas/": { "aliases": ["Quálitas", "Gentera"] },
+    "/hiperescaladores/": { "aliases": ["Microsoft", "MSFT", "Alphabet", "GOOGL", "Google", "Amazon", "AMZN", "Meta", "META", "Oracle", "ORCL"] },
+
+    "/macro/?view=cpi": { "ids": ["CPI"] },
+    "/macro/?view=pce": { "ids": ["PCE"] },
+    "/macro/?view=ppi": { "ids": ["PPI"] },
+    "/macro/?view=cuts": { "aliases": ["Challenger"] },
+    "/macro/?view=spr": { "ids": ["SPR"] },
+    "/macro/?view=fincond": { "aliases": ["NFCI"] },
+    "/mx/macro/?view=inpc": { "ids": ["INPC"] },
+    "/mx/macro/?view=external": { "aliases": ["tipo de cambio", "exchange rate", "FIX"] },
+    "/mx/macro/?view=banxico": { "aliases": ["Banxico"] },
+    "/mx/macro/?view=labor": { "aliases": ["IMSS", "ENOE"] },
+    "/mx/fiscal/#banxico": { "aliases": ["Banxico"] },
+    "/aeropuertos/trafico/#aicm": { "ids": ["AICM"] },
+    "/aeropuertos/trafico/#aifa": { "ids": ["AIFA"] }
+  }
+}
