@@ -1116,11 +1116,6 @@
    ]
   }
  },
- "errors": [
-  {
-   "ticker": "WALMEX",
-   "error": "fetch failed https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT"
-  }
- ],
+ "errors": [],
  "checkedAt": "2026-10-11T20:09:48.483Z"
 }
