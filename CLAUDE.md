@@ -278,6 +278,17 @@ dashboards, everything built from public data by GitHub Actions.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
   Pages' single-page fallback served the home page with 200). Links inside it are absolute. `site/favicon.ico` is the
   site's "F" mark; pages carry the same mark as a data-URI icon.
+- Site search (owner, 13-Oct-2026: "oracle" or "ORCL" must suggest the Oracle page, and so on): a button in the landing
+  page's top bar (also `/`, Ctrl/⌘+K) opens a dialog (`site/assets/search.js`) over `site/assets/search-index.js`, which
+  `scripts/search/build-index.mjs` builds by rendering every public page in both languages (pages, every h2 section by its
+  anchor, the macro `?view=`s, the PDF links, sub-headings and table labels as keywords). Never edit the index by hand; the
+  only curated input is `tools/search/aliases.json` (tickers, names, abbreviations; each must appear on its page or the build
+  fails). `search-index.yml` rebuilds and commits it on merges to main and daily at 09:37 UTC after
+  `scripts/search/check.mjs --queries-only` passes (fixed first results: oracle/ORCL → /oracle/, every ticker, the
+  abbreviations); a failure keeps the last index and opens a "SEARCH INDEX: build failing" issue. A new page or section is
+  indexed by itself; renaming a section that `check.mjs → EXPECT` or `aliases.json` names means updating them in the same
+  change. Before pushing a landing-page or search change run `node scripts/search/check.mjs --shots <dir>`. Runbook
+  `tools/search/README.md`.
 
 ## Scheduled refreshes — rules that apply to every pipeline
 

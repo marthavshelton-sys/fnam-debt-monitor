@@ -104,6 +104,15 @@
 /status/*
   Cache-Control: no-store
 
+# Site search on the landing page: the script and its index change under fixed URLs (the index is rebuilt whenever the
+# pages change, .github/workflows/search-index.yml). no-store, like the other files rewritten in place, so a returning
+# reader never pairs an old index or script with a newer page.
+/assets/search.js
+  Cache-Control: no-store
+
+/assets/search-index.js
+  Cache-Control: no-store
+
 # Cloudflare Pages sends Access-Control-Allow-Origin: * on every response by default, which lets any other site's
 # scripts read these files (the status file, data files). Every reader is a page on this same origin, so drop it
 # (last line of the block below).

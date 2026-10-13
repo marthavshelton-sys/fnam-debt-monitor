@@ -1,0 +1,110 @@
+# Keeps the site search on the landing page current: rebuilds site/assets/search-index.js from the pages themselves
+# (every public page rendered in Spanish and English: titles, sections, macro views, sub-headings, table labels and the
+# curated identifiers of tools/search/aliases.json) and commits it when it changed. Runbook: tools/search/README.md.
+#
+#   on a push to main that touches the site or the search code (page changes arrive as merges; the data refreshes' own
+#   commits carry [skip actions] and do not start it), every day at 09:37 UTC (headings composed from data, such as the
+#   Hyperscaler Hub's, follow the twice-daily refreshes), and by hand.
+#
+# Before committing, scripts/search/check.mjs --queries-only must pass (oracle / ORCL find the Oracle model first, every
+# ticker its company, every curated abbreviation its section, the suggestion chips find something). A failed build or check
+# commits nothing, so the site keeps the last good index, and opens one "SEARCH INDEX: build failing" issue (label
+# search-index), closed by the next good run. Bot commits carry [skip actions].
+name: Refresh site search index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "!site/assets/search-index.js"
+      - "scripts/search/**"
+      - "tools/search/**"
+      - ".github/workflows/search-index.yml"
+  schedule:
+    - cron: "37 9 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: search-index
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # One retry, so a transient download failure does not fail the run.
+      - name: Install Playwright's Chromium
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw" && npm init -y >/dev/null
+          for i in 1 2; do
+            npm i --no-audit --no-fund playwright@1.56.1 && npx playwright install --with-deps chromium && exit 0
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          exit 1
+
+      - name: Build the index from the pages
+        id: build
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node scripts/search/build-index.mjs
+
+      - name: Check what the search finds
+        id: check
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: node scripts/search/check.mjs --queries-only
+
+      - name: Commit if the index changed
+        shell: bash
+        run: |
+          git config user.name "search-index[bot]"
+          git config user.email "search-index@users.noreply.github.com"
+          git add site/assets/search-index.js
+          if git diff --cached --quiet; then echo "Index unchanged; nothing to commit."; exit 0; fi
+          git commit -m "search: refresh the site search index $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:main; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin main || true
+            sleep $((i * 5))
+          done
+          exit 1
+
+      - name: Issue when the build fails / close it on recovery
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          OUTCOME: ${{ job.status }}
+        with:
+          script: |
+            const label = 'search-index';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (process.env.OUTCOME === 'cancelled') return;
+            if (process.env.OUTCOME !== 'success') {
+              const body = `The site search index could not be rebuilt or did not pass its checks, so nothing was committed and the landing page keeps searching the last good index (newer page changes are not findable until this is fixed). Run: ${runUrl}`;
+              if (issue) await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
+              else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Site search index needs attention' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title: 'SEARCH INDEX: build failing', labels: [label], body });
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Rebuilt and checked in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
