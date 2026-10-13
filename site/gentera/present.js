@@ -40,7 +40,7 @@
     }
     at(sec) { this.sec = sec; }
     // Contents page: the page's own section numbers and titles (read from its headings), one linked row per section, and a note
-    // naming the sections of the page the deck does not carry (share-price performance, the valuation model), composed from them.
+    // naming the sections of the page the deck does not carry (share-price performance; the valuation model when it is shown), composed from them.
     contentsPage() {
       const meta = this.pageSectionMeta(), out = this.sectionsNotInDeck(meta), url = this.cfg.url;
       const list = out.length > 1 ? out.slice(0, -1).join(', ') + this.T(' y ', ' and ') + out[out.length - 1] : out.join('');

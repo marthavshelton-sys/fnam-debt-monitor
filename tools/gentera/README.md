@@ -168,6 +168,18 @@ node scripts/gentera/fetch-market.mjs
 python -m http.server 8765   # then open http://localhost:8765/site/gentera/
 ```
 
+## Valuation section: hidden, not deleted (owner, 13-Oct-2026)
+
+Section 05 (the excess-return model, this page's DCF equivalent) is hidden at the owner's request: the markup and engine
+stay in place and keep computing (`V`, `valCompute`, URL `v=` state), but nothing of it is shown, linked or numbered.
+The switch is the `hidden` attribute on every element of `site/gentera/index.html` carrying `data-valuation`: the
+section itself, its jump-menu link, the "Valuación" paragraph of the methodology. `VAL_ON` in `app.js`
+follows the section's attribute (it drops "valuation defaults" from the refresh table); `numberSections()` numbers the
+sections on show at every render, so while 05 is hidden the later sections print one lower (relative valuation 05 …
+methodology 10), and the deck reads those numbers (`pageSectionMeta()` in `present-core.js` skips hidden sections, so
+its contents note names only 04). To show it again remove `hidden` from those elements; nothing else changes. Do not
+remove the section, and do not show it again unless she asks.
+
 ## Board presentation (PDF) — the "Presentación (PDF)" button
 
 The button builds a Letter-size PDF in the browser in one click. `site/gentera/present.js` (`GenteraDoc`) extends
@@ -182,7 +194,7 @@ Deep link: `/gentera/?present=1&lang=es` (or `lang=en`) opens the page, sets the
 
 Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitted) · contents (one linked row per section with
 the page's own numbers and titles, read from its headings; sub-rows when a section spans several pages; the note names the
-sections the deck does not carry, 04 and 05) · tear sheet (price, market cap
+sections the deck does not carry: 04, plus 05 when the valuation section is shown) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, gross loans, financial
 margin LTM and quarter with NIM, cost of risk, stage 3, coverage, efficiency, controlling net income LTM with a memo
 without the 4Q25 item, EPS, P/E, P/BV, ROAE, ICAP, clients, guidance in force, next results; 12-month chart vs the
