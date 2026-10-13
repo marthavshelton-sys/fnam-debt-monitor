@@ -1,0 +1,16 @@
+[
+  { "name": "inegi-cal-2026", "url": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf", "pdf": true, "keep": 0, "save": "cal_2026.pdf" },
+  { "name": "inegi-cal-2027", "url": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2027.pdf", "pdf": true, "keep": 0, "save": "cal_2027.pdf" },
+  { "name": "bis-relcal", "url": "https://www.bis.org/statistics/relcal.htm", "keep": 0 },
+  { "name": "fred-series-release", "url": "https://api.stlouisfed.org/fred/series/release?series_id=QMXHAM770A&api_key={{FRED_API_KEY}}&file_type=json", "keep": 0 },
+  { "name": "fred-release-dates", "url": "https://api.stlouisfed.org/fred/releases/dates?realtime_start=2026-01-01&realtime_end=2027-12-31&include_release_dates_with_no_data=true&limit=1000&sort_order=asc&api_key={{FRED_API_KEY}}&file_type=json", "keep": 0, "grep": "BIS|Bank for International|Credit to|Total Credit", "context": 3 },
+  { "name": "bx-publicaciones", "url": "https://www.banxico.org.mx/publicaciones-y-prensa/", "links": "calend|Calend" },
+  { "name": "bx-sie-home", "url": "https://www.banxico.org.mx/SieInternet/", "links": "calend|Calend", "enc": "latin1" },
+  { "name": "bx-cf958", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF958&sector=27&locale=es", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-cf297", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF297&sector=19", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-cf840", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF840&sector=18", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-cf256", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF256&sector=21", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-ce100", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CE100&sector=1&locale=es", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-cl289", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CL289&sector=10", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 },
+  { "name": "bx-cf835", "url": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&locale=es&idCuadro=CF835&sector=19", "enc": "latin1", "grep": "actualiz|public|pr[oó]xim|periodicidad|fecha", "context": 1 }
+]
