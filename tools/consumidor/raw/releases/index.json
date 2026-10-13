@@ -419,6 +419,22 @@
    "fiscalYearEnd": "0227",
    "filings": [
     {
+     "accn": "0001646972-26-000059",
+     "filed": "2026-10-13",
+     "report": "2026-10-13",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000059/0001646972-26-000059-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000059/aciq226earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/ACI/2026-10-13_0001646972-26-000059_ex-99-1.txt",
+       "chars": 28520
+      }
+     ]
+    },
+    {
      "accn": "0001646972-26-000041",
      "filed": "2026-07-23",
      "report": "2026-07-23",
@@ -431,36 +447,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000041/aciq126earningsrelease.htm",
        "file": "tools/consumidor/raw/releases/ACI/2026-07-23_0001646972-26-000041_ex-99-1.txt",
        "chars": 28252
-      }
-     ]
-    },
-    {
-     "accn": "0001646972-26-000028",
-     "filed": "2026-04-14",
-     "report": "2026-04-14",
-     "items": "2.02,7.01,8.01,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/0001646972-26-000028-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/aciq425earningsrelease.htm",
-       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-1.txt",
-       "chars": 30335
-      },
-      {
-       "type": "EX-99.2",
-       "description": "EX-99.2",
-       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/ex992-opioid.htm",
-       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-2.txt",
-       "chars": 4198
-      },
-      {
-       "type": "EX-99.3",
-       "description": "EX-99.3",
-       "url": "https://www.sec.gov/Archives/edgar/data/1646972/000164697226000028/ex993-dividendrelease.htm",
-       "file": "tools/consumidor/raw/releases/ACI/2026-04-14_0001646972-26-000028_ex-99-3.txt",
-       "chars": 4162
       }
      ]
     }
@@ -748,6 +734,22 @@
    "fiscalYearEnd": "0102",
    "filings": [
     {
+     "accn": "0001286681-26-000039",
+     "filed": "2026-10-13",
+     "report": "2026-10-13",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000039/0001286681-26-000039-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000039/dpz-ex99_1.htm",
+       "file": "tools/consumidor/raw/releases/DPZ/2026-10-13_0001286681-26-000039_ex-99-1.txt",
+       "chars": 31518
+      }
+     ]
+    },
+    {
      "accn": "0001286681-26-000034",
      "filed": "2026-07-20",
      "report": "2026-07-20",
@@ -760,22 +762,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000034/dpz-ex99_1.htm",
        "file": "tools/consumidor/raw/releases/DPZ/2026-07-20_0001286681-26-000034_ex-99-1.txt",
        "chars": 32250
-      }
-     ]
-    },
-    {
-     "accn": "0001286681-26-000024",
-     "filed": "2026-04-27",
-     "report": "2026-04-27",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000024/0001286681-26-000024-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1286681/000128668126000024/dpz-ex99_1.htm",
-       "file": "tools/consumidor/raw/releases/DPZ/2026-04-27_0001286681-26-000024_ex-99-1.txt",
-       "chars": 30617
       }
      ]
     }
@@ -912,6 +898,29 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001628280-26-065582",
+     "filed": "2026-10-13",
+     "report": "2026-10-13",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/0001628280-26-065582-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE - THIRD QUARTER 2026 RESULTS",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/a3q26erfexhibit991narrative.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-10-13_0001628280-26-065582_ex-99-1.txt",
+       "chars": 24131
+      },
+      {
+       "type": "EX-99.2",
+       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE FINANCIAL SUPPLEMENT - THIRD QUARTER 2026",
+       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/a3q26erfex992supplement.htm",
+       "file": "tools/consumidor/raw/releases/JPM/2026-10-13_0001628280-26-065582_ex-99-2.txt",
+       "chars": 103901
+      }
+     ]
+    },
+    {
      "accn": "0001628280-26-048078",
      "filed": "2026-07-14",
      "report": "2026-07-14",
@@ -931,29 +940,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026048078/a2q26erfex992supplement.htm",
        "file": "tools/consumidor/raw/releases/JPM/2026-07-14_0001628280-26-048078_ex-99-2.txt",
        "chars": 102843
-      }
-     ]
-    },
-    {
-     "accn": "0001628280-26-024990",
-     "filed": "2026-04-14",
-     "report": "2026-04-14",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/0001628280-26-024990-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE - FIRST QUARTER 2026 RESULTS",
-       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/a1q26erfexhibit991narrative.htm",
-       "file": "tools/consumidor/raw/releases/JPM/2026-04-14_0001628280-26-024990_ex-99-1.txt",
-       "chars": 23068
-      },
-      {
-       "type": "EX-99.2",
-       "description": "JPMORGAN CHASE &amp; CO. EARNINGS RELEASE FINANCIAL SUPPLEMENT - FIRST QUARTER 2026",
-       "url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026024990/a1q26erfex992supplement.htm",
-       "file": "tools/consumidor/raw/releases/JPM/2026-04-14_0001628280-26-024990_ex-99-2.txt",
-       "chars": 88690
       }
      ]
     }
@@ -2147,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-11T16:24:34.503Z"
+ "checkedAt": "2026-10-13T20:14:10.422Z"
 }
