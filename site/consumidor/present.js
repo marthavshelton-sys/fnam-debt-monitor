@@ -182,8 +182,68 @@
     }
 
     // ================= contents =================
+    // Two columns of the engine's rows (tocEntries): a section with its pages never splits across the columns, the split is the
+    // one that leaves the two columns closest in height, and the type is the largest that lets the taller column fit. A section
+    // row prints its number, its title and its first page; its pages follow, indented under the title, each with a dotted
+    // leader to its page number; a title too long for the column wraps instead of being cut. Every row is a link to its page.
     contentsPage() {
-      this.drawContents(this.tocEntries(this.meta), this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${this.cfg.url}.`, `Every row links to its page. Sections are numbered as on ${this.cfg.url}.`));
+      const entries = this.tocEntries(this.meta), note = this.T(`Cada fila es un enlace a su página. La numeración de las secciones es la de ${this.cfg.url}.`, `Every row links to its page. Sections are numbered as on ${this.cfg.url}.`);
+      if (!this.tocPage || !entries.length) return;
+      const groups = [];
+      for (const e of entries) { if (e.sub && groups.length) groups[groups.length - 1].push(e); else groups.push([e]); }
+      const pdf = this.pdf, saved = this.cur, last = pdf.getNumberOfPages(), pg = this.pages[this.tocPage - 1];
+      pdf.setPage(this.tocPage); this.cur = pg;
+      const x0 = pg.x0, x1 = pg.x1, gut = 44, cw = (x1 - x0 - gut) / 2;
+      const noteH = this.measureText(note, x1 - x0, 7.5, 1.25) + 8, top = this.tocY + 10, avail = pg.y1 - noteH - 14 - top;
+      // one size: the rows' lines, wrapped to the column, and the column heights for a spacing factor f
+      const plan = (ms) => {
+        const ss = ms * 0.86;
+        this.font('bold', ms); const labW = Math.max(0, ...entries.map((e) => (!e.sub && e.label ? this.tw(tx(e.label)) : 0))) + ms * 0.9;
+        const numW = Math.max(this.tw('00'), ...entries.map((e) => this.tw(String(e.page)))) + 8, ind = ms * 0.9;
+        const rows = groups.map((g) => g.map((e) => {
+          const main = !e.sub, tx0 = labW + (main ? 0 : ind);
+          this.font(main ? 'bold' : 'normal', main ? ms : ss);
+          return { e, main, tx0, lines: this.wrap(P.titleCase(e.title, this.es), cw - tx0 - numW - 14) };
+        }));
+        const rowH = (r, f) => (r.main ? ms * 1.62 : ss * 1.62) * f + (r.lines.length - 1) * (r.main ? ms : ss) * 1.22;
+        const gapH = (f) => ms * 1.25 * f;
+        const colH = (gs, f) => gs.reduce((h, g, i) => h + (i ? gapH(f) : 0) + g.reduce((s, r) => s + rowH(r, f), 0), 0);
+        // the split that leaves the columns closest in height (the left one the taller on a tie, so it reads down then across)
+        let best = null;
+        for (let k = 1; k <= Math.max(1, rows.length - 1); k++) {
+          const d = Math.max(colH(rows.slice(0, k), 1), colH(rows.slice(k), 1));
+          if (!best || d <= best.d + 0.01) best = { k, d };
+        }
+        return { ms, ss, labW, numW, ind, rows, rowH, gapH, colH, cols: [rows.slice(0, best.k), rows.slice(best.k)] };
+      };
+      // the largest type that fits, then as much air between the rows as the page has (up to a point)
+      let L = null;
+      for (let ms = 11.5; ms >= 8; ms -= 0.25) { L = plan(ms); if (Math.max(...L.cols.map((c) => L.colH(c, 1))) <= avail) break; }
+      const H1 = Math.max(...L.cols.map((c) => L.colH(c, 1))), f = Math.max(0.8, Math.min(1.3, avail / H1));
+      let yEnd = top;
+      L.cols.forEach((col, ci) => {
+        const cx = x0 + ci * (cw + gut), nx = cx + cw;
+        let y = top;
+        col.forEach((g, gi) => {
+          if (gi) { const gh = L.gapH(f); pdf.setDrawColor(...GRID); pdf.setLineWidth(0.5); pdf.line(cx, y + gh * 0.5, nx, y + gh * 0.5); y += gh; }
+          for (const r of g) {
+            const size = r.main ? L.ms : L.ss, h = L.rowH(r, f), lh = size * 1.22, base0 = y + (r.main ? L.ms : L.ss) * 1.62 * f * 0.66;
+            if (r.main && r.e.label) { this.font('bold', size, MUTED); pdf.text(tx(r.e.label), cx, base0); }
+            this.font(r.main ? 'bold' : 'normal', size, r.main ? ACCENT : INK);
+            r.lines.forEach((ln, i) => pdf.text(ln, cx + r.tx0, base0 + i * lh));
+            const bl = base0 + (r.lines.length - 1) * lh, tEnd = cx + r.tx0 + this.tw(r.lines[r.lines.length - 1]) + 5, lEnd = nx - L.numW + 2;
+            if (lEnd > tEnd) { pdf.setDrawColor(...(r.main ? MUTED : GRID)); pdf.setLineWidth(r.main ? 0.7 : 0.8); pdf.setLineDashPattern([0.5, 2.6], 0); pdf.line(tEnd, bl - 1.2, lEnd, bl - 1.2); pdf.setLineDashPattern([], 0); }
+            this.font(r.main ? 'bold' : 'normal', size, r.main ? INK : MUTED); pdf.text(String(r.e.page), nx, bl, { align: 'right' });
+            pdf.link(cx, y, cw, h, { pageNumber: r.e.page });
+            y += h;
+          }
+        });
+        yEnd = Math.max(yEnd, y);
+      });
+      // the line between the columns, as on the executive summary
+      pdf.setDrawColor(...GRID); pdf.setLineWidth(0.5); pdf.line(x0 + cw + gut / 2, top - 2, x0 + cw + gut / 2, yEnd);
+      this.note(note, pg.y1 - noteH + 4);
+      this.cur = saved; pdf.setPage(last);
     }
 
     // ================= a section: figures, charts, what the page says about them =================
@@ -601,11 +661,14 @@
     finish() {
       while (this.pages.length < this.pdf.getNumberOfPages()) this.pages.push({ ...this.cur });
       const n = this.pdf.getNumberOfPages();
-      const left = this.T(`${this.cfg.short} · Presentación · ${this.date(this.todayIso)} · ${this.confidential()} · ${this.cfg.url}`, `${this.cfg.short} · Presentation · ${this.date(this.todayIso)} · ${this.confidential()} · ${this.cfg.url}`);
+      // the footer on one line: the word "Presentation" goes first, then the address (the cover and the contents page carry it)
+      const foot = (pres, url) => [this.cfg.short, pres ? this.T('Presentación', 'Presentation') : '', this.date(this.todayIso), this.confidential(), url ? this.cfg.url : ''].filter(Boolean).join(' · ');
+      this.font('bold', 8); const room = P.PAGE.L.w - P.MARGIN.left - P.MARGIN.right - this.tw(this.T(`Página ${n} de ${n}`, `Page ${n} of ${n}`)) - 16;
+      this.font('normal', 7.2); const left = [foot(1, 1), foot(0, 1), foot(0, 0)].find((t) => this.tw(tx(t)) <= room) || foot(0, 0);
       for (let i = 2; i <= n; i++) {
         const pg = this.pages[i - 1]; if (!pg) continue; this.pdf.setPage(i);
         this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.5); this.pdf.line(pg.x0, pg.h - 30, pg.x1, pg.h - 30);
-        this.font('normal', 7.2, MUTED); this.pdf.text(tx(left), pg.x0, pg.h - 19, { maxWidth: pg.x1 - pg.x0 - 90 });
+        this.font('normal', 7.2, MUTED); this.pdf.text(tx(left), pg.x0, pg.h - 19, { maxWidth: room + 4 });
         this.font('bold', 8, INK); this.pdf.text(this.T(`Página ${i} de ${n}`, `Page ${i} of ${n}`), pg.x1, pg.h - 19, { align: 'right' });
       }
       const name = this.T(`${this.cfg.fileStem}_presentacion_${this.todayIso}.pdf`, `${this.cfg.fileStem}_presentation_${this.todayIso}.pdf`);
