@@ -8,12 +8,15 @@
   "lastReferenceSha": "7c5da468dc465d6ce05b8a9d646bf67b0e33475a",
   "lastCommentsUpdatedAt": "2026-09-22",
   "lastSummaryUpdatedAt": "2026-10-04",
-  "lastMarketDate": "2026-10-02",
-  "lastAlertKeys": [],
-  "lastNotifiedAt": "2026-10-04T15:51:33Z",
+  "lastMarketDate": "2026-10-13",
+  "lastAlertKeys": [
+    "share1d:2026-10-13",
+    "share5d:2026-10-13"
+  ],
+  "lastNotifiedAt": "2026-10-14T15:51:50Z",
   "lastFailureNote": null,
-  "lastCheckedAt": "2026-10-13T15:52:29Z",
-  "lastCheckResult": "quiet",
+  "lastCheckedAt": "2026-10-14T15:51:50Z",
+  "lastCheckResult": "material",
   "pendingFromOwner": [
     "earnings-call transcript for 3Q26 once available",
     "password decision (QUALITAS_PASSWORD)"
