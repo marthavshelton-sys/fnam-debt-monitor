@@ -231,7 +231,7 @@ window.MONTHLY_DATA = {
     }
   },
   "fedWatch": {
-    "asOf": "2026-10-09",
+    "asOf": "2026-10-14",
     "meetings": [
       "28-Oct-2026",
       "09-Dec-2026"
@@ -249,16 +249,16 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        82,
-        18
+        46.3,
+        5
       ],
       [
-        18,
-        82
+        53.7,
+        55
       ],
       [
         0,
-        0
+        40
       ],
       [
         0,
@@ -267,7 +267,7 @@ window.MONTHLY_DATA = {
     ],
     "sourceName": "CNBC (quoting CME FedWatch)",
     "sourceNameEs": "CNBC (citando CME FedWatch)",
-    "sourceUrl": "https://www.cnbc.com/2026/10/09/gold-rises-on-softer-dollar-easing-yields-fed-outlook-in-focus.html",
+    "sourceUrl": "https://www.cnbc.com/2026/10/14/fed-may-now-have-to-hike-twice-or-increase-by-a-half-point-in-december-traders-bet.html",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -292,7 +292,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "CNBC, \"Gold rises on softer dollar, easing yields; Fed outlook in focus\", 2026-10-09 (https://www.cnbc.com/2026/10/09/gold-rises-on-softer-dollar-easing-yields-fed-outlook-in-focus.html), carrying the same Reuters wire report run that day by Investing.com and Kitco: St. Louis Fed President Alberto Musalem said the Fed will need to hike rates again to reach its 2% inflation target but declined to say whether he would back a move at the October 27-28 meeting; \"traders are pricing in\" (CNBC/Investing.com's rounding) \"an 18% chance of a rate hike in October and an 82% probability of at least one 25-basis-point increase by December, according to the CME's FedWatch tool\" (the original Reuters wire text, carried verbatim by Kitco and MarketScreener, rounds the same reading to 19%/84%; CNBC's and Investing.com's republication was used as the stated figure). Both are binary hold/hike readings from the current 3.75-4.00% target range (since 2026-09-17), so each maps one-to-one onto the buckets per the routine's rule for a single-bucket quote: October = 82% hold (3.75-4.00%) / 18% hike (4.00-4.25%); December = 18% hold (3.75-4.00%) / 82% hike (4.00-4.25%, the \"at least one increase by December\" cumulative reading, mapped the same way as the prior snapshot's December figure). Replaces the 2026-10-06 CNBC snapshot (21% October hike / ~70% December increase), which is now one reading older. CME's own FedWatch tool and Investing.com's Fed Rate Monitor answer HTTP 403 to scripts; cnbc.com itself could not be fetched directly from this session's sandbox (DNS/egress block), so the figures were confirmed via WebSearch summaries of the CNBC-hosted page and cross-checked against three independent re-publications of the same Reuters wire story (Investing.com, MarketScreener, Kitco).",
+    "fedWatch": "CNBC, \"Fed may now have to hike twice or increase by a half point in December, traders bet\", 2026-10-14 (https://www.cnbc.com/2026/10/14/fed-may-now-have-to-hike-twice-or-increase-by-a-half-point-in-december-traders-bet.html), published the same day as the hot September CPI report (consumer prices +3.7% y/y): \"Odds for an Oct. 28 quarter-point hike increased to 53.7% from just 22.1% a day ago, according to fed funds futures trading measured by CME's FedWatch tool. There is now a greater than 95% chance of at least one hike before the year is out. And included in that is a 40% chance that rates are higher by a half-percentage point, that's double the odds one day ago.\" Mapped onto the five buckets centred on the current 3.75-4.00% target range (since 2026-09-17): October = 46.3% hold (3.75-4.00%) / 53.7% quarter-point hike (4.00-4.25%); December = the cumulative reading split three ways - 5% no change (100% minus the >95% chance of at least one hike), 55% a single cumulative quarter-point hike (100% minus the 5% no-change minus the 40% half-point-or-more share), 40% a cumulative half-point increase or more (4.25-4.50%). A same-day companion CNBC article on the CPI report itself quoted the slightly later readings of >96% and \"near 50-50\" for the half-point share, and TechFlow (also citing CME FedWatch that day) quoted 94.3%/42% - all three are the same fast-moving CPI-day repricing a few hours apart; the CNBC \"hike twice\" piece's figures were used as the single internally-consistent quote. Replaces the 2026-10-09 CNBC snapshot (18% October hike / 82% December cumulative increase), now superseded by the post-CPI repricing. CME's own FedWatch tool and Investing.com's Fed Rate Monitor answer HTTP 403 to scripts; cnbc.com itself could not be fetched directly from this session's sandbox (DNS/egress block to www.cnbc.com), so the figures were confirmed via WebSearch's verbatim quotes of the CNBC-hosted page, cross-checked against three independent search passes returning the same 53.7%/22.1% figures and against TechFlow's independent citation of CME FedWatch that day.",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };
