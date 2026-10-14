@@ -4,34 +4,6 @@
   {
    "at": "2026-10-11T14:56:46.205Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[10]",
-   "old": "TechCrunch",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-11T14:56:46.205Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[11]",
-   "old": "Network World",
-   "new": "Aterio"
-  },
-  {
-   "at": "2026-10-11T14:56:46.205Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[14]",
-   "old": "Aterio",
-   "new": null
-  },
-  {
-   "at": "2026-10-11T14:56:46.205Z",
-   "file": "news.js",
-   "path": "sweepLog[1].added[0]",
-   "old": "2026-10-08-openai-revenue-ft",
-   "new": null
-  },
-  {
-   "at": "2026-10-11T14:56:46.205Z",
-   "file": "news.js",
    "path": "sweepLog[1].added[1]",
    "old": "2026-10-08-wsj-chip-lease-vehicle",
    "new": null
@@ -4200,7 +4172,35 @@
    "path": "(more)",
    "old": null,
    "new": "422 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-14T00:37:12.359Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-13&todate=2026-10-13&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-14&todate=2026-10-14&limit=10000"
+  },
+  {
+   "at": "2026-10-14T00:37:12.359Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T00:37:12.359Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T00:37:12.359Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
   }
  ],
- "generated": "2026-10-14T00:02:14.944Z"
+ "generated": "2026-10-14T00:37:12.359Z"
 }
