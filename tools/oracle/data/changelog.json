@@ -4,27 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "summary.js",
-   "path": "watchSources[10].title",
-   "old": "Reuters via U.S. News, Sep 30, 2026 (Tencent lease, FT report)",
-   "new": "Yahoo Finance, Oct 8, 2026 (WSJ report on the chip-leasing vehicle)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[10].url",
-   "old": "https://money.usnews.com/investing/news/articles/2026-09-30/chinas-tencent-leases-100-000-chips-from-oracle-to-accelerate-ai-push-ft-reports",
-   "new": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-open-ai-revenue-disclosure-180858662.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[10].title_es",
-   "old": "Reuters vía U.S. News, 30 sep 2026 (arrendamiento de Tencent, reporte del FT)",
-   "new": "Yahoo Finance, 8 oct 2026 (reporte del WSJ sobre el vehículo de arrendamiento de chips)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
    "path": "watchSources[11].title",
    "old": "Network World, Oct 9, 2026 (Tencent lease, export controls)",
    "new": "Reuters via U.S. News, Sep 30, 2026 (Tencent lease, FT report)"
@@ -4200,7 +4179,28 @@
    "path": "(more)",
    "old": null,
    "new": "577 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-14T18:05:09.416Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-14T18:05:09.416Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.02,
+   "new": 1.03
+  },
+  {
+   "at": "2026-10-14T18:05:09.416Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 793,
+   "new": 794
   }
  ],
- "generated": "2026-10-14T14:56:50.402Z"
+ "generated": "2026-10-14T18:05:09.416Z"
 }
