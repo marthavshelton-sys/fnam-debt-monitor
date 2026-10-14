@@ -262,7 +262,15 @@ for (const c of companies) {
       else if (zeroK.includes(k)) { t[k] = 0; (t._zero ||= []).push(k); }                                     // explained as "none" in not-tagged.json
       else { const dr = derivedTTM(c.ticker, k, q.end); if (dr) { t[k] = dr.amountUSDm * 1e6; (t._derived ||= []).push(k); } }   // derived in not-tagged.json (method in the card)
     }
-    if (t.op_income != null && t.da != null) t.ebitda = t.op_income + t.da;
+    // EBITDA = operating income + total D&A; when the D&A tag read is depreciation alone (Oracle), the separately tagged
+    // amortization of intangibles is added (t._daPlusAmort says so on the page), so the hub's EBITDA matches the Oracle model's
+    if (t.op_income != null && t.da != null) {
+      const four = quarters.slice(Math.max(0, i - 3), i + 1), depOnly = four.length === 4 && four.every((x) => x.m.da && x.m.da.t === 'Depreciation');
+      t.da_total = t.da + (depOnly && t.amort_intang != null ? t.amort_intang : 0); if (depOnly && t.amort_intang != null) t._daPlusAmort = true;
+      t.ebitda = t.op_income + t.da_total;
+    }
+    // EBITDAR = EBITDA + operating lease cost: the denominator of lease-adjusted leverage (one basis with the Oracle model)
+    if (t.ebitda != null && t.ol_cost != null) t.ebitdar = t.ebitda + t.ol_cost;
     if (t.capex_cash != null && t.fl_additions != null) t.capex_incl_fl = t.capex_cash + t.fl_additions;
     if (t.ocf != null && t.capex_cash != null) { t.fcf = t.ocf - t.capex_cash; t.capex_ocf = t.ocf > 0 ? t.capex_cash / t.ocf : null; }
     if (t.fcf != null && t.fl_principal != null) t.fcf_after_fl = t.fcf - t.fl_principal;
@@ -270,6 +278,7 @@ for (const c of companies) {
     if (t.ebitda != null && t.interest_exp) t.ebitda_int = t.ebitda / t.interest_exp;
     if (t.ebitda > 0 && q.d.net_debt != null) t.nd_ebitda = q.d.net_debt / t.ebitda;
     if (t.ebitda > 0 && q.d.lease_adj_net_debt != null) t.land_ebitda = q.d.lease_adj_net_debt / t.ebitda;
+    if (t.ebitdar > 0 && q.d.lease_adj_net_debt != null) t.land_ebitdar = q.d.lease_adj_net_debt / t.ebitdar;
     q.ttm = t;
   });
 

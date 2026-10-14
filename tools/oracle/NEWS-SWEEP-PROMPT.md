@@ -38,15 +38,32 @@ queries in under a minute, found nothing, and left a week of Bloomberg, FT, WSJ 
    action is basis: "agency" with the agency's own release first (their pages are script-rendered: verify the date on a
    dated copy such as Newsquawk or StreetInsider and keep the agency URL first).
 3. MINIMUM SWEEP, every run, before concluding that there is nothing: (a) edgar_recent.json for new accessions; (b) Oracle's
-   newsroom (oracle.com/news) and investor-news pages; (c) the three agencies (query "Moody's Oracle", "S&P Oracle rating",
-   "Fitch Oracle"); (d) at least these web searches with the last 3 days in mind: "Oracle Bloomberg", "Oracle Reuters",
-   "Oracle Financial Times", "Oracle WSJ", "Oracle CNBC", "Oracle OpenAI", "Oracle data center" (power, pipeline, permit,
-   force majeure), "Project Jupiter Oracle", "Port Washington Oracle data center", "Shackelford Oracle", "Saline Oracle
-   DTE", "Abilene Stargate", "Oracle debt bonds", "Oracle lease chips", "Oracle rating outlook"; (e) when a search result
-   names a fact, open the article (WebFetch) and quote figures as printed. Fewer than 15 searches is not a sweep. Record
-   the sweep in news.json → sweep_log (newest first): {date, by: "routine", searches: <n>, checked: [the outlets and
-   sources actually searched, as proper nouns only: "Bloomberg", "SEC EDGAR"...], added: [ids], note}. The page prints the latest entry beside the sweep date, so a day
-   with no additions shows what was searched.
+   own releases: oracle.com/news answers 403 to WebFetch most days, so a 403 is NOT "nothing new" — read
+   tools/oracle/data/ir_feed.json (the investor-relations release list, refreshed by the filings workflow) and run the web
+   searches "Oracle announces" and "Oracle news announcement" restricted to the last 3 days, then open every oracle.com/news
+   result (a search engine's copy of the release page opens even when the newsroom refuses); (b2) the utilities and
+   regulators of the campuses, whose releases and dockets announce Oracle's power and permits before the press does: "El Paso
+   Electric Oracle" and "New Mexico PRC Oracle" (Project Jupiter), "We Energies Oracle", "WEC Energy Oracle", "ATC Port
+   Washington" and "Wisconsin PSC Oracle" (Port Washington), "DTE Oracle Saline" and "Michigan EGLE Saline data center"
+   (Saline), "Shackelford Oracle" (Texas); (b3) partners' releases that name Oracle (OpenAI, Microsoft, AMD, Nvidia, Marvell,
+   Crusoe, Vantage, Related, Bloom Energy, the Open Compute Project): query "Oracle and" with each name when a search in (d)
+   hints at one; (c) the three agencies (query "Moody's Oracle", "S&P Oracle rating", "Fitch Oracle"); (d) at least these web
+   searches with the last 3 days in mind: "Oracle Bloomberg", "Oracle Reuters", "Oracle Financial Times", "Oracle WSJ",
+   "Oracle CNBC", "Oracle OpenAI", "Oracle data center" (power, pipeline, permit, force majeure), "Project Jupiter Oracle",
+   "Port Washington Oracle data center", "Shackelford Oracle", "Saline Oracle DTE", "Abilene Stargate", "Oracle debt bonds",
+   "Oracle lease chips", "Oracle rating outlook", "Oracle CDS"; (e) PRICE-MOVE RULE: read the last four closes in
+   tools/oracle/data/prices_orcl_factset.csv (or the Yahoo/Nasdaq fallback prices_orcl_daily.csv when FactSet has not posted
+   the latest session); when a session moved 3% or more either way, find the reason a named outlet gave (Reuters, Bloomberg,
+   CNBC, Barron's, Benzinga, Investing.com quoting a named source) and record it as a basis: "press" item with the close and
+   the change as printed, theme by the cause (customers for an OpenAI report, financing for a debt or CDS report, power for a
+   site report); a move with no named reason is recorded as such ("no reason given by a named outlet"); (f) when a search
+   result names a fact, open the article (WebFetch) and quote figures as printed. Fewer than 20 searches is not a sweep.
+   Record the sweep in news.json → sweep_log (newest first): {date, by: "routine", searches: <n>, checked: [the outlets and
+   sources actually searched, as proper nouns only: "Bloomberg", "SEC EDGAR", "El Paso Electric"...], added: [ids], note}.
+   The page prints the latest entry beside the sweep date, so a day with no additions shows what was searched. Added
+   2026-10-13 after the run of that day found nothing while Oracle's release on the El Paso Electric agreement (Oct 13),
+   the OCP hardware-security group (Oct 13) and the Oct 12 price move on OpenAI reports had all been published: the
+   newsroom's 403 was taken as "no release", no utility or regulator was searched, and the price was not looked at.
 4. Each item: id (date-slug), date (ISO, the event date), theme (one of financing, oci, power, customers, accounting,
    leadership), basis (sec | company | agency | press), bilingual title_*, one-line factual summary_* (what happened,
    figures as printed, no inference), why_* (why it matters for Oracle's financials: cash, debt, leases, RPO, capex,

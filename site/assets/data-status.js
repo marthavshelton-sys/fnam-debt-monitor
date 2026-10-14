@@ -4,7 +4,7 @@
 // The site calls nothing "live" (owner's rule); "Al día / Up to date" is the verified state.
 //
 //   window.FNAM_STATUS.load()          -> Promise<{ ok, fresh, checkedAt, dashboards: [{ ..., state }] }>
-//   window.FNAM_STATUS.when(iso, lang) -> "30-sep-2026 16:48" (Mexico City time)
+//   window.FNAM_STATUS.when(iso, lang) -> "30-sep-2026 16:48 CDMX" (Mexico City time, zone always printed)
 //   window.FNAM_STATUS.labels[state]   -> { es, en }
 //
 // Any element with data-status-dot="<dashboard id>" (the dot in each company page's header) gets the class
@@ -51,7 +51,7 @@
       var m = new Date(d.getTime() - 6 * 36e5);
       p = { year: String(m.getUTCFullYear()), month: String(m.getUTCMonth() + 1), day: pad(m.getUTCDate()), hour: pad(m.getUTCHours()), minute: pad(m.getUTCMinutes()) };
     }
-    return p.day + '-' + MON[lang === 'en' ? 'en' : 'es'][Number(p.month) - 1] + '-' + p.year + ' ' + p.hour + ':' + p.minute;
+    return p.day + '-' + MON[lang === 'en' ? 'en' : 'es'][Number(p.month) - 1] + '-' + p.year + ' ' + p.hour + ':' + p.minute + ' CDMX'; // the zone travels with every time (owner, round 6)
   }
   // "sep-2026" for a month (a monthly data feed)
   function my(ym, lang) {
@@ -208,7 +208,7 @@
             + (d && d.lastSuccess
               ? (lg === 'es' ? 'actualización verificada por el vigilante ' : 'refresh verified by the watchdog ') + when(d.lastSuccess, lg)
                 + (s.checkedAt ? (lg === 'es' ? ' (revisión ' : ' (check ') + when(s.checkedAt, lg) + ')' : '')
-              : (lg === 'es' ? 'el vigilante no lo ha verificado' : 'not verified by the watchdog')) + ' · CDMX';
+              : (lg === 'es' ? 'el vigilante no lo ha verificado' : 'not verified by the watchdog'));
           var text = LABELS[state][lg] + ' · ' + staleDetail(d, lg) + tail;
           el.setAttribute('role', 'img');
           el.setAttribute('title', text);

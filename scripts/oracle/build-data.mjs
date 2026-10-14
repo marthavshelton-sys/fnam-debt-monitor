@@ -243,7 +243,7 @@ emit("reference.js", "ORCL_REF", {
       mref.credit_ratings?.fitch && { agency: "Fitch", rating: mref.credit_ratings.fitch.rating, outlook: { en: (mref.credit_ratings.fitch.outlook || "").toLowerCase(), es: /neg/i.test(mref.credit_ratings.fitch.outlook || "") ? "negativa" : "estable" }, action: mref.credit_ratings.fitch.action || null, sourceTitle: mref.credit_ratings.fitch.source_title || null, scope: { en: "long-term IDR", es: "IDR de largo plazo" }, date: mref.credit_ratings.fitch.action_date, source: { en: `Rating action ${mref.credit_ratings.fitch.action_date}`, es: `Acción de calificación ${mref.credit_ratings.fitch.action_date}` }, url: mref.credit_ratings.fitch.source_url },
     ].filter(Boolean),
     ratingsChecked: mref.credit_ratings?.checked || null, // the date the agencies, EDGAR and the wires were last checked for a new action (round 4)
-    instruments: (mref.debt_instruments || []).map((d) => ({ name: d.series_name, type: /floating/i.test(d.series_name) ? "FRN" : /term loan/i.test(d.series_name) ? { en: "term loan", es: "crédito a plazo" } : /commercial paper/i.test(d.series_name) ? { en: "commercial paper", es: "papel comercial" } : { en: "senior notes", es: "bonos senior" }, issued: d.issued_date, matures: d.maturity_date, principalUsdM: d.principal_millions, ratePct: d.coupon_pct, rate: { en: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "effective" : "fixed"}`, es: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "efectiva" : "fija"}` }, source: "FY2026 Form 10-K, notes payable and other borrowings footnote", url: d.source_url, status: d.status || "outstanding", repaid: d.status === "repaid" ? { quarter: d.repaid_quarter || null, evidence: d.repaid_evidence || null } : null })),
+    instruments: (mref.debt_instruments || []).map((d) => ({ name: d.series_name, pricing: d.pricing || null, type: /floating/i.test(d.series_name) ? "FRN" : /term loan/i.test(d.series_name) ? { en: "term loan", es: "crédito a plazo" } : /commercial paper/i.test(d.series_name) ? { en: "commercial paper", es: "papel comercial" } : { en: "senior notes", es: "bonos senior" }, issued: d.issued_date, matures: d.maturity_date, principalUsdM: d.principal_millions, ratePct: d.coupon_pct, rate: { en: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "effective" : "fixed"}`, es: /floating/i.test(d.series_name) ? `SOFR + ${d.coupon_pct}%` : `${d.coupon_pct}% ${/term loan|commercial/i.test(d.series_name) ? "efectiva" : "fija"}` }, source: "FY2026 Form 10-K, notes payable and other borrowings footnote", url: d.source_url, status: d.status || "outstanding", repaid: d.status === "repaid" ? { quarter: d.repaid_quarter || null, evidence: d.repaid_evidence || null } : null })),
     instrumentsNote: { en: `${(mref.debt_instruments || []).length} instruments from the FY2026 Form 10-K debt footnote; principal reconciles to the disclosed US$130,105 M gross total (US$129,541 M net of unamortized discount, the balance-sheet figure). Issuances after 31-May-2026 are added from each 8-K.`, es: `${(mref.debt_instruments || []).length} instrumentos de la nota de deuda del Formulario 10-K del AF2026; el principal concilia con el total bruto revelado de US$130,105 M (US$129,541 M neto de descuento no amortizado, la cifra del balance). Las emisiones posteriores al 31-may-2026 se agregan de cada 8-K.` },
   },
   dividends: quarters.filter((q) => q.dividend_declared_per_share != null).map((q) => ({ declared: q.release_date, dps: q.dividend_declared_per_share, record: q.dividend_record_date, payment: q.dividend_payment_date, quarter: gid(q), source: src(q.source) })),
@@ -297,7 +297,7 @@ const KEYMAP = { total_revenue: "revTotal", cloud: "revCloud", software: "revSof
 // Operating-metrics card rows: raw comment key → ops row key (operating_income and diluted_eps reuse the statement comments).
 const OPSMAP = { rpo: "rpo", operating_cash_flow: "cfo", capex: "capex", cloud: "cloudRev", operating_income: "ngOpMargin", diluted_eps: "epsNg", ebitda_margin: "ebitdaMargin", da: "daPct", free_cash_flow: "fcf", dividend: "dps", diluted_shares: "shares" };
 const TRANSCRIPTS = load("transcripts.json", { calls: {} }).calls;
-const quotesOf = (qid) => (TRANSCRIPTS[qid]?.quotes || []).map((x) => ({ quote: x.quote, speaker: x.speaker, role: x.role || null, page: x.page ?? null, topic: x.topic || null }));
+const quotesOf = (qid) => (TRANSCRIPTS[qid]?.quotes || []).map((x) => ({ quote: x.quote, quoteEs: x.quote_es || null, speaker: x.speaker, role: x.role || null, page: x.page ?? null, topic: x.topic || null }));
 const periods = {};
 for (const [qid, entry] of Object.entries(cm.by_quarter || {})) {
   const m = /^FY(\d{4})Q(\d)$/.exec(qid); if (!m) continue;
@@ -322,7 +322,7 @@ const sum = latestCm?.exec_summary || null;
 // A hash of the narrative fields is kept in exec_summary.content_hash; when the text changes and the hash does not match, the
 // builder stamps `updated` with today's ET date and writes comments.json back, so the stamp can never lag a rewrite.
 if (sum) {
-  const narrative = JSON.stringify({ o: sum.operations, g: sum.guidance, d: sum.debt, w: sum.watch, s: sum.watch_sources, v: sum.verdict || null, e: sum.events_through || null });
+  const narrative = JSON.stringify({ o: sum.operations, g: sum.guidance, d: sum.debt, w: sum.watch, s: sum.watch_sources, v: sum.verdict || null, e: sum.events_through || null, c: sum.changed_week || null });
   const h = createHash("sha1").update(narrative).digest("hex").slice(0, 16);
   if (sum.content_hash !== h) {
     sum.content_hash = h; sum.updated = todayET;
@@ -337,6 +337,8 @@ emit("summary.js", "ORCL_SUMMARY", {
   basis: { quarter: latest ? gid(latest) : null, resultsDate: latest?.release_date || null, guidanceDate: vint.at(-1)?.date || null, marketDate: mref.price_snapshot?.orcl?.close_date || null },
   headline: latestCm ? { en: latestCm.headline_en, es: latestCm.headline_es } : null,
   watchSources: (sum?.watch_sources || []).filter((x) => x && x.title),
+  // "What changed this week": one dated line rewritten by each review or sweep (round 6, owner's request); null when none is written
+  changedWeek: sum?.changed_week && sum.changed_week.en && sum.changed_week.es ? { date: sum.changed_week.date, from: sum.changed_week.from || null, en: sum.changed_week.en, es: sum.changed_week.es } : null,
   sections: sum ? [
     { k: "ops", title: { es: "Operación", en: "Operations" }, es: sum.operations?.es || [], en: sum.operations?.en || [] },
     { k: "guidance", title: { es: "Guía y por qué cambió", en: "Guidance and why it changed" }, es: sum.guidance?.es || [], en: sum.guidance?.en || [] },

@@ -330,11 +330,12 @@
     return x.rows.map(function (r) { return [r.c.name, (fmt || money)(r.v).replace(/<[^>]+>/g, '') + ' · ' + fq(r.q.id) + ' · ' + t('cierre ', 'period end ') + date(r.q.end) + (r.offset ? ' (' + t('un mes antes de la ventana', 'one month before the window') + ')' : '')]; });
   }
   function offsetNote(x) {
-    var off = x.offsets.length ? x.offsets.map(function (r) { return r.c.name; }).join(', ') + t(' cierra su trimestre un mes antes (', ' closes its quarter one month earlier (') + x.offsets.map(function (r) { return date(r.q.end); }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ') + ').' : '';
-    // a company whose later quarter is already filed (Oracle's quarter to August while the others end in June): the common
-    // window keeps the earlier quarter; the per-company figures of the hub use the later one, and the reader is told so
+    // a company whose fiscal quarter ends one month before the common window (Oracle, fiscal quarters to May, August,
+    // November, February): the group sum takes the quarter that ends inside the window, and the reader is told which one
+    // and that the company's own figures on the hub are its latest filed quarter (Oracle: LTM to 31 Aug 2026, with the ATM)
     var later = (x.rows || []).filter(function (r) { return r.c.latest && r.c.latest.end > r.q.end; });
-    var lt = later.length ? ' ' + later.map(function (r) { return t('El trimestre de ' + r.c.name + ' al ' + date(r.c.latest.end) + ' ya está presentado: las cifras por empresa de este centro (tablas, mapa de calor, «qué cambió») lo usan; las sumas y razones del grupo conservan la ventana común al ' + date(x.calEnd) + '.', r.c.name + '\'s quarter to ' + date(r.c.latest.end) + ' is already filed: the hub\'s per-company figures (tables, heat map, "what changed") use it; the group sums and ratios keep the common window to ' + date(x.calEnd) + '.'); }).join(' ') : '';
+    var off = x.offsets.length ? x.offsets.map(function (r) { return t('En la suma del grupo, ' + r.c.name + ' entra con su trimestre fiscal al ' + date(r.q.end) + ' (el que termina dentro de la ventana común al ' + date(x.calEnd) + '; sus trimestres fiscales cierran un mes antes que el calendario).', 'In the group sum ' + r.c.name + ' enters with its fiscal quarter to ' + date(r.q.end) + ' (the one that ends inside the common window to ' + date(x.calEnd) + '; its fiscal quarters close one month before the calendar quarter).'); }).join(' ') : '';
+    var lt = later.length ? ' ' + later.map(function (r) { return t('Las cifras propias de ' + r.c.name + ' en este centro (tablas, mapa de calor, «qué cambió», razones) son las de su último trimestre presentado, UDM al ' + date(r.c.latest.end) + '.', r.c.name + '\'s own figures on the hub (tables, heat map, "what changed", ratios) are those of its latest filed quarter, LTM to ' + date(r.c.latest.end) + '.'); }).join(' ') : '';
     return off + lt;
   }
 

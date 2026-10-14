@@ -1,6 +1,6 @@
 {
  "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
- "updated": "2026-10-09",
+ "updated": "2026-10-13",
  "capacity": {
   "unit": "MW",
   "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -13,7 +13,8 @@
     "text": "close to 400 megawatts of data center capacity handed over to customers; 50% more GPU capacity than Q1",
     "source": "S-CALL-FY2026Q2",
     "page": 4,
-    "speaker": "Clay Magouyrk"
+    "speaker": "Clay Magouyrk",
+    "text_es": "cerca de 400 megawatts de capacidad de centro de datos entregados a clientes; 50% más capacidad de GPU que en el 1T"
    },
    {
     "id": "FY2026Q3",
@@ -22,7 +23,8 @@
     "text": "delivered more than 400 megawatts to customers; 90% of committed capacity delivered on or ahead of schedule",
     "source": "S-CALL-FY2026Q3",
     "page": 6,
-    "speaker": "Clay Magouyrk"
+    "speaker": "Clay Magouyrk",
+    "text_es": "entregamos más de 400 megawatts a clientes; 90% de la capacidad comprometida entregada a tiempo o antes"
    },
    {
     "id": "FY2026Q4",
@@ -31,7 +33,8 @@
     "text": "1Q27 delivery (850 MW) was 'almost three times what we delivered in all of Q4' → about 290 MW",
     "source": "S-CALL-FY2027Q1",
     "page": 6,
-    "speaker": "Clay Magouyrk"
+    "speaker": "Clay Magouyrk",
+    "text_es": "la entrega del 1T27 (850 MW) fue 'casi tres veces lo que entregamos en todo el 4T' → unos 290 MW"
    },
    {
     "id": "FY2027Q1",
@@ -40,7 +43,8 @@
     "text": "850 megawatts of AI capacity, containing more than 300,000 GPUs, delivered since the end of Q4; 73% of the total capacity delivered in all of FY2026",
     "source": "S-CALL-FY2027Q1",
     "page": 6,
-    "speaker": "Clay Magouyrk"
+    "speaker": "Clay Magouyrk",
+    "text_es": "850 megawatts de capacidad de IA, con más de 300,000 GPU, entregados desde el cierre del 4T; 73% de la capacidad total entregada en todo el AF2026"
    }
   ],
   "fiscal_years": [
@@ -50,7 +54,8 @@
     "text": "FY 2026, where we delivered more than 1.2 gigawatts to customers",
     "source": "S-CALL-FY2026Q4",
     "page": 7,
-    "speaker": "Clay Magouyrk"
+    "speaker": "Clay Magouyrk",
+    "text_es": "el AF2026, en el que entregamos más de 1.2 gigawatts a clientes"
    }
   ],
   "secured": {
@@ -331,7 +336,7 @@
    "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
    "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call)",
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
-   "status_date": "2026-09-10",
+   "status_date": "2026-06-10",
    "issues": [
     {
      "date": "2026-10-08",
@@ -393,6 +398,11 @@
    "contracted": "September 2025",
    "first_delivery": "First half of calendar 2027 (Oracle, 4Q26 call)",
    "sources": [
+    {
+     "title": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico (El Paso Electric energy service agreement)",
+     "url": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/",
+     "short": "Oracle PR 13 Oct 2026"
+    },
     {
      "title": "4Q26 earnings call, p.7 (Magouyrk)",
      "key": "S-CALL-FY2026Q4",
@@ -468,14 +478,26 @@
    "energized_as_of": "FY2027Q1",
    "energized_text_en": "Under construction; nothing energized yet. Oracle, 1Q27 Q&A: \"some sites are ahead of schedule, some are more difficult\"; construction 26% complete in July 2026; 3,600+ workers on site (Albuquerque Journal, Sep 24, 2026)",
    "energized_text_es": "En construcción; nada energizado aún. Oracle, Q&A 1T27: \"algunos sitios van adelantados, otros son más difíciles\"; obra 26% completa en julio de 2026; más de 3,600 trabajadores en sitio (Albuquerque Journal, 24 sep 2026)",
-   "power_en": "Bloom Energy gas-fed fuel cells, up to 2.45 GW in a single microgrid (Oracle release, Apr 27, 2026; design changed from gas turbines). Gas supply: Energy Transfer pipeline delayed to Feb 1, 2027 after repeated permit denials and an August reroute; air-quality permit for the fuel cells pending, decision due Nov 23, 2026 (TechCrunch, Sep 24, 2026)",
-   "power_es": "Celdas de combustible a gas de Bloom Energy, hasta 2.45 GW en una sola microrred (comunicado de Oracle, 27 abr 2026; diseño cambiado desde turbinas de gas). Suministro de gas: gasoducto de Energy Transfer pospuesto al 1 feb 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto; permiso de calidad del aire de las celdas pendiente, decisión el 23 nov 2026 (TechCrunch, 24 sep 2026)",
+   "power_en": "Bloom Energy gas-fed fuel cells, up to 2.45 GW in a single microgrid (Oracle release, Apr 27, 2026; design changed from gas turbines); Oracle reaffirmed them as the primary source on Oct 13, 2026. Gas supply: Energy Transfer pipeline delayed to Feb 1, 2027 after repeated permit denials and an August reroute; air-quality permit for the fuel cells pending, decision due Nov 23, 2026 (TechCrunch, Sep 24, 2026). Grid: a proposed 10-year Energy Service Agreement with El Paso Electric for construction, commissioning, emergency backup and life-safety power, US$10 million a year regardless of usage, pending filing and approval (Oracle release, Oct 13, 2026)",
+   "power_es": "Celdas de combustible a gas de Bloom Energy, hasta 2.45 GW en una sola microrred (comunicado de Oracle, 27 abr 2026; diseño cambiado desde turbinas de gas); Oracle las reafirmó como fuente principal el 13 oct 2026. Suministro de gas: gasoducto de Energy Transfer pospuesto al 1 feb 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto; permiso de calidad del aire de las celdas pendiente, decisión el 23 nov 2026 (TechCrunch, 24 sep 2026). Red: un Contrato de Servicio Eléctrico propuesto a 10 años con El Paso Electric para la obra, la puesta en marcha, el respaldo de emergencia y la energía de seguridad, US$10 millones al año sin importar el consumo, pendiente de presentarse y aprobarse (comunicado de Oracle, 13 oct 2026)",
    "tenant_en": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, Sep 23, 2025); Oracle has not named the customer",
    "tenant_es": "Oracle Cloud Infrastructure, arrendamiento a 18 años, con OpenAI como cliente principal (Albuquerque Journal, 23 sep 2025); Oracle no ha nombrado al cliente",
    "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, Sep 24, 2026)",
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26); objetivo de operación plena en 2028 (Bloomberg, 24 sep 2026)",
-   "status_date": "2026-09-24",
+   "status_date": "2026-10-13",
    "issues": [
+    {
+     "date": "2026-10-13",
+     "kind": "power",
+     "status": "open",
+     "basis": "company",
+     "en": "Oracle proposes a 10-year Energy Service Agreement with El Paso Electric for late-stage construction, commissioning, emergency backup and life-safety power: US$10 million a year for ten years whatever the usage (about US$100 million fixed), plus a separate proposal of up to US$55 million a year of bill credits for up to three years to EPE's New Mexico customers from 2027; the Bloom fuel-cell microgrid stays primary. Both agreements await filing and regulatory approval (company statement, not audited).",
+     "es": "Oracle propone un Contrato de Servicio Eléctrico a 10 años con El Paso Electric para la etapa final de obra, la puesta en marcha, el respaldo de emergencia y la energía de seguridad: US$10 millones al año durante diez años sea cual sea el consumo (unos US$100 millones fijos), más una propuesta aparte de hasta US$55 millones anuales en créditos a la factura, hasta por tres años, a los clientes de EPE en Nuevo México desde 2027; la microrred de celdas Bloom sigue como fuente principal. Ambos acuerdos están pendientes de presentarse y de aprobación regulatoria (declaración de la empresa, no auditada).",
+     "source": {
+      "title": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico",
+      "url": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/"
+     }
+    },
     {
      "date": "2026-10-08",
      "kind": "power",

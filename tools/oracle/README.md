@@ -213,6 +213,11 @@ scripts/oracle/build-data.mjs       curated JSON -> site/oracle/data/*.js
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit
 ```
 
+Schedules (UTC crons; ET as in summer time): `30 13 * * *` daily (filings, XBRL, market), `35 20 * * 1-5` (4:35 PM ET,
+market only; added in round 6 so the page's price and the DCF gap update the same evening) and `45 21 * * 1-5` (5:45 PM ET,
+market only; also the winter-time post-close run). Only the sessions FactSet has not posted yet come from this market fetch;
+the nightly FactSet routine (7:58 PM ET) is the price authority (`market.js → provenance`, printed by every price label).
+
 * Schedules: weekdays **21:45 UTC** (market only; NYSE closes 20:00 UTC in summer, 21:00 in winter) and every day
   **13:30 UTC** (filings + XBRL facts + market; Oracle files the results 8-K the evening it reports; daily since
   2026-10-03, owner's choice; a run commits only when data changed). GitHub only runs
@@ -374,8 +379,13 @@ which `build-data.mjs` assembles from four files after every build:
   (the weekday routine's last check, last email, last failure).
 
 The page has the same layout as the Qualitas quality page: summary cards, freshness table, curated files, automation
-(what runs, when it last ran, what is pending), parser tests and the tie-outs with status and period filters; ES/EN toggle.
-Check names and validator notes appear in English as the validator writes them.
+(what runs, when it last ran, what is pending), parser tests and the tie-outs with status and period filters; ES/EN toggle
+(`?lang=` wins, then the site-wide `fnam-lang`). Since round 6 (2026-10-13) the Spanish view translates the validator's
+check names, notes, series names, curated details and module reasons through `ES_RULES` in the page (regular expressions
+over the English forms the validator writes; identifiers such as XBRL concepts, JSON paths and file names are kept, and a
+string no rule knows is shown as written — add a rule when the validator gains a check), and every timestamp prints in ET
+(cadences in ET with the footnote that the crons are UTC). The next-results card shows the one date the model uses (the
+median of the last three same-quarter releases when the company has not announced it).
 ## Local preview
 
 ```

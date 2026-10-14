@@ -32,7 +32,10 @@ STEP 3 — FactSet: (a) `FactSet_UnstructuredContent` search, sources ALL_NEWS, 
 changed their rating or price target on Oracle?" and "Oracle price target raised or lowered by analyst", limit 50: from the
 StreetAccount "Street Takeaways" stories record every house with a rating and target that has no report on file into `reported`
 (house, analyst, date, rating, target, previous target, the basis the summary gives, a two-sentence note in both languages, source
-title = "FactSet StreetAccount, <headline>, <date>"). (b) `FactSet_EstimatesConsensus`, ids ORCL-US, `consensus_rolling`, metrics
+title = "FactSet StreetAccount, <headline>, <date>"). A house known only through a press copy of its note (a dated article by a
+named outlet quoting the rating, target and analyst) may also enter `reported` with source {basis: "press", title, url} (the
+article's https URL; the page badges it "press report"); a report that needs a caveat (a pre-results preview, a sector note)
+carries label_en/label_es, printed under the house name. (b) `FactSet_EstimatesConsensus`, ids ORCL-US, `consensus_rolling`, metrics
 PRICE_TGT, relativeFiscalStart 1, relativeFiscalEnd 1, startDate = as_of − 95 days, endDate = as_of, frequency W; and
 `estimate_type: ratings` with the same dates: write `consensus_history.points` (date, mean, median, high, low, count, up, down, buy,
 overweight, hold, underweight, sell, total) and `consensus_history.fetched` = as_of. The current consensus is not written here (the

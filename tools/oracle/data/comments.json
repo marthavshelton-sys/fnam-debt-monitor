@@ -1053,8 +1053,8 @@
         }
       },
       "exec_summary": {
-        "updated": "2026-10-09",
-        "events_through": "2026-10-09",
+        "updated": "2026-10-13",
+        "events_through": "2026-10-13",
         "operations": {
           "en": [
             "Record revenue $19.3bn, +30%; Cloud +62%, IaaS +121%; 850 MW delivered to customers in the quarter (company-wide, not broken down by site); Software -3%.",
@@ -1070,13 +1070,13 @@
         "guidance": {
           "en": [
             "2Q27: revenue +30–34%; cloud +64–70% cc; non-GAAP EPS $1.85–1.93.",
-            "FY27 raised: revenue at least $90bn (+34%); non-GAAP EPS $8.10.",
+            "FY27: revenue of at least $90bn reaffirmed (set Jun 10); non-GAAP EPS raised to $8.10 from $8.05.",
             "FY27 capex $90–95bn gross, net cash capex at most $70bn.",
             "About half of RPO to convert within 36 months (Maxson)."
           ],
           "es": [
             "2T27: ingresos +30–34%; nube +64–70% a tipo de cambio constante; UPA No-GAAP US$1.85–1.93.",
-            "AF27 al alza: ingresos de al menos US$90 mil millones (+34%); UPA No-GAAP US$8.10.",
+            "AF27: ingresos de al menos US$90 mil millones reafirmados (fijados el 10 jun); UPA No-GAAP al alza a US$8.10 desde US$8.05.",
             "Capex AF27 de US$90–95 mil millones bruto; capex neto en efectivo de US$70 mil millones como máximo.",
             "Cerca de la mitad del RPO se convertiría en ingresos en 36 meses (Maxson)."
           ]
@@ -1098,33 +1098,31 @@
             {
               "h": "Project Jupiter (Doña Ana, NM)",
               "lines": [
-                "Force majeure notice to the developer, Sep 24 (Bloomberg); Oracle says the site is on schedule; floods reached the campus Sep 30, no critical damage (Oracle).",
-                "Gas pipeline in service Feb 1, 2027 (was Aug 15, 2026); Oracle weighing trucked gas at about four times the hub price (Bloomberg, Oct 8, press).",
+                "Force majeure notice to the developer, Sep 24 (Bloomberg); Oracle says the site is on schedule; Sep 30 floods did no critical damage (Oracle).",
+                "Pipeline due Feb 1, 2027 (was Aug 15, 2026); trucked gas weighed (Bloomberg, Oct 8); El Paso Electric grid backup proposed, US$10m a year × 10 (Oracle, Oct 13).",
                 "US$18bn of project loans quoted at 89–91 cents (FT, Sep 18). Watch: first energized MW against the 1H 2027 target."
               ]
             },
             {
               "h": "OpenAI and the other campuses",
               "lines": [
-                "OpenAI's annualized revenue about US$50bn at end-September, not the US$68bn in circulation (FT, confirmed by CNBC, Oct 8; press).",
-                "ORCL −5.5% on Oct 8 and +4.2% on Oct 9 (FactSet / Nasdaq closes).",
-                "Port Washington, WI: ATC refiled the grid line at US$2.48–2.72bn (WPR, Sep 18); Aterio's base case is full power Oct 2028 vs Oracle's 2H 2027 (press).",
-                "Saline Twp., MI: Attorney General's appeal of the DTE power contracts (brief filed Aug 7). Watch: energized MW per site after each call ({{sec:sites}})."
+                "OpenAI's annualized revenue about US$50bn at end-September, not the US$68bn in circulation (FT and CNBC, Oct 8; press).",
+                "ORCL −5.5% Oct 8, +4.2% Oct 9, −2.8% Oct 12, +4.2% Oct 13 to US$143.20 (FactSet closes).",
+                "Port Washington, WI: ATC refiled the grid line (US$2.48–2.72bn; WPR, Sep 18); Aterio: full power Oct 2028 vs 2H 2027. Saline, MI: AG appeal vs DTE (Aug 7)."
               ]
             },
             {
               "h": "Financing structures and demand (press, unconfirmed)",
               "lines": [
-                "WSJ (Oct 8): talks with Apollo and Goldman Sachs on a vehicle that would buy chips and lease them to Oracle; no amount; enters no figure ({{sec:obligations}}).",
-                "Tencent (FT, Sep 30): ~US$7bn, five-year lease of ~100,000 chips in Southeast Asia, ~30% upfront; unconfirmed; Network World (Oct 9) flags export controls.",
+                "WSJ (Oct 8): talks with Apollo and Goldman on a chip-leasing vehicle; no amount, no figure ({{sec:obligations}}). Tencent (FT, Sep 30): ~US$7bn, ~100,000 chips.",
                 "Point Beach (Oracle, Oct 2): Oracle to subscribe to the plant's output and fund the campus's energy costs (~US$300m); Wisconsin PSC approval pending."
               ]
             },
             {
               "h": "Leases, funding and ratings",
               "lines": [
-                "Uncommenced data-center leases keep rising each 10-Q ({{sec:obligations}}).",
-                "About US$20bn of the FY27 funding plan is still to raise, after calendar 2026.",
+                "Uncommenced data-center leases keep rising each 10-Q ({{sec:obligations}}); about US$20bn of the FY27 funding plan is still to raise, after calendar 2026.",
+                "5-year CDS at records: ~227 bp Sep 24, ~261 bp at the Oct 8 close (press quotes of Bloomberg/ICE data; no series on the page).",
                 "S&P BBB-/stable since Jul 9, 2026; Moody's Baa2/negative affirmed Feb 2, 2026 (negative since Jul 2025); Fitch BBB/stable affirmed Feb 2, 2026."
               ]
             },
@@ -1132,7 +1130,7 @@
               "h": "Next catalysts",
               "lines": [
                 "Investor Day, Oct 28 (Las Vegas): new long-range targets expected; annual meeting Nov 18 (DEF 14A).",
-                "2Q27 results, December: RPO share due within 12 months (13% at 1Q27) and net cash capex against the US$70bn cap."
+                "2Q27 results, {{fact:next_results}}: RPO share due within 12 months (13% at 1Q27) and net cash capex against the US$70bn cap."
               ]
             }
           ],
@@ -1141,7 +1139,7 @@
               "h": "Proyecto Júpiter (Doña Ana, NM)",
               "lines": [
                 "Aviso de fuerza mayor al desarrollador, 24 sep (Bloomberg); Oracle dice que el sitio va en calendario; inundaciones el 30 sep sin daño crítico (Oracle).",
-                "Gasoducto en servicio el 1 feb 2027 (antes 15 ago 2026); Oracle evalúa gas en camiones, unas cuatro veces el precio de referencia (Bloomberg, 8 oct).",
+                "Gasoducto para el 1 feb 2027 (antes 15 ago 2026); gas en camiones en estudio (Bloomberg, 8 oct); respaldo de red de EPE, US$10 M × 10 años (Oracle, 13 oct).",
                 "US$18 mil millones de préstamos del proyecto cotizan a 89–91 centavos (FT, 18 sep). Vigilar: primeros MW energizados frente al 1S 2027."
               ]
             },
@@ -1149,24 +1147,22 @@
               "h": "OpenAI y los otros campus",
               "lines": [
                 "Ingresos anualizados de OpenAI de unos US$50 mil millones al cierre de septiembre, no los US$68 mil millones que circulaban (FT y CNBC, 8 oct; prensa).",
-                "ORCL −5.5% el 8 oct y +4.2% el 9 oct (cierres FactSet / Nasdaq).",
-                "Port Washington, WI: ATC volvió a presentar la línea por US$2.48–2.72 mil millones (WPR, 18 sep); Aterio: energía completa oct 2028 vs 2S 2027 de Oracle.",
-                "Saline, MI: apelación de la Fiscal General contra los contratos eléctricos de DTE (7 ago). Vigilar: MW energizados por sitio tras cada llamada ({{sec:sites}})."
+                "ORCL −5.5% el 8 oct, +4.2% el 9 oct, −2.8% el 12 oct, +4.2% el 13 oct a US$143.20 (cierres de FactSet).",
+                "Port Washington, WI: ATC volvió a presentar la línea (US$2.48–2.72 mil M; WPR, 18 sep); Aterio: energía plena oct 2028 vs 2S 2027. Saline: apelación vs DTE."
               ]
             },
             {
               "h": "Estructuras de financiamiento y demanda (prensa, sin confirmar)",
               "lines": [
-                "WSJ (8 oct): negocia con Apollo y Goldman Sachs un vehículo que compraría chips y se los arrendaría; sin monto; no entra en cifras ({{sec:obligations}}).",
-                "Tencent (FT, 30 sep): ~US$7 mil millones a cinco años por ~100,000 chips en el sudeste asiático, ~30% por adelantado; sin confirmar (Network World, 9 oct).",
+                "WSJ (8 oct): negocia con Apollo y Goldman un vehículo que arrendaría chips; sin monto ni cifra ({{sec:obligations}}). Tencent (FT, 30 sep): ~US$7 mil M.",
                 "Point Beach (Oracle, 2 oct): suscribirá generación de la planta y financiará la energía del campus (~US$300 M); aprobación de la PSC de Wisconsin pendiente."
               ]
             },
             {
               "h": "Arrendamientos, financiamiento y calificaciones",
               "lines": [
-                "Los arrendamientos de centros de datos no iniciados siguen subiendo en cada 10-Q ({{sec:obligations}}).",
-                "Quedan unos US$20 mil millones del plan de financiamiento del AF27, después del año calendario 2026.",
+                "Arrendamientos no iniciados al alza en cada 10-Q ({{sec:obligations}}); quedan unos US$20 mil millones del plan de financiamiento del AF27, tras 2026.",
+                "CDS a 5 años en máximos: ~227 pb el 24 sep, ~261 pb al cierre del 8 oct (cotizaciones de prensa, datos Bloomberg/ICE; sin serie en la página).",
                 "S&P BBB-/estable desde el 9 jul 2026; Moody's Baa2/negativa reafirmada el 2 feb 2026 (negativa desde jul 2025); Fitch BBB/estable reafirmada el 2 feb 2026."
               ]
             },
@@ -1174,12 +1170,17 @@
               "h": "Próximos catalizadores",
               "lines": [
                 "Día del Inversionista, 28 oct (Las Vegas): se esperan nuevos objetivos de largo plazo; asamblea anual el 18 nov (DEF 14A).",
-                "Resultados del 2T27, diciembre: porción del RPO a 12 meses (13% en el 1T27) y capex neto frente al tope de US$70 mil millones."
+                "Resultados del 2T27, {{fact:next_results}}: porción del RPO a 12 meses (13% en el 1T27) y capex neto frente al tope de US$70 mil millones."
               ]
             }
           ]
         },
         "watch_sources": [
+          {
+            "title": "Oracle press release, Oct 13, 2026 (El Paso Electric energy service agreement, Project Jupiter)",
+            "url": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/",
+            "title_es": "Comunicado de Oracle, 13 oct 2026 (contrato de servicio eléctrico con El Paso Electric, Proyecto Júpiter)"
+          },
           {
             "title": "Bloomberg, Sep 24, 2026 (force majeure)",
             "url": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center",
@@ -1206,9 +1207,9 @@
             "title_es": "CNBC, 8 oct 2026 (ingresos de OpenAI; confirma el reporte del FT)"
           },
           {
-            "title": "FactSet Global Prices / Nasdaq (ORCL closes Oct 8–9, 2026)",
+            "title": "FactSet Global Prices (ORCL closes Oct 8–13, 2026)",
             "url": "https://www.factset.com/",
-            "title_es": "FactSet Global Prices / Nasdaq (cierres de ORCL del 8 y 9 oct 2026)"
+            "title_es": "FactSet Global Prices (cierres de ORCL del 8 al 13 oct 2026)"
           },
           {
             "title": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026 (ATC refiling)",
@@ -1274,9 +1275,20 @@
             "title": "Schedule 14A (DEF 14A), Sep 25, 2026 (annual meeting Nov 18, 2026)",
             "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm",
             "title_es": "Schedule 14A (DEF 14A), 25 sep 2026 (asamblea anual del 18 nov 2026)"
+          },
+          {
+            "title": "International Business Times, Oct 11, 2026 (Oracle 5-year CDS a record 261 bp at the Oct 8 close)",
+            "url": "https://www.ibtimes.sg/why-nvidia-holding-ai-credit-fears-hit-broadcom-oracle-94944",
+            "title_es": "International Business Times, 11 oct 2026 (CDS a 5 años de Oracle en un máximo de 261 pb al cierre del 8 oct)"
           }
         ],
-        "content_hash": "2cbb5aed5844e28c"
+        "content_hash": "107042c271c4a7e1",
+        "changed_week": {
+          "date": "2026-10-13",
+          "from": "2026-10-07",
+          "en": "Oracle proposed a 10-year, US$10m-a-year grid agreement with El Paso Electric for Project Jupiter (Oct 13; Bloom fuel cells stay primary; ORCL +4.2% to US$143.20); the 5-year CDS was quoted at a record ~261 bp at the Oct 8 close after the FT's OpenAI revenue report (ORCL −5.5% Oct 8, −2.8% Oct 12); Mizuho made ORCL its No. 1 top pick (PT US$320, Oct 8) and Yorkville Ives initiated at In Line (PT US$155, Oct 7); director Rusckowski's trust bought 25,000 shares (Form 4, Oct 1).",
+          "es": "Oracle propuso un contrato de red a 10 años, de US$10 M anuales, con El Paso Electric para el Proyecto Júpiter (13 oct; las celdas Bloom siguen como fuente principal; ORCL +4.2% a US$143.20); el CDS a 5 años se cotizó en un máximo de ~261 pb al cierre del 8 oct tras el reporte del FT sobre los ingresos de OpenAI (ORCL −5.5% el 8 oct, −2.8% el 12 oct); Mizuho hizo de ORCL su selección principal (PO US$320, 8 oct) y Yorkville Ives inició con En línea (PO US$155, 7 oct); el fideicomiso del consejero Rusckowski compró 25,000 acciones (Formulario 4, 1 oct)."
+        }
       },
       "headline_en": "Revenue +30% to a record $19.3bn as cloud infrastructure more than doubles; $20bn ATM completed and FY27 raised to at least $90bn.",
       "headline_es": "Ingresos +30% a un récord de US$19.3 mil millones con la infraestructura de nube más que duplicada; ATM de US$20 mil millones completado y AF27 sube a US$90 mil millones o más.",

@@ -1,6 +1,6 @@
 {
   "_comment": "Risk register for the Oracle page (section 'risks'). Each risk names the public evidence behind it (a filing section, a figure already on the page, or a sourced news item), the page section where the figure lives (a {{sec:…}} token resolves to the live section number) and what would change the assessment. Nothing here introduces a figure that is not already in /data; every row carries its source. Reviewed with each 10-Q/10-K and after rating actions; `updated` is the review date.",
-  "updated": "2026-10-09",
+  "updated": "2026-10-13",
   "items": [
     {
       "id": "execution",
@@ -39,8 +39,8 @@
       "id": "funding",
       "en": "Funding and ratings: about US$20 bn still to raise in fiscal 2027, one notch above speculative grade at S&P",
       "es": "Financiamiento y calificaciones: unos US$20 mil millones por levantar en el AF2027, un escalón arriba del grado especulativo en S&P",
-      "evidence_en": "Notes payable US$125.3 bn and net debt US$88.3 bn at 1Q27; S&P BBB-/stable (Jul 9, 2026), Moody's Baa2/negative affirmed Feb 2, 2026 (outlook negative since Jul 28, 2025), Fitch BBB/stable affirmed Feb 2, 2026; US$19.9 bn ATM done of the US$40 bn fiscal-2027 plan (4Q26 call); 5-year CDS about 203 bp in July 2026 (Bloomberg).",
-      "evidence_es": "Notas por pagar US$125.3 mil millones y deuda neta US$88.3 mil millones al 1T27; S&P BBB-/estable (9 jul 2026), Moody's Baa2/negativa reafirmada el 2 feb 2026 (perspectiva negativa desde el 28 jul 2025), Fitch BBB/estable reafirmada el 2 feb 2026; US$19.9 mil millones de ATM ejecutados de los US$40 mil millones del plan AF2027 (llamada 4T26); CDS a 5 años cerca de 203 pb en julio de 2026 (Bloomberg).",
+      "evidence_en": "Notes payable US$125.3 bn and net debt US$88.3 bn at 1Q27; S&P BBB-/stable (Jul 9, 2026), Moody's Baa2/negative affirmed Feb 2, 2026 (outlook negative since Jul 28, 2025), Fitch BBB/stable affirmed Feb 2, 2026; US$19.9 bn ATM done of the US$40 bn fiscal-2027 plan (4Q26 call); 5-year CDS quoted at a record of about 261 bp at the Oct 8, 2026 close (about 227 bp on Sep 24; press quotes of Bloomberg/ICE data, see the news section).",
+      "evidence_es": "Notas por pagar US$125.3 mil millones y deuda neta US$88.3 mil millones al 1T27; S&P BBB-/estable (9 jul 2026), Moody's Baa2/negativa reafirmada el 2 feb 2026 (perspectiva negativa desde el 28 jul 2025), Fitch BBB/estable reafirmada el 2 feb 2026; US$19.9 mil millones de ATM ejecutados de los US$40 mil millones del plan AF2027 (llamada 4T26); CDS a 5 años cotizado en un máximo de cerca de 261 pb al cierre del 8 oct 2026 (cerca de 227 pb el 24 sep; cotizaciones de prensa de datos de Bloomberg/ICE, ver la sección de noticias).",
       "where": [
         "financing"
       ],
@@ -63,9 +63,9 @@
         },
         {
           "kind": "press",
-          "date": "2026-07-20",
-          "en": "The 203 bp CDS figure is a press report (Bloomberg, Jul 20, 2026), not a market feed: the page has no CDS series yet (no CDS data source is available), so it is not current.",
-          "es": "La cifra de 203 pb del CDS es una nota de prensa (Bloomberg, 20 jul 2026), no un dato de mercado: la página aún no tiene serie de CDS (no hay una fuente de datos de CDS disponible), así que no está al día."
+          "date": "2026-10-08",
+          "en": "The CDS figures are press quotes (Seeking Alpha, Sep 25; Investing.com, Oct 7; Bloomberg/ICE data reported Oct 9–11), not a market feed: the page has no CDS series, so they enter no ratio; the credit section shows the BBB index as a proxy.",
+          "es": "Las cifras del CDS son cotizaciones de prensa (Seeking Alpha, 25 sep; Investing.com, 7 oct; datos de Bloomberg/ICE reportados del 9 al 11 oct), no un dato de mercado: la página no tiene serie de CDS, así que no entran en ninguna razón; la sección de crédito muestra el índice BBB como proxy."
         }
       ]
     },

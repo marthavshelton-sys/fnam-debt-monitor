@@ -7,7 +7,7 @@
 | Press-sourced facts and failed guards only | Since 2026-09-24 the cloud routine publishes to main when a machine check stands behind the change (results and filings: both guards 0 failed; events: every fact primary-sourced; state: always). The only work it leaves unpublished is a branch `oracle/…` holding an event with a press-only fact or a quarter whose guard failed | Read the material-day email; open a pull request from the branch it names as "awaiting your review", or fix and merge it |
 | Earnings-call transcripts | Management quotes, call-page comments, megawatts delivered, promises, quantified guidance before 3Q26 | Supplied for 1Q24–1Q27 plus the Sept-2025 business update and the Oct-2025 analyst meeting (private `oracle-model` repository, `Transcripts/`). After each results call, drop the new PDF into that folder; the routine's next run picks it up |
 | FactSet connector | Valuation Context peer multiples and peer rebasing, Financing and Balance Sheet CDS spread, consensus next to guidance | Authorise the connector; data contracts: `tools/oracle/data/peers.json` (fields in `site/oracle/data/peers.js` header), `tools/oracle/data/cds.json` (`points` = [date, 5-year senior CDS mid in bp]), `tools/oracle/data/consensus.json` (revenue, EBITDA, EPS, target price, date) |
-| Analyst opinions refresh | Reference R3 is a dated in-session sweep (60-day window; stale 60 days after `as_of`) | Re-run `ANALYSTS-SWEEP-PROMPT.md` in a session with the Dropbox and FactSet connectors after each results cycle, or create a monthly Routine with both connectors and that prompt. Equity notes from Morgan Stanley, JPMorgan, Jefferies, Evercore and Mizuho were not in the library; the deck has no analyst page (`deck: false`, owner's call) |
+| Analyst opinions refresh | Reference R3 is a dated in-session sweep (60-day window; stale 60 days after `as_of`; last swept 2026-10-13) | Re-run `ANALYSTS-SWEEP-PROMPT.md` in a session with the Dropbox and FactSet connectors after each results cycle, or create a monthly Routine with both connectors and that prompt. Equity notes from JPMorgan, Jefferies and Evercore were not in the library; Mizuho and Yorkville Ives are on the page from press copies of their notes (`reported`, basis `press`); the deck has no analyst page (`deck: false`, owner's call) |
 | Password (optional) | Internal working model | Cloudflare → Workers & Pages → the Pages project → Settings → Variables and Secrets: `ORACLE_PASSWORD` (Production and Preview). Dormant until set; see runbook §Access |
 
 Done: `/oracle/` published from `main` (PR #32, 2026-09-23); `EDGAR_USER_AGENT` repository variable set; the
@@ -73,14 +73,11 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   "Base case (FactSet consensus)" button remains. Still open: if a Base case of FNAM's own is wanted (its own growth, margin
   or capex path kept apart from consensus), it needs a data definition (`reference.js → dcf`) and the Reset button would
   return to it instead.
-- **2026-10-09, Bull scenario (owner's decision needed; review finding M3).** The Bull (US$118) and the management target
-  (US$117) sit within a dollar because both are capped at the FY2030 target of US$225 bn and the Bull rejoins consensus after
-  FY2030; the page now explains this under the scenarios table. Two ways to separate them, neither built because both need a
-  judgment call: (A) merge the Bull into the management-target row (three scenarios: Bear / Base / Management target as the
-  upside), or (B) let the Bull run above consensus after FY2030 on a sourced basis, for which the only candidate on file is the
-  long-range targets Oracle will present at the Investor Day of Oct 28, 2026 (`long_range_targets.json`); a Bull built on the
-  current FY2030 target's CAGR (31%) extended past FY2030 would be an FNAM assumption, not a source. Until she decides, the
-  four rows stay as built on 2026-10-04.
+- **Bull scenario — resolved 2026-10-13 (round 6, item 4).** The Bull and the management-target rows were merged: the Bull
+  *is* management's in-force long-range plan (FY2030 revenue target on the consensus cost structure), so the DCF carries three
+  scenarios (Bear / Base = consensus / Bull = management targets) and the range is real. A Bull above management's plan would
+  need a sourced basis; the only candidate is the long-range update expected at the Investor Day of Oct 28, 2026
+  (`long_range_targets.json`): when it is filed, decide whether the Bull moves to it.
 
 Interest coverage and cash interest (XBRL, easy); depreciation vs capex with a server useful-life sensitivity (10-K
 policy note, medium); Form 4 insider transactions (EDGAR, easy); rating-agency lease-adjusted leverage replicated
