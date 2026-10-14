@@ -4,13 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "comments.js",
-   "path": "periods.2026Q3.quotes[2].quoteEs",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "comments.js",
    "path": "periods.2026Q3.quotes[3].quoteEs",
    "old": null,
    "new": null
@@ -4200,7 +4193,14 @@
    "path": "items[2].evidence_es",
    "old": "(text)",
    "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-14T02:49:24.460Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
   }
  ],
- "generated": "2026-10-14T02:47:28.097Z"
+ "generated": "2026-10-14T02:49:24.460Z"
 }
