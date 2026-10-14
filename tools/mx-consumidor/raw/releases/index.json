@@ -1116,6 +1116,11 @@
    ]
   }
  },
- "errors": [],
+ "errors": [
+  {
+   "ticker": "WALMEX",
+   "error": "the BMV list of notices parsed to zero rows"
+  }
+ ],
  "checkedAt": "2026-10-11T20:09:48.483Z"
 }
