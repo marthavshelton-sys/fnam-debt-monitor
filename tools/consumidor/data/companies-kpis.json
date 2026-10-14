@@ -1,6 +1,6 @@
 {
  "_comment": "Curated figures and short quotes for the 'What Companies Report' section of the American Consumer page. Every value and quote is taken from the company's own results release (Form 8-K, Item 2.02, exhibits stored under raw/releases/) and carries the text it was read from (`find`): the builder refuses a record whose text is not in the stored exhibit of the filing dated `filed`. Updated in a session after each earnings season; `reviewed` is the date of the last pass. `ex` names the exhibit when it is not the first one. trafficSign / ticketSign: the release says the direction without a figure. Gig platforms: `us` lists what the company reports for the United States (scope `us`) or for the narrowest geography that contains it (`usca` = United States and Canada), each entry citing its own report through `filed` and `form` (10-Q, 10-K, or `page:<id>` for a company page kept by the harvester); `of` / `ofFind` give the company total of the same line; `scope.find` is the sentence that states the geography.",
- "reviewed": "2026-10-11",
+ "reviewed": "2026-10-14",
  "companies": {
   "WMT": {
    "period": {
@@ -311,11 +311,11 @@
   },
   "ACI": {
    "period": {
-    "en": "Q1 FY2026 (16 weeks)",
-    "es": "1T AF2026 (16 semanas)"
+    "en": "Q2 FY2026 (12 weeks)",
+    "es": "2T AF2026 (12 semanas)"
    },
-   "periodEnd": "2026-06-20",
-   "filed": "2026-07-23",
+   "periodEnd": "2026-09-12",
+   "filed": "2026-10-13",
    "segment": {
     "en": "Identical sales",
     "es": "Ventas idénticas"
@@ -330,18 +330,10 @@
       "en": "Digital sales",
       "es": "Ventas digitales"
      },
-     "v": 13,
-     "find": "Digital sales increased 13%"
+     "v": 11,
+     "find": "Digital sales increased 11%"
     }
-   ],
-   "quote": {
-    "text": "core grocery faced increasing pressure from softer industry unit trends and a more cautious consumer",
-    "by": "Susan Morris",
-    "role": {
-     "en": "Chief Executive Officer",
-     "es": "Directora General"
-    }
-   }
+   ]
   },
   "HD": {
    "period": {
@@ -529,27 +521,18 @@
   },
   "DPZ": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-14",
-   "filed": "2026-07-20",
+   "periodEnd": "2026-09-06",
+   "filed": "2026-10-13",
    "segment": {
     "en": "U.S. same-store sales",
     "es": "Ventas mismas tiendas en EE. UU."
    },
    "comp": {
-    "v": 0.1,
-    "find": "U.S. same store sales growth of 0.1%"
-   },
-   "trafficSign": 1,
-   "quote": {
-    "text": "In a quarter where the broader U.S. QSR industry continued to face pressure on consumer demand, Domino’s generated order count growth across both our delivery and carryout businesses",
-    "by": "Russell Weiner",
-    "role": {
-     "en": "Chief Executive Officer",
-     "es": "Director General"
-    }
+    "v": 0.3,
+    "find": "U.S. same store sales growth of 0.3%"
    }
   },
   "DRI": {
@@ -638,26 +621,26 @@
   },
   "JPM": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-14",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-13",
    "segment": {
     "en": "Card Services",
     "es": "Card Services (tarjetas)"
    },
    "nco": {
-    "v": 3.34,
-    "find": "Card Services | 3.34 | 3.47 | 3.14 | 3.15 | 3.40",
+    "v": 2.91,
+    "find": "Card Services | 2.91 | 3.34 | 3.47 | 3.14 | 3.15 | 3.23 | 3.37",
     "ex": "EX-99.2",
-    "prev": 3.4
+    "prev": 3.15
    },
    "dq30": {
-    "v": 1.91,
-    "find": "Card Services | 1.91 | 2.17 | 2.16 | 2.14 | 2.06",
+    "v": 1.97,
+    "find": "Card Services | 1.97 | 1.91 | 2.17 | 2.16 | 2.14 | 1.97 | 2.14",
     "ex": "EX-99.2",
-    "prev": 2.06
+    "prev": 2.14
    },
    "spend": {
     "v": 10,
@@ -666,6 +649,14 @@
     "basis": {
      "en": "debit and credit card sales volume",
      "es": "volumen de ventas con tarjetas de débito y crédito"
+    }
+   },
+   "quote": {
+    "text": "The U.S. economy continued to be fueled by strong business investment and ongoing consumer spending.",
+    "by": "Jamie Dimon",
+    "role": {
+     "en": "Chairman and Chief Executive Officer",
+     "es": "Presidente del Consejo y Director General"
     }
    }
   },
