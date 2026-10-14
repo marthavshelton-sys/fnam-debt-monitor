@@ -662,34 +662,42 @@
   },
   "BAC": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-14",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-14",
    "segment": {
     "en": "Total credit card",
     "es": "Total de tarjetas de crédito"
    },
    "nco": {
-    "v": 3.55,
-    "find": "3.59 | % | 3.94 | % | 3.55 | % | 3.64 | % | 3.40 | % | 3.46 | % | 3.82 | %",
+    "v": 3.22,
+    "find": "3.47 | % | 3.78 | % | 3.22 | % | 3.55 | % | 3.64 | % | 3.40 | % | 3.46 | %",
     "ex": "EX-99.3",
-    "prev": 3.82
+    "prev": 3.46
    },
    "dq30": {
-    "v": 2.23,
-    "find": "2.23 | % | 2.36 | % | 2.23 | % | 2.44 | % | 2.46 | % | 2.41 | % | 2.36 | %",
+    "v": 2.32,
+    "find": "2.32 | % | 2.41 | % | 2.32 | % | 2.23 | % | 2.44 | % | 2.46 | % | 2.41 | %",
     "ex": "EX-99.3",
-    "prev": 2.36
+    "prev": 2.41
    },
    "spend": {
-    "v": 9,
-    "find": "Combined credit / debit card spend of $266 billion, up 9%",
+    "v": 8,
+    "find": "Combined credit / debit card spend of $266 billion, up 8%",
     "ex": "EX-99.1",
     "basis": {
      "en": "combined credit and debit card spend",
      "es": "gasto combinado con tarjetas de crédito y débito"
+    }
+   },
+   "quote": {
+    "text": "Our momentum, reflected in growth in client deposits, wealth flows and consumer activity, supported solid earnings, balance-sheet growth and long-term shareholder value.",
+    "by": "Brian Moynihan",
+    "role": {
+     "en": "Chair and Chief Executive Officer",
+     "es": "Presidente del Consejo y Director General"
     }
    }
   },
