@@ -4,104 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "summary.js",
-   "path": "watchSources[11].title",
-   "old": "Network World, Oct 9, 2026 (Tencent lease, export controls)",
-   "new": "Reuters via U.S. News, Sep 30, 2026 (Tencent lease, FT report)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[11].url",
-   "old": "https://www.networkworld.com/article/4233245/oracle-reportedly-lands-7b-gpu-deal-for-tencent.html",
-   "new": "https://money.usnews.com/investing/news/articles/2026-09-30/chinas-tencent-leases-100-000-chips-from-oracle-to-accelerate-ai-push-ft-reports"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[11].title_es",
-   "old": "Network World, 9 oct 2026 (arrendamiento de Tencent, controles de exportación)",
-   "new": "Reuters vía U.S. News, 30 sep 2026 (arrendamiento de Tencent, reporte del FT)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[12].title",
-   "old": "Oracle press release, Oct 2, 2026 (Point Beach)",
-   "new": "Network World, Oct 9, 2026 (Tencent lease, export controls)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[12].url",
-   "old": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
-   "new": "https://www.networkworld.com/article/4233245/oracle-reportedly-lands-7b-gpu-deal-for-tencent.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[12].title_es",
-   "old": "Comunicado de Oracle, 2 oct 2026 (Point Beach)",
-   "new": "Network World, 9 oct 2026 (arrendamiento de Tencent, controles de exportación)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[13].title",
-   "old": "10-Q, quarter ended August 31, 2026",
-   "new": "Oracle press release, Oct 2, 2026 (Point Beach)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[13].url",
-   "old": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
-   "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[13].title_es",
-   "old": "10-Q, trimestre terminado el 31 de agosto de 2026",
-   "new": "Comunicado de Oracle, 2 oct 2026 (Point Beach)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[14].title",
-   "old": "S&P Global Ratings, Jul 9, 2026",
-   "new": "10-Q, quarter ended August 31, 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[14].url",
-   "old": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609",
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[14].title_es",
-   "old": "S&P Global Ratings, 9 jul 2026",
-   "new": "10-Q, trimestre terminado el 31 de agosto de 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[15].title",
-   "old": "Moody's Ratings, Feb 2, 2026 (Baa2 affirmed, outlook negative)",
-   "new": "S&P Global Ratings, Jul 9, 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[15].url",
-   "old": "https://ratings.moodys.com/ratings-news/458628",
-   "new": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
    "path": "watchSources[15].title_es",
    "old": "Moody's Ratings, 2 feb 2026 (Baa2 reafirmada, perspectiva negativa)",
    "new": "S&P Global Ratings, 9 jul 2026"
@@ -4200,7 +4102,105 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 793,
    "new": 794
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-14)"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2962,
+   "new": 2963
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-14)"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2512,
+   "new": 2513
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.21,
+   "new": 5.19
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16180,
+   "new": 16181
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-14",
+   "new": "2025-10-15"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-14T23:24:49.210Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
   }
  ],
- "generated": "2026-10-14T18:05:09.416Z"
+ "generated": "2026-10-14T23:24:49.210Z"
 }
