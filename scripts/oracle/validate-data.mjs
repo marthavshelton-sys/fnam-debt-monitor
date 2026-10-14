@@ -319,7 +319,8 @@ if (anj) {
   check("analysts: as_of is an ISO date, the window is positive and window_start matches it", iso(anj.as_of) && anj.window_days > 0 && anj.window_start === winStart);
   check("analysts: every house has an id, name, kind, analysts, a date inside the window, title, bilingual thesis, method and basis, and a source of basis 'report'", houses.length > 0 && houses.every((h) => h.id && h.house && ["equity", "credit"].includes(h.kind) && h.analysts && inWin(h.date) && h.title && h.thesis_en && h.thesis_es && h.method_en && h.method_es && h.basis_short_en && h.basis_short_es && h.source && h.source.basis === "report" && h.source.title));
   check("analysts: ratings carry a known class and targets are positive numbers (null only when the report states none)", [...houses, ...reported].every((h) => (h.rating_class == null || classes.has(h.rating_class)) && (h.target_usd == null || h.target_usd > 0) && (h.rating == null) === (h.rating_class == null) && (h.target_prev_usd == null || h.target_prev_usd > 0) && (h.price_at_report == null || h.price_at_report > 0)));
-  check("analysts: every StreetAccount-reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount'", reported.every((r) => r.id && r.house && r.analysts && inWin(r.date) && r.rating && r.target_usd > 0 && r.note_en && r.note_es && r.basis_short_en && r.basis_short_es && r.source && r.source.basis === "streetaccount" && r.source.title));
+  check("analysts: every reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount' or 'press' (press with the article's https URL)", reported.every((r) => r.id && r.house && r.analysts && inWin(r.date) && r.rating && r.target_usd > 0 && r.note_en && r.note_es && r.basis_short_en && r.basis_short_es && r.source && ["streetaccount", "press"].includes(r.source.basis) && r.source.title && (r.source.basis !== "press" || /^https:\/\//.test(r.source.url || ""))));
+  check("analysts: qualifiers (label_en/label_es) are bilingual where present", [...houses, ...reported].every((h) => (h.label_en == null) === (h.label_es == null)));
   check("analysts: ids are unique across houses and reported", new Set([...houses, ...reported].map((x) => x.id)).size === houses.length + reported.length);
   check("analysts: target histories, estimates and earlier notes are dated, positive and bilingual", houses.every((h) => (h.target_history || []).every((x) => iso(x.date) && x.usd > 0) && Object.values(h.estimates || {}).every((v) => v.revenue_usd_bn > 0 && v.eps > 0) && (h.earlier || []).every((e) => inWin(e.date) && e.title && e.note_en && e.note_es)));
   const pts = (anj.consensus_history || {}).points || [];
@@ -409,16 +410,16 @@ const latestId = latest ? latest.id : null;
 const nextRes = cal?.nextResults?.date || null, est = (cal?.estimates || [])[0] || null;
 const freshness = [];
 const fresh = (series, lastDate, limitDays, note) => { const age = daysSince(lastDate); freshness.push({ series, lastDate: lastDate ? String(lastDate).slice(0, 10) : null, ageDays: age, limitDays, status: lastDate == null || age > limitDays ? "warn" : "ok", note: note || null }); };
-fresh("Share price (ORCL close, FactSet Global Prices)", fsPx.length ? fsPx[fsPx.length - 1].date : null, 5, "nightly FactSet routine, 7:58 PM New York time; the page's price authority");
-fresh("Share price (ORCL close, runner feed)", mref?.price_snapshot?.orcl?.close_date, 5, "market fetch, weekdays 13:30 and 21:45 UTC; fills dates FactSet has not posted yet");
+fresh("Share price (ORCL close, FactSet Global Prices)", fsPx.length ? fsPx[fsPx.length - 1].date : null, 5, "nightly FactSet refresh, 7:58 PM ET; the page's price authority");
+fresh(`Share price (ORCL close, ${(mref?.price_snapshot?.orcl?.source_name || "Nasdaq / Yahoo Finance").replace(/\s*\(\d{4}-\d{2}-\d{2}\)\s*$/, "")} feed)`, mref?.price_snapshot?.orcl?.close_date, 5, "market fetch, every day 9:30 AM ET and weekdays about 4:35 PM and 4:45–5:45 PM ET; fills the sessions FactSet has not posted yet");
 fresh(`10-year Treasury (${mref?.treasury_10y?.source_name || "U.S. Treasury daily par yield curve"})`, mref?.treasury_10y?.as_of_date, 5, "market fetch");
 fresh("BBB corporate OAS proxy (FRED BAMLC0A4CBBB)", mref?.credit_spread_proxy?.as_of_date, 7, "market fetch; credit card proxy while no CDS source exists");
-fresh("Latest quarter release", latest?.release_date, 100, latest ? `${latest.id}${nextRes ? `; next results confirmed for ${nextRes}` : est ? `; next results estimated ${est.window_start} to ${est.window_end}` : ""}` : null);
-fresh("EDGAR submissions snapshot", edg?.fetched, 4, "filings harvest, weekdays 13:30 UTC");
+fresh("Latest quarter release", latest?.release_date, 100, latest ? `${latest.id}${nextRes ? `; next results confirmed for ${nextRes}` : est ? `; next results estimated ${est.median || est.window_end} (median of three years; deadline ${est.window_end} + grace)` : ""}` : null);
+fresh("EDGAR submissions snapshot", edg?.fetched, 4, "filings download, every day about 9:30 AM ET");
 fresh("Oracle IR press-release snapshot", irf?.fetched, 4, "filings harvest");
 fresh("Investor calendar", cal?.generated, 10, "calendar fetch");
 fresh("Peer leverage (SEC XBRL)", plv?.fetched, 10, "peer-leverage fetch");
-fresh("FactSet consensus snapshot", fsj?.fetched, 7, "automated FactSet refresh, weekdays 14:20 UTC");
+fresh("FactSet consensus snapshot", fsj?.fetched, 7, "nightly FactSet refresh, 7:58 PM ET");
 fresh("Implied equity risk premium (Damodaran, monthly)", mref?.erp?.as_of, 45, "the market fetch reads Damodaran's home page; he posts on the first of each month");
 fresh("Market concerns (press sweep)", prs?.as_of, 10, "desktop task, Mondays");
 fresh("Sell-side research sweep (analyst opinions)", anj?.as_of, anj?.window_days || 60, "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt");
@@ -429,7 +430,7 @@ const stale = freshness.filter((f) => f.status === "warn").map((f) => `${f.serie
 const curated = [];
 const cur = (file, ok, detail) => curated.push({ file, status: ok ? "ok" : "warn", detail });
 const cmQ = latestId ? cm?.by_quarter?.[latestId] : null; const cmN = cmQ ? Object.keys(cmQ.comments || {}).length : 0;
-cur("comments.json", !!(cmQ && cmN && cmQ.exec_summary), cmQ ? `${latestId}: ${cmN} line comments; executive summary ${cmQ.exec_summary ? "present" : "missing"}; drafted ${cmQ.drafted || "—"}` : `${latestId || "latest quarter"} has no comments yet`);
+cur("comments.json", !!(cmQ && cmN && cmQ.exec_summary), cmQ ? `${latestId}: ${cmN} line comments; executive summary ${cmQ.exec_summary ? `written ${cmQ.exec_summary.updated || cmQ.drafted || "—"}` : "missing"}; comments drafted ${cmQ.drafted || "—"}` : `${latestId || "latest quarter"} has no comments yet`);
 const gv = (gd?.vintages || []).slice().sort((a, b) => String(a.issued_on).localeCompare(String(b.issued_on))).pop();
 cur("guidance.json", !!(gv && gv.issued_in === latestId), gv ? `latest vintage issued in ${gv.issued_in} (${gv.issued_on}); ${(gd.vintages || []).length} vintages` : "no vintages");
 cur("transcripts.json", !!(latestId && tr?.calls?.[latestId]), latestId && tr?.calls?.[latestId] ? `${latestId} call on file (${tr.calls[latestId].call_date}); ${Object.keys(tr.calls).length} calls` : `${latestId || "latest"} call transcript not merged`);
@@ -438,20 +439,20 @@ cur("obligations.json", !!(ob && latest && ob.as_of === latest.period_end), ob ?
 const fyKeys = Object.keys(fyj?.fiscal_years || {}).sort(); const lastFy = fyKeys[fyKeys.length - 1] || null; const expFy = latest ? `FY${latest.fiscal_quarter === 4 ? latest.fiscal_year : latest.fiscal_year - 1}` : null;
 cur("fiscal_years.json", !!(lastFy && lastFy === expFy), `${fyKeys[0] || "—"} to ${lastFy || "—"}; expected through ${expFy || "—"}`);
 cur("market_reference.json", !!(mref?.price_snapshot?.orcl?.shares_outstanding_millions && daysSince(mref?.price_snapshot?.orcl?.close_date) <= 5), mref ? `shares ${mref.price_snapshot?.orcl?.shares_outstanding_millions} M; price ${mref.price_snapshot?.orcl?.close_date}; ${Array.isArray(mref.credit_ratings) ? mref.credit_ratings.length : Object.keys(mref.credit_ratings || {}).length} ratings; ${(mref.debt_instruments || []).length} debt instruments` : "missing");
-cur("calendar.json", !!cal, cal ? `${(cal.events || []).length} events; next results ${nextRes || (est ? `estimated ${est.window_start} to ${est.window_end}` : "—")}; ${(cal.manual_events || []).length} manual` : "missing");
+cur("calendar.json", !!cal, cal ? `${(cal.events || []).length} events; next results ${nextRes || (est ? `estimated ${est.median || est.window_end} (median of three years)` : "—")}; ${(cal.manual_events || []).length} manual` : "missing");
 cur("press.json", !!(prs && (prs.items || []).length && daysSince(prs.as_of) <= 10), prs ? `${(prs.items || []).length} items, as of ${prs.as_of}` : "missing");
 cur("factset.json", !!(fsj && daysSince(fsj.fetched) <= 7), fsj ? `consensus ${fsj.as_of}; prices ${fsj.price_date}; ${(fsj.peers || []).length} peers; fetched ${fsj.fetched}` : "missing");
 cur("peer_leverage.json", !!(plv && (plv.peers || []).some((p) => !p.error)), plv ? `${(plv.peers || []).filter((p) => !p.error).length} peers; fetched ${plv.fetched}` : "missing");
-cur("analysts.json", !!(anj && daysSince(anj.as_of) <= (anj.window_days || 60)), anj ? `${(anj.houses || []).length} houses from reports, ${(anj.reported || []).length} reported via StreetAccount; swept ${anj.as_of}, ${anj.window_days}-day window` : "missing");
+cur("analysts.json", !!(anj && daysSince(anj.as_of) <= (anj.window_days || 60)), anj ? `${(anj.houses || []).length} houses from reports, ${(anj.reported || []).length} known through StreetAccount summaries or press copies; swept ${anj.as_of}, ${anj.window_days}-day window` : "missing");
 
 // Next expected filing: Oracle's confirmed date, else the end of the derived window (assumed); a filing-driven module
 // is stale once today > that date + grace. Daily modules are stale past max_age_days.
 if (fr) {
   const grace = fr.grace_days ?? 7;
-  const nextExp = nextRes || est?.window_end || null, nextBasis = nextRes ? "confirmed" : est ? "assumed" : null;
+  const nextExp = nextRes || est?.median || est?.window_end || null, nextDeadlineBase = nextRes || est?.window_end || null, nextBasis = nextRes ? "confirmed" : est ? "assumed" : null;
   const nwsJ = loadJSON("news.json"), rk = loadJSON("risks.json"), chl = loadJSON("changelog.json"), xbJ = loadJSON("xbrl_facts.json");
   const lastRefreshOf = {
-    financials: latest?.release_date, xbrl: xbJ?.fetched, obligations: ob?.updated, guidance: gv?.issued_on, comments: cmQ?.drafted || cm?.updatedAt, summary: cmQ?.drafted || cm?.updatedAt, buildout: bo?.updated, reference: mref?.price_snapshot?.orcl?.accessed,
+    financials: latest?.release_date, xbrl: xbJ?.fetched, obligations: ob?.updated, guidance: gv?.issued_on, comments: cmQ?.drafted || cm?.updatedAt, summary: cmQ?.exec_summary?.updated || cmQ?.drafted || cm?.updatedAt, buildout: bo?.updated, reference: mref?.price_snapshot?.orcl?.accessed,
     market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.fetched, analysts: anj?.as_of, cds: loadJSON("cds.json")?.updated_at || null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString(), changelog: chl?.generated || null,
   };
   const asOfOf = { financials: latest?.period_end, xbrl: xbJ?.latest_period_end, obligations: ob?.as_of, guidance: gv?.issued_on, comments: latest?.period_end, summary: latest?.period_end, buildout: latest?.period_end, reference: latest?.period_end, market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.as_of, analysts: anj?.as_of, cds: null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString().slice(0, 10), changelog: chl?.generated };
@@ -459,7 +460,7 @@ if (fr) {
     const last = lastRefreshOf[id] ? String(lastRefreshOf[id]).slice(0, 10) : null; const asOf = asOfOf[id] ? String(asOfOf[id]).slice(0, 10) : null;
     let stale = false, reason = null, deadline = null;
     if (m.cadence === "filing") {
-      if (nextExp) { const d = new Date(nextExp + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + grace); deadline = d.toISOString().slice(0, 10); const covered = asOf && latest?.period_end && asOf >= latest.period_end; stale = today.toISOString().slice(0, 10) > deadline || (asOf != null && latest?.period_end != null && asOf < latest.period_end && id !== "guidance" && id !== "reference" && id !== "risks"); reason = stale ? (covered ? `next filing expected by ${nextExp} (${nextBasis}) + ${grace} days passed without a new filing` : `data as of ${asOf} while the latest quarter ends ${latest?.period_end}`) : null; }
+      if (nextExp) { const d = new Date(nextDeadlineBase + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + grace); deadline = d.toISOString().slice(0, 10); const covered = asOf && latest?.period_end && asOf >= latest.period_end; stale = today.toISOString().slice(0, 10) > deadline || (asOf != null && latest?.period_end != null && asOf < latest.period_end && id !== "guidance" && id !== "reference" && id !== "risks"); reason = stale ? (covered ? `next filing expected by ${nextExp} (${nextBasis}) + ${grace} days passed without a new filing` : `data as of ${asOf} while the latest quarter ends ${latest?.period_end}`) : null; }
     } else { const age = daysSince(last); stale = last == null || (age != null && age > (m.max_age_days ?? 7)); reason = stale ? (last ? `last refresh ${last}, ${age} days ago (limit ${m.max_age_days})` : "never refreshed") : null; if (m.optional && last == null) { stale = false; reason = "optional module, no data yet"; } }
     modules.push({ id, label_en: m.label_en, label_es: m.label_es, cadence: m.cadence, asOf, lastRefresh: last, nextExpected: m.cadence === "filing" ? nextExp : null, nextExpectedBasis: m.cadence === "filing" ? nextBasis : null, deadline, maxAgeDays: m.max_age_days ?? null, stale, reason, textDerived: !!m.text_derived });
   }

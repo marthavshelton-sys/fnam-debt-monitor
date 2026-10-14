@@ -173,6 +173,115 @@
       },
       "first_seen": "2026-10-09",
       "superseded_by": null
+    },
+    {
+      "id": "manual-dividend-payment-2026-10-23",
+      "type": "dividend",
+      "title": "Quarterly dividend payment (US$0.50 per share, declared Sep 10)",
+      "title_es": "Pago del dividendo trimestral (US$0.50 por acción, declarado el 10 sep)",
+      "start": "2026-10-23",
+      "all_day": true,
+      "timezone": "America/New_York",
+      "location": null,
+      "status": "filed",
+      "links": {
+        "event": null,
+        "webcast": null,
+        "release": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+        "announcement": null,
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "1Q27 earnings release (8-K Exhibit 99.1, Sep 10, 2026): quarterly cash dividend of US$0.50 per share payable Oct 23, 2026 to holders of record Oct 9, 2026",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+        "fetched": "2026-10-13",
+        "note": "Payment date; the declared dividend sits in market.js → dividends.announced until paid."
+      },
+      "first_seen": "2026-10-13",
+      "superseded_by": null
+    },
+    {
+      "id": "manual-ai-world-2026-10-25",
+      "type": "conference",
+      "title": "Oracle AI World 2026 (Las Vegas, Oct 25–28)",
+      "title_es": "Oracle AI World 2026 (Las Vegas, 25–28 oct)",
+      "start": "2026-10-25",
+      "end": "2026-10-28",
+      "all_day": true,
+      "timezone": "America/Los_Angeles",
+      "location": "The Venetian, Las Vegas",
+      "status": "announced",
+      "links": {
+        "event": "https://www.oracle.com/ai-world/",
+        "webcast": null,
+        "release": null,
+        "announcement": null,
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "Oracle AI World 2026 site: October 25–28, 2026, The Venetian Convention and Expo Center, Las Vegas",
+        "url": "https://www.oracle.com/ai-world/faq/",
+        "fetched": "2026-10-13",
+        "note": "Customer conference; the Investor Day of Oct 28 is held during it (separate entry)."
+      },
+      "first_seen": "2026-10-13",
+      "superseded_by": null
+    },
+    {
+      "id": "manual-wisconsin-psc-completeness-2026-10-19",
+      "type": "regulatory",
+      "title": "Wisconsin PSC: completeness decision on ATC's refiled Port Washington transmission application (about Oct 19)",
+      "title_es": "PSC de Wisconsin: decisión sobre la integridad de la nueva solicitud de transmisión de ATC para Port Washington (hacia el 19 oct)",
+      "start": "2026-10-19",
+      "all_day": true,
+      "timezone": "America/Chicago",
+      "location": "Madison, Wisconsin",
+      "status": "estimated",
+      "links": {
+        "event": null,
+        "webcast": null,
+        "release": null,
+        "announcement": null,
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "Aterio, Sep 29, 2026: Oracle's Project Lighthouse: Power Delays Put 2027 Target at Risk (the PSC's 30-day completeness decision on the Sep 18 refiling runs to about Oct 19, 2026)",
+        "url": "https://www.aterio.io/blog/oracle-project-lighthouse-power-delays",
+        "fetched": "2026-10-13",
+        "note": "Statutory 30-day window from the refiling of Sep 18, 2026; an estimate, not a PSC-announced date."
+      },
+      "first_seen": "2026-10-13",
+      "superseded_by": null
+    },
+    {
+      "id": "manual-michigan-egle-hearing-2026-10-21",
+      "type": "regulatory",
+      "title": "Michigan EGLE public hearing on the Saline Township data center wastewater-discharge permit (6 PM ET, virtual)",
+      "title_es": "Audiencia pública de la EGLE de Michigan sobre el permiso de descarga de aguas residuales del centro de datos de Saline Township (6 PM hora del Este, virtual)",
+      "start": "2026-10-21T18:00:00-04:00",
+      "all_day": false,
+      "timezone": "America/Detroit",
+      "location": "Virtual (EGLE)",
+      "status": "announced",
+      "links": {
+        "event": null,
+        "webcast": null,
+        "release": null,
+        "announcement": null,
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "The Sun Times News, Sep 12, 2026: State Schedules Hearing on Saline Township Data Center Discharge Permit (NPDES permit MI0060445, Related Digital; hearing Oct 21, 6–9 PM; written comments through Oct 23)",
+        "url": "https://thesuntimesnews.com/state-schedules-hearing-on-saline-township-data-center-discharge-permit/",
+        "fetched": "2026-10-13",
+        "note": "Permit applicant is the developer (Related Digital), not Oracle."
+      },
+      "first_seen": "2026-10-13",
+      "superseded_by": null
     }
   ]
 }

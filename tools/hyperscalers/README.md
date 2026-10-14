@@ -148,6 +148,14 @@ owner's email in a User-Agent.
 - "Not tagged" (absent from XBRL) ≠ "Not disclosed" (searched in the text and absent). Never impute.
 - Staleness: next period end + SEC deadline for the filer category (40/60 large accelerated, 45/90 others, 120 for the
   20-F) + 7 days, computed in the reader's browser.
+- Leverage, one basis with the Oracle model (owner, 13-Oct-2026): EBITDA = TTM operating income + TTM D&A, where a company
+  that tags depreciation alone (`us-gaap:Depreciation`: Oracle) gets `us-gaap:AmortizationOfIntangibleAssets` added
+  (`ttm._daPlusAmort`); EBITDAR = EBITDA + `us-gaap:OperatingLeaseCost` (`ol_cost`); ND / EBITDA and lease-adjusted
+  ND / EBITDAR (`ttm.land_ebitdar`; the pages fall back to `land_ebitda` with an "on EBITDA" note while the snapshot lacks
+  the tag). Both new tags enter `tools/hyperscalers/data/xbrl/*.json` with the runner's next EDGAR fetch (the sandbox cannot
+  reach data.sec.gov), after which Oracle prints 2.60x / 3.54x here as on /oracle/. The common-window note names the fiscal
+  quarter that enters the group sum and says that a company's own figures are its latest filed quarter (Oracle: LTM to
+  31 Aug 2026), instead of "closes its quarter one month earlier".
 
 ## In-session refreshes (FactSet is not available in Actions)
 

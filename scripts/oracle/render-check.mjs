@@ -90,7 +90,7 @@ for (const c of configs) {
   if (!/US\$\s*\d/.test(r.dcf.hero || "")) f(`DCF value not finite: ${r.dcf.hero}`);
   if (!/has to be true|tiene que ser cierto/i.test(r.dcf.check)) f("DCF 'what has to be true' statement missing");
   if (!r.dcf.bridge || r.dcf.beta < 2) f("DCF bridge or beta cross-check missing");
-  if (r.dcf.presets !== 4 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} scenario rows, ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
+  if (r.dcf.presets !== 3 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} scenario rows (expected 3 since the Bull and the management target merged, 2026-10-13), ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
   if (r.badHrefs.length) f(`anchors without a real href: ${r.badHrefs.slice(0, 3).join(" | ")}`);
   if (r.smallCtl && r.smallCtl.length) f(`controls under 44 px on a phone: ${r.smallCtl.join(" | ")}`);
   if (r.smallInputs) f(`${r.smallInputs} DCF inputs under 16 px on a phone`);
@@ -131,7 +131,7 @@ for (const c of configs) {
     // metrics with estimate counts, the hero is the DCF-implied target with its implied multiples, the Excel button is wired
     const top = await page.evaluate(() => { const M = window.ORCL_MODEL; const d = M.dcfNow(); return { inputs: document.querySelectorAll('#dcfTable input').length, N: d.s.N, buttons: document.querySelectorAll('#dcfScenarioBar button').length, cons: document.querySelectorAll('#dcfCons tbody tr').length, est: (document.querySelector('#dcfCons') || {}).textContent || '', heroK: (document.getElementById('dcfHeroK') || {}).textContent || '', mult: (document.getElementById('dcfHeroMult') || {}).textContent || '', xlsx: !!document.getElementById('dcfXlsx') && !!window.FNAM_XLSX, firstCard: (document.querySelector('#dcf .card') || {}).id, truthW: (() => { const th = document.querySelector('#dcfTruth thead th:nth-child(3)'); return th ? Math.round(th.getBoundingClientRect().width) : 0; })() }; });
     if (top.inputs < 5 * top.N + 1) f(`projection table has ${top.inputs} inputs for ${top.N} years`);
-    if (top.buttons !== 5) f(`${top.buttons} scenario buttons (expected 4 scenarios + reset; the duplicate FactSet-consensus button left 2026-10-09)`);
+    if (top.buttons !== 4) f(`${top.buttons} scenario buttons (expected 3 scenarios + reset; the duplicate FactSet-consensus button left 2026-10-09, the management-target button merged into the Bull 2026-10-13)`);
     if (top.cons !== 12 || !/est\./.test(top.est)) f(`consensus comparison incomplete (${top.cons} rows)`);
     if (!/DCF-implied target|Objetivo implícito por el DCF/.test(top.heroK) || !/NTM EPS|UPA NTM/.test(top.mult)) f(`hero is not the DCF-implied target with its multiples (${top.heroK} / ${top.mult})`);
     if (!top.xlsx) f('Excel export button or writer missing');

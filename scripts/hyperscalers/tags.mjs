@@ -14,6 +14,12 @@ export const TAGS = {
   ocf: { kind: 'flow', tags: ['us-gaap:NetCashProvidedByUsedInOperatingActivities'], en: 'Operating cash flow', es: 'Flujo de efectivo de operación' },
   op_income: { kind: 'flow', tags: ['us-gaap:OperatingIncomeLoss'], en: 'Operating income', es: 'Utilidad de operación' },
   da: { kind: 'flow', tags: ['us-gaap:DepreciationDepletionAndAmortization', 'us-gaap:DepreciationAmortizationAndAccretionNet', 'us-gaap:DepreciationAndAmortization', 'us-gaap:Depreciation'], en: 'Depreciation and amortization (cash-flow statement)', es: 'Depreciación y amortización (estado de flujos)' },
+  // a company that tags depreciation alone (Oracle: "Depreciation" plus a separate "Amortization of intangible assets" line)
+  // gets the amortization added back into EBITDA (one basis with the Oracle model: operating income + total D&A; owner, 2026-10-13)
+  amort_intang: { kind: 'flow', tags: ['us-gaap:AmortizationOfIntangibleAssets'], en: 'Amortization of intangible assets (cash-flow statement)', es: 'Amortización de intangibles (estado de flujos)' },
+  // operating lease cost (lease note): EBITDAR = EBITDA + operating lease cost, the denominator of lease-adjusted leverage on
+  // the hub and on the Oracle model alike (the rating agencies' convention: lease liabilities in the numerator, rent in the denominator)
+  ol_cost: { kind: 'flow', tags: ['us-gaap:OperatingLeaseCost'], en: 'Operating lease cost (lease note)', es: 'Costo de arrendamientos operativos (nota de arrendamientos)' },
   interest_exp: { kind: 'flow', tags: ['us-gaap:InterestExpense', 'us-gaap:InterestExpenseNonoperating', 'us-gaap:InterestExpenseDebt'], en: 'Interest expense (as reported, net of capitalized interest)', es: 'Gasto por intereses (reportado, neto de intereses capitalizados)' },
   interest_cap: { kind: 'flow', tags: ['us-gaap:InterestCostsCapitalized', 'us-gaap:InterestCostsCapitalizedAdjustment'], en: 'Interest capitalized into construction', es: 'Intereses capitalizados en construcción' },
   // candidates added 2026-10-03 after a scan of the companies' full companyfacts (owner's third review): Microsoft tags

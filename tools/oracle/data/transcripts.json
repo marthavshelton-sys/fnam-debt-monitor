@@ -2,7 +2,8 @@
   "meta": {
     "note_en": "Earnings-call transcripts supplied by the owner as PDFs (not SEC filings; not republished). Quotes are short verbatim excerpts with speaker, date and page. Where the press release printed no quantified guidance, the ranges stated in the CFO's prepared remarks are used and marked 'transcript'.",
     "note_es": "Transcripciones de llamadas de resultados proporcionadas por el responsable en PDF (no son reportes ante la SEC; no se republican). Las citas son extractos textuales breves con orador, fecha y página. Donde el comunicado no imprimió guía cuantificada, se usan los rangos expresados en los comentarios preparados del CFO y se marcan como 'transcripción'.",
-    "merged": "2026-09-23"
+    "merged": "2026-09-23",
+    "quote_es_note": "quote_es: FNAM translation (Mexican Spanish) of the printed quote, shown on the Spanish page with the original in a tooltip; calls without it show the original labeled as English."
   },
   "calls": {
     "FY2024Q1": {
@@ -1315,84 +1316,96 @@
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Revenue was $19.2 billion, up 21% in US dollars. Cloud Infrastructure revenue grew 93%, reflecting strong demand for both AI workloads and our database services.",
-          "page": 3
+          "page": 3,
+          "quote_es": "Los ingresos fueron $19.2 mil millones, +21% en dólares. Los ingresos de Infraestructura de Nube crecieron 93%, reflejo de una fuerte demanda tanto de cargas de IA como de nuestros servicios de base de datos."
         },
         {
           "topic": "operating_income",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "For the full year, our gross margin stepped down around 5 points as expected as we start to see the impacts from the build-out of our Infrastructure business",
-          "page": 4
+          "page": 4,
+          "quote_es": "Para el año completo, nuestro margen bruto bajó unos 5 puntos, como se esperaba, al empezar a verse los efectos de la expansión de nuestro negocio de Infraestructura"
         },
         {
           "topic": "capex",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Our net cash outlay for capital expenditures for the full year was $48 billion, taking into account prepayments and timing impacts of around $8 billion.",
-          "page": 4
+          "page": 4,
+          "quote_es": "Nuestro desembolso neto en efectivo para gastos de capital del año completo fue de $48 mil millones, tomando en cuenta prepagos y efectos de calendario de unos $8 mil millones."
         },
         {
           "topic": "rpo",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "And our remaining performance obligations, or RPO, finished at $638 billion, up 363%.",
-          "page": 4
+          "page": 4,
+          "quote_es": "Y nuestras obligaciones de desempeño restantes, o RPO, cerraron en $638 mil millones, +363%."
         },
         {
           "topic": "rpo",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "we expect 12% to be recognized in the next 12 months, and another 34% between 13 and 36 months.",
-          "page": 4
+          "page": 4,
+          "quote_es": "esperamos que 12% se reconozca en los próximos 12 meses, y otro 34% entre los meses 13 y 36."
         },
         {
           "topic": "software",
           "speaker": "Michael D. Sicilia",
           "role": "Chief Executive Officer & Director",
           "quote": "Oracle Cloud Applications generated revenues of $4.1 billion, which was up 10% and our SaaS deferred revenue was up 16% in the quarter.",
-          "page": 4
+          "page": 4,
+          "quote_es": "Las Aplicaciones de Nube de Oracle generaron ingresos de $4.1 mil millones, +10%, y nuestros ingresos diferidos de SaaS subieron 16% en el trimestre."
         },
         {
           "topic": "ai_contracts",
           "speaker": "Clayton Magouyrk",
           "role": "Chief Executive Officer & Director",
           "quote": "We signed $67 billion in AI infrastructure contracts this quarter, the majority of which were either Bring-Your-Own-Hardware or prepaid.",
-          "page": 6
+          "page": 6,
+          "quote_es": "Firmamos $67 mil millones en contratos de infraestructura de IA este trimestre, la mayoría con hardware aportado por el cliente (Bring-Your-Own-Hardware) o prepagados."
         },
         {
           "topic": "cloud",
           "speaker": "Clayton Magouyrk",
           "role": "Chief Executive Officer & Director",
           "quote": "In Q4, 35,000 GPUs from 59 separate customers were up for renewal. 49% of those customers renewed for 92% of those GPUs.",
-          "page": 7
+          "page": 7,
+          "quote_es": "En el 4T, 35,000 GPU de 59 clientes distintos llegaron a renovación. El 49% de esos clientes renovó el 92% de esos GPU."
         },
         {
           "topic": "guidance",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "We'll continue those investments in our fiscal year 2027 with an expected net cash outlay for capital expenditures of around $70 billion.",
-          "page": 8
+          "page": 8,
+          "quote_es": "Continuaremos esas inversiones en nuestro año fiscal 2027 con un desembolso neto en efectivo esperado para gastos de capital de alrededor de $70 mil millones."
         },
         {
           "topic": "debt",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "we expect to raise around $40 billion in debt and equity in our fiscal year 2027, and that includes our already announced $20 billion at-the-market equity issuance.",
-          "page": 8
+          "page": 8,
+          "quote_es": "esperamos levantar alrededor de $40 mil millones en deuda y capital en nuestro año fiscal 2027, lo que incluye la emisión de capital at-the-market de $20 mil millones ya anunciada."
         },
         {
           "topic": "guidance",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "we expect our non-GAAP EPS for the year to be $8.05, up 18% in constant currency, excluding the net one-time investment gains",
-          "page": 8
+          "page": 8,
+          "quote_es": "esperamos que nuestra UPA No-GAAP del año sea de $8.05, +18% a tipo de cambio constante, excluyendo las ganancias netas extraordinarias por inversiones"
         },
         {
           "topic": "operating_income",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "what we see is return on invested capital in the high 20s at a steady state, so once the revenues have ramped for large projects at the project level.",
-          "page": 10
+          "page": 10,
+          "quote_es": "lo que vemos es un retorno sobre el capital invertido en la parte alta de los veinte en estado estable, es decir, una vez que los ingresos de los proyectos grandes han madurado, a nivel de proyecto."
         }
       ],
       "source": "S-CALL-FY2026Q4"
@@ -1444,84 +1457,96 @@
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Total revenue was a record $19.3 billion, up 30% year-over-year in US dollars, and for the first time, Q1 total revenue grew sequentially",
-          "page": 3
+          "page": 3,
+          "quote_es": "Los ingresos totales fueron un récord de $19.3 mil millones, +30% año contra año en dólares, y por primera vez los ingresos totales del 1T crecieron secuencialmente"
         },
         {
           "topic": "cloud",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Cloud Infrastructure revenue for Q1 was $7.4 billion, up 121%, reflecting strong execution as we brought record levels of new megawatt capacity online",
-          "page": 3
+          "page": 3,
+          "quote_es": "Los ingresos de Infraestructura de Nube del 1T fueron $7.4 mil millones, +121%, reflejo de una sólida ejecución al poner en línea niveles récord de nueva capacidad en megawatts"
         },
         {
           "topic": "operating_income",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Net-net, our operating margin remained around flat for the quarter at 42% on a non-GAAP basis.",
-          "page": 3
+          "page": 3,
+          "quote_es": "En neto, nuestro margen operativo se mantuvo más o menos estable en el trimestre en 42% en base No-GAAP."
         },
         {
           "topic": "rpo",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "the vast majority of those new contracts were via Pre-Pay or Bring-Your-Own-Hardware or similar mechanic, so won't require incremental capital from Oracle.",
-          "page": 3
+          "page": 3,
+          "quote_es": "la gran mayoría de esos contratos nuevos fueron con prepago, con hardware aportado por el cliente (Bring-Your-Own-Hardware) o un mecanismo similar, por lo que no requerirán capital incremental de Oracle."
         },
         {
           "topic": "rpo",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "We now expect around half of our RPO to convert into sales over the next 36 months.",
-          "page": 3
+          "page": 3,
+          "quote_es": "Ahora esperamos que cerca de la mitad de nuestro RPO se convierta en ventas en los próximos 36 meses."
         },
         {
           "topic": "capex",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "We continue to anticipate $90 billion to 95 billion in CapEx for the full year, with not more than $70 billion in net cash CapEx.",
-          "page": 4
+          "page": 4,
+          "quote_es": "Seguimos anticipando entre $90 mil y $95 mil millones de capex para el año completo, con no más de $70 mil millones de capex neto en efectivo."
         },
         {
           "topic": "debt",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "we're quite pleased to announce that we completed our previously disclosed $20 billion at-the-market equity issuance in entirety during the Q1.",
-          "page": 4
+          "page": 4,
+          "quote_es": "nos complace anunciar que completamos en su totalidad durante el 1T la emisión de capital at-the-market de $20 mil millones que ya habíamos divulgado."
         },
         {
           "topic": "software",
           "speaker": "Michael D. Sicilia",
           "role": "Chief Executive Officer & Director",
           "quote": "our SaaS business grew 10%, with Fusion growing at 14%, our Oracle Health business continued to accelerate",
-          "page": 5
+          "page": 5,
+          "quote_es": "nuestro negocio de SaaS creció 10%, con Fusion creciendo 14%, y nuestro negocio de Oracle Health siguió acelerando"
         },
         {
           "topic": "ai_contracts",
           "speaker": "Clayton Magouyrk",
           "role": "Chief Executive Officer & Director",
           "quote": "We closed more than $30 billion of additional AI contracts in Q1, without requiring additional capital from Oracle.",
-          "page": 6
+          "page": 6,
+          "quote_es": "Cerramos más de $30 mil millones de contratos adicionales de IA en el 1T, sin requerir capital adicional de Oracle."
         },
         {
           "topic": "ai_contracts",
           "speaker": "Clayton Magouyrk",
           "role": "Chief Executive Officer & Director",
           "quote": "Of all the GPUs that came up for renewal in Q1, that capacity was renewed or resold at a 20% premium to prior contracts.",
-          "page": 6
+          "page": 6,
+          "quote_es": "De todos los GPU cuyo contrato venció en el 1T, esa capacidad se renovó o se revendió con una prima de 20% sobre los contratos anteriores."
         },
         {
           "topic": "guidance",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "we're upgrading our guidance to at least $90 billion in total revenues. That's a year-over-year increase of plus 34% and to $8.10 for our non-GAAP EPS.",
-          "page": 7
+          "page": 7,
+          "quote_es": "elevamos nuestra guía a por lo menos $90 mil millones de ingresos totales. Eso es un aumento año contra año de +34%, y a $8.10 nuestra UPA No-GAAP."
         },
         {
           "topic": "operating_income",
           "speaker": "Hilary Maxson",
           "role": "Chief Financial Officer",
           "quote": "Over the next couple of years, as we finish the ramp up, you can reasonably expect that gross margin would flatten, I would say.",
-          "page": 14
+          "page": 14,
+          "quote_es": "En los próximos dos años, conforme terminemos la fase de arranque, es razonable esperar que el margen bruto se aplane, diría yo."
         }
       ],
       "source": "S-CALL-FY2027Q1"

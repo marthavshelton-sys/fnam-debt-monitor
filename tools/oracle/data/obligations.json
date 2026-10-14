@@ -160,7 +160,8 @@
      "en": "SEC company-facts API searched on 2026-10-03 (ET): no us-gaap or Oracle-specific concept carries this amount at Aug 31, 2026 (the only commitments concept, CommitmentsAndContingencies, has no value), so the figure cannot be machine-verified and rests on the two readings of the note.",
      "es": "API de datos de compañía de la SEC consultada el 2026-10-03 (hora del Este): ningún concepto us-gaap ni propio de Oracle lleva este monto al 31 de agosto de 2026 (el único concepto de compromisos, CommitmentsAndContingencies, no tiene valor), así que la cifra no puede verificarse por máquina y descansa en las dos lecturas de la nota."
     }
-   }
+   },
+   "text_es": "Al 31 de agosto de 2026 teníamos $288 mil millones de compromisos de arrendamiento adicionales, sustancialmente todos relacionados con acuerdos de centros de datos, que en general se espera que inicien entre el segundo trimestre del año fiscal 2027 y el año fiscal 2029 y por plazos de quince a diecinueve años, y que no estaban reflejados en nuestros balances generales consolidados condensados al 31 de agosto de 2026 ni en la tabla de vencimientos anterior."
   },
   "discount_rate_pct": {
    "operating": 5.7,
@@ -602,6 +603,19 @@
  "site_commitments": {
   "_comment": "Site-level amounts Oracle has stated in releases, or that the press attributes to Oracle or its counterparties, outside the 10-Q (commitments and leases notes). Shown under the commitments table as a memo with basis and source; nominal, as printed; never summed and never added to a ratio.",
   "items": [
+   {
+    "id": "epe-jupiter-energy-service",
+    "site": "Doña Ana County, NM (Project Jupiter)",
+    "date": "2026-10-13",
+    "basis": "company",
+    "amount_text": "US$ 10 M a year × 10 years ≈ US$ 100 M (proposed)",
+    "en": "Proposed Energy Service Agreement with El Paso Electric for construction, commissioning, emergency backup and life-safety power at Project Jupiter: Oracle expects to pay US$10 million a year for ten years even if its usage is below contracted levels, about US$100 million fixed; a separate proposal offers up to US$55 million a year of bill credits for up to three years to EPE's New Mexico residential and small-business customers (up to US$165 million, a proposal, not a liability). Both await filing and regulatory approval; the Bloom fuel-cell microgrid remains the primary power source (company statement, not audited; in no ratio).",
+    "es": "Contrato de Servicio Eléctrico propuesto con El Paso Electric para la obra, la puesta en marcha, el respaldo de emergencia y la energía de seguridad del Proyecto Júpiter: Oracle espera pagar US$10 millones al año durante diez años aunque su consumo quede por debajo de lo contratado, unos US$100 millones fijos; una propuesta aparte ofrece hasta US$55 millones anuales en créditos a la factura, hasta por tres años, a los clientes residenciales y pequeños negocios de EPE en Nuevo México (hasta US$165 millones, una propuesta, no un pasivo). Ambos están pendientes de presentarse y de aprobación regulatoria; la microrred de celdas Bloom sigue como fuente principal (declaración de la empresa, no auditada; en ninguna razón).",
+    "source": {
+     "title": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico",
+     "url": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/"
+    }
+   },
    {
     "id": "point-beach-energy",
     "site": "Port Washington, WI",

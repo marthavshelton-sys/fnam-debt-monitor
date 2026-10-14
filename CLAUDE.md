@@ -161,6 +161,15 @@ dashboards, everything built from public data by GitHub Actions.
   2026-10-06; `deck_order` is gone), opens with the executive summary (the page's text: "What to watch" left, Operations /
   Guidance / Debt then the verdict right) and a linked contents page, and excludes the DCF (page-only) while keeping the
   multiples and peers.
+  Round 6 (owner, 13-Oct-2026; `tools/oracle/MEMORY.md` → "2026-10-13"): the DCF has three scenarios (Bear / Base = consensus /
+  Bull = management's long-range targets; no separate management row); curated text writes the next-results date as
+  `{{fact:next_results}}` (never typed); `analysts.json → reported` may cite a press copy of a note (`source.basis: "press"` + URL);
+  the Spanish view localizes typed filing, note and transcript titles through `srcTitle()` and prints the last two calls' quotes
+  translated with the original in a tooltip (`quote_es`); `quality.html` translates the validator's English through `ES_RULES`
+  and prints ET; the Feb 2036 note's spread is the term sheet's (+145 bp, Feb 2, 2026; `market_reference.json → pricing`), one
+  figure with the Hub; the Hub's lease-adjusted leverage is ND ÷ EBITDAR with amortization of intangibles in EBITDA (one basis
+  with the model); `oracle-refresh.yml` has a 4:35 PM ET market run; the news routine's prompt reads the IR feed, searches the
+  campuses' utilities and regulators and applies a price-move rule (`NEWS-SWEEP-PROMPT.md` rule 3).
   Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
   :8123) and build the PDF in both languages (`scripts/oracle/deck-check.mjs`, PyMuPDF installed, both languages, 0 failures);
   a change to the DCF engine, its projection table or the Excel writer also runs `scripts/oracle/xlsx-check.mjs` (LibreOffice +

@@ -63,14 +63,154 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
 <script>
 (function () {
   const Q = window.ORCL_QUALITY || null;
-  let LANG = 'es'; try { LANG = localStorage.getItem('orcl-lang') || 'es'; } catch (e) {}
+  // one language setting for the whole site: ?lang= wins, then localStorage['fnam-lang'] (the legacy 'orcl-lang' read once)
+  let LANG = 'es'; try { const u = new URLSearchParams(location.search).get('lang'); LANG = (u === 'en' || u === 'es') ? u : (localStorage.getItem('fnam-lang') || localStorage.getItem('orcl-lang') || 'es'); if (LANG !== 'en' && LANG !== 'es') LANG = 'es'; } catch (e) {}
   const T = { ok: { es: 'OK', en: 'OK' }, warn: { es: 'Aviso', en: 'Warning' }, fail: { es: 'Falla', en: 'Fail' }, all: { es: 'Todos', en: 'All' } };
   const t = (k) => (T[k] ? T[k][LANG] : k);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   const fmtDate = (iso) => (iso && /^\d{4}-\d{2}-\d{2}/.test(String(iso)) ? new Date(String(iso).slice(0, 10) + 'T12:00:00Z').toLocaleDateString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : (iso || '—'));
-  const fmtStamp = (iso) => (iso ? new Date(iso).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC' : '—');
+  const fmtStamp = (iso) => (iso ? new Date(iso).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET' : '—'); // ET everywhere on the Oracle pages (owner)
   const num = (v) => (v == null ? '—' : Math.abs(v) >= 1 || v === 0 ? Number(v).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { maximumFractionDigits: 2 }) : Number(v).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { maximumFractionDigits: 4 }));
   const st = (s) => `<span class="st ${s}">${t(s)}</span>`;
+  // The validator writes its check names and notes in English; the Spanish view translates the recurring forms here (identifiers
+  // such as XBRL concepts, JSON paths and file names are kept). A string no rule knows is shown as written.
+  const ES_RULES = [
+    [/^revenue components sum to total revenue$/, 'los componentes de ingresos suman los ingresos totales'],
+    [/^opex components sum to total opex$/, 'los componentes de gastos operativos suman el total de gastos operativos'],
+    [/^operating income = revenue − opex$/, 'utilidad de operación = ingresos − gastos operativos'],
+    [/^pretax income = operating income \+ interest \+ non-operating$/, 'utilidad antes de impuestos = utilidad de operación + intereses + partidas no operativas'],
+    [/^net income = pretax income − tax$/, 'utilidad neta = utilidad antes de impuestos − impuestos'],
+    [/^net income to common = net income − preferred dividends$/, 'utilidad neta a comunes = utilidad neta − dividendos preferentes'],
+    [/^diluted EPS ≈ net income to common \/ diluted shares$/, 'UPA diluida ≈ utilidad neta a comunes / acciones diluidas'],
+    [/^total debt = short-term \+ long-term debt$/, 'deuda total = deuda de corto plazo + deuda de largo plazo'],
+    [/^cash \+ investments = cash & equivalents \+ marketable securities$/, 'efectivo + inversiones = efectivo y equivalentes + valores negociables'],
+    [/^free cash flow = operating cash flow \+ capex$/, 'flujo libre = flujo operativo + capex'],
+    [/^total D&A = depreciation \+ amortization$/, 'D&A total = depreciación + amortización'],
+    [/^cash-flow amortization ≈ income-statement amortization of intangibles$/, 'amortización del flujo de efectivo ≈ amortización de intangibles del estado de resultados'],
+    [/^guidance (\S+) is a well-formed range$/, 'la guía $1 es un rango bien formado'],
+    [/^capex \(release, derived quarter\) = XBRL (\S+) \((.+), derived quarter\)$/, 'capex (comunicado, trimestre derivado) = XBRL $1 ($2, trimestre derivado)'],
+    [/^operating cash flow \(release\) = XBRL (\S+) \((.+)\)$/, 'flujo operativo (comunicado) = XBRL $1 ($2)'],
+    [/^fewer than (\d+) quarters captured yet — annual roll-up check skipped$/, 'aún hay menos de $1 trimestres capturados — se omite el cuadre anual'],
+    [/^recast revenue lines sum to recast total$/, 'las líneas de ingresos reexpresadas suman el total reexpresado'],
+    [/^recast total = originally reported total$/, 'total reexpresado = total reportado originalmente'],
+    [/^sum of (\d+) quarters' revenue = annual revenue$/, 'suma de $1 trimestres de ingresos = ingresos anuales'],
+    [/^sum of (\d+) quarters' operating cash flow = annual$/, 'suma de $1 trimestres de flujo operativo = flujo operativo anual'],
+    [/^sum of (\d+) quarters' capex = annual$/, 'suma de $1 trimestres de capex = capex anual'],
+    [/^sum of (\d+) quarters' D&A = annual D&A$/, 'suma de $1 trimestres de D&A = D&A anual'],
+    [/^XBRL (\S+) four derived quarters sum to the annual$/, 'XBRL $1: los cuatro trimestres derivados suman el anual'],
+    [/^every theme used is declared$/, 'todo tema usado está declarado'],
+    [/^notes payable current \+ non-current = total$/, 'documentos por pagar de corto + largo plazo = total'],
+    [/^cash \+ marketable securities = cash and investments$/, 'efectivo + valores negociables = efectivo e inversiones'],
+    [/^net debt = notes payable − cash and investments$/, 'deuda neta = documentos por pagar − efectivo e inversiones'],
+    [/^operating lease liabilities current \+ non-current = total$/, 'pasivos por arrendamiento operativo de corto + largo plazo = total'],
+    [/^finance lease liabilities current \+ non-current = total$/, 'pasivos por arrendamiento financiero de corto + largo plazo = total'],
+    [/^purchase-obligation schedule sums to the total$/, 'el calendario de obligaciones de compra suma el total'],
+    [/^preferred quarterly dividend = (.+)$/, 'dividendo trimestral de las preferentes = $1'],
+    [/^preferred conversion rates = liquidation preference ÷ threshold and initial prices$/, 'tasas de conversión de las preferentes = preferencia de liquidación ÷ precios umbral e inicial'],
+    [/^uncommenced-lease history ends at the current figure and period$/, 'el historial de arrendamientos no iniciados termina en la cifra y el periodo actuales'],
+    [/^cash and investments tie to quarters\.json for the same period end$/, 'efectivo e inversiones cuadran con quarters.json al mismo cierre de periodo'],
+    [/^notes payable tie to quarters\.json total debt for the same period end$/, 'documentos por pagar cuadran con la deuda total de quarters.json al mismo cierre de periodo'],
+    [/^prepayments\.(\S+) = the archived (\S+) release$/, 'prepayments.$1 = el comunicado archivado del $2'],
+    [/^latest period end matches the latest quarter in quarters\.json$/, 'el último cierre de periodo coincide con el último trimestre de quarters.json'],
+    [/^(\S+) effective and statutory rates match XBRL$/, 'las tasas efectiva y estatutaria del $1 coinciden con XBRL'],
+    [/^(\S+) reconciliation line '(\w+)' \((.+) pp\) matches XBRL (\S+)$/, "la línea de conciliación '$2' del $1 ($3 pp) coincide con XBRL $4"],
+    [/^reconciliation lines sum from the statutory rate to the effective rate \(±(.+) pp\)$/, 'las líneas de conciliación suman de la tasa estatutaria a la efectiva (±$1 pp)'],
+    [/^(\S+) provision matches XBRL IncomeTaxExpenseBenefit$/, 'la provisión del $1 coincide con XBRL IncomeTaxExpenseBenefit'],
+    [/^normalized rate = statutory \+ state line$/, 'tasa normalizada = estatutaria + línea estatal'],
+    [/^every item has a date, outlet, title, https link, theme and both summaries$/, 'cada evento tiene fecha, medio, título, enlace https, tema y ambos resúmenes'],
+    [/^no item is dated after as_of$/, 'ningún evento está fechado después de as_of'],
+    [/^as_of, price_date and fetched are ISO dates$/, 'as_of, price_date y fetched son fechas ISO'],
+    [/^Oracle NTM EPS, EBITDA and sales are positive$/, 'la UPA, el EBITDA y las ventas NTM de Oracle son positivos'],
+    [/^every fiscal-year record ends on 31 May and carries Oracle's own label$/, 'cada registro de año fiscal termina el 31 de mayo y lleva la etiqueta de Oracle'],
+    [/^NTM history is dated and ascending$/, 'el historial NTM está fechado y es ascendente'],
+    [/^rating counts add up to the total$/, 'los conteos de recomendaciones suman el total'],
+    [/^at least six peers with price, market cap and NTM EPS$/, 'al menos seis pares con precio, valor de mercado y UPA NTM'],
+    [/^every market cap is dated at its company's price date and equals close × company-level shares \((\S+), within (\S+)\)$/, 'cada valor de mercado está fechado en la fecha de precio de su empresa y es igual a cierre × acciones a nivel empresa ($1, dentro de $2)'],
+    [/^the snapshot's market_cap_date is its price_date$/, 'el market_cap_date del corte es su price_date'],
+    [/^historical multiple averages \((.+)\) present and positive for Oracle and every peer$/, 'promedios históricos de múltiplos ($1) presentes y positivos para Oracle y cada par'],
+    [/^historical multiples use company-level shares \((\S+)\) for Oracle and every peer$/, 'los múltiplos históricos usan acciones a nivel empresa ($1) para Oracle y cada par'],
+    [/^ADTV \((\d)-month average daily traded value, US\$ M\) present and positive for Oracle and every peer$/, 'ADTV (valor operado promedio diario de $1 meses, US$ M) presente y positivo para Oracle y cada par'],
+    [/^ORCL daily price file \(FactSet Global Prices\) present, ascending, with intraday highs and lows$/, 'archivo diario de precios de ORCL (FactSet Global Prices) presente, ascendente, con máximos y mínimos intradía'],
+    [/^the price file's last close is the snapshot's ORCL price on ORCL's own price date$/, 'el último cierre del archivo de precios es el precio de ORCL del corte en su propia fecha de precio'],
+    [/^prices are dated no earlier than the day before the consensus date \(prior close rule\)$/, 'los precios no son anteriores al día previo a la fecha del consenso (regla del cierre previo)'],
+    [/^historical multiple averages are dated and the note states the method$/, 'los promedios históricos de múltiplos están fechados y la nota indica el método'],
+    [/^every item has an ISO date, theme, bilingual title, summary and why-it-matters$/, 'cada evento tiene fecha ISO, tema, título, resumen y por qué importa bilingües'],
+    [/^every item has at least one https source with a known tier$/, 'cada evento tiene al menos una fuente https con un nivel conocido'],
+    [/^sources are listed primary first \(SEC → company → agency → wire → press\)$/, 'las fuentes van de la primaria en adelante (SEC → empresa → agencia → cable → prensa)'],
+    [/^an item labeled sec\/company\/agency leads with a source of that tier$/, 'un evento etiquetado sec/company/agency abre con una fuente de ese nivel'],
+    [/^SEC-sourced items carry an accession number$/, 'los eventos con fuente SEC llevan número de acceso'],
+    [/^no item is dated after as_of; ids are unique$/, 'ningún evento está fechado después de as_of; los ids son únicos'],
+    [/^as_of is an ISO date, the window is positive and window_start matches it$/, 'as_of es una fecha ISO, la ventana es positiva y window_start coincide'],
+    [/^every house has an id, name, kind, analysts, a date inside the window, title, bilingual thesis, method and basis, and a source of basis 'report'$/, "cada casa tiene id, nombre, tipo, analistas, fecha dentro de la ventana, título, tesis, método y base bilingües, y una fuente de base 'report'"],
+    [/^ratings carry a known class and targets are positive numbers \(null only when the report states none\)$/, 'las recomendaciones tienen una clase conocida y los objetivos son positivos (nulo solo cuando el reporte no da ninguno)'],
+    [/^every reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount' or 'press' \(press with the article's https URL\)$/, "cada casa reportada tiene nombre, analistas, fecha dentro de la ventana, recomendación, objetivo, nota bilingüe y una fuente de base 'streetaccount' o 'press' (prensa con la URL https del artículo)"],
+    [/^qualifiers \(label_en\/label_es\) are bilingual where present$/, 'los calificadores (label_en/label_es) son bilingües donde existen'],
+    [/^ids are unique across houses and reported$/, 'los ids son únicos entre casas y reportadas'],
+    [/^target histories, estimates and earlier notes are dated, positive and bilingual$/, 'historiales de objetivos, estimaciones y notas anteriores fechados, positivos y bilingües'],
+    [/^consensus history is dated, ascending, no later than as_of, and its rating counts add up$/, 'el historial del consenso está fechado, es ascendente, no posterior a as_of, y sus conteos suman'],
+    [/^bilingual library and price notes present$/, 'notas bilingües de biblioteca y precio presentes'],
+    [/^carries its own ISO date \(exec_summary\.updated\)$/, 'lleva su propia fecha ISO (exec_summary.updated)'],
+    [/^dated (\S+) on or after every source it cites \(latest (\S+)\) and its events_through$/, 'fechado el $1, en o después de cada fuente que cita (la última, $2) y de su events_through'],
+    [/^what-to-watch items are short lines \(\{ h, lines\[\] \}, each line ≤ (\d+) characters\)$/, 'los puntos de qué observar son líneas cortas ({ h, lines[] }, cada una ≤ $1 caracteres)'],
+    [/^no hand-typed section number \(cross-references use \{\{sec:id\}\}\)$/, 'ningún número de sección tecleado (las referencias cruzadas usan {{sec:id}})'],
+    [/^every campus has an issues list and the date its sources were checked$/, 'cada campus tiene una lista de incidencias y la fecha en que se revisaron sus fuentes'],
+    [/^every issue is dated, typed, bilingual and sourced \(https\), dated no later than the check$/, 'cada incidencia está fechada, tipificada, bilingüe y con fuente (https), no posterior a la revisión'],
+    [/^every long-range target names its call, page and status \(superseded ones say when and by what\)$/, 'cada objetivo de largo plazo nombra su llamada, página y estado (los sustituidos dicen cuándo y por cuál)'],
+    [/^every row note is dated, typed and bilingual$/, 'cada nota de fila está fechada, tipificada y es bilingüe'],
+    [/^consensus D&A \((\S+)\) is present for the fiscal years the DCF projects$/, 'el D&A de consenso ($1) existe para los años fiscales que proyecta el DCF'],
+    [/^implied equity risk premium \(Damodaran\) is a dated percentage$/, 'la prima de riesgo implícita (Damodaran) es un porcentaje fechado'],
+    [/^every cross-reference \(ref\(\), data-ref, \{\{sec:\}\}\) names a registered section$/, 'cada referencia cruzada (ref(), data-ref, {{sec:}}) nombra una sección registrada'],
+    [/^every registered section exists once in index\.html, in registry order$/, 'cada sección registrada existe una vez en index.html, en el orden del registro'],
+    [/^no hand-typed section number remains in the page, deck or data narrative$/, 'no queda ningún número de sección tecleado en la página, el deck ni la narrativa de datos'],
+    [/^no empty, undefined or null href in index\.html$/, 'ningún href vacío, undefined o null en index.html'],
+    [/^every \{\{fact:id\}\} token in the narrative names a fact the page composes$/, 'cada token {{fact:id}} de la narrativa nombra un hecho que la página compone'],
+    [/^no repository or tool path in the page's reader-facing markup$/, 'ninguna ruta del repositorio o de herramientas en el marcado que ve el lector'],
+    [/^no repository or tool path in the narrative data the page prints$/, 'ninguna ruta del repositorio o de herramientas en los datos narrativos que imprime la página'],
+    // freshness series and notes, curated details, module reasons
+    [/^Share price \(ORCL close, FactSet Global Prices\)$/, 'Precio de la acción (cierre de ORCL, FactSet Global Prices)'],
+    [/^Share price \(ORCL close, (.+) feed\)$/, 'Precio de la acción (cierre de ORCL, fuente $1)'],
+    [/^10-year Treasury \(U\.S\. Treasury daily par yield curve\)$/, 'Tesoro a 10 años (curva diaria de rendimientos par del Tesoro de EE. UU.)'],
+    [/^BBB corporate OAS proxy \((\S+)\)$/, 'Proxy del OAS corporativo BBB ($1)'],
+    [/^Latest quarter release$/, 'Último comunicado trimestral'],
+    [/^EDGAR submissions snapshot$/, 'Corte de presentaciones en EDGAR'],
+    [/^Oracle IR press-release snapshot$/, 'Corte de comunicados de Relación con Inversionistas de Oracle'],
+    [/^Investor calendar$/, 'Calendario del inversionista'],
+    [/^Peer leverage \(SEC XBRL\)$/, 'Apalancamiento de pares (XBRL de la SEC)'],
+    [/^FactSet consensus snapshot$/, 'Corte del consenso de FactSet'],
+    [/^Implied equity risk premium \(Damodaran, monthly\)$/, 'Prima de riesgo implícita (Damodaran, mensual)'],
+    [/^Market concerns \(press sweep\)$/, 'Preocupaciones del mercado (barrido de prensa)'],
+    [/^Sell-side research sweep \(analyst opinions\)$/, 'Barrido de análisis del lado vendedor (opiniones de analistas)'],
+    [/^Filings pending extraction$/, 'Reportes pendientes de extracción'],
+    [/^nightly FactSet refresh, 7:58 PM ET; the page's price authority$/, 'actualización nocturna de FactSet, 7:58 PM ET; la autoridad de precios de la página'],
+    [/^market fetch, every day 9:30 AM ET and weekdays about 4:35 PM and 4:45–5:45 PM ET; fills the sessions FactSet has not posted yet$/, 'descarga de mercado, diaria 9:30 AM ET y días hábiles hacia las 4:35 PM y 4:45–5:45 PM ET; cubre las sesiones que FactSet aún no publica'],
+    [/^market fetch$/, 'descarga de mercado'],
+    [/^market fetch; credit card proxy while no CDS source exists$/, 'descarga de mercado; proxy de crédito mientras no exista una fuente de CDS'],
+    [/^(FY\d{4}Q\d); next results estimated (\S+) \(median of three years; deadline (\S+) \+ grace\)$/, '$1; próximos resultados estimados el $2 (mediana de tres años; límite $3 + gracia)'],
+    [/^(FY\d{4}Q\d); next results confirmed (\S+)$/, '$1; próximos resultados confirmados el $2'],
+    [/^filings download, every day about 9:30 AM ET$/, 'descarga de reportes, diaria hacia las 9:30 AM ET'],
+    [/^filings harvest$/, 'cosecha de reportes'], [/^calendar fetch$/, 'descarga del calendario'], [/^peer-leverage fetch$/, 'descarga del apalancamiento de pares'],
+    [/^nightly FactSet refresh, 7:58 PM ET$/, 'actualización nocturna de FactSet, 7:58 PM ET'],
+    [/^the market fetch reads Damodaran's home page; he posts on the first of each month$/, 'la descarga de mercado lee la página de Damodaran; publica el primero de cada mes'],
+    [/^desktop task, Mondays$/, 'tarea de escritorio, lunes'],
+    [/^in-session sweep of the owner's research library \(Dropbox\) and FactSet StreetAccount; refresh with the analysts sweep prompt$/, 'barrido en sesión de la biblioteca de investigación de la responsable (Dropbox) y FactSet StreetAccount; se actualiza con el prompt del barrido de analistas'],
+    [/^nothing pending \(last harvest date shown\)$/, 'nada pendiente (se muestra la fecha de la última cosecha)'],
+    [/^(FY\d{4}Q\d): (\d+) line comments; executive summary written (\S+); comments drafted (\S+)$/, '$1: $2 comentarios de línea; resumen ejecutivo escrito el $3; comentarios redactados el $4'],
+    [/^latest vintage issued in (FY\d{4}Q\d) \((\S+)\); (\d+) vintages$/, 'última guía emitida en el $1 ($2); $3 guías'],
+    [/^(FY\d{4}Q\d) call on file \((\S+)\); (\d+) calls$/, 'llamada del $1 en archivo ($2); $3 llamadas'],
+    [/^promises through (FY\d{4}Q\d); (\d+) sites; reviewed (\S+)$/, 'promesas hasta el $1; $2 sitios; revisado el $3'],
+    [/^as of (\S+) \(10-Q notes\); updated (\S+)$/, 'al $1 (notas del 10-Q); actualizado el $2'],
+    [/^(FY\d{4}) to (FY\d{4}); expected through (FY\d{4})$/, '$1 a $2; esperado hasta $3'],
+    [/^shares (\S+) M; price (\S+); (\d+) ratings; (\d+) debt instruments$/, 'acciones $1 M; precio $2; $3 calificaciones; $4 instrumentos de deuda'],
+    [/^(\d+) events; next results estimated (\S+) \(median of three years\); (\d+) manual$/, '$1 eventos; próximos resultados estimados el $2 (mediana de tres años); $3 manuales'],
+    [/^(\d+) events; next results confirmed (\S+); (\d+) manual$/, '$1 eventos; próximos resultados confirmados el $2; $3 manuales'],
+    [/^(\d+) items, as of (\S+)$/, '$1 elementos, al $2'],
+    [/^consensus (\S+); prices (\S+); (\d+) peers; fetched (\S+)$/, 'consenso $1; precios $2; $3 pares; descargado el $4'],
+    [/^(\d+) peers; fetched (\S+)$/, '$1 pares; descargado el $2'],
+    [/^(\d+) houses from reports, (\d+) known through StreetAccount summaries or press copies; swept (\S+), (\d+)-day window$/, '$1 casas con reporte, $2 conocidas por resúmenes de StreetAccount o copias de prensa; barrido del $3, ventana de $4 días'],
+    [/^optional module, no data yet$/, 'módulo opcional, aún sin datos'],
+    [/^missing$/, 'falta'],
+  ];
+  const tr = (s) => { if (s == null) return ''; s = String(s); if (LANG !== 'es') return s; for (const [re, es] of ES_RULES) { if (re.test(s)) return s.replace(re, es); } return s.replace(/\bWarning\b/g, 'Aviso').replace(/\bfewer than\b/g, 'menos de'); };
   const qLabel = (id) => { const m = /^FY(\d{4})Q(\d)$/.exec(id || ''); return m ? (LANG === 'es' ? `${m[2]}T${m[1].slice(2)}` : `${m[2]}Q${m[1].slice(2)}`) : id || '—'; };
   const days = (iso) => (iso ? Math.round((Date.now() - new Date(String(iso).slice(0, 10) + 'T00:00:00Z')) / 864e5) : null);
   let filter = 'all', period = 'all';
@@ -84,29 +224,29 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
     const ok = !R.summary.failed && !(P && P.failed);
     document.getElementById('meta').innerHTML = `${es ? 'Validado' : 'Validated'} ${fmtStamp(R.generated)} · ${es ? 'datos de la página generados' : 'page data generated'} ${fmtStamp(Q.generatedAt)} · <span class="badge ${ok ? 'ok' : 'fail'}">${ok ? (es ? 'sin fallas: publicado' : 'no failures: published') : (es ? 'con fallas: no se publicó' : 'failures: not published')}</span>`;
     const c = R.summary || {}; const nOk = (R.checks || []).filter((x) => x.status === 'ok').length, nWarn = (R.checks || []).filter((x) => x.status === 'warn').length, nFail = (R.checks || []).filter((x) => x.status === 'fail').length;
-    const next = R.nextResults ? fmtDate(R.nextResults) : R.nextResultsEstimate ? `${fmtDate(R.nextResultsEstimate.start)} – ${fmtDate(R.nextResultsEstimate.end)}` : '—';
+    const next = R.nextResults ? fmtDate(R.nextResults) : R.nextResultsEstimate ? fmtDate(R.nextResultsEstimate.median || R.nextResultsEstimate.end) : '—'; // one date for the whole page: the median of the last three same-quarter releases
     document.getElementById('cards').innerHTML = [
       [c.checks, es ? 'identidades verificadas' : 'identities checked'], [nOk, 'OK'], [nWarn, es ? 'avisos' : 'warnings'], [nFail, es ? 'fallas' : 'failures'],
       [P ? P.checks : '—', es ? 'cifras releídas de los comunicados' : 'figures re-read from releases'], [P ? P.failed : '—', es ? 'diferencias del parser' : 'parser mismatches'],
       [qLabel(R.latestQuarter), es ? `último trimestre · publicado ${fmtDate(R.latestReleaseDate)}` : `latest quarter · released ${fmtDate(R.latestReleaseDate)}`],
-      [next, R.nextResults ? (es ? 'próximos resultados (confirmado)' : 'next results (confirmed)') : (es ? 'próximos resultados (estimado)' : 'next results (estimated)')],
+      [next, R.nextResults ? (es ? 'próximos resultados (confirmado)' : 'next results (confirmed)') : (es ? 'próximos resultados (fecha supuesta: mediana de tres años)' : 'next results (assumed: median of three years)')],
     ].map(([v, l]) => `<div class="card"><div class="v ${String(v).length > 8 ? 'small' : ''}">${v == null ? '—' : esc(v)}</div><div class="l">${l}</div></div>`).join('');
-    document.getElementById('stale').innerHTML = `<table><thead><tr><th>${es ? 'Serie' : 'Series'}</th><th>${es ? 'Última fecha' : 'Last date'}</th><th>${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th>${es ? 'Límite' : 'Limit'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Cómo se actualiza' : 'How it refreshes'}</th></tr></thead><tbody>${(R.freshness || []).map((s) => `<tr><td>${esc(s.series)}</td><td>${fmtDate(s.lastDate)}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${esc(s.note || '')}</td></tr>`).join('')}</tbody></table>`;
-    document.getElementById('curated').innerHTML = `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(R.curated || []).map((s) => `<tr><td class="mono">${esc(s.file)}</td><td>${st(s.status)}</td><td>${esc(s.detail)}</td></tr>`).join('')}</tbody></table>`;
+    document.getElementById('stale').innerHTML = `<table><thead><tr><th>${es ? 'Serie' : 'Series'}</th><th>${es ? 'Última fecha' : 'Last date'}</th><th>${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th>${es ? 'Límite' : 'Limit'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Cómo se actualiza' : 'How it refreshes'}</th></tr></thead><tbody>${(R.freshness || []).map((s) => `<tr><td>${esc(tr(s.series))}</td><td>${fmtDate(s.lastDate)}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${esc(tr(s.note || ''))}</td></tr>`).join('')}</tbody></table>`;
+    document.getElementById('curated').innerHTML = `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(R.curated || []).map((s) => `<tr><td class="mono">${esc(s.file)}</td><td>${st(s.status)}</td><td>${esc(tr(s.detail))}</td></tr>`).join('')}</tbody></table>`;
     const lim = (iso, limit) => (iso == null ? 'warn' : days(iso) > limit ? 'warn' : 'ok');
     const auto = [
-      [es ? 'Actualización de datos (proceso automático)' : 'Data refresh (automated job)', es ? 'diario 13:30 UTC (reportes, XBRL, mercado) y días hábiles 21:45 UTC (mercado)' : 'daily 13:30 UTC (filings, XBRL, market) and weekdays 21:45 UTC (market)', RT.marketGeneratedAt, lim(RT.marketGeneratedAt, 5), es ? `precios, cosecha de EDGAR (${fmtDate(S && S.last_harvest)}), calendario, apalancamiento de pares` : `prices, EDGAR harvest (${fmtDate(S && S.last_harvest)}), calendar, peer leverage`],
-      [es ? 'Revisión automática diaria' : 'Automated weekday review', es ? 'días hábiles 14:35 UTC' : 'weekdays 14:35 UTC', N && N.checkedAt, lim(N && N.checkedAt, 4), N ? (es ? `último trimestre revisado ${qLabel(N.lastQuarter)}; último correo ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'ninguno (días sin novedades)'}${N.lastFailureNote ? '; falla: ' + esc(N.lastFailureNote) : ''}` : `last quarter reviewed ${qLabel(N.lastQuarter)}; last email ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'none (quiet days)'}${N.lastFailureNote ? '; failure: ' + esc(N.lastFailureNote) : ''}`) : '—'],
-      [es ? 'Consenso FactSet (actualización automática)' : 'FactSet consensus (automated refresh)', es ? 'días hábiles 14:20 UTC' : 'weekdays 14:20 UTC', RT.factsetFetched, lim(RT.factsetFetched, 7), es ? 'estimaciones, precios, valor de mercado y deuda neta de los pares → factset.json' : 'estimates, prices, market values and peers\' net debt → factset.json'],
-      [es ? 'Barrido automático de noticias' : 'Automated news sweep', es ? 'diario' : 'daily', RT.newsAsOf, lim(RT.newsAsOf, 3), es ? 'noticias y eventos → news.json' : 'news and events → news.json'],
+      [es ? 'Actualización de datos (proceso automático)' : 'Data refresh (automated job)', es ? 'diario 9:30 AM ET (reportes, XBRL, mercado) y días hábiles 4:35 PM y 5:45 PM ET (mercado)*' : 'daily 9:30 AM ET (filings, XBRL, market) and weekdays 4:35 PM and 5:45 PM ET (market)*', RT.marketGeneratedAt, lim(RT.marketGeneratedAt, 5), es ? `precios, cosecha de EDGAR (${fmtDate(S && S.last_harvest)}), calendario, apalancamiento de pares` : `prices, EDGAR harvest (${fmtDate(S && S.last_harvest)}), calendar, peer leverage`],
+      [es ? 'Revisión automática diaria' : 'Automated weekday review', es ? 'días hábiles 10:35 AM ET*' : 'weekdays 10:35 AM ET*', N && N.checkedAt, lim(N && N.checkedAt, 4), N ? (es ? `último trimestre revisado ${qLabel(N.lastQuarter)}; último correo ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'ninguno (días sin novedades)'}${N.lastFailureNote ? '; falla: ' + esc(N.lastFailureNote) : ''}` : `last quarter reviewed ${qLabel(N.lastQuarter)}; last email ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'none (quiet days)'}${N.lastFailureNote ? '; failure: ' + esc(N.lastFailureNote) : ''}`) : '—'],
+      [es ? 'Consenso FactSet (actualización automática)' : 'FactSet consensus (automated refresh)', es ? 'diario 7:58 PM ET' : 'daily 7:58 PM ET', RT.factsetFetched, lim(RT.factsetFetched, 7), es ? 'estimaciones, precios, valor de mercado y deuda neta de los pares → factset.json' : 'estimates, prices, market values and peers\' net debt → factset.json'],
+      [es ? 'Barrido automático de noticias' : 'Automated news sweep', es ? 'diario 10:55 AM ET*' : 'daily 10:55 AM ET*', RT.newsAsOf, lim(RT.newsAsOf, 3), es ? 'noticias y eventos → news.json' : 'news and events → news.json'],
       [es ? 'Datos XBRL de Oracle' : 'Oracle XBRL facts', es ? 'con la cosecha' : 'with the harvest', RT.xbrlFetched, lim(RT.xbrlFetched, 4), es ? 'hechos XBRL → xbrl_facts.json' : 'XBRL facts → xbrl_facts.json'],
       [es ? 'Calendario del inversionista' : 'Investor calendar', es ? 'con la cosecha' : 'with the harvest', RT.calendarGenerated, lim(RT.calendarGenerated, 10), es ? 'calendario → calendar.json' : 'calendar → calendar.json'],
       [es ? 'Apalancamiento de pares (XBRL)' : 'Peer leverage (XBRL)', es ? 'con la cosecha' : 'with the harvest', RT.peerLeverageFetched, lim(RT.peerLeverageFetched, 10), es ? 'apalancamiento de pares → peer_leverage.json' : 'peer leverage → peer_leverage.json'],
     ];
-    document.getElementById('auto').innerHTML = `<table><thead><tr><th>${es ? 'Proceso' : 'Process'}</th><th>${es ? 'Cadencia' : 'Cadence'}</th><th>${es ? 'Última corrida' : 'Last run'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Qué produce' : 'What it produces'}</th></tr></thead><tbody>${auto.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${fmtDate(r[2])}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join('')}</tbody></table>`;
+    document.getElementById('auto').innerHTML = `<table><thead><tr><th>${es ? 'Proceso' : 'Process'}</th><th>${es ? 'Cadencia' : 'Cadence'}</th><th>${es ? 'Última corrida' : 'Last run'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Qué produce' : 'What it produces'}</th></tr></thead><tbody>${auto.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${fmtDate(r[2])}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join('')}</tbody></table><p class="sub">${es ? '* Horarios programados en UTC y mostrados en hora del Este de verano; una hora antes en el reloj del Este cuando rige el horario de invierno.' : '* Schedules are set in UTC and shown in Eastern daylight time; one hour earlier on the Eastern clock during standard time.'}</p>`;
     const fmtET = (iso) => (iso ? new Date(iso).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET' : '—');
     const mods = R.modules || [];
-    document.getElementById('modules').innerHTML = mods.length ? `<table><thead><tr><th>${es ? 'Módulo' : 'Module'}</th><th>${es ? 'Cadencia' : 'Cadence'}</th><th>${es ? 'Corte' : 'As of'}</th><th>${es ? 'Última actualización' : 'Last refresh'}</th><th>${es ? 'Siguiente reporte esperado' : 'Next expected filing'}</th><th>${es ? 'Límite' : 'Deadline'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Motivo' : 'Reason'}</th></tr></thead><tbody>${mods.map((m) => `<tr><td>${esc(es ? m.label_es : m.label_en)}${m.textDerived ? ` <span class="st warn">${es ? 'texto' : 'text'}</span>` : ''}</td><td>${m.cadence === 'filing' ? (es ? 'por reporte' : 'per filing') : (es ? `diario · máx. ${m.maxAgeDays} días` : `daily · max ${m.maxAgeDays} days`)}</td><td>${fmtDate(m.asOf)}</td><td>${fmtDate(m.lastRefresh)}</td><td>${m.nextExpected ? `${fmtDate(m.nextExpected)} (${m.nextExpectedBasis === 'confirmed' ? (es ? 'confirmado' : 'confirmed') : (es ? 'supuesto' : 'assumed')})` : '—'}</td><td>${m.deadline ? fmtDate(m.deadline) : '—'}</td><td>${st(m.stale ? 'warn' : 'ok')}</td><td>${esc(m.reason || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
+    document.getElementById('modules').innerHTML = mods.length ? `<table><thead><tr><th>${es ? 'Módulo' : 'Module'}</th><th>${es ? 'Cadencia' : 'Cadence'}</th><th>${es ? 'Corte' : 'As of'}</th><th>${es ? 'Última actualización' : 'Last refresh'}</th><th>${es ? 'Siguiente reporte esperado' : 'Next expected filing'}</th><th>${es ? 'Límite' : 'Deadline'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Motivo' : 'Reason'}</th></tr></thead><tbody>${mods.map((m) => `<tr><td>${esc(es ? m.label_es : m.label_en)}${m.textDerived ? ` <span class="st warn">${es ? 'texto' : 'text'}</span>` : ''}</td><td>${m.cadence === 'filing' ? (es ? 'por reporte' : 'per filing') : (es ? `diario · máx. ${m.maxAgeDays} días` : `daily · max ${m.maxAgeDays} days`)}</td><td>${fmtDate(m.asOf)}</td><td>${fmtDate(m.lastRefresh)}</td><td>${m.nextExpected ? `${fmtDate(m.nextExpected)} (${m.nextExpectedBasis === 'confirmed' ? (es ? 'confirmado' : 'confirmed') : (es ? 'supuesto' : 'assumed')})` : '—'}</td><td>${m.deadline ? fmtDate(m.deadline) : '—'}</td><td>${st(m.stale ? 'warn' : 'ok')}</td><td>${esc(tr(m.reason || ''))}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
     const ver = R.obligationsVerification || [];
     const vst = (v) => (/^verified/.test(v) ? st('ok') + (v === 'verified_release' ? ` <span class="sub">${es ? 'comunicado' : 'release'}</span>` : v === 'verified_tie' ? ` <span class="sub">${es ? 'cuadre' : 'tie-out'}</span>` : v === 'verified_text' ? ` <span class="sub">${es ? 'segunda lectura' : 'second reading'}</span>` : '') : v === 'mismatch' ? st('fail') : `<span class="st warn">${v === 'needs_review' ? (es ? 'lectura de texto' : 'text reading') : (es ? 'sin verificar' : 'unverified')}</span>`);
     document.getElementById('verif').innerHTML = ver.length ? `<table><thead><tr><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Valor' : 'Value'}</th><th>${es ? 'Reporte' : 'Filing'}</th><th>${es ? 'Nota' : 'Note'}</th><th>${es ? 'Acceso' : 'Accession'}</th><th>XBRL</th><th>${es ? 'Valor XBRL' : 'XBRL value'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${ver.map((v) => `<tr><td class="mono">${esc(v.path)}</td><td class="n">${num(v.value)}</td><td>${v.url ? `<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.filing)}</a>` : esc(v.filing)}</td><td>${esc(v.note || '')}</td><td class="mono">${esc(v.accession || '')}</td><td class="mono">${v.xbrl ? esc(v.xbrl.concept) : v.method === 'release' ? (es ? 'comunicado 8-K' : '8-K release') : v.method === 'tie_out' ? (es ? 'cuadre' : 'tie-out') : (es ? 'sin concepto' : 'no concept')}</td><td class="n">${v.xbrl ? num(v.xbrl.value) : '—'}</td><td>${vst(v.verdict)}${v.reason ? ` <span class="sub">${esc(v.reason)}</span>` : ''}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
@@ -127,7 +267,7 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
       document.getElementById('parserQ').innerHTML = mm.length ? `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Leída del comunicado' : 'Parsed from release'}</th><th>quarters.json</th><th>${es ? 'Archivo' : 'File'}</th></tr></thead><tbody>${mm.map((m) => `<tr><td>${qLabel(m.quarter)}</td><td>${esc(m.check)}</td><td class="n">${num(m.parsed)}</td><td class="n">${num(m.expected)}</td><td class="mono">${esc(m.file)}</td></tr>`).join('')}</tbody></table>` : `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>${es ? 'Cifras' : 'Figures'}</th><th>${es ? 'Diferencias' : 'Mismatches'}</th><th>${es ? 'Comunicado archivado' : 'Archived release'}</th></tr></thead><tbody>${(P.perQuarter || []).slice().reverse().map((r) => `<tr><td>${qLabel(r.quarter)}</td><td class="n">${r.checks}</td><td class="n">${r.failed}</td><td class="mono">${esc(r.file)}</td></tr>`).join('')}${sk.map((s) => `<tr><td>${qLabel(s.quarter)}</td><td class="n">—</td><td class="n">—</td><td class="mono">${es ? 'sin comunicado archivado (trimestre anterior al archivo)' : 'no archived release (quarter predates the archive)'}</td></tr>`).join('')}</tbody></table>`;
     } else { document.getElementById('parser').innerHTML = `<div class="empty">${es ? 'Sin reporte del parser todavía.' : 'No parser report yet.'}</div>`; document.getElementById('parserQ').innerHTML = ''; }
     const tol = R.tolerances || {};
-    document.getElementById('tolNote').textContent = es ? `Tolerancias: US$ ${tol.usdM ?? 1} millón en las identidades de los estados financieros (redondeo de los comunicados); ${tol.eps ?? 0.02} en la UPA diluida (las acciones se imprimen redondeadas). Los cuadres de fechas, enlaces y formatos no tienen diferencia numérica. Una falla detiene la publicación; un aviso significa que aún no hay datos suficientes para verificar. Los nombres de los cuadres se muestran tal como los escribe el validador.` : `Tolerances: US$ ${tol.usdM ?? 1} million on the financial-statement identities (release rounding); ${tol.eps ?? 0.02} on diluted EPS (share counts are printed rounded). Date, link and format checks carry no numeric difference. A failure blocks publication; a warning means there is not enough data to check yet. Check names appear as the validator writes them.`;
+    document.getElementById('tolNote').textContent = es ? `Tolerancias: US$ ${tol.usdM ?? 1} millón en las identidades de los estados financieros (redondeo de los comunicados); ${tol.eps ?? 0.02} en la UPA diluida (las acciones se imprimen redondeadas). Los cuadres de fechas, enlaces y formatos no tienen diferencia numérica. Una falla detiene la publicación; un aviso significa que aún no hay datos suficientes para verificar. Los nombres de los cuadres se traducen de los que escribe el validador; los identificadores (conceptos XBRL, rutas de datos, archivos) se conservan.` : `Tolerances: US$ ${tol.usdM ?? 1} million on the financial-statement identities (release rounding); ${tol.eps ?? 0.02} on diluted EPS (share counts are printed rounded). Date, link and format checks carry no numeric difference. A failure blocks publication; a warning means there is not enough data to check yet. Check names appear as the validator writes them.`;
     const checks = R.checks || [];
     const counts = { all: checks.length, fail: checks.filter((x) => x.status === 'fail').length, warn: checks.filter((x) => x.status === 'warn').length, ok: checks.filter((x) => x.status === 'ok').length };
     const tags = [...new Set(checks.map((x) => x.tag))].sort((a, b) => b.localeCompare(a));
@@ -136,10 +276,11 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
     document.getElementById('period').addEventListener('change', (e) => { period = e.target.value; render(); });
     const rank = { fail: 0, warn: 1, ok: 2 };
     const rows = checks.filter((x) => (filter === 'all' || x.status === filter) && (period === 'all' || x.tag === period)).slice().sort((a, b) => (rank[a.status] - rank[b.status]) || b.tag.localeCompare(a.tag));
-    document.getElementById('checks').innerHTML = rows.length ? `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Cuadre' : 'Check'}</th><th>${es ? 'Diferencia' : 'Difference'}</th><th>${es ? 'Tolerancia' : 'Tolerance'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${/^FY\d{4}Q\d$/.test(x.tag) ? qLabel(x.tag) : esc(x.tag)}</td><td>${esc(x.check)}</td><td class="n">${x.diff == null ? '—' : num(x.diff)}</td><td class="n">${x.tol == null ? '—' : num(x.tol)}</td><td>${st(x.status)}</td><td>${esc(x.note || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
+    document.getElementById('checks').innerHTML = rows.length ? `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Cuadre' : 'Check'}</th><th>${es ? 'Diferencia' : 'Difference'}</th><th>${es ? 'Tolerancia' : 'Tolerance'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${/^FY\d{4}Q\d$/.test(x.tag) ? qLabel(x.tag) : esc(x.tag)}</td><td>${esc(tr(x.check))}</td><td class="n">${x.diff == null ? '—' : num(x.diff)}</td><td class="n">${x.tol == null ? '—' : num(x.tol)}</td><td>${st(x.status)}</td><td>${esc(tr(x.note || ''))}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
   }
-  document.getElementById('es').addEventListener('click', () => { LANG = 'es'; try { localStorage.setItem('orcl-lang', 'es'); } catch (e) {} render(); });
-  document.getElementById('en').addEventListener('click', () => { LANG = 'en'; try { localStorage.setItem('orcl-lang', 'en'); } catch (e) {} render(); });
+  const setLang = (l) => { LANG = l; try { localStorage.setItem('fnam-lang', l); } catch (e) {} try { const u = new URL(location.href); u.searchParams.set('lang', l); history.replaceState(null, '', u); } catch (e) {} render(); };
+  document.getElementById('es').addEventListener('click', () => setLang('es'));
+  document.getElementById('en').addEventListener('click', () => setLang('en'));
   render();
 })();
 </script>

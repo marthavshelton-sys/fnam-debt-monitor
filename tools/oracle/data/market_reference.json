@@ -287,7 +287,16 @@
       "issued_date": "2026-02-04",
       "maturity_date": "2036-02-04",
       "principal_millions": 5000,
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "pricing": {
+        "priced_on": "2026-02-02",
+        "spread_bps": 145,
+        "benchmark": "4.000% UST due Nov 15, 2035",
+        "source_title": "Free writing prospectus (final term sheet), Feb 2, 2026",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm",
+        "accession": "0001193125-26-033882",
+        "note": "The spread the DCF applies to today's 10-year Treasury: the term sheet's priced spread over its benchmark, the same figure, date and benchmark the Hyperscaler Hub's cost-of-money module cites (one home for the number)."
+      }
     },
     {
       "series_name": "Fixed-Rate Senior Notes Due July 2036",

@@ -186,6 +186,78 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   name. Scan before pushing: visible text in both languages plus the PDFs' text for Claude, Anthropic, Talipot and the terms
   above (the render check does not cover them).
 
+## 2026-10-13 (round 6, owner's 19 findings; branch `claude/oracle-round6`)
+- **News sweep missed Oct 13 (HIGH 1).** The routine's 14:55 UTC run took the newsroom's 403 as "no release", searched no
+  utility or regulator and never looked at the price. Added in-session (all verified at the source): Oracle's proposed 10-year
+  Energy Service Agreement with El Paso Electric for Project Jupiter (Oct 13; US$10 M a year regardless of use, up to US$55 M a
+  year of bill credits to NM customers, Bloom fuel cells stay primary; also in §02's Jupiter card, `buildout.json → power`, the
+  site's issues list and `obligations.json → site_commitments`), the OCP hardware-security working group with Microsoft and
+  Marvell (Oct 13), the Oct 12 close (−2.8% to US$137.39 on OpenAI revenue reports, Benzinga), the record CDS readings and
+  director Rusckowski's Form 4. `NEWS-SWEEP-PROMPT.md` rule 3 now reads the IR feed snapshot and web-searches Oracle's
+  releases when the newsroom refuses, searches the campuses' utilities and regulators (El Paso Electric, NM PRC, We Energies /
+  WEC, ATC, Wisconsin PSC, DTE, Michigan EGLE) and the partners, applies a price-move rule (a session of ±3% or more needs a
+  named reason) and requires 20 searches; the routine's stored prompt was replaced (`update_trigger`). The news file was
+  compressed to one home per number (24 items, EN 3.2 k words from 3.8 k; Port Washington items merged, WSJ folded into the
+  force majeure item, the July CDS item retired).
+- **CDS (HIGH 2).** The July "~203 bp, widest since 2008" line is gone from §06 and the Summary. The page now quotes dated
+  press readings of Bloomberg/ICE data — ~227 bp on Sep 24 (Seeking Alpha / TradingView) and ~261 bp at the Oct 8 close
+  (IBTimes; Investing.com ~245 bp intraday) — labelled press, with "no series on the page" (the connector has no CDS feed).
+  The owner's note said "record ~227 bp Sep 25; 232–237 bp late Sep": the latest dated figure found was used, as the note asked.
+- **Guidance wording (3).** FY2027 revenue ≥ US$90 bn was *reaffirmed* (set Jun 10, 2026); only non-GAAP EPS was raised
+  (US$8.10 from US$8.05): Summary guidance bullet, the 1Q27 news card title, `guidance.json → multi_year_targets.note`
+  and the decks' tear-sheet row (`${fyLab} ≥ …`, "total revenue" instead of "cloud").
+- **Bull = management targets (4).** Merged (`PENDING.md` M3 resolved; `METHODOLOGY.md` §8): `PRESET_LIST` and
+  `SCENARIO_BUTTONS` carry three scenarios, `dcfPreset('bull')` runs the management-target recipe, the verdict's range is
+  Bear → Bull, `render-check.mjs` expects 3 presets / 4 buttons, the deck's DCF tile and recipe bullets follow.
+- **Post-close refresh (5).** `oracle-refresh.yml` gained the cron `35 20 * * 1-5` (4:35 PM EDT; market mode) beside the
+  21:45 UTC run, so the page's price and the DCF gap update the same evening; the validator's freshness note names both.
+- **Analysts (6).** `analysts.json` → `reported` accepts `source.basis: "press"` with the article's https URL (validator,
+  page badge "press report", chart †, meta line "known through … press copies"); Mizuho (Oct 8, Siti Panigrahi, No. 1 pick,
+  Outperform, PT 320, StreetInsider/Investing.com) and Yorkville Ives (Oct 7, Dan Ives, In Line, PT 155, Investing.com —
+  the owner's note said Oct 6; the article is dated Oct 7, 11:02 AM) added; BofA's Sep 8 entry carries `label_en/es`
+  ("pre-results preview", printed under the house name and in the detail panel); the library sweep was extended to Oct 13:
+  Morgan Stanley Credit Research's "New Bookings, Old Bills" (Sep 11, added to Dropbox Oct 11) is a new credit house
+  (`ms-credit`) and Bernstein's Sep 24 force-majeure note joined the Bernstein entry; DB's Aug 7 note fell out of the window.
+- **Insider (7).** Rusckowski's Form 4 (25,000 shares, ~US$139.35, ~US$3.48 M, Sep 29, filed Oct 1, accession
+  0001341439-26-000099) sits in §11 under `leadership` beside the Ellison plan item and its "why" reads both together.
+- **Summary (8).** `comments.json → exec_summary.changed_week` {date, from, en, es} → `summary.js → changedWeek` →
+  `#sumChanged` ("What changed this week (Oct 7 – Oct 13)"), hashed into the narrative; `exec_summary.updated` is the
+  summary date the validator, the quality page ("executive summary written …") and the page print — one date (Oct 13).
+- **Length (9).** Expanded EN 39.1 k words (from 41.3 k); news 3.9 k → the per-item compression above; the watch block was
+  cut to 2–3 lines per group (the Spanish deck's summary page overflowed the footer before that). The 15 k target needs a
+  structural decision (which sections fold into the appendix) — not taken in this round.
+- **Spanish (10).** One convention: `fyLabel` prints AF in Spanish (tables, charts, guidance history, maturities), `boLabel`
+  falls back to `qIdLabel` (FY2027Q2 → 2T27), `R.latestQuarter` goes through `srcLabel`, `srcTitle()` localizes the typed
+  English titles of filings, notes, releases and transcripts in every source line (10-Q/10-K, "earnings call … CFO remarks",
+  release and transcript titles, provenance notes), `srcLabel` is exported for the deck (sites table sources, the RPO 10-Q
+  note); management quotes of the last two calls carry `quote_es` (`transcripts.json`; the page shows the translation with the
+  original in a tooltip; earlier calls stay in English and say so), as do the capacity-table quotes (`text_es`) and the
+  uncommenced-lease sentence. `quality.html` honours `?lang=` and `fnam-lang`, translates the validator's check names, notes,
+  series and curated details through `ES_RULES` (identifiers kept) and prints ET.
+- **Hub leverage (11).** One basis: EBITDA = operating income + total D&A (`amort_intang`, `us-gaap:AmortizationOfIntangibleAssets`,
+  is added when the D&A tag read is depreciation alone — Oracle), EBITDAR = EBITDA + `ol_cost` (`us-gaap:OperatingLeaseCost`),
+  lease-adjusted net debt ÷ EBITDAR on the summary, capex and retorno pages and on the Oracle page's hub table (`land_ebitdar`,
+  falling back to `land_ebitda` with an "on EBITDA" note until the snapshot carries the new tags — they arrive with the
+  runner's next EDGAR fetch; the sandbox cannot reach data.sec.gov). The common-window note no longer says Oracle "closes
+  its quarter one month earlier": it says which fiscal quarter enters the group sum and that Oracle's own figures are LTM to
+  its latest filed quarter (Aug 31, 2026).
+- **One home per number (12–18).** Decks: "total revenue · FY27 ≥ US$90 bn"; the Feb 2036 spread is the term sheet's
+  (+145 bp, Feb 2, 2026, over the 4.000% UST due Nov 15, 2035; `market_reference.json → debt_instruments[].pricing`, used by
+  `kdFromDebt`) on the page and the hub alike; timestamps ET on the quality page (`fmtStamp`, cadences in ET with the
+  UTC-cron footnote) and the landing page's times carry "CDMX" (`data-status.js → when()`); the next-results date is one
+  (`{{fact:next_results}}` in curated text, `nextExpectedFiling` median on the page, the quality card and the calendar);
+  the Shackelford card is dated Jun 10, 2026 (the 4Q26 call it cites); four calendar events added (dividend Oct 23, AI
+  World Oct 25–28, Wisconsin PSC completeness ~Oct 19, Michigan EGLE hearing Oct 21); price-source labels compose from
+  `provenance` everywhere (`pxSeriesLabel` in the refresh table and sources grid; no "runner" wording reaches a reader).
+- **Mobile (19).** Phone block: the switch input is a 44×44 box (track drawn inside), the pill's ES/EN/PDF/search buttons are
+  ≥ 44 px wide, short links (≤ 10 characters: arrows, "source", "10-Q ↗", quarter labels) get class `tap` from `tapTargets()`
+  after each render (44×44 with negative margins), `.seg` buttons and chips ≥ 44 px wide. Not changed: the circular map's SVG
+  nodes (114×26) — a tap area there means redrawing the map.
+- Pitfalls: `findtext.mjs`-style text scans must skip `[hidden]` spans or every English heading looks like a leftover;
+  the watch-line limit is 160 characters per line and the Spanish deck's summary page overflows the footer at about 17 lines;
+  `exec_summary.updated` must be on or after every `watch_sources` date and `events_through`; `analysts.json` entries (and
+  their `earlier` notes) must sit inside the 60-day window from `as_of`.
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`

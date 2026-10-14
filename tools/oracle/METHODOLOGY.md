@@ -189,8 +189,12 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   grows 6.4% in FY2031 against the Base's 10% and the fade rule halves growth from there, so its terminal-year revenue is
   lower (US$278 bn against US$283 bn) and its higher value comes from the explicit years; and the range is asymmetric by
   construction (+5% / −31% against the Base at 2026-10-09) because the Bull only brings timing forward while the Bear removes
-  volume and delays it. Whether the Bull should instead be merged with the management target, or run above consensus after
-  FY2030 on a sourced basis (the Investor Day targets of Oct 28, 2026, once published), is the owner's call (`PENDING.md`).
+  volume and delays it. **Round 6 (2026-10-13, owner's decision):** the Bull and the management-target rows were merged. The
+  Bull *is* management's in-force long-range plan (the FY2030 revenue target on the consensus cost structure, consensus growth
+  from the target level after it), so the DCF carries three scenarios — Bear / Base = consensus / Bull = management targets —
+  and the verdict's range runs from the Bear to that Bull. The earlier "timing-only" Bull recipe is retired; the scenario bar's
+  "Management targets" button is the Bull. A Bull above management's plan needs a sourced basis (the Investor Day update of
+  Oct 28, 2026, once filed, `long_range_targets.json`): until then there is none, and the page says so under the table.
 * **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
   gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
   recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,
@@ -216,7 +220,11 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   older than 45 days). β = OLS slope of weekly log returns of ORCL on the S&P 500 over two years (default), with
   cross-checks shown beside it: five-year monthly and the Blume-adjusted versions of both (0.67 β + 0.33); the table shows
   the WACC and value per share at each. Kd = today's Treasury + the issue spread of Oracle's most recent ~10-year fixed
-  note over the Treasury on its issue date, applied to net debt and to the finance leases. The mandatory convertible
+  note, applied to net debt and to the finance leases. Since round 6 (2026-10-13) the spread is the one the final term sheet
+  priced (`market_reference.json → debt_instruments[].pricing`: the Feb 2036 notes at +145 bp over the 4.000% UST due Nov 15,
+  2035 on Feb 2, 2026, FWP accession 0001193125-26-033882), the same figure, date and benchmark the Hyperscaler Hub's cost-of-money
+  module cites; a note without a recorded pricing falls back to coupon − the 10-year Treasury on its issue date (which gave
+  +1.41 pp for the same note, with the Feb 4 settlement date: two homes for one number, the finding of round 6). The mandatory convertible
   preferred costs its 6.50% dividend rate with no tax shield. **Weights (2026-10-04)** use exactly the claims the bridge
   deducts: D = net debt + finance-lease liabilities + preferred at liquidation preference; E = market cap; the inputs
   card prints the components so the two definitions cannot drift apart.
@@ -357,8 +365,11 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   layers, each labelled: (1) the research reports dated inside a 60-day window in the owner's research library (Dropbox:
   the `Current` folder holds the current month, earlier months sit under `Archives`), read in full in a Claude session and
   summarised in `tools/oracle/data/analysts.json` — thesis, valuation method, price target, rating, analysts, date, title;
-  (2) the houses that FactSet StreetAccount's analyst summaries reported (rating, target and the basis the summary gave),
-  shown as press tier with a "StreetAccount summary" badge; (3) FactSet's consensus — the current target statistics and
+  (2) the houses known only through FactSet StreetAccount's analyst summaries (rating, target and the basis the summary gave),
+  shown as press tier with a "StreetAccount summary" badge, or — since round 6, 2026-10-13 — through a press copy of their
+  note (`source.basis: "press"` with the article's URL, badge "press report"; Mizuho's No. 1 Top Pick of Oct 8 and Yorkville
+  Ives' In Line initiation of Oct 7 entered that way); a `label_en/es` qualifier prints under a house whose report needs a
+  caveat (BofA's Sep 8 note is a pre-results preview and says so); (3) FactSet's consensus — the current target statistics and
   rating counts from the daily FactSet file, and a dated weekly snapshot of the same series for the history chart.
 * **Sourcing rules.** The reports are licensed material: the page carries FNAM's summaries and the houses' figures, never a
   republished page, and no report is stored in the repository; each entry names the house, the report and its date as text
