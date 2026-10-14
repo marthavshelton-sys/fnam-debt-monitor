@@ -953,6 +953,36 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0000070858-26-000481",
+     "filed": "2026-10-14",
+     "report": "2026-10-14",
+     "items": "2.02,7.01,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000481/0000070858-26-000481-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "THE PRESS RELEASE",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000481/bac09302026ex991.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-10-14_0000070858-26-000481_ex-99-1.txt",
+       "chars": 66931
+      },
+      {
+       "type": "EX-99.2",
+       "description": "THE PRESENTATION MATERIALS",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000481/bac09302026ex992.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-10-14_0000070858-26-000481_ex-99-2.txt",
+       "chars": 63180
+      },
+      {
+       "type": "EX-99.3",
+       "description": "THE SUPPLEMENTAL INFORMATION",
+       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000481/bac-09302026ex993.htm",
+       "file": "tools/consumidor/raw/releases/BAC/2026-10-14_0000070858-26-000481_ex-99-3.txt",
+       "chars": 101283
+      }
+     ]
+    },
+    {
      "accn": "0000070858-26-000353",
      "filed": "2026-07-14",
      "report": "2026-07-14",
@@ -979,36 +1009,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000353/bac-06302026ex993.htm",
        "file": "tools/consumidor/raw/releases/BAC/2026-07-14_0000070858-26-000353_ex-99-3.txt",
        "chars": 101878
-      }
-     ]
-    },
-    {
-     "accn": "0000070858-26-000222",
-     "filed": "2026-04-15",
-     "report": "2026-04-15",
-     "items": "2.02,7.01,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/0000070858-26-000222-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "THE PRESS RELEASE",
-       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac03312026ex991.htm",
-       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-1.txt",
-       "chars": 60653
-      },
-      {
-       "type": "EX-99.2",
-       "description": "THE PRESENTATION MATERIALS",
-       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac03312026ex992.htm",
-       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-2.txt",
-       "chars": 68167
-      },
-      {
-       "type": "EX-99.3",
-       "description": "THE SUPPLEMENTAL INFORMATION",
-       "url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000222/bac-03312026ex993.htm",
-       "file": "tools/consumidor/raw/releases/BAC/2026-04-15_0000070858-26-000222_ex-99-3.txt",
-       "chars": 88221
       }
      ]
     }
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-13T20:14:10.422Z"
+ "checkedAt": "2026-10-14T15:27:54.366Z"
 }
