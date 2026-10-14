@@ -1,6 +1,20 @@
 {
  "entries": [
   {
+   "at": "2026-10-14T18:02:50Z",
+   "kind": "metric_added",
+   "id": "*.amort_intang",
+   "value": 49,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
+   "at": "2026-10-14T18:02:50Z",
+   "kind": "metric_added",
+   "id": "*.ol_cost",
+   "value": 64,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
    "at": "2026-10-04T02:36:24Z",
    "kind": "new",
    "id": "MSFT.debt_repaid.FY2022Q4",
