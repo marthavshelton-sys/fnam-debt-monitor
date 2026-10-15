@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-15",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,25 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-14-orcl-jupiter-drop",
+      "date": "2026-10-14",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "ORCL −8.8% to US$130.55 on Oct 14; JKN ties the fall to Project Jupiter delays, capex and financing; no Oracle filing or release (press)",
+      "title_es": "ORCL −8.8% a US$130.55 el 14 oct; JKN vincula la caída con los retrasos de Project Jupiter, el capex y el financiamiento; sin reporte ni comunicado de Oracle (prensa)",
+      "summary_en": "ORCL closed at US$130.55 on Wednesday Oct 14 (−8.8% from US$143.20, FactSet close; intraday low US$129.23, volume 50.5 M). JKN (Oct 15) attributed the fall to \"regulatory delays, high capital expenditure, and financing strains\" around the US$165 billion Project Jupiter campus: the Green Chile gas pipeline start moved from August to February 2027, capex of US$90-95 billion this fiscal year, and S&P Global Market Intelligence figures of US$37.1 billion cash, about US$29 billion annual burn and about US$169.1 billion debt. No Reuters, Bloomberg, CNBC or Benzinga report of the day's cause was found, and Oracle filed and released nothing; the article is a single secondary source. Press-reported.",
+      "summary_es": "ORCL cerró en US$130.55 el miércoles 14 oct (−8.8% desde US$143.20, cierre de FactSet; mínimo intradía US$129.23, volumen 50.5 M). JKN (15 oct) atribuyó la caída a \"retrasos regulatorios, alto gasto de capital y tensiones de financiamiento\" en torno al campus Project Jupiter de US$165,000 millones: el inicio del gasoducto Green Chile pasó de agosto a febrero de 2027, capex de US$90,000-95,000 millones este año fiscal, y cifras de S&P Global Market Intelligence de US$37,100 millones en efectivo, unos US$29,000 millones de consumo anual y unos US$169,100 millones de deuda. No se encontró un reporte de Reuters, Bloomberg, CNBC o Benzinga sobre la causa del día, y Oracle no presentó ni comunicó nada; el artículo es una sola fuente secundaria. Prensa.",
+      "why_en": "A price move, not a data change: it enters only the price series. The pipeline date (Feb 1, 2027) and the force majeure notice are already on file ({{sec:sites}}); the next Jupiter operational update the article names is Oct 28.",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios. La fecha del gasoducto (1 feb 2027) y el aviso de fuerza mayor ya están registrados ({{sec:sites}}); la siguiente actualización operativa de Jupiter que menciona el artículo es el 28 oct.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "JKN, Oct 15, 2026: Oracle Shares Tumble 8.8% as Delays and Costs Mount for $165 Billion AI Campus",
+          "url": "https://news.jkn.co.kr/editions/english/post/1023582"
+        }
+      ]
+    },
     {
       "id": "2026-10-13-orcl-rebound",
       "date": "2026-10-13",
@@ -593,6 +612,39 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-15",
+      "by": "routine",
+      "searches": 36,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Benzinga",
+        "JKN",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Data Center Dynamics",
+        "El Paso Matters",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings",
+        "OpenAI",
+        "Stargate"
+      ],
+      "added": [
+        "2026-10-14-orcl-jupiter-drop"
+      ],
+      "note": "No new SEC filing since the Oct 1 Form 4 and no Oracle release after Oct 13. The Oct 14 price move (−8.8%) was recorded; no listed outlet gave its cause, only JKN. Utility, regulator and agency searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-14",
       "by": "routine",
