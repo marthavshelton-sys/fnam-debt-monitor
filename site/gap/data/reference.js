@@ -3,7 +3,7 @@
 // something (see the GAP runbook, "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-10-09",
+  updatedAt: "2026-10-15",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -59,14 +59,23 @@ window.GAP_REF = {
   // Regulated-tariff cycle. Maximum tariffs (TM) per workload unit are set every 5 years by SICT/AFAC
   // together with the Master Development Program (PMD) capex commitment.
   regulation: {
-    mdp: { period: "2025–2029", capexMxnBn: 52, note: { en: "Approved Feb-2025: over Ps. 52 bn over five years; about 50% more terminal capacity, +45% inspection points, +25% aprons, +20% airfield across the 12 Mexican airports. 2026 capex guidance above Ps. 13 bn.", es: "Aprobado en feb-2025: más de Ps. 52 mil millones en cinco años; alrededor de 50% más capacidad de terminales, +45% puntos de inspección, +25% plataformas, +20% pistas y rodajes en los 12 aeropuertos mexicanos. Guía de capex 2026 superior a Ps. 13 mil millones." }, source: { en: "GAP release, 12-Feb-2025; La Jornada, 3-Feb-2026", es: "Comunicado de GAP, 12-feb-2025; La Jornada, 3-feb-2026" } },
+    // Two figures GAP has given for the same program: the five-year total announced by the chair on 11-Feb-2025 ("more than
+    // Ps. 52 bn", press coverage of GAP's announcement, not a filing) and the 2026–2029 remainder stated in GAP's own 6-K of
+    // 9-May-2026 ("approximately Ps. 40.0 billion"). They are consistent: 2025 capex was Ps. 12,397 M (annual cash-flow
+    // statement), so 52 − 12.4 ≈ 40 for the four remaining years. The deck cites the filed figure and labels the announced one.
+    mdp: { period: "2025–2029", capexMxnBn: 52, note: { en: "Announced 11-Feb-2025: more than Ps. 52 bn over 2025–2029; about 50% more terminal capacity, +45% inspection points, +25% aprons, +20% airfield across the 12 Mexican airports.", es: "Anunciado el 11-feb-2025: más de Ps. 52 mil millones en 2025–2029; alrededor de 50% más capacidad de terminales, +45% puntos de inspección, +25% plataformas, +20% pistas y rodajes en los 12 aeropuertos mexicanos." }, source: { en: "GAP announcement of the 2025–2029 MDP, 11-Feb-2025 (chair's remarks; press coverage, El Financiero); not in a filing", es: "Anuncio del PMD 2025–2029 por GAP, 11-feb-2025 (palabras de la presidenta del consejo; cobertura de prensa, El Financiero); no consta en un comunicado a la bolsa" }, sourceKind: "press", sourceDate: "2025-02-11",
+      remaining: { period: "2026–2029", capexMxnBn: 40.0, note: { en: "Investments of approximately Ps. 40.0 billion contemplated for 2026–2029 (about 60% more terminal space, 35% more inspection points and access areas, 25% more aircraft positions, 10% more airside infrastructure).", es: "Inversiones de aproximadamente Ps. 40.0 mil millones contempladas para 2026–2029 (cerca de 60% más superficie de terminales, 35% más puntos de inspección y accesos, 25% más posiciones de aeronaves, 10% más infraestructura de lado aire)." }, source: { en: "GAP release 9-May-2026 (Form 6-K), initiation of the process to establish a FIBRA", es: "Comunicado de GAP del 9-may-2026 (Forma 6-K), inicio del proceso para constituir una FIBRA" }, sourceUrl: "https://www.globenewswire.com/news-release/2026/05/09/3291422/0/en/grupo-aeroportuario-del-pacifico-announces-initiation-of-the-process-to-establish-a-fibra.html", sourceKind: "filing", sourceDate: "2026-05-09" } },
     tua2026: { avgIncreasePct: 5, tijuanaPct: 2, note: { en: "Average +5% TUA (passenger charge) increase in 2026, +2% in Tijuana.", es: "Aumento promedio de 5% en la TUA (tarifa de uso de aeropuerto) en 2026, 2% en Tijuana." }, source: { en: "Milenio, Feb-2026 (CEO Raúl Revuelta)", es: "Milenio, feb-2026 (director general Raúl Revuelta)" } },
   },
   // Dividends approved at the Annual General Meeting (AGM), Ps. per share, paid in installments over the
   // following 12 months (payableUntil). The page and the validator compare dps with the exchange-recorded
   // installments in market.js since agmDate, so an unpaid balance is stated rather than read as a missing feed. Older years are shown from the exchange-recorded cash dividends in market.js
   // (Yahoo Finance) — cross-check against the 20-F Item 8 before quoting them.
+  // One entry per annual meeting: the amount per share approved (a dividend, or a capital reduction when GAP used one instead;
+  // kind: "capitalReduction"), the fiscal year whose statements the meeting approved (fy = agmYear − 1) and how it was paid.
+  // The deck reconciles each to the cash-flow statement (owner, 15-Oct-2026).
   dividends: [
+    { agmYear: 2024, agmDate: "2024-04-25", dps: 13.86, kind: "capitalReduction", payableUntil: "2025-04-25", note: { en: "Capital reduction of Ps. 13.86 per share instead of a dividend, payable within 12 months of 25-Apr-2024 (extraordinary meeting, item I); Ps. 7,003 M paid in 2024 per the cash-flow statement (13.86 × 505,277,464 shares).", es: "Reembolso de capital de Ps. 13.86 por acción en lugar de dividendo, pagadero dentro de los 12 meses siguientes al 25-abr-2024 (asamblea extraordinaria, punto I); Ps. 7,003 M pagados en 2024 según el estado de flujos (13.86 × 505,277,464 acciones)." }, source: { en: "GAP release 25-Apr-2024 (AGM resolutions); FY2024 cash-flow statement", es: "Comunicado de GAP, 25-abr-2024 (resoluciones de la asamblea); estado de flujos FY2024" }, sourceUrl: "https://www.globenewswire.com/news-release/2024/04/26/2870209/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-25-2024.html" },
     { agmYear: 2025, agmDate: "2025-04-24", dps: 16.84, payableUntil: "2026-04-24", note: { en: "Paid in two installments of Ps. 8.42: ex-dates 27-May-2025 and 13-Aug-2025 (exchange record; Ps. 4,254 M each in the 2Q25 and 3Q25 cash-flow statements).", es: "Pagado en dos exhibiciones de Ps. 8.42: fechas ex 27-may-2025 y 13-ago-2025 (registro de bolsa; Ps. 4,254 M en cada uno de los flujos de efectivo del 2T25 y 3T25)." }, source: { en: "GAP release 25-Apr-2025 (AGM resolutions, item V); exchange dividend record", es: "Comunicado de GAP, 25-abr-2025 (resoluciones de la asamblea, punto V); registro de dividendos de la bolsa" }, sourceUrl: "https://www.globenewswire.com/news-release/2025/04/25/3068046/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-24-2025.html" },
     { agmYear: 2026, agmDate: "2026-04-22", dps: 20.80, payableUntil: "2027-04-22", note: { en: "Approved (item V): payable in one or more installments within the 12 months following 22-Apr-2026, to shares outstanding on each payment date. Declared in full in 2Q26 (Ps. 12,376 M, dividends payable at 30-Jun-2026); no installment had gone ex on the exchange as of the last market refresh.", es: "Aprobado (punto V): pagadero en una o más exhibiciones dentro de los 12 meses siguientes al 22-abr-2026, a las acciones en circulación en cada fecha de pago. Declarado íntegro en el 2T26 (Ps. 12,376 M en dividendos por pagar al 30-jun-2026); ninguna exhibición había pasado por la bolsa al último refresco de mercado." }, source: { en: "GAP release 24-Apr-2026 (AGM resolutions, item V); 2Q26 report (balance sheet and cash-flow statement)", es: "Comunicado de GAP, 24-abr-2026 (resoluciones de la asamblea, punto V); informe 2T26 (balance y flujo de efectivo)" }, sourceUrl: "https://www.globenewswire.com/news-release/2026/04/24/3280487/0/en/resolutions-adopted-at-the-annual-general-ordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-22-2026.html" },
   ],
@@ -86,8 +95,8 @@ window.GAP_REF = {
     instrumentsAsOf: "2026-06-30",
     instruments: [
       // --- certificados bursátiles (local bonds) ---
-      { name: "GAP 21-V", type: "CB", issued: "2021-10-15", matures: "2026-10-09", principalMxn: 1500, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 11-Sep-2026 · FactSet", note: { en: "Repaid at maturity out of the Sep-2026 bank facilities.", es: "Se paga a su vencimiento con las líneas bancarias de sep-2026." } },
-      { name: "GAP 22L", type: "CB", issued: "2022-09-26", matures: "2026-09-21", principalMxn: 2757.6, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 21-Oct-2022, 11-Sep-2026 · FactSet", note: { en: "Repaid at maturity (21-Sep-2026) out of the Sep-2026 bank facilities.", es: "Pagado a su vencimiento (21-sep-2026) con las líneas bancarias de sep-2026." } },
+      { name: "GAP 21-V", type: "CB", issued: "2021-10-15", matures: "2026-10-09", principalMxn: 1500, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 11-Sep-2026 · FactSet", repaid: { date: "2026-10-09", basis: "plan", en: "Due 9-Oct-2026; GAP's release of 11-Sep-2026 says it is paid out of the Sep-2026 bank facilities. No separate repayment notice in GAP's releases or BMV material events through 14-Oct-2026.", es: "Vence el 9-oct-2026; el comunicado de GAP del 11-sep-2026 dice que se paga con las líneas bancarias de sep-2026. Sin aviso de liquidación en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 14-oct-2026." }, note: { en: "Repaid at maturity out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Se paga a su vencimiento con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
+      { name: "GAP 22L", type: "CB", issued: "2022-09-26", matures: "2026-09-21", principalMxn: 2757.6, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 21-Oct-2022, 11-Sep-2026 · FactSet", repaid: { date: "2026-09-21", basis: "plan", en: "Due 21-Sep-2026; GAP's release of 11-Sep-2026 says it is paid out of the Sep-2026 bank facilities. No separate repayment notice in GAP's releases or BMV material events through 14-Oct-2026 (GAP did file one for GAP 23L in March 2026).", es: "Vence el 21-sep-2026; el comunicado de GAP del 11-sep-2026 dice que se paga con las líneas bancarias de sep-2026. Sin aviso de liquidación en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 14-oct-2026 (para GAP 23L sí lo hubo en marzo de 2026)." }, note: { en: "Repaid at maturity (21-Sep-2026) out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Pagado a su vencimiento (21-sep-2026) con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
       { name: "GAP 22", type: "CB", inferred: true, issued: "2022-03-17", matures: "2027-03-11", principalMxn: 2000, rate: { en: "floating (7.03% at 30-Jun-2026)", es: "variable (7.03% al 30-jun-2026)" }, source: "FactSet" },
       { name: "GAP 24-L", type: "CB", issued: "2024-03-20", matures: "2027-03-17", principalMxn: 1384.9, rate: { en: "TIIE-28 + 25 bp (sustainability-linked)", es: "TIIE-28 + 25 pb (ligado a sostenibilidad)" }, source: "6-K 20-Mar-2024" },
       { name: "GAP 20-3", type: "CB", inferred: true, issued: "2020-06-25", matures: "2027-06-17", principalMxn: 3598, rate: { en: "8.14% fixed", es: "8.14% fija" }, source: "6-K 24-Jul-2020 (2Q20 report) · FactSet" },
@@ -108,6 +117,15 @@ window.GAP_REF = {
       { name: { en: "Revolving facility (drawn)", es: "Línea revolvente (dispuesta)" }, type: { en: "loan", es: "préstamo" }, issued: "2025-03-31", matures: "2029-10-24", principalMxn: 838.6, rate: { en: "floating", es: "variable" }, source: "FactSet" },
       { name: { en: "Short-term loans (3)", es: "Préstamos de corto plazo (3)" }, type: { en: "loan", es: "préstamo" }, issued: "2026-01-20", matures: "2027-03-19", principalMxn: 4456.8, rate: { en: "floating", es: "variable" }, source: "FactSet", note: { en: "Ps. 1,668 M (Jan-2026 to Jan-2027), Ps. 1,668 M and Ps. 1,120 M (Mar-2026 to Mar-2027).", es: "Ps. 1,668 M (ene-2026 a ene-2027), Ps. 1,668 M y Ps. 1,120 M (mar-2026 a mar-2027)." } },
     ],
+    // Committed bank facilities signed after instrumentsAsOf (drawn gradually; amounts drawn are not disclosed until the next
+    // quarterly report), for the liquidity table.
+    facilities: [
+      { date: "2026-09-11", amountMxnM: 8000, lenders: "Santander, BBVA, HSBC, J.P. Morgan, Scotiabank", term: { en: "6 to 12 months (some extendable 6 months)", es: "6 a 12 meses (algunas prorrogables 6 meses)" }, rate: { en: "floating, TIIE funding + 45 bp weighted average", es: "variable, TIIE de fondeo + 45 pb en promedio ponderado" }, use: { en: "Ps. 4,258 M to repay GAP 22L (Ps. 2,758 M, 21-Sep-2026) and GAP 21-V (Ps. 1,500 M, 9-Oct-2026); Ps. 3,742 M for MDP capex", es: "Ps. 4,258 M para pagar GAP 22L (Ps. 2,758 M, 21-sep-2026) y GAP 21-V (Ps. 1,500 M, 9-oct-2026); Ps. 3,742 M para capex del PMD" }, refinanceMxnM: 4258, capexMxnM: 3742, source: { en: "GAP release 11-Sep-2026 (6-K); BMV material event 1588421", es: "Comunicado de GAP 11-sep-2026 (6-K); evento relevante BMV 1588421" }, url: "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html" },
+    ],
+    // Reconciliation of the instrument list (principal, FactSet) to the balance sheet (bank loans + certificados, incl. accrued
+    // interest): FactSet's detail at 30-Jun-2026 carries two legacy loans past their stated maturity (Ps. 8.9 M + 191.1 M = Ps. 200 M)
+    // that the list leaves out; the rest of the difference is accrued interest, which GAP shows inside "bank loans and interest payable".
+    reconciliation: { legacyLoansMxnM: 200, note: { en: "Instrument principal + accrued interest and two legacy loans (Ps. 200 M, FactSet detail) = balance-sheet bank loans and certificados", es: "Principal de los instrumentos + intereses devengados y dos préstamos antiguos (Ps. 200 M, detalle de FactSet) = préstamos bancarios y certificados en balance" } },
     // Events after instrumentsAsOf that change the table; the page prints them under it.
     events: [
       { date: "2026-09-11", en: "Bank credit facilities for Ps. 8,000 M signed with Santander, BBVA, HSBC, J.P. Morgan and Scotiabank: 6 to 12 months (some extendable 6 months), floating at TIIE funding + 45 bp weighted average. Ps. 4,258 M repay GAP 22L (Ps. 2,758 M, 21-Sep-2026) and GAP 21-V (Ps. 1,500 M, 9-Oct-2026); Ps. 3,742 M fund PMD capex.", es: "Líneas de crédito bancarias por Ps. 8,000 M con Santander, BBVA, HSBC, J.P. Morgan y Scotiabank: de 6 a 12 meses (algunas prorrogables 6 meses), a tasa variable de TIIE de fondeo + 45 pb en promedio ponderado. Ps. 4,258 M pagan GAP 22L (Ps. 2,758 M, 21-sep-2026) y GAP 21-V (Ps. 1,500 M, 9-oct-2026); Ps. 3,742 M financian capex del PMD.", source: { en: "GAP release 11-Sep-2026 (6-K)", es: "Comunicado de GAP 11-sep-2026 (6-K)" }, url: "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html" },
@@ -133,10 +151,14 @@ window.GAP_REF = {
     facts: [
       { k: "newShares", label_en: "Net new shares issued", label_es: "Acciones netas emitidas", v: 89740731, fmt: "int" },
       { k: "cash25", label_en: "Cash for the remaining 25%", label_es: "Efectivo por el 25% restante", v: 487.5, fmt: "usdM" },
+      // CBX's own 2025 figures as GAP disclosed them with the 2026 guidance (4Q25 report, 23-Feb-2026): revenue and EBITDA margin.
+      { k: "cbxRev2025", label_en: "CBX revenue 2025 (GAP, 4Q25 report)", label_es: "Ingresos de CBX 2025 (GAP, informe 4T25)", v: 158.0, fmt: "usdM", source: { en: "GAP 4Q25 report, 23-Feb-2026 (Form 6-K), guidance note", es: "Informe 4T25 de GAP, 23-feb-2026 (Forma 6-K), nota de la guía" } },
+      { k: "cbxMargin2025", label_en: "CBX EBITDA margin 2025 (GAP, 4Q25 report)", label_es: "Margen EBITDA de CBX 2025 (GAP, informe 4T25)", v: 0.687, fmt: "pct", source: { en: "GAP 4Q25 report, 23-Feb-2026 (Form 6-K), guidance note", es: "Informe 4T25 de GAP, 23-feb-2026 (Forma 6-K), nota de la guía" } },
       { k: "sharesAfter", label_en: "Shares outstanding after", label_es: "Acciones en circulación después", v: 595018195, fmt: "int" },
       { k: "dilution", label_en: "Dilution to pre-deal holders", label_es: "Dilución para accionistas previos", v: 89740731 / 595018195, fmt: "pct" },
-      { k: "cbxEbitda2024", label_en: "CBX EBITDA 2024 (press estimate)", label_es: "EBITDA de CBX 2024 (estimación de prensa)", v: 93.6, fmt: "usdM", source: "San Diego Business Journal" },
-      { k: "tijPax2025", label_en: "Tijuana passengers 2025", label_es: "Pasajeros de Tijuana 2025", v: 13.0, fmt: "M", source: { en: "SDBJ; GAP traffic reports", es: "SDBJ; reportes de tráfico de GAP" } },
+      // Tijuana's passengers are computed from the twelve monthly reports of 2025 (12.65 M), not typed: the page and the deck
+      // call paxYear('TIJ', 2025); a press figure of 13.0 M once sat here and was wrong (owner, 15-Oct-2026).
+      { k: "tijPax2025", label_en: "Tijuana passengers 2025 (GAP monthly reports)", label_es: "Pasajeros de Tijuana 2025 (reportes mensuales de GAP)", computed: { fn: "paxYear", code: "TIJ", year: 2025 }, fmt: "M", source: { en: "GAP monthly traffic reports, Jan–Dec 2025", es: "Reportes mensuales de tráfico de GAP, ene–dic 2025" } },
     ],
     sources: {
       en: [
@@ -144,16 +166,18 @@ window.GAP_REF = {
         "GAP, 'Shareholder approval …', 11-Dec-2025 (6-K)",
         "GAP, 'Issuance of bond certificates for Ps. 10,718.0 million', 1-Apr-2026 (6-K)",
         "GAP, 'Completion of business combination process of CBX …', 7-May-2026 (6-K)",
-        "Aena, notice to the CNMV, 7-May-2026 (Infobae, El Economista)",
-        "San Diego Business Journal, 'Cross Border Xpress has $100M growth agenda' (2025)",
+        "BMV material events 1545742 (31-Mar-2026, certificados bursátiles) and 1557757 (7-May-2026, completion of the combination)",
+        "GAP 2Q26 report, 14-Jul-2026 (Form 6-K): Exhibit A (CBX revenue and EBITDA, May–June 2026) and the business-combination note",
+        "GAP monthly traffic reports (CBX users; Tijuana passengers)",
       ],
       es: [
         "GAP, 'Combinación de negocios de CBX y de los servicios de asistencia técnica', 3-nov-2025 (6-K)",
         "GAP, 'Aprobación de los accionistas …', 11-dic-2025 (6-K)",
         "GAP, 'Emisión de certificados bursátiles por Ps. 10,718.0 millones', 1-abr-2026 (6-K)",
         "GAP, 'Conclusión del proceso de combinación de negocios de CBX …', 7-may-2026 (6-K)",
-        "Aena, comunicación a la CNMV, 7-may-2026 (Infobae, El Economista)",
-        "San Diego Business Journal, 'Cross Border Xpress has $100M growth agenda' (2025)",
+        "Eventos relevantes BMV 1545742 (31-mar-2026, certificados bursátiles) y 1557757 (7-may-2026, conclusión de la combinación)",
+        "Informe 2T26 de GAP, 14-jul-2026 (Forma 6-K): Exhibit A (ingresos y EBITDA de CBX, mayo–junio de 2026) y la nota de la combinación de negocios",
+        "Reportes mensuales de tráfico de GAP (usuarios de CBX; pasajeros de Tijuana)",
       ],
     },
   },
@@ -169,9 +193,9 @@ window.GAP_REF = {
     stakePct: 4.2,
     // statusAsOf: date of the last check of GAP's releases and the BMV eventos relevantes list (not a claim about EDGAR).
     // timeline: newest first; kind "filing" (GAP release / BMV notice), "press" (not confirmed by a filing), "check" (FNAM's harvest).
-    statusAsOf: "2026-10-06",
+    statusAsOf: "2026-10-14",
     timeline: [
-      { date: "2026-10-06", kind: "check", en: "No pricing or completion notice in GAP's releases or BMV material events through 6-Oct-2026 (latest notice 18-Sep-2026).", es: "Sin aviso de precio ni de cierre en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 6-oct-2026 (último aviso del 18-sep-2026)." },
+      { date: "2026-10-14", kind: "check", en: "No pricing or completion notice in GAP's releases, on its investor site or in the BMV material events through 14-Oct-2026 (latest notice 6-Oct-2026, the September traffic report).", es: "Sin aviso de precio ni de cierre en los comunicados de GAP, en su sitio de inversionistas ni en los eventos relevantes de la BMV hasta el 14-oct-2026 (último aviso del 6-oct-2026, el reporte de tráfico de septiembre)." },
       { date: "2026-09-21", kind: "press", en: "GAP expects the placement in October 2026 (Axis Negocios; Yahoo Noticias 22-Sep-2026). Not confirmed by a filing.", es: "GAP espera la colocación en octubre de 2026 (Axis Negocios; Yahoo Noticias 22-sep-2026). Sin confirmar en un comunicado." },
       { date: "2026-07-14", kind: "filing", en: "2Q26 report (Form 6-K): the approval process with the authorities continues.", es: "Informe 2T26 (Forma 6-K): continúa el proceso de autorización ante las autoridades." },
       { date: "2026-06-25", kind: "press", en: "Placement planned for 25-Jun-2026 on BIVA postponed (Yahoo Noticias).", es: "Se pospone la colocación prevista para el 25-jun-2026 en BIVA (Yahoo Noticias)." },
@@ -185,7 +209,7 @@ window.GAP_REF = {
         "El Cronista, Axis Negocios and El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
         "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-Jun-2026) and 'GAP perfila para octubre colocación de fibra E' (21-Sep-2026)",
         "Financial press via Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-Jun-2026) and 'En octubre saldrá la Fibra E de GAP' (22-Sep-2026)",
-        "GAP releases and BMV material events checked for this model through 6-Oct-2026 (latest notice 18-Sep-2026): no pricing or completion notice",
+        "GAP releases, investor site and BMV material events checked for this model through 14-Oct-2026 (latest notice 6-Oct-2026): no pricing or completion notice",
       ],
       es: [
         "Comunicado de GAP del 9-may-2026 (Forma 6-K), inicio del proceso para constituir una FIBRA; evento relevante BMV 1558742 (may-2026)",
@@ -193,7 +217,7 @@ window.GAP_REF = {
         "El Cronista, Axis Negocios y El CEO, cobertura de la oferta de FGAP 26 (jun–jul 2026)",
         "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-jun-2026) y 'GAP perfila para octubre colocación de fibra E' (21-sep-2026)",
         "Prensa financiera vía Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-jun-2026) y 'En octubre saldrá la Fibra E de GAP' (22-sep-2026)",
-        "Comunicados de GAP y eventos relevantes de la BMV revisados para este modelo hasta el 6-oct-2026 (último aviso del 18-sep-2026): sin aviso de precio ni de cierre",
+        "Comunicados de GAP, sitio de inversionistas y eventos relevantes de la BMV revisados para este modelo hasta el 14-oct-2026 (último aviso del 6-oct-2026): sin aviso de precio ni de cierre",
       ],
     },
   },
@@ -205,6 +229,13 @@ window.GAP_REF = {
   ],
   // Fiscal years for which GAP published no guidance. Checked 29-Sep-2026 against every GAP release on
   // GlobeNewswire since 2016 (the harvester keeps every "guidance" release): none for 2020 or 2021, and the
+  // Spanish renderings of the English prose GAP prints around its guidance tables (guidance.js keeps the original); the
+  // Spanish deck prints the translation and says it is one (owner, 15-Oct-2026). Keyed by the vintage's release date.
+  guidanceTranslations: {
+    "2026-07-14": { intro: ["Considerando la combinación de negocios efectiva en mayo, las tendencias del tráfico de pasajeros y el avance de los proyectos de inversión de la Compañía:"] },
+    "2026-02-23": { intro: ["La Compañía presenta su perspectiva de crecimiento para el periodo del 1 de enero al 31 de diciembre de 2026, comparado con el ejercicio 2025."] },
+    "2025-02-24": { intro: ["La Compañía anuncia su guía de crecimiento para el año completo 2025 comparado con 2024:"] },
+  },
   // 4Q19 (20-Feb-2020) and 4Q20 (25-Feb-2021) results carry no guidance table.
   noGuidance: [
     { fy: 2020, note: { en: "No guidance published (none in GAP's releases; 4Q19 report of 20-Feb-2020 has no guidance table).", es: "Sin guía publicada (no hay comunicado de guía; el informe 4T19 del 20-feb-2020 no trae tabla de guía)." } },
@@ -215,6 +246,9 @@ window.GAP_REF = {
   // it after the results are out. Without it the date is assumed from GAP's own release-lag history.
   calendar: {
     nextResults: null,   // e.g. { date: "2026-10-21", source: { title: "GAP announces 3Q26 results date", url: "https://...", date: "2026-10-01" } }
+    // A vendor's projection, printed beside the assumed date while GAP has not announced one (never as a confirmed date).
+    // FactSet CalendarEvents, ProjectedEarningsRelease for 3Q26 (event last modified 21-Oct-2025), read in-session 15-Oct-2026.
+    projected: { q: "2026Q3", date: "2026-10-27", source: "FactSet", asOf: "2026-10-15" },
   },
   // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million. The page anchors the first projected
   // year on the guidance midpoints in guidance.js and the next two fiscal years on FactSet's consensus EBITDA in peers.js

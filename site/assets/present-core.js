@@ -19,7 +19,13 @@
 
   // Helvetica (WinAnsi) has no glyph for these; swap them before drawing.
   const SWAP = { '−': '-', '≈': '~', '→': '->', '↗': '', 'Δ': 'Chg', '≥': '>=', '≤': '<=', '‑': '-', ' ': ' ', ' ': ' ', '₂': '2', '₆': '6', '⁵': '5', 'β': 'beta', ' ': ' ', ' ': ' ', '…': '...', '✓': 'v', '✘': 'x', '▸': '', '▾': '', '↑': '+', '↓': '-', '◀': '<', '▶': '>', '▲': '^' };
-  const tx = (s) => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/[−≈→↗Δ≥≤‑  ₂₆⁵β  …✓✘▸▾↑↓◀▶▲]/g, (c) => SWAP[c]).replace(/\s+/g, ' ').trim();
+  // A builder may set a glossary for the deck being built (P.setGlossary([[regex, replacement], ...]); null clears it): every
+  // string drawn through tx() is rewritten with it, so a Spanish deck can print UAFIDA for EBITDA, UPA for EPS and UDM for LTM
+  // wherever the page's data files say EBITDA (owner, 15-Oct-2026). Chart labels do not pass through tx(): builders call gl().
+  let GLOSSARY = null;
+  const setGlossary = (list) => { GLOSSARY = list && list.length ? list : null; };
+  const gl = (s) => { if (!GLOSSARY) return s; let out = String(s == null ? '' : s); for (const [re, rep] of GLOSSARY) out = out.replace(re, rep); return out; };
+  const tx = (s) => gl(String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ')).replace(/[−≈→↗Δ≥≤‑  ₂₆⁵β  …✓✘▸▾↑↓◀▶▲]/g, (c) => SWAP[c]).replace(/\s+/g, ' ').trim();
 
   // Title Case for English headings: every word capitalized except short connectors; tokens that already carry
   // capitals (EBITDA, LTM, FY2026, GAP) or digits are left as they are.
@@ -57,7 +63,7 @@
       for (const s of extraScripts || []) { try { await loadScript(s); } catch (e) { console.warn('presentation: optional script not loaded', s); } }
       await buildFn();
     } catch (e) { console.error(e); alert((M.LANG === 'es' ? 'No se pudo generar el PDF: ' : 'The PDF could not be built: ') + (e.message || e)); }
-    finally { if (btn) { btn.disabled = false; btn.innerHTML = label; } const n2 = document.getElementById('presentNote'); if (n2) n2.hidden = true; }
+    finally { setGlossary(null); if (btn) { btn.disabled = false; btn.innerHTML = label; } const n2 = document.getElementById('presentNote'); if (n2) n2.hidden = true; }
   }
 
   // Deep link: /<slug>/?present=1[&lang=es|en] opens the page, sets the language and builds the PDF at once
@@ -84,8 +90,12 @@
       // contents page support: with trackPages on, page() records { sec, title, n } for every page (sec = the section the
       // builder sets before drawing it), and tocEntries() turns the list into the rows drawContents() prints
       this.toc = []; this.sec = null; this.trackPages = false;
+      // One calendar day for the cover, the footers, the sources page and the file name: the day in Mexico City when the deck is
+      // built. (The cover once printed the local date and the footer the UTC date, which differ in the evening; owner, 15-Oct-2026.)
       this.today = new Date();
-      this.todayIso = this.today.toISOString().slice(0, 10);
+      const cdmx = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City', year: 'numeric', month: '2-digit', day: '2-digit' }).format(this.today);
+      this.todayIso = cdmx; // YYYY-MM-DD in Mexico City
+      this.todayDate = new Date(cdmx + 'T12:00:00Z');
       this.debug = !!window.FNAM_DECK_DEBUG; // set before building to log fitTable's measurements
     }
     // ----- page management -----
@@ -232,7 +242,8 @@
 
     // ----- formatting (delegated to the page's helpers so PDF and screen agree) -----
     n(v, d) { return this.M.fmtN(v, d); } m(v, d) { return this.M.fmtM(v, d); } pct(v, d, s) { return this.M.fmtPct(v, d, s); } x(v, d) { return this.M.fmtX(v, d); } date(iso) { return this.M.fmtDate(iso); }
-    longDate(d) { return d.toLocaleDateString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
+    // Long date of a moment, on the Mexico City calendar (the same day the footers print), in the deck's language.
+    longDate(d) { const iso = d && d.toISOString ? new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Mexico_City', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d) : this.todayIso; return new Date(iso + 'T12:00:00Z').toLocaleDateString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); }
     stamp(iso) { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleString(this.es ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'America/Mexico_City' }) + this.T(' hora CDMX', ' CDMX time'); }
     cls(v) { return v == null ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : ''; }
     qlab(q) { return this.M.qLabel(q); }
@@ -283,7 +294,7 @@
       this.font('bold', 30, INK); const lines = this.pdf.splitTextToSize(tx(this.cfg.name), c.x1 - cx); this.pdf.text(lines, cx, 150);
       let y = 150 + lines.length * 36;
       this.font('bold', 17, ACCENT); this.pdf.text(tx(this.cfg.tickerLine), cx, y); y += 34;
-      this.font('normal', 15, INK); this.pdf.text(tx(this.longDate(this.today)), cx, y); y += 46;
+      this.font('normal', 15, INK); this.pdf.text(tx(this.longDate(this.todayDate)), cx, y); y += 46;
       this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.8); this.pdf.line(cx, y, cx + 300, y);
       this.font('normal', 10, MUTED);
       // cfg.coverLines: extra basis lines a builder adds (e.g. the data refresh time)
@@ -427,7 +438,7 @@
       const P = o.P || {}, own = o.own, ps = P.peers || [], MD = P.medians || {}; if (!P.updatedAt || !ps.length || !own) return false;
       const M = this.M, es = this.es, short = this.cfg.short;
       const ntm0 = es ? 'PDM' : 'NTM', cur0 = own.currency === 'MXN' ? 'Ps. ' : (own.currency || '') + ' ';
-      const multiples = o.multiples || [{ cur: 'evEbitdaNtm', avg: 'evEbitdaNtmAvg', label: `${es ? 'VE' : 'EV'}/EBITDA ${ntm0}`, dec: 1 }, { cur: 'peNtm', avg: 'peNtmAvg', label: `${es ? 'P/U' : 'P/E'} ${ntm0}`, dec: 1 }];
+      const multiples = o.multiples || [{ cur: 'evEbitdaNtm', avg: 'evEbitdaNtmAvg', label: gl(`${es ? 'VE' : 'EV'}/EBITDA ${ntm0}`), dec: 1 }, { cur: 'peNtm', avg: 'peNtmAvg', label: `${es ? 'P/U' : 'P/E'} ${ntm0}`, dec: 1 }];
       const tail = o.tail || [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'netDebtEbitda', label: `${es ? 'DN' : 'ND'}/EBITDA`, fmt: 'x' }, { key: 'ebitdaMarginPct', label: es ? 'Margen EBITDA' : 'EBITDA margin', fmt: 'pct' }];
       const groups = o.groups || [{ key: 'mexico', label: es ? 'México' : 'Mexico' }, { key: 'international', label: es ? 'Internacionales' : 'International' }];
       const medians = o.medians || [{ key: 'mexico', label: es ? 'Mediana México' : 'Median, Mexico' }, { key: 'international', label: es ? 'Mediana internacional' : 'Median, international' }, { key: 'all', label: es ? 'Mediana de pares' : 'Peer median' }];
@@ -494,7 +505,7 @@
     multiplesHistoryPage(o) {
       const P = o.P || {}, own = o.own; const hist = own && own.history && own.history.series; if (!hist || !hist.length) return false;
       const es = this.es, short = this.cfg.short, ntm = es ? 'PDM' : 'NTM', evL = es ? 'VE' : 'EV', peL = es ? 'P/U' : 'P/E';
-      const seriesSpec = o.series || [{ idx: 1, label: `${evL}/EBITDA ${ntm}`, avgKey: 'evEbitdaNtmAvg5y' }, { idx: 2, label: `${peL} ${ntm}`, avgKey: 'peNtmAvg5y' }];
+      const seriesSpec = o.series || [{ idx: 1, label: gl(`${evL}/EBITDA ${ntm}`), avgKey: 'evEbitdaNtmAvg5y' }, { idx: 2, label: `${peL} ${ntm}`, avgKey: 'peNtmAvg5y' }];
       const H = P.history || {};
       // o.methodNote (optional): how the weekly multiple is built (default the airports' EV formula)
       const mn = o.methodNote || { es: 'múltiplo = cierre de la semana × acciones vigentes + último balance publicado, sobre el consenso de ese día', en: "multiple = that week's close × shares then outstanding + the latest balance sheet published, over the consensus sampled that day" };
@@ -538,5 +549,5 @@
     }
   }
 
-  window.FNAM_PRESENT = { Doc, run, autoRun, tx, titleCase, loadScript, C, PALETTE, MARGIN, PAGE };
+  window.FNAM_PRESENT = { Doc, run, autoRun, tx, gl, setGlossary, titleCase, loadScript, C, PALETTE, MARGIN, PAGE };
 })();

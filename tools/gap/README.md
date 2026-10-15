@@ -311,20 +311,43 @@ the ES/EN toggle; the file is named `GAP_PAC_presentacion_<date>.pdf` / `GAP_PAC
 
 Deep link: `/gap/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · contents
-(one linked row per section with the page's own numbers and titles, read from the page's headings; sub-rows when a section
-spans several pages; the note names the sections the deck does not carry, 04 and 05) · tear sheet
-(market data with fetch timestamp, LTM and quarter EBITDA, net debt/EBITDA, GAP B vs IPC rebased, 3-year price) ·
-operating metrics and income statement of the latest quarter, latest fiscal year and LTM (portrait, with the
-`data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
-track record and every vintage (landscape) · traffic by airport (latest month and LTM) · GAP vs Mexico (AFAC, from
-`/aeropuertos/data/traffic.js`, two axes) · sections 07 leverage, 08 dividends, 09 CBX, 10 FIBRA GAP (landscape, bullets
-and charts) · 06 relative valuation, two landscape pages placed right before the sources page (owner, 2026-10-07): the
-FactSet peers table exactly as the page prints it (GAP's row through `GAP_MODEL.peersOwnRow()`, the lead sentence and the
-method note read from the page's `#peersLead` / `#peersNote`, the analyst-consensus tiles, 1-, 3- and 5-year averages and
-ADTV), then the weekly history of GAP's NTM EV/EBITDA and NTM P/E (`peers.js` → `own.history.series`) beside ASUR's and OMA's
-with GAP's 5-year average dashed, one chart above the other (`peersPage` and `multiplesHistoryPage` in the shared engine) ·
-sources and methodology. Every page after the cover carries the source-line footer and "Page X of Y".
+Pages (reading order; the deck numbers its sections 00–11 plus appendix A, its own order, while the page keeps its numbering; owner,
+15-Oct-2026): cover · 00 key messages (a strip of six tiles — year-to-date traffic against the guided range, the year-to-date EBITDA
+margin against its range, LTM EBITDA, net debt / LTM EBITDA, the dividend payable, FIBRA GAP's status — six composed messages and
+two small charts; every figure from `GAP_MODEL`) · 01 executive summary (`data/summary.js`; its `{{tokens}}` filled by
+`liveTokens`) · contents (one linked row per section, sub-rows for multi-page sections) · 02 tear sheet (P/E on LTM net income)
+· 03 results: operating metrics, the quarter's income statement, the EBITDA bridge page (waterfall 2Q25 → 2Q26 from
+`ebitdaBridge`, growth excluding CBX from `exCbx`, the like-for-like per-share table from `likeForLike`), the Mexico-vs-Jamaica
+page (traffic by country, the revenue and cost changes GAP states per country, Exhibit A by airport), the rolling-twelve-month
+income statement (its own comments, `comments.js → periods.LTM<id>`; the base restated quarter by quarter) and the fiscal-year
+statement · 04 guidance (in force vs year to date, track record, capex progress tiles and chart; the Spanish deck prints FNAM's
+translation of GAP's framing sentence from `reference.js → guidanceTranslations`) · 05 traffic (latest month with the report's own
+comparative, year-to-date and percentage columns; GAP vs Mexico) · 06 leverage and debt (maturity profile with the certificados the
+September release says are repaid from the new facilities footnoted, reconciliation to the balance sheet) and liquidity (cash,
+committed facilities, maturities within twelve months, dividends payable, remaining guided capex, LTM cash-flow lines; debt by
+quarter) · 07 dividends (each AGM reconciled to the cash-flow statements; payout on the earnings of the fiscal year before the
+meeting on both per-share bases; distributions chart) · 08 CBX (facts from `reference.js → cbx.facts`, `tijPax2025` computed from
+the monthly reports; the 15.1% dilution / 17.8% share-count explanation) · 09 FIBRA GAP (one as-of date, `fibra.statusAsOf`; use
+of proceeds through `mdpUseText()`) · 10 relative valuation (two engine pages) · 11 sources and methodology · appendix A (every
+guidance vintage with the guidance-vs-actual chart; dividends by payment year from the exchange record and the ten-year cash-flow
+table). Spanish decks print UAFIDA, UPA and UDM for EBITDA, EPS and LTM through the engine's glossary (`P.setGlossary`, applied to
+every drawn string; chart labels go through `gl()`).
+
+Comparison bases and per-share figures (15-Oct-2026): the base column of every year-over-year comparison is the period as GAP restates
+it in the current period's report (`financials.js → quarters[].restated[<restating id>]`, written by `build-data.mjs` from the later
+report's comparative columns and trimmed to the lines that differ; `cmpBase()` in `app.js`); the LTM base restates each quarter with
+the report of the same quarter a year later. Per-share rows are computed on two bases at the current period's exchange rate
+(`perShare()`: GAP's printed basis = total comprehensive income ÷ period-end shares; controlling basis = controlling comprehensive
+income ÷ the same shares; per ADS = × 10 ÷ the Fed rate from the report footnote, `fxEop`). `chgPct()` returns `nm` on a sign flip
+and `fmtChg()` prints n.m. / n.s. Traffic: `traffic.js → months[].prior / ytd / ytdPrior / chg / ytdChg` are the monthly report's own
+columns (comparative, January-to-month and the percentage changes GAP computes on unrounded figures); `trafficLatest()` serves them
+to the page and the deck (`yoy`, `ytdYoy`). Exhibit A lands in `quarters[].seg` (by airport, cargo, CBX, others, total) and the
+country sentences in `quarters[].country`. Release dates come from the dateline of each release (`releaseDate()`), a "correction"
+wire merges its values but keeps the original date (`sources.<part>.correction`).
+
+Check before pushing a deck or model change: `node scripts/gap/deck-check.mjs --out <dir> --shots <dir>` (site served on :8123;
+builds both decks, compares headline figures with the page, flags placeholders, untranslated terms, words past the margins, and a
+page-count difference between languages) and look at every page in both languages.
 
 Next results date: `reference.js` → `calendar.nextResults` when GAP has announced it (shown as *confirmed*); otherwise
 the PDF assumes the median lag between quarter-end and release for the same quarter over the previous three years and
