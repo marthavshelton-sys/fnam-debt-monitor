@@ -52,7 +52,7 @@
       doc.at('fibra'); doc.fibraPage();
       doc.at('relative'); doc.relativePages();
       doc.at('method'); doc.sourcesPage();
-      doc.at('appendix'); doc.appendixGuidance(); doc.appendixDividends(); doc.at(null);
+      doc.at('appendix'); doc.appendixBalanceSheet(); doc.appendixCashFlow('q'); doc.appendixCashFlow('ltm'); doc.appendixGuidance(); doc.appendixDividends(); doc.at(null);
       doc.contentsPage();
       doc.finish();
     });
@@ -886,6 +886,139 @@
       const cfH = this.measureText(cfNote, W, 7.2, 1.25);
       y2 = this.fitTable({ y: y2, head: [this.T('Año fiscal', 'Fiscal year'), this.T('Flujo operativo', 'Operating cash flow'), this.T('Capex', 'Capital expenditures'), this.T('Flujo libre (FCF)', 'Free cash flow (FCF)'), this.T('Pago de deuda', 'Debt paydown'), this.T('Dividendos pagados', 'Dividends paid'), this.T('Reembolsos de capital', 'Capital reductions'), this.T('Recompras', 'Share buybacks'), this.T('Variación neta de efectivo', 'Net change in cash'), this.T('Distribuciones / FCF', 'Distributions / FCF')], body: cfRows, meta: cfMeta, cols: { 0: { halign: 'left', cellWidth: W * 0.1 } }, pad: { top: 2, bottom: 2, left: 4, right: 4 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - cfH - 6);
       this.noteAbove(cfNote, y2 + 4, 7.2);
+    }
+
+    // ================= APPENDIX: BALANCE SHEET (owner, 15-Oct-2026) =================
+    // The latest balance sheet against the prior year as the latest report itself prints it (model: bsBase — GAP's own
+    // comparative column over the prior report's figures, line for line), with the curated comments of comments.js → bs,
+    // each naming its source (report, earnings call, filing; FNAM for a reconciliation of ours). Two portrait pages so
+    // the comments stay legible: assets (with the report's own bridge of total assets), then liabilities and equity.
+    appendixBalanceSheet() {
+      const M = this.M, A = M.lastQ; if (!A || !A.bs) return;
+      const B0 = M.qById[M.yoyQid(A)], BB = M.bsBase(A, B0); if (!BB) return;
+      const B = BB.bs, C = M.yoyCommentsFor(A, B0, 'q'), cm = (C && C.bs) || {};
+      const da = this.date(M.qEndDate(A)), db = this.date(M.qEndDate(B0)), qa = this.qlab(A), qb = this.qlab(B0);
+      const GROUPS = { cash: this.T('Activo circulante', 'Current assets'), advancesSuppliers: this.T('Activo no circulante', 'Non-current assets'), bankLoansCurrent: this.T('Pasivo circulante', 'Current liabilities'), securityDeposits: this.T('Pasivo no circulante', 'Non-current liabilities'), commonStock: this.T('Capital contable', 'Stockholders\' equity') };
+      // ---- page 1: assets, then the report's own bridge of total assets (its three drivers; the rest as one bar).
+      // The widths are taken after page(): the previous page is landscape and width() would be the wrong one.
+      const tTitle = this.T(`Balance general · ${da} vs ${db}`, `Balance Sheet · ${da} vs ${db}`);
+      let y = this.page('P', this.secTitle('appendix', `${tTitle} · ${this.T('Activo', 'Assets')}`), this.T(`Estado de situación financiera de GAP al ${da} frente al ${db}, con comentarios de fuentes primarias · continúa en la página siguiente (pasivo y capital)`, `GAP's statement of financial position at ${da} against ${db}, with comments from primary sources · continued on the next page (liabilities and equity)`));
+      const W = this.width(), cw = { 0: { cellWidth: W * 0.245, halign: 'left' }, 1: { cellWidth: W * 0.085 }, 2: { cellWidth: W * 0.085 }, 3: { cellWidth: W * 0.08 }, 4: { cellWidth: W * 0.1 }, 5: { cellWidth: W * 0.405, halign: 'left' } };
+      const head = [this.T('Cifras en MXN millones', 'Figures in MXN mn'), da, db, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (informe, conferencia y expedientes)', 'Comments (report, earnings call and filings)')];
+      const build = (defs) => {
+        const rows = [], meta = [];
+        for (const def of defs) {
+          const va = A.bs[def.k]; if (va == null) continue;                       // the rows the latest report prints
+          if (GROUPS[def.k]) { rows.push([GROUPS[def.k], '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); }
+          const vb = B[def.k], d = vb != null ? va - vb : null, c = def.level === 0 ? 'bold' : '';
+          rows.push([M.L(def), this.m(va), vb == null ? '—' : this.m(vb), d == null ? '—' : this.m(d), this.chg(va, vb), cm[def.k] ? M.L(cm[def.k]) : '']);
+          meta.push([c + ' left', c, c, this.cls(d) + ' ' + c, this.chgCls(va, vb) + ' ' + c, 'left small']);
+        }
+        return { rows, meta, span: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) };
+      };
+      const layout = M.FIN.layout.bs, iTA = layout.findIndex((x) => x.k === 'totalAssets');
+      const condensed = B0.bs && Object.keys(B0.bs).length < Object.keys(A.bs).length;
+      const basisNote = BB.restatedBy
+        ? this.T(`${db} según la columna comparativa del informe del ${qa} (Exhibit B)${condensed ? `; el balance del propio informe del ${qb} era condensado y esa columna detalla cada renglón` : ''}`, `${db} as printed in the ${qa} report's comparative column (Exhibit B)${condensed ? `; the ${qb} report's own balance sheet was condensed and that column itemizes every line` : ''}`)
+        : this.T(`${db} según el informe del ${qb}`, `${db} per the ${qb} report`);
+      const callDate = C && C.call && C.call.date ? this.date(C.call.date) : null;
+      const cmtNote = this.T(`Comentarios: cada uno nombra su fuente entre paréntesis (informe = informe del ${qa}; conferencia = conferencia de resultados${callDate ? ' del ' + callDate : ''}; Exhibit = anexo de ese informe; FNAM = conciliación nuestra con las cifras citadas); un renglón que las fuentes no explican no lleva comentario.`, `Comments: each names its source in brackets (report = the ${qa} report; call = the earnings call${callDate ? ' of ' + callDate : ''}; Exhibit = that report's exhibit; FNAM = a reconciliation of ours from the figures cited); a line the sources do not explain carries no comment.`);
+      const srcTxt = this.T(`Fuentes: informe trimestral de GAP ${qa} (${this.rdate(A)})${C && C.bsSources ? ' · ' + M.L(C.bsSources) : ''}.`, `Sources: GAP ${qa} quarterly report (${this.rdate(A)})${C && C.bsSources ? ' · ' + M.L(C.bsSources) : ''}.`);
+      const cap = this.T(`Ps. millones, como se reporta. ${basisNote}. ${cmtNote} ${M.t('nmNote')} ${srcTxt}`, `Ps. million, as reported. ${basisNote}. ${cmtNote} ${M.t('nmNote')} ${srcTxt}`);
+      const capH = this.measureText(cap, W, 6.8, 1.25);
+      const a1 = build(layout.slice(0, iTA + 1));
+      y = this.fitTable({ y, head, body: a1.rows, meta: a1.meta, cols: cw, rowSpan: a1.span }, [8.6, 8.2, 7.8, 7.4, 7, 6.6, 6.2], this.cur.y1 - capH - 120);
+      if (A.bs.totalAssets != null && B.totalAssets != null) {
+        const g = (ks) => ks.reduce((s, k) => s + ((A.bs[k] || 0) - (B[k] || 0)), 0) / 1000;
+        const tot0 = B.totalAssets / 1000, tot1 = A.bs.totalAssets / 1000, dGw = g(['goodwill']), dCash = g(['cash']), dWorks = g(['concessionImprovements', 'cip', 'advancesSuppliers', 'ppe', 'land']), dOther = tot1 - tot0 - dGw - dCash - dWorks;
+        const steps = [[db, tot0, true], [this.T('Crédito mercantil e intangibles', 'Goodwill and intangibles'), dGw], [this.T('Efectivo', 'Cash'), dCash], [this.T('Mejoras, obras, anticipos, activo fijo, terreno', 'Improvements, CIP, advances, PP&E, land'), dWorks], [this.T('Otros (neto)', 'Other (net)'), dOther], [da, tot1, true]];
+        let run = 0; const data = [], colors = [], labels = [];
+        for (const [lab, v, total] of steps) { if (total) { data.push([0, v]); colors.push(PALETTE[0]); run = v; } else { data.push([run, run + v]); colors.push(v >= 0 ? PALETTE[1] : '#c0392b'); run += v; } labels.push([lab, total ? this.n(v, 0) : (v >= 0 ? '+' : '−') + this.n(Math.abs(v), 0)]); }
+        const rem = this.cur.y1 - y - capH - 12;
+        if (rem > 100) {
+          const h = Math.min(rem - 24, 210);
+          y = this.heading(this.T(`Activo total del ${db} al ${da} (Ps. millones): los tres factores que cita el informe y el resto`, `Total assets from ${db} to ${da} (Ps. million): the three drivers the report cites, and the rest`), this.cur.x0, y + 8, 10, W);
+          const img = this.chart({ type: 'bar', data: { labels, datasets: [{ data, backgroundColor: colors, borderSkipped: false, maxBarThickness: 64 }] }, options: { plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false, font: { size: 10 } } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+          y = this.image(img, this.cur.x0, y, W, h) + 2;
+        }
+      }
+      this.noteAbove(cap, y + 6, 6.8);
+      // ---- page 2: liabilities and equity
+      y = this.page('P', this.secTitle('appendix', `${tTitle} · ${this.T('Pasivo y capital', 'Liabilities and Equity')}`), this.T(`Continuación: pasivo y capital contable al ${da} frente al ${db}`, `Continued: liabilities and stockholders' equity at ${da} against ${db}`));
+      const a2 = build(layout.slice(iTA + 1));
+      y = this.fitTable({ y, head, body: a2.rows, meta: a2.meta, cols: cw, rowSpan: a2.span }, [8.6, 8.2, 7.8, 7.4, 7, 6.6, 6.2], this.cur.y1 - capH - 8);
+      this.noteAbove(cap, y + 6, 6.8);
+    }
+
+    // ================= APPENDIX: CASH FLOWS (owner, 15-Oct-2026) =================
+    // The latest quarter's cash-flow statement against the prior-year quarter as the latest report prints it (cmpBase), and
+    // the rolling twelve months (the model's ltmFor: the four quarterly statements summed, opening and closing cash from the
+    // first and last of them) against the prior twelve months with each quarter as restated a year later. Every line GAP
+    // prints, in its order, over two portrait pages so the type stays legible: operating activities (with the quarterly
+    // series of operating cash flow, capex and free cash flow), then investing, financing and the cash reconciliation. The
+    // comments are the curated, sourced lines of comments.js → cf (quarter entry, LTM entry).
+    appendixCashFlow(mode) {
+      const M = this.M; let A, B, B0, C, la, lb;
+      if (mode === 'ltm') { A = M.ltmFor(M.lastQ); const bq = M.qById[M.yoyQid(M.lastQ)]; B0 = bq && M.ltmFor(bq); B = B0 && M.cmpBase(A, B0, 'ltm'); C = B && M.yoyCommentsFor(A, B, 'ltm'); la = A && A.id; lb = B ? B.id : '—'; }
+      else { A = M.lastQ; B0 = M.qById[M.yoyQid(A)]; B = B0 && M.cmpBase(A, B0, 'q'); C = B && M.yoyCommentsFor(A, B0, 'q'); la = this.qlab(A); lb = B0 ? this.qlab(B0) : '—'; }
+      if (!A || !A.cf || !B || !B.cf) return;
+      const cm = (C && C.cf) || {}, qa = this.qlab(M.lastQ);
+      const quartersOf = (q) => { const out = []; let fy = q.fy, qq = q.q; for (let i = 0; i < 4; i++) { out.unshift(this.qlab({ fy, q: qq })); qq--; if (qq === 0) { qq = 4; fy--; } } return out; };
+      const span = mode === 'ltm' ? quartersOf(M.lastQ) : null;
+      const title = this.T('Flujos de efectivo', 'Cash Flows'); // the period labels say quarter or rolling twelve months; a longer title ran off the Spanish page
+      const sub1 = mode === 'ltm'
+        ? this.T(`Suma de los cuatro estados trimestrales ${span[0]}–${span[3]} frente a los cuatro trimestres anteriores · cada renglón como lo imprime GAP · continúa en la página siguiente (inversión, financiamiento y efectivo)`, `The four quarterly statements ${span[0]}–${span[3]} summed, against the four quarters before · every line as GAP prints it · continued on the next page (investing, financing and cash)`)
+        : this.T(`Exhibit C del informe del ${qa}: el trimestre frente al mismo trimestre del año anterior, con comentarios de fuentes primarias · continúa en la página siguiente (inversión, financiamiento y efectivo)`, `Exhibit C of the ${qa} report: the quarter against the same quarter a year earlier, with comments from primary sources · continued on the next page (investing, financing and cash)`);
+      const sub2 = this.T(`Continuación: actividades de inversión y financiamiento y conciliación del efectivo · ${la} vs ${lb}`, `Continued: investing and financing activities and the cash reconciliation · ${la} vs ${lb}`);
+      // rows in GAP's order, split where the investing activities begin
+      const SEC = { netIncome: this.T('Actividades de operación', 'Operating activities'), capex: this.T('Actividades de inversión', 'Investing activities'), dividendsPaid: this.T('Actividades de financiamiento', 'Financing activities') };
+      const parts = { ops: { rows: [], meta: [] }, rest: { rows: [], meta: [] } }; let pending = null, part = parts.ops;
+      for (const def of M.FIN.layout.cf) {
+        if (SEC[def.k]) { pending = SEC[def.k]; if (def.k === 'capex') part = parts.rest; }
+        const va = A.cf[def.k], vb = B.cf[def.k]; if (va == null && vb == null) continue;
+        if (pending) { part.rows.push([pending, '', '', '', '', '']); part.meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); pending = null; }
+        const d = va != null && vb != null ? va - vb : null, c = def.level === 0 ? 'bold' : def.level === 2 ? 'sub' : '', cn = def.level === 0 ? 'bold' : ''; // 'sub' indents the label only
+        part.rows.push([M.L(def), va == null ? '—' : this.m(va), vb == null ? '—' : this.m(vb), d == null ? '—' : this.m(d), this.chg(va, vb), cm[def.k] ? M.L(cm[def.k]) : '']);
+        part.meta.push([c + ' left', cn, cn, this.cls(d) + ' ' + cn, this.chgCls(va, vb) + ' ' + cn, 'left small']);
+      }
+      // what the comparative column changed on the cash-flow statement itself (restatedNote names income-statement lines)
+      const cfChanged = ((B.restatedBy && B.restatedBy.keys) || []).filter((k) => k.startsWith('cf.')).map((k) => { const d = M.FIN.layout.cf.find((x) => x.k === k.slice(3)); return d ? M.L(d) : k.slice(3); });
+      const rn = mode === 'ltm' ? M.restatedNote(B) : '';
+      const callDate = C && C.call && C.call.date ? this.date(C.call.date) : null;
+      const basis = mode === 'ltm'
+        ? this.T(`${la} = suma de los estados de flujos de ${span[0]}, ${span[1]}, ${span[2]} y ${span[3]} (el 4T según la columna trimestral del informe anual); el efectivo inicial es el del primer trimestre y el final el del último${rn ? '. ' + rn : ''}`, `${la} = the ${span[0]}, ${span[1]}, ${span[2]} and ${span[3]} cash-flow statements summed (the 4Q per the 4Q report's own quarterly column); opening cash is the first quarter's, closing cash the last's${rn ? '. ' + rn : ''}`)
+        : this.T(`${lb} como lo imprime la columna comparativa del informe del ${la}${cfChanged.length ? ` (renglones que difieren del informe del ${lb}: ${cfChanged.join(', ')})` : ''}`, `${lb} as printed in the ${la} report's comparative column${cfChanged.length ? ` (lines that differ from the ${lb} report: ${cfChanged.join(', ')})` : ''}`);
+      const cmtNote = this.T(`Comentarios: cada uno nombra su fuente entre paréntesis (informe = informe trimestral; conferencia = conferencia de resultados${callDate ? ' del ' + callDate : ''}; Exhibit C = el estado de flujos del informe; FNAM = conciliación nuestra); un renglón que los informes no explican no lleva comentario.`, `Comments: each names its source in brackets (report = the quarterly report; call = the earnings call${callDate ? ' of ' + callDate : ''}; Exhibit C = the report's cash-flow statement; FNAM = a reconciliation of ours); a line the reports do not explain carries no comment.`);
+      const srcTxt = this.T(`Fuentes: informe trimestral de GAP ${qa} (${this.rdate(M.lastQ)})${C && C.cfSources ? ' · ' + M.L(C.cfSources) : ''}.`, `Sources: GAP ${qa} quarterly report (${this.rdate(M.lastQ)})${C && C.cfSources ? ' · ' + M.L(C.cfSources) : ''}.`);
+      const cap = this.T(`Ps. millones, como se reporta. ${basis}. ${cmtNote} ${M.t('nmNote')} ${srcTxt}`, `Ps. million, as reported. ${basis}. ${cmtNote} ${M.t('nmNote')} ${srcTxt}`);
+      // ---- page 1: operating activities, then operating cash flow, capex and free cash flow by quarter
+      let y = this.page('P', this.secTitle('appendix', `${title} · ${la} vs ${lb} · ${this.T('Operación', 'Operating')}`), sub1);
+      const W = this.width(), cw = { 0: { cellWidth: W * 0.245, halign: 'left' }, 1: { cellWidth: W * 0.085 }, 2: { cellWidth: W * 0.085 }, 3: { cellWidth: W * 0.08 }, 4: { cellWidth: W * 0.1 }, 5: { cellWidth: W * 0.405, halign: 'left' } };
+      const head = [this.T('Cifras en MXN millones', 'Figures in MXN mn'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (informes, conferencia y expedientes)', 'Comments (reports, earnings call and filings)')];
+      const capH = this.measureText(cap, W, 6.8, 1.25), sizes = [8.6, 8.2, 7.8, 7.4, 7, 6.6, 6.2];
+      const spanOf = (rows) => rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0));
+      y = this.fitTable({ y, head, body: parts.ops.rows, meta: parts.ops.meta, cols: cw, rowSpan: spanOf(parts.ops.rows) }, sizes, this.cur.y1 - capH - 120);
+      {
+        // the last eight quarters (rolling twelve months to each quarter on the LTM page): operating cash flow, capex, FCF
+        const qs = M.Q.filter((q) => q.cf && q.cf.cfo != null).slice(-8);
+        const pts = qs.map((q) => { const o = mode === 'ltm' ? M.ltmFor(q) : q; return o && o.cf && o.cf.cfo != null && o.cf.capex != null ? { lab: this.qlab(q), cfo: o.cf.cfo / 1000, capex: -o.cf.capex / 1000 } : null; }).filter(Boolean);
+        const rem = this.cur.y1 - y - capH - 12;
+        if (pts.length >= 4 && rem > 100) {
+          const h = Math.min(rem - 24, 200);
+          y = this.heading(mode === 'ltm' ? this.T('Flujo operativo, capex y flujo libre · doce meses móviles a cada trimestre (Ps. millones)', 'Operating cash flow, capex and free cash flow · rolling twelve months to each quarter (Ps. million)') : this.T('Flujo operativo, capex y flujo libre por trimestre (Ps. millones)', 'Operating cash flow, capex and free cash flow by quarter (Ps. million)'), this.cur.x0, y + 8, 10, W);
+          const img = this.chart({ type: 'bar', data: { labels: pts.map((p) => p.lab), datasets: [
+            { type: 'line', label: this.T('Flujo libre (flujo operativo − capex)', 'Free cash flow (operating cash flow − capex)'), data: pts.map((p) => p.cfo - p.capex), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', order: 0 },
+            { type: 'bar', label: this.T('Flujo operativo', 'Operating cash flow'), data: pts.map((p) => p.cfo), backgroundColor: PALETTE[0], maxBarThickness: 34, order: 1 },
+            { type: 'bar', label: this.T('Capex', 'Capital expenditures'), data: pts.map((p) => p.capex), backgroundColor: PALETTE[1], maxBarThickness: 34, order: 2 }] },
+            options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+          y = this.image(img, this.cur.x0, y, W, h) + 2;
+        }
+      }
+      this.noteAbove(cap, y + 6, 6.8);
+      // ---- page 2: investing and financing activities, exchange effect and the cash reconciliation
+      y = this.page('P', this.secTitle('appendix', `${title} · ${la} vs ${lb} · ${this.T('Inversión y financiamiento', 'Investing and Financing')}`), sub2);
+      y = this.fitTable({ y, head, body: parts.rest.rows, meta: parts.rest.meta, cols: cw, rowSpan: spanOf(parts.rest.rows) }, sizes, this.cur.y1 - capH - 8);
+      this.noteAbove(cap, y + 6, 6.8);
     }
   }
 

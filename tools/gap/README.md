@@ -328,9 +328,10 @@ committed facilities, maturities within twelve months, dividends payable, remain
 quarter) · 07 dividends (each AGM reconciled to the cash-flow statements; payout on the earnings of the fiscal year before the
 meeting on both per-share bases; distributions chart) · 08 CBX (facts from `reference.js → cbx.facts`, `tijPax2025` computed from
 the monthly reports; the 15.1% dilution / 17.8% share-count explanation) · 09 FIBRA GAP (one as-of date, `fibra.statusAsOf`; use
-of proceeds through `mdpUseText()`) · 10 relative valuation (two engine pages) · 11 sources and methodology · appendix A (every
-guidance vintage with the guidance-vs-actual chart; dividends by payment year from the exchange record and the ten-year cash-flow
-table). Spanish decks print UAFIDA, UPA and UDM for EBITDA, EPS and LTM through the engine's glossary (`P.setGlossary`, applied to
+of proceeds through `mdpUseText()`) · 10 relative valuation (two engine pages) · 11 sources and methodology · appendix A (the
+latest balance sheet against the prior year, two pages; the quarterly and the rolling-twelve-month cash-flow statements, two pages
+each; every guidance vintage with the guidance-vs-actual chart; dividends by payment year from the exchange record and the ten-year
+cash-flow table). Spanish decks print UAFIDA, UPA and UDM for EBITDA, EPS and LTM through the engine's glossary (`P.setGlossary`, applied to
 every drawn string; chart labels go through `gl()`).
 
 Comparison bases and per-share figures (15-Oct-2026): the base column of every year-over-year comparison is the period as GAP restates
@@ -359,6 +360,23 @@ year to date), which feeds the "net income attributable to controlling interest 
 per-share rows divide by the day-weighted average share count (`wavgShares`, `ltmShareNote`), since GAP publishes only period-end
 counts. The two certificados matured after the instrument snapshot share one footnote (`debt.repaidNote`, each note printed with its
 own amount and due date); the S&P citation carries the 13-Mar-2026 rating action (BMV evento relevante de calificadoras 1541529).
+
+Appendix statements (owner, 15-Oct-2026, evening): `appendixBalanceSheet()` prints the latest balance sheet against the prior year
+as the latest report itself prints it — `bsBase()` in `app.js` lays GAP's comparative column (`restated[<id>].bs`) over the prior
+report's own figures, limited to the lines the latest balance sheet carries (the 2Q25 report's own balance sheet was condensed:
+construction in progress inside concession improvements, the period's net income apart from retained earnings; the 2Q26 column
+itemizes both) — on two portrait pages (assets, with the report's own bridge of total assets as a floating-bar chart; liabilities
+and equity). `appendixCashFlow('q')` and `appendixCashFlow('ltm')` print every cash-flow line GAP prints, two pages each (operating
+activities with the eight-quarter series of operating cash flow, capex and free cash flow; investing, financing and the cash
+reconciliation). The LTM statement is `ltmFor()`'s sum of the four quarterly statements; since this round a derived statement's
+opening cash is the first period's and its closing cash the last's (`cashEnds()` in `app.js`, also for `ytdFor()` and the
+FY + YTD − prior-YTD path — a sum of opening balances is meaningless, and the page's LTM cash-flow view showed one). Comments come
+from `comments.js → periods[<quarter>].bs / .cf` and `periods[LTM<quarter>].cf`, each line naming its source in brackets (report,
+call, Exhibit, FNAM for a reconciliation of ours; a line the sources do not explain carries no comment), with `bsSources` /
+`cfSources` printed after the report's own citation. No transcript file is on record in the repository: the 2Q26 call remarks were
+checked against the transcript MarketBeat publishes from Quartr (FactSet's transcript source is not licensed on the connector);
+`comments.js → call` still names the Bloomberg transcript the owner supplied for the income-statement lines. The group headings,
+column widths and the chart live in `present.js`; nothing is typed there but labels.
 
 Check before pushing a deck or model change: `node scripts/gap/deck-check.mjs --out <dir> --shots <dir>` (site served on :8123;
 builds both decks, compares headline figures with the page, flags placeholders, untranslated terms, words past the margins, and a

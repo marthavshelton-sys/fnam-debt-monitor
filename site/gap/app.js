@@ -145,7 +145,17 @@
       return { ...y, is, id: ytdLabel(q.fy, q.q * 3), shares: q.shares, fxEop: q.fxEop };
     }
     const qs = []; for (let i = 1; i <= q.q; i++) { const x = qById[`${q.fy}Q${i}`]; if (!x || !x.is) return null; qs.push(x); }
-    return { id: ytdLabel(q.fy, q.q * 3), fy: q.fy, months: q.q * 3, is: fixRatios(sumParts(qs.map((x) => x.is))), cf: sumParts(qs.map((x) => x.cf)), kpi: sumParts(qs.map((x) => x.kpi)), sources: q.sources, derived: true, shares: q.shares, fxEop: q.fxEop };
+    return { id: ytdLabel(q.fy, q.q * 3), fy: q.fy, months: q.q * 3, is: fixRatios(sumParts(qs.map((x) => x.is))), cf: cashEnds(sumParts(qs.map((x) => x.cf)), qs[0], qs[qs.length - 1]), kpi: sumParts(qs.map((x) => x.kpi)), sources: q.sources, derived: true, shares: q.shares, fxEop: q.fxEop };
+  }
+  // Opening and closing cash of a cash-flow statement built from several periods are balances, not flows: the sum of the
+  // periods' opening balances is meaningless, so a derived statement opens with the first period's opening cash and closes
+  // with the last period's closing cash (the rolling-twelve-month cash flows of the deck appendix, 15-Oct-2026).
+  function cashEnds(cf, first, last) {
+    if (!cf) return cf;
+    const o = { ...cf };
+    if (first && first.cf && first.cf.cashBegin != null) o.cashBegin = first.cf.cashBegin; else delete o.cashBegin;
+    if (last && last.cf && last.cf.cashEnd != null) o.cashEnd = last.cf.cashEnd; else delete o.cashEnd;
+    return o;
   }
   // LTM for a quarter: sum of the last four quarters (or FY + YTD − prior YTD). With opts.restated each quarter is taken as
   // restated in the report of the same quarter a year later (cmpBase), so an LTM base compares like for like with the
@@ -159,13 +169,14 @@
       const restatedBy = used.filter((x) => x.restatedBy).map((x) => x.restatedBy.id);
       const is = fixRatios(sumParts(used.map((x) => x.is)));
       for (const k of ['netIncomeControlling', 'netIncomeNci']) if (!used.every((x) => x.is[k] != null)) delete is[k]; // a partial sum is no sum
-      return { id: ltmLabel(), is, cf: sumParts(used.map((x) => x.cf)), kpi: sumParts(used.map((x) => x.kpi)), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true, restatedQuarters: restatedBy.length ? restatedBy : null };
+      return { id: ltmLabel(), is, cf: cashEnds(sumParts(used.map((x) => x.cf)), used[3], used[0]), kpi: sumParts(used.map((x) => x.kpi)), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true, restatedQuarters: restatedBy.length ? restatedBy : null };
     }
     if (q.q === 4) { const y = Y.find((yy) => yy.fy === q.fy); if (y) return { id: ltmLabel(), is: y.is, cf: y.cf, kpi: y.kpi, bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: y.sources, fy: q.fy, q: 4, ltm: true }; }
     const fyPrev = Y.find((yy) => yy.fy === q.fy - 1), cur = ytdFor(q), prev = ytdById[`${q.fy - 1}M${q.q * 3}`];
     if (fyPrev && cur && prev && cur.is && prev.is) {
       const diff = (a, b, c) => { const o = {}; for (const k of Object.keys(a || {})) if (typeof a[k] === 'number' && b && c && typeof b[k] === 'number' && typeof c[k] === 'number') o[k] = a[k] + b[k] - c[k]; return o; };
-      return { id: ltmLabel(), is: fixRatios(diff(fyPrev.is, cur.is, prev.is)), cf: diff(fyPrev.cf, cur.cf, prev.cf), kpi: diff(fyPrev.kpi, cur.kpi, prev.kpi), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true };
+      const cf = diff(fyPrev.cf, cur.cf, prev.cf); if (prev.cf && prev.cf.cashEnd != null) cf.cashBegin = prev.cf.cashEnd; else delete cf.cashBegin; if (cur.cf && cur.cf.cashEnd != null) cf.cashEnd = cur.cf.cashEnd; else delete cf.cashEnd;
+      return { id: ltmLabel(), is: fixRatios(diff(fyPrev.is, cur.is, prev.is)), cf, kpi: diff(fyPrev.kpi, cur.kpi, prev.kpi), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true };
     }
     return null;
   }
@@ -185,6 +196,17 @@
     const out = { ...B, restatedBy: { id: byId, source: r.source, keys: [] } };
     for (const part of ['is', 'cf', 'kpi', 'seg']) if (r[part]) { out[part] = { ...(B[part] || {}), ...r[part] }; out.restatedBy.keys.push(...Object.keys(r[part]).map((k) => `${part}.${k}`)); }
     return out;
+  }
+  // The prior-year balance sheet as the current report prints it (deck appendix, 15-Oct-2026): GAP's comparative column
+  // (restated.bs, which the builder keeps where it differs from the period's own balance sheet) over the period's own
+  // figures, limited to the lines the current balance sheet carries. The 2Q25 report's own balance sheet was condensed
+  // (construction in progress inside concession improvements, the period's net income apart from retained earnings); the
+  // 2Q26 report's June-2025 column itemizes both, so the comparison reads line for line.
+  function bsBase(A, B) {
+    if (!A || !A.bs || !B || !B.bs) return null;
+    const rs = isYoy(A, B, 'q') && B.restated && B.restated[A.id], r = rs && rs.bs;
+    const bs = {}; for (const k of Object.keys(A.bs)) { const v = r && r[k] != null ? r[k] : B.bs[k]; if (v != null) bs[k] = v; }
+    return { bs, restatedBy: r ? { id: A.id, source: rs.source } : null };
   }
   // What a restatement changed, for the captions: the income-statement lines of `restatedBy` by label.
   function restatedNote(B) {
@@ -1659,7 +1681,7 @@
   window.GAP_MODEL = {
     get LANG() { return LANG; }, nextResults, nextResultsText, nextTraffic, nextTrafficText, liveTokens, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, fmtChg, fmtChgV, chgPct, qLabel, ytdLabel, ymLabel, addDays,
     FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
-    cmpBase, isYoy, restatedNote, perShare, wavgShares, ltmShareNote, debtSources, guidanceDate, fmtGuidanceDate, periodFx, periodStart, periodEnd, reportDate, fmtReportDate, reportKindLabel, isValue, isLayout, lineLabel, PER_SHARE_ROWS, ADS, currentPair, likeForLike,
+    cmpBase, bsBase, isYoy, restatedNote, perShare, wavgShares, ltmShareNote, debtSources, guidanceDate, fmtGuidanceDate, periodFx, periodStart, periodEnd, reportDate, fmtReportDate, reportKindLabel, isValue, isLayout, lineLabel, PER_SHARE_ROWS, ADS, currentPair, likeForLike,
     ebitdaBridge, exCbx, paxByCountry, capexProgress, liquidity, trafficLatest, paxYear, factValue, fmtFact, mdpUseText,
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
