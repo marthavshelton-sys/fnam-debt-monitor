@@ -4,104 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "buildout.js",
-   "path": "sites[2].sources[5].title",
-   "old": "Bloomberg, Sep 24, 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
-   "new": "DCD: Oracle to deploy up to 2.45 GW of Bloom fuel cells at New Mexico data center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[5].short",
-   "old": "Bloomberg 24 Sep 2026",
-   "new": "DCD"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[5].url",
-   "old": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center",
-   "new": "https://www.datacenterdynamics.com/en/news/oracle-to-deploy-up-to-245gw-of-bloom-fuel-cells-at-new-mexico-data-center/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[6].title",
-   "old": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
-   "new": "Bloomberg, Sep 24, 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[6].short",
-   "old": "TechCrunch 24 Sep 2026",
-   "new": "Bloomberg 24 Sep 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[6].url",
-   "old": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/",
-   "new": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[7].title",
-   "old": "Albuquerque Journal, Sep 24, 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track",
-   "new": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[7].short",
-   "old": "ABQ Journal 24 Sep 2026",
-   "new": "TechCrunch 24 Sep 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[7].url",
-   "old": "https://www.abqjournal.com/business/oracle-invokes-force-majeure-on-project-jupiter-but-says-data-center-still-on-track/3127907",
-   "new": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[8].title",
-   "old": "Albuquerque Journal, Sep 23, 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)",
-   "new": "Albuquerque Journal, Sep 24, 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[8].short",
-   "old": "ABQ Journal 23 Sep 2025",
-   "new": "ABQ Journal 24 Sep 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[8].url",
-   "old": "https://www.abqjournal.com/business/doa-ana-countys-project-jupiter-joins-500-billion-stargate-initiative-led-by-openai-oracle/493927",
-   "new": "https://www.abqjournal.com/business/oracle-invokes-force-majeure-on-project-jupiter-but-says-data-center-still-on-track/3127907"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[9].title",
-   "old": "Financial Times via Reuters, Sep 18, 2026: Oracle’s $18 billion data center debt under pressure",
-   "new": "Albuquerque Journal, Sep 23, 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[9].short",
-   "old": "FT 18 Sep 2026",
-   "new": "ABQ Journal 23 Sep 2025"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
    "path": "sites[2].sources[9].url",
    "old": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html",
    "new": "https://www.abqjournal.com/business/doa-ana-countys-project-jupiter-joins-500-billion-stargate-initiative-led-by-openai-oracle/493927"
@@ -4200,7 +4102,105 @@
    "path": "basis.marketDate",
    "old": "2026-10-13",
    "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-15)"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2963,
+   "new": 2964
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-15)"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2512,
+   "new": 2513
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.19,
+   "new": 5.1
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16181,
+   "new": 16182
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-15",
+   "new": "2025-10-16"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T23:15:12.664Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
   }
  ],
- "generated": "2026-10-15T17:49:46.664Z"
+ "generated": "2026-10-15T23:15:12.664Z"
 }
