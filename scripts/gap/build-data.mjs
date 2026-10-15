@@ -392,7 +392,34 @@ function parseResults(text, meta) {
   // --- What GAP states for Mexico and Jamaica in the narrative (no table splits the two countries: Kingston sits
   // inside "Others" in Exhibit A). The quarter's sentences come first, the year-to-date's after them.
   parseCountryNotes(lines, rel, fy, q);
+  // --- Exhibit E (statement of stockholders' equity): the year-to-date net income split between the controlling and the
+  // non-controlling interest, which the income statement in the release does not give (it splits only comprehensive income).
+  parseEquityNetIncome(lines, rel, q);
   return rel;
+}
+// Exhibit E prints one block per year ("Balance as of January 1, YYYY" … "Net income | … | controlling | NCI | total" …
+// "Balance as of <period end>"): the row's last three figures are the controlling total, the non-controlling interest and
+// the consolidated total. Stored on the year-to-date period of each block (and on the quarter when it is the first quarter).
+function parseEquityNetIncome(lines, rel, q) {
+  let on = false, year = null;
+  for (const raw of lines) {
+    const l = raw.trim(); if (!l) continue;
+    if (/^Exhibit E/i.test(l) || /stockholders[’'] equity \(in thousands/i.test(l)) { on = true; continue; }
+    if (!on) continue;
+    if (/^Exhibit [F-Z]/i.test(l)) break;
+    // a block opens with "Balance as of January 1, YYYY"; the annual report omits the second opening line (the prior
+    // year's closing balance doubles as it), so after a block's net income the next block is taken as the following year
+    const by = l.match(/^Balance as of January 1, (\d{4})/i); if (by) { year = +by[1]; continue; }
+    if (year == null || !/^Net income\b/i.test(l.split('|')[0].trim())) continue;
+    const row = tokenizeRow(l); if (!row) continue;
+    const vals = row.toks.filter((t) => !t.pct && !t.dash).map((t) => t.v); if (vals.length < 3) continue;
+    const total = vals[vals.length - 1], nci = vals[vals.length - 2], ctrl = total - nci;
+    if (Math.abs(ctrl - vals[vals.length - 3]) > 2) { rel.warnings.push(`Exhibit E ${year}: controlling net income does not tie (${vals.join(',')})`); year += 1; continue; }
+    const id = `${year}M${q * 3}`;
+    ((rel.ytd[id] ??= {}).is ??= {}); rel.ytd[id].is.netIncomeControlling = ctrl; rel.ytd[id].is.netIncomeNci = nci;
+    if (q === 1) { ((rel.quarters[qid(year, 1)] ??= {}).is ??= {}); rel.quarters[qid(year, 1)].is.netIncomeControlling = ctrl; rel.quarters[qid(year, 1)].is.netIncomeNci = nci; }
+    year += 1;
+  }
 }
 // "Revenues from the Mexican airports decreased by Ps. 32.2 million, or 0.7%" → { chgM: -32.2, pct: -0.7 }, by country
 // and line (aeronautical / non-aeronautical revenue, operating costs, cost of services), as GAP states them.
@@ -732,7 +759,7 @@ async function main() {
       for (const part of PARTS) { put(quarters, id, part, parts[part], src, primary); if (!primary) keepRestated(quarters, id, r.id, part, parts[part], src); }
       if (primary && parts.country) (quarters[id] ??= { id, parts: {}, sources: {}, restated: {} }).country = parts.country;
     }
-    for (const [id, vals] of Object.entries(r.bs)) put(bsByQ, id, 'bs', vals, src, id === r.id);
+    for (const [id, vals] of Object.entries(r.bs)) { put(bsByQ, id, 'bs', vals, src, id === r.id); if (id !== r.id) keepRestated(quarters, id, r.id, 'bs', vals, src); }
     const ownYtd = `${r.fy}M${r.q * 3}`;
     for (const [id, parts] of Object.entries(r.ytd)) {
       const primary = id === ownYtd;
@@ -750,13 +777,20 @@ async function main() {
   // ({ ...own.is, ...restated.is }). For Exhibit A the unit is a segment (a business broken out later is new as a whole).
   const diffKeys = (own, cmp) => { const o = {}; for (const [k, v] of Object.entries(cmp || {})) if (!own || own[k] !== v) o[k] = v; return Object.keys(o).length ? o : null; };
   const diffSeg = (own, cmp) => { const o = {}; for (const [code, rows] of Object.entries(cmp || {})) if (!own || !own[code] || diffKeys(own[code], rows)) o[code] = rows; return Object.keys(o).length ? o : null; };
-  const trimRestated = (e) => { const out = {}; for (const [byId, r] of Object.entries(e.restated || {})) { const keep = { source: r.source }; let any = false; for (const part of PARTS) { if (!r[part]) continue; const d = part === 'seg' ? diffSeg(e.parts[part], r[part]) : diffKeys(e.parts[part], r[part]); if (d) { keep[part] = d; any = true; } } if (any) out[byId] = keep; } return Object.keys(out).length ? out : null; };
+  const trimRestated = (e) => { const out = {}; for (const [byId, r] of Object.entries(e.restated || {})) { const keep = { source: r.source }; let any = false; for (const part of [...PARTS, 'bs']) { if (!r[part]) continue; const d = part === 'seg' ? diffSeg(e.parts[part], r[part]) : diffKeys(e.parts[part], r[part]); if (d) { keep[part] = d; any = true; } } if (any) out[byId] = keep; } return Object.keys(out).length ? out : null; };
 
   const qList = Object.values(quarters).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
     id: e.id, fy: +e.id.slice(0, 4), q: +e.id.slice(5), label: `${e.id.slice(5)}Q${e.id.slice(2, 4)}`,
     is: e.parts.is || null, bs: e.parts.bs || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, seg: e.parts.seg || null, segNotes: e.segNotes || null, country: e.country || null,
     shares: e.shares || null, fxEop: e.fxEop || null, fxAvg: e.fxAvg || null, sources: e.sources, restated: trimRestated(e),
   }));
+  // Controlling net income of the second, third and fourth quarters: this year-to-date less the previous one (Exhibit E
+  // gives only year-to-date figures); a quarter whose two year-to-date figures are not both parsed keeps none.
+  for (const e of Object.values(quarters)) {
+    const fy = +e.id.slice(0, 4), q = +e.id.slice(5); if (q === 1 || !e.parts.is) continue;
+    const cur = ytd[`${fy}M${q * 3}`]?.parts.is, prev = ytd[`${fy}M${(q - 1) * 3}`]?.parts.is;
+    if (cur?.netIncomeControlling != null && prev?.netIncomeControlling != null) { e.parts.is.netIncomeControlling = cur.netIncomeControlling - prev.netIncomeControlling; e.parts.is.netIncomeNci = (cur.netIncomeNci || 0) - (prev.netIncomeNci || 0); }
+  }
   const ytdList = Object.values(ytd).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
     id: e.id, fy: +e.id.slice(0, 4), months: +e.id.split('M')[1], is: e.parts.is || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, seg: e.parts.seg || null, country: e.country || null, sources: e.sources, restated: trimRestated(e),
   }));

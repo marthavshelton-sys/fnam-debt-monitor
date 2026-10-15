@@ -83,8 +83,10 @@ window.GAP_REF = {
   // refresh from the "Debt" table of the latest quarterly report; principal in Ps. million.
   debt: {
     ratings: [
-      { agency: "Moody's Local MX", rating: "Aaa.mx", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, certificados bursátiles", es: "escala nacional, certificados bursátiles" }, source: { en: "Moody's Local rating report, 1-Apr-2026", es: "Informe de calificación de Moody's Local, 1-abr-2026" } },
-      { agency: "S&P Global Ratings", rating: "mxAAA", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, certificados bursátiles", es: "escala nacional, certificados bursátiles" }, source: { en: "S&P, Mar-2026 (A21, 17-Mar-2026)", es: "S&P, mar-2026 (A21, 17-mar-2026)" } },
+      { agency: "Moody's Local MX", rating: "Aaa.mx", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, certificados bursátiles", es: "escala nacional, certificados bursátiles" }, actionDate: "2026-04-01", action: { en: "rating report", es: "informe de calificación" }, source: { en: "Moody's Local MX", es: "Moody's Local MX" } },
+      // S&P National Ratings (S&P Global Ratings, national scale): issuer and the outstanding certificados affirmed at mxAAA with a stable
+      // outlook on 13-Mar-2026, when mxAAA was assigned to GAP 26 / GAP 26-2 (BMV evento relevante de calificadoras 1541529).
+      { agency: "S&P Global Ratings", rating: "mxAAA", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, issuer and certificados bursátiles", es: "escala nacional, emisor y certificados bursátiles" }, actionDate: "2026-03-13", action: { en: "affirmed (issuer and outstanding certificados); mxAAA assigned to GAP 26 / GAP 26-2", es: "confirmada (emisor y certificados en circulación); mxAAA asignada a GAP 26 / GAP 26-2" }, source: { en: "S&P National Ratings rating action, BMV evento relevante de calificadoras 1541529", es: "acción de calificación de S&P National Ratings, evento relevante de calificadoras BMV 1541529" }, sourceUrl: "https://www.bmv.com.mx/docs-pub/eventoca/eventoca_1541529_1.pdf" },
     ],
     // Every instrument outstanding at 30-Jun-2026 (FactSet Debt Capital Structure, GAPB-MX, quarterly detail at
     // 2026-06-30; amounts in Ps. million) with series names, coupons and maturities confirmed from GAP's own
@@ -93,10 +95,12 @@ window.GAP_REF = {
     // Post-quarter events (the Ps. 8,000 M bank facilities of 11-Sep-2026 and the two September/October
     // maturities they repay) are recorded in `events` and shown under the table.
     instrumentsAsOf: "2026-06-30",
+    // One note for the two certificados that matured after the snapshot (printed with each note's own amount and due date).
+    repaidNote: { en: "GAP's release of 11-Sep-2026 says both are repaid at maturity out of the Ps. 8,000 M bank facilities signed that day; no separate repayment notice in GAP's releases or the BMV material events through 14-Oct-2026 (GAP did file one for GAP 23L in March 2026).", es: "El comunicado de GAP del 11-sep-2026 dice que ambos se pagan a su vencimiento con las líneas bancarias por Ps. 8,000 M firmadas ese día; sin aviso de liquidación en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 14-oct-2026 (para GAP 23L sí lo hubo en marzo de 2026)." },
     instruments: [
       // --- certificados bursátiles (local bonds) ---
-      { name: "GAP 21-V", type: "CB", issued: "2021-10-15", matures: "2026-10-09", principalMxn: 1500, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 11-Sep-2026 · FactSet", repaid: { date: "2026-10-09", basis: "plan", en: "Due 9-Oct-2026; GAP's release of 11-Sep-2026 says it is paid out of the Sep-2026 bank facilities. No separate repayment notice in GAP's releases or BMV material events through 14-Oct-2026.", es: "Vence el 9-oct-2026; el comunicado de GAP del 11-sep-2026 dice que se paga con las líneas bancarias de sep-2026. Sin aviso de liquidación en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 14-oct-2026." }, note: { en: "Repaid at maturity out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Se paga a su vencimiento con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
-      { name: "GAP 22L", type: "CB", issued: "2022-09-26", matures: "2026-09-21", principalMxn: 2757.6, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 21-Oct-2022, 11-Sep-2026 · FactSet", repaid: { date: "2026-09-21", basis: "plan", en: "Due 21-Sep-2026; GAP's release of 11-Sep-2026 says it is paid out of the Sep-2026 bank facilities. No separate repayment notice in GAP's releases or BMV material events through 14-Oct-2026 (GAP did file one for GAP 23L in March 2026).", es: "Vence el 21-sep-2026; el comunicado de GAP del 11-sep-2026 dice que se paga con las líneas bancarias de sep-2026. Sin aviso de liquidación en los comunicados de GAP ni en los eventos relevantes de la BMV hasta el 14-oct-2026 (para GAP 23L sí lo hubo en marzo de 2026)." }, note: { en: "Repaid at maturity (21-Sep-2026) out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Pagado a su vencimiento (21-sep-2026) con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
+      { name: "GAP 21-V", type: "CB", issued: "2021-10-15", matures: "2026-10-09", principalMxn: 1500, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 11-Sep-2026 · FactSet", repaid: { date: "2026-10-09", basis: "plan" }, note: { en: "Repaid at maturity out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Se paga a su vencimiento con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
+      { name: "GAP 22L", type: "CB", issued: "2022-09-26", matures: "2026-09-21", principalMxn: 2757.6, rate: { en: "floating (TIIE-based)", es: "variable (sobre TIIE)" }, source: "6-K 21-Oct-2022, 11-Sep-2026 · FactSet", repaid: { date: "2026-09-21", basis: "plan" }, note: { en: "Repaid at maturity (21-Sep-2026) out of the Sep-2026 bank facilities (per the 11-Sep-2026 release).", es: "Pagado a su vencimiento (21-sep-2026) con las líneas bancarias de sep-2026 (según el comunicado del 11-sep-2026)." } },
       { name: "GAP 22", type: "CB", inferred: true, issued: "2022-03-17", matures: "2027-03-11", principalMxn: 2000, rate: { en: "floating (7.03% at 30-Jun-2026)", es: "variable (7.03% al 30-jun-2026)" }, source: "FactSet" },
       { name: "GAP 24-L", type: "CB", issued: "2024-03-20", matures: "2027-03-17", principalMxn: 1384.9, rate: { en: "TIIE-28 + 25 bp (sustainability-linked)", es: "TIIE-28 + 25 pb (ligado a sostenibilidad)" }, source: "6-K 20-Mar-2024" },
       { name: "GAP 20-3", type: "CB", inferred: true, issued: "2020-06-25", matures: "2027-06-17", principalMxn: 3598, rate: { en: "8.14% fixed", es: "8.14% fija" }, source: "6-K 24-Jul-2020 (2Q20 report) · FactSet" },
@@ -126,6 +130,20 @@ window.GAP_REF = {
     // interest): FactSet's detail at 30-Jun-2026 carries two legacy loans past their stated maturity (Ps. 8.9 M + 191.1 M = Ps. 200 M)
     // that the list leaves out; the rest of the difference is accrued interest, which GAP shows inside "bank loans and interest payable".
     reconciliation: { legacyLoansMxnM: 200, note: { en: "Instrument principal + accrued interest and two legacy loans (Ps. 200 M, FactSet detail) = balance-sheet bank loans and certificados", es: "Principal de los instrumentos + intereses devengados y dos préstamos antiguos (Ps. 200 M, detalle de FactSet) = préstamos bancarios y certificados en balance" } },
+    // Gross debt (bank loans + certificados bursátiles, Ps. million) at the quarter-ends whose own release prints a condensed
+    // balance sheet. Sources, by kind: "annual" = the audited balance sheet in GAP's Form 20-F (line items "Bank loans, debt
+    // securities and current portion of debt" + "Long-term borrowings" + "Debt securities"; this presentation excludes accrued
+    // interest); "factset" = FactSet Fundamentals FF_DEBT, standardized from GAP's BMV quarterly report (includes lease liabilities,
+    // Ps. 20–100 M, and excludes accrued interest) — to be replaced by the BMV report's own figures when read (owner's check).
+    // 2Q25 and 2Q26 need no entry: the 2Q26 release itemizes both (the model reads a later report's comparative balance sheet).
+    history: [
+      { q: "2024Q3", grossDebtMxnM: 47994.97, kind: "factset", source: { en: "FactSet Fundamentals FF_DEBT, 30-Sep-2024 (from GAP's 3Q24 quarterly report)", es: "FactSet Fundamentals FF_DEBT, 30-sep-2024 (del informe trimestral 3T24 de GAP)" } },
+      { q: "2024Q4", grossDebtMxnM: 47989.879, kind: "annual", source: { en: "GAP Form 20-F 2025, consolidated statement of financial position at 31-Dec-2024 (13,982,903 + 4,103,254 + 29,903,722)", es: "Forma 20-F 2025 de GAP, estado de situación financiera al 31-dic-2024 (13,982,903 + 4,103,254 + 29,903,722)" }, sourceUrl: "https://www.sec.gov/Archives/edgar/data/1347557/000119312526161714/R2.htm" },
+      { q: "2025Q1", grossDebtMxnM: 49582.28, kind: "factset", source: { en: "FactSet Fundamentals FF_DEBT, 31-Mar-2025 (from GAP's 1Q25 quarterly report)", es: "FactSet Fundamentals FF_DEBT, 31-mar-2025 (del informe trimestral 1T25 de GAP)" } },
+      { q: "2025Q3", grossDebtMxnM: 53236.048, kind: "factset", source: { en: "FactSet Fundamentals FF_DEBT, 30-Sep-2025 (from GAP's 3Q25 quarterly report)", es: "FactSet Fundamentals FF_DEBT, 30-sep-2025 (del informe trimestral 3T25 de GAP)" } },
+      { q: "2025Q4", grossDebtMxnM: 52997.093, kind: "annual", source: { en: "GAP Form 20-F 2025, consolidated statement of financial position at 31-Dec-2025 (9,024,828 + 4,946,131 + 39,026,134)", es: "Forma 20-F 2025 de GAP, estado de situación financiera al 31-dic-2025 (9,024,828 + 4,946,131 + 39,026,134)" }, sourceUrl: "https://www.sec.gov/Archives/edgar/data/1347557/000119312526161714/R2.htm" },
+      { q: "2026Q1", grossDebtMxnM: 63830.43, kind: "factset", source: { en: "FactSet Fundamentals FF_DEBT, 31-Mar-2026 (from GAP's 1Q26 quarterly report)", es: "FactSet Fundamentals FF_DEBT, 31-mar-2026 (del informe trimestral 1T26 de GAP)" } },
+    ],
     // Events after instrumentsAsOf that change the table; the page prints them under it.
     events: [
       { date: "2026-09-11", en: "Bank credit facilities for Ps. 8,000 M signed with Santander, BBVA, HSBC, J.P. Morgan and Scotiabank: 6 to 12 months (some extendable 6 months), floating at TIIE funding + 45 bp weighted average. Ps. 4,258 M repay GAP 22L (Ps. 2,758 M, 21-Sep-2026) and GAP 21-V (Ps. 1,500 M, 9-Oct-2026); Ps. 3,742 M fund PMD capex.", es: "Líneas de crédito bancarias por Ps. 8,000 M con Santander, BBVA, HSBC, J.P. Morgan y Scotiabank: de 6 a 12 meses (algunas prorrogables 6 meses), a tasa variable de TIIE de fondeo + 45 pb en promedio ponderado. Ps. 4,258 M pagan GAP 22L (Ps. 2,758 M, 21-sep-2026) y GAP 21-V (Ps. 1,500 M, 9-oct-2026); Ps. 3,742 M financian capex del PMD.", source: { en: "GAP release 11-Sep-2026 (6-K)", es: "Comunicado de GAP 11-sep-2026 (6-K)" }, url: "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html" },
@@ -167,7 +185,7 @@ window.GAP_REF = {
         "GAP, 'Issuance of bond certificates for Ps. 10,718.0 million', 1-Apr-2026 (6-K)",
         "GAP, 'Completion of business combination process of CBX …', 7-May-2026 (6-K)",
         "BMV material events 1545742 (31-Mar-2026, certificados bursátiles) and 1557757 (7-May-2026, completion of the combination)",
-        "GAP 2Q26 report, 14-Jul-2026 (Form 6-K): Exhibit A (CBX revenue and EBITDA, May–June 2026) and the business-combination note",
+        "GAP 2Q26 report (BMV filing 13-Jul-2026; Form 6-K 14-Jul-2026): Exhibit A (CBX revenue and EBITDA, May–June 2026) and the business-combination note",
         "GAP monthly traffic reports (CBX users; Tijuana passengers)",
       ],
       es: [
@@ -176,7 +194,7 @@ window.GAP_REF = {
         "GAP, 'Emisión de certificados bursátiles por Ps. 10,718.0 millones', 1-abr-2026 (6-K)",
         "GAP, 'Conclusión del proceso de combinación de negocios de CBX …', 7-may-2026 (6-K)",
         "Eventos relevantes BMV 1545742 (31-mar-2026, certificados bursátiles) y 1557757 (7-may-2026, conclusión de la combinación)",
-        "Informe 2T26 de GAP, 14-jul-2026 (Forma 6-K): Exhibit A (ingresos y EBITDA de CBX, mayo–junio de 2026) y la nota de la combinación de negocios",
+        "Informe 2T26 de GAP (presentado en la BMV el 13-jul-2026; Forma 6-K del 14-jul-2026): Exhibit A (ingresos y EBITDA de CBX, mayo–junio de 2026) y la nota de la combinación de negocios",
         "Reportes mensuales de tráfico de GAP (usuarios de CBX; pasajeros de Tijuana)",
       ],
     },
@@ -205,7 +223,7 @@ window.GAP_REF = {
     sources: {
       en: [
         "GAP release 9-May-2026 (Form 6-K), initiation of the process to establish a FIBRA; BMV material event 1558742 (May-2026)",
-        "GAP 2Q26 report, 14-Jul-2026 (Form 6-K): status of the CBFE approval process",
+        "GAP 2Q26 report (BMV filing 13-Jul-2026; Form 6-K 14-Jul-2026): status of the CBFE approval process",
         "El Cronista, Axis Negocios and El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
         "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-Jun-2026) and 'GAP perfila para octubre colocación de fibra E' (21-Sep-2026)",
         "Financial press via Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-Jun-2026) and 'En octubre saldrá la Fibra E de GAP' (22-Sep-2026)",
@@ -213,7 +231,7 @@ window.GAP_REF = {
       ],
       es: [
         "Comunicado de GAP del 9-may-2026 (Forma 6-K), inicio del proceso para constituir una FIBRA; evento relevante BMV 1558742 (may-2026)",
-        "Informe 2T26 de GAP, 14-jul-2026 (Forma 6-K): estado del proceso de autorización de los CBFE",
+        "Informe 2T26 de GAP (presentado en la BMV el 13-jul-2026; Forma 6-K del 14-jul-2026): estado del proceso de autorización de los CBFE",
         "El Cronista, Axis Negocios y El CEO, cobertura de la oferta de FGAP 26 (jun–jul 2026)",
         "Axis Negocios, 'GAP planea colocar el 25 de junio fibra E a la que dará 4% de sus aeropuertos' (12-jun-2026) y 'GAP perfila para octubre colocación de fibra E' (21-sep-2026)",
         "Prensa financiera vía Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-jun-2026) y 'En octubre saldrá la Fibra E de GAP' (22-sep-2026)",
@@ -244,6 +262,22 @@ window.GAP_REF = {
   // Results calendar. The presentation PDF marks the next results date "confirmed" only when GAP has announced
   // it; set nextResults when the company publishes its calendar (date, plus the release it came from) and clear
   // it after the results are out. Without it the date is assumed from GAP's own release-lag history.
+  // The date each quarterly report was filed with the BMV (evento relevante "anuncia resultados del … trimestre"), the
+  // convention every report date on the page and in the deck follows (owner, 15-Oct-2026); a quarter without an entry prints
+  // the date of GAP's press release, labeled as such. 2026 entries from the BMV watch (tools/gap/raw/bmv-events.json), 2024–2025
+  // from the BMV documents eventemi_<id>_1.pdf read in-session on 15-Oct-2026.
+  filings: {
+    results: {
+      "2024Q3": { bmvDate: "2024-10-21", bmvId: "1413207" },
+      "2024Q4": { bmvDate: "2025-02-24", bmvId: "1443753" },
+      "2025Q1": { bmvDate: "2025-04-28", bmvId: "1458578" },
+      "2025Q2": { bmvDate: "2025-07-21", bmvId: "1480453" },
+      "2025Q3": { bmvDate: "2025-10-20", bmvId: "1500009" },
+      "2025Q4": { bmvDate: "2026-02-23", bmvId: "1536005" },
+      "2026Q1": { bmvDate: "2026-04-20", bmvId: "1549656" },
+      "2026Q2": { bmvDate: "2026-07-13", bmvId: "1573976" },
+    },
+  },
   calendar: {
     nextResults: null,   // e.g. { date: "2026-10-21", source: { title: "GAP announces 3Q26 results date", url: "https://...", date: "2026-10-01" } }
     // A vendor's projection, printed beside the assumed date while GAP has not announced one (never as a confirmed date).
