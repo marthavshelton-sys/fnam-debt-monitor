@@ -4,48 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "buildout.js",
-   "path": "sites[2].sources[3].title",
-   "old": "Oracle press release: Project Jupiter economic impact (Jul 28, 2026)",
-   "new": "Oracle press release: Project Jupiter powered by Bloom Energy fuel cells (Apr 27, 2026)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[3].url",
-   "old": "https://www.oracle.com/news/announcement/project-jupiter-2026-07-28/",
-   "new": "https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[3].short",
-   "old": "Oracle PR 28 Jul 2026",
-   "new": "Oracle PR 27 Apr 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[4].title",
-   "old": "DCD: Oracle to deploy up to 2.45 GW of Bloom fuel cells at New Mexico data center",
-   "new": "Oracle press release: Project Jupiter economic impact (Jul 28, 2026)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[4].url",
-   "old": "https://www.datacenterdynamics.com/en/news/oracle-to-deploy-up-to-245gw-of-bloom-fuel-cells-at-new-mexico-data-center/",
-   "new": "https://www.oracle.com/news/announcement/project-jupiter-2026-07-28/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[4].short",
-   "old": "DCD",
-   "new": "Oracle PR 28 Jul 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
    "path": "sites[2].sources[5].title",
    "old": "Bloomberg, Sep 24, 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
    "new": "DCD: Oracle to deploy up to 2.45 GW of Bloom fuel cells at New Mexico data center"
@@ -4200,7 +4158,49 @@
    "path": "(more)",
    "old": null,
    "new": "619 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-14)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2513,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.03,
+   "new": 1.04
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 794,
+   "new": 795
+  },
+  {
+   "at": "2026-10-15T17:49:46.664Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
   }
  ],
- "generated": "2026-10-15T14:57:28.347Z"
+ "generated": "2026-10-15T17:49:46.664Z"
 }

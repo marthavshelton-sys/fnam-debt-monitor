@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-15T14:57:28.250Z",
+  "generated": "2026-10-15T17:49:46.380Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3815,8 +3815,8 @@
     },
     {
       "series": "Share price (ORCL close, Nasdaq feed)",
-      "lastDate": "2026-10-13",
-      "ageDays": 3,
+      "lastDate": "2026-10-14",
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, every day 9:30 AM ET and weekdays about 4:35 PM and 4:45–5:45 PM ET; fills the sessions FactSet has not posted yet"
@@ -3831,8 +3831,8 @@
     },
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
-      "lastDate": "2026-10-13",
-      "ageDays": 3,
+      "lastDate": "2026-10-14",
+      "ageDays": 2,
       "limitDays": 7,
       "status": "ok",
       "note": "market fetch; credit card proxy while no CDS source exists"
@@ -3847,32 +3847,32 @@
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-10-14",
-      "ageDays": 2,
+      "lastDate": "2026-10-15",
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "filings download, every day about 9:30 AM ET"
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-10-14",
-      "ageDays": 2,
+      "lastDate": "2026-10-15",
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "filings harvest"
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-10-14",
-      "ageDays": 2,
+      "lastDate": "2026-10-15",
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "calendar fetch"
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-10-14",
-      "ageDays": 2,
+      "lastDate": "2026-10-15",
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "peer-leverage fetch"
@@ -3911,7 +3911,7 @@
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-10-14",
+      "lastDate": "2026-10-15",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -3952,7 +3952,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-13; 5 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-14; 5 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -3972,7 +3972,7 @@
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-10-14"
+      "detail": "5 peers; fetched 2026-10-15"
     },
     {
       "file": "analysts.json",
@@ -4002,7 +4002,7 @@
       "label_es": "Datos XBRL (10-Q/10-K)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-14",
+      "lastRefresh": "2026-10-15",
       "nextExpected": "2026-12-10",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4106,8 +4106,8 @@
       "label_en": "Market (daily closes)",
       "label_es": "Mercado (cierres diarios)",
       "cadence": "daily",
-      "asOf": "2026-10-13",
-      "lastRefresh": "2026-10-13",
+      "asOf": "2026-10-14",
+      "lastRefresh": "2026-10-14",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4181,8 +4181,8 @@
       "label_en": "Investor calendar",
       "label_es": "Calendario del inversionista",
       "cadence": "daily",
-      "asOf": "2026-10-14",
-      "lastRefresh": "2026-10-14",
+      "asOf": "2026-10-15",
+      "lastRefresh": "2026-10-15",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4196,8 +4196,8 @@
       "label_en": "Peer leverage (XBRL)",
       "label_es": "Apalancamiento de pares (XBRL)",
       "cadence": "daily",
-      "asOf": "2026-10-14",
-      "lastRefresh": "2026-10-14",
+      "asOf": "2026-10-15",
+      "lastRefresh": "2026-10-15",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
