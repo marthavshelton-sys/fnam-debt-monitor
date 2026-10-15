@@ -345,6 +345,21 @@ to the page and the deck (`yoy`, `ytdYoy`). Exhibit A lands in `quarters[].seg` 
 country sentences in `quarters[].country`. Release dates come from the dateline of each release (`releaseDate()`), a "correction"
 wire merges its values but keeps the original date (`sources.<part>.correction`).
 
+Round of 15-Oct-2026 (afternoon; owner's list): gross debt by quarter comes from GAP's balance sheets wherever one itemizes it —
+the quarter's own release (2Q26 on) or a later release's comparative column (`quarters[].restated[<id>].bs`, kept by
+`build-data.mjs` since this round; 2Q25 = Ps. 46,869 M from the 2Q26 report) — then from `reference.js → debt.history`
+(`kind: "annual"` = the Form 20-F balance sheet, `"factset"` = FactSet Fundamentals FF_DEBT read in-session from GAP's BMV
+quarterly report; each entry names its source and the page and deck print a letter per source), and only for older quarters from
+the financing-flow roll-back (`est`). Replace a `factset` entry with the BMV report's own figure when read. Report dates follow the
+BMV filing (`reference.js → filings.results`, from the eventos relevantes; 2Q26 was filed 13-Jul-2026, the wire release is dated
+14-Jul-2026) and print as "13 Jul 2026 · BMV"; a quarter without an entry prints its press-release date labeled as such; guidance
+vintages issued with a report carry that report's date (`guidanceDate()`). Exhibit E (statement of changes in equity) is parsed
+for the net income split (`is.netIncomeControlling`, `is.netIncomeNci`; quarters after the first = year to date less the previous
+year to date), which feeds the "net income attributable to controlling interest per share" rows and the payout ratios; LTM
+per-share rows divide by the day-weighted average share count (`wavgShares`, `ltmShareNote`), since GAP publishes only period-end
+counts. The two certificados matured after the instrument snapshot share one footnote (`debt.repaidNote`, each note printed with its
+own amount and due date); the S&P citation carries the 13-Mar-2026 rating action (BMV evento relevante de calificadoras 1541529).
+
 Check before pushing a deck or model change: `node scripts/gap/deck-check.mjs --out <dir> --shots <dir>` (site served on :8123;
 builds both decks, compares headline figures with the page, flags placeholders, untranslated terms, words past the margins, and a
 page-count difference between languages) and look at every page in both languages.
