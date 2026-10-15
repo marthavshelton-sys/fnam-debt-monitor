@@ -1,18 +1,42 @@
 {
- "_comment": "Company capex guidance (T2: company statement, not audited). Each company defines capex its own way (Meta includes principal payments on finance leases; Microsoft speaks of capex including finance leases; Oracle separates gross capex from net cash capex; Amazon speaks of cash capex). Guidance is never mixed into the reported (T1) series. Sources: FactSet guidance dataset (company-provided guidance as FactSet records it; snapshot date in pulledAt) and, where the dataset lags the call, the licensed earnings-call transcript (FactSet CallStreet; no public link, like the Oracle figures). US$ millions. Update after each earnings call; checkedOn = the last in-session re-check of the dataset.",
+ "_comment": "Company capex guidance (T2: company statement, not audited). Each company defines capex its own way (Meta includes principal payments on finance leases; Microsoft speaks of capex including finance leases; Oracle separates gross capex from net cash capex; Amazon speaks of cash capex). Guidance is never mixed into the reported (T1) series. Sources: FactSet guidance dataset (company-provided guidance as FactSet records it; snapshot date in pulledAt) and, where the dataset lags the call, the licensed earnings-call transcript (FactSet CallStreet; no public link, like the Oracle figures). US$ millions. Update after each earnings call; checkedOn = the last in-session re-check of the dataset. fy may be a fiscal year (FY2027) or a calendar year (CY2026: Microsoft guides calendar years); fyLabel_* prints it. nextQuarter: the next quarter's guidance where the company gives one. prev*: the figure the guidance replaced, with its date and source. quote_es: the Spanish translation shown on the Spanish page (the original stays in the tooltip).",
  "pulledAt": "2026-10-03",
  "items": [
   {
    "ticker": "MSFT",
-   "fy": "FY2027",
-   "fyEnd": "2027-06-30",
-   "low": null,
-   "high": null,
-   "status": "not_disclosed",
-   "note_en": "Microsoft gives no annual capex range; FactSet's guidance dataset has none for FY2026 or FY2027.",
-   "note_es": "Microsoft no da un rango anual de capex; el conjunto de guías de FactSet no registra ninguno para el AF2026 ni el AF2027.",
-   "source_es": "Conjunto de guías de FactSet (CAPEX), consulta del 3 oct 2026; revisado de nuevo el 9 oct 2026",
-   "source_en": "FactSet guidance dataset (CAPEX), pulled 3 Oct 2026; rechecked 9 Oct 2026"
+   "fy": "CY2026",
+   "fyLabel_en": "calendar 2026",
+   "fyLabel_es": "año calendario 2026",
+   "fyEnd": "2026-12-31",
+   "low": 175000,
+   "high": 175000,
+   "approx": true,
+   "date": "2026-07-29",
+   "prevLow": 190000,
+   "prevHigh": 190000,
+   "prevDate": "2026-04-29",
+   "prevApprox": true,
+   "nextQuarter": {
+    "label_en": "quarter to 30 Sep 2026 (Q1 FY2027)",
+    "label_es": "trimestre al 30 sep 2026 (1T AF2027)",
+    "low": 50000,
+    "qualifier": "over",
+    "quote": "We expect CapEx spend will be over $50 billion, including the lease reclassification impact from the useful life update."
+   },
+   "quote": "Outside of this useful life impact, our calendar year 2026 CapEx investment expectations remain unchanged. However, the shift from finance to operating leases adjust our expectation to approximately $175 billion.",
+   "quote_es": "Fuera de este efecto de la vida útil, nuestras expectativas de inversión de capex para el año calendario 2026 no cambian. Sin embargo, el paso de arrendamientos financieros a operativos ajusta nuestra expectativa a aproximadamente US$175 mil millones.",
+   "note_en": "About US$175 bn of capex for calendar 2026 (down from about US$190 bn stated on the 29 Apr 2026 call) and more than US$50 bn for the quarter to September 2026, per the FY2026 Q4 call of 29 Jul 2026 (chief financial officer's prepared remarks). The cut is an accounting shift, not lower spending: from the start of FY2027 Microsoft extends the estimated useful life of its data centers and office buildings from 15 to 25 years, so more future data center leases classify as operating leases, which Microsoft excludes from capex (finance leases are included); the FY2026 10-K (Note 1, p. 61) still shows buildings and improvements at 5 to 15 years, and the change applies from FY2027. Microsoft's capex definition includes finance leases.",
+   "note_es": "Unos US$175 mil M de capex para el año calendario 2026 (desde unos US$190 mil M dichos en la llamada del 29 abr 2026) y más de US$50 mil M para el trimestre a septiembre de 2026, según la llamada del 4T AF2026 del 29 jul 2026 (comentarios preparados de la directora de finanzas). El recorte es un cambio contable, no menos gasto: desde el inicio del AF2027 Microsoft alarga la vida útil estimada de sus centros de datos y edificios de oficinas de 15 a 25 años, con lo que más arrendamientos futuros de centros de datos se clasifican como operativos, que Microsoft excluye del capex (los financieros sí entran); el 10-K del AF2026 (nota 1, p. 61) sigue mostrando edificios y mejoras a 5–15 años y el cambio aplica desde el AF2027. La definición de capex de Microsoft incluye los arrendamientos financieros.",
+   "usefulLifeQuote": "effective at the start of FY '27, we are extending the estimated useful life of our data centers and office buildings from 15 to 25 years.",
+   "status": "company_statement",
+   "source_es": "Llamada de resultados de Microsoft del 4T AF2026 (29 jul 2026), comentarios preparados de la directora de finanzas; página de eventos de relación con inversionistas de Microsoft (repetición y transcripción). El conjunto de guías de FactSet no registra una guía anual de capex de Microsoft al 9 oct 2026",
+   "source_en": "Microsoft FY2026 Q4 earnings call (29 Jul 2026), the chief financial officer's prepared remarks; Microsoft investor-relations events page (replay and transcript). FactSet's guidance dataset records no annual capex guidance for Microsoft as of 9 Oct 2026",
+   "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+   "prevSource_en": "about US$190 bn for calendar 2026, FY2026 Q3 call of 29 Apr 2026 (reported by The Register, 30 Apr 2026)",
+   "prevSource_es": "unos US$190 mil M para el año calendario 2026, llamada del 3T AF2026 del 29 abr 2026 (según The Register, 30 abr 2026)",
+   "prevUrl": "https://www.theregister.com/2026/04/30/microsoft_q3_2026/",
+   "verifiedOn": "2026-10-15",
+   "recheckedOn": "2026-10-15"
   },
   {
    "ticker": "GOOGL",
@@ -43,7 +67,8 @@
    "prevHigh": 200000,
    "prevDate": "2026-02-06",
    "noUrl": true,
-   "quote": "We now believe we will spend approximately $220 billion in cash CapEx in 2026. The higher cost of memory pushing this number up from our prior estimate of about $200 billion."
+   "quote": "We now believe we will spend approximately $220 billion in cash CapEx in 2026. The higher cost of memory pushing this number up from our prior estimate of about $200 billion.",
+   "quote_es": "Ahora creemos que gastaremos aproximadamente US$220 mil millones en capex en efectivo en 2026. El mayor costo de la memoria empuja esta cifra al alza desde nuestra estimación previa de unos US$200 mil millones."
   },
   {
    "ticker": "META",
@@ -73,5 +98,6 @@
    "source_en": "Oracle Q1 FY2027 earnings call (10 Sep 2026), p. 4 of the licensed transcript (no public link)"
   }
  ],
- "checkedOn": "2026-10-09"
+ "checkedOn": "2026-10-15",
+ "updatedAt": "2026-10-15T14:00:00Z"
 }

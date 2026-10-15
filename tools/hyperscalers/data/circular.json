@@ -1,5 +1,5 @@
 {
- "_comment": "Module Circular (circular financing). flows: money or capacity commitments between the five covered companies, the counterparty neoclouds and developers (CoreWeave, Nebius, IREN, Applied Digital, Core Scientific: not covered since 2026-10-08, kept here only as counterparties), chip makers and AI labs, each read from an SEC filing of a covered company or of the counterparty itself (T1; counterparty filings are harvested for this purpose) or, where noted, a company's own statement (T2). direction is the way the money moves (from pays/invests/lends to). amountUSDm is the amount as the filing states it on the stated basis (basis), never netted or summed across bases. shareOf: the counterparty share the filing itself gives (disclosed) or FNAM computes from T1 revenue (calc, method shown; only for covered companies, whose XBRL revenue the hub carries). concentration: the single-customer dependence a filing discloses, for covered companies and counterparties alike (a counterparty row is the other side of a major's commitment). inferences: FNAM analysis, labeled as such on the page, each listing the flows it rests on (the validator fails on an unknown id). breakers: what would break each loop, same rule.",
+ "_comment": "Module Circular (circular financing). flows: money or capacity commitments between the five covered companies, the counterparty neoclouds and developers (CoreWeave, Nebius, IREN, Applied Digital, Core Scientific: not covered since 2026-10-08, kept here only as counterparties), chip makers and AI labs, each read from an SEC filing of a covered company or of the counterparty itself (T1; counterparty filings are harvested for this purpose) or, where noted, a company's own statement (T2). direction is the way the money moves (from pays/invests/lends to). amountUSDm is the amount as the filing states it on the stated basis (basis), never netted or summed across bases. shareOf: the counterparty share the filing itself gives (disclosed) or FNAM computes from T1 revenue (calc, method shown; only for covered companies, whose XBRL revenue the hub carries). concentration: the single-customer dependence a filing discloses, for covered companies and counterparties alike (a counterparty row is the other side of a major's commitment). inferences: FNAM analysis, labeled as such on the page, each listing the flows it rests on (the validator fails on an unknown id). breakers: what would break each loop, same rule. tier T2 rows (company statements with a public release, srcT2 with date and quote) are kept apart from filing figures and counted apart in the header; press: dated press memos (T3), shown in their own section and entering no figure.",
  "updated": "2026-10-03",
  "readBy": "automated read, 3 Oct 2026 ET (harvested passages)",
  "nodes": [
@@ -524,18 +524,20 @@
    "type": "equity",
    "amountUSDm": 21300,
    "basis": "cash",
-   "asOf": "2026-07-31",
+   "asOf": "2026-06-30",
    "subsequent": true,
    "accounting_es": "Resto del compromiso de US$35.0 mil M en preferentes Serie C, invertido después del 30 jun 2026 (hecho posterior; el 10-Q no da la fecha); completa el compromiso de la Serie C",
    "accounting_en": "Remaining US$21.3 bn of the US$35.0 bn Series C commitment, invested after 30 Jun 2026 (subsequent event; the 10-Q gives no date); completes the Series C commitment",
-   "note_es": "Fecha mostrada: la de presentación del 10-Q (31 jul 2026); nunca se suma a los saldos al 30 jun 2026",
-   "note_en": "Date shown: the 10-Q filing date (31 Jul 2026); never added to the 30 Jun 2026 balances",
+   "note_es": "Hecho posterior al balance del 30 jun 2026, sin fecha en el 10-Q; nunca se suma a los saldos al 30 jun 2026",
+   "note_en": "Subsequent event after the 30 Jun 2026 balance sheet, undated in the 10-Q; never added to the 30 Jun 2026 balances",
    "src": {
     "k": "AMZN 10-Q 2026-06-30",
     "page": "12",
     "section": "Note 1 — Investments (OpenAI)",
     "quote": "Subsequent to June 30, 2026, we invested the remaining $21.3 billion Commitment Amount in shares of Series C Preferred Stock of OpenAI."
-   }
+   },
+   "dateLabel_en": "after 30 Jun 2026 (the 10-Q gives no date)",
+   "dateLabel_es": "después del 30 jun 2026 (el 10-Q no da la fecha)"
   },
   {
    "id": "openai-amzn",
@@ -607,6 +609,101 @@
     "page": "17",
     "section": "Note: Financial instruments",
     "quote": "to co-develop a data center campus in Louisiana (the Venture), in which we hold a 20 % membership interest"
+   }
+  },
+  {
+   "id": "openai-msft-azure",
+   "from": "OPENAI",
+   "to": "MSFT",
+   "type": "contract",
+   "amountUSDm": 250000,
+   "basis": "commitment",
+   "asOf": "2025-10-28",
+   "tier": "T2",
+   "accounting_es": "Compromiso contractual de compra de servicios de Azure por US$250 mil M adicionales, anunciado al recapitalizarse OpenAI; Microsoft pierde el derecho de preferencia como proveedor de cómputo. No figura con monto en el 10-K del AF2026 (buscado)",
+   "accounting_en": "Contractual commitment to purchase an incremental US$250 bn of Azure services, announced with OpenAI's recapitalization; Microsoft gives up its right of first refusal as compute provider. Not quantified in the FY2026 10-K (searched)",
+   "srcT2": {
+    "title_es": "Microsoft y OpenAI, «The next chapter of the Microsoft–OpenAI partnership», 28 oct 2025",
+    "title_en": "Microsoft and OpenAI, \"The next chapter of the Microsoft–OpenAI partnership\", 28 Oct 2025",
+    "url": "https://openai.com/index/next-chapter-of-microsoft-openai-partnership/",
+    "date": "2025-10-28",
+    "quote": "OpenAI has contracted to purchase an incremental $250B of Azure services"
+   }
+  },
+  {
+   "id": "anthropic-msft-azure",
+   "from": "ANTHROPIC",
+   "to": "MSFT",
+   "type": "contract",
+   "amountUSDm": 30000,
+   "basis": "commitment",
+   "asOf": "2025-11-18",
+   "tier": "T2",
+   "accounting_es": "Compromiso de compra de US$30 mil M de capacidad de cómputo de Azure, con opción de contratar capacidad adicional de hasta un gigavatio; no figura con monto en el 10-K del AF2026 (buscado)",
+   "accounting_en": "Commitment to purchase US$30 bn of Azure compute capacity, with the option to contract additional capacity up to one gigawatt; not quantified in the FY2026 10-K (searched)",
+   "srcT2": {
+    "title_es": "Anthropic, «Microsoft, NVIDIA and Anthropic announce strategic partnerships», 18 nov 2025",
+    "title_en": "Anthropic, \"Microsoft, NVIDIA and Anthropic announce strategic partnerships\", 18 Nov 2025",
+    "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+    "date": "2025-11-18",
+    "quote": "Anthropic has committed to purchase $30 billion of Azure compute capacity"
+   }
+  },
+  {
+   "id": "msft-anthropic-equity",
+   "from": "MSFT",
+   "to": "ANTHROPIC",
+   "type": "equity",
+   "amountUSDm": 5000,
+   "basis": "commitment_upto",
+   "asOf": "2025-11-18",
+   "tier": "T2",
+   "accounting_es": "Compromiso de invertir hasta US$5 mil M en Anthropic, anunciado junto con el compromiso de Azure; monto efectivamente invertido no revelado en el 10-K del AF2026",
+   "accounting_en": "Commitment to invest up to US$5 bn in Anthropic, announced with the Azure commitment; the amount actually invested is not disclosed in the FY2026 10-K",
+   "srcT2": {
+    "title_es": "Anthropic, «Microsoft, NVIDIA and Anthropic announce strategic partnerships», 18 nov 2025",
+    "title_en": "Anthropic, \"Microsoft, NVIDIA and Anthropic announce strategic partnerships\", 18 Nov 2025",
+    "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+    "date": "2025-11-18",
+    "quote": "NVIDIA and Microsoft are committing to invest up to $10 billion and up to $5 billion respectively in Anthropic"
+   }
+  },
+  {
+   "id": "nvda-anthropic-equity",
+   "from": "NVDA",
+   "to": "ANTHROPIC",
+   "type": "equity",
+   "amountUSDm": 10000,
+   "basis": "commitment_upto",
+   "asOf": "2025-11-18",
+   "tier": "T2",
+   "accounting_es": "Compromiso de invertir hasta US$10 mil M en Anthropic, anunciado junto con el compromiso de Azure (NVIDIA no es empresa cubierta: aparece por lo que el anuncio dice)",
+   "accounting_en": "Commitment to invest up to US$10 bn in Anthropic, announced with the Azure commitment (NVIDIA is not a covered company: it appears for what the announcement says)",
+   "srcT2": {
+    "title_es": "Anthropic, «Microsoft, NVIDIA and Anthropic announce strategic partnerships», 18 nov 2025",
+    "title_en": "Anthropic, \"Microsoft, NVIDIA and Anthropic announce strategic partnerships\", 18 Nov 2025",
+    "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+    "date": "2025-11-18",
+    "quote": "NVIDIA and Microsoft are committing to invest up to $10 billion and up to $5 billion respectively in Anthropic"
+   }
+  },
+  {
+   "id": "anthropic-googl-tpu",
+   "from": "ANTHROPIC",
+   "to": "GOOGL",
+   "type": "contract",
+   "amountUSDm": null,
+   "basis": "not_disclosed",
+   "asOf": "2025-10-23",
+   "tier": "T2",
+   "accounting_es": "Ampliación del uso de Google Cloud: acceso a hasta un millón de TPU, «por decenas de miles de millones de dólares», y a más de un gigavatio de capacidad en 2026; monto no revelado. La participación accionaria de Alphabet en Anthropic no aparece con nombre ni monto en el 10-K de 2025 ni en el 10-Q al 30 jun 2026 (buscado): no se registra fila de capital",
+   "accounting_en": "Expanded use of Google Cloud: access to up to one million TPUs, \"worth tens of billions of dollars\", and to well over a gigawatt of capacity in 2026; amount not disclosed. Alphabet's equity stake in Anthropic is not named or quantified in the 2025 10-K or the 10-Q to 30 Jun 2026 (searched): no equity row is recorded",
+   "srcT2": {
+    "title_es": "Google Cloud, «Anthropic to Expand Use of Google Cloud TPUs and Services», 23 oct 2025",
+    "title_en": "Google Cloud, \"Anthropic to Expand Use of Google Cloud TPUs and Services\", 23 Oct 2025",
+    "url": "https://www.googlecloudpresscorner.com/2025-10-23-Anthropic-to-Expand-Use-of-Google-Cloud-TPUs-and-Services",
+    "date": "2025-10-23",
+    "quote": "Anthropic will train and serve Claude models with plans to access up to 1 million TPUs, worth tens of billions of dollars"
    }
   }
  ],
@@ -795,5 +892,56 @@
    ]
   }
  ],
- "updatedAt": "2026-10-09T23:00:00Z"
+ "updatedAt": "2026-10-15T14:00:00Z",
+ "press": [
+  {
+   "id": "2026-10-08-openai-revenue",
+   "date": "2026-10-08",
+   "tier": "T3",
+   "nodes": [
+    "OPENAI",
+    "ORCL",
+    "CRWV"
+   ],
+   "title_en": "OpenAI's annualized revenue about US$50 bn at end-September 2026, about US$20 bn below what had been signaled (FT); ORCL −5.48%, CRWV −7.77% that day",
+   "title_es": "Ingresos anualizados de OpenAI de unos US$50 mil M al cierre de septiembre de 2026, unos US$20 mil M por debajo de lo señalado (FT); ORCL −5.48% y CRWV −7.77% ese día",
+   "memo_en": "The Financial Times reported on 8 Oct 2026 that OpenAI's annualized revenue was roughly US$50 bn at the end of September, about US$20 bn less than earlier reports had signaled (the higher figure had included partners' gross revenue, per the coverage); CNBC relayed the figure the same day. Oracle closed down 5.48% and CoreWeave down 7.77% on 8 Oct 2026 (FactSet Global Prices, daily price returns). OpenAI is private and neither Oracle nor CoreWeave filed or released anything: the memo enters no figure on this hub; the contracted backlog (Oracle's US$664 bn RPO, row above) is unchanged, OpenAI's capacity to pay for it is what the press questioned.",
+   "memo_es": "The Financial Times reportó el 8 oct 2026 que los ingresos anualizados de OpenAI eran de unos US$50 mil M al cierre de septiembre, unos US$20 mil M menos de lo que señalaban reportes previos (la cifra mayor incluía ingresos brutos de socios, según la cobertura); CNBC retomó la cifra el mismo día. Oracle cerró con −5.48% y CoreWeave con −7.77% el 8 oct 2026 (FactSet Global Prices, rendimientos diarios de precio). OpenAI es privada y ni Oracle ni CoreWeave presentaron o comunicaron nada: el memo no entra en ninguna cifra de este centro; la cartera contratada (RPO de Oracle de US$664 mil M, fila de arriba) no cambia; lo que la prensa cuestionó es la capacidad de OpenAI para pagarla.",
+   "sources": [
+    {
+     "title": "Reuters via U.S. News, 8 Oct 2026: OpenAI's September Annualized Revenue Nears $50 Billion, Less Than Previously Indicated (FT report)",
+     "url": "https://money.usnews.com/investing/news/articles/2026-10-08/openais-annualized-revenue-20-billion-less-than-previously-signaled-ft-reports"
+    },
+    {
+     "title": "CNBC, 8 Oct 2026: Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report",
+     "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html"
+    },
+    {
+     "title": "FactSet Global Prices, daily price returns of ORCL-US and CRWV-US, 8 Oct 2026 (pulled 15 Oct 2026)"
+    }
+   ]
+  },
+  {
+   "id": "2026-10-08-orcl-chip-lease-vehicle",
+   "date": "2026-10-08",
+   "tier": "T3",
+   "nodes": [
+    "ORCL"
+   ],
+   "title_en": "Oracle in early-stage talks with Apollo and Goldman Sachs on a vehicle that would buy about 1 GW of AI chips and lease them to Oracle (WSJ, 7 Oct 2026; size not disclosed)",
+   "title_es": "Oracle, en pláticas iniciales con Apollo y Goldman Sachs sobre un vehículo que compraría cerca de 1 GW de chips de IA y se los arrendaría (WSJ, 7 oct 2026; monto no revelado)",
+   "memo_en": "The Wall Street Journal reported on the evening of 7 Oct 2026 (relayed by Yahoo Finance on 7 and 8 Oct) that Oracle is in talks with Apollo Global Management and Goldman Sachs to finance a large purchase of AI chips for a roughly 1-gigawatt data center through a separate company that would own the chips and lease them to Oracle over time, that other partners are also in talks and that Oracle wants a deal this year; no amount was reported and Oracle has not commented or filed anything. If signed, the chips would reach Oracle as a lease (ASC 842: liability and right-of-use asset at commencement), visible in lease-adjusted leverage, not in gross debt. The same memo sits on this site's Oracle page and in module 3; it enters no figure.",
+   "memo_es": "The Wall Street Journal reportó la noche del 7 oct 2026 (retomado por Yahoo Finance el 7 y el 8 oct) que Oracle negocia con Apollo Global Management y Goldman Sachs el financiamiento de una compra grande de chips de IA para un centro de datos de cerca de 1 gigavatio a través de una sociedad aparte que sería dueña de los chips y se los arrendaría a Oracle a lo largo del tiempo, que también habla con otros socios y que quiere cerrar este año; no se reportó monto y Oracle no ha comentado ni presentado nada. De firmarse, los chips llegarían a Oracle como arrendamiento (ASC 842: pasivo y activo por derecho de uso al inicio), visible en el apalancamiento ajustado por arrendamientos, no en la deuda bruta. El mismo memo está en la página de Oracle de este sitio y en el módulo 3; no entra en ninguna cifra.",
+   "sources": [
+    {
+     "title": "Yahoo Finance (WSJ report), 7 Oct 2026: Broadcom, Oracle, and SpaceX pursue blockbuster debt deals amid AI buildout",
+     "url": "https://finance.yahoo.com/technology/ai/articles/broadcom-oracle-spacex-pursue-blockbuster-215828392.html"
+    },
+    {
+     "title": "Yahoo Finance, 8 Oct 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
+     "url": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-openai-revenue-disclosure-181653494.html"
+    }
+   ]
+  }
+ ]
 }

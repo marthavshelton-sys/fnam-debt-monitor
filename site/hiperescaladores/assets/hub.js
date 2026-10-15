@@ -57,12 +57,22 @@
   // "FY2026Q4" → "AF2026 T4" / "FY2026 Q4"; "2026-Q2" → "T2 2026" / "Q2 2026"
   function fq(id) { var m = /^FY(\d{4})Q(\d)$/.exec(id || ''); return m ? (LANG === 'es' ? 'AF' + m[1] + ' T' + m[2] : 'FY' + m[1] + ' Q' + m[2]) : (id || ''); }
   function cq(id) { var m = /^(\d{4})-Q(\d)$/.exec(id || ''); return m ? (LANG === 'es' ? 'T' + m[2] + ' ' + m[1] : 'Q' + m[2] + ' ' + m[1]) : (id || ''); }
+  // a period as the curated files and the FactSet calendar write it ("2026 Q3", "FY2027 Q1", "FY2026", "H1 2026", "Q2 2026"),
+  // printed in the reader's language ("3T 2026", "1T AF2027", "AF2026", "1S 2026"); any other text is returned as is
+  function periodLabel(s) {
+    s = String(s == null ? '' : s).trim(); if (!s) return '';
+    if (LANG !== 'es') return s;
+    return s.replace(/\bFY ?(\d{4})\b/g, 'AF$1').replace(/\bQ([1-4])\b/g, 'T$1').replace(/\bH([12])\b/g, '$1S')
+      .replace(/^(\d{4}) (T\d|\dS)$/, '$2 $1').replace(/^(AF\d{4}) (T\d)$/, '$2 $1');
+  }
   function edgar(cik, accn) { return 'https://www.sec.gov/Archives/edgar/data/' + Number(cik) + '/' + String(accn).replace(/-/g, '') + '/' + accn + '-index.htm'; }
 
   var TIER = {
     T1: { es: 'T1 · SEC', en: 'T1 · SEC', tip: { es: 'Presentación ante la SEC (10-K, 10-Q, 8-K, 424B) vía EDGAR', en: 'SEC filing (10-K, 10-Q, 8-K, 424B) via EDGAR' } },
     T2: { es: 'T2 · empresa', en: 'T2 · company', tip: { es: 'Material de la empresa: declaración de la empresa, no auditada', en: 'Company-issued material: company statement, not audited' } },
     T3: { es: 'T3 · regulador', en: 'T3 · regulator', tip: { es: 'Regulador u operador de red', en: 'Regulator or grid operator' } },
+    // a dated press report: kept apart from filing figures, labeled, never entering a total or a ratio
+    T3P: { es: 'T3 · prensa', en: 'T3 · press', tip: { es: 'Nota de prensa fechada; se muestra aparte de las cifras de las presentaciones y no entra en ninguna cifra ni razón', en: 'Dated press report; shown apart from filing figures and entering no figure or ratio' } },
     T4: { es: 'T4 · estimación', en: 'T4 · estimate', tip: { es: 'Estimación de terceros; nunca se mezcla con cifras de las empresas', en: 'Third-party estimate; never blended into company figures' } },
     C: { es: 'Cálculo FNAM', en: 'FNAM calc.', tip: { es: 'Calculado por FNAM a partir de cifras T1; el método está en la ficha de la cifra', en: 'Computed by FNAM from T1 figures; the method is in the figure\'s source card' } },
     T4R: { es: 'T4 · terceros', en: 'T4 · third party', tip: { es: 'Opinión de un tercero (acción de una calificadora, según nota de prensa fechada); nunca se mezcla con cifras de las empresas', en: 'Third-party opinion (a rating agency action, per a dated press report); never blended into company figures' } },
@@ -72,7 +82,7 @@
     T2N: { es: 'T2 · declaración de la empresa, sin enlace público', en: 'T2 · company statement, no public link', tip: { es: 'Declaración de la empresa en su llamada de resultados (transcripción con licencia): no auditada y sin documento público que enlazar', en: 'Company statement on its earnings call (licensed transcript): not audited and no public document to link' } },
     FS: { es: 'FactSet', en: 'FactSet', tip: { es: 'Instantánea fechada de FactSet (agregación de presentaciones); no es T1 hasta cotejarse con el 424B/8-K', en: 'Dated FactSet snapshot (aggregated from filings); not T1 until matched to the 424B/8-K' } }
   };
-  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' || k === 'T4S' ? 'T4' : k === 'T2N' ? 'T2' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
+  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' || k === 'T4S' ? 'T4' : k === 'T2N' ? 'T2' : k === 'T3P' ? 'T3' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
   // the verification method, stated wherever a figure is called "verified" (owner's third review, 2026-10-03): the checks
   // are an automated quote-match against the harvested filing page plus a second automated read; an analyst's sign-off is
   // a separate field (reviewedBy) and is shown apart. No tool name is ever printed.
@@ -171,7 +181,9 @@
     var parts = [];
     if (o.tier) parts.push(tier(o.tier));
     if (o.asOf) parts.push('<span><b>' + t('Al cierre de', 'As of') + '</b> ' + esc(o.asOf) + '</span>');
-    parts.push('<span><b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(o.refreshed || F.refreshedET || '') + '</span>');
+    parts.push('<span><b>' + t('Reconstrucción automática', 'Build refreshed') + '</b> ' + esc(o.refreshed || F.refreshedET || '') + '</span>');
+    // hand-curated content (guidance, power, off-balance-sheet, circular, payoff) carries its own date, apart from the build
+    if (o.curated) parts.push('<span><b>' + t('Contenido curado al', 'Content curated as of') + '</b> ' + esc(curatedDate(typeof o.curated === 'string' ? { updatedAt: o.curated } : o.curated)) + '</span>');
     if (o.sources && o.sources.length) parts.push('<span>' + t('Fuente', 'Source') + ': ' + o.sources.map(function (s) { return s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>' : esc(s.label); }).join(' · ') + '</span>');
     if (o.note) parts.push('<span>' + o.note + '</span>');
     if (o.csv) parts.push('<a class="csv" href="' + esc(o.csv) + '" download>CSV ↓</a>');
@@ -241,11 +253,22 @@
     var n = items.length, v = items.filter(function (i) { return i.status === 'verified' && i.check !== 'xbrl_concept' && quoteOk(i); }).length, tg = items.filter(function (i) { return i.status === 'verified' && i.check === 'xbrl_concept'; }).length, r = items.filter(function (i) { return i.reviewedBy; }).length;
     return '<span class="vsum" title="' + esc(t('Verificado = ', 'Verified = ') + VERIF[LANG] + t('; solo cuenta con la cita cotejada en la página citada. Etiqueta cotejada = control de concepto XBRL o búsqueda de texto completo, sin cita. Revisado por analista = firma de una persona en el campo reviewedBy.', '; counted only with the quote matched on the cited page. Tag-checked = an XBRL concept check or full-text search, no quote. Analyst-reviewed = a person\'s sign-off in the reviewedBy field.')) + '">' + t(v + ' de ' + n + ' verificadas (' + VERIF.es + ')' + (tg ? ' · ' + tg + ' con etiqueta cotejada, no verificadas' : '') + ' · revisadas por analista: ' + r + ' de ' + n, v + ' of ' + n + ' verified (' + VERIF.en + ')' + (tg ? ' · ' + tg + ' tag-checked, not verified' : '') + ' · analyst-reviewed: ' + r + ' of ' + n) + '</span>';
   }
-  // header fields every page shares, kept apart: the build time (one stamp per rebuild) and the last successful EDGAR poll
-  function buildRow() {
+  // header fields every page shares, kept apart (owner, 15-Oct-2026): "Build refreshed" is the automatic rebuild (one
+  // stamp per run), "Last EDGAR poll" the last successful poll, and "Content curated as of" the date of the hand-curated
+  // parts the page draws on (guidance, power, off-balance-sheet, circular, payoff: a session updates them, the build cannot)
+  function buildRow(curated) {
     var F = window.HYP_FIN || {}, S = window.HYP_STATUS || {};
     var poll = S.lastEdgarSuccessET || (S.lastEdgarSuccess ? etTime(S.lastEdgarSuccess) : '');
-    return '<span><b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(S.refreshedET || F.refreshedET || '') + '</span>' + (poll ? '<span><b>' + t('Última consulta a EDGAR', 'Last EDGAR poll') + '</b> ' + esc(poll) + '</span>' : '');
+    var cur = curated == null ? curatedAll() : curated;
+    return '<span><b>' + t('Reconstrucción automática', 'Build refreshed') + '</b> ' + esc(S.refreshedET || F.refreshedET || '') + '</span>' + (poll ? '<span><b>' + t('Última consulta a EDGAR', 'Last EDGAR poll') + '</b> ' + esc(poll) + '</span>' : '') + (cur ? '<span><b>' + t('Contenido curado al', 'Content curated as of') + '</b> ' + esc(curatedDate(typeof cur === 'string' ? { updatedAt: cur } : cur)) + '</span>' : '');
+  }
+  // the latest curated date among every hand-curated store a page can draw on (ISO instant), or null
+  function curatedAll() {
+    var F = window.HYP_FIN || {}, list = [F.offbs, F.notTaggedMeta, F.dealMatchesMeta, F.outliers, F.offeringsMeta, window.HYP_POWER, window.HYP_CIRC, window.HYP_PAY, window.HYP_SCOPE];
+    var ds = list.map(function (o) { return o && o.updatedAt ? o.updatedAt : null; });
+    if (F.guidance && (F.guidance.updatedAt || F.guidance.checkedOn)) ds.push(F.guidance.updatedAt || (F.guidance.checkedOn + 'T12:00:00Z'));
+    ds = ds.filter(Boolean).sort();
+    return ds.length ? ds[ds.length - 1] : null;
   }
   // older than two quarters: more than two calendar quarter-ends have passed since the value's date (computed in the browser)
   function oldQ(end, today) {
@@ -304,39 +327,43 @@
   // the date a curated file was last edited: its updatedAt timestamp in ET when present, else its stated date
   function curatedDate(o) { return o ? (o.updatedAt ? etDate(o.updatedAt) : date(o.updated)) : ''; }
 
-  // ---- calendarized trailing twelve months for cross-company sums: every company at the same calendar quarter (the
-  // latest one all of them have reported). A fiscal quarter counts in the calendar quarter that contains its last month,
-  // or the one ending a month later for February/May/August/November closes (Oracle): those are one
-  // month earlier than the window, and the offset is listed. Values more than 12 months old are left out.
+  // ---- trailing twelve months for cross-company sums, one period per company on the whole hub (owner, 15-Oct-2026):
+  // every company enters with its latest filed quarter (the same twelve months its own tables, heat-map row and ratios
+  // show), so the group figure never carries a quarter the company has already superseded. The common window is the
+  // latest calendar quarter all of them have reported (the four December-year companies: the quarter to June); a company
+  // that has already filed a later quarter (Oracle: the quarter to August) is listed with its own period end beside the
+  // window. Values more than 12 months old are left out. Nothing is imputed and nothing is pro-rated.
   function calTTM(cos, k) {
-    var have = cos.map(function (c) { var qs = c.quarters.filter(function (q) { return q.ttm && q.ttm[k] != null && !aged(q.end); }); return qs.length ? qs[qs.length - 1].cal : null; });
-    var miss = cos.filter(function (c, i) { return !have[i]; });
-    var cal = have.filter(Boolean).sort()[0];
+    var latestQ = cos.map(function (c) { var qs = c.quarters.filter(function (q) { return q.ttm && q.ttm[k] != null && !aged(q.end); }); return qs.length ? qs[qs.length - 1] : null; });
+    var miss = cos.filter(function (c, i) { return !latestQ[i]; });
+    var cal = latestQ.filter(Boolean).map(function (q) { return q.cal; }).sort()[0];
     if (!cal) return null;
-    var prevCal = (+cal.slice(0, 4) - 1) + cal.slice(4);
     var calEnd = (function (c) { var y = +c.slice(0, 4), qn = +c.slice(-1); return new Date(Date.UTC(y, qn * 3, 0)).toISOString().slice(0, 10); })(cal);
     var rows = [], total = 0, prev = 0, prevOk = true;
-    cos.forEach(function (c) {
-      var q = c.quarters.find(function (x) { return x.cal === cal && x.ttm && x.ttm[k] != null; }); if (!q) return;
-      var p = c.quarters.find(function (x) { return x.cal === prevCal && x.ttm && x.ttm[k] != null; });
-      var off = Math.round((Date.parse(calEnd) - Date.parse(q.end)) / (30.44 * 864e5));
-      rows.push({ c: c, q: q, v: q.ttm[k], prev: p ? p.ttm[k] : null, offset: off });
+    cos.forEach(function (c, i) {
+      var q = latestQ[i]; if (!q) return;
+      var j = c.quarters.indexOf(q), p = j >= 4 && c.quarters[j - 4].ttm && c.quarters[j - 4].ttm[k] != null && days(c.quarters[j - 4].end, q.end) <= 380 ? c.quarters[j - 4] : null;
+      rows.push({ c: c, q: q, v: q.ttm[k], prev: p ? p.ttm[k] : null, later: q.cal > cal });
       total += q.ttm[k]; if (p) prev += p.ttm[k]; else prevOk = false;
     });
-    return { cal: cal, calEnd: calEnd, rows: rows, total: total, prev: prevOk ? prev : null, missing: miss.map(function (c) { return c.name; }), offsets: rows.filter(function (r) { return r.offset; }) };
+    return { cal: cal, calEnd: calEnd, rows: rows, total: total, prev: prevOk ? prev : null, missing: miss.map(function (c) { return c.name; }), offsets: [], later: rows.filter(function (r) { return r.later; }) };
   }
-  // the ⓘ rows of a calendarized sum: each company, its fiscal quarter and period end
+  function days(a, b) { return (Date.parse(String(b).slice(0, 10) + 'T12:00:00Z') - Date.parse(String(a).slice(0, 10) + 'T12:00:00Z')) / 864e5; }
+  // the window of a cross-company sum, in words: "TTM to 30 Jun 2026 (Oracle: to 31 Aug 2026)"
+  function calWindow(x) {
+    if (!x) return '';
+    var lt = (x.later || []).map(function (r) { return r.c.name + t(': al ', ': to ') + date(r.q.end); }).join(', ');
+    return t('UDM al ', 'TTM to ') + date(x.calEnd) + (lt ? ' (' + lt + ')' : '');
+  }
+  // the ⓘ rows of a cross-company sum: each company, its fiscal quarter and period end
   function calRows(x, fmt) {
-    return x.rows.map(function (r) { return [r.c.name, (fmt || money)(r.v).replace(/<[^>]+>/g, '') + ' · ' + fq(r.q.id) + ' · ' + t('cierre ', 'period end ') + date(r.q.end) + (r.offset ? ' (' + t('un mes antes de la ventana', 'one month before the window') + ')' : '')]; });
+    return x.rows.map(function (r) { return [r.c.name, (fmt || money)(r.v).replace(/<[^>]+>/g, '') + ' · ' + fq(r.q.id) + ' · ' + t('cierre ', 'period end ') + date(r.q.end) + (r.later ? ' (' + t('último trimestre presentado, posterior a la ventana de las demás', 'latest filed quarter, later than the others\' window') + ')' : '')]; });
   }
   function offsetNote(x) {
-    // a company whose fiscal quarter ends one month before the common window (Oracle, fiscal quarters to May, August,
-    // November, February): the group sum takes the quarter that ends inside the window, and the reader is told which one
-    // and that the company's own figures on the hub are its latest filed quarter (Oracle: LTM to 31 Aug 2026, with the ATM)
-    var later = (x.rows || []).filter(function (r) { return r.c.latest && r.c.latest.end > r.q.end; });
-    var off = x.offsets.length ? x.offsets.map(function (r) { return t('En la suma del grupo, ' + r.c.name + ' entra con su trimestre fiscal al ' + date(r.q.end) + ' (el que termina dentro de la ventana común al ' + date(x.calEnd) + '; sus trimestres fiscales cierran un mes antes que el calendario).', 'In the group sum ' + r.c.name + ' enters with its fiscal quarter to ' + date(r.q.end) + ' (the one that ends inside the common window to ' + date(x.calEnd) + '; its fiscal quarters close one month before the calendar quarter).'); }).join(' ') : '';
-    var lt = later.length ? ' ' + later.map(function (r) { return t('Las cifras propias de ' + r.c.name + ' en este centro (tablas, mapa de calor, «qué cambió», razones) son las de su último trimestre presentado, UDM al ' + date(r.c.latest.end) + '.', r.c.name + '\'s own figures on the hub (tables, heat map, "what changed", ratios) are those of its latest filed quarter, LTM to ' + date(r.c.latest.end) + '.'); }).join(' ') : '';
-    return off + lt;
+    // one period per company (owner, 15-Oct-2026): a company that has filed a quarter later than the common window enters
+    // the group figure with that quarter, the same twelve months its own tables, heat-map row and ratios show
+    var later = x && x.later ? x.later : [];
+    return later.length ? later.map(function (r) { return t(r.c.name + ' entra con su último trimestre presentado, los doce meses al ' + date(r.q.end) + ' (las demás, al ' + date(x.calEnd) + '): un solo periodo de ' + r.c.name + ' en todo el centro, el mismo de sus tablas, su fila del mapa de calor y sus razones.', r.c.name + ' enters with its latest filed quarter, the twelve months to ' + date(r.q.end) + ' (the others, to ' + date(x.calEnd) + '): one ' + r.c.name + ' period on the whole hub, the same one its tables, heat-map row and ratios show.'); }).join(' ') : '';
   }
 
   // ---- jargon: the first visible use of each term on a page gets a dotted underline; hover shows the definition,
@@ -650,7 +677,8 @@
       '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th scope="col" class="l">' + t('Módulo', 'Module') + '</th><th scope="col">' + t('Verificado, todas las cifras', 'Verified, all figures') + '</th><th scope="col">' + t('Verificado, con valor', 'Verified, with a value') + '</th><th scope="col">' + t('Cita', 'Quote') + '</th><th scope="col">' + t('Etiqueta', 'Tag') + '</th><th scope="col">' + t('Presente', 'Present') + '</th><th scope="col">' + t('Por revisar', 'Needs review') + '</th><th scope="col">' + t('Sin etiqueta', 'Not tagged') + '</th><th scope="col">' + t('Explicados', 'Explained') + '</th><th scope="col">' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
       rows.map(function (r) { var c = function (l, v) { return '<td data-l="' + esc(l) + '">' + v + '</td>'; }; return '<tr' + (r === w ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td>' + c(t('Todas', 'All'), r.P.pctAll + '% · ' + r.P.all) + c(t('Con valor', 'With value'), r.P.pct + '% · ' + r.P.shown) + c(t('Cita', 'Quote'), r.D.quote) + c(t('Etiqueta', 'Tag'), r.D.tag) + c(t('Presente', 'Present'), r.D.present) + c(t('Por revisar', 'Needs review'), link(r, 'review', r.D.review.length)) + c(t('Sin etiqueta', 'Not tagged'), link(r, 'nt', r.D.nt.length)) + c(t('Explicados', 'Explained'), link(r, 'explained', r.D.explained.length)) + c(t('Analista', 'Analyst'), r.D.curated.reviewed + ' / ' + r.D.curated.n) + '</tr>'; }).join('') + '</tbody></table></div>';
   }
-  var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capex', 'electricidad', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
+  // the module's quality page at its final address (no ".html": the host answers that spelling with a redirect)
+  var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capex', 'electricidad', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality' : null; })();
 
   // ---- module order: compact navigation, previous / next links and the module's "so what" line
   var MODS = [
@@ -744,7 +772,7 @@
     color: color, css: css, isDark: isDark, nd: nd, nt: nt, nm: nm, num: num, money: money, moneyM: moneyM, pct: pct, mult: mult, date: date, fq: fq, cq: cq,
     edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
     mw: mw, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
-    aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify,
+    aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, calWindow: calWindow, offsetNote: offsetNote, etTime: etTime, glossify: glossify, periodLabel: periodLabel, curatedAll: curatedAll,
     soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend,
     ntReason: ntReason, ntCell: ntCell, ntCheck: ntCheck, verifText: verifText, verifSummary: verifSummary, quoteOk: quoteOk, VERIF: VERIF, etDate: etDate, curatedDate: curatedDate, dqModule: dqModule, dqRollup: dqRollup, dqPct: dqPct,
     buildRow: buildRow, oldQ: oldQ, oldFlag: oldFlag, leaseCmp: leaseCmp, leaseCmpText: leaseCmpText, narrow: narrow

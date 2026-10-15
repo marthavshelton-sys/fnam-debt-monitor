@@ -33,6 +33,17 @@
     "page": "83",
     "section": "Note 19 — Segment information and geographic data",
     "quote": "Our Intelligent Cloud segment consists of our public, private, and hybrid server products and cloud services that power modern business and developers. This segment primarily comprises: • Server products and cloud services, including Azure and other cloud services, comprising cloud and AI consumption-based services, Gi"
+   },
+   "segmentChange": {
+    "date": "2026-09-02",
+    "form": "8-K",
+    "accn": "0001193125-26-380280",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm",
+    "exhibitUrl": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm",
+    "quote": "report its financial performance based on two reportable segments: (1) Agents and Infra and (2) Devices and Consumer",
+    "note_en": "From FY2027 Microsoft reports two segments, \"Agents and Infra\" and \"Devices and Consumer\" (8-K of 2 Sep 2026, Item 7.01, with an investor presentation that recasts historical data on the new basis). This Intelligent Cloud row (US$137.8 bn of revenue, 41.3% margin, FY2026) is the last on the old basis: it ends with the results of 28 Oct 2026 (Q1 FY2027), after which the row will be mapped to Agents and Infra using the recast comparatives in the 8-K exhibit and the FY2027 10-Q's segment note; the two definitions are not like for like and will be shown apart until then.",
+    "note_es": "Desde el AF2027 Microsoft reporta dos segmentos, «Agents and Infra» y «Devices and Consumer» (8-K del 2 sep 2026, punto 7.01, con una presentación para inversionistas que reexpresa los datos históricos en la nueva base). Esta fila de Intelligent Cloud (US$137.8 mil M de ingresos, margen de 41.3%, AF2026) es la última en la base anterior: termina con los resultados del 28 oct 2026 (1T AF2027); después, la fila se mapeará a Agents and Infra con los comparativos reexpresados del anexo del 8-K y la nota de segmentos del 10-Q del AF2027; las dos definiciones no son equiparables y se mostrarán aparte hasta entonces.",
+    "tier": "T1"
    }
   },
   {
@@ -339,7 +350,36 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04T03:34:31Z"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "buildings_es": "edificios y mejoras: 5 a 15 años (10-K AF2026, nota 1, p. 61)",
+   "buildings_en": "buildings and improvements: 5 to 15 years (FY2026 10-K, Note 1, p. 61)",
+   "buildingsSrc": {
+    "k": "MSFT 10-K 2026-06-30",
+    "page": "61",
+    "section": "Note 1 — Property and equipment",
+    "quote": "buildings and improvements, five to 15 years"
+   },
+   "buildingsChange": {
+    "from": 15,
+    "to": 25,
+    "effective": "2026-07-01",
+    "effectiveLabel_en": "from FY2027 (fiscal year beginning 1 Jul 2026)",
+    "effectiveLabel_es": "desde el AF2027 (año fiscal que empieza el 1 jul 2026)",
+    "scope_en": "data centers and office buildings",
+    "scope_es": "centros de datos y edificios de oficinas",
+    "effect_en": "Timing of future depreciation only; Microsoft expects a minimal benefit to FY2027 operating income. The larger effect is on capex: more future data center leases classify as operating leases, which Microsoft excludes from capex (finance leases are included), so calendar-2026 capex guidance moved to about US$175 bn from about US$190 bn with spending expectations unchanged (module 1, capex guidance).",
+    "effect_es": "Solo el calendario de la depreciación futura; Microsoft espera un beneficio mínimo en la utilidad de operación del AF2027. El efecto mayor es en el capex: más arrendamientos futuros de centros de datos se clasifican como operativos, que Microsoft excluye del capex (los financieros sí entran), por lo que la guía de capex del año calendario 2026 pasó a unos US$175 mil M desde unos US$190 mil M sin cambiar las expectativas de gasto (módulo 1, guía de capex).",
+    "filingNote_en": "The FY2026 10-K (filed 29 Jul 2026) still shows buildings and improvements at 5 to 15 years; the 25-year life applies from FY2027 and will first appear in the FY2027 10-Q filings.",
+    "filingNote_es": "El 10-K del AF2026 (presentado el 29 jul 2026) sigue mostrando edificios y mejoras a 5–15 años; la vida de 25 años aplica desde el AF2027 y aparecerá primero en los 10-Q del AF2027.",
+    "tier": "T2",
+    "srcT2": {
+     "title": "Microsoft FY2026 Q4 earnings call, 29 Jul 2026 (chief financial officer's prepared remarks; replay and transcript on Microsoft's investor-relations events page)",
+     "title_es": "Llamada de resultados de Microsoft del 4T AF2026, 29 jul 2026 (comentarios preparados de la directora de finanzas; repetición y transcripción en la página de eventos de relación con inversionistas de Microsoft)",
+     "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "quote": "effective at the start of FY '27, we are extending the estimated useful life of our data centers and office buildings from 15 to 25 years."
+    }
+   }
   },
   {
    "ticker": "GOOGL",
@@ -492,23 +532,23 @@
     {
      "agency": "Moody's",
      "rating": "A1",
-     "asOf": "2026-07-07",
+     "asOf": "2026-09-09",
      "tier": "T1",
-     "termSheet": "amzn-2026-07"
+     "termSheet": "amzn-2026-09"
     },
     {
      "agency": "S&P",
      "rating": "AA",
-     "asOf": "2026-07-07",
+     "asOf": "2026-09-09",
      "tier": "T1",
-     "termSheet": "amzn-2026-07"
+     "termSheet": "amzn-2026-09"
     },
     {
      "agency": "Fitch",
      "rating": "AA-",
-     "asOf": "2026-07-07",
+     "asOf": "2026-09-09",
      "tier": "T1",
-     "termSheet": "amzn-2026-07"
+     "termSheet": "amzn-2026-09"
     }
    ]
   },
@@ -712,9 +752,34 @@
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
    "verifiedOn": "2026-10-04T03:34:31Z"
+  },
+  {
+   "id": "amzn-2026-09",
+   "ticker": "AMZN",
+   "date": "2026-09-09",
+   "form": "FWP",
+   "accn": "0001104659-26-106322",
+   "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926106322/tm2624614d4_fwp.htm",
+   "currency": "GBP",
+   "tenYear": null,
+   "totalLocalM": 4250,
+   "totalUSDm": null,
+   "tranches_en": "£1.25 bn 5.200% 2029 (+53 bp over the 4.125% gilt due Jul 2029), £1.0 bn 5.550% 2032 (+75 bp), £1.0 bn 6.250% 2038 (+90 bp), £1.0 bn 6.650% 2045 (+93 bp); settlement 14 Sep 2026",
+   "tranches_es": "£1.25 mil M 5.200% 2029 (+53 pb sobre el gilt 4.125% jul 2029), £1.0 mil M 5.550% 2032 (+75 pb), £1.0 mil M 6.250% 2038 (+90 pb), £1.0 mil M 6.650% 2045 (+93 pb); liquidación el 14 sep 2026",
+   "ratingsText": "A1 by Moody's Investor Service, Inc. · AA by Standard & Poor's Ratings Services · AA- by Fitch Ratings Inc.",
+   "ratingsLines": [
+    "A1 by Moody's Investor Service, Inc.",
+    "AA by Standard & Poor's Ratings Services",
+    "AA- by Fitch Ratings Inc."
+   ],
+   "ratingsNote_en": "Sterling notes, no 10-year dollar tranche: the sheet dates the ratings (9 Sep 2026); the 10-year spread stays from the July 2026 dollar sheet. Three lines as printed.",
+   "ratingsNote_es": "Notas en libras, sin tramo a 10 años en dólares: la hoja fecha las calificaciones (9 sep 2026); el diferencial a 10 años sigue siendo el de la hoja en dólares de julio de 2026. Tres líneas tal como están impresas.",
+   "status": "verified",
+   "verifiedBy": "Claude session (two readings of the term sheet, 15 Oct 2026)",
+   "verifiedOn": "2026-10-15T14:00:00Z"
   }
  ],
  "segmentNote_es": "Las definiciones de segmento difieren: Intelligent Cloud de Microsoft incluye productos de servidor y otros servicios; AWS y Google Cloud son más estrechos. Los márgenes no son comparables uno a uno; la definición de cada unidad está en su ficha ⓘ.",
  "segmentNote_en": "Segment definitions differ: Microsoft's Intelligent Cloud includes server products and other items; AWS and Google Cloud are narrower. Margins are not comparable one to one; each unit's definition is in its ⓘ card.",
- "updatedAt": "2026-10-09T23:00:00Z"
+ "updatedAt": "2026-10-15T14:00:00Z"
 }

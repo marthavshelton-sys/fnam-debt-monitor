@@ -1,5 +1,5 @@
 {
- "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (the automated second read or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here. reviewedBy: a person's sign-off (name and date); null until an analyst reviews the item. Verification = automated quote-match plus a second automated read, never an analyst review. build.mjs checks every quote against the harvested page of the cited accession (quoteCheck), links the main filing document and records its filed date; readBy/verifiedBy are internal provenance and are not emitted to the site.",
+ "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (the automated second read or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here. reviewedBy: a person's sign-off (name and date); null until an analyst reviews the item. Verification = automated quote-match plus a second automated read, never an analyst review. build.mjs checks every quote against the harvested page of the cited accession (quoteCheck), links the main filing document and records its filed date; readBy/verifiedBy are internal provenance and are not emitted to the site. press: dated press reports (T3) about structures a filing has not yet carried (a venture's project bond, a reported chip-leasing vehicle); shown in their own section and in the related item's card, entering no figure. asOfKind 'subsequent_event' with asOfLabel_*: the item is an increment disclosed after the balance-sheet date, not a balance; basisNote_* explains what it is and is not added to.",
  "updated": "2026-10-04",
  "items": [
   {
@@ -529,7 +529,7 @@
    "item": "purchase_obligation",
    "amountUSDm": 19000,
    "basis": "undiscounted",
-   "asOf": "2026-06-22",
+   "asOf": "2026-05-31",
    "subsequent": true,
    "filing": {
     "form": "10-K",
@@ -545,7 +545,12 @@
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "asOfKind": "subsequent_event",
+   "asOfLabel_en": "signed after 31 May 2026; disclosed as a subsequent event in the FY2026 10-K filed 22 Jun 2026",
+   "asOfLabel_es": "firmado después del 31 may 2026; revelado como hecho posterior en el 10-K del AF2026 presentado el 22 jun 2026",
+   "basisNote_en": "Basis: the US$19.0 bn is the increment signed after the 31 May 2026 balance sheet (five-year unconditional purchase commitments for cloud infrastructure assets commencing in FY2027), not a balance. The balance of unrecorded unconditional purchase obligations tagged in XBRL is US$13.3 bn at 31 May 2026 (10-K) and US$34.2 bn at 31 Aug 2026 (10-Q 0001193125-26-389274), which includes the US$19.0 bn: the two figures are never added.",
+   "basisNote_es": "Base: los US$19.0 mil M son el incremento firmado después del balance al 31 may 2026 (compromisos de compra incondicionales a cinco años por activos de infraestructura de nube que inician en el AF2027), no un saldo. El saldo de obligaciones de compra incondicionales no registradas etiquetado en XBRL es de US$13.3 mil M al 31 may 2026 (10-K) y de US$34.2 mil M al 31 ago 2026 (10-Q 0001193125-26-389274), que incluye los US$19.0 mil M: las dos cifras nunca se suman."
   }
  ],
  "searched": [
@@ -644,5 +649,49 @@
    "note_es": "Línea del estado de flujos del trimestre al 31 ago 2026 (US$ millones; ninguna en el trimestre comparable). El MD&A, p. 33, describe el mismo flujo como «$11.4 billion of customer prepayments with a significant financing component»."
   }
  ],
- "updatedAt": "2026-10-09T23:00:00Z"
+ "updatedAt": "2026-10-15T14:00:00Z",
+ "press": [
+  {
+   "id": "2026-10-07-meta-hyperion-bond",
+   "ticker": "META",
+   "date": "2026-10-07",
+   "tier": "T3",
+   "relatesTo": "vie_unconsolidated",
+   "title_en": "Meta's Louisiana venture (Hyperion; issuer \"Beignet\"): the US$27.3 bn 144A project bond, 6.581% due 2049, traded near 91 cents on the dollar on 7 Oct 2026, a record low",
+   "title_es": "Coinversión de Meta en Luisiana (Hyperion; emisor «Beignet»): el bono de proyecto 144A de US$27.3 mil M, 6.581% con vencimiento en 2049, se negoció cerca de 91 centavos por dólar el 7 oct 2026, un mínimo histórico",
+   "memo_en": "Per the press, the venture that builds Meta's Hyperion campus in Louisiana (the 20% equity-method venture in Meta's 10-Q, maximum exposure US$46.03 bn, with Meta's residual value guarantees of about US$28 bn) placed US$27.3 bn of senior secured notes, 6.581% due 2049, in a private (144A) offering in late 2025; the notes fell to a record low near 91 cents on the dollar on 7 Oct 2026 (about 91.6 cents per one report). The bond is the venture's debt, not Meta's: it is not in Meta's balance sheet, its amount is not stated in Meta's filing (the look-through column stays \"not disclosed\"), and the price is a market reading that enters no figure on this hub.",
+   "memo_es": "Según la prensa, la coinversión que construye el campus Hyperion de Meta en Luisiana (la coinversión al 20% por método de participación del 10-Q de Meta, exposición máxima de US$46.03 mil M, con garantías de valor residual de Meta por unos US$28 mil M) colocó US$27.3 mil M de notas senior garantizadas, 6.581% con vencimiento en 2049, en una oferta privada (144A) a fines de 2025; las notas cayeron a un mínimo histórico cercano a 91 centavos por dólar el 7 oct 2026 (unos 91.6 centavos según un reporte). El bono es deuda de la coinversión, no de Meta: no está en el balance de Meta, su monto no aparece en la presentación de Meta (la columna proporcional sigue en «no revelado») y el precio es una lectura de mercado que no entra en ninguna cifra de este centro.",
+   "sources": [
+    {
+     "title": "GuruFocus, 7 Oct 2026: Meta Platforms' $27.3B AI Data Center Bond Drops Amid Macro Pressure",
+     "url": "https://www.gurufocus.com/news/9113532/meta-platforms-273b-ai-data-center-bond-drops-amid-macro-pressure-meta"
+    },
+    {
+     "title": "TokenPost, 7 Oct 2026: Hyperion Project Bond Falls to Record Low Near 91 Cents",
+     "url": "https://www.tokenpost.com/news/technology/27470"
+    }
+   ]
+  },
+  {
+   "id": "2026-10-08-orcl-chip-lease-vehicle",
+   "ticker": "ORCL",
+   "date": "2026-10-08",
+   "tier": "T3",
+   "relatesTo": "spv",
+   "title_en": "Oracle in early-stage talks with Apollo and Goldman Sachs on a vehicle that would buy about 1 GW of AI chips and lease them to Oracle (WSJ, 7 Oct 2026; size not disclosed)",
+   "title_es": "Oracle, en pláticas iniciales con Apollo y Goldman Sachs sobre un vehículo que compraría cerca de 1 GW de chips de IA y se los arrendaría (WSJ, 7 oct 2026; monto no revelado)",
+   "memo_en": "The Wall Street Journal reported on the evening of 7 Oct 2026 (relayed by Yahoo Finance on 7 and 8 Oct) that Oracle is in talks with Apollo Global Management and Goldman Sachs to finance a large purchase of AI chips for a roughly 1-gigawatt data center through a separate company that would own the chips and lease them to Oracle over time, that other partners are also in talks and that Oracle wants a deal this year; no amount was reported and Oracle has not commented or filed anything. If signed, the chips would reach Oracle as a lease: under ASC 842 the liability and the right-of-use asset come onto the balance sheet at commencement (finance or operating by the lease's terms), not as notes payable, so the structure would show in the lease-adjusted view and in lease-adjusted leverage, and among the lease commitments not yet commenced once signed. The same memo sits on this site's Oracle page; it enters no figure.",
+   "memo_es": "The Wall Street Journal reportó la noche del 7 oct 2026 (retomado por Yahoo Finance el 7 y el 8 oct) que Oracle negocia con Apollo Global Management y Goldman Sachs el financiamiento de una compra grande de chips de IA para un centro de datos de cerca de 1 gigavatio a través de una sociedad aparte que sería dueña de los chips y se los arrendaría a Oracle a lo largo del tiempo, que también habla con otros socios y que quiere cerrar este año; no se reportó monto y Oracle no ha comentado ni presentado nada. De firmarse, los chips llegarían a Oracle como arrendamiento: bajo ASC 842 el pasivo y el activo por derecho de uso entran al balance al inicio (financiero u operativo según los términos), no como notas por pagar, así que la estructura aparecería en la vista ajustada por arrendamientos y en el apalancamiento ajustado, y entre los compromisos de arrendamiento no iniciados una vez firmado. El mismo memo está en la página de Oracle de este sitio; no entra en ninguna cifra.",
+   "sources": [
+    {
+     "title": "Yahoo Finance (WSJ report), 7 Oct 2026: Broadcom, Oracle, and SpaceX pursue blockbuster debt deals amid AI buildout",
+     "url": "https://finance.yahoo.com/technology/ai/articles/broadcom-oracle-spacex-pursue-blockbuster-215828392.html"
+    },
+    {
+     "title": "Yahoo Finance, 8 Oct 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
+     "url": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-openai-revenue-disclosure-181653494.html"
+    }
+   ]
+  }
+ ]
 }

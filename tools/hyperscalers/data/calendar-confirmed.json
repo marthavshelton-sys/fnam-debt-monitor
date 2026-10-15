@@ -1,0 +1,36 @@
+{
+ "_comment": "Results dates the companies themselves have announced (T2: investor-relations release, with its URL and dateline). Rule (owner, 15-Oct-2026): a company-confirmed date overrides the FactSet estimate for the same reporting period; the page prints the company's date as 'confirmed by the company', keeps FactSet's projected date beside it for the record, and shows both the release date and FactSet's pull date. An entry is retired once the results are out (status 'past'). Times are as the release states them (ET).",
+ "updatedAt": "2026-10-15T14:00:00Z",
+ "items": [
+  {
+   "ticker": "META",
+   "period": "2026 Q3",
+   "date": "2026-10-21",
+   "time": "after market",
+   "timeNote_en": "after market close; conference call at 4:30 p.m. ET",
+   "timeNote_es": "después del cierre; llamada a las 4:30 p. m. ET",
+   "confirmedOn": "2026-10-12",
+   "source": {
+    "title": "Meta investor relations, 12 Oct 2026: \"Meta to Announce Third Quarter 2026 Results\"",
+    "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-to-Announce-Third-Quarter-2026-Results/default.aspx",
+    "quote": "third quarter 2026 financial results will be released after the market closes on Wednesday, October 21, 2026"
+   },
+   "status": "confirmed"
+  },
+  {
+   "ticker": "GOOGL",
+   "period": "2026 Q3",
+   "date": "2026-10-28",
+   "time": "after market",
+   "timeNote_en": "conference call at 4:30 p.m. ET",
+   "timeNote_es": "llamada a las 4:30 p. m. ET",
+   "confirmedOn": "2026-10-06",
+   "source": {
+    "title": "Alphabet investor relations, 6 Oct 2026: \"Alphabet Announces Date of Third Quarter 2026 Financial Results Conference Call\"",
+    "url": "https://abc.xyz/investor/news/news-details/2026/Alphabet-Announces-Date-of-Third-Quarter-2026-Financial-Results-Conference-Call-2026-8tpGZsLS6v/default.aspx",
+    "quote": "Wednesday, October 28, 2026 at 4:30pm Eastern Time"
+   },
+   "status": "confirmed"
+  }
+ ]
+}
