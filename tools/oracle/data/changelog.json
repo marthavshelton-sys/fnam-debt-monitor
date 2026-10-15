@@ -4,83 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "buildout.js",
-   "path": "sites[2].sources[9].url",
-   "old": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html",
-   "new": "https://www.abqjournal.com/business/doa-ana-countys-project-jupiter-joins-500-billion-stargate-initiative-led-by-openai-oracle/493927"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].title",
-   "old": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods",
-   "new": "Financial Times via Reuters, Sep 18, 2026: Oracle’s $18 billion data center debt under pressure"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].url",
-   "old": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/",
-   "new": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].short",
-   "old": "Oracle PR 30 Sep 2026",
-   "new": "FT 18 Sep 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].power_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].power_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].status_date",
-   "old": "2026-09-24",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].date",
-   "old": "2026-10-08",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
    "path": "sites[2].issues[0].due",
    "old": "2027-02-01",
    "new": null
@@ -4200,7 +4123,84 @@
    "path": "basis.marketDate",
    "old": "2026-10-14",
    "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-15",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "runner",
+   "new": "factset"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-15)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": "Yahoo Finance",
+   "new": null
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": "2026-10-15",
+   "new": null
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2964,
+   "new": 2963
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-15)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2513,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-16",
+   "new": "2025-10-15"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-15",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-15T23:52:47.448Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-15",
+   "new": "2026-10-14"
   }
  ],
- "generated": "2026-10-15T23:15:12.664Z"
+ "generated": "2026-10-15T23:52:47.448Z"
 }
