@@ -275,6 +275,9 @@ for (const c of companies) {
     if (t.ocf != null && t.capex_cash != null) { t.fcf = t.ocf - t.capex_cash; t.capex_ocf = t.ocf > 0 ? t.capex_cash / t.ocf : null; }
     if (t.fcf != null && t.fl_principal != null) t.fcf_after_fl = t.fcf - t.fl_principal;
     if (t.op_income != null && t.interest_exp) t.int_cov = t.op_income / t.interest_exp;
+    // coverage on interest paid (cash-flow statement) when interest expense is not tagged in the four quarters (Meta tags it in
+    // one quarter only): the page prints it labeled "on interest paid" instead of "n.m." (owner, 15-Oct-2026)
+    if (t.int_cov == null && t.op_income != null && t.interest_paid > 0) t.int_cov_paid = t.op_income / t.interest_paid;
     if (t.ebitda != null && t.interest_exp) t.ebitda_int = t.ebitda / t.interest_exp;
     if (t.ebitda > 0 && q.d.net_debt != null) t.nd_ebitda = q.d.net_debt / t.ebitda;
     if (t.ebitda > 0 && q.d.lease_adj_net_debt != null) t.land_ebitda = q.d.lease_adj_net_debt / t.ebitda;
@@ -340,7 +343,7 @@ for (const c of companies) {
   // registered offerings: the filing-fee exhibit of each 424B prospectus (EX-FILING FEES, tagged ffd) gives the
   // offering's total amount and date; the security type and terms are in the prospectus itself
   const off = (xb.facts['ffd:TtlOfferingAmt'] || { facts: [] }).facts.filter((f) => /^424B/.test(f.f) && f.v > 0);
-  for (const f of off) { const k = offeringsCur.items[f.a] || null; out.offerings.push({ ticker: c.ticker, amount: f.v, date: f.e, filed: f.d, form: f.f, accn: f.a, url: filingIndexUrl(c.cik, f.a), sec: k ? { type: k.type, title: k.title, quote: k.quote, currency: k.currency || null, classifiedOn: k.classifiedOn, method: k.method, note_en: k.note_en || null, note_es: k.note_es || null } : null }); }
+  for (const f of off) { const k = offeringsCur.items[f.a] || null; out.offerings.push({ ticker: c.ticker, amount: f.v, date: f.e, filed: f.d, form: f.f, accn: f.a, url: filingIndexUrl(c.cik, f.a), sec: k ? { type: k.type, title: k.title, quote: k.quote, currency: k.currency || null, amountLocalM: k.amountLocalM || null, tradeDate: k.tradeDate || null, filedDate: k.filedDate || null, settleDate: k.settleDate || null, termSheet: k.termSheet || null, classifiedOn: k.classifiedOn, method: k.method, note_en: k.note_en || null, note_es: k.note_es || null } : null }); }
   for (const q of out.companies[c.ticker].quarters) for (const [k, x] of Object.entries(q.m)) flat[`${c.ticker}.${k}.${q.id}`] = { v: x[0], a: x[2].join(',') };
 }
 out.offerings.sort((a, b) => b.date.localeCompare(a.date));
@@ -435,7 +438,7 @@ for (const i of offItems) {
   }
   delete i.readBy; delete i.verifiedBy;
 }
-out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [] };
+out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [], press: offbsCur.press || [] };
 // A company that tags its leases not yet commenced under the purchase-obligation concept (Meta: the tagged amount equals the lease
 // note's figure at the same date) has that tag labeled as leases on the pages, never shown as purchase obligations (review of 9-Oct-2026).
 out.tagAliases = [];

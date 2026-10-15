@@ -1,5 +1,5 @@
 {
- "_comment": "Module 4 (electricity). Two blocks that are never combined: (1) companyDeals: power contracts of the five covered companies, from their filings (T1) or their own / their counterparty's announcements (T2: company statement, not audited; a counterparty's 8-K exhibit is still the counterparty's statement); (2) grid: national and regional projections and measurements from regulators and grid operators (T3: EIA, NERC, ERCOT, PJM) and third-party estimates (T4: LBNL, IEA). MW in a contract are nameplate or contract quantity as the announcement states; they are not data center IT load and are never read as data center IT load. Staleness: T1 next filing + 7 days; T3/T4 publisher's next edition + 30 days (nextExpected).",
+ "_comment": "Module 4 (electricity). Two blocks that are never combined: (1) companyDeals: power contracts of the five covered companies, from their filings (T1) or their own / their counterparty's announcements (T2: company statement, not audited; a counterparty's 8-K exhibit is still the counterparty's statement); (2) grid: national and regional projections and measurements from regulators and grid operators (T3: EIA, NERC, ERCOT, PJM) and third-party estimates (T4: LBNL, IEA). MW in a contract are nameplate or contract quantity as the announcement states; they are not data center IT load and are never read as data center IT load. Staleness: T1 next filing + 7 days; T3/T4 publisher's next edition + 30 days (nextExpected). source_type nuclear_uprate: capacity added by reactor uprates. press: dated press notes (T3) attached to a deal (gas supply, delays), shown apart and entering no figure. grid kind 'rule': a regulator's or grid operator's rule with its status, not a projection. page_es: the Spanish wording of the page/section citation.",
  "updated": "2026-10-03",
  "readBy": "automated read, 3 Oct 2026 ET",
  "companyDeals": [
@@ -268,6 +268,105 @@
     "url": "https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/",
     "quote": "up to 2.45 GW of Bloom Energy fuel cells"
    },
+   "inFiling": false,
+   "press": [
+    {
+     "date": "2026-10-08",
+     "tier": "T3",
+     "note_en": "Bloomberg, 8 Oct 2026: Oracle is weighing trucked compressed natural gas for the campus while the dedicated pipeline (Energy Transfer; up to 400 million cubic feet per day) is built, its in-service date now 1 Feb 2027 after slipping from 15 Aug 2026; trucked gas costs about four times the price of gas at a major pipeline hub per an analyst estimate quoted. Press-reported; the same note sits on this site's Oracle page; it enters no figure.",
+     "note_es": "Bloomberg, 8 oct 2026: Oracle evalúa gas natural comprimido en camiones para el campus mientras se construye el gasoducto dedicado (Energy Transfer; hasta 400 millones de pies cúbicos al día), ahora con fecha de entrada en servicio del 1 feb 2027 tras posponerse desde el 15 ago 2026; el gas en camión cuesta unas cuatro veces el precio del gas en un centro de distribución según una estimación de analista citada. Prensa; la misma nota está en la página de Oracle de este sitio; no entra en ninguna cifra.",
+     "due": "2027-02-01",
+     "source": {
+      "title": "Bloomberg, 8 Oct 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
+     },
+     "alsoReported": [
+      {
+       "title": "Yahoo Finance, 9 Oct 2026: Oracle trucks natural gas to data centers to bridge pipeline delays: Bloomberg",
+       "url": "https://finance.yahoo.com/energy/articles/oracle-trucks-natural-gas-data-150844664.html"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "googl-constellation-uprates",
+   "ticker": "GOOGL",
+   "counterparty": "Constellation Energy",
+   "asset": "Uprates at 11 nuclear units, six sites in Illinois, Pennsylvania and New Jersey",
+   "asset_es": "Aumentos de capacidad en 11 unidades nucleares, seis plantas en Illinois, Pensilvania y Nueva Jersey",
+   "source_type": "nuclear_uprate",
+   "mw": 890,
+   "mwBasis_es": "capacidad nueva por aumentos de potencia (uprates), según el anuncio",
+   "mwBasis_en": "new capacity from reactor uprates, per the announcement",
+   "termYears": 20,
+   "start_es": "los aumentos requieren más de US$4.3 mil M de inversión de Constellation y aprobaciones regulatorias",
+   "start_en": "the uprates require more than US$4.3 bn of Constellation investment and regulatory approvals",
+   "announced": "2026-10-06",
+   "grid": "PJM",
+   "structure_es": "PPA a 20 años por la capacidad de los aumentos; acuerdo aparte de suministro a 15 años por 2,700 MW de la flota existente (fila propia, no se suma)",
+   "structure_en": "20-year PPA for the uprate capacity; a separate 15-year supply agreement covers 2,700 MW of the existing fleet (own row, not added)",
+   "tier": "T2",
+   "src": {
+    "title": "Google Cloud press release, 6-Oct-2026 (with Constellation)",
+    "url": "https://www.googlecloudpresscorner.com/2026-10-06-Google-and-Constellation-Announce-Landmark-Agreement-to-Bring-890-MW-of-New-Nuclear-Capacity-to-PJM-Grid-as-Part-of-Long-Term-Power-Deal",
+    "quote": "bring 890 megawatts (MW) of new, reliable nuclear capacity onto the PJM Interconnection grid"
+   },
+   "inFiling": false
+  },
+  {
+   "id": "googl-constellation-existing",
+   "ticker": "GOOGL",
+   "counterparty": "Constellation Energy",
+   "asset": "Existing nuclear supply in PJM (fleet)",
+   "asset_es": "Suministro nuclear existente en PJM (flota)",
+   "source_type": "nuclear_existing",
+   "mw": 2700,
+   "mwBasis_es": "cantidad contractual de suministro de la flota existente, según el anuncio",
+   "mwBasis_en": "contract quantity of supply from the existing fleet, per the announcement",
+   "termYears": 15,
+   "announced": "2026-10-06",
+   "grid": "PJM",
+   "structure_es": "acuerdo de suministro de energía a 15 años; aparte del PPA de 20 años por los 890 MW de aumentos (fila propia, no se suma)",
+   "structure_en": "15-year energy supply agreement; apart from the 20-year PPA for the 890 MW of uprates (own row, not added)",
+   "tier": "T2",
+   "src": {
+    "title": "Google Cloud press release, 6-Oct-2026 (with Constellation)",
+    "url": "https://www.googlecloudpresscorner.com/2026-10-06-Google-and-Constellation-Announce-Landmark-Agreement-to-Bring-890-MW-of-New-Nuclear-Capacity-to-PJM-Grid-as-Part-of-Long-Term-Power-Deal",
+    "quote": "a 15-year energy supply agreement for an additional 2,700 MWs in PJM's fleet"
+   },
+   "inFiling": false
+  },
+  {
+   "id": "orcl-point-beach",
+   "ticker": "ORCL",
+   "counterparty": "We Energies / NextEra Energy (Point Beach)",
+   "counterparty_es": "We Energies / NextEra Energy (Point Beach)",
+   "asset": "Point Beach nuclear plant, Wisconsin, for the Port Washington campus (Project Lighthouse)",
+   "asset_es": "Planta nuclear Point Beach, Wisconsin, para el campus de Port Washington (Project Lighthouse)",
+   "source_type": "nuclear_existing",
+   "mw": null,
+   "mwBasis_es": "MW no revelados: Oracle se suscribe a una parte de la generación de la planta (10% a 20% según la prensa); sujeto a aprobación de la Comisión de Servicios Públicos de Wisconsin",
+   "mwBasis_en": "MW not disclosed: Oracle subscribes to a share of the plant's output (10% to 20% per the press); subject to approval by the Public Service Commission of Wisconsin",
+   "usdM": 300,
+   "usdBasis_es": "costos de energía crecientes que Oracle absorbe (unos US$300 M), no un precio de contrato",
+   "usdBasis_en": "rising energy costs Oracle absorbs (about US$300 m), not a contract price",
+   "announced": "2026-10-02",
+   "grid": "MISO",
+   "structure_es": "compromiso de suscribirse a una parte de la generación de Point Beach y de financiar por completo los costos de energía del campus; declaración de la empresa, no auditada; la misma nota está en la página de Oracle de este sitio",
+   "structure_en": "commitment to subscribe to a share of Point Beach's output and to fully fund the campus's energy costs; company statement, not audited; the same note sits on this site's Oracle page",
+   "tier": "T2",
+   "src": {
+    "title": "Oracle press release, 2-Oct-2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
+    "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
+    "quote": "By absorbing approximately $300 million in rising energy costs, we are helping protect Wisconsin ratepayers"
+   },
+   "alsoReported": [
+    {
+     "title": "Wisconsin Watch, 2 Oct 2026: We Energies strikes deal to power Oracle data center with nuclear energy",
+     "url": "https://wisconsinwatch.org/2026/10/wisconsin-we-energies-deal-oracle-data-center-nuclear-energy-power-point-beach-plant/"
+    }
+   ],
    "inFiling": false
   }
  ],
@@ -334,7 +433,8 @@
    "url": "https://www.eia.gov/outlooks/steo/",
    "page": "Table 7a (Year columns) and the Electricity section",
    "valuesNote_en": "Year columns of Table 7a as printed; growth rates are FNAM calculations on those figures.",
-   "valuesNote_es": "Columnas anuales de la tabla 7a tal como se imprimen; las tasas de crecimiento son cálculo FNAM sobre esas cifras."
+   "valuesNote_es": "Columnas anuales de la tabla 7a tal como se imprimen; las tasas de crecimiento son cálculo FNAM sobre esas cifras.",
+   "page_es": "tabla 7a (columnas anuales) y sección de electricidad"
   },
   {
    "id": "ercot-large-load",
@@ -369,7 +469,8 @@
    "context_es": "Solicitudes en cola, no demanda comprometida: una misma carga puede pedir varios puntos de conexión.",
    "context_en": "Queued requests, not committed demand: one load can request several connection points.",
    "url": "https://www.ercot.com/files/docs/2026/04/01/ERCOT_LargeLoad_Update_April2026_B-C_-Hearing.pdf",
-   "page": "1–2"
+   "page": "1–2",
+   "page_es": "1–2"
   },
   {
    "id": "pjm-bra-2728",
@@ -413,7 +514,8 @@
     }
    ],
    "url": "https://www.pjm.com/-/media/DotCom/about-pjm/newsroom/2025-releases/20251217-pjm-auction-procures-134479-mw-of-generation-resources.pdf",
-   "page": "1–2"
+   "page": "1–2",
+   "page_es": "1–2"
   },
   {
    "id": "nerc-ltra-2025",
@@ -445,7 +547,8 @@
    "context_es": "Riesgo alto: MISO, PJM, ERCOT, WECC-Basin y WECC-Noroeste.",
    "context_en": "High risk: MISO, PJM, ERCOT, WECC-Basin and WECC-Northwest.",
    "url": "https://www.nerc.com/globalassets/our-work/assessments/nerc_ltra_2025.pdf",
-   "page": "Key findings"
+   "page": "Key findings",
+   "page_es": "hallazgos clave"
   },
   {
    "id": "lbnl-2024",
@@ -478,7 +581,8 @@
     }
    ],
    "url": "https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report_1.pdf",
-   "page": "Executive summary"
+   "page": "Executive summary",
+   "page_es": "resumen ejecutivo"
   },
   {
    "id": "iea-energy-ai",
@@ -509,8 +613,48 @@
     }
    ],
    "url": "https://www.iea.org/reports/energy-and-ai/executive-summary",
-   "page": "Executive summary"
+   "page": "Executive summary",
+   "page_es": "resumen ejecutivo"
+  },
+  {
+   "id": "pjm-large-load-2026",
+   "tier": "T3",
+   "publisher": "PJM / FERC",
+   "title_es": "Grandes cargas nuevas (≥ 50 MW): regla de interconexión y recortes",
+   "title_en": "New large loads (≥ 50 MW): interconnection and curtailment rule",
+   "edition": "PJM Board direction, 27-Jul-2026; FERC order, 9-Oct-2026",
+   "edition_es": "Instrucción del consejo de PJM, 27-jul-2026; orden de la FERC, 9-oct-2026",
+   "editionDate": "2026-10-09",
+   "nextExpected": "2026-11-09",
+   "kind": "rule",
+   "values": [
+    {
+     "label_es": "Umbral de «gran carga»",
+     "label_en": "\"Large load\" threshold",
+     "v": 50,
+     "unit": "MW",
+     "note_es": "pico acumulado en un sitio; definición y registro de grandes cargas aceptados por la FERC, vigentes desde el 12 oct 2026",
+     "note_en": "cumulative peak at one site; definition and large-load registry accepted by FERC, effective 12 Oct 2026"
+    }
+   ],
+   "context_es": "El consejo de PJM instruyó el 27 jul 2026 un «Servicio Interino de Adecuación de Recursos»: las grandes cargas nuevas que no aportaran generación propia a partir del 1 jun 2027 serían las primeras en recortarse en una escasez. La FERC rechazó esa parte (y el esquema «trae tu propia capacidad nueva») en su orden del 9 oct 2026 y aceptó solo la definición de gran carga y el registro; PJM debe presentar lenguaje tarifario revisado en 30 días. Mientras no haya una nueva orden, no rige ningún recorte prioritario a las cargas nuevas.",
+   "context_en": "PJM's Board directed on 27 Jul 2026 an \"Interim Resource Adequacy Service\": new large loads that did not bring their own generation from 1 Jun 2027 would be curtailed first in a shortage. FERC rejected that part (and the \"bring your own new capacity\" option) in its order of 9 Oct 2026 and accepted only the large-load definition and the registry; PJM must file revised tariff language within 30 days. Until a new order, no curtail-first rule applies to new loads.",
+   "url": "https://insidelines.pjm.com/pjm-board-directs-action-on-resource-adequacy-affordability-and-large-loads/",
+   "page": "Large loads section",
+   "page_es": "sección de grandes cargas",
+   "sources": [
+    {
+     "title": "PJM Inside Lines, 27 Jul 2026: PJM Board Directs Action on Resource Adequacy, Affordability and Large Loads",
+     "url": "https://insidelines.pjm.com/pjm-board-directs-action-on-resource-adequacy-affordability-and-large-loads/"
+    },
+    {
+     "title": "Utility Dive, 12 Oct 2026: FERC rejects most of PJM's large load interconnection plan (FERC order of 9 Oct 2026, eLibrary accession 20261009-3055)",
+     "url": "https://www.utilitydive.com/news/ferc-pjm-large-load-interconnection-iras-byonc/832716/"
+    }
+   ],
+   "valuesNote_en": "Rule, not a projection: the status is as of the FERC order of 9 Oct 2026 and is re-read when PJM refiles (next expected within 30 days of the order).",
+   "valuesNote_es": "Regla, no proyección: el estado es el de la orden de la FERC del 9 oct 2026 y se relee cuando PJM vuelva a presentar (siguiente lectura esperada dentro de los 30 días de la orden)."
   }
  ],
- "updatedAt": "2026-10-09T23:00:00Z"
+ "updatedAt": "2026-10-15T14:00:00Z"
 }

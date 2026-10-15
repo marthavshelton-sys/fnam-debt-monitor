@@ -1,6 +1,6 @@
 {
  "_comment": "Security type of every SEC-registered offering (424B prospectus) the hub lists from the filing-fee exhibits: the fee exhibit gives only the total, so the type is read from the prospectus cover. items keyed by accession: type = debt (notes) | common (common stock offering) | preferred (mandatory convertible preferred, offered as depositary shares) | atm_program (an at-the-market program: the amount is a ceiling for future sales, not proceeds); title = the cover line(s); quote = the cover sentence the type rests on; method = cover-read (a person or the automated reader read the cover) | cover-regex (scripts/hyperscalers/classify-offerings.mjs, which runs on the automated job for new 424B filings). An accession absent here shows \"type pending\" on the page.",
- "updatedAt": "2026-10-10T13:32:40Z",
+ "updatedAt": "2026-10-15T14:00:00Z",
  "items": {
   "0001193125-26-252439": {
    "ticker": "GOOGL",
@@ -104,8 +104,20 @@
    "currency": "GBP",
    "title": "£4,250,000,000 of notes due 2029–2045 (four series, 5.200%–6.650%)",
    "quote": "£1,250,000,000 5.200% NOTES DUE 2029 … £1,000,000,000 6.650% NOTES DUE 2045",
-   "classifiedOn": "2026-10-09",
-   "method": "cover-read"
+   "classifiedOn": "2026-10-15",
+   "method": "cover-read",
+   "amountLocalM": 4250,
+   "tradeDate": "2026-09-09",
+   "filedDate": "2026-09-11",
+   "settleDate": "2026-09-14",
+   "termSheet": {
+    "form": "FWP",
+    "accn": "0001104659-26-106322",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926106322/tm2624614d4_fwp.htm",
+    "date": "2026-09-09"
+   },
+   "note_en": "Sterling notes: £4.25 bn in four series (5.200% 2029, 5.550% 2032, 6.250% 2038, 6.650% 2045), priced 9 Sep 2026 (pricing term sheet, FWP 0001104659-26-106322), prospectus supplement filed 11 Sep 2026, settlement 14 Sep 2026 (T+3). The table's dollar total is the filing-fee exhibit's figure; the fee exhibit is dated 10 Sep 2026.",
+   "note_es": "Notas en libras esterlinas: £4.25 mil M en cuatro series (5.200% 2029, 5.550% 2032, 6.250% 2038, 6.650% 2045), fijadas el 9 sep 2026 (hoja de términos, FWP 0001104659-26-106322), suplemento al prospecto presentado el 11 sep 2026, liquidación el 14 sep 2026 (T+3). El total en dólares de la tabla es la cifra del anexo de cuotas de registro; el anexo lleva fecha del 10 sep 2026."
   },
   "0001193125-26-201738": {
    "ticker": "META",

@@ -47,6 +47,78 @@ bitcoin miners, two are lessors, Nebius has no quarterly XBRL). What changed:
 - The Oracle page's credit section reads the hub's `financials.js`; its caption now states the five-company coverage
   (`site/oracle/app.js → renderHyperscalers`, `tools/oracle/METHODOLOGY.md`).
 
+## Review of 15-Oct-2026 (owner's list: 3 high, 10 medium, 8 low)
+
+Every change sits in a generator, a page script or a curated file, so it survives the next rebuild. What changed:
+
+- **One Oracle period everywhere (H1).** `hub.js → calTTM` no longer takes every company at the common calendar quarter: each
+  company enters the cross-company sums with its latest filed twelve months (the same ones its tables, heat-map row and ratios
+  show); the common window is the latest calendar quarter all have reported and a company that filed a later quarter is named
+  beside it (`calWindow()`: "TTM to 30 Jun 2026 (Oracle: to 31 Aug 2026)"; `x.later`, `offsetNote`). Headline: capex US$586.4 bn
+  (115.95 + 132.40 + 173.03 + 89.33 + 75.66), capex/OCF 82.9% (586.37 / 707.26); Oracle TTM to 31-Aug-2026: capex 75.66, OCF
+  46.94 (161%), debt issued 46.09, stock 26.31 (21.36 common incl. the US$19.9 bn at-the-market sale + 4.95 preferred). The
+  thesis names Oracle's US$46.1 bn of debt and US$26.3 bn of equity in the same window; the "after that window" sentence
+  (`equityExtras` kind `later`) is gone. The combined calendar-quarter view in `capex/` (section 02) still waits for all five.
+- **Confirmed results dates (H2).** `data/calendar-confirmed.json` (T2 investor-relations releases with URL, dateline and quote)
+  overrides FactSet's estimate for the same period in `build-modules.mjs` (the FactSet date stays on the event as `factset` for
+  the record); the home calendar prints "confirmed by the company (announced <date>)", the release link, the time, FactSet's
+  superseded estimate and the pull date. Meta 21-Oct-2026 after the close (release of 12-Oct), Alphabet 28-Oct-2026 4:30 p.m.
+  ET (release of 6-Oct). The rule text (`CAL_RULE` in `app.js`) is the same sentence as the methodology's "Results calendar"
+  bullet: change both together. Retire an entry (`status: "past"`) once the results are out.
+- **Microsoft capex guidance (H3).** `guidance.json` → MSFT: about US$175 bn for calendar 2026 (`fy: "CY2026"`, `fyLabel_*`),
+  down from about US$190 bn (29-Apr-2026 call; `prev*`), and more than US$50 bn for the quarter to September (`nextQuarter`);
+  three verbatim sentences of the 29-Jul-2026 call (Hood's prepared remarks; the public replay/transcript page on Microsoft's
+  IR site is the link, `url`), checked on 15-Oct-2026. `payoff.json → usefulLives[MSFT]` carries `buildings_*` (10-K: 5–15
+  years) and `buildingsChange` (15 → 25 years from FY2027, T2 call, with the filing note); the retorno §04 table prints both.
+- **Press memos (M4, M5, M7, M8), T3 and apart.** New tier badge `T3P` ("T3 · press"). `offbs.json → press` (Oracle's chip-lease
+  vehicle with Apollo/Goldman per the WSJ of 7-Oct; Meta's Louisiana venture's US$27.3 bn 6.581% 2049 144A bond near 91 cents
+  on 7-Oct), rendered in the off-balance-sheet page's new section 06 and in the related item's card; `circular.json → press`
+  (the FT's US$50 bn OpenAI run-rate of 8-Oct with ORCL −5.48% and CRWV −7.77% from FactSet Global Prices, and the vehicle),
+  section 04 of Circular (the inferences moved to 05); `power.json → companyDeals[orcl-jupiter-bloom].press` (Bloomberg
+  8-Oct: pipeline to 1-Feb-2027, trucked gas ≈ 4× hub). Press memos enter no figure and are never summed; the wording and
+  sources match the Oracle page's records (`tools/oracle/data/{obligations,news,buildout}.json`).
+- **Circular T2 rows (M6).** Five company-statement rows with `tier: "T2"` and `srcT2 {title_es/en, url, date, quote}`:
+  OpenAI's incremental US$250 bn of Azure (28-Oct-2025), Anthropic's US$30 bn of Azure, Microsoft's up to US$5 bn and NVIDIA's up
+  to US$10 bn of equity (18-Nov-2025), Anthropic's Google Cloud TPUs (23-Oct-2025, amount not disclosed). Alphabet's Anthropic
+  stake has no row (neither the 2025 10-K nor the June-2026 10-Q names it; methodology §07 says so). The header counts T1 + T2 =
+  rows from the data (`counts()`), the table sorts T1 first, and the footer lists every T2 release behind the rows. New basis
+  `commitment_upto`.
+- **Power (M8).** Google–Constellation of 6-Oct-2026 as two rows never summed (890 MW of uprates on a 20-year PPA, `nuclear_uprate`;
+  2,700 MW of existing supply over 15 years); Oracle at Point Beach (Oracle release of 2-Oct, MW not disclosed, US$300 m of absorbed
+  costs, the same note as the Oracle page); PJM's large-load rule as a `grid` card of kind `rule` (T3): the Board's 27-Jul-2026
+  curtail-first direction from 1-Jun-2027 **was rejected by FERC on 9-Oct-2026** (only the 50 MW definition and the registry stand,
+  effective 12-Oct; PJM refiles within 30 days). The owner's brief had the Board's version; the card states the FERC outcome.
+- **Leverage (M9, M10).** The hub already printed 2.60x / 3.54x on the model's basis; `capex/` §05 and `retorno/` §05 now print
+  the reconciliation (EBITDA 33.9 = operating income 23.1 + depreciation 9.4 + amortization of intangibles 1.5; on depreciation
+  alone the lease-adjusted ratio would be 4.07x) for companies with positive net debt. The equity note names net debt (US$88.3 bn
+  = 125.3 − 37.1) where cash is below debt (Oracle) and net cash otherwise (Alphabet).
+- **Microsoft segments (M11).** `payoff.json → segments[MSFT].segmentChange` (8-K of 2-Sep-2026, 0001193125-26-380280: "Agents
+  and Infra" and "Devices and Consumer" from FY2027); the retorno §01 row carries the flag and a callout. Mapping plan: after the
+  28-Oct-2026 results (Q1 FY2027), replace the Intelligent Cloud row with Agents and Infra using the recast FY2026 comparatives
+  in Exhibit 99.1 of that 8-K and the definition in the FY2027 10-Q's segment note; keep the Intelligent Cloud row visible and
+  labeled "old basis" for one quarter, never compare the two as like for like.
+- **Spread (M12).** 145 bp was already the figure on both pages; the retorno §05 caption now says so and labels the BBB index OAS
+  on the Oracle page as a proxy for the rating bucket.
+- **Freshness (M13).** `H.buildRow(curated)` prints "Build refreshed" (automatic) and "Content curated as of" (the latest
+  `updatedAt` of the curated stores the page draws on; `curatedAll()` for the home page) apart; `H.stamp({ curated })` adds the
+  same line under the tables that use curated content (capex guidance, power, off-balance-sheet, circular, payoff). The label
+  "Data rebuilt" became "Build refreshed" / "Reconstrucción automática".
+- **Low items.** Amazon's sterling 424B of 11-Sep-2026 (`offerings.json`: `currency`, `amountLocalM`, `tradeDate` 9-Sep,
+  `filedDate` 11-Sep, `settleDate` 14-Sep, `termSheet`): the 424B table gained a Currency column and prints the trade date with
+  the filing and settlement dates (L14). Amazon's ratings now date to the 9-Sep-2026 sterling term sheet (`amzn-2026-09`,
+  `tenYear: null`; the spread chart filters sheets with a 10-year tranche) (L15). Meta's composite lease figure is labeled
+  "mostly operating leases at 30 Jun 2026 (…) plus finance leases at 31 Dec 2025 (10-K)"; interest coverage falls back to
+  interest paid (`ttm.int_cov_paid`, "on interest paid") when interest expense is not tagged in the four quarters (L16).
+  Amazon→OpenAI follow-on: `asOf` 2026-06-30 with `dateLabel_*` "after 30 Jun 2026 (the 10-Q gives no date)" (L17). Spanish:
+  `H.periodLabel()` localizes "2026 Q3"/"FY2027 Q1"/"FY2026" labels, `page_es` on grid cards, filer categories, Amazon's and
+  Microsoft's quotes print translated with the original in the tooltip (`quote_es`) (L18). Oracle's US$19.0 bn purchase
+  commitments: `asOf` 2026-05-31, `asOfLabel_*` (signed after 31-May, 10-K filed 22-Jun) and `basisNote_*` (the XBRL balance
+  of US$34.2 bn at 31-Aug-2026 includes it; never added) (L19). Quality-page links point at `<module>/quality` (the host answers
+  `quality.html` with a redirect); `HUB.QPAGE` too (L20). MSFT Aaa and ORCL BBB- stay T4 secondary; the methodology says so (L21).
+- **Checks.** `scripts/hyperscalers/{build,build-modules,validate}.mjs` run clean (0 citation issues); a headless render of the
+  eight pages × ES/EN × 1280/390 px shows zero console errors, no horizontal overflow, no text under 11 px and no tool, file or
+  runner names in reader text; the headline recomputes in the browser from `financials.js`.
+
 ## Review of 9-Oct-2026 (22 findings: 3 critical, 10 medium, 9 low)
 
 Every fix sits in the generator or the curated files, so it survives the next rebuild. What changed:
@@ -124,7 +196,7 @@ Every fix sits in the generator or the curated files, so it survives the next re
 |---|---|---|
 | EDGAR poll (submissions + XBRL companyfacts; submissions only for the counterparties) | `scripts/hyperscalers/fetch-edgar.mjs` | `data/xbrl/<T>.json`, `data/filings.json`, `data/state.json` |
 | Build | `scripts/hyperscalers/build.mjs` | `site/hiperescaladores/data/{financials,changelog,status}.js`, `site/hiperescaladores/csv/*.csv`, `data/{metrics,changelog,derivations}.json` |
-| Build modules 2, 4, 5 (power, circular, payoff) | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{power,circular,payoff,scope}.js`, module CSVs, `data/modules-log.json` |
+| Build modules 2, 4, 5 (power, circular, payoff; merges `data/calendar-confirmed.json` into the FactSet calendar) | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{power,circular,payoff,scope}.js`, module CSVs, `data/modules-log.json` |
 | Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (five modules) |
 | Notes harvest (runner only; covered companies and Circular counterparties) | `scripts/hyperscalers/harvest-notes.mjs` | `raw/notes/<T>/<accession>.json` |
 

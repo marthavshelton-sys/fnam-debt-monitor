@@ -216,6 +216,13 @@ dashboards, everything built from public data by GitHub Actions.
   `derived` TTM figure (injected into `q.ttm` at its end date) or `carryForward: true` (a 10-K-only balance carried ≤ 366 days,
   `q.d._carried`); `offerings.json` classifies every 424B (runner step `classify-offerings.mjs` reads new covers); `check-steo.mjs`
   flags a newer EIA STEO edition; `notices.json` feeds "What changed"; reader text never names tools, files or the runner.
+  Review of 15-Oct-2026 (`tools/hyperscalers/README.md` → "Review of 15-Oct-2026"): one period per company in every cross-company
+  sum (each enters with its latest filed twelve months; `hub.js → calTTM/calWindow`: "TTM to 30 Jun 2026 (Oracle: to 31 Aug 2026)";
+  headline capex US$586.4 bn, capex/OCF 82.9%); company-confirmed results dates in `tools/hyperscalers/data/calendar-confirmed.json`
+  override FactSet's estimate (rule text identical on home and methodology); press memos are T3 (`T3P` badge) in their own section of
+  Circular, Off-balance-sheet and a power deal's `press`, never a figure; Circular carries T2 company-statement rows (`srcT2` with
+  date and quote) counted apart; "Build refreshed" (automatic) and "Content curated as of" (curated stores' `updatedAt`) are two
+  stamps; quality pages are linked as `<module>/quality` (no `.html`).
 - American Consumer `site/consumidor/` (`/consumer` redirects; United States section; owner, 11-Oct-2026): who the U.S. consumer
   is, income (state heat maps), sources and uses of funds, spending by income decile, consumer credit, leverage and financial
   stress (section 07, owner 11-Oct-2026: debt against assets and cash by group, how cards are paid, credit access, buy now, pay

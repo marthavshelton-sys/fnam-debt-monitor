@@ -46,7 +46,7 @@ function resolve(src, where) {
   const printed = /^seq/.test(String(src.page)) ? null : src.page;
   return { k: src.k, tier: 'T1', form: f.form, accn: f.accn, url: f.url, filed: f.filed, report: f.report, page: printed, pageSeq: printed ? null : String(src.page).replace('seq', ''), section: src.section, quote: src.quote, quoteCheck: check, foundOn };
 }
-const SRC_KEYS = ['src', 'src2', 'src3', 'src4', 'ownershipSrc', 'gpuSrc', 'valueSrc', 'definitionSrc'];
+const SRC_KEYS = ['src', 'src2', 'src3', 'src4', 'ownershipSrc', 'gpuSrc', 'valueSrc', 'definitionSrc', 'buildingsSrc'];
 function resolveAll(obj, where) {
   for (const key of SRC_KEYS) if (obj[key] && obj[key].k) obj[key] = resolve(obj[key], `${where}.${key}`);
   // the item's review state travels with each of its citations, so every source card says how it was verified and when
@@ -56,7 +56,7 @@ function resolveAll(obj, where) {
   return obj;
 }
 // a curated file edited after this build started would print a later time than the build: say so in the log
-for (const [name, obj] of [['power', power], ['circular', circ], ['payoff', pay || {}], ['scope', scope]])
+for (const [name, obj] of [['power', power], ['circular', circ], ['payoff', pay || {}], ['scope', scope], ['calendar-confirmed', await readJson(TOOLS + 'data/calendar-confirmed.json', {})]])
   if (obj.updatedAt && obj.updatedAt > stamp.iso) problems.push({ where: name + '.json', issue: `updatedAt ${obj.updatedAt} is after the build time ${stamp.iso}` });
 
 // ---- Power
@@ -98,8 +98,10 @@ for (const [i, c] of circ.concentration.entries()) {
     else problems.push({ where: `circular.concentration[${i}]`, issue: 'no XBRL revenue for the RPO multiple' });
   }
 }
-const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers,
-  counts: { t1: circ.flows.filter((f) => f.tier === 'T1').length, t2: circ.flows.filter((f) => f.tier !== 'T1').length, subsequent: circ.flows.filter((f) => f.subsequent).length } };
+// press memos (T3): dated press reports kept apart from the flows; they enter no figure and are counted apart
+const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers, press: circ.press || [],
+  counts: { total: circ.flows.length, t1: circ.flows.filter((f) => f.tier === 'T1').length, t2: circ.flows.filter((f) => f.tier !== 'T1').length, subsequent: circ.flows.filter((f) => f.subsequent).length, press: (circ.press || []).length } };
+for (const f of circ.flows) if (f.tier === 'T2' && !f.srcT2) problems.push({ where: `circular.flows[${f.id}]`, issue: 'T2 flow without a company statement (srcT2)' });
 
 // ---- Payoff: payoff and cost of money (curated, T1 text items; FWP term sheets read twice by the automated pipeline; T4 kept apart)
 let payOut = null;
@@ -119,10 +121,24 @@ if (pay) {
   const fsDir = 'tools/hyperscalers/raw/factset/';
   const calFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-calendar\.json$/.test(f)).sort();
   const cal = calFiles.length ? await readJson(fsDir + calFiles.at(-1)) : null;
+  // company-confirmed results dates (tools/hyperscalers/data/calendar-confirmed.json, T2 investor-relations releases) override
+  // FactSet's estimate for the same reporting period (owner, 15-Oct-2026): the event keeps FactSet's projected date and
+  // modification time for the record and carries the company's date, time, release and confirmation date
+  const confirmed = await readJson(TOOLS + 'data/calendar-confirmed.json', { items: [] });
+  let events = cal ? (cal.events || []).filter((e) => COVERED.has(e.ticker)) : [];
+  const normP = (p) => String(p || '').replace(/\s+/g, '').toUpperCase();
+  for (const c of confirmed.items || []) {
+    if (c.status === 'past' || !COVERED.has(c.ticker)) continue;
+    const i = events.findIndex((e) => e.ticker === c.ticker && normP(e.period) === normP(c.period));
+    const ev = { ticker: c.ticker, date: c.date, status: 'confirmed', period: c.period, time: c.time || null, timeNote_en: c.timeNote_en || null, timeNote_es: c.timeNote_es || null, confirmedOn: c.confirmedOn, company: { source: c.source, confirmedOn: c.confirmedOn }, modified: i >= 0 ? events[i].modified : null };
+    if (i >= 0) { if (events[i].status !== 'confirmed' || events[i].date !== c.date) ev.factset = { date: events[i].date, status: events[i].status, modified: events[i].modified }; events[i] = ev; }
+    else events.push(ev);
+  }
+  events.sort((a, b) => a.date.localeCompare(b.date));
   payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, updatedAt: pay.updatedAt || null, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
     rpoTiming: pay.rpoTiming, rpoSearched: pay.rpoSearched, usefulLives: pay.usefulLives, ratings: pay.ratings,
     termSheets: pay.termSheets, segmentNote_es: pay.segmentNote_es || null, segmentNote_en: pay.segmentNote_en || null,
-    calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, events: (cal.events || []).filter((e) => COVERED.has(e.ticker)) } : null };
+    calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, confirmedUpdatedAt: confirmed.updatedAt || null, events } : null };
 }
 
 // ---- write
@@ -148,7 +164,7 @@ if (payOut) {
       return [x.ticker, x.segment_en, x.basis, x.period, x.end, rev, oi, c ? `${c.fy.label} - ${c.ytdPrev.label} + ${c.ytd.label} (FNAM calculation)` : 'as reported', ...cite(x.src), x.status, stamp.et]; })]));
   await writeText(`${SITE}csv/payoff-credit.csv`, csv([['ticker', 'kind', 'agency_or_tranche', 'value', 'outlook', 'as_of', 'tier', 'source', 'url', 'refreshed_et'],
     ...payOut.ratings.flatMap((r) => r.items.map((it) => [r.ticker, 'rating', it.agency, it.rating, it.outlook_en || '', it.asOf, it.tier, it.src ? (it.src.form ? `${it.src.form} ${it.src.accn}` : it.src.title) : '', it.src ? it.src.url : '', stamp.et])),
-    ...payOut.termSheets.map((t) => [t.ticker, 'new-issue spread', `${t.tenYear.coupon}% notes due ${t.tenYear.maturity}`, t.tenYear.spreadBps + ' bps', '', t.date, 'T1', `${t.form} ${t.accn}`, t.url, stamp.et])]));
+    ...payOut.termSheets.filter((t) => t.tenYear).map((t) => [t.ticker, 'new-issue spread', `${t.tenYear.coupon}% notes due ${t.tenYear.maturity}`, t.tenYear.spreadBps + ' bps', '', t.date, 'T1', `${t.form} ${t.accn}`, t.url, stamp.et])]));
 }
 await writeJson(TOOLS + 'data/modules-log.json', { problems });
 console.log(`build-modules: power ${power.companyDeals.length} deals / ${power.grid.length} grid sources, circular ${circ.flows.length} flows, payoff ${payOut ? payOut.segments.length + payOut.rpoTiming.length + payOut.usefulLives.length + payOut.termSheets.length : 0} text items; ${problems.length} citation issues`);
