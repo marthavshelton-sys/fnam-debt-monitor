@@ -57,6 +57,8 @@
     cmtNote: { es: 'Comentarios (a/a) elaborados a partir de los informes trimestrales y las transcripciones de las conferencias de resultados; disponibles para los últimos cuatro trimestres reportados y sus acumulados.', en: 'Comments (y/y) written from the quarterly reports and the earnings-call transcripts; available for the last four reported quarters and their year-to-date periods.' },
     cmtOnlyYoy: { es: 'Los comentarios se muestran al comparar un periodo con el mismo periodo del año anterior.', en: 'Comments appear when a period is compared with the same period a year earlier.' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute el flujo de actualización.', en: 'Provisional: data files missing. Run the refresh workflow.' },
+    perShareNote: { es: 'Por acción: base de GAP = utilidad integral total (incluye la participación no controladora) ÷ acciones en circulación al cierre del periodo, la línea que GAP imprime; base controladora = utilidad integral de la participación controladora ÷ las mismas acciones. Por ADS (10 acciones) al tipo de cambio de cierre del periodo actual para ambas columnas, la convención de GAP para su columna comparativa.', en: 'Per share: GAP\'s basis = total comprehensive income (non-controlling interest included) ÷ shares outstanding at the period end, the line GAP prints; controlling basis = comprehensive income attributable to the controlling interest ÷ the same shares. Per ADS (10 shares) at the current period\'s closing exchange rate for both columns, GAP\'s own convention for its comparative column.' },
+    nmNote: { es: 'n.s. = no significativo (cambio de signo o base cero).', en: 'n.m. = not meaningful (sign change or zero base).' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
   const L = (obj) => (obj ? (LANG === 'es' ? obj.es || obj.en : obj.en || obj.es) : '');
@@ -71,8 +73,14 @@
   const fmtDate = (iso) => { if (!iso) return '—'; const d = new Date(iso + (iso.length === 10 ? 'T12:00:00Z' : '')); return d.toLocaleDateString(locale(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); };
   const qLabel = (q) => (LANG === 'es' ? `${q.q}T${String(q.fy).slice(2)}` : `${q.q}Q${String(q.fy).slice(2)}`);
   const ytdLabel = (fy, months) => `${months}M${String(fy).slice(2)}`;
-  const ymLabel = (ym) => { const [y, m] = ym.split('-'); const d = new Date(Date.UTC(+y, +m - 1, 1)); return d.toLocaleDateString(locale(), { month: 'short', year: '2-digit', timeZone: 'UTC' }); };
-  const cls = (v) => (v == null ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : '');
+  // Months print with the year in full ("Sep 2026", "sep 2026"; owner, 15-Oct-2026), never "Sep 26".
+  const ymLabel = (ym) => { const [y, m] = ym.split('-'); const d = new Date(Date.UTC(+y, +m - 1, 1)); return d.toLocaleDateString(locale(), { month: 'short', year: 'numeric', timeZone: 'UTC' }).replace('.', ''); };
+  const cls = (v) => (v == null || typeof v !== 'number' ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : '');
+  // Year-over-year change of a line. "n.m." (not meaningful) when the sign flips or the base is zero: a fee that turns
+  // into a reversal (−219%) or an expense that replaces an income (+787%) has no meaningful percentage (owner, 15-Oct-2026).
+  const chgPct = (va, vb) => (va == null || vb == null ? null : vb === 0 || va * vb < 0 ? 'nm' : 100 * (va - vb) / Math.abs(vb));
+  const fmtChgV = (p, d = 1) => (p == null ? '—' : p === 'nm' ? (LANG === 'es' ? 'n.s.' : 'n.m.') : fmtPct(p, d, true));
+  const fmtChg = (va, vb, d = 1) => fmtChgV(chgPct(va, vb), d);
   const el = (id) => document.getElementById(id);
   const html = (id, s) => { const e = el(id); if (e) e.innerHTML = s; };
 
@@ -126,7 +134,7 @@
   // YTD for a quarter: reported YTD column if present; else the sum of the year's quarters to date.
   function ytdFor(q) {
     const id = `${q.fy}M${q.q * 3}`;
-    if (q.q === 1) return { is: q.is, cf: q.cf, kpi: q.kpi, id: ytdLabel(q.fy, 3), sources: q.sources, fy: q.fy, months: 3 };
+    if (q.q === 1) return { is: q.is, cf: q.cf, kpi: q.kpi, seg: q.seg, id: ytdLabel(q.fy, 3), sources: q.sources, fy: q.fy, months: 3, shares: q.shares, fxEop: q.fxEop, restated: q.restated && Object.fromEntries(Object.entries(q.restated).map(([k, v]) => [k.replace(/Q1$/, 'M3'), v])) };
     const y = ytdById[id];
     if (y && y.is) {
       let is = y.is;
@@ -134,25 +142,97 @@
         const qs = []; for (let i = 1; i <= q.q; i++) { const x = qById[`${q.fy}Q${i}`]; if (!x || !x.is || x.is.ebitda == null) { qs.length = 0; break; } qs.push(x); }
         if (qs.length) { const sm = fixRatios(sumParts(qs.map((x) => x.is))); is = { ...is }; for (const k of ['ebitda', 'ebitdaMargin', 'ebitdaMarginExIfric']) if (is[k] == null && sm[k] != null) is[k] = sm[k]; }
       }
-      return { ...y, is, id: ytdLabel(q.fy, q.q * 3) };
+      return { ...y, is, id: ytdLabel(q.fy, q.q * 3), shares: q.shares, fxEop: q.fxEop };
     }
     const qs = []; for (let i = 1; i <= q.q; i++) { const x = qById[`${q.fy}Q${i}`]; if (!x || !x.is) return null; qs.push(x); }
-    return { id: ytdLabel(q.fy, q.q * 3), fy: q.fy, months: q.q * 3, is: fixRatios(sumParts(qs.map((x) => x.is))), cf: sumParts(qs.map((x) => x.cf)), kpi: sumParts(qs.map((x) => x.kpi)), sources: q.sources, derived: true };
+    return { id: ytdLabel(q.fy, q.q * 3), fy: q.fy, months: q.q * 3, is: fixRatios(sumParts(qs.map((x) => x.is))), cf: sumParts(qs.map((x) => x.cf)), kpi: sumParts(qs.map((x) => x.kpi)), sources: q.sources, derived: true, shares: q.shares, fxEop: q.fxEop };
   }
-  // LTM for a quarter: sum of the last four quarters (or FY + YTD − prior YTD).
-  function ltmFor(q) {
+  // LTM for a quarter: sum of the last four quarters (or FY + YTD − prior YTD). With opts.restated each quarter is taken as
+  // restated in the report of the same quarter a year later (cmpBase), so an LTM base compares like for like with the
+  // current LTM, as GAP's own comparative columns do; quarters no later report restated stay as reported.
+  function ltmFor(q, opts = {}) {
     const qs = []; let fy = q.fy, qq = q.q;
     for (let i = 0; i < 4; i++) { const x = qById[`${fy}Q${qq}`]; if (!x || !x.is) { qs.length = 0; break; } qs.push(x); qq--; if (qq === 0) { qq = 4; fy--; } }
-    if (qs.length === 4) return { id: 'LTM ' + qLabel(q), is: fixRatios(sumParts(qs.map((x) => x.is))), cf: sumParts(qs.map((x) => x.cf)), kpi: sumParts(qs.map((x) => x.kpi)), bs: q.bs, sources: q.sources, derived: true, fy: q.fy, q: q.q };
-    if (q.q === 4) { const y = Y.find((yy) => yy.fy === q.fy); if (y) return { id: 'LTM ' + qLabel(q), is: y.is, cf: y.cf, kpi: y.kpi, bs: q.bs, sources: y.sources, fy: q.fy, q: 4 }; }
+    const ltmLabel = () => (LANG === 'es' ? 'UDM ' : 'LTM ') + qLabel(q);
+    if (qs.length === 4) {
+      const used = opts.restated ? qs.map((x) => { const nx = qById[`${x.fy + 1}Q${x.q}`]; return nx ? cmpBase(nx, x, 'q') : x; }) : qs;
+      const restatedBy = used.filter((x) => x.restatedBy).map((x) => x.restatedBy.id);
+      return { id: ltmLabel(), is: fixRatios(sumParts(used.map((x) => x.is))), cf: sumParts(used.map((x) => x.cf)), kpi: sumParts(used.map((x) => x.kpi)), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true, restatedQuarters: restatedBy.length ? restatedBy : null };
+    }
+    if (q.q === 4) { const y = Y.find((yy) => yy.fy === q.fy); if (y) return { id: ltmLabel(), is: y.is, cf: y.cf, kpi: y.kpi, bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: y.sources, fy: q.fy, q: 4, ltm: true }; }
     const fyPrev = Y.find((yy) => yy.fy === q.fy - 1), cur = ytdFor(q), prev = ytdById[`${q.fy - 1}M${q.q * 3}`];
     if (fyPrev && cur && prev && cur.is && prev.is) {
       const diff = (a, b, c) => { const o = {}; for (const k of Object.keys(a || {})) if (typeof a[k] === 'number' && b && c && typeof b[k] === 'number' && typeof c[k] === 'number') o[k] = a[k] + b[k] - c[k]; return o; };
-      return { id: 'LTM ' + qLabel(q), is: fixRatios(diff(fyPrev.is, cur.is, prev.is)), cf: diff(fyPrev.cf, cur.cf, prev.cf), kpi: diff(fyPrev.kpi, cur.kpi, prev.kpi), bs: q.bs, sources: q.sources, derived: true, fy: q.fy, q: q.q };
+      return { id: ltmLabel(), is: fixRatios(diff(fyPrev.is, cur.is, prev.is)), cf: diff(fyPrev.cf, cur.cf, prev.cf), kpi: diff(fyPrev.kpi, cur.kpi, prev.kpi), bs: q.bs, shares: q.shares, fxEop: q.fxEop, sources: q.sources, derived: true, fy: q.fy, q: q.q, ltm: true };
     }
     return null;
   }
   const lastLTM = lastQ ? ltmFor(lastQ) : null;
+
+  // ---- The comparison base GAP itself prints. A later report restates its prior-year column when it reclassifies a
+  // line (2Q25: Ps. 33.7 M moved from concession taxes to cost of services in the 2Q26 report), breaks a business out
+  // (the cargo business in Exhibit A) or re-converts the per-ADS figures at the current period's exchange rate. The
+  // builder keeps those restated figures (`restated`, keyed by the restating period); for a year-over-year comparison
+  // the base period is read as restated in the current period's own report, so every change printed is GAP's own.
+  function restatingId(A, mode) { return mode === 'q' ? A.id : mode === 'ytd' ? `${A.fy}M${A.months}` : mode === 'fy' ? `${A.fy}M12` : null; }
+  function isYoy(A, B, mode) { return !!(A && B && (mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false)); }
+  function cmpBase(A, B, mode) {
+    if (mode === 'ltm') { const bq = A && B && B.ltm && B.fy === A.fy - 1 && B.q === A.q ? qById[`${B.fy}Q${B.q}`] : null; return bq ? ltmFor(bq, { restated: true }) : B; }
+    if (!isYoy(A, B, mode)) return B;
+    const byId = restatingId(A, mode), r = B.restated && B.restated[byId]; if (!r) return B;
+    const out = { ...B, restatedBy: { id: byId, source: r.source, keys: [] } };
+    for (const part of ['is', 'cf', 'kpi', 'seg']) if (r[part]) { out[part] = { ...(B[part] || {}), ...r[part] }; out.restatedBy.keys.push(...Object.keys(r[part]).map((k) => `${part}.${k}`)); }
+    return out;
+  }
+  // What a restatement changed, for the captions: the income-statement lines of `restatedBy` by label.
+  function restatedNote(B) {
+    if (B && B.restatedQuarters) return LANG === 'es' ? `${B.id} con cada trimestre reexpresado como en el informe del mismo trimestre un año después` : `${B.id} with each quarter as restated in the report of the same quarter a year later`;
+    const rb = B && B.restatedBy; if (!rb) return '';
+    const names = rb.keys.filter((k) => k.startsWith('is.')).map((k) => k.slice(3)).filter((k) => !['revCbx', 'costCbx'].includes(k)).map((k) => { const d = FIN.layout.is.find((x) => x.k === k); return d ? L(d).replace(/\s*\(.*\)$/, '') : k; });
+    const who = qById[rb.id] ? qLabel(qById[rb.id]) : rb.id.replace(/^(\d{4})M12$/, 'FY$1').replace(/^(\d{4})M(\d+)$/, '$2M' + '$1'.slice(2));
+    return LANG === 'es' ? `${B.label || B.id} como se reexpresa en el informe del ${who}${names.length ? ` (${names.join(', ')})` : ''}` : `${B.label || B.id} as restated in the ${who} report${names.length ? ` (${names.join(', ')})` : ''}`;
+  }
+  // ---- Per-share figures (owner, 15-Oct-2026). Two bases, both computed from the statements so a comparison always
+  // converts both columns at the SAME exchange rate (the current period's), which is GAP's own convention for its
+  // comparative column (2Q25 per ADS: US$2.1621 in its own report at the Jun-2025 rate, US$2.5349 in the 2Q26 report at
+  // the Jun-2026 rate; the deck once printed 2.36 vs 2.16 and a wrong sign).
+  //   gap:  GAP's printed basis — total comprehensive income (non-controlling interest included) ÷ shares outstanding at
+  //         the period end (ties to the per-share line of every report, e.g. 4.4232 for 2Q25, 19.6980 for FY2024);
+  //   ctrl: comprehensive income attributable to the controlling interest ÷ the same shares (FY2025 Ps. 17.09 vs 18.93).
+  // Per ADS = per share × 10 ÷ the period-end rate; GAP uses the Fed noon buying rate (fxEop, read from the report's
+  // footnote since 2Q25), earlier periods fall back to Banxico's FIX on the period end.
+  const ADS = (REF.company && REF.company.adsRatio) || 10;
+  const periodEnd = (obj) => (obj.q ? qEndDate(obj) : `${obj.fy}-12-31`);
+  const periodFx = (obj) => (obj ? obj.fxEop || fxAt(periodEnd(obj)) : null);
+  function perShare(obj, fxRef) {
+    if (!obj || !obj.is) return null;
+    const sh = obj.shares && obj.shares.current; if (!sh) return null;
+    const fx = fxRef || periodFx(obj), fxSrc = fxRef ? 'ref' : obj.fxEop ? 'fed' : 'fix';
+    const per = (v) => (v != null ? v * 1000 / sh : null), ads = (v) => (v != null && fx ? v * ADS / fx : null);
+    const gap = per(obj.is.comprehensiveIncome), ctrl = per(obj.is.comprehensiveControlling), eps = per(obj.is.netIncome);
+    return { gap, gapAds: ads(gap), ctrl, ctrlAds: ads(ctrl), eps, epsAds: ads(eps), sh, fx, fxSrc, printed: { ps: obj.is.ciPerShare, ads: obj.is.ciPerAds } };
+  }
+  // The income-statement layout the page and the deck print: GAP's rows, with the two per-share rows computed on GAP's
+  // basis and two more on the controlling-interest basis right after them.
+  const PER_SHARE_ROWS = {
+    ciPerShare: { es: 'Utilidad integral por acción (Ps.) · base de GAP', en: 'Comprehensive income per share (Ps.) · GAP\'s basis', f: 'gap' },
+    ciPerAds: { es: 'Utilidad integral por ADS (US$) · base de GAP', en: 'Comprehensive income per ADS (US$) · GAP\'s basis', f: 'gapAds' },
+    ciCtrlPerShare: { es: 'Utilidad integral de la participación controladora por acción (Ps.)', en: 'Comprehensive income attributable to controlling interest per share (Ps.)', f: 'ctrl' },
+    ciCtrlPerAds: { es: 'Utilidad integral de la participación controladora por ADS (US$)', en: 'Comprehensive income attributable to controlling interest per ADS (US$)', f: 'ctrlAds' },
+  };
+  function isLayout() {
+    const out = [];
+    for (const d of FIN.layout.is) { out.push(d); if (d.k === 'ciPerAds') { out.push({ k: 'ciCtrlPerShare', level: 1, kpi: true, perShare: true, computed: true }); out.push({ k: 'ciCtrlPerAds', level: 1, kpi: true, perShare: true, computed: true }); } }
+    return out;
+  }
+  const lineLabel = (def) => (PER_SHARE_ROWS[def.k] ? L(PER_SHARE_ROWS[def.k]) : L(def));
+  // Value of an income-statement row for a period (fxRef: the current period's rate, so both columns of a comparison
+  // convert per ADS at the same rate).
+  function isValue(obj, def, fxRef) {
+    if (!obj || !obj.is) return null;
+    const ps = PER_SHARE_ROWS[def.k]; if (ps) { const p = perShare(obj, fxRef); return p ? p[ps.f] : null; }
+    const v = obj.is[def.k]; return v == null ? null : v;
+  }
 
   // Market helpers
   const px = (id) => (MK.prices && MK.prices[id] && MK.prices[id].points) || [];
@@ -233,11 +313,35 @@
     return { q: nq, date: d.toISOString().slice(0, 10), kind: 'assumed', years: [Math.min(...yrs), Math.max(...yrs)] };
   }
   // Text for the {{nextResults}} token in the executive summary, so the summary never hand-writes a date the deck disagrees with.
+  // While GAP has not announced the date, a projection a data vendor publishes (REF.calendar.projected) is named beside the
+  // assumption so the reader sees that the two are estimates and differ.
   function nextResultsText() {
     const n = nextResults(); if (!n || !n.date) return LANG === 'es' ? 'fecha por confirmar' : 'date to be confirmed';
-    return n.kind === 'confirmed' ? `${fmtDate(n.date)}${LANG === 'es' ? ', confirmada' : ', confirmed'}` : `≈${fmtDate(n.date)}${LANG === 'es' ? ', fecha supuesta' : ', assumed'}`;
+    if (n.kind === 'confirmed') return `${fmtDate(n.date)}${LANG === 'es' ? ', confirmada' : ', confirmed'}`;
+    const pj = REF.calendar && REF.calendar.projected;
+    const tail = pj && pj.date && pj.date !== n.date ? (LANG === 'es' ? `; ${pj.source || 'FactSet'} proyecta ${fmtDate(pj.date)}` : `; ${pj.source || 'FactSet'} projects ${fmtDate(pj.date)}`) : '';
+    return `≈${fmtDate(n.date)}${LANG === 'es' ? ', fecha supuesta, sin anunciar por GAP' : ', assumed, not yet announced by GAP'}${tail}`;
   }
-  const liveTokens = (x) => String(x).replace(/\{\{nextResults\}\}/g, nextResultsText());
+  // Next monthly traffic report: the month after the latest one, on GAP's usual day (median day of the last twelve
+  // releases). One rule for the page, the summary token and the deck (owner, 15-Oct-2026: one date everywhere).
+  function nextTraffic() {
+    const ms = TR.months; if (!ms.length) return null;
+    const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b);
+    const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5;
+    const last = ms[ms.length - 1].ym; const y = +last.slice(0, 4), mo = +last.slice(5, 7);
+    const dataMonth = new Date(Date.UTC(y, mo, 1)), rel = new Date(Date.UTC(y, mo + 1, day)); // data month = last + 1, released the month after that
+    return { day, date: rel.toISOString().slice(0, 10), dataYm: dataMonth.toISOString().slice(0, 7), dataMonth: dataMonth.toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }), month: rel.toLocaleDateString(locale(), { month: 'long', timeZone: 'UTC' }) };
+  }
+  const nextTrafficText = () => { const n = nextTraffic(); return n ? (LANG === 'es' ? `hacia el ${fmtDate(n.date)}` : `around ${fmtDate(n.date)}`) : (LANG === 'es' ? 'fecha por confirmar' : 'date to be confirmed'); };
+  // Market tokens for the curated summary: the latest close, its date and the AGM dividend's yield on it, so the
+  // text never carries a stale price (the summary once said "~5.4% on the 29 Sep close" with the price at Ps. 362.60).
+  const agmDps = () => ((REF.dividends || []).slice(-1)[0] || null);
+  const TOKENS = {
+    nextResults: nextResultsText, nextTraffic: nextTrafficText,
+    lastPx: () => (lastPx ? `Ps. ${fmtN(lastPx[1], 2)}` : '—'), lastPxDate: () => (lastPx ? fmtDate(lastPx[0]) : '—'),
+    divYield: () => (lastPx && agmDps() ? fmtPct(100 * agmDps().dps / lastPx[1], 1) : '—'), dps: () => (agmDps() ? `Ps. ${fmtN(agmDps().dps, 2)}` : '—'),
+  };
+  const liveTokens = (x) => String(x).replace(/\{\{(\w+)\}\}/g, (m, k) => (TOKENS[k] ? TOKENS[k]() : m));
   const TITLE_TAIL = (document.title.split(' | ')[1] || '').trim();
   // ================= HEADER =================
   function renderHeader() {
@@ -260,7 +364,7 @@
     if (lastLTM && lastLTM.is) k.push({ l: 'EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: 'Ps. ' + fmtM(lastLTM.is.ebitda) + ' M', d: `${t('margin')} ${fmtPct(lastLTM.is.ebitdaMarginExIfric)} ${t('exIfric')}` });
     const nd = netDebt(lastQ);
     if (nd && lastLTM && lastLTM.is) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} Ps. ${fmtM(nd.net)} M` });
-    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + (lastQ.bs.nci || 0); k.push({ l: evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.comprehensiveControlling ? `${peL()} ${fmtX(lastPx[1] * sharesNow / 1000 / lastLTM.is.comprehensiveControlling)}` : '' }); }
+    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + (lastQ.bs.nci || 0); k.push({ l: evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.netIncome ? `${peL()} ${fmtX(lastPx[1] * sharesNow / 1000 / lastLTM.is.netIncome)} (${LANG === 'es' ? 'utilidad neta UDM' : 'LTM net income'})` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
     document.querySelectorAll('#genStamp, .genStamp').forEach((e) => { e.textContent = genParts.join(' · '); });
     { const latest = [FIN.generatedAt, MK.generatedAt].filter(Boolean).sort().pop(); if (latest) document.querySelectorAll('[data-status-dot]').forEach((e) => e.setAttribute('data-status-time', latest)); }
@@ -274,10 +378,11 @@
     html('sumMeta', LANG === 'es'
       ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}), el tráfico de ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} y la guía del ${fmtDate(b.guidanceDate)} · redactado el ${fmtDate(SUM.updatedAt)}; se reescribe con cada reporte nuevo. Las cifras de mercado del encabezado son diarias.`
       : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}), ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} traffic and the guidance of ${fmtDate(b.guidanceDate)} · written ${fmtDate(SUM.updatedAt)}; rewritten with each new report. Market figures in the header are daily.`);
-    // "(≈5th)" / "(≈día 5)" in the curated text becomes the expected date of the next monthly traffic report
-    const nextTraffic = (() => { const ms = TR.months; if (!ms.length) return null; const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b); const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5; const last = ms[ms.length - 1].ym; const rel = new Date(Date.UTC(+last.slice(0, 4), +last.slice(5, 7) - 1 + 2, day)); return { day, month: rel.toLocaleDateString(locale(), { month: 'long', timeZone: 'UTC' }) }; })();
+    // "(≈5th)" / "(≈día 5)" in older curated text becomes the expected date of the next monthly traffic report (the same
+    // rule as the {{nextTraffic}} token: nextTraffic() in the model, one date for page, summary and deck)
+    const nt = nextTraffic();
     const ord = (d) => d + ([, 'st', 'nd', 'rd'][(d % 100 >> 3 ^ 1 && d % 10) || 0] || 'th');
-    const live = (x) => (nextTraffic ? String(x).replace(/\((?:~|≈)\s*(?:día\s*)?\d{1,2}(?:st|nd|rd|th)?\)/g, LANG === 'es' ? `(hacia el ${nextTraffic.day} de ${nextTraffic.month})` : `(around ${nextTraffic.month} ${ord(nextTraffic.day)})`) : x);
+    const live = (x) => (nt ? String(x).replace(/\((?:~|≈)\s*(?:día\s*)?\d{1,2}(?:st|nd|rd|th)?\)/g, LANG === 'es' ? `(hacia el ${nt.day} de ${nt.month})` : `(around ${nt.month} ${ord(nt.day)})`) : x);
     const bold = (x) => liveTokens(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
     html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${tc(L(sec.title))}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${bold(live(x))}</li>`).join('')}</ul></div>`).join(''));
   }
@@ -322,16 +427,25 @@
   }
   function yoyCommentsFor(A, B, mode = st.mode) {
     if (!A || !B) return null;
+    // rolling twelve months: their own entry ("LTM" + the quarter id), never the quarter's comments
+    if (mode === 'ltm') { const ck = `LTM${A.fy}Q${A.q}`; return B.fy === A.fy - 1 && B.q === A.q && CM.periods && CM.periods[ck] ? CM.periods[ck] : null; }
     const yoy = mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false;
     const ck = mode === 'q' ? A.id : mode === 'ytd' ? `${A.fy}M${A.months}` : mode === 'fy' ? A.id : null;
     return yoy && ck && CM.periods && CM.periods[ck] ? CM.periods[ck] : null;
   }
-  function renderStatements() {
+  // The two statement periods on screen: A (current) and B (base), B as restated in A's own report when the pair is a
+  // year-over-year comparison (see cmpBase). The deck reads the same pair through currentPair().
+  function currentPair() {
     const opts = periodOptions();
-    const A = (opts.find((o) => o.id === st.a) || {}).obj, B = (opts.find((o) => o.id === st.b) || {}).obj;
-    const layout = FIN.layout[st.stmt] || [];
+    const A = (opts.find((o) => o.id === st.a) || {}).obj, B0 = (opts.find((o) => o.id === st.b) || {}).obj;
+    return { A, B: cmpBase(A, B0, st.mode), B0 };
+  }
+  function renderStatements() {
+    const { A, B } = currentPair();
+    const layout = st.stmt === 'is' ? isLayout() : (FIN.layout[st.stmt] || []);
     const key = st.stmt;
-    const get = (obj, def) => { if (!obj || !obj[key]) return null; let v = obj[key][def.k]; if (v == null) return null; return convert(v, def, obj); };
+    const fxRef = key === 'is' && A ? periodFx(A) : null; // per-ADS rows: both columns at the current period's rate
+    const get = (obj, def) => { if (!obj || !obj[key]) return null; let v = key === 'is' ? isValue(obj, def, fxRef) : obj[key][def.k]; if (v == null) return null; return convert(v, def, obj); };
     // Comments apply to year-over-year comparisons only (quarter vs same quarter, YTD vs prior YTD, FY vs FY).
     const C = key === 'is' ? yoyCommentsFor(A, B) : null;
     const withCmt = key === 'is';
@@ -358,7 +472,7 @@
       }
       if (va == null && vb == null) continue;
       const d = va != null && vb != null ? va - vb : null;
-      const pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
+      const pct = chgPct(va, vb);
       const isPct = def.pct, isPs = def.perShare;
       const f = (v) => (v == null ? '—' : isPct ? fmtPct(v) : isPs ? fmtN(v, 2) : fmtM(v, st.usd ? 1 : 0));
       const fd = d == null ? '—' : isPct ? fmtN(d, 1) + ' pp' : isPs ? fmtN(d, 2) : fmtM(d, st.usd ? 1 : 0);
@@ -366,15 +480,16 @@
       if (isCosHead) inCos = true;
       const cosCount = isCosHead ? layout.filter((d, i) => i > layout.indexOf(def) && d.level === 2 && layout.slice(layout.indexOf(def) + 1, i).every((x) => x.level === 2)).length : 0;
       const cmt = withCmt ? `<td class="cmt">${C && C.lines[def.k] ? L(C.lines[def.k]) : ''}</td>` : '';
-      const first = isCosHead ? `<td data-g="cos"><span class="grp">${st.open.cos ? '▾' : '▸'}</span>${L(def)}<span class="cnt">${cosCount} ${t('items')}</span></td>` : `<td>${L(def)}${def.ifric ? ' <span class="muted small">IFRIC 12</span>' : ''}</td>`;
-      rows.push(`<tr class="${isCosHead ? 'grp-head ' : ''}${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}">${first}<td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtPct(pct, 1, true)}</td>${cmt}</tr>`);
+      const first = isCosHead ? `<td data-g="cos"><span class="grp">${st.open.cos ? '▾' : '▸'}</span>${lineLabel(def)}<span class="cnt">${cosCount} ${t('items')}</span></td>` : `<td>${lineLabel(def)}${def.ifric ? ' <span class="muted small">IFRIC 12</span>' : ''}</td>`;
+      rows.push(`<tr class="${isCosHead ? 'grp-head ' : ''}${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}">${first}<td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtChg(va, vb)}</td>${cmt}</tr>`);
     }
     const la = A ? A.label : '—', lb = B ? B.label : '—';
     html('stmtTable', `<table class="stmt-table"><thead><tr><th scope="col">${t('line')}</th><th scope="col">${la}</th><th scope="col">${lb}</th><th scope="col">${t('change')}</th><th scope="col">${t('changePct')}</th>${withCmt ? `<th scope="col" class="cmt">${t('comments')}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('stmtTitle').textContent = tc(`${t(st.stmt)} · ${la} vs ${lb}`);
     const unit = st.usd ? t('usdM') : t('mxnM');
-    el('stmtCap').textContent = `${unit}${st.stmt === 'is' ? ' · ' + (st.exIfric ? t('exIfric') : t('reported')) : ''}${st.usd ? (LANG === 'es' ? ' · convertido con el tipo de cambio promedio (flujos) o de cierre (balance) de la Fed H.10' : ' · converted at the Fed H.10 average (flows) or period-end (balance sheet) rate') : ''}${(A && A.derived) || (B && B.derived) ? (LANG === 'es' ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''}`;
-    if (withCmt) el('stmtCap').textContent += ' · ' + (C ? t('cmtNote') : t('cmtOnlyYoy'));
+    const rn = key === 'is' ? restatedNote(B) : '';
+    el('stmtCap').textContent = `${unit}${st.stmt === 'is' ? ' · ' + (st.exIfric ? t('exIfric') : t('reported')) : ''}${st.usd ? (LANG === 'es' ? ' · convertido con el tipo de cambio promedio (flujos) o de cierre (balance) de la Fed H.10' : ' · converted at the Fed H.10 average (flows) or period-end (balance sheet) rate') : ''}${(A && A.derived) || (B && B.derived) ? (LANG === 'es' ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''}${rn ? ' · ' + rn : ''}${key === 'is' ? ' · ' + t('perShareNote') : ''}`;
+    if (withCmt) el('stmtCap').textContent += ' · ' + (C ? t('cmtNote') : t('cmtOnlyYoy')) + ' · ' + t('nmNote');
     const srcs = [A, B].filter(Boolean).map((o) => o.sources && o.sources[key === 'kpi' ? 'is' : key]).filter(Boolean);
     html('stmtSrc', `${t('src')}: ` + [...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${t('release')} (${fmtDate(s.date)})</a>`).join(' · ') + (C && C.call ? ' · ' + L(C.call) : ''));
     // meta line
@@ -423,8 +538,7 @@
     };
   }
   function renderOps() {
-    const opts = periodOptions();
-    const A = (opts.find((o) => o.id === st.a) || {}).obj, B = (opts.find((o) => o.id === st.b) || {}).obj;
+    const { A, B } = currentPair();
     const oa = opsFor(A), ob = opsFor(B);
     const fxOf = (obj) => (obj ? (obj.fxAvg && obj.fxAvg.rate) || avgFx(obj) : null);
     const fxA = st.usd ? fxOf(A) : null, fxB = st.usd ? fxOf(B) : null;
@@ -436,10 +550,10 @@
       if (opt.money && st.usd) { va = va != null && fxA ? va / fxA : null; vb = vb != null && fxB ? vb / fxB : null; }
       if (va == null && vb == null) return;
       const d = va != null && vb != null ? va - vb : null;
-      const pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
+      const pct = chgPct(va, vb);
       const dec = opt.money ? (st.usd ? 2 : 1) : 1;
       const f = (v) => (v == null ? '—' : fmtN(v, dec));
-      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '—' : fmtN(d, dec)}</td><td class="${cls(pct)}">${fmtPct(pct, 1, true)}</td><td class="cmt">${ops && ops[k] ? L(ops[k]) : ''}</td></tr>`);
+      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '—' : fmtN(d, dec)}</td><td class="${cls(pct)}">${fmtChg(va, vb)}</td><td class="cmt">${ops && ops[k] ? L(ops[k]) : ''}</td></tr>`);
     };
     head(t('trafCargo'));
     row(t('domPax'), 'dom', { cls: 'sub' });
@@ -628,6 +742,38 @@
       points: buckets.filter(complete).map((b) => { const vals = byB[b].months.map((m) => m[tr.seg][code]).filter((v) => v != null); return [label(b), vals.length ? vals.reduce((a, v) => a + v, 0) : null, b, true]; }),
     }));
   }
+  // Latest month by airport with GAP's own comparatives: the same-month prior-year column and the January-to-month
+  // columns of that release (`prior`, `ytd`, `ytdPrior` in traffic.js) rather than sums of the preliminary monthly
+  // releases, which differ by a few thousand passengers (owner, 15-Oct-2026). Months before the columns were kept
+  // fall back to the sums (`basis: 'sum'`).
+  function trafficLatest(month) {
+    const lastM = month || TR.months[TR.months.length - 1]; if (!lastM) return null;
+    const prevYm = `${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`, prev = TR.months.find((m) => m.ym === prevYm);
+    const sumYtd = (ym, seg, code) => TR.months.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + ((m[seg] && m[seg][code]) || 0), 0);
+    const own = !!(lastM.prior && lastM.ytd && lastM.ytdPrior);
+    const pick = (o, seg, code, fb) => (o && o[seg] && o[seg][code] != null ? o[seg][code] : fb);
+    const rows = {};
+    for (const code of [...AIR.map((a) => a.code), 'TOTAL']) {
+      rows[code] = {
+        v: lastM.total[code], dom: lastM.dom[code], intl: lastM.intl[code],
+        p: pick(lastM.prior, 'total', code, prev ? prev.total[code] : null),
+        // the percentage changes as GAP prints them (computed on unrounded figures), else recomputed on the thousands
+        yoy: pick(lastM.chg, 'total', code, chgPct(lastM.total[code], pick(lastM.prior, 'total', code, prev ? prev.total[code] : null))),
+        ytdYoy: pick(lastM.ytdChg, 'total', code, chgPct(pick(lastM.ytd, 'total', code, sumYtd(lastM.ym, 'total', code)), pick(lastM.ytdPrior, 'total', code, prev ? sumYtd(prev.ym, 'total', code) : null))),
+        ytd: pick(lastM.ytd, 'total', code, sumYtd(lastM.ym, 'total', code)), ytdPrior: pick(lastM.ytdPrior, 'total', code, prev ? sumYtd(prev.ym, 'total', code) : null),
+        ytdDom: pick(lastM.ytd, 'dom', code, sumYtd(lastM.ym, 'dom', code)), ytdIntl: pick(lastM.ytd, 'intl', code, sumYtd(lastM.ym, 'intl', code)),
+        ytdDomPrior: pick(lastM.ytdPrior, 'dom', code, prev ? sumYtd(prev.ym, 'dom', code) : null), ytdIntlPrior: pick(lastM.ytdPrior, 'intl', code, prev ? sumYtd(prev.ym, 'intl', code) : null),
+      };
+    }
+    const cbx = { v: lastM.cbx, p: lastM.prior && lastM.prior.cbx != null ? lastM.prior.cbx : (prev ? prev.cbx : null), ytd: lastM.ytd && lastM.ytd.cbx != null ? lastM.ytd.cbx : null, ytdPrior: lastM.ytdPrior && lastM.ytdPrior.cbx != null ? lastM.ytdPrior.cbx : null };
+    cbx.yoy = lastM.chg && lastM.chg.cbx != null ? lastM.chg.cbx : chgPct(cbx.v, cbx.p); cbx.ytdYoy = lastM.ytdChg && lastM.ytdChg.cbx != null ? lastM.ytdChg.cbx : chgPct(cbx.ytd, cbx.ytdPrior);
+    // the same columns added up by country (the twelve Mexican airports; Montego Bay and Kingston)
+    const byCountry = {};
+    for (const c of ['MX', 'JM']) { const codes = AIR.filter((a) => a.country === c).map((a) => a.code); const add = (k) => codes.reduce((s, code) => (rows[code][k] == null || s == null ? null : s + rows[code][k]), 0); byCountry[c] = { v: add('v'), p: add('p'), ytd: add('ytd'), ytdPrior: add('ytdPrior') }; }
+    return { month: lastM, prev, rows, cbx, byCountry, basis: own ? 'release' : 'sum' };
+  }
+  // Passengers of one airport in a calendar year, from the monthly reports (the twelve months must all be there).
+  function paxYear(code, year) { const ms = TR.months.filter((m) => m.ym.slice(0, 4) === String(year)); return ms.length === 12 ? ms.reduce((a, m) => a + (m.total[code] || 0), 0) : null; }
   function renderTraffic() {
     if (!TR.months.length) return;
     const chips = [{ code: 'TOTAL', label: t('group') }, ...AIR.map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
@@ -646,17 +792,16 @@
     const lastM = TR.months[TR.months.length - 1];
     html('trafficSrc', `${t('src')}: <a href="${lastM.source.url}" target="_blank" rel="noopener">${LANG === 'es' ? 'reporte mensual de tráfico de GAP' : 'GAP monthly traffic report'} (${fmtDate(lastM.source.date)}) ↗</a>`);
     // latest-month table by airport
-    const prev = TR.months.find((m) => m.ym === `${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
-    const ytdOf = (ym, code) => TR.months.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + (m.total[code] || 0), 0);
+    const TL = trafficLatest(lastM);
     const rows = [...AIR.map((a) => a.code), 'TOTAL'].map((code) => {
-      const v = lastM.total[code], p = prev && prev.total[code]; const y = ytdOf(lastM.ym, code), yp = prev ? ytdOf(prev.ym, code) : null;
+      const r = TL.rows[code]; const v = r.v, p = r.p, y = r.ytd, yp = r.ytdPrior;
       const name = code === 'TOTAL' ? t('total') : `${code} · ${(AIR.find((a) => a.code === code) || {})[LANG] || code}`;
-      const yoy = p ? 100 * (v / p - 1) : null, yoyY = yp ? 100 * (y / yp - 1) : null;
-      return `<tr class="${code === 'TOTAL' ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtPct(yoy, 1, true)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td>${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtPct(yoyY, 1, true)}</td><td>${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`;
+      const yoy = r.yoy, yoyY = r.ytdYoy; // GAP's printed changes when the release carries them
+      return `<tr class="${code === 'TOTAL' ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtChgV(yoy)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td>${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtChgV(yoyY)}</td><td>${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`;
     });
     html('trafficTable', `<table><thead><tr><th scope="col">${t('airport')}</th><th scope="col">${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('dom')}</th><th scope="col">${t('intl')}</th><th scope="col">${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)}`);
-    el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '');
+    el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '') + (TL.basis === 'release' ? (LANG === 'es' ? ' · variaciones y acumulado según las columnas del propio reporte mensual' : ' · changes and year-to-date from the monthly report\'s own columns') : (LANG === 'es' ? ' · acumulado = suma de los reportes mensuales' : ' · year-to-date = sum of the monthly reports'));
     html('trafficMeta', LANG === 'es' ? `Cobertura mensual: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} meses). Cifras preliminares publicadas cada mes; la vista por defecto empieza en 2019 para incluir la base prepandemia.` : `Monthly coverage: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} months). Preliminary figures released monthly; the default view starts in 2019 to include the pre-pandemic base.`);
   }
 
@@ -1054,14 +1199,14 @@
     const rows = [];
     if (price && sharesNow && ltm) {
       const mcM = price * sharesNow / 1e6; const evM = nd ? mcM + nd.net / 1000 + (lastQ.bs.nci || 0) / 1000 : null;
-      const revEx = (ltm.revTotal - (ltm.revConstruction || 0)) / 1000; const ni = (ltm.comprehensiveControlling || ltm.netIncome) / 1000;
+      const revEx = (ltm.revTotal - (ltm.revConstruction || 0)) / 1000; const ni = ltm.netIncome / 1000; // P/E on net income (owner, 15-Oct-2026), not on comprehensive income
       const dpsLatest = (REF.dividends || []).slice(-1)[0];
       const fcf = lastLTM.cf && lastLTM.cf.cfo != null && lastLTM.cf.capex != null ? (lastLTM.cf.cfo + lastLTM.cf.capex) / 1000 : null;
       rows.push([t('mktCap'), 'Ps. ' + fmtN(mcM, 0) + ' M', `${fmtN(sharesNow)} × Ps. ${fmtN(price, 2)}`]);
       if (evM != null) rows.push([t('ev'), 'Ps. ' + fmtN(evM, 0) + ' M', `${t('mktCap')} + ${t('nd')} ${fmtM(nd.net)} + NCI ${fmtM(lastQ.bs.nci || 0)}`]);
       if (evM != null) rows.push([evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(evM / (ltm.ebitda / 1000)), `EBITDA ${fmtM(ltm.ebitda)} M`]);
       if (evM != null) rows.push([evL() + ' / ' + (LANG === 'es' ? 'ingresos UDM sin IFRIC 12' : 'LTM revenue ex-IFRIC 12'), fmtX(evM / revEx), `${fmtN(revEx)} M`]);
-      rows.push([peL() + ' ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(mcM / ni), `${LANG === 'es' ? 'utilidad integral controladora' : 'comprehensive income, controlling'} ${fmtN(ni)} M`]);
+      rows.push([peL() + ' ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(mcM / ni), `${LANG === 'es' ? 'utilidad neta UDM' : 'LTM net income'} ${fmtN(ni)} M`]);
       const cg = PEERS.gap && PEERS.gap.ntm;
       if (cg && evM != null && cg.ebitda) rows.push([evL() + ' / EBITDA ' + ntmLbl(), fmtX(evM / cg.ebitda.mean), `${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} EBITDA ${fmtN(cg.ebitda.mean)} M (${fmtDate(cg.estimateDate)})`]);
       if (cg && cg.eps) rows.push(['P / U ' + ntmLbl(), fmtX(price / cg.eps.mean), `${LANG === 'es' ? 'consenso FactSet UPA' : 'FactSet consensus EPS'} Ps. ${fmtN(cg.eps.mean, 2)}`]);
@@ -1073,7 +1218,7 @@
     html('multTable', `<table><thead><tr><th scope="col">${t('metric')}</th><th scope="col">${t('value')}</th><th scope="col">${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
     el('multCap').textContent = lastPx ? `${t('price')} GAP B ${fmtDate(lastPx[0])} · ${LANG === 'es' ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
     // historical EV/EBITDA
-    const hist = Q.slice(-12).map((q) => { const l = ltmFor(q); const p = pointAtOrBefore(gapPx, qEndDate(q)); const nd2 = netDebt(q); if (!l || !p || !nd2 || !l.is.ebitda) return null; const sh2 = (q.shares && q.shares.current) || sharesAt(qEndDate(q)); const ev = p[1] * sh2 / 1000 + nd2.net + (q.bs.nci || 0); return { q, v: ev / l.is.ebitda, est: nd2.basis === 'est', pe: l.is.comprehensiveControlling ? p[1] * sh2 / 1000 / l.is.comprehensiveControlling : null }; }).filter(Boolean);
+    const hist = Q.slice(-12).map((q) => { const l = ltmFor(q); const p = pointAtOrBefore(gapPx, qEndDate(q)); const nd2 = netDebt(q); if (!l || !p || !nd2 || !l.is.ebitda) return null; const sh2 = (q.shares && q.shares.current) || sharesAt(qEndDate(q)); const ev = p[1] * sh2 / 1000 + nd2.net + (q.bs.nci || 0); return { q, v: ev / l.is.ebitda, est: nd2.basis === 'est', pe: l.is.netIncome ? p[1] * sh2 / 1000 / l.is.netIncome : null }; }).filter(Boolean);
     const c = SERIES();
     const alpha = (hex, a) => hex + (a < 1 ? Math.round(a * 255).toString(16).padStart(2, '0') : '');
     if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: evL() + '/EBITDA', data: hist.map((h) => h.v), backgroundColor: hist.map((h) => alpha(c[0], h.est ? 0.45 : 1)) }, { label: 'P/U', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}${hist[x.dataIndex].est && x.dataset.label !== 'P/U' ? ' (' + estTag() + ')' : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + 'x' }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
@@ -1256,11 +1401,10 @@
   function renderCbx() {
     const C = REF.cbx || {};
     html('cbxTimeline', (C.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
-    const fmtFact = (f) => (f.fmt === 'int' ? fmtN(f.v) : f.fmt === 'usdM' ? 'US$ ' + fmtN(f.v, 1) + ' M' : f.fmt === 'pct' ? fmtPct(100 * f.v) : f.fmt === 'M' ? fmtN(f.v, 1) + ' M' : fmtN(f.v));
     html('cbxFacts', (C.facts || []).map((f) => `<div class="fact"><div class="v">${fmtFact(f)}</div><div class="l">${LANG === 'es' ? f.label_es : f.label_en}${f.source ? ` · <span class="muted">${LS(f.source)}</span>` : ''}</div></div>`).join(''));
     html('cbxSrc', `${t('src')}: ${(LS(C.sources) || []).join(' · ')}`);
     const F2 = REF.fibra || {};
-    const rows = [[LANG === 'es' ? 'Vehículo' : 'Vehicle', F2.name], [LANG === 'es' ? 'Clave' : 'Ticker', F2.ticker], [LANG === 'es' ? 'Bolsa' : 'Exchange', F2.exchange], [LANG === 'es' ? 'Monto objetivo' : 'Target size', 'Ps. ' + fmtN(F2.targetMxnM) + ' M'], ['CBFEs', fmtN(F2.certificates) + ' × Ps. ' + fmtN(F2.priceMxn)], [LANG === 'es' ? 'Participación en cada concesionaria' : 'Stake in each concessionaire', fmtPct(F2.stakePct)], [LANG === 'es' ? 'Uso de recursos' : 'Use of proceeds', LANG === 'es' ? 'Programa Maestro de Desarrollo 2025–2029 (> Ps. 52,000 M), principalmente Guadalajara' : 'Master Development Program 2025–2029 (> Ps. 52,000 M), mainly Guadalajara']];
+    const rows = [[LANG === 'es' ? 'Vehículo' : 'Vehicle', F2.name], [LANG === 'es' ? 'Clave' : 'Ticker', F2.ticker], [LANG === 'es' ? 'Bolsa' : 'Exchange', F2.exchange], [LANG === 'es' ? 'Monto objetivo' : 'Target size', 'Ps. ' + fmtN(F2.targetMxnM) + ' M'], ['CBFEs', fmtN(F2.certificates) + ' × Ps. ' + fmtN(F2.priceMxn)], [LANG === 'es' ? 'Participación en cada concesionaria' : 'Stake in each concessionaire', fmtPct(F2.stakePct)], [LANG === 'es' ? 'Uso de recursos' : 'Use of proceeds', mdpUseText()]];
     html('fibraTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1] || '—'}</td></tr>`).join('')}</tbody></table>`);
     // Status: one headline composed from placed/statusAsOf, then the timeline newest first (owner, 2026-10-06). Tags tell filings from press.
     const kindL = { filing: LANG === 'es' ? 'comunicado' : 'filing', press: LANG === 'es' ? 'prensa' : 'press', check: LANG === 'es' ? 'revisión FNAM' : 'FNAM check' };
@@ -1375,11 +1519,90 @@
   sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
+  // The MDP figure the deck and the page print: the remainder GAP states in its own filing (≈ Ps. 40.0 bn for 2026–2029, 6-K of
+  // 9-May-2026), with the announced five-year total (> Ps. 52 bn, 11-Feb-2025, press coverage) only as a labeled aside.
+  function mdpUseText() {
+    const m = (REF.regulation && REF.regulation.mdp) || {}, r = m.remaining;
+    if (!r) return LANG === 'es' ? `PMD ${m.period || ''}` : `MDP ${m.period || ''}`;
+    return LANG === 'es' ? `PMD ${r.period}: ≈ Ps. ${fmtN(r.capexMxnBn * 1000)} M (comunicado de GAP, 6-K del ${fmtDate(r.sourceDate)}), principalmente Guadalajara` : `${r.period} MDP: ≈ Ps. ${fmtN(r.capexMxnBn * 1000)} M (GAP release, 6-K of ${fmtDate(r.sourceDate)}), mainly Guadalajara`;
+  }
+  // CBX fact tiles: a fact may be computed from the data instead of typed (Tijuana's 2025 passengers = the twelve monthly reports).
+  const factValue = (f) => (f.computed ? (f.computed.fn === 'paxYear' ? (paxYear(f.computed.code, f.computed.year) != null ? paxYear(f.computed.code, f.computed.year) / 1000 : null) : null) : f.v);
+  const fmtFact = (f) => { const v = factValue(f); return v == null ? '—' : f.fmt === 'int' ? fmtN(v) : f.fmt === 'usdM' ? 'US$ ' + fmtN(v, 1) + ' M' : f.fmt === 'pct' ? fmtPct(100 * v) : f.fmt === 'M' ? fmtN(v, 2) + ' M' : fmtN(v); };
+
+  // ---------------- analytics the deck draws (owner, 15-Oct-2026) ----------------
+  // EBITDA bridge between a period and its base (B as restated in A's report): revenue lines add, the cash operating
+  // cost lines subtract; IFRIC 12 construction revenue and cost cancel and D&A sits below EBITDA, so the steps tie to
+  // the reported EBITDA within rounding. CBX (Exhibit A: revenue and EBITDA of the consolidated months) is one step of
+  // its own; its cost of services is inside the consolidated line, so the "cost of services" step is ex-CBX.
+  function ebitdaBridge(A, B) {
+    if (!A || !B || !A.is || !B.is || A.is.ebitda == null || B.is.ebitda == null) return null;
+    const d = (k) => ((A.is[k] || 0) - (B.is[k] || 0));
+    const cbx = (o) => (o.seg && o.seg.CBX ? { rev: o.seg.CBX.revTotal || 0, ebitda: o.seg.CBX.ebitda || 0 } : { rev: 0, ebitda: 0 });
+    const ca = cbx(A), cb = cbx(B); const cbxRev = ca.rev - cb.rev, cbxEbitda = ca.ebitda - cb.ebitda, cbxCost = cbxRev - cbxEbitda;
+    const steps = [
+      { k: 'revAero', v: d('revAero') },
+      { k: 'revNonAeroEx', v: d('revNonAero') - cbxRev },
+      { k: 'cbx', v: cbxEbitda },
+      { k: 'costServicesEx', v: -(d('costServices') - cbxCost) },
+      { k: 'techAssistance', v: -d('techAssistance') },
+      { k: 'concessionTaxes', v: -d('concessionTaxes') },
+      { k: 'otherIncome', v: -d('otherIncome') },
+    ];
+    const sum = steps.reduce((a, s) => a + s.v, 0);
+    return { start: B.is.ebitda, end: A.is.ebitda, steps, residual: A.is.ebitda - B.is.ebitda - sum, cbx: { rev: ca.rev, ebitda: ca.ebitda, cost: ca.rev - ca.ebitda } };
+  }
+  // Growth excluding CBX: revenue ex-IFRIC 12 and EBITDA without the consolidated CBX months (Exhibit A), against the base
+  // period (which has no CBX). The non-recurring items GAP itself names in 2Q26 (the technical-assistance provision
+  // reversal and the merger expenses) are read from the curated `oneOffs` of the comments file when present.
+  function exCbx(A, B) {
+    if (!A || !B || !A.is || !B.is) return null;
+    const revEx = (o) => o.is.revTotal - (o.is.revConstruction || 0);
+    const c = (o) => (o.seg && o.seg.CBX) || { revTotal: 0, ebitda: 0 };
+    return { revA: revEx(A) - (c(A).revTotal || 0), revB: revEx(B) - (c(B).revTotal || 0), ebitdaA: A.is.ebitda - (c(A).ebitda || 0), ebitdaB: B.is.ebitda - (c(B).ebitda || 0), revReported: [revEx(A), revEx(B)], ebitdaReported: [A.is.ebitda, B.is.ebitda] };
+  }
+  // Traffic by country over a quarter / year-to-date (thousands), from the monthly reports; MX = the twelve Mexican airports.
+  function paxByCountry(yms) {
+    const ms = yms.map((ym) => trByYm[ym]); if (!ms.length || !ms.every(Boolean)) return null;
+    const jm = AIR.filter((a) => a.country === 'JM').map((a) => a.code);
+    const sum = (codes) => ms.reduce((a, m) => a + codes.reduce((b, c) => b + (m.total[c] || 0), 0), 0);
+    return { JM: sum(jm), MX: sum(AIR.filter((a) => a.country === 'MX').map((a) => a.code)), TOTAL: sum(['TOTAL']) };
+  }
+  // Capex: the guided year's capex against the year-to-date cash-flow line, plus the prior year's outcome (guidance vs actual).
+  function capexProgress() {
+    const fy = GV.length ? Math.max(...GV.map((v) => v.fy)) : null; if (!fy) return null;
+    const g = GV.filter((v) => v.fy === fy).pop(), gx = g && g.items.capex ? g.items.capex.mxnM : null;
+    const act = gActual(fy); const ytdCapex = act && act.v.capex != null ? act.v.capex : null;
+    const prev = Y.find((y) => y.fy === fy - 1), gp = GV.filter((v) => v.fy === fy - 1).pop();
+    const years = Y.filter((y) => y.cf && y.cf.capex != null).slice(-6).map((y) => ({ fy: y.fy, capex: -y.cf.capex / 1000, guided: (GV.filter((v) => v.fy === y.fy).pop() || { items: {} }).items.capex?.mxnM ?? null }));
+    return { fy, guided: gx, guidedDate: g && g.date, ytd: ytdCapex, ytdLabel: act && act.label, prevFy: prev ? prev.fy : null, prevActual: prev && prev.cf ? -prev.cf.capex / 1000 : null, prevGuided: gp && gp.items.capex ? gp.items.capex.mxnM : null, years, mdp: REF.regulation && REF.regulation.mdp };
+  }
+  // Liquidity at the latest balance sheet (Ps. M): cash, the instruments maturing within twelve months of that date, the
+  // committed bank facilities signed after it (reference.js → debt.facilities) and the dividend declared and not yet paid.
+  function liquidity() {
+    const q = lastQ; if (!q || !q.bs) return null;
+    const D2 = REF.debt || {}, asOf = qEndDate(q), to12 = addDays(asOf, 365);
+    const inst = (D2.instruments || []).filter((i) => i.matures && i.matures > asOf && i.matures <= to12);
+    const due12 = inst.reduce((a, i) => a + (i.principalMxn || 0), 0);
+    const fac = D2.facilities || [];
+    const L2 = lastLTM; const nd = netDebt(q);
+    return { asOf, cash: q.bs.cash / 1000, due12, due12Items: inst, facilities: fac, dividendsPayable: q.bs.dividendsPayable != null ? q.bs.dividendsPayable / 1000 : null, cfoLtm: L2 && L2.cf && L2.cf.cfo != null ? L2.cf.cfo / 1000 : null, capexLtm: L2 && L2.cf && L2.cf.capex != null ? -L2.cf.capex / 1000 : null, interestLtm: L2 && L2.cf && L2.cf.interestPaid != null ? -L2.cf.interestPaid / 1000 : null, taxesLtm: L2 && L2.cf && L2.cf.taxesPaid != null ? -L2.cf.taxesPaid / 1000 : null, gross: nd ? nd.gross / 1000 : null, net: nd ? nd.net / 1000 : null };
+  }
+  // Like-for-like per-share figures: the base period's income on the current period's share count, so the dilution of
+  // the CBX merger (89.7 M new shares, May 2026) is separated from the change in income.
+  function likeForLike(A, B) {
+    const pa = perShare(A, periodFx(A)), pb = perShare(B, periodFx(A)); if (!pa || !pb || !pa.sh || !pb.sh) return null;
+    const ciB = B.is.comprehensiveControlling, niB = B.is.netIncome, tcB = B.is.comprehensiveIncome;
+    return { A: pa, B: pb, shares: [pa.sh, pb.sh], sharesChg: 100 * (pa.sh / pb.sh - 1), dilution: 100 * (1 - pb.sh / pa.sh), onA: { gap: tcB != null ? tcB * 1000 / pa.sh : null, ctrl: ciB != null ? ciB * 1000 / pa.sh : null, eps: niB != null ? niB * 1000 / pa.sh : null } };
+  }
+
   // ---------------- model API for the presentation builder (present.js) ----------------
   // Read-only view of the same calculations the page renders, so the PDF and the screen never disagree.
   window.GAP_MODEL = {
-    get LANG() { return LANG; }, nextResults, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays,
+    get LANG() { return LANG; }, nextResults, nextResultsText, nextTraffic, nextTrafficText, liveTokens, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, fmtChg, fmtChgV, chgPct, qLabel, ytdLabel, ymLabel, addDays,
     FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
+    cmpBase, isYoy, restatedNote, perShare, periodFx, isValue, isLayout, lineLabel, PER_SHARE_ROWS, ADS, currentPair, likeForLike,
+    ebitdaBridge, exCbx, paxByCountry, capexProgress, liquidity, trafficLatest, paxYear, factValue, fmtFact, mdpUseText,
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,

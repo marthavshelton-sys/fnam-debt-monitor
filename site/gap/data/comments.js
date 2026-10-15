@@ -5,11 +5,39 @@
 // operating-metrics keys (dom, intl, total, cbx, cargo, wlu, aeroPerPax, nonAeroPerPax, cbxPerUser,
 // revPerPaxGap, aeroPerWlu, costPerWlu). `call` names the earnings call used; the release link
 // comes from financials.js. New quarters: the change-alert routine drafts entries from the new release;
-// transcripts can be added afterward. Percentages quoted are as printed by GAP; where GAP restated the
-// prior-year base, the table (as originally reported) can differ slightly.
+// transcripts can be added afterward. Percentages quoted are as printed by GAP; since 15-Oct-2026 the page and the
+// deck compare each period with its base AS RESTATED in the current period's own report (financials.js → restated),
+// so the printed changes are GAP's. Rolling twelve-month comparisons have their own entry, keyed "LTM" + quarter id
+// (LTM2026Q2 = LTM 2Q26 vs LTM 2Q25), written from the four quarterly reports the window spans; the deck's LTM page
+// reads that entry and never reuses the quarter's comments (owner, 15-Oct-2026).
 window.GAP_COMMENTS = {
-  updatedAt: "2026-09-18",
+  updatedAt: "2026-10-15",
   periods: {
+    // Rolling twelve months to June 2026 (3Q25–2Q26) against the twelve months to June 2025, each base quarter as restated
+    // in the report a year later. Written from the 3Q25, 4Q25, 1Q26 and 2Q26 reports and calls; figures in the LTM table.
+    "LTM2026Q2": {
+      call: { date: "2026-07-15", es: "conferencias de resultados del 3T25 al 2T26 (transcripciones Bloomberg)", en: "3Q25–2Q26 earnings calls (Bloomberg transcripts)" },
+      lines: {
+        revAero: { es: "Las tarifas máximas 2025–29 en México (en vigor desde marzo de 2025, +7.5% adelantado a septiembre de 2025) superan un tráfico UDM −2.4%; Jamaica cae desde el 4T25 (huracán Melissa, peso más fuerte).", en: "Mexico's 2025–29 maximum tariffs (in force since March 2025, +7.5% brought forward to September 2025) outweigh LTM traffic −2.4%; Jamaica down since 4Q25 (Hurricane Melissa, stronger peso)." },
+        revNonAero: { es: "Negocios operados por GAP en alza todo el año (carga y recinto fiscal, estacionamientos, publicidad, hotel) y dos meses de CBX (Ps. 468 M); los de terceros flojos desde el 1T26 por menos pasajeros y Jamaica.", en: "GAP-operated businesses up all year (cargo and bonded warehouse, parking, advertising, hotel) and two months of CBX (Ps. 468 M); third-party lines soft since 1Q26 on fewer passengers and Jamaica." },
+        revConstruction: { es: "Menos obra del PMD en México tras el pico de 2025; más en Jamaica (Kingston).", en: "Less MDP work in Mexico after the 2025 peak; more in Jamaica (Kingston)." },
+        revTotal: { es: "+9.4% sin IFRIC 12 (+5.9% con los ingresos por construcción, que bajan).", en: "+9.4% ex-IFRIC 12 (+5.9% reported, held back by lower construction revenue)." },
+        costServices: { es: "Personal (ajustes, reforma laboral, equipo de asistencia técnica desde mayo), puentes de abordar y autobuses operados por GAP desde el 2S25, mantenimiento de áreas nuevas, seguridad y Ps. 152 M de costo de CBX (mayo–junio). Base reexpresada por GAP.", en: "Personnel (adjustments, Federal Labor Law, technical-assistance staff since May), jet bridges and buses operated by GAP since 2H25, maintenance of new areas, security and Ps. 152 M of CBX cost of services (May–June). Base as restated by GAP." },
+        techAssistance: { es: "Cuota a AMP devengada hasta abril de 2026; reversión de la provisión (Ps. 486 M) en el 2T26 y sin cuota desde mayo.", en: "Fee to AMP accrued until April 2026; the Ps. 486 M provision reversal in 2Q26 and no fee from May." },
+        concessionTaxes: { es: "Derecho mexicano al 9% de los ingresos desde 2025 (el 3T24 y el 4T24 de la base estaban al 5%); lo compensa en parte Jamaica, con menos ingresos tras Melissa.", en: "Mexican fee at 9% of revenue since 2025 (3Q24 and 4Q24 in the base were at 5%); partly offset by Jamaica's lower revenue after Melissa." },
+        da: { es: "Valores razonables del negocio de carga, activos nuevos del PMD y activos de CBX (mayo–junio).", en: "Cargo-business fair values, new MDP assets and CBX assets (May–June)." },
+        otherIncome: { es: "Pasa de ingreso a gasto: Ps. 121 M de consultoría en adquisiciones (4T25) y Ps. 118 M de gastos de la fusión (2T26).", en: "Swings from income to expense: Ps. 121 M of consulting on acquisitions (4Q25) and Ps. 118 M of merger-related expenses (2Q26)." },
+        totalOpCosts: { es: "+9.9% sin IFRIC 12: suben costo de servicios y derechos de concesión; baja la asistencia técnica.", en: "+9.9% ex-IFRIC 12: cost of services and concession fees up; technical assistance down." },
+        opIncome: { es: "Margen sin IFRIC 12 de 55.1% vs 55.3%.", en: "Margin ex-IFRIC 12 55.1% vs 55.3%." },
+        ebitda: { es: "Ps. 22.2 mil M; margen sin IFRIC 12 de 66.5% (−0.5 pp): el derecho al 9% y Jamaica pesan en el 2S25; las tarifas, CBX y la reversión de la asistencia técnica levantan el 1S26.", en: "Ps. 22.2 bn; margin ex-IFRIC 12 66.5% (−0.5 pp): the 9% concession fee and Jamaica weigh in 2H25; tariffs, CBX and the technical-assistance reversal lift 1H26." },
+        ebitdaMarginExIfric: { es: "−0.5 pp a 66.5%: derecho de concesión y Jamaica en el 2S25; recuperación en el 1S26.", en: "−0.5 pp to 66.5%: concession fee and Jamaica in 2H25; recovery in 1H26." },
+        financialResult: { es: "Más gasto por intereses con más certificados y préstamos (25% de CBX, PMD), compensado en parte por ganancias cambiarias en el 1S26 y tasas más bajas.", en: "Higher interest expense on more bonds and loans (the 25% of CBX, the MDP), partly offset by FX gains in 1H26 and lower rates." },
+        incomeTax: { es: "Más impuesto causado sobre una mayor utilidad antes de impuestos y menos pérdidas fiscales aplicadas.", en: "Higher current tax on higher pre-tax income and fewer tax-loss carryforwards applied." },
+        netIncome: { es: "El crecimiento operativo, CBX desde mayo y las ganancias cambiarias absorben el mayor gasto financiero.", en: "Operating growth, CBX from May and FX gains absorb the higher interest expense." },
+        comprehensiveIncome: { es: "Las pérdidas por conversión de las filiales jamaicanas (peso apreciado) en el 3T25, 4T25 y 2T26 superan el alza de la utilidad neta.", en: "Translation losses on the Jamaican subsidiaries (peso appreciation) in 3Q25, 4Q25 and 2Q26 outweigh the rise in net income." },
+        comprehensiveControlling: { es: "Misma causa: pérdidas por conversión.", en: "Same cause: translation losses." },
+      },
+    },
     "2026Q2": {
       ops: {
         dom: { es: "México −4.2% en total: aerolíneas recortan capacidad por el combustible y las tarifas aéreas más altas del Mundial desplazaron viajeros de negocios y ocio en junio; Guadalajara +6%.", en: "Mexico −4.2% overall: airlines cut capacity on fuel costs and higher World Cup airfares displaced business and leisure travelers in June; Guadalajara +6%." },
@@ -32,7 +60,7 @@ window.GAP_COMMENTS = {
         revCbx: { es: "Primera consolidación (may–jun): 626 mil usuarios a US$42.8 cada uno, en línea con lo esperado según la dirección.", en: "First consolidation (May–Jun): 626k users at US$42.8 each, in line with management's expectations." },
         revConstruction: { es: "Sin cambio: más obra en Jamaica (Kingston, +Ps. 181 M) compensa menos obra en México.", en: "Flat: more works in Jamaica (Kingston, +Ps. 181 M) offset lower works in Mexico." },
         revTotal: { es: "+4.9% sin IFRIC 12: comercial y CBX superan la caída de tráfico y el peso fuerte.", en: "+4.9% ex-IFRIC 12: commercial growth and CBX outweigh lower traffic and the stronger peso." },
-        costServices: { es: "Más personal (incluye el equipo de asistencia técnica internalizado), mantenimiento de áreas nuevas y seguridad; Jamaica bajó. GAP reporta +23.2% sobre un 2T25 reexpresado.", en: "More personnel (incl. internalized technical-assistance staff), maintenance of new areas and security; Jamaica fell. GAP reports +23.2% against a restated 2Q25." },
+        costServices: { es: "Más personal (incluye el equipo de asistencia técnica internalizado), mantenimiento de áreas nuevas y seguridad; Jamaica bajó. Base 2T25 reexpresada por GAP (Ps. 33.7 M reclasificados de derechos de concesión a costo de servicios).", en: "More personnel (incl. internalized technical-assistance staff), maintenance of new areas and security; Jamaica fell. 2Q25 base restated by GAP (Ps. 33.7 M reclassified from concession taxes to cost of services)." },
         costEmployee: { es: "Personal de asistencia técnica internalizado, más personal operativo, ajustes salariales y prestaciones de la reforma laboral.", en: "Internalized technical-assistance staff, more airport staff, salary adjustments and Federal Labor Law benefits." },
         costMaintenance: { es: "Apertura de áreas operativas nuevas y mantenimiento de pistas.", en: "New operational areas and airfield maintenance." },
         costSecurity: { es: "Más personal de seguridad, aumento al salario mínimo y seguros de la mercancía en el recinto fiscal.", en: "More security headcount, minimum-wage rises and insurance on bonded-warehouse goods." },
@@ -108,7 +136,7 @@ window.GAP_COMMENTS = {
         revNonAero: { es: "México +10.7% con negocios operados por GAP +19.9% (el recinto fiscal ya es ≈21% del no aeronáutico); Jamaica −24.7%; duty free afectado por el peso.", en: "Mexico +10.7% led by GAP-operated businesses (+19.9%; bonded warehouse now ≈21% of non-aero); Jamaica −24.7%; duty-free hit by the peso." },
         revConstruction: { es: "Menos obra en México (−6.6%), más en Jamaica.", en: "Less work in Mexico (−6.6%), more in Jamaica." },
         revTotal: { es: "+4.5% sin IFRIC 12 pese a tráfico −5.5% (hechos de seguridad en Jalisco, Melissa, recortes de capacidad por el combustible).", en: "+4.5% ex-IFRIC 12 despite traffic −5.5% (Jalisco security events, Melissa, airline capacity cuts on fuel costs)." },
-        costServices: { es: "Más personal, personal de seguridad y salario mínimo, mantenimiento de áreas nuevas; Jamaica −12.7%. GAP reporta +6.5% sobre un 1T25 reexpresado.", en: "More personnel, security headcount and minimum wage, maintenance of new areas; Jamaica −12.7%. GAP reports +6.5% against a restated 1Q25." },
+        costServices: { es: "Más personal, personal de seguridad y salario mínimo, mantenimiento de áreas nuevas; Jamaica −12.7%. Base 1T25 reexpresada por GAP (Ps. 27.8 M reclasificados de costo de servicios a derechos de concesión).", en: "More personnel, security headcount and minimum wage, maintenance of new areas; Jamaica −12.7%. 1Q25 base restated by GAP (Ps. 27.8 M reclassified from cost of services to concession taxes)." },
         costEmployee: { es: "Más personal, ajustes salariales y reforma laboral.", en: "More personnel, salary adjustments and Federal Labor Law." },
         costSecurity: { es: "Más personal de seguridad y aumento al salario mínimo.", en: "Security headcount and minimum-wage rises." },
         costMaintenance: { es: "Áreas operativas nuevas y pistas.", en: "New operational areas and airfield." },

@@ -386,7 +386,81 @@ function parseResults(text, meta) {
   if (fxEop) rel.fxEop = +fxEop[1];
   const fxAvg = text.match(/an average exchange rate of Ps\. ([\d.]+) per U\.S\. dollar was used, corresponding to the (three|six|nine|twelve)-month period/);
   if (fxAvg) rel.fxAvg = { rate: +fxAvg[1], months: { three: 3, six: 6, nine: 9, twelve: 12 }[fxAvg[2]] };
+  // --- Exhibit A: operating results by airport (revenue lines, operating income and EBITDA per airport or
+  // business, quarter and year-to-date). Feeds the deck's EBITDA bridge and the Mexico / Jamaica view.
+  parseSegments(lines, rel);
+  // --- What GAP states for Mexico and Jamaica in the narrative (no table splits the two countries: Kingston sits
+  // inside "Others" in Exhibit A). The quarter's sentences come first, the year-to-date's after them.
+  parseCountryNotes(lines, rel, fy, q);
   return rel;
+}
+// "Revenues from the Mexican airports decreased by Ps. 32.2 million, or 0.7%" → { chgM: -32.2, pct: -0.7 }, by country
+// and line (aeronautical / non-aeronautical revenue, operating costs, cost of services), as GAP states them.
+function parseCountryNotes(lines, rel, fy, q) {
+  const num = (s) => parseFloat(s.replace(/,/g, ''));
+  const sent = /(increased|decreased) by Ps\.\s?([\d,]+\.?\d*) million, or ([\d.]+)%/i;
+  const out = [{ MX: {}, JM: {} }, { MX: {}, JM: {} }]; let block = 0, topic = null, country = null;
+  for (const raw of lines) {
+    const l = raw.trim(); if (!l) continue;
+    if (/^Exhibit [A-Z]/i.test(l)) break;
+    if (/^Consolidated Results for the (Six|Nine|Twelve)|^Revenues \((6M|9M|12M|\d{4} vs)/i.test(l)) { block = 1; topic = null; country = null; continue; }
+    if (/^The change in aeronautical services revenues/i.test(l)) { topic = 'revAero'; continue; }
+    if (/^The change in non-?aeronautical services revenues/i.test(l)) { topic = 'revNonAero'; continue; }
+    if (/^Mexican airports:?$/i.test(l)) { country = 'MX'; topic = 'opCosts'; continue; }
+    if (/^Jamaican airports:?$/i.test(l)) { country = 'JM'; topic = 'opCosts'; continue; }
+    if (/^Cross Border Xpress:?$/i.test(l)) { country = null; topic = null; continue; }
+    const m = l.match(sent); if (!m || !topic) continue;
+    const sign = /^decreased/i.test(m[1]) ? -1 : 1, v = { chgM: sign * num(m[2]), pct: sign * num(m[3]) };
+    if (topic === 'revAero' || topic === 'revNonAero') { const c = /Mexican airports/i.test(l) ? 'MX' : /Jamaican airports/i.test(l) ? 'JM' : null; if (c && !out[block][c][topic]) out[block][c][topic] = v; }
+    else if (topic === 'opCosts' && country) { if (/^Operating (costs|expenses)/i.test(l) && !out[block][country].opCosts) out[block][country].opCosts = v; else if (/^Cost of services/i.test(l) && !out[block][country].costServices) out[block][country].costServices = v; }
+  }
+  const keep = (o) => (Object.keys(o.MX).length || Object.keys(o.JM).length ? o : null);
+  if (keep(out[0])) (rel.quarters[qid(fy, q)] ??= {}).country = out[0];
+  if (keep(out[1])) (rel.ytd[`${fy}M${q * 3}`] ??= {}).country = out[1];
+}
+// Segment keys: the twelve airports GAP breaks out, the cargo business (broken out since 2026), CBX (consolidated
+// May 2026) and "Others" (the remaining airports, Kingston included in recent reports: GAP's own footnote says which).
+const SEG_BY_NAME = { guadalajara: 'GDL', tijuana: 'TIJ', 'los cabos': 'SJD', 'puerto vallarta': 'PVR', 'montego bay': 'MBJ', guanajuato: 'BJX', hermosillo: 'HMO', kingston: 'KIN', morelia: 'MLM', 'la paz': 'LAP', mexicali: 'MXL', aguascalientes: 'AGU', 'los mochis': 'LMM', manzanillo: 'ZLO', 'cargo and bonded warehouse business': 'CARGO', 'cross border xpress': 'CBX', others: 'OTHERS', total: 'TOTAL' };
+const SEG_ROWS = [
+  { k: 'revAero', re: /^aeronautical services$/ }, { k: 'revNonAero', re: /^non-?aeronautical services$/ }, { k: 'revConstruction', re: /^improvements to concession assets/ },
+  { k: 'revTotal', re: /^total revenues$/ }, { k: 'opIncome', re: /^(income from operations|operating income)$/ }, { k: 'ebitda', re: /^ebitda$/ },
+];
+function parseSegments(lines, rel) {
+  const starts = []; lines.forEach((l, i) => { if (/^Exhibit A: Operating results by airport/i.test(l)) starts.push(i); });
+  if (!starts.length) return;
+  const footnotes = {};
+  for (const s of starts) {
+    // header "Airport | 2Q25 | 2Q26 | Change | 6M25 | 6M26 | Change": the first cell is a label, the rest periods and changes
+    let h = null;
+    for (let i = s + 1; i < Math.min(lines.length, s + 5) && !h; i++) {
+      const cells = lines[i].split('|').map((c) => c.trim()).filter(Boolean);
+      if (!/^airport$/i.test(cells[0])) continue;
+      const periods = cells.slice(1).filter((c) => parsePeriodLabel(c)).map(parsePeriodLabel);
+      if (periods.length >= 2 && periods.length % 2 === 0) h = { line: i, periods, groups: periods.length / 2 };
+    }
+    if (!h) continue;
+    const out = Array.from({ length: h.groups }, () => ({}));
+    let seg = null;
+    for (let i = h.line + 1; i < lines.length; i++) {
+      const line = lines[i];
+      if (/^Exhibit [B-Z]/i.test(line) || /^Exhibit A/i.test(line)) break;
+      const fn = line.match(/^(\d)\.\s+(.*)$/); if (fn) { footnotes[fn[1]] = fn[2].trim(); continue; }
+      const cells = line.split('|').map((c) => c.trim());
+      const head = norm(cells[0]).replace(/\s*\(\d\)\s*$/, '').trim();
+      if (cells.slice(1).every((c) => c === '') && SEG_BY_NAME[head]) { seg = SEG_BY_NAME[head]; continue; }
+      if (!seg) continue;
+      const row = tokenizeRow(line); if (!row || !row.toks.length) continue;
+      const def = SEG_ROWS.find((d) => d.re.test(normLabel(row.label))); if (!def) continue;
+      const vals = assignValues(row.toks, h.groups, [0, 1, 2]); if (!vals) continue;
+      vals.forEach((pair, g) => { (out[g][seg] ??= {}); if (!(def.k in out[g][seg])) out[g][seg][def.k] = pair; });
+    }
+    out.forEach((bySeg, g) => {
+      const p0 = h.periods[g * 2], p1 = h.periods[g * 2 + 1];
+      const pick = (idx) => { const o = {}; for (const [code, rows] of Object.entries(bySeg)) { const r = {}; for (const [k, pair] of Object.entries(rows)) if (pair && pair[idx] != null) r[k] = pair[idx]; if (Object.keys(r).length) o[code] = r; } return o; };
+      storePart(rel, p0, 'seg', pick(0)); storePart(rel, p1, 'seg', pick(1));
+    });
+  }
+  if (Object.keys(footnotes).length) rel.segNotes = footnotes;
 }
 function mapPair(obj, i) { const o = {}; for (const [k, pair] of Object.entries(obj)) if (pair && pair[i] != null) o[k] = pair[i]; return o; }
 // A bare year label ("2024 | 2025") in a flow-statement header is the twelve-month column.
@@ -447,11 +521,18 @@ function parseTraffic(text, meta) {
   const lines = text.split('\n');
   const prevLabel = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${String(+m[2] - 1).slice(2)}$`, 'i');
   const prevLabelFull = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${+m[2] - 1}$`, 'i');
-  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {}, cbx: null }, warnings: [] };
-  const isChangeCell = (c) => /^(%\\s*(change|var\\.?)|change|%|var\\.?)$/i.test(c);
+  // ytd / ytdPrior: the "Jan - Sep 26" / "Jan - Sep 25" columns GAP prints (its own year-to-date figures, which can differ
+  // from the sum of the preliminary monthly releases by a few thousand passengers); prior: the same-month comparative column.
+  // chg / ytdChg: the percentage changes GAP prints beside each pair (computed by GAP on unrounded figures, so they can
+  // differ by 0.1 pp from a change recomputed on the printed thousands).
+  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {}, cbx: null }, ytd: { dom: {}, intl: {}, total: {}, cbx: null }, ytdPrior: { dom: {}, intl: {}, total: {}, cbx: null }, chg: { dom: {}, intl: {}, total: {}, cbx: null }, ytdChg: { dom: {}, intl: {}, total: {}, cbx: null }, warnings: [] };
+  const isChangeCell = (c) => /^(%\s*(change|var\.?)|change|%|var\.?)$/i.test(c); // "% Change" is a change column, not a value column
+  const ytdLabel = new RegExp(`^jan[a-z]*\\.?\\s*[-–]\\s*${MON3[mi]}[a-z]*\\.?\\s*'?(${m[2].slice(2)}|${m[2]})$`, 'i');
+  const ytdPrevLabel = new RegExp(`^jan[a-z]*\\.?\\s*[-–]\\s*${MON3[mi]}[a-z]*\\.?\\s*'?(${String(+m[2] - 1).slice(2)}|${+m[2] - 1})$`, 'i');
   let section = null;
   let col = -1;          // index of the release month among the header's value columns
   let colPrev = -1;      // same month a year earlier (used to back-fill a month whose own release is missing)
+  let colYtd = -1, colYtdPrev = -1; // GAP's year-to-date columns (current and prior year)
   let headerCells = null; // accumulates a header that the wire broke across lines
   const NEXT = { dom: 'intl', intl: 'total', total: null };
   for (const line of lines) {
@@ -467,13 +548,18 @@ function parseTraffic(text, meta) {
       // A second "Airport" header inside a section that already has rows is the next (untitled) table.
       if (col >= 0 && section !== 'cbx' && Object.keys(rel[section]).length) section = NEXT[section];
       if (!section) break;
-      headerCells = cells.slice(1); col = -1; colPrev = -1;
+      headerCells = cells.slice(1); col = -1; colPrev = -1; colYtd = -1; colYtdPrev = -1;
     }
     else if (headerCells && col < 0 && cells.every((c) => isChangeCell(c) || /^[A-Za-z]{3}[a-z]*\.?\s*[-']?\s*\d{2,4}$/.test(c) || /^[A-Za-z]{3}[a-z]*\.?\s*-\s*[A-Za-z]{3}[a-z]*\.?\s*\d{2,4}$/.test(c))) { headerCells = headerCells.concat(cells); }
     if (headerCells && col < 0) {
       const valueCols = headerCells.filter((c) => !isChangeCell(c));
       const ci = valueCols.findIndex((c) => colLabel.test(c) || colLabelFull.test(c));
-      if (ci >= 0) { col = ci; colPrev = valueCols.findIndex((c) => prevLabel.test(c) || prevLabelFull.test(c)); headerCells = null; }
+      if (ci >= 0) {
+        col = ci; colPrev = valueCols.findIndex((c) => prevLabel.test(c) || prevLabelFull.test(c));
+        colYtd = valueCols.findIndex((c) => ytdLabel.test(c)); colYtdPrev = valueCols.findIndex((c) => ytdPrevLabel.test(c));
+        if (mi === 0) { colYtd = col; colYtdPrev = colPrev; } // January: the month is the year-to-date
+        headerCells = null;
+      }
       if (/^airport$/i.test(cells[0]) || headerCells) continue;
     }
     if (col < 0) continue;
@@ -485,8 +571,10 @@ function parseTraffic(text, meta) {
     const values = row.toks.filter((t) => !t.pct).map((t) => (t.dash ? 0 : t.v));
     if (values.length <= col || values[col] == null) continue;
     const v = values[col];
-    if (section === 'cbx') { if (code === 'TIJ') { rel.cbx = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior.cbx = values[colPrev]; } }
-    else { rel[section][code] = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior[section][code] = values[colPrev]; }
+    const at = (ci) => (ci >= 0 && values.length > ci && values[ci] != null ? values[ci] : null);
+    const pcts = row.toks.filter((t) => t.pct).map((t) => t.v); const chg = colPrev >= 0 && pcts.length ? pcts[0] : null, ytdChg = colYtdPrev >= 0 ? (mi === 0 ? chg : pcts.length > 1 ? pcts[1] : null) : null;
+    if (section === 'cbx') { if (code === 'TIJ') { rel.cbx = v; if (at(colPrev) != null) rel.prior.cbx = at(colPrev); if (at(colYtd) != null) rel.ytd.cbx = at(colYtd); if (at(colYtdPrev) != null) rel.ytdPrior.cbx = at(colYtdPrev); if (chg != null) rel.chg.cbx = chg; if (ytdChg != null) rel.ytdChg.cbx = ytdChg; } }
+    else { rel[section][code] = v; if (at(colPrev) != null) rel.prior[section][code] = at(colPrev); if (at(colYtd) != null) rel.ytd[section][code] = at(colYtd); if (at(colYtdPrev) != null) rel.ytdPrior[section][code] = at(colYtdPrev); if (chg != null) rel.chg[section][code] = chg; if (ytdChg != null) rel.ytdChg[section][code] = ytdChg; }
     if (section === 'total' && code === 'TOTAL') { section = null; }
   }
   if (col < 0 && !Object.keys(rel.total).length) rel.warnings.push(`no column for ${ym} found in any table`);
@@ -574,6 +662,22 @@ function header(text) {
   for (const line of text.split('\n').slice(0, 8)) { const m = line.match(/^# (\w+): (.*)$/); if (m) h[m[1]] = m[2]; }
   return h;
 }
+// The release date GAP itself prints. The harvester's `# date:` is the date in the wire's URL, which is a UTC calendar
+// day: a release issued in the evening in Mexico (the 2Q25 report, "July 21, 2025 21:13 ET") carries the next day
+// in its URL. The dateline ("GUADALAJARA, Mexico, July 21, 2025 (GLOBE NEWSWIRE)") or the wire's own timestamp line
+// ("July 21, 2025 21:13 ET") is the publication date; it is used when it falls within two days of the URL date.
+const MONTH_IDX = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, sept: 8, oct: 9, nov: 10, dec: 11 };
+function releaseDate(text, urlDate) {
+  const head = text.slice(0, 20000);
+  const m = head.match(/\(GLOBE NEWSWIRE\)/) && head.match(/,\s*([A-Z][a-z]{2,8})\.?\s+(\d{1,2}),\s+(\d{4})\s+\(GLOBE NEWSWIRE\)/) || head.match(/^([A-Z][a-z]{2,8})\.?\s+(\d{1,2}),\s+(\d{4})\s+\d{2}:\d{2}\s+ET$/m);
+  if (!m) return urlDate;
+  const mi = MONTH_IDX[m[1].slice(0, 4).toLowerCase()] ?? MONTH_IDX[m[1].slice(0, 3).toLowerCase()];
+  if (mi == null) return urlDate;
+  const iso = `${m[3]}-${String(mi + 1).padStart(2, '0')}-${String(+m[2]).padStart(2, '0')}`;
+  if (!urlDate) return iso;
+  const days = Math.abs((Date.parse(iso) - Date.parse(urlDate)) / 864e5);
+  return days <= 2 ? iso : urlDate;
+}
 
 async function main() {
   const BUILD_LOG = []; const warn0 = console.warn.bind(console); console.warn = (...a) => { BUILD_LOG.push(a.join(' ')); warn0(...a); };
@@ -582,7 +686,7 @@ async function main() {
   for (const f of files) {
     const text = await readFile(new URL(f, RAW), 'utf8');
     const h = header(text);
-    const meta = { file: f, url: h.source, date: h.date, title: h.title };
+    const meta = { file: f, url: h.source, date: releaseDate(text, h.date), urlDate: h.date, title: h.title };
     if (!/_bmv\d+_/.test(f)) for (const g of parseGuidance(text, meta)) guidance.push(g); // BMV notices (Spanish) are for the alert routine only
     if (h.class === 'results') {
       const r = parseResults(text, meta);
@@ -595,46 +699,72 @@ async function main() {
 
   // ---- Financials merge. Own-release figures win; comparatives fill gaps. Later files win on ties (corrections).
   const quarters = {}, ytd = {}, bsByQ = {};
+  const PARTS = ['is', 'cf', 'kpi', 'seg'];
   const put = (store, id, part, vals, src, primary) => {
     if (!vals || !Object.keys(vals).length) return;
-    const e = (store[id] ??= { id, parts: {}, sources: {} });
+    const e = (store[id] ??= { id, parts: {}, sources: {}, restated: {} });
     const cur = e.parts[part];
     const curPrimary = e.sources[part]?.primary;
     if (cur && curPrimary && !primary) return;                 // never let a comparative override the own release
     if (cur && curPrimary === primary && e.sources[part].date > src.date) return; // keep the later-dated when equal rank
+    // A "CORRECTION" wire of the same report (2Q25: two cash-flow lines added the day after) supplies the figures,
+    // but the report keeps the date it was first released; the correction is recorded beside it.
+    if (cur && curPrimary && primary && /correction/i.test(src.title || '') && !/correction/i.test(e.sources[part].title || '')) {
+      e.parts[part] = { ...cur, ...vals }; e.sources[part] = { ...e.sources[part], correction: { url: src.url, date: src.date } }; return;
+    }
     e.parts[part] = vals; e.sources[part] = { ...src, primary };
+  };
+  // The comparative column of a later report, kept beside the period's own figures. GAP restates the prior-year
+  // column when it reclassifies a line (2Q25: Ps. 33.7 M moved from concession taxes to cost of services in the
+  // 2Q26 report), breaks out a business (the cargo business in Exhibit A) or re-converts the per-ADS figures at the
+  // current period's exchange rate (2Q25: US$2.1621 in its own report, US$2.5349 in the 2Q26 report). The page's and
+  // the deck's year-over-year comparisons use this column, so the changes printed are GAP's own.
+  const keepRestated = (store, id, byId, part, vals, src) => {
+    if (!vals || !Object.keys(vals).length || id === byId) return;
+    const e = (store[id] ??= { id, parts: {}, sources: {}, restated: {} });
+    const r = (e.restated[byId] ??= { source: { ...src } });
+    r[part] = { ...vals, ...(r[part] || {}) };
   };
   for (const r of results.sort((a, b) => a.source.date.localeCompare(b.source.date))) {
     const src = { url: r.source.url, date: r.source.date, title: r.source.title };
     for (const [id, parts] of Object.entries(r.quarters)) {
       const primary = id === r.id;
-      for (const part of ['is', 'cf', 'kpi']) put(quarters, id, part, parts[part], src, primary);
+      for (const part of PARTS) { put(quarters, id, part, parts[part], src, primary); if (!primary) keepRestated(quarters, id, r.id, part, parts[part], src); }
+      if (primary && parts.country) (quarters[id] ??= { id, parts: {}, sources: {}, restated: {} }).country = parts.country;
     }
     for (const [id, vals] of Object.entries(r.bs)) put(bsByQ, id, 'bs', vals, src, id === r.id);
+    const ownYtd = `${r.fy}M${r.q * 3}`;
     for (const [id, parts] of Object.entries(r.ytd)) {
-      const primary = id === `${r.fy}M${r.q * 3}`;
-      for (const part of ['is', 'cf', 'kpi']) put(ytd, id, part, parts[part], src, primary);
+      const primary = id === ownYtd;
+      for (const part of PARTS) { put(ytd, id, part, parts[part], src, primary); if (!primary) keepRestated(ytd, id, ownYtd, part, parts[part], src); }
+      if (primary && parts.country) (ytd[id] ??= { id, parts: {}, sources: {}, restated: {} }).country = parts.country;
     }
     if (r.id in quarters) {
-      quarters[r.id].shares = r.shares || null; quarters[r.id].fxEop = r.fxEop || null; quarters[r.id].fxAvg = r.fxAvg || null;
+      quarters[r.id].shares = r.shares || null; quarters[r.id].fxEop = r.fxEop || null; quarters[r.id].fxAvg = r.fxAvg || null; if (r.segNotes) quarters[r.id].segNotes = r.segNotes;
     }
     if (r.warnings.length) console.warn(`${r.id} (${r.source.file}): ${r.warnings.join(' ; ')}`);
   }
-  for (const [id, e] of Object.entries(bsByQ)) { const q = (quarters[id] ??= { id, parts: {}, sources: {} }); q.parts.bs = e.parts.bs; q.sources.bs = e.sources.bs; }
+  for (const [id, e] of Object.entries(bsByQ)) { const q = (quarters[id] ??= { id, parts: {}, sources: {}, restated: {} }); q.parts.bs = e.parts.bs; q.sources.bs = e.sources.bs; }
+  // Only the figures that differ from the period's own release are kept (a comparative that merely repeats the own
+  // release adds nothing): each kept part lists the restated keys, to be merged over the own part by the reader
+  // ({ ...own.is, ...restated.is }). For Exhibit A the unit is a segment (a business broken out later is new as a whole).
+  const diffKeys = (own, cmp) => { const o = {}; for (const [k, v] of Object.entries(cmp || {})) if (!own || own[k] !== v) o[k] = v; return Object.keys(o).length ? o : null; };
+  const diffSeg = (own, cmp) => { const o = {}; for (const [code, rows] of Object.entries(cmp || {})) if (!own || !own[code] || diffKeys(own[code], rows)) o[code] = rows; return Object.keys(o).length ? o : null; };
+  const trimRestated = (e) => { const out = {}; for (const [byId, r] of Object.entries(e.restated || {})) { const keep = { source: r.source }; let any = false; for (const part of PARTS) { if (!r[part]) continue; const d = part === 'seg' ? diffSeg(e.parts[part], r[part]) : diffKeys(e.parts[part], r[part]); if (d) { keep[part] = d; any = true; } } if (any) out[byId] = keep; } return Object.keys(out).length ? out : null; };
 
   const qList = Object.values(quarters).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
     id: e.id, fy: +e.id.slice(0, 4), q: +e.id.slice(5), label: `${e.id.slice(5)}Q${e.id.slice(2, 4)}`,
-    is: e.parts.is || null, bs: e.parts.bs || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null,
-    shares: e.shares || null, fxEop: e.fxEop || null, fxAvg: e.fxAvg || null, sources: e.sources,
+    is: e.parts.is || null, bs: e.parts.bs || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, seg: e.parts.seg || null, segNotes: e.segNotes || null, country: e.country || null,
+    shares: e.shares || null, fxEop: e.fxEop || null, fxAvg: e.fxAvg || null, sources: e.sources, restated: trimRestated(e),
   }));
   const ytdList = Object.values(ytd).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
-    id: e.id, fy: +e.id.slice(0, 4), months: +e.id.split('M')[1], is: e.parts.is || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, sources: e.sources,
+    id: e.id, fy: +e.id.slice(0, 4), months: +e.id.split('M')[1], is: e.parts.is || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, seg: e.parts.seg || null, country: e.country || null, sources: e.sources, restated: trimRestated(e),
   }));
   // Fiscal years = the twelve-month YTD columns + the Q4 balance sheet; earlier years (FY2015–FY2017) from
   // the 20-F XBRL facts when tools/gap/raw/companyfacts.json exists (harvest-releases.mjs --source=sec).
   const years = ytdList.filter((y) => y.months === 12).map((y) => {
     const q4 = qList.find((q) => q.id === `${y.fy}Q4`);
-    return { id: `FY${y.fy}`, fy: y.fy, is: y.is, cf: y.cf, kpi: y.kpi, bs: q4?.bs || null, sources: { ...y.sources, bs: q4?.sources?.bs } };
+    return { id: `FY${y.fy}`, fy: y.fy, is: y.is, cf: y.cf, kpi: y.kpi, seg: y.seg, country: y.country, bs: q4?.bs || null, shares: q4?.shares || null, fxEop: q4?.fxEop || null, fxAvg: q4?.fxAvg || null, sources: { ...y.sources, bs: q4?.sources?.bs }, restated: y.restated };
   });
   const xbrl = await annualFromXbrl();
   for (const [fyStr, y] of Object.entries(xbrl)) {
@@ -661,7 +791,11 @@ async function main() {
   const byMonth = {};
   for (const t of traffic.sort((a, b) => a.source.date.localeCompare(b.source.date))) {
     if (!Object.keys(t.total).length) { console.warn(`traffic ${t.ym}: no rows parsed (${t.source.file})`); continue; }
-    byMonth[t.ym] = { ym: t.ym, dom: t.dom, intl: t.intl, total: t.total, cbx: t.cbx, source: { url: t.source.url, date: t.source.date } };
+    // `prior` = the same-month comparative column of this release (GAP's base for the % change it prints); `ytd` /
+    // `ytdPrior` = its January-to-month columns. The page and the deck use them for the year-over-year and year-to-date
+    // changes of the latest month, so the figures are the release's own rather than sums of preliminary months.
+    const nonEmpty = (o) => (o && Object.keys(o.total || {}).length ? o : null);
+    byMonth[t.ym] = { ym: t.ym, dom: t.dom, intl: t.intl, total: t.total, cbx: t.cbx, prior: nonEmpty(t.prior), ytd: nonEmpty(t.ytd), ytdPrior: nonEmpty(t.ytdPrior), chg: nonEmpty(t.chg), ytdChg: nonEmpty(t.ytdChg), source: { url: t.source.url, date: t.source.date } };
     if (t.warnings.length) console.warn(`traffic ${t.ym}: ${t.warnings.join(' ; ')}`);
   }
   // Releases occasionally transpose two airport rows in a table. May-2025: the international and total tables

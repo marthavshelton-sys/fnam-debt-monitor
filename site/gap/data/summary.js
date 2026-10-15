@@ -1,9 +1,12 @@
 // Executive summary shown at the top of the GAP page. Narrative is curated from the data files and the
 // releases; the change-alert routine rewrites the affected section when new results, traffic, guidance
-// or events land. Write the next-results date as the token {{nextResults}}: the page fills it from the same
-// release-lag rule the deck uses, so the two never disagree. Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
+// or events land. Never type a date or a market figure that the data files carry: write the tokens
+// {{nextResults}} (next results date, release-lag rule), {{nextTraffic}} (next monthly traffic report),
+// {{lastPx}}, {{lastPxDate}} (latest close and its date), {{divYield}} (the AGM dividend's yield on that close)
+// and {{dps}}; the page and the deck fill them from the same model, so the summary never goes stale
+// (it once said "~5.4% on the 29 Sep close" with the price at Ps. 362.60; owner, 15-Oct-2026). Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
 window.GAP_SUMMARY = {
-  updatedAt: "2026-10-07",
+  updatedAt: "2026-10-15",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-09", guidanceDate: "2026-07-14" },
   sections: [
     {
@@ -37,25 +40,25 @@ window.GAP_SUMMARY = {
       es: [
         "Al 30 de junio de 2026: deuda bruta Ps. 65.7 mil M, efectivo Ps. 19.8 mil M, **deuda neta Ps. 45.9 mil M = 2.1x el EBITDA UDM** (Ps. 22.2 mil M); deuda bruta 3.0x; el EBITDA cubre 6.4x el costo financiero neto UDM.",
         "El apalancamiento subió con los **Ps. 10.7 mil M de certificados bursátiles de marzo** (GAP 26 a TIIE + 45 pb y GAP 26-2 a 9.87% fija a 2036) para pagar US$487.5 M por el 25% de CBX y el capex del PMD, más el crédito de Ps. 1.3 mil M asumido de CBX; en septiembre se contrataron líneas bancarias por Ps. 8.0 mil M. Calificación Aaa.mx / mxAAA, perspectiva estable.",
-        "**Dividendo 2026 aprobado: Ps. 20.80 por acción** (≈5.4% al cierre del 29 sep 2026, Ps. 383.84), pagadero en una o más exhibiciones hasta el 22 abr 2027; declarado íntegro en el 2T26 (Ps. 12,376 M por pagar) y **sin exhibiciones pagadas** aún. Capex guiado de Ps. 12.0 mil M, 41% ejercido a junio."
+        "**Dividendo 2026 aprobado: {{dps}} por acción** ({{divYield}} sobre el cierre del {{lastPxDate}}, {{lastPx}}), pagadero en una o más exhibiciones hasta el 22 abr 2027 a las acciones en circulación en cada fecha de pago; declarado íntegro en el 2T26 (Ps. 12,376 M por pagar al 30 de junio) y **sin exhibiciones pagadas** aún. Capex guiado de Ps. 12.0 mil M, 41% ejercido a junio."
       ],
       en: [
         "At 30 June 2026: gross debt Ps. 65.7 bn, cash Ps. 19.8 bn, **net debt Ps. 45.9 bn = 2.1x LTM EBITDA** (Ps. 22.2 bn); gross debt 3.0x; EBITDA covers the LTM net financial cost 6.4x.",
         "Leverage rose with the **Ps. 10.7 bn of certificados bursátiles issued in March** (GAP 26 at TIIE + 45 bp and GAP 26-2 at 9.87% fixed to 2036) to pay US$487.5 M for the remaining 25% of CBX and MDP capex, plus the Ps. 1.3 bn loan assumed from CBX; Ps. 8.0 bn of bank facilities were signed in September. Rated Aaa.mx / mxAAA, stable outlook.",
-        "**2026 dividend approved: Ps. 20.80 per share** (≈5.4% on the 29 Sep 2026 close of Ps. 383.84), payable in one or more installments until 22 Apr 2027; declared in full in 2Q26 (Ps. 12,376 M payable) and **no installment paid** yet. Guided capex Ps. 12.0 bn, 41% spent by June."
+        "**2026 dividend approved: {{dps}} per share** ({{divYield}} on the {{lastPxDate}} close of {{lastPx}}), payable in one or more installments until 22 Apr 2027 to the shares outstanding on each payment date; declared in full in 2Q26 (Ps. 12,376 M payable at 30 June) and **no installment paid** yet. Guided capex Ps. 12.0 bn, 41% spent by June."
       ]
     },
     {
       k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
       es: [
-        "**Tráfico de octubre** (≈5 nov): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
+        "**Tráfico de octubre** ({{nextTraffic}}): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
         "**3T26** ({{nextResults}}): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
-        "**FIBRA GAP: colocación prevista para octubre de 2026** según la prensa (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
+        "**FIBRA GAP: sin colocar según los comunicados de GAP y los eventos relevantes de la BMV** (revisados al 14 oct); la prensa reportó octubre de 2026 como fecha prevista (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
       ],
       en: [
-        "**October traffic** (≈5 Nov): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
+        "**October traffic** ({{nextTraffic}}): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
         "**3Q26** ({{nextResults}}): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
-        "**FIBRA GAP: placement expected in October 2026** per the press (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
+        "**FIBRA GAP: not placed per GAP's filings and the BMV material events** (checked 14 Oct); the press reported an October 2026 target (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
       ]
     }
   ]
