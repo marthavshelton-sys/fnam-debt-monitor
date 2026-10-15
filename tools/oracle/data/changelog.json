@@ -4,48 +4,6 @@
   {
    "at": "2026-10-14T02:47:28.097Z",
    "file": "summary.js",
-   "path": "watchSources[15].title_es",
-   "old": "Moody's Ratings, 2 feb 2026 (Baa2 reafirmada, perspectiva negativa)",
-   "new": "S&P Global Ratings, 9 jul 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[16].title",
-   "old": "Fitch Ratings, Feb 2, 2026 (BBB affirmed, Stable)",
-   "new": "Moody's Ratings, Feb 2, 2026 (Baa2 affirmed, outlook negative)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[16].url",
-   "old": "https://www.fitchratings.com/research/corporate-finance/fitch-rates-oracle-senior-notes-bbb-affirms-idr-with-stable-outlook-02-02-2026",
-   "new": "https://ratings.moodys.com/ratings-news/458628"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[16].title_es",
-   "old": "Fitch Ratings, 2 feb 2026 (BBB reafirmada, estable)",
-   "new": "Moody's Ratings, 2 feb 2026 (Baa2 reafirmada, perspectiva negativa)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[17].title",
-   "old": "4Q26 call p.8 (Investor Day Oct 28); 1Q27 call",
-   "new": "Fitch Ratings, Feb 2, 2026 (BBB affirmed, Stable)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
-   "path": "watchSources[17].url",
-   "old": null,
-   "new": "https://www.fitchratings.com/research/corporate-finance/fitch-rates-oracle-senior-notes-bbb-affirms-idr-with-stable-outlook-02-02-2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "summary.js",
    "path": "watchSources[17].title_es",
    "old": "Llamada 4T26 p.8 (Día del Inversionista 28 oct); llamada 1T27",
    "new": "Fitch Ratings, 2 feb 2026 (BBB reafirmada, estable)"
@@ -4200,7 +4158,49 @@
    "path": "basis.marketDate",
    "old": "2026-10-13",
    "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-14)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-14&todate=2026-10-14&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-15&todate=2026-10-15&limit=10000"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-15T00:06:55.016Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-14",
+   "new": "2026-10-13"
   }
  ],
- "generated": "2026-10-14T23:24:49.210Z"
+ "generated": "2026-10-15T00:06:55.016Z"
 }
