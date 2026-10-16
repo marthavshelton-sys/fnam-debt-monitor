@@ -4,118 +4,6 @@
   {
    "at": "2026-10-14T14:56:50.402Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[5]",
-   "old": "FactSet StreetAccount",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[6]",
-   "old": "Bloomberg",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[7]",
-   "old": "Reuters",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "Financial Times",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "Wall Street Journal",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "CNBC",
-   "new": "TradingKey"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "Seeking Alpha",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "Investing.com",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[13]",
-   "old": "Benzinga",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[14]",
-   "old": "Border Report",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "Wisconsin Public Radio",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "Urban Milwaukee",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[17]",
-   "old": "Aterio",
-   "new": "NetApp"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "The Sun Times News (Michigan)",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "Michigan EGLE",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "Moody's",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[21]",
    "old": "S&P Global Ratings",
    "new": null
@@ -4200,7 +4088,119 @@
    "path": "basis.marketDate",
    "old": "2026-10-14",
    "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-16)"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2964,
+   "new": 2965
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-16)"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2513,
+   "new": 2514
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.1,
+   "new": 5.09
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16182,
+   "new": 16183
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "range52.high",
+   "old": 322.54,
+   "new": 304.28
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "range52.highDate",
+   "old": "2025-10-16",
+   "new": "2025-10-17"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-16",
+   "new": "2025-10-17"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T22:59:41.125Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
   }
  ],
- "generated": "2026-10-16T18:18:59.994Z"
+ "generated": "2026-10-16T22:59:41.125Z"
 }
