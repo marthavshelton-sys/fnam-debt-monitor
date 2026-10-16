@@ -3,69 +3,6 @@
  "entries": [
   {
    "at": "2026-10-14T14:56:50.402Z",
-   "file": "buildout.js",
-   "path": "sites[3].issues_checked",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues_checked",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "asOf",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].date",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].by",
-   "old": "manual",
-   "new": "routine"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 31,
-   "new": 24
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[1]",
-   "old": "Oracle Newsroom",
-   "new": "Oracle Investor Relations"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[2]",
-   "old": "Oracle Investor Relations",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[4]",
-   "old": "Marvell (Business Wire)",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
    "file": "news.js",
    "path": "sweepLog[0].checked[5]",
    "old": "FactSet StreetAccount",
@@ -4200,7 +4137,70 @@
    "path": "(more)",
    "old": null,
    "new": "658 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-15&todate=2026-10-15&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-16&todate=2026-10-16&limit=10000"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2512,
+   "new": 2513
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.04,
+   "new": 1.05
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 795,
+   "new": 796
+  },
+  {
+   "at": "2026-10-16T17:34:10.574Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
   }
  ],
- "generated": "2026-10-16T14:57:39.075Z"
+ "generated": "2026-10-16T17:34:10.574Z"
 }
