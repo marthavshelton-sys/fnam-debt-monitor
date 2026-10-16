@@ -1,9 +1,13 @@
 # Monthly routine: IMSS puestos de trabajo → PR
 
-This is the stored prompt of the Claude Routine that keeps `imssJobs` current
-(monthly, around the 14th, 08:47 Mexico City — IMSS publishes the prior month's
-comunicado around the 9th–12th). It needs web search and access to the
-`marthavshelton-sys/fnam-debt-monitor` repository. It never opens imss.gob.mx
+This is the stored prompt of the Claude Routine "FNAM MX Macro: IMSS monthly update"
+that keeps `imssJobs` current (monthly, the 14th, 08:47 Mexico City — IMSS publishes
+the prior month's comunicado around the 8th–12th). It needs web search and the
+`marthavshelton-sys/fnam-debt-monitor` repository ATTACHED AS A SOURCE of the
+routine on the claude.ai/code Routines page: a session fired by a routine cannot
+attach one itself, and on 14-Oct-2026 the run read and reconciled September 2026
+but had no repository and no token, so nothing was pushed (the push notification
+it sent was the only trace; the month was added by hand on 16-Oct-2026). It never opens imss.gob.mx
 from a script: that site's WAF blocks scripted clients and working around it is
 off limits. Web search of imss.gob.mx is the reading channel.
 

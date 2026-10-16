@@ -139,6 +139,14 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   badge is page-only (`badge`). `deck-check.mjs` now also checks the summary text against the page, the page order, the contents
   links and every word's box (PyMuPDF: none past the right margin or below the footer rule).
 
+## 2026-10-16
+
+- `fetch-market.mjs` merges every fetched series into the stored CSV and never drops a stored session (`mergeStored`): on
+  15-Oct-2026 the 23:15 UTC run (the 20:35 schedule, started late) added the 15-Oct S&P 500 close from Yahoo, the 23:52 run got
+  FRED SP500 ending 14-Oct while Yahoo answered 429 and Stooq 403, the file lost the row, and the watchdog flagged the feed stale
+  (issue #280). Fetched values win on overlap when the primary answered; a fallback only adds dates the stored history lacks.
+- The watchdog allows the S&P 500 (FRED) feed one session of lag (`lagSessions: 1`): FRED posts the next business day.
+
 ## 2026-10-09 (institutional review, 16 findings; owner's reviewer)
 - **News sweep had stopped sweeping.** The daily routine's Oct 9 run (`trig_01UrRS8yehhzptXyHsSyWqZo`, 54 seconds, four web searches, no
   article opened) bumped `as_of` and committed "found nothing" while Bloomberg, the FT, the WSJ and CNBC had a week of material; the page's

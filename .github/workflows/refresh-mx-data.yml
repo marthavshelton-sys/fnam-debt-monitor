@@ -1,4 +1,5 @@
 name: Refresh Mexico fiscal data
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:

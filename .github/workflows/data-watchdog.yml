@@ -5,8 +5,14 @@
 # data refresh" panel and the status dot on each company page read. A dashboard is shown as up to date
 # ("Al día") only while this check says so; the site calls nothing "live".
 #
-# A dashboard whose last scheduled refresh failed or never ran (3 h grace after its due time) is late; since
-# 9-Oct-2026 one miss is enough, so a failed nightly run shows on the site the same evening. If its own
+# A dashboard whose last scheduled refresh failed or never ran (graceHours in dashboards.json after its due time: 12 h
+# since 16-Oct-2026, because GitHub started this repository's schedules three to seven hours late in the week of
+# 13-Oct-2026 and every dashboard read late with every file current) is late; since 9-Oct-2026 one miss is enough, so a
+# failed nightly run still shows on the site the same day. A run is booked to the cron named in its title (every
+# scheduled workflow's run-name carries github.event.schedule since 16-Oct-2026), so a schedule GitHub starts hours late
+# is never booked as a later one. The last step starts by hand every schedule GitHub has not started 40 minutes after its
+# due time (scripts/watchdog/dispatch-missed.mjs; the Cloudflare Worker in tools/dispatcher/ does the same every ten
+# minutes without depending on GitHub starting this workflow). If its own
 # pipeline has no alert open, one "SOURCE DOWN: watchdog - <dashboard> refresh late" issue (label data-watchdog)
 # is opened, which the owner's email routine sends like every "SOURCE DOWN: " issue; the first on-time check
 # comments and closes it. A dashboard with price feeds listed in dashboards.json (Oracle) is "stale" when
@@ -17,6 +23,7 @@
 # changes, or its time stamp is 11 hours old), about two deploys a day; the pages treat a stamp older than
 # 14 hours as unverified, so a silent watchdog never leaves a stale "Al día" behind.
 name: Data refresh watchdog
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:
@@ -34,7 +41,7 @@ concurrency:
 
 permissions:
   contents: write
-  actions: read
+  actions: write   # read the runs; dispatch the refreshes GitHub dropped (last step)
   issues: write
 
 jobs:
@@ -78,3 +85,11 @@ jobs:
             sleep $((i * 5))
           done
           exit 1
+
+      - name: Start the scheduled refreshes GitHub dropped or is holding
+        if: ${{ !inputs.dry_run }}
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/watchdog/dispatch-missed.mjs

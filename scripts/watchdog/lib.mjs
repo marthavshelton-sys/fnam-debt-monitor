@@ -43,6 +43,16 @@ export function cronsInWorkflow(yaml) {
   return [...yaml.matchAll(/^\s*-\s*cron:\s*["']([^"']+)["']/gm)].map((m) => m[1]);
 }
 
+// The cron that fired a scheduled run, read from the run's title: since 16-Oct-2026 every scheduled workflow sets
+// `run-name` to "<workflow name> (cron <github.event.schedule>)", so GitHub's own record of which schedule started the run
+// reaches the API as display_title. Null for a title that carries none (a run before that date, a hand run, a push), which
+// the per-cron rule then attributes by start time. Whitespace inside the expression is normalised for the comparison.
+export function cronFromTitle(title) {
+  const m = /\(cron ([^)]+)\)\s*$/.exec(String(title || ''));
+  return m ? normCron(m[1]) : null;
+}
+export const normCron = (c) => String(c || '').trim().replace(/\s+/g, ' ');
+
 // ---- what counts as a refresh that landed ----
 // A run that succeeded did. A failed run did too when its "Commit ..." step succeeded and no step
 // before it failed: the steps after the commit are alerts and source-link checks, run once the data
@@ -92,10 +102,14 @@ export function isoSeconds(t) {
 // ---- lateness per schedule ----
 // A workflow with several crons (the airport refreshes: a filings run at 14:40 and a market-only run at 22:50) can keep landing
 // its market run while every filings run fails; the combined rule above then never turns late (ASUR, 8–9 Oct 2026). Here each
-// cron is judged on its own. A run belongs to the latest due time of any of the workflow's crons at or before its start (GitHub
-// starts a schedule minutes to hours late, up to five hours on a weekend, so no fixed window); a cron is late when its last
-// due time at least `graceMs` old has no landed run of its own (one miss, the same-day rule of 9-Oct-2026). runs:
-// [{ createdAt, landed }]. `since` (ms): the oldest
+// cron is judged on its own. A run that names its cron (`cron`, read from its title by cronFromTitle; every scheduled workflow
+// writes it since 16-Oct-2026) belongs to the latest due time OF THAT CRON at or before its start, however late GitHub started
+// it; a run without one belongs to the latest due time of any of the workflow's crons at or before its start (GitHub starts a
+// schedule minutes to hours late, three to seven hours in the week of 13-Oct-2026, so no fixed window). Why the title matters:
+// on 15-Oct-2026 the Oracle 20:35 UTC schedule started at 23:15, after the 21:45 due time, was booked as the 21:45 run, and the
+// 20:35 cron read "late" with every file current; the U.S. macro 12:50 and Mexican Consumer 12:20 schedules read late for days
+// the same way. A cron is late when its last due time at least `graceMs` old has no landed run of its own (one miss, the
+// same-day rule of 9-Oct-2026). runs: [{ createdAt, landed, cron? }]. `since` (ms): the oldest
 // instant the run list covers; due times before it are not judged (a workflow with several runs a day shows only its last few
 // days in one page of runs, and a weekend-only cron must not read as late because its runs fell off that page).
 export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = null }) {
@@ -105,7 +119,10 @@ export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = nul
   for (const r of runs || []) {
     if (!r.landed) continue;
     const t = Date.parse(r.createdAt); if (!Number.isFinite(t)) continue;
-    let d = null; for (const x of all) { if (x <= t) d = x; else break; }
+    let d = null;
+    const named = r.cron ? crons.find((c) => normCron(c) === normCron(r.cron)) : null;
+    if (named) d = dueTimes([named], from - 864e5, t).slice(-1)[0] ?? null; // its own schedule's latest due time at or before its start
+    else for (const x of all) { if (x <= t) d = x; else break; }
     if (d != null) covered.add(d);
     if (r.manual) hand.push({ t, crons: r.crons || crons });
   }

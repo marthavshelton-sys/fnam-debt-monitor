@@ -32,6 +32,7 @@
 # closed on recovery; a source stamped with a period past its publisher's usual date for two days opens another (label
 # mx-consumidor-stale). The site's watchdog reads both labels as alerts of this page.
 name: Refresh Mexican Consumer data
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:

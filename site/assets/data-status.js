@@ -19,7 +19,7 @@
 // never green.
 (function () {
   'use strict';
-  var STALE_HOURS = 14;   // one 12-hour check interval plus two hours for GitHub's schedule delays
+  var STALE_HOURS = 20;   // one 12-hour check interval plus eight hours for GitHub's schedule delays (three to seven hours in Oct-2026)
   var MON = {
     es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
