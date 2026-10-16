@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-16",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,25 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-15-orcl-rebound",
+      "date": "2026-10-15",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "ORCL +3.0% to US$134.47 on Oct 15; no reason given by a named outlet (press)",
+      "title_es": "ORCL +3.0% a US$134.47 el 15 oct; ningún medio identificado dio una razón (prensa)",
+      "summary_en": "ORCL closed at US$134.47 on Thursday Oct 15 (+3.0% from US$130.55, FactSet close; intraday range US$127.60-135.08, volume 30.0 M), a partial recovery after the 8.8% fall of Oct 14. No Reuters, Bloomberg, CNBC, Barron's, Benzinga or Investing.com report of the day's cause was found, and Oracle filed and released nothing. Press-reported move; no reason given by a named outlet.",
+      "summary_es": "ORCL cerró en US$134.47 el jueves 15 oct (+3.0% desde US$130.55, cierre de FactSet; rango intradía US$127.60-135.08, volumen 30.0 M), una recuperación parcial tras la caída de 8.8% del 14 oct. No se encontró un reporte de Reuters, Bloomberg, CNBC, Barron's, Benzinga o Investing.com sobre la causa del día, y Oracle no presentó ni comunicó nada. Movimiento reportado por la prensa; ningún medio identificado dio una razón.",
+      "why_en": "A price move, not a data change: it enters only the price series.",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "FactSet Global Prices, ORCL close of Oct 15, 2026 (FNAM price file)",
+          "url": "https://fnam.mx/oracle/"
+        }
+      ]
+    },
     {
       "id": "2026-10-14-orcl-jupiter-drop",
       "date": "2026-10-14",
@@ -612,6 +631,39 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-16",
+      "by": "routine",
+      "searches": 30,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Benzinga",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "WEC Energy",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Data Center Dynamics",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings",
+        "OpenAI",
+        "Stargate"
+      ],
+      "added": [
+        "2026-10-15-orcl-rebound"
+      ],
+      "note": "No new SEC filing since the Oct 1 Form 4 and no Oracle release after Oct 13. The Oct 15 price move (+3.0%) was recorded; no named outlet gave its cause. Utility, regulator, agency and partner searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-15",
       "by": "routine",

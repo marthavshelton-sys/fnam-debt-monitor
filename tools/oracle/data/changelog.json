@@ -2,895 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepNote.en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepNote.es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepNote.date",
-   "old": "2026-10-09",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].by",
-   "old": "routine",
-   "new": "manual"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 22,
-   "new": 31
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[1]",
-   "old": "Bloomberg",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[2]",
-   "old": "Reuters",
-   "new": "Oracle Investor Relations"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[3]",
-   "old": "Financial Times",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[4]",
-   "old": "Wall Street Journal",
-   "new": "Marvell (Business Wire)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[5]",
-   "old": "CNBC",
-   "new": "FactSet StreetAccount"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[6]",
-   "old": "Moody's",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[7]",
-   "old": "S&P Global Ratings",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "Fitch Ratings",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "Data Center Dynamics",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "Oracle Newsroom",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "Aterio",
-   "new": "Seeking Alpha"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "Wisconsin Public Radio",
-   "new": "Investing.com"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[13]",
-   "old": "Michigan Public",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-12",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 20,
-   "new": 22
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[2].date",
-   "old": "2026-10-11",
-   "new": "2026-10-12"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[2].searches",
-   "old": 21,
-   "new": 20
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[10]",
-   "old": "Wisconsin Public Radio",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[11]",
-   "old": "Urban Milwaukee",
-   "new": "Aterio"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[12]",
-   "old": "Aterio",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].date",
-   "old": "2026-10-10",
-   "new": "2026-10-11"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].searches",
-   "old": 18,
-   "new": 21
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[1]",
-   "old": "Oracle newsroom",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[2]",
-   "old": "Moody's",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[3]",
-   "old": "S&P Global Ratings",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[4]",
-   "old": "Fitch Ratings",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[5]",
-   "old": "Reuters",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[6]",
-   "old": "Bloomberg",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[7]",
-   "old": "Financial Times",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[8]",
-   "old": "Wall Street Journal",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[9]",
-   "old": "CNBC",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[10]",
-   "old": "Data Center Dynamics",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[11]",
-   "old": "Aterio",
-   "new": "Urban Milwaukee"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[12]",
-   "old": "Wisconsin Public Radio",
-   "new": "Aterio"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[13]",
-   "old": "Urban Milwaukee",
-   "new": "Michigan Public"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].date",
-   "old": "2026-10-09",
-   "new": "2026-10-10"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].by",
-   "old": "manual",
-   "new": "routine"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].searches",
-   "old": 21,
-   "new": 18
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[10]",
-   "old": "TechCrunch",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[11]",
-   "old": "Network World",
-   "new": "Aterio"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[14]",
-   "old": "Aterio",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[0]",
-   "old": "2026-10-08-openai-revenue-ft",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[1]",
-   "old": "2026-10-08-wsj-chip-lease-vehicle",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[2]",
-   "old": "2026-10-08-bloomberg-trucked-gas",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[3]",
-   "old": "2026-09-29-fusion-claw",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[4]",
-   "old": "2026-09-18-port-washington-atc-refiling",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].appended[0]",
-   "old": "2026-09-30-tencent-lease-ft",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[4].appended[1]",
-   "old": "2026-10-02-port-washington-grid",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[5].by",
-   "old": "routine",
-   "new": "manual"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "sweepLog[5].searches",
-   "old": 4,
-   "new": 21
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].id",
-   "old": "2026-10-08-bloomberg-trucked-gas",
-   "new": "2026-10-13-epe-jupiter-power"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].date",
-   "old": "2026-10-08",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].title_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].title_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].summary_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].why_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[0].tier",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[0].title",
-   "old": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
-   "new": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[0].url",
-   "old": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays",
-   "new": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[1].title",
-   "old": "Yahoo Finance, Oct 8, 2026 (Bloomberg report): Oracle trucks natural gas to data centers to bridge pipeline delays",
-   "new": "Border Report via WTNH, Oct 13, 2026: Oracle pitches power bill relief, pledges $1 million for Doña Ana flood recovery"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[1].url",
-   "old": "https://finance.yahoo.com/energy/articles/oracle-trucks-natural-gas-data-150844664.html",
-   "new": "https://www.wtnh.com/news/oracle-pitches-power-bill-relief-pledges-1-million-for-dona-ana-flood-recovery/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[2].tier",
-   "old": "press",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[2].title",
-   "old": "Quartz, Oct 9, 2026 (citing Bloomberg): Oracle is trucking natural gas to AI data centers as pipeline delays threaten key projects",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[0].sources[2].url",
-   "old": "https://qz.com/oracle-trucking-natural-gas-ai-data-centers-100926",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].id",
-   "old": "2026-10-08-openai-revenue-ft",
-   "new": "2026-10-13-ocp-hsm-group"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].date",
-   "old": "2026-10-08",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].theme",
-   "old": "customers",
-   "new": "oci"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].title_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].title_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].summary_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].why_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[0].tier",
-   "old": "wire",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[0].title",
-   "old": "Reuters via U.S. News, Oct 8, 2026: OpenAI's September Annualized Revenue Nears $50 Billion, Less Than Previously Indicated, Source Says (FT report)",
-   "new": "Marvell press release (Business Wire), Oct 13, 2026: Marvell, Microsoft and Oracle Establish OCP Working Group to Standardize Data Center Hardware Security"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[0].url",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[1].tier",
-   "old": "press",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[1].title",
-   "old": "CNBC, Oct 8, 2026: Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report (confirms the FT's US$50 billion figure)",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[1].url",
-   "old": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[2].tier",
-   "old": "press",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[2].title",
-   "old": "Bloomberg, Oct 8, 2026: OpenAI's Revenue Run Rate Nears $50 Billion, Less Than Reported, FT Says",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[1].sources[2].url",
-   "old": "https://www.bloomberg.com/news/articles/2026-10-08/openai-s-annualized-revenue-nears-50-billion-ft-says",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].id",
-   "old": "2026-10-08-wsj-chip-lease-vehicle",
-   "new": "2026-10-12-orcl-openai-worries"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].date",
-   "old": "2026-10-08",
-   "new": "2026-10-12"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].theme",
-   "old": "financing",
-   "new": "customers"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].title_en",
-   "old": "WSJ: Oracle reportedly in talks with Apollo and Goldman Sachs to finance a separate vehicle that would buy AI chips and lease them to Oracle (unconfirmed)",
-   "new": "ORCL −2.8% to US$137.39 on Oct 12 as the OpenAI revenue question lingers; no Oracle filing or release (press)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].title_es",
-   "old": "WSJ: Oracle negociaría con Apollo y Goldman Sachs el financiamiento de un vehículo aparte que compraría chips de IA y se los arrendaría a Oracle (sin confirmar)",
-   "new": "ORCL −2.8% a US$137.39 el 12 oct mientras persiste la duda sobre los ingresos de OpenAI; sin reporte ni comunicado de Oracle (prensa)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].summary_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].why_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].sources[0].title",
-   "old": "Yahoo Finance, Oct 8, 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
-   "new": "Benzinga, Oct 12, 2026: Why Is Oracle Stock Falling on Monday?"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].sources[0].url",
-   "old": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-open-ai-revenue-disclosure-180858662.html",
-   "new": "https://www.benzinga.com/trading-ideas/movers/26/10/62306778/why-is-oracle-stock-falling-on-monday-2"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].sources[1].tier",
-   "old": "press",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].sources[1].title",
-   "old": "Yahoo Finance / TIKR, Oct 8, 2026: Oracle Courts Apollo and Goldman for AI Chip Financing as Debt Tops $169 Billion (secondary report of the WSJ story)",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[2].sources[1].url",
-   "old": "https://finance.yahoo.com/technology/ai/articles/oracle-courts-apollo-goldman-ai-072925320.html",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].id",
-   "old": "2026-10-02-point-beach",
-   "new": "2026-10-08-bloomberg-trucked-gas"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].date",
-   "old": "2026-10-02",
-   "new": "2026-10-08"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].basis",
-   "old": "company",
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].title_en",
-   "old": "Oracle commits to subscribe to Point Beach nuclear output for the Port Washington campus; says it will fully fund the site's energy costs",
-   "new": "Bloomberg: Oracle trucks compressed natural gas to data centers in Utah and Shackelford County while pipelines lag, and weighs it for Project Jupiter (press)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].title_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].summary_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].summary_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].why_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].why_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[0].tier",
-   "old": "company",
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[0].title",
-   "old": "Oracle press release, 2 Oct 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
-   "new": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[0].url",
-   "old": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
-   "new": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[1].title",
-   "old": "Forbes, 2 Oct 2026: Oracle Is Absorbing A $300 Million Nuclear Bill That Wisconsin Ratepayers Were Stuck With",
-   "new": "Yahoo Finance, Oct 8, 2026 (Bloomberg report): Oracle trucks natural gas to data centers to bridge pipeline delays"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[1].url",
-   "old": "https://www.forbes.com/sites/antoniopequenoiv/2026/10/02/oracle-is-absorbing-a-300-million-nuclear-bill-that-wisconsin-ratepayers-were-stuck-with/",
-   "new": "https://finance.yahoo.com/energy/articles/oracle-trucks-natural-gas-data-150844664.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "items[3].sources[2].tier",
-   "old": "press",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "news.js",
-   "path": "(more)",
-   "old": null,
-   "new": "559 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "risks.js",
-   "path": "items[2].evidence_en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "risks.js",
-   "path": "items[2].evidence_es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:49:24.460Z",
-   "file": "summary.js",
-   "path": "basis.marketDate",
-   "old": "2026-10-12",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "buildout.js",
-   "path": "sites[0].issues_checked",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "buildout.js",
-   "path": "sites[1].issues_checked",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-14T14:56:50.402Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues_checked",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
    "at": "2026-10-14T14:56:50.402Z",
    "file": "buildout.js",
    "path": "sites[3].issues_checked",
@@ -4200,7 +3311,896 @@
    "path": "(more)",
    "old": null,
    "new": "422 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "summary.js",
+   "path": "eventsThrough",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].date",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].searches",
+   "old": 36,
+   "new": 30
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[9]",
+   "old": "JKN",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[10]",
+   "old": "El Paso Electric",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[11]",
+   "old": "New Mexico Public Regulation Commission",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[12]",
+   "old": "We Energies",
+   "new": "WEC Energy"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[15]",
+   "old": "Data Center Dynamics",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[16]",
+   "old": "El Paso Matters",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[0].added[0]",
+   "old": "2026-10-14-orcl-jupiter-drop",
+   "new": "2026-10-15-orcl-rebound"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].date",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].searches",
+   "old": 24,
+   "new": 36
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[3]",
+   "old": "El Paso Electric",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[4]",
+   "old": "Bloomberg",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[5]",
+   "old": "Reuters",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[6]",
+   "old": "Financial Times",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[7]",
+   "old": "Wall Street Journal",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[8]",
+   "old": "CNBC",
+   "new": "Benzinga"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[9]",
+   "old": "Benzinga",
+   "new": "JKN"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[10]",
+   "old": "TradingKey",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[11]",
+   "old": "Albuquerque Journal",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[12]",
+   "old": "Data Center Dynamics",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[13]",
+   "old": "Wisconsin Public Radio",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[14]",
+   "old": "Moody's",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[15]",
+   "old": "S&P Global Ratings",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[16]",
+   "old": "Fitch Ratings",
+   "new": "El Paso Matters"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[17]",
+   "old": "NetApp",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[1].added[0]",
+   "old": "2026-10-13-orcl-rebound",
+   "new": "2026-10-14-orcl-jupiter-drop"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].date",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].by",
+   "old": "manual",
+   "new": "routine"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].searches",
+   "old": 31,
+   "new": 24
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[1]",
+   "old": "Oracle Newsroom",
+   "new": "Oracle Investor Relations"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[2]",
+   "old": "Oracle Investor Relations",
+   "new": "Oracle Newsroom"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[4]",
+   "old": "Marvell (Business Wire)",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[5]",
+   "old": "FactSet StreetAccount",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[6]",
+   "old": "Bloomberg",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[7]",
+   "old": "Reuters",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[8]",
+   "old": "Financial Times",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[9]",
+   "old": "Wall Street Journal",
+   "new": "Benzinga"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[10]",
+   "old": "CNBC",
+   "new": "TradingKey"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[11]",
+   "old": "Seeking Alpha",
+   "new": "Albuquerque Journal"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[12]",
+   "old": "Investing.com",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[13]",
+   "old": "Benzinga",
+   "new": "Wisconsin Public Radio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[14]",
+   "old": "Border Report",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[15]",
+   "old": "Wisconsin Public Radio",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[16]",
+   "old": "Urban Milwaukee",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[17]",
+   "old": "Aterio",
+   "new": "NetApp"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[18]",
+   "old": "The Sun Times News (Michigan)",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[19]",
+   "old": "Michigan EGLE",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[20]",
+   "old": "Moody's",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[21]",
+   "old": "S&P Global Ratings",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[22]",
+   "old": "Fitch Ratings",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[0]",
+   "old": "2026-10-13-epe-jupiter-power",
+   "new": "2026-10-13-orcl-rebound"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[1]",
+   "old": "2026-10-13-ocp-hsm-group",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[2]",
+   "old": "2026-10-12-orcl-openai-worries",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[3]",
+   "old": "2026-10-08-cds-record",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[4]",
+   "old": "2026-09-29-rusckowski-form4",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].by",
+   "old": "routine",
+   "new": "manual"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].searches",
+   "old": 22,
+   "new": 31
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[1]",
+   "old": "Bloomberg",
+   "new": "Oracle Newsroom"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[2]",
+   "old": "Reuters",
+   "new": "Oracle Investor Relations"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[3]",
+   "old": "Financial Times",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[4]",
+   "old": "Wall Street Journal",
+   "new": "Marvell (Business Wire)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[5]",
+   "old": "CNBC",
+   "new": "FactSet StreetAccount"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[6]",
+   "old": "Moody's",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[7]",
+   "old": "S&P Global Ratings",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[8]",
+   "old": "Fitch Ratings",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[9]",
+   "old": "Data Center Dynamics",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[10]",
+   "old": "Oracle Newsroom",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[11]",
+   "old": "Aterio",
+   "new": "Seeking Alpha"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[12]",
+   "old": "Wisconsin Public Radio",
+   "new": "Investing.com"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[13]",
+   "old": "Michigan Public",
+   "new": "Benzinga"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[4].date",
+   "old": "2026-10-12",
+   "new": "2026-10-13"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[4].searches",
+   "old": 20,
+   "new": 22
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[5].date",
+   "old": "2026-10-11",
+   "new": "2026-10-12"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[5].searches",
+   "old": 21,
+   "new": 20
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[5].checked[10]",
+   "old": "Wisconsin Public Radio",
+   "new": "Oracle Newsroom"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[5].checked[11]",
+   "old": "Urban Milwaukee",
+   "new": "Aterio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[5].checked[12]",
+   "old": "Aterio",
+   "new": "Wisconsin Public Radio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].date",
+   "old": "2026-10-10",
+   "new": "2026-10-11"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].searches",
+   "old": 18,
+   "new": 21
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[1]",
+   "old": "Oracle newsroom",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[2]",
+   "old": "Moody's",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[3]",
+   "old": "S&P Global Ratings",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[4]",
+   "old": "Fitch Ratings",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[5]",
+   "old": "Reuters",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[6]",
+   "old": "Bloomberg",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[7]",
+   "old": "Financial Times",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[8]",
+   "old": "Wall Street Journal",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[9]",
+   "old": "CNBC",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[10]",
+   "old": "Data Center Dynamics",
+   "new": "Wisconsin Public Radio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[11]",
+   "old": "Aterio",
+   "new": "Urban Milwaukee"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[12]",
+   "old": "Wisconsin Public Radio",
+   "new": "Aterio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[6].checked[13]",
+   "old": "Urban Milwaukee",
+   "new": "Michigan Public"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].date",
+   "old": "2026-10-09",
+   "new": "2026-10-10"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].by",
+   "old": "manual",
+   "new": "routine"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].searches",
+   "old": 21,
+   "new": 18
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].checked[10]",
+   "old": "TechCrunch",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].checked[11]",
+   "old": "Network World",
+   "new": "Aterio"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].checked[14]",
+   "old": "Aterio",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].added[0]",
+   "old": "2026-10-08-openai-revenue-ft",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].added[1]",
+   "old": "2026-10-08-wsj-chip-lease-vehicle",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].added[2]",
+   "old": "2026-10-08-bloomberg-trucked-gas",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].added[3]",
+   "old": "2026-09-29-fusion-claw",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].added[4]",
+   "old": "2026-09-18-port-washington-atc-refiling",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].appended[0]",
+   "old": "2026-09-30-tencent-lease-ft",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[7].appended[1]",
+   "old": "2026-10-02-port-washington-grid",
+   "new": null
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[8].by",
+   "old": "routine",
+   "new": "manual"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "sweepLog[8].searches",
+   "old": 4,
+   "new": 21
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].id",
+   "old": "2026-10-14-orcl-jupiter-drop",
+   "new": "2026-10-15-orcl-rebound"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].date",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].title_en",
+   "old": "ORCL −8.8% to US$130.55 on Oct 14; JKN ties the fall to Project Jupiter delays, capex and financing; no Oracle filing or release (press)",
+   "new": "ORCL +3.0% to US$134.47 on Oct 15; no reason given by a named outlet (press)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].title_es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].summary_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].summary_es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].why_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].why_es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].sources[0].tier",
+   "old": "press",
+   "new": "company"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].sources[0].title",
+   "old": "JKN, Oct 15, 2026: Oracle Shares Tumble 8.8% as Delays and Costs Mount for $165 Billion AI Campus",
+   "new": "FactSet Global Prices, ORCL close of Oct 15, 2026 (FNAM price file)"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "items[0].sources[0].url",
+   "old": "https://news.jkn.co.kr/editions/english/post/1023582",
+   "new": "https://fnam.mx/oracle/"
+  },
+  {
+   "at": "2026-10-16T14:57:25.010Z",
+   "file": "news.js",
+   "path": "(more)",
+   "old": null,
+   "new": "658 leaves compared; further changes in this file not listed"
   }
  ],
- "generated": "2026-10-16T00:01:57.312Z"
+ "generated": "2026-10-16T14:57:39.075Z"
 }
