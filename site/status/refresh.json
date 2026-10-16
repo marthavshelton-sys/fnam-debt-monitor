@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-16T18:21:53Z",
+  "checkedAt": "2026-10-16T18:39:41Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,17 +25,14 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "50 12,13 * * 1-5"
-      ],
-      "lastSuccess": "2026-10-16T18:10:54Z",
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-16T18:34:21Z",
       "lastAttempt": {
         "at": "2026-10-16T18:10:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-15T13:50:00Z",
+      "requiredSince": "2026-10-15T20:05:00Z",
       "alerts": 0
     },
     {
@@ -206,9 +203,9 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-16T18:10:19Z",
+      "lastSuccess": "2026-10-16T18:25:35Z",
       "lastAttempt": {
-        "at": "2026-10-16T00:50:20Z",
+        "at": "2026-10-16T18:25:35Z",
         "result": "success"
       },
       "requiredSince": "2026-10-15T22:55:00Z",
@@ -392,9 +389,9 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-16T18:09:18Z",
+      "lastSuccess": "2026-10-16T18:27:37Z",
       "lastAttempt": {
-        "at": "2026-10-16T00:55:14Z",
+        "at": "2026-10-16T18:27:37Z",
         "result": "success"
       },
       "requiredSince": "2026-10-15T23:00:00Z",
@@ -513,17 +510,14 @@
         "en": "Oracle"
       },
       "url": "/oracle/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "35 20 * * 1-5"
-      ],
-      "lastSuccess": "2026-10-16T17:39:45Z",
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-16T18:24:31Z",
       "lastAttempt": {
         "at": "2026-10-16T17:39:45Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-15T20:35:00Z",
+      "requiredSince": "2026-10-15T21:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
