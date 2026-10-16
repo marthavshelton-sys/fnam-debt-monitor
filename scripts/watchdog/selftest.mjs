@@ -1,7 +1,7 @@
 // Offline checks of the watchdog's rules (scripts/watchdog/lib.mjs). Run before every check:
 //   node scripts/watchdog/selftest.mjs
 import assert from 'node:assert/strict';
-import { cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, attemptRecord, verdict, perCronLate, handRunsToCheck, creditHandRun, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, requiredMonth, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth } from './lib.mjs';
+import { cronFromTitle, normCron, cronMatcher, dueTimes, cronsInWorkflow, refreshLandedBySteps, attemptRecord, verdict, perCronLate, handRunsToCheck, creditHandRun, cdmx, isSession, sessionBefore, sessionAfter, zonedToUtc, requiredSession, priceVerdict, requiredMonth, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth } from './lib.mjs';
 
 const t = (s) => Date.parse(s);
 const H = 36e5;
@@ -62,6 +62,39 @@ assert.equal(verdict({ ...two, now: t('2026-10-09T15:50:00Z'), lastLandedCreated
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // 8-Oct 14:40 (the last filings due time past the grace) has no landed run
 assert.equal(new Date(perCronLate({ ...two, now: t('2026-10-09T15:50:00Z'), runs: runsA })[0].missedSince).toISOString(), '2026-10-08T14:40:00.000Z');
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: runsA }).map((x) => x.cron), ['40 14 * * 1-5']);               // 9-Oct 14:40 missed too
+
+// ---- the cron named in a run's title (run-name since 16-Oct-2026) decides which slot the run covers ----
+assert.equal(cronFromTitle('Refresh Oracle model data (cron 35 20 * * 1-5)'), '35 20 * * 1-5');
+assert.equal(cronFromTitle('Refresh macro dashboard (cron  50 12,13 * * 1-5 )'), '50 12,13 * * 1-5');
+assert.equal(cronFromTitle('Refresh Oracle model data'), null);
+assert.equal(cronFromTitle('Refresh Oracle model data (by hand)'), null);
+assert.equal(cronFromTitle(null), null);
+assert.equal(normCron(' 35  20 * * 1-5 '), '35 20 * * 1-5');
+// Oracle, 15-Oct-2026: the 20:35 schedule started at 23:15 (after the 21:45 due time) and the 21:45 one at 23:52; the 13:30 one at 17:49.
+const orc = { crons: ['35 20 * * 1-5', '45 21 * * 1-5', '30 13 * * *'], graceMs: 3 * H, lookbackMs: 14 * 24 * H };
+const orcRuns = (named) => [
+  { createdAt: '2026-10-15T23:52:33Z', landed: true, cron: named ? '45 21 * * 1-5' : null },
+  { createdAt: '2026-10-15T23:14:59Z', landed: true, cron: named ? '35 20 * * 1-5' : null },
+  { createdAt: '2026-10-15T17:49:26Z', landed: true, cron: named ? '30 13 * * *' : null },
+  { createdAt: '2026-10-15T00:06:44Z', landed: true, cron: named ? '45 21 * * 1-5' : null },
+  { createdAt: '2026-10-14T23:24:38Z', landed: true, cron: named ? '35 20 * * 1-5' : null },
+  { createdAt: '2026-10-14T18:04:50Z', landed: true, cron: named ? '30 13 * * *' : null },
+];
+assert.deepEqual(perCronLate({ ...orc, now: t('2026-10-16T08:31:00Z'), runs: orcRuns(false) }).map((x) => x.cron), ['35 20 * * 1-5']);  // by start time: 23:15 is booked as the 21:45 run, 20:35 reads late (the 16-Oct verdict)
+assert.deepEqual(perCronLate({ ...orc, now: t('2026-10-16T08:31:00Z'), runs: orcRuns(true) }), []);                                   // by title: each run covers its own cron
+// a run naming a cron the workflow no longer has falls back to the start-time rule
+assert.deepEqual(perCronLate({ ...orc, now: t('2026-10-16T08:31:00Z'), runs: [{ createdAt: '2026-10-15T23:14:59Z', landed: true, cron: '0 20 * * 1-5' }, ...orcRuns(true).slice(2)] }).map((x) => x.cron), ['35 20 * * 1-5']);
+// a named run never covers a slot after its start, and a failed named run covers nothing
+assert.deepEqual(perCronLate({ ...orc, now: t('2026-10-16T08:31:00Z'), runs: [{ createdAt: '2026-10-15T23:14:59Z', landed: false, cron: '35 20 * * 1-5' }, orcRuns(true)[0], ...orcRuns(true).slice(2)] }).map((x) => x.cron), ['35 20 * * 1-5']);
+assert.deepEqual(perCronLate({ ...orc, now: t('2026-10-16T08:31:00Z'), runs: [{ createdAt: '2026-10-15T20:00:00Z', landed: true, cron: '35 20 * * 1-5' }, orcRuns(true)[0], ...orcRuns(true).slice(2)] }).map((x) => x.cron), ['35 20 * * 1-5']);  // started before its due time: covers the previous day's slot only
+// U.S. macro, 15-Oct-2026: the 12:50 schedule started at 17:24 (after 14:05, 14:45 and 15:45 were due) and read late for days by start time
+const mac = { crons: ['50 12,13 * * 1-5', '5 14,20 * * *', '45 14,15 * * 3', '20 17 * * 4'], graceMs: 12 * H, lookbackMs: 14 * 24 * H };
+const macRuns = [{ createdAt: '2026-10-15T22:58:12Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-15T18:08:09Z', landed: true, cron: '50 12,13 * * 1-5' }, { createdAt: '2026-10-15T17:43:05Z', landed: true, cron: '20 17 * * 4' }, { createdAt: '2026-10-15T17:24:00Z', landed: true, cron: '50 12,13 * * 1-5' }, { createdAt: '2026-10-14T23:04:58Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-14T19:42:09Z', landed: true, cron: '45 14,15 * * 3' }, { createdAt: '2026-10-14T18:25:25Z', landed: true, cron: '45 14,15 * * 3' }, { createdAt: '2026-10-14T17:37:48Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-14T15:12:24Z', landed: true, cron: '50 12,13 * * 1-5' }];
+assert.deepEqual(perCronLate({ ...mac, now: t('2026-10-16T08:31:00Z'), runs: macRuns }), []);
+assert.deepEqual(perCronLate({ ...mac, now: t('2026-10-16T08:31:00Z'), runs: macRuns.map((r) => ({ ...r, cron: null })) }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+// the 12 h grace: a schedule GitHub started five hours late is not late, a schedule missing for 13 hours is
+assert.deepEqual(perCronLate({ crons: ['50 3,15 * * *'], graceMs: 12 * H, lookbackMs: 14 * 24 * H, now: t('2026-10-16T08:40:00Z'), runs: [{ createdAt: '2026-10-16T08:31:10Z', landed: true, cron: '50 3,15 * * *' }, { createdAt: '2026-10-15T19:27:37Z', landed: true, cron: '50 3,15 * * *' }] }), []);
+assert.deepEqual(perCronLate({ crons: ['50 3,15 * * *'], graceMs: 12 * H, lookbackMs: 14 * 24 * H, now: t('2026-10-16T04:51:00Z'), runs: [{ createdAt: '2026-10-15T08:36:44Z', landed: true, cron: '50 3,15 * * *' }] }).map((x) => new Date(x.missedSince).toISOString()), ['2026-10-15T15:50:00.000Z']);
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T15:10:00Z', landed: true }] }).map((x) => x.cron), []); // a landed run 30 min late belongs to 14:40
 assert.deepEqual(perCronLate({ ...two, now: t('2026-10-09T18:00:00Z'), runs: [...runsA, { createdAt: '2026-10-09T19:10:00Z', landed: true }] }).map((x) => x.cron), []); // and one 4.5 h late still does (no fixed window)
 // a dashboard's first day (American Consumer, merged 11-Oct-2026 18:03 UTC, a hand run right after): the 21:40 schedule of the
@@ -227,3 +260,37 @@ assert.equal(jsonDate({ a: { b: '2026-10-05T12:00:00Z' } }, 'a.b'), '2026-10-05'
 assert.equal(jsonDate({ a: {} }, 'a.b'), null);
 
 console.log('watchdog selftest: all checks passed');
+
+// ---- dispatch-lib: which workflows the dispatcher would start, on a fake GitHub ----
+{
+  const { dispatchMissed } = await import('./dispatch-lib.mjs');
+  const files = {
+    'tools/watchdog/dashboards.json': JSON.stringify({ dashboards: [{ id: 'a', workflows: ['a.yml'] }, { id: 'b', workflows: ['b.yml'] }, { id: 'c', workflows: ['c.yml'] }] }),
+    '.github/workflows/a.yml': 'on:\n  schedule:\n    - cron: "20 12 * * *"\n    - cron: "20 15 * * *"\n',
+    '.github/workflows/b.yml': 'on:\n  schedule:\n    - cron: "35 20 * * 1-5"\n',
+    '.github/workflows/c.yml': 'on:\n  schedule:\n    - cron: "30 17 * * *"\n',
+    '.github/workflows/data-watchdog.yml': 'on:\n  schedule:\n    - cron: "50 3,15 * * *"\n',
+  };
+  const runsOf = {
+    'a.yml': [{ created_at: '2026-10-16T16:43:00Z', event: 'schedule', status: 'completed', conclusion: 'success', display_title: 'A (cron 20 15 * * *)' }],   // 12:20 never started
+    'b.yml': [{ created_at: '2026-10-16T20:36:00Z', event: 'schedule', status: 'in_progress', conclusion: null, display_title: 'B (cron 35 20 * * 1-5)' }],   // on time, running
+    'c.yml': [{ created_at: '2026-10-16T18:05:00Z', event: 'workflow_dispatch', status: 'completed', conclusion: 'success', display_title: 'C (by hand)' }],   // the hand run covers 17:30
+    'data-watchdog.yml': [{ created_at: '2026-10-16T08:31:10Z', event: 'schedule', status: 'completed', conclusion: 'success', display_title: 'Data refresh watchdog (cron 50 3,15 * * *)' }], // 15:50 not started by 20:40
+  };
+  const calls = [];
+  const api = async (path, init) => { calls.push({ path, method: (init && init.method) || 'GET' }); const m = /workflows\/([^/]+)\/(runs|dispatches)/.exec(path); if (m[2] === 'dispatches') return null; return { workflow_runs: runsOf[m[1]] }; };
+  const report = await dispatchMissed({ readText: async (p) => files[p], api, now: t('2026-10-16T20:40:00Z'), leadMs: 40 * 6e4, includeSelf: true });
+  const byFile = Object.fromEntries(report.map((w) => [w.file, w]));
+  assert.deepEqual(byFile['a.yml'].missed.map((m) => m.cron), ['20 12 * * *']); assert.equal(byFile['a.yml'].dispatched, true);
+  assert.deepEqual(byFile['b.yml'].missed.map((m) => m.cron), ['35 20 * * 1-5']); assert.equal(byFile['b.yml'].dispatched, undefined); assert.equal(byFile['b.yml'].skipped, 'a run is queued or in progress');  // yesterday's slot missed, today's run in progress: not dispatched
+  assert.deepEqual(byFile['c.yml'].missed, []);
+  assert.deepEqual(byFile['data-watchdog.yml'].missed.map((m) => m.due), ['2026-10-16T15:50:00.000Z']); assert.equal(byFile['data-watchdog.yml'].dispatched, true);
+  assert.deepEqual(calls.filter((c) => c.method === 'POST').map((c) => c.path), ['/actions/workflows/a.yml/dispatches', '/actions/workflows/data-watchdog.yml/dispatches']);
+  // a workflow with a run queued or in progress is never dispatched, even with a missed slot
+  runsOf['b.yml'] = [{ created_at: '2026-10-16T20:36:00Z', event: 'schedule', status: 'queued', conclusion: null, display_title: 'B (cron 35 20 * * 1-5)' }, { created_at: '2026-10-15T23:52:00Z', event: 'schedule', status: 'completed', conclusion: 'success', display_title: 'B (cron 35 20 * * 1-5)' }];
+  const r2 = await dispatchMissed({ readText: async (p) => files[p], api, now: t('2026-10-20T20:40:00Z'), leadMs: 40 * 6e4, dryRun: true });
+  const b2 = r2.find((w) => w.file === 'b.yml'); assert.equal(b2.missed.length, 1); assert.equal(b2.skipped, 'a run is queued or in progress');
+  // dry run dispatches nothing
+  assert.equal(calls.filter((c) => c.method === 'POST').length, 2);
+}
+console.log('dispatch-lib ok');

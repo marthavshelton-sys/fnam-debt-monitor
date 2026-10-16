@@ -1,0 +1,16 @@
+# Cloudflare Worker that starts the scheduled refreshes GitHub dropped or is holding (worker.mjs; README.md for the deploy).
+# Deploy from the repository root: `npx wrangler deploy --config tools/dispatcher/wrangler.toml`.
+name = "fnam-dispatcher"
+main = "worker.mjs"
+compatibility_date = "2026-10-01"
+workers_dev = false
+
+[triggers]
+crons = ["*/10 * * * *"]
+
+[vars]
+REPO = "marthavshelton-sys/fnam-debt-monitor"
+LEAD_MINUTES = "40"
+
+[observability]
+enabled = true

@@ -39,13 +39,23 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   link on 8/9-Oct-2026) is that landed refresh, recorded as `success` with `afterCommitFailure: true`, never as a failure
   at the same instant as `lastSuccess` (`attemptRecord` in `lib.mjs`, tested in `selftest.mjs`).
 - **Late**: no landed refresh since the last time the workflow's own cron was due, counting only due times at least
-  3 hours old. In words: the last scheduled refresh failed or never ran. Until 9-Oct-2026 two misses in a row were
+  `graceHours` old (`dashboards.json`: 12 hours since 16-Oct-2026, 3 before). In words: the last scheduled refresh failed
+  or never ran. Why 12: GitHub started this repository's schedules three to seven hours late in the week of 13-Oct-2026
+  (the watchdog's own 03:50 UTC check at 08:31, 09:03 and 11:10; the search index's 09:37 at 14:39; the airports hub's 17:30 at
+  21:54, against under 15 minutes until 12-Oct), so with 3 hours every dashboard read "late" with every file current; a
+  failed run still shows the same day. The grace is printed in `refresh.json → graceHours` and in its `rule`. Until 9-Oct-2026 two misses in a row were
   needed, which left the MX fiscal page "up to date" for a day after its 8-Oct refresh failed (the owner asked for a
   failed or stale refresh to be flagged the same day). The schedule is read from the workflow file, so changing a cron
   needs no change here. Since 9-Oct-2026 each cron of a workflow is also judged on its own (`perCronLate`): a run belongs
-  to the latest due time of any of the workflow's crons at or before its start (GitHub starts schedules minutes to hours
-  late, five hours on a weekend), and a cron whose last due time has no landed run of its own makes the dashboard late
-  even when another cron keeps landing. Why: the ASUR workflow's market-only run (22:50 UTC) succeeded on 8-Oct-2026 while
+  to the cron its title names (since 16-Oct-2026 every scheduled workflow sets `run-name` to "<workflow name> (cron
+  <github.event.schedule>)", so GitHub's own record of which schedule fired reaches the API as `display_title`;
+  `cronFromTitle` in `lib.mjs`): the latest due time of THAT cron at or before its start, however late GitHub started it.
+  A run whose title names no cron (before that date, a hand run) belongs to the latest due time of any of the workflow's
+  crons at or before its start (GitHub starts schedules minutes to hours late). Why the title: on 15-Oct-2026 the Oracle
+  20:35 UTC schedule started at 23:15, after the 21:45 due time, was booked as the 21:45 run, and the 20:35 cron read
+  "late" with every file current; the U.S. macro 12:50 and Mexican Consumer 12:20 schedules read late for days the same
+  way (they start four to five hours late and were booked to the 14:05 / 15:20 crons). A cron whose last due time has
+  no landed run of its own makes the dashboard late even when another cron keeps landing. Why: the ASUR workflow's market-only run (22:50 UTC) succeeded on 8-Oct-2026 while
   its filings run (14:40 UTC) failed on the 8th and 9th on an unparsed traffic release, and the dashboard read "ok". A
   refresh re-run by hand on main that committed counts for the schedule it replaced; due times older than the oldest run
   on the page fetched (30 runs) are not judged.
@@ -92,6 +102,17 @@ dashboard as up to date ("Al día"); the site calls nothing "live".
   "Al día" behind. The owner chose the 12-hour cadence (1-Oct-2026) to keep Cloudflare deploys to about two a day;
   the cost is that the panel and an alarm can trail a refresh by up to 12 hours.
 
+## Starting the schedules GitHub drops (16-Oct-2026)
+
+GitHub Actions schedules are best effort; a `workflow_dispatch` run starts within a minute. `scripts/watchdog/dispatch-lib.mjs`
+holds one rule: for each refresh workflow of `dashboards.json`, a cron whose latest due time is at least 40 minutes old and has
+no run on main booked to it (the per-cron rule above, with a run still queued or in progress counting as started) makes the
+workflow missed, and a missed workflow is dispatched once on main (never while a run of it is queued or in progress; the hand
+run it starts is booked to the slot, so never twice). It runs in two places: `scripts/watchdog/dispatch-missed.mjs` as the last
+step of `data-watchdog.yml` (`actions: write`; `--dry-run` lists without dispatching), and the Cloudflare Worker in
+`tools/dispatcher/` every ten minutes, which also starts the watchdog's own checks when they are late and needs a fine-grained
+token the owner sets once (its README). A dispatched run is credited to the schedule it replaced (`creditHandRun`).
+
 ## Alarm
 
 A dashboard with a stale price feed gets one issue titled `SOURCE DOWN: watchdog - <dashboard> prices stale` (label
@@ -123,7 +144,9 @@ first bytes of the file it names. A new exchange needs its holiday calendar in `
 
 ### What the landing page shows beside the verdict (6-Oct-2026)
 
-The watchdog's `lastSuccess` lags up to 12 hours, so the landing page's status grid now reads each dashboard's OWN data stamp
+The pages treat a `checkedAt` older than 20 hours as unverified (`STALE_HOURS` in `data-status.js`: one 12-hour interval plus
+eight hours for GitHub's delays; 14 until 16-Oct-2026, which turned every card "unverified" on the days the check started five
+hours late). The watchdog's `lastSuccess` lags up to 12 hours, so the landing page's status grid now reads each dashboard's OWN data stamp
 from the first bytes of its data file (`STAMPS` in `site/assets/data-status.js`: `generatedAt` of the market or data file,
 `runAt` of `/macro/status.json`, `REFRESHED_AT` of the MX macro page) and prints it as "datos del <time>", keeping the
 watchdog verdict (up to date / late / alert) beside it. The company pages set `data-status-time` on their header dot, so

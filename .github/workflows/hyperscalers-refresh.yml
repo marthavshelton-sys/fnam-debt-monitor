@@ -16,6 +16,7 @@
 # "SOURCE DOWN: Hyperscalers - ..." issue (label hyperscalers-health), closed on recovery. FactSet snapshots and
 # guidance are refreshed in a Claude session (FactSet is not available here).
 name: Refresh Hyperscaler Hub data
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:

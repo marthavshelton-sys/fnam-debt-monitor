@@ -11,9 +11,11 @@
 //          'unverified' when the exchange calendar in lib.mjs does not cover the date (extend it); or a monthly data
 //          feed (dashboards.json → data: the airport pages' traffic file) does not carry the month its publisher's
 //          calendar requires (owner, 9-Oct-2026: ASUR showed "ok" on prices while its traffic file was a month behind);
-//   late   the last scheduled refresh failed or never ran (3 h grace after its due time; one miss is enough since 9-Oct-2026,
-//          and a refresh re-run by hand on main whose commit step succeeded counts as landed), judged for the workflow as a
-//          whole and for each of its crons (a market-only run must not cover a failing filings run);
+//   late   the last scheduled refresh failed or never ran (graceHours in dashboards.json after its due time: 12 h since
+//          16-Oct-2026, 3 h before, because GitHub started this repository's schedules three to seven hours late in the week of
+//          13-Oct-2026; one miss is enough since 9-Oct-2026, and a refresh re-run by hand on main whose commit step succeeded
+//          counts as landed), judged for the workflow as a whole and for each of its crons (a market-only run must not cover a
+//          failing filings run; a run is booked to the cron its title names, see lib.mjs cronFromTitle);
 //   alert  on time, but an alert issue of the dashboard's own pipeline is open (SOURCE DOWN, health, live check);
 //   ok     on time and no alert open: the only case the site shows a dashboard as up to date ("Al día").
 //
@@ -32,7 +34,7 @@
 // In Actions: GITHUB_TOKEN (actions: read, issues: write) and GITHUB_REPOSITORY. Exits 1 only when GitHub
 // cannot be read: an unverifiable state is never written as a verdict.
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
-import { verdict, perCronLate, handRunsToCheck, creditHandRun, cronsInWorkflow, refreshLandedBySteps, attemptRecord, priceVerdict, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth, isoSeconds, cdmx } from './lib.mjs';
+import { verdict, perCronLate, handRunsToCheck, creditHandRun, cronsInWorkflow, cronFromTitle, refreshLandedBySteps, attemptRecord, priceVerdict, monthlyVerdict, lastCsvDate, jsonDate, jsonMonth, isoSeconds, cdmx } from './lib.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const argv = process.argv.slice(2);
@@ -85,7 +87,8 @@ async function runsOf(file, crons) {
       const { jobs } = await gh(`/repos/${REPO}/actions/runs/${run.id}/jobs?per_page=30`);
       ok = refreshLandedBySteps(jobs); after = ok;
     }
-    recent.push({ createdAt: run.created_at, landed: ok });
+    // the cron that fired the run, from its title (run-name in every scheduled workflow since 16-Oct-2026); null before that
+    recent.push({ createdAt: run.created_at, landed: ok, cron: cronFromTitle(run.display_title || run.name) });
     if (ok && !landed) landed = { run, afterCommitFailure: after };
   }
   if (!landed) {
@@ -215,7 +218,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last scheduled refresh landed (3 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange\'s last completed session and every monthly data feed carries the month its publisher\'s calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run\'s conclusion',
+  rule: `up to date = the last scheduled refresh landed (${GRACE / 36e5} h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion`,
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,

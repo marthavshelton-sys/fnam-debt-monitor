@@ -29,6 +29,7 @@
 # after the build (and runs even when the build stopped); what follows is optional (continue-on-error, time-limited). A source that fails three runs in a
 # row opens one "SOURCE DOWN: American Consumer - ..." issue (label consumidor-source-down), closed on recovery.
 name: Refresh American Consumer data
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:

@@ -137,21 +137,30 @@ async function firstThatWorks(label, attempts) {
   console.error(`FAIL ${label}: ${errors.join(" | ")}`);
   return null;
 }
-// A fallback source may cover a shorter window than the stored series (the Treasury's yearly CSV holds one calendar year;
-// FRED holds decades). When the primary source failed, keep every stored row and add only the dates the fallback brings,
-// so a one-day outage of the primary never truncates the committed history (2026-10-04).
+// The stored history is the base every fetched series is merged into, whatever answered (16-Oct-2026). Before, a primary
+// source that answered replaced the file outright, and a primary that answers without the latest session (FRED posts the
+// S&P 500 the next business day; Nasdaq posts ORCL's bar hours after the close) dropped the completed session an earlier run
+// had stored from a top-up: on 15-Oct-2026 the 23:15 UTC run added the 15-Oct S&P close from Yahoo, the 23:52 run got FRED
+// (ending 14-Oct) while Yahoo answered 429 and Stooq 403, the file lost the row, and the watchdog flagged the feed stale.
+// Rules: a row the fetched series carries replaces the stored one for that date when the primary answered (a correction at
+// the source wins); a fallback source (`series.fallback`: the primary failed, or a source whose window is shorter than the
+// stored history, such as the Treasury's yearly CSV, 2026-10-04) only adds dates the stored history lacks, so an outage of
+// the primary never rewrites FRED's or Nasdaq's figures with another vendor's; a stored row is never dropped.
 function readCSV(path) {
   if (!existsSync(path)) return [];
   return readFileSync(path, "utf8").trim().split(/\r?\n/).slice(1).map((l) => { const c = l.split(","); return { date: c[0], open: num(c[1]), high: num(c[2]), low: num(c[3]), close: num(c[4]), volume: num(c[5]) }; }).filter((r) => r.close != null && /^\d{4}-\d{2}-\d{2}$/.test(r.date));
 }
-function mergeFallback(series, path) {
-  if (!series || !series.fallback) return series;
-  const stored = readCSV(path); if (!stored.length) return series;
-  const have = new Set(stored.map((r) => r.date)); const added = series.rows.filter((r) => !have.has(r.date));
-  const rows = stored.concat(added).sort((a, b) => (a.date < b.date ? -1 : 1));
-  console.log(`     ${series.via}: merged into the stored series (kept ${stored.length} rows, added ${added.length} new date(s))`);
+export function mergeStored(series, stored) {
+  if (!series || !stored.length) return series;
+  const have = new Set(stored.map((r) => r.date)), fetched = new Set(series.rows.map((r) => r.date));
+  const kept = series.fallback ? stored : stored.filter((r) => !fetched.has(r.date));
+  const added = series.fallback ? series.rows.filter((r) => !have.has(r.date)) : series.rows;
+  const rows = kept.concat(added).sort((a, b) => (a.date < b.date ? -1 : 1));
+  const onlyStored = stored.filter((r) => !fetched.has(r.date)).length, newDates = series.rows.filter((r) => !have.has(r.date)).length;
+  console.log(`     ${series.via}: merged into the stored series (${stored.length} stored rows, ${onlyStored} kept that the source did not return, ${newDates} new date(s), ${series.fallback ? 'stored values kept' : 'fetched values win'} on overlap)`);
   return { ...series, rows };
 }
+function mergeFallback(series, path) { return mergeStored(series, series ? readCSV(path) : []); }
 
 async function main() {
   const orcl = await firstThatWorks("ORCL daily", [["Nasdaq", () => nasdaq("ORCL")], ["Yahoo Finance", () => yahoo("ORCL")], ["Stooq", () => stooq("orcl.us")]]);

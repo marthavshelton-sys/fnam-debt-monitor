@@ -20,6 +20,7 @@
 # site/macro/status.json and tools/macro/data/**; it never touches another
 # page's files or workflow.
 name: Refresh macro dashboard
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
 
 on:
   schedule:

@@ -329,6 +329,13 @@ dashboards, everything built from public data by GitHub Actions.
   alerts), and every optional step is `continue-on-error` with a time limit: the MX fiscal run lost 8 and 9-Oct-2026 to a
   failed apt install placed before its only commit step, while its freshness test passed on the fresh local file. The
   watchdog flags ONE missed scheduled refresh (`late`) since 9-Oct-2026 (owner: a failed or stale refresh shows the same day).
+- GitHub starts this repository's schedules late (three to seven hours in the week of 13-Oct-2026, some slots never). Since
+  16-Oct-2026 (owner): the watchdog's grace is 12 h (`tools/watchdog/dashboards.json → graceHours`); every scheduled workflow sets
+  `run-name` to "<name> (cron <github.event.schedule>)" so the watchdog books a run to the cron that fired it (`cronFromTitle`),
+  never to a later cron it started after (keep the line when adding a workflow); and the schedules GitHub has not started 40
+  minutes after their due time are dispatched by hand on main, by the watchdog's last step (`scripts/watchdog/dispatch-missed.mjs`)
+  and by the Cloudflare Worker in `tools/dispatcher/` every ten minutes once the owner deploys it with a fine-grained token (its
+  README). The pages treat a watchdog stamp older than 20 h as unverified (`STALE_HOURS`).
 - `data-watchdog.yml`, every 12 hours at 03:50 and 15:50 UTC (owner's choice, to limit deploys; `scripts/watchdog/`,
   runbook `tools/watchdog/README.md`), judges each dashboard's
   last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
@@ -350,7 +357,10 @@ dashboards, everything built from public data by GitHub Actions.
   `unverified`; close + 5 h for the nightly FactSet routines); any feed behind → status `stale`, red and pulsing on the
   dot (the Oracle phone header has one too) and the landing panel, plus a "SOURCE DOWN: watchdog - <name> prices stale"
   issue; between checks `data-status.js` compares the page's own `latestClose` with the next required session and can
-  turn red on its own (never green).
+  turn red on its own (never green). The Oracle S&P 500 feed (FRED SP500) may trail one session (`lagSessions: 1`, 16-Oct-2026):
+  FRED posts the next business day and the same-evening Yahoo/Stooq top-up is rate-limited at times; `fetch-market.mjs` merges
+  every fetched series into the stored file and never drops a stored session (a FRED answer ending the day before dropped the
+  15-Oct close a top-up had stored, 15-Oct-2026 23:52 UTC).
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
@@ -403,7 +413,10 @@ dashboards, everything built from public data by GitHub Actions.
   `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's
   monthly comunicados via web search of imss.gob.mx, each figure reconciled against IMSS's own printed
   monthly/YTD/12-month changes; derived months are labeled. Never fetch imss.gob.mx from a script or
-  the runner or work around its WAF. Monthly update: Claude Routine, prompt in `tools/mx-macro/imss-task-prompt.md`.
+  the runner or work around its WAF. Monthly update: Claude Routine "FNAM MX Macro: IMSS monthly update" (14th, 08:47 Mexico
+  City; prompt in `tools/mx-macro/imss-task-prompt.md`). The routine must carry the repository as a source on the Routines page:
+  on 14-Oct-2026 it read and reconciled September (22,927,276) but could not push (no repository attached, no token), so the
+  month was added in a session on 16-Oct and `health.mjs` had opened the MX macro alert at 76 days.
 - MX macro: an INPC subindex never runs ahead of the headline: the SIE posts the government-set tariffs subindex (SP74639)
   for a month before INEGI publishes that month's INPC (6-Oct-2026: a September point beside an August headline, so the
   component table printed 7.8% while the August-based figure is 7.7%); `renderInpc` cuts every component at the headline's

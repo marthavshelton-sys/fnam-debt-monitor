@@ -6,8 +6,8 @@
   "gaps": {
     "2025-06": "IMSS comunicado 202507/329 exists but its text could not be retrieved; left blank rather than estimated."
   },
-  "updatedAt": "2026-09-30",
-  "comunicado": "https://www.imss.gob.mx/prensa/archivo/202609/479",
+  "updatedAt": "2026-10-16",
+  "comunicado": "https://www.imss.gob.mx/prensa/archivo/202610/539",
   "series": [
     {
       "d": "2024-08",
@@ -159,6 +159,12 @@
       "v": 22798473,
       "how": "reported",
       "src": "https://www.imss.gob.mx/prensa/archivo/202609/479"
+    },
+    {
+      "d": "2026-09",
+      "v": 22927276,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202610/539"
     }
   ]
 }
