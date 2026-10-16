@@ -3,1154 +3,6 @@
  "entries": [
   {
    "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].due",
-   "old": "2027-02-01",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].source.title",
-   "old": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays",
-   "new": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].source.url",
-   "old": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays",
-   "new": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].date",
-   "old": "2026-09-30",
-   "new": "2026-10-08"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].kind",
-   "old": "safety",
-   "new": "power"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].basis",
-   "old": "company",
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].source.title",
-   "old": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods",
-   "new": "Bloomberg, Oct 8, 2026: Oracle Moves Gas by Trucks to Avoid Data Center Power Delays"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].source.url",
-   "old": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/",
-   "new": "https://www.bloomberg.com/news/articles/2026-10-08/oracle-moves-gas-by-trucks-to-avoid-data-center-power-delays"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].date",
-   "old": "2026-09-24",
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].kind",
-   "old": "force_majeure",
-   "new": "safety"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].source.title",
-   "old": "Bloomberg, Sep 24, 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
-   "new": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].source.url",
-   "old": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center",
-   "new": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].kind",
-   "old": "power",
-   "new": "force_majeure"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].due",
-   "old": "2027-02-01",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].source.title",
-   "old": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
-   "new": "Bloomberg, Sep 24, 2026: Oracle cites 'force majeure' to shield itself on controversial data center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].source.url",
-   "old": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/",
-   "new": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].kind",
-   "old": "permit",
-   "new": "power"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].due",
-   "old": "2026-11-23",
-   "new": "2027-02-01"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].en",
-   "old": "Air-quality permit for the on-site fuel cells is pending; the decision is due November 23, 2026.",
-   "new": "Gas supply: the Energy Transfer pipeline to the site is delayed to February 1, 2027 after repeated permit denials and an August reroute."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].source.title",
-   "old": "TechCrunch, Sep 24, 2026",
-   "new": "TechCrunch, Sep 24, 2026: Oracle sends force majeure notice on its New Mexico Stargate data center"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].date",
-   "old": "2026-09-18",
-   "new": "2026-09-24"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].kind",
-   "old": "financing",
-   "new": "permit"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].source.title",
-   "old": "Financial Times via Reuters, Sep 18, 2026: Oracle's $18 billion data center debt under pressure",
-   "new": "TechCrunch, Sep 24, 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].source.url",
-   "old": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html",
-   "new": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "capacity.quarters[0].text_es",
-   "old": null,
-   "new": "cerca de 400 megawatts de capacidad de centro de datos entregados a clientes; 50% más capacidad de GPU que en el 1T"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "capacity.quarters[1].text_es",
-   "old": null,
-   "new": "entregamos más de 400 megawatts a clientes; 90% de la capacidad comprometida entregada a tiempo o antes"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "capacity.quarters[2].text_es",
-   "old": null,
-   "new": "la entrega del 1T27 (850 MW) fue 'casi tres veces lo que entregamos en todo el 4T' → unos 290 MW"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "capacity.quarters[3].text_es",
-   "old": null,
-   "new": "850 megawatts de capacidad de IA, con más de 300,000 GPU, entregados desde el cierre del 4T; 73% de la capacidad total entregada en todo el AF2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "capacity.fiscal_years[0].text_es",
-   "old": null,
-   "new": "el AF2026, en el que entregamos más de 1.2 gigawatts a clientes"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[2].key",
-   "old": null,
-   "new": "S-CALL-FY2027Q1"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[11].title",
-   "old": null,
-   "new": "Oracle press release, Sep 30, 2026: Project Jupiter Statement on Southern New Mexico Floods"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[11].url",
-   "old": null,
-   "new": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[11].short",
-   "old": null,
-   "new": "Oracle PR 30 Sep 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].due",
-   "old": null,
-   "new": "2027-02-01"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[5].due",
-   "old": null,
-   "new": "2026-11-23"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].date",
-   "old": null,
-   "new": "2026-09-18"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].kind",
-   "old": null,
-   "new": "financing"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].status",
-   "old": null,
-   "new": "open"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].en",
-   "old": null,
-   "new": "About US$18 bn of project loans were quoted at 89–91 cents on the dollar by syndicate banks; selling the debt to a wider pool of investors stalled. The loans are the developer's, not Oracle's."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].es",
-   "old": null,
-   "new": "Unos US$18 mil millones de préstamos del proyecto cotizaban a 89–91 centavos por dólar entre los bancos del sindicato; la venta de esa deuda a más inversionistas se estancó. Los préstamos son del desarrollador, no de Oracle."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].source.title",
-   "old": null,
-   "new": "Financial Times via Reuters, Sep 18, 2026: Oracle's $18 billion data center debt under pressure"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[6].source.url",
-   "old": null,
-   "new": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].id",
-   "old": "point-beach-energy",
-   "new": "epe-jupiter-energy-service"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].site",
-   "old": "Port Washington, WI",
-   "new": "Doña Ana County, NM (Project Jupiter)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].date",
-   "old": "2026-10-02",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].amount_text",
-   "old": "≈ US$ 300 M",
-   "new": "US$ 10 M a year × 10 years ≈ US$ 100 M (proposed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].source.title",
-   "old": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents",
-   "new": "Oracle press release, Oct 13, 2026: Oracle Proposes Plan that could deliver at least $155M to offset customers utility costs in New Mexico"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[0].source.url",
-   "old": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
-   "new": "https://www.oracle.com/news/announcement/oracle-proposes-plan-to-offset-customers-utility-costs-2026-10-13/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].id",
-   "old": "wisconsin-financial-assurance",
-   "new": "point-beach-energy"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].date",
-   "old": "2026-08-17",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].amount_text",
-   "old": "> US$ 100 M a year",
-   "new": "≈ US$ 300 M"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].source.title",
-   "old": "WPR, Aug 17, 2026: Oracle drops Wisconsin suit over financial requirements for data centers",
-   "new": "Oracle press release, Oct 2, 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[1].source.url",
-   "old": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers",
-   "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].id",
-   "old": "atc-port-washington-line",
-   "new": "wisconsin-financial-assurance"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].date",
-   "old": "2026-09-18",
-   "new": "2026-08-17"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].amount_text",
-   "old": "US$ 2.48–2.72 bn (ATC estimate)",
-   "new": "> US$ 100 M a year"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].source.title",
-   "old": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever",
-   "new": "WPR, Aug 17, 2026: Oracle drops Wisconsin suit over financial requirements for data centers"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[2].source.url",
-   "old": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/",
-   "new": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.text_es",
-   "old": null,
-   "new": "Al 31 de agosto de 2026 teníamos $288 mil millones de compromisos de arrendamiento adicionales, sustancialmente todos relacionados con acuerdos de centros de datos, que en general se espera que inicien entre el segundo trimestre del año fiscal 2027 y el año fiscal 2029 y por plazos de quince a diecinueve años, y que no estaban reflejados en nuestros balances generales consolidados condensados al 31 de agosto de 2026 ni en la tabla de vencimientos anterior."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].id",
-   "old": null,
-   "new": "atc-port-washington-line"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].site",
-   "old": null,
-   "new": "Port Washington, WI"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].date",
-   "old": null,
-   "new": "2026-09-18"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].amount_text",
-   "old": null,
-   "new": "US$ 2.48–2.72 bn (ATC estimate)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].en",
-   "old": null,
-   "new": "ATC's refiled transmission application for the Port Washington campus is estimated at US$2.48–2.72 billion; about US$1.1 billion of it is the Decker grid-stabilization system that Oracle has committed to fund, with no cost to other customers per the application (WPR via Urban Milwaukee, Sep 18, 2026). The utility's estimate, not an Oracle commitment except the Decker system; whether Oracle pays depends on FERC's transmission rate rules."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].es",
-   "old": null,
-   "new": "La solicitud de transmisión que ATC volvió a presentar para el campus de Port Washington se estima en US$2.48–2.72 mil millones; unos US$1.1 mil millones corresponden al sistema de estabilización de la red en Decker que Oracle se comprometió a financiar, sin costo para otros usuarios según la solicitud (WPR vía Urban Milwaukee, 18 sep 2026). Estimación de la empresa de transmisión, no un compromiso de Oracle salvo el sistema de Decker; que Oracle pague depende de las reglas tarifarias de la FERC."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].source.title",
-   "old": null,
-   "new": "Wisconsin Public Radio via Urban Milwaukee, Sep 18, 2026: ATC's Reworked Port Washington Transmission Line Could Be Wisconsin's Costliest Ever"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "obligations.js",
-   "path": "site_commitments.items[3].source.url",
-   "old": null,
-   "new": "https://urbanmilwaukee.com/2026/09/18/atcs-reworked-port-washington-transmission-line-could-be-wisconsins-costliest-ever/"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "asOf",
-   "old": "2026-10-05",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "windowStart",
-   "old": "2026-08-06",
-   "new": "2026-08-14"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "libraryNote.en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "libraryNote.es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].date",
-   "old": "2026-08-07",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].title",
-   "old": "Oracle: Flexing Funding Mix",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].rating",
-   "old": "Buy",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].target_usd",
-   "old": 300,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].price_at_report",
-   "old": 144.39,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].note_en",
-   "old": "After two weeks of investor meetings with management, funding of the roughly US$600 bn backlog is the first, second and third question. Base case: about US$40 bn of incremental capital in FY28 on roughly US$120 bn of gross capex and US$20-25 bn of customer prepayments, probably the high end of possible needs. If the fundamentals, the long-term targets and the execution hold, the downside from the financing mix looks limited.",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].earlier[0].note_es",
-   "old": "Tras dos semanas de reuniones de inversionistas con la administración, el financiamiento de la cartera de unos US$600 mil M es la primera, segunda y tercera pregunta. Caso base: unos US$40 mil M de capital incremental en el AF28 con un capex bruto de unos US$120 mil M y prepagos de clientes de US$20-25 mil M, probablemente el extremo alto de las necesidades posibles. Si se sostienen los fundamentales, los objetivos de largo plazo y la ejecución, el riesgo a la baja por la mezcla de financiamiento luce acotado.",
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[0].source.title",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].date",
-   "old": "2026-09-08",
-   "new": "2026-09-24"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].title",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].price_at_report",
-   "old": null,
-   "new": 139.54
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].price_date",
-   "old": null,
-   "new": "2026-09-24"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].source.title",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[3].label_en",
-   "old": null,
-   "new": "Pre-results preview: written Sep 8, before the Sep 10 results; the target and its basis predate 1Q27"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[3].label_es",
-   "old": null,
-   "new": "Previa a resultados: escrita el 8 sep, antes de los resultados del 10 sep; el objetivo y su base son anteriores al 1T27"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].date",
-   "old": null,
-   "new": "2026-09-24"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].title",
-   "old": null,
-   "new": "Data Centers: The impact of Oracle's force majeure on Oracle, Bloom Energy and the broader data center industry"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].rating",
-   "old": null,
-   "new": "Outperform"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].target_usd",
-   "old": null,
-   "new": 325
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].price_at_report",
-   "old": null,
-   "new": 139.54
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].note_en",
-   "old": null,
-   "new": "The ~4% fall on the Project Jupiter force majeure notice is called an overreaction: the campus was not expected to serve customers before late CY2028 (four buildings of about 225 MW each in Bernstein's estimate), management said neither site affects FY2027 guidance, hyperscalers contract more shell capacity than they need, and the notice gives Oracle options to delay payments to the builder or walk away if the CY2028 go-live is missed. The Bloom Energy fuel-cell contract (up to ~2.5 GW at the site) is seen as intact. Thesis and US$325 target unchanged."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[4].earlier[0].note_es",
-   "old": null,
-   "new": "La caída de ~4% por el aviso de fuerza mayor en el Proyecto Júpiter se califica de sobrerreacción: el campus no atendería clientes antes de fines de 2028 (cuatro edificios de unos 225 MW cada uno, estimación de Bernstein), la administración dijo que ningún sitio afecta la guía del AF2027, los hiperescaladores contratan más capacidad de la que necesitan y el aviso da a Oracle la opción de retrasar pagos al constructor o retirarse si no se cumple la puesta en marcha de 2028. El contrato de celdas de combustible con Bloom Energy (hasta ~2.5 GW en el sitio) se ve intacto. Tesis y objetivo de US$325 sin cambio."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].id",
-   "old": null,
-   "new": "ms-credit"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].house",
-   "old": null,
-   "new": "Morgan Stanley (credit research)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].kind",
-   "old": null,
-   "new": "credit"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].analysts",
-   "old": null,
-   "new": "Lindsay A. Tyler, Benjamin Guerrero"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].date",
-   "old": null,
-   "new": "2026-09-11"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].title",
-   "old": null,
-   "new": "ORCL Credit: New Bookings, Old Bills – FY1Q27 Quick Takes"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].rating",
-   "old": null,
-   "new": "Cautious (sell the 2035 and 2055 notes, long 5-year CDS)"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].rating_class",
-   "old": null,
-   "new": "credit"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].target_usd",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].target_prev_usd",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].price_at_report",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].price_date",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].thesis_en",
-   "old": null,
-   "new": "1Q27 gives both sides of the debate data points but does not change the cautious view: the US$20 bn ATM is complete and new RPO is increasingly prepay-funded (improving near-term liquidity, with a rollover-like sensitivity if new inflows fund the legacy backlog), while capital intensity, parent funding needs and leverage stay elevated. Through FY2028-end the house still models about US$45 bn of bond funding even with meaningful prepayments, with gross adjusted leverage above Moody's downgrade threshold (above 3.5x through FY2028, pressure into FY2029–30). It would sell into post-print strength ahead of the Investor Day."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].thesis_es",
-   "old": null,
-   "new": "El 1T27 da datos a ambos lados del debate pero no cambia la visión cautelosa: el ATM de US$20 mil M está completo y el nuevo RPO se financia cada vez más con prepagos (mejora la liquidez de corto plazo, con una sensibilidad tipo refinanciamiento si las entradas nuevas financian el backlog anterior), mientras la intensidad de capital, las necesidades de fondeo de la matriz y el apalancamiento siguen elevados. Hasta el cierre del AF2028 la casa aún modela unos US$45 mil M de emisión de bonos incluso con prepagos significativos, con apalancamiento bruto ajustado por encima del umbral de baja de Moody's (más de 3.5x hasta el AF2028, presión hacia 2029–30). Vendería en la fortaleza posterior al reporte antes del Investor Day."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].method_en",
-   "old": null,
-   "new": "Credit view, not an equity target: spread targets of about 200 bp for the 2035 notes and about 250 bp for the 2055 notes (the 2036/2056 notes 10 bp wider), still implying modest widening; about 200 bp or slightly wider as a reasonable 5-year CDS level. Sources and uses FY1Q27–FY2028: gross capex, dividends and maturities against operating cash flow with prepayments, the elevated quarter-end cash and hypothetical bond deals in 1H CY2027 and FY2028."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].method_es",
-   "old": null,
-   "new": "Visión de crédito, no un objetivo de acción: diferenciales objetivo de unos 200 pb para los bonos 2035 y unos 250 pb para los 2055 (los 2036/2056, 10 pb más amplios), que aún implican una ampliación moderada; unos 200 pb o algo más como nivel razonable del CDS a 5 años. Fuentes y usos 1T27–AF2028: capex bruto, dividendos y vencimientos frente al flujo operativo con prepagos, el efectivo elevado al cierre del trimestre y emisiones hipotéticas en el 1S de 2027 y el AF2028."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].basis_short_en",
-   "old": null,
-   "new": "Spread targets ~200 bp (2035s), ~250 bp (2055s); 5-year CDS ~200 bp or wider"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].basis_short_es",
-   "old": null,
-   "new": "Diferenciales objetivo ~200 pb (2035), ~250 pb (2055); CDS 5 años ~200 pb o más"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].risks_en",
-   "old": null,
-   "new": "Constructive updates on RPO, growth and financing clarity; term loans not serving a significant funding role; CDS technicals (basis selling, construction-loan hedge unwinds, profit taking by outright shorts); an issuance cadence different from the house's assumptions; more visibility on long-term monetization and deleveraging beyond FY2028."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].risks_es",
-   "old": null,
-   "new": "Noticias constructivas sobre RPO, crecimiento y claridad del financiamiento; préstamos a plazo sin un papel relevante de fondeo; factores técnicos del CDS (venta de base, deshacer coberturas de préstamos de construcción, toma de utilidades de cortos); un ritmo de emisión distinto al supuesto por la casa; más visibilidad sobre la monetización y el desapalancamiento de largo plazo más allá del AF2028."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].source.basis",
-   "old": null,
-   "new": "report"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "houses[8].source.title",
-   "old": null,
-   "new": "Morgan Stanley Credit Research (TMT, North America), ORCL Credit: New Bookings, Old Bills – FY1Q27 Quick Takes, 11 September 2026; owner's research library, not republished"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].id",
-   "old": null,
-   "new": "mizuho"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].house",
-   "old": null,
-   "new": "Mizuho Securities"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].analysts",
-   "old": null,
-   "new": "Siti Panigrahi"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].date",
-   "old": null,
-   "new": "2026-10-08"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].rating",
-   "old": null,
-   "new": "Outperform"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].rating_class",
-   "old": null,
-   "new": "buy"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].target_usd",
-   "old": null,
-   "new": 320
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].price_at_report",
-   "old": null,
-   "new": 144.77
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].basis_short_en",
-   "old": null,
-   "new": "Not reported"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].basis_short_es",
-   "old": null,
-   "new": "No reportado"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].note_en",
-   "old": null,
-   "new": "Added to Mizuho's Top Picks list as the analyst's No. 1 pick (Oct 8): US$638 bn of RPO at fiscal 4Q26 on AI cloud demand; Mizuho forecasts 35% annual revenue growth from FY2026 to FY2030, to US$226 bn; risks named: outside financing for the spending and the lower gross margin of the AI cloud. The US$320 target was 25% above the Bloomberg consensus; Outperform and the target date from the Sep 9 pre-results note."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].note_es",
-   "old": null,
-   "new": "Incorporada a la lista Top Picks de Mizuho como la selección número 1 del analista (8 oct): US$638 mil M de RPO al 4T26 fiscal por la demanda de nube de IA; Mizuho pronostica 35% de crecimiento anual de ingresos del AF2026 al AF2030, hasta US$226 mil M; riesgos señalados: financiamiento externo para el gasto y el menor margen bruto de la nube de IA. El objetivo de US$320 estaba 25% por encima del consenso de Bloomberg; Outperform y el objetivo datan de la nota previa a resultados del 9 sep."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].source.basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].source.title",
-   "old": null,
-   "new": "Oracle and these 6 stocks are newest addition to Mizuho Top Picks list, StreetInsider (Investing.com), 8 October 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[6].source.url",
-   "old": null,
-   "new": "https://www.streetinsider.com/General+News/Oracle+and+these+6+stocks+are+newest+addition+to+Mizuho+Top+Picks+list/27163744.html"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].id",
-   "old": null,
-   "new": "yorkville-ives"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].house",
-   "old": null,
-   "new": "Yorkville Ives"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].analysts",
-   "old": null,
-   "new": "Dan Ives"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].date",
-   "old": null,
-   "new": "2026-10-07"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].rating",
-   "old": null,
-   "new": "In Line"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].rating_class",
-   "old": null,
-   "new": "hold"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].target_usd",
-   "old": null,
-   "new": 155
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].price_at_report",
-   "old": null,
-   "new": 143.41
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].basis_short_en",
-   "old": null,
-   "new": "Not reported"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].basis_short_es",
-   "old": null,
-   "new": "No reportado"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].note_en",
-   "old": null,
-   "new": "Initiation at In Line (Oct 7): the firm is 'staying on the sidelines until the company shows it can execute a build of this scale'; Oracle 'has built a position in AI infrastructure and retains a differentiated ability to monetize demand' but is 'funding the build at a rising cost of capital'."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].note_es",
-   "old": null,
-   "new": "Inicio de cobertura en In Line (7 oct): la firma 'se mantiene al margen hasta que la empresa demuestre que puede ejecutar una construcción de esta escala'; Oracle 'ha construido una posición en infraestructura de IA y conserva una capacidad diferenciada para monetizar la demanda' pero 'financia la construcción a un costo de capital creciente' (traducción de FNAM)."
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].source.basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].source.title",
-   "old": null,
-   "new": "Yorkville Ives initiates Oracle stock coverage at In Line on execution risk, Investing.com, 7 October 2026"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
-   "file": "analysts.js",
-   "path": "reported[7].source.url",
-   "old": null,
-   "new": "https://www.investing.com/news/analyst-ratings/yorkville-ives-initiates-oracle-stock-coverage-at-in-line-on-execution-risk-93CH-4937090"
-  },
-  {
-   "at": "2026-10-14T02:47:28.097Z",
    "file": "news.js",
    "path": "sweepNote.en",
    "old": "(text)",
@@ -4200,7 +3052,1155 @@
    "path": "basis.marketDate",
    "old": "2026-10-15",
    "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.factset.to",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.factset.n",
+   "old": 2963,
+   "new": 2964
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2963,
+   "new": 2964
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-15",
+   "new": "2025-10-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "asOf",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.price",
+   "old": 130.55,
+   "new": 134.47
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.price_date",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.market_cap_usd_m",
+   "old": 394783,
+   "new": 406637
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.market_cap_date",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.market_value_factset.usd_m",
+   "old": 432999,
+   "new": 394749
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.market_value_factset.date",
+   "old": "2026-10-13",
+   "new": "2026-10-14"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.mean",
+   "old": 9.211,
+   "new": 9.219
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.median",
+   "old": 9.174,
+   "new": 9.182
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.high",
+   "old": 10.209,
+   "new": 10.222
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.low",
+   "old": 8.811,
+   "new": 8.817
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.sd",
+   "old": 0.276,
+   "new": 0.278
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.mean",
+   "old": 59652,
+   "new": 59713
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.median",
+   "old": 60989,
+   "new": 61054
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.high",
+   "old": 72462,
+   "new": 72539
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.low",
+   "old": 48937,
+   "new": 48971
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.sd",
+   "old": 5621,
+   "new": 5631
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.mean",
+   "old": 105711,
+   "new": 105823
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.median",
+   "old": 105735,
+   "new": 105848
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.high",
+   "old": 109556,
+   "new": 109688
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.low",
+   "old": 99837,
+   "new": 99916
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.sd",
+   "old": 1757,
+   "new": 1767
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.mean",
+   "old": -36395,
+   "new": -36390
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.median",
+   "old": -34450,
+   "new": -34440
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.high",
+   "old": -19979,
+   "new": -19934
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.low",
+   "old": -76553,
+   "new": -76548
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.sd",
+   "old": 13354,
+   "new": 13367
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].da.as_of",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].da.as_of",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].da.as_of",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[3].da.as_of",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.usd_m",
+   "old": 4361.2,
+   "new": 4327.9
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.product_of_averages_usd_m",
+   "old": 4384.6,
+   "new": 4348.9
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.avg_volume_m",
+   "old": 31.02,
+   "new": 30.77
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].price",
+   "old": 533.69,
+   "new": 539.44
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].marketCapUsdM",
+   "old": 3963716,
+   "new": 4006421
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].evUsdM",
+   "old": 4015686,
+   "new": 4058391
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEps",
+   "old": 20.841,
+   "new": 20.862
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEbitda",
+   "old": 258033,
+   "new": 258322
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmSales",
+   "old": 413030,
+   "new": 413380
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].peNtm",
+   "old": 25.607696367736676,
+   "new": 25.857540024925708
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].evEbitdaNtm",
+   "old": 15.562683842764297,
+   "new": 15.710589883943296
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].evSalesNtm",
+   "old": 9.722504418565237,
+   "new": 9.81757946683439
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].fy1.eps",
+   "old": 19.747,
+   "new": 19.753
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].fy2.eps",
+   "old": 23.514,
+   "new": 23.537
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].epsGrowthFy2Pct",
+   "old": 19.076315389679444,
+   "new": 19.156583810054162
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].divYieldPct",
+   "old": 0.7345087972418445,
+   "new": 0.7266795195017054
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtvUsdM",
+   "old": 12988.7,
+   "new": 12961.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.usd_m",
+   "old": 12988.7,
+   "new": 12961.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.product_of_averages_usd_m",
+   "old": 13183.4,
+   "new": 13147
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.avg_volume_m",
+   "old": 27.27,
+   "new": 27.07
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.avg_vwap_usd",
+   "old": 483.4,
+   "new": 485.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].price",
+   "old": 220.49,
+   "new": 225
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].marketCapUsdM",
+   "old": 254490,
+   "new": 259695
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].evUsdM",
+   "old": 253836,
+   "new": 259041
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEps",
+   "old": 9.215,
+   "new": 9.196
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEbitda",
+   "old": 16400,
+   "new": 16384
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmSales",
+   "old": 49963,
+   "new": 49871
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].peNtm",
+   "old": 23.927292457948997,
+   "new": 24.46715963462375
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].evEbitdaNtm",
+   "old": 15.477804878048781,
+   "new": 15.81060791015625
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].evSalesNtm",
+   "old": 5.080479554870604,
+   "new": 5.194221090413266
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].fy1.eps",
+   "old": 8.034,
+   "new": 8.013
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].fy2.eps",
+   "old": 9.536,
+   "new": 9.513
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].epsGrowthFy2Pct",
+   "old": 18.69554393826236,
+   "new": 18.719580681392745
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].iadUsd",
+   "old": 2.941,
+   "new": 2.940725
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].divYieldPct",
+   "old": 1.33384734001542,
+   "new": 1.3069888888888888
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtvUsdM",
+   "old": 498,
+   "new": 501.5
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.usd_m",
+   "old": 498,
+   "new": 501.5
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.product_of_averages_usd_m",
+   "old": 511.1,
+   "new": 514.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.avg_volume_m",
+   "old": 2.53,
+   "new": 2.54
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[1].adtv.avg_vwap_usd",
+   "old": 201.78,
+   "new": 202.84
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].price",
+   "old": 235.95,
+   "new": 246.74
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].marketCapUsdM",
+   "old": 194187,
+   "new": 203067
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].evUsdM",
+   "old": 225160,
+   "new": 234040
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEps",
+   "old": 16.277,
+   "new": 16.275
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEbitda",
+   "old": 20326,
+   "new": 20329
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmSales",
+   "old": 49500,
+   "new": 49513
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].peNtm",
+   "old": 14.495914480555383,
+   "new": 15.16067588325653
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].evEbitdaNtm",
+   "old": 11.077437764439633,
+   "new": 11.512617443061636
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].evSalesNtm",
+   "old": 4.548686868686869,
+   "new": 4.726839415910973
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].divYieldPct",
+   "old": 0.745920745920746,
+   "new": 0.7133014509199967
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtvUsdM",
+   "old": 2830,
+   "new": 2828.7
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.usd_m",
+   "old": 2830,
+   "new": 2828.7
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.product_of_averages_usd_m",
+   "old": 2797.7,
+   "new": 2798
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.avg_volume_m",
+   "old": 12.96,
+   "new": 12.89
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.avg_vwap_usd",
+   "old": 215.87,
+   "new": 217.05
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].price",
+   "old": 139.98,
+   "new": 148.57
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].marketCapUsdM",
+   "old": 144720,
+   "new": 153601
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].evUsdM",
+   "old": 148500,
+   "new": 157381
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEps",
+   "old": 4.816,
+   "new": 4.818
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEbitda",
+   "old": 7295,
+   "new": 7298
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmSales",
+   "old": 18601,
+   "new": 18609
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].peNtm",
+   "old": 29.0656146179402,
+   "new": 30.83644665836447
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].evEbitdaNtm",
+   "old": 20.3564084989719,
+   "new": 21.564949301178405
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].evSalesNtm",
+   "old": 7.983441750443524,
+   "new": 8.457251867376002
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtvUsdM",
+   "old": 2132.1,
+   "new": 2149.5
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.usd_m",
+   "old": 2132.1,
+   "new": 2149.5
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.product_of_averages_usd_m",
+   "old": 2206.3,
+   "new": 2224.8
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.avg_volume_m",
+   "old": 17.32,
+   "new": 17.38
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.avg_vwap_usd",
+   "old": 127.38,
+   "new": 128.01
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].price",
+   "old": 227.88,
+   "new": 234.12
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].marketCapUsdM",
+   "old": 214663,
+   "new": 220541
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].evUsdM",
+   "old": 271758,
+   "new": 277636
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmEbitda",
+   "old": 20521,
+   "new": 20515
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmSales",
+   "old": 72523,
+   "new": 72518
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].peNtm",
+   "old": 17.56300578034682,
+   "new": 18.04393063583815
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].evEbitdaNtm",
+   "old": 13.242921884898397,
+   "new": 13.533317085059712
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].evSalesNtm",
+   "old": 3.74719744081188,
+   "new": 3.8285115419619955
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].fy1.eps",
+   "old": 12.314,
+   "new": 12.311
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].fy2.eps",
+   "old": 13.155,
+   "new": 13.153
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].epsGrowthFy2Pct",
+   "old": 6.8296248172811325,
+   "new": 6.839411908049708
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].divYieldPct",
+   "old": 2.9664735825873265,
+   "new": 2.8874081667520928
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtvUsdM",
+   "old": 1585.5,
+   "new": 1507.4
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.usd_m",
+   "old": 1585.5,
+   "new": 1507.4
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.product_of_averages_usd_m",
+   "old": 1609.1,
+   "new": 1526.4
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.start",
+   "old": "2026-07-15",
+   "new": "2026-07-16"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.end",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.avg_volume_m",
+   "old": 7.03,
+   "new": 6.66
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.avg_vwap_usd",
+   "old": 228.79,
+   "new": 229.05
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].priceDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].price",
+   "old": 188.77,
+   "new": 196.63
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].marketCapUsdM",
+   "old": 45494,
+   "new": 47388
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].marketCapDate",
+   "old": "2026-10-14",
+   "new": "2026-10-15"
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].evUsdM",
+   "old": 45856,
+   "new": 47750
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEps",
+   "old": 12.597,
+   "new": 12.603
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEbitda",
+   "old": 4006,
+   "new": 4008
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmSales",
+   "old": 11449,
+   "new": 11452
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].peNtm",
+   "old": 14.985313963642138,
+   "new": 15.601840831548044
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].evEbitdaNtm",
+   "old": 11.446829755366949,
+   "new": 11.913672654690618
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].evSalesNtm",
+   "old": 4.005240632369639,
+   "new": 4.169577366398882
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].fy2.eps",
+   "old": 13.24,
+   "new": 13.239
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].epsGrowthFy2Pct",
+   "old": 19.419139532786154,
+   "new": 19.4101199603139
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].adtvUsdM",
+   "old": 677.6,
+   "new": 679.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "peers[5].adtv.usd_m",
+   "old": 677.6,
+   "new": 679.6
+  },
+  {
+   "at": "2026-10-16T00:01:42.336Z",
+   "file": "peers.js",
+   "path": "(more)",
+   "old": null,
+   "new": "422 leaves compared; further changes in this file not listed"
   }
  ],
- "generated": "2026-10-15T23:52:47.448Z"
+ "generated": "2026-10-16T00:01:57.312Z"
 }
