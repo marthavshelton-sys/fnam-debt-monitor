@@ -1,3 +1,3 @@
 // Written by the daily reviewing routine (tools/qualitas/ROUTINE.md) at the end of every run; do not hand-edit.
 // result: "quiet" = nothing material, "material" = curated files updated and a note emailed, "pipeline" = a data problem was reported.
-window.Q_REVIEW = {"lastRunAt": "2026-10-15T15:57:21Z", "result": "quiet", "lastQuarterChecked": "2026Q2", "note": {"es": "Se revisaron resultados, datos operativos, expectativas, archivo de referencia, alertas y precio de Q.MX al 14-oct-2026; sin cambios materiales.", "en": "Results, operating data, expectations, reference file, alerts and the Q.MX price through 14-Oct-2026 were checked; no material change."}};
+window.Q_REVIEW = {"lastRunAt": "2026-10-16T17:38:14Z", "result": "quiet", "lastQuarterChecked": "2026Q2", "note": {"es": "Se revisaron resultados, eventos, referencia y umbrales de alerta; sin cambios materiales.", "en": "Results, events, reference facts and alert thresholds were checked; no material change."}};
