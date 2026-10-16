@@ -67,6 +67,19 @@
     "totalAssets": 71877.08,
     "roa": 8.43,
     "roe": 30.71
+   },
+   {
+    "month": "202608",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202608.xlsx",
+    "loans": 61437.88,
+    "imor": 5.17,
+    "coverage": 190.89,
+    "loansMicro": 51594.26,
+    "imorMicro": 5.1,
+    "captacion": 45706.61,
+    "totalAssets": 74499.94,
+    "roa": 8.54,
+    "roe": 31.02
    }
   ]
  },
@@ -150,7 +163,7 @@
  },
  "log": [
   "CNBV 202609: HTTP Error 404: NOT FOUND",
-  "CNBV 202608: HTTP Error 404: NOT FOUND"
+  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202608.xlsx (public statistics download)"
  ],
- "updatedAt": "2026-10-15T18:41:03+00:00"
+ "updatedAt": "2026-10-16T18:05:30+00:00"
 }
