@@ -78,9 +78,9 @@ jobs:
             exit 0
           fi
           git commit -m "watchdog: data status $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
-          for i in 1 2 3 4; do
+          for i in 1 2 3 4 5 6 7 8; do
             if git push origin HEAD:main; then exit 0; fi
-            echo "push failed; rebasing and retrying ($i)"
+            echo "push failed; rebasing and retrying ($i)"   # a merge that touches the workflow files starts every push-triggered refresh at once: main moved five times in a minute on 16-Oct-2026
             git pull --rebase origin main || true
             sleep $((i * 5))
           done

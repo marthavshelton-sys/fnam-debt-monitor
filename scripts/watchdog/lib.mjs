@@ -109,21 +109,27 @@ export function isoSeconds(t) {
 // on 15-Oct-2026 the Oracle 20:35 UTC schedule started at 23:15, after the 21:45 due time, was booked as the 21:45 run, and the
 // 20:35 cron read "late" with every file current; the U.S. macro 12:50 and Mexican Consumer 12:20 schedules read late for days
 // the same way. A cron is late when its last due time at least `graceMs` old has no landed run of its own (one miss, the
-// same-day rule of 9-Oct-2026). runs: [{ createdAt, landed, cron? }]. `since` (ms): the oldest
+// same-day rule of 9-Oct-2026), unless a newer due time of the same cron is covered: with a 12 h grace the judged slot is
+// often yesterday's, and a run booked to today's slot of that cron (a titled schedule or a hand run) makes yesterday's miss
+// moot, the data being fresher than the slot in question (16-Oct-2026: the Mexican Consumer 12:20 cron read late at 18:17
+// after a hand run at 18:08, because the judged slot was 15-Oct 12:20). runs: [{ createdAt, landed, cron? }]. `since` (ms): the oldest
 // instant the run list covers; due times before it are not judged (a workflow with several runs a day shows only its last few
 // days in one page of runs, and a weekend-only cron must not read as late because its runs fell off that page).
 export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = null }) {
   const from = Math.max(now - lookbackMs, since != null ? since : -Infinity);
   const all = dueTimes(crons, from - 864e5, now); // every due time of every cron (a day earlier too, so a run just after `from` is attributed)
-  const covered = new Set(), hand = [];
+  const perCron = new Map(crons.map((c) => [c, new Set(dueTimes([c], from - 864e5, now))]));
+  const covered = new Map(crons.map((c) => [c, new Set()])), hand = [];
+  const cover = (cron, d) => { if (d != null) covered.get(cron).add(d); };
   for (const r of runs || []) {
     if (!r.landed) continue;
     const t = Date.parse(r.createdAt); if (!Number.isFinite(t)) continue;
-    let d = null;
     const named = r.cron ? crons.find((c) => normCron(c) === normCron(r.cron)) : null;
-    if (named) d = dueTimes([named], from - 864e5, t).slice(-1)[0] ?? null; // its own schedule's latest due time at or before its start
-    else for (const x of all) { if (x <= t) d = x; else break; }
-    if (d != null) covered.add(d);
+    if (named) cover(named, dueTimes([named], from - 864e5, t).slice(-1)[0]); // its own schedule's latest due time at or before its start
+    else {
+      let d = null; for (const x of all) { if (x <= t) d = x; else break; }
+      if (d != null) for (const c of crons) if (perCron.get(c).has(d)) cover(c, d); // the slot belongs to every cron due at that minute
+    }
     if (r.manual) hand.push({ t, crons: r.crons || crons });
   }
   // A refresh re-run by hand on main does the whole job of every schedule of its workflow, so it also stands in for the latest
@@ -132,16 +138,16 @@ export function perCronLate({ crons, now, graceMs, lookbackMs, runs, since = nul
   // already covered and the three read "late" for a day or more with every file current). A scheduled run still covers only the
   // slot it belongs to (a market-only run never covers a failing filings run), and a slot after the hand run is not covered.
   for (const h of hand) {
-    for (const cron of h.crons) {
-      const d = dueTimes([cron], from - 864e5, h.t).slice(-1)[0];
-      if (d != null) covered.add(d);
-    }
+    for (const cron of h.crons) if (covered.has(cron)) cover(cron, dueTimes([cron], from - 864e5, h.t).slice(-1)[0]);
   }
   const out = [];
   for (const cron of crons) {
     const due = dueTimes([cron], from, now - graceMs).slice(-1);
     if (!due.length) continue;
-    if (!covered.has(due[0])) out.push({ cron, missedSince: due[0] });
+    const own = covered.get(cron);
+    if (own.has(due[0])) continue;
+    if ([...own].some((d) => d > due[0])) continue; // a newer slot of this cron has landed: the older miss is moot
+    out.push({ cron, missedSince: due[0] });
   }
   return out;
 }

@@ -92,6 +92,14 @@ const mac = { crons: ['50 12,13 * * 1-5', '5 14,20 * * *', '45 14,15 * * 3', '20
 const macRuns = [{ createdAt: '2026-10-15T22:58:12Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-15T18:08:09Z', landed: true, cron: '50 12,13 * * 1-5' }, { createdAt: '2026-10-15T17:43:05Z', landed: true, cron: '20 17 * * 4' }, { createdAt: '2026-10-15T17:24:00Z', landed: true, cron: '50 12,13 * * 1-5' }, { createdAt: '2026-10-14T23:04:58Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-14T19:42:09Z', landed: true, cron: '45 14,15 * * 3' }, { createdAt: '2026-10-14T18:25:25Z', landed: true, cron: '45 14,15 * * 3' }, { createdAt: '2026-10-14T17:37:48Z', landed: true, cron: '5 14,20 * * *' }, { createdAt: '2026-10-14T15:12:24Z', landed: true, cron: '50 12,13 * * 1-5' }];
 assert.deepEqual(perCronLate({ ...mac, now: t('2026-10-16T08:31:00Z'), runs: macRuns }), []);
 assert.deepEqual(perCronLate({ ...mac, now: t('2026-10-16T08:31:00Z'), runs: macRuns.map((r) => ({ ...r, cron: null })) }).map((x) => x.cron), ['50 12,13 * * 1-5']);
+// a newer covered slot of the same cron makes an older miss moot (Mexican Consumer, 16-Oct-2026 18:17: the judged slot was
+// 15-Oct 12:20, uncovered, while a hand run at 18:08 covered 16-Oct 12:20; a newer slot of ANOTHER cron never does)
+const mxc = { crons: ['20 12 * * *', '20 15 * * *', '20 23 * * *', '20 3 * * *'], graceMs: 12 * H, lookbackMs: 14 * 24 * H };
+const mxcRuns = [{ createdAt: '2026-10-16T16:43:00Z', landed: true, cron: '20 15 * * *' }, { createdAt: '2026-10-16T08:19:09Z', landed: true, cron: null }, { createdAt: '2026-10-16T01:25:27Z', landed: true, cron: null }, { createdAt: '2026-10-15T19:10:54Z', landed: true, cron: null }, { createdAt: '2026-10-15T17:05:17Z', landed: true, cron: null }, { createdAt: '2026-10-15T08:26:51Z', landed: true, cron: null }];
+assert.deepEqual(perCronLate({ ...mxc, now: t('2026-10-16T18:17:00Z'), runs: mxcRuns }).map((x) => x.cron), ['20 12 * * *']);
+assert.deepEqual(perCronLate({ ...mxc, now: t('2026-10-16T18:17:00Z'), runs: [{ createdAt: '2026-10-16T18:08:18Z', landed: true, manual: true, crons: mxc.crons }, ...mxcRuns] }), []);
+assert.deepEqual(perCronLate({ ...mxc, now: t('2026-10-16T18:17:00Z'), runs: [{ createdAt: '2026-10-16T17:30:00Z', landed: true, cron: '20 12 * * *' }, ...mxcRuns] }), []);         // a titled run of the cron itself, five hours late
+assert.deepEqual(perCronLate({ ...mxc, now: t('2026-10-16T18:17:00Z'), runs: [{ createdAt: '2026-10-16T17:30:00Z', landed: true, cron: '20 15 * * *' }, ...mxcRuns] }).map((x) => x.cron), ['20 12 * * *']);  // a newer slot of another cron does not
 // the 12 h grace: a schedule GitHub started five hours late is not late, a schedule missing for 13 hours is
 assert.deepEqual(perCronLate({ crons: ['50 3,15 * * *'], graceMs: 12 * H, lookbackMs: 14 * 24 * H, now: t('2026-10-16T08:40:00Z'), runs: [{ createdAt: '2026-10-16T08:31:10Z', landed: true, cron: '50 3,15 * * *' }, { createdAt: '2026-10-15T19:27:37Z', landed: true, cron: '50 3,15 * * *' }] }), []);
 assert.deepEqual(perCronLate({ crons: ['50 3,15 * * *'], graceMs: 12 * H, lookbackMs: 14 * 24 * H, now: t('2026-10-16T04:51:00Z'), runs: [{ createdAt: '2026-10-15T08:36:44Z', landed: true, cron: '50 3,15 * * *' }] }).map((x) => new Date(x.missedSince).toISOString()), ['2026-10-15T15:50:00.000Z']);
@@ -282,7 +290,7 @@ console.log('watchdog selftest: all checks passed');
   const report = await dispatchMissed({ readText: async (p) => files[p], api, now: t('2026-10-16T20:40:00Z'), leadMs: 40 * 6e4, includeSelf: true });
   const byFile = Object.fromEntries(report.map((w) => [w.file, w]));
   assert.deepEqual(byFile['a.yml'].missed.map((m) => m.cron), ['20 12 * * *']); assert.equal(byFile['a.yml'].dispatched, true);
-  assert.deepEqual(byFile['b.yml'].missed.map((m) => m.cron), ['35 20 * * 1-5']); assert.equal(byFile['b.yml'].dispatched, undefined); assert.equal(byFile['b.yml'].skipped, 'a run is queued or in progress');  // yesterday's slot missed, today's run in progress: not dispatched
+  assert.deepEqual(byFile['b.yml'].missed, []); assert.equal(byFile['b.yml'].dispatched, undefined);  // yesterday's slot missed, but today's run of the same cron is in progress: moot
   assert.deepEqual(byFile['c.yml'].missed, []);
   assert.deepEqual(byFile['data-watchdog.yml'].missed.map((m) => m.due), ['2026-10-16T15:50:00.000Z']); assert.equal(byFile['data-watchdog.yml'].dispatched, true);
   assert.deepEqual(calls.filter((c) => c.method === 'POST').map((c) => c.path), ['/actions/workflows/a.yml/dispatches', '/actions/workflows/data-watchdog.yml/dispatches']);
