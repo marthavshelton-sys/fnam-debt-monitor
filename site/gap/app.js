@@ -884,6 +884,30 @@
   }
   // Passengers of one airport in a calendar year, from the monthly reports (the twelve months must all be there).
   function paxYear(code, year) { const ms = TR.months.filter((m) => m.ym.slice(0, 4) === String(year)); return ms.length === 12 ? ms.reduce((a, m) => a + (m.total[code] || 0), 0) : null; }
+  // Management's full-year traffic guidance against the year to date, under the by-airport table (owner, 17-Oct-2026).
+  // The range, its date and kind come from the latest guidance vintage of the latest month's year; the status reuses the
+  // guidance section's rule (gStatus). A guided year is for the full year, so a year to date outside the range is not a miss.
+  function renderTrafficGuide(TL) {
+    const box = el('trafficGuide'); if (!box) return;
+    const fy = +TL.month.ym.slice(0, 4), gv = GV.filter((v) => v.fy === fy && v.items && v.items.traffic).slice(-1)[0];
+    if (!gv) { box.innerHTML = ''; return; }
+    const m = GM[0], x = gv.items.traffic, ytd = TL.rows.TOTAL.ytdYoy, v = typeof ytd === 'number' ? ytd : null, st = gStatus(m, x, v);
+    const span = `${ymLabel(`${fy}-01`).split(' ')[0]}–${ymLabel(TL.month.ym)}`;
+    const kindTxt = gv.kind === 'revised' ? (LANG === 'es' ? 'revisada' : 'revised') : (LANG === 'es' ? 'emitida' : 'issued');
+    const stTxt = st ? (LANG === 'es' ? { within: 'dentro del rango', above: 'por encima del rango', below: 'por debajo del rango' } : { within: 'within the range', above: 'above the range', below: 'below the range' })[st] : null;
+    // range bar: the guided band inside a scale padded by at least the band's width on each side, the year-to-date marker clamped to it
+    const w = Math.max(x.hi - x.lo, 2), lo = Math.min(x.lo - w, v != null ? v - w / 2 : x.lo), hi = Math.max(x.hi + w, v != null ? v + w / 2 : x.hi), pct = (q) => `${(100 * (q - lo) / (hi - lo)).toFixed(1)}%`;
+    const f = (q) => fmtPct(q, Number.isInteger(q) ? 0 : 1, true);
+    box.innerHTML = `
+      <div><div class="gc-k">${LANG === 'es' ? `Guía de tráfico ${fy}` : `${fy} traffic guidance`}</div><div class="gc-v">${gRange(m, x)}<small>${LANG === 'es' ? `vs ${fy - 1}` : `vs ${fy - 1}`}</small></div></div>
+      <div class="gc-t">${LANG === 'es'
+        ? `La administración guía el <b>tráfico de pasajeros de ${fy}</b> en <b>${gRange(m, x)}</b> frente a ${fy - 1} (guía ${kindTxt} el ${gLink(gv, fmtGuidanceDate(gv, true))}, con los resultados del ${gv.quarter ? gv.quarter.replace(/^(\d{4})Q(\d)$/, '$2T' + gv.quarter.slice(2, 4)) : '—'}). El acumulado ${span} va en <b>${fmtChgV(v)}</b>${stTxt ? `, ${stTxt}` : ''}; la guía es para el año completo, así que un acumulado fuera del rango no implica incumplimiento.`
+        : `Management guides <b>${fy} passenger traffic</b> at <b>${gRange(m, x)}</b> versus ${fy - 1} (guidance ${kindTxt} ${gLink(gv, fmtGuidanceDate(gv, true))} with the ${gv.quarter ? gv.quarter.replace(/^(\d{4})Q(\d)$/, '$2Q' + gv.quarter.slice(2, 4)) : '—'} results). Year to date ${span} is <b>${fmtChgV(v)}</b>${stTxt ? `, ${stTxt}` : ''}; guidance is for the full year, so a year-to-date figure outside the range is not a miss in itself.`}
+        <div class="gc-bar"><span class="band" style="left:${pct(x.lo)};width:calc(${pct(x.hi)} - ${pct(x.lo)})"></span>${v != null ? `<span class="mark ${st || ''}" style="left:${pct(v)}" title="${LANG === 'es' ? 'Acumulado' : 'Year to date'} ${span}: ${fmtChgV(v)}"></span>` : ''}</div>
+        <div class="gc-scale"><span>${f(lo)}</span><span>${LANG === 'es' ? 'guía' : 'guided'} ${f(x.lo)} … ${f(x.hi)}</span><span>${f(hi)}</span></div>
+      </div>
+      <div class="gc-status"><span class="ytd ${cls(v)}">${fmtChgV(v)}</span>${st ? gChip(st, t(st)) : ''}<div class="gc-k" style="margin-top:6px">${LANG === 'es' ? 'acumulado' : 'year to date'} ${span}</div></div>`;
+  }
   function renderTraffic() {
     if (!TR.months.length) return;
     const chips = [{ code: 'TOTAL', label: t('group') }, ...AIR.map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
@@ -926,6 +950,7 @@
       <tr><th rowspan="2" scope="col">${t('airport')}</th><th scope="colgroup" colspan="4" class="grp m gs">${mHead}</th><th scope="colgroup" colspan="2" class="grp q gs">${qHead}</th><th scope="colgroup" colspan="2" class="grp y gs">${yHead}</th><th rowspan="2" scope="col" class="gs">${t('share')}<br><span class="small muted">${ymLabel(lastM.ym)}</span></th></tr>
       <tr><th scope="col" class="gs m">${LANG === 'es' ? 'Pasajeros' : 'Passengers'}</th><th scope="col" class="m">${t('yoy')}</th><th scope="col" class="m">${t('dom')}</th><th scope="col" class="m">${t('intl')}</th><th scope="col" class="gs q">${TQ.span}</th><th scope="col" class="q">${t('yoy')}</th><th scope="col" class="gs y">${ymLabel(`${lastM.ym.slice(0, 4)}-01`).split(' ')[0]}–${ymLabel(lastM.ym)}</th><th scope="col" class="y">${t('yoy')}</th></tr>
     </thead><tbody>${rows.join('')}</tbody></table>`);
+    renderTrafficGuide(TL);
     el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)} · ${LANG === 'es' ? 'trimestre' : 'quarter'} ${TQ.label} · ${LANG === 'es' ? 'acumulado' : 'year to date'} ${lastM.ym.slice(0, 4)}`);
     const qNote = LANG === 'es' ? ` · trimestre (${TQ.span}${TQ.closed ? ', cerrado' : `, ${TQ.months} de 3 meses`}) = suma de los reportes mensuales preliminares de ambos años, por lo que puede diferir en unos miles de pasajeros de las columnas del reporte` : ` · quarter (${TQ.span}${TQ.closed ? ', closed' : `, ${TQ.months} of 3 months`}) = sum of both years' preliminary monthly reports, so it can differ by a few thousand passengers from the report's own columns`;
     el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '') + (TL.basis === 'release' ? (LANG === 'es' ? ' · variaciones del mes y acumulado del año según las columnas del propio reporte mensual' : ' · monthly changes and year to date from the monthly report\'s own columns') : (LANG === 'es' ? ' · acumulado = suma de los reportes mensuales' : ' · year to date = sum of the monthly reports')) + qNote;
