@@ -1,6 +1,0 @@
-[
- {"name":"cal-head","method":"HEAD","url":"https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf","keep":2000},
- {"name":"enif-head","method":"HEAD","url":"https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip","keep":2000},
- {"name":"enif-get","url":"https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip","zip":"list"},
- {"name":"enfih-head","method":"HEAD","url":"https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf","keep":2000}
-]

@@ -45,9 +45,19 @@ const note = (msg) => { NOTES.push(redact(String(msg)).slice(0, 400)); console.l
 const INEGI_FILES = 'https://www.inegi.org.mx/contenidos/programas';
 
 // HEAD of a file: { ok, type, lastModified, length }. INEGI answers 200 with an HTML page for a file that does not exist.
+// Since 16-Oct-2026 INEGI's servers answer every HEAD with an empty text/html reply (no Last-Modified, no length) while a GET
+// of the same address still returns the file with its headers; such a reply is read again from a GET's headers, and the
+// body is dropped unread.
+const headOfRes = (r) => ({ ok: true, type: r.headers.get('content-type') || '', lastModified: r.headers.get('last-modified') || null, length: Number(r.headers.get('content-length') || 0) });
 async function headOf(url) {
-  try { const r = await get(url, { method: 'HEAD', tries: 2, timeoutMs: 40_000 }); return { ok: true, type: r.headers.get('content-type') || '', lastModified: r.headers.get('last-modified') || null, length: Number(r.headers.get('content-length') || 0) }; }
-  catch (e) { return { ok: false, error: e.message }; }
+  try {
+    const h = headOfRes(await get(url, { method: 'HEAD', tries: 2, timeoutMs: 40_000 }));
+    if (!(/text\/html/i.test(h.type) && !h.lastModified && !h.length)) return h;
+    const r = await get(url, { tries: 2, timeoutMs: 60_000 });
+    const g = headOfRes(r);
+    try { await r.body?.cancel(); } catch { /* body already closed */ }
+    return g;
+  } catch (e) { return { ok: false, error: e.message }; }
 }
 const isZipHead = (h) => h.ok && /zip|octet-stream/i.test(h.type) && h.length > 100_000;
 // What identifies a publisher's file between runs: the day of its Last-Modified header and its size. INEGI's servers answer
