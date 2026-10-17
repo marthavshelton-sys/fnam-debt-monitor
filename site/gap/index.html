@@ -180,10 +180,13 @@ table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); paddi
    each under its own heading and separated by a vertical rule, so a reader never mixes a monthly figure with a cumulative one */
 .card.traffic-tbl{margin-top:20px;}
 #trafficTable th, #trafficTable td{white-space:nowrap;}
-#trafficTable th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px; font-size:11px;}
-#trafficTable th.grp.m{color:var(--series-1);} #trafficTable th.grp.q{color:var(--series-2);} #trafficTable th.grp.y{color:var(--series-3);}
-#trafficTable thead tr:nth-child(2) th{padding-top:4px;}
-#trafficTable th.gs, #trafficTable td.gs{border-left:1px solid var(--border); padding-left:14px;}
+#trafficTable th.grp{text-align:center; padding:6px 8px; font-size:11.5px; letter-spacing:.04em; border-bottom:2px solid currentColor;}
+#trafficTable .m{--gtint:color-mix(in srgb, var(--series-1) 7%, transparent);} #trafficTable .q{--gtint:color-mix(in srgb, var(--series-2) 9%, transparent);} #trafficTable .y{--gtint:color-mix(in srgb, var(--series-3) 8%, transparent);}
+#trafficTable th.grp.m, #trafficTable th.m{color:var(--series-1);} #trafficTable th.grp.q, #trafficTable th.q{color:var(--series-2);} #trafficTable th.grp.y, #trafficTable th.y{color:var(--series-3);}
+#trafficTable th.m, #trafficTable td.m, #trafficTable th.q, #trafficTable td.q, #trafficTable th.y, #trafficTable td.y{background:var(--gtint);}
+#trafficTable thead tr:nth-child(2) th{padding-top:5px;}
+#trafficTable th.gs, #trafficTable td.gs{border-left:2px solid var(--border); padding-left:14px;}
+#trafficTable tr.total td{border-top:2px solid var(--border);}
 @media (max-width:640px){ #trafficTable th:first-child, #trafficTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; max-width:44vw;} }
 table.peers thead tr:nth-child(2) th{padding-top:4px;}
 table.peers td.now{font-weight:700;}
