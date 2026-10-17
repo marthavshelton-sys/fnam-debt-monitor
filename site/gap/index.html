@@ -176,6 +176,15 @@ table.peers tr.head td{padding-top:12px;}
 /* peers table (same design as the Oracle page): each forward multiple with its 1-, 3- and 5-year averages under one group heading,
    the current column in bold and a dividing line after each group */
 table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
+/* traffic table: one full-width card under the two charts; the columns sit in three groups (month, quarter to date, year to date),
+   each under its own heading and separated by a vertical rule, so a reader never mixes a monthly figure with a cumulative one */
+.card.traffic-tbl{margin-top:20px;}
+#trafficTable th, #trafficTable td{white-space:nowrap;}
+#trafficTable th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px; font-size:11px;}
+#trafficTable th.grp.m{color:var(--series-1);} #trafficTable th.grp.q{color:var(--series-2);} #trafficTable th.grp.y{color:var(--series-3);}
+#trafficTable thead tr:nth-child(2) th{padding-top:4px;}
+#trafficTable th.gs, #trafficTable td.gs{border-left:1px solid var(--border); padding-left:14px;}
+@media (max-width:640px){ #trafficTable th:first-child, #trafficTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; max-width:44vw;} }
 table.peers thead tr:nth-child(2) th{padding-top:4px;}
 table.peers td.now{font-weight:700;}
 table.peers td.gsep, table.peers th.gsep{border-right:1px solid var(--grid);}
@@ -609,7 +618,7 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       </div>
       <div class="ctl" style="flex-basis:100%"><label class="lbl"><span class="es">Aeropuertos</span><span class="en" hidden>Airports</span></label><div class="chips" id="airportChips"></div></div>
     </div>
-    <div class="grid-2">
+    <div class="grid-2 eq">
       <div class="card">
         <h3 id="trafficChartTitle"></h3>
         <p class="cap" id="trafficChartCap"></p>
@@ -618,10 +627,16 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
         <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en" hidden>View data table</span></summary><div class="tblwrap" id="trafficSeriesTable"></div></details>
       </div>
       <div class="card">
-        <h3 id="trafficTblTitle"></h3>
-        <p class="cap" id="trafficTblCap"></p>
-        <div class="tblwrap" id="trafficTable"></div>
+        <h3 id="trafficYoyTitle"></h3>
+        <p class="cap" id="trafficYoyCap"></p>
+        <div class="chart-wrap tall"><canvas id="chartTrafficYoy" role="img" aria-label="Variación anual del tráfico de pasajeros / Year-on-year change in passenger traffic"></canvas></div>
+        <p class="chart-src" id="trafficYoySrc"></p>
       </div>
+    </div>
+    <div class="card traffic-tbl">
+      <h3 id="trafficTblTitle"></h3>
+      <p class="cap" id="trafficTblCap"></p>
+      <div class="tblwrap" id="trafficTable"></div>
     </div>
   </section>
 
