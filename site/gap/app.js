@@ -812,9 +812,10 @@
   // ================= 02 TRAFFIC =================
   const tr = { freq: 'm', seg: 'total', airports: ['TOTAL'] };
   const AIR = (TR.airports && TR.airports.length ? TR.airports : (REF.airports || []));
-  function trafficSeries() {
-    // returns [{key, label, points:[[label, value, ym]]}] for selected airports at chosen freq/segment
-    const months = TR.months.filter((m) => m.ym >= '2019-01');
+  const TRAFFIC_FROM = '2019-01'; // the charts start here to include the pre-pandemic base
+  function trafficSeries(from = TRAFFIC_FROM) {
+    // returns [{key, label, points:[[label, value, bucket, complete]]}] for selected airports at chosen freq/segment
+    const months = TR.months.filter((m) => m.ym >= from);
     const bucket = (ym) => (tr.freq === 'm' ? ym : tr.freq === 'q' ? `${ym.slice(0, 4)}Q${Math.ceil(+ym.slice(5) / 3)}` : ym.slice(0, 4));
     const byB = {};
     for (const m of months) { const b = bucket(m.ym); (byB[b] ??= { keys: [], n: 0, months: [] }); byB[b].months.push(m); }
@@ -825,6 +826,29 @@
       key: code, label: code === 'TOTAL' ? t('group') : (AIR.find((a) => a.code === code) || {})[LANG] || code,
       points: buckets.filter(complete).map((b) => { const vals = byB[b].months.map((m) => m[tr.seg][code]).filter((v) => v != null); return [label(b), vals.length ? vals.reduce((a, v) => a + v, 0) : null, b, true]; }),
     }));
+  }
+  // Year-on-year change (%) of the same series: each bucket against the same bucket a year earlier (month, quarter or year),
+  // both sums of the monthly reports. The prior-year buckets come from the whole archive, so the first charted year has a change too.
+  function trafficYoySeries(from = TRAFFIC_FROM) {
+    const all = trafficSeries('0000-00'), shown = trafficSeries(from);
+    const priorKey = (b) => `${+b.slice(0, 4) - 1}${b.slice(4)}`;
+    return shown.map((s, i) => { const byKey = Object.fromEntries(all[i].points.map((p) => [p[2], p[1]])); return { ...s, points: s.points.map((p) => { const prev = byKey[priorKey(p[2])]; const v = p[1] != null && prev ? 100 * (p[1] / prev - 1) : null; return [p[0], v, p[2], true]; }) }; });
+  }
+  // Quarter to date: the months of the latest month's calendar quarter published so far (a quarter-end month closes the quarter),
+  // against the same months a year earlier, both sums of the monthly reports (GAP's release carries no quarterly columns).
+  function trafficQtd(month) {
+    const lastM = month || TR.months[TR.months.length - 1]; if (!lastM) return null;
+    const y = +lastM.ym.slice(0, 4), m = +lastM.ym.slice(5), q = Math.ceil(m / 3), m0 = (q - 1) * 3 + 1;
+    const ymOf = (yy, mm) => `${yy}-${String(mm).padStart(2, '0')}`;
+    const win = [], pwin = [];
+    for (let mm = m0; mm <= m; mm++) { const a = TR.months.find((x) => x.ym === ymOf(y, mm)), b = TR.months.find((x) => x.ym === ymOf(y - 1, mm)); if (a) win.push(a); if (b) pwin.push(b); }
+    const full = win.length === m - m0 + 1, fullPrior = pwin.length === win.length;
+    const sum = (arr, seg, code) => (arr.length ? arr.reduce((a, x) => a + ((x[seg] && x[seg][code]) || 0), 0) : null);
+    const rows = {};
+    for (const code of [...AIR.map((a) => a.code), 'TOTAL']) { const v = full ? sum(win, 'total', code) : null, p = full && fullPrior ? sum(pwin, 'total', code) : null; rows[code] = { v, p, yoy: chgPct(v, p), dom: full ? sum(win, 'dom', code) : null, intl: full ? sum(win, 'intl', code) : null }; }
+    const qLabel = LANG === 'es' ? `${q}T${String(y).slice(2)}` : `${q}Q${String(y).slice(2)}`;
+    const span = `${ymLabel(ymOf(y, m0)).split(' ')[0]}–${ymLabel(lastM.ym)}`;
+    return { month: lastM, fy: y, q, months: win.length, closed: m === q * 3, label: qLabel, span, rows, from: ymOf(y, m0), to: lastM.ym };
   }
   // Latest month by airport with GAP's own comparatives: the same-month prior-year column and the January-to-month
   // columns of that release (`prior`, `ytd`, `ytdPrior` in traffic.js) rather than sums of the preliminary monthly
@@ -871,21 +895,37 @@
       options: { plugins: { legend: { display: series.length > 1, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)} (${LANG === 'es' ? 'miles' : 'thousands'})` } } }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 14, maxRotation: 0 } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     el('trafficChartTitle').textContent = tc(`${t(tr.seg)} · ${LANG === 'es' ? 'serie' : 'series'} ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')}`);
     el('trafficChartCap').textContent = LANG === 'es' ? 'Miles de pasajeros terminales; periodos incompletos se omiten en la vista trimestral/anual' : 'Thousand terminal passengers; incomplete periods are omitted in the quarterly/annual view';
+    // y/y chart of the same selection, side by side: the axis is held to ±YOY_CAP so the 2020–2021 swings do not flatten the
+    // rest; a point beyond the band is drawn at the edge (hollow) and the tooltip carries its true value
+    const YOY_CAP = 60, yoyS = trafficYoySeries();
+    const clamp = (v) => (v == null ? null : Math.max(-YOY_CAP, Math.min(YOY_CAP, v)));
+    mkChart('chartTrafficYoy', { type: 'line', data: { labels, datasets: yoyS.map((s, i) => ({ label: s.label, data: s.points.map((p) => clamp(p[1])), raw: s.points.map((p) => p[1]), borderColor: c[i % 8], backgroundColor: c[i % 8], fill: false, spanGaps: false, pointRadius: s.points.map((p) => (p[1] != null && Math.abs(p[1]) > YOY_CAP ? 4 : tr.freq === 'm' ? 0 : 3)), pointStyle: s.points.map((p) => (p[1] != null && Math.abs(p[1]) > YOY_CAP ? 'triangle' : 'circle')), pointBackgroundColor: s.points.map((p) => (p[1] != null && Math.abs(p[1]) > YOY_CAP ? '#fff' : c[i % 8])), pointBorderWidth: 1.5 })) },
+      options: { plugins: { legend: { display: yoyS.length > 1, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => { const v = x.dataset.raw[x.dataIndex]; return `${x.dataset.label}: ${v == null ? '—' : fmtPct(v, 1, true)}${v != null && Math.abs(v) > YOY_CAP ? (LANG === 'es' ? ' (fuera de la escala)' : ' (beyond the axis)') : ''}`; } } } }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 14, maxRotation: 0 } }, y: { min: -YOY_CAP, max: YOY_CAP, ticks: { callback: (v) => (v > 0 ? '+' : '') + v + '%' }, grid: { color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? cssVar('--text-secondary') : cssVar('--grid')), lineWidth: (ctx) => (ctx.tick && ctx.tick.value === 0 ? 1.2 : 1) } } } } });
+    el('trafficYoyTitle').textContent = tc(LANG === 'es' ? `${t(tr.seg)} · variación anual ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')}` : `${t(tr.seg)} · ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')} year-on-year change`);
+    el('trafficYoyCap').textContent = LANG === 'es' ? `Cambio % frente al mismo ${tr.freq === 'm' ? 'mes' : tr.freq === 'q' ? 'trimestre' : 'año'} del año anterior, ambos sumas de los reportes mensuales; eje acotado a ±${YOY_CAP}% (triángulo = valor fuera de la escala, verlo al pasar el cursor)` : `% change vs the same ${tr.freq === 'm' ? 'month' : tr.freq === 'q' ? 'quarter' : 'year'} a year earlier, both sums of the monthly reports; axis held to ±${YOY_CAP}% (triangle = value beyond the axis, hover to read it)`;
+    html('trafficYoySrc', `${t('src')}: ${LANG === 'es' ? 'reportes mensuales de tráfico de GAP (cálculo propio)' : 'GAP monthly traffic reports (own calculation)'}`);
     // series table
     html('trafficSeriesTable', `<table><thead><tr><th scope="col">${t('period')}</th>${series.map((s) => `<th scope="col">${s.label}</th>`).join('')}</tr></thead><tbody>${labels.map((l, i) => `<tr><td>${l}</td>${series.map((s) => `<td>${fmtN(s.points[i][1], 1)}</td>`).join('')}</tr>`).reverse().slice(0, 60).join('')}</tbody></table>`);
     const lastM = TR.months[TR.months.length - 1];
     html('trafficSrc', `${t('src')}: <a href="${lastM.source.url}" target="_blank" rel="noopener">${LANG === 'es' ? 'reporte mensual de tráfico de GAP' : 'GAP monthly traffic report'} (${fmtDate(lastM.source.date)}) ↗</a>`);
     // latest-month table by airport
-    const TL = trafficLatest(lastM);
+    const TL = trafficLatest(lastM), TQ = trafficQtd(lastM);
     const rows = [...AIR.map((a) => a.code), 'TOTAL'].map((code) => {
-      const r = TL.rows[code]; const v = r.v, p = r.p, y = r.ytd, yp = r.ytdPrior;
+      const r = TL.rows[code], q = TQ.rows[code]; const v = r.v, y = r.ytd;
       const name = code === 'TOTAL' ? t('total') : `${code} · ${(AIR.find((a) => a.code === code) || {})[LANG] || code}`;
-      const yoy = r.yoy, yoyY = r.ytdYoy; // GAP's printed changes when the release carries them
-      return `<tr class="${code === 'TOTAL' ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtChgV(yoy)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td>${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtChgV(yoyY)}</td><td>${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`;
+      const yoy = r.yoy, yoyY = r.ytdYoy; // GAP's printed changes when the release carries them; the quarter is summed from the reports
+      return `<tr class="${code === 'TOTAL' ? 'total' : ''}"><td>${name}</td><td class="gs">${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtChgV(yoy)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td class="gs">${fmtN(q.v, 1)}</td><td class="${cls(q.yoy)}">${fmtChgV(q.yoy)}</td><td class="gs">${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtChgV(yoyY)}</td><td class="gs">${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`;
     });
-    html('trafficTable', `<table><thead><tr><th scope="col">${t('airport')}</th><th scope="col">${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('dom')}</th><th scope="col">${t('intl')}</th><th scope="col">${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
-    el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)}`);
-    el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '') + (TL.basis === 'release' ? (LANG === 'es' ? ' · variaciones y acumulado según las columnas del propio reporte mensual' : ' · changes and year-to-date from the monthly report\'s own columns') : (LANG === 'es' ? ' · acumulado = suma de los reportes mensuales' : ' · year-to-date = sum of the monthly reports'));
+    const qHead = LANG === 'es' ? `Trimestre${TQ.closed ? '' : ' a la fecha'} · ${TQ.label}` : `Quarter${TQ.closed ? '' : ' to date'} · ${TQ.label}`;
+    const yHead = LANG === 'es' ? `Acumulado del año · ${lastM.ym.slice(0, 4)}` : `Year to date · ${lastM.ym.slice(0, 4)}`;
+    const mHead = LANG === 'es' ? 'Mes' : 'Month';
+    html('trafficTable', `<table><thead>
+      <tr><th rowspan="2" scope="col">${t('airport')}</th><th scope="colgroup" colspan="4" class="grp m gs">${mHead}</th><th scope="colgroup" colspan="2" class="grp q gs">${qHead}</th><th scope="colgroup" colspan="2" class="grp y gs">${yHead}</th><th rowspan="2" scope="col" class="gs">${t('share')}<br><span class="small muted">${ymLabel(lastM.ym)}</span></th></tr>
+      <tr><th scope="col" class="gs">${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th><th scope="col">${t('dom')}</th><th scope="col">${t('intl')}</th><th scope="col" class="gs">${TQ.span}</th><th scope="col">${t('yoy')}</th><th scope="col" class="gs">${ymLabel(`${lastM.ym.slice(0, 4)}-01`).split(' ')[0]}–${ymLabel(lastM.ym)}</th><th scope="col">${t('yoy')}</th></tr>
+    </thead><tbody>${rows.join('')}</tbody></table>`);
+    el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)} · ${LANG === 'es' ? 'trimestre' : 'quarter'} ${TQ.label} · ${LANG === 'es' ? 'acumulado' : 'year to date'} ${lastM.ym.slice(0, 4)}`);
+    const qNote = LANG === 'es' ? ` · trimestre (${TQ.span}${TQ.closed ? ', cerrado' : `, ${TQ.months} de 3 meses`}) = suma de los reportes mensuales preliminares de ambos años, por lo que puede diferir en unos miles de pasajeros de las columnas del reporte` : ` · quarter (${TQ.span}${TQ.closed ? ', closed' : `, ${TQ.months} of 3 months`}) = sum of both years' preliminary monthly reports, so it can differ by a few thousand passengers from the report's own columns`;
+    el('trafficTblCap').textContent = (LANG === 'es' ? 'Miles de pasajeros terminales por aeropuerto; CBX en Tijuana se clasifica como internacional' : 'Thousand terminal passengers by airport; CBX users at Tijuana count as international') + (lastM.cbx != null ? ` · CBX: ${fmtN(lastM.cbx, 1)}` : '') + (TL.basis === 'release' ? (LANG === 'es' ? ' · variaciones del mes y acumulado del año según las columnas del propio reporte mensual' : ' · monthly changes and year to date from the monthly report\'s own columns') : (LANG === 'es' ? ' · acumulado = suma de los reportes mensuales' : ' · year to date = sum of the monthly reports')) + qNote;
     html('trafficMeta', LANG === 'es' ? `Cobertura mensual: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} meses). Cifras preliminares publicadas cada mes; la vista por defecto empieza en 2019 para incluir la base prepandemia.` : `Monthly coverage: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} months). Preliminary figures released monthly; the default view starts in 2019 to include the pre-pandemic base.`);
   }
 
@@ -1712,7 +1752,7 @@
     get LANG() { return LANG; }, nextResults, nextResultsText, nextTraffic, nextTrafficText, liveTokens, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, fmtChg, fmtChgV, chgPct, qLabel, ytdLabel, ymLabel, addDays,
     FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
     cmpBase, bsBase, isYoy, restatedNote, perShare, wavgShares, ltmShareNote, debtSources, guidanceDate, fmtGuidanceDate, periodFx, periodStart, periodEnd, reportDate, fmtReportDate, reportKindLabel, isValue, isLayout, lineLabel, PER_SHARE_ROWS, ADS, currentPair, likeForLike,
-    ebitdaBridge, exCbx, paxByCountry, capexProgress, liquidity, trafficLatest, paxYear, factValue, fmtFact, mdpUseText,
+    ebitdaBridge, exCbx, paxByCountry, capexProgress, liquidity, trafficLatest, trafficQtd, trafficYoySeries, trafficSeries, paxYear, factValue, fmtFact, mdpUseText,
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
     GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
