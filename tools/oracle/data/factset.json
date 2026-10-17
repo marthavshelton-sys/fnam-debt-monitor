@@ -1,9 +1,9 @@
 {
   "_comment": "FactSet consensus snapshot for the valuation section (06), the header tile, the DCF seed and the deck. Written by the FactSet refresh routine through the FactSet AI-Ready Data connector (tools/oracle/FACTSET-PROMPT.md lists the exact calls); GitHub Actions cannot reach FactSet. US$ millions unless stated; per-share in US$. Ratios are computed on the page, never stored here. Keep the schema: build-data.mjs reads it into data/factset.js and data/peers.js and validate-data.mjs checks it.",
-  "as_of": "2026-10-15",
-  "price_date": "2026-10-15",
-  "market_cap_date": "2026-10-15",
-  "fetched": "2026-10-15",
+  "as_of": "2026-10-16",
+  "price_date": "2026-10-16",
+  "market_cap_date": "2026-10-16",
+  "fetched": "2026-10-16",
   "source": {
     "title": "FactSet Estimates (consensus), FactSet Global Prices and FactSet Fundamentals via the FactSet AI-Ready Data connector",
     "url": "https://www.factset.com/"
@@ -25,16 +25,16 @@
   ],
   "oracle": {
     "ticker": "ORCL-US",
-    "price": 134.47,
-    "price_date": "2026-10-15",
-    "market_cap_usd_m": 406637,
-    "market_cap_date": "2026-10-15",
+    "price": 128.23,
+    "price_date": "2026-10-16",
+    "market_cap_usd_m": 387768,
+    "market_cap_date": "2026-10-16",
     "shares_m": 3024.0,
     "shares_date": "2026-08-31",
     "shares_basis": "FF_COM_SHS_OUT",
     "market_value_factset": {
-      "usd_m": 394749,
-      "date": "2026-10-14"
+      "usd_m": 406602,
+      "date": "2026-10-15"
     },
     "net_debt_usd_m": 132066,
     "total_debt_usd_m": 169143,
@@ -44,32 +44,32 @@
     "iad_usd": 2.0,
     "ntm": {
       "eps": {
-        "mean": 9.219,
-        "median": 9.182,
-        "high": 10.222,
-        "low": 8.817,
-        "sd": 0.278
+        "mean": 9.227,
+        "median": 9.19,
+        "high": 10.236,
+        "low": 8.822,
+        "sd": 0.279
       },
       "ebitda": {
-        "mean": 59713,
-        "median": 61054,
-        "high": 72539,
-        "low": 48971,
-        "sd": 5631
+        "mean": 59773,
+        "median": 61119,
+        "high": 72617,
+        "low": 49005,
+        "sd": 5641
       },
       "sales": {
-        "mean": 105823,
-        "median": 105848,
-        "high": 109688,
-        "low": 99916,
-        "sd": 1767
+        "mean": 105936,
+        "median": 105960,
+        "high": 109819,
+        "low": 99995,
+        "sd": 1776
       },
       "fcf": {
-        "mean": -36390,
-        "median": -34440,
-        "high": -19934,
-        "low": -76548,
-        "sd": 13367
+        "mean": -36385,
+        "median": -34431,
+        "high": -19888,
+        "low": -76542,
+        "sd": 13381
       }
     },
     "fiscal": [
@@ -121,7 +121,7 @@
           "count": 11,
           "up": 7,
           "down": 1,
-          "as_of": "2026-10-15"
+          "as_of": "2026-10-16"
         },
         "fcf": {
           "mean": -37096,
@@ -181,7 +181,7 @@
           "count": 11,
           "up": 4,
           "down": 1,
-          "as_of": "2026-10-15"
+          "as_of": "2026-10-16"
         },
         "fcf": {
           "mean": -35215,
@@ -241,7 +241,7 @@
           "count": 5,
           "up": 0,
           "down": 2,
-          "as_of": "2026-10-15"
+          "as_of": "2026-10-16"
         },
         "fcf": {
           "mean": -5985,
@@ -301,7 +301,7 @@
           "count": 2,
           "up": 0,
           "down": 1,
-          "as_of": "2026-10-15"
+          "as_of": "2026-10-16"
         },
         "fcf": {
           "mean": 18060,
@@ -463,36 +463,36 @@
       }
     ],
     "hist_multiples": {
-      "as_of": "2026-10-09",
+      "as_of": "2026-10-16",
       "sampling": "weekly",
       "shares_basis": "FF_COM_SHS_OUT",
       "pe_ntm": {
-        "y1": 22.03,
-        "y3": 23.58,
-        "y5": 20.76,
+        "y1": 21.53,
+        "y3": 23.56,
+        "y5": 20.73,
         "n1": 52,
         "n3": 156,
         "n5": 260,
-        "spot_last_week": 15.42
+        "spot_last_week": 13.9
       },
       "ev_ebitda_ntm": {
-        "y1": 13.31,
-        "y3": 15.1,
-        "y5": 13.99,
+        "y1": 13.03,
+        "y3": 15.07,
+        "y5": 13.97,
         "n1": 52,
         "n3": 156,
         "n5": 260,
-        "spot_last_week": 9.43
+        "spot_last_week": 8.7
       }
     },
     "adtv": {
-      "usd_m": 4327.9,
-      "product_of_averages_usd_m": 4348.9,
+      "usd_m": 4293.6,
+      "product_of_averages_usd_m": 4309.8,
       "days": 65,
-      "start": "2026-07-16",
-      "end": "2026-10-15",
-      "avg_volume_m": 30.77,
-      "avg_vwap_usd": 141.35
+      "start": "2026-07-17",
+      "end": "2026-10-16",
+      "avg_volume_m": 30.48,
+      "avg_vwap_usd": 141.4
     }
   },
   "peers": [
@@ -500,24 +500,24 @@
       "ticker": "MSFT-US",
       "name": "Microsoft",
       "group": "software",
-      "price": 539.44,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 4006421,
-      "market_cap_date": "2026-10-15",
+      "price": 529.05,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 3929254,
+      "market_cap_date": "2026-10-16",
       "shares_m": 7427.0,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 3962939,
-        "date": "2026-10-14"
+        "usd_m": 4005636,
+        "date": "2026-10-15"
       },
       "net_debt_usd_m": 51970,
       "net_debt_date": "2026-06-30",
       "iad_usd": 3.92,
       "ntm": {
-        "eps": 20.862,
-        "ebitda": 258322,
-        "sales": 413380
+        "eps": 20.873,
+        "ebitda": 258475,
+        "sales": 413591
       },
       "fy1": {
         "end": "2027-06-30",
@@ -528,125 +528,125 @@
         "eps": 23.537
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 24.06,
-          "y3": 28.64,
-          "y5": 28.17,
+          "y1": 23.95,
+          "y3": 28.62,
+          "y5": 28.14,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 25.74
+          "spot_last_week": 25.35
         },
         "ev_ebitda_ntm": {
-          "y1": 14.72,
-          "y3": 18.31,
-          "y5": 18.53,
+          "y1": 14.65,
+          "y3": 18.29,
+          "y5": 18.5,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 15.66
+          "spot_last_week": 15.4
         }
       },
       "adtv": {
-        "usd_m": 12961.6,
-        "product_of_averages_usd_m": 13147.0,
+        "usd_m": 12941.8,
+        "product_of_averages_usd_m": 13114.6,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 27.07,
-        "avg_vwap_usd": 485.6
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 26.9,
+        "avg_vwap_usd": 487.61
       }
     },
     {
       "ticker": "SAP-US",
       "name": "SAP",
       "group": "software",
-      "price": 225.0,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 259695,
-      "market_cap_date": "2026-10-15",
+      "price": 224.29,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 258876,
+      "market_cap_date": "2026-10-16",
       "shares_m": 1154.2,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "eur_m": 232284,
-        "date": "2026-10-14"
+        "eur_m": 229941,
+        "date": "2026-10-15"
       },
       "market_cap_note": "ADR price in USD × 1,154.2 M shares (FactSet market value is reported in EUR for SAP)",
       "net_debt_usd_m": -654,
       "net_debt_date": "2026-06-30",
       "iad_usd": 2.940725,
       "ntm": {
-        "eps": 9.196,
-        "ebitda": 16384,
-        "sales": 49871
+        "eps": 9.194,
+        "ebitda": 16373,
+        "sales": 49834
       },
       "fy1": {
         "end": "2026-12-31",
-        "eps": 8.013
+        "eps": 8.004
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 9.513
+        "eps": 9.507
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 23.52,
-          "y3": 30.94,
-          "y5": 26.4,
+          "y1": 23.34,
+          "y3": 30.97,
+          "y5": 26.41,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 23.34
+          "spot_last_week": 24.4
         },
         "ev_ebitda_ntm": {
-          "y1": 14.74,
-          "y3": 19.36,
+          "y1": 14.65,
+          "y3": 19.37,
           "y5": 17.15,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 15.08
+          "spot_last_week": 15.77
         }
       },
       "adtv": {
-        "usd_m": 501.5,
-        "product_of_averages_usd_m": 514.6,
+        "usd_m": 509.7,
+        "product_of_averages_usd_m": 521.6,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 2.54,
-        "avg_vwap_usd": 202.84
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 2.56,
+        "avg_vwap_usd": 203.85
       }
     },
     {
       "ticker": "CRM-US",
       "name": "Salesforce",
       "group": "software",
-      "price": 246.74,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 203067,
-      "market_cap_date": "2026-10-15",
+      "price": 240.7,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 198096,
+      "market_cap_date": "2026-10-16",
       "shares_m": 823.0,
       "shares_date": "2026-07-31",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 194187,
-        "date": "2026-10-14"
+        "usd_m": 203067,
+        "date": "2026-10-15"
       },
       "net_debt_usd_m": 30973,
       "net_debt_date": "2026-07-31",
       "iad_usd": 1.76,
       "ntm": {
-        "eps": 16.275,
-        "ebitda": 20329,
-        "sales": 49513
+        "eps": 16.274,
+        "ebitda": 20332,
+        "sales": 49526
       },
       "fy1": {
         "end": "2027-01-31",
@@ -657,60 +657,60 @@
         "eps": 16.074
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 15.16,
-          "y3": 22.18,
-          "y5": 26.87,
+          "y1": 15.06,
+          "y3": 22.13,
+          "y5": 26.68,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 14.07
+          "spot_last_week": 14.79
         },
         "ev_ebitda_ntm": {
-          "y1": 10.52,
-          "y3": 14.24,
-          "y5": 15.72,
+          "y1": 10.49,
+          "y3": 14.22,
+          "y5": 15.63,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 10.81
+          "spot_last_week": 11.27
         }
       },
       "adtv": {
-        "usd_m": 2828.7,
-        "product_of_averages_usd_m": 2798.0,
+        "usd_m": 2827.5,
+        "product_of_averages_usd_m": 2799.1,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 12.89,
-        "avg_vwap_usd": 217.05
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 12.83,
+        "avg_vwap_usd": 218.13
       }
     },
     {
       "ticker": "NOW-US",
       "name": "ServiceNow",
       "group": "software",
-      "price": 148.57,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 153601,
-      "market_cap_date": "2026-10-15",
+      "price": 141.97,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 146777,
+      "market_cap_date": "2026-10-16",
       "shares_m": 1033.862,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 144720,
-        "date": "2026-10-14"
+        "usd_m": 153601,
+        "date": "2026-10-15"
       },
       "net_debt_usd_m": 3780,
       "net_debt_date": "2026-06-30",
       "iad_usd": null,
       "ntm": {
-        "eps": 4.818,
-        "ebitda": 7298,
-        "sales": 18609
+        "eps": 4.82,
+        "ebitda": 7302,
+        "sales": 18617
       },
       "fy1": {
         "end": "2026-12-31",
@@ -718,63 +718,63 @@
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 5.018
+        "eps": 5.016
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 29.11,
-          "y3": 45.96,
-          "y5": 50.57,
+          "y1": 28.78,
+          "y3": 45.85,
+          "y5": 50.3,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 29.33
+          "spot_last_week": 29.45
         },
         "ev_ebitda_ntm": {
-          "y1": 20.93,
-          "y3": 33.14,
-          "y5": 34.63,
+          "y1": 20.67,
+          "y3": 33.07,
+          "y5": 34.48,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 20.54
+          "spot_last_week": 20.62
         }
       },
       "adtv": {
-        "usd_m": 2149.5,
-        "product_of_averages_usd_m": 2224.8,
+        "usd_m": 2151.7,
+        "product_of_averages_usd_m": 2226.3,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 17.38,
-        "avg_vwap_usd": 128.01
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 17.31,
+        "avg_vwap_usd": 128.64
       }
     },
     {
       "ticker": "IBM-US",
       "name": "IBM",
       "group": "software",
-      "price": 234.12,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 220541,
-      "market_cap_date": "2026-10-15",
+      "price": 232.14,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 218676,
+      "market_cap_date": "2026-10-16",
       "shares_m": 942.0,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 214694,
-        "date": "2026-10-14"
+        "usd_m": 220573,
+        "date": "2026-10-15"
       },
       "net_debt_usd_m": 57095,
       "net_debt_date": "2026-06-30",
       "iad_usd": 6.76,
       "ntm": {
-        "eps": 12.975,
-        "ebitda": 20515,
-        "sales": 72518
+        "eps": 12.974,
+        "ebitda": 20511,
+        "sales": 72509
       },
       "fy1": {
         "end": "2026-12-31",
@@ -782,64 +782,64 @@
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 13.153
+        "eps": 13.148
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 21.02,
-          "y3": 20.34,
-          "y5": 17.58,
+          "y1": 20.91,
+          "y3": 20.37,
+          "y5": 17.6,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 17.53
+          "spot_last_week": 17.89
         },
         "ev_ebitda_ntm": {
-          "y1": 15.12,
-          "y3": 14.85,
-          "y5": 13.08,
+          "y1": 15.05,
+          "y3": 14.86,
+          "y5": 13.1,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 13.22
+          "spot_last_week": 13.45
         }
       },
       "adtv": {
-        "usd_m": 1507.4,
-        "product_of_averages_usd_m": 1526.4,
+        "usd_m": 1458.2,
+        "product_of_averages_usd_m": 1473.4,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 6.66,
-        "avg_vwap_usd": 229.05
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 6.42,
+        "avg_vwap_usd": 229.34
       }
     },
     {
       "ticker": "WDAY-US",
       "name": "Workday",
       "group": "software",
-      "price": 196.63,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 47388,
-      "market_cap_date": "2026-10-15",
+      "price": 190.81,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 45985,
+      "market_cap_date": "2026-10-16",
       "shares_m": 241.0,
       "shares_date": "2026-07-31",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 45494,
-        "date": "2026-10-14"
+        "usd_m": 47388,
+        "date": "2026-10-15"
       },
       "shares_note": "Class A only; market value covers all classes",
       "net_debt_usd_m": 362,
       "net_debt_date": "2026-07-31",
       "iad_usd": null,
       "ntm": {
-        "eps": 12.603,
-        "ebitda": 4008,
-        "sales": 11452
+        "eps": 12.608,
+        "ebitda": 4009,
+        "sales": 11455
       },
       "fy1": {
         "end": "2027-01-31",
@@ -850,174 +850,174 @@
         "eps": 13.239
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 15.48,
-          "y3": 26.46,
-          "y5": 34.49,
+          "y1": 15.33,
+          "y3": 26.34,
+          "y5": 34.25,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 14.84
+          "spot_last_week": 15.13
         },
         "ev_ebitda_ntm": {
-          "y1": 11.38,
-          "y3": 18.94,
-          "y5": 22.53,
+          "y1": 11.28,
+          "y3": 18.86,
+          "y5": 22.39,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 11.34
+          "spot_last_week": 11.56
         }
       },
       "adtv": {
-        "usd_m": 679.6,
-        "product_of_averages_usd_m": 681.6,
+        "usd_m": 678.8,
+        "product_of_averages_usd_m": 681.1,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 3.75,
-        "avg_vwap_usd": 181.96
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 3.73,
+        "avg_vwap_usd": 182.67
       }
     },
     {
       "ticker": "AMZN-US",
       "name": "Amazon",
       "group": "hyperscaler",
-      "price": 254.76,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 2747077,
-      "market_cap_date": "2026-10-15",
+      "price": 250.0,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 2695750,
+      "market_cap_date": "2026-10-16",
       "shares_m": 10783.0,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 2740587,
-        "date": "2026-10-14"
+        "usd_m": 2747921,
+        "date": "2026-10-15"
       },
       "net_debt_usd_m": 118724,
       "net_debt_date": "2026-06-30",
       "iad_usd": null,
       "ntm": {
-        "eps": 11.106,
-        "ebitda": 269206,
-        "sales": 925348
+        "eps": 11.107,
+        "ebitda": 269497,
+        "sales": 925892
       },
       "fy1": {
         "end": "2026-12-31",
-        "eps": 12.791
+        "eps": 12.794
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 10.656
+        "eps": 10.663
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 26.98,
-          "y3": 32.39,
-          "y5": 44.17,
+          "y1": 26.86,
+          "y3": 32.27,
+          "y5": 44.06,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 23.58
+          "spot_last_week": 22.51
         },
         "ev_ebitda_ntm": {
-          "y1": 11.88,
-          "y3": 12.93,
-          "y5": 14.03,
+          "y1": 11.85,
+          "y3": 12.92,
+          "y5": 13.99,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 11.01
+          "spot_last_week": 10.44
         }
       },
       "adtv": {
-        "usd_m": 9947.5,
-        "product_of_averages_usd_m": 9922.9,
+        "usd_m": 9923.6,
+        "product_of_averages_usd_m": 9898.8,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 38.8,
-        "avg_vwap_usd": 255.76
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 38.71,
+        "avg_vwap_usd": 255.73
       }
     },
     {
       "ticker": "GOOGL-US",
       "name": "Alphabet",
       "group": "hyperscaler",
-      "price": 349.22,
-      "price_date": "2026-10-15",
-      "market_cap_usd_m": 4270961,
-      "market_cap_date": "2026-10-15",
+      "price": 340.59,
+      "price_date": "2026-10-16",
+      "market_cap_usd_m": 4165416,
+      "market_cap_date": "2026-10-16",
       "shares_m": 12230.0,
       "shares_date": "2026-06-30",
       "shares_basis": "FF_COM_SHS_OUT",
       "market_value_factset": {
-        "usd_m": 3939305,
-        "date": "2026-10-14"
+        "usd_m": 3955541,
+        "date": "2026-10-15"
       },
       "shares_note": "Class A only; market value covers all classes",
       "net_debt_usd_m": -125126,
       "net_debt_date": "2026-06-30",
       "iad_usd": 0.88,
       "ntm": {
-        "eps": 16.368,
-        "ebitda": 286278,
-        "sales": 594092
+        "eps": 16.399,
+        "ebitda": 287298,
+        "sales": 596071
       },
       "fy1": {
         "end": "2026-12-31",
-        "eps": 20.59
+        "eps": 20.592
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 15.269
+        "eps": 15.296
       },
       "hist_multiples": {
-        "as_of": "2026-10-09",
+        "as_of": "2026-10-16",
         "sampling": "weekly",
         "shares_basis": "FF_COM_SHS_OUT",
         "pe_ntm": {
-          "y1": 25.09,
+          "y1": 25.03,
           "y3": 21.78,
-          "y5": 21.22,
+          "y5": 21.2,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 21.39
+          "spot_last_week": 20.77
         },
         "ev_ebitda_ntm": {
-          "y1": 16.64,
-          "y3": 13.7,
-          "y5": 12.85,
+          "y1": 16.62,
+          "y3": 13.72,
+          "y5": 12.84,
           "n1": 52,
           "n3": 156,
           "n5": 260,
-          "spot_last_week": 14.7
+          "spot_last_week": 14.06
         }
       },
       "adtv": {
-        "usd_m": 9322.8,
-        "product_of_averages_usd_m": 9322.7,
+        "usd_m": 9244.3,
+        "product_of_averages_usd_m": 9248.1,
         "days": 65,
-        "start": "2026-07-16",
-        "end": "2026-10-15",
-        "avg_volume_m": 26.99,
-        "avg_vwap_usd": 345.36
+        "start": "2026-07-17",
+        "end": "2026-10-16",
+        "avg_volume_m": 26.8,
+        "avg_vwap_usd": 345.06
       }
     }
   ],
   "hist_multiples_note": "Trailing averages of the forward multiples, the model's equivalent of FactSet's FE_VALUATION(PE | FFEV_EBITDA, MEAN, NTM4_ROLL) averaged over -1AY/-3AY/-5AY to NOW: weekly observations over five years, each dated at the last US trading day of its week (FactSet Global Prices close in USD, calendar US, so a holiday Friday is dated at the Thursday instead of lost), paired with the FactSet Estimates NTM consensus mean sampled weekly (the latest on or before the price date, within 6 days). NTM P/E = close / NTM EPS. NTM EV/EBITDA = (close x common shares outstanding of the latest fiscal quarter ended on or before the date, FactSet Fundamentals FF_COM_SHS_OUT, the company-level count across every share class, + that quarter's FF_NET_DEBT) / NTM EBITDA. y1/y3/y5 = simple means of the observations dated within the last 52/156/260 weeks ending at as_of (n = observations counted; a week is skipped when an input is missing or the denominator is not positive); spot_last_week = the ratio at as_of; not point-in-time (shares and net debt as later reported). shares_basis records the share count used: the security-level shares_outstanding endpoint is one class only for Alphabet (Class A) and Workday and halved Alphabet's historical EV until 2026-10-09. Refreshed nightly by the FactSet routine (step k of tools/oracle/FACTSET-PROMPT.md).",
-  "hist_multiples_as_of": "2026-10-09",
-  "hist_multiples_fetched": "2026-10-15",
+  "hist_multiples_as_of": "2026-10-16",
+  "hist_multiples_fetched": "2026-10-16",
   "market_cap_note": "Market values are priced at the close the snapshot carries: market_cap_usd_m = price x shares_m and market_cap_date = price_date, where shares_m is FactSet Fundamentals FF_COM_SHS_OUT of the latest reported fiscal quarter (shares_date; the company-level count across every share class, the same count the weekly history uses). market_value_factset is the market_value endpoint's figure for the audit only: it posts a session's value only hours after the 19:58 New York routine runs (at 8 PM New York on 2026-10-08 it still carried the 7-Oct value) and for Alphabet it counts the listed classes only (A + C), so it is never copied as the market cap (owner, 2026-10-09: tables 22 and 23 always at the prior close).",
   "adtv_note": "ADTV = average daily traded value over the last three months in US$ million: the mean of FactSet Global Prices daily turnover (volume x VWAP, USD) over the trading days of the window ending at price_date (equivalent to AVERAGE of P_VOLUME x XP_PRICE_VWAP day by day); product_of_averages_usd_m is the owner's Excel cross-check, P_VOLUME_AVG(-3AM,0) x AVERAGE(XP_PRICE_VWAP(0,-3AM,,,,USD)).",
   "refresh_note": "Refreshed nightly at 7:58 PM New York time by the Claude Routine 'FNAM Oracle: FactSet nightly refresh' (prompt in tools/oracle/FACTSET-PROMPT.md): prices are the latest completed session's close (the prior close for a page read the next morning), consensus as of the run date.",
-  "price_series_fetched": "2026-10-15",
+  "price_series_fetched": "2026-10-16",
   "price_series_note": "prices_orcl_factset.csv = ORCL daily OHLC and volume from FactSet Global Prices (USD, split-adjusted), 2015-01-02 onward, merged nightly by the routine (step g); the page's price authority for every date it covers. The runner's Nasdaq/Yahoo/Stooq series (prices_orcl_daily.csv) fills only the dates FactSet has not posted yet."
 }
