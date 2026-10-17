@@ -13,24 +13,29 @@ its due time. The rule lives once, in `scripts/watchdog/dispatch-lib.mjs`, and r
    fire to the minute on the free plan; 144 runs a day cost nothing, and each run makes about twenty GitHub API calls
    (5,000 an hour allowed with a token).
 
-## Deploy (once, by the owner)
+## Deploy
 
-1. Create a fine-grained GitHub personal access token (GitHub → Settings → Developer settings → Fine-grained tokens):
-   repository access `marthavshelton-sys/fnam-debt-monitor` only; permissions **Actions: Read and write** and
-   **Metadata: Read** (the minimum that lets it list runs and dispatch workflows); expiry one year, and note the date.
-2. From the repository root, with the Cloudflare account that owns fnam.mx:
-   ```
-   npx wrangler login
-   npx wrangler secret put GITHUB_TOKEN --config tools/dispatcher/wrangler.toml   # paste the token
-   npx wrangler deploy --config tools/dispatcher/wrangler.toml
-   ```
-3. Check: Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Logs show one line per 10 minutes ("no missed
-   schedule" or the dispatches); GitHub → Actions shows the dispatched runs as `workflow_dispatch` runs on main, which
-   the watchdog credits to the schedule they replaced (`tools/watchdog/README.md`, "Rules"). The Worker's own URL answers
-   `GET /` with the same report as a dry run (nothing dispatched); it is not meant to be linked from the site.
+The workflow `.github/workflows/dispatcher-deploy.yml` deploys the Worker from GitHub's runner (by hand from the Actions
+page, and on every merge that touches `tools/dispatcher/` or the rule it bundles). It needs two repository secrets, created
+once by the owner (GitHub → Settings → Secrets and variables → Actions → New repository secret):
 
-Rotate the token before it expires (`wrangler secret put` again). Removing the Worker (`npx wrangler delete --config
-tools/dispatcher/wrangler.toml`) leaves the watchdog's own dispatch step as the only safety net.
+1. `CLOUDFLARE_API_TOKEN`: Cloudflare dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"
+   template, account = the one that serves fnam.mx, zone resources not needed; copy the token once.
+2. `DISPATCHER_GITHUB_TOKEN`: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+   Generate: repository access `marthavshelton-sys/fnam-debt-monitor` only; permissions **Actions: Read and write** and
+   **Metadata: Read** (the minimum that lists runs and dispatches workflows); expiry one year, and note the date. The
+   workflow uploads it to the Worker as its `GITHUB_TOKEN` secret on every deploy.
+
+Then run the workflow once (Actions → "Deploy the dispatcher Worker" → Run workflow). Its last step says where to look:
+Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Logs shows one line every ten minutes ("no missed schedule"
+or the dispatches); GitHub → Actions shows the runs it starts as "(by hand)" runs on main, which the watchdog credits
+to the schedule they replaced (`tools/watchdog/README.md`, "Rules"). The Worker's own URL answers `GET /` with the same
+report as a dry run (nothing dispatched); it is not meant to be linked from the site. The account id sits in
+`wrangler.toml` (it is the id in the Pages project's dashboard URL, not a secret).
+
+Rotate the GitHub token before it expires: replace the repository secret and run the workflow again. Removing the Worker
+(`npx wrangler delete --config tools/dispatcher/wrangler.toml` from a logged-in computer, or the dashboard) leaves the
+watchdog's own dispatch step as the only safety net.
 
 ## What it never does
 

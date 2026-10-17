@@ -1,0 +1,67 @@
+# Deploys the Cloudflare Worker in tools/dispatcher/ (the clock outside GitHub that starts the scheduled refreshes GitHub drops
+# or holds; rule in scripts/watchdog/dispatch-lib.mjs, runbook tools/dispatcher/README.md). Runs by hand and on every merge
+# that touches the Worker or the rule it bundles. Needs two repository secrets the owner creates once (README → "Deploy"):
+#   CLOUDFLARE_API_TOKEN      a Cloudflare API token with "Workers Scripts: Edit" on the account that serves fnam.mx
+#   DISPATCHER_GITHUB_TOKEN   a fine-grained GitHub token, this repository only, Actions: Read and write, Metadata: Read
+# The second is uploaded to the Worker as its GITHUB_TOKEN secret on every deploy, so rotating it is one secret change here
+# plus a dispatch of this workflow. The account id is in tools/dispatcher/wrangler.toml (it is not a secret).
+name: Deploy the dispatcher Worker
+run-name: "${{ github.workflow }} (${{ github.event_name == 'workflow_dispatch' && 'by hand' || 'merge' }})"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/dispatcher/**"
+      - "scripts/watchdog/lib.mjs"
+      - "scripts/watchdog/dispatch-lib.mjs"
+      - ".github/workflows/dispatcher-deploy.yml"
+
+concurrency:
+  group: dispatcher-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Self-test the rule the Worker bundles
+        run: node scripts/watchdog/selftest.mjs
+
+      - name: Check the secrets are set
+        env:
+          CF: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GH: ${{ secrets.DISPATCHER_GITHUB_TOKEN }}
+        run: |
+          missing=""
+          [ -n "$CF" ] || missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -n "$GH" ] || missing="$missing DISPATCHER_GITHUB_TOKEN"
+          if [ -n "$missing" ]; then
+            echo "::error::Repository secret(s) not set:$missing. Create them as tools/dispatcher/README.md describes, then run this workflow again."
+            exit 1
+          fi
+
+      - name: Deploy the Worker and upload its GitHub token
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: tools/dispatcher
+          command: deploy
+          secrets: |
+            GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.DISPATCHER_GITHUB_TOKEN }}
+
+      - name: What to look at
+        run: echo "Deployed. Cloudflare dashboard → Workers & Pages → fnam-dispatcher → Logs shows one line every ten minutes; GitHub → Actions shows the runs it starts as '(by hand)' runs on main."
