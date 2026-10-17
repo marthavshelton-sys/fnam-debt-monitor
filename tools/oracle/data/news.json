@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-17",
   "window_days": 120,
   "themes": [
     {
@@ -36,6 +36,64 @@
   ],
   "items": [
     {
+      "id": "2026-10-16-orcl-drop",
+      "date": "2026-10-16",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "ORCL −4.6% to US$128.23 on Oct 16; TradingKey ties the fall to higher Treasury yields, capex and permitting delays (press)",
+      "title_es": "ORCL −4.6% a US$128.23 el 16 oct; TradingKey atribuye la caída a rendimientos más altos del Tesoro, el capex y retrasos en permisos (prensa)",
+      "summary_en": "ORCL closed at US$128.23 on Friday Oct 16 (−4.6% from US$134.47, FactSet close; intraday range US$127.36-133.80, volume 34.8 M). TradingKey (\"Moved Down by 3.69% on Oct 16\", intraday) cites \"macroeconomic headwinds and rising Treasury yields\" after inflation data, OCI and data-center capex weighing on free cash flow and debt, and power and permitting delays at new sites; Zacks (via Yahoo Finance) printed −4.43% to US$128.51 with the S&P 500 −1.09% and the Nasdaq −2.15%, and gave no cause. Oracle filed and released nothing that day. Press-reported reasons; unconfirmed.",
+      "summary_es": "ORCL cerró en US$128.23 el viernes 16 oct (−4.6% desde US$134.47, cierre de FactSet; rango intradía US$127.36-133.80, volumen 34.8 M). TradingKey (\"bajó 3.69% el 16 oct\", intradía) cita \"vientos en contra macroeconómicos y rendimientos del Tesoro al alza\" tras datos de inflación, el capex de OCI y centros de datos que pesa sobre el flujo libre y la deuda, y retrasos de energía y permisos en sitios nuevos; Zacks (vía Yahoo Finance) publicó −4.43% a US$128.51 con el S&P 500 −1.09% y el Nasdaq −2.15%, sin dar causa. Oracle no presentó ni comunicó nada ese día. Razones reportadas por la prensa; sin confirmar.",
+      "why_en": "A price move, not a data change: it enters only the price series; the cited causes (cost of debt, capex funding) bear on the financing section, not on any figure.",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios; las causas citadas (costo de la deuda, financiamiento del capex) tocan la sección de financiamiento, no ninguna cifra.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "FactSet Global Prices, ORCL close of Oct 16, 2026 (FNAM price file)",
+          "url": "https://fnam.mx/oracle/"
+        },
+        {
+          "tier": "press",
+          "title": "TradingKey, Oct 16, 2026: Oracle Corp Stock (ORCL) Moved Down by 3.69% on Oct 16: Facts Behind the Movement",
+          "url": "https://www.tradingkey.com/news/market-movers/262221314-market-movers-orcl-20261016"
+        },
+        {
+          "tier": "press",
+          "title": "Zacks via Yahoo Finance, Oct 16, 2026: Why Oracle (ORCL) Dipped More Than Broader Market Today",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/why-oracle-orcl-dipped-more-204503960.html"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-15-jupiter-emissions-cap",
+      "date": "2026-10-15",
+      "theme": "power",
+      "basis": "company",
+      "title_en": "Oracle and YGI propose an output cap on the Project Jupiter fuel cells that cuts permitted emissions by about 35%; motion to dismiss the air permit heard Oct 26",
+      "title_es": "Oracle y YGI proponen un tope de producción a las celdas del Proyecto Júpiter que reduce ~35% las emisiones permitidas; la moción para desechar el permiso de aire se oye el 26 oct",
+      "summary_en": "Oracle release (Oct 15): Oracle and Yucca Growth Infrastructure propose a refined design of the Bloom fuel-cell microgrid, an enforceable permit condition capping the fuel cells' megawatts of output, which lowers permitted emissions by about 35% including greenhouse gases; data-center IT capacity is unchanged. Source New Mexico: annual greenhouse gases from about 8.8 million to 5.7 million tons; Oracle's statement: \"NMED's staff asked hard technical questions, and they pushed us to address the concerns raised by the public\" (company statement, not audited). Albuquerque Journal: New Energy Economy asked hearing officer James Browning to dismiss the application as incomplete; he set an Oct 26 hearing on the motion; NMED's decision deadline is Nov 23 (an Oct 9 email discussed a possible extension).",
+      "summary_es": "Comunicado de Oracle (15 oct): Oracle y Yucca Growth Infrastructure proponen un diseño refinado de la microrred de celdas Bloom, una condición exigible del permiso que limita los megawatts de producción de las celdas, que reduce alrededor de 35% las emisiones permitidas, incluidos los gases de efecto invernadero; la capacidad de TI del centro de datos no cambia. Source New Mexico: gases de efecto invernadero anuales de unos 8.8 a 5.7 millones de toneladas; declaración de Oracle: \"El personal del NMED hizo preguntas técnicas difíciles y nos pidió atender las inquietudes del público\" (declaración de la empresa, no auditada). Albuquerque Journal: New Energy Economy pidió al oficial de audiencia James Browning desechar la solicitud por incompleta; él fijó una audiencia sobre la moción el 26 oct; el plazo de decisión del NMED es el 23 nov (un correo del 9 oct habló de una posible prórroga).",
+      "why_en": "The air permit gates the campus's primary power: a dismissal or an extension past Nov 23 would push first revenue at Project Jupiter and lengthen the period of capex before cash ({{sec:sites}}). The cap limits fuel-cell output, not contracted IT capacity; no figure on the page changes.",
+      "why_es": "El permiso de aire condiciona la energía principal del campus: un desechamiento o una prórroga después del 23 nov retrasaría el primer ingreso del Proyecto Júpiter y alargaría el periodo de capex antes del flujo ({{sec:sites}}). El tope limita la producción de las celdas, no la capacidad de TI contratada; ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle press release, Oct 15, 2026: Project Jupiter Microgrid Cuts Permitted Emissions by 35%, Including Greenhouse Gases, in Response to NMED Review and Public Comment",
+          "url": "https://www.oracle.com/news/announcement/project-jupiter-microgrid-cuts-permitted-emissions-by-35-percent-2026-10-15/"
+        },
+        {
+          "tier": "press",
+          "title": "Source New Mexico, Oct 15, 2026: Oracle says it will cut Project Jupiter emissions after New Mexico org seeks to toss permit case",
+          "url": "https://sourcenm.com/2026/10/15/oracle-says-it-will-cut-project-jupiter-emissions-after-new-mexico-org-seeks-to-toss-permit-case/"
+        },
+        {
+          "tier": "press",
+          "title": "Albuquerque Journal, Oct 15, 2026: Project Jupiter air permit faces dismissal motion over pollution estimates",
+          "url": "https://www.abqjournal.com/news/new-challenge-to-project-jupiter-air-permit/3143387"
+        }
+      ]
+    },
+    {
       "id": "2026-10-15-orcl-rebound",
       "date": "2026-10-15",
       "theme": "power",
@@ -70,6 +128,25 @@
           "tier": "press",
           "title": "JKN, Oct 15, 2026: Oracle Shares Tumble 8.8% as Delays and Costs Mount for $165 Billion AI Campus",
           "url": "https://news.jkn.co.kr/editions/english/post/1023582"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-13-jupiter-ferc-letter",
+      "date": "2026-10-13",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "Bloomberg: Oracle asks FERC to speed approval of the Green Chile pipeline for Project Jupiter; in-service date now February 2027",
+      "title_es": "Bloomberg: Oracle pide a la FERC acelerar la aprobación del gasoducto Green Chile para el Proyecto Júpiter; entrada en servicio ahora en febrero de 2027",
+      "summary_en": "Bloomberg (Oct 13): in a letter that Tuesday to the Federal Energy Regulatory Commission, Oracle's SVP of government affairs Josh Pitcock wrote \"Time remains of the essence\" and that further delay \"threatens to delay Project Jupiter's operations\". The 17.8-mile Green Chile pipeline of an Energy Transfer subsidiary (about 400 million cubic feet a day, fuel for the Bloom fuel cells) moved from an August 15 target to February 2027 after the state rejected the route over state lands; New Mexico's Attorney General asked FERC to revise its Sep 4 environmental assessment or prepare a full EIS. Press-reported letter; not on Oracle's newsroom.",
+      "summary_es": "Bloomberg (13 oct): en una carta de ese martes a la Comisión Federal Reguladora de Energía (FERC), el vicepresidente sénior de asuntos gubernamentales de Oracle, Josh Pitcock, escribió \"el tiempo sigue siendo esencial\" y que más retraso \"amenaza con retrasar la operación del Proyecto Júpiter\". El gasoducto Green Chile de 17.8 millas de una subsidiaria de Energy Transfer (unos 400 millones de pies cúbicos diarios, combustible de las celdas Bloom) pasó de una meta del 15 de agosto a febrero de 2027 después de que el estado rechazó la ruta por terrenos estatales; el Fiscal General de Nuevo México pidió a la FERC revisar su evaluación ambiental del 4 sep o elaborar una EIS completa. Carta reportada por la prensa; no está en la sala de prensa de Oracle.",
+      "why_en": "The pipeline is the fuel for the campus's primary power; its approval timing drives when Project Jupiter's capacity can bill ({{sec:sites}}). No figure on the page changes.",
+      "why_es": "El gasoducto es el combustible de la energía principal del campus; el momento de su aprobación define cuándo puede facturar la capacidad del Proyecto Júpiter ({{sec:sites}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Bloomberg (via Yahoo Finance), Oct 13, 2026: Oracle Asks Regulators to Expedite Gas Pipeline for Data Center",
+          "url": "https://finance.yahoo.com/energy/articles/oracle-asks-regulators-expedite-gas-203711536.html"
         }
       ]
     },
@@ -631,6 +708,46 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-17",
+      "by": "routine",
+      "searches": 28,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "TradingKey",
+        "Zacks",
+        "Source New Mexico",
+        "Albuquerque Journal",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings",
+        "OpenAI",
+        "Bloom Energy",
+        "AMD",
+        "Nvidia",
+        "Vantage",
+        "Stargate"
+      ],
+      "added": [
+        "2026-10-16-orcl-drop",
+        "2026-10-15-jupiter-emissions-cap",
+        "2026-10-13-jupiter-ferc-letter"
+      ],
+      "note": "No new SEC filing since the Oct 1 Form 4; the IR feed has nothing after Sep 12. Oracle's Oct 15 newsroom release on the Project Jupiter emissions cap (403 to fetch; read through Source New Mexico and the Albuquerque Journal) and Bloomberg's Oct 13 report of the FERC letter were added, with the Oct 16 move (−4.6%). No rating action; Port Washington, Saline, Shackelford and Abilene searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-16",
       "by": "routine",
