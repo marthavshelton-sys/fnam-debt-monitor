@@ -161,6 +161,12 @@ table tr.sub2 td:first-child{padding-left:36px; color:var(--text-secondary);}
 table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding-top:14px;}
 table td.est{color:var(--text-secondary); font-style:italic;}
 .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+/* current multiples: two columns; the metric carries its basis beneath (wraps freely), the value is one line, never wrapped */
+#multTable td:first-child{font-weight:600; color:var(--text-primary); vertical-align:top; padding:8px 12px 8px 8px;}
+#multTable td .basis{font-weight:400; font-size:12px; line-height:1.4; margin-top:2px; color:var(--text-secondary);}
+#multTable th .basis-h{font-weight:400; letter-spacing:0;}
+#multTable td.val{white-space:nowrap; width:1%; font-weight:700; font-size:14px; color:var(--text-primary); vertical-align:top; padding:8px 8px 8px 12px;}
+@media (max-width:640px){ #multTable td .basis{font-size:11.5px;} }
 /* instruments table on phones: the type column repeats the group heading, so it goes; the name column stays pinned while the rest scrolls */
 @media (max-width:640px){ #instrTable .col-type{display:none;} #instrTable th:first-child, #instrTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; max-width:46vw;} }
 .lead{font-size:13.5px; line-height:1.5; margin-top:8px;}

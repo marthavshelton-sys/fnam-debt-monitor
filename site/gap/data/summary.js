@@ -10,6 +10,19 @@ window.GAP_SUMMARY = {
   basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-09", guidanceDate: "2026-07-14" },
   sections: [
     {
+      k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
+      es: [
+        "**Tráfico de octubre** ({{nextTraffic}}): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
+        "**3T26** ({{nextResults}}): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
+        "**FIBRA GAP: sin colocar según los comunicados de GAP y los eventos relevantes de la BMV** (revisados al 14 oct); la prensa reportó octubre de 2026 como fecha prevista (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
+      ],
+      en: [
+        "**October traffic** ({{nextTraffic}}): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
+        "**3Q26** ({{nextResults}}): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
+        "**FIBRA GAP: not placed per GAP's filings and the BMV material events** (checked 14 Oct); the press reported an October 2026 target (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
+      ]
+    },
+    {
       k: "ops", title: { es: "Operación", en: "Operations" },
       es: [
         "2T26: **ingresos sin IFRIC 12 +4.9% y EBITDA +8.4%** (margen 69.3%, +2.2 pp) pese a un **tráfico −5.6%**. Lo explican las tarifas máximas 2025–29, los negocios operados por GAP (+17%) y dos meses de CBX (Ps. 468 M de ingresos, Ps. 316 M de EBITDA); desde mayo ya no se paga la cuota de asistencia técnica a AMP.",
@@ -46,19 +59,6 @@ window.GAP_SUMMARY = {
         "At 30 June 2026: gross debt Ps. 65.7 bn, cash Ps. 19.8 bn, **net debt Ps. 45.9 bn = 2.1x LTM EBITDA** (Ps. 22.2 bn); gross debt 3.0x; EBITDA covers the LTM net financial cost 6.4x.",
         "Leverage rose with the **Ps. 10.7 bn of certificados bursátiles issued in March** (GAP 26 at TIIE + 45 bp and GAP 26-2 at 9.87% fixed to 2036) to pay US$487.5 M for the remaining 25% of CBX and MDP capex, plus the Ps. 1.3 bn loan assumed from CBX; Ps. 8.0 bn of bank facilities were signed in September. Rated Aaa.mx / mxAAA, stable outlook.",
         "**2026 dividend approved: {{dps}} per share** ({{divYield}} on the {{lastPxDate}} close of {{lastPx}}), payable in one or more installments until 22 Apr 2027 to the shares outstanding on each payment date; declared in full in 2Q26 (Ps. 12,376 M payable at 30 June) and **no installment paid** yet. Guided capex Ps. 12.0 bn, 41% spent by June."
-      ]
-    },
-    {
-      k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
-      es: [
-        "**Tráfico de octubre** ({{nextTraffic}}): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
-        "**3T26** ({{nextResults}}): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
-        "**FIBRA GAP: sin colocar según los comunicados de GAP y los eventos relevantes de la BMV** (revisados al 14 oct); la prensa reportó octubre de 2026 como fecha prevista (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
-      ],
-      en: [
-        "**October traffic** ({{nextTraffic}}): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
-        "**3Q26** ({{nextResults}}): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
-        "**FIBRA GAP: not placed per GAP's filings and the BMV material events** (checked 14 Oct); the press reported an October 2026 target (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
       ]
     }
   ]
