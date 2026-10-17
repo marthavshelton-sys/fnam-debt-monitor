@@ -196,6 +196,19 @@ EBITDA itself is unchanged by IFRIC 12 (construction margin nil), so EV/EBITDA n
 Aena's open item: replace the two call figures with the ANB and BOAB "Construction services revenue" lines of the H1 2026
 Consolidated Interim Management Report (the sandbox's egress blocks aena.es downloads; a session with the file attached can).
 
+Layout of the peers table (owner, 17-Oct-2026): the four EV/EBITDA NTM columns, the four P/E NTM columns and the margin pair each
+sit on their own tint under a heading in the same color, opened by a vertical rule (classes `g1`/`g2`/`g3` and `gs` set by
+`renderPeers`; the traffic table's design), rows alternate (`alt`, restarted under each group label) and the company column is
+pinned at every width (`position: sticky`; the group labels are their own cell, so they stay pinned too), so the rest of the table
+scrolls under it on a laptop, a tablet or a phone; the phone view hides the price and market-cap columns (`price`, `cap`). The
+deck's `peersPage` (shared engine) prints the same groups through `table()`'s `colFill` / `colRule` options with a stronger zebra
+(`alt`), so the ASUR, OMA, Quálitas and Gentera decks carry the design too. The same day the two consensus cards became one
+full-width card: the tiles, then "Fiscal-Year Consensus Versus Guidance" with revenue, EBITDA and EPS, each with its year-over-year
+change (the first estimate year over the reported 2025 figures, later years over the prior year's consensus mean, 2025 over
+reported 2024; the guidance row prints the revenue and EBITDA ranges of the vintage in force). The 2025 actual EPS in that table is
+net income attributable to the controlling interest over year-end shares (`perShare().epsCtrl`), the basis closest to FactSet's
+EPS; GAP's own comprehensive income per share is named in the note.
+
 ## DCF: hidden and paused (owner, 12-Oct-2026)
 
 The owner asked to hide the DCF section of the GAP, OMA and ASUR pages so it is neither visible nor reachable (page, menu,

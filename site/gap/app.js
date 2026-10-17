@@ -1393,16 +1393,19 @@
     // two header rows, the Oracle page's design (owner, 2026-10-07): the single columns span both rows, each NTM multiple heads a group of
     // four (current in bold, then its 1-, 3- and 5-year averages) closed by a dividing line, and the pricing date sits under the market cap
     const priced = PEERS.pricesAsOf ? `<span class="sub">${es ? 'al' : 'as of'} ${fmtDate(PEERS.pricesAsOf)}</span>` : '';
-    const head = [['name', es ? 'Empresa' : 'Company'], ['price', es ? 'Precio' : 'Price'], ['mktCapUsdM', (es ? 'Cap. US$ M' : 'Mkt cap US$ M') + priced], ['adtvUsdM', 'ADTV US$ M']];
-    const grp = (pre) => [[pre + 'Ntm', cur, 'now'], [pre + 'NtmAvg1y', a1], [pre + 'NtmAvg3y', a3], [pre + 'NtmAvg5y', a5, 'gsep']];
-    const evCols = grp('evEbitda'), peCols = grp('pe');
-    const tail = [['divYieldPct', es ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA']];
+    // each column: [key, label, classes]; the classes tint a column with its group (g1 EV/EBITDA, g2 P/E, g3 margin), open a group
+    // with a vertical rule (gs), embolden the current multiple (now) and name the two columns the phone view hides (price, cap)
+    const head = [['name', es ? 'Empresa' : 'Company'], ['price', es ? 'Precio' : 'Price', 'price'], ['mktCapUsdM', (es ? 'Cap. US$ M' : 'Mkt cap US$ M') + priced, 'cap'], ['adtvUsdM', 'ADTV US$ M']];
+    const grp = (pre, g) => [[pre + 'Ntm', cur, `now ${g} gs`], [pre + 'NtmAvg1y', a1, g], [pre + 'NtmAvg3y', a3, g], [pre + 'NtmAvg5y', a5, g]];
+    const evCols = grp('evEbitda', 'g1'), peCols = grp('pe', 'g2');
+    const tail = [['divYieldPct', es ? 'Div.' : 'Div. yield', 'gs'], ['netDebtEbitda', ndL() + '/EBITDA']];
     // EBITDA margin as a group of two: FactSet's reported basis and the ex-IFRIC 12 basis (owner, 17-Oct-2026)
-    const mgCols = [['ebitdaMarginPct', es ? 'Reportado' : 'Reported'], ['ebitdaMarginExIfricPct', es ? 'Sin IFRIC 12' : 'ex-IFRIC 12']];
+    const mgCols = [['ebitdaMarginPct', es ? 'Reportado' : 'Reported', 'g3 gs'], ['ebitdaMarginExIfricPct', es ? 'Sin IFRIC 12' : 'ex-IFRIC 12', 'g3']];
     const cols = [...head, ...evCols, ...peCols, ...tail, ...mgCols];
-    const th1 = (c) => `<th scope="col" rowspan="2">${c[1]}</th>`;
-    const th2 = (c) => `<th scope="col"${c[2] === 'gsep' ? ' class="gsep"' : ''}>${c[1]}</th>`;
-    const thead = `<tr>${head.map(th1).join('')}<th scope="colgroup" colspan="4" class="grp">${evL() + '/EBITDA ' + ntmLbl()}</th><th scope="colgroup" colspan="4" class="grp">${peL() + ' ' + ntmLbl()}</th>${tail.map(th1).join('')}<th scope="colgroup" colspan="2" class="grp">${es ? 'Margen EBITDA' : 'EBITDA margin'}</th></tr><tr>${[...evCols, ...peCols, ...mgCols].map(th2).join('')}</tr>`;
+    const cl = (c) => (c[2] ? ` class="${c[2]}"` : '');
+    const th1 = (c) => `<th scope="col" rowspan="2"${cl(c)}>${c[1]}</th>`;
+    const th2 = (c) => `<th scope="col"${cl(c)}>${c[1]}</th>`;
+    const thead = `<tr>${head.map(th1).join('')}<th scope="colgroup" colspan="4" class="grp g1 gs">${evL() + '/EBITDA ' + ntmLbl()}</th><th scope="colgroup" colspan="4" class="grp g2 gs">${peL() + ' ' + ntmLbl()}</th>${tail.map(th1).join('')}<th scope="colgroup" colspan="2" class="grp g3 gs">${es ? 'Margen EBITDA' : 'EBITDA margin'}</th></tr><tr>${[...evCols, ...peCols, ...mgCols].map(th2).join('')}</tr>`;
     const cell = (k, p) => {
       const v = p[k];
       if (k === 'name') return p.ticker ? `${p.short} <span class="muted small">${p.ticker}</span>` : p.name;
@@ -1425,9 +1428,13 @@
       { name: es ? 'Internacionales' : 'International', cls: 'head' }, ...intl,
       medRow(es ? 'Mediana México' : 'Median, Mexico', M.mexico), medRow(es ? 'Mediana internacional' : 'Median, international', M.international), medRow(es ? 'Mediana de pares' : 'Peer median', M.all),
     ].filter(Boolean);
-    html('peersTable', `<table class="peers"><thead>${thead}</thead><tbody>${rows.map((p) => p.cls === 'head'
-      ? `<tr class="head"><td colspan="${cols.length}">${p.name}</td></tr>`
-      : `<tr class="${p.cls || ''}">${cols.map((c) => `<td${c[2] ? ` class="${c[2]}"` : ''}>${cell(c[0], p)}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+    // rows alternate their background (`alt`), restarting under each group label; the label cell stays its own column so it is pinned
+    // with the company names when the table scrolls sideways
+    let alt = false;
+    html('peersTable', `<table class="peers"><thead>${thead}</thead><tbody>${rows.map((p) => {
+      if (p.cls === 'head') { alt = false; return `<tr class="head"><td>${p.name}</td><td colspan="${cols.length - 1}"></td></tr>`; }
+      const tr = `<tr class="${p.cls || ''}${alt ? ' alt' : ''}">${cols.map((c) => `<td${cl(c)}>${cell(c[0], p)}</td>`).join('')}</tr>`; alt = !alt; return tr;
+    }).join('')}</tbody></table>`);
     const prem = (v, m) => (v != null && m ? fmtPct(100 * (v / m - 1), 0, true) : '—');
     // own history: "in line with" inside ±0.5%, otherwise the signed premium/discount
     const vsOwn = (v, m) => (Math.abs(100 * (v / m - 1)) < 0.5 ? (es ? 'en línea con' : 'in line with') : prem(v, m) + (es ? ' frente a' : ' versus'));
@@ -1466,27 +1473,37 @@
       G.ntm && G.ntm.eps ? { v: 'Ps. ' + fmtN(G.ntm.eps.mean, 2), l: (LANG === 'es' ? 'UPA ' : 'EPS ') + ntmLbl() + (LANG === 'es' ? ' · consenso' : ' · consensus') } : null,
     ].filter(Boolean);
     html('consTiles', tiles.map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join(''));
-    // fiscal-year consensus vs the guidance in force
+    // fiscal-year consensus vs the guidance in force: revenue, EBITDA and EPS, each with its year-over-year change (owner, 17-Oct-2026);
+    // the first estimate year grows over the reported 2025 figures, each later year over the prior year's consensus mean
+    const es = LANG === 'es';
     const fys = Object.keys(G.fy || {}).sort();
-    const y25 = Y.find((y) => y.fy === 2025);
+    const y25 = Y.find((y) => y.fy === 2025), y24 = Y.find((y) => y.fy === 2024);
     const gv = GV && GV.length ? GV[GV.length - 1] : null;
-    const gE = gv && gv.items && gv.items.ebitda;
-    const head = [LANG === 'es' ? 'Año' : 'Year', LANG === 'es' ? 'Ingresos' : 'Revenue', 'EBITDA', LANG === 'es' ? 'Δ EBITDA a/a' : 'EBITDA y/y', LANG === 'es' ? 'UPA (Ps.)' : 'EPS (Ps.)', LANG === 'es' ? 'Analistas' : 'Analysts'];
-    let prevE = y25 && y25.is ? y25.is.ebitda / 1000 : null;
+    const gE = gv && gv.items && gv.items.ebitda, gR = gv && gv.items && gv.items.revTotal;
+    // reported EPS on the basis closest to FactSet's: net income attributable to the controlling interest over the year-end shares
+    const epsOf = (y) => { const p = y ? perShare(y) : null; return p && p.epsCtrl != null ? p.epsCtrl : null; };
+    const head = es ? ['Año', 'Ingresos', 'Δ Ingresos a/a', 'EBITDA', 'Δ EBITDA a/a', 'UPA (Ps.)', 'Δ UPA a/a', 'Analistas'] : ['Year', 'Revenue', 'Revenue y/y', 'EBITDA', 'EBITDA y/y', 'EPS (Ps.)', 'EPS y/y', 'Analysts'];
+    const chg = (v, p) => (v != null && p ? fmtPct(100 * (v / p - 1), 1, true) : '—');
+    const dash = '<span class="muted">—</span>';
+    let prevR = y25 && y25.is ? y25.is.revTotal / 1000 : null, prevE = y25 && y25.is ? y25.is.ebitda / 1000 : null, prevP = epsOf(y25);
     const body = [];
-    if (y25 && y25.is) body.push(`<tr><td>2025 (${LANG === 'es' ? 'real' : 'actual'})</td><td>${fmtM(y25.is.revTotal)}</td><td>${fmtM(y25.is.ebitda)}</td><td>—</td><td>${y25.is.ciPerShare != null ? fmtN(y25.is.ciPerShare, 2) : '—'}</td><td>—</td></tr>`);
+    if (y25 && y25.is) body.push(`<tr><td>2025 (${es ? 'real' : 'actual'})</td><td>${fmtM(y25.is.revTotal)}</td><td>${chg(y25.is.revTotal, y24 && y24.is && y24.is.revTotal)}</td><td>${fmtM(y25.is.ebitda)}</td><td>${chg(y25.is.ebitda, y24 && y24.is && y24.is.ebitda)}</td><td>${prevP != null ? fmtN(prevP, 2) : dash}</td><td>${chg(prevP, epsOf(y24))}</td><td>${dash}</td></tr>`);
     for (const fy of fys) {
-      const e = G.fy[fy]; const eb = e.ebitda && e.ebitda.mean;
-      body.push(`<tr><td>${fy}E</td><td>${e.sales ? fmtN(e.sales.mean, 0) : '—'}</td><td>${eb != null ? fmtN(eb, 0) : '—'}</td><td>${eb != null && prevE ? fmtPct(100 * (eb / prevE - 1), 1, true) : '—'}</td><td>${e.eps ? fmtN(e.eps.mean, 2) : '—'}</td><td class="muted">${(e.ebitda && e.ebitda.count) || ''}</td></tr>`);
-      if (eb != null) prevE = eb;
+      const e = G.fy[fy]; const r = e.sales && e.sales.mean, eb = e.ebitda && e.ebitda.mean, ep = e.eps && e.eps.mean;
+      body.push(`<tr><td>${fy}E</td><td>${r != null ? fmtN(r, 0) : dash}</td><td>${chg(r, prevR)}</td><td>${eb != null ? fmtN(eb, 0) : dash}</td><td>${chg(eb, prevE)}</td><td>${ep != null ? fmtN(ep, 2) : dash}</td><td>${chg(ep, prevP)}</td><td class="muted">${(e.ebitda && e.ebitda.count) || ''}</td></tr>`);
+      if (r != null) prevR = r; if (eb != null) prevE = eb; if (ep != null) prevP = ep;
     }
-    if (gE && y25 && y25.is) body.push(`<tr class="total"><td>${LANG === 'es' ? 'Guía 2026' : '2026 guidance'} (${fmtDate(gv.date)})</td><td>—</td><td>${fmtM(y25.is.ebitda * (1 + gE.lo / 100))} – ${fmtM(y25.is.ebitda * (1 + gE.hi / 100))}</td><td>${fmtPct(gE.lo, 0, true)} – ${fmtPct(gE.hi, 0, true)}</td><td>—</td><td>—</td></tr>`);
+    const rng = (g, f) => `${f(g.lo)} – ${f(g.hi)}`;
+    if ((gE || gR) && y25 && y25.is) body.push(`<tr class="total"><td>${es ? 'Guía 2026' : '2026 guidance'} (${fmtDate(gv.date)})</td><td>${gR ? rng(gR, (x) => fmtM(y25.is.revTotal * (1 + x / 100))) : dash}</td><td>${gR ? rng(gR, (x) => fmtPct(x, 0, true)) : dash}</td><td>${gE ? rng(gE, (x) => fmtM(y25.is.ebitda * (1 + x / 100))) : dash}</td><td>${gE ? rng(gE, (x) => fmtPct(x, 0, true)) : dash}</td><td>${dash}</td><td>${dash}</td><td>${dash}</td></tr>`);
     html('consTable', `<table><thead><tr>${head.map((h) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`);
-    const c26 = G.fy && G.fy['2026'] && G.fy['2026'].ebitda ? G.fy['2026'].ebitda.mean : null;
+    const f26 = G.fy && G.fy['2026'];
+    const c26 = f26 && f26.ebitda ? f26.ebitda.mean : null, r26 = f26 && f26.sales ? f26.sales.mean : null;
     const vsG = c26 != null && gE && y25 && y25.is ? 100 * (c26 / (y25.is.ebitda / 1000) - 1) : null;
-    html('consNote', LANG === 'es'
-      ? `Consenso de FactSet al ${fmtDate(PEERS.estimateDate)}, en Ps. millones (media). EBITDA de FactSet = utilidad de operación + depreciación y amortización; los ingresos siguen la definición de FactSet (pueden incluir ingresos por construcción IFRIC 12), por lo que sólo el EBITDA se compara con la guía. ${vsG != null ? `El consenso 2026 implica ${fmtPct(vsG, 1, true)} sobre el EBITDA 2025 reportado, contra la guía vigente de ${fmtPct(gE.lo, 0, true)} a ${fmtPct(gE.hi, 0, true)}.` : ''} Cierre de referencia: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`
-      : `FactSet consensus as of ${fmtDate(PEERS.estimateDate)}, Ps. million (mean). FactSet EBITDA = operating income + depreciation and amortization; revenue follows FactSet's definition (it may include IFRIC 12 construction revenue), so only EBITDA is compared with guidance. ${vsG != null ? `The 2026 consensus implies ${fmtPct(vsG, 1, true)} on reported 2025 EBITDA, against guidance of ${fmtPct(gE.lo, 0, true)} to ${fmtPct(gE.hi, 0, true)}.` : ''} Reference close: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`);
+    const vsR = r26 != null && gR && y25 && y25.is ? 100 * (r26 / (y25.is.revTotal / 1000) - 1) : null;
+    const eps25 = epsOf(y25), sh25 = y25 && y25.shares ? y25.shares.current : null;
+    html('consNote', es
+      ? `Consenso de FactSet al ${fmtDate(PEERS.estimateDate)}, en Ps. millones (media). EBITDA de FactSet = utilidad de operación + depreciación y amortización; los ingresos siguen la definición de FactSet (pueden incluir ingresos por construcción IFRIC 12, como los ingresos totales que GAP reporta), por lo que la comparación con la guía descansa en el EBITDA. ${vsG != null ? `El consenso 2026 implica ${fmtPct(vsG, 1, true)} sobre el EBITDA 2025 reportado, contra la guía vigente de ${fmtPct(gE.lo, 0, true)} a ${fmtPct(gE.hi, 0, true)}` : ''}${vsR != null ? `${vsG != null ? ', y' : 'El consenso 2026 implica'} ${fmtPct(vsR, 1, true)} en ingresos, contra ${fmtPct(gR.lo, 0, true)} a ${fmtPct(gR.hi, 0, true)}` : ''}${vsG != null || vsR != null ? '. ' : ''}Crecimiento: el primer año estimado sobre las cifras reportadas de 2025, cada año siguiente sobre la media del consenso del año anterior; 2025 sobre 2024 reportado. UPA 2025 real = utilidad neta de la participación controladora entre las acciones al cierre (${sh25 ? fmtN(sh25 / 1e6, 1) + ' M' : '—'}), la base más cercana a la UPA de FactSet${eps25 != null && y25.is.ciPerShare != null ? ` (GAP reporta utilidad integral por acción de Ps. ${fmtN(y25.is.ciPerShare, 2)})` : ''}. Analistas: número de estimaciones de EBITDA. Cierre de referencia: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`
+      : `FactSet consensus as of ${fmtDate(PEERS.estimateDate)}, Ps. million (mean). FactSet EBITDA = operating income + depreciation and amortization; revenue follows FactSet's definition (it may include IFRIC 12 construction revenue, as GAP's reported total revenue does), so the guidance comparison rests on EBITDA. ${vsG != null ? `The 2026 consensus implies ${fmtPct(vsG, 1, true)} on reported 2025 EBITDA, against guidance of ${fmtPct(gE.lo, 0, true)} to ${fmtPct(gE.hi, 0, true)}` : ''}${vsR != null ? `${vsG != null ? ', and' : 'The 2026 consensus implies'} ${fmtPct(vsR, 1, true)} in revenue, against ${fmtPct(gR.lo, 0, true)} to ${fmtPct(gR.hi, 0, true)}` : ''}${vsG != null || vsR != null ? '. ' : ''}Growth: the first estimate year over the reported 2025 figures, each later year over the prior year's consensus mean; 2025 over reported 2024. 2025 actual EPS = net income attributable to the controlling interest over year-end shares (${sh25 ? fmtN(sh25 / 1e6, 1) + ' M' : '—'}), the basis closest to FactSet's EPS${eps25 != null && y25.is.ciPerShare != null ? ` (GAP reports comprehensive income per share of Ps. ${fmtN(y25.is.ciPerShare, 2)})` : ''}. Analysts: number of EBITDA estimates. Reference close: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`);
   }
 
   // ================= 06 DEBT =================

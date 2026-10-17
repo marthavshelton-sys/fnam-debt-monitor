@@ -170,12 +170,24 @@ table td.est{color:var(--text-secondary); font-style:italic;}
 /* instruments table on phones: the type column repeats the group heading, so it goes; the name column stays pinned while the rest scrolls */
 @media (max-width:640px){ #instrTable .col-type{display:none;} #instrTable th:first-child, #instrTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; max-width:46vw;} }
 .lead{font-size:13.5px; line-height:1.5; margin-top:8px;}
-table.peers th, table.peers td{padding:5px 5px; white-space:nowrap; font-size:12px;}
+table.peers th, table.peers td{padding:5px 6px; white-space:nowrap; font-size:12px;}
 table.peers th{font-size:10.5px;}
 table.peers tr.head td{padding-top:12px;}
-/* peers table (same design as the Oracle page): each forward multiple with its 1-, 3- and 5-year averages under one group heading,
-   the current column in bold and a dividing line after each group */
-table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); padding-bottom:3px;}
+/* peers table (owner, 17-Oct-2026): the two forward-multiple groups (EV/EBITDA NTM, P/E NTM) and the margin pair each sit under one
+   colored group heading on their own tint, opened by a vertical rule (the traffic table's design), so the four EV/EBITDA columns never
+   blend into the four P/E columns; rows alternate (`alt`, set by the renderer and restarted under each group label) and the company
+   column is pinned at every width, so the rest of the table scrolls under it on a laptop, a tablet or a phone */
+table.peers{--zebra:color-mix(in srgb, var(--text-primary) 3.5%, var(--surface));}
+table.peers th.grp{text-align:center; padding:6px 8px; font-size:11px; letter-spacing:.04em; border-bottom:2px solid currentColor;}
+table.peers .g1{--gtint:color-mix(in srgb, var(--series-1) 7%, transparent); --gcol:var(--series-1);}
+table.peers .g2{--gtint:color-mix(in srgb, var(--series-2) 9%, transparent); --gcol:var(--series-2);}
+table.peers .g3{--gtint:color-mix(in srgb, var(--series-3) 8%, transparent); --gcol:var(--series-3);}
+table.peers th.g1, table.peers th.g2, table.peers th.g3{color:var(--gcol);}
+table.peers td{background:var(--rowbg, transparent);}
+table.peers tr.alt{--rowbg:var(--zebra);}
+table.peers th.g1, table.peers th.g2, table.peers th.g3, table.peers td.g1, table.peers td.g2, table.peers td.g3{background:linear-gradient(var(--gtint), var(--gtint)), var(--rowbg, transparent);}
+table.peers th.gs, table.peers td.gs{border-left:2px solid var(--border); padding-left:12px;}
+table.peers thead tr:first-child th:first-child, table.peers td:first-child{position:sticky; left:0; z-index:1; background:var(--rowbg, var(--surface)); box-shadow:1px 0 0 var(--grid);}
 /* traffic table: one full-width card under the two charts; the columns sit in three groups (month, quarter to date, year to date),
    each under its own heading and separated by a vertical rule, so a reader never mixes a monthly figure with a cumulative one */
 .card.traffic-tbl{margin-top:20px;}
@@ -190,11 +202,13 @@ table.peers th.grp{text-align:center; border-bottom:1px solid var(--grid); paddi
 @media (max-width:640px){ #trafficTable th:first-child, #trafficTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; max-width:44vw;} }
 table.peers thead tr:nth-child(2) th{padding-top:4px;}
 table.peers td.now{font-weight:700;}
-table.peers td.gsep, table.peers th.gsep{border-right:1px solid var(--grid);}
+/* the consensus card: the tiles, then the fiscal-year table under its own sub-heading (one full-width card, owner 17-Oct-2026) */
+.card h4.sub-h{font-family:var(--sans); font-size:13px; font-weight:700; color:var(--text-primary); margin-top:20px; padding-top:16px; border-top:1px solid var(--border);}
+@media (max-width:640px){ #consTable th:first-child, #consTable td:first-child{position:sticky; left:0; background:var(--surface); z-index:1;} }
 .notice ul.status-tl{margin:8px 0 0; padding-left:18px; list-style:disc;}
 .notice ul.status-tl li{margin:4px 0; color:inherit;}
 .notice ul.status-tl li b{font-weight:700; text-transform:none; letter-spacing:0;}
-@media (max-width:640px){ table.peers thead tr:first-child th:nth-child(2), table.peers td:nth-child(2), table.peers thead tr:first-child th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers thead tr:first-child th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
+@media (max-width:640px){ table.peers th.price, table.peers td.price, table.peers th.cap, table.peers td.cap{display:none;} table.peers td:first-child{max-width:46vw; overflow:hidden; text-overflow:ellipsis;} table.peers td:first-child .small{display:none;} }
 .stmt-table td:first-child{min-width:200px; max-width:420px;}
 .stmt-table th.cmt, .stmt-table td.cmt{text-align:left; font-size:12px; color:var(--text-secondary); min-width:280px; max-width:440px; white-space:normal; line-height:1.4; font-variant-numeric:normal;}
 .stmt-table td:not(.cmt):not(:first-child){white-space:nowrap;}
@@ -712,18 +726,14 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
       <div class="tblwrap" id="peersTable"></div>
       <p class="chart-src" id="peersNote"></p>
     </div>
-    <div class="grid-2 rev">
-      <div class="card">
-        <h3><span class="es">Consenso de Analistas: GAP</span><span class="en" hidden>Analyst Consensus: GAP</span></h3>
-        <p class="cap"><span class="es">FactSet · precio objetivo, recomendaciones y próximos doce meses</span><span class="en" hidden>FactSet · price target, ratings and next twelve months</span></p>
-        <div class="stat-row" id="consTiles"></div>
-      </div>
-      <div class="card">
-        <h3><span class="es">Consenso por Año Fiscal Frente a la Guía</span><span class="en" hidden>Fiscal-Year Consensus Versus Guidance</span></h3>
-        <p class="cap"><span class="es">Ps. millones · media de los analistas</span><span class="en" hidden>Ps. million · analyst mean</span></p>
-        <div class="tblwrap" id="consTable"></div>
-        <p class="chart-src" id="consNote"></p>
-      </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Consenso de Analistas: GAP</span><span class="en" hidden>Analyst Consensus: GAP</span></h3>
+      <p class="cap"><span class="es">FactSet · precio objetivo, recomendaciones, próximos doce meses y años fiscales frente a la guía</span><span class="en" hidden>FactSet · price target, ratings, next twelve months and fiscal years versus guidance</span></p>
+      <div class="stat-row" id="consTiles"></div>
+      <h4 class="sub-h"><span class="es">Consenso por Año Fiscal Frente a la Guía</span><span class="en" hidden>Fiscal-Year Consensus Versus Guidance</span></h4>
+      <p class="cap"><span class="es">Ps. millones · media de los analistas · crecimiento anual de ingresos, EBITDA y UPA</span><span class="en" hidden>Ps. million · analyst mean · year-over-year growth in revenue, EBITDA and EPS</span></p>
+      <div class="tblwrap" id="consTable"></div>
+      <p class="chart-src" id="consNote"></p>
     </div>
   </section>
 
