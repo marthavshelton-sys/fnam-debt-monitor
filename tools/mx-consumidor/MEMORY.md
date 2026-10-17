@@ -85,6 +85,9 @@ Decisions, pitfalls and open items of `site/mx/consumidor/`. Runbook: `README.md
   through the probe file and come back as committed files.
 - A workflow file that is not on `main` cannot be dispatched by hand: during the first build the workflow ran from a
   temporary push trigger on the feature branch (removed before the merge).
+- INEGI's servers answer every HEAD with an empty text/html reply (no Last-Modified, no length) since 16-Oct-2026, while GET
+  still returns the file: ENIGH, ENIF, the ENFIH PDF and the calendar read every file as missing for four runs. `headOf()` in
+  `fetch.mjs` now reads such a reply again from a GET's headers and drops the body (17-Oct-2026).
 
 ## Open items
 
