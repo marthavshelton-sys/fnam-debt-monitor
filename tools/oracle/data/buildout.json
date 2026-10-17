@@ -233,7 +233,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-16",
+   "issues_checked": "2026-10-17",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -351,7 +351,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-16",
+   "issues_checked": "2026-10-17",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
    "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
    "tenant_openai": true,
@@ -487,6 +487,32 @@
    "status_date": "2026-10-13",
    "issues": [
     {
+     "date": "2026-10-15",
+     "kind": "permit",
+     "status": "open",
+     "basis": "company",
+     "due": "2026-11-23",
+     "en": "Oracle and YGI propose an enforceable output cap on the fuel cells that cuts permitted emissions by about 35% (greenhouse gases about 8.8 to 5.7 million tons a year per Source New Mexico; IT capacity unchanged). New Energy Economy moved to dismiss the air permit application as incomplete; hearing officer James Browning set an Oct 26 hearing on the motion; NMED's decision deadline is Nov 23 (Albuquerque Journal).",
+     "es": "Oracle y YGI proponen un tope exigible de producción de las celdas que reduce ~35% las emisiones permitidas (gases de efecto invernadero de unos 8.8 a 5.7 millones de toneladas al año según Source New Mexico; la capacidad de TI no cambia). New Energy Economy pidió desechar la solicitud del permiso de aire por incompleta; el oficial de audiencia James Browning fijó una audiencia sobre la moción el 26 oct; el plazo de decisión del NMED es el 23 nov (Albuquerque Journal).",
+     "source": {
+      "title": "Oracle press release, Oct 15, 2026: Project Jupiter Microgrid Cuts Permitted Emissions by 35%, Including Greenhouse Gases",
+      "url": "https://www.oracle.com/news/announcement/project-jupiter-microgrid-cuts-permitted-emissions-by-35-percent-2026-10-15/"
+     }
+    },
+    {
+     "date": "2026-10-13",
+     "kind": "power",
+     "status": "open",
+     "basis": "press",
+     "due": "2027-02-01",
+     "en": "Bloomberg: Oracle wrote to FERC asking it to speed approval of the 17.8-mile Green Chile pipeline (\"Time remains of the essence\"); in-service date February 2027; New Mexico's Attorney General asked FERC to revise its environmental assessment or prepare a full EIS.",
+     "es": "Bloomberg: Oracle escribió a la FERC para pedir que acelere la aprobación del gasoducto Green Chile de 17.8 millas (\"el tiempo sigue siendo esencial\"); entrada en servicio en febrero de 2027; el Fiscal General de Nuevo México pidió a la FERC revisar su evaluación ambiental o elaborar una EIS completa.",
+     "source": {
+      "title": "Bloomberg (via Yahoo Finance), Oct 13, 2026: Oracle Asks Regulators to Expedite Gas Pipeline for Data Center",
+      "url": "https://finance.yahoo.com/energy/articles/oracle-asks-regulators-expedite-gas-203711536.html"
+     }
+    },
+    {
      "date": "2026-10-13",
      "kind": "power",
      "status": "open",
@@ -574,7 +600,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-16",
+   "issues_checked": "2026-10-17",
    "tenant_openai": true,
    "tenant_basis": "press",
    "mw_series": [
@@ -689,7 +715,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-16",
+   "issues_checked": "2026-10-17",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -856,7 +882,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-16",
+   "issues_checked": "2026-10-17",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
