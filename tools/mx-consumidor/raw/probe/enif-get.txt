@@ -1,0 +1,13 @@
+GET https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip
+-> HTTP 200 application/x-zip-compressed 3131148 bytes · Last-Modified Thu, 13 Mar 2025 12:01:07 GMT
+
+Archive:  /tmp/probe-1X8sy0/file.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+   849888  2025-03-06 17:16   THOGAR.csv
+ 19823238  2025-03-06 17:16   TMODULO.csv
+  4607147  2025-03-06 17:16   TSDEM.csv
+  1306007  2025-03-06 17:16   TVIVIENDA.csv
+---------                     -------
+ 26586280                     4 files
+

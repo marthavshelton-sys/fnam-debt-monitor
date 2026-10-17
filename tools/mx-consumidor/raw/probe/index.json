@@ -1,0 +1,46 @@
+{
+ "ranAt": "2026-10-17T15:01:42.820Z",
+ "requestHash": "3b755dc1780a452b",
+ "requests": [
+  {
+   "name": "cal-head",
+   "url": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf",
+   "method": "HEAD",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf",
+   "lastModified": null,
+   "bytes": 0
+  },
+  {
+   "name": "enif-head",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
+   "method": "HEAD",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
+   "lastModified": null,
+   "bytes": 0
+  },
+  {
+   "name": "enif-get",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
+   "method": "GET",
+   "status": 200,
+   "type": "application/x-zip-compressed",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enif/2024/microdatos/enif_2024_bd_csv.zip",
+   "lastModified": "Thu, 13 Mar 2025 12:01:07 GMT",
+   "bytes": 3131148
+  },
+  {
+   "name": "enfih-head",
+   "url": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
+   "method": "HEAD",
+   "status": 200,
+   "type": "text/html",
+   "finalUrl": "https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf",
+   "lastModified": null,
+   "bytes": 0
+  }
+ ]
+}
