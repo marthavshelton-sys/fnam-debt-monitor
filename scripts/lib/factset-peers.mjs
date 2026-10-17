@@ -42,6 +42,14 @@
 //                  last three months. avgVolume x avgVwapUsd (the product of the two averages, P_VOLUME_AVG(-3AM,0) x
 //                  AVERAGE(XP_PRICE_VWAP(0,-3AM,...,USD))) is kept beside it as adtvProductUsdM.
 //   divYieldPct    FactSet indicated annual dividend / price.   netDebtEbitda = FF_NET_DEBT / LTM FF_EBITDA_OPER.
+//   ebitdaMarginExIfricPct   LTM FF_EBITDA_OPER / (LTM FF_SALES − IFRIC 12 construction revenue of the same twelve months). The
+//                  construction revenue of GAP, ASUR and OMA is the sum of `is.revConstruction` over the four quarters of
+//                  site/<slug>/data/financials.js ending at FactSet's LTM period (their total revenue there equals FF_SALES to the
+//                  thousand); the international peers' comes from tools/gap/raw/ifric12-peers.json, curated from their filings
+//                  (Fraport: revenue less "revenue adjusted for IFRIC 12"; Zurich: "revenue from construction projects as part of
+//                  concession arrangements"; Aena: its Brazilian concessions' construction services; Auckland: owner-operator,
+//                  nil). A curated entry whose period is not the snapshot's LTM period prints as pending, never as stale.
+//                  EBITDA is unchanged by IFRIC 12 (construction margin nil), so EV/EBITDA needs no adjustment; EV/Sales would.
 
 import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -193,12 +201,43 @@ export function ingest({ pull = PULL_DIR, out = SNAPSHOT, date } = {}) {
   return snap;
 }
 
+// ---------------------------------------------------------------- IFRIC 12
+const IFRIC_FILE = join(ROOT, 'tools/gap/raw/ifric12-peers.json');
+const quarterEnd = (fy, q) => `${fy}-${String(3 * q).padStart(2, '0')}-${[31, 30, 30, 31][q - 1]}`;
+
+// The construction revenue of a Mexican group over FactSet's LTM period, from the model's own quarterly statements (thousands → millions).
+// Returns null when the four quarters are not all there yet (the model runs behind FactSet for a few days after a report).
+function mexicanIfric12(slug, prefix, ltmEnd) {
+  const s = readFileSync(join(ROOT, `site/${slug}/data/financials.js`), 'utf8');
+  const i = s.indexOf(`window.${prefix}_FIN`); const j = s.indexOf('=', i) + 1; let b = s.slice(j).trim(); if (b.endsWith(';')) b = b.slice(0, -1);
+  const F = Function('return (' + b + ')')();
+  const scale = F.units === 'thousands' ? 1e3 : 1;
+  const qs = (F.quarters || []).filter((q) => q.is && q.is.revConstruction != null && quarterEnd(q.fy, q.q) <= ltmEnd).sort((a, b2) => quarterEnd(a.fy, a.q).localeCompare(quarterEnd(b2.fy, b2.q))).slice(-4);
+  if (qs.length !== 4 || quarterEnd(qs[3].fy, qs[3].q) !== ltmEnd) return null;
+  const sum = (k) => qs.reduce((a, q) => a + (q.is[k] || 0), 0) / scale;
+  return { constructionRevM: r(sum('revConstruction'), 1), salesModelM: r(sum('revTotal'), 1), quarters: qs.map((q) => q.label), basis: 'filing', approx: false, applies: true, period: ltmEnd,
+    sources: [...new Set(qs.map((q) => q.sources && q.sources.is && q.sources.is.url).filter(Boolean))] };
+}
+
+export function ifric12Of(id, c) {
+  const meta = COMPANIES[id]; const ltmEnd = c.ltm && c.ltm.period;
+  if (!ltmEnd) return null;
+  if (meta.group === 'mexico') { const m = mexicanIfric12(meta.slug, meta.prefix, ltmEnd); return m || { applies: true, period: ltmEnd, pending: true, basis: 'filing' }; }
+  const cur = existsSync(IFRIC_FILE) ? JSON.parse(readFileSync(IFRIC_FILE, 'utf8')) : { companies: {} };
+  const e = cur.companies[id];
+  if (!e) return { applies: true, period: ltmEnd, pending: true, basis: 'filing' };
+  if (e.applies === false) return { applies: false, period: ltmEnd, constructionRevM: 0, basis: e.basis || 'structure', approx: false, note: e.note || null };
+  if (e.period !== ltmEnd) return { applies: true, period: ltmEnd, pending: true, curatedPeriod: e.period, basis: e.basis || 'filing' };
+  return { applies: true, period: ltmEnd, constructionRevM: e.constructionRevM, basis: e.basis || 'filing', approx: !!e.approx, sources: (e.components || []).map((x) => x.source && x.source.url).filter((u, k, arr) => u && arr.indexOf(u) === k), note: e.note || null };
+}
+
 // ---------------------------------------------------------------- build
 function rowOf(c, snap) {
   const fx = div(c.priceUsd, c.price);
   const ev = c.mktCapM + (c.bs.netDebt || 0) + (c.bs.minorityInterest || 0);
   const nm = (k) => (c.ntm && c.ntm[k] ? c.ntm[k].mean : null);
-  const series = (c.history || []).map(([date, price, sharesM, ntmEbitda, ntmEps, netDebt, minority]) => {
+  const ifr = ifric12Of(c.ticker, c);
+  const series =(c.history || []).map(([date, price, sharesM, ntmEbitda, ntmEps, netDebt, minority]) => {
     const evH = price * sharesM + (netDebt || 0) + (minority || 0);
     return [date, r(div(evH, ntmEbitda)), ntmEps > 0 ? r(div(price, ntmEps)) : null];
   });
@@ -218,6 +257,9 @@ function rowOf(c, snap) {
     evSalesLtm: r(div(ev, c.ltm.sales)), evSalesNtm: r(div(ev, nm('sales'))),
     divYieldPct: c.iad ? r(100 * div(c.iad.value, c.price)) : null, iad: c.iad || null,
     netDebtEbitda: r(div(c.bs.netDebt, c.ltm.ebitda)), ebitdaMarginPct: r(c.ltm.ebitdaMarginPct, 1),
+    ifric12: ifr, constructionRevM: ifr && ifr.constructionRevM != null ? r(ifr.constructionRevM, 1) : null,
+    salesExIfricM: ifr && ifr.constructionRevM != null && c.ltm.sales != null ? r(c.ltm.sales - ifr.constructionRevM, 1) : null,
+    ebitdaMarginExIfricPct: ifr && ifr.constructionRevM != null ? r(100 * div(c.ltm.ebitda, c.ltm.sales - ifr.constructionRevM), 1) : null,
     target: c.target ? { ...c.target, mean: r(c.target.mean), median: r(c.target.median), high: r(c.target.high), low: r(c.target.low), upsidePct: r(100 * (c.target.mean / c.price - 1), 1) } : null,
     ratings: c.ratings || null, fy: c.fy || null,
   };
@@ -227,10 +269,10 @@ function rowOf(c, snap) {
 }
 
 const METHOD = {
-  en: 'EV = market cap (all share classes) + net debt + minority interest at the latest balance sheet reported. NTM = FactSet consensus mean for the next twelve months; LTM = last twelve months reported. P/E on price over NTM EPS (and on market cap over LTM net income). 1-, 3- and 5-year averages = arithmetic mean of the weekly NTM multiple over the last 52 / 156 / 260 weeks (each Friday: that week\'s close x shares then outstanding + the latest balance sheet reported by then, over the consensus sampled that day). ADTV = average daily traded value in US$ millions over the last three months (daily volume x VWAP). Dividend yield = FactSet indicated annual dividend / price. USD at the FX rate implied by FactSet\'s USD close.',
-  es: 'VE = capitalización (todas las series) + deuda neta + participación no controladora al último balance publicado. PDM = consenso medio de FactSet para los próximos doce meses; UDM = últimos doce meses reportados. P/U sobre precio entre UPA PDM (y sobre capitalización entre utilidad neta UDM). Promedios de 1, 3 y 5 años = media aritmética del múltiplo PDM semanal en las últimas 52 / 156 / 260 semanas (cada viernes: cierre de la semana × acciones vigentes + último balance publicado a esa fecha, entre el consenso de ese día). VPD = valor promedio diario operado en US$ millones en los últimos tres meses (volumen diario × precio promedio ponderado). Rendimiento por dividendo = dividendo anual indicado por FactSet / precio. Dólares al tipo de cambio implícito en el cierre en USD de FactSet.',
+  en: 'EV = market cap (all share classes) + net debt + minority interest at the latest balance sheet reported. NTM = FactSet consensus mean for the next twelve months; LTM = last twelve months reported. P/E on price over NTM EPS (and on market cap over LTM net income). 1-, 3- and 5-year averages = arithmetic mean of the weekly NTM multiple over the last 52 / 156 / 260 weeks (each Friday: that week\'s close x shares then outstanding + the latest balance sheet reported by then, over the consensus sampled that day). ADTV = average daily traded value in US$ millions over the last three months (daily volume x VWAP). Dividend yield = FactSet indicated annual dividend / price. USD at the FX rate implied by FactSet\'s USD close. EBITDA margin ex-IFRIC 12 = LTM EBITDA / (LTM revenue less the construction revenue booked under IFRIC 12 over the same twelve months): GAP, ASUR and OMA from their quarterly reports; Fraport, Zurich and Aena from their filings (Aena\'s half-year figures as stated by the company, rounded); Auckland owns its assets and books none. EBITDA itself is unchanged by IFRIC 12, so EV/EBITDA needs no adjustment.',
+  es: 'VE = capitalización (todas las series) + deuda neta + participación no controladora al último balance publicado. PDM = consenso medio de FactSet para los próximos doce meses; UDM = últimos doce meses reportados. P/U sobre precio entre UPA PDM (y sobre capitalización entre utilidad neta UDM). Promedios de 1, 3 y 5 años = media aritmética del múltiplo PDM semanal en las últimas 52 / 156 / 260 semanas (cada viernes: cierre de la semana × acciones vigentes + último balance publicado a esa fecha, entre el consenso de ese día). VPD = valor promedio diario operado en US$ millones en los últimos tres meses (volumen diario × precio promedio ponderado). Rendimiento por dividendo = dividendo anual indicado por FactSet / precio. Dólares al tipo de cambio implícito en el cierre en USD de FactSet. Margen EBITDA sin IFRIC 12 = EBITDA UDM / (ingresos UDM menos los ingresos por construcción registrados bajo IFRIC 12 en los mismos doce meses): GAP, ASUR y OMA de sus informes trimestrales; Fraport, Zúrich y Aena de sus estados financieros (las cifras semestrales de Aena como las declaró la empresa, redondeadas); Auckland es dueña de sus activos y no registra ninguno. El EBITDA no cambia con IFRIC 12, así que el VE/EBITDA no requiere ajuste.',
 };
-const KEYS = ['evEbitdaLtm', 'evEbitdaNtm', 'evEbitdaNtmAvg1y', 'evEbitdaNtmAvg3y', 'evEbitdaNtmAvg5y', 'peLtm', 'peNtm', 'peNtmAvg1y', 'peNtmAvg3y', 'peNtmAvg5y', 'evSalesLtm', 'evSalesNtm', 'divYieldPct', 'netDebtEbitda', 'ebitdaMarginPct', 'adtvUsdM'];
+const KEYS = ['evEbitdaLtm', 'evEbitdaNtm', 'evEbitdaNtmAvg1y', 'evEbitdaNtmAvg3y', 'evEbitdaNtmAvg5y', 'peLtm', 'peNtm', 'peNtmAvg1y', 'peNtmAvg3y', 'peNtmAvg5y', 'evSalesLtm', 'evSalesNtm', 'divYieldPct', 'netDebtEbitda', 'ebitdaMarginPct', 'ebitdaMarginExIfricPct', 'adtvUsdM'];
 
 export function build({ snapshot = SNAPSHOT } = {}) {
   const file = existsSync(snapshot) ? snapshot : join(RAW_DIR, readdirSync(RAW_DIR).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort().pop());
@@ -273,7 +315,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   } else if (cmd === 'build') {
     const { file, rows, written } = build({ snapshot: a.snapshot ? join(process.cwd(), a.snapshot) : SNAPSHOT });
     console.log(`build: ${file.split('/').pop()} → ${written.map((w) => w.replace(ROOT + '/', '')).join(', ')}`);
-    for (const p of Object.values(rows)) console.log(`${p.short.padEnd(9)} ${p.priceDate} ${p.currency} ${p.price}  mcap US$${String(p.mktCapUsdM).padStart(8)} M  ADTV US$${p.adtvUsdM} M  EV/EBITDA NTM ${p.evEbitdaNtm}x (1y ${p.evEbitdaNtmAvg1y}, 3y ${p.evEbitdaNtmAvg3y}, 5y ${p.evEbitdaNtmAvg5y})  P/E NTM ${p.peNtm}x (1y ${p.peNtmAvg1y}, 3y ${p.peNtmAvg3y}, 5y ${p.peNtmAvg5y})  yld ${p.divYieldPct}%  ND/EBITDA ${p.netDebtEbitda}x`);
+    for (const p of Object.values(rows)) console.log(`${p.short.padEnd(9)} ${p.priceDate} ${p.currency} ${p.price}  mcap US$${String(p.mktCapUsdM).padStart(8)} M  ADTV US$${p.adtvUsdM} M  EV/EBITDA NTM ${p.evEbitdaNtm}x (1y ${p.evEbitdaNtmAvg1y}, 3y ${p.evEbitdaNtmAvg3y}, 5y ${p.evEbitdaNtmAvg5y})  P/E NTM ${p.peNtm}x (1y ${p.peNtmAvg1y}, 3y ${p.peNtmAvg3y}, 5y ${p.peNtmAvg5y})  yld ${p.divYieldPct}%  ND/EBITDA ${p.netDebtEbitda}x  margin ${p.ebitdaMarginPct}% → ex-IFRIC ${p.ebitdaMarginExIfricPct}%${p.ifric12 && p.ifric12.pending ? ' (pending)' : ''}`);
   } else {
     console.error('usage: node scripts/lib/factset-peers.mjs ingest [--pull DIR] [--out FILE] [--date YYYY-MM-DD] | build [--snapshot FILE]');
     process.exit(2);

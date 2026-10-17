@@ -178,6 +178,24 @@ snapshot as `adtv.productUsdM`. If the routine
 fails, it pushes a `peers-failed-<date>` branch and writes `notify-state.json → lastPeersFailure`; the quality page
 flags `peers.js` once its prices are older than 45 days.
 
+EBITDA margin ex-IFRIC 12 (owner, 17-Oct-2026): the table's margin is a group of two columns, FactSet's reported basis
+(`FF_EBITDA_OPER_MGN`, total revenue including the construction revenue the Mexican groups book under IFRIC 12) and the
+ex-IFRIC 12 basis, LTM EBITDA / (LTM `FF_SALES` − the construction revenue of the same twelve months). `build` computes it
+(`ebitdaMarginExIfricPct`, with `constructionRevM`, `salesExIfricM` and an `ifric12` record naming the basis and sources):
+GAP, ASUR and OMA from the four quarters of their own `data/financials.js` ending at FactSet's LTM period (their total revenue
+there equals `FF_SALES` to the thousand, checked 17-Oct-2026); the international peers from the curated file
+`tools/gap/raw/ifric12-peers.json`, one LTM period per company with the filing components it was built from (Fraport: revenue
+less "revenue adjusted for IFRIC 12", Annual Report and Interim Report; Zurich: "revenue from construction projects as part of
+concession arrangements", Annual and Interim Report revenue note; Aena: its Brazilian concessions' construction services, FY
+from the results presentation and the half-years as management stated them on the H1 call, rounded — marked `approx`, printed
+with a `~` on the page and the deck; Auckland: `applies: false`, owner-operator, nil). When FactSet's LTM period moves (the
+Mexican 3Q reports in late October move it to 30-Sep; Zurich reports half-years, so its LTM_SEMI period moves only in March
+and August) a curated entry whose `period` no longer matches prints "pending" until a session updates it from the new
+filings; the Mexican figure follows the models automatically once their quarter is parsed. The medians include the column.
+EBITDA itself is unchanged by IFRIC 12 (construction margin nil), so EV/EBITDA needs no adjustment; EV/Sales would.
+Aena's open item: replace the two call figures with the ANB and BOAB "Construction services revenue" lines of the H1 2026
+Consolidated Interim Management Report (the sandbox's egress blocks aena.es downloads; a session with the file attached can).
+
 ## DCF: hidden and paused (owner, 12-Oct-2026)
 
 The owner asked to hide the DCF section of the GAP, OMA and ASUR pages so it is neither visible nor reachable (page, menu,
