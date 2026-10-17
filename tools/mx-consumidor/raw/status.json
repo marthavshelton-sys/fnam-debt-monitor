@@ -1,10 +1,8 @@
 {
  "sources": {
   "enigh": {
-   "ok": "2026-10-13",
-   "failures": 6,
-   "since": "2026-10-16",
-   "error": "only 0 ENIGH editions answered ()"
+   "ok": "2026-10-17",
+   "failures": 0
   },
   "banxico": {
    "ok": "2026-10-17",
@@ -27,16 +25,12 @@
    "failures": 0
   },
   "enif": {
-   "ok": "2026-10-13",
-   "failures": 6,
-   "since": "2026-10-16",
-   "error": "no ENIF microdata file answered"
+   "ok": "2026-10-17",
+   "failures": 0
   },
   "docs": {
-   "ok": "2026-10-13",
-   "failures": 6,
-   "since": "2026-10-16",
-   "error": "enfih2019: https://www.inegi.org.mx/contenidos/programas/enfih/2019/doc/enfih_2019_presentacion_resultados.pdf did not answer with a PDF (text/html)"
+   "ok": "2026-10-17",
+   "failures": 0
   },
   "poverty": {
    "ok": "2026-10-17",
@@ -50,10 +44,8 @@
    "failures": 0
   },
   "calendar": {
-   "ok": "2026-10-13",
-   "failures": 6,
-   "since": "2026-10-16",
-   "error": "https://www.inegi.org.mx/contenidos/saladeprensa/doc/cal_2026.pdf did not answer with a PDF (text/html)"
+   "ok": "2026-10-17",
+   "failures": 0
   }
  }
 }
