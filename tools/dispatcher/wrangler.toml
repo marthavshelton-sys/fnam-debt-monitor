@@ -1,6 +1,8 @@
 # Cloudflare Worker that starts the scheduled refreshes GitHub dropped or is holding (worker.mjs; README.md for the deploy).
-# Deploy from the repository root: `npx wrangler deploy --config tools/dispatcher/wrangler.toml`.
+# Deployed by .github/workflows/dispatcher-deploy.yml (by hand, and on every merge that touches the Worker); from a
+# computer with wrangler logged in: `npx wrangler deploy --config tools/dispatcher/wrangler.toml`.
 name = "fnam-dispatcher"
+account_id = "ec65d18ab23f355cb013ece4e9b26e6c"   # the Cloudflare account that serves fnam.mx (the id in the Pages project's dashboard URL; not a secret)
 main = "worker.mjs"
 compatibility_date = "2026-10-01"
 workers_dev = false

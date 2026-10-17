@@ -334,8 +334,8 @@ dashboards, everything built from public data by GitHub Actions.
   `run-name` to "<name> (cron <github.event.schedule>)" so the watchdog books a run to the cron that fired it (`cronFromTitle`),
   never to a later cron it started after (keep the line when adding a workflow); and the schedules GitHub has not started 40
   minutes after their due time are dispatched by hand on main, by the watchdog's last step (`scripts/watchdog/dispatch-missed.mjs`)
-  and by the Cloudflare Worker in `tools/dispatcher/` every ten minutes once the owner deploys it with a fine-grained token (its
-  README). The pages treat a watchdog stamp older than 20 h as unverified (`STALE_HOURS`).
+  and by the Cloudflare Worker in `tools/dispatcher/` every ten minutes, deployed by `dispatcher-deploy.yml` (by hand and on
+  merges touching the Worker) once the owner has created the two repository secrets its README names (17-Oct-2026). The pages treat a watchdog stamp older than 20 h as unverified (`STALE_HOURS`).
 - `data-watchdog.yml`, every 12 hours at 03:50 and 15:50 UTC (owner's choice, to limit deploys; `scripts/watchdog/`,
   runbook `tools/watchdog/README.md`), judges each dashboard's
   last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
