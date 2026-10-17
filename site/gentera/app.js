@@ -8,6 +8,14 @@
   const MK = window.G_MARKET || { prices: {}, dividends: {}, fx: {}, rates: {} };
   const REF = window.G_REF || {};
   const PEERS = window.G_PEERS || { peers: [] };
+  // Forward P/E at the page's close on FactSet's consensus (peers.js → own.ntm.eps mean), with the P/BV on the latest book value: the
+  // header tile, the multiples table and the deck's tear sheet print it first (owner, 17-Oct-2026: P/E is NTM site-wide unless labeled
+  // otherwise; an insurer / a bank has no EV/EBITDA, so P/BV is the second figure). Null without a consensus or a positive EPS.
+  function ntmMultiples(px) {
+    const O = PEERS && PEERS.own, cg = O && O.ntm; if (!px || !cg || !cg.eps || !(cg.eps.mean > 0)) return null;
+    return { pe: px[1] / cg.eps.mean, eps: cg.eps.mean, estimateDate: cg.estimateDate || PEERS.estimateDate };
+  }
+  const ntmL = () => (LANG === 'es' ? 'PDM' : 'NTM');
   const GD = window.G_GUIDANCE || { vintages: [] };
   const CM = window.G_COMMENTS || { periods: {} };
   const SUM = window.G_SUMMARY || { sections: [] };
@@ -281,7 +289,10 @@
     if (lastPx && sharesOut) { const mc = lastPx[1] * sharesOut; k.push({ l: t('mktCap'), v: 'Ps. ' + fmtN(mc / 1e9, 1) + ' ' + bn(), d: fxAt(lastPx[0]) ? 'US$ ' + fmtN(mc / fxAt(lastPx[0]) / 1e9, 2) + ' ' + bn() : '' }); }
     else k.push({ l: t('mktCap'), v: '—', d: t('pendingMk') });
     if (lastLTM) k.push({ l: `${t('netIncome')} ${t('ltmS')}`, v: 'Ps. ' + fmtN(lastLTM.is.netInc) + ' M', d: `${t('roe')} ${t('ltmS')} ${fmtPct(lastLTM.kpi.roe)} · ${lastQ ? qLabel(lastQ) : ''} ${fmtPct(lastQ && lastQ.kpi.roe)}` });
-    if (lastLTM) { const e = epsLtm(lastLTM), ex = epsLtm(exAdj(lastLTM)); k.push({ l: `${t('pe')} ${t('ltmS')}`, v: lastPx && e ? fmtX(lastPx[1] / e) : '—', d: lastPx ? `${t('pbv')} ${fmtX(lastPx[1] / bvps(lastQ), 2)}${ex && ex !== e ? ` · ${t('exAdj')}: ${fmtX(lastPx[1] / ex)}` : ''}` : `${t('eps')} ${t('ltmS')} Ps. ${fmtN(e, 2)} · ${t('bvps')} Ps. ${fmtN(bvps(lastQ), 1)}` }); }
+    // P/E NTM on FactSet consensus (bold) with the P/BV beneath (owner, 17-Oct-2026); the LTM pair only without a consensus.
+    { const nm = ntmMultiples(lastPx);
+      if (nm) k.push({ l: `${t('pe')} ${ntmL()}`, v: fmtX(nm.pe), d: `${t('pbv')} ${fmtX(lastPx[1] / bvps(lastQ), 2)} · ${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(nm.estimateDate)}` });
+      else if (lastLTM) { const e = epsLtm(lastLTM), ex = epsLtm(exAdj(lastLTM)); k.push({ l: `${t('pe')} ${t('ltmS')}`, v: lastPx && e ? fmtX(lastPx[1] / e) : '—', d: lastPx ? `${t('pbv')} ${fmtX(lastPx[1] / bvps(lastQ), 2)}${ex && ex !== e ? ` · ${t('exAdj')}: ${fmtX(lastPx[1] / ex)}` : ''}` : `${t('eps')} ${t('ltmS')} Ps. ${fmtN(e, 2)} · ${t('bvps')} Ps. ${fmtN(bvps(lastQ), 1)}` }); } }
     if (lastQ && lastQ.kpi) k.push({ l: `${t('npl')} ${qLabel(lastQ)}`, v: fmtPct(lastQ.kpi.npl, 2), d: `${t('coverage')} ${fmtPct(lastQ.kpi.coverage, 0)} · ${t('cor')} ${fmtPct(lastQ.kpi.cor)}` });
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
     document.querySelectorAll('#genStamp, .genStamp').forEach((e) => { e.textContent = fmtDate((FIN.generatedAt || MK.generatedAt || '').slice(0, 10)); });
@@ -882,6 +893,7 @@
     const rows = [
       [t('price') + ' GENTERA', lastPx ? `Ps. ${fmtN(lastPx[1], 2)} (${fmtDate(lastPx[0])})` : t('pendingMk')],
       [t('mktCap'), lastPx && sharesOut ? `Ps. ${fmtN(lastPx[1] * sharesOut / 1e9, 1)} ${bn()} · US$ ${fmtN(lastPx[1] * sharesOut / (fxAt(lastPx[0]) || NaN) / 1e9, 2)} ${bn()}` : t('pendingMk')],
+      ...(() => { const nm = ntmMultiples(lastPx); return nm ? [[`${t('pe')} ${ntmL()}`, `${fmtX(nm.pe)} · ${es ? 'consenso FactSet UPA' : 'FactSet consensus EPS'} Ps. ${fmtN(nm.eps, 2)} (${fmtDate(nm.estimateDate)})`]] : []; })(),
       [`${t('eps')} ${t('ltmS')} (${lastLTM ? lastLTM.label : ''})`, e ? `Ps. ${fmtN(e, 2)}${ex && ex !== e ? ` · ${t('exAdj')}: Ps. ${fmtN(ex, 2)}` : ''}` : '—'],
       [`${t('pe')} ${t('ltmS')}`, lastPx && e ? `${fmtX(lastPx[1] / e)}${ex && ex !== e ? ` · ${t('exAdj')}: ${fmtX(lastPx[1] / ex)}` : ''}` : t('pendingMk')],
       [t('bvps'), bv ? `Ps. ${fmtN(bv, 1)} (${qLabel(lastQ)})` : '—'],
@@ -893,19 +905,33 @@
     for (const a of REF.analysts || []) rows.push([`${a.firm} (${fmtDate(a.date)})`, `${a.rating} · PO Ps. ${fmtN(a.target, 0)}${lastPx ? ` (${fmtPct(100 * (a.target / lastPx[1] - 1), 1, true)})` : ''}`]);
     html('multTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table>`);
     el('multCap').textContent = es ? `Precio de ${latestCloseFeed(MK.prices[TICK])}; UPA UDM y valor en libros sobre ${fmtN(sharesM, 1)} M de acciones en circulación (utilidad y capital controladores).` : `${latestCloseFeed(MK.prices[TICK])} price; LTM EPS and book value on ${fmtN(sharesM, 1)} M shares outstanding (controlling income and equity).`;
-    const qs = Q.slice(-lastN() - 4).filter((q) => q.bs);
-    const c = SERIES();
-    const pts = qs.map((q) => { const p = pointAtOrBefore(qPx, qEndDate(q)); const l = ltmFor(q); const bvq = bvps(q); const eq = epsLtm(l); return { q, pbv: p && bvq ? p[1] / bvq : null, pe: p && eq && eq > 0 ? p[1] / eq : null, peEx: p && l ? (epsLtm(exAdj(l)) > 0 ? p[1] / epsLtm(exAdj(l)) : null) : null }; });
-    mkChart('chartMultiples', { type: 'line', data: { labels: pts.map((x) => qLabel(x.q)), datasets: [
-      { label: t('pbv'), data: pts.map((x) => x.pbv), borderColor: c[0], backgroundColor: c[0], pointRadius: 3, yAxisID: 'y' },
-      { label: `${t('pe')} ${t('ltmS')}`, data: pts.map((x) => x.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3, yAxisID: 'y' },
-      { label: `${t('pe')} ${t('ltmS')} ${t('exAdj')}`, data: pts.map((x) => x.peEx), borderColor: c[1], borderDash: [4, 4], pointRadius: 0, yAxisID: 'y' },
-    ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 2)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) + 'x' }, beginAtZero: true } } } });
-    html('multSrc', `${t('src')}: ${priceSourcesShort([TICK]) || 'Yahoo Finance'}${qPx.length ? ` (${fmtDate(lastPx[0])})` : ' (' + t('pendingMk') + ')'} · ${es ? 'informes trimestrales (capital y utilidad controladores)' : 'quarterly releases (controlling equity and income)'} · ${asOfQ()}`);
+    // Forward multiples history: FactSet's weekly series from the peers snapshot (owner, 17-Oct-2026: NTM, not the quarterly LTM
+    // series). peers.js → own.history.series rows are [Friday, P/E NTM, P/BV]; dashed lines are the 5-year averages of the table.
+    renderForwardHistory();
     // peers (FactSet snapshot in data/peers.js)
     renderPeersTable();
   }
 
+  function renderForwardHistory() {
+    const O = PEERS.own; const hist = O && O.history && O.history.series; const cv = el('chartMultiples'); if (!cv) return;
+    const es = LANG === 'es';
+    if (!hist || !hist.length) { html('multSrc', es ? 'Historial de múltiplos PDM pendiente (instantánea de FactSet).' : 'NTM multiples history pending (FactSet snapshot).'); return; }
+    const c = SERIES(); const labels = hist.map((p) => p[0]); const last = hist[hist.length - 1];
+    const H = PEERS.history || {}; const from = H.from || labels[0], to = H.to || last[0];
+    const tick = (v, i) => (labels[i] && labels[i].slice(5, 7) === '01' && (!labels[i - 1] || labels[i - 1].slice(0, 4) !== labels[i].slice(0, 4)) ? labels[i].slice(0, 4) : '');
+    const avg = (k) => (O[k] != null ? labels.map(() => O[k]) : null);
+    const sets = [
+      { label: `${t('pe')} ${ntmL()}`, data: hist.map((p) => p[1]), borderColor: c[1], backgroundColor: c[1], borderWidth: 2, pointRadius: 0, yAxisID: 'y' },
+      { label: t('pbv'), data: hist.map((p) => p[2]), borderColor: c[0], backgroundColor: c[0], borderWidth: 2, pointRadius: 0, yAxisID: 'y1' },
+    ];
+    if (avg('peNtmAvg5y')) sets.push({ label: `${t('pe')} ${es ? 'promedio 5 años' : '5-year average'} (${fmtX(O.peNtmAvg5y)})`, data: avg('peNtmAvg5y'), borderColor: c[1], borderDash: [5, 4], borderWidth: 1.2, pointRadius: 0, yAxisID: 'y' });
+    if (avg('pbvAvg5y')) sets.push({ label: `${t('pbv')} ${es ? 'promedio 5 años' : '5-year average'} (${fmtX(O.pbvAvg5y, 2)})`, data: avg('pbvAvg5y'), borderColor: c[0], borderDash: [5, 4], borderWidth: 1.2, pointRadius: 0, yAxisID: 'y1' });
+    cv.setAttribute('aria-label', es ? `P/U PDM y P/VL de ${O.short}, observaciones semanales de FactSet de ${fmtDate(from)} a ${fmtDate(to)}` : `${O.short} NTM P/E and P/BV, FactSet weekly observations from ${fmtDate(from)} to ${fmtDate(to)}`);
+    mkChart('chartMultiples', { type: 'line', data: { labels, datasets: sets }, options: { interaction: { mode: 'index', intersect: false }, plugins: { legend: legendTop, tooltip: { callbacks: { title: (x) => fmtDate(labels[x[0].dataIndex]), label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, /P\/(VL|BV)/.test(x.dataset.label) ? 2 : 1)}` } } }, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, callback: tick } }, y: { position: 'left', title: { display: true, text: `${t('pe')} ${ntmL()} (${es ? 'izq.' : 'left'})` }, ticks: { callback: (v) => fmtN(v, 0) + 'x' }, beginAtZero: true }, y1: { position: 'right', title: { display: true, text: `${t('pbv')} (${es ? 'der.' : 'right'})` }, ticks: { callback: (v) => fmtN(v, 1) + 'x' }, beginAtZero: true, grid: { drawOnChartArea: false } } } } });
+    html('multSrc', es
+      ? `FactSet · observaciones semanales (cada viernes) de ${fmtDate(from)} a ${fmtDate(to)}; última semana: ${t('pe')} ${fmtX(last[1])}, ${t('pbv')} ${fmtX(last[2], 2)} (${fmtDate(last[0])}). P/U = cierre de la semana sobre la media del consenso de FactSet de UPA de los próximos doce meses muestreado ese día; P/VL = cierre sobre el valor en libros por acción del último balance publicado entonces. Líneas punteadas: promedios de 5 años de la tabla de pares. Cálculo de fnam.mx.`
+      : `FactSet · weekly observations (each Friday) from ${fmtDate(from)} to ${fmtDate(to)}; latest week: ${t('pe')} ${fmtX(last[1])}, ${t('pbv')} ${fmtX(last[2], 2)} (${fmtDate(last[0])}). P/E = that week's close over FactSet's consensus mean of next-twelve-month EPS sampled that day; P/BV = close over the book value per share of the latest balance sheet published by then. Dashed lines: the 5-year averages of the peers table. fnam.mx calculation.`);
+  }
   // ---- peers table (FactSet snapshot in data/peers.js): the company's own FactSet row, the peers and the medians, each forward
   // multiple (P/E NTM, P/BV) with its 1-, 3- and 5-year averages under one group heading (the airport pages' design), plus
   // liquidity, dividend yield, ROE and the sector ratio. The deck prints the same rows through the model API.
@@ -1149,7 +1175,7 @@
   // calculations the page renders, so the PDF and the screen can never disagree.
   window.G_MODEL = {
     get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtPct, fmtPp, fmtX, fmtDate, qLabel, ytdLabel, cls, clsInv, addDays,
-    FIN, OPS, MK, REF, PEERS, peersOwnRow, GD, CM, SUM, QL, TICK,
+    FIN, OPS, MK, REF, PEERS, peersOwnRow, ntmMultiples, ntmL, GD, CM, SUM, QL, TICK,
     Q, Y, YTD, lastQ, qById, ytdById, opsById, prevQid, yoyQid, sumParts, sharesOf, quarterObj, ytdFor, ltmFor, fyObj, exAdj, lastLTM, lastYTD,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, qPx, lastPx, sharesM, sharesOut, qEndDate, bvps, epsLtm, divsApproved, dpsOf,
     avgFx, commentsFor, autoComments, G_METRICS, gLabel, gIsCost, gFmt, gRangeTxt, vintagesSorted, gActual, gStatus, betaFromMarket,

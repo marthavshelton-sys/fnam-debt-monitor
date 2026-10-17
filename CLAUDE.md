@@ -503,6 +503,17 @@ dashboards, everything built from public data by GitHub Actions.
   (`inflExp12mMean`, `inflExp12m`); `banxicoSurvey.inflationNext12m` in `docs-data.js` is only the PDF cross-check that
   `scripts/mx-fiscal/check-docs.mjs` enforces (both series against their Cuadro 2 rows). Real rates on both pages are
   differences (target minus inflation, Banxico's definition), never the compounded ratio.
+- Multiples, site-wide (owner, 17-Oct-2026): P/E and EV/EBITDA are forward (NTM) on FactSet consensus everywhere unless a label
+  says LTM/UDM. Every company header carries one multiples tile: **P/E NTM** bold (page close ÷ FactSet NTM EPS mean) with
+  EV/EBITDA NTM beneath (EV at that close ÷ FactSet NTM EBITDA mean); Quálitas and Gentera (no EV/EBITDA) print P/BV beneath;
+  ASUR's EV/EBITDA runs on the pro-forma perimeter with the reported figure beside; Oracle keeps its lease footnote on the EV
+  multiple. The multiples tables list the NTM rows first and the LTM rows after, labeled; the "history" chart of that section is
+  FactSet's weekly NTM series from `peers.js → own.history.series` (airports: [Friday, EV/EBITDA NTM, P/E NTM]; financials:
+  [Friday, P/E NTM, P/BV]) with the 5-year averages dashed, no longer the quarterly LTM series; the decks' tear sheets print the
+  NTM row bold (the LTM pair only without a consensus: the Spanish GAP sheet fits one row). Helpers: `ntmMultiples()` in
+  `site/gap/app.js`, `site/assets/airport-model.js`, `site/qualitas/app.js`, `site/gentera/app.js` (exported on each model API;
+  `scripts/gap/deck-check.mjs` compares the deck against it). The NTM inputs come from the nightly FactSet routines already in
+  place (airports 19:52, financials 20:13, Oracle 19:58 New York); a page without a consensus falls back to the LTM tile, labeled.
 - Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
   `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
   (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,

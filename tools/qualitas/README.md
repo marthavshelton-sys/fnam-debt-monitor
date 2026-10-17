@@ -159,7 +159,7 @@ Pages (18): cover · executive summary (`data/summary.js`, two columns auto-fitt
 the page's own numbers and titles, read from its headings; sub-rows when a section spans several pages; the note names the
 sections the deck does not carry: 04, plus 05 when the valuation section is shown) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, written premiums LTM and
-quarter, loss and combined ratios, RIF, net income LTM with an ex-VAT memo, EPS, P/E, P/BV, 12M ROE, solvency, float,
+quarter, loss and combined ratios, RIF, net income LTM with an ex-VAT memo, EPS, NTM P/E (FactSet consensus) with P/BV, the LTM P/E, 12M ROE, solvency, float,
 insured units, expectations in force, next results; 12-month chart vs the IPC and 3-year price) · operating metrics
 (units by region, premiums by line, per-unit metrics with the `comments.js` ops comments; written premiums and
 combined ratio by quarter) · income statement quarter, LTM and fiscal year (levels 0–1 plus the ratio rows, cost

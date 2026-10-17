@@ -3,7 +3,7 @@
 // locally, saves both PDFs and fails when the build throws or alerts, when a drawn string carries "{{", "undefined" or "NaN",
 // when the Spanish deck still prints EBITDA, EPS or LTM (the deck's glossary prints UAFIDA, UPA and UDM), when the English deck
 // carries Spanish-only words, when a repository path is drawn, when the two decks differ in page count, or when the deck's
-// headline figures (leverage, P/E on LTM net income, the latest month's and year-to-date traffic changes, the dividend yield)
+// headline figures (leverage, NTM P/E and NTM EV/EBITDA on FactSet consensus, the latest month's and year-to-date traffic changes, the dividend yield)
 // differ from the page's. With PyMuPDF installed (python3 -c "import fitz") it also reads each saved PDF: its text per page and
 // the geometry of every word (none past the right margin or below the footer rule); with --shots <dir> it rasterises every page.
 // Run with the site served locally:  python3 -m http.server 8123 --directory site   (detached), then
@@ -33,7 +33,8 @@ for (const lang of ["es", "en"]) {
   // what the page shows, to compare with the deck
   const facts = await page.evaluate(() => {
     const M = window.GAP_MODEL, nd = M.netDebt(M.lastQ), L = M.lastLTM, TL = M.trafficLatest(), tot = TL.rows.TOTAL, agm = (M.REF.dividends || []).slice(-1)[0];
-    return { lev: M.fmtX(nd.net / L.is.ebitda, 2), pe: M.fmtX(M.lastPx[1] * M.sharesNow / 1000 / L.is.netIncome), yoy: M.fmtChgV(tot.yoy), ytd: M.fmtChgV(tot.ytdYoy), yieldPct: M.fmtPct(100 * agm.dps / M.lastPx[1]), ytdTotal: M.fmtN(tot.ytd, 1) };
+    const nm = M.ntmMultiples(M.lastPx, M.sharesNow, nd, M.lastQ);
+    return { lev: M.fmtX(nd.net / L.is.ebitda, 2), pe: nm ? M.fmtX(nm.pe) : M.fmtX(M.lastPx[1] * M.sharesNow / 1000 / L.is.netIncome), evEbitdaNtm: nm && nm.evEbitda != null ? M.fmtX(nm.evEbitda) : null, yoy: M.fmtChgV(tot.yoy), ytd: M.fmtChgV(tot.ytdYoy), yieldPct: M.fmtPct(100 * agm.dps / M.lastPx[1]), ytdTotal: M.fmtN(tot.ytd, 1) };
   });
   // every string the engine draws, captured from jsPDF's text() while the deck builds
   await page.evaluate(() => { window.__drawn = []; });
@@ -52,7 +53,7 @@ for (const lang of ["es", "en"]) {
   if (lang === "es") { const t = drawn.filter((s) => /\bEBITDA\b|\bEPS\b|\bLTM\b/.test(s)); if (t.length) failures.push(`es: ${t.length} string(s) still carry EBITDA/EPS/LTM: ${t.slice(0, 3).join(" | ")}`); }
   if (lang === "en") { const t = drawn.filter((s) => ES_ONLY.test(s)); if (t.length) failures.push(`en: ${t.length} Spanish string(s): ${t.slice(0, 3).join(" | ")}`); }
   const all = drawn.join("\n");
-  for (const [k, v] of Object.entries(facts)) if (!all.includes(v)) failures.push(`${lang}: page figure not found in the deck (${k} = ${v})`);
+  for (const [k, v] of Object.entries(facts)) if (v != null && !all.includes(v)) failures.push(`${lang}: page figure not found in the deck (${k} = ${v})`);
   // PDF layer: text per page, page count, word geometry
   const py = spawnSync("python3", ["-I", "-c", `
 import sys, json

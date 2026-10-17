@@ -197,7 +197,7 @@ the page's own numbers and titles, read from its headings; sub-rows when a secti
 sections the deck does not carry: 04, plus 05 when the valuation section is shown) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, gross loans, financial
 margin LTM and quarter with NIM, cost of risk, stage 3, coverage, efficiency, controlling net income LTM with a memo
-without the 4Q25 item, EPS, P/E, P/BV, ROAE, ICAP, clients, guidance in force, next results; 12-month chart vs the
+without the 4Q25 item, EPS, NTM P/E (FactSet consensus) with P/BV, the LTM P/E, ROAE, ICAP, clients, guidance in force, next results; 12-month chart vs the
 IPC and 3-year price) · operating and segment metrics (loans, clients and network, interest income, margin and net
 income by subsidiary, stage 3, NIM, cost of funds and capital, with the `comments.js` ops comments) · income
 statement quarter, LTM and fiscal year (levels 0–1 plus the ratio rows, cost ratios coloured inversely, "memo" rows

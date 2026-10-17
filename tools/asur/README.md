@@ -213,7 +213,7 @@ Pages (19 since 9-Oct-2026, 18 before the Motiva airports were reported): cover 
 their lead clause emphasised) · contents (one linked row per section with the page's own numbers and titles, read from
 the page's headings; sub-rows when a section spans several pages; the note names the sections the deck does not carry,
 04 and 05) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
-IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBITDA, EV/EBITDA, P/E, passengers,
+IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBITDA, NTM P/E · NTM EV/EBITDA (FactSet consensus; EV/EBITDA pro forma with the reported figure beside), passengers,
 next results) · operating metrics and income statement for the latest quarter, LTM and fiscal year (portrait, ex-IFRIC
 12, with the `data/comments.js` comments) · outlook, tariffs and investment commitments (`reference.js` → `regulation`,
 `concessions`; the formal guidance layout switches on automatically when `guidance.js` carries vintages) · traffic by

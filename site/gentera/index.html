@@ -701,8 +701,8 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de Gentera calculados con el precio más reciente, las acciones en circulación del último informe y las cifras de los últimos doce meses (reportadas y sin la partida del 4T25). La tabla de pares (Banorte, Regional, BanBajío y Credicorp, referencia provisional) proviene de FactSet (precios, acciones, valores en libros y estimaciones; la fecha de cada corrida aparece en su pie): múltiplos a doce meses con sus promedios de 1, 3 y 5 años y liquidez.</span>
-      <span class="en" hidden>Gentera multiples computed from the latest price, the share count of the latest report and last-twelve-month figures (reported and excluding the 4Q25 item). The peer table (Banorte, Regional, BanBajío and Credicorp, a placeholder set) comes from FactSet (prices, shares, book values and estimates; each run's date is in its caption): forward multiples with their 1-, 3- and 5-year averages and liquidity.</span>
+      <span class="es">Múltiplos de Gentera al precio más reciente: el P/U a doce meses (PDM, la base del sitio) usa el consenso de FactSet como denominador; los múltiplos marcados UDM usan las cifras reportadas de los últimos doce meses (y sin la partida del 4T25) con las acciones del último informe. La tabla de pares (Banorte, Regional, BanBajío y Credicorp, referencia provisional) proviene de FactSet (precios, acciones, valores en libros y estimaciones; la fecha de cada corrida aparece en su pie): múltiplos a doce meses con sus promedios de 1, 3 y 5 años y liquidez.</span>
+      <span class="en" hidden>Gentera multiples at the latest price: the forward (NTM) P/E, the site's default basis, uses FactSet consensus as the denominator; multiples marked LTM use the last twelve months' reported figures (and ex the 4Q25 item) with the latest report's share count. The peer table (Banorte, Regional, BanBajío and Credicorp, a placeholder set) comes from FactSet (prices, shares, book values and estimates; each run's date is in its caption): forward multiples with their 1-, 3- and 5-year averages and liquidity.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -711,8 +711,8 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
         <div class="tblwrap" id="multTable"></div>
       </div>
       <div class="card">
-        <h3><span class="es">P/VL y P/U UDM históricos</span><span class="en" hidden>Historical P/BV and LTM P/E</span></h3>
-        <p class="cap"><span class="es">Al cierre de cada trimestre, con el capital controlador y la utilidad controladora de doce meses</span><span class="en" hidden>At each quarter-end, with controlling equity and trailing-twelve-month controlling income</span></p>
+        <h3><span class="es">P/U PDM y P/VL: historial semanal</span><span class="en" hidden>NTM P/E and P/BV: weekly history</span></h3>
+        <p class="cap"><span class="es">Observaciones semanales de FactSet (cada viernes), cinco años</span><span class="en" hidden>FactSet weekly observations (each Friday), five years</span></p>
         <div class="chart-wrap"><canvas id="chartMultiples"></canvas></div>
         <p class="chart-src" id="multSrc"></p>
       </div>

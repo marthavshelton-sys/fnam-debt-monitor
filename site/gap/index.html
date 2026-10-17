@@ -665,8 +665,8 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación Relativa</span><span class="en" hidden>Relative Valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de GAP calculados con el precio más reciente, las acciones en circulación posteriores a la fusión con CBX y las cifras de los últimos doce meses; los múltiplos a doce meses (PDM) usan el consenso de FactSet como denominador. La tabla de pares (ASUR, OMA, Aena, Fraport, Zúrich, Auckland) y el consenso de analistas provienen de FactSet (precios, capitalización, balances y estimaciones), actualizados cada noche a las 20:00 hora de Nueva York; la tabla muestra primero los múltiplos a futuro (VE/EBITDA y P/U PDM), cada uno con sus promedios de 1, 3 y 5 años, y la fecha de los precios bajo la capitalización.</span>
-      <span class="en" hidden>GAP multiples computed from the latest price, post-CBX share count and last-twelve-month figures; the forward (NTM) multiples use FactSet consensus as the denominator. The peer table (ASUR, OMA, Aena, Fraport, Zurich, Auckland) and the analyst consensus come from FactSet (prices, market caps, balance sheets and estimates), refreshed nightly at 8 PM New York time; the table shows the forward multiples (NTM EV/EBITDA and P/E) first, each with its 1-, 3- and 5-year averages, and the pricing date under the market cap.</span>
+      <span class="es">Múltiplos de GAP al precio más reciente: los múltiplos a doce meses (PDM, la base del sitio) usan el consenso de FactSet como denominador y los de los últimos doce meses (UDM) las cifras reportadas, con las acciones en circulación posteriores a la fusión con CBX. La tabla de pares (ASUR, OMA, Aena, Fraport, Zúrich, Auckland) y el consenso de analistas provienen de FactSet (precios, capitalización, balances y estimaciones), actualizados cada noche a las 20:00 hora de Nueva York; la tabla muestra primero los múltiplos a futuro (VE/EBITDA y P/U PDM), cada uno con sus promedios de 1, 3 y 5 años, y la fecha de los precios bajo la capitalización.</span>
+      <span class="en" hidden>GAP multiples at the latest price: the forward (NTM) multiples, the site's default basis, use FactSet consensus as the denominator and the last-twelve-month (LTM) ones the reported figures, with the post-CBX share count. The peer table (ASUR, OMA, Aena, Fraport, Zurich, Auckland) and the analyst consensus come from FactSet (prices, market caps, balance sheets and estimates), refreshed nightly at 8 PM New York time; the table shows the forward multiples (NTM EV/EBITDA and P/E) first, each with its 1-, 3- and 5-year averages, and the pricing date under the market cap.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -675,9 +675,9 @@ nav.jump::after{content:""; position:absolute; right:0; top:0; bottom:0; width:3
         <div class="tblwrap" id="multTable"></div>
       </div>
       <div class="card">
-        <h3><span class="es">VE/EBITDA UDM Histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
-        <p class="cap"><span class="es">Al cierre de cada trimestre, con deuda neta reportada</span><span class="en" hidden>At each quarter-end, with reported net debt</span></p>
-        <div class="chart-wrap"><canvas id="chartEvEbitda" role="img" aria-label="VE/EBITDA UDM Histórico / Historical EV/EBITDA (LTM)"></canvas></div>
+        <h3><span class="es">VE/EBITDA y P/U PDM: Historial Semanal</span><span class="en" hidden>NTM EV/EBITDA and P/E: Weekly History</span></h3>
+        <p class="cap"><span class="es">Observaciones semanales de FactSet (cada viernes), cinco años</span><span class="en" hidden>FactSet weekly observations (each Friday), five years</span></p>
+        <div class="chart-wrap"><canvas id="chartEvEbitda" role="img" aria-label="VE/EBITDA y P/U PDM, historial semanal / NTM EV/EBITDA and P/E, weekly history"></canvas></div>
         <p class="chart-src" id="evSrc"></p>
       </div>
     </div>

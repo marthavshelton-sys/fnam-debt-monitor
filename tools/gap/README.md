@@ -315,7 +315,7 @@ Pages (reading order; the deck numbers its sections 00–11 plus appendix A, its
 15-Oct-2026): cover · 00 key messages (a strip of six tiles — year-to-date traffic against the guided range, the year-to-date EBITDA
 margin against its range, LTM EBITDA, net debt / LTM EBITDA, the dividend payable, FIBRA GAP's status — six composed messages and
 two small charts; every figure from `GAP_MODEL`) · 01 executive summary (`data/summary.js`; its `{{tokens}}` filled by
-`liveTokens`) · contents (one linked row per section, sub-rows for multi-page sections) · 02 tear sheet (P/E on LTM net income)
+`liveTokens`) · contents (one linked row per section, sub-rows for multi-page sections) · 02 tear sheet (NTM P/E · NTM EV/EBITDA on FactSet consensus, bold; the LTM pair only without a consensus)
 · 03 results: operating metrics, the quarter's income statement, the EBITDA bridge page (waterfall 2Q25 → 2Q26 from
 `ebitdaBridge`, growth excluding CBX from `exCbx`, the like-for-like per-share table from `likeForLike`), the Mexico-vs-Jamaica
 page (traffic by country, the revenue and cost changes GAP states per country, Exhibit A by airport), the rolling-twelve-month
