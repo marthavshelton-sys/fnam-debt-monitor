@@ -200,9 +200,11 @@
       const ms = M.TR.months, lastM = ms[ms.length - 1], TL = M.trafficLatest(), tot = TL.rows.TOTAL; const sum12 = (end) => { const i = ms.findIndex((m) => m.ym === end); return i >= 11 ? ms.slice(i - 11, i + 1).reduce((a, m) => a + m.total.TOTAL, 0) : null; };
       const ltmPax = sum12(lastM.ym), ltmPaxPrev = sum12(`${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
       const pm = (v) => (v == null ? '' : `${this.pct(v, 1, true)}`);
-      const rows = [], meta = [];
+      const rows = [], meta = [], spans = {};
       const H = (s) => { rows.push([s, '']); meta.push(['head left', 'head']); };
       const R = (l, v, c) => { rows.push([l, v]); meta.push(['left', c || '']); };
+      // Value on one line, its basis as a muted detail line under the label (owner, 17-Oct-2026: values never wrap, everything legible)
+      const RD = (l, v, detail, c) => { rows.push([l, v]); meta.push(['left nol', `${c || ''} nol`]); spans[rows.length] = 2; rows.push([detail, '']); meta.push(['left detail', 'detail']); };
       H(this.T('Mercado', 'Market'));
       R(this.T('Precio GAP B (BMV)', 'GAP B share price (BMV)'), `Ps. ${this.n(px[1], 2)}  ·  ${this.date(px[0])}`);
       if (ads) R(this.T('ADS PAC (NYSE) · 1 ADS = 10 acciones', 'PAC ADS (NYSE) · 1 ADS = 10 shares'), `US$ ${this.n(ads[1], 2)}  ·  ${this.date(ads[0])}`);
@@ -213,29 +215,30 @@
       R(this.T('Variación 12 meses (GAP B · IPC)', '12-month change (GAP B · IPC)'), `${pm(chg(px, yAgo))}  ·  IPC ${pm(chg(ipcLast, ipcAgo))}`, this.cls(chg(px, yAgo)));
       R(this.T('Máximo / mínimo 52 semanas', '52-week high / low'), `Ps. ${this.n(hi, 2)}  /  Ps. ${this.n(lo, 2)}`);
       const agm = (M.REF.dividends || []).slice(-1)[0];
-      if (agm) R(this.T(`Dividendo aprobado en asamblea ${agm.agmYear} · rendimiento sobre el precio`, `Dividend approved at the ${agm.agmYear} AGM · yield on the price`), `Ps. ${this.n(agm.dps, 2)} ${this.T('por acción', 'per share')}  ·  ${this.pct(100 * agm.dps / px[1])}`);
+      if (agm) R(this.T(`Dividendo asamblea ${agm.agmYear} · rendimiento`, `${agm.agmYear} AGM dividend · yield`), `Ps. ${this.n(agm.dps, 2)} ${this.T('por acción', 'per share')}  ·  ${this.pct(100 * agm.dps / px[1])}`);
       H(this.T(`Financieros (${this.qlab(lastQ)} · Ps. millones, sin IFRIC 12)`, `Financials (${this.qlab(lastQ)} · Ps. million, ex-IFRIC 12)`));
       if (L) R(this.T('EBITDA últimos 12 meses · margen', 'EBITDA last twelve months · margin'), `Ps. ${this.m(L.is.ebitda)} M  ·  ${this.pct(L.is.ebitdaMarginExIfric)}${prevL ? `  ·  ${this.chg(L.is.ebitda, prevL.is.ebitda)} ${this.T('a/a', 'y/y')}` : ''}`);
       R(this.T(`EBITDA ${this.qlab(lastQ)} · margen`, `EBITDA ${this.qlab(lastQ)} · margin`), `Ps. ${this.m(lastQ.is.ebitda)} M  ·  ${this.pct(lastQ.is.ebitdaMarginExIfric)}${prevQr ? `  ·  ${this.chg(lastQ.is.ebitda, prevQr.is.ebitda)} ${this.T('a/a', 'y/y')}` : ''}`);
       if (L) R(this.T('Ingresos últimos 12 meses (sin IFRIC 12)', 'Revenue last twelve months (ex-IFRIC 12)'), `Ps. ${this.m(exRev(L))} M${prevL ? `  ·  ${this.chg(exRev(L), exRev(prevL))} ${this.T('a/a', 'y/y')}` : ''}`);
       if (L) R(this.T('Utilidad neta últimos 12 meses', 'Net income last twelve months'), `Ps. ${this.m(L.is.netIncome)} M${prevL ? `  ·  ${this.chg(L.is.netIncome, prevL.is.netIncome)} ${this.T('a/a', 'y/y')}` : ''}`);
-      if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M  ·  ${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
+      if (nd) RD(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M`, `${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
       if (nd && L) R(this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA'), this.x(nd.net / L.is.ebitda, 2), 'bold');
       // Multiples: NTM on FactSet consensus first (the site's basis, owner 17-Oct-2026), the LTM pair beneath, labeled.
       { const nm = M.ntmMultiples(px, M.sharesNow, nd, lastQ);
-        if (nm) R(this.T(`P/U · VE/EBITDA PDM (consenso FactSet ${this.date(nm.estimateDate)})`, `NTM P/E · EV/EBITDA (FactSet consensus ${this.date(nm.estimateDate)})`), `${this.x(nm.pe)}  ·  ${nm.evEbitda != null ? this.x(nm.evEbitda) : '—'}`, 'bold'); }
+        if (nm) RD(this.T('P/U · VE/EBITDA PDM', 'NTM P/E · EV/EBITDA'), `${this.x(nm.pe)}  ·  ${nm.evEbitda != null ? this.x(nm.evEbitda) : '—'}`, this.T(`consenso FactSet del ${this.date(nm.estimateDate)}`, `FactSet consensus of ${this.date(nm.estimateDate)}`), 'bold'); }
       // the LTM pair prints only without a consensus (the Spanish sheet fits one multiples row); the page's table keeps both
       if (L && !M.ntmMultiples(px, M.sharesNow, nd, lastQ)) R(this.T('P/U · VE/EBITDA UDM (utilidad neta UDM)', 'LTM P/E · EV/EBITDA (LTM net income)'), `${L.is.netIncome ? this.x(mc / 1000 / L.is.netIncome) : '—'}  ·  ${this.x(ev / L.is.ebitda)}`);
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
       if (ltmPax) R(this.T('Pasajeros últimos 12 meses (millones)', 'Passengers last twelve months (million)'), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${this.chg(ltmPax, ltmPaxPrev)} ${this.T('a/a', 'y/y')}` : ''}`, this.chgCls(ltmPax, ltmPaxPrev));
       R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)} (millones) · acumulado ${this.ytdSpan(lastM.ym)}`, `Passengers ${M.ymLabel(lastM.ym)} (million) · ${this.ytdSpan(lastM.ym)}`), `${this.n(tot.v / 1000, 2)}  ·  ${M.fmtChgV(tot.yoy)} ${this.T('a/a', 'y/y')}  ·  ${this.T('acum.', 'YTD')} ${M.fmtChgV(tot.ytdYoy)}`, this.cls(typeof tot.yoy === 'number' ? tot.yoy : null));
-      const gv = M.GV[M.GV.length - 1]; if (gv) R(this.T(`Guía ${gv.fy} (${M.fmtGuidanceDate(gv)})`, `${gv.fy} guidance (${M.fmtGuidanceDate(gv)})`), `${this.T('tráfico', 'traffic')} ${M.gRange(M.GM[0], gv.items.traffic)}  ·  EBITDA ${M.gRange(M.GM[4], gv.items.ebitda)}  ·  ${this.T('margen', 'margin')} ${M.gRange(M.GM[5], gv.items.ebitdaMargin)}`);
-      R(this.T('Próximos resultados', 'Next results'), this.nextText().replace(/^[^:]*:\s*/, ''), this.next && this.next.kind === 'confirmed' ? 'bold' : '');
+      const gv = M.GV[M.GV.length - 1]; if (gv) RD(this.T(`Guía ${gv.fy} (${M.fmtGuidanceDate(gv)})`, `${gv.fy} guidance (${M.fmtGuidanceDate(gv)})`), `EBITDA ${M.gRange(M.GM[4], gv.items.ebitda)}`, `${this.T('tráfico', 'traffic')} ${M.gRange(M.GM[0], gv.items.traffic)}  ·  ${this.T('margen EBITDA', 'EBITDA margin')} ${M.gRange(M.GM[5], gv.items.ebitdaMargin)}`);
+      { const nt = this.nextText().replace(/^[^:]*:\s*/, ''); const cut = nt.search(/, (?=[a-záéíóú])/); /* split before the qualifier, never inside an English date ("Oct 21, 2026") */ const cls = this.next && this.next.kind === 'confirmed' ? 'bold' : '';
+        if (cut > 0) RD(this.T('Próximos resultados', 'Next results'), nt.slice(0, cut), nt.slice(cut + 2), cls); else R(this.T('Próximos resultados', 'Next results'), nt, cls); }
       const noteStr = this.T(`Fuentes: ${M.marketSrcNote(['GAPB.MX', 'PAC', '^MXX'])}, Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de GAP ${this.qlab(lastQ)} (${this.rdate(lastQ)}; base ${prevQ ? this.qlab(prevQ) : ''} como la reexpresa ese informe), reportes mensuales de tráfico de GAP (variaciones y acumulado de las columnas del reporte de ${M.ymLabel(lastM.ym)}). VE = capitalización + deuda neta + participación no controladora. P/U y VE/EBITDA PDM = precio y VE sobre la media del consenso de FactSet para los próximos doce meses (UPA, EBITDA); P/U UDM = capitalización ÷ utilidad neta UDM. Deuda neta = préstamos bancarios + certificados bursátiles − efectivo (${nd && nd.basis === 'est' ? 'estimada' : 'balance publicado'}). UDM = últimos doce meses (suma de los cuatro trimestres más recientes). Rendimiento del dividendo = monto aprobado en la asamblea ÷ precio.`,
         `Sources: ${M.marketSrcNote(['GAPB.MX', 'PAC', '^MXX'])}, Banxico SIE SF43718 (FIX exchange rate), GAP ${this.qlab(lastQ)} quarterly report (${this.rdate(lastQ)}; ${prevQ ? this.qlab(prevQ) : ''} base as restated in that report), GAP monthly traffic reports (changes and year-to-date from the columns of the ${M.ymLabel(lastM.ym)} report). EV = market cap + net debt + non-controlling interest. NTM P/E and EV/EBITDA = price and EV over FactSet's consensus mean for the next twelve months (EPS, EBITDA); LTM P/E = market cap ÷ LTM net income. Net debt = bank loans + certificados bursátiles − cash (${nd && nd.basis === 'est' ? 'estimated' : 'published balance sheet'}). LTM = last twelve months (sum of the four most recent quarters). Dividend yield = amount approved at the AGM ÷ price.`);
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
-      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.6, bottom: 2.6, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4], limitY);
+      const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta, rowSpan: spans, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.6, bottom: 2.6, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4], limitY);
       // right: GAP vs IPC rebased, last 12 months
       const base = M.addDays(px[0], -365);
       const series = [{ id: 'GAPB.MX', label: 'GAP B (BMV)' }, { id: '^MXX', label: 'S&P/BMV IPC' }].map((s) => ({ ...s, pts: M.px(s.id).filter((p) => p[0] >= base) })).filter((s) => s.pts.length > 5);
