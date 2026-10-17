@@ -74,6 +74,8 @@
   const qLabel = (q) => (LANG === 'es' ? `${q.q}T${String(q.fy).slice(2)}` : `${q.q}Q${String(q.fy).slice(2)}`);
   const ytdLabel = (fy, months) => `${months}M${String(fy).slice(2)}`;
   // Months print with the year in full ("Sep 2026", "sep 2026"; owner, 15-Oct-2026), never "Sep 26".
+  // full month name and year ('September 2026' / 'septiembre de 2026'), capitalized, for the traffic table's group heading
+  const ymLabelLong = (ym) => { const [y, m] = ym.split('-'); const d = new Date(Date.UTC(+y, +m - 1, 1)); const s = d.toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }); return s.charAt(0).toUpperCase() + s.slice(1); };
   const ymLabel = (ym) => { const [y, m] = ym.split('-'); const d = new Date(Date.UTC(+y, +m - 1, 1)); return d.toLocaleDateString(locale(), { month: 'short', year: 'numeric', timeZone: 'UTC' }).replace('.', ''); };
   const cls = (v) => (v == null || typeof v !== 'number' ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : '');
   // Year-over-year change of a line. "n.m." (not meaningful) when the sign flips or the base is zero: a fee that turns
@@ -919,10 +921,10 @@
     });
     const qHead = LANG === 'es' ? `Trimestre${TQ.closed ? '' : ' a la fecha'} · ${TQ.label}` : `Quarter${TQ.closed ? '' : ' to date'} · ${TQ.label}`;
     const yHead = LANG === 'es' ? `Acumulado del año · ${lastM.ym.slice(0, 4)}` : `Year to date · ${lastM.ym.slice(0, 4)}`;
-    const mHead = LANG === 'es' ? `Mes · ${ymLabel(lastM.ym)}` : `Month · ${ymLabel(lastM.ym)}`;
+    const mHead = LANG === 'es' ? `Mes · ${ymLabelLong(lastM.ym)}` : `Month · ${ymLabelLong(lastM.ym)}`; // composed from the latest report in traffic.js, so it moves with each new month
     html('trafficTable', `<table><thead>
       <tr><th rowspan="2" scope="col">${t('airport')}</th><th scope="colgroup" colspan="4" class="grp m gs">${mHead}</th><th scope="colgroup" colspan="2" class="grp q gs">${qHead}</th><th scope="colgroup" colspan="2" class="grp y gs">${yHead}</th><th rowspan="2" scope="col" class="gs">${t('share')}<br><span class="small muted">${ymLabel(lastM.ym)}</span></th></tr>
-      <tr><th scope="col" class="gs m">${ymLabel(lastM.ym)}</th><th scope="col" class="m">${t('yoy')}</th><th scope="col" class="m">${t('dom')}</th><th scope="col" class="m">${t('intl')}</th><th scope="col" class="gs q">${TQ.span}</th><th scope="col" class="q">${t('yoy')}</th><th scope="col" class="gs y">${ymLabel(`${lastM.ym.slice(0, 4)}-01`).split(' ')[0]}–${ymLabel(lastM.ym)}</th><th scope="col" class="y">${t('yoy')}</th></tr>
+      <tr><th scope="col" class="gs m">${LANG === 'es' ? 'Pasajeros' : 'Passengers'}</th><th scope="col" class="m">${t('yoy')}</th><th scope="col" class="m">${t('dom')}</th><th scope="col" class="m">${t('intl')}</th><th scope="col" class="gs q">${TQ.span}</th><th scope="col" class="q">${t('yoy')}</th><th scope="col" class="gs y">${ymLabel(`${lastM.ym.slice(0, 4)}-01`).split(' ')[0]}–${ymLabel(lastM.ym)}</th><th scope="col" class="y">${t('yoy')}</th></tr>
     </thead><tbody>${rows.join('')}</tbody></table>`);
     el('trafficTblTitle').textContent = tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)} · ${LANG === 'es' ? 'trimestre' : 'quarter'} ${TQ.label} · ${LANG === 'es' ? 'acumulado' : 'year to date'} ${lastM.ym.slice(0, 4)}`);
     const qNote = LANG === 'es' ? ` · trimestre (${TQ.span}${TQ.closed ? ', cerrado' : `, ${TQ.months} de 3 meses`}) = suma de los reportes mensuales preliminares de ambos años, por lo que puede diferir en unos miles de pasajeros de las columnas del reporte` : ` · quarter (${TQ.span}${TQ.closed ? ', closed' : `, ${TQ.months} of 3 months`}) = sum of both years' preliminary monthly reports, so it can differ by a few thousand passengers from the report's own columns`;
@@ -1754,7 +1756,7 @@
   // ---------------- model API for the presentation builder (present.js) ----------------
   // Read-only view of the same calculations the page renders, so the PDF and the screen never disagree.
   window.GAP_MODEL = {
-    get LANG() { return LANG; }, nextResults, nextResultsText, nextTraffic, nextTrafficText, liveTokens, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, fmtChg, fmtChgV, chgPct, qLabel, ytdLabel, ymLabel, addDays,
+    get LANG() { return LANG; }, nextResults, nextResultsText, nextTraffic, nextTrafficText, liveTokens, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, fmtChg, fmtChgV, chgPct, qLabel, ytdLabel, ymLabel, ymLabelLong, addDays,
     FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
     cmpBase, bsBase, isYoy, restatedNote, perShare, wavgShares, ltmShareNote, debtSources, guidanceDate, fmtGuidanceDate, periodFx, periodStart, periodEnd, reportDate, fmtReportDate, reportKindLabel, isValue, isLayout, lineLabel, PER_SHARE_ROWS, ADS, currentPair, likeForLike,
     ebitdaBridge, exCbx, paxByCountry, capexProgress, liquidity, trafficLatest, trafficQtd, trafficYoySeries, trafficSeries, paxYear, factValue, fmtFact, mdpUseText,
