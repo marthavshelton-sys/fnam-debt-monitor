@@ -325,7 +325,7 @@ lead clause emphasised; owner's layout, 2026-10-06) · contents (one page: every
 an indented row per page where a section spans several, each row an internal link; `Doc.contents()` reserves the page right
 after the summary and `drawContents()` fills it once every page exists) · tear sheet (ORCL price with the page's refresh time in ET,
 market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
-margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
+margin, net debt/EBITDA, NTM P/E · NTM EV/EBITDA (FactSet consensus), cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
 500 rebased and 3-year price) · RPO explained · sites and capacity (portrait, `data/buildout.js`) and the AI buildout
 (five-step flow and tracker) · RPO, capex and cash flow by quarter (portrait) · leverage and debt profile, dividends and cash
 generation (ten fiscal years) · off-balance-sheet financing and leases · debt detail and credit risk · circularity ·

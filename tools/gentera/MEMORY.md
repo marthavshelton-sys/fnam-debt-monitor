@@ -26,7 +26,7 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - Valuation: excess-return model on book value; Ke = live MX 10-year (Banxico SIE `SF44071`) + 6% ERP × beta
   vs IPC (clipped 0.5–1.4); drivers loan growth, NIM, cost of risk, efficiency, tax rate, payout; Gordon or
   exit P/BV; implied Ke by bisection.
-- Header tiles: price with 1-year change; market cap MXN and USD; LTM net income with ROAE; P/E with P/BV;
+- Header tiles: price with 1-year change; market cap MXN and USD; LTM net income with ROAE; NTM P/E (FactSet consensus, bold) with P/BV beneath (since 17-Oct-2026; was LTM P/E);
   stage-3 with coverage and cost of risk.
 - Accounting toggle excludes only the 4Q25 ConCrédito deferred-tax write-down (Ps. 328 M, `REF.adjust`).
   The Ps. 500 M tax-contingency charge in 4Q25 opex is shown as reported (management called it a methodology

@@ -300,7 +300,8 @@
       const OS = M.obligStats ? M.obligStats() : null;
       if (OS) R(this.T('Ajustado por arrendamientos / EBITDAR UDM  ·  incl. arrendamientos no iniciados', 'Lease-adjusted / LTM EBITDAR  ·  incl. uncommenced leases'), `${this.x(OS.leaseAdj, 2)}  ·  ${this.x(OS.commit, 1)} (US$ ${this.n(OS.unc / 1000, 0)} ${this.T('mil M nominal', 'bn nominal')})`);
       const FSn = M.fsNtm ? M.fsNtm() : {};
-      if (FSn.ebitda && FSn.ebitda.mean > 0) R(this.T(`VE / EBITDA NTM  ·  P/U NTM (consenso FactSet ${this.date(M.FS.asOf)})`, `EV / NTM EBITDA  ·  NTM P/E (FactSet consensus ${this.date(M.FS.asOf)})`), `${this.x(ev / FSn.ebitda.mean)}  ·  ${FSn.eps && FSn.eps.mean > 0 ? this.x(px[1] / FSn.eps.mean) : '—'}`, 'bold');
+      // P/E NTM first, EV/EBITDA NTM second (owner, 17-Oct-2026: the site's order)
+      if ((FSn.eps && FSn.eps.mean > 0) || (FSn.ebitda && FSn.ebitda.mean > 0)) R(this.T(`P/U NTM  ·  VE / EBITDA NTM (consenso FactSet ${this.date(M.FS.asOf)})`, `NTM P/E  ·  EV / NTM EBITDA (FactSet consensus ${this.date(M.FS.asOf)})`), `${FSn.eps && FSn.eps.mean > 0 ? this.x(px[1] / FSn.eps.mean) : '—'}  ·  ${FSn.ebitda && FSn.ebitda.mean > 0 ? this.x(ev / FSn.ebitda.mean) : '—'}`, 'bold');
       if (L && L.cf) R(this.T('Flujo operativo · capex · flujo libre, últimos 12 meses', 'Operating cash flow · capex · free cash flow, last twelve months'), `${this.usdM(L.cf.cfo)}  ·  ${this.usdM(-L.cf.capex)}  ·  ${this.usdM(L.cf.fcf)}`, this.cls(L.cf.fcf));
       H(this.T('Operación', 'Operations'));
       R(this.T(`RPO (cartera contratada) · ${this.qlab(lastQ)}`, `RPO (contracted backlog) · ${this.qlab(lastQ)}`), `${this.bn(lastQ.kpi.rpo, 0)}${lastQ.kpi.rpoYoyPct != null ? `  ·  ${pm(lastQ.kpi.rpoYoyPct)} ${yy}` : ''}`, 'bold');
