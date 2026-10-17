@@ -441,7 +441,7 @@
       const M = this.M, es = this.es, short = this.cfg.short;
       const ntm0 = es ? 'PDM' : 'NTM', cur0 = own.currency === 'MXN' ? 'Ps. ' : (own.currency || '') + ' ';
       const multiples = o.multiples || [{ cur: 'evEbitdaNtm', avg: 'evEbitdaNtmAvg', label: gl(`${es ? 'VE' : 'EV'}/EBITDA ${ntm0}`), dec: 1 }, { cur: 'peNtm', avg: 'peNtmAvg', label: `${es ? 'P/U' : 'P/E'} ${ntm0}`, dec: 1 }];
-      const tail = o.tail || [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'netDebtEbitda', label: `${es ? 'DN' : 'ND'}/EBITDA`, fmt: 'x' }, { key: 'ebitdaMarginPct', label: es ? 'Margen EBITDA' : 'EBITDA margin', fmt: 'pct' }];
+      const tail = o.tail || [{ key: 'divYieldPct', label: es ? 'Rend. div.' : 'Div. yield', fmt: 'pct' }, { key: 'netDebtEbitda', label: `${es ? 'DN' : 'ND'}/EBITDA`, fmt: 'x' }, { key: 'ebitdaMarginPct', label: es ? 'Margen EBITDA' : 'EBITDA margin', fmt: 'pct' }, { key: 'ebitdaMarginExIfricPct', label: es ? 'Margen EBITDA sin IFRIC 12' : 'EBITDA margin ex-IFRIC 12', fmt: 'pct', approxKey: 'ifric12' }];
       const groups = o.groups || [{ key: 'mexico', label: es ? 'México' : 'Mexico' }, { key: 'international', label: es ? 'Internacionales' : 'International' }];
       const medians = o.medians || [{ key: 'mexico', label: es ? 'Mediana México' : 'Median, Mexico' }, { key: 'international', label: es ? 'Mediana internacional' : 'Median, international' }, { key: 'all', label: es ? 'Mediana de pares' : 'Peer median' }];
       const nCols = 4 + 4 * multiples.length + tail.length, nTail = nCols - 1;
@@ -478,10 +478,11 @@
         multiples.flatMap(() => [cur, a1, a3, a5]),
       ];
       const x = (v, d) => (v == null ? '—' : M.fmtX(v, d)), pc = (v) => (v == null ? '—' : M.fmtPct(v, 1));
-      const fmtTail = (t, v) => (t.fmt === 'pct' ? pc(v) : x(v, t.dec));
+      // a tail column may mark company-stated, rounded inputs with ≈ (the page's superscript); null in such a column reads "pending", the page's word
+      const fmtTail = (t, v, p) => (t.approxKey && v == null && p.cls !== 'total' && !p.blank ? (es ? 'pendiente' : 'pending') : (t.fmt === 'pct' ? pc(v) : x(v, t.dec)) + (t.approxKey && v != null && p[t.approxKey] && p[t.approxKey].approx ? ' ~' : ''));
       const name = (p) => (p.cls === 'total' || p.blank || !p.ticker ? p.name : `${p.short}  ·  ${p.ticker}`);
       const row = (p) => [name(p), p.price == null ? '' : `${p.currency} ${M.fmtN(p.price, 2)}`, p.mktCapUsdM == null ? '' : M.fmtN(p.mktCapUsdM, 0), p.adtvUsdM == null ? '' : M.fmtN(p.adtvUsdM, 1),
-        ...multiples.flatMap((m) => [x(p[m.cur], m.dec), x(p[m.avg + '1y'], m.dec), x(p[m.avg + '3y'], m.dec), x(p[m.avg + '5y'], m.dec)]), ...tail.map((t) => fmtTail(t, p[t.key]))];
+        ...multiples.flatMap((m) => [x(p[m.cur], m.dec), x(p[m.avg + '1y'], m.dec), x(p[m.avg + '3y'], m.dec), x(p[m.avg + '5y'], m.dec)]), ...tail.map((t) => fmtTail(t, p[t.key], p))];
       const medRow = (nm, m) => (m ? { name: nm, ...m, cls: 'total' } : null);
       const items = [o.ownPf, { ...own, cls: 'bold' }];
       for (const g of groups) { const glist = ps.filter((p) => p.group === g.key); if (!glist.length) continue; if (groups.length > 1) items.push({ name: g.label, cls: 'head' }); items.push(...glist); }
