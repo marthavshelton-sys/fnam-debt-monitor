@@ -166,9 +166,18 @@
         tableWidth: o.w || this.width(), theme: 'plain', head: o.headRows ? o.headRows.map((r) => r.map((c) => (c && typeof c === 'object' ? { ...c, content: tx(c.content) } : tx(c)))) : o.head ? [o.head.map(tx)] : undefined, body: o.body.map((r) => r.map(tx)),
         styles: { font: 'helvetica', fontSize: o.size || 8.5, cellPadding: o.pad || { top: 2.2, bottom: 2.2, left: 3.5, right: 3.5 }, textColor: INK, lineColor: GRID, lineWidth: { bottom: 0.35 }, halign: 'right', valign: 'middle', overflow: 'linebreak' },
         headStyles: { fillColor: HEAD, textColor: ACCENT, fontStyle: 'bold', fontSize: (o.size || 8.5) - 0.5, halign: 'right', lineWidth: { bottom: 0.8 }, lineColor: ACCENT },
-        alternateRowStyles: { fillColor: ALT }, columnStyles: o.cols || {}, pageBreak: o.pageBreak || 'avoid', rowPageBreak: 'avoid',
+        alternateRowStyles: { fillColor: o.alt || ALT }, columnStyles: o.cols || {}, pageBreak: o.pageBreak || 'avoid', rowPageBreak: 'avoid',
         didParseCell: (d) => {
           const m = o.meta && d.section === 'body' && o.meta[d.row.index] ? o.meta[d.row.index][d.column.index] : null;
+          // o.colFill: { columnIndex: [r, g, b] } tints those columns with their group's color over the row's own base (the zebra shows
+          // through) and prints the group heading in that color; o.colRule: column indexes opened by a vertical rule (a group's first column)
+          const tint = o.colFill && o.colFill[d.column.index];
+          if (tint && !(m && m.includes('head'))) {
+            const base = d.section === 'head' ? HEAD : d.row.index % 2 === 0 ? (o.alt || ALT) : [255, 255, 255], a = d.section === 'head' ? 0.16 : 0.09;
+            d.cell.styles.fillColor = tint.map((c, i) => Math.round(c * a + base[i] * (1 - a)));
+            if (d.section === 'head' && d.cell.colSpan > 1) d.cell.styles.textColor = tint;
+          }
+          if (o.colRule && o.colRule.includes(d.column.index) && !(m && m.includes('head'))) { const lw = d.cell.styles.lineWidth; d.cell.styles.lineWidth = { ...(lw && typeof lw === 'object' ? lw : { bottom: lw || 0 }), left: 1 }; }
           if (m) { if (m.includes('pos')) d.cell.styles.textColor = POS; if (m.includes('neg')) d.cell.styles.textColor = NEG; if (m.includes('bold')) d.cell.styles.fontStyle = 'bold'; if (m.includes('muted')) d.cell.styles.textColor = MUTED; if (m.includes('sub')) d.cell.styles.cellPadding = { top: 2.2, bottom: 2.2, left: 12, right: 3.5 }; if (m.includes('head')) { d.cell.styles.fillColor = [242, 244, 242]; d.cell.styles.fontStyle = 'bold'; d.cell.styles.textColor = ACCENT; } if (m.includes('small')) d.cell.styles.fontSize = (o.size || 8.5) - 1; if (m.includes('left')) d.cell.styles.halign = 'left';
             // 'nol' drops the row's bottom rule; 'detail' is the muted, smaller line printed under the row above (a value's basis), flush with its label
             if (m.includes('nol')) d.cell.styles.lineWidth = 0; if (m.includes('detail')) { const p = d.cell.styles.cellPadding; d.cell.styles.cellPadding = { top: 0, bottom: (p && p.bottom) || 2.2, left: (p && p.left) || 3.5, right: (p && p.right) || 3.5 }; d.cell.styles.fontSize = (o.size || 8.5) - 1.2; d.cell.styles.textColor = MUTED; d.cell.styles.fontStyle = 'normal'; } }
@@ -493,10 +502,15 @@
       const rowSpan = {}; list.forEach((p, i) => { if (p.cls === 'head') rowSpan[i] = nCols; });
       const cols = { 0: { halign: 'left', cellWidth: W * 0.165 }, 1: { cellWidth: W * 0.08 }, 2: { cellWidth: W * 0.085 } };
       multiples.forEach((m, i) => { cols[4 + 4 * i] = { fontStyle: 'bold' }; });
+      // each multiple's four columns sit on their own tint under a heading in the same color, opened by a vertical rule, and the
+      // first single column after them is opened by one too, so the groups read apart (the page's design, owner 17-Oct-2026)
+      const rgb = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16)), gcol = [PALETTE[2], PALETTE[1], PALETTE[7], PALETTE[3]];
+      const colFill = {}, colRule = [4 + 4 * multiples.length];
+      multiples.forEach((m, i) => { colRule.push(4 + 4 * i); for (let k = 0; k < 4; k++) colFill[4 + 4 * i + k] = rgb(gcol[i % gcol.length]); });
       // the table and the notes under it share the page: the method note is measured first so the table shrinks to leave it room
       const notes = [o.note, this.T('Consenso del lado vendedor compilado por FactSet; no constituye una recomendación de inversión.', 'Sell-side consensus compiled by FactSet; not investment advice.')].filter(Boolean);
       const noteH = notes.reduce((h, n) => h + this.measureText(n, W, 7) + 3, 0);
-      y = this.fitTable({ y, headRows, body, meta, rowSpan, cols, pad: { top: 2.8, bottom: 2.8, left: 3, right: 3 } }, [9.4, 9, 8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - 6);
+      y = this.fitTable({ y, headRows, body, meta, rowSpan, cols, colFill, colRule, alt: [243, 243, 240], pad: { top: 2.8, bottom: 2.8, left: 3, right: 3 } }, [9.4, 9, 8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - 6);
       let yn = Math.min(y + 6, this.cur.y1 - noteH);
       for (const n of notes) yn = this.note(n, yn, 7) + 3;
       return true;
