@@ -1300,7 +1300,8 @@
       if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), nd.basis === 'bs' ? (LANG === 'es' ? 'balance del trimestre' : "quarter's balance sheet") : (LANG === 'es' ? 'referencia (informe trimestral PDF / 20-F)' : 'reference (PDF quarterly report / 20-F)')]);
       rows.push([t('ebitdaMarginEx'), fmtPct(ltm.ebitdaMarginExIfric), LANG === 'es' ? 'UDM' : 'LTM']);
     }
-    html('multTable', `<table><thead><tr><th scope="col">${t('metric')}</th><th scope="col">${t('value')}</th><th scope="col">${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
+    // Two columns: the metric with its basis beneath, the value on one line (owner, 17-Oct-2026: values never wrap, everything legible).
+    html('multTable', `<table><thead><tr><th scope="col">${t('metric')} · <span class="basis-h">${t('basis')}</span></th><th scope="col">${t('value')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}<div class="basis muted">${r[2]}</div></td><td class="val">${r[1]}</td></tr>`).join('')}</tbody></table>`);
     el('multCap').textContent = lastPx ? `${t('price')} GAP B ${fmtDate(lastPx[0])} · ${LANG === 'es' ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
     // Forward multiples history: FactSet's weekly NTM series from the peers snapshot (owner, 17-Oct-2026: NTM, not the quarterly LTM
     // series). peers.js → gap.history.series rows are [Friday, EV/EBITDA NTM, P/E NTM]; the dashed line is the 5-year average of the table.
