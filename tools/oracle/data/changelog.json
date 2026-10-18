@@ -4,34 +4,6 @@
   {
    "at": "2026-10-17T00:02:55.655Z",
    "file": "peers.js",
-   "path": "peers[0].hist.as_of",
-   "old": "2026-10-09",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-17T00:02:55.655Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y1",
-   "old": 24.06,
-   "new": 23.95
-  },
-  {
-   "at": "2026-10-17T00:02:55.655Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y3",
-   "old": 28.64,
-   "new": 28.62
-  },
-  {
-   "at": "2026-10-17T00:02:55.655Z",
-   "file": "peers.js",
-   "path": "peers[0].hist.pe_ntm.y5",
-   "old": 28.17,
-   "new": 28.14
-  },
-  {
-   "at": "2026-10-17T00:02:55.655Z",
-   "file": "peers.js",
    "path": "peers[0].hist.pe_ntm.spot_last_week",
    "old": 25.74,
    "new": 25.35
@@ -4200,7 +4172,35 @@
    "path": "(more)",
    "old": null,
    "new": "808 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-18T16:39:16.408Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-17&todate=2026-10-17&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-18&todate=2026-10-18&limit=10000"
+  },
+  {
+   "at": "2026-10-18T16:39:16.408Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-17",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T16:39:16.408Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-17",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T16:39:16.408Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-17",
+   "new": "2026-10-18"
   }
  ],
- "generated": "2026-10-18T14:59:53.817Z"
+ "generated": "2026-10-18T16:39:16.408Z"
 }
