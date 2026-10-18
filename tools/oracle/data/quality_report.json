@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-17T16:32:19.048Z",
+  "generated": "2026-10-18T00:03:23.506Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3879,8 +3879,8 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-16",
-      "ageDays": 2,
+      "lastDate": "2026-10-17",
+      "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
       "note": "nightly FactSet refresh, 7:58 PM ET"
@@ -3967,7 +3967,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-16; prices 2026-10-16; 8 peers; fetched 2026-10-16"
+      "detail": "consensus 2026-10-18; prices 2026-10-16; 8 peers; fetched 2026-10-17"
     },
     {
       "file": "peer_leverage.json",
@@ -4136,8 +4136,8 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-16",
-      "lastRefresh": "2026-10-16",
+      "asOf": "2026-10-18",
+      "lastRefresh": "2026-10-17",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4226,8 +4226,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-17",
-      "lastRefresh": "2026-10-17",
+      "asOf": "2026-10-18",
+      "lastRefresh": "2026-10-18",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4241,8 +4241,8 @@
       "label_en": "Change log",
       "label_es": "Bitácora de cambios",
       "cadence": "daily",
-      "asOf": "2026-10-17",
-      "lastRefresh": "2026-10-17",
+      "asOf": "2026-10-18",
+      "lastRefresh": "2026-10-18",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,

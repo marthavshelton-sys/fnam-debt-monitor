@@ -2,734 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.product_of_averages_usd_m",
-   "old": 511.1,
-   "new": 514.6
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.start",
-   "old": "2026-07-15",
-   "new": "2026-07-16"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.end",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.avg_volume_m",
-   "old": 2.53,
-   "new": 2.54
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.avg_vwap_usd",
-   "old": 201.78,
-   "new": 202.84
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].priceDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].price",
-   "old": 235.95,
-   "new": 246.74
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].marketCapUsdM",
-   "old": 194187,
-   "new": 203067
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].marketCapDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].evUsdM",
-   "old": 225160,
-   "new": 234040
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEps",
-   "old": 16.277,
-   "new": 16.275
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEbitda",
-   "old": 20326,
-   "new": 20329
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmSales",
-   "old": 49500,
-   "new": 49513
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].peNtm",
-   "old": 14.495914480555383,
-   "new": 15.16067588325653
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].evEbitdaNtm",
-   "old": 11.077437764439633,
-   "new": 11.512617443061636
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].evSalesNtm",
-   "old": 4.548686868686869,
-   "new": 4.726839415910973
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].divYieldPct",
-   "old": 0.745920745920746,
-   "new": 0.7133014509199967
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtvUsdM",
-   "old": 2830,
-   "new": 2828.7
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.usd_m",
-   "old": 2830,
-   "new": 2828.7
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.product_of_averages_usd_m",
-   "old": 2797.7,
-   "new": 2798
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.start",
-   "old": "2026-07-15",
-   "new": "2026-07-16"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.end",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.avg_volume_m",
-   "old": 12.96,
-   "new": 12.89
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[2].adtv.avg_vwap_usd",
-   "old": 215.87,
-   "new": 217.05
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].priceDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].price",
-   "old": 139.98,
-   "new": 148.57
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].marketCapUsdM",
-   "old": 144720,
-   "new": 153601
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].marketCapDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].evUsdM",
-   "old": 148500,
-   "new": 157381
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].ntmEps",
-   "old": 4.816,
-   "new": 4.818
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].ntmEbitda",
-   "old": 7295,
-   "new": 7298
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].ntmSales",
-   "old": 18601,
-   "new": 18609
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].peNtm",
-   "old": 29.0656146179402,
-   "new": 30.83644665836447
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].evEbitdaNtm",
-   "old": 20.3564084989719,
-   "new": 21.564949301178405
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].evSalesNtm",
-   "old": 7.983441750443524,
-   "new": 8.457251867376002
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtvUsdM",
-   "old": 2132.1,
-   "new": 2149.5
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.usd_m",
-   "old": 2132.1,
-   "new": 2149.5
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.product_of_averages_usd_m",
-   "old": 2206.3,
-   "new": 2224.8
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.start",
-   "old": "2026-07-15",
-   "new": "2026-07-16"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.end",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.avg_volume_m",
-   "old": 17.32,
-   "new": 17.38
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[3].adtv.avg_vwap_usd",
-   "old": 127.38,
-   "new": 128.01
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].priceDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].price",
-   "old": 227.88,
-   "new": 234.12
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].marketCapUsdM",
-   "old": 214663,
-   "new": 220541
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].marketCapDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].evUsdM",
-   "old": 271758,
-   "new": 277636
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].ntmEbitda",
-   "old": 20521,
-   "new": 20515
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].ntmSales",
-   "old": 72523,
-   "new": 72518
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].peNtm",
-   "old": 17.56300578034682,
-   "new": 18.04393063583815
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].evEbitdaNtm",
-   "old": 13.242921884898397,
-   "new": 13.533317085059712
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].evSalesNtm",
-   "old": 3.74719744081188,
-   "new": 3.8285115419619955
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].fy1.eps",
-   "old": 12.314,
-   "new": 12.311
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].fy2.eps",
-   "old": 13.155,
-   "new": 13.153
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].epsGrowthFy2Pct",
-   "old": 6.8296248172811325,
-   "new": 6.839411908049708
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].divYieldPct",
-   "old": 2.9664735825873265,
-   "new": 2.8874081667520928
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtvUsdM",
-   "old": 1585.5,
-   "new": 1507.4
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.usd_m",
-   "old": 1585.5,
-   "new": 1507.4
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.product_of_averages_usd_m",
-   "old": 1609.1,
-   "new": 1526.4
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.start",
-   "old": "2026-07-15",
-   "new": "2026-07-16"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.end",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.avg_volume_m",
-   "old": 7.03,
-   "new": 6.66
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[4].adtv.avg_vwap_usd",
-   "old": 228.79,
-   "new": 229.05
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].priceDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].price",
-   "old": 188.77,
-   "new": 196.63
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].marketCapUsdM",
-   "old": 45494,
-   "new": 47388
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].marketCapDate",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].evUsdM",
-   "old": 45856,
-   "new": 47750
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].ntmEps",
-   "old": 12.597,
-   "new": 12.603
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].ntmEbitda",
-   "old": 4006,
-   "new": 4008
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].ntmSales",
-   "old": 11449,
-   "new": 11452
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].peNtm",
-   "old": 14.985313963642138,
-   "new": 15.601840831548044
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].evEbitdaNtm",
-   "old": 11.446829755366949,
-   "new": 11.913672654690618
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].evSalesNtm",
-   "old": 4.005240632369639,
-   "new": 4.169577366398882
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].fy2.eps",
-   "old": 13.24,
-   "new": 13.239
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].epsGrowthFy2Pct",
-   "old": 19.419139532786154,
-   "new": 19.4101199603139
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].adtvUsdM",
-   "old": 677.6,
-   "new": 679.6
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "peers[5].adtv.usd_m",
-   "old": 677.6,
-   "new": 679.6
-  },
-  {
-   "at": "2026-10-16T00:01:42.336Z",
-   "file": "peers.js",
-   "path": "(more)",
-   "old": null,
-   "new": "422 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "summary.js",
-   "path": "eventsThrough",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "buildout.js",
-   "path": "sites[0].issues_checked",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "buildout.js",
-   "path": "sites[1].issues_checked",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues_checked",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "buildout.js",
-   "path": "sites[3].issues_checked",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues_checked",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "asOf",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].date",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 36,
-   "new": 30
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "JKN",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "El Paso Electric",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "We Energies",
-   "new": "WEC Energy"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "Data Center Dynamics",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "El Paso Matters",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[0]",
-   "old": "2026-10-14-orcl-jupiter-drop",
-   "new": "2026-10-15-orcl-rebound"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 24,
-   "new": 36
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[3]",
-   "old": "El Paso Electric",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[4]",
-   "old": "Bloomberg",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[5]",
-   "old": "Reuters",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[6]",
-   "old": "Financial Times",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[7]",
-   "old": "Wall Street Journal",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[8]",
-   "old": "CNBC",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-16T14:57:25.010Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[9]",
-   "old": "Benzinga",
-   "new": "JKN"
-  },
-  {
    "at": "2026-10-16T14:57:25.010Z",
    "file": "news.js",
    "path": "sweepLog[1].checked[10]",
@@ -4200,7 +3472,735 @@
    "path": "spreads.BBB_OAS.fetchedAt",
    "old": "2026-10-16",
    "new": "2026-10-17"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-16",
+   "new": "2026-10-17"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "asOf",
+   "old": "2026-10-16",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.market_value_factset.usd_m",
+   "old": 406602,
+   "new": 387734
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.market_value_factset.date",
+   "old": "2026-10-15",
+   "new": "2026-10-16"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.mean",
+   "old": 9.227,
+   "new": 9.235
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.median",
+   "old": 9.19,
+   "new": 9.197
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.high",
+   "old": 10.236,
+   "new": 10.249
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.low",
+   "old": 8.822,
+   "new": 8.828
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.sd",
+   "old": 0.279,
+   "new": 0.281
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.mean",
+   "old": 59773,
+   "new": 59895
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.median",
+   "old": 61119,
+   "new": 61248
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.high",
+   "old": 72617,
+   "new": 72772
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.low",
+   "old": 49005,
+   "new": 49074
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.sd",
+   "old": 5641,
+   "new": 5661
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.mean",
+   "old": 105936,
+   "new": 106160
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.median",
+   "old": 105960,
+   "new": 106185
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.high",
+   "old": 109819,
+   "new": 110082
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.low",
+   "old": 99995,
+   "new": 100153
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.sd",
+   "old": 1776,
+   "new": 1795
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.mean",
+   "old": -36385,
+   "new": -36375
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.median",
+   "old": -34431,
+   "new": -34412
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.high",
+   "old": -19888,
+   "new": -19798
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.low",
+   "old": -76542,
+   "new": -76532
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.sd",
+   "old": 13381,
+   "new": 13408
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].da.as_of",
+   "old": "2026-10-16",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].da.as_of",
+   "old": "2026-10-16",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].da.as_of",
+   "old": "2026-10-16",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[3].da.as_of",
+   "old": "2026-10-16",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.usd_m",
+   "old": 4293.6,
+   "new": 4296.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.product_of_averages_usd_m",
+   "old": 4309.8,
+   "new": 4312.7
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "factset.js",
+   "path": "oracle.adtv.avg_volume_m",
+   "old": 30.48,
+   "new": 30.5
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEps",
+   "old": 20.873,
+   "new": 20.883
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEbitda",
+   "old": 258475,
+   "new": 258781
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmSales",
+   "old": 413591,
+   "new": 414011
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].peNtm",
+   "old": 25.3461409476357,
+   "new": 25.334003735095532
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].evEbitdaNtm",
+   "old": 15.402743011896701,
+   "new": 15.384529776142761
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].evSalesNtm",
+   "old": 9.625992828664067,
+   "new": 9.616227588155871
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].adtvUsdM",
+   "old": 12941.8,
+   "new": 12950.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.usd_m",
+   "old": 12941.8,
+   "new": 12950.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.product_of_averages_usd_m",
+   "old": 13114.6,
+   "new": 13122.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.avg_volume_m",
+   "old": 26.9,
+   "new": 26.91
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[0].adtv.avg_vwap_usd",
+   "old": 487.61,
+   "new": 487.6
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEps",
+   "old": 9.194,
+   "new": 9.198
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEbitda",
+   "old": 16373,
+   "new": 16385
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmSales",
+   "old": 49834,
+   "new": 49863
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].peNtm",
+   "old": 24.39525777681096,
+   "new": 24.38464883670363
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].evEbitdaNtm",
+   "old": 15.771208697245465,
+   "new": 15.759658223985353
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[1].evSalesNtm",
+   "old": 5.181643054942409,
+   "new": 5.1786294446784185
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEps",
+   "old": 16.274,
+   "new": 16.272
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEbitda",
+   "old": 20332,
+   "new": 20338
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmSales",
+   "old": 49526,
+   "new": 49551
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].peNtm",
+   "old": 14.790463315718322,
+   "new": 14.79228121927237
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].evEbitdaNtm",
+   "old": 11.266427306708637,
+   "new": 11.263103550004917
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].evSalesNtm",
+   "old": 4.625227153414368,
+   "new": 4.6228935843878025
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].adtvUsdM",
+   "old": 2827.5,
+   "new": 2828
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.usd_m",
+   "old": 2827.5,
+   "new": 2828
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.product_of_averages_usd_m",
+   "old": 2799.1,
+   "new": 2799.5
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[2].adtv.avg_vwap_usd",
+   "old": 218.13,
+   "new": 218.12
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEps",
+   "old": 4.82,
+   "new": 4.823
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEbitda",
+   "old": 7302,
+   "new": 7309
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmSales",
+   "old": 18617,
+   "new": 18634
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].peNtm",
+   "old": 29.454356846473026,
+   "new": 29.436035662450752
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].evEbitdaNtm",
+   "old": 20.618597644480964,
+   "new": 20.598850731974277
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].evSalesNtm",
+   "old": 8.087070956652521,
+   "new": 8.079693034238488
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].adtvUsdM",
+   "old": 2151.7,
+   "new": 2151.8
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.usd_m",
+   "old": 2151.7,
+   "new": 2151.8
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[3].adtv.product_of_averages_usd_m",
+   "old": 2226.3,
+   "new": 2226.4
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmEps",
+   "old": 12.974,
+   "new": 12.976
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmEbitda",
+   "old": 20511,
+   "new": 20517
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmSales",
+   "old": 72509,
+   "new": 72524
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].peNtm",
+   "old": 17.8927084939109,
+   "new": 17.88995067817509
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].evEbitdaNtm",
+   "old": 13.445029496367802,
+   "new": 13.44109762635863
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].evSalesNtm",
+   "old": 3.803265801486712,
+   "new": 3.8024791793061605
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].adtvUsdM",
+   "old": 1458.2,
+   "new": 1458.3
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[4].adtv.usd_m",
+   "old": 1458.2,
+   "new": 1458.3
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEps",
+   "old": 12.608,
+   "new": 12.614
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEbitda",
+   "old": 4009,
+   "new": 4013
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmSales",
+   "old": 11455,
+   "new": 11462
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].peNtm",
+   "old": 15.134041878172589,
+   "new": 15.12684319010623
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].evEbitdaNtm",
+   "old": 11.56073833873784,
+   "new": 11.549215051083976
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].evSalesNtm",
+   "old": 4.046006110868617,
+   "new": 4.043535159658
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].adtvUsdM",
+   "old": 678.8,
+   "new": 679
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].adtv.usd_m",
+   "old": 678.8,
+   "new": 679
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[5].adtv.product_of_averages_usd_m",
+   "old": 681.1,
+   "new": 681.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmEps",
+   "old": 11.107,
+   "new": 11.101
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmEbitda",
+   "old": 269497,
+   "new": 269854
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmSales",
+   "old": 925892,
+   "new": 926563
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].peNtm",
+   "old": 22.508328081390115,
+   "new": 22.52049364922079
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].evEbitdaNtm",
+   "old": 10.443433507608619,
+   "new": 10.429617496868676
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].evSalesNtm",
+   "old": 3.0397432961943727,
+   "new": 3.0375419696232204
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].adtvUsdM",
+   "old": 9923.6,
+   "new": 9929.4
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].adtv.usd_m",
+   "old": 9923.6,
+   "new": 9929.4
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].adtv.product_of_averages_usd_m",
+   "old": 9898.8,
+   "new": 9904.7
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[6].adtv.avg_volume_m",
+   "old": 38.71,
+   "new": 38.73
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmEps",
+   "old": 16.399,
+   "new": 16.384
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmEbitda",
+   "old": 287298,
+   "new": 287655
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmSales",
+   "old": 596071,
+   "new": 596744
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].peNtm",
+   "old": 20.768949326178422,
+   "new": 20.787963867187496
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].evEbitdaNtm",
+   "old": 14.063063439355652,
+   "new": 14.04561019276564
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].evSalesNtm",
+   "old": 6.778202596670531,
+   "new": 6.770558229324467
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].adtvUsdM",
+   "old": 9244.3,
+   "new": 9247.4
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].adtv.usd_m",
+   "old": 9244.3,
+   "new": 9247.4
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].adtv.product_of_averages_usd_m",
+   "old": 9248.1,
+   "new": 9251.2
+  },
+  {
+   "at": "2026-10-18T00:03:18.347Z",
+   "file": "peers.js",
+   "path": "peers[7].adtv.avg_volume_m",
+   "old": 26.8,
+   "new": 26.81
   }
  ],
- "generated": "2026-10-17T16:32:19.323Z"
+ "generated": "2026-10-18T00:03:23.791Z"
 }
