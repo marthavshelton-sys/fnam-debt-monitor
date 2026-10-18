@@ -233,7 +233,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-17",
+   "issues_checked": "2026-10-18",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -351,7 +351,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-17",
+   "issues_checked": "2026-10-18",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
    "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
    "tenant_openai": true,
@@ -490,6 +490,19 @@
      "date": "2026-10-15",
      "kind": "permit",
      "status": "open",
+     "basis": "press",
+     "due": "2026-12-07",
+     "en": "Hearing officer James O. Browning moved the weeklong public hearing on the air permit to start Dec 7 (possibly later), making NMED's Nov 23 decision deadline moot; NMED's new modeling showed higher pollutant concentrations than the developers' (Santa Fe New Mexican / Searchlight New Mexico).",
+     "es": "El oficial de audiencia James O. Browning movió el inicio de la audiencia pública de una semana sobre el permiso de aire al 7 dic (quizá más tarde), lo que deja sin efecto el plazo de decisión del NMED del 23 nov; la nueva modelación del NMED mostró concentraciones de contaminantes más altas que la de los desarrolladores (Santa Fe New Mexican / Searchlight New Mexico).",
+     "source": {
+      "title": "Santa Fe New Mexican (via Yahoo News), Oct 16, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
+      "url": "https://www.yahoo.com/news/us/articles/oracle-touts-project-jupiter-benefits-035900949.html"
+     }
+    },
+    {
+     "date": "2026-10-15",
+     "kind": "permit",
+     "status": "open",
      "basis": "company",
      "due": "2026-11-23",
      "en": "Oracle and YGI propose an enforceable output cap on the fuel cells that cuts permitted emissions by about 35% (greenhouse gases about 8.8 to 5.7 million tons a year per Source New Mexico; IT capacity unchanged). New Energy Economy moved to dismiss the air permit application as incomplete; hearing officer James Browning set an Oct 26 hearing on the motion; NMED's decision deadline is Nov 23 (Albuquerque Journal).",
@@ -600,7 +613,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-17",
+   "issues_checked": "2026-10-18",
    "tenant_openai": true,
    "tenant_basis": "press",
    "mw_series": [
@@ -715,7 +728,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-17",
+   "issues_checked": "2026-10-18",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -882,7 +895,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-17",
+   "issues_checked": "2026-10-18",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [

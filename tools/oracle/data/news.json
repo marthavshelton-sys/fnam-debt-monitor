@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-17",
+  "as_of": "2026-10-18",
   "window_days": 120,
   "themes": [
     {
@@ -701,6 +701,54 @@
           "url": "https://investor.oracle.com/events-and-presentations/default.aspx"
         }
       ]
+    },
+    {
+      "id": "2026-10-15-jupiter-hearing-dec7",
+      "date": "2026-10-15",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "Project Jupiter air permit: the NMED public hearing now starts Dec 7, making the Nov 23 decision deadline moot (press)",
+      "title_es": "Permiso de aire del Proyecto Júpiter: la audiencia pública del NMED ahora empieza el 7 dic y deja sin efecto el plazo de decisión del 23 nov (prensa)",
+      "summary_en": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, Oct 16): hearing officer James O. Browning said at a scheduling conference on Thursday Oct 15 that the weeklong public hearing in Sunland Park, initially set for September, \"will now start Dec. 7\" and could be further postponed; the delay \"renders moot\" the Nov 23 deadline for NMED's decision; Browning brought back a limited discovery process. NMED emails said new modeling requested by agency staff \"showed higher concentrations of pollutants\" than the developers' earlier modeling. More than 4,000 workers are on site; the buildings are near completion but remain without power. Press-reported; Oracle has not commented on the date.",
+      "summary_es": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, 16 oct): el oficial de audiencia James O. Browning dijo en una conferencia de calendario el jueves 15 oct que la audiencia pública de una semana en Sunland Park, prevista en septiembre, \"empezará el 7 dic\" y podría posponerse otra vez; el retraso deja sin efecto el plazo del 23 nov para la decisión del NMED; Browning reabrió un proceso de exhibición de pruebas limitado. Correos del NMED dijeron que una nueva modelación pedida por el personal de la agencia \"mostró concentraciones de contaminantes más altas\" que la modelación previa de los desarrolladores. Hay más de 4,000 trabajadores en el sitio; los edificios están casi terminados pero siguen sin energía. Reportado por la prensa; Oracle no ha comentado la fecha.",
+      "why_en": "The air permit gates the microgrid that is the campus's primary power: a decision after Dec 7 at the earliest lengthens the period of capex before cash at Project Jupiter and bears on the force majeure notice's rent deferral ({{sec:sites}}). No figure on the page changes.",
+      "why_es": "El permiso de aire condiciona la microrred que es la fuente principal de energía del campus: una decisión no antes del 7 dic alarga el periodo de capex sin flujo en el Proyecto Júpiter y toca el diferimiento de renta del aviso de fuerza mayor ({{sec:sites}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Santa Fe New Mexican (via Yahoo News), Oct 16, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
+          "url": "https://www.yahoo.com/news/us/articles/oracle-touts-project-jupiter-benefits-035900949.html"
+        },
+        {
+          "tier": "press",
+          "title": "Searchlight New Mexico (republished by Organ Mountain News), Oct 17, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
+          "url": "https://www.organmountainnews.com/oracle-project-jupiter-media-tour-power-permit-emissions-2026/"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-15-cds-288",
+      "date": "2026-10-15",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "Oracle 5-year CDS at a record 288 bp, up from 260 bp a week earlier, as CoreWeave's passes 1,000 bp (press)",
+      "title_es": "CDS a 5 años de Oracle en un máximo de 288 pb, desde 260 pb una semana antes, mientras el de CoreWeave supera 1,000 pb (prensa)",
+      "summary_en": "CNBC (Oct 15, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): Oracle's five-year CDS spread rose to a record 288 bp, up 26 bp, as CoreWeave's topped 1,000 bp. Securitas Global gives 288 bp on Oct 15 from 260 bp a week earlier, citing S&P Global Market Intelligence and LSEG data. Press quotes; the page has no CDS series, so the figure enters no ratio.",
+      "summary_es": "CNBC (15 oct, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): el diferencial del CDS a cinco años de Oracle subió a un máximo de 288 pb, 26 pb más, mientras el de CoreWeave superó 1,000 pb. Securitas Global da 288 pb el 15 oct desde 260 pb una semana antes, con datos de S&P Global Market Intelligence y LSEG. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón.",
+      "why_en": "The market's read on US$125.3 bn of notes and on the fiscal-2027 funding still to raise ({{sec:credit}}): at 288 bp, protection costs about US$2.9 million a year per US$100 million insured, up from about US$2.6 million on Oct 8.",
+      "why_es": "La lectura del mercado sobre US$125.3 mil millones de notas y sobre el financiamiento del AF2027 que falta ({{sec:credit}}): a 288 pb, la protección cuesta unos US$2.9 millones al año por cada US$100 millones asegurados, desde unos US$2.6 millones el 8 oct.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "CNBC, Oct 15, 2026: CoreWeave credit default swaps hit distress levels as investors sour on AI debt",
+          "url": "https://www.cnbc.com/2026/10/15/coreweave-credit-default-swaps-hit-distress-levels-as-investors-sour-on-ai-debt.html"
+        },
+        {
+          "tier": "press",
+          "title": "Securitas Global, Oct 2026: Oracle's Credit Default Swap Spread Hits a Record 288 Basis Points on AI Debt (S&P Global Market Intelligence and LSEG data)",
+          "url": "https://www.securitasglobal.com/risk-perspectives/oracle-cds-record-288-basis-points-ai-debt/"
+        }
+      ]
     }
   ],
   "sweep_note_en": "Manual sweep on Oct 13, 2026 (ET; FNAM, round 6 review), Oct 9 to 13. Added: Oracle's proposed El Paso Electric agreement for Project Jupiter (Oct 13), the OCP hardware-security group (Oct 13), the Oct 12 price move, the Rusckowski Form 4 (filed Oct 1) and the record CDS readings (Sep 24 and Oct 8), which replace the July 203 bp item. Every item was compressed to its material facts (one home per number); the two Port Washington items were merged, the WSJ note of Sep 25 was folded into the force majeure item and the Fusion Claw release (no figure) was dropped. The automated sweep had missed the Oct 13 release because Oracle's newsroom answered 403; it now reads the investor-relations feed and the utilities' and regulators' releases too.",
@@ -708,6 +756,47 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-18",
+      "by": "routine",
+      "searches": 31,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Data Center Dynamics",
+        "The Register",
+        "Santa Fe New Mexican",
+        "Searchlight New Mexico",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "New Mexico Environment Department",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings",
+        "OpenAI",
+        "AMD",
+        "Nvidia",
+        "Bloom Energy",
+        "Vantage",
+        "Crusoe",
+        "Stargate"
+      ],
+      "added": [
+        "2026-10-15-jupiter-hearing-dec7",
+        "2026-10-15-cds-288"
+      ],
+      "note": "Weekend run: no session since the Oct 16 close (already recorded), no new SEC filing since the Oct 1 Form 4, nothing new in the IR feed. Added the Project Jupiter air permit hearing moved to Dec 7 (Santa Fe New Mexican / Searchlight New Mexico) and the record 288 bp CDS reading of Oct 15 (CNBC). No rating action; Port Washington, Saline, Shackelford and Abilene searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-17",
       "by": "routine",
