@@ -581,6 +581,8 @@ dashboards, everything built from public data by GitHub Actions.
   `scripts/fiscal/render-check.mjs` (Playwright, twelve configurations plus language, JavaScript-off and
   missing-data passes) and look at its `--shots` crops of the canvas charts. The page opens in Spanish;
   `?lang=` wins, then the reader's saved choice (`fiscal-lang`); the toggle rewrites `?lang=`.
-  Debt-to-GDP appears as three labelled measures (live; FRED quarterly GFDEGDQ188S, which the macro
-  dashboard's fiscal view shows; FRED annual GFDGDPA188S) and interest as gross (MTS table 3, accrual
+  Debt-to-GDP appears as three labelled measures (live; quarter-end on FRED GFDEGDQ188S's definition, FRED's own
+  figure when posted and otherwise computed by the refresh from Treasury's quarter-end close and BEA GDP, labelled
+  as such, since 18-Oct-2026 when FRED missed its scheduled update and the page sat on Q1 2026, while the macro
+  dashboard's fiscal view shows FRED's own series; FRED annual GFDGDPA188S) and interest as gross (MTS table 3, accrual
   dataset) or net (MTS table 9, CBO, the macro view); label any new figure the same way on both pages.

@@ -537,14 +537,61 @@ const FRED_SERIES = {
   rrpvol: 'RRPONTSYD',      // ON RRP take-up volume, daily, $B
   gdp: 'GDP',               // Nominal GDP, quarterly SAAR, $B -- drives the live Debt ÷ GDP ratio
   debtGdpAnnual: 'GFDGDPA188S', // Gross federal debt at fiscal year-end (FYGFD) ÷ calendar-year GDP (GDPA), %, annual -- extends the 1939- chart
-  debtGdpQuarterly: 'GFDEGDQ188S', // Total public debt at quarter-end (GFDEBTN) ÷ that quarter's GDP, %, quarterly -- the U.S. Macro Monitor's figure
-  debtQuarterEnd: 'GFDEBTN',       // Total public debt at quarter-end, $M (Treasury Bulletin via FRED) -- the numerator of GFDEGDQ188S
 };
+// The quarterly ratio (FRED's GFDEGDQ188S) is not pulled as a point: getDebtGdpQuarterly below computes it from its
+// inputs and carries FRED's own figure beside it.
 
 const fredUrl = (seriesId) => `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
 async function getFred(seriesId) {
   const rows = await fetchCSV(fredUrl(seriesId));
   return latestFredPoint(rows);
+}
+
+// Total public debt as a share of GDP at quarter-end, on the definition of FRED's quarterly series GFDEGDQ188S
+// (((GFDEBTN / 1000) / GDP) × 100: Treasury's total public debt on the quarter's last day ÷ that quarter's nominal GDP
+// at an annual rate), the figure the U.S. Macro Monitor shows. FRED recomputes that series only on the dates of its own
+// "Debt to Gross Domestic Product Ratios" release and misses them: Q1 2026 was posted on 25-Jun-2026 and the update FRED
+// had scheduled for 30-Sep-2026 had not appeared by 18-Oct-2026, while both inputs were public (Treasury's 30-Jun-2026
+// close, mirrored by FRED as GFDEBTN on 1-Oct-2026, and BEA's Q2 GDP), so the page sat on Q1 2026 and the freshness alarm
+// fired for a figure that was computable. The refresh now computes the ratio for the latest quarter BEA has GDP for, from
+// Treasury's close (Debt to the Penny, the page's own primary source) and FRED's GDP series, and shows FRED's own figure
+// instead whenever FRED has posted that quarter (basis 'fred'; otherwise 'calc', badged on the page as an FNAM
+// calculation). Two tie-outs travel with it for check-freshness.mjs: the close must equal GFDEBTN for the same quarter
+// within $1M wherever FRED has it (debtMatch; a mismatch means the quarter-end date is wrong), and FRED's latest ratio is
+// recomputed from the same inputs at today's GDP vintage (fredCheck; FRED freezes the GDP vintage of its update day, so a
+// BEA revision leaves a gap of a few tenths of a point: 122.59% posted vs 122.44% recomputed for Q1 2026 on 18-Oct-2026).
+const R5 = (x) => Math.round(x * 1e5) / 1e5;
+async function getDebtGdpQuarterly() {
+  const [gdpRows, ratioRows, debtRows] = await Promise.all(['GDP', 'GFDEGDQ188S', 'GFDEBTN'].map((id) => fetchCSV(fredUrl(id))));
+  const gdp = fredPoints(gdpRows), fredRatio = fredPoints(ratioRows), fredDebt = fredPoints(debtRows);
+  const gdpLatest = gdp[gdp.length - 1];
+  if (!gdpLatest) throw new Error('GDP: empty');
+  // FRED stamps a quarter with its first day; Treasury's close is the quarter's last day (or the last business day before it).
+  const quarterEnd = (iso) => new Date(Date.UTC(Number(iso.slice(0, 4)), Number(iso.slice(5, 7)) + 2, 0)).toISOString().slice(0, 10);
+  const row = (await fetchJSON(`${DTP_URL}?filter=record_date:lte:${quarterEnd(gdpLatest.date)}&sort=-record_date&page[size]=1&fields=record_date,tot_pub_debt_out_amt`)).data[0];
+  if (!row) throw new Error(`Debt to the Penny: no close on or before ${quarterEnd(gdpLatest.date)}`);
+  const debtB = Number(row.tot_pub_debt_out_amt) / 1e9;
+  const calc = R5((debtB / gdpLatest.value) * 100);
+  const fredLatest = fredRatio[fredRatio.length - 1] || null;
+  const fredSame = fredLatest && fredLatest.date === gdpLatest.date ? fredLatest : null;
+  const mirror = fredDebt.find((p) => p.date === gdpLatest.date) || null;
+  let fredCheck = null;
+  if (fredLatest) {
+    const g = gdp.find((p) => p.date === fredLatest.date), m = fredDebt.find((p) => p.date === fredLatest.date);
+    const recomputed = g && m ? R5((m.value / 1000 / g.value) * 100) : null;
+    fredCheck = { date: fredLatest.date, fred: fredLatest.value, recomputed, gapPp: recomputed != null ? Math.round((recomputed - fredLatest.value) * 1000) / 1000 : null };
+  }
+  return {
+    date: gdpLatest.date,                                        // the quarter shown (its first day, FRED's stamp)
+    value: fredSame ? fredSame.value : calc,                     // % of GDP
+    basis: fredSame ? 'fred' : 'calc',                           // 'fred' = FRED's published figure for that quarter; 'calc' = computed here
+    calc,                                                        // the computation, kept beside FRED's figure when both exist
+    debtB: Math.round(debtB * 1000) / 1000, debtDate: row.record_date, // numerator: Treasury's close at quarter-end, $B
+    gdpB: gdpLatest.value,                                       // denominator: BEA nominal GDP, $B at an annual rate (FRED GDP)
+    debtMatch: mirror ? Math.abs(mirror.value / 1000 - debtB) <= 0.0015 : null, // the close against FRED's GFDEBTN for the same quarter (null = no FRED row yet)
+    fred: fredLatest,                                            // FRED's own series, latest observation {date, value}
+    fredCheck,                                                   // FRED's latest ratio recomputed from today's inputs
+  };
 }
 
 async function main() {
@@ -568,6 +615,7 @@ async function main() {
     ['targetRange', getTargetRange],
     ['fedBalanceSheet', getFedBalanceSheet],
     ['macroActuals', getMacroActuals],
+    ['debtGdpQuarterly', getDebtGdpQuarterly],
     ...Object.entries(FRED_SERIES).map(([k, id]) => [k, () => getFred(id)]),
   ];
 
@@ -612,8 +660,7 @@ async function main() {
     rrpVolume: results.rrpvol,    // {date, value} — $B, ON RRP take-up
     gdp: results.gdp,             // {date, value} — nominal GDP, $B SAAR; date is the quarter's first day (2026-04-01 = Q2 2026)
     debtGdpAnnual: results.debtGdpAnnual, // {date, value} — gross federal debt at FY-end ÷ calendar-year GDP, %, annual (date = Jan 1 of that year)
-    debtGdpQuarterly: results.debtGdpQuarterly, // {date, value} — FRED GFDEGDQ188S: total public debt at quarter-end ÷ that quarter's GDP, % (date = the quarter's first day)
-    debtQuarterEnd: results.debtQuarterEnd ? { date: results.debtQuarterEnd.date, valueB: Math.round(results.debtQuarterEnd.value) / 1000 } : null, // FRED GFDEBTN, $B (from $M)
+    debtGdpQuarterly: results.debtGdpQuarterly, // {date, value, basis, calc, debtB, debtDate, gdpB, debtMatch, fred, fredCheck} — total public debt at quarter-end ÷ that quarter's GDP, % (FRED GFDEGDQ188S's definition; date = the quarter's first day); see getDebtGdpQuarterly
     mts: results.mts,                     // MTS tables 3 and 9: {date, fyCur, fyPrev, revYTDcur/pri, outYTDcur/pri, revFYprev, outFYprev, cashInterestB (gross), trustFundInterestB, netInterestB, totalReceiptsB, totalOutlaysB, ...Pri/FYprev} — $B
     accruedInterest: results.accruedInterest, // {date, fytdT, lineItems} — accrual-basis interest expense, FYTD $T
     holders: results.holders,             // OFS-2 + Debt to the Penny: {asOf, holders[], totalPublicDebtB, foreignYearAgoB, yearAgoEndOfMonth}
