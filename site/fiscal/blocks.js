@@ -44,6 +44,13 @@
     return out;
   }
 
+  // The quarter-end debt-to-GDP figure: FRED's published series when FRED has posted the quarter, else the refresh's own
+  // computation on the same definition (Treasury's quarter-end close ÷ BEA GDP), badged as an FNAM calculation.
+  var DQ = LD.debtGdpQuarterly || {}, DQ_CALC = DQ.basis === 'calc';
+  function qTag(iso, es){ var q = 'Q'+(Math.floor((+String(iso).slice(5,7)-1)/3)+1)+' '+String(iso).slice(0,4); return es ? q.replace('Q','T') : q; }
+  var DQ_FRED_EN = DQ.fred && DQ.fred.date ? '; FRED\'s own series runs through '+qTag(DQ.fred.date) : '';
+  var DQ_FRED_ES = DQ.fred && DQ.fred.date ? '; la serie de FRED llega al '+qTag(DQ.fred.date, true) : '';
+
   // Where each data point comes from (shown behind the ⓘ and in chart tooltips).
   var SRC = {
     debt:{ s:'U.S. Treasury, Debt to the Penny', u:'https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny' },
@@ -56,7 +63,7 @@
     accruedInterest:{ s:'U.S. Treasury, Interest Expense on the Debt Outstanding', u:'https://fiscaldata.treasury.gov/datasets/interest-expense-debt-outstanding/' },
     gdp:{ s:'BEA nominal GDP via FRED (GDP)', u:'https://fred.stlouisfed.org/series/GDP' },
     debtGdpAnnual:{ s:'FRED GFDGDPA188S, gross federal debt % of GDP', u:'https://fred.stlouisfed.org/series/GFDGDPA188S' },
-    debtGdpQuarterly:{ s:'FRED GFDEGDQ188S, total public debt % of GDP', u:'https://fred.stlouisfed.org/series/GFDEGDQ188S' },
+    debtGdpQuarterly:{ s:(DQ_CALC ? 'Treasury quarter-end close ÷ BEA GDP, on FRED GFDEGDQ188S\'s definition'+DQ_FRED_EN : 'FRED GFDEGDQ188S, total public debt % of GDP'), u:'https://fred.stlouisfed.org/series/GFDEGDQ188S' },
     m2:{ s:'Federal Reserve H.6 via FRED (M2SL)', u:'https://fred.stlouisfed.org/series/M2SL' },
     walcl:{ s:'Federal Reserve H.4.1 via FRED (WALCL)', u:'https://fred.stlouisfed.org/series/WALCL' },
     fedBalanceSheet:{ s:'Federal Reserve H.4.1, Factors Affecting Reserve Balances', u:'https://www.federalreserve.gov/releases/h41/' },
@@ -92,7 +99,7 @@
     accruedInterest:'Tesoro de EE. UU., Gasto por intereses de la deuda pendiente',
     gdp:'BEA, PIB nominal vía FRED (GDP)',
     debtGdpAnnual:'FRED GFDGDPA188S, deuda federal bruta como % del PIB',
-    debtGdpQuarterly:'FRED GFDEGDQ188S, deuda federal en manos del público como % del PIB (trimestral)',
+    debtGdpQuarterly:(DQ_CALC ? 'cierre trimestral del Tesoro ÷ PIB de la BEA, con la definición de FRED GFDEGDQ188S'+DQ_FRED_ES : 'FRED GFDEGDQ188S, deuda pública total como % del PIB (trimestral)'),
     m2:'Reserva Federal H.6 vía FRED (M2SL)',
     walcl:'Reserva Federal H.4.1 vía FRED (WALCL)',
     fedBalanceSheet:'Reserva Federal H.4.1, factores que afectan los saldos de reservas',
@@ -134,7 +141,7 @@
     { at:'pieComposition', ids:['debtComposition'], k:'R' },
     { at:'mktVsNonmkt', ids:['debtComposition'], k:'R' },
     { at:'chartGdp', ids:['debtGdpAnnual'], k:'R' },
-    { at:'whereStands', ids:['debt','gdp','debtGdpQuarterly'], k:'C', note:CALC('deuda total del último día ÷ PIB nominal del último trimestre (BEA, tasa anualizada); FRED publica su propia razón trimestral, que se muestra al lado','total debt on the latest day ÷ the latest quarter\'s nominal GDP (BEA, annualized rate); FRED\'s own quarterly ratio is shown beside it') },
+    { at:'whereStands', ids:['debt','gdp','debtGdpQuarterly','debtGdpAnnual'], k:'C', tiles:{ debtGdpQPct:(DQ_CALC ? 'C' : 'R'), debtGdpAnnualPct:'R' }, note:CALC('deuda total del último día ÷ PIB nominal del último trimestre (BEA, tasa anualizada); la cifra al cierre del trimestre sigue la definición de FRED: la propia cifra de FRED cuando ya publicó el trimestre, si no el cierre del Tesoro ÷ PIB de la BEA','total debt on the latest day ÷ the latest quarter\'s nominal GDP (BEA, annual rate); the quarter-end figure follows FRED\'s definition: FRED\'s own figure once FRED has posted the quarter, else Treasury\'s close ÷ BEA GDP') },
     { at:'chartCboProjection', ids:['cbo','debtGdpAnnual'], k:'R', note:T('proyección publicada por la CBO; no es una estimación de FNAM','projection published by CBO; not an FNAM estimate') },
     { at:'cboAssumptions', ids:['cbo','realGdp','cpi','tenYear','unemployment'], k:'R' },
     { at:'tblCboProjection', ids:['cbo'], k:'R', note:T('PIB implícito = gasto ÷ gasto como % del PIB (cálculo FNAM con cifras de la CBO)','implied GDP = outlays ÷ outlays as % of GDP (FNAM calculation from CBO figures)') },
@@ -171,7 +178,7 @@
       // Every figure in the card: its kind and its source.
       card.querySelectorAll('.stat').forEach(function(st){
         var o = st.querySelector('.auto-tile'); if(o) o.remove();
-        var v = st.querySelector('.v'), bind = v && v.getAttribute('data-bind'), k = (b.tiles && bind && b.tiles[bind]) || b.k;
+        var v = st.querySelector('.v'), bind = v && v.getAttribute('data-bind'), k = st.getAttribute('data-kind') || (b.tiles && bind && b.tiles[bind]) || b.k; // a stat may name its own kind (data-kind) when it differs from the card's
         var l = st.querySelector('.l'); if(l) l.insertAdjacentHTML('beforeend', '<span class="auto-tile"> '+tagHtml(k, b.ids, b.note)+'</span>');
       });
     });
@@ -200,7 +207,7 @@
     walcl:'activos totales de la Fed (WALCL)', fedBalanceSheet:'balance de la Fed (H.4.1)', avgRate:'tasas de interés promedio de la deuda',
     debtComposition:'composición de la deuda (MSPD, cuadro 1)', avgMaturity:'vencimiento promedio (MSPD, cuadro 3)', mts:'Estado Mensual del Tesoro',
     accruedInterest:'interés devengado', m2:'M2', cpi:'IPC', unemployment:'tasa de desempleo', foreignHolders:'principales tenedores extranjeros (TIC)', gdp:'PIB nominal',
-    realGdp:'crecimiento del PIB real', holders:'tenedores de la deuda (OFS-2)', debtGdpAnnual:'deuda ÷ PIB anual (FRED)', debtGdpQuarterly:'deuda ÷ PIB trimestral (FRED)',
+    realGdp:'crecimiento del PIB real', holders:'tenedores de la deuda (OFS-2)', debtGdpAnnual:'deuda ÷ PIB anual (FRED)', debtGdpQuarterly:'deuda ÷ PIB al cierre del trimestre',
     fedWatch:'probabilidades de FedWatch', cbo:'panorama base de la CBO', tariffs:'aranceles, serie anual' };
   function notice(){
     var box = document.getElementById('dataWarn'); if(!box || document.documentElement.classList.contains('no-data')) return;

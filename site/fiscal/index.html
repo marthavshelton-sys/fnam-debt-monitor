@@ -659,9 +659,9 @@ html.no-data canvas{display:none !important;}
         <h3><span class="en" hidden>Where It Stands</span><span class="es">Dónde está hoy</span></h3>
         <div class="stat-row">
           <div class="stat"><div class="v num" data-bind="debtGdpPct">124.0%</div><div class="l"><span class="en" hidden>Latest: debt on <span data-bind="debtAsOfEn">15-Oct-2026</span> ÷ <span data-bind="debtGdpQtrEn">Q2 2026</span> GDP</span><span class="es">Último dato: deuda al <span data-bind="debtAsOfEs">15 de oct. de 2026</span> ÷ PIB del <span data-bind="debtGdpQtrEs">T2 2026</span></span></div></div>
-          <div class="stat"><div class="v num" data-bind="debtGdpQPct">122.6%</div><div class="l"><span class="en" hidden><span data-bind="debtGdpQQtrEn">Q1 2026</span>, quarter-end debt ÷ that quarter's GDP (FRED; U.S. Macro Monitor)</span><span class="es"><span data-bind="debtGdpQQtrEs">T1 2026</span>, deuda al cierre del trimestre ÷ PIB del trimestre (FRED; Monitor Macro de EE. UU.)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpQPct">121.2%</div><div class="l"><span class="en" hidden><span data-bind="debtGdpQQtrEn">Q2 2026</span>, quarter-end debt ÷ that quarter's GDP (<span data-bind="debtGdpQBasisEn">Treasury close ÷ BEA GDP, FRED's definition</span>)</span><span class="es"><span data-bind="debtGdpQQtrEs">T2 2026</span>, deuda al cierre del trimestre ÷ PIB del trimestre (<span data-bind="debtGdpQBasisEs">cierre del Tesoro ÷ PIB de la BEA, definición de FRED</span>)</span></div></div>
           <div class="stat"><div class="v num" data-bind="debtGdpAnnualPct">121.5%</div><div class="l"><span class="en" hidden><span data-bind="debtGdpAnnualYear">2025</span>, annual: gross federal debt at fiscal year-end ÷ GDP (FRED; the chart)</span><span class="es"><span data-bind="debtGdpAnnualYear">2025</span>, anual: deuda federal bruta al cierre del año fiscal ÷ PIB (FRED; la gráfica)</span></div></div>
-          <div class="stat"><div class="v num">119.1%</div><div class="l"><span class="en" hidden>1946, prior all-time peak</span><span class="es">1946, máximo histórico previo</span></div></div>
+          <div class="stat" data-kind="R"><div class="v num">119.1%</div><div class="l"><span class="en" hidden>1946, prior all-time peak</span><span class="es">1946, máximo histórico previo</span></div></div>
         </div>
         <div class="callout">
           <span class="en" hidden>On the annual series, debt-to-GDP peaked at <b>119.1%</b> in 1946, paying for World War II, then fell almost every year through the 1970s as the economy grew faster than the debt. It did not return to a comparable level until <b>2020</b> (125.9%), and has stayed above the old 1946 watermark ever since.</span>
@@ -1363,10 +1363,14 @@ html.no-data canvas{display:none !important;}
   // never hand-typed. Baked defaults mirror the last values seen when this was wired up.
   var gdpB = 32486.066, gdpDate = "2026-04-01"; // Q2 2026
   var debtGdpAnnualPct = 121.5, debtGdpAnnualYear = "2025";
-  // FRED's quarterly ratio (GFDEGDQ188S: total public debt at quarter-end ÷ that quarter's GDP, the figure
-  // the U.S. Macro Monitor shows) and its numerator (GFDEBTN, $B). FRED adds a quarter about three months
-  // or more after it ends, so it usually trails the live ratio's GDP quarter by one. Verified baked values.
-  var debtGdpQPct = 122.59387, debtGdpQDate = "2026-01-01", debtQEndB = 39065.421, debtQEndDate = "2026-01-01";
+  // The quarter-end ratio on the definition of FRED's quarterly series (GFDEGDQ188S: total public debt at quarter-end ÷
+  // that quarter's GDP, the figure the U.S. Macro Monitor shows), for the latest quarter BEA has GDP for. Basis 'fred' =
+  // FRED's published figure; 'calc' = the refresh's computation from Treasury's quarter-end close and BEA's GDP, shown
+  // while FRED has not posted the quarter (FRED's own ratio release is irregular; it missed its 30-Sep-2026 update).
+  // debtGdpFred = FRED's own latest point, kept for the cross-reference. Verified baked values (Q2 2026: $39,462.4B on
+  // 30-Jun-2026 ÷ $32,563.0B).
+  var debtGdpQPct = 121.18773, debtGdpQDate = "2026-04-01", debtGdpQBasis = "calc", debtGdpQDebtB = 39462.398, debtGdpQDebtDate = "2026-06-30", debtGdpQGdpB = 32563.03;
+  var debtGdpFred = { date: "2026-01-01", value: 122.59387 };
   // FOMC target range: from FRED's DFEDTARU/DFEDTARL (the Board's own series, with the date the
   // current range took effect) when data.js carries it, else inferred from the live ON RRP award
   // rate (the range floor; the range is always 25 bp wide).
@@ -1586,8 +1590,13 @@ html.no-data canvas{display:none !important;}
         foreignHoldersAsOf = LD.foreignHolders.date; // "YYYY-MM"
       }
       if(LD.gdp && LD.gdp.value){ gdpB = LD.gdp.value; gdpDate = LD.gdp.date; }
-      if(LD.debtGdpQuarterly && LD.debtGdpQuarterly.value){ debtGdpQPct = LD.debtGdpQuarterly.value; debtGdpQDate = LD.debtGdpQuarterly.date; }
-      if(LD.debtQuarterEnd && LD.debtQuarterEnd.valueB){ debtQEndB = LD.debtQuarterEnd.valueB; debtQEndDate = LD.debtQuarterEnd.date; }
+      if(LD.debtGdpQuarterly && LD.debtGdpQuarterly.value){
+        var DQ = LD.debtGdpQuarterly;
+        debtGdpQPct = DQ.value; debtGdpQDate = DQ.date; debtGdpQBasis = DQ.basis || 'fred';
+        debtGdpQDebtB = DQ.debtB != null ? DQ.debtB : null; debtGdpQDebtDate = DQ.debtDate || null; debtGdpQGdpB = DQ.gdpB != null ? DQ.gdpB : null;
+        // FRED's own latest point travels in the file since the computation was added; an older file holds FRED's figure itself.
+        debtGdpFred = DQ.fred && DQ.fred.value != null ? DQ.fred : (DQ.basis ? null : { date: DQ.date, value: DQ.value });
+      }
       if(LD.debtGdpAnnual && LD.debtGdpAnnual.value){
         debtGdpAnnualPct = LD.debtGdpAnnual.value;
         debtGdpAnnualYear = String(LD.debtGdpAnnual.date).slice(0,4);
@@ -1929,8 +1938,11 @@ html.no-data canvas{display:none !important;}
   // The live ratio (today's debt ÷ the latest quarter's GDP), with FRED's quarterly ratio beside it so the
   // two figures a reader meets on this page and on the U.S. Macro Monitor are cross-referenced.
   kpis[2].lbl = 'Debt ÷ GDP, latest'; ES_STR[kpis[2].lbl] = 'Deuda ÷ PIB, último dato';
-  kpis[2].delta = "Today's debt ÷ "+gdpQ+' GDP'+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate)+': '+debtGdpQPct.toFixed(1)+'%' : '');
-  ES_STR[kpis[2].delta] = 'Deuda de hoy ÷ PIB '+gdpQEs+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate, true)+': '+debtGdpQPct.toFixed(1)+'%' : '');
+  // Beside it, the quarter-end ratio: FRED's own figure when FRED has posted the quarter, else the refresh's computation on FRED's definition.
+  var qTagEn = debtGdpQPct != null ? ' · '+(debtGdpQBasis === 'calc' ? qLabel(debtGdpQDate)+' quarter-end' : 'FRED '+qLabel(debtGdpQDate))+': '+debtGdpQPct.toFixed(1)+'%' : '';
+  var qTagEs = debtGdpQPct != null ? ' · '+(debtGdpQBasis === 'calc' ? 'cierre del '+qLabel(debtGdpQDate, true) : 'FRED '+qLabel(debtGdpQDate, true))+': '+debtGdpQPct.toFixed(1)+'%' : '';
+  kpis[2].delta = "Today's debt ÷ "+gdpQ+' GDP'+qTagEn;
+  ES_STR[kpis[2].delta] = 'Deuda de hoy ÷ PIB '+gdpQEs+qTagEs;
   asof[5][1] = gdpQ+' (BEA GDP, quarterly)';
   ES_STR[asof[5][1]] = gdpQEs+' (PIB de la BEA, trimestral)';
   var targetRangeStr = targetRangeLo.toFixed(2)+'–'+targetRangeHi.toFixed(2)+'%';
@@ -1989,6 +2001,8 @@ html.no-data canvas{display:none !important;}
     debtGdpPct: debtGdpPct.toFixed(1)+'%', debtGdpQtrEn: gdpQ, debtGdpQtrEs: gdpQEs,
     debtGdpAnnualPct: debtGdpAnnualPct.toFixed(1)+'%', debtGdpAnnualYear: debtGdpAnnualYear,
     debtGdpQPct: debtGdpQPct != null ? debtGdpQPct.toFixed(1)+'%' : '—', debtGdpQQtrEn: debtGdpQDate ? qLabel(debtGdpQDate) : '—', debtGdpQQtrEs: debtGdpQDate ? qLabel(debtGdpQDate, true) : '—',
+    debtGdpQBasisEn: debtGdpQBasis === 'calc' ? "Treasury close ÷ BEA GDP, FRED's definition" : 'FRED; U.S. Macro Monitor',
+    debtGdpQBasisEs: debtGdpQBasis === 'calc' ? 'cierre del Tesoro ÷ PIB de la BEA, definición de FRED' : 'FRED; Monitor Macro de EE. UU.',
     gdpTrendEndYear: gdpTrendEndYear, targetRange: targetRangeStr,
     fedWatchAsOfEn: fmtDateEn(fedWatchAsOf), fedWatchAsOfEs: fmtDateEs(fedWatchAsOf),
     tbacAvgMonths: '~'+tbacAvgMonths, tbacAvgYears: '≈'+(tbacAvgMonths/12).toFixed(1),
@@ -2171,9 +2185,20 @@ html.no-data canvas{display:none !important;}
     var en = '<b>Three measures, three timings.</b> The <b>latest</b> figure, <b>'+p1(debtGdpPct)+'</b>, divides today\'s total public debt ('+t2En(debtTotalT*1000)+' on '+fmtDateEn(debtAsOf)+') by the latest quarter\'s GDP ('+t2En(gdpB)+' at an annual rate, '+gdpQ+'), so it moves every day.';
     var es = '<b>Tres medidas, tres momentos.</b> La cifra <b>más reciente</b>, <b>'+p1(debtGdpPct)+'</b>, divide la deuda pública total de hoy ('+t2Es(debtTotalT*1000)+' al '+fmtDateEs(debtAsOf)+') entre el PIB del último trimestre ('+t2Es(gdpB)+' a tasa anual, '+gdpQEs+'), así que cambia cada día.';
     if(debtGdpQPct != null && debtGdpQDate){
-      var sameQ = debtQEndB != null && debtQEndDate === debtGdpQDate;
-      en += ' FRED\'s <b>quarterly</b> series, <b>'+p1(debtGdpQPct)+'</b> for '+qLabel(debtGdpQDate)+' and the figure the '+macroEn+' shows, divides total public debt at the end of that quarter'+(sameQ ? ' ('+t2En(debtQEndB)+')' : '')+' by that quarter\'s GDP; FRED adds each quarter three months or more after it ends.';
-      es += ' La serie <b>trimestral</b> de FRED, <b>'+p1(debtGdpQPct)+'</b> para el '+qLabel(debtGdpQDate, true)+' y la cifra que muestra el '+macroEs+', divide la deuda pública total al cierre de ese trimestre'+(sameQ ? ' ('+t2Es(debtQEndB)+')' : '')+' entre el PIB del trimestre; FRED agrega cada trimestre tres meses o más después de su cierre.';
+      var qEn = qLabel(debtGdpQDate), qEs = qLabel(debtGdpQDate, true), hasInputs = debtGdpQDebtB != null && debtGdpQGdpB != null;
+      var inEn = hasInputs ? ' ('+t2En(debtGdpQDebtB)+(debtGdpQDebtDate ? ' on '+fmtDateEn(debtGdpQDebtDate) : '')+' ÷ '+t2En(debtGdpQGdpB)+')' : '';
+      var inEs = hasInputs ? ' ('+t2Es(debtGdpQDebtB)+(debtGdpQDebtDate ? ' al '+fmtDateEs(debtGdpQDebtDate) : '')+' ÷ '+t2Es(debtGdpQGdpB)+')' : '';
+      en += ' The <b>quarter-end</b> figure, <b>'+p1(debtGdpQPct)+'</b> for '+qEn+', divides total public debt at the end of that quarter by that quarter\'s GDP'+inEn+': the definition of FRED\'s quarterly series, the figure the '+macroEn+' shows.';
+      es += ' La cifra <b>al cierre del trimestre</b>, <b>'+p1(debtGdpQPct)+'</b> para el '+qEs+', divide la deuda pública total al cierre de ese trimestre entre el PIB del trimestre'+inEs+': la definición de la serie trimestral de FRED, la cifra que muestra el '+macroEs;
+      if(debtGdpQBasis === 'calc'){
+        var fredEn = debtGdpFred && debtGdpFred.value != null ? ' (its series runs through '+qLabel(debtGdpFred.date)+', '+p1(debtGdpFred.value)+')' : '';
+        var fredEs = debtGdpFred && debtGdpFred.value != null ? ' (su serie llega al '+qLabel(debtGdpFred.date, true)+', '+p1(debtGdpFred.value)+')' : '';
+        en += ' FRED has not posted '+qEn+' yet'+fredEn+', so FNAM computes it from Treasury\'s close and BEA\'s GDP; FRED\'s own figure takes its place when it appears.';
+        es += ' FRED aún no publica el '+qEs+fredEs+', así que FNAM la calcula con el cierre del Tesoro y el PIB de la BEA; la cifra de FRED toma su lugar cuando aparece.';
+      } else {
+        en += ' It is FRED\'s published figure (GFDEGDQ188S).';
+        es += ' Es la cifra publicada por FRED (GFDEGDQ188S).';
+      }
     }
     en += ' The <b>annual</b> series behind the chart, <b>'+p1(debtGdpAnnualPct)+'</b> for '+debtGdpAnnualYear+', divides the budget\'s gross federal debt at the end of the fiscal year, slightly below Treasury\'s total public debt, by calendar-year GDP. All three include debt held by federal trust funds; CBO\'s projection below counts only debt held by the public.';
     es += ' La serie <b>anual</b> de la gráfica, <b>'+p1(debtGdpAnnualPct)+'</b> para '+debtGdpAnnualYear+', divide la deuda federal bruta del presupuesto al cierre del año fiscal, ligeramente menor que la deuda pública total del Tesoro, entre el PIB del año calendario. Las tres incluyen la deuda en manos de los fondos fiduciarios federales; la proyección de la CBO de abajo solo cuenta la deuda en manos del público.';

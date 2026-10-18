@@ -68,8 +68,26 @@ FRED CSV export (no key): DFEDTARU/DFEDTARL (FOMC target range and the date it t
 EFFR, IORB, RRPONTSYAWARD, DPCREDIT, RRPONTSYD (take-up and its peak), WALCL (with its peak
 and the calendar year-end), TREAST, WSHOMCB, WRESBAL, WCURCIR, WTREGEN (the H.4.1 T-account,
 all published in $ millions), M2SL, GDP, GFDGDPA188S (annual debt-to-GDP), GFDEGDQ188S and
-GFDEBTN (quarterly debt-to-GDP and its quarter-end debt), and the four "most recent actual"
-readings of the CBO table: A191RL1Q225SBEA, CPIAUCSL (y/y computed), DGS10, UNRATE.
+GFDEBTN (FRED's quarterly debt-to-GDP and its quarter-end debt, read whole as the cross-checks of
+the quarter-end ratio the script computes itself; next paragraph), and the four "most recent
+actual" readings of the CBO table: A191RL1Q225SBEA, CPIAUCSL (y/y computed), DGS10, UNRATE.
+
+Quarter-end debt-to-GDP (`debtGdpQuarterly`, since 18-Oct-2026): the script computes it for the latest
+quarter BEA has GDP for, on the definition of FRED's GFDEGDQ188S (Treasury's total public debt on the
+quarter's last day, from Debt to the Penny, ÷ that quarter's nominal GDP at an annual rate, FRED's GDP
+series) and carries FRED's own latest point beside it (`fred`). The page shows FRED's figure when FRED has
+posted that quarter (`basis: "fred"`, badged Reported) and the computation otherwise (`basis: "calc"`,
+badged FNAM calculation, with the inputs in the composed note). Why: FRED recomputes its ratio only on the
+dates of its own "Debt to Gross Domestic Product Ratios" release and misses them. Q1 2026 was posted on
+25-Jun-2026 and the update FRED's page scheduled for 30-Sep-2026 had not appeared by 18-Oct-2026, while
+both inputs were public (Treasury's 30-Jun-2026 close, mirrored by FRED as GFDEBTN on 1-Oct-2026, and
+BEA's Q2 GDP), so the page sat on Q1 2026 past the old 200-day allowance and the fiscal-health alarm fired
+(issue #299) for a figure that was computable. Two tie-outs travel with the figure and `check-freshness.mjs`
+reads them: the close must equal FRED's GFDEBTN for the same quarter within $1M wherever FRED has it
+(`debtMatch`; on 18-Oct-2026 both read 39,462,398 $M), and FRED's latest ratio recomputed from today's
+inputs must be within 2 pp of FRED's (`fredCheck`; FRED freezes the GDP vintage of its update day, so
+BEA's September 2026 annual update left 122.59% posted against 122.44% recomputed for Q1 2026). The
+allowance is the GDP series' (135 days after quarter-end), since the computation needs nothing else.
 
 Every request has a 45-second timeout and its own try/catch, so one slow or dead source never
 takes down the run or the other series.
@@ -147,10 +165,11 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
   Monitor reports). The header KPI is gross interest with net under it.
 - Section 06 and the header KPI: three debt-to-GDP measures, each labelled with its definition,
   and a composed note reconciling them: the live ratio (total public debt on the latest day ÷ the
-  latest quarter's GDP, annual rate), FRED's quarterly ratio (GFDEGDQ188S: total public debt at
-  quarter-end ÷ that quarter's GDP; the figure the U.S. Macro Monitor shows; FRED adds a quarter
-  three months or more after it ends) and FRED's annual ratio behind the chart (GFDGDPA188S: gross
-  federal debt at fiscal year-end, FYGFD, ÷ calendar-year GDP, GDPA).
+  latest quarter's GDP, annual rate), the quarter-end ratio (total public debt at quarter-end ÷ that
+  quarter's GDP, the definition of FRED's GFDEGDQ188S and the figure the U.S. Macro Monitor shows:
+  FRED's own figure when FRED has posted the quarter, else the refresh's computation from Treasury's
+  close and BEA's GDP, and the note says which and prints the inputs) and FRED's annual ratio behind
+  the chart (GFDGDPA188S: gross federal debt at fiscal year-end, FYGFD, ÷ calendar-year GDP, GDPA).
 - Section 06: the "most recent actual" column of the CBO table (real GDP growth, CPI y/y, 10-year
   yield, unemployment) from FRED with its period. Everything else in the section comes from the
   research file's CBO keys: the record-year sentence (`cboRecordYear` looked up in `cboProjection`),
@@ -264,9 +283,18 @@ research step. Wiring it means parsing the workbook on the runner and presenting
   the Interest Expense dataset posts September before the MTS does). Test the closed-year wording by serving a
   `data.js` with `mts.date` set to the 30 September record; test the note's past-due wording with `?asof=`.
 - Debt-to-GDP has three honest answers that differ by timing and definition (see Section 06 above);
-  the U.S. Macro Monitor (`/macro/?view=fiscal`) shows FRED's quarterly ratio and net interest, and
-  both pages say so.
+  the U.S. Macro Monitor (`/macro/?view=fiscal`) shows FRED's own quarterly ratio and net interest, and
+  both pages say so. FRED's ratio release is irregular (it missed its scheduled 30-Sep-2026 update), so
+  this page computes the quarter-end figure from the inputs when FRED is behind and labels it; the two
+  pages can differ by one quarter until FRED posts, and the note here names FRED's latest quarter.
 
+- Treasury Bulletin OFS-2 shows a quarter only once every owner row is reported. The September 2026
+  Bulletin (record date 30-Sep-2026) carries June 2026 with only the total, the Fed and government
+  accounts, the privately held total and savings bonds filled and the other eight owner rows null, so
+  the page keeps March 2026 until the December Bulletin completes June (checked on the runner,
+  18-Oct-2026); the 290-day allowance reflects that cadence. Treasury's quarter-end close in Debt to
+  the Penny equals FRED's GFDEBTN for the quarter to the million (39,462,398 $M on 30-Jun-2026;
+  39,065,421 $M on 31-Mar-2026), which is what the quarter-end debt-to-GDP tie-out relies on.
 - FRED publishes WRESBAL in $ millions like the other H.4.1 lines (2,930,193 = $2.93T on
   2026-09-23); RRPONTSYD is in $ billions.
 - MSPD table 1 has 15 rows a month; the six classes the page charts sum to Treasury's total

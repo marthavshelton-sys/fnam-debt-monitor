@@ -193,11 +193,11 @@ window.FISCAL_FRESHNESS = {
   },
   {
    "id": "debtGdpQuarterly",
-   "label": "Total public debt, % of GDP (quarterly)",
+   "label": "Total public debt, % of GDP (quarter-end)",
    "path": "debtGdpQuarterly.date",
    "period": "quarter",
-   "days": 200,
-   "source": "FRED GFDEGDQ188S, quarterly, once Treasury's quarter-end debt and BEA GDP are out (about three months after quarter-end)"
+   "days": 135,
+   "source": "Treasury's quarter-end close (Debt to the Penny) ÷ BEA GDP for the quarter, on FRED GFDEGDQ188S's definition, computed by the refresh once BEA's advance estimate is out (about four weeks after quarter-end); FRED's own figure is shown when FRED has posted the quarter (its ratio release is irregular: the update it had scheduled for 30-Sep-2026 had not appeared by 18-Oct-2026)"
   },
   {
    "id": "fedWatch",

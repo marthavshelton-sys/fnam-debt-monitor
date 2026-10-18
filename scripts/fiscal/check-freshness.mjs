@@ -184,15 +184,39 @@ if (m && Array.isArray(m.revYTDcur) && m.totalReceiptsB != null) {
   if (MD.cboTitle && !src.includes(String(MD.cboTitle))) problems.push('CBO sources.cbo does not name the baseline in cboTitle');
 }
 
+// ---- quarter-end debt-to-GDP: the refresh's computation against FRED's mirror of the same inputs ----
+// fetch-data.mjs computes the ratio (Treasury's quarter-end close ÷ BEA GDP, FRED GFDEGDQ188S's definition) and shows FRED's
+// own figure when FRED has posted the quarter. The close must equal FRED's GFDEBTN for the quarter wherever FRED has it, and
+// FRED's latest ratio recomputed from today's inputs may differ only by a GDP revision (FRED freezes its update day's vintage).
+const notes = [];
+{
+  const q = LD.debtGdpQuarterly;
+  const qtr = (iso) => `Q${Math.floor((Number(String(iso).slice(5, 7)) - 1) / 3) + 1} ${String(iso).slice(0, 4)}`;
+  if (q && q.basis) {
+    if (q.debtMatch === false) problems.push(`Quarter-end debt $${q.debtB}B (Debt to the Penny, ${q.debtDate}) does not match FRED's GFDEBTN for ${qtr(q.date)}: the quarter-end date or the series is off`);
+    if (q.fredCheck && q.fredCheck.recomputed != null && Math.abs(q.fredCheck.gapPp) > 2) problems.push(`FRED GFDEGDQ188S ${q.fredCheck.fred}% for ${qtr(q.fredCheck.date)} differs from the same inputs at today's GDP vintage (${q.fredCheck.recomputed}%) by ${q.fredCheck.gapPp} pp, more than a GDP revision explains`);
+    const fredRuns = q.fred ? `FRED's own series runs through ${qtr(q.fred.date)} (${q.fred.value}%)` : "FRED's own series is empty";
+    const closeTie = q.debtMatch === true ? '; the close equals FRED GFDEBTN' : q.debtMatch === null ? '; FRED has no GFDEBTN row for the quarter yet' : '';
+    const gap = q.fredCheck && q.fredCheck.gapPp != null ? `; FRED's latest ratio recomputed at today's GDP vintage differs by ${q.fredCheck.gapPp} pp` : '';
+    notes.push(q.basis === 'calc'
+      ? `debt-to-GDP (quarter-end) ${qtr(q.date)}: ${q.value}% computed from Treasury's close ($${q.debtB}B on ${q.debtDate}) ÷ BEA GDP ($${q.gdpB}B); ${fredRuns}${closeTie}${gap}`
+      : `debt-to-GDP (quarter-end) ${qtr(q.date)}: FRED's published figure ${q.value}% (the same inputs at today's GDP vintage give ${q.calc}%)${closeTie}`);
+  } else if (q) {
+    notes.push(`debt-to-GDP (quarter-end) ${qtr(q.date)}: FRED's figure from an older data file (no basis field; the next refresh adds the computation)`);
+  }
+}
+
 // ---- report ----
 const pad = (s, n) => String(s).padEnd(n);
 console.log(`US fiscal monitor freshness, evaluated ${nowIso} (data.js generated ${LD.generatedAt || '?'})`);
 for (const [label, d, age, status, source] of rows) console.log(`  ${pad(status, 6)} ${pad(label, 58)} ${pad(d, 18)} ${pad(age, 40)} ${source}`);
+for (const n of notes) console.log(`  note   ${n}`);
 console.log(problems.length ? `\nPROBLEMS (${problems.length}):\n` + problems.map((p) => '  ' + p).join('\n') : '\nhealthy: every data point is within its allowance and the rates are consistent');
 if (process.env.GITHUB_STEP_SUMMARY) {
   const md = [`### US fiscal monitor freshness (${nowIso})`, '', '| Data point | Latest | Age | Status |', '|---|---|---|---|',
     ...rows.map(([label, d, age, status]) => `| ${label} | ${d} | ${age} | ${status === 'ok' ? 'ok' : '**STALE**'} |`), '',
-    problems.length ? '**Problems**\n\n' + problems.map((p) => `- ${p}`).join('\n') : 'No problems.', ''].join('\n');
+    ...notes.map((n) => `_${n}_`), notes.length ? '' : null,
+    problems.length ? '**Problems**\n\n' + problems.map((p) => `- ${p}`).join('\n') : 'No problems.', ''].filter((x) => x !== null).join('\n');
   await appendFile(process.env.GITHUB_STEP_SUMMARY, md);
 }
 if (process.env.GITHUB_OUTPUT) {
