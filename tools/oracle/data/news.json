@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-19",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,30 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-19-cds-295",
+      "date": "2026-10-19",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "CNBC: Oracle 5-year CDS at 295 bp after briefly touching 300 bp on Thursday Oct 15; S&P Global analyst says the range resembles BB and B credit (press)",
+      "title_es": "CNBC: CDS a 5 años de Oracle en 295 pb tras tocar brevemente 300 pb el jueves 15 oct; analista de S&P Global dice que el rango se parece a crédito BB y B (prensa)",
+      "summary_en": "CNBC (Oct 19, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): Oracle's five-year credit default swap spread \"is currently 295 basis points, after briefly hitting 300 bps on Thursday\", up 287% in one year; Gavan Nolan, executive director of fixed income pricing at S&P Global Market Intelligence, said Oracle's spread range \"more closely resembles BB and B credit\" and that recent swings reflect fragile sentiment toward AI-related companies with weaker ratings; S&P Global Ratings rates Oracle BBB-. Press quotes; the page has no CDS series, so the figure enters no ratio.",
+      "summary_es": "CNBC (19 oct, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): el diferencial del CDS a cinco años de Oracle \"está en 295 puntos base, tras tocar brevemente 300 pb el jueves\", 287% más que hace un año; Gavan Nolan, director ejecutivo de precios de renta fija de S&P Global Market Intelligence, dijo que el rango del diferencial de Oracle \"se parece más a crédito BB y B\" y que las oscilaciones recientes reflejan un ánimo frágil hacia empresas ligadas a la IA con calificaciones más bajas; S&P Global Ratings califica a Oracle en BBB-. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón.",
+      "why_en": "The market's read on US$125.3 bn of notes and on the fiscal-2027 funding still to raise ({{sec:credit}}): at 295 bp, protection costs about US$2.95 million a year per US$100 million insured, against an issuer rating one notch above speculative grade at S&P.",
+      "why_es": "La lectura del mercado sobre US$125.3 mil millones de notas y sobre el financiamiento del AF2027 que falta ({{sec:credit}}): a 295 pb, la protección cuesta unos US$2.95 millones al año por cada US$100 millones asegurados, con una calificación de emisor un escalón arriba del grado especulativo en S&P.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "CNBC, Oct 19, 2026: Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line",
+          "url": "https://www.cnbc.com/2026/10/19/oracle-debt-faces-an-ai-stress-test-why-some-investors-arent-worried-.html"
+        },
+        {
+          "tier": "press",
+          "title": "KuCoin News (summary of the CNBC report), Oct 19, 2026: Oracle Faces Credit Downgrade Risk Amid AI Financing Strain",
+          "url": "https://www.kucoin.com/news/flash/oracle-faces-credit-downgrade-risk-amid-ai-financing-strain"
+        }
+      ]
+    },
     {
       "id": "2026-10-16-orcl-drop",
       "date": "2026-10-16",
@@ -756,6 +780,43 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-19",
+      "by": "routine",
+      "searches": 28,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Source New Mexico",
+        "Albuquerque Journal",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "AMD",
+        "Nvidia",
+        "Bloom Energy",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-19-cds-295"
+      ],
+      "note": "Monday run before the close: no session since the Oct 16 close (already recorded), no new SEC filing since the Oct 1 Form 4, nothing new in the IR feed. Added CNBC's Oct 19 report of the five-year CDS at 295 bp (briefly 300 bp on Oct 15). No rating action; Project Jupiter, Port Washington, Saline, Shackelford and Abilene searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-18",
       "by": "routine",
