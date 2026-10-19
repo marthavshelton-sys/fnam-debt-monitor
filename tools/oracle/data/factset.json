@@ -3,7 +3,7 @@
   "as_of": "2026-10-18",
   "price_date": "2026-10-16",
   "market_cap_date": "2026-10-16",
-  "fetched": "2026-10-17",
+  "fetched": "2026-10-18",
   "source": {
     "title": "FactSet Estimates (consensus), FactSet Global Prices and FactSet Fundamentals via the FactSet AI-Ready Data connector",
     "url": "https://www.factset.com/"
@@ -44,11 +44,11 @@
     "iad_usd": 2.0,
     "ntm": {
       "eps": {
-        "mean": 9.235,
-        "median": 9.197,
-        "high": 10.249,
-        "low": 8.828,
-        "sd": 0.281
+        "mean": 9.243,
+        "median": 9.205,
+        "high": 10.263,
+        "low": 8.833,
+        "sd": 0.282
       },
       "ebitda": {
         "mean": 59895,
@@ -515,7 +515,7 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": 3.92,
       "ntm": {
-        "eps": 20.883,
+        "eps": 20.893,
         "ebitda": 258781,
         "sales": 414011
       },
@@ -580,7 +580,7 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": 2.940725,
       "ntm": {
-        "eps": 9.198,
+        "eps": 9.202,
         "ebitda": 16385,
         "sales": 49863
       },
@@ -644,7 +644,7 @@
       "net_debt_date": "2026-07-31",
       "iad_usd": 1.76,
       "ntm": {
-        "eps": 16.272,
+        "eps": 16.27,
         "ebitda": 20338,
         "sales": 49551
       },
@@ -708,7 +708,7 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": null,
       "ntm": {
-        "eps": 4.823,
+        "eps": 4.825,
         "ebitda": 7309,
         "sales": 18634
       },
@@ -772,17 +772,17 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": 6.76,
       "ntm": {
-        "eps": 12.976,
-        "ebitda": 20517,
+        "eps": 12.977,
+        "ebitda": 20515,
         "sales": 72524
       },
       "fy1": {
         "end": "2026-12-31",
-        "eps": 12.311
+        "eps": 12.31
       },
       "fy2": {
         "end": "2027-12-31",
-        "eps": 13.148
+        "eps": 13.147
       },
       "hist_multiples": {
         "as_of": "2026-10-16",
@@ -837,7 +837,7 @@
       "net_debt_date": "2026-07-31",
       "iad_usd": null,
       "ntm": {
-        "eps": 12.614,
+        "eps": 12.62,
         "ebitda": 4013,
         "sales": 11462
       },
@@ -901,13 +901,13 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": null,
       "ntm": {
-        "eps": 11.101,
+        "eps": 11.095,
         "ebitda": 269854,
-        "sales": 926563
+        "sales": 926722
       },
       "fy1": {
         "end": "2026-12-31",
-        "eps": 12.794
+        "eps": 12.791
       },
       "fy2": {
         "end": "2027-12-31",
@@ -966,7 +966,7 @@
       "net_debt_date": "2026-06-30",
       "iad_usd": 0.88,
       "ntm": {
-        "eps": 16.384,
+        "eps": 16.37,
         "ebitda": 287655,
         "sales": 596744
       },
@@ -1014,10 +1014,10 @@
   ],
   "hist_multiples_note": "Trailing averages of the forward multiples, the model's equivalent of FactSet's FE_VALUATION(PE | FFEV_EBITDA, MEAN, NTM4_ROLL) averaged over -1AY/-3AY/-5AY to NOW: weekly observations over five years, each dated at the last US trading day of its week (FactSet Global Prices close in USD, calendar US, so a holiday Friday is dated at the Thursday instead of lost), paired with the FactSet Estimates NTM consensus mean sampled weekly (the latest on or before the price date, within 6 days). NTM P/E = close / NTM EPS. NTM EV/EBITDA = (close x common shares outstanding of the latest fiscal quarter ended on or before the date, FactSet Fundamentals FF_COM_SHS_OUT, the company-level count across every share class, + that quarter's FF_NET_DEBT) / NTM EBITDA. y1/y3/y5 = simple means of the observations dated within the last 52/156/260 weeks ending at as_of (n = observations counted; a week is skipped when an input is missing or the denominator is not positive); spot_last_week = the ratio at as_of; not point-in-time (shares and net debt as later reported). shares_basis records the share count used: the security-level shares_outstanding endpoint is one class only for Alphabet (Class A) and Workday and halved Alphabet's historical EV until 2026-10-09. Refreshed nightly by the FactSet routine (step k of tools/oracle/FACTSET-PROMPT.md).",
   "hist_multiples_as_of": "2026-10-16",
-  "hist_multiples_fetched": "2026-10-17",
+  "hist_multiples_fetched": "2026-10-18",
   "market_cap_note": "Market values are priced at the close the snapshot carries: market_cap_usd_m = price x shares_m and market_cap_date = price_date, where shares_m is FactSet Fundamentals FF_COM_SHS_OUT of the latest reported fiscal quarter (shares_date; the company-level count across every share class, the same count the weekly history uses). market_value_factset is the market_value endpoint's figure for the audit only: it posts a session's value only hours after the 19:58 New York routine runs (at 8 PM New York on 2026-10-08 it still carried the 7-Oct value) and for Alphabet it counts the listed classes only (A + C), so it is never copied as the market cap (owner, 2026-10-09: tables 22 and 23 always at the prior close).",
   "adtv_note": "ADTV = average daily traded value over the last three months in US$ million: the mean of FactSet Global Prices daily turnover (volume x VWAP, USD) over the trading days of the window ending at price_date (equivalent to AVERAGE of P_VOLUME x XP_PRICE_VWAP day by day); product_of_averages_usd_m is the owner's Excel cross-check, P_VOLUME_AVG(-3AM,0) x AVERAGE(XP_PRICE_VWAP(0,-3AM,,,,USD)).",
   "refresh_note": "Refreshed nightly at 7:58 PM New York time by the Claude Routine 'FNAM Oracle: FactSet nightly refresh' (prompt in tools/oracle/FACTSET-PROMPT.md): prices are the latest completed session's close (the prior close for a page read the next morning), consensus as of the run date.",
-  "price_series_fetched": "2026-10-17",
+  "price_series_fetched": "2026-10-18",
   "price_series_note": "prices_orcl_factset.csv = ORCL daily OHLC and volume from FactSet Global Prices (USD, split-adjusted), 2015-01-02 onward, merged nightly by the routine (step g); the page's price authority for every date it covers. The runner's Nasdaq/Yahoo/Stooq series (prices_orcl_daily.csv) fills only the dates FactSet has not posted yet."
 }
