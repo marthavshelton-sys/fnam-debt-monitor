@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-18T22:13:02Z",
+  "checkedAt": "2026-10-19T09:19:52Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,12 +27,12 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T17:18:34Z",
+      "lastSuccess": "2026-10-18T22:27:57Z",
       "lastAttempt": {
-        "at": "2026-10-18T17:18:34Z",
+        "at": "2026-10-18T22:27:57Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T20:05:00Z",
+      "requiredSince": "2026-10-18T20:05:00Z",
       "alerts": 0
     },
     {
@@ -45,12 +45,12 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T22:12:20Z",
+      "lastSuccess": "2026-10-18T23:30:52Z",
       "lastAttempt": {
-        "at": "2026-10-18T16:37:58Z",
+        "at": "2026-10-18T23:30:52Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T21:30:00Z",
+      "requiredSince": "2026-10-18T13:15:00Z",
       "alerts": 0
     },
     {
@@ -63,12 +63,12 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T17:28:12Z",
+      "lastSuccess": "2026-10-18T23:40:36Z",
       "lastAttempt": {
-        "at": "2026-10-18T17:28:12Z",
+        "at": "2026-10-18T23:40:36Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T21:40:00Z",
+      "requiredSince": "2026-10-18T14:10:00Z",
       "alerts": 0
     },
     {
@@ -86,7 +86,7 @@
         "at": "2026-10-18T18:12:16Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T15:25:00Z",
+      "requiredSince": "2026-10-18T15:25:00Z",
       "alerts": 0
     },
     {
@@ -118,12 +118,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T18:10:00Z",
+      "lastSuccess": "2026-10-19T09:08:00Z",
       "lastAttempt": {
-        "at": "2026-10-18T18:10:00Z",
+        "at": "2026-10-19T09:08:00Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-18T03:20:00Z",
+      "requiredSince": "2026-10-18T15:20:00Z",
       "alerts": 0
     },
     {
@@ -359,7 +359,7 @@
         "at": "2026-10-18T19:31:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T17:30:00Z",
+      "requiredSince": "2026-10-18T17:30:00Z",
       "alerts": 0
     },
     {
@@ -377,7 +377,7 @@
         "at": "2026-10-18T20:56:13Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T18:20:00Z",
+      "requiredSince": "2026-10-18T18:20:00Z",
       "alerts": 0
     },
     {
@@ -390,12 +390,12 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T17:36:16Z",
+      "lastSuccess": "2026-10-19T00:39:39Z",
       "lastAttempt": {
-        "at": "2026-10-18T17:36:16Z",
+        "at": "2026-10-19T00:39:39Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T23:00:00Z",
+      "requiredSince": "2026-10-18T14:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -518,7 +518,7 @@
         "at": "2026-10-18T16:44:48Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T13:30:00Z",
+      "requiredSince": "2026-10-18T13:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -571,12 +571,12 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-18T16:34:49Z",
+      "lastSuccess": "2026-10-19T00:13:16Z",
       "lastAttempt": {
-        "at": "2026-10-18T16:34:49Z",
+        "at": "2026-10-19T00:13:16Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-17T22:20:00Z",
+      "requiredSince": "2026-10-18T13:20:00Z",
       "alerts": 0
     }
   ]
