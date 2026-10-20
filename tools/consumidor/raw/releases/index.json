@@ -1077,6 +1077,43 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001601712-26-000040",
+     "filed": "2026-10-20",
+     "report": "2026-10-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000040/0001601712-26-000040-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000040/earningsrelease3q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-10-20_0001601712-26-000040_ex-99-1.txt",
+       "chars": 18406
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000040/financialtables3q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-10-20_0001601712-26-000040_ex-99-2.txt",
+       "chars": 36275
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000040/a3q26earningspresentatio.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-10-20_0001601712-26-000040_ex-99-3.txt",
+       "chars": 18473
+      },
+      {
+       "type": "EX-99.4",
+       "description": "EX-99.4",
+       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000040/non-gaapmeasures3q26.htm",
+       "file": "tools/consumidor/raw/releases/SYF/2026-10-20_0001601712-26-000040_ex-99-4.txt",
+       "chars": 1323
+      }
+     ]
+    },
+    {
      "accn": "0001601712-26-000035",
      "filed": "2026-08-17",
      "report": "2026-08-17",
@@ -1865,6 +1902,36 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001193125-26-425698",
+     "filed": "2026-10-20",
+     "report": "2026-10-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/40729/000119312526425698/0001193125-26-425698-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526425698/d116845dex991.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-10-20_0001193125-26-425698_ex-99-1.txt",
+       "chars": 41865
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526425698/d116845dex992.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-10-20_0001193125-26-425698_ex-99-2.txt",
+       "chars": 61588
+      },
+      {
+       "type": "EX-99.3",
+       "description": "EX-99.3",
+       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526425698/d116845dex993.htm",
+       "file": "tools/consumidor/raw/releases/ALLY/2026-10-20_0001193125-26-425698_ex-99-3.txt",
+       "chars": 70489
+      }
+     ]
+    },
+    {
      "accn": "0001193125-26-309539",
      "filed": "2026-07-21",
      "report": "2026-07-21",
@@ -1891,36 +1958,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526309539/d40046dex993.htm",
        "file": "tools/consumidor/raw/releases/ALLY/2026-07-21_0001193125-26-309539_ex-99-3.txt",
        "chars": 70404
-      }
-     ]
-    },
-    {
-     "accn": "0001193125-26-160281",
-     "filed": "2026-04-17",
-     "report": "2026-04-17",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/0001193125-26-160281-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex991.htm",
-       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-1.txt",
-       "chars": 41576
-      },
-      {
-       "type": "EX-99.2",
-       "description": "EX-99.2",
-       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex992.htm",
-       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-2.txt",
-       "chars": 54766
-      },
-      {
-       "type": "EX-99.3",
-       "description": "EX-99.3",
-       "url": "https://www.sec.gov/Archives/edgar/data/40729/000119312526160281/d117350dex993.htm",
-       "file": "tools/consumidor/raw/releases/ALLY/2026-04-17_0001193125-26-160281_ex-99-3.txt",
-       "chars": 72179
       }
      ]
     }
@@ -2133,5 +2170,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-14T15:27:54.366Z"
+ "checkedAt": "2026-10-20T18:27:44.819Z"
 }
