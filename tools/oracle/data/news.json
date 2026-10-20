@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,30 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-19-jupiter-construction-statement",
+      "date": "2026-10-19",
+      "theme": "power",
+      "basis": "company",
+      "title_en": "Oracle statement: Project Jupiter construction \"moving quickly\"; repeats last week's proposal to cut the microgrid's permitted emissions by 35%",
+      "title_es": "Declaración de Oracle: la construcción del Proyecto Júpiter \"avanza rápido\"; reitera la propuesta de la semana pasada de reducir 35% las emisiones permitidas de la microrred",
+      "summary_en": "Oracle's statement on its X account (Oct 19, carried by Newsquawk at 16:49 UTC): \"Construction on the Project Jupiter data center campus is moving quickly, with strong progress on site. We remain committed to developing responsibly and protecting New Mexico's land, air and water. Last week we proposed reducing the microgrid's permitted emissions by 35%.\" (company statement, not audited). No figure on progress, cost or power dates; the air permit for the microgrid is still pending (hearing from Dec 7).",
+      "summary_es": "Declaración de Oracle en su cuenta de X (19 oct, difundida por Newsquawk a las 16:49 UTC): \"La construcción del campus del Proyecto Júpiter avanza rápido, con un fuerte progreso en el sitio. Seguimos comprometidos con desarrollar de forma responsable y proteger la tierra, el aire y el agua de Nuevo México. La semana pasada propusimos reducir 35% las emisiones permitidas de la microrred.\" (declaración de la empresa, no auditada). Sin cifras de avance, costo ni fechas de energía; el permiso de aire de la microrred sigue pendiente (audiencia desde el 7 dic).",
+      "why_en": "Oracle restates the schedule of the campus under its force majeure notice while the power source is unpermitted: buildings advancing without power lengthen the period of capex before cash at Project Jupiter ({{sec:sites}}). No figure on the page changes.",
+      "why_es": "Oracle reitera el calendario del campus bajo su aviso de fuerza mayor mientras la fuente de energía no tiene permiso: edificios que avanzan sin energía alargan el periodo de capex antes del flujo en el Proyecto Júpiter ({{sec:sites}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle on X, Oct 19, 2026: Construction on the Project Jupiter data center campus is moving quickly",
+          "url": "https://x.com/Oracle/status/2112222480098034005"
+        },
+        {
+          "tier": "wire",
+          "title": "Newsquawk, Oct 19, 2026: Oracle (ORCL) says construction on the Project Jupiter data centre campus is moving quickly, with strong progress on site",
+          "url": "https://www.newsquawk.com/headlines/oracle-orcl-says-construction-on-the-project-jupiter-data-centre-campus-is-moving-quickly-with-strong-progress-on-site"
+        }
+      ]
+    },
     {
       "id": "2026-10-19-cds-295",
       "date": "2026-10-19",
@@ -780,6 +804,48 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-20",
+      "by": "routine",
+      "searches": 33,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Oracle on X",
+        "Newsquawk",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Investing.com",
+        "The Register",
+        "Data Center Dynamics",
+        "Searchlight New Mexico",
+        "KTSM",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "American Transmission Company",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "AMD",
+        "Nvidia",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-19-jupiter-construction-statement"
+      ],
+      "note": "Tuesday run before the close: the Oct 19 session moved +1.1% (128.23 to 129.59), under the 3% rule; no new SEC filing since the Oct 1 Form 4, nothing new in the IR feed. Added Oracle's Oct 19 statement on Project Jupiter construction (Oracle on X, carried by Newsquawk). No rating action; CDS, Port Washington, Saline, Shackelford and Abilene searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-19",
       "by": "routine",
