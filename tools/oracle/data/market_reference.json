@@ -2,14 +2,14 @@
   "as_of": "2026-10-20",
   "price_snapshot": {
     "orcl": {
-      "close": 129.58999633789062,
+      "close": 129.59,
       "close_date": "2026-10-19",
       "week52_high": 291.31,
       "week52_high_date": "2025-10-17",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 391845.94,
+      "market_cap_millions": 391845.95,
       "one_day_change_pct": 1.06,
       "one_year_change_pct": -55.51,
       "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-20&todate=2026-10-20&limit=10000",
@@ -574,13 +574,13 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-20"
   },
-  "refreshed_at": "2026-10-20T00:39:40.968Z",
+  "refreshed_at": "2026-10-20T18:03:04.879Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
     "unit": "percent",
-    "value_pct": 1.06,
-    "as_of_date": "2026-10-16",
+    "value_pct": 1.08,
+    "as_of_date": "2026-10-19",
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",

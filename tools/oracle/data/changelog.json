@@ -4,27 +4,6 @@
   {
    "at": "2026-10-18T14:59:53.817Z",
    "file": "news.js",
-   "path": "asOf",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].date",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 28,
-   "new": 31
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[8]",
    "old": "TradingKey",
    "new": "Data Center Dynamics"
@@ -4200,7 +4179,28 @@
    "path": "(more)",
    "old": null,
    "new": "887 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-20T18:03:12.953Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-16",
+   "new": "2026-10-19"
+  },
+  {
+   "at": "2026-10-20T18:03:12.953Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.06,
+   "new": 1.08
+  },
+  {
+   "at": "2026-10-20T18:03:12.953Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 797,
+   "new": 798
   }
  ],
- "generated": "2026-10-20T14:58:58.252Z"
+ "generated": "2026-10-20T18:03:12.953Z"
 }
