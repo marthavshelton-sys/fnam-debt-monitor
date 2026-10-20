@@ -4,41 +4,6 @@
   {
    "at": "2026-10-18T14:59:53.817Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "TradingKey",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "Zacks",
-   "new": "The Register"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "Source New Mexico",
-   "new": "Santa Fe New Mexican"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "Albuquerque Journal",
-   "new": "Searchlight New Mexico"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[14]",
-   "old": "We Energies",
-   "new": "New Mexico Environment Department"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[15]",
    "old": "Wisconsin Public Service Commission",
    "new": "We Energies"
@@ -4200,7 +4165,42 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 797,
    "new": 798
+  },
+  {
+   "at": "2026-10-20T23:22:16.278Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-20)"
+  },
+  {
+   "at": "2026-10-20T23:22:16.278Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2515,
+   "new": 2516
+  },
+  {
+   "at": "2026-10-20T23:22:16.278Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-20T23:22:16.278Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.15,
+   "new": 5.12
+  },
+  {
+   "at": "2026-10-20T23:22:16.278Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16184,
+   "new": 16185
   }
  ],
- "generated": "2026-10-20T18:03:12.953Z"
+ "generated": "2026-10-20T23:22:16.278Z"
 }
