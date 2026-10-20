@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T00:03:11.941Z",
+  "generated": "2026-10-20T00:39:41.055Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3814,7 +3814,7 @@
       "note": "nightly FactSet refresh, 7:58 PM ET; the page's price authority"
     },
     {
-      "series": "Share price (ORCL close, Nasdaq + Yahoo Finance feed)",
+      "series": "Share price (ORCL close, Nasdaq feed)",
       "lastDate": "2026-10-19",
       "ageDays": 1,
       "limitDays": 5,
@@ -4092,7 +4092,7 @@
       "label_es": "Hechos de referencia",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-19",
+      "lastRefresh": "2026-10-20",
       "nextExpected": "2026-12-10",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",

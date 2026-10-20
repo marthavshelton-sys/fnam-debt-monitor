@@ -4,48 +4,6 @@
   {
    "at": "2026-10-18T00:03:18.347Z",
    "file": "peers.js",
-   "path": "peers[1].peNtm",
-   "old": 24.39525777681096,
-   "new": 24.38464883670363
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
-   "path": "peers[1].evEbitdaNtm",
-   "old": 15.771208697245465,
-   "new": 15.759658223985353
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
-   "path": "peers[1].evSalesNtm",
-   "old": 5.181643054942409,
-   "new": 5.1786294446784185
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEps",
-   "old": 16.274,
-   "new": 16.272
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEbitda",
-   "old": 20332,
-   "new": 20338
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmSales",
-   "old": 49526,
-   "new": 49551
-  },
-  {
-   "at": "2026-10-18T00:03:18.347Z",
-   "file": "peers.js",
    "path": "peers[2].peNtm",
    "old": 14.790463315718322,
    "new": 14.79228121927237
@@ -4200,7 +4158,49 @@
    "path": "(more)",
    "old": null,
    "new": "422 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-19)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-19&todate=2026-10-19&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-20&todate=2026-10-20&limit=10000"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-19)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-20T00:39:41.256Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
   }
  ],
- "generated": "2026-10-20T00:03:12.201Z"
+ "generated": "2026-10-20T00:39:41.256Z"
 }
