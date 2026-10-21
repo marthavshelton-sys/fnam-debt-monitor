@@ -2,895 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "S&P Global Ratings",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "Fitch Ratings",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[21]",
-   "old": "OpenAI",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[22]",
-   "old": "Bloom Energy",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[25]",
-   "old": "Vantage",
-   "new": "Bloom Energy"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[26]",
-   "old": "Stargate",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[0]",
-   "old": "2026-10-16-orcl-drop",
-   "new": "2026-10-15-jupiter-hearing-dec7"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[1]",
-   "old": "2026-10-15-jupiter-emissions-cap",
-   "new": "2026-10-15-cds-288"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[2]",
-   "old": "2026-10-13-jupiter-ferc-letter",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-16",
-   "new": "2026-10-17"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 30,
-   "new": 28
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[8]",
-   "old": "Benzinga",
-   "new": "TradingKey"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[9]",
-   "old": "El Paso Electric",
-   "new": "Zacks"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[10]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "Source New Mexico"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[11]",
-   "old": "We Energies",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[12]",
-   "old": "WEC Energy",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[13]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[14]",
-   "old": "DTE Energy",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[15]",
-   "old": "Michigan EGLE",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[16]",
-   "old": "Data Center Dynamics",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[17]",
-   "old": "Moody's",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[18]",
-   "old": "S&P Global Ratings",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[19]",
-   "old": "Fitch Ratings",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[20]",
-   "old": "OpenAI",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[21]",
-   "old": "Stargate",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[1].added[0]",
-   "old": "2026-10-15-orcl-rebound",
-   "new": "2026-10-16-orcl-drop"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].date",
-   "old": "2026-10-15",
-   "new": "2026-10-16"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].searches",
-   "old": 36,
-   "new": 30
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[9]",
-   "old": "JKN",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[10]",
-   "old": "El Paso Electric",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[11]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[12]",
-   "old": "We Energies",
-   "new": "WEC Energy"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[15]",
-   "old": "Data Center Dynamics",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[16]",
-   "old": "El Paso Matters",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[2].added[0]",
-   "old": "2026-10-14-orcl-jupiter-drop",
-   "new": "2026-10-15-orcl-rebound"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].date",
-   "old": "2026-10-14",
-   "new": "2026-10-15"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].searches",
-   "old": 24,
-   "new": 36
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[3]",
-   "old": "El Paso Electric",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[4]",
-   "old": "Bloomberg",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[5]",
-   "old": "Reuters",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[6]",
-   "old": "Financial Times",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[7]",
-   "old": "Wall Street Journal",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[8]",
-   "old": "CNBC",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[9]",
-   "old": "Benzinga",
-   "new": "JKN"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[10]",
-   "old": "TradingKey",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[11]",
-   "old": "Albuquerque Journal",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[12]",
-   "old": "Data Center Dynamics",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[13]",
-   "old": "Wisconsin Public Radio",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[14]",
-   "old": "Moody's",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[15]",
-   "old": "S&P Global Ratings",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[16]",
-   "old": "Fitch Ratings",
-   "new": "El Paso Matters"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[17]",
-   "old": "NetApp",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[3].added[0]",
-   "old": "2026-10-13-orcl-rebound",
-   "new": "2026-10-14-orcl-jupiter-drop"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].date",
-   "old": "2026-10-13",
-   "new": "2026-10-14"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].by",
-   "old": "manual",
-   "new": "routine"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].searches",
-   "old": 31,
-   "new": 24
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[1]",
-   "old": "Oracle Newsroom",
-   "new": "Oracle Investor Relations"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[2]",
-   "old": "Oracle Investor Relations",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[4]",
-   "old": "Marvell (Business Wire)",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[5]",
-   "old": "FactSet StreetAccount",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[6]",
-   "old": "Bloomberg",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[7]",
-   "old": "Reuters",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[8]",
-   "old": "Financial Times",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[9]",
-   "old": "Wall Street Journal",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[10]",
-   "old": "CNBC",
-   "new": "TradingKey"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[11]",
-   "old": "Seeking Alpha",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[12]",
-   "old": "Investing.com",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[13]",
-   "old": "Benzinga",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[14]",
-   "old": "Border Report",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[15]",
-   "old": "Wisconsin Public Radio",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[16]",
-   "old": "Urban Milwaukee",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[17]",
-   "old": "Aterio",
-   "new": "NetApp"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[18]",
-   "old": "The Sun Times News (Michigan)",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[19]",
-   "old": "Michigan EGLE",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[20]",
-   "old": "Moody's",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[21]",
-   "old": "S&P Global Ratings",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].checked[22]",
-   "old": "Fitch Ratings",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[0]",
-   "old": "2026-10-13-epe-jupiter-power",
-   "new": "2026-10-13-orcl-rebound"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[1]",
-   "old": "2026-10-13-ocp-hsm-group",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[2]",
-   "old": "2026-10-12-orcl-openai-worries",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[3]",
-   "old": "2026-10-08-cds-record",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[4].added[4]",
-   "old": "2026-09-29-rusckowski-form4",
-   "new": null
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].by",
-   "old": "routine",
-   "new": "manual"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].searches",
-   "old": 22,
-   "new": 31
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[1]",
-   "old": "Bloomberg",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[2]",
-   "old": "Reuters",
-   "new": "Oracle Investor Relations"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[3]",
-   "old": "Financial Times",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[4]",
-   "old": "Wall Street Journal",
-   "new": "Marvell (Business Wire)"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[5]",
-   "old": "CNBC",
-   "new": "FactSet StreetAccount"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[6]",
-   "old": "Moody's",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[7]",
-   "old": "S&P Global Ratings",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[8]",
-   "old": "Fitch Ratings",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[9]",
-   "old": "Data Center Dynamics",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[10]",
-   "old": "Oracle Newsroom",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[11]",
-   "old": "Aterio",
-   "new": "Seeking Alpha"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[12]",
-   "old": "Wisconsin Public Radio",
-   "new": "Investing.com"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[5].checked[13]",
-   "old": "Michigan Public",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[6].date",
-   "old": "2026-10-12",
-   "new": "2026-10-13"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[6].searches",
-   "old": 20,
-   "new": 22
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[7].date",
-   "old": "2026-10-11",
-   "new": "2026-10-12"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[7].searches",
-   "old": 21,
-   "new": 20
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[7].checked[10]",
-   "old": "Wisconsin Public Radio",
-   "new": "Oracle Newsroom"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[7].checked[11]",
-   "old": "Urban Milwaukee",
-   "new": "Aterio"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[7].checked[12]",
-   "old": "Aterio",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[8].date",
-   "old": "2026-10-10",
-   "new": "2026-10-11"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[8].searches",
-   "old": 18,
-   "new": 21
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[8].checked[1]",
-   "old": "Oracle newsroom",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[8].checked[2]",
-   "old": "Moody's",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "(more)",
-   "old": null,
-   "new": "808 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-18T16:39:16.408Z",
-   "file": "market.js",
-   "path": "prices.ORCL.provenance.fill.url",
-   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-17&todate=2026-10-17&limit=10000",
-   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-18&todate=2026-10-18&limit=10000"
-  },
-  {
-   "at": "2026-10-18T16:39:16.408Z",
-   "file": "market.js",
-   "path": "prices.^GSPC.fetchedAt",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-18T16:39:16.408Z",
-   "file": "market.js",
-   "path": "rates.US10Y.fetchedAt",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-18T16:39:16.408Z",
-   "file": "market.js",
-   "path": "spreads.BBB_OAS.fetchedAt",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "market.js",
-   "path": "prices.ORCL.fetchedAt",
-   "old": "2026-10-17",
-   "new": "2026-10-18"
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.eps.mean",
-   "old": 9.235,
-   "new": 9.243
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.eps.median",
-   "old": 9.197,
-   "new": 9.205
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.eps.high",
-   "old": 10.249,
-   "new": 10.263
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.eps.low",
-   "old": 8.828,
-   "new": 8.833
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.eps.sd",
-   "old": 0.281,
-   "new": 0.282
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[0].ntmEps",
-   "old": 20.883,
-   "new": 20.893
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[0].peNtm",
-   "old": 25.334003735095532,
-   "new": 25.32187814100416
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[1].ntmEps",
-   "old": 9.198,
-   "new": 9.202
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[1].peNtm",
-   "old": 24.38464883670363,
-   "new": 24.374049119756574
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[2].ntmEps",
-   "old": 16.272,
-   "new": 16.27
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[2].peNtm",
-   "old": 14.79228121927237,
-   "new": 14.794099569760295
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[3].ntmEps",
-   "old": 4.823,
-   "new": 4.825
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[3].peNtm",
-   "old": 29.436035662450752,
-   "new": 29.42383419689119
-  },
-  {
    "at": "2026-10-19T00:03:30.429Z",
    "file": "peers.js",
    "path": "peers[4].ntmEps",
@@ -4200,7 +3311,896 @@
    "path": "spreads.BBB_OAS.fetchedAt",
    "old": "2026-10-20",
    "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "summary.js",
+   "path": "eventsThrough",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].date",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].searches",
+   "old": 33,
+   "new": 30
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[3]",
+   "old": "Oracle on X",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[4]",
+   "old": "Newsquawk",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[5]",
+   "old": "Bloomberg",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[6]",
+   "old": "Reuters",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[7]",
+   "old": "Financial Times",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[8]",
+   "old": "Wall Street Journal",
+   "new": "Quartz"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[9]",
+   "old": "CNBC",
+   "new": "The Register"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[10]",
+   "old": "Investing.com",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[11]",
+   "old": "The Register",
+   "new": "Source New Mexico"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[12]",
+   "old": "Data Center Dynamics",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[13]",
+   "old": "Searchlight New Mexico",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[14]",
+   "old": "KTSM",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[15]",
+   "old": "El Paso Electric",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[16]",
+   "old": "New Mexico Public Regulation Commission",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[17]",
+   "old": "We Energies",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[18]",
+   "old": "Wisconsin Public Service Commission",
+   "new": "Vantage"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[19]",
+   "old": "American Transmission Company",
+   "new": "Crusoe"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[20]",
+   "old": "DTE Energy",
+   "new": "Stargate"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[21]",
+   "old": "Michigan EGLE",
+   "new": "OpenAI"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[22]",
+   "old": "Vantage",
+   "new": "Apollo"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[23]",
+   "old": "Crusoe",
+   "new": "Goldman Sachs"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[24]",
+   "old": "Stargate",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[25]",
+   "old": "OpenAI",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[26]",
+   "old": "AMD",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[27]",
+   "old": "Nvidia",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[28]",
+   "old": "Moody's",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[29]",
+   "old": "S&P Global Ratings",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].checked[30]",
+   "old": "Fitch Ratings",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[0].added[0]",
+   "old": "2026-10-19-jupiter-construction-statement",
+   "new": "2026-10-20-wsj-ellison-pledges"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].date",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].searches",
+   "old": 28,
+   "new": 33
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[3]",
+   "old": "Bloomberg",
+   "new": "Oracle on X"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[4]",
+   "old": "Reuters",
+   "new": "Newsquawk"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[5]",
+   "old": "Financial Times",
+   "new": "Bloomberg"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[6]",
+   "old": "Wall Street Journal",
+   "new": "Reuters"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[7]",
+   "old": "CNBC",
+   "new": "Financial Times"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[8]",
+   "old": "Source New Mexico",
+   "new": "Wall Street Journal"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[9]",
+   "old": "Albuquerque Journal",
+   "new": "CNBC"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[10]",
+   "old": "El Paso Electric",
+   "new": "Investing.com"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[11]",
+   "old": "New Mexico Public Regulation Commission",
+   "new": "The Register"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[12]",
+   "old": "We Energies",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[13]",
+   "old": "Wisconsin Public Service Commission",
+   "new": "Searchlight New Mexico"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[14]",
+   "old": "DTE Energy",
+   "new": "KTSM"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[15]",
+   "old": "Michigan EGLE",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[16]",
+   "old": "Vantage",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[17]",
+   "old": "Crusoe",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[18]",
+   "old": "Stargate",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[19]",
+   "old": "OpenAI",
+   "new": "American Transmission Company"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[20]",
+   "old": "AMD",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[21]",
+   "old": "Nvidia",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[22]",
+   "old": "Bloom Energy",
+   "new": "Vantage"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[23]",
+   "old": "Moody's",
+   "new": "Crusoe"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[24]",
+   "old": "S&P Global Ratings",
+   "new": "Stargate"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].checked[25]",
+   "old": "Fitch Ratings",
+   "new": "OpenAI"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[1].added[0]",
+   "old": "2026-10-19-cds-295",
+   "new": "2026-10-19-jupiter-construction-statement"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].date",
+   "old": "2026-10-18",
+   "new": "2026-10-19"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].searches",
+   "old": 31,
+   "new": 28
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[8]",
+   "old": "Data Center Dynamics",
+   "new": "Source New Mexico"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[9]",
+   "old": "The Register",
+   "new": "Albuquerque Journal"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[10]",
+   "old": "Santa Fe New Mexican",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[11]",
+   "old": "Searchlight New Mexico",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[12]",
+   "old": "El Paso Electric",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[13]",
+   "old": "New Mexico Public Regulation Commission",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[14]",
+   "old": "New Mexico Environment Department",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[15]",
+   "old": "We Energies",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[16]",
+   "old": "Wisconsin Public Service Commission",
+   "new": "Vantage"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[17]",
+   "old": "DTE Energy",
+   "new": "Crusoe"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[18]",
+   "old": "Michigan EGLE",
+   "new": "Stargate"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[19]",
+   "old": "Moody's",
+   "new": "OpenAI"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[20]",
+   "old": "S&P Global Ratings",
+   "new": "AMD"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[21]",
+   "old": "Fitch Ratings",
+   "new": "Nvidia"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[22]",
+   "old": "OpenAI",
+   "new": "Bloom Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[23]",
+   "old": "AMD",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[24]",
+   "old": "Nvidia",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[25]",
+   "old": "Bloom Energy",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[26]",
+   "old": "Vantage",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[27]",
+   "old": "Crusoe",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].checked[28]",
+   "old": "Stargate",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[0]",
+   "old": "2026-10-15-jupiter-hearing-dec7",
+   "new": "2026-10-19-cds-295"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[2].added[1]",
+   "old": "2026-10-15-cds-288",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].date",
+   "old": "2026-10-17",
+   "new": "2026-10-18"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].searches",
+   "old": 28,
+   "new": 31
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[8]",
+   "old": "TradingKey",
+   "new": "Data Center Dynamics"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[9]",
+   "old": "Zacks",
+   "new": "The Register"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[10]",
+   "old": "Source New Mexico",
+   "new": "Santa Fe New Mexican"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[11]",
+   "old": "Albuquerque Journal",
+   "new": "Searchlight New Mexico"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[14]",
+   "old": "We Energies",
+   "new": "New Mexico Environment Department"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[15]",
+   "old": "Wisconsin Public Service Commission",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[16]",
+   "old": "DTE Energy",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[17]",
+   "old": "Michigan EGLE",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[18]",
+   "old": "Moody's",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[19]",
+   "old": "S&P Global Ratings",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[20]",
+   "old": "Fitch Ratings",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[21]",
+   "old": "OpenAI",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[22]",
+   "old": "Bloom Energy",
+   "new": "OpenAI"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[25]",
+   "old": "Vantage",
+   "new": "Bloom Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].checked[26]",
+   "old": "Stargate",
+   "new": "Vantage"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].added[0]",
+   "old": "2026-10-16-orcl-drop",
+   "new": "2026-10-15-jupiter-hearing-dec7"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].added[1]",
+   "old": "2026-10-15-jupiter-emissions-cap",
+   "new": "2026-10-15-cds-288"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[3].added[2]",
+   "old": "2026-10-13-jupiter-ferc-letter",
+   "new": null
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].date",
+   "old": "2026-10-16",
+   "new": "2026-10-17"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].searches",
+   "old": 30,
+   "new": 28
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[8]",
+   "old": "Benzinga",
+   "new": "TradingKey"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[9]",
+   "old": "El Paso Electric",
+   "new": "Zacks"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[10]",
+   "old": "New Mexico Public Regulation Commission",
+   "new": "Source New Mexico"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[11]",
+   "old": "We Energies",
+   "new": "Albuquerque Journal"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[12]",
+   "old": "WEC Energy",
+   "new": "El Paso Electric"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[13]",
+   "old": "Wisconsin Public Service Commission",
+   "new": "New Mexico Public Regulation Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[14]",
+   "old": "DTE Energy",
+   "new": "We Energies"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[15]",
+   "old": "Michigan EGLE",
+   "new": "Wisconsin Public Service Commission"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[16]",
+   "old": "Data Center Dynamics",
+   "new": "DTE Energy"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[17]",
+   "old": "Moody's",
+   "new": "Michigan EGLE"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[18]",
+   "old": "S&P Global Ratings",
+   "new": "Moody's"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[19]",
+   "old": "Fitch Ratings",
+   "new": "S&P Global Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[20]",
+   "old": "OpenAI",
+   "new": "Fitch Ratings"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].checked[21]",
+   "old": "Stargate",
+   "new": "OpenAI"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "sweepLog[4].added[0]",
+   "old": "2026-10-15-orcl-rebound",
+   "new": "2026-10-16-orcl-drop"
+  },
+  {
+   "at": "2026-10-21T14:59:37.835Z",
+   "file": "news.js",
+   "path": "(more)",
+   "old": null,
+   "new": "945 leaves compared; further changes in this file not listed"
   }
  ],
- "generated": "2026-10-21T00:08:16.937Z"
+ "generated": "2026-10-21T14:59:37.835Z"
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-20",
+  "as_of": "2026-10-21",
   "window_days": 120,
   "themes": [
     {
@@ -36,6 +36,30 @@
   ],
   "items": [
     {
+      "id": "2026-10-20-wsj-ellison-pledges",
+      "date": "2026-10-20",
+      "theme": "leadership",
+      "basis": "press",
+      "title_en": "WSJ (press-reported): Larry Ellison widened bank borrowing to fund the Warner Bros. deal; liens on 87 million Oracle shares, up from about 30 million a year earlier",
+      "title_es": "WSJ (reportado por la prensa): Larry Ellison amplió sus préstamos bancarios para financiar la operación de Warner Bros.; gravámenes sobre 87 millones de acciones de Oracle, frente a unos 30 millones hace un año",
+      "summary_en": "The Wall Street Journal (Oct 20, \"Larry Ellison Went on Borrowing Spree to Bankroll His Son's Warner Bros. Bid\"), citing liens filed in California: Citigroup, HSBC, JPMorgan, UBS and BNP Paribas expanded lending to Ellison around the Oct 6 close of Paramount Skydance's Warner Bros. Discovery acquisition; the banks that gave figures hold liens on 87 million Oracle shares, against roughly 30 million 12 months before, and Tesla, SpaceX and Paramount Skydance stock was added as collateral. The filings do not show how much he borrowed. Oracle's proxy (Sep 25) discloses about 413 million of his shares pledged, up from 346 million; its governance committee says they secure personal term loans for ventures outside the company, none in margin accounts (company statement, not audited). Not confirmed by Oracle beyond the proxy.",
+      "summary_es": "The Wall Street Journal (20 oct, \"Larry Ellison Went on Borrowing Spree to Bankroll His Son's Warner Bros. Bid\"), con base en gravámenes registrados en California: Citigroup, HSBC, JPMorgan, UBS y BNP Paribas ampliaron sus préstamos a Ellison alrededor del cierre, el 6 oct, de la compra de Warner Bros. Discovery por Paramount Skydance; los bancos que dieron cifras tienen gravámenes sobre 87 millones de acciones de Oracle, frente a unos 30 millones 12 meses antes, y se añadieron acciones de Tesla, SpaceX y Paramount Skydance como garantía. Los registros no muestran cuánto pidió prestado. La circular de poder de Oracle (25 sep) revela cerca de 413 millones de sus acciones en prenda, frente a 346 millones; su comité de gobierno corporativo dice que garantizan préstamos personales a plazo para negocios ajenos a la empresa, ninguno en cuentas de margen (declaración de la empresa, no auditada). Oracle no lo ha confirmado más allá de la circular.",
+      "why_en": "A governance and share-supply signal rather than a figure: pledged stock held by the controlling shareholder can come to market if lenders call collateral after a price fall, the risk the canceled 50-million-share sale plan (Sep 12) had raised ({{sec:financing}}). No figure on the page changes.",
+      "why_es": "Una señal de gobierno corporativo y de oferta de acciones más que una cifra: las acciones en prenda del accionista de control pueden llegar al mercado si los bancos ejecutan la garantía tras una caída del precio, el riesgo que había planteado el plan cancelado de venta de 50 millones de acciones (12 sep) ({{sec:financing}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Wall Street Journal (syndicated by Editor & Publisher), Oct 20, 2026: Larry Ellison went on borrowing spree to bankroll his son's Warner Bros. bid",
+          "url": "https://www.editorandpublisher.com/stories/larry-ellison-went-on-borrowing-spree-to-bankroll-his-sons-warner-bros-bid,264097"
+        },
+        {
+          "tier": "press",
+          "title": "Quartz (on the WSJ report), Oct 21, 2026: Larry Ellison pledged Oracle, Tesla and SpaceX stock for loans before son's Warner deal closed",
+          "url": "https://qz.com/larry-ellison-pledged-stock-loans-warner-bros-deal-102126"
+        }
+      ]
+    },
+    {
       "id": "2026-10-19-jupiter-construction-statement",
       "date": "2026-10-19",
       "theme": "power",
@@ -66,8 +90,8 @@
       "basis": "press",
       "title_en": "CNBC: Oracle 5-year CDS at 295 bp after briefly touching 300 bp on Thursday Oct 15; S&P Global analyst says the range resembles BB and B credit (press)",
       "title_es": "CNBC: CDS a 5 años de Oracle en 295 pb tras tocar brevemente 300 pb el jueves 15 oct; analista de S&P Global dice que el rango se parece a crédito BB y B (prensa)",
-      "summary_en": "CNBC (Oct 19, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): Oracle's five-year credit default swap spread \"is currently 295 basis points, after briefly hitting 300 bps on Thursday\", up 287% in one year; Gavan Nolan, executive director of fixed income pricing at S&P Global Market Intelligence, said Oracle's spread range \"more closely resembles BB and B credit\" and that recent swings reflect fragile sentiment toward AI-related companies with weaker ratings; S&P Global Ratings rates Oracle BBB-. Press quotes; the page has no CDS series, so the figure enters no ratio.",
-      "summary_es": "CNBC (19 oct, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): el diferencial del CDS a cinco años de Oracle \"está en 295 puntos base, tras tocar brevemente 300 pb el jueves\", 287% más que hace un año; Gavan Nolan, director ejecutivo de precios de renta fija de S&P Global Market Intelligence, dijo que el rango del diferencial de Oracle \"se parece más a crédito BB y B\" y que las oscilaciones recientes reflejan un ánimo frágil hacia empresas ligadas a la IA con calificaciones más bajas; S&P Global Ratings califica a Oracle en BBB-. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón.",
+      "summary_en": "CNBC (Oct 19, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): Oracle's five-year credit default swap spread \"is currently 295 basis points, after briefly hitting 300 bps on Thursday\", up 287% in one year; Gavan Nolan, executive director of fixed income pricing at S&P Global Market Intelligence, said Oracle's spread range \"more closely resembles BB and B credit\" and that recent swings reflect fragile sentiment toward AI-related companies with weaker ratings; S&P Global Ratings rates Oracle BBB-. Press quotes; the page has no CDS series, so the figure enters no ratio. A later CNBC report the same day (\"Stock investors are ready to move on from the AI rout. Credit investors are not\") said the five-year spread \"moved wider on Monday to 315 basis points, a 311% increase from a year prior\".",
+      "summary_es": "CNBC (19 oct, \"Credit stress is threatening to unwind the AI bull. All eyes are on Oracle to hold the line\"): el diferencial del CDS a cinco años de Oracle \"está en 295 puntos base, tras tocar brevemente 300 pb el jueves\", 287% más que hace un año; Gavan Nolan, director ejecutivo de precios de renta fija de S&P Global Market Intelligence, dijo que el rango del diferencial de Oracle \"se parece más a crédito BB y B\" y que las oscilaciones recientes reflejan un ánimo frágil hacia empresas ligadas a la IA con calificaciones más bajas; S&P Global Ratings califica a Oracle en BBB-. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón. Un reporte posterior de CNBC el mismo día (\"Stock investors are ready to move on from the AI rout. Credit investors are not\") dijo que el diferencial a cinco años \"se amplió el lunes a 315 puntos base, 311% más que un año antes\".",
       "why_en": "The market's read on US$125.3 bn of notes and on the fiscal-2027 funding still to raise ({{sec:credit}}): at 295 bp, protection costs about US$2.95 million a year per US$100 million insured, against an issuer rating one notch above speculative grade at S&P.",
       "why_es": "La lectura del mercado sobre US$125.3 mil millones de notas y sobre el financiamiento del AF2027 que falta ({{sec:credit}}): a 295 pb, la protección cuesta unos US$2.95 millones al año por cada US$100 millones asegurados, con una calificación de emisor un escalón arriba del grado especulativo en S&P.",
       "sources": [
@@ -80,6 +104,11 @@
           "tier": "press",
           "title": "KuCoin News (summary of the CNBC report), Oct 19, 2026: Oracle Faces Credit Downgrade Risk Amid AI Financing Strain",
           "url": "https://www.kucoin.com/news/flash/oracle-faces-credit-downgrade-risk-amid-ai-financing-strain"
+        },
+        {
+          "tier": "press",
+          "title": "CNBC, Oct 19, 2026: Stock investors are ready to move on from the AI rout. Credit investors are not",
+          "url": "https://www.cnbc.com/2026/10/19/coreweave-oracle-ai-credit-stress.html"
         }
       ]
     },
@@ -109,6 +138,74 @@
           "tier": "press",
           "title": "Zacks via Yahoo Finance, Oct 16, 2026: Why Oracle (ORCL) Dipped More Than Broader Market Today",
           "url": "https://finance.yahoo.com/markets/stocks/articles/why-oracle-orcl-dipped-more-204503960.html"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-15-officer-rsu-grants",
+      "date": "2026-10-15",
+      "theme": "leadership",
+      "basis": "sec",
+      "title_en": "Nine Form 4s (filed Oct 19): Oracle grants 1,747,608 restricted stock units to its executive officers on Oct 15, including 446,197 to each co-CEO",
+      "title_es": "Nueve Formularios 4 (presentados el 19 oct): Oracle otorga 1,747,608 unidades de acciones restringidas a sus directivos el 15 oct, incluidas 446,197 a cada codirector general",
+      "summary_en": "Form 4s filed Oct 19, 2026, transaction date Oct 15 (code A, price US$0): RSUs granted to co-CEOs Clayton Magouyrk and Michael Sicilia (446,197 each), Executive Chairman and CTO Larry Ellison (223,099), Mark Hura, President, Global Field Operations (237,972), Chief Legal Officer Stuart Levey (104,113), CFO Hilary Maxson (89,240), and 66,930 each to Chief Accounting Officer Maria Smith, Vice Chairman Jeffrey Henley and Safra Catz; 1,747,608 in all. The co-CEOs' and Ellison's units vest 40/30/20/5/5% on Oct 15, 2027–2031; the others' 25% on Oct 15, 2027 and 6.25% each quarter after, subject to continued employment. No shares were sold.",
+      "summary_es": "Formularios 4 presentados el 19 oct 2026, fecha de operación 15 oct (código A, precio US$0): RSU otorgadas a los codirectores generales Clayton Magouyrk y Michael Sicilia (446,197 cada uno), al presidente ejecutivo del consejo y director de tecnología Larry Ellison (223,099), a Mark Hura, presidente de Operaciones de Campo Globales (237,972), al director jurídico Stuart Levey (104,113), a la directora de finanzas Hilary Maxson (89,240), y 66,930 a cada uno de la contralora Maria Smith, el vicepresidente del consejo Jeffrey Henley y Safra Catz; 1,747,608 en total. Las unidades de los codirectores generales y de Ellison se consolidan 40/30/20/5/5% del 15 oct 2027 al 2031; las demás 25% el 15 oct 2027 y 6.25% cada trimestre después, sujetas a que sigan en la empresa. No se vendieron acciones.",
+      "why_en": "The annual executive grant: 1,747,608 units are about 0.06% of the 3,024 million shares outstanding, a future addition to the diluted share count and to stock-based compensation expense over five years ({{sec:financing}}); no cash moves at grant.",
+      "why_es": "El otorgamiento anual a directivos: 1,747,608 unidades son cerca de 0.06% de las 3,024 millones de acciones en circulación, una adición futura al número de acciones diluidas y al gasto por compensación en acciones a lo largo de cinco años ({{sec:financing}}); no hay flujo de efectivo al otorgarse.",
+      "sources": [
+        {
+          "tier": "sec",
+          "title": "Form 4, Clayton M. Magouyrk, filed Oct 19, 2026, transaction Oct 15, 2026: 446,197 RSUs (accession 0001341439-26-000111)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000111/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000111"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Michael D. Sicilia, filed Oct 19, 2026, transaction Oct 15, 2026: 446,197 RSUs (accession 0001341439-26-000117)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000117/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000117"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Lawrence J. Ellison, filed Oct 19, 2026, transaction Oct 15, 2026: 223,099 RSUs (accession 0001341439-26-000103)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000103/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000103"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Mark Hura, filed Oct 19, 2026, transaction Oct 15, 2026: 237,972 RSUs (accession 0001341439-26-000107)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000107/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000107"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Stuart Levey, filed Oct 19, 2026, transaction Oct 15, 2026: 104,113 RSUs (accession 0001341439-26-000109)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000109/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000109"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Hilary B. Maxson, filed Oct 19, 2026, transaction Oct 15, 2026: 89,240 RSUs (accession 0001341439-26-000113)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000113/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000113"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Maria Smith, filed Oct 19, 2026, transaction Oct 15, 2026: 66,930 RSUs (accession 0001341439-26-000116)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000116/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000116"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Jeffrey Henley, filed Oct 19, 2026, transaction Oct 15, 2026: 66,930 RSUs (accession 0001341439-26-000105)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000105/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000105"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Safra Catz, filed Oct 19, 2026, transaction Oct 15, 2026: 66,930 RSUs (accession 0001341439-26-000101)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000101/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000101"
         }
       ]
     },
@@ -157,6 +254,54 @@
           "tier": "company",
           "title": "FactSet Global Prices, ORCL close of Oct 15, 2026 (FNAM price file)",
           "url": "https://fnam.mx/oracle/"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-15-jupiter-hearing-dec7",
+      "date": "2026-10-15",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "Project Jupiter air permit: the NMED public hearing now starts Dec 7, making the Nov 23 decision deadline moot (press)",
+      "title_es": "Permiso de aire del Proyecto Júpiter: la audiencia pública del NMED ahora empieza el 7 dic y deja sin efecto el plazo de decisión del 23 nov (prensa)",
+      "summary_en": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, Oct 16): hearing officer James O. Browning said at a scheduling conference on Thursday Oct 15 that the weeklong public hearing in Sunland Park, initially set for September, \"will now start Dec. 7\" and could be further postponed; the delay \"renders moot\" the Nov 23 deadline for NMED's decision; Browning brought back a limited discovery process. NMED emails said new modeling requested by agency staff \"showed higher concentrations of pollutants\" than the developers' earlier modeling. More than 4,000 workers are on site; the buildings are near completion but remain without power. Press-reported; Oracle has not commented on the date.",
+      "summary_es": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, 16 oct): el oficial de audiencia James O. Browning dijo en una conferencia de calendario el jueves 15 oct que la audiencia pública de una semana en Sunland Park, prevista en septiembre, \"empezará el 7 dic\" y podría posponerse otra vez; el retraso deja sin efecto el plazo del 23 nov para la decisión del NMED; Browning reabrió un proceso de exhibición de pruebas limitado. Correos del NMED dijeron que una nueva modelación pedida por el personal de la agencia \"mostró concentraciones de contaminantes más altas\" que la modelación previa de los desarrolladores. Hay más de 4,000 trabajadores en el sitio; los edificios están casi terminados pero siguen sin energía. Reportado por la prensa; Oracle no ha comentado la fecha.",
+      "why_en": "The air permit gates the microgrid that is the campus's primary power: a decision after Dec 7 at the earliest lengthens the period of capex before cash at Project Jupiter and bears on the force majeure notice's rent deferral ({{sec:sites}}). No figure on the page changes.",
+      "why_es": "El permiso de aire condiciona la microrred que es la fuente principal de energía del campus: una decisión no antes del 7 dic alarga el periodo de capex sin flujo en el Proyecto Júpiter y toca el diferimiento de renta del aviso de fuerza mayor ({{sec:sites}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Santa Fe New Mexican (via Yahoo News), Oct 16, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
+          "url": "https://www.yahoo.com/news/us/articles/oracle-touts-project-jupiter-benefits-035900949.html"
+        },
+        {
+          "tier": "press",
+          "title": "Searchlight New Mexico (republished by Organ Mountain News), Oct 17, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
+          "url": "https://www.organmountainnews.com/oracle-project-jupiter-media-tour-power-permit-emissions-2026/"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-15-cds-288",
+      "date": "2026-10-15",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "Oracle 5-year CDS at a record 288 bp, up from 260 bp a week earlier, as CoreWeave's passes 1,000 bp (press)",
+      "title_es": "CDS a 5 años de Oracle en un máximo de 288 pb, desde 260 pb una semana antes, mientras el de CoreWeave supera 1,000 pb (prensa)",
+      "summary_en": "CNBC (Oct 15, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): Oracle's five-year CDS spread rose to a record 288 bp, up 26 bp, as CoreWeave's topped 1,000 bp. Securitas Global gives 288 bp on Oct 15 from 260 bp a week earlier, citing S&P Global Market Intelligence and LSEG data. Press quotes; the page has no CDS series, so the figure enters no ratio.",
+      "summary_es": "CNBC (15 oct, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): el diferencial del CDS a cinco años de Oracle subió a un máximo de 288 pb, 26 pb más, mientras el de CoreWeave superó 1,000 pb. Securitas Global da 288 pb el 15 oct desde 260 pb una semana antes, con datos de S&P Global Market Intelligence y LSEG. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón.",
+      "why_en": "The market's read on US$125.3 bn of notes and on the fiscal-2027 funding still to raise ({{sec:credit}}): at 288 bp, protection costs about US$2.9 million a year per US$100 million insured, up from about US$2.6 million on Oct 8.",
+      "why_es": "La lectura del mercado sobre US$125.3 mil millones de notas y sobre el financiamiento del AF2027 que falta ({{sec:credit}}): a 288 pb, la protección cuesta unos US$2.9 millones al año por cada US$100 millones asegurados, desde unos US$2.6 millones el 8 oct.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "CNBC, Oct 15, 2026: CoreWeave credit default swaps hit distress levels as investors sour on AI debt",
+          "url": "https://www.cnbc.com/2026/10/15/coreweave-credit-default-swaps-hit-distress-levels-as-investors-sour-on-ai-debt.html"
+        },
+        {
+          "tier": "press",
+          "title": "Securitas Global, Oct 2026: Oracle's Credit Default Swap Spread Hits a Record 288 Basis Points on AI Debt (S&P Global Market Intelligence and LSEG data)",
+          "url": "https://www.securitasglobal.com/risk-perspectives/oracle-cds-record-288-basis-points-ai-debt/"
         }
       ]
     },
@@ -749,54 +894,6 @@
           "url": "https://investor.oracle.com/events-and-presentations/default.aspx"
         }
       ]
-    },
-    {
-      "id": "2026-10-15-jupiter-hearing-dec7",
-      "date": "2026-10-15",
-      "theme": "power",
-      "basis": "press",
-      "title_en": "Project Jupiter air permit: the NMED public hearing now starts Dec 7, making the Nov 23 decision deadline moot (press)",
-      "title_es": "Permiso de aire del Proyecto Júpiter: la audiencia pública del NMED ahora empieza el 7 dic y deja sin efecto el plazo de decisión del 23 nov (prensa)",
-      "summary_en": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, Oct 16): hearing officer James O. Browning said at a scheduling conference on Thursday Oct 15 that the weeklong public hearing in Sunland Park, initially set for September, \"will now start Dec. 7\" and could be further postponed; the delay \"renders moot\" the Nov 23 deadline for NMED's decision; Browning brought back a limited discovery process. NMED emails said new modeling requested by agency staff \"showed higher concentrations of pollutants\" than the developers' earlier modeling. More than 4,000 workers are on site; the buildings are near completion but remain without power. Press-reported; Oracle has not commented on the date.",
-      "summary_es": "Santa Fe New Mexican / Searchlight New Mexico (Julia Gentin, 16 oct): el oficial de audiencia James O. Browning dijo en una conferencia de calendario el jueves 15 oct que la audiencia pública de una semana en Sunland Park, prevista en septiembre, \"empezará el 7 dic\" y podría posponerse otra vez; el retraso deja sin efecto el plazo del 23 nov para la decisión del NMED; Browning reabrió un proceso de exhibición de pruebas limitado. Correos del NMED dijeron que una nueva modelación pedida por el personal de la agencia \"mostró concentraciones de contaminantes más altas\" que la modelación previa de los desarrolladores. Hay más de 4,000 trabajadores en el sitio; los edificios están casi terminados pero siguen sin energía. Reportado por la prensa; Oracle no ha comentado la fecha.",
-      "why_en": "The air permit gates the microgrid that is the campus's primary power: a decision after Dec 7 at the earliest lengthens the period of capex before cash at Project Jupiter and bears on the force majeure notice's rent deferral ({{sec:sites}}). No figure on the page changes.",
-      "why_es": "El permiso de aire condiciona la microrred que es la fuente principal de energía del campus: una decisión no antes del 7 dic alarga el periodo de capex sin flujo en el Proyecto Júpiter y toca el diferimiento de renta del aviso de fuerza mayor ({{sec:sites}}). Ninguna cifra de la página cambia.",
-      "sources": [
-        {
-          "tier": "press",
-          "title": "Santa Fe New Mexican (via Yahoo News), Oct 16, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
-          "url": "https://www.yahoo.com/news/us/articles/oracle-touts-project-jupiter-benefits-035900949.html"
-        },
-        {
-          "tier": "press",
-          "title": "Searchlight New Mexico (republished by Organ Mountain News), Oct 17, 2026: Oracle touts Project Jupiter benefits during tour as wrangling over power continues",
-          "url": "https://www.organmountainnews.com/oracle-project-jupiter-media-tour-power-permit-emissions-2026/"
-        }
-      ]
-    },
-    {
-      "id": "2026-10-15-cds-288",
-      "date": "2026-10-15",
-      "theme": "financing",
-      "basis": "press",
-      "title_en": "Oracle 5-year CDS at a record 288 bp, up from 260 bp a week earlier, as CoreWeave's passes 1,000 bp (press)",
-      "title_es": "CDS a 5 años de Oracle en un máximo de 288 pb, desde 260 pb una semana antes, mientras el de CoreWeave supera 1,000 pb (prensa)",
-      "summary_en": "CNBC (Oct 15, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): Oracle's five-year CDS spread rose to a record 288 bp, up 26 bp, as CoreWeave's topped 1,000 bp. Securitas Global gives 288 bp on Oct 15 from 260 bp a week earlier, citing S&P Global Market Intelligence and LSEG data. Press quotes; the page has no CDS series, so the figure enters no ratio.",
-      "summary_es": "CNBC (15 oct, \"CoreWeave credit default swaps hit distress levels as investors sour on AI debt\"): el diferencial del CDS a cinco años de Oracle subió a un máximo de 288 pb, 26 pb más, mientras el de CoreWeave superó 1,000 pb. Securitas Global da 288 pb el 15 oct desde 260 pb una semana antes, con datos de S&P Global Market Intelligence y LSEG. Cotizaciones de prensa; la página no tiene serie de CDS, así que la cifra no entra en ninguna razón.",
-      "why_en": "The market's read on US$125.3 bn of notes and on the fiscal-2027 funding still to raise ({{sec:credit}}): at 288 bp, protection costs about US$2.9 million a year per US$100 million insured, up from about US$2.6 million on Oct 8.",
-      "why_es": "La lectura del mercado sobre US$125.3 mil millones de notas y sobre el financiamiento del AF2027 que falta ({{sec:credit}}): a 288 pb, la protección cuesta unos US$2.9 millones al año por cada US$100 millones asegurados, desde unos US$2.6 millones el 8 oct.",
-      "sources": [
-        {
-          "tier": "press",
-          "title": "CNBC, Oct 15, 2026: CoreWeave credit default swaps hit distress levels as investors sour on AI debt",
-          "url": "https://www.cnbc.com/2026/10/15/coreweave-credit-default-swaps-hit-distress-levels-as-investors-sour-on-ai-debt.html"
-        },
-        {
-          "tier": "press",
-          "title": "Securitas Global, Oct 2026: Oracle's Credit Default Swap Spread Hits a Record 288 Basis Points on AI Debt (S&P Global Market Intelligence and LSEG data)",
-          "url": "https://www.securitasglobal.com/risk-perspectives/oracle-cds-record-288-basis-points-ai-debt/"
-        }
-      ]
     }
   ],
   "sweep_note_en": "Manual sweep on Oct 13, 2026 (ET; FNAM, round 6 review), Oct 9 to 13. Added: Oracle's proposed El Paso Electric agreement for Project Jupiter (Oct 13), the OCP hardware-security group (Oct 13), the Oct 12 price move, the Rusckowski Form 4 (filed Oct 1) and the record CDS readings (Sep 24 and Oct 8), which replace the July 203 bp item. Every item was compressed to its material facts (one home per number); the two Port Washington items were merged, the WSJ note of Sep 25 was folded into the force majeure item and the Fusion Claw release (no figure) was dropped. The automated sweep had missed the Oct 13 release because Oracle's newsroom answered 403; it now reads the investor-relations feed and the utilities' and regulators' releases too.",
@@ -804,6 +901,45 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-21",
+      "by": "routine",
+      "searches": 30,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Quartz",
+        "The Register",
+        "Data Center Dynamics",
+        "Source New Mexico",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Apollo",
+        "Goldman Sachs",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-20-wsj-ellison-pledges",
+        "2026-10-15-officer-rsu-grants"
+      ],
+      "note": "Wednesday run before the open: the Oct 20 session moved +1.2% (129.59 to 131.14), under the 3% rule. Nine Form 4s filed Oct 19 report the Oct 15 executive RSU grants; nothing new in the IR feed (latest Sep 12). Added the WSJ's Oct 20 report on Ellison's pledged shares and appended CNBC's later Oct 19 CDS figure (315 bp) to the CDS item. No rating action; the 2 GW renewable RFP resurfaced in GuruFocus but is Oracle's Sep 8 release; Port Washington, Saline, Shackelford and Abilene searches found nothing newer than the items on file."
+    },
     {
       "date": "2026-10-20",
       "by": "routine",
