@@ -209,6 +209,17 @@
    "text": "tools/qualitas/raw/text/reports/2026Q2.txt",
    "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/Q - Reporte Trimestral 2T26 VFF2.pdf"
   },
+  "reports:2026Q3": {
+   "chars": 45034,
+   "fetchedAt": "2026-10-21T19:00:16+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2026Q3",
+   "sha256": "0cc5ee89081d751685ee370a0f97deb637763da54cb8fd38372b93db6fa270f1",
+   "size": 1497798,
+   "text": "tools/qualitas/raw/text/reports/2026Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/3T/mx/Q-Reporte_Trimestral_3T26.pdf"
+  },
   "sific:2020Q1": {
    "chars": 35560,
    "fetchedAt": "2026-09-22T21:32:18+00:00",
@@ -492,5 +503,5 @@
    "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/DatosFinancierosHistoricos 2T26.xlsx"
   }
  },
- "updatedAt": "2026-10-20T18:47:13+00:00"
+ "updatedAt": "2026-10-21T19:00:17+00:00"
 }
