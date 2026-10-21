@@ -7,6 +7,12 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
    "listing": [
     {
+     "date": "2026-10-20",
+     "title": "Walmart de Mexico y Centroamerica Invitacion para Reporte Resultados 3T26",
+     "id": "1596483",
+     "kind": null
+    },
+    {
      "date": "2026-07-22",
      "title": "Walmart de Mexico y Centroamerica Reporta Resultados del Segundo Trimestre 2026",
      "id": "1576009",
@@ -83,12 +89,6 @@
      "title": "Calendario de Información 2026 Walmart de México y Centroamérica",
      "id": "1524201",
      "kind": null
-    },
-    {
-     "date": "2025-10-28",
-     "title": "Walmart de México y Centroamérica Reporta Resultados del Tercer Trimestre y Nueve Meses del 2025",
-     "id": "1502576",
-     "kind": "results"
     }
    ],
    "filings": [
@@ -283,6 +283,23 @@
    "channel": "xbrl",
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
    "filings": [
+    {
+     "accn": "xbrl1596544",
+     "filed": "2026-10-20",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1596544_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LACOMER/2026-10-20_xbrl1596544.txt",
+       "chars": 11788
+      }
+     ]
+    },
     {
      "accn": "xbrl1575986",
      "filed": "2026-07-22",
@@ -497,6 +514,12 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
    "listing": [
     {
+     "date": "2026-10-20",
+     "title": "Resultados y Hechos Relevantes del Tercer Trimestre 2026",
+     "id": "1596498",
+     "kind": "results"
+    },
+    {
      "date": "2026-09-22",
      "title": "ALSEA INFORMA SOBRE LOS MOVIMIENTOS INUSITADOS EN EL MERCADO DEL VIERNES 18 DE SEPTIEMBRE",
      "id": "1590588",
@@ -573,15 +596,25 @@
      "title": "ALSEA ANUNCIA LA VENTA RESTAURANTES DE LAS MARCAS CHILIS Y P.F. CHANGS EN CHILE, ASÍ COMO FRIDAYS EN ESPAÑA",
      "id": "1506173",
      "kind": null
-    },
-    {
-     "date": "2025-10-22",
-     "title": "Resultados y Hechos Relevantes del Tercer Trimestre 2025",
-     "id": "1500731",
-     "kind": "results"
     }
    ],
    "filings": [
+    {
+     "accn": "bmv1596498",
+     "filed": "2026-10-20",
+     "kind": "results",
+     "title": "Resultados y Hechos Relevantes del Tercer Trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Resultados y Hechos Relevantes del Tercer Trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596498_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/ALSEA/2026-10-20_bmv1596498.txt",
+       "chars": 36526
+      }
+     ]
+    },
     {
      "accn": "bmv1575402",
      "filed": "2026-07-20",
@@ -595,22 +628,6 @@
        "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575402_1.pdf",
        "file": "tools/mx-consumidor/raw/releases/ALSEA/2026-07-20_bmv1575402.txt",
        "chars": 38061
-      }
-     ]
-    },
-    {
-     "accn": "bmv1552418",
-     "filed": "2026-04-28",
-     "kind": "results",
-     "title": "Resultados y Hechos Relevantes del Primer Trimestre 2026",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ALSEA-5059-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "Resultados y Hechos Relevantes del Primer Trimestre 2026",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1552418_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/ALSEA/2026-04-28_bmv1552418.txt",
-       "chars": 34982
       }
      ]
     }
@@ -647,6 +664,18 @@
    "channel": "bmv",
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
    "listing": [
+    {
+     "date": "2026-10-20",
+     "title": "THIRD QUARTER 2026 RESULTS",
+     "id": "1596567",
+     "kind": null
+    },
+    {
+     "date": "2026-10-20",
+     "title": "RESULTADOS DEL TERCER TRIMESTRE 2026",
+     "id": "1596564",
+     "kind": "results"
+    },
     {
      "date": "2026-09-30",
      "title": "Movimientos inusitados en la negociación de los valores representativos del capital social de KIMBER, serie A",
@@ -718,21 +747,25 @@
      "title": "RESULTADOS DEL CUARTO TRIMESTRE Y AÑO COMPLETO 2025",
      "id": "1526236",
      "kind": "results"
-    },
-    {
-     "date": "2025-12-19",
-     "title": "Movimientos inusitados en operaciones de valores representativos del capital social de KIMBER, serie A",
-     "id": "1517545",
-     "kind": null
-    },
-    {
-     "date": "2025-10-23",
-     "title": "THIRD QUARTER 2025 RESULTS",
-     "id": "1501099",
-     "kind": null
     }
    ],
    "filings": [
+    {
+     "accn": "bmv1596564",
+     "filed": "2026-10-20",
+     "kind": "results",
+     "title": "RESULTADOS DEL TERCER TRIMESTRE 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "RESULTADOS DEL TERCER TRIMESTRE 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596564_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/KIMBER/2026-10-20_bmv1596564.txt",
+       "chars": 7426
+      }
+     ]
+    },
     {
      "accn": "bmv1575820",
      "filed": "2026-07-21",
@@ -746,22 +779,6 @@
        "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575820_1.pdf",
        "file": "tools/mx-consumidor/raw/releases/KIMBER/2026-07-21_bmv1575820.txt",
        "chars": 7379
-      }
-     ]
-    },
-    {
-     "accn": "bmv1549956",
-     "filed": "2026-04-21",
-     "kind": "results",
-     "title": "RESULTADOS DEL PRIMER TRIMESTRE 2026",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/KIMBER-5524-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "RESULTADOS DEL PRIMER TRIMESTRE 2026",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1549956_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/KIMBER/2026-04-21_bmv1549956.txt",
-       "chars": 8148
       }
      ]
     }
@@ -1117,5 +1134,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-11T20:09:48.483Z"
+ "checkedAt": "2026-10-21T01:40:32.385Z"
 }
