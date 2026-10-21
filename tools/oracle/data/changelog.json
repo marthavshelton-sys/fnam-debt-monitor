@@ -4,97 +4,6 @@
   {
    "at": "2026-10-19T00:03:30.429Z",
    "file": "peers.js",
-   "path": "peers[4].evEbitdaNtm",
-   "old": 13.44109762635863,
-   "new": 13.44240799415062
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[4].fy1.eps",
-   "old": 12.311,
-   "new": 12.31
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[4].fy2.eps",
-   "old": 13.148,
-   "new": 13.147
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[4].epsGrowthFy2Pct",
-   "old": 6.798797823085034,
-   "new": 6.799350121852155
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[5].ntmEps",
-   "old": 12.614,
-   "new": 12.62
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[5].peNtm",
-   "old": 15.12684319010623,
-   "new": 15.119651347068148
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].ntmEps",
-   "old": 11.101,
-   "new": 11.095
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].ntmSales",
-   "old": 926563,
-   "new": 926722
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].peNtm",
-   "old": 22.52049364922079,
-   "new": 22.532672374943665
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].evSalesNtm",
-   "old": 3.0375419696232204,
-   "new": 3.037020810987545
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].fy1.eps",
-   "old": 12.794,
-   "new": 12.791
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[6].epsGrowthFy2Pct",
-   "old": -16.656245114897605,
-   "new": -16.63669767805488
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[7].ntmEps",
-   "old": 16.384,
-   "new": 16.37
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
    "path": "peers[7].peNtm",
    "old": 20.787963867187496,
    "new": 20.805742211362244
@@ -4200,7 +4109,98 @@
    "path": "basis.marketDate",
    "old": "2026-10-19",
    "new": "2026-10-20"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-21)"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2967,
+   "new": 2968
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2516,
+   "new": 2517
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.12,
+   "new": 5.13
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16185,
+   "new": 16186
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-21",
+   "new": "2025-10-22"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T23:35:29.546Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
   }
  ],
- "generated": "2026-10-21T18:09:03.979Z"
+ "generated": "2026-10-21T23:35:29.546Z"
 }
