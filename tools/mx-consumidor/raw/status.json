@@ -22,7 +22,7 @@
   },
   "fred": {
    "ok": "2026-10-17",
-   "failures": 1,
+   "failures": 2,
    "since": "2026-10-21",
    "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
   },
