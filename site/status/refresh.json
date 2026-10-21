@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-21T08:54:22Z",
+  "checkedAt": "2026-10-21T19:40:52Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,15 +25,16 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-20T23:11:48Z",
+      "status": "alert",
+      "refreshStatus": "alert",
+      "lastSuccess": "2026-10-21T18:58:39Z",
       "lastAttempt": {
-        "at": "2026-10-20T23:11:48Z",
-        "result": "success"
+        "at": "2026-10-21T18:58:39Z",
+        "result": "success",
+        "afterCommitFailure": true
       },
       "requiredSince": "2026-10-20T20:05:00Z",
-      "alerts": 0
+      "alerts": 2
     },
     {
       "id": "us-fiscal",
@@ -43,15 +44,16 @@
         "en": "U.S. Fiscal Debt"
       },
       "url": "/fiscal/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:03:45Z",
+      "status": "alert",
+      "refreshStatus": "alert",
+      "lastSuccess": "2026-10-21T18:09:36Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:03:45Z",
-        "result": "success"
+        "at": "2026-10-21T18:09:36Z",
+        "result": "success",
+        "afterCommitFailure": true
       },
-      "requiredSince": "2026-10-20T13:15:00Z",
-      "alerts": 0
+      "requiredSince": "2026-10-20T21:30:00Z",
+      "alerts": 1
     },
     {
       "id": "us-consumer",
@@ -63,12 +65,12 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:09:24Z",
+      "lastSuccess": "2026-10-21T18:37:09Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:09:24Z",
+        "at": "2026-10-21T18:37:09Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:10:00Z",
+      "requiredSince": "2026-10-20T21:40:00Z",
       "alerts": 0
     },
     {
@@ -81,12 +83,12 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:41:59Z",
+      "lastSuccess": "2026-10-21T17:23:19Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:41:59Z",
+        "at": "2026-10-21T17:23:19Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T19:25:00Z",
+      "requiredSince": "2026-10-20T22:25:00Z",
       "alerts": 0
     },
     {
@@ -118,12 +120,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T08:44:41Z",
+      "lastSuccess": "2026-10-21T19:21:02Z",
       "lastAttempt": {
-        "at": "2026-10-21T08:44:41Z",
+        "at": "2026-10-21T19:21:02Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T15:20:00Z",
+      "requiredSince": "2026-10-21T03:20:00Z",
       "alerts": 0
     },
     {
@@ -136,12 +138,12 @@
       "url": "/gap/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:50:43Z",
+      "lastSuccess": "2026-10-21T18:48:37Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:50:43Z",
+        "at": "2026-10-21T18:48:37Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:30:00Z",
+      "requiredSince": "2026-10-20T22:40:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -204,12 +206,12 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T01:03:48Z",
+      "lastSuccess": "2026-10-21T19:00:17Z",
       "lastAttempt": {
-        "at": "2026-10-21T01:03:48Z",
+        "at": "2026-10-21T19:00:17Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:45:00Z",
+      "requiredSince": "2026-10-20T22:55:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -272,12 +274,12 @@
       "url": "/asur/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T01:02:43Z",
+      "lastSuccess": "2026-10-21T18:54:41Z",
       "lastAttempt": {
-        "at": "2026-10-21T01:02:43Z",
+        "at": "2026-10-21T18:54:41Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:40:00Z",
+      "requiredSince": "2026-10-20T22:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -390,12 +392,12 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T01:10:24Z",
+      "lastSuccess": "2026-10-21T19:00:43Z",
       "lastAttempt": {
-        "at": "2026-10-21T01:10:24Z",
+        "at": "2026-10-21T19:00:43Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:50:00Z",
+      "requiredSince": "2026-10-20T23:00:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -446,12 +448,12 @@
       "url": "/gentera/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T01:02:51Z",
+      "lastSuccess": "2026-10-21T18:51:18Z",
       "lastAttempt": {
-        "at": "2026-10-21T01:02:51Z",
+        "at": "2026-10-21T18:51:18Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T14:35:00Z",
+      "requiredSince": "2026-10-20T22:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -513,12 +515,12 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:13:49Z",
+      "lastSuccess": "2026-10-21T18:14:37Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:13:49Z",
+        "at": "2026-10-21T18:14:37Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T20:35:00Z",
+      "requiredSince": "2026-10-20T21:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -571,12 +573,12 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T00:37:46Z",
+      "lastSuccess": "2026-10-21T18:06:18Z",
       "lastAttempt": {
-        "at": "2026-10-21T00:37:46Z",
+        "at": "2026-10-21T18:06:18Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-20T13:20:00Z",
+      "requiredSince": "2026-10-20T22:20:00Z",
       "alerts": 0
     }
   ]
