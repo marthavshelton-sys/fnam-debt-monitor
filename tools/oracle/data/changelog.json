@@ -4,27 +4,6 @@
   {
    "at": "2026-10-19T00:03:30.429Z",
    "file": "peers.js",
-   "path": "peers[4].ntmEps",
-   "old": 12.976,
-   "new": 12.977
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[4].ntmEbitda",
-   "old": 20517,
-   "new": 20515
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
-   "path": "peers[4].peNtm",
-   "old": 17.88995067817509,
-   "new": 17.88857208908068
-  },
-  {
-   "at": "2026-10-19T00:03:30.429Z",
-   "file": "peers.js",
    "path": "peers[4].evEbitdaNtm",
    "old": 13.44109762635863,
    "new": 13.44240799415062
@@ -4200,7 +4179,28 @@
    "path": "(more)",
    "old": null,
    "new": "945 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-21T18:09:03.979Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-20)",
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-21T18:09:03.979Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.sourceUrl",
+   "old": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
+   "new": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5y&interval=1d"
+  },
+  {
+   "at": "2026-10-21T18:09:03.979Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-19",
+   "new": "2026-10-20"
   }
  ],
- "generated": "2026-10-21T14:59:37.835Z"
+ "generated": "2026-10-21T18:09:03.979Z"
 }

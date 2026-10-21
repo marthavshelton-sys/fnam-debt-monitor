@@ -2,16 +2,16 @@
   "as_of": "2026-10-21",
   "price_snapshot": {
     "orcl": {
-      "close": 129.59,
-      "close_date": "2026-10-19",
-      "week52_high": 291.31,
-      "week52_high_date": "2025-10-17",
+      "close": 131.14,
+      "close_date": "2026-10-20",
+      "week52_high": 283.33,
+      "week52_high_date": "2025-10-24",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 391845.95,
-      "one_day_change_pct": 1.06,
-      "one_year_change_pct": -55.51,
+      "market_cap_millions": 396532.74,
+      "one_day_change_pct": 1.2,
+      "one_year_change_pct": -52.69,
       "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-21&todate=2026-10-21&limit=10000",
       "accessed": "2026-10-21",
       "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
@@ -22,8 +22,8 @@
       "close_date": "2026-10-20",
       "one_day_change_pct": 0.28,
       "one_year_change_pct": 14.51,
-      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-      "source_name": "FRED SP500 + Yahoo Finance (2026-10-20)",
+      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5y&interval=1d",
+      "source_name": "Yahoo Finance",
       "accessed": "2026-10-21"
     }
   },
@@ -574,7 +574,7 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-21"
   },
-  "refreshed_at": "2026-10-21T00:08:16.593Z",
+  "refreshed_at": "2026-10-21T18:08:55.937Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
