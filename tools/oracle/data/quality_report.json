@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-20T23:22:15.924Z",
+  "generated": "2026-10-21T00:08:16.701Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3807,8 +3807,8 @@
   "freshness": [
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
-      "lastDate": "2026-10-19",
-      "ageDays": 2,
+      "lastDate": "2026-10-20",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "nightly FactSet refresh, 7:58 PM ET; the page's price authority"
@@ -3879,8 +3879,8 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-19",
-      "ageDays": 2,
+      "lastDate": "2026-10-20",
+      "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
       "note": "nightly FactSet refresh, 7:58 PM ET"
@@ -3967,7 +3967,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-19; prices 2026-10-19; 8 peers; fetched 2026-10-19"
+      "detail": "consensus 2026-10-20; prices 2026-10-20; 8 peers; fetched 2026-10-20"
     },
     {
       "file": "peer_leverage.json",
@@ -4092,7 +4092,7 @@
       "label_es": "Hechos de referencia",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-20",
+      "lastRefresh": "2026-10-21",
       "nextExpected": "2026-12-10",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4136,8 +4136,8 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-19",
-      "lastRefresh": "2026-10-19",
+      "asOf": "2026-10-20",
+      "lastRefresh": "2026-10-20",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4226,8 +4226,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-20",
-      "lastRefresh": "2026-10-20",
+      "asOf": "2026-10-21",
+      "lastRefresh": "2026-10-21",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,

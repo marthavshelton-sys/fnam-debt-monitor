@@ -4,34 +4,6 @@
   {
    "at": "2026-10-18T14:59:53.817Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "DTE Energy",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[17]",
-   "old": "Michigan EGLE",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "Moody's",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-18T14:59:53.817Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[19]",
    "old": "S&P Global Ratings",
    "new": "Moody's"
@@ -4200,7 +4172,35 @@
    "path": "rates.US10Y.points.length",
    "old": 16184,
    "new": 16185
+  },
+  {
+   "at": "2026-10-21T00:08:16.937Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-20&todate=2026-10-20&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-21&todate=2026-10-21&limit=10000"
+  },
+  {
+   "at": "2026-10-21T00:08:16.937Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T00:08:16.937Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-21T00:08:16.937Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
   }
  ],
- "generated": "2026-10-20T23:22:16.278Z"
+ "generated": "2026-10-21T00:08:16.937Z"
 }
