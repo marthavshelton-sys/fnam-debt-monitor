@@ -1022,6 +1022,29 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0000927628-26-000142",
+     "filed": "2026-10-20",
+     "report": "2026-10-20",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000142/0000927628-26-000142-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000142/ex991q32026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-10-20_0000927628-26-000142_ex-99-1.txt",
+       "chars": 8721
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000142/ex992q32026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/COF/2026-10-20_0000927628-26-000142_ex-99-2.txt",
+       "chars": 68900
+      }
+     ]
+    },
+    {
      "accn": "0000927628-26-000083",
      "filed": "2026-07-21",
      "report": "2026-07-21",
@@ -1041,29 +1064,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000083/ex992q22026earningsrelease.htm",
        "file": "tools/consumidor/raw/releases/COF/2026-07-21_0000927628-26-000083_ex-99-2.txt",
        "chars": 69689
-      }
-     ]
-    },
-    {
-     "accn": "0000927628-26-000039",
-     "filed": "2026-04-21",
-     "report": "2026-04-21",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/0000927628-26-000039-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/ex991q12026earningsrelease.htm",
-       "file": "tools/consumidor/raw/releases/COF/2026-04-21_0000927628-26-000039_ex-99-1.txt",
-       "chars": 8361
-      },
-      {
-       "type": "EX-99.2",
-       "description": "EX-99.2",
-       "url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000039/ex992q12026earningsrelease.htm",
-       "file": "tools/consumidor/raw/releases/COF/2026-04-21_0000927628-26-000039_ex-99-2.txt",
-       "chars": 57372
       }
      ]
     }
@@ -2170,5 +2170,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-20T18:27:44.819Z"
+ "checkedAt": "2026-10-21T00:09:11.722Z"
 }
