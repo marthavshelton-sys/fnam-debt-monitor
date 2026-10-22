@@ -2,13 +2,37 @@
  "issuer": "GENTERA-7472-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": "2026-10-21T18:50:48.173Z",
- "rows": 210,
- "archived": 0,
+ "checkedAt": "2026-10-22T09:24:55.858Z",
+ "rows": 213,
+ "archived": 2,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1596950",
+   "date": "2026-10-21",
+   "title": "Gentera anuncia líneas de crédito obtenidas.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596950_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-10-21_bmv1596950_es.txt"
+  },
+  {
+   "id": "1596866",
+   "date": "2026-10-21",
+   "title": "GENTERA 3Q26 RESULTS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596866_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-10-21_bmv1596866_es.txt"
+  },
+  {
+   "id": "1596864",
+   "date": "2026-10-21",
+   "title": "GENTERA RESULTADOS 3T26",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596864_1.pdf",
+   "coveredBy": "release:2026Q3"
+  },
   {
    "id": "1592057",
    "date": "2026-09-29",

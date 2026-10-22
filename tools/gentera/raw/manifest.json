@@ -638,7 +638,19 @@
    "size": 730656,
    "text": "tools/gentera/raw/text/releases/2026Q2.txt",
    "url": "https://www.gentera.com.mx/wcm/connect/f5f750b4-7e9d-4206-a016-65f7d75de456/Gentera+2T26.pdf?MOD=AJPERES"
+  },
+  "release:2026Q3": {
+   "anchor": "Press release",
+   "chars": 59186,
+   "fetchedAt": "2026-10-22T09:24:51+00:00",
+   "kind": "release",
+   "pages": 18,
+   "quarter": "2026Q3",
+   "sha256": "151d78272deae25587f4667ff940c0a83f489b3d4a3fbe6620d16ecb0df08eaa",
+   "size": 876194,
+   "text": "tools/gentera/raw/text/releases/2026Q3.txt",
+   "url": "https://www.gentera.com.mx/wcm/connect/345663ab-8de4-4abe-aafc-82acd7bff9a7/Gentera+3T26.pdf?MOD=AJPERES"
   }
  },
- "updatedAt": "2026-10-21T18:50:44+00:00"
+ "updatedAt": "2026-10-22T09:24:52+00:00"
 }
