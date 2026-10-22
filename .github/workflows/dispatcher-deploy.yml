@@ -80,11 +80,24 @@ jobs:
         with:
           script: |
             const url = (process.env.URL || '').trim().replace(/\/+$/, '');
-            if (!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/.test(url)) { core.setFailed(`wrangler reported no workers.dev address (got "${url}"): set the repository variable FRED_PROXY_URL by hand (tools/dispatcher/README.md → FRED proxy)`); return; }
             const name = 'FRED_PROXY_URL';
-            try { await github.rest.actions.updateRepoVariable({ ...context.repo, name, value: url }); }
-            catch (e) { if (e.status === 404) await github.rest.actions.createRepoVariable({ ...context.repo, name, value: url }); else throw e; }
-            console.log(`${name} = ${url}`);
+            // Reports on the "Runner diagnostics" issue as well, since a session cannot read this log.
+            const report = async (text) => {
+              try {
+                const open = await github.rest.issues.listForRepo({ ...context.repo, labels: 'runner-diagnostics', state: 'open', per_page: 1 });
+                if (open.data[0]) await github.rest.issues.createComment({ ...context.repo, issue_number: open.data[0].number, body: `**${context.workflow}** · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC\n\n${text}` });
+              } catch (e) { console.log('could not post the report: ' + e.message); }
+            };
+            if (!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/.test(url)) { const m = `wrangler reported no workers.dev address (deployment-url = "${url}"): set the repository variable ${name} by hand (tools/dispatcher/README.md → FRED proxy)`; await report(m); core.setFailed(m); return; }
+            try {
+              try { await github.rest.actions.updateRepoVariable({ ...context.repo, name, value: url }); }
+              catch (e) { if (e.status === 404) await github.rest.actions.createRepoVariable({ ...context.repo, name, value: url }); else throw e; }
+              await report(`${name} = ${url} (written)`);
+              console.log(`${name} = ${url}`);
+            } catch (e) {
+              const m = `could not write the repository variable ${name} = ${url}: HTTP ${e.status || ''} ${e.message}. Set it by hand (Settings → Secrets and variables → Actions → Variables).`;
+              await report(m); core.setFailed(m);
+            }
 
       - name: What to look at
         run: echo "Deployed. Cloudflare dashboard → Workers & Pages → fnam-dispatcher → Logs shows one line every ten minutes; GitHub → Actions shows the runs it starts as '(by hand)' runs on main. The repository variable FRED_PROXY_URL now carries the Worker's address (tools/dispatcher/README.md → FRED proxy)."
