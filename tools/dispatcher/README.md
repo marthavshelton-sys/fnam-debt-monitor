@@ -15,9 +15,11 @@ its due time. The rule lives once, in `scripts/watchdog/dispatch-lib.mjs`, and r
 
 ## Deploy
 
-The workflow `.github/workflows/dispatcher-deploy.yml` deploys the Worker from GitHub's runner (by hand from the Actions
-page, and on every merge that touches `tools/dispatcher/` or the rule it bundles). It needs two repository secrets, created
-once by the owner (GitHub → Settings → Secrets and variables → Actions → New repository secret):
+Live since 22-Oct-2026 at `https://fnam-dispatcher.marthavshelton.workers.dev` (the first by-hand run of the workflow at
+11:39 UTC; the cron's hand runs show in Actions as "(by hand)" runs starting at :01, :11, :21… of the hour, and the FRED
+proxy self-check passed at 12:41 UTC). The workflow `.github/workflows/dispatcher-deploy.yml` deploys the Worker from GitHub's
+runner (by hand from the Actions page, and on every merge that touches `tools/dispatcher/` or the rule it bundles). It needs
+three repository secrets, created once by the owner and all set (GitHub → Settings → Secrets and variables → Actions):
 
 1. `CLOUDFLARE_API_TOKEN`: Cloudflare dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"
    template, account = the one that serves fnam.mx, zone resources not needed; copy the token once.
@@ -30,7 +32,8 @@ once by the owner (GitHub → Settings → Secrets and variables → Actions →
 3. `FRED_PROXY_KEY`: any long random string (for instance the output of `openssl rand -hex 32`). It is the key the FRED
    proxy route below requires; the same value is uploaded to the Worker as its `PROXY_KEY` secret on every deploy.
 
-Then run the workflow once (Actions → "Deploy the dispatcher Worker" → Run workflow). Its last step says where to look:
+After rotating a secret, run the workflow by hand (Actions → "Deploy the dispatcher Worker" → Run workflow); a merge that
+touches the Worker deploys it on its own. The last step says where to look:
 Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Logs shows one line every ten minutes ("no missed schedule"
 or the dispatches); GitHub → Actions shows the runs it starts as "(by hand)" runs on main, which the watchdog credits
 to the schedule they replaced (`tools/watchdog/README.md`, "Rules"). The Worker's own URL answers `GET /` with the same

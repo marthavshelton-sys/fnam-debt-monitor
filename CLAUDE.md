@@ -335,7 +335,9 @@ dashboards, everything built from public data by GitHub Actions.
   never to a later cron it started after (keep the line when adding a workflow); and the schedules GitHub has not started 40
   minutes after their due time are dispatched by hand on main, by the watchdog's last step (`scripts/watchdog/dispatch-missed.mjs`)
   and by the Cloudflare Worker in `tools/dispatcher/` every ten minutes, deployed by `dispatcher-deploy.yml` (by hand and on
-  merges touching the Worker) once the owner has created the two repository secrets its README names (17-Oct-2026). The pages treat a watchdog stamp older than 20 h as unverified (`STALE_HOURS`).
+  merges touching the Worker; live since 22-Oct-2026 at `https://fnam-dispatcher.marthavshelton.workers.dev` with the three
+  repository secrets its README names, all set by the owner; its `/fred` route is also the FRED proxy). The pages treat a watchdog
+  stamp older than 20 h as unverified (`STALE_HOURS`).
 - `data-watchdog.yml`, every 12 hours at 03:50 and 15:50 UTC (owner's choice, to limit deploys; `scripts/watchdog/`,
   runbook `tools/watchdog/README.md`), judges each dashboard's
   last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
@@ -439,9 +441,10 @@ dashboards, everything built from public data by GitHub Actions.
   monthly comunicados via web search of imss.gob.mx, each figure reconciled against IMSS's own printed
   monthly/YTD/12-month changes; derived months are labeled. Never fetch imss.gob.mx from a script or
   the runner or work around its WAF. Monthly update: Claude Routine "FNAM MX Macro: IMSS monthly update" (14th, 08:47 Mexico
-  City; prompt in `tools/mx-macro/imss-task-prompt.md`). The routine must carry the repository as a source on the Routines page:
-  on 14-Oct-2026 it read and reconciled September (22,927,276) but could not push (no repository attached, no token), so the
-  month was added in a session on 16-Oct and `health.mjs` had opened the MX macro alert at 76 days.
+  City; prompt in `tools/mx-macro/imss-task-prompt.md`). The routine carries the repository as a source on the Routines page
+  (attached by the owner, 22-Oct-2026): without it a routine can only report, as on 14-Oct-2026, when the run read and reconciled
+  September (22,927,276) but could not push, the month was added in a session on 16-Oct and `health.mjs` had opened the MX macro
+  alert at 76 days.
 - MX macro: an INPC subindex never runs ahead of the headline: the SIE posts the government-set tariffs subindex (SP74639)
   for a month before INEGI publishes that month's INPC (6-Oct-2026: a September point beside an August headline, so the
   component table printed 7.8% while the August-based figure is 7.7%); `renderInpc` cuts every component at the headline's
