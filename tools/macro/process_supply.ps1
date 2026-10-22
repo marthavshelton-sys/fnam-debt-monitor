@@ -63,7 +63,7 @@ Write-Output ("GSCPI: {0} months, {1} .. {2} = {3}" -f $gscpi.Count, $gscpi[0].d
 function Get-Fred($id, $from, $freq) {
   $u = "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$($keys.FRED_API_KEY)&file_type=json&observation_start=$from"
   if ($freq) { $u += "&frequency=$freq&aggregation_method=eop" }
-  $r = Invoke-RestMethod -Uri $u -TimeoutSec 60
+  $r = Invoke-FredJson $u
   $pts = New-Object System.Collections.ArrayList
   foreach ($o in $r.observations) { if ($o.value -ne ".") { [void]$pts.Add([ordered]@{ d = $o.date.Substring(0,7); v = [double]$o.value }) } }
   Start-Sleep -Milliseconds 150
@@ -76,7 +76,7 @@ foreach ($id in @("ISRATIO","RETAILIRSA","MNFCTRIRSA","WHLSLRIRSA","BUSINV","TOT
 }
 # Diesel is weekly (Monday); keep the full date and ship as a compact regular series.
 $u = "https://api.stlouisfed.org/fred/series/observations?series_id=GASDESW&api_key=$($keys.FRED_API_KEY)&file_type=json&observation_start=2015-01-01"
-$r = Invoke-RestMethod -Uri $u -TimeoutSec 60
+$r = Invoke-FredJson $u
 $dsl = @(); foreach ($o in $r.observations) { if ($o.value -ne ".") { $dsl += [ordered]@{ d = $o.date; v = [double]$o.value } } }
 $regular = $true; for ($i = 1; $i -lt $dsl.Count; $i++) { if (([datetime]$dsl[$i].d - [datetime]$dsl[$i-1].d).TotalDays -ne 7) { $regular = $false; break } }
 $diesel = if ($regular) { [ordered]@{ d0 = $dsl[0].d; step = 7; v = @($dsl | ForEach-Object { $_.v }) } } else { [ordered]@{ points = $dsl } }

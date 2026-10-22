@@ -40,11 +40,12 @@ $meta = [ordered]@{}
 foreach ($id in $series.Keys) {
   $u = "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&observation_start=2007-01-01&frequency=w&aggregation_method=eop"
   try {
-    $r = Invoke-RestMethod -Uri $u -TimeoutSec 60
+    $r = Invoke-FredJson $u
   } catch {
-    # Some series refuse weekly aggregation; fall back to native frequency.
+    # Some series refuse weekly aggregation; fall back to native frequency. (Invoke-FredJson throws on an HTML answer
+    # or a FRED error, so an outage lands in the outer catch below and the previous file is kept.)
     $u2 = "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&observation_start=2007-01-01"
-    $r = Invoke-RestMethod -Uri $u2 -TimeoutSec 60
+    $r = Invoke-FredJson $u2
   }
   # The composite stress indexes keep 2007 on so the 2008 episode stays in
   # frame as the yardstick; market series start 2012, which is plenty for the
@@ -81,7 +82,7 @@ foreach ($id in $series.Keys) {
   if ($id -match '^(BAML|DFF|DFEDTAR|DGS|T10Y|DTWEXBGS|VIXCLS|SP500)') {
     Start-Sleep -Milliseconds 400
     try {
-      $r2 = Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&sort_order=desc&limit=12" -TimeoutSec 60
+      $r2 = Invoke-FredJson "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&sort_order=desc&limit=12"
       $o2 = @($r2.observations | Where-Object { $_.value -ne "." -and $_.date -le $today }) | Select-Object -First 1
       if ($o2) { $v2 = [double]$o2.value; if ($id -eq "WALCL") { $v2 = $v2 / 1000 }; $latest = [ordered]@{ d = $o2.date; v = [math]::Round($v2, $dec) } }
     } catch { Write-Host ("  latest observation for {0} unavailable ({1})" -f $id, $_.Exception.Message.Split([char]10)[0]) }
@@ -94,5 +95,8 @@ foreach ($id in $series.Keys) {
   Start-Sleep -Milliseconds 800
 }
 
+# Nothing empty is ever written: a series without points means the source answered with something that was not data.
+$empty = @($out.Keys | Where-Object { $s = $out[$_]; -not (($s.Contains("v") -and $s.v.Count -gt 0) -or ($s.Contains("points") -and $s.points.Count -gt 0)) })
+if ($empty.Count) { throw ("empty series from FRED: {0}; keeping the previous file" -f ($empty -join ", ")) }
 $obj = [ordered]@{ series = $out; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
 Save-Json $obj "fincond_processed.json" 6

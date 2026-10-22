@@ -95,7 +95,8 @@ if (tr && tr.upper != null && tr.lower != null) {
   if (r.iorb && !(r.iorb.value >= tr.lower - 1e-6 && r.iorb.value <= tr.upper + 1e-6)) problems.push(`IORB ${r.iorb.value}% (${r.iorb.date}) lies outside the target range ${range}`);
   if (r.effr && !(r.effr.value >= tr.lower - 1e-6 && r.effr.value <= tr.upper + 1e-6)) problems.push(`Effective funds rate ${r.effr.value}% (${r.effr.date}) lies outside the target range ${range}`);
   const fw = MD.fedWatch || {};
-  if (fw.asOf && tr.since) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(tr.since || ''))) problems.push(`Target range "since" is not a date: ${JSON.stringify(tr.since).slice(0, 80)}`);
+  else if (fw.asOf) {
     // The range takes effect the day after the decision, so a snapshot dated the decision day is current.
     const decision = new Date(Date.parse(tr.since + 'T00:00:00Z') - 86400000).toISOString().slice(0, 10);
     if (fw.asOf < decision) problems.push(`FedWatch snapshot ${fw.asOf} predates the FOMC decision of ${decision} that set the ${range} range (in force since ${tr.since})`);

@@ -74,9 +74,9 @@ try {
   $fredKey = Get-ApiKey "FRED_API_KEY"
   $obsStart = (Get-Date).AddMonths(-30).ToString("yyyy-MM-01")
   $rtStart  = (Get-Date).AddMonths(-27).ToString("yyyy-MM-dd")
-  $vd = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/vintagedates?series_id=PAYEMS&api_key=$fredKey&file_type=json&realtime_start=$rtStart&realtime_end=9999-12-31" -TimeoutSec 60 }
+  $vd = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/series/vintagedates?series_id=PAYEMS&api_key=$fredKey&file_type=json&realtime_start=$rtStart&realtime_end=9999-12-31" }
   $vintDates = @($vd.vintage_dates | Sort-Object -Unique)
-  $ob = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=PAYEMS&api_key=$fredKey&file_type=json&observation_start=$obsStart&realtime_start=$rtStart&realtime_end=9999-12-31" -TimeoutSec 120 }
+  $ob = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/series/observations?series_id=PAYEMS&api_key=$fredKey&file_type=json&observation_start=$obsStart&realtime_start=$rtStart&realtime_end=9999-12-31" }
   $obsRows = @($ob.observations | Where-Object { $_.value -ne "." })
   if ($vintDates.Count -lt 2 -or $obsRows.Count -lt 24) { throw "ALFRED returned $($vintDates.Count) vintages and $($obsRows.Count) rows" }
   $pv = ConvertTo-PayrollVintages $vintDates $obsRows 24

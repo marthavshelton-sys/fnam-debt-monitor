@@ -34,6 +34,7 @@ import { csvObjects } from './lib/csv.mjs';
 import { BANXICO, CARD_GIROS, INEGI } from './lib/series.mjs';
 import { aggregate } from './lib/enigh.mjs';
 import { aggregateEnif } from './lib/enif.mjs';
+import { fredJson } from '../lib/fred.mjs';
 
 const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
@@ -236,9 +237,9 @@ async function fetchFred() {
   const series = {};
   for (const k of Object.keys(FRED_SERIES)) {
     const spec = FRED_SERIES[k];
-    const meta = (await getJson(`https://api.stlouisfed.org/fred/series?series_id=${spec.id}&api_key=${key}&file_type=json`, { ua: BOT_UA })).seriess[0];
+    const meta = (await fredJson(`https://api.stlouisfed.org/fred/series?series_id=${spec.id}&api_key=${key}&file_type=json`)).seriess[0]; // shared reader (scripts/lib/fred.mjs)
     if (!spec.title.test(meta.title) || !spec.units.test(meta.units)) throw new Error(`FRED ${spec.id}: title "${meta.title}" (${meta.units}) does not match`);
-    const obs = (await getJson(`https://api.stlouisfed.org/fred/series/observations?series_id=${spec.id}&api_key=${key}&file_type=json&observation_start=2000-01-01`, { ua: BOT_UA })).observations
+    const obs = (await fredJson(`https://api.stlouisfed.org/fred/series/observations?series_id=${spec.id}&api_key=${key}&file_type=json&observation_start=2000-01-01`)).observations
       .filter((o) => o.value !== '.').map((o) => [period(o.date, 'Q'), Number(o.value)]);
     series[k] = { id: spec.id, title: meta.title, units: meta.units, updated: meta.last_updated, url: `https://fred.stlouisfed.org/series/${spec.id}`, obs };
     await sleep(300);

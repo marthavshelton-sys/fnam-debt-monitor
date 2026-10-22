@@ -18,6 +18,7 @@
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { fredJson, fredText } from '../lib/fred.mjs';
 const require = createRequire(import.meta.url);
 
 const ROOT = new URL('../../', import.meta.url);
@@ -83,14 +84,15 @@ async function banxico(cand, spec) {
 async function fred(cand, spec) {
   const key = process.env.FRED_API_KEY;
   if (key) {
-    const meta = await (await http(`https://api.stlouisfed.org/fred/series?series_id=${cand.id}&api_key=${key}&file_type=json`)).json();
+    // shared reader (scripts/lib/fred.mjs): an HTML answer or a FRED error is refused, never parsed as data
+    const meta = await fredJson(`https://api.stlouisfed.org/fred/series?series_id=${cand.id}&api_key=${key}&file_type=json`);
     const title = meta?.seriess?.[0]?.title || '';
-    const obs = await (await http(`https://api.stlouisfed.org/fred/series/observations?series_id=${cand.id}&api_key=${key}&file_type=json&observation_start=${spec.since}`)).json();
+    const obs = await fredJson(`https://api.stlouisfed.org/fred/series/observations?series_id=${cand.id}&api_key=${key}&file_type=json&observation_start=${spec.since}`);
     const points = (obs.observations || []).filter((o) => o.value !== '.' && Number.isFinite(Number(o.value)))
       .map((o) => [normDate(o.date, spec.freq), r4(Number(o.value))]);
     return { title, points, url: `https://fred.stlouisfed.org/series/${cand.id}` };
   }
-  const csv = await (await http(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${cand.id}`)).text();
+  const csv = await fredText(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${cand.id}`);
   const rows = csv.trim().split('\n').slice(1).map((l) => l.split(','));
   const points = rows.filter((r) => r[0] >= spec.since && r[1] && r[1] !== '.' && Number.isFinite(Number(r[1])))
     .map((r) => [normDate(r[0], spec.freq), r4(Number(r[1]))]);

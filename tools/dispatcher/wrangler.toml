@@ -5,7 +5,7 @@ name = "fnam-dispatcher"
 account_id = "ec65d18ab23f355cb013ece4e9b26e6c"   # the Cloudflare account that serves fnam.mx (the id in the Pages project's dashboard URL; not a secret)
 main = "worker.mjs"
 compatibility_date = "2026-10-01"
-workers_dev = false
+workers_dev = true   # the FRED proxy and the GET / report need a URL: https://fnam-dispatcher.<account subdomain>.workers.dev (README → "FRED proxy")
 
 [triggers]
 crons = ["*/10 * * * *"]

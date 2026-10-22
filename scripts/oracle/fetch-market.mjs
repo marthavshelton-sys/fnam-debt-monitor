@@ -19,6 +19,7 @@ import { dirname, join } from "node:path";
 
 import { ROOT, DATA, RAW } from "./paths.mjs";
 import { completedSessions, localNow } from "../lib/completed-sessions.mjs";
+import { fredText } from "../lib/fred.mjs";
 const today = new Date().toISOString().slice(0, 10);
 const UA = "oracle-board-model/1.0 (public market data refresh)";
 
@@ -62,7 +63,7 @@ async function stooq(symbol) {
 }
 async function fred(series, from) {
   const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${series}${from ? `&cosd=${from}` : ""}`;
-  const text = await (await get(url)).text();
+  const text = await fredText(url); // shared reader: refuses an HTML answer, retries through the proxy (scripts/lib/fred.mjs)
   const lines = text.trim().split(/\r?\n/);
   const rows = lines.slice(1).map((l) => { const [date, v] = l.split(","); return { date, close: num(v) }; }).filter((r) => r.close != null && /^\d{4}-\d{2}-\d{2}$/.test(r.date));
   if (rows.length < 50) throw new Error("too few rows");

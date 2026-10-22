@@ -47,6 +47,13 @@ permissions:
   contents: write
   issues: write
 
+# FRED through the Cloudflare Worker when a direct call answers HTML or is refused (shared readers scripts/lib/fred.mjs and
+# tools/macro/common.ps1; tools/dispatcher/README.md → "FRED proxy"). Both empty until the owner sets the repository variable
+# FRED_PROXY_URL and the secret FRED_PROXY_KEY; the readers then simply report the direct refusal.
+env:
+  FRED_PROXY_URL: ${{ vars.FRED_PROXY_URL }}
+  FRED_PROXY_KEY: ${{ secrets.FRED_PROXY_KEY }}
+
 jobs:
   refresh:
     runs-on: windows-latest

@@ -38,6 +38,7 @@ import { STATES, BY_FIPS } from './lib/states.mjs';
 import { parseDfa, parseScf, parseHhdcSheet } from './lib/parsers.mjs';
 import { openXlsx } from './lib/xlsx-read.mjs';
 import { openXls } from './lib/xls-read.mjs';
+import { fredJson } from '../lib/fred.mjs';
 
 const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
@@ -870,7 +871,7 @@ async function fetchFred(prev) {
   const key = secret('FRED_API_KEY');
   if (!key) throw new Error('FRED_API_KEY is not set');
   const q = `api_key=${key}&file_type=json`;
-  const call = async (path) => { const j = await getJson(`${FRED}/${path}${path.includes('?') ? '&' : '?'}${q}`, { ua: BOT_UA }); await sleep(520); return j; };
+  const call = async (path) => { const j = await fredJson(`${FRED}/${path}${path.includes('?') ? '&' : '?'}${q}`); await sleep(520); return j; }; // shared reader (scripts/lib/fred.mjs)
   const meta = async (id) => { const j = await call(`series?series_id=${id}`); const s = (j.seriess || [])[0]; if (!s) throw new Error(`FRED: series ${id} not found`); return s; };
   const obs = async (id, start, freq) => {
     const j = await call(`series/observations?series_id=${id}&observation_start=${start}${freq ? `&frequency=${freq}&aggregation_method=avg` : ''}`);
