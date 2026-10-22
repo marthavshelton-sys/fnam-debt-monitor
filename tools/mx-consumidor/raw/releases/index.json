@@ -1098,6 +1098,23 @@
    "secName": "FirstCash Holdings, Inc.",
    "filings": [
     {
+     "accn": "0000840489-26-000097",
+     "filed": "2026-10-22",
+     "report": "2026-10-22",
+     "kind": "results",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000097/0000840489-26-000097-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000097/fcfs10222026exhibit991.htm",
+       "file": "tools/mx-consumidor/raw/releases/FCFS/2026-10-22_0000840489-26-000097_ex-99.txt",
+       "chars": 65672
+      }
+     ]
+    },
+    {
      "accn": "0000840489-26-000082",
      "filed": "2026-07-23",
      "report": "2026-07-23",
@@ -1113,27 +1130,10 @@
        "chars": 65940
       }
      ]
-    },
-    {
-     "accn": "0000840489-26-000047",
-     "filed": "2026-04-23",
-     "report": "2026-04-23",
-     "kind": "results",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/0000840489-26-000047-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/840489/000084048926000047/fcfs04232026exhibit991.htm",
-       "file": "tools/mx-consumidor/raw/releases/FCFS/2026-04-23_0000840489-26-000047_ex-99-1.txt",
-       "chars": 55695
-      }
-     ]
     }
    ]
   }
  },
  "errors": [],
- "checkedAt": "2026-10-22T13:03:07.246Z"
+ "checkedAt": "2026-10-22T17:17:28.114Z"
 }
