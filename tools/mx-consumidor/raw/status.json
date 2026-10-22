@@ -21,10 +21,8 @@
    "failures": 0
   },
   "fred": {
-   "ok": "2026-10-17",
-   "failures": 3,
-   "since": "2026-10-21",
-   "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
+   "ok": "2026-10-22",
+   "failures": 0
   },
   "enif": {
    "ok": "2026-10-22",
