@@ -22,8 +22,9 @@ once by the owner (GitHub → Settings → Secrets and variables → Actions →
 1. `CLOUDFLARE_API_TOKEN`: Cloudflare dashboard → My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"
    template, account = the one that serves fnam.mx, zone resources not needed; copy the token once.
 2. `DISPATCHER_GITHUB_TOKEN`: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens →
-   Generate: repository access `marthavshelton-sys/fnam-debt-monitor` only; permissions **Actions: Read and write** and
-   **Metadata: Read** (the minimum that lists runs and dispatches workflows); expiry one year, and note the date. The
+   Generate: repository access `marthavshelton-sys/fnam-debt-monitor` only; permissions **Actions: Read and write**,
+   **Variables: Read and write** (so the deploy can record the Worker's address as `FRED_PROXY_URL`; without it the deploy
+   reports and the variable is set by hand) and **Metadata: Read**; expiry one year, and note the date. The
    workflow uploads it to the Worker as its `GITHUB_TOKEN` secret on every deploy.
 
 3. `FRED_PROXY_KEY`: any long random string (for instance the output of `openssl rand -hex 32`). It is the key the FRED

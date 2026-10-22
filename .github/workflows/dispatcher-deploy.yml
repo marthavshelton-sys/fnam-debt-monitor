@@ -76,20 +76,26 @@ jobs:
       # the address wrangler reports, so a deploy always leaves it right and nobody has to copy it by hand (22-Oct-2026).
       # GitHub's own job token cannot write repository variables (HTTP 403 "Resource not accessible by integration", 22-Oct-2026);
       # the fine-grained DISPATCHER_GITHUB_TOKEN (Actions: read and write on this repository) can, so the step uses it.
+      # Writing the variable needs the fine-grained token's "Variables: Read and write" permission (its "Actions" permission
+      # does not cover variables: HTTP 403 on 22-Oct-2026). Until the owner adds it, this step reports and the variable is set
+      # by hand; the deploy itself stays green either way (continue-on-error).
       - name: Record the Worker's address as the repository variable FRED_PROXY_URL
+        continue-on-error: true
         uses: actions/github-script@v7
         env:
           URL: ${{ steps.deploy.outputs.deployment-url }}
+          JOB_TOKEN: ${{ github.token }}
         with:
           github-token: ${{ secrets.DISPATCHER_GITHUB_TOKEN }}
           script: |
             const url = (process.env.URL || '').trim().replace(/\/+$/, '');
             const name = 'FRED_PROXY_URL';
             // Reports on the "Runner diagnostics" issue as well, since a session cannot read this log.
+            const jobApi = require('@actions/github').getOctokit(process.env.JOB_TOKEN);   // the job token may comment; the fine-grained one may not
             const report = async (text) => {
               try {
-                const open = await github.rest.issues.listForRepo({ ...context.repo, labels: 'runner-diagnostics', state: 'open', per_page: 1 });
-                if (open.data[0]) await github.rest.issues.createComment({ ...context.repo, issue_number: open.data[0].number, body: `**${context.workflow}** · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC\n\n${text}` });
+                const open = await jobApi.rest.issues.listForRepo({ ...context.repo, labels: 'runner-diagnostics', state: 'open', per_page: 1 });
+                if (open.data[0]) await jobApi.rest.issues.createComment({ ...context.repo, issue_number: open.data[0].number, body: `**${context.workflow}** · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC\n\n${text}` });
               } catch (e) { console.log('could not post the report: ' + e.message); }
             };
             if (!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/.test(url)) { const m = `wrangler reported no workers.dev address (deployment-url = "${url}"): set the repository variable ${name} by hand (tools/dispatcher/README.md → FRED proxy)`; await report(m); core.setFailed(m); return; }
@@ -99,7 +105,7 @@ jobs:
               await report(`${name} = ${url} (written)`);
               console.log(`${name} = ${url}`);
             } catch (e) {
-              const m = `could not write the repository variable ${name} = ${url}: HTTP ${e.status || ''} ${e.message}. Set it by hand (Settings → Secrets and variables → Actions → Variables).`;
+              const m = `could not write the repository variable ${name} = ${url}: HTTP ${e.status || ''} ${e.message}. Either give DISPATCHER_GITHUB_TOKEN the repository permission "Variables: Read and write" and run this workflow again, or set the variable by hand (Settings → Secrets and variables → Actions → Variables).`;
               await report(m); core.setFailed(m);
             }
 
