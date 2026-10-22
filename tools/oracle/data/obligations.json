@@ -597,6 +597,20 @@
      "title": "Yahoo Finance, Oct 8, 2026 (reporting The Wall Street Journal): Oracle stock falls on more debt to fund AI chip buying, OpenAI revenue disclosure",
      "url": "https://finance.yahoo.com/technology/article/oracle-stock-falls-on-more-debt-to-fund-ai-chip-buying-open-ai-revenue-disclosure-180858662.html"
     }
+   },
+   {
+    "id": "2026-10-20-nvidia-credit-support",
+    "date": "2026-10-20",
+    "status": "reported_unconfirmed",
+    "basis": "press",
+    "en": "TD Cowen analyst Michael Elias wrote on Oct 20, 2026 (reported by 24/7 Wall St. and Newsquawk) that channel checks suggest Nvidia may be giving Oracle credit support on data-center leases, either by standing behind Oracle's lease payments or by leasing the buildings itself and subleasing them to Oracle; neither company has confirmed it and no size was given.",
+    "es": "Michael Elias, analista de TD Cowen, escribió el 20 oct 2026 (según 24/7 Wall St. y Newsquawk) que sus sondeos sugieren que Nvidia podría dar a Oracle respaldo crediticio en arrendamientos de centros de datos, ya sea garantizando los pagos de arrendamiento de Oracle o arrendando los edificios y subarrendándolos a Oracle; ninguna de las dos empresas lo ha confirmado y no se dio monto.",
+    "accounting_en": "Oracle would remain the lessee either way: a guarantee by Nvidia supports the landlord, not Oracle's balance sheet, and under a sublease Oracle would recognize its lease with Nvidia as lessor under ASC 842 at commencement; the lease-adjusted view would not change, but Nvidia would carry a guarantee or head-lease obligation tied to Oracle's credit.",
+    "accounting_es": "Oracle seguiría siendo el arrendatario en ambos casos: una garantía de Nvidia respalda al arrendador, no al balance de Oracle, y en un subarrendamiento Oracle reconocería su arrendamiento con Nvidia como arrendador bajo ASC 842 al inicio; la vista ajustada por arrendamientos no cambiaría, pero Nvidia cargaría una garantía o un arrendamiento principal ligado al crédito de Oracle.",
+    "source": {
+     "title": "24/7 Wall St. (via Yahoo Finance), Oct 21, 2026: TD Cowen Thinks Nvidia Is Helping Oracle Get Its Data Centers Financed",
+     "url": "https://finance.yahoo.com/markets/stocks/articles/td-cowen-thinks-nvidia-helping-124554129.html"
+    }
    }
   ]
  },
