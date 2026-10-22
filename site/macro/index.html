@@ -11612,7 +11612,6 @@ function markSectionFailed(view, name, e) {
   if (head && head.parentNode === host) head.insertAdjacentElement("afterend", box); else host.prepend(box);
 }
 
-
 function labelCharts() {
   const text = el => el ? String(el.textContent).replace(/\s+/g, " ").trim() : "";
   document.querySelectorAll("svg").forEach(svg => {
