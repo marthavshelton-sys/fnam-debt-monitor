@@ -42,7 +42,7 @@
    "failures": 0
   },
   "umich": {
-   "failures": 1,
+   "failures": 2,
    "error": "Michigan survey: table 2 is not the sentiment index by income tercile (starts \"20 October 2026 - Surveys of Consumers Data Site temporarily offline for maintenance. Service will be restored by 22 Oct\")",
    "since": "2026-10-21"
   },
