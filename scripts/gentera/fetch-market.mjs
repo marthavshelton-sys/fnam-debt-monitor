@@ -25,6 +25,7 @@ import { existsSync } from 'node:fs';
 import { fetchUsdMxn } from '../lib/banxico-fx.mjs';
 import { completedSessions } from '../lib/completed-sessions.mjs';
 import { loadFactSetPrices, overlayFactSet, pricesFileFor } from '../lib/factset-prices.mjs';
+import { fredText } from '../lib/fred.mjs';
 
 const OUT = new URL('../../site/gentera/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -84,7 +85,7 @@ async function stooq(sym, since) {
 }
 
 async function fred(id, since) {
-  const csv = await getText(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}`);
+  const csv = await fredText(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}`); // shared reader: refuses an HTML answer (scripts/lib/fred.mjs)
   const rows = csv.trim().split('\n').slice(1).map((l) => l.split(','));
   const points = rows.filter((r) => r[0] >= since && r[1] && r[1] !== '.' && Number.isFinite(Number(r[1]))).map((r) => [r[0], r4(Number(r[1]))]);
   if (!points.length) throw new Error(`FRED ${id}: no points`);

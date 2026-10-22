@@ -1,0 +1,849 @@
+{
+ "_readme": [
+  "Observed publication lags, written by scripts/mx-fiscal/fetch.mjs on every refresh (scripts/mx-fiscal/lags.mjs explains the rule).",
+  "seen[period] = the first refresh date on which that period was the latest point of the series; baseline = the period the series was first recorded with (never counted). Do not edit by hand;",
+  "delete a series entry to make it relearn. The typed allowances in freshness.json remain the floor."
+ ],
+ "series": {
+  "tasaObjetivo": {
+   "seen": {
+    "2026-10-21": "2026-10-22"
+   },
+   "baseline": "2026-10-21",
+   "freq": "D"
+  },
+  "fix": {
+   "seen": {
+    "2026-10-21": "2026-10-22"
+   },
+   "baseline": "2026-10-21",
+   "freq": "D"
+  },
+  "reservas": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "tiie28": {
+   "seen": {
+    "2026-10-21": "2026-10-22"
+   },
+   "baseline": "2026-10-21",
+   "freq": "D"
+  },
+  "cetes28": {
+   "seen": {
+    "2026-10-15": "2026-10-22"
+   },
+   "baseline": "2026-10-15",
+   "freq": "W"
+  },
+  "cetes91": {
+   "seen": {
+    "2026-10-15": "2026-10-22"
+   },
+   "baseline": "2026-10-15",
+   "freq": "W"
+  },
+  "cetes182": {
+   "seen": {
+    "2026-10-15": "2026-10-22"
+   },
+   "baseline": "2026-10-15",
+   "freq": "W"
+  },
+  "cetes364": {
+   "seen": {
+    "2026-10-15": "2026-10-22"
+   },
+   "baseline": "2026-10-15",
+   "freq": "W"
+  },
+  "udi": {
+   "seen": {
+    "2026-10-21": "2026-10-22"
+   },
+   "baseline": "2026-10-21",
+   "freq": "D"
+  },
+  "inpc": {
+   "seen": {
+    "2026-09": "2026-10-22"
+   },
+   "baseline": "2026-09",
+   "freq": "M"
+  },
+  "inpcAnual": {
+   "seen": {
+    "2026-09": "2026-10-22"
+   },
+   "baseline": "2026-09",
+   "freq": "M"
+  },
+  "inflExp12m": {
+   "seen": {
+    "2026-09": "2026-10-22"
+   },
+   "baseline": "2026-09",
+   "freq": "M"
+  },
+  "inflExp12mMean": {
+   "seen": {
+    "2026-09": "2026-10-22"
+   },
+   "baseline": "2026-09",
+   "freq": "M"
+  },
+  "bmBaseMonetaria": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmReservaMXN": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmValoresGub": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmCreditoGF": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmDepositosGF": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmDepRegMonetaria": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmPasivosRegMon": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmBrems": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmFMP": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmFondoPensiones": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmFMI": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmOtrosPasivosCap": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmDepBancariosCC": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "bmBilletes": {
+   "seen": {
+    "2026-10-16": "2026-10-22"
+   },
+   "baseline": "2026-10-16",
+   "freq": "W"
+  },
+  "vgTotal": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgResidentes": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgExtranjero": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgSiefores": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgSocInversion": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBancos": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgAseguradoras": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgOtrosRes": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgReportosBanxico": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgGarantiasBanxico": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBanxico": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgCetes": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBonos": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgUdibonos": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBondesF": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBondesD": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBondesG": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgCetesExt": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBonosExt": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgUdibonosExt": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgBondesFExt": {
+   "seen": {
+    "2026-10-12": "2026-10-22"
+   },
+   "baseline": "2026-10-12",
+   "freq": "D"
+  },
+  "vgPlazoPromedio": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaNetaSPEA": {
+   "seen": {
+    "2026-07": "2026-10-22"
+   },
+   "baseline": "2026-07",
+   "freq": "M"
+  },
+  "deudaNetaSPEAInterna": {
+   "seen": {
+    "2026-07": "2026-10-22"
+   },
+   "baseline": "2026-07",
+   "freq": "M"
+  },
+  "deudaNetaSPEAExterna": {
+   "seen": {
+    "2026-07": "2026-10-22"
+   },
+   "baseline": "2026-07",
+   "freq": "M"
+  },
+  "spIngresos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spIngPetroleros": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spIngNoPetroleros": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spIngTributarios": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spIngNoTributarios": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spIngOrganismos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfISR": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfIVA": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfIEPS": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfIEPSGasolinas": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfImportacion": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spGasto": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spGastoProgramable": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spGastoNoProgramable": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spCostoFinanciero": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spCostoFinancieroInterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spCostoFinancieroExterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spAdefas": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "gfParticipaciones": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spPensiones": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spGastoCorriente": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spServiciosPersonales": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spSubsidios": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spGastoCapital": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spInversionFisica": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spBalancePublico": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spBalancePrimario": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "spBalancePresupuestario": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexIngresos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexGasto": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexBalance": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexInversion": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexInteresesInternos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexInteresesExternos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexTransferencias": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pemexDerechos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaNetaConsolidada": {
+   "seen": {
+    "2026-07": "2026-10-22"
+   },
+   "baseline": "2026-07",
+   "freq": "M"
+  },
+  "shrfsp": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspInterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspExterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspGFInterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspGFExterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspOyEInterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspOyEExterno": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspIPAB": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspBancaDesarrollo": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "shrfspPidiregas": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "rfsp": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "rfspPrimario": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "rfspBalancePublico": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "rfspIPAB": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "rfspPidiregas": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaInternaNetaSP": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaInternaBrutaSP": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaInternaSPLargoPlazo": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaInternaSPCortoPlazo": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaExternaNetaSP": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaExternaBrutaSP": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaBrutaSPF": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaNetaSPF": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFInternaBruta": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFCetes": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFBondesD": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFBondesF": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFBondesG": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFUdibonos": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "deudaGFExternaBruta": {
+   "seen": {
+    "2026-08": "2026-10-22"
+   },
+   "baseline": "2026-08",
+   "freq": "M"
+  },
+  "pibNominal": {
+   "seen": {
+    "2026-Q2": "2026-10-22"
+   },
+   "baseline": "2026-Q2",
+   "freq": "Q"
+  }
+ }
+}

@@ -63,13 +63,13 @@ foreach ($k in $releases.Keys) {
   $id = $releases[$k]
   $base = "https://api.stlouisfed.org/fred/release/dates?release_id=$id&api_key=$key&file_type=json"
   try {
-    $rel = Invoke-Retry { Invoke-RestMethod "https://api.stlouisfed.org/fred/release?release_id=$id&api_key=$key&file_type=json" -TimeoutSec 60 }
+    $rel = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/release?release_id=$id&api_key=$key&file_type=json" }
     $name = [string]$rel.releases[0].name
     if ($name -notmatch $releaseNames[$k]) { Write-Host "::warning::FRED release $id is named '$name', not /$($releaseNames[$k])/; $k left out of the calendar"; continue }
   } catch { Write-Host "::warning::could not read the name of FRED release $id for $k ($($_.Exception.Message.Split([char]10)[0])); $k left out of the calendar"; continue }
   Start-Sleep -Milliseconds 150
-  $past = Invoke-Retry { Invoke-RestMethod "$base&realtime_start=$since&sort_order=desc&limit=6" -TimeoutSec 60 }
-  $future = Invoke-Retry { Invoke-RestMethod "$base&include_release_dates_with_no_data=true&realtime_start=$today&realtime_end=$horizon&sort_order=asc&limit=12" -TimeoutSec 60 }
+  $past = Invoke-Retry { Invoke-FredJson "$base&realtime_start=$since&sort_order=desc&limit=6" }
+  $future = Invoke-Retry { Invoke-FredJson "$base&include_release_dates_with_no_data=true&realtime_start=$today&realtime_end=$horizon&sort_order=asc&limit=12" }
   $recent = @($past.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -le $today } | Sort-Object -Unique -Descending)
   $last = $(if ($recent.Count) { $recent[0] } else { $null })
   $upcoming = @($future.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -gt $today -or ($weeklyKeys -contains $k -and $_ -eq $today -and $recent -notcontains $today) } | Sort-Object -Unique)

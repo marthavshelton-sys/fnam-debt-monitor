@@ -328,6 +328,7 @@
     color: var(--text-muted);
   }
   .kpi-spark { width: 100%; height: 32px; margin-top: 2px; }
+  .section-failed { margin: 12px 0 18px; padding: 10px 14px; border: 1px solid var(--st-late, #b42318); border-left-width: 4px; border-radius: 6px; color: var(--st-late, #b42318); background: color-mix(in srgb, var(--st-late, #b42318) 8%, transparent); font-size: 14px; line-height: 1.4; }
   .kpi-foot {
     font-size: 10.5px;
     color: var(--text-muted);
@@ -3438,6 +3439,7 @@ const LIVE_DATA = /*__LIVE_DATA__*/ false;
 const I18N = {
   es: {
     htmlLang: "es-MX",
+    sectionFailed: "Esta sección no se pudo mostrar con los datos de la última actualización; el resto de la página sigue al día. El problema queda registrado para su revisión.",
     dateLocale: "es-MX",
     months: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
     wdays: ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],
@@ -5030,6 +5032,7 @@ const I18N = {
 
   en: {
     htmlLang: "en",
+    sectionFailed: "This section could not be shown with the data of the latest refresh; the rest of the page is current. The problem is logged for review.",
     dateLocale: "en-US",
     months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
     wdays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
@@ -12219,33 +12222,45 @@ function renderConfidence() {
 }
 
 // Called last so every const above is initialized before any of them run.
-renderUnemployment();
-renderPayrolls();
-renderCuts();
-renderGDP();
-renderIncome();
-renderConfidence();
-renderPPI();
-renderRetail();
-renderFinCond();
-renderSupply();
-renderFiscal();
-renderSpr();
-renderCape();
-renderProductivity();
-renderProfits();
-renderDebt();
-renderHhDebt();
-renderBanks();
-renderNonbank();
-renderTrade();
-renderIip();
-renderExecSummaries();
-renderFileDateLines();
-labelCharts();
-titleCaseHeadings();
+// Each section renders on its own (22-Oct-2026): a renderer that throws marks its view with a notice and the page goes on
+// to the next one, and the accessibility pass runs whatever happened. Before, renderFinCond threw on an empty data
+// file and every section after it, the chart labels and the Title Case stayed unrendered.
+const SECTION_RENDERERS = [
+  ["unemployment", renderUnemployment], ["payrolls", renderPayrolls], ["cuts", renderCuts], ["gdp", renderGDP],
+  ["income", renderIncome], ["confidence", renderConfidence], ["ppi", renderPPI], ["retail", renderRetail],
+  ["fincond", renderFinCond], ["supply", renderSupply], ["fiscal", renderFiscal], ["spr", renderSpr], ["cape", renderCape],
+  ["productivity", renderProductivity], ["profits", renderProfits], ["debt", renderDebt], ["hhdebt", renderHhDebt],
+  ["banks", renderBanks], ["nonbank", renderNonbank], ["trade", renderTrade], ["iip", renderIip],
+  [null, renderExecSummaries], [null, renderFileDateLines]
+];
+window.FNAM_RENDER_ERRORS = [];
+try {
+  for (const [view, fn] of SECTION_RENDERERS) {
+    try { fn(); } catch (e) { markSectionFailed(view, fn.name, e); }
+  }
+} finally {
+  labelCharts();
+  titleCaseHeadings();
+}
 
 } // end renderAll
+
+// A section whose renderer threw: its view opens with a visible notice (both languages), the error is logged with the
+// section's name, and window.FNAM_RENDER_ERRORS carries it for the live check, which reports it before anything else.
+function markSectionFailed(view, name, e) {
+  const msg = (e && e.message) || String(e);
+  window.FNAM_RENDER_ERRORS.push({ view: view || "page", renderer: name, message: msg });
+  console.error("[fnam] section " + (view || name) + " did not render: " + msg, e);
+  if (!view) return;
+  const host = document.getElementById("view-" + view);
+  if (!host || host.querySelector(".section-failed")) return;
+  const box = document.createElement("div");
+  box.className = "section-failed";
+  box.setAttribute("role", "status");
+  box.textContent = T.sectionFailed;
+  const head = host.querySelector(".section-head");
+  if (head && head.parentNode === host) head.insertAdjacentElement("afterend", box); else host.prepend(box);
+}
 
 // ---------- accessibility: every chart is an image with a name ----------
 // Each SVG chart carries role="img" and a label built from its section heading,

@@ -47,6 +47,13 @@ permissions:
   contents: write
   issues: write
 
+# FRED through the Cloudflare Worker when a direct call answers HTML or is refused (shared readers scripts/lib/fred.mjs and
+# tools/macro/common.ps1; tools/dispatcher/README.md → "FRED proxy"). Both empty until the owner sets the repository variable
+# FRED_PROXY_URL and the secret FRED_PROXY_KEY; the readers then simply report the direct refusal.
+env:
+  FRED_PROXY_URL: ${{ vars.FRED_PROXY_URL }}
+  FRED_PROXY_KEY: ${{ secrets.FRED_PROXY_KEY }}
+
 jobs:
   refresh:
     runs-on: windows-latest
@@ -86,6 +93,24 @@ jobs:
           MACRO_DATA_DIR: ${{ github.workspace }}\tools\macro\data
         run: |
           .\tools\macro\refresh_all.ps1 -OutFile "$env:GITHUB_WORKSPACE\site\macro\index.html"
+
+      # Render gate (22-Oct-2026): the page just built is opened in headless Chromium in both languages and the run stops
+      # here, before anything is committed, if a script error or a section that did not render comes back. The committed
+      # page stays on the site; the failed run shows as "late" in the watchdog and in this workflow's history. Full audit
+      # after the deploy: macro-live-check.yml. (scripts/macro/render-gate.mjs; Playwright is installed here only.)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Render gate (both languages, before the commit)
+        shell: bash
+        run: |
+          npm init -y >/dev/null
+          for i in 1 2; do
+            npm i --no-audit --no-fund playwright@1.56.1 >/dev/null && npx playwright install chromium >/dev/null && break
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          node scripts/macro/render-gate.mjs --page site/macro/index.html
+          rm -rf node_modules package.json package-lock.json
 
       # New releases since the last run become a GitHub issue whose body is the
       # page's own "At a glance" text for each section. The issue is a queue:

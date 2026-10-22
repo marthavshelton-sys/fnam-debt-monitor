@@ -130,9 +130,20 @@ function ConvertTo-PayrollVintages($vintDates, $obsRows, [int]$keepMonths = 24) 
   return $out
 }
 
-function Save-Json($obj, [string]$file, [int]$depth = 8) {
+# A processed file never shrinks (22-Oct-2026): a source that answers with nothing (FRED's HTML page on 21-Oct-2026 left
+# every financial-conditions series empty) produces a file a fraction of the size of the one it replaces. Such a save is
+# refused, the committed file stays, and the processor's failure is booked in health.json like any other outage.
+# $allowShrink is for a processor that legitimately drops data (none today).
+function Save-Json($obj, [string]$file, [int]$depth = 8, [bool]$allowShrink = $false) {
   $path = Join-Path $script:data $file
-  ($obj | ConvertTo-Json -Depth $depth -Compress) | Set-Content $path -Encoding utf8
+  $json = ($obj | ConvertTo-Json -Depth $depth -Compress)
+  if (-not $allowShrink -and (Test-Path $path)) {
+    $oldLen = (Get-Item $path).Length
+    if ($oldLen -gt 2048 -and $json.Length -lt ($oldLen * 0.5)) {
+      throw ("{0}: refusing to save {1:N0} bytes over {2:N0} (the new file is less than half the committed one; the source most likely answered with nothing)" -f $file, $json.Length, $oldLen)
+    }
+  }
+  $json | Set-Content $path -Encoding utf8
   Write-Output ("saved {0} {1:N0} bytes" -f $file, (Get-Item $path).Length)
 }
 
@@ -239,6 +250,72 @@ function Get-HistoryRevision($prevGdp, $gdp, $prevPce, $pce, [string]$release) {
 # can be run anywhere. Returns @{ id; title; points = [{d, v}] } with the points on or
 # after $from (dates as published: "yyyy-MM-dd"); missing values (".") are dropped.
 # Throws when no candidate matches: the caller's section then keeps its last data.
+# ---- FRED, one reader for every call (added 22-Oct-2026) ----
+# On 21-Oct-2026 FRED answered the runner with an HTML page instead of data, through both the keyed API and the CSV
+# export. Invoke-RestMethod handed that page back as a string, `.observations` was $null, and process_fincond.ps1 wrote
+# empty series that broke the page. Every FRED body now comes through here and is accepted only when it is data:
+#   Invoke-FredJson $url   an object without FRED's error_message (and with the array its endpoint documents)
+#   Invoke-FredText $url   the CSV export: a date header and yyyy-mm-dd on every row, or the HTML of a series page
+#                          when $kind is "html" (the title scrape in Get-FredChecked)
+# When the direct call answers HTML or is refused and the proxy is configured (environment FRED_PROXY_URL and
+# FRED_PROXY_KEY, from the repository's variables/secrets; tools/dispatcher/README.md → "FRED proxy"), the same URL is
+# fetched once more through the Cloudflare Worker. A body that fails is never returned: the caller's catch keeps the
+# previous data (every processor already does that for a thrown error).
+function Test-FredHtml([string]$text) {
+  $h = $text.Substring(0, [Math]::Min(600, $text.Length)).TrimStart().ToLowerInvariant()
+  return ($h.StartsWith("<!doctype") -or $h.StartsWith("<html") -or $h.StartsWith("<head") -or $h.StartsWith("<link") -or $h -match '<html[\s>]')
+}
+function Invoke-FredRaw([string]$url, [string]$accept, [string]$kind) {
+  $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) fnam-debt-monitor-bot/1.0"
+  $attempts = @(@{ via = "direct"; target = $url; headers = @{ Accept = $accept } })
+  $proxyUrl = [Environment]::GetEnvironmentVariable("FRED_PROXY_URL"); $proxyKey = [Environment]::GetEnvironmentVariable("FRED_PROXY_KEY")
+  if ($proxyUrl -and $proxyKey) { $attempts += @{ via = "proxy"; target = ($proxyUrl.TrimEnd("/") + "/fred?u=" + [Uri]::EscapeDataString($url)); headers = @{ Accept = $accept; "X-FNAM-Key" = $proxyKey } } }
+  $reasons = @()
+  foreach ($a in $attempts) {
+    try {
+      $r = Invoke-WebRequest -Uri $a.target -UseBasicParsing -UserAgent $ua -Headers $a.headers -TimeoutSec 120
+      $text = [string]$r.Content
+      $type = [string]$r.Headers["Content-Type"]
+    } catch {
+      $resp = $_.Exception.Response
+      $code = if ($resp -and $resp.StatusCode) { [int]$resp.StatusCode } else { 0 }
+      $reasons += ("{0}: {1}" -f $a.via, $(if ($code) { "HTTP $code" } else { $_.Exception.Message.Split([char]10)[0] }))
+      continue
+    }
+    $isHtml = ($type -match 'text/html') -or (Test-FredHtml $text)
+    if ($kind -eq "html") {
+      if (-not $isHtml) { $reasons += ("{0}: not an HTML page" -f $a.via); continue }
+      return $text
+    }
+    if ($isHtml) {
+      $t = [regex]::Match($text, '<title>([^<]{0,120})</title>').Groups[1].Value.Trim()
+      $reasons += ("{0}: HTML page instead of data{1}" -f $a.via, $(if ($t) { " (""$t"")" } else { "" }))
+      continue
+    }
+    if ($kind -eq "csv") {
+      $lines = $text -split "`r?`n"
+      if ($lines[0].Trim() -notmatch '^(observation_date|DATE)\s*,') { $reasons += ("{0}: not a FRED CSV (first line ""{1}"")" -f $a.via, $lines[0].Substring(0, [Math]::Min(80, $lines[0].Length))); continue }
+      $bad = $null; $rows = 0
+      for ($i = 1; $i -lt $lines.Count; $i++) { $l = $lines[$i].Trim(); if (-not $l) { continue }; if ($l -notmatch '^\d{4}-\d{2}-\d{2},') { $bad = $l; break }; $rows++ }
+      if ($bad) { $reasons += ("{0}: CSV row is not dated: ""{1}""" -f $a.via, $bad.Substring(0, [Math]::Min(80, $bad.Length))); continue }
+      if (-not $rows) { $reasons += ("{0}: CSV has no observations" -f $a.via); continue }
+      return $text
+    }
+    # json
+    try { $j = $text | ConvertFrom-Json } catch { $reasons += ("{0}: not JSON ({1})" -f $a.via, $text.Substring(0, [Math]::Min(60, $text.Length)).Replace("`n", " ")); continue }
+    if ($null -eq $j) { $reasons += ("{0}: empty JSON" -f $a.via); continue }
+    if ($j.PSObject.Properties["error_message"]) { $reasons += ("{0}: FRED error {1}: {2}" -f $a.via, $j.error_code, $j.error_message); continue }
+    $path = ([Uri]$url).AbsolutePath
+    $need = $null
+    if ($path -match '/series/observations$') { $need = "observations" } elseif ($path -match '/series/vintagedates$') { $need = "vintage_dates" } elseif ($path -match '/series$') { $need = "seriess" } elseif ($path -match '/release/dates$') { $need = "release_dates" } elseif ($path -match '/release$') { $need = "releases" } elseif ($path -match '/release/tables$') { $need = "elements" }
+    if ($need -and -not $j.PSObject.Properties[$need]) { $reasons += ("{0}: JSON lacks ""{1}""" -f $a.via, $need); continue }
+    return $j
+  }
+  throw ("FRED {0}: {1}" -f ($url -replace 'api_key=[^&]+', 'api_key=…'), ($reasons -join "; "))
+}
+function Invoke-FredJson([string]$url) { return Invoke-FredRaw $url "application/json" "json" }
+function Invoke-FredText([string]$url, [string]$kind = "csv") { return Invoke-FredRaw $url "text/csv,text/plain,*/*" $kind }
+
 function Get-FredChecked([string[]]$candidates, [string]$titlePattern, [string]$from = "1900-01-01") {
   $key = [Environment]::GetEnvironmentVariable("FRED_API_KEY")
   $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -246,20 +323,20 @@ function Get-FredChecked([string[]]$candidates, [string]$titlePattern, [string]$
     try {
       $title = $null
       if ($key) {
-        $meta = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series?series_id=$id&api_key=$key&file_type=json" -TimeoutSec 60 }
+        $meta = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/series?series_id=$id&api_key=$key&file_type=json" }
         $title = [string]$meta.seriess[0].title
       } else {
-        $html = (Invoke-WebRequest -Uri "https://fred.stlouisfed.org/series/$id" -UseBasicParsing -UserAgent $ua -TimeoutSec 60).Content
+        $html = Invoke-FredText "https://fred.stlouisfed.org/series/$id" "html"
         $m = [regex]::Match($html, '<title>(.*?)</title>')
         $title = [System.Net.WebUtility]::HtmlDecode($m.Groups[1].Value) -replace ('\s*\(' + [regex]::Escape($id) + '\).*$'), ''
       }
       if (-not $title -or $title -notmatch $titlePattern) { Write-Host ("  {0}: title '{1}' does not match /{2}/; skipped" -f $id, $title, $titlePattern); Start-Sleep -Milliseconds 300; continue }
       $pts = New-Object System.Collections.ArrayList
       if ($key) {
-        $r = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&observation_start=$from" -TimeoutSec 120 }
+        $r = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&observation_start=$from" }
         foreach ($o in $r.observations) { if ($o.value -ne "." -and $o.date -ge $from) { [void]$pts.Add([ordered]@{ d = [string]$o.date; v = [double]$o.value }) } }
       } else {
-        $csv = (Invoke-WebRequest -Uri "https://fred.stlouisfed.org/graph/fredgraph.csv?id=$id" -UseBasicParsing -UserAgent $ua -TimeoutSec 120).Content
+        $csv = Invoke-FredText "https://fred.stlouisfed.org/graph/fredgraph.csv?id=$id"
         foreach ($line in ($csv -split "`n")) {
           $p = $line.Trim() -split ','
           if ($p.Count -lt 2 -or $p[0] -notmatch '^\d{4}-\d{2}-\d{2}$' -or $p[1] -eq "." -or $p[1] -eq "" -or $p[0] -lt $from) { continue }

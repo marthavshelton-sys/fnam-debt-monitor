@@ -177,7 +177,7 @@ try {
 
 # ---- FRED annual: deficit as % of GDP; fiscal-year totals for the long view ----
 function Get-FredA($id) {
-  $r = Invoke-Retry { Invoke-RestMethod "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$fredKey&file_type=json&observation_start=1970-01-01" -TimeoutSec 120 }
+  $r = Invoke-Retry { Invoke-FredJson "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$fredKey&file_type=json&observation_start=1970-01-01" }
   $a = New-Object System.Collections.ArrayList
   foreach ($o in $r.observations) { if ($o.value -ne ".") { [void]$a.Add([ordered]@{ y = [int]$o.date.Substring(0,4); v = [double]$o.value }) } }
   return $a

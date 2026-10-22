@@ -26,6 +26,9 @@ once by the owner (GitHub → Settings → Secrets and variables → Actions →
    **Metadata: Read** (the minimum that lists runs and dispatches workflows); expiry one year, and note the date. The
    workflow uploads it to the Worker as its `GITHUB_TOKEN` secret on every deploy.
 
+3. `FRED_PROXY_KEY`: any long random string (for instance the output of `openssl rand -hex 32`). It is the key the FRED
+   proxy route below requires; the same value is uploaded to the Worker as its `PROXY_KEY` secret on every deploy.
+
 Then run the workflow once (Actions → "Deploy the dispatcher Worker" → Run workflow). Its last step says where to look:
 Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Logs shows one line every ten minutes ("no missed schedule"
 or the dispatches); GitHub → Actions shows the runs it starts as "(by hand)" runs on main, which the watchdog credits
@@ -36,6 +39,27 @@ report as a dry run (nothing dispatched); it is not meant to be linked from the 
 Rotate the GitHub token before it expires: replace the repository secret and run the workflow again. Removing the Worker
 (`npx wrangler delete --config tools/dispatcher/wrangler.toml` from a logged-in computer, or the dashboard) leaves the
 watchdog's own dispatch step as the only safety net.
+
+## FRED proxy
+
+On 21-Oct-2026 FRED (the St. Louis Fed's data service) answered GitHub's runners with an HTML page instead of data, through
+both the public CSV export and the keyed API, for every pipeline at once (the U.S. macro, U.S. fiscal, Oracle, both consumer
+and the Mexican macro refreshes). The shared readers (`scripts/lib/fred.mjs` for the Node fetchers, `Invoke-FredJson` /
+`Invoke-FredText` in `tools/macro/common.ps1` for the U.S. macro processors) now refuse anything that is not data, and when
+this Worker is reachable they fetch the same URL once more through it: `GET <worker url>/fred?u=<encoded FRED url>` with the
+header `X-FNAM-Key: <FRED_PROXY_KEY>`. The Worker forwards only `https://api.stlouisfed.org/…` and
+`https://fred.stlouisfed.org/…`, only with the right key, and passes the answer back unchanged (the readers validate it as
+they validate a direct answer, so a blocked Cloudflare address fails the same way, visibly).
+
+To switch it on, after the deploy: GitHub → Settings → Secrets and variables → Actions → **Variables** → New repository
+variable `FRED_PROXY_URL` = the Worker's URL (Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Settings →
+Domains & Routes → the `workers.dev` address, e.g. `https://fnam-dispatcher.<account>.workers.dev`, no trailing slash).
+Every refresh workflow already passes `FRED_PROXY_URL` and `FRED_PROXY_KEY` to its steps; while either is empty the readers
+report the direct refusal and the page keeps its last data. A browser check: `<worker url>/fred?u=https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10`
+without the header answers `403 forbidden`; with it (from a tool that can set a header), the CSV.
+
+Assumption to confirm when the outage clears: GitHub's address ranges, not the key, are what FRED is refusing. If FRED starts
+refusing Cloudflare's too, the readers' reasons name it ("proxy: HTML page instead of data") in the run log.
 
 ## What it never does
 

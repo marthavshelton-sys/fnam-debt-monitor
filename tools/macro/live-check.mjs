@@ -65,6 +65,7 @@ async function login() {
 const problems = [];       // { where: the page or pass, section, what }
 const notes = [];
 const problem = (where, what, section = "") => problems.push({ where, section, what });
+const critical = (where, what, section = "") => problems.push({ where, section, what, critical: true });
 const sha = buf => createHash("sha256").update(buf).digest("hex");
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const stamp = () => new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC";
@@ -287,7 +288,11 @@ async function run() {
         if (found.length) await shoot(s.page, `${tag}-${v}`);
       } catch (e) { problem(where, "could not check (" + e.message.split("\n")[0] + ")", v); }
     }
-    [...new Set(s.errors)].slice(0, 5).forEach(e => problem(tag, e));
+    // Script errors and sections that did not render come first in the report (22-Oct-2026: one renderer throwing was
+    // reported as 135 unlabelled charts, the symptom, while the cause sat in the console). They are flagged "critical"
+    // so the headline names them before any layout or accessibility finding.
+    const rendered = await s.page.evaluate(() => (window.FNAM_RENDER_ERRORS || []).map(e => `section "${e.view}" did not render (${e.renderer}: ${e.message})`)).catch(() => []);
+    [...new Set([...rendered, ...s.errors])].slice(0, 8).forEach(e => critical(tag, e));
     if (pass.meta) {
       // links, address and history
       const links = await s.page.$$eval(".rail-item[data-view]", els => els.filter(e => e.tagName !== "A" || !/[?&]view=/.test(e.getAttribute("href") || "")).length);
@@ -356,10 +361,11 @@ const passed = !crashed && problems.length === 0;
 const groups = new Map();
 for (const p of problems) {
   const key = p.section + "\u0001" + p.what;
-  if (!groups.has(key)) groups.set(key, { section: p.section, what: p.what, where: [] });
+  if (!groups.has(key)) groups.set(key, { section: p.section, what: p.what, where: [], critical: !!p.critical });
   groups.get(key).where.push(p.where);
 }
-const distinct = [...groups.values()].map(g => g.section
+// critical findings (script errors, sections that did not render) lead the report; the rest keep their order
+const distinct = [...groups.values()].sort((a, b) => (b.critical ? 1 : 0) - (a.critical ? 1 : 0)).map(g => g.section
   ? `${g.section}: ${g.what} (${g.where.length === 1 ? g.where[0] : g.where.length + " checks, first " + g.where[0]})`
   : g.where.length === 1 ? `${g.where[0]}: ${g.what}` : `${g.what} (${g.where.length} checks, first ${g.where[0]})`);
 const lines = [
