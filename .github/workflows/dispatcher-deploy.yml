@@ -74,11 +74,14 @@ jobs:
 
       # The refresh workflows reach the FRED proxy through the repository variable FRED_PROXY_URL; it is written here from
       # the address wrangler reports, so a deploy always leaves it right and nobody has to copy it by hand (22-Oct-2026).
+      # GitHub's own job token cannot write repository variables (HTTP 403 "Resource not accessible by integration", 22-Oct-2026);
+      # the fine-grained DISPATCHER_GITHUB_TOKEN (Actions: read and write on this repository) can, so the step uses it.
       - name: Record the Worker's address as the repository variable FRED_PROXY_URL
         uses: actions/github-script@v7
         env:
           URL: ${{ steps.deploy.outputs.deployment-url }}
         with:
+          github-token: ${{ secrets.DISPATCHER_GITHUB_TOKEN }}
           script: |
             const url = (process.env.URL || '').trim().replace(/\/+$/, '');
             const name = 'FRED_PROXY_URL';
