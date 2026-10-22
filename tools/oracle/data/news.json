@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-21",
+  "as_of": "2026-10-22",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,54 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-20-tdcowen-nvidia-credit-support",
+      "date": "2026-10-20",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "TD Cowen (press-reported, unconfirmed): channel checks suggest Nvidia may be giving Oracle credit support on data-center leases, by guarantee or sublease",
+      "title_es": "TD Cowen (reportado por la prensa, sin confirmar): sus sondeos sugieren que Nvidia podría dar a Oracle respaldo crediticio en arrendamientos de centros de datos, vía garantía o subarrendamiento",
+      "summary_en": "TD Cowen analyst Michael Elias wrote on Oct 20 (as reported by 24/7 Wall St., Oct 21) that, based on channel checks, Nvidia may be giving Oracle \"credit support\" in one of two ways: standing behind Oracle's lease payments, or a sublease in which Nvidia leases the buildings and rents them to Oracle; he linked it to the reported Tencent chip lease (about US$7 billion, roughly 30% upfront, also unconfirmed). \"Neither company has confirmed this, and the size of any support remains unquantified.\" Newsquawk's headline: TD Cowen checks indicate Oracle is leasing again in Q3 2026. Analyst view; no Oracle or Nvidia filing or statement; enters no figure.",
+      "summary_es": "Michael Elias, analista de TD Cowen, escribió el 20 oct (según 24/7 Wall St., 21 oct) que, con base en sondeos de la industria, Nvidia podría estar dando a Oracle \"respaldo crediticio\" de una de dos formas: garantizando los pagos de arrendamiento de Oracle, o con un subarrendamiento en el que Nvidia arrienda los edificios y se los renta a Oracle; lo vinculó con el arrendamiento de chips reportado con Tencent (unos US$7 mil millones, cerca de 30% por adelantado, tampoco confirmado). \"Ninguna de las dos empresas lo ha confirmado y el monto de cualquier respaldo no está cuantificado.\" Titular de Newsquawk: los sondeos de TD Cowen indican que Oracle vuelve a arrendar en el 3T 2026. Opinión de analista; sin documento ni declaración de Oracle o Nvidia; no entra en ninguna cifra.",
+      "why_en": "A third-party guarantee or a sublease would not change Oracle's own lease liability under ASC 842 (it remains the lessee), but it would mean lenders to the developers rely on Nvidia's credit, a circular-financing link between a supplier and its customer ({{sec:circular}}); listed as press-reported in the guarantees card ({{sec:obligations}}).",
+      "why_es": "Una garantía de un tercero o un subarrendamiento no cambiarían el pasivo por arrendamiento de Oracle bajo ASC 842 (sigue siendo el arrendatario), pero los acreedores de los desarrolladores dependerían del crédito de Nvidia, un vínculo de financiamiento circular entre un proveedor y su cliente ({{sec:circular}}); listado como reportado por la prensa en la tarjeta de garantías ({{sec:obligations}}).",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "24/7 Wall St. (via Yahoo Finance), Oct 21, 2026: TD Cowen Thinks Nvidia Is Helping Oracle Get Its Data Centers Financed",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/td-cowen-thinks-nvidia-helping-124554129.html"
+        },
+        {
+          "tier": "press",
+          "title": "Newsquawk, Oct 20, 2026: TD Cowen checks indicated that Oracle (ORCL) is leasing again, based on its activity in Q3 2026, with Nvidia appearing to be providing credit support to Oracle",
+          "url": "https://www.newsquawk.com/headlines/td-cowen-checks-indicated-that-oracle-orcl-is-leasing-again-based-on-its-activity-in-q3-2026-with-nvidia-appearing-to-be-helping-oracle-financially"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-19-sp-hidden-ai-debt",
+      "date": "2026-10-19",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "Reuters: S&P Global says the top hyperscalers, Oracle among them, likely carry more AI-linked debt than is now known; no rating change for now",
+      "title_es": "Reuters: S&P Global dice que los principales hiperescaladores, Oracle entre ellos, probablemente tienen más deuda ligada a la IA de la que se conoce; sin cambio de calificación por ahora",
+      "summary_en": "Reuters (Marc Jones, London, Oct 19): S&P Global's head of digital infrastructure Mark Habib said \"It is safe to assume that there is more (debt) out there that we are not seeing,\" pointing to interconnected financing structures in which hyperscalers effectively guarantee data-center builds or smaller AI firms, and \"For now, we don't have the view that there is a major disconnect that needs to force our ratings to change at this point.\" S&P expects the top six US hyperscalers (Amazon, Microsoft, Alphabet, Oracle, Meta and SpaceX) to spend more than US$7 trillion on data centers and other AI-related capex between 2025 and 2030, with negative free cash flow until at least next year. Commentary at a roundtable, not a rating action (Oracle stays BBB- at S&P since Jul 9).",
+      "summary_es": "Reuters (Marc Jones, Londres, 19 oct): Mark Habib, director de infraestructura digital de S&P Global, dijo que \"es seguro suponer que hay más (deuda) que no estamos viendo\", señalando estructuras de financiamiento interconectadas en las que los hiperescaladores garantizan en los hechos la construcción de centros de datos o a empresas de IA más pequeñas, y que \"por ahora no vemos una desconexión importante que obligue a cambiar nuestras calificaciones\". S&P espera que los seis principales hiperescaladores de EUA (Amazon, Microsoft, Alphabet, Oracle, Meta y SpaceX) inviertan más de US$7 billones en centros de datos y otro capex ligado a la IA entre 2025 y 2030, con flujo libre negativo al menos hasta el próximo año. Comentario en una mesa redonda, no una acción de calificación (Oracle sigue en BBB- en S&P desde el 9 jul).",
+      "why_en": "The rating agency that holds Oracle one notch above speculative grade says unreported guarantees are a blind spot; the page already adds only filed obligations and lists press-reported structures apart ({{sec:obligations}}), so a disclosure of such guarantees would raise Oracle's lease-adjusted debt ({{sec:credit}}).",
+      "why_es": "La calificadora que tiene a Oracle un escalón arriba del grado especulativo dice que las garantías no reveladas son un punto ciego; la página solo suma obligaciones presentadas y lista aparte las estructuras reportadas por la prensa ({{sec:obligations}}), así que la revelación de esas garantías elevaría la deuda ajustada por arrendamientos de Oracle ({{sec:credit}}).",
+      "sources": [
+        {
+          "tier": "wire",
+          "title": "Reuters (via U.S. News & World Report), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
+          "url": "https://money.usnews.com/investing/news/articles/2026-10-19/top-hyperscalers-likely-to-have-more-ai-linked-debt-than-now-known-s-p-global-warns"
+        },
+        {
+          "tier": "wire",
+          "title": "Reuters (via Global Banking & Finance Review), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
+          "url": "https://www.globalbankingandfinance.com/top-hyperscalers-likely-ai-linked-debt-known-p-global-warns/"
+        }
+      ]
+    },
     {
       "id": "2026-10-20-wsj-ellison-pledges",
       "date": "2026-10-20",
@@ -369,8 +417,8 @@
       "basis": "company",
       "title_en": "Oracle proposes a 10-year, US$10 million-a-year power agreement with El Paso Electric for Project Jupiter; Bloom fuel cells stay primary",
       "title_es": "Oracle propone un contrato eléctrico a 10 años, de US$10 millones anuales, con El Paso Electric para el Proyecto Júpiter; las celdas Bloom siguen como fuente principal",
-      "summary_en": "Oracle release (Oct 13): a proposed Energy Service Agreement with El Paso Electric covers late-stage construction, commissioning, emergency backup and life-safety power; Oracle expects to pay US$10 million a year for ten years whatever its usage (about US$100 million fixed), and a separate proposal offers up to US$55 million a year of bill credits for up to three years to EPE's New Mexico residential and small-business customers, from 2027. The Bloom fuel-cell microgrid remains the primary source (\"no change to our plan\"). Both await filing and regulatory approval (company statement, not audited). ORCL +4.2% to US$143.20 (FactSet close).",
-      "summary_es": "Comunicado de Oracle (13 oct): un Contrato de Servicio Eléctrico propuesto con El Paso Electric cubre la etapa final de obra, la puesta en marcha, el respaldo de emergencia y la energía de seguridad; Oracle espera pagar US$10 millones al año durante diez años sea cual sea su consumo (unos US$100 millones fijos), y una propuesta aparte ofrece hasta US$55 millones anuales en créditos a la factura, hasta por tres años, a los clientes residenciales y pequeños negocios de EPE en Nuevo México, desde 2027. La microrred de celdas Bloom sigue como fuente principal (\"sin cambio en nuestro plan\"). Ambos están pendientes de presentarse y de aprobación regulatoria (declaración de la empresa, no auditada). ORCL +4.2% a US$143.20 (cierre de FactSet).",
+      "summary_en": "Oracle release (Oct 13): a proposed Energy Service Agreement with El Paso Electric covers late-stage construction, commissioning, emergency backup and life-safety power; Oracle expects to pay US$10 million a year for ten years whatever its usage (about US$100 million fixed), and a separate proposal offers up to US$55 million a year of bill credits for up to three years to EPE's New Mexico residential and small-business customers, from 2027. The Bloom fuel-cell microgrid remains the primary source (\"no change to our plan\"). Both await filing and regulatory approval (company statement, not audited). ORCL +4.2% to US$143.20 (FactSet close). Albuquerque Journal (Oct 13): after Doña Ana County commissioners objected the same day that a utility tie-in conflicts with the project's onsite-power commitments, Oracle vice president Mahesh Thiagarajan offered to take back the El Paso Electric proposal (\"So we take that back.\" \"I will undo any decision, if that's what it takes.\"); the report does not say the bill credits were withdrawn.",
+      "summary_es": "Comunicado de Oracle (13 oct): un Contrato de Servicio Eléctrico propuesto con El Paso Electric cubre la etapa final de obra, la puesta en marcha, el respaldo de emergencia y la energía de seguridad; Oracle espera pagar US$10 millones al año durante diez años sea cual sea su consumo (unos US$100 millones fijos), y una propuesta aparte ofrece hasta US$55 millones anuales en créditos a la factura, hasta por tres años, a los clientes residenciales y pequeños negocios de EPE en Nuevo México, desde 2027. La microrred de celdas Bloom sigue como fuente principal (\"sin cambio en nuestro plan\"). Ambos están pendientes de presentarse y de aprobación regulatoria (declaración de la empresa, no auditada). ORCL +4.2% a US$143.20 (cierre de FactSet). Albuquerque Journal (13 oct): después de que los comisionados del condado de Doña Ana objetaran ese mismo día que una conexión a la red contradice los compromisos de energía en sitio del proyecto, el vicepresidente de Oracle Mahesh Thiagarajan ofreció retirar la propuesta con El Paso Electric (\"So we take that back.\" \"I will undo any decision, if that's what it takes.\"); el reporte no dice que se hayan retirado los créditos a la factura.",
       "why_en": "About US$100 million fixed, outside capex and the 10-Q's commitments note: listed in the site-commitments memo ({{sec:obligations}}), nominal, in no ratio. Grid power for commissioning lowers the risk that the pipeline delay (Feb 1, 2027) stalls the campus ({{sec:sites}}); the credits are a proposal, not a liability.",
       "why_es": "Unos US$100 millones fijos, fuera del capex y de la nota de compromisos del 10-Q: listados en el memorándum de compromisos por sitio ({{sec:obligations}}), nominales, en ninguna razón. La energía de red para la puesta en marcha reduce el riesgo de que el retraso del gasoducto (1 feb 2027) frene el campus ({{sec:sites}}); los créditos son una propuesta, no un pasivo.",
       "sources": [
@@ -383,6 +431,11 @@
           "tier": "press",
           "title": "Border Report via WTNH, Oct 13, 2026: Oracle pitches power bill relief, pledges $1 million for Doña Ana flood recovery",
           "url": "https://www.wtnh.com/news/oracle-pitches-power-bill-relief-pledges-1-million-for-dona-ana-flood-recovery/"
+        },
+        {
+          "tier": "press",
+          "title": "Albuquerque Journal, Oct 13, 2026: County commissioners push back on El Paso Electric connection for Project Jupiter",
+          "url": "https://www.abqjournal.com/news/project-jupiter-commissioners-push-back-on-el-paso-electric-connection/3141683"
         }
       ]
     },
@@ -901,6 +954,50 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-22",
+      "by": "routine",
+      "searches": 30,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Newsquawk",
+        "24/7 Wall St.",
+        "Albuquerque Journal",
+        "Data Center Dynamics",
+        "The Register",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Nvidia",
+        "TD Cowen",
+        "Barclays",
+        "Apollo",
+        "Goldman Sachs",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-20-tdcowen-nvidia-credit-support",
+        "2026-10-19-sp-hidden-ai-debt"
+      ],
+      "note": "Thursday run before the open: the Oct 21 session moved -1.5% (131.14 to 129.13), under the 3% rule; no EDGAR accession after the Oct 19 Form 4s and nothing new in the IR feed (latest Sep 12). Added TD Cowen's Oct 20 note on possible Nvidia credit support (press-reported, unconfirmed; also in reported structures) and Reuters' Oct 19 report on S&P's view of unreported hyperscaler AI debt (no rating action). Appended the Albuquerque Journal's account of Oracle offering to take back the El Paso Electric proposal to the Oct 13 item. Barclays' tactical buy call on Oracle's long bonds ahead of the Oct 28 investor day was seen only through secondary sites and was not added. EGLE held the Saline wastewater-permit hearing on Oct 21 (comments to Oct 23, no decision); no Wisconsin PSC completeness ruling on ATC's refiled application found; no Moody's, S&P or Fitch action."
+    },
     {
       "date": "2026-10-21",
       "by": "routine",
