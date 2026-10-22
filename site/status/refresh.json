@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-22T17:01:31Z",
+  "checkedAt": "2026-10-22T19:33:12Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,15 +25,16 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:48:26Z",
+      "status": "alert",
+      "refreshStatus": "alert",
+      "lastSuccess": "2026-10-22T18:34:27Z",
       "lastAttempt": {
-        "at": "2026-10-21T23:10:32Z",
-        "result": "failure"
+        "at": "2026-10-22T18:34:27Z",
+        "result": "success",
+        "afterCommitFailure": true
       },
       "requiredSince": "2026-10-21T20:05:00Z",
-      "alerts": 0
+      "alerts": 1
     },
     {
       "id": "us-fiscal",
@@ -45,10 +46,10 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:30:10Z",
+      "lastSuccess": "2026-10-22T18:04:41Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:09:10Z",
-        "result": "failure"
+        "at": "2026-10-22T18:04:41Z",
+        "result": "success"
       },
       "requiredSince": "2026-10-21T21:30:00Z",
       "alerts": 0
@@ -63,9 +64,9 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:45:34Z",
+      "lastSuccess": "2026-10-22T18:33:50Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:12:43Z",
+        "at": "2026-10-22T18:33:50Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T21:40:00Z",
@@ -81,8 +82,11 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:44:09Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T19:12:15Z",
+      "lastAttempt": {
+        "at": "2026-10-22T17:21:00Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T22:25:00Z",
       "alerts": 0
     },
@@ -96,8 +100,11 @@
       "url": "/mx/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:44:51Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T17:03:58Z",
+      "lastAttempt": {
+        "at": "2026-10-21T22:36:26Z",
+        "result": "failure"
+      },
       "requiredSince": "2026-10-21T19:30:00Z",
       "alerts": 0
     },
@@ -111,9 +118,9 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:42:02Z",
+      "lastSuccess": "2026-10-22T19:15:53Z",
       "lastAttempt": {
-        "at": "2026-10-22T08:46:56Z",
+        "at": "2026-10-22T19:15:53Z",
         "result": "success"
       },
       "requiredSince": "2026-10-22T03:20:00Z",
@@ -129,8 +136,11 @@
       "url": "/gap/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:52:54Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T18:41:40Z",
+      "lastAttempt": {
+        "at": "2026-10-22T18:41:40Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T22:40:00Z",
       "alerts": 0,
       "prices": {
@@ -194,9 +204,9 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:53:21Z",
+      "lastSuccess": "2026-10-22T18:58:11Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:59:47Z",
+        "at": "2026-10-22T18:58:11Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T22:55:00Z",
@@ -262,9 +272,9 @@
       "url": "/asur/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:52:10Z",
+      "lastSuccess": "2026-10-22T18:48:22Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:58:17Z",
+        "at": "2026-10-22T18:48:22Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T22:50:00Z",
@@ -344,7 +354,7 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T20:46:25Z",
+      "lastSuccess": "2026-10-22T18:24:07Z",
       "lastAttempt": {
         "at": "2026-10-21T20:46:25Z",
         "result": "success"
@@ -362,7 +372,7 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:54:55Z",
+      "lastSuccess": "2026-10-22T19:04:44Z",
       "lastAttempt": {
         "at": "2026-10-21T21:52:25Z",
         "result": "success"
@@ -380,9 +390,9 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T01:07:38Z",
+      "lastSuccess": "2026-10-22T18:54:16Z",
       "lastAttempt": {
-        "at": "2026-10-22T01:07:38Z",
+        "at": "2026-10-22T18:54:16Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T23:00:00Z",
@@ -436,9 +446,9 @@
       "url": "/gentera/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:46:15Z",
+      "lastSuccess": "2026-10-22T18:45:35Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:56:30Z",
+        "at": "2026-10-22T18:45:35Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T22:45:00Z",
@@ -503,8 +513,11 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:42:24Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T18:10:17Z",
+      "lastAttempt": {
+        "at": "2026-10-22T18:10:17Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T21:45:00Z",
       "alerts": 0,
       "prices": {
@@ -558,9 +571,9 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:41:51Z",
+      "lastSuccess": "2026-10-22T18:01:23Z",
       "lastAttempt": {
-        "at": "2026-10-22T00:41:51Z",
+        "at": "2026-10-22T18:01:23Z",
         "result": "success"
       },
       "requiredSince": "2026-10-21T22:20:00Z",
