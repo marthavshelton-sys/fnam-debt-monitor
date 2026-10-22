@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-22T16:31:19Z",
+  "checkedAt": "2026-10-22T17:01:31Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,16 +25,13 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "50 12,13 * * 1-5",
-        "5 14,20 * * *",
-        "45 14,15 * * 3",
-        "20 17 * * 4"
-      ],
-      "lastSuccess": "2026-10-21T18:33:10Z",
-      "lastAttempt": null,
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-22T16:48:26Z",
+      "lastAttempt": {
+        "at": "2026-10-21T23:10:32Z",
+        "result": "failure"
+      },
       "requiredSince": "2026-10-21T20:05:00Z",
       "alerts": 0
     },
@@ -48,11 +45,10 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:09:10Z",
+      "lastSuccess": "2026-10-22T16:30:10Z",
       "lastAttempt": {
         "at": "2026-10-22T00:09:10Z",
-        "result": "success",
-        "afterCommitFailure": true
+        "result": "failure"
       },
       "requiredSince": "2026-10-21T21:30:00Z",
       "alerts": 0
@@ -67,7 +63,7 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:12:43Z",
+      "lastSuccess": "2026-10-22T16:45:34Z",
       "lastAttempt": {
         "at": "2026-10-22T00:12:43Z",
         "result": "success"
@@ -85,11 +81,8 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:45:12Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:45:12Z",
-        "result": "success"
-      },
+      "lastSuccess": "2026-10-22T16:44:09Z",
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:25:00Z",
       "alerts": 0
     },
@@ -103,11 +96,8 @@
       "url": "/mx/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:03:13Z",
-      "lastAttempt": {
-        "at": "2026-10-21T22:36:26Z",
-        "result": "failure"
-      },
+      "lastSuccess": "2026-10-22T16:44:51Z",
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T19:30:00Z",
       "alerts": 0
     },
@@ -119,17 +109,14 @@
         "en": "Mexican Consumer"
       },
       "url": "/mx/consumidor/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "20 12 * * *",
-        "20 15 * * *",
-        "20 23 * * *",
-        "20 3 * * *"
-      ],
-      "lastSuccess": "2026-10-22T08:46:56Z",
-      "lastAttempt": null,
-      "requiredSince": "2026-10-21T12:20:00Z",
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-22T16:42:02Z",
+      "lastAttempt": {
+        "at": "2026-10-22T08:46:56Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-10-22T03:20:00Z",
       "alerts": 0
     },
     {
@@ -143,10 +130,7 @@
       "status": "ok",
       "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T15:52:54Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:51:22Z",
-        "result": "success"
-      },
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:40:00Z",
       "alerts": 0,
       "prices": {
@@ -210,8 +194,11 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:23:41Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T16:53:21Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:59:47Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T22:55:00Z",
       "alerts": 0,
       "prices": {
@@ -275,8 +262,11 @@
       "url": "/asur/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:23:54Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T16:52:10Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:58:17Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T22:50:00Z",
       "alerts": 0,
       "prices": {
@@ -354,8 +344,11 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:22:51Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-21T20:46:25Z",
+      "lastAttempt": {
+        "at": "2026-10-21T20:46:25Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T17:30:00Z",
       "alerts": 0
     },
@@ -369,7 +362,7 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:25:03Z",
+      "lastSuccess": "2026-10-22T16:54:55Z",
       "lastAttempt": {
         "at": "2026-10-21T21:52:25Z",
         "result": "success"
@@ -387,7 +380,7 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T16:22:24Z",
+      "lastSuccess": "2026-10-22T01:07:38Z",
       "lastAttempt": {
         "at": "2026-10-22T01:07:38Z",
         "result": "success"
@@ -443,7 +436,7 @@
       "url": "/gentera/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:56:30Z",
+      "lastSuccess": "2026-10-22T16:46:15Z",
       "lastAttempt": {
         "at": "2026-10-22T00:56:30Z",
         "result": "success"
@@ -510,11 +503,8 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:20:15Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:20:15Z",
-        "result": "success"
-      },
+      "lastSuccess": "2026-10-22T16:42:24Z",
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T21:45:00Z",
       "alerts": 0,
       "prices": {
@@ -566,15 +556,14 @@
         "en": "Hyperscaler Hub"
       },
       "url": "/hiperescaladores/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "20 13 * * *",
-        "20 22 * * *"
-      ],
+      "status": "ok",
+      "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T00:41:51Z",
-      "lastAttempt": null,
-      "requiredSince": "2026-10-21T13:20:00Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:41:51Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-10-21T22:20:00Z",
       "alerts": 0
     }
   ]
