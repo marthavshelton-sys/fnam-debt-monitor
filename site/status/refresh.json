@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-22T15:21:28Z",
+  "checkedAt": "2026-10-22T16:31:19Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,13 +25,16 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:19:13Z",
-      "lastAttempt": {
-        "at": "2026-10-21T23:10:32Z",
-        "result": "failure"
-      },
+      "status": "late",
+      "refreshStatus": "late",
+      "lateCrons": [
+        "50 12,13 * * 1-5",
+        "5 14,20 * * *",
+        "45 14,15 * * 3",
+        "20 17 * * 4"
+      ],
+      "lastSuccess": "2026-10-21T18:33:10Z",
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T20:05:00Z",
       "alerts": 0
     },
@@ -45,8 +48,12 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T14:07:33Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T00:09:10Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:09:10Z",
+        "result": "success",
+        "afterCommitFailure": true
+      },
       "requiredSince": "2026-10-21T21:30:00Z",
       "alerts": 0
     },
@@ -76,17 +83,14 @@
         "en": "Mexico Macro"
       },
       "url": "/mx/macro/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "25 12 * * 1-5",
-        "25 18,19 * * 1-5",
-        "25 22 * * 1-5",
-        "25 15 * * 0,6"
-      ],
+      "status": "ok",
+      "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T00:45:12Z",
-      "lastAttempt": null,
-      "requiredSince": "2026-10-18T15:25:00Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:45:12Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-10-21T22:25:00Z",
       "alerts": 0
     },
     {
@@ -99,11 +103,10 @@
       "url": "/mx/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T22:36:26Z",
+      "lastSuccess": "2026-10-22T15:03:13Z",
       "lastAttempt": {
         "at": "2026-10-21T22:36:26Z",
-        "result": "success",
-        "afterCommitFailure": true
+        "result": "failure"
       },
       "requiredSince": "2026-10-21T19:30:00Z",
       "alerts": 0
@@ -116,11 +119,17 @@
         "en": "Mexican Consumer"
       },
       "url": "/mx/consumidor/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T13:03:13Z",
+      "status": "late",
+      "refreshStatus": "late",
+      "lateCrons": [
+        "20 12 * * *",
+        "20 15 * * *",
+        "20 23 * * *",
+        "20 3 * * *"
+      ],
+      "lastSuccess": "2026-10-22T08:46:56Z",
       "lastAttempt": null,
-      "requiredSince": "2026-10-22T03:20:00Z",
+      "requiredSince": "2026-10-21T12:20:00Z",
       "alerts": 0
     },
     {
@@ -133,7 +142,7 @@
       "url": "/gap/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:13:54Z",
+      "lastSuccess": "2026-10-22T15:52:54Z",
       "lastAttempt": {
         "at": "2026-10-22T00:51:22Z",
         "result": "success"
@@ -201,11 +210,8 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:59:47Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:59:47Z",
-        "result": "success"
-      },
+      "lastSuccess": "2026-10-22T16:23:41Z",
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:55:00Z",
       "alerts": 0,
       "prices": {
@@ -269,7 +275,7 @@
       "url": "/asur/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:14:13Z",
+      "lastSuccess": "2026-10-22T16:23:54Z",
       "lastAttempt": null,
       "requiredSince": "2026-10-21T22:50:00Z",
       "alerts": 0,
@@ -348,7 +354,7 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:09:47Z",
+      "lastSuccess": "2026-10-22T16:22:51Z",
       "lastAttempt": null,
       "requiredSince": "2026-10-21T17:30:00Z",
       "alerts": 0
@@ -363,7 +369,7 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T21:52:25Z",
+      "lastSuccess": "2026-10-22T16:25:03Z",
       "lastAttempt": {
         "at": "2026-10-21T21:52:25Z",
         "result": "success"
@@ -381,7 +387,7 @@
       "url": "/qualitas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T01:07:38Z",
+      "lastSuccess": "2026-10-22T16:22:24Z",
       "lastAttempt": {
         "at": "2026-10-22T01:07:38Z",
         "result": "success"
@@ -435,14 +441,13 @@
         "en": "Gentera"
       },
       "url": "/gentera/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "45 22 * * 1-5",
-        "35 14 * * 1-5"
-      ],
-      "lastSuccess": null,
-      "lastAttempt": null,
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-22T00:56:30Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:56:30Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T22:45:00Z",
       "alerts": 0,
       "prices": {
@@ -567,9 +572,9 @@
         "20 13 * * *",
         "20 22 * * *"
       ],
-      "lastSuccess": null,
+      "lastSuccess": "2026-10-22T00:41:51Z",
       "lastAttempt": null,
-      "requiredSince": "2026-10-21T22:20:00Z",
+      "requiredSince": "2026-10-21T13:20:00Z",
       "alerts": 0
     }
   ]
