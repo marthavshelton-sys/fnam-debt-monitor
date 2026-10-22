@@ -3,7 +3,7 @@
 // something (see the GAP runbook, "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-10-15",
+  updatedAt: "2026-10-22",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -146,6 +146,7 @@ window.GAP_REF = {
     ],
     // Events after instrumentsAsOf that change the table; the page prints them under it.
     events: [
+      { date: "2026-10-19", en: "3Q26 report (filed 19-Oct-2026): Ps. 6,000 M of bank loans drawn in the quarter (cash-flow statement, \"bank loans\") out of the Ps. 8,000 M facilities of 11-Sep-2026 and Ps. 2,757.6 M of certificados repaid (GAP 22L, 21-Sep-2026); at 30-Sep-2026 bank loans and accrued interest total Ps. 24,953 M and certificados Ps. 42,761 M (balance sheet). GAP 21-V (Ps. 1,500 M) matured on 9-Oct-2026, after the quarter.", es: "Informe 3T26 (presentado el 19-oct-2026): en el trimestre se dispusieron Ps. 6,000 M de préstamos bancarios (estado de flujos, \"préstamos bancarios\") de las líneas por Ps. 8,000 M del 11-sep-2026 y se pagaron Ps. 2,757.6 M de certificados (GAP 22L, 21-sep-2026); al 30-sep-2026 los préstamos bancarios e intereses suman Ps. 24,953 M y los certificados Ps. 42,761 M (balance). El GAP 21-V (Ps. 1,500 M) venció el 9-oct-2026, después del trimestre.", source: { en: "GAP 3Q26 report, 19-Oct-2026 (BMV material event 1596277)", es: "Informe 3T26 de GAP, 19-oct-2026 (evento relevante BMV 1596277)" }, url: "https://www.aeropuertosgap.com.mx/files/PR_3Q26_ENG_19Oct26_VF_DEF.pdf" },
       { date: "2026-09-11", en: "Bank credit facilities for Ps. 8,000 M signed with Santander, BBVA, HSBC, J.P. Morgan and Scotiabank: 6 to 12 months (some extendable 6 months), floating at TIIE funding + 45 bp weighted average. Ps. 4,258 M repay GAP 22L (Ps. 2,758 M, 21-Sep-2026) and GAP 21-V (Ps. 1,500 M, 9-Oct-2026); Ps. 3,742 M fund PMD capex.", es: "Líneas de crédito bancarias por Ps. 8,000 M con Santander, BBVA, HSBC, J.P. Morgan y Scotiabank: de 6 a 12 meses (algunas prorrogables 6 meses), a tasa variable de TIIE de fondeo + 45 pb en promedio ponderado. Ps. 4,258 M pagan GAP 22L (Ps. 2,758 M, 21-sep-2026) y GAP 21-V (Ps. 1,500 M, 9-oct-2026); Ps. 3,742 M financian capex del PMD.", source: { en: "GAP release 11-Sep-2026 (6-K)", es: "Comunicado de GAP 11-sep-2026 (6-K)" }, url: "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html" },
     ],
     instrumentsNote: {
@@ -211,8 +212,9 @@ window.GAP_REF = {
     stakePct: 4.2,
     // statusAsOf: date of the last check of GAP's releases and the BMV eventos relevantes list (not a claim about EDGAR).
     // timeline: newest first; kind "filing" (GAP release / BMV notice), "press" (not confirmed by a filing), "check" (FNAM's harvest).
-    statusAsOf: "2026-10-14",
+    statusAsOf: "2026-10-22",
     timeline: [
+      { date: "2026-10-22", kind: "check", en: "No pricing or completion notice in GAP's releases, on its investor site or in the BMV material events through 22-Oct-2026 (latest notice 19-Oct-2026, the 3Q26 results, which mention no placement).", es: "Sin aviso de colocación o cierre en los comunicados de GAP, en su sitio de inversionistas ni en los eventos relevantes de la BMV al 22-oct-2026 (último aviso el 19-oct-2026, los resultados del 3T26, que no mencionan colocación)." },
       { date: "2026-10-14", kind: "check", en: "No pricing or completion notice in GAP's releases, on its investor site or in the BMV material events through 14-Oct-2026 (latest notice 6-Oct-2026, the September traffic report).", es: "Sin aviso de precio ni de cierre en los comunicados de GAP, en su sitio de inversionistas ni en los eventos relevantes de la BMV hasta el 14-oct-2026 (último aviso del 6-oct-2026, el reporte de tráfico de septiembre)." },
       { date: "2026-09-21", kind: "press", en: "GAP expects the placement in October 2026 (Axis Negocios; Yahoo Noticias 22-Sep-2026). Not confirmed by a filing.", es: "GAP espera la colocación en octubre de 2026 (Axis Negocios; Yahoo Noticias 22-sep-2026). Sin confirmar en un comunicado." },
       { date: "2026-07-14", kind: "filing", en: "2Q26 report (Form 6-K): the approval process with the authorities continues.", es: "Informe 2T26 (Forma 6-K): continúa el proceso de autorización ante las autoridades." },
@@ -276,13 +278,14 @@ window.GAP_REF = {
       "2025Q4": { bmvDate: "2026-02-23", bmvId: "1536005" },
       "2026Q1": { bmvDate: "2026-04-20", bmvId: "1549656" },
       "2026Q2": { bmvDate: "2026-07-13", bmvId: "1573976" },
+      "2026Q3": { bmvDate: "2026-10-19", bmvId: "1596277" },
     },
   },
   calendar: {
     nextResults: null,   // e.g. { date: "2026-10-21", source: { title: "GAP announces 3Q26 results date", url: "https://...", date: "2026-10-01" } }
     // A vendor's projection, printed beside the assumed date while GAP has not announced one (never as a confirmed date).
-    // FactSet CalendarEvents, ProjectedEarningsRelease for 3Q26 (event last modified 21-Oct-2025), read in-session 15-Oct-2026.
-    projected: { q: "2026Q3", date: "2026-10-27", source: "FactSet", asOf: "2026-10-15" },
+    // FactSet CalendarEvents, ProjectedEarningsRelease for 4Q26 (event last modified 21-Apr-2026), read in-session 22-Oct-2026.
+    projected: { q: "2026Q4", date: "2027-02-24", source: "FactSet", asOf: "2026-10-22" },
   },
   // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million. The page anchors the first projected
   // year on the guidance midpoints in guidance.js and the next two fiscal years on FactSet's consensus EBITDA in peers.js

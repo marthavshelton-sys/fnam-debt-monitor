@@ -1,7 +1,7 @@
 // Hand-curated one-line explanations for the statement comparisons (year-over-year only: quarter vs the
 // same quarter a year earlier, YTD vs prior YTD, fiscal year vs prior year).
 // Sources: Quálitas' quarterly results reports (IR site) and the FactSet CallStreet transcripts of the
-// earnings calls (4Q23–2Q26) supplied by the repo owner. Keys: quarter id (2026Q2 = 2Q26 vs 2Q25), YTD id
+// earnings calls (4Q23–2Q26) supplied by the repo owner; the 3Q26 entries come from the report alone until the transcript is supplied. Keys: quarter id (2026Q2 = 2Q26 vs 2Q25), YTD id
 // (2026M6 = 6M26 vs 6M25) or fiscal year (FY2025 vs FY2024).
 //  lines income-statement keys (written … netIncome) and the ratio rows (acqRatio, lossRatio, opRatio, combined)
 //  bs   balance-sheet keys (period-end vs a year earlier)   cf cash-flow keys (YTD / FY statements)
@@ -13,6 +13,70 @@
 window.Q_COMMENTS = {
   updatedAt: "2026-09-22",
   periods: {
+    "2026Q3": {
+      call: { date: "2026-10-21", es: "conferencia de resultados del 3T26 (21 oct 2026); transcripción pendiente, comentarios tomados del informe 3T26 (20 oct 2026)", en: "3Q26 earnings call (21 Oct 2026); transcript pending, comments taken from the 3Q26 report (20 Oct 2026)" },
+      lines: {
+        written: { es: "+7.7% a Ps. 18,663 M: tradicional +4.8% (individual +5.1%, flotillas +4.3%), instituciones financieras +14.6% por la venta de autos nuevos; subsidiarias en el extranjero −1.5%. Dentro del rango esperado de dígito medio a alto.", en: "+7.7% to Ps. 18,663 M: traditional +4.8% (individual +5.1%, fleets +4.3%), financial institutions +14.6% on new-car sales; foreign subsidiaries −1.5%. Inside the expected mid-to-high single-digit range." },
+        retained: { es: "+6.6%: cesión de Ps. 184 M (1.0% de la emitida).", en: "+6.6%: Ps. 184 M ceded (1.0% of written)." },
+        reserveInc: { es: "Constitución de Ps. 279 M frente a una liberación de Ps. 460 M en el 3T25 (+Ps. 739 M): repunte de la emisión y mezcla de cartera.", en: "Ps. 279 M constituted versus a Ps. 460 M release in 3Q25 (+Ps. 739 M): the pickup in written premiums and the portfolio mix." },
+        earned: { es: "+2.2%, por debajo de la emitida: la participación de pólizas multianuales subió de 22.5% a 26.0%.", en: "+2.2%, behind written premiums: the share of multi-year policies rose from 22.5% to 26.0%." },
+        acqCost: { es: "+5.1%; índice 24.2% (−33 pb), aún por encima del rango histórico por la mezcla hacia instituciones financieras (comisiones más altas); sin cambio en los porcentajes de comisión.", en: "+5.1%; ratio 24.2% (−33 bp), still above the historical range on the mix toward financial institutions (higher commissions); commission rates unchanged." },
+        lossCost: { es: "+3.9%: temporada de lluvias (3T es históricamente el de mayor siniestralidad) y el IVA en el costo medio; robo de unidades aseguradas −17.1% en México, recuperación 49.9%, frecuencia 6.8% (−31 pb).", en: "+3.9%: rainy season (3Q is historically the highest loss-ratio quarter) and VAT in the average cost; theft of insured units −17.1% in Mexico, 49.9% recovery, frequency 6.8% (−31 bp)." },
+        techResult: { es: "−10.5%: la constitución de reservas y la siniestralidad superan el crecimiento de la emisión.", en: "−10.5%: reserve constitution and claims outgrow written growth." },
+        opex: { es: "−9.9%; índice 5.1% (−99 pb; 4.6% sin la provisión de PTU).", en: "−9.9%; ratio 5.1% (−99 bp; 4.6% excluding the PTU provision)." },
+        opResult: { es: "−11.0%: margen operativo 6.8%.", en: "−11.0%: operating margin 6.8%." },
+        rif: { es: "+15.2%: RSI 8.3% (vs 7.6%) con la tasa de referencia en 6.5%; rendimiento al vencimiento 8.5% (México 9.1%), duración 2.7 años, ≈Ps. 2.1 mil M de plusvalías no realizadas; el S&P 500 acumula +11.8% en el año.", en: "+15.2%: RSI 8.3% (vs 7.6%) with the reference rate at 6.5%; 8.5% yield to maturity (Mexico 9.1%), 2.7-year duration, ≈Ps. 2.1 bn of unrealized gains; the S&P 500 is up 11.8% year-to-date." },
+        ibt: { es: "+0.8%: el RIF compensa el menor resultado operativo.", en: "+0.8%: RIF offsets the lower operating result." },
+        tax: { es: "Tasa efectiva 30.5% vs 31.4%.", en: "Effective rate 30.5% vs 31.4%." },
+        netIncome: { es: "+2.1% (Ps. 36 M) a Ps. 1,770 M; margen neto 9.5%. ROE 12M 17.2% (arrastra el IVA del 4T25) y ROE del periodo 27.5%.", en: "+2.1% (Ps. 36 M) to Ps. 1,770 M; net margin 9.5%. 12M ROE 17.2% (still carrying the 4Q25 VAT) and period ROE 27.5%." },
+        acqRatio: { es: "24.2% (−33 pb).", en: "24.2% (−33 bp)." },
+        lossRatio: { es: "63.4% (+104 pb), dentro de 62–65%; México 61.5% (+0.9 pp).", en: "63.4% (+104 bp), inside 62–65%; Mexico 61.5% (+0.9 pp)." },
+        opRatio: { es: "5.1% (−99 pb).", en: "5.1% (−99 bp)." },
+        combined: { es: "92.7% (−28 pb); México 89.8%. Ajustado (todos los costos ÷ devengada) 93.2%.", en: "92.7% (−28 bp); Mexico 89.8%. Adjusted (all costs ÷ earned) 93.2%." },
+      },
+      ops: {
+        unitsTotal: { es: "Récord de 6.23 M (+86.8 mil a/a, +86.3 mil t/t) pese a la presión en precios; TACC 5 años +8.5%.", en: "Record 6.23 M (+86.8k y/y, +86.3k q/q) despite pricing pressure; 5-year CAGR +8.5%." },
+        unitsMx: { es: "+0.2%: autos +1.0%, camiones +2.6%, motos −19.0%; ventas de unidades nuevas +4.4% en el trimestre.", en: "+0.2%: cars +1.0%, trucks +2.6%, motorcycles −19.0%; new-unit sales +4.4% in the quarter." },
+        unitsIntl: { es: "Costa Rica +15.2%, Perú +33.2%, Colombia 37 mil (vs 4 mil), El Salvador +4.0%, EUA −20.1% por la salida del negocio doméstico.", en: "Costa Rica +15.2%, Peru +33.2%, Colombia 37k (vs 4k), El Salvador +4.0%, US −20.1% on the domestic exit." },
+        premInd: { es: "+5.1% (9M26 +3.8%): el negocio tradicional recuperó impulso.", en: "+5.1% (9M26 +3.8%): the traditional business regained momentum." },
+        premFleet: { es: "+4.3% (9M26 +7.5%) tras el ajuste de la cuenta multianual del 2T.", en: "+4.3% (9M26 +7.5%) after the 2Q multi-year account adjustment." },
+        premFin: { es: "+14.6% (9M26 +15.1%): venta de autos nuevos y relaciones con instituciones financieras; ≈35% del negocio.", en: "+14.6% (9M26 +15.1%): new-car sales and relationships with financial institutions; ≈35% of the business." },
+        premIntl: { es: "−1.5%: LATAM +36.5% en pesos (+45.1% en dólares; Colombia 21 oficinas, US$21.3 M acumulados) y QIC −76.1%.", en: "−1.5%: LATAM +36.5% in pesos (+45.1% in dollars; Colombia 21 offices, US$21.3 M year-to-date) and QIC −76.1%." },
+        wpPerUnit: { es: "Sube ≈6%: mayor peso de instituciones financieras y unidades nuevas de mayor prima.", en: "Up ≈6%: more financial-institution business and higher-premium new units." },
+        claimsPerUnit: { es: "Sube ≈2.5%: IVA en el costo medio y lluvias, contenido por menos robos y mayor recuperación.", en: "Up ≈2.5%: VAT in the average cost and rains, contained by fewer thefts and a higher recovery rate." },
+      },
+      bs: {
+        totalAssets: { es: "+11.0%: portafolio de inversión y deudor por primas (multianuales) crecen con las reservas.", en: "+11.0%: investment portfolio and premium receivables (multi-year policies) grow with reserves." },
+        inv: { es: "+4.8% a Ps. 58,810 M; activos invertidos (float) Ps. 54,754 M, 85.8% renta fija, duración 2.7 años, ≈21% en dólares.", en: "+4.8% to Ps. 58,810 M; invested assets (float) Ps. 54,754 M, 85.8% fixed income, 2.7-year duration, ≈21% in US dollars." },
+        reserves: { es: "+13.8% (+Ps. 8,419 M): emisión y mezcla de cartera; en el trimestre se constituyeron Ps. 279 M.", en: "+13.8% (+Ps. 8,419 M): written growth and portfolio mix; Ps. 279 M constituted in the quarter." },
+        valuationSurplus: { es: "≈Ps. 2.1 mil M de plusvalías no realizadas que no pasan por resultados hasta su venta.", en: "≈Ps. 2.1 bn of unrealized gains that do not hit earnings until sold." },
+        treasury: { es: "≈7.7 M de acciones en tesorería; Ps. 551 M remanentes del fondo de recompra de Ps. 800 M.", en: "≈7.7 M treasury shares; Ps. 551 M left of the Ps. 800 M buyback fund." },
+        totalEquity: { es: "+1.3%: utilidades menos el dividendo de Ps. 9 (primera exhibición de Ps. 4.5 en mayo) y las recompras; índice de solvencia 357%.", en: "+1.3%: earnings less the Ps. 9 dividend (first Ps. 4.5 installment in May) and buybacks; solvency index 357%." },
+      },
+      cf: {},
+    },
+    "2026M9": {
+      call: { date: "2026-10-21", es: "conferencia de resultados del 3T26 (21 oct 2026); transcripción pendiente", en: "3Q26 earnings call (21 Oct 2026); transcript pending" },
+      lines: {
+        written: { es: "+7.7%: 1T +15.3%, 2T −0.5% (cuenta multianual) y 3T +7.7%; dentro del rango de dígito medio a alto.", en: "+7.7%: 1Q +15.3%, 2Q −0.5% (multi-year account) and 3Q +7.7%; inside the mid-to-high single-digit range." },
+        reserveInc: { es: "Constitución de Ps. 2,843 M, Ps. 679 M más que en 9M25.", en: "Ps. 2,843 M constituted, Ps. 679 M more than in 9M25." },
+        earned: { es: "+6.0%, por debajo de la emitida por la mayor participación de pólizas multianuales.", en: "+6.0%, behind written premiums on the larger share of multi-year policies." },
+        acqCost: { es: "+8.4%: mezcla hacia instituciones financieras; índice 23.9% (+29 pb).", en: "+8.4%: mix toward financial institutions; ratio 23.9% (+29 bp)." },
+        lossCost: { es: "+9.2%: IVA no acreditable (3.2 pp del índice) y lluvias; robo −17.1% y recuperación 49.9% en México.", en: "+9.2%: non-creditable VAT (3.2 pp of the ratio) and rains; theft −17.1% and 49.9% recovery in Mexico." },
+        opex: { es: "−5.2%: menor provisión de PTU; índice 5.3% (4.5% sin PTU).", en: "−5.2%: lower PTU provision; ratio 5.3% (4.5% ex-PTU)." },
+        opResult: { es: "−18.7%: margen operativo 5.7%.", en: "−18.7%: operating margin 5.7%." },
+        rif: { es: "−6.2%: tasas más bajas (6.5% vs 7.5%) y un 1T25 excepcional; RSI 7.7% vs 8.9% (8.0% a valor de mercado).", en: "−6.2%: lower rates (6.5% vs 7.5%) and an exceptional 1Q25; RSI 7.7% vs 8.9% (8.0% at market value)." },
+        tax: { es: "Tasa efectiva 30.1% vs 31.4%.", en: "Effective rate 30.1% vs 31.4%." },
+        netIncome: { es: "−10.8%: IVA, menor RIF y una base 9M25 récord. ROE 12M 17.2%, ROE del periodo 27.5%.", en: "−10.8%: VAT, lower RIF and a record 9M25 base. 12M ROE 17.2%, period ROE 27.5%." },
+        lossRatio: { es: "63.6% (+185 pb), punto medio del rango 62–65%; México 62.2%.", en: "63.6% (+185 bp), midpoint of the 62–65% range; Mexico 62.2%." },
+        combined: { es: "92.7% (+143 pb), dentro de 92–94%; México 90.4%.", en: "92.7% (+143 bp), inside 92–94%; Mexico 90.4%." },
+      },
+      ops: {
+        premFleet: { es: "+7.5%: grandes cuentas cerradas en el 1T, parcialmente revertidas en el 2T.", en: "+7.5%: large accounts closed in 1Q, partly reversed in 2Q." },
+        premFin: { es: "+15.1%: canal de instituciones financieras, ≈35% del negocio.", en: "+15.1%: financial-institution channel, ≈35% of the business." },
+        premIntl: { es: "−6.8%: LATAM +41.7% en dólares (Costa Rica +30.7%, Perú +20.0%, El Salvador +7.7%) frente a QIC −77.9%; el tipo de cambio recorta la cifra en pesos.", en: "−6.8%: LATAM +41.7% in dollars (Costa Rica +30.7%, Peru +20.0%, El Salvador +7.7%) against QIC −77.9%; the exchange rate trims the peso figure." },
+      },
+    },
     "2026Q2": {
       call: { date: "2026-07-22", es: "conferencia de resultados del 2T26 (22 jul 2026, transcripción FactSet)", en: "2Q26 earnings call (22 Jul 2026, FactSet transcript)" },
       // Verbatim management quotes from the call transcript, keyed by statement line / ratio / metric; `es` is a translation.

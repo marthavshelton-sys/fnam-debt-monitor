@@ -1,7 +1,7 @@
 // Slow-moving reference facts for the OMA model. Every entry carries its source; edit by hand or via the
 // weekday routine when a release changes a fact (dividends, debt, share count, MDP, VINCI).
 window.OMA_REF = {
-  updatedAt: "2026-10-09",
+  updatedAt: "2026-10-22",
   company: {
     name: "Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",
     short: "OMA",
@@ -124,6 +124,14 @@ window.OMA_REF = {
     capexMxnM: [3100, 4900, 5500, 5600, 4500], daPctRevenue: null, taxRatePct: 30, nwcPctDeltaRevenue: 5,
     riskFreePct: null, erpPct: 5, beta: 0.85, costOfDebtPct: 9.2, targetDebtPct: 25, terminalGrowthPct: 4, exitMultiple: 11,
     note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 2.5% in the first projected year after +2.4% in 6M26, then 3%; capex 2027–2030 = each year's MDP commitment indexed 4% a year plus ≈Ps. 400 M of strategic investments and major maintenance, 2031 = the MDP's annual average indexed the same way plus the Ps. 400 M; cost of debt = the OMA 26-2 coupon (9.17%) plus fees. Beta and the risk-free rate are derived from market data at render time, and the exit multiple is OMA's own 5-year average NTM EV/EBITDA from the FactSet peers snapshot (exitMultiple is the fallback).", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 2.5% en el primer año proyectado tras +2.4% en 6M26, luego 3%; capex 2027–2030 = compromiso del PMD de cada año indexado 4% anual más ≈Ps. 400 M de inversiones estratégicas y mantenimiento mayor, 2031 = promedio anual del PMD indexado igual más los Ps. 400 M; costo de deuda = cupón de OMA 26-2 (9.17%) más comisiones. La beta y la tasa libre de riesgo se derivan del mercado al renderizar, y el múltiplo de salida es el promedio de 5 años del VE/EBITDA NTM de OMA según el snapshot de pares de FactSet (exitMultiple es el respaldo)." }
+  },
+  // Results calendar (the model prints a confirmed date only while OMA has announced it; otherwise the release-lag rule).
+  // 3T26: OMA's investor events calendar lists the 3T26 results conference call for Thursday 29-Oct-2026 at 11:00 ET
+  // (invitation file dated 8-Oct-2026); the results release precedes it on Tuesday 27-Oct-2026 after the market close
+  // (FactSet CalendarEvents, ConfirmedEarningsRelease, last modified 12-Oct-2026, read in-session 22-Oct-2026).
+  calendar: {
+    nextResults: { q: "2026Q3", date: "2026-10-27", confirmed: true, call: { date: "2026-10-29", time: "11:00 ET" },
+      source: { title: "OMA · Calendario de eventos: Conferencia Telefónica de Resultados 3T26 (29-oct-2026, 11:00 ET); FactSet CalendarEvents: 3Q26 Earnings Release 27-Oct-2026 (after market)", url: "https://ir.oma.aero/es/calendario-de-eventos/", date: "2026-10-08" } },
   },
   peers: ["GAP", "ASUR", "AENA", "Fraport", "Flughafen Zürich", "Auckland International"]
 };

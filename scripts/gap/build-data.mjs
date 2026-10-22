@@ -471,10 +471,10 @@ function parseSegments(lines, rel) {
     for (let i = h.line + 1; i < lines.length; i++) {
       const line = lines[i];
       if (/^Exhibit [B-Z]/i.test(line) || /^Exhibit A/i.test(line)) break;
-      const fn = line.match(/^(\d)\.\s+(.*)$/); if (fn) { footnotes[fn[1]] = fn[2].trim(); continue; }
+      const fn = line.match(/^\(?(\d)[.)]\s+(.*)$/); if (fn) { footnotes[fn[1]] = fn[2].trim(); continue; } // "1. …" (wire) or "(1) …" (PDF)
       const cells = line.split('|').map((c) => c.trim());
       const head = norm(cells[0]).replace(/\s*\(\d\)\s*$/, '').trim();
-      if (cells.slice(1).every((c) => c === '') && SEG_BY_NAME[head]) { seg = SEG_BY_NAME[head]; continue; }
+      if (cells.slice(1).every((c) => c === '' || /^\(\d\)$/.test(c)) && SEG_BY_NAME[head]) { seg = SEG_BY_NAME[head]; continue; } // "Cross Border Xpress (1)" / "Others | (2)" (PDF footnote markers)
       if (!seg) continue;
       const row = tokenizeRow(line); if (!row || !row.toks.length) continue;
       const def = SEG_ROWS.find((d) => d.re.test(normLabel(row.label))); if (!def) continue;

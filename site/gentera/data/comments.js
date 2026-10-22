@@ -1064,8 +1064,76 @@ const CALLS = {
  }
 };
 return {
- "updatedAt": "2026-09-25",
+ "updatedAt": "2026-10-22",
  "periods": {
+  "2026M9": {
+   "source": "Press release 3T26",
+   "call": { "date": "2026-10-22", "quarter": "2026Q3", "kind": "pending", "es": "Conferencia de resultados 3T26 (22 de octubre de 2026); transcripción pendiente: comentarios tomados del informe del 21 de octubre", "en": "3Q26 earnings call (22 October 2026); transcript pending: comments taken from the 21 October release" },
+   "lines": {
+    "intInc": { "es": "+8.3% en nueve meses: cartera promedio ~+10% con una tasa activa estable (~56%).", "en": "+8.3% in nine months: average book ~+10% with a stable yield (~56%)." },
+    "intExp": { "es": "−12.7%: los recortes de Banxico bajan el costo de fondeo del Banco (7.0% en el 3T26 vs 8.2% hace un año).", "en": "−12.7%: Banxico cuts lower the Bank's cost of funds (7.0% in 3Q26 vs 8.2% a year ago)." },
+    "finMargin": { "es": "+12.9%; MIN de nueve meses 41.0% (40.8%).", "en": "+12.9%; nine-month NIM 41.0% (40.8%)." },
+    "prov": { "es": "+34.3%: costo de riesgo en ascenso en los tres trimestres (etapa 3 consolidada 3.43% → 4.57%); MIN después de provisiones 28.5% (29.9%).", "en": "+34.3%: cost of risk rising through the three quarters (consolidated stage 3 3.43% → 4.57%); NIM after provisions 28.5% (29.9%)." },
+    "opex": { "es": "+7.5%, por debajo del ~+10% guiado; eficiencia 63.8% (64.4%).", "en": "+7.5%, below the ~+10% guided; efficiency ratio 63.8% (64.4%)." },
+    "netInc": { "es": "+10.9% a Ps. 7,189 M, el mejor periodo de nueve meses; ROAE 25.4%, ROAA 7.8%.", "en": "+10.9% to Ps. 7,189 M, the best nine months ever; ROAE 25.4%, ROAA 7.8%." },
+    "niCtrl": { "es": "+10.5% a Ps. 6,974 M; ROE controlador 24.9% (25.9%).", "en": "+10.5% to Ps. 6,974 M; controlling ROE 24.9% (25.9%)." },
+    "eps": { "es": "Ps. 4.42 (+10.5%), 74% del punto medio de la guía 2026 (Ps. 5.88–6.03).", "en": "Ps. 4.42 (+10.5%), 74% of the 2026 guidance midpoint (Ps. 5.88–6.03)." }
+   },
+   "bs": {
+    "loans": { "es": "+8.5% a/a y +1.7% desde diciembre (Ps. 93,599 M), dentro del 6–9% guiado para el cierre.", "en": "+8.5% y/y and +1.7% since December (Ps. 93,599 M), inside the 6–9% guided for year-end." }
+   },
+   "ops": {
+    "clientsCred": { "es": "4.70 M (+4.0% a/a); 6.87 M de personas atendidas.", "en": "4.70 M (+4.0% y/y); 6.87 M people served." }
+   }
+  },
+  "2026Q3": {
+   "source": "Press release 3T26",
+   "call": { "date": "2026-10-22", "quarter": "2026Q3", "kind": "pending", "es": "Conferencia de resultados 3T26 (22 de octubre de 2026); transcripción pendiente: comentarios tomados del informe del 21 de octubre", "en": "3Q26 earnings call (22 October 2026); transcript pending: comments taken from the 21 October release" },
+   "lines": {
+    "intInc": { "es": "+6.7% anual con cartera +8.5% y una tasa activa de ~56% (56.5% hace un año); +2.2% secuencial. El Banco genera 73.0% de los ingresos por intereses con 65.0% de la cartera; ConCrédito 7.8% con 7.2%.", "en": "+6.7% YoY on 8.5% loan growth and a ~56% yield (56.5% a year ago); +2.2% QoQ. The Bank generates 73.0% of interest income on 65.0% of loans; ConCrédito 7.8% on 7.2%." },
+    "intExp": { "es": "−18.6% anual, −8.1% secuencial: el costo de fondeo del Banco bajó a 7.0% desde 8.2% con los recortes de Banxico aunque los pasivos con costo crecieron 6.6%; Perú +0.9%.", "en": "−18.6% YoY, −8.1% QoQ: the Bank's cost of funds fell to 7.0% from 8.2% on Banxico cuts even as interest-bearing liabilities grew 6.6%; Perú +0.9%." },
+    "fundExp": { "es": "−14.2% anual: menores tasas de referencia; el Banco −16.9%.", "en": "−14.2% YoY: lower reference rates; the Bank −16.9%." },
+    "origExp": { "es": "−26% anual: costos de originación e intereses de arrendamiento en gastos por intereses; ~Ps. 448 M corresponden al Banco.", "en": "−26% YoY: loan-origination costs and lease interest booked in interest expense; ~Ps. 448 M at the Bank." },
+    "finMargin": { "es": "+11.6% anual, +3.8% secuencial; MIN 42.1% (42.2% hace un año, 41.2% en el 2T26).", "en": "+11.6% YoY, +3.8% QoQ; NIM 42.1% (42.2% a year ago, 41.2% in 2Q26)." },
+    "prov": { "es": "+31.7% anual, +9.2% secuencial: costo de riesgo 15.8% (13.3% hace un año) por la etapa 3 individual en México (6.78%) y el crecimiento en Perú y ConCrédito.", "en": "+31.7% YoY, +9.2% QoQ: cost of risk 15.8% (13.3% a year ago) on individual-loan stage 3 in Mexico (6.78%) and growth in Perú and ConCrédito." },
+    "finMarginAdj": { "es": "+4.0% anual; MIN después de provisiones 28.5% (30.6% hace un año, igual que en el 2T26).", "en": "+4.0% YoY; NIM after provisions 28.5% (30.6% a year ago, flat on 2Q26)." },
+    "feesCh": { "es": "+6.5% anual: seguros (ATERNA, 17.1 M de pólizas activas, primas Ps. 2,567 M).", "en": "+6.5% YoY: insurance (ATERNA, 17.1 M active policies, Ps. 2,567 M of premiums)." },
+    "feesPd": { "es": "−21% anual: menor uso de canales de terceros.", "en": "−21% YoY: less use of third-party channels." },
+    "netFees": { "es": "+9.5% anual a Ps. 1,665 M.", "en": "+9.5% YoY to Ps. 1,665 M." },
+    "otherInc": { "es": "+19% anual (Ps. 356 M): incluye el negocio de seguros de ConCrédito.", "en": "+19% YoY (Ps. 356 M): includes ConCrédito's insurance business." },
+    "totOpInc": { "es": "+11.6% anual.", "en": "+11.6% YoY." },
+    "opIncAfterProv": { "es": "+5.5% anual: las provisiones absorben más de la mitad del crecimiento del margen.", "en": "+5.5% YoY: provisions absorb more than half of the margin growth." },
+    "opex": { "es": "+4.8% anual, +2.9% secuencial, mejor de lo previsto (expectativa ~+10% para el año) por eficiencias tecnológicas; índice de eficiencia 64.6% (65.1%).", "en": "+4.8% YoY, +2.9% QoQ, better than planned (~+10% expected for the year) on technology efficiencies; efficiency ratio 64.6% (65.1%)." },
+    "opRes": { "es": "+6.8% anual.", "en": "+6.8% YoY." },
+    "tax": { "es": "+3.3% anual; tasa efectiva 32.9% (34.0%).", "en": "+3.3% YoY; effective rate 32.9% (34.0%)." },
+    "netInc": { "es": "+8.6% anual, −0.5% secuencial a Ps. 2,342 M; nueve meses Ps. 7,189 M (+10.9%), récord.", "en": "+8.6% YoY, −0.5% QoQ to Ps. 2,342 M; nine months Ps. 7,189 M (+10.9%), a record." },
+    "niMX": { "es": "+1.4% anual: el mayor costo de riesgo compensa el menor costo de fondeo; ROE del Banco 28.1% (31.7%).", "en": "+1.4% YoY: the higher cost of risk offsets the lower cost of funds; the Bank's ROE 28.1% (31.7%)." },
+    "niPE": { "es": "+20.0% anual a Ps. 468 M; ROE 26.3%, ROA 6.0%.", "en": "+20.0% YoY to Ps. 468 M; ROE 26.3%, ROA 6.0%." },
+    "niCC": { "es": "+40.5% anual a Ps. 268 M; ROE 21.9%, ROA 11.2%.", "en": "+40.5% YoY to Ps. 268 M; ROE 21.9%, ROA 11.2%." },
+    "niCtrl": { "es": "+7.7% anual a Ps. 2,261 M; ROE controlador 23.8% (25.5%).", "en": "+7.7% YoY to Ps. 2,261 M; controlling ROE 23.8% (25.5%)." },
+    "niMin": { "es": "Ps. 81 M (Ps. 57 M): minoritarios de ConCrédito con mayor utilidad.", "en": "Ps. 81 M (Ps. 57 M): ConCrédito's minorities on higher earnings." },
+    "oci": { "es": "+Ps. 189 M por conversión de Perú con el movimiento del sol frente al peso.", "en": "+Ps. 189 M on the translation of Perú with the sol's move against the peso." },
+    "compInc": { "es": "+18.1% anual: utilidad neta +8.6% más el resultado por conversión.", "en": "+18.1% YoY: net income +8.6% plus the translation result." },
+    "eps": { "es": "Ps. 1.43 (+7.7%); nueve meses Ps. 4.42 (+10.5%), 74% del punto medio de la guía (Ps. 5.88–6.03).", "en": "Ps. 1.43 (+7.7%); nine months Ps. 4.42 (+10.5%), 74% of the guidance midpoint (Ps. 5.88–6.03)." }
+   },
+   "bs": {
+    "loans": { "es": "+8.5% anual, +0.6% secuencial y +1.7% desde diciembre, dentro del 6–9% guiado para el cierre; etapa 3 Ps. 4,347 M (4.57%).", "en": "+8.5% YoY, +0.6% QoQ and +1.7% since December, inside the 6–9% guided for year-end; stage 3 Ps. 4,347 M (4.57%)." },
+    "loansMX": { "es": "+6.5% anual, −1.0% secuencial; 65% de la cartera del grupo. Grupal ~60.2% (etapa 3 4.16%), individual ~39.8% (etapa 3 6.78%).", "en": "+6.5% YoY, −1.0% QoQ; 65% of the group book. Group lending ~60.2% (stage 3 4.16%), individual loans ~39.8% (stage 3 6.78%)." },
+    "loansPE": { "es": "+11.6% en pesos, +11.9% en soles; +2.9% secuencial. El crédito grupal es 23.6% de la cartera peruana y 65.3% de sus clientes.", "en": "+11.6% in pesos, +11.9% in soles; +2.9% QoQ. Group loans are 23.6% of the Peruvian book and 65.3% of its clients." },
+    "loansCC": { "es": "Récord de Ps. 6,878 M, +14.4% anual y +6.3% secuencial.", "en": "Record Ps. 6,878 M, +14.4% YoY and +6.3% QoQ." }
+   },
+   "ops": {
+    "clientsCred": { "es": "Récord de 4.70 M de clientes de crédito (+4.0% anual, +0.4% secuencial); 6.87 M de personas atendidas (+8.0%). Banco 3.59 M (+5.4%), Perú 1.03 M (sin cambio), usuarios finales de ConCrédito 1.07 M (+2.0%).", "en": "Record 4.70 M credit clients (+4.0% YoY, +0.4% QoQ); 6.87 M people served (+8.0%). Bank 3.59 M (+5.4%), Perú 1.03 M (flat), ConCrédito end users 1.07 M (+2.0%)." },
+    "avgBal": { "es": "+4.3% anual, +0.1% secuencial: los clientes renuevan con montos menores ante el entorno.", "en": "+4.3% YoY, +0.1% QoQ: clients renew with smaller amounts given the environment." },
+    "yieldDisc": { "es": "Tasa activa ~56% contra 56.5% hace un año y 56.1% en el 2T26: precios estables.", "en": "Blended tasa activa ~56% vs 56.5% a year ago and 56.1% in 2Q26: pricing stable." },
+    "employees": { "es": "+2.1% anual, +0.9% secuencial (28,678).", "en": "+2.1% YoY, +0.9% QoQ (28,678)." },
+    "branches": { "es": "154 sucursales (151 hace un año); 559 oficinas de servicio.", "en": "154 branches (151 a year ago); 559 service offices." },
+    "loans": { "es": "+8.5% anual; Banco +6.5%, Perú +11.6%, ConCrédito +14.4%.", "en": "+8.5% YoY; Bank +6.5%, Perú +11.6%, ConCrédito +14.4%." },
+    "loansMX": { "es": "+6.5% anual, −1.0% secuencial con la originación más estricta.", "en": "+6.5% YoY, −1.0% QoQ under tighter origination." },
+    "loansPE": { "es": "+11.6% en pesos (+11.9% en soles).", "en": "+11.6% in pesos (+11.9% in soles)." },
+    "loansCC": { "es": "+14.4% anual, récord.", "en": "+14.4% YoY, a record." }
+   }
+  },
   "2023M9": {
    "call": CALLS["2023Q3"],
    "source": "Earnings call 2023Q3"

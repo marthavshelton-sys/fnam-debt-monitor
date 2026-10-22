@@ -3,7 +3,7 @@
 // defaults. Updated by reviewed commit when an event lands (AGM, rating action, material event).
 // Figures quoted come from Quálitas' IR site (results reports, material events) and the BMV.
 window.Q_REF = {
-  updatedAt: "2026-10-04",
+  updatedAt: "2026-10-22",
   company: {
     name: "Quálitas Controladora, S.A.B. de C.V.", short: "Quálitas", ticker: "Q*", bmv: "Q", bloomberg: "Q* MM", exchange: "BMV",
     sector: { es: "Seguros de automóviles (daños)", en: "Motor insurance (P&C)" },
@@ -18,14 +18,14 @@ window.Q_REF = {
   // Shares: 400,000,000 issued; the shares outstanding used for per-share figures come from the IR workbook
   // ("Total de acciones en circulación") in financials.js (issued less treasury shares). `treasury` is the
   // figure quoted in the latest results report.
-  shares: { issued: 400000000, asOf: "2026-06-30", treasuryApprox: 6200000, note: { es: "≈6.2 millones de acciones en tesorería al 2T26 con Ps. 784 M remanentes en el fondo de recompra (informe 2T26).", en: "≈6.2 million treasury shares at 2Q26 with Ps. 784 M left in the buyback fund (2Q26 report)." } },
+  shares: { issued: 400000000, asOf: "2026-09-30", treasuryApprox: 7700000, note: { es: "≈7.7 millones de acciones en tesorería al 3T26 con Ps. 551 M remanentes en el fondo de recompra (informe 3T26).", en: "≈7.7 million treasury shares at 3Q26 with Ps. 551 M left in the buyback fund (3Q26 report)." } },
   subsidiaries: [
     { k: "mx", name: "Quálitas Compañía de Seguros (México)", country: "MX", type: "insurer", note: { es: "≈95% de la prima emitida; líder del ramo de autos desde 2007.", en: "≈95% of written premiums; motor-line leader since 2007." } },
     { k: "es", name: "Quálitas El Salvador (QES)", country: "SV", type: "insurer", note: { es: "≈15% de participación en autos en El Salvador.", en: "≈15% motor market share in El Salvador." } },
     { k: "cr", name: "Quálitas Costa Rica (QCR)", country: "CR", type: "insurer", note: { es: "≈16% de participación; la subsidiaria internacional de mayor crecimiento.", en: "≈16% market share; the fastest-growing international subsidiary." } },
-    { k: "us", name: "Quálitas Insurance Company (QIC)", country: "US", type: "insurer", note: { es: "Desde 2025 sale del negocio doméstico y se concentra en productos transfronterizos y binacionales; prima −80% a/a en 2T26.", en: "Since 2025 exiting domestic business to focus on cross-border and binational products; premiums −80% y/y in 2Q26." } },
+    { k: "us", name: "Quálitas Insurance Company (QIC)", country: "US", type: "insurer", note: { es: "Desde 2025 sale del negocio doméstico y se concentra en productos transfronterizos y binacionales; prima −76% a/a en 3T26.", en: "Since 2025 exiting domestic business to focus on cross-border and binational products; premiums −76% y/y in 3Q26." } },
     { k: "pe", name: "Quálitas Perú (QP)", country: "PE", type: "insurer", note: { es: "≈9% de participación en autos.", en: "≈9% motor market share." } },
-    { k: "co", name: "Quálitas Colombia (QCol)", country: "CO", type: "insurer", since: "2025-03", note: { es: "Primeras pólizas en el 1T25; 20 oficinas al 2T26 (meta 25 al cierre de 2026).", en: "First policies in 1Q25; 20 offices at 2Q26 (target 25 by end-2026)." } },
+    { k: "co", name: "Quálitas Colombia (QCol)", country: "CO", type: "insurer", since: "2025-03", note: { es: "Primeras pólizas en el 1T25; 21 oficinas al 3T26 (meta 25 al cierre de 2026); US$21.3 M de primas emitidas en 9M26.", en: "First policies in 1Q25; 21 offices at 3Q26 (target 25 by end-2026); US$21.3 M of written premiums in 9M26." } },
     { k: "verticals", name: { es: "Verticales", en: "Verticals" }, type: "services", note: { es: "Quálitas Salud (2023), Autos y Salvamentos, O&T (talleres), Activos Jal (inmuebles), DCT y Flekk (tecnología y telemática), Roto Cristales y Partes (cristales y refacciones, adquirida en 2025).", en: "Quálitas Salud (2023), Autos y Salvamentos (salvage), O&T (repair shops), Activos Jal (real estate), DCT and Flekk (technology and telematics), Roto Cristales y Partes (glass and spare parts, acquired in 2025)." } },
   ],
   ratings: [
@@ -83,6 +83,14 @@ window.Q_REF = {
     sources: { es: ["informes trimestrales 1T25–2T26", "conferencias 3T23, 3T24, 1T25, 3T25"], en: ["quarterly reports 1Q25–2Q26", "3Q23, 3Q24, 1Q25 and 3Q25 calls"] },
   },
   // Valuation defaults for the residual-income (P/BV–ROE) model. All editable on the page.
+  // Results calendar. nextResults is set only when Quálitas announces the date (the deck then prints it as confirmed);
+  // otherwise the page and the deck assume the median release lag of the same quarter (4Q: 25-Jan-2024, 27-Jan-2025,
+  // 28-Jan-2026). projected: a vendor's estimate, printed as such, never as a confirmed date (FactSet CalendarEvents,
+  // ProjectedEarningsRelease for 4Q26, read in-session 22-Oct-2026).
+  calendar: {
+    nextResults: null,
+    projected: { q: "2026Q4", date: "2027-01-28", source: "FactSet", asOf: "2026-10-22" },
+  },
   valuation: {
     roePct: 20, payoutPct: 70, growthPct: 5.0, terminalRoePct: 18, erpPct: 6.0, betaFloor: 0.5, betaCap: 1.2, years: 5,
     notes: { es: "ROE de 20% = expectativa de la administración para 2026 ('cerca de 20%') y piso de su rango de largo plazo 20–25%; pago de 70% = promedio de las asambleas 2024–2026; g = inflación de largo plazo (≈3.5%) más crecimiento real del parque asegurado.", en: "20% ROE = management's 2026 expectation ('close to 20%') and the floor of its 20–25% long-term range; 70% payout = average of the 2024–2026 AGMs; g = long-run inflation (≈3.5%) plus real growth of the insured fleet." },

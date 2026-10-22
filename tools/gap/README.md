@@ -86,6 +86,19 @@ subtotal no longer reconciles, the validator fails and nothing is committed. Fix
 to the regex (or a new row to the catalogue, which also adds it to the page), run
 `node scripts/gap/build-data.mjs && node scripts/gap/validate-data.mjs` locally, commit.
 
+## GAP's investor site (fallback for the wire; since 22-Oct-2026)
+
+GlobeNewswire answers 403 to GitHub's runners since October 2026 (every scheduled run from 19-Oct read "0 releases"; PR
+Newswire's listing is empty too), so the 3Q26 report of 19-Oct-2026 never reached the archive. `harvest-releases.mjs` now
+reads, after the wire, GAP's own list https://www.aeropuertosgap.com.mx/en/material-events.html (three pages, about four
+months: title, dated paragraph, PDF under `/files/`), converts each PDF with `scripts/gap/pdf-to-text.py --pdf <file>`
+(pdfplumber, the pipe-delimited rows of the PDF reports; the workflow installs pdfplumber before the harvest) and archives it
+as `tools/gap/raw/6k/<date>_ir<slug>_en.txt` (`# via: IR site (material events)`). A release the wire already archived (same
+class within a day) is skipped, so a quarter is never parsed twice; the wire's own mis-classification of the 11-Sep-2026
+credit-lines notice as traffic left one duplicate "other" text, harmless. `build-data.mjs` parses these files like the wire's
+(the 3Q26 quarter came from `2026-10-19_irpr3q26eng19oct26vfdef_en.txt`, 0 validation failures). Monthly traffic releases
+sit on the same list, so the fallback covers them too.
+
 ## BMV eventos relevantes (fail-safe for filings the wire never carries; since 3-Oct-2026)
 
 After the harvest, the workflow step "Watch BMV eventos relevantes" runs the shared watcher

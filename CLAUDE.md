@@ -392,6 +392,17 @@ dashboards, everything built from public data by GitHub Actions.
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
 
+- Quarterly results (owner, 22-Oct-2026: every dashboard up to date as soon as the company reports, without being asked): the results
+  calendar lives in each model's data files (`reference.js → calendar.nextResults` for GAP, OMA, ASUR and Quálitas; `company.nextResults`
+  for Gentera; `tools/oracle/data/calendar.json`): the company's own confirmed date and source, else an estimate marked "≈" / `assumed`
+  (FactSet's projection only in `calendar.projected`). `results-watch.yml` (every three hours on weekdays; `scripts/lib/results-watch.mjs`)
+  dispatches the company's refresh from the results date until the quarter is in `financials.js`, re-reads for three days and opens a
+  "MAINTENANCE: … results not found" issue (label `fnam-maintenance`) 48 hours after a missed date. GAP's wire (GlobeNewswire) answers
+  403 to the runner since October 2026: its harvester falls back to the investor site's PDFs (`pdf-to-text.py --pdf`). Gentera's
+  consolidated indicators come from the English BMV filing when the Spanish table is an image. After each release the curated files
+  (summary, comments, reference) are rewritten in-session or by the upkeep routines; the change log is `tools/results-watch/CHANGELOG.md`
+  (runbook `tools/results-watch/README.md`). Never leave "Pendiente" or "sin anunciar" for a quarter already released.
+
 ## The macro dashboards
 
 - `site/mx/macro` (Node, `scripts/mx-macro/` + `tools/mx-macro/`, ubuntu runner). `series.json` is a

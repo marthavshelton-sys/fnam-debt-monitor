@@ -38,6 +38,17 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 3. Open https://fnam.mx/gentera/ in ES and EN and check the header strip, the 01 comparison (y/y with
    comments), the guidance table, the valuation defaults and the print view.
 
+## When the Spanish release prints a table as an image (since 22-Oct-2026)
+
+The 3T26 PDF (21-Oct-2026) carries the consolidated "Principales Indicadores" table as an image, so the text has no
+consolidated clients, ROE, NIM, efficiency, coverage or capital/assets. `build_data.py` → `english_indicators()` then reads that
+one table from the English release Gentera files with the BMV the same day (archived by the BMV watcher as
+`raw/text/events/<date>_bmv<id>_es.txt`, title "GENTERA 3Q26 RESULTS"; header "Summary 3Q26 3Q25 2Q26 9M26 9M25", the first three
+cells of a row are the three quarter columns), records it as `sources.ind` on the quarter and leaves a warning on the quality
+page. Nothing else is read from the English text. The same release also showed that `split_row` had been leaving the stage
+digit of "Cartera … etapa 1 y 2" / "etapa 3" among the numeric tokens (the seed transcription had hidden it for 1Q22–2Q26):
+fixed the same day, so the stage lines parse from the text for every quarter.
+
 ## BMV eventos relevantes (fail-safe for filings the IR site never carries; since 3-Oct-2026)
 
 After the harvest, the workflow step "Watch BMV eventos relevantes" runs the shared watcher

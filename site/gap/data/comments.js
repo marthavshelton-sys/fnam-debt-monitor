@@ -15,8 +15,117 @@
 // prints after the report's own citation. Every comment line names its source in brackets (report, call, Exhibit, FNAM for
 // a reconciliation of ours); a line the sources do not explain has no comment, never a guess.
 window.GAP_COMMENTS = {
-  updatedAt: "2026-10-15",
+  updatedAt: "2026-10-22",
   periods: {
+    "LTM2026Q3": {
+      call: { date: null, es: "informes trimestrales del 4T25 al 3T26 (sin transcripción de la conferencia del 3T26 todavía)", en: "quarterly reports 4Q25–3Q26 (no 3Q26 call transcript yet)" },
+      lines: {
+        revTotal: { es: "+7.5% en doce meses: tarifas 2025–29, negocios propios y cinco meses de CBX frente a un tráfico menor.", en: "+7.5% over twelve months: 2025–29 tariffs, own businesses and five months of CBX against lower traffic." },
+        ebitda: { es: "+10.3% a Ps. 23,133 M (doce meses al 30 de septiembre de 2026).", en: "+10.3% to Ps. 23,133 M (twelve months to 30 September 2026)." },
+        netIncome: { es: "+5.1%: el mayor gasto por intereses y el impuesto del 3T26 moderan el crecimiento del EBITDA.", en: "+5.1%: higher interest expense and the 3Q26 tax moderate the EBITDA growth." }
+      },
+      cfSources: { es: "Exhibit C de los informes del 4T25 al 3T26", en: "Exhibit C of the 4Q25–3Q26 reports" },
+      cf: {
+        cfo: { es: "Suma de los cuatro estados trimestrales 4T25–3T26: +21.2%; impuestos pagados −35.3% (Ps. 3,718 M vs 5,745 M) con menos capital de trabajo liberado.", en: "The four quarterly statements 4Q25–3Q26 summed: +21.2%; taxes paid −35.3% (Ps. 3,718 M vs 5,745 M) with less working capital released." },
+        capex: { es: "Ps. 14,435 M en doce meses (+56.5%): PMD 2025–29 y obras en Kingston; 9M26 Ps. 8,623 M, 72% de los Ps. 12.0 mil M guiados.", en: "Ps. 14,435 M over twelve months (+56.5%): MDP 2025–29 and Kingston works; 9M26 Ps. 8,623 M, 72% of the guided Ps. 12.0 bn." },
+        interestPaid: { es: "+20.0%: los certificados de marzo y los préstamos bancarios del año.", en: "+20.0%: the March certificados and the year's bank loans." }
+      }
+    },
+    "2026Q3": {
+      call: { date: null, es: "sin transcripción de la conferencia del 3T26 todavía; comentarios tomados del informe de resultados del 19 oct 2026", en: "no 3Q26 call transcript yet; comments taken from the results report of 19 Oct 2026" },
+      lines: {
+        revAero: { es: "+2.6%: México +5.3% por la tarifa máxima 2025–29 y tráfico +0.4%, con un peso 7.5% más fuerte sobre los cargos en dólares; Jamaica −12.7% con tráfico −15.8%.", en: "+2.6%: Mexico +5.3% on the 2025–29 maximum tariff and traffic +0.4%, with a 7.5% stronger peso on USD-linked charges; Jamaica −12.7% on traffic −15.8%." },
+        revNonAero: { es: "+37.0%: CBX (Ps. 775.5 M) y negocios operados por GAP +13.7% sin CBX (carga y recinto fiscal +20.7%, tiendas +11.6%, publicidad +18.2%); terceros −3.0% (duty-free −12.3%); Jamaica −13.2%.", en: "+37.0%: CBX (Ps. 775.5 M) and GAP-operated businesses +13.7% ex-CBX (cargo and bonded warehouse +20.7%, convenience stores +11.6%, advertising +18.2%); third-party lines −3.0% (duty-free −12.3%); Jamaica −13.2%." },
+        revCbx: { es: "Primer trimestre completo: Ps. 775.5 M (US$44.6 M), 1,034,274 usuarios a US$43.1; EBITDA Ps. 558.2 M (margen 72.0%).", en: "First full quarter: Ps. 775.5 M (US$44.6 M), 1,034,274 users at US$43.1; EBITDA Ps. 558.2 M (72.0% margin)." },
+        revConstruction: { es: "+62.8%: obras del PMD 2025–29 en México (+66.8%) y Kingston (+36.3%); sin efecto en caja ni en EBITDA.", en: "+62.8%: MDP 2025–29 works in Mexico (+66.8%) and Kingston (+36.3%); no cash or EBITDA effect." },
+        revTotal: { es: "+21.8% (+13.7% sin CBX); aero + no aero +13.2% (+3.4% sin CBX).", en: "+21.8% (+13.7% ex-CBX); aero + non-aero +13.2% (+3.4% ex-CBX)." },
+        costServices: { es: "+26.8% (+12.6% sin CBX): personal +14.8%, mantenimiento +13.5% y seguridad +13.1% en México por más personal operativo y de seguridad, nuevas áreas y seguros del recinto fiscal; Jamaica −13.6%; CBX Ps. 216.7 M.", en: "+26.8% (+12.6% ex-CBX): employees +14.8%, maintenance +13.5% and security +13.1% in Mexico on more operating and security staff, new areas and bonded-warehouse insurance; Jamaica −13.6%; CBX Ps. 216.7 M." },
+        costEmployee: { es: "México +Ps. 84.7 M (+14.8%): más personal operativo en aeropuertos y recinto fiscal y ajustes salariales; más la plantilla de CBX.", en: "Mexico +Ps. 84.7 M (+14.8%): more operating staff at the airports and bonded warehouse and salary adjustments; plus CBX's headcount." },
+        costMaintenance: { es: "México +Ps. 35.2 M (+13.5%): nuevas áreas operativas y mantenimiento de pistas.", en: "Mexico +Ps. 35.2 M (+13.5%): new operating areas and airfield maintenance." },
+        costSecurity: { es: "México +Ps. 24.0 M (+13.1%): más personal de seguridad, salario mínimo y seguros de la mercancía del recinto fiscal.", en: "Mexico +Ps. 24.0 M (+13.1%): more security staff, the minimum wage and insurance on goods in the bonded warehouse." },
+        costOther: { es: "Incluye los gastos de CBX fuera de las líneas anteriores (informe).", en: "Includes CBX's expenses outside the lines above (report)." },
+        costCbx: { es: "Gastos operativos de CBX Ps. 260.2 M: costo de servicios Ps. 216.7 M y depreciación Ps. 42.9 M.", en: "CBX operating expenses Ps. 260.2 M: cost of services Ps. 216.7 M and depreciation Ps. 42.9 M." },
+        techAssistance: { es: "−81.0% (−Ps. 183.3 M): la asistencia técnica de AMP se internalizó el 1 de mayo; queda el residual del contrato.", en: "−81.0% (−Ps. 183.3 M): AMP's technical assistance was internalized on 1 May; the residual of the contract remains." },
+        concessionTaxes: { es: "−13.8% (−Ps. 148.6 M): Jamaica −22.7% por menores ingresos en Montego Bay; México −Ps. 46.0 M.", en: "−13.8% (−Ps. 148.6 M): Jamaica −22.7% on lower Montego Bay revenue; Mexico −Ps. 46.0 M." },
+        da: { es: "+8.7%: activos de CBX (Ps. 42.9 M) y obras del PMD en operación; Jamaica −2.7%.", en: "+8.7%: CBX assets (Ps. 42.9 M) and MDP works in service; Jamaica −2.7%." },
+        otherIncome: { es: "Partida menor (informe).", en: "Minor item (report)." },
+        totalOpCosts: { es: "+22.0%; +3.8% sin el costo de obras IFRIC 12: la asistencia técnica y los derechos de concesión compensan parte del costo de servicios.", en: "+22.0%; +3.8% excluding the IFRIC 12 construction cost: technical assistance and concession fees offset part of the cost of services." },
+        opIncome: { es: "+21.6% (CBX aporta Ps. 515.3 M; +9.2% sin CBX); margen sin IFRIC 12 56.4% vs 52.5%.", en: "+21.6% (CBX contributes Ps. 515.3 M; +9.2% ex-CBX); margin ex-IFRIC 12 56.4% vs 52.5%." },
+        ebitda: { es: "+19.2% a Ps. 6,064.6 M: tarifas, negocios propios y CBX (Ps. 558.2 M), menos la cuota de asistencia técnica; Jamaica resta por el peso y el tráfico.", en: "+19.2% to Ps. 6,064.6 M: tariffs, own businesses and CBX (Ps. 558.2 M), less the technical-assistance fee; Jamaica drags on the peso and traffic." },
+        ebitdaMarginExIfric: { es: "67.8% vs 64.3%: CBX (margen 72.0%) y la internalización de la asistencia técnica.", en: "67.8% vs 64.3%: CBX (72.0% margin) and the internalized technical assistance." },
+        financialResult: { es: "Gasto neto Ps. 1,043.1 M (+57.6%): intereses +41.8% por la deuda del capex y del 25% de CBX; ganancia cambiaria Ps. 114.1 M (vs 60.9) e intereses ganados +18.2%.", en: "Net expense Ps. 1,043.1 M (+57.6%): interest +41.8% on the debt for capex and the 25% of CBX; FX gain Ps. 114.1 M (vs 60.9) and interest income +18.2%." },
+        incomeTax: { es: "+37.7%: más impuesto causado y menor beneficio diferido (inflación 0.4% vs 0.7%) y Ps. 88.4 M menos de pérdidas fiscales reconocidas.", en: "+37.7%: higher current tax and a smaller deferred benefit (inflation 0.4% vs 0.7%) and Ps. 88.4 M less in recognized tax-loss carryforwards." },
+        netIncome: { es: "+8.1%: el EBITDA absorbe el mayor gasto por intereses e impuestos.", en: "+8.1%: EBITDA absorbs the higher interest expense and taxes." },
+        fxTranslation: { es: "Ganancia por conversión de Jamaica y CBX con el peso más fuerte (informe: efecto de Ps. 584.8 M vs el 3T25).", en: "Translation gain on Jamaica and CBX with the stronger peso (report: a Ps. 584.8 M swing vs 3Q25)." },
+        comprehensiveIncome: { es: "+32.8%: utilidad neta +8.1% más la ganancia por conversión.", en: "+32.8%: net income +8.1% plus the translation gain." }
+      },
+      ops: {
+        dom: { es: "+0.6%: Guadalajara +5.6%, Los Cabos +4.2%, La Paz +7.4% y Aguascalientes +14.6% frente a Tijuana −4.1%, Mexicali −14.0% y Morelia −8.1%; tres rutas nuevas a Santa Lucía (Viva, Mexicana).", en: "+0.6%: Guadalajara +5.6%, Los Cabos +4.2%, La Paz +7.4% and Aguascalientes +14.6% against Tijuana −4.1%, Mexicali −14.0% and Morelia −8.1%; three new routes to Santa Lucía (Viva, Mexicana)." },
+        intl: { es: "−4.5%: Guadalajara +13.1% y Tijuana +7.7% (CBX) no compensan Puerto Vallarta −24.8%, Montego Bay −23.0% y Los Cabos −16.2%; Kingston +1.2%.", en: "−4.5%: Guadalajara +13.1% and Tijuana +7.7% (CBX) do not offset Puerto Vallarta −24.8%, Montego Bay −23.0% and Los Cabos −16.2%; Kingston +1.2%." },
+        total: { es: "−1.4% (−222 mil): México +0.4%, Jamaica −15.8%; septiembre −7.3% por menos asientos y el huracán Polo.", en: "−1.4% (−222k): Mexico +0.4%, Jamaica −15.8%; September −7.3% on fewer seats and Hurricane Polo." },
+        cbx: { es: "+8.4% a 1,034 mil usuarios en el primer trimestre completo consolidado.", en: "+8.4% to 1,034k users in the first full consolidated quarter." },
+        cargo: { es: "+7.5%: carga electrónica de alto valor hacia Guadalajara; recinto fiscal +20.7% en ingresos.", en: "+7.5%: high-value electronics cargo into Guadalajara; bonded-warehouse revenue +20.7%." },
+        wlu: { es: "−1.0%: la carga compensa parte de la caída de pasajeros.", en: "−1.0%: cargo offsets part of the passenger decline." },
+        aeroPerPax: { es: "Sube con la tarifa máxima 2025–29 pese al peso más fuerte sobre los cargos internacionales.", en: "Up on the 2025–29 maximum tariff despite the stronger peso on international charges." },
+        nonAeroPerPax: { es: "+39.0% (Exhibit F): CBX y negocios operados por GAP sobre menos pasajeros.", en: "+39.0% (Exhibit F): CBX and GAP-operated businesses over fewer passengers." },
+        cbxPerUser: { es: "US$43.1 por usuario (informe), en línea con mayo–junio (US$42.8).", en: "US$43.1 per user (report), in line with May–June (US$42.8)." },
+        revPerPaxGap: { es: "+14.8% (Exhibit F): tarifas, comercial y CBX.", en: "+14.8% (Exhibit F): tariffs, commercial revenue and CBX." },
+        aeroPerWlu: { es: "+3.7% (Exhibit F).", en: "+3.7% (Exhibit F)." },
+        costPerWlu: { es: "+28.1% (Exhibit F): el costo de servicios de CBX entra sin WLU propias.", en: "+28.1% (Exhibit F): CBX's cost of services comes in without WLUs of its own." }
+      },
+      bsSources: { es: "sección de situación financiera y Exhibits B, C y E del informe 3T26 (19 oct 2026) · comunicado de GAP del 11-sep-2026 (líneas bancarias; evento relevante BMV 1588421)", en: "Statement of Financial Position section and Exhibits B, C and E of the 3Q26 report (19 Oct 2026) · GAP release of 11-Sep-2026 (bank facilities; BMV material event 1588421)" },
+      bs: {
+        cash: { es: "+Ps. 12,269.6 M a/a (informe); +Ps. 4.1 mil M en el trimestre con Ps. 6,000 M de préstamos bancarios dispuestos y Ps. 2,757.6 M de certificados pagados.", en: "+Ps. 12,269.6 M y/y (report); +Ps. 4.1 bn in the quarter with Ps. 6,000 M of bank loans drawn and Ps. 2,757.6 M of certificados repaid." },
+        goodwill: { es: "Combinación CBX/AMP del 1 de mayo; valores razonables aún preliminares (informe).", en: "CBX/AMP combination of 1 May; fair values still preliminary (report)." },
+        bankLoansCurrent: { es: "+Ps. 14,405.8 M a/a: Ps. 6,000 M dispuestos en el trimestre de las líneas de Ps. 8,000 M de septiembre, más los préstamos de corto plazo de enero (informe; comunicado del 11-sep-2026).", en: "+Ps. 14,405.8 M y/y: Ps. 6,000 M drawn in the quarter from the Ps. 8,000 M September facilities, plus the short-term loans of January (report; release of 11-Sep-2026)." },
+        bondsLT: { es: "GAP 22L (Ps. 2,757.6 M) pagado el 21 de septiembre; el GAP 21-V (Ps. 1,500 M) venció el 9 de octubre (Exhibit C; comunicado del 11-sep-2026).", en: "GAP 22L (Ps. 2,757.6 M) repaid on 21 September; GAP 21-V (Ps. 1,500 M) matured on 9 October (Exhibit C; release of 11-Sep-2026)." },
+        dividendsPayable: { es: "Ps. 12,512.9 M: el dividendo 2026 declarado íntegro en el 2T26 y sin exhibiciones pagadas al 30 de septiembre (Exhibit E).", en: "Ps. 12,512.9 M: the 2026 dividend declared in full in 2Q26 with no installment paid by 30 September (Exhibit E)." },
+        totalAssets: { es: "+Ps. 63,515.2 M a/a: crédito mercantil e intangibles de la combinación (+37,926.5), efectivo (+12,269.6) y obras del PMD (+12,519.7 neto) (informe).", en: "+Ps. 63,515.2 M y/y: goodwill and intangibles from the combination (+37,926.5), cash (+12,269.6) and MDP works (+12,519.7 net) (report)." }
+      },
+      cfSources: { es: "Exhibit C del informe 3T26 (19 oct 2026)", en: "Exhibit C of the 3Q26 report (19 Oct 2026)" },
+      cf: {
+        cfo: { es: "Ps. 5,499 M: EBITDA menos impuestos pagados (Ps. 1,102 M) y capital de trabajo (Exhibit C).", en: "Ps. 5,499 M: EBITDA less taxes paid (Ps. 1,102 M) and working capital (Exhibit C)." },
+        capex: { es: "Ps. 3,680 M en el trimestre, Ps. 8,623 M en 9M26 (72% de los Ps. 12.0 mil M guiados).", en: "Ps. 3,680 M in the quarter, Ps. 8,623 M in 9M26 (72% of the guided Ps. 12.0 bn)." },
+        loansReceived: { es: "Ps. 6,000 M de las líneas bancarias de septiembre (Exhibit C).", en: "Ps. 6,000 M from the September bank facilities (Exhibit C)." },
+        bondsPaid: { es: "GAP 22L, Ps. 2,757.6 M, 21 de septiembre (Exhibit C).", en: "GAP 22L, Ps. 2,757.6 M, 21 September (Exhibit C)." },
+        interestPaid: { es: "+47.7%: más deuda por el capex y el 25% de CBX.", en: "+47.7%: more debt for capex and the 25% of CBX." },
+        dividendsPaid: { es: "Sin exhibiciones del dividendo 2026 en el trimestre; Ps. 126.1 M a minoritarios.", en: "No 2026 dividend installment in the quarter; Ps. 126.1 M to minorities." }
+      }
+    },
+    "2026M9": {
+      call: { date: null, es: "sin transcripción de la conferencia del 3T26 todavía; comentarios tomados del informe de resultados del 19 oct 2026", en: "no 3Q26 call transcript yet; comments taken from the results report of 19 Oct 2026" },
+      lines: {
+        revAero: { es: "+1.1%: México +4.7% (tarifa máxima 2025–29, tráfico −2.4%, peso 10.9% más fuerte); Jamaica −19.3% con tráfico −19.1%.", en: "+1.1%: Mexico +4.7% (2025–29 maximum tariff, traffic −2.4%, a 10.9% stronger peso); Jamaica −19.3% on traffic −19.1%." },
+        revNonAero: { es: "+22.4%: México +8.6% (negocios propios +17.1%), CBX Ps. 1,243.6 M desde mayo (1.66 M de usuarios a US$43.1); Jamaica −18.3%.", en: "+22.4%: Mexico +8.6% (own businesses +17.1%), CBX Ps. 1,243.6 M since May (1.66 M users at US$43.1); Jamaica −18.3%." },
+        revCbx: { es: "Ps. 1,243.6 M (US$71.5 M) de mayo a septiembre; 1,660,698 usuarios.", en: "Ps. 1,243.6 M (US$71.5 M) from May to September; 1,660,698 users." },
+        revConstruction: { es: "+14.2%: obras del PMD 2025–29 y de Kingston.", en: "+14.2%: MDP 2025–29 and Kingston works." },
+        revTotal: { es: "+8.9%, dentro del rango guiado (+7% a +10%).", en: "+8.9%, inside the guided range (+7% to +10%)." },
+        costServices: { es: "+18.9%: personal +15.0%, mantenimiento +13.9%, seguridad +12.0%; CBX Ps. 171.2 M.", en: "+18.9%: employees +15.0%, maintenance +13.9%, security +12.0%; CBX Ps. 171.2 M." },
+        techAssistance: { es: "−89.4%: internalizada desde el 1 de mayo.", en: "−89.4%: internalized since 1 May." },
+        concessionTaxes: { es: "−8.6%: menores ingresos en Jamaica.", en: "−8.6%: lower revenue in Jamaica." },
+        da: { es: "+4.9%: CBX y obras del PMD en operación.", en: "+4.9%: CBX and MDP works in service." },
+        totalOpCosts: { es: "+6.3%.", en: "+6.3%." },
+        opIncome: { es: "+12.4% (CBX Ps. 806.4 M); margen sin IFRIC 12 57.3% vs 54.8%.", en: "+12.4% (CBX Ps. 806.4 M); margin ex-IFRIC 12 57.3% vs 54.8%." },
+        ebitda: { es: "+11.1% a Ps. 18,018.8 M (CBX Ps. 874.0 M, margen 70.3%), dentro del rango guiado (+10% a +12%).", en: "+11.1% to Ps. 18,018.8 M (CBX Ps. 874.0 M, 70.3% margin), inside the guided range (+10% to +12%)." },
+        ebitdaMarginExIfric: { es: "68.4% vs 66.2%, por encima del 67% ±1 guiado.", en: "68.4% vs 66.2%, above the guided 67% ±1." },
+        financialResult: { es: "Gasto neto Ps. 2,712.6 M (+16.7%): intereses +25.5% por más préstamos bancarios; ganancia cambiaria Ps. 270.2 M (vs pérdida de 103.3).", en: "Net expense Ps. 2,712.6 M (+16.7%): interest +25.5% on more bank loans; FX gain Ps. 270.2 M (vs a 103.3 loss)." },
+        incomeTax: { es: "+12.7%: más impuesto causado y Ps. 280.1 M menos de beneficio diferido.", en: "+12.7%: higher current tax and Ps. 280.1 M less deferred benefit." },
+        netIncome: { es: "+11.1%: el EBITDA compensa el mayor gasto financiero.", en: "+11.1%: EBITDA offsets the higher financial expense." },
+        comprehensiveIncome: { es: "+21.0%: la ganancia por conversión (Ps. 675.3 M mejor que en 9M25) se suma a la utilidad.", en: "+21.0%: the translation gain (Ps. 675.3 M better than in 9M25) adds to net income." }
+      },
+      ops: {
+        dom: { es: "−1.3%: Guadalajara +3.1% y La Paz +9.2% frente a Tijuana −5.4%, Hermosillo −6.1% y Mexicali −13.0%.", en: "−1.3%: Guadalajara +3.1% and La Paz +9.2% against Tijuana −5.4%, Hermosillo −6.1% and Mexicali −13.0%." },
+        intl: { es: "−8.0%: Montego Bay −25.5% (huracán Melissa), Puerto Vallarta −19.4%, Los Cabos −8.4%, Tijuana −4.7%; Guadalajara +6.7%.", en: "−8.0%: Montego Bay −25.5% (Hurricane Melissa), Puerto Vallarta −19.4%, Los Cabos −8.4%, Tijuana −4.7%; Guadalajara +6.7%." },
+        total: { es: "−4.2%, por debajo del rango guiado (−3% a 0%).", en: "−4.2%, below the guided range (−3% to 0%)." },
+        cbx: { es: "−4.3% a 2,856 mil usuarios en nueve meses (consolidados desde mayo).", en: "−4.3% to 2,856k users in nine months (consolidated since May)." },
+        cargo: { es: "+8.0% (2,219 mil WLU).", en: "+8.0% (2,219k WLUs)." },
+        wlu: { es: "−3.7%.", en: "−3.7%." },
+        nonAeroPerPax: { es: "+27.8% (Exhibit F).", en: "+27.8% (Exhibit F)." },
+        revPerPaxGap: { es: "+12.2% (Exhibit F).", en: "+12.2% (Exhibit F)." },
+        aeroPerWlu: { es: "+5.0% (Exhibit F).", en: "+5.0% (Exhibit F)." },
+        costPerWlu: { es: "+23.4% (Exhibit F): CBX y más personal.", en: "+23.4% (Exhibit F): CBX and more staff." }
+      }
+    },
     // Rolling twelve months to June 2026 (3Q25–2Q26) against the twelve months to June 2025, each base quarter as restated
     // in the report a year later. Written from the 3Q25, 4Q25, 1Q26 and 2Q26 reports and calls; figures in the LTM table.
     "LTM2026Q2": {
