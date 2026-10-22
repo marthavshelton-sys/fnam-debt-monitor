@@ -2,10 +2,10 @@
  "entity": "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-22T17:04:06.471Z",
+ "updatedAt": "2026-10-22T18:47:52.166Z",
  "kept": {
   "traffic": 140,
-  "results-pdf": 29,
+  "results-pdf": 30,
   "results": 26,
   "transcript": 14,
   "other": 20
@@ -3431,6 +3431,15 @@
    "title": "ASUR ANNOUNCES THE SUCCESSFUL PLACEMENT, BY ITS SUBSIDIARY AEROPUERTO DE CANCÚN, S.A. DE C.V., OF 6.711% SENIOR NOTES DUE 2031 AND 7.491% SENIOR NOTES DUE 2036",
    "class": "other",
    "path": "tools/asur/raw/releases/2026-10-08_prn302902737_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "3Q26",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2026/3/ASUR-Airport-Cancun-Mexico-Earnings-Release-3Q26.pdf",
+   "date": "2026-10-22",
+   "title": "ASUR 3Q26 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2026-10-22_ir3Q26_en.txt"
   }
  ]
 }

@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-22T17:04:08.018Z",
+ "generatedAt": "2026-10-22T18:47:53.804Z",
  "warnings": [
   {
    "file": "2019-04-24_ir1Q19_en.txt",
@@ -112,6 +112,10 @@
   {
    "file": "2026-07-23_ir2Q26_en.txt",
    "msg": "2026Q2 (2026-07-23_ir2Q26_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q26 page 27 of"
+  },
+  {
+   "file": "2026-10-22_ir3Q26_en.txt",
+   "msg": "2026Q3 (2026-10-22_ir3Q26_en.txt): IS unmatched: exchange rate per dollar ps | asur 3q26 page 32 of ; BS unmatched: assets | obligations to the grantor - current | obligations to the grantor - non-current ; CF unmatched: income before income taxes | depreciation and amortization | accounted by the equity method | interest income | interest payables | foreign exchange gain , net"
   }
  ]
 }
