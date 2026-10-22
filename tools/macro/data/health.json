@@ -1,12 +1,10 @@
 ﻿{
-    "runAt":  "2026-10-22T15:17:27Z",
+    "runAt":  "2026-10-22T15:28:21Z",
     "failed":  [
-                   "process_fincond.ps1",
-                   "process_supply.ps1"
+
                ],
     "consecutive":  {
-                        "process_fincond.ps1":  1,
-                        "process_supply.ps1":  1
+
                     },
     "warnings":  [
 
