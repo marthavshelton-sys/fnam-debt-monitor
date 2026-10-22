@@ -10,52 +10,52 @@
  "calendarGaps": [],
  "sourceStatus": {
   "enigh": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "banxico": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "cards": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "states": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "inegi": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "fred": {
    "ok": "2026-10-17",
-   "failures": 2,
+   "failures": 3,
    "since": "2026-10-21",
    "error": "Unexpected token '<', \"<!doctype \"... is not valid JSON"
   },
   "enif": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "docs": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "poverty": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "releases": {
    "failures": 0
   },
   "bis": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   },
   "calendar": {
-   "ok": "2026-10-21",
+   "ok": "2026-10-22",
    "failures": 0
   }
  }
