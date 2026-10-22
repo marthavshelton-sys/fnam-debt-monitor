@@ -1,10 +1,10 @@
 {
-  "lastQuarter": "2026Q2",
+  "lastQuarter": "2026Q3",
   "lastTrafficMonth": "2026-09",
   "lastGuidanceDate": null,
   "lastEventFile": "2026-10-08_prn302902737_en.txt",
-  "lastReferenceSha": "a1bd79701cb459d7e1bb5bdc4fc8b4dcbc6c519e",
-  "lastNotifiedAt": "2026-10-22T15:41:01Z",
+  "lastReferenceSha": "6b3beedde26de80e5d1d7eaa1055b154d695f6a7",
+  "lastNotifiedAt": "2026-10-22T23:59:00Z",
   "lastFailureNote": null,
   "note": "Updated by the ASUR upkeep routine (tools/asur/ROUTINE-PROMPT.md; see tools/asur/README.md).",
   "open": []

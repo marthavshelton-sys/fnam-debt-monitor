@@ -1,9 +1,81 @@
 // One-line explanations for year-over-year comparisons, per income-statement line (`lines`) and per
 // operating metric (`ops`), ES and EN. Keys: quarter `2026Q2`, year-to-date `2026M6`, fiscal year `FY2025`.
-// Written from ASUR's 2Q26 report (23-Jul-2026) and the 2Q26 earnings-call transcript; percentages are ASUR's.
+// Written from ASUR's quarterly reports (latest: 3Q26, 22-Oct-2026) and the earnings-call transcripts; percentages are ASUR's.
 window.ASUR_COMMENTS = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-10-22",
   periods: {
+    "2026Q3": {
+      call: null,
+      ops: {
+        dom: { es: "+2.1%: México +1.6% (Cancún −1.8%, otros ocho +5.1%), Colombia +6.5%, Brasil y otros +2.8% pro forma; Puerto Rico −3.1%.", en: "+2.1%: Mexico +1.6% (Cancún −1.8%, other eight +5.1%), Colombia +6.5%, Brazil & Others +2.8% pro forma; Puerto Rico −3.1%." },
+        intl: { es: "−8.2%: México −11.8% (Cancún −13.3%), Puerto Rico −3.9% y Brasil y otros −3.4% pro forma; Colombia +1.0%.", en: "−8.2%: Mexico −11.8% (Cancún −13.3%), Puerto Rico −3.9% and Brazil & Others −3.4% pro forma; Colombia +1.0%." },
+        total: { es: "−1.2% a 20.94 M con Brasil y otros solo en septiembre (comparativo pro forma de ASUR): México −4.6%, Puerto Rico −3.2%, Colombia +5.2%.", en: "−1.2% to 20.94 M with Brazil & Others in September only (ASUR's pro-forma comparative): Mexico −4.6%, Puerto Rico −3.2%, Colombia +5.2%." },
+        country_MX: { es: "−4.6%: Cancún −8.8% (internacional −13.3%); los otros ocho aeropuertos +5.5%.", en: "−4.6%: Cancún −8.8% (international −13.3%); the other eight airports +5.5%." },
+        country_PR: { es: "−3.2%: doméstico −3.1% e internacional −3.9%; septiembre +3.1% tras −5.1% en julio y agosto.", en: "−3.2%: domestic −3.1% and international −3.9%; September +3.1% after −5.1% in July and August." },
+        country_CO: { es: "+5.2%: doméstico +6.5%, internacional +1.0%.", en: "+5.2%: domestic +6.5%, international +1.0%." },
+        country_BR: { es: "Septiembre +2.6% pro forma: doméstico +2.9%, internacional −11.5%.", en: "September +2.6% pro forma: domestic +2.9%, international −11.5%." },
+        country_EC: { es: "Septiembre +1.7% pro forma: doméstico +0.1%, internacional +3.2%.", en: "September +1.7% pro forma: domestic +0.1%, international +3.2%." },
+        country_CR: { es: "Septiembre −6.1% pro forma: internacional −6.4%, doméstico +16.3%.", en: "September −6.1% pro forma: international −6.4%, domestic +16.3%." },
+        country_CW: { es: "Septiembre −0.9% pro forma: internacional −1.6%, doméstico +8.9%.", en: "September −0.9% pro forma: international −1.6%, domestic +8.9%." },
+        cpc: { es: "3.92 M en septiembre, +1.4% frente al comparativo pro forma de ASUR; consolida desde el 1-sep-2026, un solo mes del trimestre.", en: "3.92 M in September, +1.4% against ASUR's pro-forma comparative; consolidated from 1-Sep-2026, one month of the quarter." },
+        aeroPerPax: { es: "Ingresos aeronáuticos +5.2% por Brasil y otros (Ps. 314.5 M en un mes); México −4.1% y Puerto Rico +4.2%; el perímetro de pasajeros cambió.", en: "Aeronautical revenue +5.2% on Brazil & Others (Ps. 314.5 M in one month); Mexico −4.1% and Puerto Rico +4.2%; the passenger perimeter changed." },
+        nonAeroPerPax: { es: "+26.9%: ASUR US Ps. 456.4 M y Brasil y otros Ps. 361.9 M sin comparativo; México −12.6% por menos tráfico.", en: "+26.9%: ASUR US Ps. 456.4 M and Brazil & Others Ps. 361.9 M with no comparative; Mexico −12.6% on lower traffic." },
+        commercialPerPax: { es: "Ps. 130.5 (+3.5%, Tabla 1): México −10.4% a Ps. 129.1, San Juan −2.1% a 163.3, Colombia +10.3% a 65.2; Brasil y otros Ps. 67.4.", en: "Ps. 130.5 (+3.5%, Table 1): Mexico −10.4% to Ps. 129.1, San Juan −2.1% to 163.3, Colombia +10.3% to 65.2; Brazil & Others Ps. 67.4." },
+        revPerPaxAll: { es: "Ingresos sin construcción +12.6% con tráfico −1.2%: ASUR US y un mes de Brasil y otros (Ps. 676.4 M) sin comparativo; México −6.8%.", en: "Revenue ex-construction +12.6% on traffic −1.2%: ASUR US and one month of Brazil & Others (Ps. 676.4 M) with no comparative; Mexico −6.8%." },
+        capex: { es: "+45.1% a Ps. 2,716.6 M: México Ps. 2,241.5 M (PMD), Brasil y otros 178.4, Puerto Rico 140.2, Colombia 138.5, EE. UU. 18.0.", en: "+45.1% to Ps. 2,716.6 M: Mexico Ps. 2,241.5 M (MDP), Brazil & Others 178.4, Puerto Rico 140.2, Colombia 138.5, US 18.0." },
+        netDebt: { es: "Ps. 49,878 M (2.6× EBITDA UDM en la Tabla 6) vs. Ps. 4,973 M: crédito puente de Ps. 22,225 M y deuda de Brasil y otros de Ps. 21,009 M; el EBITDA UDM lleva un solo mes de CPC.", en: "Ps. 49,878 M (2.6× LTM EBITDA in Table 6) vs. Ps. 4,973 M: the Ps. 22,225 M bridge loan and Ps. 21,009 M of Brazil & Others debt; LTM EBITDA carries one month of CPC." },
+        totalDebt: { es: "Ps. 69,970 M: 26.5% en pesos, 46.4% en dólares, 27.1% en reales; el 8-oct-2026 se prepagaron JPMorgan (Ps. 6,390 M y US$1,230 M), Santander (Ps. 675 M) y Ps. 3,000 M de BBVA.", en: "Ps. 69,970 M: 26.5% in pesos, 46.4% in dollars, 27.1% in reais; on 8-Oct-2026 JPMorgan (Ps. 6,390 M and US$1,230 M), Santander (Ps. 675 M) and Ps. 3,000 M of BBVA were prepaid." }
+      },
+      lines: {
+        revTotal: { es: "+18.9% (Ps. 1,655.1 M): construcción +43.0%, ASUR US Ps. 456.4 M y Brasil y otros Ps. 841.2 M en un mes; sin construcción +12.6%.", en: "+18.9% (Ps. 1,655.1 M): construction +43.0%, ASUR US Ps. 456.4 M and Brazil & Others Ps. 841.2 M in one month; ex-construction +12.6%." },
+        revAero: { es: "+5.2% (Ps. 236.8 M): Brasil y otros Ps. 314.5 M; México −4.1% a Ps. 3,171.8 M por menos tráfico; Puerto Rico 610.5, Colombia 718.0.", en: "+5.2% (Ps. 236.8 M): Brazil & Others Ps. 314.5 M; Mexico −4.1% to Ps. 3,171.8 M on lower traffic; Puerto Rico 610.5, Colombia 718.0." },
+        revNonAero: { es: "+26.9% (Ps. 639.6 M): ASUR US Ps. 456.4 M y Brasil y otros 361.9; México −12.6% a Ps. 1,347.0 M; Puerto Rico 532.5, Colombia 316.9.", en: "+26.9% (Ps. 639.6 M): ASUR US Ps. 456.4 M and Brazil & Others 361.9; Mexico −12.6% to Ps. 1,347.0 M; Puerto Rico 532.5, Colombia 316.9." },
+        revCommercial: { es: "+22.2%: EE. UU. Ps. 412.8 M, Brasil y otros 264.4 y Colombia +16.4%; México −14.6% a Ps. 1,178.9 M y Puerto Rico −5.2%.", en: "+22.2%: US Ps. 412.8 M, Brazil & Others 264.4 and Colombia +16.4%; Mexico −14.6% to Ps. 1,178.9 M and Puerto Rico −5.2%." },
+        revConstruction: { es: "+43.0%: más obra en México (+32.4%), Brasil y otros Ps. 164.8 M y Colombia; se compensa con el costo de construcción (IFRIC 12).", en: "+43.0%: more construction in Mexico (+32.4%), Brazil & Others Ps. 164.8 M and Colombia; offset by construction cost (IFRIC 12)." },
+        totalOpCosts: { es: "+28.8% con construcción; +20.9% sin ella: México +2.2%, Puerto Rico −5.6%, Colombia −7.7%, EE. UU. Ps. 294.1 M, Brasil y otros Ps. 456.1 M.", en: "+28.8% with construction; +20.9% without: Mexico +2.2%, Puerto Rico −5.6%, Colombia −7.7%, US Ps. 294.1 M, Brazil & Others Ps. 456.1 M." },
+        costServices: { es: "+39.6% (Ps. 596.9 M): personal, seguridad y limpieza, honorarios, seguros, rentas a autoridades de EE. UU. y Brasil y otros (Ps. 261.4 M).", en: "+39.6% (Ps. 596.9 M): personnel, security and cleaning, fees, insurance, US airport-authority leases and Brazil & Others (Ps. 261.4 M)." },
+        costConstruction: { es: "+43.0%: México +32.4% (Ps. 529.1 M), Brasil y otros Ps. 164.9 M, Colombia +Ps. 134.7 M; Puerto Rico −28.1%.", en: "+43.0%: Mexico +32.4% (Ps. 529.1 M), Brazil & Others Ps. 164.9 M, Colombia +Ps. 134.7 M; Puerto Rico −28.1%." },
+        ga: { es: "+102.8% (Ps. 89.7 M): Brasil y otros aporta Ps. 66.1 M; en México +25.3% por personal.", en: "+102.8% (Ps. 89.7 M): Brazil & Others adds Ps. 66.1 M; Mexico +25.3% on personnel." },
+        techAssistance: { es: "−31.6% a Ps. 61.0 M; desaparece con la fusión con ITA (aprobada el 20-ago-2026).", en: "−31.6% to Ps. 61.0 M; it disappears with the ITA merger (approved 20-Aug-2026)." },
+        concessionFees: { es: "+3.3%: Brasil y otros Ps. 35.7 M y Colombia +7.7%; México −6.6% por una base tarifaria menor y Puerto Rico −4.7%.", en: "+3.3%: Brazil & Others Ps. 35.7 M and Colombia +7.7%; Mexico −6.6% on a lower tariff base and Puerto Rico −4.7%." },
+        da: { es: "+0.2%: México +12.2% y Brasil y otros Ps. 93.0 M compensan Colombia −29.9% (Ps. 130.4 M, ajuste al método de amortización del 3T25).", en: "+0.2%: Mexico +12.2% and Brazil & Others Ps. 93.0 M offset Colombia −29.9% (Ps. 130.4 M, the 3Q25 amortization-method adjustment)." },
+        opIncome: { es: "+5.3% a Ps. 3,889.8 M (margen 37.3% vs. 42.2%); margen operativo ajustado 49.7% vs. 53.1%.", en: "+5.3% to Ps. 3,889.8 M (margin 37.3% vs. 42.2%); adjusted operating margin 49.7% vs. 53.1%." },
+        ebitda: { es: "+1.7% a Ps. 4,719.3 M: Brasil y otros 313.2 (un mes), ASUR US 49.0, Puerto Rico +7.1% (602.4), Colombia +1.6% (590.0); México −9.5% (3,164.7).", en: "+1.7% to Ps. 4,719.3 M: Brazil & Others 313.2 (one month), ASUR US 49.0, Puerto Rico +7.1% (602.4), Colombia +1.6% (590.0); Mexico −9.5% (3,164.7)." },
+        ebitdaMarginExIfric: { es: "60.3% vs. 66.7%: México 70.0% vs. 72.1% por menos tráfico y el peso; ASUR US al 10.7% y Brasil y otros al 46.3%.", en: "60.3% vs. 66.7%: Mexico 70.0% vs. 72.1% on lower traffic and the peso; ASUR US at 10.7% and Brazil & Others at 46.3%." },
+        financialResult: { es: "Pérdida de Ps. 718.7 M vs. 472.1 M: pérdida cambiaria Ps. 803.5 M e intereses +95.6%, en parte compensados por Ps. 719.2 M de ganancia en tres forwards.", en: "Loss of Ps. 718.7 M vs. 472.1 M: FX loss Ps. 803.5 M and interest +95.6%, partly offset by a Ps. 719.2 M gain on three FX forwards." },
+        interestExpense: { es: "+95.6% (Ps. 426.0 M): créditos de Ps. 6,390 M (dic-25) y Ps. 22,225 M (ago-26), Ps. 114.4 M de arrendamientos de ASUR US y Ps. 144.5 M de Brasil y otros.", en: "+95.6% (Ps. 426.0 M): the Ps. 6,390 M (Dec-25) and Ps. 22,225 M (Aug-26) loans, Ps. 114.4 M of ASUR US leases and Ps. 144.5 M from Brazil & Others." },
+        incomeTax: { es: "−Ps. 102.1 M: impuesto causado −Ps. 104.1 M por menor base gravable en el aeropuerto de Cancún; diferido +Ps. 2.0 M.", en: "−Ps. 102.1 M: current tax −Ps. 104.1 M on a lower taxable base at Cancún airport; deferred +Ps. 2.0 M." },
+        incomeTaxCurrent: { es: "−Ps. 104.1 M: menor base gravable en el aeropuerto de Cancún.", en: "−Ps. 104.1 M: lower taxable base at Cancún airport." },
+        incomeTaxDeferred: { es: "+Ps. 2.0 M: más en México, menos en Colombia por el cambio de amortización de la concesión.", en: "+Ps. 2.0 M: higher in Mexico, lower in Colombia on the concession amortization change." },
+        netIncome: { es: "+4.4% a Ps. 2,307.9 M: menos impuesto causado y la ganancia en forwards compensan la mayor pérdida cambiaria.", en: "+4.4% to Ps. 2,307.9 M: lower current tax and the forward gain offset the larger FX loss." },
+        netIncomeMajority: { es: "+2.1% a Ps. 2,158.8 M (UPA Ps. 7.1960; US$3.9825 por ADS): menos impuesto en México y Colombia y ganancia en forwards, pese a la pérdida cambiaria.", en: "+2.1% to Ps. 2,158.8 M (EPS Ps. 7.1960; US$3.9825 per ADS): lower tax in Mexico and Colombia and the forward gain, despite the FX loss." },
+        nci: { es: "40% de Aerostar (utilidad de Puerto Rico +19.5%) y, desde septiembre, minorías de CPC: Ecuador 53.5%, Curazao 20.2%, Costa Rica 2.5%, Belo Horizonte 61.7%.", en: "40% of Aerostar (Puerto Rico net income +19.5%) and, from September, CPC minorities: Ecuador 53.5%, Curaçao 20.2%, Costa Rica 2.5%, Belo Horizonte 61.7%." }
+      }
+    },
+    "2026M9": {
+      call: null,
+      ops: {
+        dom: { es: "+1.3% en nueve meses: Colombia +7.5% y Brasil y otros +2.8% (septiembre); México −0.3%, Puerto Rico −3.1%.", en: "+1.3% in nine months: Colombia +7.5% and Brazil & Others +2.8% (September); Mexico −0.3%, Puerto Rico −3.1%." },
+        intl: { es: "−4.1%: México −5.7% (Cancún −6.5%) y Puerto Rico −1.7%; Colombia +3.4%.", en: "−4.1%: Mexico −5.7% (Cancún −6.5%) and Puerto Rico −1.7%; Colombia +3.4%." },
+        total: { es: "−0.7% a 57.15 M (Brasil y otros solo en septiembre, con comparativo pro forma): México −3.1%, Puerto Rico −2.9%, Colombia +6.5%.", en: "−0.7% to 57.15 M (Brazil & Others in September only, with a pro-forma comparative): Mexico −3.1%, Puerto Rico −2.9%, Colombia +6.5%." },
+        country_MX: { es: "−3.1%: Cancún −5.9%, otros ocho aeropuertos +4.4%.", en: "−3.1%: Cancún −5.9%, the other eight airports +4.4%." },
+        country_PR: { es: "−2.9%: doméstico −3.1%, internacional −1.7%.", en: "−2.9%: domestic −3.1%, international −1.7%." },
+        country_CO: { es: "+6.5%: doméstico +7.5%, internacional +3.4%.", en: "+6.5%: domestic +7.5%, international +3.4%." },
+        commercialPerPax: { es: "Ps. 145.2 (+6.3%) por ASUR US y Colombia; México −8.3% a Ps. 144.9.", en: "Ps. 145.2 (+6.3%) on ASUR US and Colombia; Mexico −8.3% to Ps. 144.9." },
+        capex: { es: "Ps. 5,211.2 M vs. 3,908.5 M: México Ps. 4,414.6 M bajo el PMD.", en: "Ps. 5,211.2 M vs. 3,908.5 M: Mexico Ps. 4,414.6 M under the MDP." },
+        netDebt: { es: "Ps. 49,878 M al 30-sep-2026 (2.6× EBITDA UDM en la Tabla 6), ya con CPC y el crédito puente consolidados.", en: "Ps. 49,878 M at 30-Sep-2026 (2.6× LTM EBITDA in Table 6), with CPC and the bridge loan consolidated." }
+      },
+      lines: {
+        revTotal: { es: "+9.6% a Ps. 28,798.5 M; sin construcción +4.3% (Ps. 23,528.2 M) y construcción +42.0%.", en: "+9.6% to Ps. 28,798.5 M; ex-construction +4.3% (Ps. 23,528.2 M) and construction +42.0%." },
+        revAero: { es: "−0.8%: México −2.8% y Puerto Rico −6.1%; Brasil y otros solo aporta septiembre.", en: "−0.8%: Mexico −2.8% and Puerto Rico −6.1%; Brazil & Others adds September only." },
+        revNonAero: { es: "+13.6%: ASUR US Ps. 1,278.8 M y Brasil y otros; México −10.3%.", en: "+13.6%: ASUR US Ps. 1,278.8 M and Brazil & Others; Mexico −10.3%." },
+        totalOpCosts: { es: "+18.3% sin construcción: ASUR US, Brasil y otros, amortización de Colombia y personal.", en: "+18.3% ex-construction: ASUR US, Brazil & Others, Colombian amortization and personnel." },
+        ebitda: { es: "−4.7% a Ps. 14,661.8 M: México −7.8% y Puerto Rico −6.4%; margen ajustado 62.3% vs. 68.2%.", en: "−4.7% to Ps. 14,661.8 M: Mexico −7.8% and Puerto Rico −6.4%; adjusted margin 62.3% vs. 68.2%." },
+        financialResult: { es: "Pérdida de Ps. 1,795.5 M (+14.4%): intereses +103.7%, pérdida cambiaria −41.5% y Ps. 719.2 M de ganancia en forwards.", en: "Loss of Ps. 1,795.5 M (+14.4%): interest +103.7%, FX loss −41.5% and a Ps. 719.2 M forward gain." },
+        netIncome: { es: "−6.2% a Ps. 7,618.9 M en nueve meses.", en: "−6.2% to Ps. 7,618.9 M in nine months." },
+        netIncomeMajority: { es: "−6.5% a Ps. 7,268.4 M (UPA Ps. 24.2280).", en: "−6.5% to Ps. 7,268.4 M (EPS Ps. 24.2280)." }
+      }
+    },
     "2026Q2": {
       call: { date: "2026-07-23", es: "conferencia de resultados del 2T26 (23 jul 2026, transcripción publicada por ASUR)", en: "2Q26 earnings call (23 Jul 2026, transcript published by ASUR)" },
       ops: {

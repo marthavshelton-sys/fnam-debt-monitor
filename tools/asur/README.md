@@ -292,3 +292,9 @@ select above the DCF inputs switches back to the reported figures (header tiles 
 itself off once the latest balance sheet is dated on or after `proForma.consolidatedFrom` (2026-09-30, the 3Q26 balance
 sheet): when 3Q26 lands, decide whether the LTM EBITDA still needs CPC's missing months (one month of CPC in 3Q26) and
 either keep an EBITDA-only overlay or retire the block.
+
+3Q26 landed on 22-Oct-2026 (balance sheet at 30-Sep-2026 with CPC and the bridge): the overlay switched itself off and
+the page runs on the reported figures (net debt Ps. 49,878 M, 2.6× in ASUR's Table 6). Decision taken by the upkeep task:
+no EBITDA-only overlay (it would need an engine change and an estimate of CPC's missing eleven months); the debt commentary
+states that LTM EBITDA carries one month of CPC against all of its debt, and `event.facts → motivaProForma` was removed.
+The `proForma` block stays in reference.js as history; it is inert while the latest balance sheet postdates `consolidatedFrom`.
