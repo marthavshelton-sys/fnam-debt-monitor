@@ -1,10 +1,10 @@
 ﻿{
-    "runAt":  "2026-10-22T09:39:33Z",
+    "runAt":  "2026-10-22T13:38:04Z",
     "failed":  [
-                   "process_retail.ps1"
+
                ],
     "consecutive":  {
-                        "process_retail.ps1":  2
+
                     },
     "warnings":  [
 
