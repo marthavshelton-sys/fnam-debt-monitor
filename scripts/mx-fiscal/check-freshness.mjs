@@ -22,7 +22,9 @@ const argv = process.argv.slice(2);
 const nowIso = (() => { const i = argv.indexOf('--now'); return i >= 0 ? argv[i + 1] : new Date().toISOString().slice(0, 10); })();
 const txt = await fs.readFile(new URL('site/mx/fiscal/data.js', ROOT), 'utf8');
 const MX = JSON.parse(txt.slice(txt.indexOf('{', txt.indexOf('window.MX_DATA =')), txt.lastIndexOf('}') + 1));
-const rules = JSON.parse(await fs.readFile(new URL('tools/mx-fiscal/freshness.json', ROOT), 'utf8'));
+// The rules are read from data.js itself (the typed allowances of tools/mx-fiscal/freshness.json widened by the observed
+// publication lags, scripts/mx-fiscal/lags.mjs), so this test judges exactly what the page shows in amber.
+const rules = MX.freshness && MX.freshness.bySeries ? MX.freshness : JSON.parse(await fs.readFile(new URL('tools/mx-fiscal/freshness.json', ROOT), 'utf8'));
 const html = await fs.readFile(new URL('site/mx/fiscal/index.html', ROOT), 'utf8');
 
 const rows = [], problems = [], notes = [];
@@ -41,7 +43,7 @@ for (const [key, s] of Object.entries(MX.series)) {
   const f = P.freshness(s.last && s.last[0], rule, 'mx', nowIso);
   const hidden = !new RegExp(`['"]${key}['"]`).test(html); // the page names every series it reads as a string literal
   const status = s.stale ? 'KEPT (fetch failed)' : f.level === 'amber' ? 'STALE' : 'ok';
-  rows.push([key, s.freq, s.last ? s.last[0] : '—', `${f.age} ${f.unit}`, rule.bd != null ? `${rule.bd} bd` : `${rule.days} d`, status + (hidden ? ' (not shown)' : '')]);
+  rows.push([key, s.freq, s.last ? s.last[0] : '—', `${f.age} ${f.unit}`, (rule.bd != null ? `${rule.bd} bd` : `${rule.days} d`) + (rule.learned ? ` (learned; typed ${rule.learned.typed})` : ''), status + (hidden ? ' (not shown)' : '')]);
   if (status === 'ok') continue;
   const line = `${key} (${s.provider} ${s.id}): latest ${s.last ? s.last[0] : 'none'}, ${P.ageText(f, 'en')} old, allowance ${rule.bd != null ? rule.bd + ' business days' : rule.days + ' days after period end'}${s.stale ? `; kept from ${s.fetchedAt} because the fetch failed: ${(s.staleReason || '').slice(0, 160)}` : ''}`;
   (hidden ? notes : problems).push(line);

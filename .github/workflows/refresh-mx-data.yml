@@ -63,7 +63,7 @@ jobs:
         id: commit
         if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
         run: |
-          bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal data [skip actions]" site/mx/fiscal/data.js
+          bash scripts/mx-fiscal/commit-push.sh "chore: refresh Mexico fiscal data [skip actions]" site/mx/fiscal/data.js tools/mx-fiscal/lags.json
 
       # Official documents (CGPE, PAF, LIF, PEF, Banxico announcements, Pemex IR…) mirrored as text
       # into tools/mx-fiscal/docs/ so the document routine reads primary sources. Never fails the job
