@@ -27,6 +27,7 @@ concurrency:
 permissions:
   contents: read
   actions: write   # to write the repository variable FRED_PROXY_URL after the deploy
+  issues: write    # to report that step on the Runner diagnostics issue
 
 jobs:
   deploy:
