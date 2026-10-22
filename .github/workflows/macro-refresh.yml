@@ -94,6 +94,24 @@ jobs:
         run: |
           .\tools\macro\refresh_all.ps1 -OutFile "$env:GITHUB_WORKSPACE\site\macro\index.html"
 
+      # Render gate (22-Oct-2026): the page just built is opened in headless Chromium in both languages and the run stops
+      # here, before anything is committed, if a script error or a section that did not render comes back. The committed
+      # page stays on the site; the failed run shows as "late" in the watchdog and in this workflow's history. Full audit
+      # after the deploy: macro-live-check.yml. (scripts/macro/render-gate.mjs; Playwright is installed here only.)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Render gate (both languages, before the commit)
+        shell: bash
+        run: |
+          npm init -y >/dev/null
+          for i in 1 2; do
+            npm i --no-audit --no-fund playwright@1.56.1 >/dev/null && npx playwright install chromium >/dev/null && break
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          node scripts/macro/render-gate.mjs --page site/macro/index.html
+          rm -rf node_modules package.json package-lock.json
+
       # New releases since the last run become a GitHub issue whose body is the
       # page's own "At a glance" text for each section. The issue is a queue:
       # the Claude Routine "FNAM US Macro: email material changes" emails the

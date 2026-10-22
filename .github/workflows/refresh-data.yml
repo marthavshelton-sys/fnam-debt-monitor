@@ -38,7 +38,27 @@ jobs:
         if: github.event.inputs.url != ''
         env:
           URLS: ${{ github.event.inputs.url }}
-        run: node scripts/fiscal/probe.mjs --url "$URLS"
+        run: node scripts/fiscal/probe.mjs --url "$URLS" 2>&1 | tee probe-output.txt
+
+      # A session cannot read this run's log (GitHub serves logs from a storage host the session's network refuses), so the
+      # probe's output is posted as a comment on the "Runner diagnostics" issue (label runner-diagnostics; created on first
+      # use, never closed by a pipeline). Read it with the issues API; delete old comments when it gets long.
+      - name: Post the probe output on the diagnostics issue
+        if: github.event.inputs.url != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const out = fs.existsSync('probe-output.txt') ? fs.readFileSync('probe-output.txt', 'utf8') : '(no output)';
+            const label = 'runner-diagnostics';
+            try { await github.rest.issues.getLabel({ ...context.repo, name: label }); }
+            catch (e) { if (e.status === 404) await github.rest.issues.createLabel({ ...context.repo, name: label, color: '5319e7', description: 'Output of by-hand probes run on the runner, for sessions that cannot read run logs' }); else throw e; }
+            const open = await github.rest.issues.listForRepo({ ...context.repo, labels: label, state: 'open', per_page: 1 });
+            let issue = open.data[0];
+            if (!issue) issue = (await github.rest.issues.create({ ...context.repo, labels: [label], title: 'Runner diagnostics (probe output)', body: 'Each by-hand probe of a refresh workflow posts its output here as a comment, because a Claude session cannot read run logs. Not an alert; nothing closes it.' })).data;
+            const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = `**${context.workflow}** · ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC · ${run}\n\n\`\`\`\n${out.slice(0, 60000)}\n\`\`\``;
+            await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
 
       - name: Fetch latest Treasury + FRED figures
         id: fetch
