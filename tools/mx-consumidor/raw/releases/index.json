@@ -866,6 +866,24 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
    "listing": [
     {
+     "date": "2026-10-21",
+     "title": "Gentera anuncia líneas de crédito obtenidas.",
+     "id": "1596950",
+     "kind": null
+    },
+    {
+     "date": "2026-10-21",
+     "title": "GENTERA 3Q26 RESULTS",
+     "id": "1596866",
+     "kind": null
+    },
+    {
+     "date": "2026-10-21",
+     "title": "GENTERA RESULTADOS 3T26",
+     "id": "1596864",
+     "kind": "results"
+    },
+    {
      "date": "2026-09-29",
      "title": "GENTERA announces debt issuance by its subsidiary FinCrementar, a company within ConCrédito",
      "id": "1592057",
@@ -930,27 +948,25 @@
      "title": "GENTERA REPORTA RESULTADOS DEL 2T26",
      "id": "1576000",
      "kind": "results"
-    },
-    {
-     "date": "2026-07-06",
-     "title": "GENTERA announces that S&P Global affirmed Banco Compartamos' national scale ratings",
-     "id": "1572702",
-     "kind": null
-    },
-    {
-     "date": "2026-07-06",
-     "title": "GENTERA informa ratificación de calificaciones en escala nacional por S&P Global a Banco Compartamos",
-     "id": "1572701",
-     "kind": null
-    },
-    {
-     "date": "2026-06-17",
-     "title": "GENTERA announces that Moody's Local affirmed Banco Compartamos' ratings.",
-     "id": "1568420",
-     "kind": null
     }
    ],
    "filings": [
+    {
+     "accn": "bmv1596864",
+     "filed": "2026-10-21",
+     "kind": "results",
+     "title": "GENTERA RESULTADOS 3T26",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "GENTERA RESULTADOS 3T26",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1596864_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/GENTERA/2026-10-21_bmv1596864.txt",
+       "chars": 62592
+      }
+     ]
+    },
     {
      "accn": "bmv1576000",
      "filed": "2026-07-22",
@@ -964,22 +980,6 @@
        "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576000_1.pdf",
        "file": "tools/mx-consumidor/raw/releases/GENTERA/2026-07-22_bmv1576000.txt",
        "chars": 65338
-      }
-     ]
-    },
-    {
-     "accn": "bmv1550312",
-     "filed": "2026-04-22",
-     "kind": "results",
-     "title": "GENTERA REPORTA RESULTADOS DEL 1T26",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "GENTERA REPORTA RESULTADOS DEL 1T26",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550312_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/GENTERA/2026-04-22_bmv1550312.txt",
-       "chars": 61028
       }
      ]
     }
@@ -1134,5 +1134,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-21T01:40:32.385Z"
+ "checkedAt": "2026-10-22T01:35:35.604Z"
 }
