@@ -2,11 +2,11 @@
  "entity": "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-22T18:47:52.166Z",
+ "updatedAt": "2026-10-22T23:31:42.445Z",
  "kept": {
   "traffic": 140,
   "results-pdf": 30,
-  "results": 26,
+  "results": 27,
   "transcript": 14,
   "other": 20
  },
@@ -3431,6 +3431,15 @@
    "title": "ASUR ANNOUNCES THE SUCCESSFUL PLACEMENT, BY ITS SUBSIDIARY AEROPUERTO DE CANCÚN, S.A. DE C.V., OF 6.711% SENIOR NOTES DUE 2031 AND 7.491% SENIOR NOTES DUE 2036",
    "class": "other",
    "path": "tools/asur/raw/releases/2026-10-08_prn302902737_en.txt"
+  },
+  {
+   "source": "prn",
+   "id": "302917260",
+   "url": "https://www.prnewswire.com/news-releases/asur-announces-3q26-results-302917260.html",
+   "date": "2026-10-22",
+   "title": "ASUR ANNOUNCES 3Q26 RESULTS",
+   "class": "results",
+   "path": "tools/asur/raw/releases/2026-10-22_prn302917260_en.txt"
   },
   {
    "source": "ir",
