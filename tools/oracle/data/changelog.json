@@ -4,125 +4,6 @@
   {
    "at": "2026-10-19T14:57:53.341Z",
    "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 31,
-   "new": 28
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "Data Center Dynamics",
-   "new": "Source New Mexico"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "The Register",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "Santa Fe New Mexican",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "Searchlight New Mexico",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "El Paso Electric",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[13]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[14]",
-   "old": "New Mexico Environment Department",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "We Energies",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[17]",
-   "old": "DTE Energy",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "Michigan EGLE",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "Moody's",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "S&P Global Ratings",
-   "new": "AMD"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[21]",
-   "old": "Fitch Ratings",
-   "new": "Nvidia"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[22]",
-   "old": "OpenAI",
-   "new": "Bloom Energy"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[23]",
-   "old": "AMD",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-19T14:57:53.341Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[24]",
    "old": "Nvidia",
    "new": "S&P Global Ratings"
@@ -4200,7 +4081,126 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 798,
    "new": 799
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-20",
+   "new": "2026-10-21"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.08,
+   "new": 1.09
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 799,
+   "new": 800
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].entity",
+   "old": "INTERNATIONAL BUSINESS MACHINES CORP",
+   "new": "INTERNATIONAL BUSINESS MACHINES CORPORATION"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet_date",
+   "old": "2026-06-30",
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_noncurrent.usd_m",
+   "old": 56212,
+   "new": 56804
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_noncurrent.end",
+   "old": "2026-06-30",
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_noncurrent.accession",
+   "old": "0000051143-26-000078",
+   "new": "0000051143-26-000095"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_current.usd_m",
+   "old": 5775,
+   "new": 7013
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_current.end",
+   "old": "2026-06-30",
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.debt_current.accession",
+   "old": "0000051143-26-000078",
+   "new": "0000051143-26-000095"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.operating_lease_liabilities.usd_m",
+   "old": 3285,
+   "new": 3323
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.operating_lease_liabilities.end",
+   "old": "2026-06-30",
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.operating_lease_liabilities.accession",
+   "old": "0000051143-26-000078",
+   "new": "0000051143-26-000095"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.cash.usd_m",
+   "old": 7172,
+   "new": 9233
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.cash.end",
+   "old": "2026-06-30",
+   "new": "2026-09-30"
+  },
+  {
+   "at": "2026-10-22T14:11:30.807Z",
+   "file": "peer_leverage.js",
+   "path": "peers[3].balance_sheet.cash.accession",
+   "old": "0000051143-26-000078",
+   "new": "0000051143-26-000095"
   }
  ],
- "generated": "2026-10-22T09:24:43.864Z"
+ "generated": "2026-10-22T14:11:30.807Z"
 }

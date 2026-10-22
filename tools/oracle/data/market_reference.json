@@ -574,13 +574,13 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-22"
   },
-  "refreshed_at": "2026-10-22T09:24:37.660Z",
+  "refreshed_at": "2026-10-22T14:11:23.554Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
     "unit": "percent",
-    "value_pct": 1.08,
-    "as_of_date": "2026-10-20",
+    "value_pct": 1.09,
+    "as_of_date": "2026-10-21",
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",

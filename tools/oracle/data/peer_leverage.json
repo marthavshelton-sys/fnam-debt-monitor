@@ -261,9 +261,9 @@
       "name": "IBM",
       "ticker": "IBM",
       "cik": "0000051143",
-      "entity": "INTERNATIONAL BUSINESS MACHINES CORP",
+      "entity": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
       "fetched": "2026-10-22",
-      "balance_sheet_date": "2026-06-30",
+      "balance_sheet_date": "2026-09-30",
       "fiscal_year_end": "2025-12-31",
       "source": {
         "title": "SEC XBRL company facts, CIK 0000051143",
@@ -272,27 +272,27 @@
       },
       "balance_sheet": {
         "debt_noncurrent": {
-          "usd_m": 56212,
-          "end": "2026-06-30",
+          "usd_m": 56804,
+          "end": "2026-09-30",
           "start": null,
           "form": "10-Q",
-          "accession": "0000051143-26-000078",
+          "accession": "0000051143-26-000095",
           "tag": "LongTermDebtNoncurrent"
         },
         "debt_current": {
-          "usd_m": 5775,
-          "end": "2026-06-30",
+          "usd_m": 7013,
+          "end": "2026-09-30",
           "start": null,
           "form": "10-Q",
-          "accession": "0000051143-26-000078",
+          "accession": "0000051143-26-000095",
           "tag": "ShortTermBorrowings"
         },
         "operating_lease_liabilities": {
-          "usd_m": 3285,
-          "end": "2026-06-30",
+          "usd_m": 3323,
+          "end": "2026-09-30",
           "start": null,
           "form": "10-Q",
-          "accession": "0000051143-26-000078",
+          "accession": "0000051143-26-000095",
           "tag": "OperatingLeaseLiabilityCurrent+OperatingLeaseLiabilityNoncurrent"
         },
         "finance_lease_liabilities": {
@@ -304,11 +304,11 @@
           "tag": "FinanceLeaseLiability"
         },
         "cash": {
-          "usd_m": 7172,
-          "end": "2026-06-30",
+          "usd_m": 9233,
+          "end": "2026-09-30",
           "start": null,
           "form": "10-Q",
-          "accession": "0000051143-26-000078",
+          "accession": "0000051143-26-000095",
           "tag": "CashAndCashEquivalentsAtCarryingValue"
         },
         "short_term_investments": null
