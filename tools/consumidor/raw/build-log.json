@@ -27,10 +27,7 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0,
-   "notes": [
-    "FRED: 79 problem(s): PI: Unexpected token '<', \"<!doctype \"... is not valid JSON | W209RC1: Unexpected token '<', \"<!doctype \"... is not valid JSON | A576RC1: Unexpected token '<', \"<!doctype \"... is not valid JSON | A041RC1: Unexpected token '<', \"<!doctype \"... is not valid JSON | A048RC1: Unexpected token '<', \"<!doctype \"... is not valid JSON | PIROA: Unexpected token '<', \"<!doctype \"... is n"
-   ]
+   "failures": 0
   },
   "edgar": {
    "failures": 0
@@ -42,9 +39,7 @@
    "failures": 0
   },
   "umich": {
-   "failures": 2,
-   "error": "Michigan survey: table 2 is not the sentiment index by income tercile (starts \"20 October 2026 - Surveys of Consumers Data Site temporarily offline for maintenance. Service will be restored by 22 Oct\")",
-   "since": "2026-10-21"
+   "failures": 0
   },
   "nes": {
    "failures": 0
