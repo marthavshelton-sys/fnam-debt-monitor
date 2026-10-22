@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-22T15:19:50Z",
+  "checkedAt": "2026-10-22T15:21:28Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,11 +27,10 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-21T23:10:32Z",
+      "lastSuccess": "2026-10-22T15:19:13Z",
       "lastAttempt": {
         "at": "2026-10-21T23:10:32Z",
-        "result": "success",
-        "afterCommitFailure": true
+        "result": "failure"
       },
       "requiredSince": "2026-10-21T20:05:00Z",
       "alerts": 0
@@ -47,10 +46,7 @@
       "status": "ok",
       "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T14:07:33Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:09:10Z",
-        "result": "failure"
-      },
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T21:30:00Z",
       "alerts": 0
     },
@@ -64,8 +60,11 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:13:40Z",
-      "lastAttempt": null,
+      "lastSuccess": "2026-10-22T00:12:43Z",
+      "lastAttempt": {
+        "at": "2026-10-22T00:12:43Z",
+        "result": "success"
+      },
       "requiredSince": "2026-10-21T21:40:00Z",
       "alerts": 0
     },
@@ -117,17 +116,11 @@
         "en": "Mexican Consumer"
       },
       "url": "/mx/consumidor/",
-      "status": "late",
-      "refreshStatus": "late",
-      "lateCrons": [
-        "20 12 * * *",
-        "20 15 * * *",
-        "20 23 * * *",
-        "20 3 * * *"
-      ],
-      "lastSuccess": null,
+      "status": "ok",
+      "refreshStatus": "ok",
+      "lastSuccess": "2026-10-22T13:03:13Z",
       "lastAttempt": null,
-      "requiredSince": "2026-10-21T23:20:00Z",
+      "requiredSince": "2026-10-22T03:20:00Z",
       "alerts": 0
     },
     {
@@ -208,7 +201,7 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:13:05Z",
+      "lastSuccess": "2026-10-22T00:59:47Z",
       "lastAttempt": {
         "at": "2026-10-22T00:59:47Z",
         "result": "success"
@@ -277,10 +270,7 @@
       "status": "ok",
       "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T15:14:13Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:58:17Z",
-        "result": "success"
-      },
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:50:00Z",
       "alerts": 0,
       "prices": {
@@ -359,10 +349,7 @@
       "status": "ok",
       "refreshStatus": "ok",
       "lastSuccess": "2026-10-22T15:09:47Z",
-      "lastAttempt": {
-        "at": "2026-10-21T20:46:25Z",
-        "result": "success"
-      },
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T17:30:00Z",
       "alerts": 0
     },
@@ -376,7 +363,7 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:14:01Z",
+      "lastSuccess": "2026-10-21T21:52:25Z",
       "lastAttempt": {
         "at": "2026-10-21T21:52:25Z",
         "result": "success"
@@ -448,13 +435,14 @@
         "en": "Gentera"
       },
       "url": "/gentera/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:56:30Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:56:30Z",
-        "result": "success"
-      },
+      "status": "late",
+      "refreshStatus": "late",
+      "lateCrons": [
+        "45 22 * * 1-5",
+        "35 14 * * 1-5"
+      ],
+      "lastSuccess": null,
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:45:00Z",
       "alerts": 0,
       "prices": {
@@ -517,7 +505,7 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T15:17:09Z",
+      "lastSuccess": "2026-10-22T00:20:15Z",
       "lastAttempt": {
         "at": "2026-10-22T00:20:15Z",
         "result": "success"
@@ -573,13 +561,14 @@
         "en": "Hyperscaler Hub"
       },
       "url": "/hiperescaladores/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T00:41:51Z",
-      "lastAttempt": {
-        "at": "2026-10-22T00:41:51Z",
-        "result": "success"
-      },
+      "status": "late",
+      "refreshStatus": "late",
+      "lateCrons": [
+        "20 13 * * *",
+        "20 22 * * *"
+      ],
+      "lastSuccess": null,
+      "lastAttempt": null,
       "requiredSince": "2026-10-21T22:20:00Z",
       "alerts": 0
     }
