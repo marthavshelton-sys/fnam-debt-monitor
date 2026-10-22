@@ -1,0 +1,551 @@
+{
+ "ticker": "META",
+ "cik": 1326801,
+ "form": "10-Q",
+ "accn": "0001628280-26-066773",
+ "filed": "2026-10-22",
+ "report": "2026-09-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/meta-20260930.htm",
+ "harvested": "2026-10-22",
+ "pageCount": 102,
+ "numberedPages": 101,
+ "hits": [
+  {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   META PLATFORMS, INC.   CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS   (In millions)   (Unaudited)   Nine Months Ended September 30,   2026 2025   Cash flows from operating activities   Net income $ 52,481 $ 37,690   Adjustments to reconcile net income to net cash provided by operating activities:   Depreciation and amortization 19,509 13,205   Share-based compensation 21,053 14,537   Deferred income taxes 3,685 17,704   Unrealized (gain) and loss on equity investments 1,204 ( 642 )   Other ( 402 ) ( 359 )   Changes in assets and liabilities:   Accounts receivable ( 3,272 ) 660   Prepaid expenses and other current assets ( 4,166 ) ( 348 )   Other assets ( 4,973 ) ( 209 )   Accounts payable 1,242 ( 637 )   Accrued expenses and other current liabilities 7,602 ( 2,883 )   Other liabilities 2,910 868   Net cash provided by operating activities 96,873 79,586   Cash flows from investing activities   Purchases of property and equipment ( 83,055 ) ( 48,308 )   Purchases of marketable securities ( 117,467 ) ( 22,349 )   Sales and maturities of marketable securities 88,837 23,761   Payments for non-marketable equity investments ( 2,544 ) ( 18,260 )…",
+   "amounts": [
+    {
+     "raw": "$ 52,481 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 37,690   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "Proceeds from issuance of long-term debt",
+   "text": "…sets ( 1,612 ) ( 1,797 )   Proceeds from data center venture distribution 1,037 —   Acquisitions of businesses and intangible assets ( 584 ) ( 815 )   Other investing activities 1,079 ( 48 )   Net cash used in investing activities ( 114,309 ) ( 67,816 )   Cash flows from financing activities   Taxes paid related to net share settlement of equity awards ( 12,768 ) ( 14,128 )   Repurchases of Class A common stock — ( 26,248 )   Payments for dividends and dividend equivalents ( 4,060 ) ( 3,986 )   Proceeds from issuance of long-term debt, net 24,910 —   Principal payments on finance leases ( 2,769 ) ( 1,770 )   Other financing activities ( 2,631 ) 613   Net cash provided by (used in) financing activities 2,682 ( 45,519 )   Effect of exchange rate changes on cash, cash equivalents, restricted cash, and restricted cash equivalents 8 252   Net decrease in cash, cash equivalents, restricted cash, and restricted cash equivalents ( 14,746 ) ( 33,497 )   Cash, cash equivalents, restricted cash, and restricted cash equivalents at beginning of the period 39,100 45,438   Cash, cash equivalents, restricted cash, and restricted cash equivalents at end of the period $ 24,354 $ 11,941   See Accompanying Notes to Condensed Consolidated Financial Statements.   10",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "12",
+   "match": "useful lives",
+   "text": "… values of our assets and liabilities, which are not readily apparent from other sources. We base our estimates and judgments on historical information and on various other assumptions that we believe are reasonable under the circumstances. GAAP requires us to make estimates and judgments in several areas, including, but not limited to, those related to loss contingencies, income taxes, valuation of non-marketable equity investments, valuation of long-lived assets and their associated estimated useful lives, revenue recognition, valuation of goodwill, credit losses of available-for-sale debt securities, accounts receivable, and fair value of financial instruments and leases. These estimates are based on management's knowledge about current events, interpretation of regulations, and expectations about actions we may undertake in the future. Actual results could differ materially from those estimates.   Significant Accounting Policies   There have been no material changes to our significant accounting policies from our Annual Report on Form 10-K for the year ended December 31, 2025.   Accounting Pronouncements Not Yet Adopted   In May 2026, the FASB issued Accounting Standards Update (ASU) No. 2026-02, Environmental Credits and Environmental Credit Obligations (Topic 818) . This standard establishes guidance for the recognition, measurement and disclosure of environmental credits…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "13",
+   "match": "Deferred revenue ",
+   "text": "…millions):   Three Months Ended September 30, Nine Months Ended September 30,   2026 2025 2026 2025   United States and Canada $ 26,217 $ 19,708 $ 71,346 $ 55,031   Europe (1)   14,023 11,566 41,272 32,315   Asia-Pacific 16,993 14,304 48,511 38,401   Rest of World (1)   7,368 5,664 20,583 15,326   Total revenue $ 64,601 $ 51,242 $ 181,712 $ 141,073   ____________________________________   (1) Europe includes Russia and Turkey. Rest of World includes Africa, Latin America, and the Middle East.   Deferred revenue was $ 1.19 billion and $ 1.08 billion as of September 30, 2026 and December 31, 2025, respectively. Our deferred revenue mostly relates to advertising prepayments and credits, as well as software updates and upgrades associated with Reality Labs hardware sales, the substantial majority of which are expected to be realized in less than a year.   13",
+   "amounts": [
+    {
+     "raw": "$ 64,601 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 51,242 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 181,712 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 141,073   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.19 billion",
+     "usdM": 1190
+    },
+    {
+     "raw": "$ 1.08 billion",
+     "usdM": 1080
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "16",
+   "match": "purchase obligations",
+   "text": "…  Restricted cash equivalents 2,539 2,539 — —   Other assets 106 — — 106   Total $ 79,846 $ 60,332 $ 19,408 $ 106   Restricted Cash Equivalents   As of September 30, 2026, our restricted cash equivalents of $ 12.83 billion include $ 10.80 billion of money market funds related to escrow requirements under certain multi-year infrastructure purchase agreements. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations. Based on the expected timing of the release of these restrictions, substantially all of our restricted cash equivalents were classified within other assets on our condensed consolidated balance sheets. See Note 10 — Commitments and Contingencies for additional information.   Marketable Debt Securities   The following tables summarize our available-for-sale marketable debt securities with unrealized losses as of September 30, 2026 and December 31, 2025, aggregated by major security type and the length of time that individual securities have been in a continuous loss position (in millions):   September 30, 2026   Less than 12 months 12 months or greater Total   Fair Value Unrealized Losses Fair Value Unrealized Losses Fair Value Unrealized Losses   U.S. government securities $ 40,211 $ ( 360 ) $ 178 $ ( 3 ) $ 40,389 $ ( 363 )   U.S. government agency securities 932 ( …",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "match": "equity method investment",
+   "text": "…ying value of non-marketable equity investments $ 32,624 $ 27,524   Non-Marketable Equity Investments Under Equity Method   Data Center Ventures   In July 2026, we entered into a new venture to co-develop a data center campus in Texas (the \"Texas Venture\"). At formation, we contributed $ 2.26 billion held-for-sale assets, net of liabilities and received a one-time distribution of $ 1.04 billion. Following the closing, we hold a 20 % membership interest in the Texas Venture.   Our non-marketable equity method investments as of September 30, 2026 include two ventures to co-develop data center campuses in Louisiana, entered into in October 2025 (the \"Louisiana Venture\"), and in Texas, entered into in July 2026 (collectively, the \"Ventures\"), in each of which we hold a 20 % membership interest. The Ventures provide strategic optionality and flexibility, which we expect will enable us to effectively meet future infrastructure capacity needs as AI markets and technologies develop. The parties have committed to fund their respective pro rata share of approximately   17",
+   "amounts": [
+    {
+     "raw": "$ 2.26 billion",
+     "usdM": 2260
+    },
+    {
+     "raw": "$ 1.04 billion",
+     "usdM": 1040
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "17",
+   "match": "campus in",
+   "text": "… $ 21,119 $ 20,271   Cumulative upward adjustments 582 429   Cumulative impairment/downward adjustments ( 624 ) ( 624 )   Non-marketable equity investments under measurement alternative 21,077 20,076   Non-marketable equity investments under equity method 11,547 7,448   Total carrying value of non-marketable equity investments $ 32,624 $ 27,524   Non-Marketable Equity Investments Under Equity Method   Data Center Ventures   In July 2026, we entered into a new venture to co-develop a data center campus in Texas (the \"Texas Venture\"). At formation, we contributed $ 2.26 billion held-for-sale assets, net of liabilities and received a one-time distribution of $ 1.04 billion. Following the closing, we hold a 20 % membership interest in the Texas Venture.   Our non-marketable equity method investments as of September 30, 2026 include two ventures to co-develop data center campuses in Louisiana, entered into in October 2025 (the \"Louisiana Venture\"), and in Texas, entered into in July 2026 (collectively, the \"Ventures\"), in each of which we hold a 20 % membership interest. The Ventures provide strategic optionality and flexibility, which we expect will enable us to effectively meet future infrastructure capacity needs as AI markets and technologies develop. The parties have committed to fund their respective pro rata share of approximately   17",
+   "amounts": [
+    {
+     "raw": "$ 32,624 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27,524   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2.26 billion",
+     "usdM": 2260
+    },
+    {
+     "raw": "$ 1.04 billion",
+     "usdM": 1040
+    }
+   ]
+  },
+  {
+   "kind": "rvg",
+   "page": "18",
+   "match": "residual value guarantee",
+   "text": "…se, design, and risk and reward characteristics.   We have entered into lease agreements with each of the Ventures, which cover the right to use properties on the data center campuses. The lease agreement with the Louisiana Venture will commence in 2029 and the lease agreement with the Texas Venture will commence in 2028. Each lease has an initial four-year term and renewal options that provide for a total lease period of up to 20 years, including the initial term. In addition, we have provided residual value guarantees (RVG) to each of the Ventures. If we decide to terminate or not renew a lease, and if certain other conditions are met, our maximum RVG payment would equal any shortfall between the fair value at that time and the RVG threshold for that property. RVG payments are not probable, and therefore no liability has been recorded to date.   Significant judgment is required to identify the activities that most significantly impact each Venture’s economic performance based upon the purpose and design of the entity. This judgment included, but was not limited to, considering future conditions that may impact the fair value of each Venture's long-lived assets (including expectations of payments under the RVG) or each Venture's ability to generate cash flows. On the basis of analyses performed for the Ventures, decisions pertaining to remarketing the data center campus, inclu…",
+   "amounts": []
+  },
+  {
+   "kind": "rvg",
+   "page": "18",
+   "match": "residual value guarantee",
+   "text": "…do not consolidate the variable interest entities (VIEs). Our ongoing involvement with each of the Ventures includes providing construction management, administrative and property management services.   The following table summarizes our maximum exposure to loss in the unconsolidated data center ventures (in millions):   September 30, 2026 December 31, 2025   Carrying value of equity investments $ 4,732 $ 1,826   Lease commitments 18,476 12,311   Future funding commitments 3,703 3,724   Maximum residual value guarantees 41,493 28,091   Total $ 68,404 $ 45,952   Other   In addition, we have other types of unconsolidated VIEs of which we are not the primary beneficiary. As of September 30, 2026 and December 31, 2025, our maximum exposure to loss in these VIEs was $ 6.75 billion and $ 5.58 billion, respectively, which represents the carrying value of our investments, including our share of net earnings from the equity method investees. Our share of net earnings from these equity method investees is recorded within interest and other income (expense), net on our condensed consolidated statements of income.   18",
+   "amounts": [
+    {
+     "raw": "$ 4,732 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,826   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68,404 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 45,952   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6.75 billion",
+     "usdM": 6750
+    },
+    {
+     "raw": "$ 5.58 billion",
+     "usdM": 5580
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "18",
+   "match": "primary beneficiary",
+   "text": "…the RVG) or each Venture's ability to generate cash flows. On the basis of analyses performed for the Ventures, decisions pertaining to remarketing the data center campus, including but not limited to, negotiations with future lease tenants and individual property sales, were determined to have the most significant impact on each Venture's economic performance. As we do not have the power to direct the activities that most significantly impact each Venture's economic performance, we are not the primary beneficiary for either Venture and, therefore, do not consolidate the variable interest entities (VIEs). Our ongoing involvement with each of the Ventures includes providing construction management, administrative and property management services.   The following table summarizes our maximum exposure to loss in the unconsolidated data center ventures (in millions):   September 30, 2026 December 31, 2025   Carrying value of equity investments $ 4,732 $ 1,826   Lease commitments 18,476 12,311   Future funding commitments 3,703 3,724   Maximum residual value guarantees 41,493 28,091   Total $ 68,404 $ 45,952   Other   In addition, we have other types of unconsolidated VIEs of which we are not the primary beneficiary. As of September 30, 2026 and December 31, 2025, our maximum exposure to loss in these VIEs was $ 6.75 billion and $ 5.58 billion, respectively, which represents the car…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "18",
+   "match": "equity method investee",
+   "text": "… commitments 18,476 12,311   Future funding commitments 3,703 3,724   Maximum residual value guarantees 41,493 28,091   Total $ 68,404 $ 45,952   Other   In addition, we have other types of unconsolidated VIEs of which we are not the primary beneficiary. As of September 30, 2026 and December 31, 2025, our maximum exposure to loss in these VIEs was $ 6.75 billion and $ 5.58 billion, respectively, which represents the carrying value of our investments, including our share of net earnings from the equity method investees. Our share of net earnings from these equity method investees is recorded within interest and other income (expense), net on our condensed consolidated statements of income.   18",
+   "amounts": [
+    {
+     "raw": "$ 6.75 billion",
+     "usdM": 6750
+    },
+    {
+     "raw": "$ 5.58 billion",
+     "usdM": 5580
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "18",
+   "match": "guarantees",
+   "text": "… risk and reward characteristics.   We have entered into lease agreements with each of the Ventures, which cover the right to use properties on the data center campuses. The lease agreement with the Louisiana Venture will commence in 2029 and the lease agreement with the Texas Venture will commence in 2028. Each lease has an initial four-year term and renewal options that provide for a total lease period of up to 20 years, including the initial term. In addition, we have provided residual value guarantees (RVG) to each of the Ventures. If we decide to terminate or not renew a lease, and if certain other conditions are met, our maximum RVG payment would equal any shortfall between the fair value at that time and the RVG threshold for that property. RVG payments are not probable, and therefore no liability has been recorded to date.   Significant judgment is required to identify the activities that most significantly impact each Venture’s economic performance based upon the purpose and design of the entity. This judgment included, but was not limited to, considering future conditions that may impact the fair value of each Venture's long-lived assets (including expectations of payments under the RVG) or each Venture's ability to generate cash flows. On the basis of analyses performed for the Ventures, decisions pertaining to remarketing the data center campus, including but not li…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "18",
+   "match": "guarantees",
+   "text": "…ate the variable interest entities (VIEs). Our ongoing involvement with each of the Ventures includes providing construction management, administrative and property management services.   The following table summarizes our maximum exposure to loss in the unconsolidated data center ventures (in millions):   September 30, 2026 December 31, 2025   Carrying value of equity investments $ 4,732 $ 1,826   Lease commitments 18,476 12,311   Future funding commitments 3,703 3,724   Maximum residual value guarantees 41,493 28,091   Total $ 68,404 $ 45,952   Other   In addition, we have other types of unconsolidated VIEs of which we are not the primary beneficiary. As of September 30, 2026 and December 31, 2025, our maximum exposure to loss in these VIEs was $ 6.75 billion and $ 5.58 billion, respectively, which represents the carrying value of our investments, including our share of net earnings from the equity method investees. Our share of net earnings from these equity method investees is recorded within interest and other income (expense), net on our condensed consolidated statements of income.   18",
+   "amounts": [
+    {
+     "raw": "$ 4,732 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,826   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68,404 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 45,952   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6.75 billion",
+     "usdM": 6750
+    },
+    {
+     "raw": "$ 5.58 billion",
+     "usdM": 5580
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "19",
+   "match": "Depreciation expense",
+   "text": "… 55,568   Leasehold improvements 8,855 8,346   Equipment and other 10,818 9,377   Finance lease right-of-use assets 11,704 8,187   Construction in progress (1)   89,499 50,521   Property and equipment, gross 326,489 233,726   Less: Accumulated depreciation ( 73,267 ) ( 57,326 )   Property and equipment, net $ 253,222 $ 176,400   ____________________________________   (1) Construction in progress includes costs mostly related to construction of data centers, servers and network infrastructure.   Depreciation expense on property and equipment was $ 6.81 billion and $ 4.76 billion for the three months ended September 30, 2026 and 2025, respectively, and $ 18.49 billion and $ 12.88 billion for the nine months ended September 30, 2026 and 2025, respectively. Within property and equipment, our servers and network assets depreciation expense was $ 5.34 billion and $ 3.60 billion for the three months ended September 30, 2026 and 2025, respectively, and $ 14.34 billion and $ 9.34 billion for the nine months ended September 30, 2026 and 2025, respectively.   Held-for-sale Assets   In July 2026, we approved a plan to dispose of certain data center assets with a net carrying value of $ 1.89 billion, consisting mostly of construction in progress and land. We expect to dispose of these assets within the next twelve months through a contribution to a third party for the purpose of co-developi…",
+   "amounts": [
+    {
+     "raw": "$ 253,222 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 176,400   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6.81 billion",
+     "usdM": 6810
+    },
+    {
+     "raw": "$ 4.76 billion",
+     "usdM": 4760
+    },
+    {
+     "raw": "$ 18.49 billion",
+     "usdM": 18490
+    },
+    {
+     "raw": "$ 12.88 billion",
+     "usdM": 12880
+    },
+    {
+     "raw": "$ 5.34 billion",
+     "usdM": 5340
+    },
+    {
+     "raw": "$ 3.60 billion",
+     "usdM": 3600
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "21",
+   "match": "not yet commenced",
+   "text": "… reporting periods and categorized as Level 2 in the fair value hierarchy.   As of September 30, 2026, future principal payments for the Notes, by year, are as follows (in millions):   Remainder of 2026 $ —   2027 2,750   2028 1,500   2029 1,000   2030 5,000   Thereafter 73,750   Total $ 84,000   Note 10. Commitments and Contingencies   Leases and Contractual Commitments   In addition to the lease liabilities that are included on our balance sheet, we have operating and finance leases that have not yet commenced as of September 30, 2026. These lease obligations were approximately $ 355.73 billion, consisting of data centers, energy-related infrastructure, colocations, and certain network infrastructure, which will commence during the remainder of 2026 through 2036 with lease terms ranging from greater than one year to 30 years.   As of September 30, 2026, we had $ 454.52 billion of non-cancelable contractual commitments, comprising both short-term and long-term arrangements. These commitments mostly relate to third-party cloud capacity arrangements and investments in servers and network infrastructure, energy service agreements for data centers, and consumer hardware products in Reality Labs, with approximately $ 45.85 billion and $ 121.41 billion due in 2026 and 2027, respectively. In addition, as of September 30, 2026, we have contingent obligations to purchase up to $ 14.72 …",
+   "amounts": [
+    {
+     "raw": "$ 84,000   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 355.73 billion",
+     "usdM": 355730
+    },
+    {
+     "raw": "$ 454.52 billion",
+     "usdM": 454520
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "21",
+   "match": "purchase obligations",
+   "text": "…s. For agreements with variable terms, we do not estimate the total obligation beyond minimum quantities and/or pricing, as of the reporting date.   In connection with escrow requirements under certain multi-year infrastructure purchase agreements, $ 10.80 billion of money market funds was reclassified as restricted cash equivalents as of September 30, 2026. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations. See Note 4 — Financial Instruments for additional information regarding restricted cash equivalents.   As part of the normal course of business, we have entered into agreements ranging from nine to 25 years to purchase clean and renewable energy that do not specify a fixed or minimum volume commitment. The ultimate spend under these agreements may vary and will be based on actual volume purchased.   Letters of Credit   As of September 30, 2026, we had $ 1.53 billion of unused letters of credit outstanding, the majority of which was related to our long-term infrastructure purchase commitments.   Legal and Related Matters   With respect to the cases, actions, and inquiries described below, we evaluate the associated developments on a regular basis and accrue a liability when we believe a loss is probable and the amount can be reasonably estimated. In addition, we beli…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "32",
+   "match": "Segment Information",
+   "text": "Table of Contents   Note 13. Segment Information   We report our financial results for our two reportable segments: Family of Apps (FoA) and Reality Labs (RL). FoA includes Facebook, Instagram, Messenger, WhatsApp, and other services. RL includes our virtual and augmented reality related consumer hardware, software, and content. Our operating segments are the same as our reportable segments.   The following table sets forth our segment information of revenue, expenses, and income (loss) from operations (in millions):   Three Months Ended September 30, Nine Months Ended September 30,   2026 2025 2026 2025   Family of Apps:   Revenue $ 64,158 $ 50,772 $ 180,436 $ 139,821   Employee compensation (1)   ( 12,192 ) ( 10,645 ) ( 38,843 ) ( 29,011 )   Other costs and expenses (2)   ( 34,849 ) ( 15,160 ) ( 74,183 ) ( 39,108 )   Income from operations $ 17,117 $ 24,967 $ 67,410 $ 71,702   Reality Labs:   Revenue $ 443 $ 470 $…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "35",
+   "match": "Segment Results",
+   "text": "Table of Contents   Consolidated and Segment Results   We report our financial results for our two reportable segments: Family of Apps (FoA) and Reality Labs (RL). FoA includes Facebook, Instagram, Messenger, WhatsApp, and other services. RL includes our virtual and augmented reality related consumer hardware, software, and content.   Family of Apps Reality Labs Total   Three Months Ended September 30,   % change Three Months Ended September 30,  % change Three Months Ended September 30,   % change   2026 2025 2026 2025 2026 2025   (in millions, except percentages)   Revenue $ 64,158 $ 50,772 26% $ 443 $ 470 (6)% $ 64,601 $ 51,242 26%   Costs and expenses 47,041 25,805 82% 4,572 4,902 (7)% 51,613 30,707 68%   Income (loss) from operations $ 17,117 $ 24,967 (31)% $ (4,129) $ (4,432) 7% $ 12,988 $ 20,535 (37)%   Operating margin 27 % 49 % (932) % (943) % 20 % 40 %   • Net income was $9.86 billion, with diluted earnings per sh…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "43",
+   "match": "depreciation expense",
+   "text": "…ns, and revenue from various other sources.   Reality Labs (RL)   RL revenue is generated from the delivery of consumer hardware products, such as Meta Quest and AI glasses, and related software and content.   Cost of Revenue and Operating Expenses   Cost of revenue. Our cost of revenue consists of expenses associated with the delivery and distribution of our products. These mainly include infrastructure expenses related to the operation of our data centers and technical infrastructure, such as depreciation expense from servers, network infrastructure and buildings, employee compensation which includes payroll, share-based compensation and benefits for employees on our operations teams, energy and bandwidth costs, as well as third-party cloud costs. Cost of revenue also consists of processing fees and traffic acquisition costs, which include credit card and other fees related to processing customer transactions; RL inventory costs, which consist of cost of products sold and estimated losses on non-cancelable contractual commitments; and content and creator costs, which include payments to content creators from whom we license content for distribution, as well as incentive payments made to creators based on engagement.   Research and development. Research and development expenses consist mostly of employee compensation, which includes payroll, share-based compensation and benefi…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "47",
+   "match": "Segment Information",
+   "text": "…token costs.   Reality Labs   RL loss from operations in the three and nine months ended September 30, 2026 decreased $303 million, or 7%, and $396 million, or 3%, respectively, compared to the same periods in 2025, driven by decreases in RL costs and expenses. RL costs and expenses decreased primarily due to lower employee compensation, partially offset by an increase in third-party AI token costs. In the three months ended September 30, 2026, RL inventory costs also increased.   See Note 13 — Segment Information in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information regarding segment employee compensation.   47",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "48",
+   "match": "equity method investee",
+   "text": "… $750 million, or 330%, and $1.61 billion, or 228%, respectively, compared to the same periods in 2025, due to higher long-term debt balances.   • Gain (loss) on equity investments and other, net in the three and nine months ended September 30, 2026, decreased $784 million, or 82%, and $1.67 billion, or 212%, respectively, compared to the same periods in 2025, primarily due to increases in unrealized losses on our marketable equity investments, partially offset by our share of net earnings from equity method investees.   See Note 4 — Financial Instruments, Note 5 — Non-Marketable Equity Investments, and Note 9 — Long-term Debt in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information regarding unrealized losses on our marketable equity securities, unrealized gains on our non-marketable equity investments, and long-term debt, respectively.   Provision for income taxes   Three Months Ended September 30, Nine Months Ended September 30,   2026 2025 % change 2026 2025 % change   (in millions, except percentages)   Provision for income taxes $ 3,141 $ 18,954 (83) % $ 1,028 $ 22,888 (96) %   Effective tax rate 24 % 87 % 2 % 38 %   Provision for income taxes and our effective tax rate in the three months ended September 30, 2026 decreased compared to the same period in 2025, mostly due to…",
+   "amounts": [
+    {
+     "raw": "$784 million",
+     "usdM": 784
+    },
+    {
+     "raw": "$1.67 billion",
+     "usdM": 1670
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "49",
+   "match": "purchase obligations",
+   "text": "… dividends and dividend equivalents; and $2.63 billion of cash used in other financing activities.   In addition, during the nine months ended September 30, 2026, $10.80 billion of unrestricted money market funds was reclassified as restricted cash equivalents in connection with escrow requirements under certain multi-year infrastructure purchase agreements. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations. See Note 4 — Financial Instruments in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information.   The following table presents our cash flows (in millions):   Nine Months Ended September 30,   2026 2025   Net cash provided by operating activities $ 96,873 $ 79,586   Net cash used in investing activities $ (114,309) $ (67,816)   Net cash provided by (used in) financing activities $ 2,682 $ (45,519)   Cash Provided by Operating Activities   Cash provided by operating activities during the nine months ended September 30, 2026 mostly consisted of $52.48 billion net income adjusted for certain non-cash items, such as $21.05 billion of share-based compensation expense and $19.51 billion of depreciation and amortization expense. The increase in cash flows from operating activit…",
+   "amounts": [
+    {
+     "raw": "$ 96,873 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,586   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "49",
+   "match": "depreciation and amortization expense",
+   "text": "…2026 2025   Net cash provided by operating activities $ 96,873 $ 79,586   Net cash used in investing activities $ (114,309) $ (67,816)   Net cash provided by (used in) financing activities $ 2,682 $ (45,519)   Cash Provided by Operating Activities   Cash provided by operating activities during the nine months ended September 30, 2026 mostly consisted of $52.48 billion net income adjusted for certain non-cash items, such as $21.05 billion of share-based compensation expense and $19.51 billion of depreciation and amortization expense. The increase in cash flows from operating activities during the nine months ended September 30, 2026, compared to the same period in 2025, was primarily due to an increase in cash collections from our customers driven by higher revenue, and a decrease in cash tax payments, partially offset by higher operational spending.   49",
+   "amounts": [
+    {
+     "raw": "$52.48 billion",
+     "usdM": 52480
+    },
+    {
+     "raw": "$21.05 billion",
+     "usdM": 21050
+    },
+    {
+     "raw": "$19.51 billion",
+     "usdM": 19510
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "49",
+   "match": "investment grade",
+   "text": "…ensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information regarding income tax contingencies.   Liquidity and Capital Resources   Our principal sources of liquidity are our cash, cash equivalents, marketable securities, and cash generated from operations. Cash, cash equivalents, and marketable securities are comprised of cash on deposit with banks, time deposits, money market funds, U.S. government and agency securities, investment grade corporate debt securities, and marketable equity securities. As part of our cash management strategy, we concentrate cash deposits with large financial institutions and our investment holdings are in diversified highly rated securities.   Cash, cash equivalents, and marketable securities were $82.45 billion as of September 30, 2026, an increase of $857 million from December 31, 2025. The increase was mainly due to $96.87 billion of cash generated from operations and $24.91 billion of net proceeds from the issuance of fixed-rate senior unsecured notes (the Notes) in May 2026. These increases were partially offset by $85.82 billion of capital expenditures, which includes purchases of property and equipment and principal payments on finance leases; $12.77 billion of taxes paid related to net share settlement of employee restricted stock unit (RSU) awards; $4.06 billion of p…",
+   "amounts": [
+    {
+     "raw": "$82.45 billion",
+     "usdM": 82450
+    },
+    {
+     "raw": "$857 million",
+     "usdM": 857
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "49",
+   "match": "Net cash provided by operating activities",
+   "text": "… infrastructure purchase agreements. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations. See Note 4 — Financial Instruments in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information.   The following table presents our cash flows (in millions):   Nine Months Ended September 30,   2026 2025   Net cash provided by operating activities $ 96,873 $ 79,586   Net cash used in investing activities $ (114,309) $ (67,816)   Net cash provided by (used in) financing activities $ 2,682 $ (45,519)   Cash Provided by Operating Activities   Cash provided by operating activities during the nine months ended September 30, 2026 mostly consisted of $52.48 billion net income adjusted for certain non-cash items, such as $21.05 billion of share-based compensation expense and $19.51 billion of depreciation and amortization expense. The increase in cash flows from operating activities during the nine months ended September 30, 2026, compared to the same period in 2025, was primarily due to an increase in cash collections from our customers driven by higher revenue, and a decrease in cash tax payments, partially offset by higher operational spending.   49",
+   "amounts": [
+    {
+     "raw": "$ 96,873 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,586   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,682 ",
+     "usdM": null
+    },
+    {
+     "raw": "$52.48 billion",
+     "usdM": 52480
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "50",
+   "match": "not yet commenced",
+   "text": "…iatives and expect to continue to do so. From time to time we expect to seek to raise additional capital through debt, equity, or other financing arrangements. We continuously evaluate our liquidity and capital resources, including our access to external capital, to ensure we can finance our future capital requirements.   Leases and Contractual Commitments   In addition to the lease liabilities included on our condensed consolidated balance sheets, we have operating and finance leases that have not yet commenced as of September 30, 2026. These lease obligations were approximately $355.73 billion, consisting of data centers, energy-related infrastructure, colocations, and certain network infrastructure, which will commence during the remainder of 2026 through 2036 with lease terms ranging from greater than one year to 30 years.   As of September 30, 2026, we had $454.52 billion of non-cancelable contractual commitments, comprising both short-term and long-term arrangements. These commitments mostly relate to third-party cloud capacity arrangements and investments in servers and network infrastructure, energy service agreements for data centers, and consumer hardware products in Reality Labs, with approximately $45.85 billion and $121.41 billion due in 2026 and 2027, respectively. In addition, as of September 30, 2026, we have contingent obligations to purchase up to $14.72 billi…",
+   "amounts": [
+    {
+     "raw": "$355.73 billion",
+     "usdM": 355730
+    },
+    {
+     "raw": "$454.52 billion",
+     "usdM": 454520
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "50",
+   "match": "purchase obligations",
+   "text": "…rs. For agreements with variable terms, we do not estimate the total obligation beyond minimum quantities and/or pricing, as of the reporting date.   In connection with escrow requirements under certain multi-year infrastructure purchase agreements, $10.80 billion of money market funds was reclassified as restricted cash equivalents as of September 30, 2026. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations.   Long-term Debt   As of September 30, 2026, we had $84.00 billion aggregate principal amount of Notes outstanding, of which $2.75 billion matures in August 2027, with the remainder maturing through 2066. Short-term and long-term future interest payments obligations as of September 30, 2026 were $4.40 billion and $84.51 billion, respectively.   50",
+   "amounts": [
+    {
+     "raw": "$10.80 billion",
+     "usdM": 10800
+    },
+    {
+     "raw": "$84.00 billion",
+     "usdM": 84000
+    },
+    {
+     "raw": "$2.75 billion",
+     "usdM": 2750
+    },
+    {
+     "raw": "$4.40 billion",
+     "usdM": 4400
+    },
+    {
+     "raw": "$84.51 billion",
+     "usdM": 84510
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "62",
+   "match": "guarantee",
+   "text": "…ay adversely impact our ability to deliver ad impressions and, in turn, our financial performance.   If people do not perceive our products to be useful, reliable, and trustworthy, we may not be able to attract or retain users or otherwise maintain or increase the frequency and duration of their engagement. A number of other social networking companies that achieved early popularity have since seen their active user bases or levels of engagement decline, in some cases precipitously. There is no guarantee that we will not experience a similar erosion of our active user base or engagement levels. Our user engagement patterns have changed over time, and user engagement can be difficult to measure, particularly as we and our competitors introduce new and different products and services. Any number of factors can negatively affect user retention, growth, and engagement, including if:   • users increasingly engage with other competitive products or services;   • we fail to introduce new features, products, or services that users find engaging or if we introduce new products or services, or make changes to existing products and services, that are not favorably received;   • users feel that their experience is diminished as a result of the decisions we make with respect to the frequency, prominence, format, size, and quality of ads that we display;   • users have difficulty installing,…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "64",
+   "match": "utility",
+   "text": "…hanges that may reduce traffic to features or products that we monetize at a higher rate, such as our Feed and Stories products, including as a result of increased usage of our Reels or other video or messaging products;   • reductions of advertising due to our efforts to implement or enforce advertising policies that protect the security and integrity of our platform or that we believe are needed to comply with global content, security, or integrity obligations;   • the availability, accuracy, utility, and security of analytics and measurement solutions offered by us or third parties that demonstrate the value of our ads to marketers, or our ability to further improve such tools;   64",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "66",
+   "match": "guarantee",
+   "text": "… as they take further effect in the future, our targeting and measurement capabilities will be materially and adversely affected, which would in turn significantly impact our advertising revenue.   Our user growth, engagement, and monetization on mobile devices depend upon effective operation with mobile operating systems, networks, technologies, products, and standards that we do not control.   The substantial majority of our revenue is generated from advertising on mobile devices. There is no guarantee that popular mobile devices will continue to feature our products, or that mobile device users will continue to use our products rather than competing products. We are dependent on the interoperability of our products with popular mobile operating systems, networks, technologies, products, and standards that we do not control, such as the Android and iOS operating   66",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "68",
+   "match": "guarantee",
+   "text": "…ct or prohibit access to or integration with our AI features and technologies on their services, which could adversely affect our AI initiatives.   We are also developing AI technology that we make available via open source, commercial, and non-commercial license agreements to third-parties that can use this technology for use in their own products and services. We may not have insight into, or control over, the practices of third parties who may utilize such AI technologies. As such, we cannot guarantee that third parties will not use such AI technologies for improper purposes, including through the dissemination of illegal,   68",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "69",
+   "match": "guarantee",
+   "text": "… furthering bias or discrimination, cybersecurity attacks including spear phishing attacks, data privacy violations, other societal harms, including activities that threaten people's safety or well-being on- or offline, or to develop competing technologies. While we may mitigate certain risks associated with the improper use of our AI models through both technical measures and the inclusion of contractual restrictions on third-party use in any agreement between us and any third party, we cannot guarantee that such measures will be effective. Such improper use by any third party could adversely affect our business, reputation, or financial results or subject us to legal liability.   It is not possible to predict all of the risks related to the use of AI. Changes in laws, rules, directives, and regulations or other regulatory developments regarding the use of AI, including restrictions around the collection and use of data or the release of frontier AI models, may adversely affect our ability to develop, deploy, release to the public, or use AI or subject us to legal liability. In addition, AI may not develop in accordance with our expectations, and market acceptance of features, products, or services we build is uncertain. We regularly evaluate our product roadmaps and make significant changes as our understanding of the technological challenges and market landscape of AI, as we…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "75",
+   "match": "credit rating",
+   "text": "…ful longer-term, our business and financial performance will be harmed.   Our ability to support these investments is dependent on generating sufficient profits from other areas of our business. From time to time we expect to seek to raise additional capital through debt, equity, or other financing arrangements to support our business operations, strategic initiatives, or other corporate purposes. Such financings may not be available on favorable terms or at all. For example, a downgrade of our credit rating could adversely affect our access to liquidity and capital and could increase our borrowing costs. The incurrence of additional debt also results in increased fixed obligations and interest expense, while the issuance of additional equity securities results in dilution to our stockholders. We recently announced that our board of directors has determined that it is advisable and in the best interest of the company and our stockholders to adjust our capital structure by amending our certificate of incorporation (as amended, the Restated Charter) to, among other things, establish a new class of non-voting Class C common stock (the Recapitalization), with an effective   75",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "76",
+   "match": "purchase commitments",
+   "text": "… As a result, we have adjusted, and may continue to adjust in the future, our procurement practices to adapt to the evolving landscape. We may not be able to secure sufficient components, equipment, or services from third parties to satisfy our needs, or we may be required to procure such components, equipment, or services on unfavorable terms. For example, we are party to a number of partnerships and other third-party arrangements relating to these initiatives, some of which include multi-year purchase commitments. As of September 30, 2026, we had $454.52 billion of non-cancelable contractual commitments, comprising both short-term and long-term arrangements, most of which are related to third-party cloud capacity arrangements and other investments in technical infrastructure, and we continue to enter into additional significant contractual arrangements.   Any of these developments may result in interruptions in the availability or performance of our products or services, require unfavorable changes to existing products or services, delay the introduction of future products or services, or otherwise adversely affect our business and financial results.   76",
+   "amounts": [
+    {
+     "raw": "$454.52 billion",
+     "usdM": 454520
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "79",
+   "match": "data centers in approximately",
+   "text": "…cluding our ability to quickly develop and launch new and innovative products. Any of these developments could negatively affect our business, reputation, or financial results.   We have significant international operations, which subject us to increased business, economic, and legal risks that could affect our financial results.   We have significant international operations. We currently make our Family products available in a total of more than 100 different languages, and we have offices or data centers in approximately 40 different countries. We may enter new international regions where we have limited or no experience in marketing, selling, and deploying our products. Our products are generally available globally, but some or all of our products or functionality may not be available in certain regions due to legal and regulatory complexities. For example, several of our products are not generally available in China. We also outsource certain operational functions to third parties globally. If we fail to deploy, manage, or oversee our international operations successfully, our business may suffer. In addition, we are subject to a variety of risks inherent in doing business internationally, including:   • political, social, or economic instability;   79",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "82",
+   "match": "joint venture",
+   "text": "… these product changes.   We plan to continue to make acquisitions and pursue other strategic transactions, which could impact our financial condition or results of operations and may adversely affect the price of our common stock.   As part of our business strategy, we have made and intend to continue to make acquisitions to add specialized employees and complementary companies, products, or technologies, and from time to time may enter into other strategic transactions such as investments and joint ventures. We may not be able to find suitable acquisition candidates, and we may not be able to complete acquisitions or other strategic transactions on favorable terms, or at all, including as a result of regulatory challenges, or we may be subject to regulatory challenges after such transactions close. For example, we completed our divestiture of Manus in August 2026 following an order from China's National Development and Reform Commission ordering us to unwind the transaction, and we completed our divestiture of Giphy in 2023 following the United Kingdom Competition and Markets Authority's order directing us to divest Giphy post-acquisition. In addition, although we were able to successfully complete the acquisition after prevailing in federal court, the FTC sought to enjoin our proposed acquisition of Within Unlimited. In some cases, the costs of such acquisitions or other str…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "85",
+   "match": "guarantee",
+   "text": "…as combat sports, extreme sports, and recreational aviation, which carry the risk of serious injury and death. If Mr. Zuckerberg were to become unavailable for any reason, there could be a material adverse impact on our operations. The loss of other key personnel, including members of management as well as key engineering, product development, science, research, marketing, and sales personnel, could also disrupt our operations and have an adverse effect on our business.   In addition, we cannot guarantee we will continue to attract and retain the personnel we need to maintain our competitive position. In particular, we expect to continue to face significant challenges in hiring specialized technical personnel, particularly senior engineering and AI research talent, whether as a result of competition with other companies or other factors. As our company continues to evolve, the incentives to attract, retain, and motivate employees provided by our equity awards or by future arrangements may not be as effective as in the past. From time to time we issue significant equity to attract additional employees or to retain our existing employees, resulting in substantial additional share-based compensation expense and dilution to the ownership of our existing stockholders. Our ability to attract, retain, and motivate employees may also be adversely affected by stock price volatility. In …",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "85",
+   "match": "guarantee",
+   "text": "…orporate transactions, such as a merger or other sale of the company of its assets. We believe that Mr. Zuckerberg's continued control of a majority of the voting power of our outstanding capital stock is beneficial to us and is in the best interests of our stockholders. In the event that Mr. Zuckerberg no longer controls a majority of the voting power, our business or the trading price of our Class A common stock and, when issued, our Class C common stock may be adversely affected.   We cannot guarantee that our share repurchase program will be fully consummated or that it will enhance long-term stockholder value. Share repurchases and dividend payments could also increase the volatility of the trading price of our stock and will diminish our cash reserves.   Although our board of directors has authorized a share repurchase program that does not have an expiration date, the program does not obligate us to repurchase any specific dollar amount or to acquire any specific number of shares of our Class A common stock, or, when issued, our Class C common stock. The specific timing and amount of any share repurchases, and the specific timing and amount of any dividend payments, will depend on prevailing share prices, general economic and market conditions, company performance, and other considerations. We cannot guarantee that the repurchase program will be fully consummated or that…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "93",
+   "match": "guarantee",
+   "text": "Table of Contents   and attention and may still not guarantee compliance. In the event that we are found to be in violation of any such legal or regulatory requirements, we may be subject to monetary fines or other penalties such as a cease and desist order, or we may be required to make product changes, any of which could have an adverse effect on our business and financial results.   In addition, we are subject to a variety of additional risks as a result of payments transactions, including: increased costs and diversion of management time and attention and other resources to address bad transactions or customer disputes; potential fraudulent or otherwise illegal activity by users, developers, employees, or third parties; restrictions on the investment of consumer funds used to transact payments; and additional disclosure and reporting requirements. We have also launched payments functionality on certain of our applications and as part …",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "97",
+   "match": "joint venture",
+   "text": "…r company, or our failure to meet these estimates or the expectations of investors;   • additional shares of our stock being sold into the market by us, our existing stockholders, or in connection with acquisitions, or the anticipation of such sales;   • investor sentiment with respect to our competitors, our business partners, and our industry in general;   • announcements by us or our competitors of significant products or features, technical innovations, acquisitions, strategic partnerships, joint ventures, or capital commitments;   • announcements by us or estimates by third parties of actual or anticipated changes in the size of our user base, the level of user engagement, or the effectiveness of our ad products;   • changes in operating performance and stock market valuations of technology companies in our industry, including our developers and competitors;   • price and volume fluctuations in the overall stock market, including as a result of trends in the economy as a whole;   • the inclusion, exclusion, or deletion of our stock from any trading indices, such as the S&P 500 Index;   • media coverage of our business and financial performance;   • lawsuits threatened or filed against us, or developments in pending lawsuits;   • adverse government actions or legislative or regulatory developments relating to advertising, competition, content, privacy, or other matters, inc…",
+   "amounts": []
+  }
+ ]
+}
