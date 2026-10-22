@@ -26,6 +26,7 @@ concurrency:
 
 permissions:
   contents: read
+  actions: write   # to write the repository variable FRED_PROXY_URL after the deploy
 
 jobs:
   deploy:
@@ -57,6 +58,7 @@ jobs:
           fi
 
       - name: Deploy the Worker and upload its GitHub token
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -69,5 +71,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DISPATCHER_GITHUB_TOKEN }}
           PROXY_KEY: ${{ secrets.FRED_PROXY_KEY }}
 
+      # The refresh workflows reach the FRED proxy through the repository variable FRED_PROXY_URL; it is written here from
+      # the address wrangler reports, so a deploy always leaves it right and nobody has to copy it by hand (22-Oct-2026).
+      - name: Record the Worker's address as the repository variable FRED_PROXY_URL
+        uses: actions/github-script@v7
+        env:
+          URL: ${{ steps.deploy.outputs.deployment-url }}
+        with:
+          script: |
+            const url = (process.env.URL || '').trim().replace(/\/+$/, '');
+            if (!/^https:\/\/[a-z0-9.-]+\.workers\.dev$/.test(url)) { core.setFailed(`wrangler reported no workers.dev address (got "${url}"): set the repository variable FRED_PROXY_URL by hand (tools/dispatcher/README.md → FRED proxy)`); return; }
+            const name = 'FRED_PROXY_URL';
+            try { await github.rest.actions.updateRepoVariable({ ...context.repo, name, value: url }); }
+            catch (e) { if (e.status === 404) await github.rest.actions.createRepoVariable({ ...context.repo, name, value: url }); else throw e; }
+            console.log(`${name} = ${url}`);
+
       - name: What to look at
-        run: echo "Deployed. Cloudflare dashboard → Workers & Pages → fnam-dispatcher → Logs shows one line every ten minutes; GitHub → Actions shows the runs it starts as '(by hand)' runs on main. The Worker's URL (Settings → Domains & Routes, the workers.dev one) goes into the repository variable FRED_PROXY_URL so the refresh workflows can reach the FRED proxy (tools/dispatcher/README.md → FRED proxy)."
+        run: echo "Deployed. Cloudflare dashboard → Workers & Pages → fnam-dispatcher → Logs shows one line every ten minutes; GitHub → Actions shows the runs it starts as '(by hand)' runs on main. The repository variable FRED_PROXY_URL now carries the Worker's address (tools/dispatcher/README.md → FRED proxy)."

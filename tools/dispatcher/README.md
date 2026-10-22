@@ -51,9 +51,10 @@ header `X-FNAM-Key: <FRED_PROXY_KEY>`. The Worker forwards only `https://api.stl
 `https://fred.stlouisfed.org/…`, only with the right key, and passes the answer back unchanged (the readers validate it as
 they validate a direct answer, so a blocked Cloudflare address fails the same way, visibly).
 
-To switch it on, after the deploy: GitHub → Settings → Secrets and variables → Actions → **Variables** → New repository
-variable `FRED_PROXY_URL` = the Worker's URL (Cloudflare dashboard → Workers & Pages → `fnam-dispatcher` → Settings →
-Domains & Routes → the `workers.dev` address, e.g. `https://fnam-dispatcher.<account>.workers.dev`, no trailing slash).
+The deploy workflow writes the Worker's `workers.dev` address into the repository variable `FRED_PROXY_URL` itself (its
+last-but-one step; the workflow has `actions: write` for that), so nothing is copied by hand. If that step ever fails, set
+the variable yourself: GitHub → Settings → Secrets and variables → Actions → **Variables** → `FRED_PROXY_URL` = the address
+under Cloudflare → Workers & Pages → `fnam-dispatcher` → Settings → Domains & Routes, no trailing slash.
 Every refresh workflow already passes `FRED_PROXY_URL` and `FRED_PROXY_KEY` to its steps; while either is empty the readers
 report the direct refusal and the page keeps its last data. A browser check: `<worker url>/fred?u=https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10`
 without the header answers `403 forbidden`; with it (from a tool that can set a header), the CSV.
