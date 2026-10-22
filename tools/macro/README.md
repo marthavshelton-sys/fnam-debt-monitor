@@ -557,3 +557,28 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
   `?view=` answers 404 (section list checked by both builders)
 - `../../site/404.html`, `../../site/favicon.ico` — the site-wide "not found" page
   (status 404 for any missing address) and icon
+
+
+## FRED readers, render gate and section isolation (22-Oct-2026)
+
+On 21-Oct-2026 (about 17:40 UTC until before 09:20 UTC the next day) FRED answered GitHub's runners with an HTML page instead
+of data, through both the public CSV export and the keyed API; the probe of 22-Oct 09:21 UTC (Runner diagnostics issue #305)
+shows it back to normal. What it did here: `process_fincond.ps1` read `$null.observations`, wrote 23 empty series and exited 0
+(not even in `health.json`); the page's `renderFinCond` threw, `renderAll` stopped there, and the live check reported 135
+charts without labels (the labelling pass had not run). The other FRED processors failed cleanly on their title checks and
+opened the SOURCE DOWN issue after three runs.
+
+- `Invoke-FredJson` / `Invoke-FredText` (`common.ps1`) are the only way to call FRED from PowerShell: they refuse HTML, a
+  FRED error object, an undated CSV row or an empty export, and retry once through the dispatcher Worker's `/fred` route
+  when `FRED_PROXY_URL` / `FRED_PROXY_KEY` are set in the environment (the workflow passes them). `Get-FredChecked` uses them.
+- `Save-Json` refuses to write a processed file less than half the size of the committed one (a source that answered with
+  nothing); `process_fincond.ps1` refuses empty series. Either failure is booked in `health.json` like any outage.
+- The template renders each section guarded (`SECTION_RENDERERS`): a renderer that throws leaves the notice `sectionFailed`
+  (both locales) at the top of its view and the error in `window.FNAM_RENDER_ERRORS`; `labelCharts()` and
+  `titleCaseHeadings()` run in `finally`. The inline CPI/PCE block at the top of `renderAll` stays unguarded (it defines the
+  constants every section uses; if it throws, nothing renders and the gate stops the commit).
+- `scripts/macro/render-gate.mjs` serves `site/` and opens the built page in Chromium in both languages; a script error, a
+  render error or "undefined"/"NaN" on screen exits 1. `macro-refresh.yml` runs it right after the build; a failing gate ends
+  the run before the commit, so the committed page stays live and the watchdog shows the dashboard as late.
+- `live-check.mjs` flags script and render errors as critical and lists them first in the report and the issue title.
+- Informational issues older than 26 h are closed by the refresh workflow (see CLAUDE.md).

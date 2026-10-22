@@ -127,6 +127,26 @@ jobs:
         run: |
           .\tools\macro\alerts.ps1 -Page "$env:GITHUB_WORKSPACE\site\macro\index.html"
 
+      # Informational issues (MATERIAL / Macro update, US and MX) are a queue the email routine reads once per slot; after
+      # that they only bury the real alerts. Closed here once they are older than a slot (26 h), with a comment, on main
+      # only (owner, 22-Oct-2026). SOURCE DOWN and LIVE CHECK issues are not touched: they close on recovery.
+      - name: Close informational issues the routine has already emailed
+        if: (github.event.inputs.branch || 'main') == 'main'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const cutoff = Date.now() - 26 * 3600 * 1000;
+            const list = await github.paginate(github.rest.issues.listForRepo, { ...context.repo, state: 'open', creator: 'github-actions[bot]', per_page: 100 });
+            for (const i of list) {
+              if (i.pull_request) continue;
+              if (!/^(MATERIAL: |MATERIAL \(MX\): |Macro update: )/.test(i.title)) continue;
+              if (Date.parse(i.created_at) > cutoff) continue;
+              await github.rest.issues.createComment({ ...context.repo, issue_number: i.number, body: 'Emailed by the macro routine in its slot (or an informational update that is never emailed); closed to keep the alert list readable. The figures stay on the dashboard.' });
+              await github.rest.issues.update({ ...context.repo, issue_number: i.number, state: 'closed', state_reason: 'completed' });
+              console.log(`closed #${i.number} ${i.title}`);
+            }
+
       - name: Commit if the data changed
         shell: bash
         env:

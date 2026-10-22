@@ -361,6 +361,31 @@ dashboards, everything built from public data by GitHub Actions.
   FRED posts the next business day and the same-evening Yahoo/Stooq top-up is rate-limited at times; `fetch-market.mjs` merges
   every fetched series into the stored file and never drops a stored session (a FRED answer ending the day before dropped the
   15-Oct close a top-up had stored, 15-Oct-2026 23:52 UTC).
+- FRED, every pipeline (22-Oct-2026, after FRED answered the runners with an HTML page on 21-Oct through both the CSV export and
+  the keyed API, and the U.S. fiscal fetcher committed that page as the FOMC range): every FRED call goes through the shared
+  readers `scripts/lib/fred.mjs` (`fredText` / `fredJson`) or `Invoke-FredJson` / `Invoke-FredText` in `tools/macro/common.ps1`,
+  which refuse anything that is not data (HTML, undated rows, empty export, FRED error) so the caller keeps its previous data,
+  and retry once through the dispatcher Worker's `/fred` route when the repository variable `FRED_PROXY_URL` and the secret
+  `FRED_PROXY_KEY` are set (`tools/dispatcher/README.md` → "FRED proxy"; every FRED-using workflow passes both). Never call FRED
+  with a bare fetch / Invoke-RestMethod again. Self-test `node scripts/lib/fred-selftest.mjs`. Guards behind it: `fetch-data.mjs`
+  audits the shape of every block before writing (dates are dates, numbers finite, no markup) and carries the committed value
+  for a failed or malformed one; `Save-Json` in `common.ps1` refuses a processed file less than half the size of the committed one.
+- U.S. macro page: each section renders on its own (`SECTION_RENDERERS` in the template; a throwing renderer leaves a bilingual
+  notice and `window.FNAM_RENDER_ERRORS`, the chart labels and Title Case always run); `scripts/macro/render-gate.mjs` opens the
+  built page in both languages and `macro-refresh.yml` runs it before the commit, so a build that throws never reaches main;
+  `tools/macro/live-check.mjs` reports script and render errors first. Run the gate (`node scripts/macro/render-gate.mjs`) and
+  `node tools/macro/live-check.mjs --url http://localhost:8123/macro/ --expect site/macro/index.html --local` before pushing a template change.
+- MX fiscal freshness allowances calibrate themselves: `scripts/mx-fiscal/lags.mjs` records when each period first appears
+  (`tools/mx-fiscal/lags.json`, committed with data.js) and widens a typed allowance to the second-largest observed lag plus a
+  margin; `freshness.json` holds the floors (never lowered automatically); data.js embeds the effective rules and
+  `check-freshness.mjs` reads them from there. Do not raise an allowance by hand before checking lags.json.
+- Reading a runner's output from a session: run logs and job summaries are served from a storage host the session's network
+  refuses. `refresh-data.yml`'s by-hand probe (`url` input) posts its output as a comment on the "Runner diagnostics" issue
+  (label `runner-diagnostics`, #305); add the same step to another workflow's diagnostics mode when you need it. A refresh
+  dispatched on a feature branch (`macro-refresh.yml` `branch` input) commits its data there: `health.json` and the data files
+  are the verdict.
+- Informational issues ("MATERIAL: ", "MATERIAL (MX): ", "Macro update: ") are closed by `macro-refresh.yml` once older than an
+  emailing slot (26 h), with a comment (owner, 22-Oct-2026); SOURCE DOWN and LIVE CHECK issues close on recovery as before.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
