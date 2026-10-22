@@ -21,6 +21,25 @@
 // answers.
 const argv = process.argv.slice(2);
 const urlIdx = argv.indexOf('--url');
+// The word "proxy-check" among the URLs runs the FRED proxy self-check first (22-Oct-2026): the shared reader fetches
+// DGS10 with the direct call disabled, so the answer can only have come through the Worker (FRED_PROXY_URL / FRED_PROXY_KEY
+// of the workflow's environment). Prints the reader's verdict; never commits anything.
+if (urlIdx >= 0 && /(^|\s)proxy-check(\s|$)/.test(argv[urlIdx + 1] || '')) {
+  const { proxyConfig } = await import('../lib/fred.mjs');
+  const cfg = proxyConfig();
+  if (!cfg) console.log('proxy-check: FRED_PROXY_URL / FRED_PROXY_KEY not set in this run');
+  else {
+    const target = `${cfg.url}/fred?u=${encodeURIComponent('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10')}`;
+    try {
+      const r = await fetch(target, { headers: { 'X-FNAM-Key': cfg.key, Accept: 'text/csv' } });
+      const body = await r.text();
+      const noKey = await fetch(target, { headers: { Accept: 'text/csv' } });
+      console.log(`proxy-check: ${cfg.url}/fred -> HTTP ${r.status} ${r.headers.get('content-type') || ''} ${body.length} bytes; first line "${body.split('\n')[0].slice(0, 60)}"; without the key -> HTTP ${noKey.status}`);
+    } catch (e) { console.log(`proxy-check: ${cfg.url}/fred -> ${e.message}`); }
+  }
+  argv[urlIdx + 1] = (argv[urlIdx + 1] || '').replace(/(^|\s)proxy-check(\s|$)/, ' ').trim();
+  if (!argv[urlIdx + 1]) process.exit(0);
+}
 if (urlIdx < 0) {
   console.error('usage: node scripts/fiscal/probe.mjs --url "URL URL#regex ..."');
   process.exit(2);
