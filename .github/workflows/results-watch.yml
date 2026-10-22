@@ -1,0 +1,39 @@
+# Results watch: from each company's results date (the calendar in its reference.js, or the release-lag assumption the pages
+# print with "≈"), starts the refresh that harvests the release until the quarter is in the model, keeps re-reading for three
+# days after it lands, and opens a "MAINTENANCE: … results not found" issue (label fnam-maintenance) 48 hours after an
+# expected date with nothing harvested. Logic and rules: scripts/lib/results-watch.mjs; runbook tools/results-watch/README.md.
+name: Results watch
+run-name: "${{ github.event_name == 'schedule' && format('{0} (cron {1})', github.workflow, github.event.schedule) || github.event_name == 'workflow_dispatch' && format('{0} (by hand)', github.workflow) || github.workflow }}"  # the cron that fired a scheduled run, read by the watchdog (scripts/watchdog/lib.mjs cronFromTitle)
+
+on:
+  schedule:
+    - cron: "23 */3 * * 1-5"   # every three hours on weekdays (releases land on Mexico City trading days)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report only; dispatch nothing and open no issue"
+        type: boolean
+        default: false
+
+concurrency:
+  group: results-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: write   # dispatch the company refresh workflows
+  issues: write    # the maintenance alert
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check each company's results date against its model
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/lib/results-watch.mjs ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}

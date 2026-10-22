@@ -114,3 +114,16 @@ so a new session does not rediscover it. Update it when a decision changes; keep
   "to be confirmed" once the date passes, and the routine refreshes it from the IR calendar. A confirmed date
   goes in `reference.calendar.nextResults` too, which is the key the board deck reads.
 - Pre-2022 share counts (EPS null before 1Q22) if the owner wants a longer EPS history.
+
+## 2026-10-22 — 3T26 incorporated; parser repaired
+
+- The 3T26 release (21-Oct-2026) was harvested by the 22-Oct 09:24 UTC run but the validator rejected it: "stage 1 & 2 +
+  stage 3 = gross loans (diff 95220)". Cause: `split_row` left the stage digit of "Cartera … etapa 1 y 2" / "etapa 3" among
+  the numeric tokens, so the labels never matched the templates; every earlier quarter took `loans12`/`loans3` from the seed
+  transcription (1Q22–2Q26), which hid the bug. `split_row` now gives the digit back to the label.
+- The consolidated "Principales Indicadores" table of the 3T26 Spanish PDF is an image (pdfplumber: 3 images, 2,129 characters
+  on page 3). `build_data.py` now reads it from the English release Gentera files with the BMV the same day (archived by the BMV
+  watcher in `raw/text/events/`, title "GENTERA 3Q26 RESULTS"), `english_indicators()`, and records `sources.ind` on the
+  quarter plus a warning on the quality page. Only used when the Spanish text has no table.
+- Curated files rewritten from the release (summary, comments 2026Q3, reference: next results 4T26 ≈ 25-Feb-2027 assumed, shares
+  as of 30-Sep-2026). The 22-Oct call transcript is pending; `comments.js → call.kind: "pending"` marks it.

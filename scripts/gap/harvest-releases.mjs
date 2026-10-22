@@ -16,7 +16,11 @@
 // Incremental by default: releases already listed in tools/gap/raw/manifest.json are skipped.
 // Pass --full to re-download everything (e.g. after changing the classifier).
 
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import os from 'node:os';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 
@@ -37,6 +41,7 @@ const GNW_DELAY_MS = 450;
 const DELAY_MS = 130; // ~7.5 req/s, under the SEC's 10 req/s ceiling
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const execFileAsync = promisify(execFile);
 let lastRequest = 0;
 
 async function secFetch(url, { json = false } = {}) {
@@ -290,6 +295,87 @@ async function harvestPrn(manifest, results, known) {
   return fetched;
 }
 
+
+// ---------- GAP's investor site (fallback since 22-Oct-2026: GlobeNewswire answers 403 to the runner and PR Newswire's
+// listing is empty, so the 3Q26 results of 19-Oct-2026 never reached the archive) ----------
+// https://www.aeropuertosgap.com.mx/en/material-events.html lists every release (results, traffic, events) as a title,
+// a dated paragraph and a PDF under /files/. Each PDF is converted with scripts/gap/pdf-to-text.py --pdf (pdfplumber,
+// the same pipe-delimited rows the PDF reports use) and archived as <date>_ir<slug>_en.txt. A release the wire already
+// archived (same class within a day) is skipped, so the two sources never double-count a quarter.
+const IR_BASE = 'https://www.aeropuertosgap.com.mx';
+const IR_LISTING = `${IR_BASE}/en/material-events.html`;
+const IR_PAGES = 3; // 7 items per page; three pages cover about four months of releases
+const MONTH_NUM = { january: '01', february: '02', march: '03', april: '04', may: '05', june: '06', july: '07', august: '08', september: '09', october: '10', november: '11', december: '12' };
+
+function parseIrListing(html) {
+  const items = [];
+  for (const block of html.split(/<h2[^>]*>/i).slice(1)) {
+    const title = htmlToText(block.split(/<\/h2>/i)[0]).replace(/\s+/g, ' ').trim();
+    const body = block.split(/<\/h2>/i)[1] || '';
+    const pdf = body.match(/href="(\/files\/[^"]+\.pdf)"/i);
+    const dm = htmlToText(body).match(new RegExp(`\\b(${Object.keys(MONTH_NUM).join('|')})\\s+(\\d{1,2}),\\s+(20\\d\\d)`, 'i'));
+    if (!pdf || !dm) continue;
+    const date = `${dm[3]}-${MONTH_NUM[dm[1].toLowerCase()]}-${dm[2].padStart(2, '0')}`;
+    items.push({ title, date, url: IR_BASE + pdf[1].replace(/&amp;/g, '&') });
+  }
+  return items;
+}
+
+async function irFetch(url, binary = false) {
+  const res = await fetch(url, { headers: { 'User-Agent': GNW_UA, Accept: binary ? 'application/pdf,*/*' : 'text/html,*/*' } });
+  if (!res.ok) throw new Error(`${url} -> ${res.status}`);
+  return binary ? Buffer.from(await res.arrayBuffer()) : res.text();
+}
+
+async function pdfToText(buf, name) {
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'gap-ir-'));
+  const file = path.join(dir, name.replace(/[^A-Za-z0-9._-]/g, '_'));
+  await writeFile(file, buf);
+  try {
+    const { stdout } = await execFileAsync('python3', [fileURLToPath(new URL('./pdf-to-text.py', import.meta.url)), '--pdf', file], { maxBuffer: 64 * 1024 * 1024 });
+    return stdout;
+  } finally { await rm(dir, { recursive: true, force: true }); }
+}
+
+const dayNum = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5;
+
+async function harvestIr(results, known) {
+  let items = [];
+  for (let p = 0; p < IR_PAGES; p++) {
+    const url = p ? `${IR_LISTING}?start=${p * 7}` : IR_LISTING;
+    let html;
+    try { html = await irFetch(url); } catch (e) { console.error(`IR listing ${url}: ${e.message}`); break; }
+    const page = parseIrListing(html);
+    if (!page.length) break;
+    items = items.concat(page);
+    await sleep(GNW_DELAY_MS);
+  }
+  console.log(`IR site: ${items.length} releases listed on ${IR_LISTING}`);
+  // what the archive already holds, by class and date (wire, PR Newswire, PDF reports, earlier IR reads)
+  const archived = results.flatMap((r) => (r.docs || []).filter((d) => d.path || d.name).map((d) => ({ cls: d.class, date: r.filingDate })));
+  const covered = (cls, date) => archived.some((a) => a.cls === cls && Math.abs(dayNum(a.date) - dayNum(date)) <= 1);
+  let fetched = 0;
+  for (const it of items) {
+    if (known.has(it.url) || it.date < OTHER_SINCE) continue;
+    let cls = classify(it.title + '\n');
+    if (cls === 'skip') { known.add(it.url); continue; }
+    if (covered(cls, it.date)) { known.add(it.url); continue; } // the wire already archived this release
+    let text;
+    try { text = await pdfToText(await irFetch(it.url, true), path.basename(it.url)); } catch (e) { console.error(`IR ${it.url}: ${e.message}`); continue; }
+    cls = classify(it.title + '\n' + text);
+    if (cls === 'skip') { known.add(it.url); continue; }
+    const id = path.basename(it.url, '.pdf').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 40);
+    const file = `${it.date}_ir${id}_en.txt`;
+    const header = `# source: ${it.url}\n# title: ${it.title}\n# date: ${it.date}\n# lang: en\n# class: ${cls}\n# via: IR site (material events)\n\n`;
+    await writeFile(new URL(file, SIX_K_DIR), header + text, 'utf8');
+    results.push({ source: 'ir', id, lang: 'en', filingDate: it.date, title: it.title, url: it.url, docs: [{ name: file, url: it.url, class: cls, chars: text.length, path: `tools/gap/raw/6k/${file}` }] });
+    known.add(it.url);
+    fetched++;
+    console.log(`${it.date} ir  ${cls.padEnd(7)} ${it.title.slice(0, 90)}`);
+  }
+  return fetched;
+}
+
 async function harvestGnw(manifest) {
   const known = new Set(manifest.filings.filter((f) => f.url).map((f) => f.url));
   const listing = await gnwList();
@@ -319,6 +405,8 @@ async function harvestGnw(manifest) {
   if (FULL || !manifest.filings.some((f) => f.source === 'prn')) {
     try { fetched += await harvestPrn(manifest, results, known); } catch (e) { console.error(`PRN harvest failed: ${e.message}`); }
   }
+  // GAP's own investor site: every release the wire did not deliver (the wire has refused the runner since October 2026).
+  try { fetched += await harvestIr(results, known); } catch (e) { console.error(`IR-site harvest failed: ${e.message}`); }
   return { results, fetched, entity: 'Grupo Aeroportuario del Pacífico, S.A.B. de C.V.' };
 }
 

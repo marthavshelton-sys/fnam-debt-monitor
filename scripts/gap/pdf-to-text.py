@@ -2,7 +2,8 @@
 """Convert GAP quarterly-report PDFs (tools/gap/raw/pdf/*.pdf) into the pipe-delimited text format that
 scripts/gap/build-data.mjs parses, writing tools/gap/raw/6k/<date>_pdf<tag>_en.txt.
 
-Used once for the pre-2019 reports (4Q15, 4Q16, 4Q17) that GlobeNewswire does not carry. Needs
+Used once for the pre-2019 reports (4Q15, 4Q16, 4Q17) that GlobeNewswire does not carry, and, with --pdf <file>,
+by the harvester for the releases read from GAP's investor site (PDF) when the wire carries nothing. Needs
 pdfplumber:  python3 -m venv .venv && .venv/bin/pip install pdfplumber && .venv/bin/python scripts/gap/pdf-to-text.py
 File names must be <YYYY-MM>_<nQyy>_...pdf (e.g. 2018-02_4Q17_GAP_ENG.pdf)."""
 import glob, os, re, sys
@@ -14,15 +15,28 @@ NUM = re.compile(r'^\(-?\d[\d,]*(\.\d+)?%?\)$|^-?\d[\d,]*(\.\d+)?%?$|^-$|^n/a$',
 PERIOD = re.compile(r'^(\dQ\d\d|\d{1,2}M\d\d|20\d\d|change|%|var\.?|%\s*var\.?)$', re.I)
 QUARTER_WORDS = {'1': 'First', '2': 'Second', '3': 'Third', '4': 'Fourth'}
 
-def page_lines(page):
+def page_lines(page, cluster=False):
     # use_text_flow merges the letter-spaced glyphs some pages use (e.g. the 4Q16/4Q17 cash-flow exhibit);
     # rows are then rebuilt from the words' vertical position and ordered left to right.
     words = page.extract_words(x_tolerance=2, y_tolerance=3, keep_blank_chars=False, use_text_flow=True)
+    out = []
+    if cluster:
+        # rows by proximity of `top` (a label printed a point below its figures stays on the row; the fixed buckets of the
+        # legacy mode split "Total Revenues" from its numbers in the 3Q26 release's Exhibit A)
+        cur, cur_top = [], None
+        for w in sorted(words, key=lambda w: (w['top'], w['x0'])):
+            if cur_top is not None and w['top'] - cur_top > 3.2:
+                out.append(' '.join(x['text'] for x in sorted(cur, key=lambda x: x['x0']))); cur = []
+            if not cur:
+                cur_top = w['top']
+            cur.append(w)
+        if cur:
+            out.append(' '.join(x['text'] for x in sorted(cur, key=lambda x: x['x0'])))
+        return out
     rows = {}
     for w in words:
         key = round(w['top'] / 3)
         rows.setdefault(key, []).append(w)
-    out = []
     for key in sorted(rows):
         ws = sorted(rows[key], key=lambda w: w['x0'])
         out.append(' '.join(w['text'] for w in ws))
@@ -39,6 +53,8 @@ def to_pipes(line):
     words = line.split(' ')
     if len(words) >= 2 and all(PERIOD.match(w) for w in words):
         return ' | '.join(words)
+    if len(words) >= 3 and re.match(r'^[A-Za-z]+$', words[0]) and all(PERIOD.match(w) for w in words[1:]):
+        return ' | '.join(words)  # "Airport 3Q25 3Q26 Change 9M25 9M26 Change" (Exhibit A header of the PDF releases)
     nums = []
     while words and NUM.match(words[-1]):
         nums.insert(0, words.pop())
@@ -79,5 +95,28 @@ def convert(pdf_path):
         f.write(header + '\n'.join(out) + '\n')
     print(base, '->', os.path.relpath(dest), len(out), 'lines')
 
-for f in sorted(glob.glob(os.path.join(RAW, 'pdf', '*.pdf'))):
-    convert(f)
+def convert_release(pdf_path):
+    """Body text of a results / traffic / event release PDF in the archive's pipe-delimited format (no header);
+    used by scripts/gap/harvest-releases.mjs for the releases GAP's investor site carries as PDFs."""
+    lines = []
+    with pdfplumber.open(pdf_path) as pdf:
+        for p in pdf.pages:
+            lines.extend(page_lines(p, cluster=True))
+    out = []
+    for ln in lines:
+        if re.search(r'Earnings Report\s+Page \d+ of \d+', ln) or re.match(r'^\s*www\.aeropuertosgap\.com\.mx\s*$', ln):
+            continue
+        ln = re.sub(r'^\s*(i|ii|iii|iv|v|vi)\.\s+(?=[A-Z])', '', ln)  # "i. Revenues from the Mexican airports …" (the wire prints no bullets)
+        ln = re.sub(r'^\s*[•\u2022]\s*', '', ln)  # bullet glyphs before "Operating costs increased by …"
+        out.append(to_pipes(ln))
+    return '\n'.join(out) + '\n'
+
+
+if __name__ == '__main__':
+    args = sys.argv[1:]
+    if '--pdf' in args:
+        # python3 scripts/gap/pdf-to-text.py --pdf <file.pdf>   -> converted body on stdout (harvester fallback)
+        sys.stdout.write(convert_release(args[args.index('--pdf') + 1]))
+    else:
+        for f in sorted(glob.glob(os.path.join(RAW, 'pdf', '*.pdf'))):
+            convert(f)

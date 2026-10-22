@@ -4,7 +4,8 @@
 #            -> site/gap/data/market.js
 #   filings  every weekday morning (GAP files monthly traffic around the 5th and quarterly results
 #            in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases from
-#            GlobeNewswire (GAP's wire; EDGAR blocks GitHub runners) into tools/gap/raw/, re-parses them into site/gap/data/*.js and
+#            GlobeNewswire (GAP's wire; EDGAR blocks GitHub runners) and GAP's investor site (PDFs; the wire answers 403
+#            since October 2026) into tools/gap/raw/, re-parses them into site/gap/data/*.js and
 #            validates the tie-outs before anything is committed.
 #
 # Scheduled runs only happen on the default branch (GitHub rule). On other branches the
@@ -76,9 +77,13 @@ jobs:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
         run: node scripts/gap/fetch-market.mjs
 
-      - name: Harvest press releases (GlobeNewswire)
+      # GlobeNewswire first (403 to the runner since October 2026), then GAP's investor site (PDF releases converted with
+      # pdfplumber by scripts/gap/pdf-to-text.py --pdf) for everything the wire did not deliver.
+      - name: Harvest press releases (GlobeNewswire, then GAP's investor site)
         if: steps.plan.outputs.mode != 'market'
-        run: node scripts/gap/harvest-releases.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
+        run: |
+          pip install --quiet pdfplumber
+          node scripts/gap/harvest-releases.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
 
       # BMV eventos relevantes: archives filings the wire or IR site never carried, for the alert routine
       # (scripts/lib/bmv-events.mjs; state tools/gap/raw/bmv-events.json). A BMV outage is recorded there

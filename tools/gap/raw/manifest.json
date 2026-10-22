@@ -3,11 +3,11 @@
  "source": "gnw",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-22T15:12:07.652Z",
+ "updatedAt": "2026-10-22T15:19:17.377Z",
  "kept": {
-  "results": 32,
+  "results": 33,
   "traffic": 155,
-  "other": 22
+  "other": 25
  },
  "companyFactsConcepts": null,
  "filings": [
@@ -3507,6 +3507,23 @@
    ]
   },
   {
+   "source": "ir",
+   "id": "09032026prshareholdersmeeting2026agendae",
+   "lang": "en",
+   "filingDate": "2026-03-03",
+   "title": "GAP ANNOUNCES ANNUAL ORDINARY GENERAL SHAREHOLDERS' MEETING",
+   "url": "https://www.aeropuertosgap.com.mx/files/09_03_2026_PR_SHAREHOLDERS_MEETING_2026_AGENDA_ENG_VF.pdf",
+   "docs": [
+    {
+     "name": "2026-03-03_ir09032026prshareholdersmeeting2026agendae_en.txt",
+     "url": "https://www.aeropuertosgap.com.mx/files/09_03_2026_PR_SHAREHOLDERS_MEETING_2026_AGENDA_ENG_VF.pdf",
+     "class": "other",
+     "chars": 13552,
+     "path": "tools/gap/raw/6k/2026-03-03_ir09032026prshareholdersmeeting2026agendae_en.txt"
+    }
+   ]
+  },
+  {
    "source": "gnw",
    "id": "3251336",
    "lang": "en",
@@ -3711,6 +3728,23 @@
    ]
   },
   {
+   "source": "ir",
+   "id": "07052026prcompletionofbusinesscombinatio",
+   "lang": "en",
+   "filingDate": "2026-05-07",
+   "title": "GAP ANNOUNCES COMPLETION OF BUSINESS COMBINATION PROCESS OF CBX AND THE PROVISION OF TECHNICAL ASSISTANCE SERVICES",
+   "url": "https://www.aeropuertosgap.com.mx/files/07_05_2026_PR_COMPLETION_OF_BUSINESS_COMBINATION_ENG_VF.pdf",
+   "docs": [
+    {
+     "name": "2026-05-07_ir07052026prcompletionofbusinesscombinatio_en.txt",
+     "url": "https://www.aeropuertosgap.com.mx/files/07_05_2026_PR_COMPLETION_OF_BUSINESS_COMBINATION_ENG_VF.pdf",
+     "class": "other",
+     "chars": 4165,
+     "path": "tools/gap/raw/6k/2026-05-07_ir07052026prcompletionofbusinesscombinatio_en.txt"
+    }
+   ]
+  },
+  {
    "source": "gnw",
    "id": "3289938",
    "lang": "en",
@@ -3864,6 +3898,23 @@
    ]
   },
   {
+   "source": "ir",
+   "id": "11092026prcreditlineseng",
+   "lang": "en",
+   "filingDate": "2026-09-11",
+   "title": "GAP ANNOUNCES THE EXECUTION OF BANK CREDIT FACILITIES TOTALING Ps. 8,000 MILLION",
+   "url": "https://www.aeropuertosgap.com.mx/files/11_09_2026_PR_CREDIT_LINES_ENG.pdf",
+   "docs": [
+    {
+     "name": "2026-09-11_ir11092026prcreditlineseng_en.txt",
+     "url": "https://www.aeropuertosgap.com.mx/files/11_09_2026_PR_CREDIT_LINES_ENG.pdf",
+     "class": "other",
+     "chars": 4362,
+     "path": "tools/gap/raw/6k/2026-09-11_ir11092026prcreditlineseng_en.txt"
+    }
+   ]
+  },
+  {
    "source": "gnw",
    "id": "3360535",
    "lang": "en",
@@ -3894,6 +3945,23 @@
      "class": "traffic",
      "chars": 10249,
      "path": "tools/gap/raw/6k/2026-10-06_gnw3376140_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "ir",
+   "id": "pr3q26eng19oct26vfdef",
+   "lang": "en",
+   "filingDate": "2026-10-19",
+   "title": "GAP ANNOUNCES RESULTS FOR THE THIRD QUARTER OF 2026",
+   "url": "https://www.aeropuertosgap.com.mx/files/PR_3Q26_ENG_19Oct26_VF_DEF.pdf",
+   "docs": [
+    {
+     "name": "2026-10-19_irpr3q26eng19oct26vfdef_en.txt",
+     "url": "https://www.aeropuertosgap.com.mx/files/PR_3Q26_ENG_19Oct26_VF_DEF.pdf",
+     "class": "results",
+     "chars": 54020,
+     "path": "tools/gap/raw/6k/2026-10-19_irpr3q26eng19oct26vfdef_en.txt"
     }
    ]
   }

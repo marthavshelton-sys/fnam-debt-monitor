@@ -6,7 +6,7 @@
 // Long-term references that do not change: loss-ratio technical range 62–65%, combined-ratio target
 // 92–94%, ROE 20–25%, dividend policy 40–90% of net income.
 window.Q_GUIDANCE = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-10-22",
   basis: "Growth vs the prior fiscal year in %, ratios as levels in %. Loss ratio = claims cost / earned premiums; combined ratio = acquisition (on retained) + loss (on earned) + operating (on written) ratios, Quálitas' definitions.",
   metrics: ["written", "earned", "lossRatio", "combined", "rif", "roe"],
   longTerm: { lossRatio: { lo: 62, hi: 65 }, combined: { lo: 92, hi: 94 }, roe: { lo: 20, hi: 25 }, payout: { lo: 40, hi: 90 } },
@@ -113,6 +113,17 @@ window.Q_GUIDANCE = {
         roe: { lo: 18, hi: 20, text: { es: "Meta de 20%, posiblemente ligeramente por debajo", en: "Aim of 20%, possibly slightly below" } },
       },
       notes: { es: ["Asamblea del 29 abr 2026: dividendo de Ps. 9.0 por acción (71% de pago) en dos exhibiciones y nuevo fondo de recompra de Ps. 800 M."], en: ["AGM of 29 Apr 2026: dividend of Ps. 9.0 per share (71% payout) in two instalments and a new Ps. 800 M buyback fund."] },
+    },
+    {
+      fy: 2026, kind: "reaffirmed", date: "2026-10-20", quarter: "2026Q3",
+      source: { url: "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/3T/mx/Q-Reporte_Trimestral_3T26.pdf", date: "2026-10-20", title: { es: "Informe de resultados 3T26 (20 oct 2026); conferencia del 21 oct pendiente de transcripción", en: "3Q26 results report (20 Oct 2026); the 21 Oct call transcript is pending" } },
+      items: {
+        written: { lo: 5, hi: 9, text: { es: "Sin cambio: el informe sitúa el +7.7% del trimestre y del acumulado «dentro del rango esperado de crecimiento de un dígito medio a un dígito alto»", en: "Unchanged: the report places the +7.7% of the quarter and year-to-date \"inside the expected mid-to-high single-digit growth range\"" } },
+        lossRatio: { lo: 62, hi: 65, text: { es: "Sin cambio: 63.4% en el trimestre y 63.6% acumulado, «dentro del rango objetivo de largo plazo»; el IVA pesa 3.2 pp", en: "Unchanged: 63.4% in the quarter and 63.6% year-to-date, \"inside the long-term target range\"; VAT adds 3.2 pp" } },
+        combined: { lo: 92, hi: 94, text: { es: "Sin cambio: 92.7% en el trimestre y acumulado, «consistente con nuestro rango objetivo de 92%–94%»", en: "Unchanged: 92.7% in the quarter and year-to-date, \"consistent with our 92%–94% target range\"" } },
+        roe: { lo: 20, hi: 20, text: { es: "«Seguimos comprometidos con un ROE de largo plazo cercano o superior al 20%»; ROE 12M 17.2%, ROE del periodo 27.5%", en: "\"We remain committed to a long-term ROE at or above 20%\"; 12M ROE 17.2%, period ROE 27.5%" } },
+      },
+      notes: { es: ["El informe no trae tabla de expectativas; los rangos son los de enero y julio, reiterados en el texto del informe."], en: ["The report carries no expectations table; the ranges are January's and July's, reiterated in the report's text."] },
     },
     {
       fy: 2026, kind: "revised", date: "2026-07-21", quarter: "2026Q2",

@@ -1,7 +1,7 @@
 // Slow-moving reference facts for the ASUR model. Every entry carries its source; edit by hand or via the
 // weekday routine when a release changes a fact (dividends, debt, share count, acquisitions).
 window.ASUR_REF = {
-  updatedAt: "2026-10-11",
+  updatedAt: "2026-10-22",
   company: {
     name: "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
     short: "ASUR",
@@ -183,6 +183,13 @@ window.ASUR_REF = {
     capexMxnM: [7500, 7500, 6500, 6000, 6000], daPctRevenue: null, taxRatePct: 30, nwcPctDeltaRevenue: 5,
     riskFreePct: null, erpPct: 5, beta: 0.85, costOfDebtPct: 9.5, targetDebtPct: 25, terminalGrowthPct: 4, exitMultiple: 11,
     note: { en: "Fallback assumptions (analyst judgment, not company guidance): traffic 0.5% in 2026 after −0.3% in 6M26, then 3–3.5%; capex from the 2Q26 run-rate (Ps. 1,950 M in the quarter); cost of debt ≈ TIIE de fondeo + 1.25 pp. Beta and the risk-free rate are derived from market data at render time. The base perimeter follows the switch above the inputs: pro forma with Motiva/CPC (REF.proForma) until ASUR consolidates it, or as reported.", es: "Supuestos de respaldo (juicio del analista, no guía de la empresa): tráfico 0.5% en 2026 tras −0.3% en 6M26, luego 3–3.5%; capex según el ritmo del 2T26 (Ps. 1,950 M en el trimestre); costo de deuda ≈ TIIE de fondeo + 1.25 pp. La beta y la tasa libre de riesgo se derivan del mercado al renderizar. El perímetro de la base sigue el selector sobre los supuestos: pro forma con Motiva/CPC (REF.proForma) hasta que ASUR lo consolide, o reportado." }
+  },
+  // Results calendar (confirmed only while ASUR has announced the date; otherwise the release-lag rule).
+  // 3Q26: ASUR's conference-call notice (IR site, "ASUR_3Q26_Earnings Call Advisory.pdf", October 2026) says results are
+  // expected on Thursday 22-Oct-2026 after the close of the U.S. market, with the call on Friday 23-Oct-2026 at 10:00 ET.
+  calendar: {
+    nextResults: { q: "2026Q3", date: "2026-10-22", confirmed: true, call: { date: "2026-10-23", time: "10:00 ET" },
+      source: { title: "ASUR · 3Q26 Earnings Conference Call Notice (results expected 22-Oct-2026 after the U.S. close; call 23-Oct-2026, 10:00 ET)", url: "https://www.asur.com.mx/media/Comunicados de prensa/Comunicados a Bolsa/2026/10/ASUR_3Q26_Earnings Call Advisory.pdf", date: "2026-10-08" } },
   },
   peers: ["GAP", "OMA", "AENA", "Fraport", "Flughafen Zürich", "Auckland International"]
 };

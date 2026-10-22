@@ -121,7 +121,14 @@ def split_row(line):
             break
         toks.reverse()
         if len(toks) >= 2:
-            return ' '.join(ws[:i + 1]), toks
+            label = ' '.join(ws[:i + 1])
+            # the stage digit of "Cartera … etapa 1 y 2" / "… etapa 3" is a numeric token: give it back to the label
+            # (3Q26: the seed no longer covers the quarter, so the split line left the stage lines unmatched)
+            if toks and re.match(r'^[123]$', toks[0]) and re.search(r'etapa( 1 y)?$', norm(label)):
+                label, toks = label + ' ' + toks[0], toks[1:]
+                if len(toks) < 2:
+                    continue
+            return label, toks
     return line.strip(), []
 
 
@@ -466,6 +473,79 @@ def parse_release(qid, txt, url):
     return res
 
 
+# ----------------------------------------------------------------------------- English release (BMV filing)
+EVENTS = os.path.join(RAW, 'text', 'events')
+# The consolidated "Principales Indicadores" table of the Spanish release is sometimes an image (3T26): the English
+# version Gentera files with the BMV the same day (archived by the BMV watcher as <date>_bmv<id>_es.txt, title
+# "GENTERA 3Q26 RESULTS") prints it as text. Only that table is read from it, and only for the quarters the
+# Spanish text left empty; the source is recorded per quarter (sources.ind) and the quality page lists the fallback.
+IND_EN = [
+    ('clientsTot', r'^total users of financial services'),
+    ('clientsCred', r'^credits? clients$'),
+    ('npl', r'^npls? ?/ ?total portfolio'),
+    ('roa', r'^roa\b'), ('roe', r'^roe$'),
+    ('nimAdj', r'^nim after provisions'), ('nim', r'^nim$'),
+    ('efficOp', r'^operating efficiency'), ('effic', r'^efficiency ratio'),
+    ('coverageRep', r'^coverage ratio'),
+    ('capAssets', r'^capital ?/ ?total assets'),
+    ('avgBal', r'^average loan per client'),
+    ('employees', r'^employees'),
+    ('offices', r'^service offices'),
+    ('branches', r'^branches'),
+]
+
+
+def english_release(qid):
+    """Path, url, date and text of the English release filed with the BMV for `qid`, or None."""
+    fy, q = qid_parts(qid)
+    want = re.compile(r'^gentera %dq%02d results' % (q, fy % 100))
+    for path in sorted(glob.glob(os.path.join(EVENTS, '*.txt'))):
+        head = open(path, encoding='utf-8').read(4000)
+        title = (re.search(r'^# title: (.*)$', head, re.M) or [None, ''])[1]
+        if not want.match(norm(title)):
+            continue
+        txt = open(path, encoding='utf-8').read()
+        url = (re.search(r'^# source: (\S+)', txt, re.M) or [None, None])[1]
+        date = (re.search(r'^# date: (\S+)', txt, re.M) or [None, None])[1]
+        return {'path': path, 'url': url, 'date': date, 'title': title.strip(), 'text': txt}
+    return None
+
+
+def english_indicators(qid):
+    """{quarter: {key: value}} from the English release's summary table ("Summary 3Q26 3Q25 2Q26 9M26 9M25";
+    the first three numeric cells of a row are the three quarter columns), plus the source record."""
+    rel = english_release(qid)
+    if not rel:
+        return None, None
+    lines = [re.sub(r'\s*\|\s*', ' ', l).strip() for l in rel['text'].split('\n')]
+    cols, out, started = None, {}, False
+    for l in lines:
+        m = re.match(r'^summary((?:\s+\d[qQ]\d\d)+)', l.strip(), re.I) if not started else None
+        if m:
+            cols = ['20%s' % w[2:] + 'Q' + w[0] for w in m.group(1).split()]
+            started = True
+            continue
+        if not started:
+            continue
+        if re.match(r'^(\(?\d\)|\*|in this table)', norm(l)) or not l:
+            if out:
+                break
+            continue
+        label, toks = split_row(l.replace('(1)', ''))
+        lab = norm(label).rstrip('* ')
+        key = next((k for k, rx in IND_EN if re.search(rx, lab)), None)
+        if not key or len(toks) < 3:
+            continue
+        for q, t in zip(cols, toks[:3]):
+            v = num_value(t)
+            if v is not None:
+                out.setdefault(q, {})[key] = v
+    if not out:
+        return None, None
+    src = {'url': rel['url'], 'title': rel['title'], 'date': rel['date'], 'lang': 'en', 'note': 'consolidated indicators read from the English release filed with the BMV (the Spanish table is an image)'}
+    return out, src
+
+
 # ----------------------------------------------------------------------------- tie-outs
 TOL = 3.0  # Ps. millions: the releases print rounded millions, so subtotals can be off by a few units
 
@@ -655,6 +735,16 @@ def main():
         own = got.get(rid, {})
         if not own.get('cons') or not own['cons']['is'] or not own['cons']['bs']:
             warn('%s: consolidated statements not recognised in %s (entities found: %s)' % (rid, os.path.basename(path), sorted(k for k in own if k != 'source'))); continue
+        if not own['cons']['ind']:
+            en, en_src = english_indicators(rid)
+            if en:
+                for q, vals in en.items():
+                    blk = got.setdefault(q, {}).setdefault('cons', {'is': {}, 'bs': {}, 'ind': {}, 'cof': {}, 'pages': {}})
+                    if not blk['ind']:
+                        blk['ind'].update(vals); blk['ind_source'] = en_src
+                warn('%s: consolidated indicators table not in the Spanish text (image); read from the English release filed with the BMV (%s)' % (rid, os.path.basename(en_src['url'] or '')))
+            elif rid >= '2026Q1':  # the BMV watcher archives the English filings since October 2026
+                warn('%s: consolidated indicators table not recognised and no English BMV filing to read it from' % rid)
         for q, blocks in got.items():
             parsed.setdefault(q, []).append((q == rid, rid, blocks))
     for q, cands in parsed.items():
@@ -671,6 +761,8 @@ def main():
             new = from_parsed(blocks)
             src = dict(blocks['source'], page=cons['pages'].get('is'), comparative=(not own))
             new['sources'] = {'is': src, 'bs': dict(src, page=cons['pages'].get('bs'))}
+            if cons.get('ind_source'):
+                new['sources']['ind'] = cons['ind_source']
             s = seeds.get(q)
             if s:
                 bad = [k for blk, k in HEAD_CHECK if s[blk].get(k) is not None and new[blk].get(k) is not None and abs(s[blk][k] - new[blk][k]) > 3]

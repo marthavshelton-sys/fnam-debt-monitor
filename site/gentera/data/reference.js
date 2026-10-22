@@ -4,25 +4,25 @@
 // reviewed commit when an event lands (AGM, rating action, material event). Figures quoted come from Gentera's
 // quarterly press releases (IR site) unless a source says otherwise.
 window.G_REF = {
-  updatedAt: "2026-10-05",
+  updatedAt: "2026-10-22",
   company: {
     name: "Gentera, S.A.B. de C.V.", short: "Gentera", ticker: "GENTERA", bmv: "GENTERA", bloomberg: "GENTERA* MM", exchange: "BMV", yahoo: "GENTERA.MX",
     sector: { es: "Microfinanzas y servicios financieros de inclusión", en: "Microfinance and inclusion financial services" },
     hq: "Ciudad de México", fiscalYearEnd: "12-31",
     accounting: { es: "Criterios contables de la CNBV para instituciones de crédito (convergentes con IFRS 9 desde el 1 de enero de 2022). Estados financieros consolidados de la tenedora; cifras trimestrales no auditadas.", en: "CNBV accounting criteria for credit institutions (converged with IFRS 9 from 1 January 2022). Consolidated statements of the holding company; quarterly figures unaudited." },
     description: {
-      es: "Mayor grupo de microfinanzas de México: Banco Compartamos (crédito grupal e individual a microempresarios, captación, seguros vía Aterna, corresponsales Yastás), Compartamos Banco Perú (banco desde 2025, antes Compartamos Financiera) y ConCrédito (crédito al consumo a través de ~84 mil empresarias distribuidoras y la tienda en línea CrediTienda). 4.68 millones de clientes de crédito y 6.79 millones de personas atendidas al 2T26.",
-      en: "Mexico's largest microfinance group: Banco Compartamos (group and individual loans to micro-entrepreneurs, deposits, insurance through Aterna, Yastás correspondent network), Compartamos Banco Perú (a bank since 2025, formerly Compartamos Financiera) and ConCrédito (consumer credit through ~84 thousand women distributors and the CrediTienda online store). 4.68 million credit clients and 6.79 million people served at 2Q26.",
+      es: "Mayor grupo de microfinanzas de México: Banco Compartamos (crédito grupal e individual a microempresarios, captación, seguros vía Aterna, corresponsales Yastás), Compartamos Banco Perú (banco desde 2025, antes Compartamos Financiera) y ConCrédito (crédito al consumo a través de ~84 mil empresarias distribuidoras y la tienda en línea CrediTienda). 4.70 millones de clientes de crédito y 6.79 millones de personas atendidas al 2T26.",
+      en: "Mexico's largest microfinance group: Banco Compartamos (group and individual loans to micro-entrepreneurs, deposits, insurance through Aterna, Yastás correspondent network), Compartamos Banco Perú (a bank since 2025, formerly Compartamos Financiera) and ConCrédito (consumer credit through ~84 thousand women distributors and the CrediTienda online store). 4.70 million credit clients and 6.79 million people served at 2Q26.",
     },
     ir: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral",
-    // Assumed date: median lag between quarter-end and the 3Q release in 2023–2025 (25, 23 and 22 Oct → 23 days);
-    // Gentera has not announced the 3T26 date in its releases. When it does, set `assumed: false` here and add
+    // Assumed date: median lag between quarter-end and the 4Q release in 2024–2026 (52, 57 and 56 days → 56 days);
+    // Gentera has not announced the 4T26 date in its releases (3T26 came out on 21-Oct-2026, two days before the assumption). When it does, set `assumed: false` here and add
     // `calendar: { nextResults: { date, source } }` (the board deck reads that key for confirmed dates).
-    nextResults: { date: "2026-10-23", quarter: "2026Q3", assumed: true, note: { es: "Fecha supuesta: mediana del rezago de publicación del tercer trimestre en 2023–2025 (22–25 de octubre); Gentera no la ha anunciado.", en: "Assumed date: median release lag of the third quarter in 2023–2025 (22–25 October); not announced by Gentera." } },
+    nextResults: { date: "2027-02-25", quarter: "2026Q4", assumed: true, note: { es: "Fecha supuesta: mediana del rezago de publicación del cuarto trimestre en 2024–2026 (21, 26 y 25 de febrero); Gentera no la ha anunciado. FactSet proyecta el 24 de febrero de 2027.", en: "Assumed date: median release lag of the fourth quarter in 2024–2026 (21, 26 and 25 February); not announced by Gentera. FactSet projects 24 February 2027." } },
   },
   // Shares outstanding as printed in each release (millions). No ADR. Buybacks are not disclosed in the releases.
   shares: {
-    issued: 1579243876, treasuryApprox: 0, asOf: "2026-06-30",
+    issued: 1579243876, treasuryApprox: 0, asOf: "2026-09-30",
     note: { es: "1,579,243,876 acciones desde el 3T23 (1,587,593,876 en el 1T22; −0.5% en 2022–23 por cancelación de recompras). Sin ADR.", en: "1,579,243,876 shares since 3Q23 (1,587,593,876 at 1Q22; −0.5% over 2022–23 through cancellation of repurchased shares). No ADR." },
     history: [{ q: "2022Q1", shares: 1587593876 }, { q: "2022Q2", shares: 1582743876 }, { q: "2023Q1", shares: 1581243876 }, { q: "2023Q2", shares: 1579943876 }, { q: "2023Q3", shares: 1579243876 }],
   },
