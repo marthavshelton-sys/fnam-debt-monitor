@@ -4,20 +4,6 @@
   {
    "at": "2026-10-20T14:58:42.276Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[15]",
-   "old": "We Energies",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[16]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[17]",
    "old": "DTE Energy",
    "new": "Crusoe"
@@ -4200,7 +4186,21 @@
    "path": "basis.marketDate",
    "old": "2026-10-22",
    "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T23:27:11.098Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-23)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-23T23:27:11.098Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": "Yahoo Finance",
+   "new": "Nasdaq"
   }
  ],
- "generated": "2026-10-23T22:31:16.550Z"
+ "generated": "2026-10-23T23:27:11.098Z"
 }

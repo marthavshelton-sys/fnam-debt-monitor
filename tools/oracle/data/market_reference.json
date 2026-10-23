@@ -15,7 +15,7 @@
       "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-23&todate=2026-10-23&limit=10000",
       "accessed": "2026-10-23",
       "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
-      "source_name": "Nasdaq + Yahoo Finance (2026-10-23)"
+      "source_name": "Nasdaq"
     },
     "sp500": {
       "close": 7623.68017578125,
@@ -574,7 +574,7 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-23"
   },
-  "refreshed_at": "2026-10-23T22:31:10.357Z",
+  "refreshed_at": "2026-10-23T23:27:10.820Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
