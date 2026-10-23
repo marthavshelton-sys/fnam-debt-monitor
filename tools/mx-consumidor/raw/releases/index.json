@@ -640,6 +640,23 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
    "filings": [
     {
+     "accn": "xbrl1597181",
+     "filed": "2026-10-22",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/BIMBO-5163-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1597181_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/BIMBO/2026-10-22_xbrl1597181.txt",
+       "chars": 17367
+      }
+     ]
+    },
+    {
      "accn": "xbrl1576474",
      "filed": "2026-07-23",
      "kind": "results",
@@ -1135,5 +1152,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-22T17:17:28.114Z"
+ "checkedAt": "2026-10-23T00:02:47.463Z"
 }
