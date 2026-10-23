@@ -231,7 +231,7 @@ window.MONTHLY_DATA = {
     }
   },
   "fedWatch": {
-    "asOf": "2026-10-20",
+    "asOf": "2026-10-23",
     "meetings": [
       "28-Oct-2026"
     ],
@@ -247,10 +247,10 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        82
+        91
       ],
       [
-        18
+        9
       ],
       [
         0
@@ -261,7 +261,7 @@ window.MONTHLY_DATA = {
     ],
     "sourceName": "CNBC (quoting CME FedWatch)",
     "sourceNameEs": "CNBC (citando CME FedWatch)",
-    "sourceUrl": "https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html",
+    "sourceUrl": "https://www.cnbc.com/2026/10/23/gold-heads-for-steep-weekly-loss-as-oil-prices-fuel-fed-rate-concerns.html",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -286,7 +286,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "CNBC, \"Gold inches up on softer dollar as investors assess Fed rate outlook\", 2026-10-20 (https://www.cnbc.com/2026/10/20/gold-inches-up-on-softer-dollar-as-investors-assess-fed-rate-outlook.html): traders priced an 82% chance of unchanged rates at the October 27-28 meeting and an 89% chance of a hike by December, according to the CME FedWatch Tool (paraphrased; the article text was read through search, cnbc.com being unreachable from this run). Mapped onto the five buckets centred on the current 3.75-4.00% target range (since 2026-09-17): 28-Oct-2026 = 82% hold (3.75-4.00%) / 18% quarter-point hike (4.00-4.25%), the remainder read as a single quarter-point increase. Consistent with CNBC, \"Gold edges higher on softer oil; Fed rate outlook in focus\" (2026-10-19, https://www.cnbc.com/2026/10/19/gold-edges-higher-on-softer-oil-fed-rate-outlook-in-focus.html: 15% chance of an October hike). The December (09-Dec-2026) meeting is not shown: the outlet quotes only a cumulative chance of an increase, not the distribution across ranges. Meeting dates: Federal Reserve FOMC calendar (October 27-28 and December 8-9, 2026, as reproduced by the Chicago Fed; federalreserve.gov was unreachable from this run).",
+    "fedWatch": "CNBC, \"Gold off three-month lows as oil rally fans inflation worries\", 2026-10-23 (https://www.cnbc.com/2026/10/23/gold-heads-for-steep-weekly-loss-as-oil-prices-fuel-fed-rate-concerns.html): \"market expectations of a rate hike at the Fed's Oct 27-28 meeting are at 9%, while it is 81% for December, according to CME's FedWatch Tool\" (read through search, cnbc.com being unreachable from this run). Mapped onto the five buckets centred on the current 3.75-4.00% target range (since 2026-09-17): 28-Oct-2026 = 91% hold (3.75-4.00%) / 9% quarter-point hike (4.00-4.25%), the increase read as a single quarter-point move and the remainder as no change. Consistent with CNBC, \"Gold drops over 1% as oil rally reinforces higher-for-longer rate outlook\" (2026-10-22, https://www.cnbc.com/2026/10/22/gold-drops-over-1percent-as-oil-rally-reinforces-higher-for-longer-rate-outlook.html: 16% chance of an October hike, 90% for December). The December (09-Dec-2026) meeting is not shown: the outlet quotes only a cumulative chance of an increase, not the distribution across ranges. Meeting dates: Federal Reserve FOMC calendar (October 27-28 and December 8-9, 2026; federalreserve.gov was unreachable from this run, dates unchanged from the previous snapshot).",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };
