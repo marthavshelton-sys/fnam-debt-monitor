@@ -45,32 +45,6 @@
       "status": "past"
     },
     {
-      "id": "ir-event-1002",
-      "type": "conference",
-      "title": "Deutsche Bank Technology Conference",
-      "title_es": "Deutsche Bank Technology Conference",
-      "fiscal_period": null,
-      "start": "2026-08-26T10:45:00-05:00",
-      "end": "2026-08-26T11:45:00-05:00",
-      "timezone": "America/Chicago",
-      "location": null,
-      "links": {
-        "event": "https://investor.oracle.com/events-and-presentations/event-details/2026/Deutsche-Bank-Technology-Conference-2026-4SB7b8_xhD/default.aspx",
-        "webcast": "https://cc.webcasts.com/deut001/082626a_js/?entity=3_0NJ1LX2",
-        "release": null,
-        "announcement": null,
-        "documents": [],
-        "transcript_in_model": false
-      },
-      "source": {
-        "title": "Oracle Investor Relations — Events & Presentations",
-        "url": "https://investor.oracle.com/events-and-presentations/default.aspx",
-        "fetched": "2026-10-23"
-      },
-      "first_seen": "2026-09-24",
-      "status": "past"
-    },
-    {
       "id": "ir-event-1003",
       "type": "earnings_call",
       "title": "Q1 FY27 Earnings",

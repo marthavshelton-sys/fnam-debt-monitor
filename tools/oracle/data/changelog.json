@@ -2,216 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-20T00:39:41.256Z",
-   "file": "market.js",
-   "path": "prices.^GSPC.fetchedAt",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T00:39:41.256Z",
-   "file": "market.js",
-   "path": "rates.US10Y.fetchedAt",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T00:39:41.256Z",
-   "file": "market.js",
-   "path": "spreads.BBB_OAS.fetchedAt",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "buildout.js",
-   "path": "sites[0].issues_checked",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "buildout.js",
-   "path": "sites[1].issues_checked",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues_checked",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "buildout.js",
-   "path": "sites[3].issues_checked",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues_checked",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "asOf",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].date",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 28,
-   "new": 33
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[3]",
-   "old": "Bloomberg",
-   "new": "Oracle on X"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[4]",
-   "old": "Reuters",
-   "new": "Newsquawk"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[5]",
-   "old": "Financial Times",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[6]",
-   "old": "Wall Street Journal",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[7]",
-   "old": "CNBC",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "Source New Mexico",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "Albuquerque Journal",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "El Paso Electric",
-   "new": "Investing.com"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "The Register"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "We Energies",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[13]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "Searchlight New Mexico"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[14]",
-   "old": "DTE Energy",
-   "new": "KTSM"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "Michigan EGLE",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "Vantage",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[17]",
-   "old": "Crusoe",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "Stargate",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "OpenAI",
-   "new": "American Transmission Company"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "AMD",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[21]",
-   "old": "Nvidia",
-   "new": "Michigan EGLE"
-  },
-  {
    "at": "2026-10-20T14:58:42.276Z",
    "file": "news.js",
    "path": "sweepLog[0].checked[22]",
@@ -4200,7 +3990,217 @@
    "path": "(more)",
    "old": null,
    "new": "1075 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].id",
+   "old": "ir-event-1002",
+   "new": "ir-event-1003"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].type",
+   "old": "conference",
+   "new": "earnings_call"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].title",
+   "old": "Deutsche Bank Technology Conference",
+   "new": "Q1 FY27 Earnings"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].title_es",
+   "old": "Deutsche Bank Technology Conference",
+   "new": "Resultados 1T27: llamada de resultados"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].fiscal_period",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].start",
+   "old": "2026-08-26T10:45:00-05:00",
+   "new": "2026-09-10T16:00:00-05:00"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].end",
+   "old": "2026-08-26T11:45:00-05:00",
+   "new": "2026-09-10T17:00:00-05:00"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].links.event",
+   "old": "https://investor.oracle.com/events-and-presentations/event-details/2026/Deutsche-Bank-Technology-Conference-2026-4SB7b8_xhD/default.aspx",
+   "new": "https://investor.oracle.com/events-and-presentations/event-details/2026/Q1-FY27-Earnings/default.aspx"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].links.webcast",
+   "old": "https://cc.webcasts.com/deut001/082626a_js/?entity=3_0NJ1LX2",
+   "new": "https://events.q4inc.com/attendee/942462811"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].links.release",
+   "old": null,
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].links.announcement",
+   "old": null,
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-First-Quarter-Fiscal-Year-2027-Earnings-Announcement/default.aspx"
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[1].links.transcript_in_model",
+   "old": false,
+   "new": true
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].id",
+   "old": "ir-event-1003",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].type",
+   "old": "earnings_call",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].title",
+   "old": "Q1 FY27 Earnings",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].title_es",
+   "old": "Resultados 1T27: llamada de resultados",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].fiscal_period",
+   "old": "FY2027Q1",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].start",
+   "old": "2026-09-10T16:00:00-05:00",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].end",
+   "old": "2026-09-10T17:00:00-05:00",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].timezone",
+   "old": "America/Chicago",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].location",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].links.event",
+   "old": "https://investor.oracle.com/events-and-presentations/event-details/2026/Q1-FY27-Earnings/default.aspx",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].links.webcast",
+   "old": "https://events.q4inc.com/attendee/942462811",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].links.release",
+   "old": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].links.announcement",
+   "old": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-First-Quarter-Fiscal-Year-2027-Earnings-Announcement/default.aspx",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].links.transcript_in_model",
+   "old": true,
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].source.title",
+   "old": "Oracle Investor Relations — Events & Presentations",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].source.url",
+   "old": "https://investor.oracle.com/events-and-presentations/default.aspx",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].first_seen",
+   "old": "2026-09-24",
+   "new": null
+  },
+  {
+   "at": "2026-10-23T17:55:07.396Z",
+   "file": "calendar.js",
+   "path": "events[2].status",
+   "old": "past",
+   "new": null
   }
  ],
- "generated": "2026-10-23T14:58:44.402Z"
+ "generated": "2026-10-23T17:55:07.396Z"
 }
