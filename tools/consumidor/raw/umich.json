@@ -1,5 +1,5 @@
 {
- "fetchedAt": "2026-10-11T14:35:26.998Z",
+ "fetchedAt": "2026-10-23T14:51:16.809Z",
  "data": {
   "table": "Table 2: The Index of Consumer Sentiment Within Income Terciles",
   "columns": [
@@ -3367,6 +3367,12 @@
     42.2,
     50.8,
     63.6
+   ],
+   [
+    "2026-09",
+    44.1,
+    47.1,
+    52.3
    ]
   ],
   "source": {
