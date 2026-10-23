@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-22",
+  "as_of": "2026-10-23",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,25 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-23-investor-day-notice",
+      "date": "2026-10-23",
+      "theme": "financing",
+      "basis": "company",
+      "title_en": "Oracle sets its Investor Day for Wednesday, Oct 28, 2026, at Oracle AI World, webcast on its investor-relations site",
+      "title_es": "Oracle fija su Investor Day para el miércoles 28 de octubre de 2026, en Oracle AI World, con transmisión en su sitio de relación con inversionistas",
+      "summary_en": "Oracle release (Oct 23, Austin): Oracle \"will hold its Investor Day Meeting at Oracle AI World, Wednesday, October 28, 2026\" at 10:55 a.m. Central Time, livestreamed through oracle.com/investor; the release names no presenters and gives no agenda or targets (company statement, not audited).",
+      "summary_es": "Comunicado de Oracle (23 oct, Austin): Oracle realizará su Investor Day en Oracle AI World el miércoles 28 de octubre de 2026 a las 10:55 a.m. hora del Centro, con transmisión en vivo en oracle.com/investor; el comunicado no nombra a los presentadores ni da agenda ni metas (declaración de la empresa, no auditada).",
+      "why_en": "Last year's Investor Day set the long-range targets behind the page's Bull case; any update on Oct 28 to revenue, capex, funding (debt, equity, leases) or free-cash-flow targets would move the DCF scenarios and the financing outlook ({{sec:financing}}).",
+      "why_es": "El Investor Day del año pasado fijó las metas de largo plazo detrás del escenario optimista de la página; cualquier cambio el 28 oct a las metas de ingresos, capex, financiamiento (deuda, capital, arrendamientos) o flujo libre movería los escenarios del DCF y la perspectiva de financiamiento ({{sec:financing}}).",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle Investor Relations, Oct 23, 2026: Oracle Investor Day Meeting to be held October 28, 2026",
+          "url": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx"
+        }
+      ]
+    },
     {
       "id": "2026-10-20-tdcowen-nvidia-credit-support",
       "date": "2026-10-20",
@@ -954,6 +973,47 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-23",
+      "by": "routine",
+      "searches": 30,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Benzinga",
+        "Barclays",
+        "Albuquerque Journal",
+        "Wisconsin Public Radio",
+        "Data Center Dynamics",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "FERC",
+        "We Energies",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Apollo",
+        "Goldman Sachs",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-23-investor-day-notice"
+      ],
+      "note": "Friday run: the Oct 22 session moved -2.8% (129.13 to 125.54), under the 3% rule; no EDGAR accession after the Oct 19 Form 4s. The IR feed carries Oracle's Oct 23 release setting the Investor Day for Oct 28 at Oracle AI World (added). Barclays' tactical buy call on Oracle's long bonds and a 322 bp CDS print were again seen only through secondary sites (ZeroHedge, Crypto Briefing) and were not added. No FERC ruling on the Green Chile pipeline, no EGLE decision on the Saline wastewater permit and no Wisconsin PSC ruling on ATC's refiled application found; no Moody's, S&P or Fitch action."
+    },
     {
       "date": "2026-10-22",
       "by": "routine",
