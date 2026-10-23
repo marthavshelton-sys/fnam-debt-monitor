@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-23T04:31:07Z",
+  "checkedAt": "2026-10-23T08:51:37Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -32,7 +32,7 @@
         "at": "2026-10-22T23:15:37Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T14:05:00Z",
+      "requiredSince": "2026-10-22T20:05:00Z",
       "alerts": 0
     },
     {
@@ -86,7 +86,7 @@
         "at": "2026-10-23T00:44:35Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T12:25:00Z",
+      "requiredSince": "2026-10-22T19:25:00Z",
       "alerts": 0
     },
     {
@@ -104,7 +104,7 @@
         "at": "2026-10-22T22:38:05Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-21T19:30:00Z",
+      "requiredSince": "2026-10-22T19:30:00Z",
       "alerts": 0
     },
     {
@@ -117,9 +117,9 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T04:02:51Z",
+      "lastSuccess": "2026-10-23T08:42:41Z",
       "lastAttempt": {
-        "at": "2026-10-23T01:36:14Z",
+        "at": "2026-10-23T08:42:41Z",
         "result": "success"
       },
       "requiredSince": "2026-10-22T15:20:00Z",
@@ -358,7 +358,7 @@
         "at": "2026-10-22T20:41:58Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-21T17:30:00Z",
+      "requiredSince": "2026-10-22T17:30:00Z",
       "alerts": 0
     },
     {
@@ -376,7 +376,7 @@
         "at": "2026-10-22T21:55:27Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-21T18:20:00Z",
+      "requiredSince": "2026-10-22T18:20:00Z",
       "alerts": 0
     },
     {
@@ -517,7 +517,7 @@
         "at": "2026-10-23T00:16:03Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T13:30:00Z",
+      "requiredSince": "2026-10-22T20:35:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
