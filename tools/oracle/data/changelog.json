@@ -4,104 +4,6 @@
   {
    "at": "2026-10-20T14:58:42.276Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[22]",
-   "old": "Bloom Energy",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[23]",
-   "old": "Moody's",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[24]",
-   "old": "S&P Global Ratings",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[25]",
-   "old": "Fitch Ratings",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[0]",
-   "old": "2026-10-19-cds-295",
-   "new": "2026-10-19-jupiter-construction-statement"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-18",
-   "new": "2026-10-19"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 31,
-   "new": 28
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[8]",
-   "old": "Data Center Dynamics",
-   "new": "Source New Mexico"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[9]",
-   "old": "The Register",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[10]",
-   "old": "Santa Fe New Mexican",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[11]",
-   "old": "Searchlight New Mexico",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[12]",
-   "old": "El Paso Electric",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[13]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[14]",
-   "old": "New Mexico Environment Department",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[15]",
    "old": "We Energies",
    "new": "Michigan EGLE"
@@ -4200,7 +4102,105 @@
    "path": "events[2].status",
    "old": "past",
    "new": null
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.latestFrom",
+   "old": "factset",
+   "new": "runner"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-23)"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": null,
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2969,
+   "new": 2970
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-22)",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-22, 2026-10-23)"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2518,
+   "new": 2519
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 4.96,
+   "new": 5
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16187,
+   "new": 16188
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-23",
+   "new": "2025-10-24"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[0]",
+   "old": null,
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T21:21:27.325Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
   }
  ],
- "generated": "2026-10-23T17:55:07.396Z"
+ "generated": "2026-10-23T21:21:27.325Z"
 }

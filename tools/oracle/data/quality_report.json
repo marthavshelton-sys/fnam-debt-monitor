@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-23T17:55:07.226Z",
+  "generated": "2026-10-23T21:21:27.052Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3814,17 +3814,17 @@
       "note": "nightly FactSet refresh, 7:58 PM ET; the page's price authority"
     },
     {
-      "series": "Share price (ORCL close, Nasdaq feed)",
-      "lastDate": "2026-10-22",
-      "ageDays": 2,
+      "series": "Share price (ORCL close, Nasdaq + Yahoo Finance feed)",
+      "lastDate": "2026-10-23",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, every day 9:30 AM ET and weekdays about 4:35 PM and 4:45–5:45 PM ET; fills the sessions FactSet has not posted yet"
     },
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
-      "lastDate": "2026-10-22",
-      "ageDays": 2,
+      "lastDate": "2026-10-23",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
@@ -3952,7 +3952,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-10-22; 5 ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-10-23; 5 ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -4106,8 +4106,8 @@
       "label_en": "Market (daily closes)",
       "label_es": "Mercado (cierres diarios)",
       "cadence": "daily",
-      "asOf": "2026-10-22",
-      "lastRefresh": "2026-10-22",
+      "asOf": "2026-10-23",
+      "lastRefresh": "2026-10-23",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
