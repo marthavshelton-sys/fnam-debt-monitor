@@ -4,41 +4,6 @@
   {
    "at": "2026-10-20T00:03:04.591Z",
    "file": "factset.js",
-   "path": "oracle.ntm.sales.sd",
-   "old": 1795,
-   "new": 1804
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.fcf.mean",
-   "old": -36375,
-   "new": -36370
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.fcf.median",
-   "old": -34412,
-   "new": -34402
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.fcf.high",
-   "old": -19798,
-   "new": -19753
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.ntm.fcf.low",
-   "old": -76532,
-   "new": -76526
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
    "path": "oracle.ntm.fcf.sd",
    "old": 13408,
    "new": 13421
@@ -4200,7 +4165,42 @@
    "path": "basis.marketDate",
    "old": "2026-10-21",
    "new": "2026-10-22"
+  },
+  {
+   "at": "2026-10-23T00:10:28.009Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-22)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-23T00:10:28.009Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-22&todate=2026-10-22&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-23&todate=2026-10-23&limit=10000"
+  },
+  {
+   "at": "2026-10-23T00:10:28.009Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T00:10:28.009Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-23T00:10:28.009Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
   }
  ],
- "generated": "2026-10-22T23:33:33.457Z"
+ "generated": "2026-10-23T00:10:28.009Z"
 }
