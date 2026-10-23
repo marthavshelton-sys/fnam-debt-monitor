@@ -4,41 +4,6 @@
   {
    "at": "2026-10-20T00:03:04.591Z",
    "file": "factset.js",
-   "path": "oracle.fiscal[2].da.as_of",
-   "old": "2026-10-18",
-   "new": "2026-10-19"
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.fiscal[3].da.as_of",
-   "old": "2026-10-18",
-   "new": "2026-10-19"
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.adtv.usd_m",
-   "old": 4296.2,
-   "new": 4266
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.adtv.product_of_averages_usd_m",
-   "old": 4312.7,
-   "new": 4278.9
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
-   "path": "oracle.adtv.start",
-   "old": "2026-07-17",
-   "new": "2026-07-20"
-  },
-  {
-   "at": "2026-10-20T00:03:04.591Z",
-   "file": "factset.js",
    "path": "oracle.adtv.end",
    "old": "2026-10-16",
    "new": "2026-10-19"
@@ -4200,7 +4165,42 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 800,
    "new": 801
+  },
+  {
+   "at": "2026-10-23T14:37:06.706Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].status",
+   "old": "announced_on_call",
+   "new": "announced"
+  },
+  {
+   "at": "2026-10-23T14:37:06.706Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].links.release",
+   "old": null,
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx"
+  },
+  {
+   "at": "2026-10-23T14:37:06.706Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].links.announcement",
+   "old": null,
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx"
+  },
+  {
+   "at": "2026-10-23T14:37:06.706Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].source.title",
+   "old": "4Q26 earnings call, Hilary Maxson (CFO), p.8: \"Next Investor Day October 28 in Las Vegas\"",
+   "new": "Oracle IR release, Oct 23, 2026: \"Oracle Investor Day Meeting to be held October 28, 2026\""
+  },
+  {
+   "at": "2026-10-23T14:37:06.706Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].source.url",
+   "old": "https://investor.oracle.com/events-and-presentations/default.aspx",
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx"
   }
  ],
- "generated": "2026-10-23T14:11:33.641Z"
+ "generated": "2026-10-23T14:37:11.204Z"
 }

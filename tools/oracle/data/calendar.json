@@ -129,20 +129,20 @@
       "all_day": true,
       "timezone": "America/Los_Angeles",
       "location": "Las Vegas",
-      "status": "announced_on_call",
+      "status": "announced",
       "links": {
         "event": "https://investor.oracle.com/events-and-presentations/default.aspx",
         "webcast": null,
-        "release": null,
-        "announcement": null,
+        "release": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx",
+        "announcement": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx",
         "documents": [],
         "transcript_in_model": false
       },
       "source": {
-        "title": "4Q26 earnings call, Hilary Maxson (CFO), p.8: \"Next Investor Day October 28 in Las Vegas\"",
-        "url": "https://investor.oracle.com/events-and-presentations/default.aspx",
-        "fetched": "2026-06-10",
-        "note": "Date named on the call; not yet posted on the IR events page. The script marks this entry superseded once the IR list carries the event."
+        "title": "Oracle IR release, Oct 23, 2026: \"Oracle Investor Day Meeting to be held October 28, 2026\"",
+        "url": "https://investor.oracle.com/investor-news/news-details/2026/ORACLE-INVESTOR-DAY-MEETING-TO-BE-HELD-OCTOBER-28-2026/default.aspx",
+        "fetched": "2026-10-23",
+        "note": "Headline only, detail pending (time, webcast link). First named on the 4Q26 earnings call (Hilary Maxson, CFO, p.8). The script marks this entry superseded once the IR events list carries the event."
       },
       "first_seen": "2026-06-10",
       "superseded_by": null
