@@ -1,2 +1,2 @@
 // AUTO-GENERATED from the daily source check: when each source was last checked and how it went - do not hand-edit.
-window.MX_AIRPORTS_STATUS = {"checkedAt":"2026-10-22T20:41:41.611Z","dataAt":"2026-10-19T21:39:10.121Z","afac":"unchanged","aicm":"unchanged","aifa":"unchanged"};
+window.MX_AIRPORTS_STATUS = {"checkedAt":"2026-10-23T18:12:17.696Z","dataAt":"2026-10-19T21:39:10.121Z","afac":"unchanged","aicm":"unchanged","aifa":"unchanged"};
