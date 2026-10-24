@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-23T19:34:07Z",
+  "checkedAt": "2026-10-24T04:31:12Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,12 +27,12 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:19:35Z",
+      "lastSuccess": "2026-10-23T23:07:25Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:19:35Z",
+        "at": "2026-10-23T23:07:25Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T20:05:00Z",
+      "requiredSince": "2026-10-23T14:05:00Z",
       "alerts": 0
     },
     {
@@ -45,12 +45,12 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:04:32Z",
+      "lastSuccess": "2026-10-24T00:03:00Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:04:32Z",
+        "at": "2026-10-24T00:03:00Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T21:30:00Z",
+      "requiredSince": "2026-10-23T13:15:00Z",
       "alerts": 0
     },
     {
@@ -63,12 +63,12 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:19:42Z",
+      "lastSuccess": "2026-10-24T00:02:40Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:19:42Z",
+        "at": "2026-10-24T00:02:40Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T21:40:00Z",
+      "requiredSince": "2026-10-23T14:10:00Z",
       "alerts": 0
     },
     {
@@ -81,12 +81,12 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T19:12:16Z",
+      "lastSuccess": "2026-10-24T00:49:15Z",
       "lastAttempt": {
-        "at": "2026-10-23T17:18:36Z",
+        "at": "2026-10-24T00:49:15Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:25:00Z",
+      "requiredSince": "2026-10-23T12:25:00Z",
       "alerts": 0
     },
     {
@@ -99,9 +99,9 @@
       "url": "/mx/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-22T22:38:05Z",
+      "lastSuccess": "2026-10-23T22:30:56Z",
       "lastAttempt": {
-        "at": "2026-10-22T22:38:05Z",
+        "at": "2026-10-23T22:30:56Z",
         "result": "success"
       },
       "requiredSince": "2026-10-22T19:30:00Z",
@@ -117,12 +117,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T19:18:15Z",
+      "lastSuccess": "2026-10-24T04:02:44Z",
       "lastAttempt": {
-        "at": "2026-10-23T19:18:15Z",
+        "at": "2026-10-24T01:40:28Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T03:20:00Z",
+      "requiredSince": "2026-10-23T15:20:00Z",
       "alerts": 0
     },
     {
@@ -135,40 +135,40 @@
       "url": "/gap/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:33:37Z",
+      "lastSuccess": "2026-10-24T01:00:13Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:33:37Z",
+        "at": "2026-10-24T01:00:13Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:40:00Z",
+      "requiredSince": "2026-10-23T14:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
         "exchange": "BMV",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T02:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T02:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T02:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T02:00:00Z"
         },
         "series": [
           {
             "name": "GAPB.MX close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           },
           {
             "name": "PAC close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true,
             "exchange": "NYSE"
           },
           {
             "name": "Page close GAPB.MX (market.js)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           }
         ]
@@ -203,40 +203,40 @@
       "url": "/oma/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:45:52Z",
+      "lastSuccess": "2026-10-24T01:12:16Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:45:52Z",
+        "at": "2026-10-24T01:12:16Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:55:00Z",
+      "requiredSince": "2026-10-23T14:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
         "exchange": "BMV",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T02:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T02:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T02:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T02:00:00Z"
         },
         "series": [
           {
             "name": "OMAB.MX close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           },
           {
             "name": "OMAB close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true,
             "exchange": "NYSE"
           },
           {
             "name": "Page close OMAB.MX (market.js)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           }
         ]
@@ -271,40 +271,40 @@
       "url": "/asur/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:41:56Z",
+      "lastSuccess": "2026-10-24T01:10:53Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:41:56Z",
+        "at": "2026-10-24T01:10:53Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:50:00Z",
+      "requiredSince": "2026-10-23T14:40:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
         "exchange": "BMV",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T02:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T02:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T02:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T02:00:00Z"
         },
         "series": [
           {
             "name": "ASURB.MX close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           },
           {
             "name": "ASR close (FactSet Global Prices)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true,
             "exchange": "NYSE"
           },
           {
             "name": "Page close ASURB.MX (market.js)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           }
         ]
@@ -353,9 +353,9 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:12:27Z",
+      "lastSuccess": "2026-10-23T20:34:15Z",
       "lastAttempt": {
-        "at": "2026-10-22T20:41:58Z",
+        "at": "2026-10-23T20:34:15Z",
         "result": "success"
       },
       "requiredSince": "2026-10-22T17:30:00Z",
@@ -371,9 +371,9 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T19:05:44Z",
+      "lastSuccess": "2026-10-23T21:33:25Z",
       "lastAttempt": {
-        "at": "2026-10-22T21:55:27Z",
+        "at": "2026-10-23T21:33:25Z",
         "result": "success"
       },
       "requiredSince": "2026-10-22T18:20:00Z",
@@ -387,49 +387,49 @@
         "en": "Quálitas"
       },
       "url": "/qualitas/",
-      "status": "ok",
+      "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:46:22Z",
+      "lastSuccess": "2026-10-24T01:16:54Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:46:22Z",
+        "at": "2026-10-24T01:16:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T23:00:00Z",
+      "requiredSince": "2026-10-23T14:50:00Z",
       "alerts": 0,
       "prices": {
-        "status": "ok",
+        "status": "stale",
         "exchange": "BMV",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T02:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T02:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T02:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T02:00:00Z"
         },
         "series": [
           {
             "name": "Q.MX close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true
+            "needed": "2026-10-23",
+            "ok": false
           },
           {
             "name": "PGR close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true,
+            "needed": "2026-10-23",
+            "ok": false,
             "exchange": "NYSE"
           },
           {
             "name": "ALL close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true,
+            "needed": "2026-10-23",
+            "ok": false,
             "exchange": "NYSE"
           },
           {
             "name": "Page close Q.MX (market.js)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           }
         ]
@@ -443,60 +443,60 @@
         "en": "Gentera"
       },
       "url": "/gentera/",
-      "status": "ok",
+      "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:42:34Z",
+      "lastSuccess": "2026-10-24T01:10:51Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:42:34Z",
+        "at": "2026-10-24T01:10:51Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:45:00Z",
+      "requiredSince": "2026-10-23T14:35:00Z",
       "alerts": 0,
       "prices": {
-        "status": "ok",
+        "status": "stale",
         "exchange": "BMV",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T02:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T02:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T02:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T02:00:00Z"
         },
         "series": [
           {
             "name": "GENTERA.MX close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true
+            "needed": "2026-10-23",
+            "ok": false
           },
           {
             "name": "GFNORTEO.MX close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true
+            "needed": "2026-10-23",
+            "ok": false
           },
           {
             "name": "RA.MX close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true
+            "needed": "2026-10-23",
+            "ok": false
           },
           {
             "name": "BBAJIOO.MX close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true
+            "needed": "2026-10-23",
+            "ok": false
           },
           {
             "name": "BAP close (FactSet Global Prices)",
             "date": "2026-10-22",
-            "needed": "2026-10-22",
-            "ok": true,
+            "needed": "2026-10-23",
+            "ok": false,
             "exchange": "NYSE"
           },
           {
             "name": "Page close GENTERA.MX (market.js)",
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           }
         ]
@@ -512,21 +512,21 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T18:00:41Z",
+      "lastSuccess": "2026-10-24T00:07:23Z",
       "lastAttempt": {
-        "at": "2026-10-23T18:00:41Z",
+        "at": "2026-10-24T00:07:23Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T21:45:00Z",
+      "requiredSince": "2026-10-23T13:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
         "exchange": "NYSE",
-        "expected": "2026-10-22",
-        "requiredFrom": "2026-10-23T01:00:00Z",
+        "expected": "2026-10-23",
+        "requiredFrom": "2026-10-24T01:00:00Z",
         "next": {
-          "session": "2026-10-23",
-          "requiredFrom": "2026-10-24T01:00:00Z"
+          "session": "2026-10-26",
+          "requiredFrom": "2026-10-27T01:00:00Z"
         },
         "series": [
           {
@@ -534,8 +534,8 @@
               "es": "Cierre de ORCL (FactSet Global Prices)",
               "en": "ORCL close (FactSet Global Prices)"
             },
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           },
           {
@@ -543,8 +543,8 @@
               "es": "Precios de ORCL y comparables (FactSet)",
               "en": "ORCL and peers prices (FactSet)"
             },
-            "date": "2026-10-22",
-            "needed": "2026-10-22",
+            "date": "2026-10-23",
+            "needed": "2026-10-23",
             "ok": true
           },
           {
@@ -552,8 +552,8 @@
               "es": "S&P 500 (FRED SP500)",
               "en": "S&P 500 (FRED SP500)"
             },
-            "date": "2026-10-22",
-            "needed": "2026-10-21",
+            "date": "2026-10-23",
+            "needed": "2026-10-22",
             "ok": true,
             "lagSessions": 1
           }
@@ -570,12 +570,12 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T17:53:43Z",
+      "lastSuccess": "2026-10-24T00:43:21Z",
       "lastAttempt": {
-        "at": "2026-10-23T17:53:43Z",
+        "at": "2026-10-24T00:43:21Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-22T22:20:00Z",
+      "requiredSince": "2026-10-23T13:20:00Z",
       "alerts": 0
     }
   ]
