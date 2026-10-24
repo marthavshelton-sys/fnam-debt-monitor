@@ -1,16 +1,18 @@
 ﻿{
-    "runAt":  "2026-10-24T14:58:53Z",
+    "runAt":  "2026-10-24T17:24:35Z",
     "failed":  [
                    "process_core.ps1",
                    "process_ppi.ps1",
+                   "process_retail.ps1",
                    "process_supply.ps1",
                    "process_productivity.ps1"
                ],
     "consecutive":  {
-                        "process_core.ps1":  1,
-                        "process_ppi.ps1":  1,
-                        "process_supply.ps1":  1,
-                        "process_productivity.ps1":  1
+                        "process_core.ps1":  2,
+                        "process_ppi.ps1":  2,
+                        "process_retail.ps1":  1,
+                        "process_supply.ps1":  2,
+                        "process_productivity.ps1":  2
                     },
     "warnings":  [
 
