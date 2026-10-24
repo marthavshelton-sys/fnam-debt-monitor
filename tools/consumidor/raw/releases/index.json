@@ -1128,43 +1128,6 @@
        "chars": 3917
       }
      ]
-    },
-    {
-     "accn": "0001601712-26-000030",
-     "filed": "2026-07-21",
-     "report": "2026-07-21",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/0001601712-26-000030-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/earningsrelease2q26.htm",
-       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-1.txt",
-       "chars": 17803
-      },
-      {
-       "type": "EX-99.2",
-       "description": "EX-99.2",
-       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/financialtables2q26.htm",
-       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-2.txt",
-       "chars": 36213
-      },
-      {
-       "type": "EX-99.3",
-       "description": "EX-99.3",
-       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/a2q26earningspresentatio.htm",
-       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-3.txt",
-       "chars": 17962
-      },
-      {
-       "type": "EX-99.4",
-       "description": "EX-99.4",
-       "url": "https://www.sec.gov/Archives/edgar/data/1601712/000160171226000030/non-gaapmeasures2q26.htm",
-       "file": "tools/consumidor/raw/releases/SYF/2026-07-21_0001601712-26-000030_ex-99-4.txt",
-       "chars": 1323
-      }
-     ]
     }
    ]
   },
@@ -2170,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-23T14:52:42.415Z"
+ "checkedAt": "2026-10-24T14:56:55.164Z"
 }

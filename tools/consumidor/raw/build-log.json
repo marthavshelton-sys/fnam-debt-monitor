@@ -9,10 +9,14 @@
  "stale": [],
  "sourceStatus": {
   "census": {
-   "failures": 0
+   "failures": 1,
+   "error": "timed out after 60s https://api.census.gov/data/2025/acs/acs1?get=NAME,B01003_001E&for=us:1&key=***",
+   "since": "2026-10-24"
   },
   "cex": {
-   "failures": 0
+   "failures": 1,
+   "error": "HTTP 503 https://api.bls.gov/publicAPI/v2/timeseries/data/",
+   "since": "2026-10-24"
   },
   "dfa": {
    "failures": 0
