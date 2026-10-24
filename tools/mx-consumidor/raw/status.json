@@ -13,10 +13,8 @@
    "failures": 0
   },
   "states": {
-   "ok": "2026-10-22",
-   "failures": 1,
-   "since": "2026-10-24",
-   "error": "HTTP 500 https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CE100&sector=1&locale=es"
+   "ok": "2026-10-24",
+   "failures": 0
   },
   "inegi": {
    "ok": "2026-10-24",
