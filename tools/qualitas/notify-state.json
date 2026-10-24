@@ -8,16 +8,17 @@
   "lastReferenceSha": "15c07848f9305661de61aa439e58e6e682e9c870",
   "lastCommentsUpdatedAt": "2026-10-22",
   "lastSummaryUpdatedAt": "2026-10-22",
-  "lastMarketDate": "2026-10-22",
+  "lastMarketDate": "2026-10-23",
   "lastAlertKeys": [
     "share1d:2026-10-13",
     "share5d:2026-10-13",
     "share1d:2026-10-22",
-    "share5d:2026-10-22"
+    "share5d:2026-10-22",
+    "share5d:2026-10-23"
   ],
-  "lastNotifiedAt": "2026-10-23T15:51:24Z",
-  "lastFailureNote": null,
-  "lastCheckedAt": "2026-10-23T15:51:24Z",
+  "lastNotifiedAt": "2026-10-24T15:51:58Z",
+  "lastFailureNote": "fx-stale:USDMXN last 2026-10-16 (Banxico SIE SF43718 HTTP 404; FRED DEXMXUS fallback stalled)",
+  "lastCheckedAt": "2026-10-24T15:51:58Z",
   "lastCheckResult": "material",
   "pendingFromOwner": [
     "earnings-call transcript for 3Q26 once available",
