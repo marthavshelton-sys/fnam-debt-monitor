@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-24",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,30 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-23-partner-commitment",
+      "date": "2026-10-23",
+      "theme": "customers",
+      "basis": "company",
+      "title_en": "Oracle commits US$1 billion over four years to its partner ecosystem through Oracle PartnerNetwork benefits and incentives",
+      "title_es": "Oracle compromete US$1,000 millones en cuatro años con su ecosistema de socios, mediante beneficios e incentivos de Oracle PartnerNetwork",
+      "summary_en": "Oracle release (Las Vegas, Oct 23): a \"$1 billion commitment to its partner ecosystem\" spanning the next four years, delivered through \"new and expanded Oracle PartnerNetwork (OPN) benefits and incentives\" (training, certification, technical enablement, test and demo environments, cloud migration funding, go-to-market collaboration and Oracle Marketplace); the release gives no split by year or by expense line (company statement, not audited).",
+      "summary_es": "Comunicado de Oracle (Las Vegas, 23 oct): un compromiso de US$1,000 millones con su ecosistema de socios durante los próximos cuatro años, otorgado mediante beneficios e incentivos nuevos y ampliados de Oracle PartnerNetwork (OPN) (capacitación, certificación, habilitación técnica, entornos de prueba y demostración, fondos para migración a la nube, colaboración comercial y Oracle Marketplace); el comunicado no lo desglosa por año ni por rubro de gasto (declaración de la empresa, no auditada).",
+      "why_en": "About US$250 million a year on average if spread evenly (FNAM calculation, not Oracle's figure): incentives and migration funding run through operating expenses or as reductions of revenue, a small amount against Oracle's cash burn; it aims to convert the RPO backlog and OCI demand into delivered services through partners.",
+      "why_es": "En promedio, cerca de US$250 millones al año si se reparte de forma uniforme (cálculo de FNAM, no cifra de Oracle): los incentivos y fondos de migración pasan por gastos de operación o como reducción del ingreso, un monto pequeño frente al consumo de caja de Oracle; busca convertir la cartera de RPO y la demanda de OCI en servicios entregados a través de socios.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle, Oct 23, 2026: Oracle Announces $1 Billion Investment to Accelerate Partner Growth and AI-Driven Modernization for Customers",
+          "url": "https://www.oracle.com/news/announcement/ai-world-oracle-announces-1-billion-commitment-to-partner-ecosystem-2026-10-23/"
+        },
+        {
+          "tier": "wire",
+          "title": "PR Newswire via Yahoo Finance, Oct 23, 2026: Oracle Announces $1 Billion Investment to Accelerate Partner Growth and AI-Driven Modernization for Customers",
+          "url": "https://finance.yahoo.com/technology/ai/articles/oracle-announces-1-billion-investment-120100226.html"
+        }
+      ]
+    },
     {
       "id": "2026-10-23-investor-day-notice",
       "date": "2026-10-23",
@@ -973,6 +997,48 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-24",
+      "by": "routine",
+      "searches": 29,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "PR Newswire",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Investing.com",
+        "GuruFocus",
+        "KRWG",
+        "Albuquerque Journal",
+        "Wisconsin Public Radio",
+        "Data Center Dynamics",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Apollo",
+        "Goldman Sachs",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-23-partner-commitment"
+      ],
+      "note": "Saturday run: last four sessions moved +1.2%, -1.5%, -2.8% and +0.5% (Oct 20-23, FactSet), none at 3%; no EDGAR accession after the Oct 19 Form 4s; the IR feed carries nothing after the Oct 23 Investor Day notice. Oracle's Oct 23 release on a US$1 billion partner commitment (Oracle AI World, Las Vegas) added from its PR Newswire copy (the newsroom answered 403). Goldman Sachs' price-target cut to US$206 (TipRanks) is an analyst note, not added. No FERC ruling on the Green Chile pipeline, no EGLE decision on the Saline wastewater permit, no Wisconsin PSC ruling on ATC's refiled application (docket 137-CE-229); no Moody's, S&P or Fitch action."
+    },
     {
       "date": "2026-10-23",
       "by": "routine",
