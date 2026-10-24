@@ -1,12 +1,10 @@
 {
  "sources": {
   "census": {
-   "failures": 1,
-   "error": "timed out after 60s https://api.census.gov/data/2025/acs/acs1?get=NAME,B01003_001E&for=us:1&key=***",
-   "since": "2026-10-24"
+   "failures": 0
   },
   "cex": {
-   "failures": 1,
+   "failures": 2,
    "error": "HTTP 503 https://api.bls.gov/publicAPI/v2/timeseries/data/",
    "since": "2026-10-24"
   },
@@ -23,7 +21,10 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0
+   "failures": 0,
+   "notes": [
+    "FRED: 13 problem(s): RCCCBPURCHASEASGTE720: FRED https://api.stlouisfed.org/fred/series?series_id=RCCCBPURCHASEASGTE720&api_key=…&file_type=json: direct: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"}; proxy: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"} | RCCCBPURCHASEAS660T719: FRED https://api.stlouisfed.org/fred/serie"
+   ]
   },
   "edgar": {
    "failures": 0
