@@ -12,7 +12,7 @@
    "failures": 0
   },
   "cex": {
-   "failures": 2,
+   "failures": 3,
    "error": "HTTP 503 https://api.bls.gov/publicAPI/v2/timeseries/data/",
    "since": "2026-10-24"
   },
@@ -29,10 +29,7 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0,
-   "notes": [
-    "FRED: 13 problem(s): RCCCBPURCHASEASGTE720: FRED https://api.stlouisfed.org/fred/series?series_id=RCCCBPURCHASEASGTE720&api_key=…&file_type=json: direct: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"}; proxy: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"} | RCCCBPURCHASEAS660T719: FRED https://api.stlouisfed.org/fred/serie"
-   ]
+   "failures": 0
   },
   "edgar": {
    "failures": 0
