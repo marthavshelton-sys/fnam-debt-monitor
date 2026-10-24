@@ -6,5 +6,9 @@
   "lastFailureNote": null,
   "note": "Updated by the GAP change-notification routine (see tools/gap/README.md).",
   "lastGuidanceDate": "2026-07-14",
-  "lastEventFile": "2026-10-19_irpr3q26eng19oct26vfdef_en.txt"
+  "lastEventFile": "2026-10-19_irpr3q26eng19oct26vfdef_en.txt",
+  "lastPeersFailure": {
+    "date": "2026-10-24",
+    "note": "FactSet connector not authorized in the routine session; no pull made, nothing ingested or pushed to main."
+  }
 }
