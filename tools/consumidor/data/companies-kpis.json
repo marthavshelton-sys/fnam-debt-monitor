@@ -1,6 +1,6 @@
 {
  "_comment": "Curated figures and short quotes for the 'What Companies Report' section of the American Consumer page. Every value and quote is taken from the company's own results release (Form 8-K, Item 2.02, exhibits stored under raw/releases/) and carries the text it was read from (`find`): the builder refuses a record whose text is not in the stored exhibit of the filing dated `filed`. Updated in a session after each earnings season; `reviewed` is the date of the last pass. `ex` names the exhibit when it is not the first one. trafficSign / ticketSign: the release says the direction without a figure. Gig platforms: `us` lists what the company reports for the United States (scope `us`) or for the narrowest geography that contains it (`usca` = United States and Canada), each entry citing its own report through `filed` and `form` (10-Q, 10-K, or `page:<id>` for a company page kept by the harvester); `of` / `ofFind` give the company total of the same line; `scope.find` is the sentence that states the geography.",
- "reviewed": "2026-10-14",
+ "reviewed": "2026-10-24",
  "companies": {
   "WMT": {
    "period": {
@@ -703,72 +703,63 @@
   },
   "COF": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-21",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-20",
    "segment": {
     "en": "Domestic Card",
     "es": "Tarjetas en EE. UU. (Domestic Card)"
    },
    "nco": {
-    "v": 4.71,
-    "find": "4.71 | 5.10 | 4.93 | 4.63 | 5.25",
+    "v": 3.98,
+    "find": "Net charge-off rate | 3.98 | 4.71 | 5.10 | 4.93 | 4.63",
     "ex": "EX-99.2",
-    "prev": 5.25
+    "prev": 4.63
    },
    "dq30": {
-    "v": 3.39,
-    "find": "30+ day performing delinquency rate | 3.39 | 3.70 | 3.99 | 3.89 | 3.60",
+    "v": 3.74,
+    "find": "30+ day performing delinquency rate | 3.74 | 3.39 | 3.70 | 3.99 | 3.89",
     "ex": "EX-99.2",
-    "prev": 3.6
+    "prev": 3.89
    },
    "spend": {
-    "v": 26,
-    "find": "$ | 249,195 | $ | 216,513 | $ | 234,375 | $ | 226,147 | $ | 197,308 | 15 | % | 26 | %",
+    "v": 11,
+    "find": "$ | 250,024 | $ | 249,195 | $ | 216,513 | $ | 234,375 | $ | 226,147 | —% | 11%",
     "ex": "EX-99.2",
     "basis": {
-     "en": "purchase volume; the year-ago quarter includes Discover only from its acquisition in May 2025",
-     "es": "volumen de compras; el trimestre del año anterior incluye a Discover solo desde su adquisición en mayo de 2025"
-    },
-    "notComparable": true
-   },
-   "quote": {
-    "text": "Our results in the second quarter continue to reflect solid top line growth and strong credit performance",
-    "by": "Richard D. Fairbank",
-    "role": {
-     "en": "Founder, Chairman and CEO",
-     "es": "Fundador, Presidente del Consejo y Director General"
+     "en": "purchase volume",
+     "es": "volumen de compras"
     }
    }
   },
   "SYF": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-21",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-20",
    "segment": {
     "en": "Total loan receivables",
     "es": "Cartera total"
    },
    "nco": {
-    "v": 5.43,
-    "find": "Net charge-offs as a percentage of total average loan receivables were 5.43% compared to 5.70% in the prior year",
+    "v": 4.79,
+    "find": "Net charge-offs as a percentage of total average loan receivables were 4.79% compared to 5.16% in the prior year",
     "ex": "EX-99.1",
-    "prev": 5.7
+    "prev": 5.16
    },
    "dq30": {
-    "v": 4.16,
-    "find": "Loans 30+ days past due as a percentage of total period-end loan receivables were 4.16% compared to 4.18% in the prior year",
+    "v": 4.34,
+    "find": "Loans 30+ days past due as a percentage of total period-end loan receivables were 4.34% compared to 4.39% in the prior year",
     "ex": "EX-99.1",
-    "prev": 4.18
+    "prev": 4.39
    },
    "spend": {
     "v": 8,
-    "find": "Purchase volume increased 8% to $49.8 billion",
+    "find": "Purchase volume increased 8% to $49.7 billion",
     "ex": "EX-99.1",
     "basis": {
      "en": "purchase volume",
@@ -776,7 +767,7 @@
     }
    },
    "quote": {
-    "text": "Within our portfolio, spend was particularly strong for our value-oriented partners and for those with broad, diversified offerings.",
+    "text": "Spend reached a record third quarter level and increased across credit cohorts and generations, with the highest growth once again coming from our Generation Z and Millennial customers.",
     "by": "Brian Doubles",
     "role": {
      "en": "President and CEO",
@@ -786,20 +777,20 @@
   },
   "AXP": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-24",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-23",
    "segment": {
     "en": "Consumer and small business cards (principal only)",
     "es": "Tarjetas de consumo y pequeñas empresas (solo principal)"
    },
    "nco": {
-    "v": 2,
-    "find": "The second-quarter net write-off rate was 2.0 percent, flat year-over-year",
+    "v": 1.8,
+    "find": "The third-quarter net write-off rate was 1.8 percent, down from 1.9 percent a year ago",
     "ex": "EX-99.1",
-    "prev": 2
+    "prev": 1.9
    },
    "dq30": {
     "v": 1.2,
@@ -807,8 +798,8 @@
     "ex": "EX-99.2"
    },
    "spend": {
-    "v": 9,
-    "find": "Card Member spending growth of 9 percent",
+    "v": 8,
+    "find": "Billed Business (Billions) FX-adjusted2 $454.0 $421.0 $420.8 8% 8%",
     "ex": "EX-99.1",
     "basis": {
      "en": "Card Member spending (billed business)",
@@ -816,7 +807,7 @@
     }
    },
    "quote": {
-    "text": "we continued to attract a large number of new customers, particularly Millennials and Gen-Zs who represent greater lifetime value",
+    "text": "Our business momentum continues, with strength in billings, new acquisitions and Card Member retention, and excellent credit quality.",
     "by": "Stephen J. Squeri",
     "role": {
      "en": "Chairman and CEO",
@@ -1611,11 +1602,11 @@
   },
   "ALLY": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-21",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-20",
    "segment": {
     "en": "Retail auto loans, United States",
     "es": "Crédito automotriz minorista, Estados Unidos"
@@ -1628,14 +1619,14 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 1.57,
-     "chgBps": -18,
+     "v": 1.89,
+     "chgBps": 1,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "nco",
-     "find": "The retail auto net charge-off rate of 1.57% decreased 18 bps year over year"
+     "find": "The retail auto net charge-off rate of 1.89% increased 1 bps year over year"
     },
     {
      "label": {
@@ -1644,14 +1635,14 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 4.8,
-     "chgBps": -8,
+     "v": 4.96,
+     "chgBps": 6,
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
      "key": "dq",
-     "find": "Retail auto delinquencies 30+ days past due, inclusive of non-accrual loans, decreased 8 bps year over year to 4.80%"
+     "find": "Retail auto delinquencies 30+ days past due, inclusive of non-accrual loans, increased 6 bps year over year to 4.96%"
     },
     {
      "label": {
@@ -1660,15 +1651,15 @@
      },
      "scope": "us",
      "unit": "usdB",
-     "v": 13.3,
-     "yoy": 21,
+     "v": 12.9,
+     "yoy": 10,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "orig",
-     "find": "Consumer auto originations of $13.3 billion",
-     "yoyFind": "supporting more than $13 billion in originations, up 21% year-over-year"
+     "find": "Consumer auto originations of $12.9 billion",
+     "yoyFind": "$12.9 billion of consumer auto originations, up 10% year over year"
     },
     {
      "label": {
@@ -1677,12 +1668,12 @@
      },
      "scope": "us",
      "unit": "M",
-     "v": 4.6,
+     "v": 4.8,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
-     "find": "sourced from a record 4.6 million consumer auto applications"
+     "find": "Record 4.8 million consumer auto applications"
     }
    ]
   },
@@ -1943,11 +1934,11 @@
   },
   "FCFS": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-23",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-22",
    "segment": {
     "en": "U.S. pawn segment (the company also operates in Latin America and the United Kingdom)",
     "es": "Segmento de casas de empeño en Estados Unidos (la empresa también opera en América Latina y el Reino Unido)"
@@ -1960,13 +1951,13 @@
      },
      "scope": "us",
      "unit": "growth",
-     "v": 20,
+     "v": 14,
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
      "key": "pawn",
-     "find": "Pawn receivables increased 20% in total at June 30, 2026 compared to last year"
+     "find": "Pawn receivables increased 14% in total at September 30, 2026 compared to last year"
     },
     {
      "label": {
@@ -1975,12 +1966,12 @@
      },
      "scope": "us",
      "unit": "growth",
-     "v": 19,
+     "v": 12,
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
-     "find": "Same-store pawn receivables increased 19% and are up 32% on a two-year stacked basis"
+     "find": "Same-store pawn receivables increased 12%, 25% on a two-year stacked basis"
     },
     {
      "label": {
@@ -1989,12 +1980,12 @@
      },
      "scope": "us",
      "unit": "growth",
-     "v": 15,
+     "v": 12,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
-     "find": "Pawn loan fees increased 15% in the second quarter while retail merchandise sales increased 10%"
+     "find": "Pawn loan fees increased 12% in the third quarter while retail merchandise sales increased 10%"
     },
     {
      "label": {
@@ -2005,14 +1996,14 @@
      "unit": "growth",
      "v": 10,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
-     "find": "Pawn loan fees increased 15% in the second quarter while retail merchandise sales increased 10%"
+     "find": "Pawn loan fees increased 12% in the third quarter while retail merchandise sales increased 10%"
     }
    ],
    "quote": {
-    "text": "Pawn demand remains extremely robust, with consolidated pawn receivables up 63% in total and 22% on a same-store basis over the prior year",
+    "text": "Pawn demand remains exceptionally strong with a record $908 million in pawn receivables and all geographic segments posting double-digit increases in both same-store pawn receivables and pawn fees.",
     "by": "Rick Wessel",
     "role": {
      "en": "CEO",
