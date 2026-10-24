@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-24T08:25:28Z",
+  "checkedAt": "2026-10-24T16:31:15Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,7 +27,7 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T23:07:25Z",
+      "lastSuccess": "2026-10-24T14:59:53Z",
       "lastAttempt": {
         "at": "2026-10-23T23:07:25Z",
         "result": "success"
@@ -45,12 +45,12 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T00:03:00Z",
+      "lastSuccess": "2026-10-24T14:04:37Z",
       "lastAttempt": {
         "at": "2026-10-24T00:03:00Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T13:15:00Z",
+      "requiredSince": "2026-10-23T21:30:00Z",
       "alerts": 0
     },
     {
@@ -63,12 +63,12 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T00:02:40Z",
+      "lastSuccess": "2026-10-24T14:57:01Z",
       "lastAttempt": {
         "at": "2026-10-24T00:02:40Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:10:00Z",
+      "requiredSince": "2026-10-23T21:40:00Z",
       "alerts": 0
     },
     {
@@ -81,12 +81,12 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T00:49:15Z",
+      "lastSuccess": "2026-10-24T16:11:58Z",
       "lastAttempt": {
         "at": "2026-10-24T00:49:15Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T19:25:00Z",
+      "requiredSince": "2026-10-23T22:25:00Z",
       "alerts": 0
     },
     {
@@ -117,12 +117,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T08:17:29Z",
+      "lastSuccess": "2026-10-24T16:12:49Z",
       "lastAttempt": {
-        "at": "2026-10-24T08:17:29Z",
+        "at": "2026-10-24T16:02:20Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T15:20:00Z",
+      "requiredSince": "2026-10-24T03:20:00Z",
       "alerts": 0
     },
     {
@@ -140,7 +140,7 @@
         "at": "2026-10-24T01:00:13Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:30:00Z",
+      "requiredSince": "2026-10-23T22:40:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -208,7 +208,7 @@
         "at": "2026-10-24T01:12:16Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:45:00Z",
+      "requiredSince": "2026-10-23T22:55:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -276,7 +276,7 @@
         "at": "2026-10-24T01:10:53Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:40:00Z",
+      "requiredSince": "2026-10-23T22:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -389,12 +389,12 @@
       "url": "/qualitas/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T01:16:54Z",
+      "lastSuccess": "2026-10-24T15:32:11Z",
       "lastAttempt": {
         "at": "2026-10-24T01:16:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:50:00Z",
+      "requiredSince": "2026-10-23T23:00:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -450,7 +450,7 @@
         "at": "2026-10-24T01:10:51Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T14:35:00Z",
+      "requiredSince": "2026-10-23T22:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -512,12 +512,12 @@
       "url": "/oracle/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T00:07:23Z",
+      "lastSuccess": "2026-10-24T14:16:55Z",
       "lastAttempt": {
         "at": "2026-10-24T00:07:23Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T13:30:00Z",
+      "requiredSince": "2026-10-23T21:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -570,12 +570,12 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T00:43:21Z",
+      "lastSuccess": "2026-10-24T14:01:18Z",
       "lastAttempt": {
         "at": "2026-10-24T00:43:21Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T13:20:00Z",
+      "requiredSince": "2026-10-23T22:20:00Z",
       "alerts": 0
     }
   ]
