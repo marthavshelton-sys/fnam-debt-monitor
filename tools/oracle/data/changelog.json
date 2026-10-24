@@ -4,41 +4,6 @@
   {
    "at": "2026-10-20T14:58:42.276Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[17]",
-   "old": "DTE Energy",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[18]",
-   "old": "Michigan EGLE",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[19]",
-   "old": "Moody's",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[20]",
-   "old": "S&P Global Ratings",
-   "new": "AMD"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[21]",
-   "old": "Fitch Ratings",
-   "new": "Nvidia"
-  },
-  {
-   "at": "2026-10-20T14:58:42.276Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[22]",
    "old": "OpenAI",
    "new": "Bloom Energy"
@@ -4200,7 +4165,42 @@
    "path": "prices.ORCL.provenance.fill.latestName",
    "old": "Yahoo Finance",
    "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-24T00:01:48.820Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-23",
+   "new": "2026-10-24"
+  },
+  {
+   "at": "2026-10-24T00:01:48.820Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-23&todate=2026-10-23&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-24&todate=2026-10-24&limit=10000"
+  },
+  {
+   "at": "2026-10-24T00:01:48.820Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-23",
+   "new": "2026-10-24"
+  },
+  {
+   "at": "2026-10-24T00:01:48.820Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-23",
+   "new": "2026-10-24"
+  },
+  {
+   "at": "2026-10-24T00:01:48.820Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-23",
+   "new": "2026-10-24"
   }
  ],
- "generated": "2026-10-23T23:27:11.098Z"
+ "generated": "2026-10-24T00:01:48.820Z"
 }
