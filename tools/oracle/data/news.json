@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-24",
+  "as_of": "2026-10-25",
   "window_days": 120,
   "themes": [
     {
@@ -422,8 +422,8 @@
       "basis": "press",
       "title_en": "Bloomberg: Oracle asks FERC to speed approval of the Green Chile pipeline for Project Jupiter; in-service date now February 2027",
       "title_es": "Bloomberg: Oracle pide a la FERC acelerar la aprobación del gasoducto Green Chile para el Proyecto Júpiter; entrada en servicio ahora en febrero de 2027",
-      "summary_en": "Bloomberg (Oct 13): in a letter that Tuesday to the Federal Energy Regulatory Commission, Oracle's SVP of government affairs Josh Pitcock wrote \"Time remains of the essence\" and that further delay \"threatens to delay Project Jupiter's operations\". The 17.8-mile Green Chile pipeline of an Energy Transfer subsidiary (about 400 million cubic feet a day, fuel for the Bloom fuel cells) moved from an August 15 target to February 2027 after the state rejected the route over state lands; New Mexico's Attorney General asked FERC to revise its Sep 4 environmental assessment or prepare a full EIS. Press-reported letter; not on Oracle's newsroom.",
-      "summary_es": "Bloomberg (13 oct): en una carta de ese martes a la Comisión Federal Reguladora de Energía (FERC), el vicepresidente sénior de asuntos gubernamentales de Oracle, Josh Pitcock, escribió \"el tiempo sigue siendo esencial\" y que más retraso \"amenaza con retrasar la operación del Proyecto Júpiter\". El gasoducto Green Chile de 17.8 millas de una subsidiaria de Energy Transfer (unos 400 millones de pies cúbicos diarios, combustible de las celdas Bloom) pasó de una meta del 15 de agosto a febrero de 2027 después de que el estado rechazó la ruta por terrenos estatales; el Fiscal General de Nuevo México pidió a la FERC revisar su evaluación ambiental del 4 sep o elaborar una EIS completa. Carta reportada por la prensa; no está en la sala de prensa de Oracle.",
+      "summary_en": "Bloomberg (Oct 13): in a letter that Tuesday to the Federal Energy Regulatory Commission, Oracle's SVP of government affairs Josh Pitcock wrote \"Time remains of the essence\" and that further delay \"threatens to delay Project Jupiter's operations\". The 17.8-mile Green Chile pipeline of an Energy Transfer subsidiary (about 400 million cubic feet a day, fuel for the Bloom fuel cells) moved from an August 15 target to February 2027 after the state rejected the route over state lands; New Mexico's Attorney General asked FERC to revise its Sep 4 environmental assessment or prepare a full EIS. Press-reported letter; not on Oracle's newsroom. Bloomberg Government (Oct 15) adds: twelve Republican state attorneys general led by West Virginia wrote to FERC that Wednesday urging approval of the pipeline and rejecting New Mexico's position that FERC must weigh the data center's environmental effects; Bloomberg (Oct 20) says FERC's decision is expected by early December.",
+      "summary_es": "Bloomberg (13 oct): en una carta de ese martes a la Comisión Federal Reguladora de Energía (FERC), el vicepresidente sénior de asuntos gubernamentales de Oracle, Josh Pitcock, escribió \"el tiempo sigue siendo esencial\" y que más retraso \"amenaza con retrasar la operación del Proyecto Júpiter\". El gasoducto Green Chile de 17.8 millas de una subsidiaria de Energy Transfer (unos 400 millones de pies cúbicos diarios, combustible de las celdas Bloom) pasó de una meta del 15 de agosto a febrero de 2027 después de que el estado rechazó la ruta por terrenos estatales; el Fiscal General de Nuevo México pidió a la FERC revisar su evaluación ambiental del 4 sep o elaborar una EIS completa. Carta reportada por la prensa; no está en la sala de prensa de Oracle. Bloomberg Government (15 oct) agrega: doce fiscales generales estatales republicanos, encabezados por Virginia Occidental, escribieron ese miércoles a la FERC pidiendo aprobar el gasoducto y rechazando la postura de Nuevo México de que la FERC debe evaluar los efectos ambientales del centro de datos; Bloomberg (20 oct) indica que la decisión de la FERC se espera a principios de diciembre.",
       "why_en": "The pipeline is the fuel for the campus's primary power; its approval timing drives when Project Jupiter's capacity can bill ({{sec:sites}}). No figure on the page changes.",
       "why_es": "El gasoducto es el combustible de la energía principal del campus; el momento de su aprobación define cuándo puede facturar la capacidad del Proyecto Júpiter ({{sec:sites}}). Ninguna cifra de la página cambia.",
       "sources": [
@@ -431,6 +431,16 @@
           "tier": "press",
           "title": "Bloomberg (via Yahoo Finance), Oct 13, 2026: Oracle Asks Regulators to Expedite Gas Pipeline for Data Center",
           "url": "https://finance.yahoo.com/energy/articles/oracle-asks-regulators-expedite-gas-203711536.html"
+        },
+        {
+          "tier": "press",
+          "title": "Bloomberg Government, Oct 15, 2026: Red States Join Fight Over Pipeline for Oracle AI Data Center",
+          "url": "https://news.bgov.com/artificial-intelligence/twelve-states-push-back-on-new-mexico-in-oracle-pipeline-fight"
+        },
+        {
+          "tier": "press",
+          "title": "Bloomberg (via Energy Connects), Oct 20, 2026: Oracle Data Center Fight Hands Activists Path to US-Wide Blitz",
+          "url": "https://www.energyconnects.com/news/renewables/2026/october/oracle-data-center-fight-hands-activists-path-to-us-wide-blitz/"
         }
       ]
     },
@@ -997,6 +1007,46 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-25",
+      "by": "routine",
+      "searches": 34,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Bloomberg Government",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "NPR",
+        "Data Center Dynamics",
+        "The Register",
+        "Albuquerque Journal",
+        "KRWG",
+        "Wisconsin Public Radio",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "WEC Energy",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "AstraZeneca",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [],
+      "note": "Sunday run: no session since Oct 23 (+0.5% to US$126.16, FactSet); the last four sessions (Oct 20-23) moved +1.2%, -1.5%, -2.8% and +0.5%, none at 3%. No EDGAR accession after the Oct 19 Form 4s; the IR feed carries nothing after the Oct 23 Investor Day notice; no release found for Oct 24-25 (Oracle AI World opens Oct 25, Investor Day Oct 28). Appended Bloomberg Government (Oct 15: twelve state attorneys general urge FERC to approve the Green Chile pipeline) and Bloomberg (Oct 20: FERC decision expected by early December) to the Oct 13 FERC item. NPR's Oct 22 overview of Oracle's debt (page answered 503) and the AstraZeneca non-binding collaboration (Oct 20, no figures) not added. No Moody's, S&P or Fitch action; no Wisconsin PSC, EGLE or New Mexico PRC decision."
+    },
     {
       "date": "2026-10-24",
       "by": "routine",
