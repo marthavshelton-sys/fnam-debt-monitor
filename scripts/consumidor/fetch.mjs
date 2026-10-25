@@ -33,6 +33,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { RAW, readJson, writeJson, get, getJson, getText, getBuffer, secret, redact, sleep, nowIso, num, htmlToText, decodeEntities, BOT_UA } from './lib/common.mjs';
+import { blsRequest } from '../lib/bls.mjs';
 import { parseCsv } from './lib/csv.mjs';
 import { STATES, BY_FIPS } from './lib/states.mjs';
 import { parseDfa, parseScf, parseHhdcSheet } from './lib/parsers.mjs';
@@ -194,10 +195,11 @@ const CEX_CUTS = {
   age: { code: 'LB04', label: /by Age:/, items: CEX_MAIN, cols: { '01': /All consumer units/i, '02': /under (age )?25/i, '03': /25[- ](to )?34/i, '04': /35[- ](to )?44/i, '05': /45[- ](to )?54/i, '06': /55[- ](to )?64/i, '07': /65 (years )?(and|or) (older|over)/i, '08': /65[- ](to )?74/i, '09': /75 (years )?(and|or) (older|over)/i } },
   tenure: { code: 'LB17', label: /by Housing tenure:/, items: CEX_MAIN, cols: { '01': /All consumer units/i, '02': /home ?owner$/i, '03': /homeowner with mortgage/i, '04': /homeowner w\/o mortgage/i, '05': /renter/i } },
 };
+// Every BLS call goes through the shared reader (scripts/lib/bls.mjs): retries, the Cloudflare proxy when the runner's
+// address is refused, and a body accepted only when it is the API's JSON (24-Oct-2026: the API answered the runner with
+// its "website is busy" HTML page for days and the page opened a SOURCE DOWN issue for an address block, not a data fault).
 async function blsCall(seriesid, startyear, endyear, key) {
-  const res = await get('https://api.bls.gov/publicAPI/v2/timeseries/data/', { method: 'POST', ua: BOT_UA, headers: { 'Content-Type': 'application/json' }, accept: 'application/json',
-    body: JSON.stringify({ seriesid, startyear: String(startyear), endyear: String(endyear), catalog: true, registrationkey: key }) });
-  const j = await res.json();
+  const j = await blsRequest({ seriesid, startyear: String(startyear), endyear: String(endyear), catalog: true, registrationkey: key }, { log: (l) => console.log('  ' + l) });
   await sleep(350);
   return j;
 }
@@ -947,12 +949,15 @@ for (const [id, fn] of Object.entries(SOURCES)) {
     if (data === SKIP) console.log(`${id}: nothing new at the publisher`);
     else if (stored && JSON.stringify(stored.data) === JSON.stringify(data)) console.log(`${id}: fetched, unchanged`);
     else { writeJson(`${RAW}${id}.json`, JSON.parse(redact(JSON.stringify({ fetchedAt: nowIso(), data })))); changed++; console.log(`${id}: updated`); }
-    if (st.failures || st.error) { st.failures = 0; delete st.error; delete st.since; }
+    if (st.failures || st.error) { st.failures = 0; delete st.error; delete st.since; delete st.throttled; }
   } catch (e) {
     failed++;
     st.failures = (st.failures || 0) + 1;
     st.error = redact(String((e && e.message) || e)).slice(0, 500);
     st.since = st.since || nowIso().slice(0, 10);
+    // A publisher's edge refusing the runner's address (BLS's "website is busy" page, HTTP 503/429 HTML; 24-Oct-2026) is
+    // throttling, not a broken source: the stored file stands, dated, and the SOURCE DOWN issue waits three days, not three runs.
+    if ((e && e.upstream === 'busy') || /HTML page instead of data \(HTTP (503|429)/.test(st.error)) st.throttled = true; else delete st.throttled;
     console.log(`::warning::${id}: ${st.error}`);
   }
 }

@@ -372,6 +372,14 @@ dashboards, everything built from public data by GitHub Actions.
   with a bare fetch / Invoke-RestMethod again. Self-test `node scripts/lib/fred-selftest.mjs`. Guards behind it: `fetch-data.mjs`
   audits the shape of every block before writing (dates are dates, numbers finite, no markup) and carries the committed value
   for a failed or malformed one; `Save-Json` in `common.ps1` refuses a processed file less than half the size of the committed one.
+- BLS, every pipeline (25-Oct-2026, after api.bls.gov answered the runners with its "website is busy" HTML page for days from
+  24-Oct and four U.S. macro processors plus the American Consumer's CE block opened SOURCE DOWN issues): every BLS API call goes
+  through `scripts/lib/bls.mjs` (`blsRequest` / `blsSeries`) or `Invoke-BlsRequest` / `Invoke-Bls` in `tools/macro/common.ps1`
+  (three direct tries, then the dispatcher Worker's `/bls` route with the same FRED_PROXY_URL / FRED_PROXY_KEY; HTML refused, the
+  caller keeps its previous data). Never call api.bls.gov with a bare fetch / Invoke-RestMethod (`tools/dispatcher/README.md` →
+  "BLS proxy"). A publisher's edge refusing the runner (an HTML page with HTTP 503/429) counts as throttling in both pipelines:
+  the SOURCE DOWN issue opens after three days of it, not three runs (owner, 25-Oct-2026: an alert that needs nothing from her
+  and nothing from the code is noise); every other failure keeps the three-run rule.
 - U.S. macro page: each section renders on its own (`SECTION_RENDERERS` in the template; a throwing renderer leaves a bilingual
   notice and `window.FNAM_RENDER_ERRORS`, the chart labels and Title Case always run); `scripts/macro/render-gate.mjs` opens the
   built page in both languages and `macro-refresh.yml` runs it before the commit, so a build that throws never reaches main;

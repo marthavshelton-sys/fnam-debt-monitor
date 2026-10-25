@@ -12,9 +12,7 @@
    "failures": 0
   },
   "cex": {
-   "failures": 5,
-   "error": "HTTP 503 https://api.bls.gov/publicAPI/v2/timeseries/data/",
-   "since": "2026-10-24"
+   "failures": 0
   },
   "dfa": {
    "failures": 0

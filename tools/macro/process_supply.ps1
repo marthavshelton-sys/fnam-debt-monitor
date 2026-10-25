@@ -84,8 +84,8 @@ $diesel = if ($regular) { [ordered]@{ d0 = $dsl[0].d; step = 7; v = @($dsl | For
 
 # ---- BLS freight PPIs ----
 $ids = @("WPU301","WPU3012","WPU3011","WPU3013","WPU3014","PCU483111483111","PCU4841214841212","WPU32")
-$body = @{ seriesid=$ids; startyear="2015"; endyear="$((Get-Date).Year)"; registrationkey=$keys.BLS_API_KEY; catalog=$true } | ConvertTo-Json
-$r = Invoke-RestMethod -Uri "https://api.bls.gov/publicAPI/v2/timeseries/data/" -Method Post -Body $body -ContentType "application/json" -TimeoutSec 120
+$body = @{ seriesid=$ids; startyear="2015"; endyear="$((Get-Date).Year)"; registrationkey=$keys.BLS_API_KEY; catalog=$true }
+$r = Invoke-BlsRequest $body   # retries and the proxy (common.ps1)
 if ($r.status -ne "REQUEST_SUCCEEDED") { throw "BLS: $($r.status)" }
 $bls = [ordered]@{}
 foreach ($s in $r.Results.series) {

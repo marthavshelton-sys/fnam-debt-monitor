@@ -147,10 +147,51 @@ function Save-Json($obj, [string]$file, [int]$depth = 8, [bool]$allowShrink = $f
   Write-Output ("saved {0} {1:N0} bytes" -f $file, (Get-Item $path).Length)
 }
 
-# BLS v2 API: up to 50 series per call with a registered key.
+# BLS v2 API: up to 50 series per call with a registered key. Every request goes through Invoke-BlsRequest (the
+# PowerShell twin of scripts/lib/bls.mjs): from 24-Oct-2026 api.bls.gov answered GitHub's runners with its edge's
+# "The BLS website is busy" HTML page (HTTP 503) on every call for days, and four processors failed five runs in a row
+# while the API answered other networks. The request is tried three times directly with a pause, then once through the
+# Cloudflare Worker's /bls route when FRED_PROXY_URL and FRED_PROXY_KEY are set (same Worker and secret as the FRED
+# proxy; tools/dispatcher/README.md), and a body is accepted only when it is the API's JSON (an object with `status`).
+# Returns the parsed answer unchanged, so callers read status / message / Results.series as before.
+function Invoke-BlsRequest([hashtable]$body, [int]$tries = 3, [int]$waitSec = 20) {
+  $payload = $body | ConvertTo-Json -Compress
+  $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) fnam-debt-monitor-bot/1.0"
+  $attempts = @()
+  for ($i = 1; $i -le $tries; $i++) { $attempts += @{ via = "direct $i/$tries"; target = "https://api.bls.gov/publicAPI/v2/timeseries/data/"; headers = @{ Accept = "application/json" } } }
+  $proxyUrl = [Environment]::GetEnvironmentVariable("FRED_PROXY_URL"); $proxyKey = [Environment]::GetEnvironmentVariable("FRED_PROXY_KEY")
+  if ($proxyUrl -and $proxyKey) { $attempts += @{ via = "proxy"; target = ($proxyUrl.TrimEnd("/") + "/bls"); headers = @{ Accept = "application/json"; "X-FNAM-Key" = $proxyKey } } }
+  $reasons = @()
+  for ($n = 0; $n -lt $attempts.Count; $n++) {
+    $a = $attempts[$n]
+    if ($n -gt 0 -and $n -lt $tries) { Start-Sleep -Seconds ($waitSec * $n) }   # 20 s, then 40 s
+    try {
+      $r = Invoke-WebRequest -Uri $a.target -Method Post -Body $payload -ContentType "application/json" -UseBasicParsing -UserAgent $ua -Headers $a.headers -TimeoutSec 120
+      $text = [string]$r.Content
+      $type = [string]$r.Headers["Content-Type"]
+    } catch {
+      $resp = $_.Exception.Response
+      $code = if ($resp -and $resp.StatusCode) { [int]$resp.StatusCode } else { 0 }
+      $why = if ($code) { "HTTP $code" } else { $_.Exception.Message.Split([char]10)[0] }
+      $reasons += ("{0}: {1}" -f $a.via, $why); Write-Host ("  BLS {0}: {1}" -f $a.via, $why)
+      continue
+    }
+    if (($type -match 'text/html') -or (Test-FredHtml $text)) {
+      $t = [regex]::Match($text, '<title>([^<]{0,120})</title>').Groups[1].Value.Trim()
+      $why = "HTML page instead of data" + $(if ($t) { " (""$t"")" } else { "" })
+      $reasons += ("{0}: {1}" -f $a.via, $why); Write-Host ("  BLS {0}: {1}" -f $a.via, $why)
+      continue
+    }
+    try { $j = $text | ConvertFrom-Json } catch { $reasons += ("{0}: not JSON" -f $a.via); continue }
+    if ($null -eq $j -or -not $j.PSObject.Properties["status"]) { $reasons += ("{0}: JSON is not a BLS answer" -f $a.via); continue }
+    if ($a.via -eq "proxy") { Write-Host "  BLS: answered through the proxy" }
+    return $j
+  }
+  throw ("BLS API: {0}" -f ($reasons -join "; "))
+}
 function Invoke-Bls([string[]]$ids, [int]$startYear, [int]$endYear, [bool]$catalog = $false) {
-  $body = @{ seriesid = $ids; startyear = "$startYear"; endyear = "$endYear"; registrationkey = (Get-ApiKey "BLS_API_KEY"); catalog = $catalog } | ConvertTo-Json
-  $r = Invoke-RestMethod -Uri "https://api.bls.gov/publicAPI/v2/timeseries/data/" -Method Post -Body $body -ContentType "application/json" -TimeoutSec 120
+  $body = @{ seriesid = $ids; startyear = "$startYear"; endyear = "$endYear"; registrationkey = (Get-ApiKey "BLS_API_KEY"); catalog = $catalog }
+  $r = Invoke-BlsRequest $body
   if ($r.status -ne "REQUEST_SUCCEEDED") { throw "BLS: $($r.status) $($r.message -join '; ')" }
   return $r.Results.series
 }
