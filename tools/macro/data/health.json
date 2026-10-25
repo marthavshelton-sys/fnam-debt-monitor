@@ -1,15 +1,20 @@
 ﻿{
-    "runAt":  "2026-10-25T15:33:56Z",
+    "runAt":  "2026-10-25T15:43:41Z",
     "failed":  [
-                   "process_core.ps1",
-                   "process_ppi.ps1",
                    "process_retail.ps1"
                ],
     "consecutive":  {
-                        "process_core.ps1":  6,
-                        "process_ppi.ps1":  6,
-                        "process_retail.ps1":  1
+                        "process_retail.ps1":  2
                     },
+    "since":  {
+                  "process_retail.ps1":  "2026-10-25T15:43:41Z"
+              },
+    "reasons":  {
+                    "process_retail.ps1":  "The remote server returned an error: (500) Internal Server Error."
+                },
+    "throttled":  [
+
+                  ],
     "warnings":  [
 
                  ],
