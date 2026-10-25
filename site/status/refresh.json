@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-24T18:22:54Z",
+  "checkedAt": "2026-10-25T04:31:06Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -25,15 +25,16 @@
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T17:25:23Z",
+      "status": "alert",
+      "refreshStatus": "alert",
+      "lastSuccess": "2026-10-24T22:29:00Z",
       "lastAttempt": {
-        "at": "2026-10-24T17:25:23Z",
-        "result": "success"
+        "at": "2026-10-24T22:29:00Z",
+        "result": "success",
+        "afterCommitFailure": true
       },
-      "requiredSince": "2026-10-23T20:05:00Z",
-      "alerts": 0
+      "requiredSince": "2026-10-24T14:05:00Z",
+      "alerts": 1
     },
     {
       "id": "us-fiscal",
@@ -45,12 +46,12 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T16:41:57Z",
+      "lastSuccess": "2026-10-24T23:34:34Z",
       "lastAttempt": {
-        "at": "2026-10-24T16:41:57Z",
+        "at": "2026-10-24T23:34:34Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T21:30:00Z",
+      "requiredSince": "2026-10-24T13:15:00Z",
       "alerts": 0
     },
     {
@@ -61,15 +62,15 @@
         "en": "American Consumer"
       },
       "url": "/consumidor/",
-      "status": "ok",
-      "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T17:26:59Z",
+      "status": "alert",
+      "refreshStatus": "alert",
+      "lastSuccess": "2026-10-24T23:43:43Z",
       "lastAttempt": {
-        "at": "2026-10-24T17:26:59Z",
+        "at": "2026-10-24T23:43:43Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T21:40:00Z",
-      "alerts": 0
+      "requiredSince": "2026-10-24T14:10:00Z",
+      "alerts": 1
     },
     {
       "id": "mx-macro",
@@ -86,7 +87,7 @@
         "at": "2026-10-24T18:14:40Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T22:25:00Z",
+      "requiredSince": "2026-10-24T15:25:00Z",
       "alerts": 0
     },
     {
@@ -117,12 +118,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T18:12:50Z",
+      "lastSuccess": "2026-10-25T04:02:53Z",
       "lastAttempt": {
-        "at": "2026-10-24T18:12:50Z",
+        "at": "2026-10-25T01:15:59Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-24T03:20:00Z",
+      "requiredSince": "2026-10-24T15:20:00Z",
       "alerts": 0
     },
     {
@@ -353,9 +354,9 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T18:12:13Z",
+      "lastSuccess": "2026-10-24T19:37:36Z",
       "lastAttempt": {
-        "at": "2026-10-23T20:34:15Z",
+        "at": "2026-10-24T19:37:36Z",
         "result": "success"
       },
       "requiredSince": "2026-10-23T17:30:00Z",
@@ -371,9 +372,9 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-23T21:33:25Z",
+      "lastSuccess": "2026-10-24T21:00:40Z",
       "lastAttempt": {
-        "at": "2026-10-23T21:33:25Z",
+        "at": "2026-10-24T21:00:40Z",
         "result": "success"
       },
       "requiredSince": "2026-10-23T18:20:00Z",
@@ -389,12 +390,12 @@
       "url": "/qualitas/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T17:40:35Z",
+      "lastSuccess": "2026-10-25T00:43:16Z",
       "lastAttempt": {
-        "at": "2026-10-24T17:40:35Z",
+        "at": "2026-10-25T00:43:16Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T23:00:00Z",
+      "requiredSince": "2026-10-24T14:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -517,7 +518,7 @@
         "at": "2026-10-24T16:51:17Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T21:45:00Z",
+      "requiredSince": "2026-10-24T13:30:00Z",
       "alerts": 0,
       "prices": {
         "status": "ok",
@@ -570,12 +571,12 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-24T16:38:31Z",
+      "lastSuccess": "2026-10-25T00:20:43Z",
       "lastAttempt": {
-        "at": "2026-10-24T16:38:31Z",
+        "at": "2026-10-25T00:20:43Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-23T22:20:00Z",
+      "requiredSince": "2026-10-24T13:20:00Z",
       "alerts": 0
     }
   ]
