@@ -164,7 +164,7 @@ function Invoke-BlsRequest([hashtable]$body, [int]$tries = 3, [int]$waitSec = 20
   $reasons = @()
   for ($n = 0; $n -lt $attempts.Count; $n++) {
     $a = $attempts[$n]
-    if ($n -gt 0 -and $n -lt $tries) { Start-Sleep -Seconds $waitSec }
+    if ($n -gt 0 -and $n -lt $tries) { Start-Sleep -Seconds ($waitSec * $n) }   # 20 s, then 40 s
     try {
       $r = Invoke-WebRequest -Uri $a.target -Method Post -Body $payload -ContentType "application/json" -UseBasicParsing -UserAgent $ua -Headers $a.headers -TimeoutSec 120
       $text = [string]$r.Content

@@ -46,7 +46,7 @@ export async function blsRequest(body, { tries = 3, waitMs = 20_000, log = () =>
   let busy = true;
   for (let i = 0; i < attempts.length; i++) {
     const a = attempts[i];
-    if (i > 0 && i < tries) await sleep(waitMs);
+    if (i > 0 && i < tries) await sleep(waitMs * i);   // 20 s, then 40 s: the edge page is often a short throttle
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
     let r;

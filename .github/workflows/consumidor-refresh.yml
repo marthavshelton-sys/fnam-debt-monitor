@@ -143,14 +143,17 @@ jobs:
             let s = {};
             try { s = JSON.parse(fs.readFileSync('tools/consumidor/raw/status.json', 'utf8')).sources || {}; } catch (e) { return; }
             const names = { census: 'Census Bureau (ACS)', cex: 'BLS (Consumer Expenditure Surveys)', dfa: 'Federal Reserve (Distributional Financial Accounts)', scf: 'Federal Reserve (Survey of Consumer Finances)', nyfed: 'New York Fed (Household Debt and Credit)', nyfedStates: 'New York Fed (state-level file)', fred: 'FRED (BEA, Federal Reserve and Census series)', edgar: 'SEC EDGAR (company results releases)', cexHist: 'BLS (Consumer Expenditure Surveys by quintile)', beaDist: 'BEA (Distribution of Personal Income)', umich: 'University of Michigan (Surveys of Consumers)', nes: 'Census Bureau (Nonemployer Statistics)', pceDist: 'BLS (Distribution of Personal Consumption Expenditures)', jointDist: 'BEA and BLS (joint distribution of income, consumption and saving)', sce: 'New York Fed (Survey of Consumer Expectations)', shed: 'Federal Reserve (Economic Well-Being of U.S. Households)', cfpbBnpl: 'CFPB (buy now, pay later study)', fsa: 'Federal Student Aid (loan portfolio)', courts: 'U.S. Courts (bankruptcy Table F-2)' };
-            const down = Object.keys(s).filter((k) => (s[k].failures || 0) >= 3);
+            // three failed runs, or three days when the publisher's edge is throttling the runner (status.json → throttled; the
+            // stored data stands, dated, and an address block clears on its own)
+            const days = (d) => d ? (Date.now() - Date.parse(d)) / 864e5 : 0;
+            const down = Object.keys(s).filter((k) => (s[k].failures || 0) >= 3 && (!s[k].throttled || days(s[k].since) >= 3));
             const label = 'consumidor-source-down';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
             const issue = open[0];
             if (down.length) {
               const body = `The refresh of the American Consumer page (https://fnam.mx/consumidor/) could not read ${down.length === 1 ? 'one source' : down.length + ' sources'} for three runs or more:\n\n` +
-                down.map((k) => `- ${names[k] || k}: ${s[k].failures} failed runs since ${s[k].since || 'n/a'}. Last error: ${s[k].error || 'n/a'}`).join('\n') +
+                down.map((k) => `- ${names[k] || k}: ${s[k].failures} failed runs since ${s[k].since || 'n/a'}${s[k].throttled ? ' (the publisher is throttling the runner)' : ''}. Last error: ${s[k].error || 'n/a'}`).join('\n') +
                 `\n\nThe page keeps the last data it obtained from each of them, labeled with its date. Run: ${runUrl}`;
               const title = `SOURCE DOWN: American Consumer - ${down.map((k) => names[k] || k).join('; ')}`.slice(0, 240);
               const marker = `<!-- down:${down.join(',')} -->`;
@@ -161,8 +164,10 @@ jobs:
                 try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'American Consumer page: a source is not answering' }); } catch (e) { /* exists */ }
                 await github.rest.issues.create({ ...context.repo, title, labels: [label], body: `${body}\n\n${marker}` });
               }
-            } else if (issue && !Object.keys(s).some((k) => (s[k].failures || 0) > 0)) {
-              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every source answered again in ${runUrl}. Closing.` });
+            } else if (issue) {
+              const still = Object.keys(s).filter((k) => (s[k].failures || 0) > 0);
+              const note = still.length ? `No source counts as down in ${runUrl}: ${still.map((k) => `${names[k] || k} (${s[k].throttled ? 'the publisher is throttling the runner; the stored data stands, dated' : `${s[k].failures} failed run(s)`})`).join('; ')}. Closing; it reopens if the rule is met again.` : `Every source answered again in ${runUrl}. Closing.`;
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: note });
               await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
             }
 

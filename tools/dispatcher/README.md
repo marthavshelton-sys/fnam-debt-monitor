@@ -79,6 +79,10 @@ body is accepted only when it is the API's JSON (an object with `status`); the W
 `GET <worker url>/bls?series=CUUR0000SA0&start=2025&end=2026` (with the header) sends one unkeyed request, for a probe.
 Never call `api.bls.gov` with a bare `fetch` / `Invoke-RestMethod` again. The variables are the FRED proxy's; nothing new to set.
 The flat files (`download.bls.gov/pub/time.series/`) answer the runner with 403 (checked 25-Oct-2026) and are not a fallback.
+On 25-Oct-2026 BLS's edge answered Cloudflare's address with the same page as HTTP 429 at times, so the proxy is a second
+chance, not a guarantee. Because of that, both pipelines class such a refusal as *throttling* (`health.json → throttled`,
+`raw/status.json → throttled`): the SOURCE DOWN issue opens after three days of it, not three runs, since the stored data
+stands with its date and nothing on this side can be repaired meanwhile; any other failure keeps the three-run rule.
 
 ## What it never does
 

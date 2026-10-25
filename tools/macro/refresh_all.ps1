@@ -12,13 +12,14 @@ $ErrorActionPreference = "Stop"
 $here = $PSScriptRoot
 $data = if ($env:MACRO_DATA_DIR) { $env:MACRO_DATA_DIR } else { "$env:TEMP\claude" }
 $failed = @()
+$reasons = @{}
 $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
 foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_productivity.ps1","process_profits.ps1","process_debt.ps1","process_hhdebt.ps1","process_banks.ps1","process_nonbank.ps1","process_trade.ps1","process_iip.ps1","process_weights.ps1")) {
   Write-Output "=============== $step"
-  try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
+  try { & "$here\$step" } catch { $msg = $_.Exception.Message.Split([char]10)[0]; Write-Output "FAILED $step : $msg"; $failed += $step; $reasons[$step] = $msg.Substring(0, [Math]::Min(300, $msg.Length)) }
 }
 if ($failed.Count) { Write-Host "::warning::processors that fell back to committed data: $($failed -join ', ')" }
 
@@ -109,15 +110,27 @@ try {
 # Consecutive-failure counts carry over from the previous run's file, so a
 # source that is down for a day shows up as a streak, not three isolated notes.
 $healthPath = Join-Path $data "health.json"
-$prevConsec = @{}
+$prevConsec = @{}; $prevSince = @{}
 if (Test-Path $healthPath) {
-  try { $prev = Get-Content $healthPath -Raw | ConvertFrom-Json; foreach ($p in $prev.consecutive.PSObject.Properties) { $prevConsec[$p.Name] = [int]$p.Value } } catch {}
+  try {
+    $prev = Get-Content $healthPath -Raw | ConvertFrom-Json
+    foreach ($p in $prev.consecutive.PSObject.Properties) { $prevConsec[$p.Name] = [int]$p.Value }
+    if ($prev.PSObject.Properties["since"]) { foreach ($p in $prev.since.PSObject.Properties) { $prevSince[$p.Name] = [string]$p.Value } }
+  } catch {}
 }
-$consec = [ordered]@{}
-foreach ($f in $failed) { $consec[$f] = $(if ($prevConsec.ContainsKey($f)) { $prevConsec[$f] + 1 } else { 1 }) }
+$nowIso = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+$consec = [ordered]@{}; $since = [ordered]@{}; $throttled = [ordered]@{}
+foreach ($f in $failed) {
+  $consec[$f] = $(if ($prevConsec.ContainsKey($f)) { $prevConsec[$f] + 1 } else { 1 })
+  $since[$f] = $(if ($prevConsec.ContainsKey($f) -and $prevSince.ContainsKey($f)) { $prevSince[$f] } else { $nowIso })
+  # A publisher's edge refusing the runner's address (BLS's "website is busy" page, HTTP 503/429 HTML, 24-Oct-2026) is
+  # throttling, not a broken source: the committed data stands, dated, and the alert waits three days instead of three runs.
+  $throttled[$f] = [bool]($reasons[$f] -match 'HTML page instead of data \(HTTP (503|429)' -or $reasons[$f] -match '(BLS API|FRED) .*HTTP (503|429)')
+}
 $prevWarnStreak = 0; try { if ($prev -and $prev.warnStreak) { $prevWarnStreak = [int]$prev.warnStreak } } catch {}
 $warnStreak = if ($warnings.Count) { $prevWarnStreak + 1 } else { 0 }
-$health = [ordered]@{ runAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"); failed = @($failed); consecutive = $consec; warnings = @($warnings); warnStreak = $warnStreak }
+$health = [ordered]@{ runAt = $nowIso; failed = @($failed); consecutive = $consec; since = $since; reasons = [ordered]@{}; throttled = @($throttled.Keys | Where-Object { $throttled[$_] }); warnings = @($warnings); warnStreak = $warnStreak }
+foreach ($f in $failed) { $health.reasons[$f] = $reasons[$f] }
 ($health | ConvertTo-Json -Depth 4) | Set-Content $healthPath -Encoding utf8
 Write-Output ("health.json: {0} failed, {1} warnings (streak {2})" -f $failed.Count, $warnings.Count, $warnStreak)
 
@@ -125,7 +138,9 @@ Write-Output ("health.json: {0} failed, {1} warnings (streak {2})" -f $failed.Co
 # in a row (a day) - or a staleness warning that has persisted that long - is
 # reported to the workflow, which fails the run after committing so GitHub
 # emails the repository owner. One bad run stays silent: feeds hiccup.
-$stuck = @($consec.Keys | Where-Object { $consec[$_] -ge 3 })
+# A throttled source (see above) is stuck only after three days of refusals: an address block at the publisher's edge
+# clears on its own, the page is already dated, and nothing on this side can be repaired meanwhile.
+$stuck = @($consec.Keys | Where-Object { $consec[$_] -ge 3 -and (-not $throttled[$_] -or ((Get-Date).ToUniversalTime() - [DateTime]::Parse($since[$_]).ToUniversalTime()).TotalHours -ge 72) } | ForEach-Object { if ($throttled[$_]) { "$_ (publisher throttling the runner since $($since[$_]))" } else { $_ } })
 if ($warnStreak -ge 3) { $stuck += "staleness: " + ($warnings -join " / ") }
 if ($stuck.Count) { Write-Host "::error::Stuck for three runs or more: $($stuck -join '; ')" }
 if ($env:GITHUB_OUTPUT) { "stuck=$(($stuck -join '; ') -replace '[\r\n]', ' ')" | Out-File $env:GITHUB_OUTPUT -Append -Encoding utf8 }

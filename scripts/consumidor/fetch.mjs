@@ -949,12 +949,15 @@ for (const [id, fn] of Object.entries(SOURCES)) {
     if (data === SKIP) console.log(`${id}: nothing new at the publisher`);
     else if (stored && JSON.stringify(stored.data) === JSON.stringify(data)) console.log(`${id}: fetched, unchanged`);
     else { writeJson(`${RAW}${id}.json`, JSON.parse(redact(JSON.stringify({ fetchedAt: nowIso(), data })))); changed++; console.log(`${id}: updated`); }
-    if (st.failures || st.error) { st.failures = 0; delete st.error; delete st.since; }
+    if (st.failures || st.error) { st.failures = 0; delete st.error; delete st.since; delete st.throttled; }
   } catch (e) {
     failed++;
     st.failures = (st.failures || 0) + 1;
     st.error = redact(String((e && e.message) || e)).slice(0, 500);
     st.since = st.since || nowIso().slice(0, 10);
+    // A publisher's edge refusing the runner's address (BLS's "website is busy" page, HTTP 503/429 HTML; 24-Oct-2026) is
+    // throttling, not a broken source: the stored file stands, dated, and the SOURCE DOWN issue waits three days, not three runs.
+    if ((e && e.upstream === 'busy') || /HTML page instead of data \(HTTP (503|429)/.test(st.error)) st.throttled = true; else delete st.throttled;
     console.log(`::warning::${id}: ${st.error}`);
   }
 }
