@@ -17,9 +17,9 @@
     "share5d:2026-10-23"
   ],
   "lastNotifiedAt": "2026-10-24T15:51:58Z",
-  "lastFailureNote": "fx-stale:USDMXN last 2026-10-16 (Banxico SIE SF43718 HTTP 404; FRED DEXMXUS fallback stalled)",
-  "lastCheckedAt": "2026-10-24T15:51:58Z",
-  "lastCheckResult": "material",
+  "lastFailureNote": null,
+  "lastCheckedAt": "2026-10-25T15:51:10Z",
+  "lastCheckResult": "quiet",
   "pendingFromOwner": [
     "earnings-call transcript for 3Q26 once available",
     "password decision (QUALITAS_PASSWORD)"
