@@ -24,5 +24,9 @@
     "earnings-call transcript for 3Q26 once available",
     "password decision (QUALITAS_PASSWORD)"
   ],
-  "lastBmvFile": "2026-09-25_bmv1591504_es.txt"
+  "lastBmvFile": "2026-09-25_bmv1591504_es.txt",
+  "lastPeersFailure": {
+    "date": "2026-10-24",
+    "error": "FactSet connector needs re-authorization in this routine session (no FactSet tools available); STEP 2 not run, nothing refreshed"
+  }
 }
