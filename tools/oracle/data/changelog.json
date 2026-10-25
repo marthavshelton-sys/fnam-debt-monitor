@@ -4,34 +4,6 @@
   {
    "at": "2026-10-22T15:01:11.049Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[4]",
-   "old": "Newsquawk",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-22T15:01:11.049Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[5]",
-   "old": "Bloomberg",
-   "new": "Financial Times"
-  },
-  {
-   "at": "2026-10-22T15:01:11.049Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[6]",
-   "old": "Reuters",
-   "new": "Wall Street Journal"
-  },
-  {
-   "at": "2026-10-22T15:01:11.049Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[7]",
-   "old": "Financial Times",
-   "new": "CNBC"
-  },
-  {
-   "at": "2026-10-22T15:01:11.049Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[8]",
    "old": "Wall Street Journal",
    "new": "Quartz"
@@ -4200,7 +4172,35 @@
    "path": "(more)",
    "old": null,
    "new": "1106 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-25T14:11:19.964Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-24&todate=2026-10-24&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-25&todate=2026-10-25&limit=10000"
+  },
+  {
+   "at": "2026-10-25T14:11:19.964Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-24",
+   "new": "2026-10-25"
+  },
+  {
+   "at": "2026-10-25T14:11:19.964Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-24",
+   "new": "2026-10-25"
+  },
+  {
+   "at": "2026-10-25T14:11:19.964Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-24",
+   "new": "2026-10-25"
   }
  ],
- "generated": "2026-10-24T16:45:44.765Z"
+ "generated": "2026-10-25T14:11:19.964Z"
 }
