@@ -42,7 +42,7 @@ for ($y0 = 1947; $y0 -le $thisYear; $y0 += $span) {
   $y1 = [math]::Min($thisYear, $y0 + $span - 1)
   $body = @{ seriesid = @($ids); startyear = "$y0"; endyear = "$y1" }
   if ($key) { $body.registrationkey = $key; $body.catalog = $true }
-  $r = Invoke-Retry { Invoke-RestMethod -Uri "https://api.bls.gov/publicAPI/v2/timeseries/data/" -Method Post -Body ($body | ConvertTo-Json) -ContentType "application/json" -TimeoutSec 120 }
+  $r = Invoke-BlsRequest $body   # retries and the proxy (common.ps1)
   if ($r.status -ne "REQUEST_SUCCEEDED") { throw "BLS: $($r.status) $($r.message -join '; ')" }
   foreach ($s in $r.Results.series) {
     if ($s.catalog -and $s.catalog.series_title) { $catalog[$s.seriesID] = $s.catalog }

@@ -66,6 +66,20 @@ without the header answers `403 forbidden`; with it (from a tool that can set a 
 Assumption to confirm when the outage clears: GitHub's address ranges, not the key, are what FRED is refusing. If FRED starts
 refusing Cloudflare's too, the readers' reasons name it ("proxy: HTML page instead of data") in the run log.
 
+## BLS proxy
+
+From 24-Oct-2026 the BLS Public Data API (`api.bls.gov/publicAPI/v2/timeseries/data/`) answered GitHub's runners with its
+edge's HTML page ("The BLS website is busy", HTTP 503) on every call, for days, while the same API answered other networks;
+four U.S. macro processors (core prices, PPI, supply chain, productivity) and the American Consumer page's Consumer
+Expenditure block failed run after run and opened SOURCE DOWN issues, although nothing was wrong with the data. Every BLS
+request now goes through one reader per language (`scripts/lib/bls.mjs` → `blsRequest` / `blsSeries`; `Invoke-BlsRequest` /
+`Invoke-Bls` in `tools/macro/common.ps1`): three direct attempts twenty seconds apart, then once through this Worker,
+`POST <worker url>/bls` with the same JSON body and the header `X-FNAM-Key: <FRED_PROXY_KEY>` (one key for both routes). A
+body is accepted only when it is the API's JSON (an object with `status`); the Worker passes the answer back unchanged.
+`GET <worker url>/bls?series=CUUR0000SA0&start=2025&end=2026` (with the header) sends one unkeyed request, for a probe.
+Never call `api.bls.gov` with a bare `fetch` / `Invoke-RestMethod` again. The variables are the FRED proxy's; nothing new to set.
+The flat files (`download.bls.gov/pub/time.series/`) answer the runner with 403 (checked 25-Oct-2026) and are not a fallback.
+
 ## What it never does
 
 - It never dispatches a workflow with a run queued or in progress (the concurrency group would only queue a second one).
