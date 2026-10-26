@@ -834,6 +834,23 @@
    "secName": "COCA COLA FEMSA SAB DE CV",
    "filings": [
     {
+     "accn": "0001292814-26-005006",
+     "filed": "2026-10-26",
+     "report": "2026-09-30",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/910631/000129281426005006/0001292814-26-005006-index.htm",
+     "exhibits": [
+      {
+       "type": "6-K",
+       "description": "6-K",
+       "url": "https://www.sec.gov/Archives/edgar/data/910631/000129281426005006/kofpr3q26_6k.htm",
+       "file": "tools/mx-consumidor/raw/releases/KOF/2026-10-26_0001292814-26-005006_6-k.txt",
+       "chars": 41185
+      }
+     ]
+    },
+    {
      "accn": "0001292814-26-003916",
      "filed": "2026-07-27",
      "report": "2026-06-30",
@@ -847,23 +864,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/910631/000129281426003916/kofpr2q26_6k.htm",
        "file": "tools/mx-consumidor/raw/releases/KOF/2026-07-27_0001292814-26-003916_6-k.txt",
        "chars": 42786
-      }
-     ]
-    },
-    {
-     "accn": "0001292814-26-002657",
-     "filed": "2026-04-29",
-     "report": "2026-03-31",
-     "kind": "results",
-     "items": "6-K",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/910631/000129281426002657/0001292814-26-002657-index.htm",
-     "exhibits": [
-      {
-       "type": "6-K",
-       "description": "6-K",
-       "url": "https://www.sec.gov/Archives/edgar/data/910631/000129281426002657/kofpr1q26_6k.htm",
-       "file": "tools/mx-consumidor/raw/releases/KOF/2026-04-29_0001292814-26-002657_6-k.txt",
-       "chars": 33774
       }
      ]
     }
@@ -1153,5 +1153,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-24T00:02:41.589Z"
+ "checkedAt": "2026-10-26T16:02:51.104Z"
 }
