@@ -774,6 +774,12 @@
  "errors": [],
  "runs": [
   {
+   "at": "2026-10-26T19:22:01Z",
+   "ok": true,
+   "newFilings": 0,
+   "errors": 0
+  },
+  {
    "at": "2026-10-26T14:01:25Z",
    "ok": true,
    "newFilings": 2,
@@ -946,37 +952,12 @@
    "ok": true,
    "newFilings": 0,
    "errors": 0
-  },
-  {
-   "at": "2026-10-17T16:28:10Z",
-   "ok": true,
-   "newFilings": 0,
-   "errors": 0
   }
  ],
  "consecutiveFailures": 0,
- "newFilings": [
-  {
-   "ticker": "META",
-   "accn": "0001193125-26-431043",
-   "form": "424B5",
-   "filed": "2026-10-26",
-   "report": null,
-   "doc": "d133631d424b5.htm",
-   "items": null
-  },
-  {
-   "ticker": "META",
-   "accn": "0001193125-26-431040",
-   "form": "424B5",
-   "filed": "2026-10-26",
-   "report": null,
-   "doc": "d94886d424b5.htm",
-   "items": null
-  }
- ],
- "lastRun": "2026-10-26T14:01:25Z",
- "lastSuccess": "2026-10-26T14:01:25Z",
+ "newFilings": [],
+ "lastRun": "2026-10-26T19:22:01Z",
+ "lastSuccess": "2026-10-26T19:22:01Z",
  "notes": {
   "0001193125-26-323660": {
    "ticker": "MSFT",
