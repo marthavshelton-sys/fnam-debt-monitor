@@ -4,55 +4,6 @@
   {
    "at": "2026-10-23T14:58:35.396Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[8]",
-   "old": "Newsquawk",
-   "new": "Benzinga"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "24/7 Wall St.",
-   "new": "Barclays"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "Data Center Dynamics",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[12]",
-   "old": "The Register",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[15]",
-   "old": "We Energies",
-   "new": "FERC"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[16]",
-   "old": "American Transmission Co.",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[17]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "American Transmission Co."
-  },
-  {
-   "at": "2026-10-23T14:58:35.396Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[18]",
    "old": "DTE Energy",
    "new": "Wisconsin Public Service Commission"
@@ -4200,7 +4151,56 @@
    "path": "(more)",
    "old": null,
    "new": "1042 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-25&todate=2026-10-25&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-26&todate=2026-10-26&limit=10000"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-25",
+   "new": "2026-10-26"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-25",
+   "new": "2026-10-26"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-22",
+   "new": "2026-10-23"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.11,
+   "new": 1.13
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-25",
+   "new": "2026-10-26"
+  },
+  {
+   "at": "2026-10-26T14:11:26.836Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 801,
+   "new": 802
   }
  ],
- "generated": "2026-10-25T17:07:25.454Z"
+ "generated": "2026-10-26T14:11:26.836Z"
 }
