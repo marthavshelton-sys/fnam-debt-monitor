@@ -4,13 +4,6 @@
   {
    "at": "2026-10-23T17:55:07.396Z",
    "file": "calendar.js",
-   "path": "events[2].title",
-   "old": "Q1 FY27 Earnings",
-   "new": null
-  },
-  {
-   "at": "2026-10-23T17:55:07.396Z",
-   "file": "calendar.js",
    "path": "events[2].title_es",
    "old": "Resultados 1T27: llamada de resultados",
    "new": null
@@ -4200,7 +4193,14 @@
    "path": "(more)",
    "old": null,
    "new": "1046 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-26T19:27:40.036Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-22, 2026-10-23)",
+   "new": "FRED SP500"
   }
  ],
- "generated": "2026-10-26T14:57:43.125Z"
+ "generated": "2026-10-26T19:27:40.036Z"
 }
