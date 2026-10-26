@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-25",
+  "as_of": "2026-10-26",
   "window_days": 120,
   "themes": [
     {
@@ -1007,6 +1007,47 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-26",
+      "by": "routine",
+      "searches": 29,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Data Center Dynamics",
+        "The Register",
+        "Albuquerque Journal",
+        "Wisconsin Public Radio",
+        "Wisconsin Watch",
+        "BizTimes",
+        "Michigan Public",
+        "Planet Detroit",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "WEC Energy",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Nvidia",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [],
+      "note": "Monday morning run: no session since Oct 23 (US$126.16, FactSet); the last four sessions (Oct 20-23) moved +1.2%, -1.5%, -2.8% and +0.5%, none at 3%. No EDGAR accession after the Oct 19 Form 4s; the IR feed carries nothing after the Oct 23 Investor Day notice; the only Oracle AI World release found (Oct 23, US$1 billion partner commitment) is already on the page. The Albuquerque Journal's Oct 14 report on the citizen monitors (no figures) and the WSJ's Nvidia-OpenAI guarantee talks (Jul 26, Ohio, no Oracle role) not added. No Moody's, S&P or Fitch action; no Wisconsin PSC, EGLE, New Mexico PRC or FERC decision found."
+    },
     {
       "date": "2026-10-25",
       "by": "routine",
