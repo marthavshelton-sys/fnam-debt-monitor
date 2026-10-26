@@ -1,6 +1,6 @@
 {
  "_comment": "Security type of every SEC-registered offering (424B prospectus) the hub lists from the filing-fee exhibits: the fee exhibit gives only the total, so the type is read from the prospectus cover. items keyed by accession: type = debt (notes) | common (common stock offering) | preferred (mandatory convertible preferred, offered as depositary shares) | atm_program (an at-the-market program: the amount is a ceiling for future sales, not proceeds); title = the cover line(s); quote = the cover sentence the type rests on; method = cover-read (a person or the automated reader read the cover) | cover-regex (scripts/hyperscalers/classify-offerings.mjs, which runs on the automated job for new 424B filings). An accession absent here shows \"type pending\" on the page.",
- "updatedAt": "2026-10-15T14:00:00Z",
+ "updatedAt": "2026-10-26T14:01:26Z",
  "items": {
   "0001193125-26-252439": {
    "ticker": "GOOGL",
@@ -522,6 +522,24 @@
    "title": null,
    "quote": "le 424(b)(2) Registration No. 333-277990 SUBJECT TO COMPLETION, DATED JANUARY 30, 2025 Preliminary Prospectus Supplement (To Prospectus dated March 15, 2024) $ Floating Rate Notes due 2028 $ % Notes due 2028 $ % Notes due 2032 $ % Notes due 2035 $ % Notes due 2055 $ % Notes due 2065 Oracle Corporation is offering $ aggregate principal amount of f",
    "classifiedOn": "2026-10-10",
+   "method": "cover-regex"
+  },
+  "0001193125-26-431043": {
+   "ticker": "META",
+   "type": "preferred",
+   "currency": "USD",
+   "title": null,
+   "quote": "e is not permitted. SUBJECT TO COMPLETION, DATED OCTOBER 26, 2026 PRELIMINARY PROSPECTUS SUPPLEMENT (To Prospectus dated October 26, 2026) 250,000,000 Series A Depositary Shares Each Representing a 1/20th Interest in a Share of % Series A Mandatory Convertible Preferred Stock Meta Platforms, Inc. % Series A Mandatory Convertible Prefer",
+   "classifiedOn": "2026-10-26",
+   "method": "cover-regex"
+  },
+  "0001193125-26-431040": {
+   "ticker": "META",
+   "type": "common",
+   "currency": "USD",
+   "title": null,
+   "quote": "spectus dated October 26, 2026) Meta Platforms, Inc. $22,500,000,000 Class A Common Stock The forward sellers referred to below are offering $22,500,000,000 of shares of our Class A Common Stock, par value $0.000006 per share (our “Class A Common Stock”). We expect to enter into forward sale agreements with each of Morgan Stanley Capital Services LLC a",
+   "classifiedOn": "2026-10-26",
    "method": "cover-regex"
   }
  }
