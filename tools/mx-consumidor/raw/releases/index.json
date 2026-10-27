@@ -1169,23 +1169,6 @@
    ]
   }
  },
- "errors": [
-  {
-   "ticker": "WALMEX",
-   "error": "fetch failed https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT"
-  },
-  {
-   "ticker": "SORIANA",
-   "error": "fetch failed https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT"
-  },
-  {
-   "ticker": "CHDRAUI",
-   "error": "fetch failed https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT"
-  },
-  {
-   "ticker": "LACOMER",
-   "error": "fetch failed https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LACOMER-32096-CGEN_CAPIT"
-  }
- ],
+ "errors": [],
  "checkedAt": "2026-10-27T00:02:39.757Z"
 }
