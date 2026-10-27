@@ -1781,19 +1781,19 @@
      ]
     },
     {
-     "accn": "0001633917-26-000082",
-     "filed": "2026-07-28",
-     "report": "2026-06-30",
+     "accn": "0001633917-26-000088",
+     "filed": "2026-10-27",
+     "report": "2026-09-30",
      "form": "10-Q",
      "pattern": "(buy now, pay later|BNPL|installment (loans|products))[^.]{0,320}(billion|million|%)|(billion|million)[^.]{0,220}(buy now, pay later|BNPL)",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/0001633917-26-000082-index.htm",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000088/0001633917-26-000088-index.htm",
      "exhibits": [
       {
        "type": "10-Q",
        "description": "Quarterly report (passages)",
-       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000082/pypl-20260630.htm",
-       "file": "tools/consumidor/raw/releases/PYPL/2026-07-28_0001633917-26-000082_10-q.txt",
-       "chars": 807
+       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000088/pypl-20260930.htm",
+       "file": "tools/consumidor/raw/releases/PYPL/2026-10-27_0001633917-26-000088_10-q.txt",
+       "chars": 0
       }
      ]
     }
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-27T14:52:45.567Z"
+ "checkedAt": "2026-10-27T22:22:30.509Z"
 }
