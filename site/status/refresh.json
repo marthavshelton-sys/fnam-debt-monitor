@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-27T04:31:12Z",
+  "checkedAt": "2026-10-27T09:22:10Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -32,7 +32,7 @@
         "at": "2026-10-26T23:47:36Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-26T14:05:00Z",
+      "requiredSince": "2026-10-26T20:05:00Z",
       "alerts": 0
     },
     {
@@ -86,7 +86,7 @@
         "at": "2026-10-27T01:32:17Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-26T12:25:00Z",
+      "requiredSince": "2026-10-26T19:25:00Z",
       "alerts": 0
     },
     {
@@ -105,7 +105,7 @@
         "result": "success",
         "afterCommitFailure": true
       },
-      "requiredSince": "2026-10-23T19:30:00Z",
+      "requiredSince": "2026-10-26T19:30:00Z",
       "alerts": 1
     },
     {
@@ -118,9 +118,9 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T04:06:54Z",
+      "lastSuccess": "2026-10-27T09:12:23Z",
       "lastAttempt": {
-        "at": "2026-10-27T02:12:00Z",
+        "at": "2026-10-27T09:12:23Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T15:20:00Z",
@@ -204,7 +204,7 @@
       "url": "/oma/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T01:38:51Z",
+      "lastSuccess": "2026-10-27T09:18:08Z",
       "lastAttempt": {
         "at": "2026-10-27T01:38:51Z",
         "result": "success"
@@ -359,7 +359,7 @@
         "at": "2026-10-26T21:45:02Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-25T17:30:00Z",
+      "requiredSince": "2026-10-26T17:30:00Z",
       "alerts": 0
     },
     {
@@ -377,7 +377,7 @@
         "at": "2026-10-26T22:51:33Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-25T18:20:00Z",
+      "requiredSince": "2026-10-26T18:20:00Z",
       "alerts": 0
     },
     {
@@ -518,7 +518,7 @@
         "at": "2026-10-27T00:56:07Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-26T13:30:00Z",
+      "requiredSince": "2026-10-26T20:35:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
