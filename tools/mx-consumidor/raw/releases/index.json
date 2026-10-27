@@ -464,6 +464,23 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
    "filings": [
     {
+     "accn": "xbrl1597811",
+     "filed": "2026-10-26",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/LIVEPOL-5536-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1597811_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/LIVEPOL/2026-10-26_xbrl1597811.txt",
+       "chars": 29903
+      }
+     ]
+    },
+    {
      "accn": "xbrl1577202",
      "filed": "2026-07-27",
      "kind": "results",
@@ -1153,5 +1170,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-26T16:02:51.104Z"
+ "checkedAt": "2026-10-27T00:02:39.757Z"
 }
