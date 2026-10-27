@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-26",
+  "as_of": "2026-10-27",
   "window_days": 120,
   "themes": [
     {
@@ -79,6 +79,25 @@
       ]
     },
     {
+      "id": "2026-10-23-jupiter-local-contracts",
+      "date": "2026-10-23",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "KVIA (press-reported): Oracle says Project Jupiter has awarded more than US$994 million in contracts to 30 New Mexico firms",
+      "title_es": "KVIA (según la prensa): Oracle dice que el Proyecto Júpiter ha adjudicado más de US$994 millones en contratos a 30 empresas de Nuevo México",
+      "summary_en": "KVIA (El Paso, Oct 23) reports Oracle's figures as of Sep 30: \"more than $994 million\" in contracts awarded to 30 New Mexico firms for Project Jupiter, over 1,200 jobs for New Mexico residents and 1,230 New Mexico employees on the project, 630 of them from Doña Ana County. Oracle's statement: \"Project Jupiter is putting meaningful dollars to work with New Mexico businesses\" (Mahesh Thiagarajan, president of Oracle Cloud Infrastructure; company statement, not audited). No Oracle release with these figures was found.",
+      "summary_es": "KVIA (El Paso, 23 oct) reporta cifras de Oracle al 30 sep: \"más de US$994 millones\" en contratos adjudicados a 30 empresas de Nuevo México para el Proyecto Júpiter, más de 1,200 empleos para residentes de Nuevo México y 1,230 empleados de Nuevo México en el proyecto, 630 de ellos del condado de Doña Ana. Declaración de Oracle: \"El Proyecto Júpiter está poniendo a trabajar recursos significativos con empresas de Nuevo México\" (Mahesh Thiagarajan, presidente de Oracle Cloud Infrastructure; declaración de la empresa, no auditada). No se encontró un comunicado de Oracle con estas cifras.",
+      "why_en": "The contracts are spending on a campus built by the developer under Oracle's lease and force majeure notice; the article does not say who pays them (Oracle or the developer), so no capex or lease figure on the page changes ({{sec:sites}}).",
+      "why_es": "Los contratos son gasto en un campus que construye el desarrollador bajo el arrendamiento y el aviso de fuerza mayor de Oracle; la nota no dice quién los paga (Oracle o el desarrollador), por lo que ninguna cifra de capex o arrendamiento de la página cambia ({{sec:sites}}).",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "KVIA, Oct 23, 2026: Oracle awards nearly $1 billion in contracts to New Mexico businesses for data center project",
+          "url": "https://kvia.com/news/new-mexico/2026/10/23/oracle-awards-nearly-1-billion-in-contracts-to-new-mexico-businesses-for-data-center-project/"
+        }
+      ]
+    },
+    {
       "id": "2026-10-20-tdcowen-nvidia-credit-support",
       "date": "2026-10-20",
       "theme": "financing",
@@ -103,30 +122,6 @@
       ]
     },
     {
-      "id": "2026-10-19-sp-hidden-ai-debt",
-      "date": "2026-10-19",
-      "theme": "financing",
-      "basis": "press",
-      "title_en": "Reuters: S&P Global says the top hyperscalers, Oracle among them, likely carry more AI-linked debt than is now known; no rating change for now",
-      "title_es": "Reuters: S&P Global dice que los principales hiperescaladores, Oracle entre ellos, probablemente tienen más deuda ligada a la IA de la que se conoce; sin cambio de calificación por ahora",
-      "summary_en": "Reuters (Marc Jones, London, Oct 19): S&P Global's head of digital infrastructure Mark Habib said \"It is safe to assume that there is more (debt) out there that we are not seeing,\" pointing to interconnected financing structures in which hyperscalers effectively guarantee data-center builds or smaller AI firms, and \"For now, we don't have the view that there is a major disconnect that needs to force our ratings to change at this point.\" S&P expects the top six US hyperscalers (Amazon, Microsoft, Alphabet, Oracle, Meta and SpaceX) to spend more than US$7 trillion on data centers and other AI-related capex between 2025 and 2030, with negative free cash flow until at least next year. Commentary at a roundtable, not a rating action (Oracle stays BBB- at S&P since Jul 9).",
-      "summary_es": "Reuters (Marc Jones, Londres, 19 oct): Mark Habib, director de infraestructura digital de S&P Global, dijo que \"es seguro suponer que hay más (deuda) que no estamos viendo\", señalando estructuras de financiamiento interconectadas en las que los hiperescaladores garantizan en los hechos la construcción de centros de datos o a empresas de IA más pequeñas, y que \"por ahora no vemos una desconexión importante que obligue a cambiar nuestras calificaciones\". S&P espera que los seis principales hiperescaladores de EUA (Amazon, Microsoft, Alphabet, Oracle, Meta y SpaceX) inviertan más de US$7 billones en centros de datos y otro capex ligado a la IA entre 2025 y 2030, con flujo libre negativo al menos hasta el próximo año. Comentario en una mesa redonda, no una acción de calificación (Oracle sigue en BBB- en S&P desde el 9 jul).",
-      "why_en": "The rating agency that holds Oracle one notch above speculative grade says unreported guarantees are a blind spot; the page already adds only filed obligations and lists press-reported structures apart ({{sec:obligations}}), so a disclosure of such guarantees would raise Oracle's lease-adjusted debt ({{sec:credit}}).",
-      "why_es": "La calificadora que tiene a Oracle un escalón arriba del grado especulativo dice que las garantías no reveladas son un punto ciego; la página solo suma obligaciones presentadas y lista aparte las estructuras reportadas por la prensa ({{sec:obligations}}), así que la revelación de esas garantías elevaría la deuda ajustada por arrendamientos de Oracle ({{sec:credit}}).",
-      "sources": [
-        {
-          "tier": "wire",
-          "title": "Reuters (via U.S. News & World Report), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
-          "url": "https://money.usnews.com/investing/news/articles/2026-10-19/top-hyperscalers-likely-to-have-more-ai-linked-debt-than-now-known-s-p-global-warns"
-        },
-        {
-          "tier": "wire",
-          "title": "Reuters (via Global Banking & Finance Review), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
-          "url": "https://www.globalbankingandfinance.com/top-hyperscalers-likely-ai-linked-debt-known-p-global-warns/"
-        }
-      ]
-    },
-    {
       "id": "2026-10-20-wsj-ellison-pledges",
       "date": "2026-10-20",
       "theme": "leadership",
@@ -147,6 +142,30 @@
           "tier": "press",
           "title": "Quartz (on the WSJ report), Oct 21, 2026: Larry Ellison pledged Oracle, Tesla and SpaceX stock for loans before son's Warner deal closed",
           "url": "https://qz.com/larry-ellison-pledged-stock-loans-warner-bros-deal-102126"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-19-sp-hidden-ai-debt",
+      "date": "2026-10-19",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "Reuters: S&P Global says the top hyperscalers, Oracle among them, likely carry more AI-linked debt than is now known; no rating change for now",
+      "title_es": "Reuters: S&P Global dice que los principales hiperescaladores, Oracle entre ellos, probablemente tienen más deuda ligada a la IA de la que se conoce; sin cambio de calificación por ahora",
+      "summary_en": "Reuters (Marc Jones, London, Oct 19): S&P Global's head of digital infrastructure Mark Habib said \"It is safe to assume that there is more (debt) out there that we are not seeing,\" pointing to interconnected financing structures in which hyperscalers effectively guarantee data-center builds or smaller AI firms, and \"For now, we don't have the view that there is a major disconnect that needs to force our ratings to change at this point.\" S&P expects the top six US hyperscalers (Amazon, Microsoft, Alphabet, Oracle, Meta and SpaceX) to spend more than US$7 trillion on data centers and other AI-related capex between 2025 and 2030, with negative free cash flow until at least next year. Commentary at a roundtable, not a rating action (Oracle stays BBB- at S&P since Jul 9).",
+      "summary_es": "Reuters (Marc Jones, Londres, 19 oct): Mark Habib, director de infraestructura digital de S&P Global, dijo que \"es seguro suponer que hay más (deuda) que no estamos viendo\", señalando estructuras de financiamiento interconectadas en las que los hiperescaladores garantizan en los hechos la construcción de centros de datos o a empresas de IA más pequeñas, y que \"por ahora no vemos una desconexión importante que obligue a cambiar nuestras calificaciones\". S&P espera que los seis principales hiperescaladores de EUA (Amazon, Microsoft, Alphabet, Oracle, Meta y SpaceX) inviertan más de US$7 billones en centros de datos y otro capex ligado a la IA entre 2025 y 2030, con flujo libre negativo al menos hasta el próximo año. Comentario en una mesa redonda, no una acción de calificación (Oracle sigue en BBB- en S&P desde el 9 jul).",
+      "why_en": "The rating agency that holds Oracle one notch above speculative grade says unreported guarantees are a blind spot; the page already adds only filed obligations and lists press-reported structures apart ({{sec:obligations}}), so a disclosure of such guarantees would raise Oracle's lease-adjusted debt ({{sec:credit}}).",
+      "why_es": "La calificadora que tiene a Oracle un escalón arriba del grado especulativo dice que las garantías no reveladas son un punto ciego; la página solo suma obligaciones presentadas y lista aparte las estructuras reportadas por la prensa ({{sec:obligations}}), así que la revelación de esas garantías elevaría la deuda ajustada por arrendamientos de Oracle ({{sec:credit}}).",
+      "sources": [
+        {
+          "tier": "wire",
+          "title": "Reuters (via U.S. News & World Report), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
+          "url": "https://money.usnews.com/investing/news/articles/2026-10-19/top-hyperscalers-likely-to-have-more-ai-linked-debt-than-now-known-s-p-global-warns"
+        },
+        {
+          "tier": "wire",
+          "title": "Reuters (via Global Banking & Finance Review), Oct 19, 2026: Top hyperscalers likely to have more AI-linked debt than now known, S&P Global warns",
+          "url": "https://www.globalbankingandfinance.com/top-hyperscalers-likely-ai-linked-debt-known-p-global-warns/"
         }
       ]
     },
@@ -1007,6 +1026,45 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-27",
+      "by": "routine",
+      "searches": 29,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Data Center Dynamics",
+        "KVIA",
+        "Wisconsin Watch",
+        "BizTimes",
+        "Michigan Advance",
+        "WEMU",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-23-jupiter-local-contracts"
+      ],
+      "note": "Oct 26 close US$126.06 (Yahoo/Nasdaq fallback; FactSet through Oct 23 at US$126.16), -0.1%; the last four sessions (Oct 21-26) moved -1.5%, -2.8%, +0.5% and -0.1%, none at 3%. No EDGAR accession after the Oct 19 Form 4s; the IR feed carries nothing after the Oct 23 Investor Day notice (Investor Day Oct 28). Oracle AI World's Oct 26 release on agentic Fusion applications not added (product release, no figure). KVIA's Oct 23 report of Oracle's Project Jupiter local contracts added. EGLE's Saline wastewater permit hearing (Oct 22, Michigan Advance) could not be opened (403), not added. No Moody's, S&P or Fitch action; no Wisconsin PSC, EGLE, New Mexico PRC or FERC decision found."
+    },
     {
       "date": "2026-10-26",
       "by": "routine",
