@@ -1749,6 +1749,22 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001633917-26-000086",
+     "filed": "2026-10-27",
+     "report": "2026-10-27",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000086/0001633917-26-000086-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000086/pypl3q-26earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/PYPL/2026-10-27_0001633917-26-000086_ex-99-1.txt",
+       "chars": 41265
+      }
+     ]
+    },
+    {
      "accn": "0001633917-26-000080",
      "filed": "2026-07-28",
      "report": "2026-07-28",
@@ -1761,22 +1777,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000080/pypl2q-26earningsrelease.htm",
        "file": "tools/consumidor/raw/releases/PYPL/2026-07-28_0001633917-26-000080_ex-99-1.txt",
        "chars": 41709
-      }
-     ]
-    },
-    {
-     "accn": "0001633917-26-000065",
-     "filed": "2026-05-05",
-     "report": "2026-05-05",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/0001633917-26-000065-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
-       "file": "tools/consumidor/raw/releases/PYPL/2026-05-05_0001633917-26-000065_ex-99-1.txt",
-       "chars": 40063
       }
      ]
     },
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-24T14:56:55.164Z"
+ "checkedAt": "2026-10-27T14:52:45.567Z"
 }
