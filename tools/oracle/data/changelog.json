@@ -4,34 +4,6 @@
   {
    "at": "2026-10-24T00:02:31.421Z",
    "file": "peers.js",
-   "path": "peers[1].adtv.start",
-   "old": "2026-07-23",
-   "new": "2026-07-24"
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.end",
-   "old": "2026-10-22",
-   "new": "2026-10-23"
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.avg_volume_m",
-   "old": 2.58,
-   "new": 2.54
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[1].adtv.avg_vwap_usd",
-   "old": 208.54,
-   "new": 209.96
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
    "path": "peers[2].priceDate",
    "old": "2026-10-22",
    "new": "2026-10-23"
@@ -4200,7 +4172,35 @@
    "path": "sweepLog[0].searches",
    "old": 30,
    "new": 29
+  },
+  {
+   "at": "2026-10-27T18:47:59.746Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-26)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-27T18:47:59.746Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-23",
+   "new": "2026-10-26"
+  },
+  {
+   "at": "2026-10-27T18:47:59.746Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.13,
+   "new": 1.12
+  },
+  {
+   "at": "2026-10-27T18:47:59.746Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 802,
+   "new": 803
   }
  ],
- "generated": "2026-10-27T15:20:13.140Z"
+ "generated": "2026-10-27T18:47:59.746Z"
 }
