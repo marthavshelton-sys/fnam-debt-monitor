@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-27T16:31:29Z",
+  "checkedAt": "2026-10-27T20:15:28Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,9 +27,9 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T14:38:42Z",
+      "lastSuccess": "2026-10-27T19:25:21Z",
       "lastAttempt": {
-        "at": "2026-10-26T23:47:36Z",
+        "at": "2026-10-27T19:25:21Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T20:05:00Z",
@@ -45,9 +45,9 @@
       "url": "/fiscal/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T14:35:04Z",
+      "lastSuccess": "2026-10-27T18:46:31Z",
       "lastAttempt": {
-        "at": "2026-10-27T00:43:47Z",
+        "at": "2026-10-27T18:46:31Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T21:30:00Z",
@@ -63,9 +63,9 @@
       "url": "/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T14:52:52Z",
+      "lastSuccess": "2026-10-27T19:27:55Z",
       "lastAttempt": {
-        "at": "2026-10-27T00:50:03Z",
+        "at": "2026-10-27T19:27:55Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T21:40:00Z",
@@ -81,9 +81,9 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T13:13:07Z",
+      "lastSuccess": "2026-10-27T20:12:10Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:32:17Z",
+        "at": "2026-10-27T18:06:57Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:25:00Z",
@@ -99,11 +99,10 @@
       "url": "/mx/fiscal/",
       "status": "alert",
       "refreshStatus": "alert",
-      "lastSuccess": "2026-10-26T23:16:23Z",
+      "lastSuccess": "2026-10-27T20:12:10Z",
       "lastAttempt": {
         "at": "2026-10-26T23:16:23Z",
-        "result": "success",
-        "afterCommitFailure": true
+        "result": "failure"
       },
       "requiredSince": "2026-10-26T19:30:00Z",
       "alerts": 1
@@ -118,9 +117,9 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T16:04:43Z",
+      "lastSuccess": "2026-10-27T20:08:22Z",
       "lastAttempt": {
-        "at": "2026-10-27T09:12:23Z",
+        "at": "2026-10-27T20:08:22Z",
         "result": "success"
       },
       "requiredSince": "2026-10-27T03:20:00Z",
@@ -136,9 +135,9 @@
       "url": "/gap/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T15:12:31Z",
+      "lastSuccess": "2026-10-27T19:32:10Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:36:16Z",
+        "at": "2026-10-27T19:32:10Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:40:00Z",
@@ -204,9 +203,9 @@
       "url": "/oma/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T15:28:14Z",
+      "lastSuccess": "2026-10-27T19:47:25Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:38:51Z",
+        "at": "2026-10-27T19:47:25Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:55:00Z",
@@ -272,9 +271,9 @@
       "url": "/asur/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T15:21:56Z",
+      "lastSuccess": "2026-10-27T19:36:55Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:38:39Z",
+        "at": "2026-10-27T19:36:55Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:50:00Z",
@@ -354,7 +353,7 @@
       "url": "/aeropuertos/trafico/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-26T21:45:02Z",
+      "lastSuccess": "2026-10-27T18:15:17Z",
       "lastAttempt": {
         "at": "2026-10-26T21:45:02Z",
         "result": "success"
@@ -372,7 +371,7 @@
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-26T22:51:33Z",
+      "lastSuccess": "2026-10-27T19:12:42Z",
       "lastAttempt": {
         "at": "2026-10-26T22:51:33Z",
         "result": "success"
@@ -390,9 +389,9 @@
       "url": "/qualitas/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T15:32:06Z",
+      "lastSuccess": "2026-10-27T19:42:22Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:45:46Z",
+        "at": "2026-10-27T19:42:22Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T23:00:00Z",
@@ -446,9 +445,9 @@
       "url": "/gentera/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T15:32:52Z",
+      "lastSuccess": "2026-10-27T19:37:57Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:38:22Z",
+        "at": "2026-10-27T19:37:57Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:45:00Z",
@@ -513,9 +512,9 @@
       "url": "/oracle/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T14:17:02Z",
+      "lastSuccess": "2026-10-27T18:53:35Z",
       "lastAttempt": {
-        "at": "2026-10-27T00:56:07Z",
+        "at": "2026-10-27T18:53:35Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T21:45:00Z",
@@ -571,9 +570,9 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-27T14:07:17Z",
+      "lastSuccess": "2026-10-27T18:43:27Z",
       "lastAttempt": {
-        "at": "2026-10-27T01:29:23Z",
+        "at": "2026-10-27T18:43:27Z",
         "result": "success"
       },
       "requiredSince": "2026-10-26T22:20:00Z",
