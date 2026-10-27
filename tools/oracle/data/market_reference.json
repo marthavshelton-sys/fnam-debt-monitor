@@ -2,14 +2,14 @@
   "as_of": "2026-10-27",
   "price_snapshot": {
     "orcl": {
-      "close": 126.05999755859375,
+      "close": 126.06,
       "close_date": "2026-10-26",
       "week52_high": 283.33,
       "week52_high_date": "2025-10-24",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 381172.15,
+      "market_cap_millions": 381172.16,
       "one_day_change_pct": -0.08,
       "one_year_change_pct": -55.51,
       "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-27&todate=2026-10-27&limit=10000",
@@ -574,7 +574,7 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-27"
   },
-  "refreshed_at": "2026-10-27T00:50:30.973Z",
+  "refreshed_at": "2026-10-27T14:11:20.338Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
