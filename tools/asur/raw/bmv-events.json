@@ -2,13 +2,21 @@
  "issuer": "ASUR-6001-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ASUR-6001-CGEN_CAPIT",
  "since": "2024-01-01",
- "checkedAt": "2026-10-27T19:36:41.885Z",
- "rows": 120,
- "archived": 0,
+ "checkedAt": "2026-10-27T23:31:25.176Z",
+ "rows": 121,
+ "archived": 1,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1598134",
+   "date": "2026-10-27",
+   "title": "ASUR anuncia movimiento del volumen de la acción el día 27 de octubre de 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1598134_1.pdf",
+   "file": "tools/asur/raw/releases/2026-10-27_bmv1598134_es.txt"
+  },
   {
    "id": "1597192",
    "date": "2026-10-22",
