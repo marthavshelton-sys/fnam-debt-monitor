@@ -693,6 +693,22 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001058090-26-000103",
+     "filed": "2026-10-28",
+     "report": "2026-10-28",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000103/0001058090-26-000103-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000103/cmg-20261028xex991.htm",
+       "file": "tools/consumidor/raw/releases/CMG/2026-10-28_0001058090-26-000103_ex-99-1.txt",
+       "chars": 29208
+      }
+     ]
+    },
+    {
      "accn": "0001058090-26-000063",
      "filed": "2026-07-29",
      "report": "2026-07-29",
@@ -705,22 +721,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000063/cmg-20260729xex991.htm",
        "file": "tools/consumidor/raw/releases/CMG/2026-07-29_0001058090-26-000063_ex-99-1.txt",
        "chars": 29079
-      }
-     ]
-    },
-    {
-     "accn": "0001058090-26-000027",
-     "filed": "2026-04-29",
-     "report": "2026-04-29",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000027/0001058090-26-000027-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1058090/000105809026000027/cmg-20260429xex991.htm",
-       "file": "tools/consumidor/raw/releases/CMG/2026-04-29_0001058090-26-000027_ex-99-1.txt",
-       "chars": 27937
       }
      ]
     }
@@ -854,7 +854,7 @@
    "name": "Brinker (Chili's)",
    "cik": 703351,
    "secName": "BRINKER INTERNATIONAL, INC",
-   "fiscalYearEnd": "0624",
+   "fiscalYearEnd": "0630",
    "filings": [
     {
      "accn": "0000703351-26-000036",
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-28T14:52:41.275Z"
+ "checkedAt": "2026-10-28T22:22:39.738Z"
 }
