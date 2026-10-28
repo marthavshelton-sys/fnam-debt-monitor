@@ -2,10 +2,10 @@
  "entity": "Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-28T05:58:30.946Z",
+ "updatedAt": "2026-10-28T13:13:56.201Z",
  "kept": {
   "traffic": 146,
-  "results": 116,
+  "results": 117,
   "other": 42
  },
  "filings": [
@@ -6656,6 +6656,15 @@
    "title": "OMA announces external auditor change",
    "class": "other",
    "path": "tools/oma/raw/releases/2026-10-09_omaChange-of-external-auditor-ENG-vf_en.txt"
+  },
+  {
+   "source": "/en/earnings-reports/",
+   "id": "Results-3Q26-vf",
+   "url": "https://ir.oma.aero/wp-content/uploads/2026/10/Results_3Q26_vf.pdf",
+   "date": "2026-10-27",
+   "title": "",
+   "class": "results",
+   "path": "tools/oma/raw/releases/2026-10-27_omaResults-3Q26-vf_en.txt"
   }
  ]
 }
