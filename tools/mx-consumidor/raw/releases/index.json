@@ -7,6 +7,12 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/WALMEX-5214-CGEN_CAPIT",
    "listing": [
     {
+     "date": "2026-10-27",
+     "title": "Walmart de México y Centroamérica Reporta Resultados de Tercer Trimestre 2026",
+     "id": "1598123",
+     "kind": null
+    },
+    {
      "date": "2026-10-20",
      "title": "Walmart de Mexico y Centroamerica Invitacion para Reporte Resultados 3T26",
      "id": "1596483",
@@ -82,12 +88,6 @@
      "date": "2026-02-11",
      "title": "Walmex publicará Resultados del 4T25",
      "id": "1532769",
-     "kind": null
-    },
-    {
-     "date": "2026-01-15",
-     "title": "Calendario de Información 2026 Walmart de México y Centroamérica",
-     "id": "1524201",
      "kind": null
     }
    ],
@@ -258,6 +258,23 @@
    "channel": "xbrl",
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
    "filings": [
+    {
+     "accn": "xbrl1598177",
+     "filed": "2026-10-27",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/CHDRAUI-5209-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1598177_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/CHDRAUI/2026-10-27_xbrl1598177.txt",
+       "chars": 87681
+      }
+     ]
+    },
     {
      "accn": "xbrl1575980",
      "filed": "2026-07-22",
@@ -1187,5 +1204,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-27T16:04:33.452Z"
+ "checkedAt": "2026-10-28T00:02:45.714Z"
 }
