@@ -344,6 +344,23 @@
    "secName": "MEXICAN ECONOMIC DEVELOPMENT INC",
    "filings": [
     {
+     "accn": "0001104659-26-119381",
+     "filed": "2026-10-28",
+     "report": "2026-10-28",
+     "kind": "results",
+     "items": "6-K",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926119381/0001104659-26-119381-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EXHIBIT 99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926119381/tm2628435d1_ex99-1.htm",
+       "file": "tools/mx-consumidor/raw/releases/FEMSA/2026-10-28_0001104659-26-119381_ex-99-1.txt",
+       "chars": 98822
+      }
+     ]
+    },
+    {
      "accn": "0001104659-26-087338",
      "filed": "2026-07-28",
      "report": "2026-07-28",
@@ -357,23 +374,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926087338/tm2621462d1_ex99-1.htm",
        "file": "tools/mx-consumidor/raw/releases/FEMSA/2026-07-28_0001104659-26-087338_ex-99-1.txt",
        "chars": 100201
-      }
-     ]
-    },
-    {
-     "accn": "0001104659-26-052276",
-     "filed": "2026-04-30",
-     "report": "2026-04-30",
-     "kind": "results",
-     "items": "6-K",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926052276/0001104659-26-052276-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EXHIBIT 99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1061736/000110465926052276/tm2613197d1_ex99-1.htm",
-       "file": "tools/mx-consumidor/raw/releases/FEMSA/2026-04-30_0001104659-26-052276_ex-99-1.txt",
-       "chars": 81505
       }
      ]
     }
@@ -1204,5 +1204,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-28T00:02:45.714Z"
+ "checkedAt": "2026-10-28T13:02:46.572Z"
 }
