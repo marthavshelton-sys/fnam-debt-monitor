@@ -6,19 +6,19 @@
 // and {{dps}}; the page and the deck fill them from the same model, so the summary never goes stale
 // (it once said "~5.4% on the 29 Sep close" with the price at Ps. 362.60; owner, 15-Oct-2026). Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
 window.GAP_SUMMARY = {
-  updatedAt: "2026-10-22",
+  updatedAt: "2026-10-28",
   basis: { quarter: "2026Q3", resultsDate: "2026-10-19", trafficMonth: "2026-09", guidanceDate: "2026-07-14" },
   sections: [
     {
       k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
       es: [
         "**Tráfico de octubre** ({{nextTraffic}}): **si la caída de septiembre (−7.3%) fue capacidad o clima**; asientos nacionales en Tijuana y Puerto Vallarta, Los Cabos internacional tras el huracán Polo, Montego Bay para el invierno y CBX. A septiembre el tráfico va −4.2%, por debajo del rango guiado (−3% a 0%).",
-        "**4T26** ({{nextResults}}): **cierre del año frente a la guía** (ingresos totales +7% a +10% y EBITDA +10% a +12%; a 9M26 +8.9% y +11.1%), el primer trimestre de invierno con CBX, la fecha de la primera exhibición del dividendo 2026 (Ps. 12,513 M por pagar al 30 de septiembre) y los valores razonables definitivos de la combinación CBX/AMP (aún preliminares en el 3T26).",
+        "**4T26** ({{nextResults}}): **cierre del año frente a la guía** (ingresos totales +7% a +10% y EBITDA +10% a +12%; a 9M26 +8.9% y +11.1%), el primer trimestre de invierno con CBX, la salida de caja del dividendo 2026 pagado el 6 de noviembre (Ps. 12,513 M por pagar al 30 de septiembre) y los valores razonables definitivos de la combinación CBX/AMP (aún preliminares en el 3T26).",
         "**FIBRA GAP: sin colocar según los comunicados de GAP y los eventos relevantes de la BMV** (revisados al 22 oct); la prensa reportó octubre de 2026 como fecha prevista (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, vencimiento del GAP 21-V (Ps. 1,500 M, 9 oct) con las líneas bancarias, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
       ],
       en: [
         "**October traffic** ({{nextTraffic}}): **whether September's drop (−7.3%) was capacity or weather**; domestic seats at Tijuana and Puerto Vallarta, Los Cabos international after Hurricane Polo, Montego Bay for the winter, and CBX. Year-to-date traffic is −4.2%, below the guided range (−3% to 0%).",
-        "**4Q26** ({{nextResults}}): **the full year against guidance** (total revenue +7% to +10% and EBITDA +10% to +12%; +8.9% and +11.1% at 9M26), the first winter quarter with CBX, the date of the first 2026 dividend installment (Ps. 12,513 M payable at 30 September) and the final fair values of the CBX/AMP combination (still preliminary in 3Q26).",
+        "**4Q26** ({{nextResults}}): **the full year against guidance** (total revenue +7% to +10% and EBITDA +10% to +12%; +8.9% and +11.1% at 9M26), the first winter quarter with CBX, the cash outflow of the 2026 dividend paid on 6 November (Ps. 12,513 M payable at 30 September) and the final fair values of the CBX/AMP combination (still preliminary in 3Q26).",
         "**FIBRA GAP: not placed per GAP's filings and the BMV material events** (checked 22 Oct); the press reported an October 2026 target (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the GAP 21-V maturity (Ps. 1,500 M, 9 Oct) out of the bank facilities, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
       ]
     },
@@ -53,12 +53,12 @@ window.GAP_SUMMARY = {
       es: [
         "Al 30 de septiembre de 2026: deuda bruta Ps. 67.7 mil M (préstamos bancarios e intereses Ps. 25.0 mil M, certificados Ps. 42.8 mil M), efectivo Ps. 23.9 mil M, **deuda neta Ps. 43.8 mil M = 1.9x el EBITDA UDM** (Ps. 23.1 mil M); deuda bruta 2.9x. En el trimestre se dispusieron Ps. 6,000 M de las líneas bancarias de septiembre y se pagó el GAP 22L (Ps. 2,757.6 M, 21 sep); el GAP 21-V (Ps. 1,500 M) venció el 9 de octubre.",
         "El apalancamiento subió en el año con los **Ps. 10.7 mil M de certificados bursátiles de marzo** (GAP 26 a TIIE + 45 pb y GAP 26-2 a 9.87% fija a 2036) para pagar US$487.5 M por el 25% de CBX y el capex del PMD, más el crédito de Ps. 1.3 mil M asumido de CBX; en septiembre se contrataron líneas bancarias por Ps. 8.0 mil M. Calificación Aaa.mx / mxAAA, perspectiva estable. El gasto por intereses del 3T26 subió 41.8%.",
-        "**Dividendo 2026 aprobado: {{dps}} por acción** ({{divYield}} sobre el cierre del {{lastPxDate}}, {{lastPx}}), pagadero en una o más exhibiciones hasta el 22 abr 2027 a las acciones en circulación en cada fecha de pago; declarado íntegro en el 2T26 (Ps. 12,513 M por pagar al 30 de septiembre) y **sin exhibiciones pagadas** aún. Capex guiado de Ps. 12.0 mil M, 72% ejercido a septiembre (Ps. 3.7 mil M en el trimestre)."
+        "**Dividendo 2026 aprobado: {{dps}} por acción** ({{divYield}} sobre el cierre del {{lastPxDate}}, {{lastPx}}), pagadero en una o más exhibiciones hasta el 22 abr 2027 a las acciones en circulación en cada fecha de pago; declarado íntegro en el 2T26 (Ps. 12,513 M por pagar al 30 de septiembre); **GAP pagará los Ps. 20.80 íntegros el 6 de noviembre** (cupón 42; aviso del 27 oct). Capex guiado de Ps. 12.0 mil M, 72% ejercido a septiembre (Ps. 3.7 mil M en el trimestre)."
       ],
       en: [
         "At 30 September 2026: gross debt Ps. 67.7 bn (bank loans and interest Ps. 25.0 bn, certificados Ps. 42.8 bn), cash Ps. 23.9 bn, **net debt Ps. 43.8 bn = 1.9x LTM EBITDA** (Ps. 23.1 bn); gross debt 2.9x. In the quarter Ps. 6,000 M of the September bank facilities were drawn and GAP 22L was repaid (Ps. 2,757.6 M, 21 Sep); GAP 21-V (Ps. 1,500 M) matured on 9 October.",
         "Leverage rose in the year with the **Ps. 10.7 bn of certificados bursátiles issued in March** (GAP 26 at TIIE + 45 bp and GAP 26-2 at 9.87% fixed to 2036) to pay US$487.5 M for the remaining 25% of CBX and MDP capex, plus the Ps. 1.3 bn loan assumed from CBX; Ps. 8.0 bn of bank facilities were signed in September. Rated Aaa.mx / mxAAA, stable outlook. 3Q26 interest expense rose 41.8%.",
-        "**2026 dividend approved: {{dps}} per share** ({{divYield}} on the {{lastPxDate}} close of {{lastPx}}), payable in one or more installments until 22 Apr 2027 to the shares outstanding on each payment date; declared in full in 2Q26 (Ps. 12,513 M payable at 30 September) and **no installment paid** yet. Guided capex Ps. 12.0 bn, 72% spent by September (Ps. 3.7 bn in the quarter)."
+        "**2026 dividend approved: {{dps}} per share** ({{divYield}} on the {{lastPxDate}} close of {{lastPx}}), payable in one or more installments until 22 Apr 2027 to the shares outstanding on each payment date; declared in full in 2Q26 (Ps. 12,513 M payable at 30 September); **GAP will pay the full Ps. 20.80 on 6 November** (coupon 42; notice of 27 Oct). Guided capex Ps. 12.0 bn, 72% spent by September (Ps. 3.7 bn in the quarter)."
       ]
     }
   ]
