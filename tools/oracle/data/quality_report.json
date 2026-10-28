@@ -1,10 +1,10 @@
 {
-  "generated": "2026-10-28T00:44:28.088Z",
+  "generated": "2026-10-28T14:11:23.042Z",
   "summary": {
     "checks": 465,
     "failed": 0,
     "warnings": 6,
-    "stale": 1
+    "stale": 2
   },
   "latestQuarter": "FY2027Q1",
   "latestPeriodEnd": "2026-08-31",
@@ -3808,15 +3808,15 @@
     {
       "series": "Share price (ORCL close, FactSet Global Prices)",
       "lastDate": "2026-10-23",
-      "ageDays": 5,
+      "ageDays": 6,
       "limitDays": 5,
-      "status": "ok",
+      "status": "warn",
       "note": "nightly FactSet refresh, 7:58 PM ET; the page's price authority"
     },
     {
       "series": "Share price (ORCL close, Nasdaq feed)",
       "lastDate": "2026-10-27",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch, every day 9:30 AM ET and weekdays about 4:35 PM and 4:45–5:45 PM ET; fills the sessions FactSet has not posted yet"
@@ -3824,7 +3824,7 @@
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
       "lastDate": "2026-10-27",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "market fetch"
@@ -3832,7 +3832,7 @@
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
       "lastDate": "2026-10-26",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 7,
       "status": "ok",
       "note": "market fetch; credit card proxy while no CDS source exists"
@@ -3840,14 +3840,14 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 48,
+      "ageDays": 49,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-10 (median of three years; deadline 2026-12-11 + grace)"
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-10-27",
+      "lastDate": "2026-10-28",
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
@@ -3855,7 +3855,7 @@
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-10-27",
+      "lastDate": "2026-10-28",
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
@@ -3863,7 +3863,7 @@
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-10-27",
+      "lastDate": "2026-10-28",
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
@@ -3871,7 +3871,7 @@
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-10-27",
+      "lastDate": "2026-10-28",
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
@@ -3880,7 +3880,7 @@
     {
       "series": "FactSet consensus snapshot",
       "lastDate": "2026-10-23",
-      "ageDays": 5,
+      "ageDays": 6,
       "limitDays": 7,
       "status": "ok",
       "note": "nightly FactSet refresh, 7:58 PM ET"
@@ -3888,7 +3888,7 @@
     {
       "series": "Implied equity risk premium (Damodaran, monthly)",
       "lastDate": "2026-10-01",
-      "ageDays": 27,
+      "ageDays": 28,
       "limitDays": 45,
       "status": "ok",
       "note": "the market fetch reads Damodaran's home page; he posts on the first of each month"
@@ -3896,7 +3896,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-10-05",
-      "ageDays": 23,
+      "ageDays": 24,
       "limitDays": 10,
       "status": "warn",
       "note": "desktop task, Mondays"
@@ -3904,14 +3904,14 @@
     {
       "series": "Sell-side research sweep (analyst opinions)",
       "lastDate": "2026-10-13",
-      "ageDays": 15,
+      "ageDays": 16,
       "limitDays": 60,
       "status": "ok",
       "note": "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt"
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-10-27",
+      "lastDate": "2026-10-28",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -3972,7 +3972,7 @@
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-10-27"
+      "detail": "5 peers; fetched 2026-10-28"
     },
     {
       "file": "analysts.json",
@@ -4002,7 +4002,7 @@
       "label_es": "Datos XBRL (10-Q/10-K)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-27",
+      "lastRefresh": "2026-10-28",
       "nextExpected": "2026-12-10",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4181,8 +4181,8 @@
       "label_en": "Investor calendar",
       "label_es": "Calendario del inversionista",
       "cadence": "daily",
-      "asOf": "2026-10-27",
-      "lastRefresh": "2026-10-27",
+      "asOf": "2026-10-28",
+      "lastRefresh": "2026-10-28",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4196,8 +4196,8 @@
       "label_en": "Peer leverage (XBRL)",
       "label_es": "Apalancamiento de pares (XBRL)",
       "cadence": "daily",
-      "asOf": "2026-10-27",
-      "lastRefresh": "2026-10-27",
+      "asOf": "2026-10-28",
+      "lastRefresh": "2026-10-28",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4241,8 +4241,8 @@
       "label_en": "Change log",
       "label_es": "Bitácora de cambios",
       "cadence": "daily",
-      "asOf": "2026-10-27",
-      "lastRefresh": "2026-10-27",
+      "asOf": "2026-10-28",
+      "lastRefresh": "2026-10-28",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -5385,6 +5385,7 @@
     "FY2022: fewer than 4 quarters captured yet — annual roll-up check skipped"
   ],
   "stale": [
-    "Market concerns (press sweep): 2026-10-05 (23 days) — desktop task, Mondays"
+    "Share price (ORCL close, FactSet Global Prices): 2026-10-23 (6 days) — nightly FactSet refresh, 7:58 PM ET; the page's price authority",
+    "Market concerns (press sweep): 2026-10-05 (24 days) — desktop task, Mondays"
   ]
 }
