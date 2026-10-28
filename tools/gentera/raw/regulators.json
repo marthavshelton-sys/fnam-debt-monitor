@@ -158,11 +158,21 @@
     "netIncome": 250.9,
     "equity": 1340.15,
     "morosidad": 5.23
+   },
+   {
+    "month": "202609",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Setiembre/B-2201-se2026.XLS"
+    },
+    "loans": 4907.07,
+    "loansNet": 4468.76,
+    "netIncome": 282.99,
+    "equity": 1369.42
    }
   ]
  },
  "log": [
   "CNBV 202609: HTTP Error 404: NOT FOUND"
  ],
- "updatedAt": "2026-10-28T19:57:46+00:00"
+ "updatedAt": "2026-10-28T23:33:15+00:00"
 }

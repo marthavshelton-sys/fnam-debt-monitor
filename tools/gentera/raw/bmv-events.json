@@ -2,13 +2,21 @@
  "issuer": "GENTERA-7472-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": "2026-10-28T19:48:18.343Z",
- "rows": 211,
- "archived": 0,
+ "checkedAt": "2026-10-28T23:31:21.574Z",
+ "rows": 212,
+ "archived": 1,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1599540",
+   "date": "2026-10-28",
+   "title": "GENTERA anuncia colocación de deuda por su subsidiaria en Perú, Compartamos Banco.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1599540_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-10-28_bmv1599540_es.txt"
+  },
   {
    "id": "1596950",
    "date": "2026-10-21",
