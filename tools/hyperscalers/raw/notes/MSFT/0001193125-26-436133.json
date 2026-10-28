@@ -1,0 +1,526 @@
+{
+ "ticker": "MSFT",
+ "cik": 789019,
+ "form": "10-Q",
+ "accn": "0001193125-26-436133",
+ "filed": "2026-10-28",
+ "report": "2026-09-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm",
+ "harvested": "2026-10-28",
+ "pageCount": 62,
+ "numberedPages": 60,
+ "hits": [
+  {
+   "kind": "concentration",
+   "page": "seq1",
+   "match": "MICROSOFT",
+   "text": "10-Q   UNITED STATES   SECURITIES AND EXCHANGE COMMISSION   Washington, D.C. 20549   FORM 10-Q   ☒   QUARTERLY REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934   For the Quarterly Period Ended September 30, 2026   OR   ☐   TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934   For the Transition Period From to   Commission File Number 001-37845   MICROSOFT CORPORATION   Washington   91-1144442   (STATE OF INCORPORATION)   (I.R.S. ID)   ONE MICROSOFT WAY , REDMOND , Washington 98052-6399   ( 425 ) 882-8080   www.microsoft.com/investor   Securities registered pursuant to Section 12(b) of the Act:   Title of each class   Trading Symbol   Name of exchange on which registered   Common stock, $0.00000625 par value per share   MSFT   Nasdaq   3.125% Notes due 2028   MSFT   Nasdaq   2.625% Notes due 2033   MSFT   Nasdaq   Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days. Yes ☒ No ☐   Indicate by check mark whether the registrant has submitted elect…",
+   "amounts": [
+    {
+     "raw": "$0.00000625 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "MICROSOFT",
+   "text": "MICROSOFT CORPORATION   FORM 10-Q   For the Quarter Ended September 30, 2026   INDEX   Page   PART I.   FINANCIAL INFORMATION   Item 1.   Financial Statements   a)   Income Statements for the Three Months Ended September 30, 2026 and 2025   3   b)   Comprehensive Income Statements for the Three Months Ended September 30, 2026 and 2025   4   c)   Balance Sheets as of September 30, 2026 and June 30, 2026   5   d)   Cash Flows Statements for the Three Months Ended September 30, 2026 and 2025   6   e)   Stockholders’ Equity Statements for the Three Months Ended September 30, 2026 and 2025   7   f)   Notes to Financial Statements   8   g)   Report of Independent Registered Public Accounting Firm   27   Item 2.   Management’s Discussion and Analysis of Financial Condition and Results of Operations   28   Item 3.   Quantitative and Qualitative Disclosures About Market Risk   42   Item 4.   Cont…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "6",
+   "match": "Repayments of debt",
+   "text": "…ating assets and liabilities:   Accounts receivable   17,104   16,490   Inventories   ( 436   )   ( 192   )   Other current assets   ( 1,903   )   ( 1,162   )   Other long-term assets   ( 6,389   )   ( 394   )   Accounts payable   525   ( 614   )   Unearned revenue   ( 5,942   )   ( 5,418   )   Income taxes   ( 556   )   ( 2,944   )   Other current liabilities   ( 4,528   )   ( 5,507   )   Other long-term liabilities   4,240   ( 477   )   Net cash from operations   58,000   45,057   Financing   Repayments of debt   ( 4,850   )   0   Common stock issued   598   689   Common stock repurchased   ( 4,379   )   ( 5,650   )   Common stock cash dividends paid   ( 6,757   )   ( 6,169   )   Other, net   ( 1,252   )   ( 669   )   Net cash used in financing   ( 16,640   )   ( 11,799   )   Investing   Additions to property and equipment   ( 39,367   )   ( 19,394   )   Acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets   ( 397   )   ( 578   )   Purchases of investments   ( 5,394   )   ( 17,671   )   Maturities of investments   5,672   6,031   Sales of investments   10,470   3,262   Other, net   ( 12,949   )   ( 6,209   )   Net cash used in investing   ( 41,965   )   ( 34,559   )   Effect of foreign exchange rates on cash and cash equivalents   ( 49   )   ( 92   )   Net change in cash and cash equivalents   ( 654   )   ( 1,393   )   …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "8",
+   "match": "segment information",
+   "text": "… with how we currently manage our business, creating the Agents and Infra segment that brings together our applications and agents, our multi-model system, and Azure infrastructure, and the Devices and Consumer segment that comprises our key consumer offerings. Beginning in fiscal year 2027, the information that our chief operating decision maker (“CODM”) is regularly provided and reviews for purposes of allocating resources and assessing performance reflects these segment changes. Prior period segment information has been recast to conform to the way we internally manage and monitor our business during fiscal year 2027. These changes impacted Note 7 – Goodwill and Note 16 – Segment Information and Geographic Data.   We have also recast certain prior period amounts on our consolidated cash flows statements to conform to the current period presentation. The recast of these prior period amounts had no impact on our consolidated balance sheets, consolidated income statements, or net cash from (used in) operations, investing, or financing on our consolidated cash flows statements.   Estimates and Assumptions   Preparing financial statements requires management to make estimates and assumptions that affect the reported amounts of assets, liabilities, revenue, and expenses. Examples of estimates and assumptions include: for revenue recognition, determining the nature and timing of sa…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "8",
+   "match": "useful lives",
+   "text": "… the reported amounts of assets, liabilities, revenue, and expenses. Examples of estimates and assumptions include: for revenue recognition, determining the nature and timing of satisfaction of performance obligations, and determining the standalone selling price of performance obligations, variable consideration, and other obligations such as product returns and refunds; loss contingencies; the fair value of and/or potential impairment of goodwill and intangible assets for our reporting units; useful lives of our tangible and intangible assets; allowances for doubtful accounts; stock-based compensation forfeiture rates; when technological feasibility is achieved for our products; the potential outcome of uncertain tax positions that have been recognized in our consolidated financial statements or tax returns; and determining the timing and amount of measurement adjustments or impairments for investments. Actual results and outcomes may differ from management’s estimates and assumptions due to risks and uncertainties.   Financial Instruments   Investments   We consider all highly liquid interest-earning investments with a maturity of three months or less at the date of purchase to be cash equivalents. The fair values of these investments approximate their carrying values. In general, investments with original maturities of greater than three months and remaining maturities of l…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "9",
+   "match": "variable interest entit",
+   "text": "…e of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting or the measurement alternative.   We have a long-term strategic partnership with OpenAI. We have an investment accounted for under the equity method that represents an approximate 24 % interest on an as-converted basis. As an equity method investee…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "9",
+   "match": "Equity method investment",
+   "text": "… whether the securities are comparable, including consideration of the rights and preferences of the securities, the composition of the investor group, and other relevant facts and circumstances. For equity investments not recorded at fair value, we perform a qualitative assessment on a periodic basis and recognize an impairment if there are sufficient indicators that the fair value of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE in…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "9",
+   "match": "equity method investee",
+   "text": "… from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting or the measurement alternative.   We have a long-term strategic partnership with OpenAI. We have an investment accounted for under the equity method that represents an approximate 24 % interest on an as-converted basis. As an equity method investee, OpenAI is a related party as defined in Accounting Standards Codification Topic 850, Related Party Disclosures (“ASC 850”). In accordance with ASC 850, we are disclosing revenue and accounts receivable balances from transactions with OpenAI. For the three months ended September 30, 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 10.0 billion. Accounts receivable from OpenAI as of September 30, 2026 and June 30, 2026 was $ 7.2 billion and $ 6.0 billion, respectively. We have made total funding commitments of $ 13.0 billion related to our investment, of which $ 12.0 billion has been funded as of September 30, 2026. We calculate our equity method income or loss using the hypothetical liquidation at book value (“HLBV”) method because our liquidation rights and priorities differ from our underlying ownersh…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "9",
+   "match": "OpenAI",
+   "text": "…ctivities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting or the measurement alternative.   We have a long-term strategic partnership with OpenAI. We have an investment accounted for under the equity method that represents an approximate 24 % interest on an as-converted basis. As an equity method investee, OpenAI is a related party as defined in Accounting Standards Codification Topic 850, Related Party Disclosures (“ASC 850”). In accordance with ASC 850, we are disclosing revenue and accounts receivable balances from transactions with OpenAI. For the three months ended September 30, 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 10.0 billion. Accounts receivable from OpenAI as of September 30, 2026 and June 30, 2026 was $ 7.2 billion and $ 6.0 billion, respectively. We have made total funding commitments of $ 13.0 billion related to our investment, of which $ 12.0 billion has been funded as of September 30, 2026. We calculate our equity method income or loss …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "11",
+   "match": "OpenAI",
+   "text": "…744   $   976   Interest expense   ( 870   )   ( 698   )   Net recognized losses on investments   ( 46   )   ( 572   )   Net gains (losses) on derivatives   ( 42   )   1,579   Net losses on foreign currency remeasurements   ( 30   )   ( 22   )   Other, net   282   ( 4,923   )   Total   $   38   $   ( 3,660   )   Other income (expense), net included $ 272 million of net gains and $ 4.1 billion of net losses for the three months ended September 30, 2026 and 2025, respectively, from investments in OpenAI.   11",
+   "amounts": [
+    {
+     "raw": "$ 272 million",
+     "usdM": 272
+    },
+    {
+     "raw": "$ 4.1 billion",
+     "usdM": 4100
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "16",
+   "match": "investment-grade",
+   "text": "… to certain broad-based fixed-income indices using option, futures, and swap contracts. These contracts are not designated as hedging instruments and are included in “Other contracts” in the tables below.   Equity   Securities held in our equity investments portfolio are subject to market price risk. At times, we may hold options, futures, and swap contracts. These contracts are not designated as hedging instruments.   Credit   Our fixed-income portfolio is diversified and consists primarily of investment-grade securities. We use credit default swap contracts to manage credit exposures relative to broad-based indices and to facilitate portfolio diversification. These contracts are not designated as hedging instruments and are included in “Other contracts” in the tables below.   Credit-Risk-Related Contingent Features   Certain counterparty agreements for derivative instruments contain provisions that require our issued and outstanding long-term unsecured debt to maintain an investment grade credit rating and require us to maintain minimum liquidity of $ 1.0 billion. To the extent we fail to meet these requirements, we will be required to post collateral, similar to the standard convention related to over-the-counter derivatives. As of September 30, 2026, our long-term unsecured debt rating was AAA , and cash investments were in excess of $ 1.0 billion. As a result, no collatera…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "18",
+   "match": "Depreciation expense",
+   "text": "…AND EQUIPMENT   The components of property and equipment were as follows:   (In millions)   September 30,   2026   June 30,   2026   Land   $   10,665   $   10,546   Buildings and improvements   194,619   182,749   Leasehold improvements   17,647   16,348   Servers, network equipment, and software   244,840   215,874   Furniture and equipment   6,281   6,250   Total, at cost   474,052   431,767   Accumulated depreciation   ( 127,208   )   ( 118,691   )   Total, net   $   346,844   $   313,076   Depreciation expense was $ 11.1 billion and $ 7.1 billion for the three months ended September 30, 2026 and 2025, respectively.   As of September 30, 2026 and June 30, 2026, purchases of property and equipment remaining in accounts payable were $ 26.5 billion and $ 26.7 billion, respectively.   NOTE 7 — GOODWILL   Changes in the carrying amount of goodwill were as follows:   (In millions)   June 30,   2026   Acquisitions   Other   September 30,   2026   Agents and Infra   $   48,945   $   0   $   9   $   48,954   Devices and Consumer   70,706   0   ( 14   )   70,692   Total   $   119,651   $   0   $   ( 5   )   $   119,646   18",
+   "amounts": [
+    {
+     "raw": "$ 11.1 billion",
+     "usdM": 11100
+    },
+    {
+     "raw": "$ 7.1 billion",
+     "usdM": 7100
+    },
+    {
+     "raw": "$ 26.5 billion",
+     "usdM": 26500
+    },
+    {
+     "raw": "$ 26.7 billion",
+     "usdM": 26700
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "21",
+   "match": "remaining performance obligations",
+   "text": "…n of these audits is not expected to be material to our consolidated financial statements. Our operations in Ireland remain subject to examination for tax years 2021 and thereafter .   NOTE 11 — UNEARNED REVENUE   Changes in unearned revenue were as follows:   (In millions)   Three Months Ended September 30, 2026   Balance, beginning of period   $   75,712   Deferral of revenue   44,007   Recognition of unearned revenue   ( 50,156   )   Balance, end of period   $   69,563   Revenue allocated to remaining performance obligations, which includes unearned revenue and amounts expected to be invoiced and recognized as revenue in future periods, was $ 683 billion as of September 30, 2026. Revenue allocated to remaining performance obligations related to the commercial portion of revenue was $ 677 billion as of September 30, 2026, with a weighted average duration of approximately 2.3 years. We expect to recognize approximately 30 % of both our total company remaining performance obligation revenue and commercial remaining performance obligation revenue over the next 12 months and the remainder thereafter.   NOTE 12 — LEASES   We have operating and finance leases for datacenters and related infrastructure, servers and network equipment, corporate offices, and research and development facilities. Our leases have remaining lease terms of less than 1 year to 20 years, some of which includ…",
+   "amounts": [
+    {
+     "raw": "$ 683 billion",
+     "usdM": 683000
+    },
+    {
+     "raw": "$ 677 billion",
+     "usdM": 677000
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "22",
+   "match": "not yet commenced",
+   "text": "… (In millions)   Year Ending June 30,   Operating Leases   Finance Leases   2027 (excluding the three months ended September 30, 2026)   $   5,088   $   6,006   2028   5,191   8,163   2029   4,010   7,433   2030   3,472   7,323   2031   3,081   7,300   Thereafter   12,170   59,021   Total lease payments   33,012   95,246   Less imputed interest   ( 5,535   )   ( 24,273   )   Total   $   27,477   $   70,973   As of September 30, 2026, we had additional leases, primarily for datacenters, that had not yet commenced of $ 364.6 billion, with some arrangements subject to certain contractual conditions being met. These leases will commence between fiscal year 2027 and fiscal year 2034 with lease terms of 1 year to 20 years.   22",
+   "amounts": [
+    {
+     "raw": "$ 364.6 billion",
+     "usdM": 364600
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "24",
+   "match": "SEGMENT INFORMATION",
+   "text": "…)   Net change related to investments, net of tax of $( 148 ) and $ 183   ( 559   )   687   Balance, end of period   $   ( 1,395   )   $   ( 364   )   Translation Adjustments and Other   Balance, beginning of period   $   ( 2,448   )   $   ( 2,288   )   Translation adjustments and other, net of tax of $ 0 and $ 0   ( 17   )   ( 98   )   Balance, end of period   $   ( 2,465   )   $   ( 2,386   )   Accumulated other comprehensive loss, end of period   $   ( 3,857   )   $   ( 2,761   )   NOTE 16 — SEGMENT INFORMATION AND GEOGRAPHIC DATA   In September 2026, we announced changes in our segment reporting structure. We have recast certain prior period amounts to conform to the way we internally manage and monitor our business. Refer to Note 1 – Accounting Policies for further information.   In its operation of the business, management, including our CODM, who is also our Chief Executive Officer , reviews certain financial information, including segmented internal profit and loss statements. The primary profitability measure used by the CODM to review segment operating results is operating income. The CODM uses operating income to allocate resources during our annual planning process and throughout the year, as well as to assess the performance of our segments, primarily by monitoring actual results compared to prior periods and expected results. During the periods presented, we repor…",
+   "amounts": [
+    {
+     "raw": "$ 0 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "gpu",
+   "page": "25",
+   "match": "GPU",
+   "text": "PART I   Item 1   Our reportable segments are described below.   Agents and Infra   Our Agents and Infra segment brings together our applications and agents, our multi-model system, and Azure infrastructure. This segment primarily comprises:   • Azure, comprising consumption-based services across non-GPU workloads, including compute, data and analytics, storage, networking, and security; and GPU workloads, including GPU infrastructure-as-a-service and Foundry.   • Microsoft 365 cloud, including Microsoft 365 commercial cloud, comprising Microsoft 365 commercial subscriptions and services, GitHub cloud and other cloud-based developer services, Microsoft 365 Copilot, GitHub Copilot, and security offerings including Agent 365 and Security Copilot; and Microsoft 365 consumer cloud.   • Productivity and server licensing, including Server products, comprising SQL Server, Windows Server, Visual Studio, System Center, related Client Access Licenses, and other on-premises offerings; Microsoft 365 commercial products, comprising Windows commercial on-premises and Office licensed on-premises; and Microsoft 365 consumer products, comprising Office licensed on-premises.   • Industry solutions, in…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "26",
+   "match": "Microsoft Cloud",
+   "text": "…nue, classified by significant product and service offerings, was as follows:   (In millions)   Three Months Ended September 30,   2026   2025   Azure   $   33,165   $   22,384   Microsoft 365 cloud   27,778   23,694   Productivity and server licensing   8,407   8,678   Search and advertising   6,554   5,942   XBOX   5,379   5,508   Industry solutions   5,337   4,894   Windows OEM and devices   3,551   4,551   Frontier and support services   2,108   2,022   Total   $   92,279   $   77,673   Our Microsoft Cloud revenue, which includes Azure, Microsoft 365 commercial cloud, and Industry solutions cloud, was $ 63.9 billion and $ 49.1 billion for the three months ended September 30, 2026 and 2025, respectively.   Assets are not allocated to segments for internal reporting presentations. A portion of amortization and depreciation is included with various other costs in an overhead allocation to each segment. It is impracticable for us to separately identify the amount of amortization and depreciation by segment that is included in the measure of segment profit or loss.   26",
+   "amounts": [
+    {
+     "raw": "$ 63.9 billion",
+     "usdM": 63900
+    },
+    {
+     "raw": "$ 49.1 billion",
+     "usdM": 49100
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "26",
+   "match": "10% of revenue",
+   "text": "…g expenses   12,350   11,253   Operating income   $   40,558   $   32,718   Devices and Consumer   Revenue   $   15,484   $   16,001   Cost of revenue   5,833   6,342   Operating expenses   4,294   4,416   Operating income   $   5,357   $   5,243   Total   Revenue   $   92,279   $   77,673   Cost of revenue   29,720   24,043   Operating expenses   16,644   15,669   Operating income   $   45,915   $   37,961   No sales to an individual country other than the United States accounted for more than 10% of revenue for the three months ended September 30, 2026 or 2025. Revenue, classified by the major geographic areas in which our customers were located, was as follows:   (In millions)   Three Months Ended September 30,   2026   2025   United States (a)   $   49,459   $   40,077   Other countries   42,820   37,596   Total   $   92,279   $   77,673   (a) Includes billings to OEMs and certain multinational organizations because of the nature of these businesses and the impracticability of determining the geographic source of the revenue.   Revenue, classified by significant product and service offerings, was as follows:   (In millions)   Three Months Ended September 30,   2026   2025   Azure   $   33,165   $   22,384   Microsoft 365 cloud   27,778   23,694   Productivity and server licensing   8,407   8,678   Search and advertising   6,554   5,942   XBOX   5,379   5,508   Industry solu…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "28",
+   "match": "Microsoft Cloud",
+   "text": "…dience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.   Highlights from the first quarter of fiscal year 2027 compared with the first quarter of fiscal year 2026 included:   • Commercial remaining performance obligation increased 73% to $677 billion.   • Microsoft Cloud revenue increased 30% to $63.9 billion.   • Azure revenue increased 48%.   • Microsoft 365 commercial cloud revenue increased 17%.   • Microsoft 365 consumer cloud revenue increased 17%.   • Industry solutions cloud revenue increased 10%.   • Search and advertising revenue excluding traffic acquisition costs increased 12%.   • XBOX content and services revenue decreased 2%.   • Windows OEM and devices revenue decreased 22%.   28",
+   "amounts": [
+    {
+     "raw": "$677 billion",
+     "usdM": 677000
+    },
+    {
+     "raw": "$63.9 billion",
+     "usdM": 63900
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "28",
+   "match": "Commercial remaining performance",
+   "text": "…ray of software products; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.   Highlights from the first quarter of fiscal year 2027 compared with the first quarter of fiscal year 2026 included:   • Commercial remaining performance obligation increased 73% to $677 billion.   • Microsoft Cloud revenue increased 30% to $63.9 billion.   • Azure revenue increased 48%.   • Microsoft 365 commercial cloud revenue increased 17%.   • Microsoft 365 consumer cloud revenue increased 17%.   • Industry solutions cloud revenue increased 10%.   • Search and advertising revenue excluding traffic acquisition costs increased 12%.   • XBOX content and services revenue decreased 2%.   • Windows OEM and devices revenue decreased 22%.   28",
+   "amounts": [
+    {
+     "raw": "$677 billion",
+     "usdM": 677000
+    },
+    {
+     "raw": "$63.9 billion",
+     "usdM": 63900
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "29",
+   "match": "OpenAI",
+   "text": "… frequent changes in both technologies and business models. Each industry shift is an opportunity to conceive new products, new technologies, or new ideas that can further transform the industry and our business. At Microsoft, we push the boundaries of what is possible through a broad range of research and development activities that seek to identify and address the changing demands of customers and users, industry trends, and competitive forces.   We have a long-term strategic partnership with OpenAI which was originally established in 2019. We continue to build on our shared vision to advance AI responsibly and make its benefits broadly accessible. Microsoft is a major investor in OpenAI and will continue to receive revenue-sharing payments. We hold rights to OpenAI’s intellectual property, including models and infrastructure, for integration into our products.   Economic Conditions, Challenges, and Risks   The markets for software, devices, and cloud-based services are dynamic and highly competitive. Our competitors are developing new software and devices, while also deploying competing cloud-based services for consumers and businesses. The devices and form factors customers prefer evolve rapidly, influencing how users access services in the cloud and, in some cases, the user’s choice of which suite of cloud-based services to use. Aggregate demand for our software, services,…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "30",
+   "match": "segment information",
+   "text": "… segments with how we currently manage our business, creating the Agents and Infra segment that brings together our applications and agents, our multi-model system, and Azure infrastructure, and the Devices and Consumer segment that comprises our key consumer offerings. Beginning in fiscal year 2027, the information that our chief operating decision maker is regularly provided and reviews for purposes of allocating resources and assessing performance reflects these segment changes. Prior period segment information has been recast to conform to the way we internally manage and monitor our business during fiscal year 2027.   Additional information on our reportable segments is contained in Note 16 – Segment Information and Geographic Data of the Notes to Financial Statements (Part I, Item 1 of this Form 10-Q).   Metrics   We use metrics in assessing the performance of our business and to make informed decisions regarding the allocation of resources. We disclose metrics to enable investors to evaluate progress against our ambitions, provide transparency into performance trends, and reflect the continued evolution of our products and services. Financial metrics are calculated based on financial results prepared in accordance with accounting principles generally accepted in the United States of America (“GAAP”), and growth comparisons relate to the corresponding period of last fisca…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "31",
+   "match": "GPU",
+   "text": "… support services) allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods   Microsoft Cloud revenue and revenue growth   Revenue from Azure, Microsoft 365 commercial cloud, and Industry solutions cloud   Microsoft Cloud gross margin percentage   Gross margin percentage for our Microsoft Cloud business   Azure revenue growth   Revenue from Azure, comprising consumption-based services across non-GPU workloads, including compute, data and analytics, storage, networking, and security; and GPU workloads, including GPU infrastructure-as-a-service and Foundry   Microsoft 365 commercial cloud revenue growth   Revenue from Microsoft 365 commercial subscriptions and services, GitHub cloud and other cloud-based developer services, Microsoft 365 Copilot, GitHub Copilot, and security offerings including Agent 365 and Security Copilot   Microsoft 365 commercial seat growth   The number of Microsoft 365 commercial seats and GitHub cloud seats at end of period where seats are paid users covered by a Microsoft 365 commercial subscription or GitHub subscription   Microsoft 365 consumer cloud revenue growth   Revenue from Microsoft 365 consumer subscriptions and other consumer services   Industry solutions cloud revenue growth   Revenue from LinkedIn Talent Solutions and Sales Solutions, Dynamic…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "31",
+   "match": "Microsoft Cloud",
+   "text": "…ses within this segment. The metrics primarily reflect growth across our commercial and cloud services.   Commercial remaining performance obligation   Commercial portion of revenue (comprising Azure, Microsoft 365 commercial cloud, Server products, Microsoft 365 commercial products, Industry solutions, and Frontier and support services) allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods   Microsoft Cloud revenue and revenue growth   Revenue from Azure, Microsoft 365 commercial cloud, and Industry solutions cloud   Microsoft Cloud gross margin percentage   Gross margin percentage for our Microsoft Cloud business   Azure revenue growth   Revenue from Azure, comprising consumption-based services across non-GPU workloads, including compute, data and analytics, storage, networking, and security; and GPU workloads, including GPU infrastructure-as-a-service and Foundry   Microsoft 365 commercial cloud revenue growth   Revenue from Microsoft 365 commercial subscriptions and services, GitHub cloud and other cloud-based developer services, Microsoft 365 Copilot, GitHub Copilot, and security offerings including Agent 365 and Security Copilot   Microsoft 365 commercial seat growth   The number of Microsoft 365 commercial seats and GitHub cloud seats at end of period where seats are p…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "31",
+   "match": "Commercial remaining performance",
+   "text": "PART I   Item 2   Agents and Infra   Metrics related to our Agents and Infra segment assess the performance of our core businesses within this segment. The metrics primarily reflect growth across our commercial and cloud services.   Commercial remaining performance obligation   Commercial portion of revenue (comprising Azure, Microsoft 365 commercial cloud, Server products, Microsoft 365 commercial products, Industry solutions, and Frontier and support services) allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods   Microsoft Cloud revenue and revenue growth   Revenue from Azure, Microsoft 365 commercial cloud, and Industry solutions cloud   Microsoft Cloud gross margin percentage   Gross margin percentage for our Microsoft Cloud business   Azure revenue growth   Revenue from Azure, comprising consumption-based services across non-GPU workloads, including compute, data and analytics, storage, networking, and security; and GPU workloads, including GPU infrastructure-as-a-service and Foundry   Microsoft 365 commerc…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "32",
+   "match": "Microsoft Cloud",
+   "text": "…ncial results.   Three Months Ended September 30, 2026 Compared with Three Months Ended September 30, 2025   Revenue increased $14.6 billion or 19% driven by growth in Agents and Infra. Agents and Infra revenue increased driven by Azure. Devices and Consumer revenue decreased driven by Windows OEM and devices, offset in part by growth in Search and advertising.   Cost of revenue increased $5.7 billion or 24% driven by growth in Agents and Infra.   Gross margin increased $8.9 billion or 17%.   • Microsoft Cloud gross margin percentage decreased to 66% driven by sales mix shift to Azure, offset in part by product-level margin improvements, primarily in Azure.   Operating expenses increased $975 million or 6% driven by continued investments in research and development compute capacity and talent. Total company headcount decreased 2%.   Operating income increased $8.0 billion or 21% driven by growth in Agents and Infra. Operating income percentage increased slightly driven by strong revenue growth, platform efficiency gains, and focused investments across our portfolio, offset in part by sales mix shift to Azure.   Current year net income and diluted EPS were positively impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted EPS of $207 million and $0.03, respectively. Prior year net income and diluted EPS were negatively impacted b…",
+   "amounts": [
+    {
+     "raw": "$5.7 billion",
+     "usdM": 5700
+    },
+    {
+     "raw": "$8.9 billion",
+     "usdM": 8900
+    },
+    {
+     "raw": "$975 million",
+     "usdM": 975
+    },
+    {
+     "raw": "$8.0 billion",
+     "usdM": 8000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "32",
+   "match": "OpenAI",
+   "text": "…   $   77,673   19%   Gross margin   62,559   53,630   17%   Operating income   45,915   37,961   21%   Net income   36,629   27,747   32%   Diluted earnings per share   4.92   3.72   32%   Adjusted net income (non-GAAP)   36,422   30,833   18%   Adjusted diluted earnings per share (non-GAAP)   4.89   4.13   18%   Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.   Three Months Ended September 30, 2026 Compared with Three Months Ended September 30, 2025   Revenue increased $14.6 billion or 19% driven by growth in Agents and Infra. Agents and Infra revenue increased driven by Azure. Devices and Consumer revenue decreased driven by Windows OEM and devices, offset in part by growth in Search and advertising.   Cost of revenue increased $5.7 billion or 24% driven by growth in Agents and Infra.   Gross margin increased $8.9 billion or 17%.   • Microsoft Cloud gross margin percentage decreased to 66% driven by sales mix shift to Azure, offset in part by product-level margin improvements, primarily in Azure.   Operating expenses increased $975 million or 6% driven by continued invest…",
+   "amounts": [
+    {
+     "raw": "$14.6 billion",
+     "usdM": 14600
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "32",
+   "match": "OpenAI",
+   "text": "…ontinued investments in research and development compute capacity and talent. Total company headcount decreased 2%.   Operating income increased $8.0 billion or 21% driven by growth in Agents and Infra. Operating income percentage increased slightly driven by strong revenue growth, platform efficiency gains, and focused investments across our portfolio, offset in part by sales mix shift to Azure.   Current year net income and diluted EPS were positively impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted EPS of $207 million and $0.03, respectively. Prior year net income and diluted EPS were negatively impacted by net losses from investments in OpenAI, which resulted in a decrease in net income and diluted EPS of $3.1 billion and $0.41, respectively.   32",
+   "amounts": [
+    {
+     "raw": "$207 million",
+     "usdM": 207
+    },
+    {
+     "raw": "$0.03, ",
+     "usdM": null
+    },
+    {
+     "raw": "$3.1 billion",
+     "usdM": 3100
+    },
+    {
+     "raw": "$0.41, ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "33",
+   "match": "SEGMENT RESULTS",
+   "text": "PART I   Item 2   SEGMENT RESULTS OF OPERATIONS   (In millions, except percentages)   Three Months Ended   September 30,   Percentage Change   2026   2025   Agents and Infra   Revenue   $   76,795   $   61,672   25%   Cost of revenue   23,887   17,701   35%   Operating expenses   12,350   11,253   10%   Operating income   $   40,558   $   32,718   24%   Devices and Consumer   Revenue   $   15,484   $   16,001   (3%   )   Cost of revenue   5,833   6,342   (8%   )   Operating expenses   4,294   4,416   (3%   )   Operating income   $   5,357   $   5,243   2%   Total   Revenue   $   92,279   $   77,673   19%   Cost of revenue   29,720   24,043   24%   Operating expenses   16,644   15,669   6%   Operating income   $   45,915   $   37,961   21%   Reportable Segments   Three Months Ended September 30, 2026 Compared with Three Months Ended September 30, 2025   Agents and Infra   Revenue increased $15.1 billion or…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "35",
+   "match": "equity method investment",
+   "text": "…lances. Interest expense increased primarily due to higher finance lease interest expense, offset in part by maturities of long-term debt. Net recognized losses on investments decreased primarily due to gains on equity securities in the current period as compared to losses in the prior period. Net losses on derivatives increased primarily due to lower gains on equity derivatives in the current period as compared to the prior period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI.   35",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "35",
+   "match": "OpenAI",
+   "text": "…related to foreign currencies, interest rates, equity prices, and credit; to enhance investment returns; and to facilitate portfolio diversification. Gains and losses from changes in fair values of derivatives that are not designated as hedging instruments are primarily recognized in other income (expense), net.   Other income (expense), net included $272 million of net gains and $4.1 billion of net losses for the three months ended September 30, 2026 and 2025, respectively, from investments in OpenAI.   Three Months Ended September 30, 2026 Compared with Three Months Ended September 30, 2025   Interest and dividends income decreased primarily due to lower portfolio balances. Interest expense increased primarily due to higher finance lease interest expense, offset in part by maturities of long-term debt. Net recognized losses on investments decreased primarily due to gains on equity securities in the current period as compared to losses in the prior period. Net losses on derivatives increased primarily due to lower gains on equity derivatives in the current period as compared to the prior period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI.   35",
+   "amounts": [
+    {
+     "raw": "$272 million",
+     "usdM": 272
+    },
+    {
+     "raw": "$4.1 billion",
+     "usdM": 4100
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "36",
+   "match": "OpenAI",
+   "text": "… many jurisdictions outside the U.S., some of which are currently under audit by local tax authorities. The resolution of these audits is not expected to be material to our consolidated financial statements. Our operations in Ireland remain subject to examination for tax years 2021 and thereafter.   NON-GAAP FINANCIAL MEASURES   Adjusted other income (expense), net, adjusted net income, and adjusted diluted EPS are non-GAAP financial measures which exclude net (gains) losses from investments in OpenAI. We believe these non-GAAP measures aid investors by providing additional insight into our financial performance and help clarify trends affecting our business. For comparability of reporting, management considers non-GAAP measures in conjunction with GAAP financial results in evaluating business performance. These non-GAAP financial measures presented should not be considered a substitute for, or superior to, the measures of financial performance prepared in accordance with GAAP.   The following table reconciles our financial results reported in accordance with GAAP to non-GAAP financial results:   (In millions, except percentages and per share amounts)   Three Months Ended September 30,   Percentage Change   2026   2025   Other income (expense), net   $   38   $   (3,660   )   101%   Net (gains) losses from investments in OpenAI   (272   )   4,061   (107)%   Adjusted other incom…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "36",
+   "match": "OpenAI",
+   "text": "…reported in accordance with GAAP to non-GAAP financial results:   (In millions, except percentages and per share amounts)   Three Months Ended September 30,   Percentage Change   2026   2025   Other income (expense), net   $   38   $   (3,660   )   101%   Net (gains) losses from investments in OpenAI   (272   )   4,061   (107)%   Adjusted other income (expense), net (non-GAAP)   $   (234   )   $   401   (158)%   Net income   $   36,629   $   27,747   32%   Net (gains) losses from investments in OpenAI, net of tax of $65 and $(975)   (207   )   3,086   (107)%   Adjusted net income (non-GAAP)   $   36,422   $   30,833   18%   Diluted earnings per share   $   4.92   $   3.72   32%   Net (gains) losses from investments in OpenAI   (0.03   )   0.41   (107)%   Adjusted diluted earnings per share (non-GAAP)   $   4.89   $   4.13   18%   36",
+   "amounts": [
+    {
+     "raw": "$65 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "37",
+   "match": "investment-grade",
+   "text": "…thereafter for the foreseeable future.   Cash, Cash Equivalents, and Investments   Cash, cash equivalents, and short-term investments totaled $64.5 billion and $76.8 billion as of September 30, 2026 and June 30, 2026, respectively. Equity and other investments were $37.8 billion and $36.3 billion as of September 30, 2026 and June 30, 2026, respectively. Our short-term investments are primarily intended to facilitate liquidity and capital preservation. They consist predominantly of highly liquid investment-grade fixed-income securities, diversified among industries and individual issuers. The investments are predominantly U.S. dollar-denominated securities, but also include foreign currency-denominated securities to diversify risk. Our fixed-income investments are exposed to interest rate risk and credit risk. The credit risk and average maturity of our fixed-income portfolio are managed to achieve economic returns that correlate to certain fixed-income indices. The settlement risk related to these investments is insignificant given that the short-term investments held are primarily highly liquid investment-grade fixed-income securities.   Valuation   In general, and where applicable, we use quoted prices in active markets for identical assets or liabilities to determine the fair value of our financial instruments. This pricing methodology applies to our Level 1 investments, suc…",
+   "amounts": [
+    {
+     "raw": "$37.8 billion",
+     "usdM": 37800
+    },
+    {
+     "raw": "$36.3 billion",
+     "usdM": 36300
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "37",
+   "match": "repayments of debt",
+   "text": "…calculation of prices where appropriate.   Cash Flows   Cash from operations increased $12.9 billion to $58.0 billion for the three months ended September 30, 2026, primarily due to an increase in cash received from customers and a decrease in cash used to pay income taxes, offset in part by an increase in cash paid to suppliers. Cash used in financing increased $4.8 billion to $16.6 billion for the three months ended September 30, 2026, primarily due to a $4.9 billion increase in cash used for repayments of debt. Cash used in investing increased $7.4 billion to $42.0 billion for the three months ended September 30, 2026, primarily due to a $20.0 billion increase in additions to property and equipment and a $6.7 billion increase in cash used in other investing primarily to facilitate the purchase of components, offset in part by a $19.1 billion increase in cash from net investment purchases, sales, and maturities.   37",
+   "amounts": [
+    {
+     "raw": "$4.8 billion",
+     "usdM": 4800
+    },
+    {
+     "raw": "$16.6 billion",
+     "usdM": 16600
+    },
+    {
+     "raw": "$4.9 billion",
+     "usdM": 4900
+    },
+    {
+     "raw": "$7.4 billion",
+     "usdM": 7400
+    },
+    {
+     "raw": "$42.0 billion",
+     "usdM": 42000
+    },
+    {
+     "raw": "$20.0 billion",
+     "usdM": 20000
+    },
+    {
+     "raw": "$6.7 billion",
+     "usdM": 6700
+    },
+    {
+     "raw": "$19.1 billion",
+     "usdM": 19100
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "38",
+   "match": "credit rating",
+   "text": "PART I   Item 2   Debt Proceeds   We issue debt to take advantage of favorable pricing and liquidity in the debt markets, reflecting our credit rating. The proceeds of these issuances were or will be used for general corporate purposes, which may include, among other things, funding for working capital, capital expenditures, repurchases of capital stock, acquisitions, and repayment of existing debt. Refer to Note 9 – Debt of the Notes to Financial Statements (Part I, Item 1 of this Form 10-Q).   Unearned Revenue   Unearned revenue comprises mainly unearned revenue related to volume licensing programs, which may include cloud services and Software Assurance (“SA”). Unearned revenue is generally invoiced annually at the beginning of each contract period for multi-year agreements and recognized ratably over the coverage period. Unearned revenue also includes payments for other offerings for which we have been paid in advance and earn the revenue when we transfer control of the product or service.   The following table outlin…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "38",
+   "match": "related party",
+   "text": "…, including new facilities, datacenters, and computer systems for research and development, sales and marketing, support, and administrative staff. We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI training and other infrastructure. We have operating and finance leases for datacenters and related infrastructure, servers and network equipment, corporate offices, and research and development facilities. We have not engaged in any related party transactions or arrangements with unconsolidated entities or other persons that are reasonably likely to materially affect liquidity or the availability of capital resources.   38",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "39",
+   "match": "Remaining performance obligations",
+   "text": "…ld with a right of return, we may provide other credits or incentives, and in certain instances we estimate customer usage of our products and services, which are accounted for as variable consideration when determining the amount of revenue to recognize. Returns and credits are estimated at contract inception and updated at the end of each reporting period if additional information becomes available. Changes to our estimated variable consideration were not material for the periods presented.   Remaining performance obligations represent the revenue we expect to recognize for our products and services for which control has not yet been transferred to customers. We estimate total consideration to be received at the outset of the agreement and throughout the term of the agreement. Estimating the total consideration and revenue that will be allocated to remaining performance obligation can involve significant judgments, including identifying and assessing variable consideration and potential renegotiation of commitments. We consider factors such as the nature of the terms and duration of the contract across our portfolio of contracts.   39",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "40",
+   "match": "Equity method investment",
+   "text": "PART I   Item 2   Measurement and Impairment of Investment Securities   Investments purchased by Microsoft are typically accounted for as available-for-sale debt securities, equity investments with readily determinable fair values, or equity investments without readily determinable fair values measured using either the equity method when required or at cost less impairments, if any, with adjustments for observable changes in price (referred to as the measurement alternative). Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   We review debt investments quarterly for credit losses and impairment. If the cost of an investment exceeds its fair value, we evaluate, among other factors, general market conditions, credit quality of debt instrument issuers, and the extent to which the fair value is less than cost. This determination requires significant judgment. In making this judgment, we employ a systematic methodology that considers available quantitative and qualitative evidence in evaluating potential impairment of our investments. In addition, we consider specific …",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "42",
+   "match": "investment-grade",
+   "text": "…tions, including hedges. Principal currency exposures include the Euro, Japanese yen, British pound, Canadian dollar, and Australian dollar.   Interest Rate   Securities held in our fixed-income portfolio are subject to different interest rate risks based on their maturities. We manage the average maturity of the fixed-income portfolio to achieve economic returns that correlate to certain global fixed-income indices.   Credit   Our fixed-income portfolio is diversified and consists primarily of investment-grade securities. We manage credit exposures relative to broad-based indices to facilitate portfolio diversification.   Equity   Securities held in our equity investments portfolio are subject to price risk.   SENSITIVITY ANALYSIS   The following table sets forth the potential loss in future earnings or fair values, including associated derivatives, resulting from hypothetical changes in relevant market rates or prices:   (In millions)   Risk Categories   Hypothetical Change   September 30,   2026   Impact   Foreign currency – Revenue   10% decrease in foreign exchange rates   $   (14,451   )   Earnings   Foreign currency – Investments   10% decrease in foreign exchange rates   (8   )   Fair Value   Interest rate   100 basis point increase in U.S. treasury interest rates   (1,023   )   Fair Value   Credit   100 basis point increase in credit spreads   (387   )   Fair Value   E…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "43",
+   "match": "utility",
+   "text": "…-integrated capabilities, including developing proprietary hardware, infrastructure, and artificial intelligence (“AI”) models, could increase our cost structure, reduce margins, and expose us to operational risks.   • We derive substantial revenue from licenses of Windows operating systems on PCs. We face significant competition from competing platforms developed for a range of devices, including smartphones and tablets. These devices compete on multiple bases including price and the perceived utility of the device and its platform. Even if many users view these devices as complementary to a PC, the prevalence of these devices may make it more difficult to attract application developers to our PC operating system platforms. Competing with operating systems licensed at low or no cost may decrease our PC operating system margins. Popular products or services offered on competing platforms could increase their competitive strength. In addition, some of our devices compete with products made by our OEM partners, which may affect their commitment to our platform.   • Competing platforms have content and application marketplaces with scale and significant installed bases. Users may incur costs to move data and buy new content and applications when switching platforms. To compete successfully, we must enlist developers to write applications for our platform and ensure that these   43",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "44",
+   "match": "credit ratings",
+   "text": "… streams. The associated revenue may not be realized in the expected timeframes or at expected levels. Our capital and operational investments are complex and involve projects in multiple locations around the world that expose us to increased compliance risks and political challenges, among others. Funding these investments depends on our ability to generate sufficient cash flows and obtain financing on acceptable terms. Adverse changes in interest rates, credit markets, investor sentiment, our credit ratings, or other factors affecting capital availability could increase our cost of capital or limit our ability to execute our infrastructure strategy. The financial success of these investments depends on a number of uncertain factors, including customer demand for cloud-based and AI products and services and continued customer use of Azure to build, train, deploy, and run AI workloads, our ability to price and monetize those services at levels sufficient to recover our costs, competitive dynamics affecting pricing, and the pace of adoption of AI. Customers may reduce, delay, or shift AI workloads to competing platforms, on-premises or local deployments, or other alternatives. If adoption of our AI services develops more slowly than expected, or if customers do not continue to utilize Azure for AI workloads at anticipated levels, we may not realize the expected returns on our in…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "45",
+   "match": "utility",
+   "text": "… through pricing models that reflect their value while remaining competitive.   • Attracting third parties to utilize, build on, and extend our cloud and AI platforms.   • Ensuring our cloud-based and AI products and services meet the reliability expectations and specific requirements of our customers and maintain the security of their data as well as help them meet their own compliance needs.   • Making our suite of cloud-based and AI products and services platform-agnostic and maintaining the utility, compatibility, and performance of our cloud-based and AI products and services on the growing array of computing devices, including PCs, smartphones, tablets, gaming consoles, and other devices.   Our success depends on our ability to execute effectively across product development, go-to-market, customer acquisition, and customer retention initiatives. Failure to do so could reduce adoption, market share, and revenue growth. If we are not effective in executing organizational and technical changes to increase efficiency and accelerate innovation, or if we fail to generate sufficient usage of our new products and services, the timing or magnitude of any revenue growth may not be in line with these costs. This could adversely affect our operations, financial condition, and results of operations.   45",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "45",
+   "match": "significant customer",
+   "text": "…s with respect to certain products and services. We also have limited visibility into or control over the design, training data, model weights, security practices, updates, evaluations, or behavior of models and related technologies provided by third parties. Changes in strategic priorities, contractual arrangements, our access to third-party technologies, or key commercial relationships could adversely affect the competitiveness of our AI products and services. In some cases, these parties are significant customers of Azure and other cloud services. The economic benefits we expect to derive from these relationships, including through commercial arrangements, technology access, and Azure consumption, may not be realized or sustained. As we manage infrastructure capacity constraints and evolving customer demand, we may modify capacity allocations, deployment priorities, pricing, or other commercial arrangements. Strategic partners and other customers may likewise adjust their purchasing decisions, deployment strategies, workloads, or anticipated use of our products and services. As a result, expected consumption or anticipated demand may not materialize, may be delayed or reduced, or may decline over time. Any such developments could adversely affect our business, financial condition, and results of operations.   Our success depends on our ability to develop, deliver, and mainta…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "match": "joint venture",
+   "text": "…ons of mismanagement, driven by regulatory activity or negative public reaction to our practices or product experiences, could negatively impact product and feature adoption. Developing new technologies is complex. It can require long development and testing periods. We could experience significant delays in new releases or significant problems in creating new products or services. These factors could adversely affect our business, financial condition, and results of operations.   Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, we have a long-term strategic partnership with OpenAI. Acquisitions and other transactions and arrangements involve significant challenges and risks, including that they do not advance our business strategy, that we get an unsatisfactory return on our investment, that they raise new compliance-related obligations and challenges, that we have difficulty integrating and retaining new employees, business systems, and technology, that they distract management from our other businesses, or that announced transactions may not be completed. If an arrangement fails to adequately anticipate changing circumstances and interests of a party, it may result in ear…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "46",
+   "match": "OpenAI",
+   "text": "…ignificant delays in new releases or significant problems in creating new products or services. These factors could adversely affect our business, financial condition, and results of operations.   Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, we have a long-term strategic partnership with OpenAI. Acquisitions and other transactions and arrangements involve significant challenges and risks, including that they do not advance our business strategy, that we get an unsatisfactory return on our investment, that they raise new compliance-related obligations and challenges, that we have difficulty integrating and retaining new employees, business systems, and technology, that they distract management from our other businesses, or that announced transactions may not be completed. If an arrangement fails to adequately anticipate changing circumstances and interests of a party, it may result in early termination or renegotiation of the arrangement. We also have limited ability to control or influence third parties with whom we have arrangements, which may impact our ability to realize the anticipated benefits. The success of these transactions and arrangements depends in part on ou…",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "52",
+   "match": "purchase commitments",
+   "text": "…er because of supplier capacity constraint or allocation decisions, industry shortages, legal or regulatory changes that restrict supply sources, geopolitical tensions, trade restrictions, tariffs, transportation disruptions, supplier financial distress, natural disasters, public health events, instability in regions important to our or our suppliers’ supply chains, or other reasons, we may not obtain timely replacement supplies, or may be able to obtain supplies only by entering into long-term purchase commitments, price commitments, paying prices above prevailing market rates, or other arrangements on terms that are less favorable than prevailing market terms. Any delay or inability to obtain necessary equipment, hardware, or components on acceptable terms and timelines could delay infrastructure deployments, result in reduced sales, higher costs, or inadequate datacenter capacity to support the delivery and continued development of our products and services. Component shortages, excess or obsolete inventory, or price reductions resulting in inventory adjustments have and may increase our cost of revenue.   In addition to infrastructure, other products such as XBOX consoles, Surface devices, and other hardware are similarly subject to supply chain challenges and disruptions, resulting in shortages which could adversely affect our business, operations, financial condition, and…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "56",
+   "match": "credit rating",
+   "text": "…rs’ ability to pay amounts owed, resulting in increased allowances for doubtful accounts and write-offs of accounts receivable.   We maintain an investment portfolio of various holdings, types, and maturities. These investments are subject to general credit, liquidity, market, and interest rate risks, which may be exacerbated by market downturns or events that affect global financial markets. If global financial markets decline for long periods, or if there is a downgrade of the U.S. government credit rating due to an actual or threatened default on government debt, our investment portfolio could be adversely affected and we could determine that more of our investments have experienced a decline in fair value, requiring impairment charges that could adversely affect our financial condition and results of operations.   Catastrophic events or geopolitical conditions could disrupt our business. A disruption or failure of our systems, operations, or supply chain because of a major earthquake, weather event, cyberattack, terrorist attack, pandemic, or other catastrophic event could cause delays in completing sales, providing services, or performing other critical functions. As an example, our corporate headquarters, a significant portion of our research and development activities, and certain other essential business operations are located in seismically active regions. A catastroph…",
+   "amounts": []
+  }
+ ]
+}

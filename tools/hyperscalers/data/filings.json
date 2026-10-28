@@ -6,6 +6,30 @@
    "fiscalYearEnd": "0630",
    "filings": [
     {
+     "accn": "0001193125-26-436149",
+     "form": "8-K",
+     "filed": "2026-10-28",
+     "report": "2026-10-28",
+     "doc": "msft-20261028.htm",
+     "items": "8.01,9.01"
+    },
+    {
+     "accn": "0001193125-26-436133",
+     "form": "10-Q",
+     "filed": "2026-10-28",
+     "report": "2026-09-30",
+     "doc": "msft-20260930.htm",
+     "items": null
+    },
+    {
+     "accn": "0001193125-26-436122",
+     "form": "8-K",
+     "filed": "2026-10-28",
+     "report": "2026-10-28",
+     "doc": "msft-20261028.htm",
+     "items": "2.02,9.01"
+    },
+    {
      "accn": "0001193125-26-380280",
      "form": "8-K",
      "filed": "2026-09-02",
@@ -292,6 +316,14 @@
    "category": "Large accelerated filer",
    "fiscalYearEnd": "1231",
    "filings": [
+    {
+     "accn": "0001652044-26-000080",
+     "form": "8-K",
+     "filed": "2026-10-28",
+     "report": "2026-10-28",
+     "doc": "goog-20261028.htm",
+     "items": "2.02,9.01"
+    },
     {
      "accn": "0001193125-26-342390",
      "form": "8-K",
@@ -1354,6 +1386,22 @@
    "category": "Large accelerated filer",
    "fiscalYearEnd": "1231",
    "filings": [
+    {
+     "accn": "0001193125-26-436410",
+     "form": "424B5",
+     "filed": "2026-10-28",
+     "report": null,
+     "doc": "d94886d424b5.htm",
+     "items": null
+    },
+    {
+     "accn": "0001193125-26-436405",
+     "form": "424B5",
+     "filed": "2026-10-28",
+     "report": null,
+     "doc": "d133631d424b5.htm",
+     "items": null
+    },
     {
      "accn": "0001193125-26-431043",
      "form": "424B5",

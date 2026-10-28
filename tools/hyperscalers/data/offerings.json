@@ -1,6 +1,6 @@
 {
  "_comment": "Security type of every SEC-registered offering (424B prospectus) the hub lists from the filing-fee exhibits: the fee exhibit gives only the total, so the type is read from the prospectus cover. items keyed by accession: type = debt (notes) | common (common stock offering) | preferred (mandatory convertible preferred, offered as depositary shares) | atm_program (an at-the-market program: the amount is a ceiling for future sales, not proceeds); title = the cover line(s); quote = the cover sentence the type rests on; method = cover-read (a person or the automated reader read the cover) | cover-regex (scripts/hyperscalers/classify-offerings.mjs, which runs on the automated job for new 424B filings). An accession absent here shows \"type pending\" on the page.",
- "updatedAt": "2026-10-26T14:01:26Z",
+ "updatedAt": "2026-10-28T23:01:24Z",
  "items": {
   "0001193125-26-252439": {
    "ticker": "GOOGL",
@@ -540,6 +540,24 @@
    "title": null,
    "quote": "spectus dated October 26, 2026) Meta Platforms, Inc. $22,500,000,000 Class A Common Stock The forward sellers referred to below are offering $22,500,000,000 of shares of our Class A Common Stock, par value $0.000006 per share (our “Class A Common Stock”). We expect to enter into forward sale agreements with each of Morgan Stanley Capital Services LLC a",
    "classifiedOn": "2026-10-26",
+   "method": "cover-regex"
+  },
+  "0001193125-26-436410": {
+   "ticker": "META",
+   "type": "common",
+   "currency": "USD",
+   "title": null,
+   "quote": "To Prospectus dated October 26, 2026) Meta Platforms, Inc. 40,000,000 Shares Class A Common Stock The forward sellers referred to below are offering 40,000,000 shares of our Class A Common Stock, par value $0.000006 per share (our “Class A Common Stock”). We entered into forward sale agreements with each of Morgan Stanley Capital Services LLC and Goldm",
+   "classifiedOn": "2026-10-28",
+   "method": "cover-regex"
+  },
+  "0001193125-26-436405": {
+   "ticker": "META",
+   "type": "preferred",
+   "currency": "USD",
+   "title": null,
+   "quote": "able of Contents Filed Pursuant to Rule 424(b)(5) Registration No. 333-299631 PROSPECTUS SUPPLEMENT (To Prospectus dated October 26, 2026) 250,000,000 Series A Depositary Shares Each Representing a 1/20th Interest in a Share of 6.50% Series A Mandatory Convertible Preferred Stock Meta Platforms, Inc. 6.50% Series A Mandatory Convertibl",
+   "classifiedOn": "2026-10-28",
    "method": "cover-regex"
   }
  }
