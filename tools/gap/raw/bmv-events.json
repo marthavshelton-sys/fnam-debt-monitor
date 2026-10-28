@@ -2,13 +2,21 @@
  "issuer": "GAP-6579-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GAP-6579-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": "2026-10-27T23:22:12.597Z",
+ "checkedAt": "2026-10-28T15:12:07.765Z",
  "rows": 199,
- "archived": 0,
+ "archived": 1,
  "pending": 0,
  "unmatched": [],
  "error": null,
  "seen": [
+  {
+   "id": "1598492",
+   "date": "2026-10-27",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO ANUNCIA FECHA DE PAGO DEL DIVIDENDO APROBADO POR LA ASAMBLEA ANUAL GENERAL ORDINARIA DE ACCIONISTAS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1598492_1.pdf",
+   "file": "tools/gap/raw/6k/2026-10-27_bmv1598492_es.txt"
+  },
   {
    "id": "1596277",
    "date": "2026-10-19",
