@@ -69,6 +69,32 @@
       },
       "first_seen": "2026-09-24",
       "status": "past"
+    },
+    {
+      "id": "ir-event-1012",
+      "type": "analyst_day",
+      "title": "Oracle Investor Day Meeting",
+      "title_es": "Día del inversionista: Oracle Investor Day Meeting",
+      "fiscal_period": null,
+      "start": "2026-10-28T10:55:00-05:00",
+      "end": "2026-10-28T11:55:00-05:00",
+      "timezone": "America/Chicago",
+      "location": null,
+      "links": {
+        "event": "https://investor.oracle.com/Financial-Analyst-Meeting-2026/default.aspx",
+        "webcast": "/Financial-Analyst-Meeting-2026/default.aspx",
+        "release": null,
+        "announcement": null,
+        "documents": [],
+        "transcript_in_model": false
+      },
+      "source": {
+        "title": "Oracle Investor Relations — Events & Presentations",
+        "url": "https://investor.oracle.com/events-and-presentations/default.aspx",
+        "fetched": "2026-10-28"
+      },
+      "first_seen": "2026-10-28",
+      "status": "confirmed"
     }
   ],
   "estimates": [
@@ -119,7 +145,7 @@
         "note": "Headline only, detail pending (time, webcast link). First named on the 4Q26 earnings call (Hilary Maxson, CFO, p.8). The script marks this entry superseded once the IR events list carries the event."
       },
       "first_seen": "2026-06-10",
-      "superseded_by": null
+      "superseded_by": "ir-event-1012"
     },
     {
       "id": "manual-annual-meeting-2026-11-18",

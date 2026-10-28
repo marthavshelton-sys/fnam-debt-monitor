@@ -4,160 +4,6 @@
   {
    "at": "2026-10-24T14:57:14.439Z",
    "file": "news.js",
-   "path": "sweepLog[3].checked[11]",
-   "old": "The Register",
-   "new": "Source New Mexico"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[12]",
-   "old": "Data Center Dynamics",
-   "new": "El Paso Electric"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[13]",
-   "old": "Searchlight New Mexico",
-   "new": "New Mexico Public Regulation Commission"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[14]",
-   "old": "KTSM",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[15]",
-   "old": "El Paso Electric",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[16]",
-   "old": "New Mexico Public Regulation Commission",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[17]",
-   "old": "We Energies",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[18]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[19]",
-   "old": "American Transmission Company",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[20]",
-   "old": "DTE Energy",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[21]",
-   "old": "Michigan EGLE",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[22]",
-   "old": "Vantage",
-   "new": "Apollo"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[23]",
-   "old": "Crusoe",
-   "new": "Goldman Sachs"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[24]",
-   "old": "Stargate",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[25]",
-   "old": "OpenAI",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[26]",
-   "old": "AMD",
-   "new": "Fitch Ratings"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[27]",
-   "old": "Nvidia",
-   "new": null
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[28]",
-   "old": "Moody's",
-   "new": null
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[29]",
-   "old": "S&P Global Ratings",
-   "new": null
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].checked[30]",
-   "old": "Fitch Ratings",
-   "new": null
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[3].added[0]",
-   "old": "2026-10-19-jupiter-construction-statement",
-   "new": "2026-10-20-wsj-ellison-pledges"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
-   "path": "sweepLog[4].date",
-   "old": "2026-10-19",
-   "new": "2026-10-20"
-  },
-  {
-   "at": "2026-10-24T14:57:14.439Z",
-   "file": "news.js",
    "path": "sweepLog[4].searches",
    "old": 28,
    "new": 33
@@ -4200,7 +4046,161 @@
    "path": "(more)",
    "old": null,
    "new": "1228 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-26",
+   "new": "2026-10-27"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.12,
+   "new": 1.09
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 803,
+   "new": 804
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "manualEvents[0].superseded_by",
+   "old": null,
+   "new": "ir-event-1012"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].id",
+   "old": null,
+   "new": "ir-event-1012"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].type",
+   "old": null,
+   "new": "analyst_day"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].title",
+   "old": null,
+   "new": "Oracle Investor Day Meeting"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].title_es",
+   "old": null,
+   "new": "Día del inversionista: Oracle Investor Day Meeting"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].fiscal_period",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].start",
+   "old": null,
+   "new": "2026-10-28T10:55:00-05:00"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].end",
+   "old": null,
+   "new": "2026-10-28T11:55:00-05:00"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].timezone",
+   "old": null,
+   "new": "America/Chicago"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].location",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].links.event",
+   "old": null,
+   "new": "https://investor.oracle.com/Financial-Analyst-Meeting-2026/default.aspx"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].links.webcast",
+   "old": null,
+   "new": "/Financial-Analyst-Meeting-2026/default.aspx"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].links.release",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].links.announcement",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].links.transcript_in_model",
+   "old": null,
+   "new": false
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].source.title",
+   "old": null,
+   "new": "Oracle Investor Relations — Events & Presentations"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].source.url",
+   "old": null,
+   "new": "https://investor.oracle.com/events-and-presentations/default.aspx"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].first_seen",
+   "old": null,
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-28T18:57:49.098Z",
+   "file": "calendar.js",
+   "path": "events[2].status",
+   "old": null,
+   "new": "confirmed"
   }
  ],
- "generated": "2026-10-28T15:00:49.430Z"
+ "generated": "2026-10-28T18:57:49.098Z"
 }
