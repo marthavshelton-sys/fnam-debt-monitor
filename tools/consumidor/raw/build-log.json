@@ -27,7 +27,10 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0
+   "failures": 0,
+   "notes": [
+    "FRED: 9 problem(s): FRBATLWGT12MMUMHWGWD1WP: FRED https://api.stlouisfed.org/fred/series?series_id=FRBATLWGT12MMUMHWGWD1WP&api_key=…&file_type=json: direct: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"}; proxy: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"} | FRBATLWGT12MMUMHWGWD26WP: FRED https://api.stlouisfed.org/fred/"
+   ]
   },
   "edgar": {
    "failures": 0
