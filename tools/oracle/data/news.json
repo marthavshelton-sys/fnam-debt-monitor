@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-27",
+  "as_of": "2026-10-28",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,102 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-27-orcl-rise-oci-chips",
+      "date": "2026-10-27",
+      "theme": "oci",
+      "basis": "press",
+      "title_en": "ORCL +3.5% to US$130.53 on Oct 27 as Oracle AI World adds Google TPUs and other chips to OCI and investors position for Investor Day (press)",
+      "title_es": "ORCL +3.5% a US$130.53 el 27 oct, mientras Oracle AI World suma los TPU de Google y otros chips a OCI y los inversionistas se posicionan para el Investor Day (prensa)",
+      "summary_en": "ORCL closed at US$130.53 on Tuesday Oct 27 (+3.5% from US$126.06; Yahoo/Nasdaq close, FactSet had not posted the session; intraday high US$132.34, volume 26.0 M). 24/7 Wall St. (via Yahoo Finance) printed \"$132.28, up 5% in afternoon trading\" and tied the move to Google TPUs coming to OCI and Oracle and Nvidia expanding OCI's Vera Rubin superclusters \"to multi-gigawatt scale\"; Stocktwits (via Yahoo Finance) cited about +4% after the Google TPU, Cerebras (first half of 2027) and OpenAI-powered security announcements; Investing.com printed +3.2% to US$130.07 in the morning and cited positioning ahead of the Oct 28 Investor Day and reiterated ratings from Bernstein (US$325), Barclays (US$252) and Mizuho (US$320). Press-reported reasons; unconfirmed.",
+      "summary_es": "ORCL cerró en US$130.53 el martes 27 oct (+3.5% desde US$126.06; cierre de Yahoo/Nasdaq, FactSet aún no publicaba la sesión; máximo intradía US$132.34, volumen 26.0 M). 24/7 Wall St. (vía Yahoo Finance) publicó \"US$132.28, +5% por la tarde\" y vinculó el movimiento con la llegada de los TPU de Google a OCI y con la ampliación, por Oracle y Nvidia, de los superclústeres Vera Rubin de OCI \"a escala de varios gigawatts\"; Stocktwits (vía Yahoo Finance) citó cerca de +4% tras los anuncios de los TPU de Google, de Cerebras (primer semestre de 2027) y de seguridad con modelos de OpenAI; Investing.com publicó +3.2% a US$130.07 en la mañana y citó el posicionamiento antes del Investor Day del 28 oct y las calificaciones reiteradas de Bernstein (US$325), Barclays (US$252) y Mizuho (US$320). Razones reportadas por la prensa; sin confirmar.",
+      "why_en": "A price move, not a data change: it enters only the price series. The cited cause, more accelerator suppliers for OCI, bears on future capex and the mix of OCI capacity ({{sec:financing}}); no contract value or capacity figure was given.",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios. La causa citada, más proveedores de aceleradores para OCI, toca el capex futuro y la composición de la capacidad de OCI ({{sec:financing}}); no se dio valor de contrato ni cifra de capacidad.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "24/7 Wall St. via Yahoo Finance, Oct 27, 2026: Oracle Rises 5% as Google TPUs Come to Oracle Cloud and NVIDIA Deal Expands",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/oracle-rises-5-google-tpus-170223192.html"
+        },
+        {
+          "tier": "press",
+          "title": "Stocktwits via Yahoo Finance, Oct 27, 2026: Oracle Expands Cloud Infrastructure Arsenal With Google, OpenAI, And Cerebras Partnerships",
+          "url": "https://finance.yahoo.com/technology/ai/articles/oracle-expands-cloud-infrastructure-arsenal-190110797.html"
+        },
+        {
+          "tier": "press",
+          "title": "Investing.com, Oct 27, 2026: Why is Oracle stock rallying today?",
+          "url": "https://in.investing.com/news/stock-market-news/why-is-oracle-stock-rallying-today-93CH-5657364"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-27-google-tpus-oci",
+      "date": "2026-10-27",
+      "theme": "oci",
+      "basis": "company",
+      "title_en": "Oracle and Google: Google's TPUs to be offered on OCI from calendar 2027, ramping over several years; no financial terms or capacity given",
+      "title_es": "Oracle y Google: los TPU de Google se ofrecerán en OCI desde el año calendario 2027, con un aumento gradual de varios años; sin términos financieros ni capacidad",
+      "summary_en": "Oracle release (Las Vegas, Oct 27, Oracle AI World): Google's eighth-generation TPUs (TPU 8t for training, TPU 8i for inference) will be available through OCI in calendar year 2027, \"ramping over a multi-year period\"; OCI provides the power, cooling and data-center networking; the companies say OCI is the first hyperscale cloud outside Google to offer TPUs. Oracle's statement: \"Bringing Google TPUs to OCI gives customers access to multiple leading AI compute architectures in one cloud\" (Mahesh Thiagarajan; company statement, not audited). The release gives no contract value, capacity or customer.",
+      "summary_es": "Comunicado de Oracle (Las Vegas, 27 oct, Oracle AI World): los TPU de octava generación de Google (TPU 8t para entrenamiento, TPU 8i para inferencia) estarán disponibles en OCI en el año calendario 2027, con un aumento gradual de varios años; OCI aporta la energía, el enfriamiento y la red del centro de datos; las empresas dicen que OCI es la primera nube de hiperescala fuera de Google que ofrecerá TPU. Declaración de Oracle: \"Llevar los TPU de Google a OCI da a los clientes acceso a varias de las principales arquitecturas de cómputo de IA en una sola nube\" (Mahesh Thiagarajan; declaración de la empresa, no auditada). El comunicado no da valor de contrato, capacidad ni cliente.",
+      "why_en": "Oracle supplies the sites, power and cooling for another vendor's chips: the capex and lease commitments for the halls fall on Oracle while the accelerator itself is Google's; until terms are filed it changes no figure on the page ({{sec:financing}}).",
+      "why_es": "Oracle aporta los sitios, la energía y el enfriamiento para chips de otro proveedor: el capex y los compromisos de arrendamiento de las naves recaen en Oracle mientras el acelerador es de Google; mientras no se presenten términos no cambia ninguna cifra de la página ({{sec:financing}}).",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle release via PR Newswire, Oct 27, 2026: Oracle Brings Google TPUs to Oracle Cloud Infrastructure",
+          "url": "https://www.prnewswire.com/news-releases/oracle-brings-google-tpus-to-oracle-cloud-infrastructure-302920827.html"
+        },
+        {
+          "tier": "company",
+          "title": "Google Cloud blog: Google and Oracle are partnering to bring Google TPUs to Oracle Cloud Infrastructure",
+          "url": "https://cloud.google.com/blog/products/infrastructure/bringing-google-tpus-to-oracle-cloud-infrastructure"
+        },
+        {
+          "tier": "press",
+          "title": "StreetInsider, Oct 27, 2026: Oracle and Google to offer TPUs on OCI starting in 2027",
+          "url": "https://www.streetinsider.com/Corporate+News/Oracle+and+Google+to+offer+TPUs+on+OCI+starting+in+2027/27239439.html"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-23-officer-rsu-vesting",
+      "date": "2026-10-23",
+      "theme": "leadership",
+      "basis": "sec",
+      "title_en": "Four Form 4s (filed Oct 27): RSUs vest for Henley, Catz, Levey and Smith on Oct 23; 16,882 shares withheld for taxes at US$125.54, none sold",
+      "title_es": "Cuatro Formularios 4 (presentados el 27 oct): se consolidan RSU de Henley, Catz, Levey y Smith el 23 oct; 16,882 acciones retenidas para impuestos a US$125.54, ninguna vendida",
+      "summary_en": "Form 4s filed Oct 27, 2026, transaction date Oct 23 (code M, then F for tax withholding at US$125.54): Vice Chairman Jeffrey Henley 8,033 units vested, 3,529 withheld (by trust); Safra Catz 8,033 vested, 2,550 withheld; Chief Legal Officer Stuart Levey 12,497 vested, 6,130 withheld, plus 479.117 deferred dividend-equivalent units valued at the Oct 23 close of US$126.16, the dividend payment date; Chief Accounting Officer Maria Smith 8,926 vested, 4,673 withheld. In all 37,489 units vested and 16,882 shares were withheld; no open-market sales.",
+      "summary_es": "Formularios 4 presentados el 27 oct 2026, fecha de operación 23 oct (código M y luego F por retención de impuestos a US$125.54): el vicepresidente del consejo Jeffrey Henley consolidó 8,033 unidades y se retuvieron 3,529 (vía fideicomiso); Safra Catz 8,033 y 2,550 retenidas; el director jurídico Stuart Levey 12,497 y 6,130 retenidas, más 479.117 unidades diferidas equivalentes a dividendos valuadas al cierre del 23 oct de US$126.16, fecha de pago del dividendo; la contralora Maria Smith 8,926 y 4,673 retenidas. En total se consolidaron 37,489 unidades y se retuvieron 16,882 acciones; no hubo ventas en el mercado.",
+      "why_en": "Routine vesting: the withheld shares are a small cash outflow for the taxes Oracle remits, and the net 20,607 shares issued are a negligible addition to the 3,024 million shares outstanding ({{sec:financing}}).",
+      "why_es": "Consolidación rutinaria: las acciones retenidas implican una pequeña salida de efectivo por los impuestos que Oracle entera, y las 20,607 acciones netas emitidas son una adición mínima a las 3,024 millones en circulación ({{sec:financing}}).",
+      "sources": [
+        {
+          "tier": "sec",
+          "title": "Form 4, Jeffrey Henley, filed Oct 27, 2026, transaction Oct 23, 2026: 8,033 RSUs vested, 3,529 shares withheld (accession 0001341439-26-000123)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000123/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000123"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Safra Catz, filed Oct 27, 2026, transaction Oct 23, 2026: 8,033 RSUs vested, 2,550 shares withheld (accession 0001341439-26-000121)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000121/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000121"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Stuart Levey, filed Oct 27, 2026, transaction Oct 23, 2026: 12,497 RSUs vested, 6,130 shares withheld, 479.117 dividend equivalents (accession 0001341439-26-000119)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000119/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000119"
+        },
+        {
+          "tier": "sec",
+          "title": "Form 4, Maria Smith, filed Oct 27, 2026, transaction Oct 23, 2026: 8,926 RSUs vested, 4,673 shares withheld (accession 0001341439-26-000125)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000125/xslF345X06/form4.xml",
+          "accession": "0001341439-26-000125"
+        }
+      ]
+    },
     {
       "id": "2026-10-23-partner-commitment",
       "date": "2026-10-23",
@@ -1026,6 +1122,54 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-28",
+      "by": "routine",
+      "searches": 30,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "PR Newswire",
+        "Bloomberg",
+        "Reuters",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Investing.com",
+        "Yahoo Finance",
+        "24/7 Wall St.",
+        "Stocktwits",
+        "StreetInsider",
+        "Albuquerque Journal",
+        "KVIA",
+        "Wisconsin Watch",
+        "Michigan Advance",
+        "Data Center Dynamics",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "Google",
+        "OpenAI",
+        "Nvidia",
+        "Cerebras",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-27-orcl-rise-oci-chips",
+        "2026-10-27-google-tpus-oci",
+        "2026-10-23-officer-rsu-vesting"
+      ],
+      "note": "Oct 27 close US$130.53 (Yahoo/Nasdaq fallback; FactSet through Oct 23 at US$126.16), +3.5% from US$126.06: recorded with the reasons 24/7 Wall St., Stocktwits and Investing.com gave. Four Form 4s filed Oct 27 (RSU vesting, tax withholding) added. Oracle's Oct 27 release on Google TPUs on OCI added; the same-day Oracle and OpenAI release (ChatGPT and Codex in Oracle's applications) and the Nvidia Vera Rubin expansion could not be opened (oracle.com and CNBC 403), not added as items. The Oct 28 Investor Day had not begun at the time of the sweep (10:55 a.m. Central). No Moody's, S&P or Fitch action; no Wisconsin PSC, EGLE, New Mexico PRC or FERC decision found."
+    },
     {
       "date": "2026-10-27",
       "by": "routine",
