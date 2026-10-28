@@ -1,8 +1,8 @@
 // One-line explanations for year-over-year comparisons, per income-statement line (`lines`) and per
 // operating metric (`ops`), ES and EN. Keys: quarter `2026Q2`, year-to-date `2026M6`, fiscal year `FY2025`.
-// Written from OMA's 2Q26 report (27-Jul-2026); OMA does not publish call transcripts. Percentages are OMA's.
+// Written from OMA's 2Q26 (27-Jul-2026) and 3Q26 (27-Oct-2026) reports; OMA does not publish call transcripts. Percentages are OMA's.
 window.OMA_COMMENTS = {
-  updatedAt: "2026-09-23",
+  updatedAt: "2026-10-28",
   periods: {
     "2026Q2": {
       call: { date: "2026-07-28", es: "conferencia de resultados del 2T26 (28 jul 2026; sin transcripción pública, comentarios tomados del informe)", en: "2Q26 earnings call (28 Jul 2026; no public transcript, comments taken from the report)" },
@@ -72,6 +72,82 @@ window.OMA_COMMENTS = {
         financialResult: { es: "Gasto de Ps. 647.2 M vs. 720.3 M (−10.2%).", en: "Expense of Ps. 647.2 M vs. 720.3 M (−10.2%)." },
         netIncome: { es: "+3.2% a Ps. 2,717 M.", en: "+3.2% to Ps. 2,717 M." },
         comprehensiveControlling: { es: "+3.0% a Ps. 2,700 M; UPA Ps. 6.99; US$3.19 por ADS.", en: "+3.0% to Ps. 2,700 M; EPS Ps. 6.99; US$3.19 per ADS." }
+      }
+    },
+    "2026Q3": {
+      call: { date: "2026-10-29", es: "conferencia de resultados del 3T26 (29 oct 2026; sin transcripción pública, comentarios tomados del informe)", en: "3Q26 earnings call (29 Oct 2026; no public transcript, comments taken from the report)" },
+      ops: {
+        dom: { es: "+0.6%: crecen San Luis Potosí +27.3% (AIFA, Monterrey, Puerto Vallarta), Durango +32.3% y Chihuahua +4.5%; bajan Monterrey −2.1% y Ciudad Juárez −5.1% (tráfico total).", en: "+0.6%: San Luis Potosí +27.3% (AIFA, Monterrey, Puerto Vallarta), Durango +32.3% and Chihuahua +4.5% grow; Monterrey −2.1% and Ciudad Juárez −5.1% fall (total traffic)." },
+        intl: { es: "+6.0% (14.2% del total); San Luis Potosí suma la ruta a Chicago.", en: "+6.0% (14.2% of the total); San Luis Potosí adds its Chicago route." },
+        total: { es: "+1.3% a 7.68 M con asientos ofrecidos +1.3%; 3 rutas domésticas nuevas (TAR Mazatlán–Torreón, Mexicana Chihuahua–AIFA).", en: "+1.3% to 7.68 M with seats offered +1.3%; 3 new domestic routes (TAR Mazatlán–Torreón, Mexicana Chihuahua–AIFA)." },
+        aeroPerPax: { es: "Ps. 371.5 (+5.3%): TUA doméstica +7.4%; TUA internacional +4.0% por +6.0% de pasajeros, compensado en parte por el peso fuerte.", en: "Ps. 371.5 (+5.3%): domestic TUA +7.4%; international TUA +4.0% on +6.0% passengers, partly offset by the strong peso." },
+        nonAeroPerPax: { es: "Ps. 128.9 (+11.8%): comercial +11.0%, diversificación +20.4% (OMA Carga +42.4%), complementarios +4.2%.", en: "Ps. 128.9 (+11.8%): commercial +11.0%, diversification +20.4% (OMA Carga +42.4%), complementary +4.2%." },
+        commercialPerPax: { es: "Ps. 66.1 (+9.6%): salas VIP +28.0% (nueva sala en Torreón), retail +18.5%, restaurantes +13.5%, estacionamientos +6.7%.", en: "Ps. 66.1 (+9.6%): VIP lounges +28.0% (new Torreón lounge), retail +18.5%, restaurants +13.5%, parking +6.7%." },
+        revPerPaxAll: { es: "Ps. 500.4 (+6.9%): ingresos aeronáuticos y no aeronáuticos crecen más que el tráfico.", en: "Ps. 500.4 (+6.9%): aeronautical and non-aeronautical revenue grow faster than traffic." },
+        costPerPax: { es: "Ps. 74.6 (+5.9%): nómina +8.7% y servicios contratados +19.0%; mantenimiento menor −8.9%.", en: "Ps. 74.6 (+5.9%): payroll +8.7% and contracted services +19.0%; minor maintenance −8.9%." },
+        seats: { es: "+1.3% a 9.64 M asientos, en línea con el tráfico.", en: "+1.3% to 9.64 M seats, in line with traffic." },
+        ops: { es: "−3.3% (doméstico −3.6%, internacional −1.5%) mientras los pasajeros crecen 1.3%.", en: "−3.3% (domestic −3.6%, international −1.5%) while passengers grew 1.3%." },
+        cargoWlu: { es: "+10.0%; ingresos de OMA Carga +42.4% por nuevos clientes en Monterrey, carga de alto valor y mayor estadía.", en: "+10.0%; OMA Carga revenue +42.4% on new Monterrey clients, high-value cargo and longer storage." },
+        wlu: { es: "+1.7% a 8.05 M unidades de carga de trabajo.", en: "+1.7% to 8.05 M workload units." },
+        capexMdpM: { es: "Ps. 1,138 M (+141.1%): 1,020 M mejoras a activos concesionados, 98 M mantenimiento mayor, 20 M inversiones estratégicas.", en: "Ps. 1,138 M (+141.1%): 1,020 M improvements to concession assets, 98 M major maintenance, 20 M strategic investments." },
+        occupancyPct: { es: "96.4% de ocupación de locales comerciales al 30 de septiembre.", en: "96.4% commercial-space occupancy at 30 September." }
+      },
+      lines: {
+        revTotal: { es: "Reportados +23.8% a Ps. 4,863 M (construcción +166.9%, IFRIC 12); sin construcción +8.3% a Ps. 3,843 M.", en: "Reported +23.8% to Ps. 4,863 M (construction +166.9%, IFRIC 12); ex-construction +8.3% to Ps. 3,843 M." },
+        revExConstruction: { es: "+8.3% a Ps. 3,843 M: aeronáuticos +6.7%, no aeronáuticos +13.3%.", en: "+8.3% to Ps. 3,843 M: aeronautical +6.7%, non-aeronautical +13.3%." },
+        revAero: { es: "+6.7%: TUA doméstica +7.4%; TUA internacional +4.0% (pasajeros +6.0%, peso fuerte); otros servicios regulados +7.6%.", en: "+6.7%: domestic TUA +7.4%; international TUA +4.0% (passengers +6.0%, strong peso); other regulated services +7.6%." },
+        paxChargesDom: { es: "+7.4% a Ps. 1,908 M con tráfico doméstico +0.6%.", en: "+7.4% to Ps. 1,908 M with domestic traffic +0.6%." },
+        paxChargesIntl: { es: "+4.0% a Ps. 569 M: pasajeros internacionales +6.0%, compensado en parte por la apreciación del peso frente al dólar.", en: "+4.0% to Ps. 569 M: international passengers +6.0%, partly offset by peso appreciation against the dollar." },
+        revNonAero: { es: "+13.3%: comercial +11.0%, diversificación +20.4% (OMA Carga), complementarios +4.2%.", en: "+13.3%: commercial +11.0%, diversification +20.4% (OMA Carga), complementary +4.2%." },
+        revCommercial: { es: "+11.0% (Ps. 66.1 por pasajero, +9.6%): salas VIP +28.0%, retail +18.5% (Monterrey, Culiacán, Zihuatanejo), restaurantes +13.5%, estacionamientos +6.7%.", en: "+11.0% (Ps. 66.1 per passenger, +9.6%): VIP lounges +28.0%, retail +18.5% (Monterrey, Culiacán, Zihuatanejo), restaurants +13.5%, parking +6.7%." },
+        revDiversification: { es: "+20.4%: OMA Carga +42.4%, inmobiliario +72.1%, parque industrial VYNMSA Ps. 52.5 M (+12.5%); hoteles +1.5% (Hilton Garden Inn 65.8% de ocupación vs. 78.9%).", en: "+20.4%: OMA Carga +42.4%, real estate +72.1%, VYNMSA industrial park Ps. 52.5 M (+12.5%); hotels +1.5% (Hilton Garden Inn 65.8% occupancy vs. 78.9%)." },
+        revConstruction: { es: "+166.9% a Ps. 1,020 M: mayor avance de obra del PMD; se compensa con el costo de construcción.", en: "+166.9% to Ps. 1,020 M: faster MDP construction; offset by construction cost." },
+        costServices: { es: "+7.1%: nómina +8.7% y servicios contratados +19.0%; mantenimiento menor −8.9%.", en: "+7.1%: payroll +8.7% and contracted services +19.0%; minor maintenance −8.9%." },
+        ga: { es: "+7.7%; costo de servicios + G&A por pasajero Ps. 74.6 (+5.9%).", en: "+7.7%; cost of services + G&A per passenger Ps. 74.6 (+5.9%)." },
+        majorMaintenance: { es: "+39.8% a Ps. 39.3 M; saldo de la provisión Ps. 2,908 M al 30-sep-2026.", en: "+39.8% to Ps. 39.3 M; provision balance Ps. 2,908 M at 30-Sep-2026." },
+        costConstruction: { es: "+166.9%, igual al ingreso de construcción (IFRIC 12).", en: "+166.9%, equal to construction revenue (IFRIC 12)." },
+        concessionTaxes: { es: "+7.9% a Ps. 312.4 M por mayores ingresos.", en: "+7.9% to Ps. 312.4 M on higher revenue." },
+        techAssistance: { es: "+7.0% a Ps. 75.0 M por mayor EBITDA (cuota a VINCI Airports).", en: "+7.0% to Ps. 75.0 M on higher EBITDA (fee to VINCI Airports)." },
+        da: { es: "+11.3% a Ps. 247.3 M.", en: "+11.3% to Ps. 247.3 M." },
+        totalOpCosts: { es: "+48.5%: el costo de construcción (+Ps. 638 M, IFRIC 12) explica la mayor parte.", en: "+48.5%: construction cost (+Ps. 638 M, IFRIC 12) explains most of it." },
+        opIncome: { es: "+8.1% a Ps. 2,597 M; margen operativo 53.4% (61.2%) diluido por el ingreso de construcción.", en: "+8.1% to Ps. 2,597 M; operating margin 53.4% (61.2%) diluted by construction revenue." },
+        ebitdaReported: { es: "+8.3% a Ps. 2,844 M (margen 58.5%).", en: "+8.3% to Ps. 2,844 M (margin 58.5%)." },
+        ebitda: { es: "EBITDA ajustado +8.7% a Ps. 2,883 M: ingresos +8.3% con costo de servicios + G&A +7.3%.", en: "Adjusted EBITDA +8.7% to Ps. 2,883 M: revenue +8.3% with cost of services + G&A +7.3%." },
+        ebitdaMarginExIfric: { es: "75.0% vs. 74.8% (+0.2 pp).", en: "75.0% vs. 74.8% (+0.2 pp)." },
+        financialResult: { es: "Gasto de Ps. 348.0 M vs. 298.8 M (+16.5%): mayor actualización de la provisión de mantenimiento (+100.8%), intereses ganados −15.3% e intereses de deuda +3.9%.", en: "Expense of Ps. 348.0 M vs. 298.8 M (+16.5%): higher unwinding of the maintenance provision (+100.8%), interest income −15.3% and debt interest +3.9%." },
+        interestIncome: { es: "−15.3% a Ps. 53.0 M.", en: "−15.3% to Ps. 53.0 M." },
+        interestDebt: { es: "+3.9% a Ps. 338.3 M.", en: "+3.9% to Ps. 338.3 M." },
+        mmpPV: { es: "Ps. 55.1 M vs. 27.4 M (+100.8%): mayor actualización a valor presente de la provisión de mantenimiento mayor.", en: "Ps. 55.1 M vs. 27.4 M (+100.8%): higher unwinding of the major-maintenance provision." },
+        fxResult: { es: "Pérdida de Ps. 1.4 M vs. 4.3 M.", en: "Loss of Ps. 1.4 M vs. 4.3 M." },
+        incomeTax: { es: "+16.8% a Ps. 694.2 M; tasa efectiva 30.9% (28.2% en el 3T25).", en: "+16.8% to Ps. 694.2 M; effective rate 30.9% (28.2% in 3Q25)." },
+        netIncome: { es: "+2.9% a Ps. 1,555 M (margen neto 32.0%): mejor resultado operativo, mayor gasto financiero e impuestos.", en: "+2.9% to Ps. 1,555 M (net margin 32.0%): better operating result, higher financing expense and taxes." },
+        nci: { es: "Ps. 5.8 M (−0.4%): participación minoritaria en subsidiarias.", en: "Ps. 5.8 M (−0.4%): minority interest in subsidiaries." },
+        comprehensiveControlling: { es: "+3.0% a Ps. 1,548.8 M; UPA Ps. 4.01; US$1.78 por ADS (+4.5%).", en: "+3.0% to Ps. 1,548.8 M; EPS Ps. 4.01; US$1.78 per ADS (+4.5%)." }
+      }
+    },
+    "2026M9": {
+      call: { date: "2026-10-29", es: "informe del 3T26 (27 oct 2026)", en: "3Q26 report (27 Oct 2026)" },
+      ops: {
+        dom: { es: "+2.1% a 18.48 M en nueve meses.", en: "+2.1% to 18.48 M in nine months." },
+        intl: { es: "+1.4% a 3.16 M en nueve meses.", en: "+1.4% to 3.16 M in nine months." },
+        total: { es: "+2.0% a 21.63 M (1T26 +4.6%, 2T26 +0.4%, 3T26 +1.3%); San Luis Potosí +22.4%, Durango +24.6%; Monterrey +0.8%.", en: "+2.0% to 21.63 M (1Q26 +4.6%, 2Q26 +0.4%, 3Q26 +1.3%); San Luis Potosí +22.4%, Durango +24.6%; Monterrey +0.8%." },
+        commercialPerPax: { es: "Ps. 66.3 (+5.5%) en nueve meses.", en: "Ps. 66.3 (+5.5%) in nine months." },
+        revPerPaxAll: { es: "Ps. 497.4 (+3.9%) en nueve meses.", en: "Ps. 497.4 (+3.9%) in nine months." },
+        costPerPax: { es: "Ps. 76.7 (+6.3%): nómina +9.2%, servicios contratados +16.7%.", en: "Ps. 76.7 (+6.3%): payroll +9.2%, contracted services +16.7%." },
+        capexMdpM: { es: "Ps. 2,693 M en nueve meses, +38.2% vs. 1,949 M en 9M25.", en: "Ps. 2,693 M in nine months, +38.2% vs. 1,949 M in 9M25." }
+      },
+      lines: {
+        revTotal: { es: "+10.9% a Ps. 13,146 M: aeronáuticos + no aeronáuticos +6.0% (Ps. 10,762 M); construcción +40.1%.", en: "+10.9% to Ps. 13,146 M: aeronautical + non-aeronautical +6.0% (Ps. 10,762 M); construction +40.1%." },
+        revExConstruction: { es: "+6.0% a Ps. 10,762 M.", en: "+6.0% to Ps. 10,762 M." },
+        revAero: { es: "+5.0%: TUA doméstica +8.0%, TUA internacional −5.3%.", en: "+5.0%: domestic TUA +8.0%, international TUA −5.3%." },
+        paxChargesDom: { es: "+8.0% a Ps. 5,240 M.", en: "+8.0% to Ps. 5,240 M." },
+        paxChargesIntl: { es: "−5.3% a Ps. 1,634 M.", en: "−5.3% to Ps. 1,634 M." },
+        revNonAero: { es: "+9.0%: comercial +7.6%, diversificación +12.9% (OMA Carga +26.7%).", en: "+9.0%: commercial +7.6%, diversification +12.9% (OMA Carga +26.7%)." },
+        majorMaintenance: { es: "+87.5% a Ps. 247.3 M por el nuevo PMD.", en: "+87.5% to Ps. 247.3 M under the new MDP." },
+        ebitda: { es: "EBITDA ajustado +5.8% a Ps. 8,027 M; margen 74.6% (−0.2 pp).", en: "Adjusted EBITDA +5.8% to Ps. 8,027 M; margin 74.6% (−0.2 pp)." },
+        financialResult: { es: "Gasto de Ps. 995.2 M vs. 1,019.1 M (−2.3%).", en: "Expense of Ps. 995.2 M vs. 1,019.1 M (−2.3%)." },
+        netIncome: { es: "+3.1% a Ps. 4,271 M.", en: "+3.1% to Ps. 4,271 M." },
+        comprehensiveControlling: { es: "+3.0% a Ps. 4,248 M; UPA Ps. 11.00; US$4.87 por ADS.", en: "+3.0% to Ps. 4,248 M; EPS Ps. 11.00; US$4.87 per ADS." }
       }
     }
   }

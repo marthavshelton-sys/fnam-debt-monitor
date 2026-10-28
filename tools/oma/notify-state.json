@@ -1,10 +1,10 @@
 {
-  "lastQuarter": "2026Q2",
+  "lastQuarter": "2026Q3",
   "lastTrafficMonth": "2026-09",
   "lastGuidanceDate": null,
   "lastEventFile": "2026-10-09_omaChange-of-external-auditor-ENG-vf_en.txt",
-  "lastReferenceSha": "04df1475105e1d5a2dcbc00455f4b6170155de8b",
-  "lastNotifiedAt": "2026-10-22T15:48:24.000Z",
+  "lastReferenceSha": "2531c569eabd8207e9252b39c01d9bf2b2194549",
+  "lastNotifiedAt": "2026-10-28T15:50:00.000Z",
   "lastFailureNote": null,
   "note": "Updated by the OMA change-notification routine (see tools/oma/README.md)."
 }
