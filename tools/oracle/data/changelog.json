@@ -4,62 +4,6 @@
   {
    "at": "2026-10-24T00:02:31.421Z",
    "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y3",
-   "old": 22.13,
-   "new": 22.09
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.y5",
-   "old": 26.68,
-   "new": 26.49
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.pe_ntm.spot_last_week",
-   "old": 14.79,
-   "new": 15.29
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y1",
-   "old": 10.49,
-   "new": 10.46
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y3",
-   "old": 14.22,
-   "new": 14.21
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.y5",
-   "old": 15.63,
-   "new": 15.55
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].hist.ev_ebitda_ntm.spot_last_week",
-   "old": 11.27,
-   "new": 11.57
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
-   "path": "peers[2].adtvUsdM",
-   "old": 2815,
-   "new": 2806.2
-  },
-  {
-   "at": "2026-10-24T00:02:31.421Z",
-   "file": "peers.js",
    "path": "peers[2].adtv.usd_m",
    "old": 2815,
    "new": 2806.2
@@ -4200,7 +4144,63 @@
    "path": "basis.marketDate",
    "old": "2026-10-26",
    "new": "2026-10-27"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-27)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": "Yahoo Finance",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-27&todate=2026-10-27&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-28&todate=2026-10-28&limit=10000"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-27)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-28T00:44:28.279Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
   }
  ],
- "generated": "2026-10-27T23:57:46.345Z"
+ "generated": "2026-10-28T00:44:28.279Z"
 }
