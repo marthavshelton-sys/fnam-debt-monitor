@@ -6,5 +6,9 @@
   "lastFailureNote": null,
   "note": "Updated by the GAP change-notification routine (see tools/gap/README.md).",
   "lastGuidanceDate": "2026-07-14",
-  "lastEventFile": "2026-10-27_bmv1598492_es.txt"
+  "lastEventFile": "2026-10-27_bmv1598492_es.txt",
+  "lastPeersFailure": {
+    "date": "2026-10-28",
+    "error": "FactSet connector not authorized in this session (FactSet-AI-Ready-Data needs authentication); no pull made, nothing ingested"
+  }
 }
