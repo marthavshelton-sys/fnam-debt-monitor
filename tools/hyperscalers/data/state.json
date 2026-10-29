@@ -781,6 +781,12 @@
  "errors": [],
  "runs": [
   {
+   "at": "2026-10-29T01:48:47Z",
+   "ok": true,
+   "newFilings": 0,
+   "errors": 0
+  },
+  {
    "at": "2026-10-28T23:01:21Z",
    "ok": true,
    "newFilings": 6,
@@ -953,73 +959,12 @@
    "ok": true,
    "newFilings": 0,
    "errors": 0
-  },
-  {
-   "at": "2026-10-22T14:01:26Z",
-   "ok": true,
-   "newFilings": 2,
-   "errors": 0
   }
  ],
  "consecutiveFailures": 0,
- "newFilings": [
-  {
-   "ticker": "MSFT",
-   "accn": "0001193125-26-436149",
-   "form": "8-K",
-   "filed": "2026-10-28",
-   "report": "2026-10-28",
-   "doc": "msft-20261028.htm",
-   "items": "8.01,9.01"
-  },
-  {
-   "ticker": "MSFT",
-   "accn": "0001193125-26-436133",
-   "form": "10-Q",
-   "filed": "2026-10-28",
-   "report": "2026-09-30",
-   "doc": "msft-20260930.htm",
-   "items": null
-  },
-  {
-   "ticker": "MSFT",
-   "accn": "0001193125-26-436122",
-   "form": "8-K",
-   "filed": "2026-10-28",
-   "report": "2026-10-28",
-   "doc": "msft-20261028.htm",
-   "items": "2.02,9.01"
-  },
-  {
-   "ticker": "GOOGL",
-   "accn": "0001652044-26-000080",
-   "form": "8-K",
-   "filed": "2026-10-28",
-   "report": "2026-10-28",
-   "doc": "goog-20261028.htm",
-   "items": "2.02,9.01"
-  },
-  {
-   "ticker": "META",
-   "accn": "0001193125-26-436410",
-   "form": "424B5",
-   "filed": "2026-10-28",
-   "report": null,
-   "doc": "d94886d424b5.htm",
-   "items": null
-  },
-  {
-   "ticker": "META",
-   "accn": "0001193125-26-436405",
-   "form": "424B5",
-   "filed": "2026-10-28",
-   "report": null,
-   "doc": "d133631d424b5.htm",
-   "items": null
-  }
- ],
- "lastRun": "2026-10-28T23:01:21Z",
- "lastSuccess": "2026-10-28T23:01:21Z",
+ "newFilings": [],
+ "lastRun": "2026-10-29T01:48:47Z",
+ "lastSuccess": "2026-10-29T01:48:47Z",
  "notes": {
   "0001193125-26-323660": {
    "ticker": "MSFT",
