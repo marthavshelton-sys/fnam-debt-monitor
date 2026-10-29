@@ -4,160 +4,6 @@
   {
    "at": "2026-10-25T14:58:16.281Z",
    "file": "news.js",
-   "path": "sweepLog[0].searches",
-   "old": 29,
-   "new": 34
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[3]",
-   "old": "PR Newswire",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[4]",
-   "old": "Bloomberg",
-   "new": "Bloomberg Government"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[9]",
-   "old": "Investing.com",
-   "new": "NPR"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[10]",
-   "old": "GuruFocus",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[11]",
-   "old": "KRWG",
-   "new": "The Register"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[13]",
-   "old": "Wisconsin Public Radio",
-   "new": "KRWG"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[14]",
-   "old": "Data Center Dynamics",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "American Transmission Co.",
-   "new": "WEC Energy"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "American Transmission Co."
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "DTE Energy",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[21]",
-   "old": "Michigan EGLE",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[22]",
-   "old": "Vantage",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[23]",
-   "old": "Crusoe",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[24]",
-   "old": "Stargate",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[25]",
-   "old": "OpenAI",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[26]",
-   "old": "Apollo",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[27]",
-   "old": "Goldman Sachs",
-   "new": "AstraZeneca"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[0].added[0]",
-   "old": "2026-10-23-partner-commitment",
-   "new": null
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-23",
-   "new": "2026-10-24"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 30,
-   "new": 29
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[3]",
-   "old": "Bloomberg",
-   "new": "PR Newswire"
-  },
-  {
-   "at": "2026-10-25T14:58:16.281Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[4]",
    "old": "Reuters",
    "new": "Bloomberg"
@@ -4200,7 +4046,161 @@
    "path": "events[2].status",
    "old": "confirmed",
    "new": "past"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "eventsThrough",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "eventsThroughBasis",
+   "old": "news",
+   "new": "summary"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "draftedEventsThrough",
+   "old": "2026-10-13",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[18].title",
+   "old": "4Q26 call p.8 (Investor Day Oct 28); 1Q27 call",
+   "new": "Oracle Investor Relations, Oct 28, 2026: Oracle Investor Day 2026: Accelerating Value Creation"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[18].url",
+   "old": null,
+   "new": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Investor-Day-2026-Accelerating-Value-Creation/default.aspx"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[18].title_es",
+   "old": "Llamada 4T26 p.8 (Día del Inversionista 28 oct); llamada 1T27",
+   "new": "Relación con Inversionistas de Oracle, 28 oct 2026: Oracle Investor Day 2026: Accelerating Value Creation"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[19].title",
+   "old": "Schedule 14A (DEF 14A), Sep 25, 2026 (annual meeting Nov 18, 2026)",
+   "new": "Form 8-K (items 7.01, 9.01), Oct 28, 2026"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[19].url",
+   "old": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm",
+   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526435853/d75538d8k.htm"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[19].title_es",
+   "old": "Schedule 14A (DEF 14A), 25 sep 2026 (asamblea anual del 18 nov 2026)",
+   "new": "Formulario 8-K (puntos 7.01 y 9.01), 28 oct 2026"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[20].title",
+   "old": "International Business Times, Oct 11, 2026 (Oracle 5-year CDS a record 261 bp at the Oct 8 close)",
+   "new": "4Q26 call p.8 (Investor Day Oct 28); 1Q27 call"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[20].url",
+   "old": "https://www.ibtimes.sg/why-nvidia-holding-ai-credit-fears-hit-broadcom-oracle-94944",
+   "new": null
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[20].title_es",
+   "old": "International Business Times, 11 oct 2026 (CDS a 5 años de Oracle en un máximo de 261 pb al cierre del 8 oct)",
+   "new": "Llamada 4T26 p.8 (Día del Inversionista 28 oct); llamada 1T27"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "sections[3].items_es[4].lines[0]",
+   "old": "Día del Inversionista, 28 oct (Las Vegas): se esperan nuevos objetivos de largo plazo; asamblea anual el 18 nov (DEF 14A).",
+   "new": "Investor Day el 28 oct (comunicado, 8-K; ORCL +10.7% a US$144.54): nuevas metas solo en titular, detalle pendiente. Asamblea anual el 18 nov."
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "sections[3].items_en[4].lines[0]",
+   "old": "Investor Day, Oct 28 (Las Vegas): new long-range targets expected; annual meeting Nov 18 (DEF 14A).",
+   "new": "Investor Day held Oct 28 (Oracle release, 8-K; ORCL +10.7% to US$144.54): new targets headline only, detail pending. Annual meeting Nov 18."
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "sections[3].es[4]",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "sections[3].en[4]",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[21].title",
+   "old": null,
+   "new": "Schedule 14A (DEF 14A), Sep 25, 2026 (annual meeting Nov 18, 2026)"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[21].url",
+   "old": null,
+   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[21].title_es",
+   "old": null,
+   "new": "Schedule 14A (DEF 14A), 25 sep 2026 (asamblea anual del 18 nov 2026)"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[22].title",
+   "old": null,
+   "new": "International Business Times, Oct 11, 2026 (Oracle 5-year CDS a record 261 bp at the Oct 8 close)"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[22].url",
+   "old": null,
+   "new": "https://www.ibtimes.sg/why-nvidia-holding-ai-credit-fears-hit-broadcom-oracle-94944"
+  },
+  {
+   "at": "2026-10-29T14:39:33.155Z",
+   "file": "summary.js",
+   "path": "watchSources[22].title_es",
+   "old": null,
+   "new": "International Business Times, 11 oct 2026 (CDS a 5 años de Oracle en un máximo de 261 pb al cierre del 8 oct)"
   }
  ],
- "generated": "2026-10-29T14:11:27.128Z"
+ "generated": "2026-10-29T14:39:33.155Z"
 }

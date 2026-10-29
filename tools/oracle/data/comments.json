@@ -1053,8 +1053,8 @@
         }
       },
       "exec_summary": {
-        "updated": "2026-10-13",
-        "events_through": "2026-10-13",
+        "updated": "2026-10-29",
+        "events_through": "2026-10-28",
         "operations": {
           "en": [
             "Record revenue $19.3bn, +30%; Cloud +62%, IaaS +121%; 850 MW delivered to customers in the quarter (company-wide, not broken down by site); Software -3%.",
@@ -1129,7 +1129,7 @@
             {
               "h": "Next catalysts",
               "lines": [
-                "Investor Day, Oct 28 (Las Vegas): new long-range targets expected; annual meeting Nov 18 (DEF 14A).",
+                "Investor Day held Oct 28 (Oracle release, 8-K; ORCL +10.7% to US$144.54): new targets headline only, detail pending. Annual meeting Nov 18.",
                 "2Q27 results, {{fact:next_results}}: RPO share due within 12 months (13% at 1Q27) and net cash capex against the US$70bn cap."
               ]
             }
@@ -1169,7 +1169,7 @@
             {
               "h": "Próximos catalizadores",
               "lines": [
-                "Día del Inversionista, 28 oct (Las Vegas): se esperan nuevos objetivos de largo plazo; asamblea anual el 18 nov (DEF 14A).",
+                "Investor Day el 28 oct (comunicado, 8-K; ORCL +10.7% a US$144.54): nuevas metas solo en titular, detalle pendiente. Asamblea anual el 18 nov.",
                 "Resultados del 2T27, {{fact:next_results}}: porción del RPO a 12 meses (13% en el 1T27) y capex neto frente al tope de US$70 mil millones."
               ]
             }
@@ -1267,6 +1267,16 @@
             "title_es": "Fitch Ratings, 2 feb 2026 (BBB reafirmada, estable)"
           },
           {
+            "title": "Oracle Investor Relations, Oct 28, 2026: Oracle Investor Day 2026: Accelerating Value Creation",
+            "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Investor-Day-2026-Accelerating-Value-Creation/default.aspx",
+            "title_es": "Relación con Inversionistas de Oracle, 28 oct 2026: Oracle Investor Day 2026: Accelerating Value Creation"
+          },
+          {
+            "title": "Form 8-K (items 7.01, 9.01), Oct 28, 2026",
+            "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526435853/d75538d8k.htm",
+            "title_es": "Formulario 8-K (puntos 7.01 y 9.01), 28 oct 2026"
+          },
+          {
             "title": "4Q26 call p.8 (Investor Day Oct 28); 1Q27 call",
             "url": null,
             "title_es": "Llamada 4T26 p.8 (Día del Inversionista 28 oct); llamada 1T27"
@@ -1282,7 +1292,7 @@
             "title_es": "International Business Times, 11 oct 2026 (CDS a 5 años de Oracle en un máximo de 261 pb al cierre del 8 oct)"
           }
         ],
-        "content_hash": "107042c271c4a7e1",
+        "content_hash": "2bd447a7710e68b3",
         "changed_week": {
           "date": "2026-10-13",
           "from": "2026-10-07",
