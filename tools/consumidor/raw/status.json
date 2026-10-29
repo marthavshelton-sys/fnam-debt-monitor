@@ -1,7 +1,7 @@
 {
  "sources": {
   "census": {
-   "failures": 2,
+   "failures": 3,
    "error": "ACS 2025 label check failed: B15003_017E: label \"Total:!!Some college, less than 1 year\" does not match /Regular high school diploma$/ | B15003_018E: label \"Total:!!Some college, 1 or more years, no degree\" does not match /GED or alternative credential$/ | B15003_021E: label \"Total:!!Master's degree\" does not match /Associate's degree$/ | B15003_022E: label \"Total:!!Professional school degree\" does not match /Bachelor's degree$/ | B15003_023E: label \"Total:!!Doctorate degree\" does not match /Mas",
    "since": "2026-10-29"
   },
@@ -21,10 +21,7 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0,
-   "notes": [
-    "FRED: 5 problem(s): DTRSRC1Q027SBEA: FRED https://api.stlouisfed.org/fred/series?series_id=DTRSRC1Q027SBEA&api_key=…&file_type=json: direct: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"}; proxy: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"} | DRCARC1Q027SBEA: FRED https://api.stlouisfed.org/fred/series?series_id=DRCARC1Q"
-   ]
+   "failures": 0
   },
   "edgar": {
    "failures": 0

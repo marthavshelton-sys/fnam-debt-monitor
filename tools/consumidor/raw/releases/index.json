@@ -159,6 +159,29 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0001018724-26-000038",
+     "filed": "2026-10-29",
+     "report": "2026-10-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/0001018724-26-000038-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/amzn-20260930xex991.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-10-29_0001018724-26-000038_ex-99-1.txt",
+       "chars": 40466
+      },
+      {
+       "type": "EX-99.2",
+       "description": "EX-99.2",
+       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/amzn-20260930xex992.htm",
+       "file": "tools/consumidor/raw/releases/AMZN/2026-10-29_0001018724-26-000038_ex-99-2.txt",
+       "chars": 2360
+      }
+     ]
+    },
+    {
      "accn": "0001018724-26-000024",
      "filed": "2026-07-30",
      "report": "2026-07-30",
@@ -177,29 +200,6 @@
        "description": "EX-99.2",
        "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex992.htm",
        "file": "tools/consumidor/raw/releases/AMZN/2026-07-30_0001018724-26-000024_ex-99-2.txt",
-       "chars": 2329
-      }
-     ]
-    },
-    {
-     "accn": "0001018724-26-000012",
-     "filed": "2026-04-29",
-     "report": "2026-04-29",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/0001018724-26-000012-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/amzn-20260331xex991.htm",
-       "file": "tools/consumidor/raw/releases/AMZN/2026-04-29_0001018724-26-000012_ex-99-1.txt",
-       "chars": 38803
-      },
-      {
-       "type": "EX-99.2",
-       "description": "EX-99.2",
-       "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000012/amzn-20260331xex992.htm",
-       "file": "tools/consumidor/raw/releases/AMZN/2026-04-29_0001018724-26-000012_ex-99-2.txt",
        "chars": 2329
       }
      ]
@@ -652,6 +652,22 @@
    "fiscalYearEnd": "0928",
    "filings": [
     {
+     "accn": "0000829224-26-000154",
+     "filed": "2026-10-29",
+     "report": "2026-10-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000154/0000829224-26-000154-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000154/sbux-09272026xearningsrele.htm",
+       "file": "tools/consumidor/raw/releases/SBUX/2026-10-29_0000829224-26-000154_ex-99-1.txt",
+       "chars": 52162
+      }
+     ]
+    },
+    {
      "accn": "0000829224-26-000129",
      "filed": "2026-07-29",
      "report": "2026-07-29",
@@ -664,22 +680,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000129/sbux-06282026xearningsrele.htm",
        "file": "tools/consumidor/raw/releases/SBUX/2026-07-29_0000829224-26-000129_ex-99-1.txt",
        "chars": 45246
-      }
-     ]
-    },
-    {
-     "accn": "0000829224-26-000078",
-     "filed": "2026-04-28",
-     "report": "2026-04-28",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000078/0000829224-26-000078-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922426000078/sbux-03292026xearningsrele.htm",
-       "file": "tools/consumidor/raw/releases/SBUX/2026-04-28_0000829224-26-000078_ex-99-1.txt",
-       "chars": 46779
       }
      ]
     }
@@ -1975,6 +1975,22 @@
    "fiscalYearEnd": "1231",
    "filings": [
     {
+     "accn": "0000885550-26-000200",
+     "filed": "2026-10-29",
+     "report": "2026-10-29",
+     "items": "2.02,9.01",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000200/0000885550-26-000200-index.htm",
+     "exhibits": [
+      {
+       "type": "EX-99.1",
+       "description": "EX-99.1",
+       "url": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000200/caccq32026earningsrelease.htm",
+       "file": "tools/consumidor/raw/releases/CACC/2026-10-29_0000885550-26-000200_ex-99-1.txt",
+       "chars": 58317
+      }
+     ]
+    },
+    {
      "accn": "0000885550-26-000181",
      "filed": "2026-08-04",
      "report": "2026-08-04",
@@ -1987,22 +2003,6 @@
        "url": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000181/caccq22026earningsrelease.htm",
        "file": "tools/consumidor/raw/releases/CACC/2026-08-04_0000885550-26-000181_ex-99-1.txt",
        "chars": 59868
-      }
-     ]
-    },
-    {
-     "accn": "0000885550-26-000079",
-     "filed": "2026-05-05",
-     "report": "2026-05-05",
-     "items": "2.02,9.01",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000079/0000885550-26-000079-index.htm",
-     "exhibits": [
-      {
-       "type": "EX-99.1",
-       "description": "EX-99.1",
-       "url": "https://www.sec.gov/Archives/edgar/data/885550/000088555026000079/caccq12026earningsrelease.htm",
-       "file": "tools/consumidor/raw/releases/CACC/2026-05-05_0000885550-26-000079_ex-99-1.txt",
-       "chars": 57947
       }
      ]
     }
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-29T14:57:24.759Z"
+ "checkedAt": "2026-10-29T22:22:48.358Z"
 }
