@@ -1,11 +1,11 @@
 {
   "lastQuarter": "2026Q3",
   "lastMonthlyCnbv": "202608",
-  "lastMonthlySbs": "202608",
+  "lastMonthlySbs": "202609",
   "lastGuidanceDate": "2026-07-22",
-  "lastReferenceSha": "27b69a9fad460de3af9d192b6df68a9013e8c07701c61773ed3125e8a048099b",
-  "lastMarketDate": "2026-10-27",
-  "lastNotifiedAt": "2026-10-23",
+  "lastReferenceSha": "c12f47c9720269fb499e81beaf9570724fc7c1a3c7e35cc0fb73a9f17322d204",
+  "lastMarketDate": "2026-10-28",
+  "lastNotifiedAt": "2026-10-29",
   "lastFailureNote": null,
   "thresholds": {
     "sharePriceDailyMovePct": 5,
@@ -14,6 +14,6 @@
     "note": "The reviewing routine emails only when a threshold is crossed or a new quarter, monthly table, guidance vintage or reference event lands (see tools/gentera/README.md)."
   },
   "note": "Updated by the Gentera reviewing routine on every weekday run (lastCheckedAt) and when it notifies (see tools/gentera/README.md).",
-  "lastCheckedAt": "2026-10-28",
-  "lastBmvFile": "2026-10-21_bmv1596950_es.txt"
+  "lastCheckedAt": "2026-10-29",
+  "lastBmvFile": "2026-10-28_bmv1599540_es.txt"
 }
