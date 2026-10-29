@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-29T10:26:52Z",
+  "checkedAt": "2026-10-29T16:31:12Z",
   "rule": "up to date = the last scheduled refresh landed (12 h grace after its due time, judged for the workflow and for each of its schedules), no alert of the pipeline is open, every price feed of the page carries the exchange's last completed session and every monthly data feed carries the month its publisher's calendar requires (stale otherwise); checked every 12 hours. lastAttempt = the newest scheduled run with its refresh outcome: success when its data landed (afterCommitFailure when a step after the commit failed), else the run's conclusion",
   "graceHours": 12,
   "sections": {
@@ -27,7 +27,7 @@
       "url": "/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T00:05:06Z",
+      "lastSuccess": "2026-10-29T14:39:25Z",
       "lastAttempt": {
         "at": "2026-10-29T00:05:06Z",
         "result": "success"
@@ -45,7 +45,7 @@
       "url": "/fiscal/",
       "status": "alert",
       "refreshStatus": "alert",
-      "lastSuccess": "2026-10-29T01:11:31Z",
+      "lastSuccess": "2026-10-29T14:05:01Z",
       "lastAttempt": {
         "at": "2026-10-29T01:11:31Z",
         "result": "success"
@@ -85,7 +85,7 @@
       "url": "/mx/macro/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T03:22:01Z",
+      "lastSuccess": "2026-10-29T13:12:06Z",
       "lastAttempt": {
         "at": "2026-10-29T01:52:08Z",
         "result": "success"
@@ -122,12 +122,12 @@
       "url": "/mx/consumidor/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T10:13:32Z",
+      "lastSuccess": "2026-10-29T16:02:48Z",
       "lastAttempt": {
         "at": "2026-10-29T10:13:32Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-28T15:20:00Z",
+      "requiredSince": "2026-10-29T03:20:00Z",
       "alerts": 0
     },
     {
@@ -140,12 +140,12 @@
       "url": "/gap/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:55:51Z",
+      "lastSuccess": "2026-10-29T15:12:25Z",
       "lastAttempt": {
         "at": "2026-10-29T01:55:51Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-28T14:30:00Z",
+      "requiredSince": "2026-10-28T22:40:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -208,12 +208,12 @@
       "url": "/oma/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:58:31Z",
+      "lastSuccess": "2026-10-29T15:32:23Z",
       "lastAttempt": {
         "at": "2026-10-29T01:58:31Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-28T14:45:00Z",
+      "requiredSince": "2026-10-28T22:55:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -276,12 +276,12 @@
       "url": "/asur/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:57:59Z",
+      "lastSuccess": "2026-10-29T15:21:53Z",
       "lastAttempt": {
         "at": "2026-10-29T01:57:59Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-28T14:40:00Z",
+      "requiredSince": "2026-10-28T22:50:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -394,13 +394,12 @@
       "url": "/qualitas/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T02:02:01Z",
+      "lastSuccess": "2026-10-29T15:32:07Z",
       "lastAttempt": {
         "at": "2026-10-29T02:02:01Z",
-        "result": "success",
-        "afterCommitFailure": true
+        "result": "failure"
       },
-      "requiredSince": "2026-10-28T14:50:00Z",
+      "requiredSince": "2026-10-28T23:00:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -451,12 +450,12 @@
       "url": "/gentera/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:57:22Z",
+      "lastSuccess": "2026-10-29T15:23:55Z",
       "lastAttempt": {
         "at": "2026-10-29T01:57:22Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-28T14:35:00Z",
+      "requiredSince": "2026-10-28T22:45:00Z",
       "alerts": 0,
       "prices": {
         "status": "stale",
@@ -518,7 +517,7 @@
       "url": "/oracle/",
       "status": "stale",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:19:58Z",
+      "lastSuccess": "2026-10-29T14:17:02Z",
       "lastAttempt": {
         "at": "2026-10-29T01:19:58Z",
         "result": "success"
@@ -576,7 +575,7 @@
       "url": "/hiperescaladores/",
       "status": "ok",
       "refreshStatus": "ok",
-      "lastSuccess": "2026-10-29T01:48:54Z",
+      "lastSuccess": "2026-10-29T14:01:28Z",
       "lastAttempt": {
         "at": "2026-10-29T01:48:54Z",
         "result": "success"
