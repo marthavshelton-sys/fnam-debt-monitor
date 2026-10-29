@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-28",
+  "as_of": "2026-10-29",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,100 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-28-investor-day-fy30-targets",
+      "date": "2026-10-28",
+      "theme": "financing",
+      "basis": "sec",
+      "title_en": "Investor Day (8-K, Item 7.01): FY30 revenue of US$225 billion+ and non-GAAP EPS of US$21+; positive free cash flow in 2H FY28, US$30 billion+ in FY29; new capital raises through FY30 capped at US$20 billion",
+      "title_es": "Investor Day (8-K, punto 7.01): ingresos de US$225 mil millones+ y UPA no GAAP de US$21+ en FY30; flujo libre positivo en el 2S del FY28 y de US$30 mil millones+ en FY29; nuevas emisiones hasta el FY30 con tope de US$20 mil millones",
+      "summary_en": "Oracle release furnished on Form 8-K (Oct 28, Las Vegas): FY30 targets of total revenue \"$225 billion+\" (\"more than 35% CAGR from FY26\"), non-GAAP operating margin \"40%+\" and non-GAAP EPS \"$21+\"; free cash flow positive \"during the second half of FY28\" and \"at least $30 billion in FY29\"; capex peaks in FY27-FY28 and steps down in FY29 (no dollar figure); additional capital raises through FY30 limited to \"$20 billion\" (\"$10 billion in equity and $10 billion in gross debt\"), excluding refinancing, after the \"$20 billion at-the-market equity raise\" completed in Q1 FY27; growth \"self-funded beginning in FY29\"; net debt to adjusted EBITDA \"below 3.5 times in FY29\"; FY27 outlook reaffirmed (revenue at least US$90 billion, non-GAAP EPS US$8.10). Reuters (via The Globe and Mail) adds that vendor financing, customer-provided hardware and customer prepayments are to reduce upfront cash needs until free cash flow turns positive. Targets are company statements, not audited.",
+      "summary_es": "Comunicado de Oracle presentado en la Forma 8-K (28 oct, Las Vegas): metas para el FY30 de ingresos totales de \"US$225 mil millones+\" (\"TCAC de más de 35% desde el FY26\"), margen operativo no GAAP de \"40%+\" y UPA no GAAP de \"US$21+\"; flujo libre de efectivo positivo \"durante la segunda mitad del FY28\" y de \"al menos US$30 mil millones en el FY29\"; el capex alcanza su máximo en FY27-FY28 y baja en el FY29 (sin cifra en dólares); las emisiones adicionales hasta el FY30 se limitan a \"US$20 mil millones\" (\"US$10 mil millones en capital y US$10 mil millones en deuda bruta\"), sin contar refinanciamientos, tras la colocación de acciones \"at-the-market\" de US$20 mil millones concluida en el 1T del FY27; crecimiento \"autofinanciado a partir del FY29\"; deuda neta a EBITDA ajustado \"por debajo de 3.5 veces en el FY29\"; se reitera la guía del FY27 (ingresos de al menos US$90 mil millones, UPA no GAAP de US$8.10). Reuters (vía The Globe and Mail) agrega que el financiamiento de proveedores, el hardware aportado por clientes y los prepagos de clientes reducirán las necesidades iniciales de efectivo hasta que el flujo libre sea positivo. Las metas son declaraciones de la empresa, no auditadas.",
+      "why_en": "The first explicit cap on external funding (US$10 billion of new debt and US$10 billion of equity through FY30) and a date for positive free cash flow: it bounds future debt, share count and the leverage path ({{sec:financing}}); vendor financing and customer-provided hardware move part of the build off Oracle's balance sheet until terms are filed. Guidance, not results: it changes no reported figure on the page.",
+      "why_es": "Primer tope explícito al financiamiento externo (US$10 mil millones de deuda nueva y US$10 mil millones de capital hasta el FY30) y una fecha para el flujo libre positivo: acota la deuda futura, el número de acciones y la trayectoria del apalancamiento ({{sec:financing}}); el financiamiento de proveedores y el hardware de clientes sacan parte de la construcción del balance de Oracle mientras no se presenten términos. Es guía, no resultados: no cambia ninguna cifra reportada de la página.",
+      "sources": [
+        {
+          "tier": "sec",
+          "title": "Form 8-K, filed Oct 28, 2026, Items 7.01 and 9.01 (accession 0001193125-26-435853)",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526435853/d75538d8k.htm",
+          "accession": "0001193125-26-435853"
+        },
+        {
+          "tier": "sec",
+          "title": "Exhibit 99.1 to the Form 8-K of Oct 28, 2026: Oracle Investor Day 2026 release",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526435853/d75538dex991.htm",
+          "accession": "0001193125-26-435853"
+        },
+        {
+          "tier": "company",
+          "title": "Oracle Investor Relations, Oct 28, 2026: Oracle Investor Day 2026: Accelerating Value Creation",
+          "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Investor-Day-2026-Accelerating-Value-Creation/default.aspx"
+        },
+        {
+          "tier": "company",
+          "title": "Oracle release via PR Newswire, Oct 28, 2026: Oracle Investor Day 2026: Accelerating Value Creation",
+          "url": "https://www.prnewswire.com/news-releases/oracle-investor-day-2026-accelerating-value-creation-302922564.html"
+        },
+        {
+          "tier": "wire",
+          "title": "Reuters via The Globe and Mail, Oct 28, 2026: Oracle expects to turn cash flow positive as capital spending declines",
+          "url": "https://www.theglobeandmail.com/business/article-oracle-earnings-profit-ai-maxson/"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-28-orcl-jump-investor-day",
+      "date": "2026-10-28",
+      "theme": "financing",
+      "basis": "press",
+      "title_en": "ORCL +10.7% to US$144.54 on Oct 28 after the Investor Day's US$20 billion funding cap and FY29 free-cash-flow target (press)",
+      "title_es": "ORCL +10.7% a US$144.54 el 28 oct tras el tope de financiamiento de US$20 mil millones y la meta de flujo libre del FY29 del Investor Day (prensa)",
+      "summary_en": "ORCL closed at US$144.54 on Wednesday Oct 28 (+10.7% from US$130.53; Yahoo/Nasdaq close, FactSet had not posted the session; intraday high US$148.48, volume 81.9 M). Reuters (via The Globe and Mail) printed shares \"jumped over 12 per cent\" intraday on the forecasts, citing the cap of US$20 billion on additional financing through fiscal 2030 and free cash flow above US$30 billion in fiscal 2029; it quotes CFO Hilary Maxson: \"I've told you we need an additional up to US$20-billion in funding for the remainder of our fiscal 2027\" (company statement, not audited), and puts five-year CDS at 287.2 bp. TipRanks printed \"about 11%\" for the session. Press-reported reasons.",
+      "summary_es": "ORCL cerró en US$144.54 el miércoles 28 oct (+10.7% desde US$130.53; cierre de Yahoo/Nasdaq, FactSet aún no publicaba la sesión; máximo intradía US$148.48, volumen 81.9 M). Reuters (vía The Globe and Mail) publicó que la acción \"subió más de 12%\" durante la sesión por las proyecciones, y citó el tope de US$20 mil millones de financiamiento adicional hasta el año fiscal 2030 y un flujo libre de más de US$30 mil millones en el año fiscal 2029; cita a la directora de Finanzas, Hilary Maxson: \"les he dicho que necesitamos hasta US$20 mil millones adicionales de financiamiento para el resto de nuestro año fiscal 2027\" (declaración de la empresa, no auditada), y sitúa el CDS a cinco años en 287.2 pb. TipRanks publicó \"alrededor de 11%\" para la sesión. Razones reportadas por la prensa.",
+      "why_en": "A price move, not a data change: it enters only the price series and the market-cap figures at the next close. The cited cause is the funding cap and the free-cash-flow date ({{sec:financing}}).",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios y en las capitalizaciones al siguiente cierre. La causa citada es el tope de financiamiento y la fecha del flujo libre ({{sec:financing}}).",
+      "sources": [
+        {
+          "tier": "wire",
+          "title": "Reuters via The Globe and Mail, Oct 28, 2026: Oracle expects to turn cash flow positive as capital spending declines",
+          "url": "https://www.theglobeandmail.com/business/article-oracle-earnings-profit-ai-maxson/"
+        },
+        {
+          "tier": "press",
+          "title": "TipRanks, Oct 29, 2026: Oracle Stock (ORCL) Surged 11% as Investor Day Eased Spending Fears and Set Solid FY30 Outlook",
+          "url": "https://www.tipranks.com/news/oracle-stock-orcl-surged-11-as-investor-day-eased-spending-fears-and-set-solid-fy30-outlook"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-27-nvidia-cerebras-oci",
+      "date": "2026-10-27",
+      "theme": "oci",
+      "basis": "company",
+      "title_en": "Partners' releases at Oracle AI World: Nvidia Vera Rubin superclusters on OCI to grow to \"multi-gigawatt scale\"; Cerebras inference on OCI in calendar 2027; no contract value or capacity given",
+      "title_es": "Comunicados de socios en Oracle AI World: los superclústeres Nvidia Vera Rubin en OCI crecerán \"a escala de varios gigawatts\"; inferencia de Cerebras en OCI en el año calendario 2027; sin valor de contrato ni capacidad",
+      "summary_en": "Nvidia release (Oct 27): OCI Superclusters on Vera Rubin NVL72 to expand to \"multi-gigawatt scale\"; Vera Rubin NVL72 and Vera CPUs generally available on OCI, HGX Rubin NVL8 planned (no date); OpenAI named as an early adopter; no gigawatt figure, contract value or commitment disclosed. Oracle's statement: \"Oracle Cloud Infrastructure gives customers the performance, security and scale to advance frontier AI\" (Mahesh Thiagarajan; company statement, not audited). Cerebras release (Oct 27): Cerebras Inference on OCI planned for calendar year 2027; no hardware quantity given.",
+      "summary_es": "Comunicado de Nvidia (27 oct): los OCI Superclusters con Vera Rubin NVL72 se ampliarán \"a escala de varios gigawatts\"; Vera Rubin NVL72 y los CPU Vera ya están disponibles en OCI, HGX Rubin NVL8 está planeado (sin fecha); OpenAI figura como adoptante temprano; no se divulgan gigawatts, valor de contrato ni compromiso. Declaración de Oracle: \"Oracle Cloud Infrastructure da a los clientes el desempeño, la seguridad y la escala para avanzar en la IA de frontera\" (Mahesh Thiagarajan; declaración de la empresa, no auditada). Comunicado de Cerebras (27 oct): Cerebras Inference en OCI planeado para el año calendario 2027; sin cantidad de equipo.",
+      "why_en": "More accelerator suppliers and a multi-gigawatt Nvidia build bear on future capex, chip purchases or leases and power needs ({{sec:financing}}); with no figures disclosed it changes nothing on the page.",
+      "why_es": "Más proveedores de aceleradores y una construcción Nvidia de varios gigawatts inciden en el capex futuro, las compras o arrendamientos de chips y las necesidades de energía ({{sec:financing}}); sin cifras divulgadas no cambia nada en la página.",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Nvidia release, Oct 27, 2026: NVIDIA and Oracle Expand NVIDIA Vera Rubin to Multi-Gigawatt Scale and Bring NVIDIA Vera CPU to Oracle Cloud Infrastructure",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-oracle-expand-nvidia-vera-rubin-to-multi-gigawatt-scale-and-bring-nvidia-vera-cpu-to-oracle-cloud-infrastructure"
+        },
+        {
+          "tier": "company",
+          "title": "Oracle release, Oct 27, 2026: Nvidia and Oracle Expand Nvidia Vera Rubin to Multi-Gigawatt Scale",
+          "url": "https://www.oracle.com/news/announcement/ai-world-nvidia-and-oracle-expand-nvidia-vera-rubin-to-multi-gigawatt-scale-2026-10-27/"
+        },
+        {
+          "tier": "company",
+          "title": "Cerebras release, Oct 27, 2026: Cerebras and Oracle Team Up to Bring Cerebras AI Inference to Oracle Cloud Infrastructure",
+          "url": "https://cerebras.ai/press-release/cerebras-and-oracle-team-up-to-bring-cerebras-ai-inference-to-oracle-cloud-inf-3389429"
+        }
+      ]
+    },
     {
       "id": "2026-10-27-orcl-rise-oci-chips",
       "date": "2026-10-27",
@@ -1122,6 +1216,52 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-29",
+      "by": "routine",
+      "searches": 29,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "PR Newswire",
+        "Reuters",
+        "Bloomberg",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "TipRanks",
+        "The Globe and Mail",
+        "Data Center Dynamics",
+        "Albuquerque Journal",
+        "Source NM",
+        "Wisconsin Public Radio",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "New Mexico Environment Department",
+        "We Energies",
+        "WEC Energy",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Nvidia",
+        "Cerebras",
+        "AMD",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-28-investor-day-fy30-targets",
+        "2026-10-28-orcl-jump-investor-day",
+        "2026-10-27-nvidia-cerebras-oci"
+      ],
+      "note": "Oct 28 close US$144.54 (Yahoo/Nasdaq fallback; FactSet through Oct 23), +10.7% from US$130.53: recorded with the reason Reuters gave (Investor Day funding cap and FY29 free-cash-flow target). The Investor Day release, furnished on an 8-K of Oct 28, added. Nvidia's and Cerebras's Oct 27 releases on OCI added; Oracle's Oct 27 OpenAI release still could not be opened (oracle.com 403), not added. No Moody's, S&P or Fitch action; no outcome found for the Oct 26 Project Jupiter dismissal hearing; no Wisconsin PSC, EGLE, New Mexico PRC or FERC decision found."
+    },
     {
       "date": "2026-10-28",
       "by": "routine",
