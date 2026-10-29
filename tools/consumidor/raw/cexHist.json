@@ -1,7 +1,7 @@
 {
- "fetchedAt": "2026-10-11T14:35:24.930Z",
+ "fetchedAt": "2026-10-29T19:34:12.961Z",
  "data": {
-  "year": 2024,
+  "year": 2025,
   "columns": [
    "01",
    "02",
@@ -1076,10 +1076,36 @@
      "05": 27205,
      "06": 27272
     }
+   },
+   "2025": {
+    "TOTALEXP": {
+     "01": 81905,
+     "02": 37935,
+     "03": 51405,
+     "04": 68983,
+     "05": 92250,
+     "06": 159512
+    },
+    "INCBEFTX": {
+     "01": 110847,
+     "02": 18125,
+     "03": 46080,
+     "04": 78584,
+     "05": 126349,
+     "06": 286188
+    },
+    "CONSUNIT": {
+     "01": 137994,
+     "02": 27770,
+     "03": 27543,
+     "04": 27778,
+     "05": 27353,
+     "06": 27551
+    }
    }
   },
   "source": {
-   "name": "BLS, Consumer Expenditure Surveys 1984-2024 (annual tables by income quintile, through the BLS public API)",
+   "name": "BLS, Consumer Expenditure Surveys 1984-2025 (annual tables by income quintile, through the BLS public API)",
    "url": "https://www.bls.gov/cex/tables.htm"
   }
  }
