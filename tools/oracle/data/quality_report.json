@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-29T14:59:43.785Z",
+  "generated": "2026-10-29T19:04:37.842Z",
   "summary": {
     "checks": 465,
     "failed": 0,
@@ -3831,8 +3831,8 @@
     },
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
-      "lastDate": "2026-10-27",
-      "ageDays": 3,
+      "lastDate": "2026-10-28",
+      "ageDays": 2,
       "limitDays": 7,
       "status": "ok",
       "note": "market fetch; credit card proxy while no CDS source exists"

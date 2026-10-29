@@ -4,27 +4,6 @@
   {
    "at": "2026-10-26T14:57:32.327Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[18]",
-   "old": "WEC Energy",
-   "new": "We Energies"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[19]",
-   "old": "American Transmission Co.",
-   "new": "WEC Energy"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[20]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "American Transmission Co."
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
    "path": "sweepLog[0].checked[21]",
    "old": "DTE Energy",
    "new": "Wisconsin Public Service Commission"
@@ -4200,7 +4179,28 @@
    "path": "(more)",
    "old": null,
    "new": "1308 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-29T19:04:38.101Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-27",
+   "new": "2026-10-28"
+  },
+  {
+   "at": "2026-10-29T19:04:38.101Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.09,
+   "new": 1.07
+  },
+  {
+   "at": "2026-10-29T19:04:38.101Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 804,
+   "new": 805
   }
  ],
- "generated": "2026-10-29T14:59:43.926Z"
+ "generated": "2026-10-29T19:04:38.101Z"
 }
