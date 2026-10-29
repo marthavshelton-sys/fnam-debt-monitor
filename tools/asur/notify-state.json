@@ -4,8 +4,15 @@
   "lastGuidanceDate": null,
   "lastEventFile": "2026-10-27_bmv1598134_es.txt",
   "lastReferenceSha": "6b3beedde26de80e5d1d7eaa1055b154d695f6a7",
-  "lastNotifiedAt": "2026-10-22T23:59:00Z",
-  "lastFailureNote": null,
+  "lastNotifiedAt": "2026-10-29T16:10:00Z",
+  "lastFailureNote": "FactSet closes stale since 23-Oct-2026 (nightly FactSet routine not posting); Yahoo fallback through 28-Oct.",
   "note": "Updated by the ASUR upkeep routine (tools/asur/ROUTINE-PROMPT.md; see tools/asur/README.md).",
-  "open": []
+  "open": [
+    {
+      "id": "factset-closes-stale",
+      "since": "2026-10-26",
+      "branch": null,
+      "cause": "Nightly airports FactSet routine has posted no close since 23-Oct-2026 (prices.json pulled 24-Oct 00:02 UTC); page runs on Yahoo fallback through 28-Oct; same gap on Oracle, Quálitas, Gentera (issues #327-#336); not fixable from this routine."
+    }
+  ]
 }
