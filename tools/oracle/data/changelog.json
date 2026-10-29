@@ -4,104 +4,6 @@
   {
    "at": "2026-10-26T14:57:32.327Z",
    "file": "news.js",
-   "path": "sweepLog[0].checked[21]",
-   "old": "DTE Energy",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[22]",
-   "old": "Michigan EGLE",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[23]",
-   "old": "Vantage",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[24]",
-   "old": "Crusoe",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[25]",
-   "old": "Stargate",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[26]",
-   "old": "OpenAI",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[27]",
-   "old": "AstraZeneca",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[28]",
-   "old": "Moody's",
-   "new": "Nvidia"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[29]",
-   "old": "S&P Global Ratings",
-   "new": "Moody's"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[0].checked[30]",
-   "old": "Fitch Ratings",
-   "new": "S&P Global Ratings"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].date",
-   "old": "2026-10-24",
-   "new": "2026-10-25"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].searches",
-   "old": 29,
-   "new": 34
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[3]",
-   "old": "PR Newswire",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[4]",
-   "old": "Bloomberg",
-   "new": "Bloomberg Government"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[9]",
    "old": "Investing.com",
    "new": "NPR"
@@ -4200,7 +4102,105 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": 804,
    "new": 805
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq",
+   "new": "Nasdaq + Yahoo Finance (2026-10-29)"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": "Nasdaq",
+   "new": "Yahoo Finance"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 2973,
+   "new": 2974
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500",
+   "new": "FRED SP500 + Yahoo Finance (2026-10-29)"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2522,
+   "new": 2523
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-28",
+   "new": "2026-10-29"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.05,
+   "new": 4.98
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16191,
+   "new": 16192
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "range52.high",
+   "old": 281.62,
+   "new": 269.76
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "range52.highDate",
+   "old": "2025-10-29",
+   "new": "2025-10-30"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-29",
+   "new": "2025-10-30"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-28",
+   "new": "2026-10-29"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.after[3]",
+   "old": null,
+   "new": "2026-10-29"
+  },
+  {
+   "at": "2026-10-29T21:21:22.498Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-28",
+   "new": "2026-10-29"
   }
  ],
- "generated": "2026-10-29T19:04:38.101Z"
+ "generated": "2026-10-29T21:21:22.498Z"
 }
