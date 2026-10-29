@@ -6,6 +6,14 @@
    "fiscalYearEnd": "0630",
    "filings": [
     {
+     "accn": "0001193125-26-437008",
+     "form": "424B2",
+     "filed": "2026-10-29",
+     "report": null,
+     "doc": "d150456d424b2.htm",
+     "items": null
+    },
+    {
      "accn": "0001193125-26-436149",
      "form": "8-K",
      "filed": "2026-10-28",
@@ -316,6 +324,14 @@
    "category": "Large accelerated filer",
    "fiscalYearEnd": "1231",
    "filings": [
+    {
+     "accn": "0001652044-26-000084",
+     "form": "10-Q",
+     "filed": "2026-10-29",
+     "report": "2026-09-30",
+     "doc": "goog-20260930.htm",
+     "items": null
+    },
     {
      "accn": "0001652044-26-000080",
      "form": "8-K",

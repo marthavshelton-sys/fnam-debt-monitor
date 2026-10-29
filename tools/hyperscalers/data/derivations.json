@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-29T01:48:47Z",
+ "generated": "2026-10-29T14:01:22Z",
  "warnings": [
   {
    "ticker": "MSFT",
@@ -532,6 +532,21 @@
   },
   {
    "ticker": "GOOGL",
+   "check": "OperatingLeaseCost FY2025Q3: 3-month fact 851000000 vs YTD difference 826000000",
+   "status": "warn"
+  },
+  {
+   "ticker": "GOOGL",
+   "check": "OperatingLeaseCost FY2026Q3: 3-month fact 998000000 vs YTD difference 963000000",
+   "status": "warn"
+  },
+  {
+   "ticker": "GOOGL",
+   "check": "InterestCostsCapitalized FY2026Q3: 3-month fact 405000000 vs YTD difference 372000000",
+   "status": "warn"
+  },
+  {
+   "ticker": "GOOGL",
    "tag": "FY2023",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -798,8 +813,8 @@
    "ticker": "GOOGL",
    "tag": "FY2025",
    "check": "ol_cost: Q1+Q2+Q3+Q4 = fiscal year",
-   "diff": 0,
-   "status": "ok",
+   "diff": 25,
+   "status": "warn",
    "identity": true
   },
   {
@@ -1835,6 +1850,28 @@
  "restated": [
   {
    "ticker": "GOOGL",
+   "tag": "OperatingLeaseCost",
+   "start": "2025-01-01",
+   "end": "2025-09-30",
+   "old": 2470000000,
+   "oldAccn": "0001652044-25-000091",
+   "value": 2434000000,
+   "accn": "0001652044-26-000084",
+   "filed": "2026-10-29"
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "OperatingLeaseCost",
+   "start": "2025-07-01",
+   "end": "2025-09-30",
+   "old": 862000000,
+   "oldAccn": "0001652044-25-000091",
+   "value": 851000000,
+   "accn": "0001652044-26-000084",
+   "filed": "2026-10-29"
+  },
+  {
+   "ticker": "GOOGL",
    "tag": "PaymentsForRepurchaseOfCommonStock",
    "start": "2025-01-01",
    "end": "2025-06-30",
@@ -1843,6 +1880,17 @@
    "value": 28306000000,
    "accn": "0001652044-26-000071",
    "filed": "2026-07-23"
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "PaymentsForRepurchaseOfCommonStock",
+   "start": "2025-01-01",
+   "end": "2025-09-30",
+   "old": 40210000000,
+   "oldAccn": "0001652044-25-000091",
+   "value": 39810000000,
+   "accn": "0001652044-26-000084",
+   "filed": "2026-10-29"
   },
   {
    "ticker": "GOOGL",
