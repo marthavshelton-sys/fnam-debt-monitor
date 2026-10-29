@@ -456,6 +456,23 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
    "filings": [
     {
+     "accn": "xbrl1599728",
+     "filed": "2026-10-29",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/FRAGUA-5368-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1599728_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/FRAGUA/2026-10-29_xbrl1599728.txt",
+       "chars": 8644
+      }
+     ]
+    },
+    {
      "accn": "xbrl1577979",
      "filed": "2026-07-29",
      "kind": "results",
@@ -1204,5 +1221,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-29T00:02:33.723Z"
+ "checkedAt": "2026-10-29T18:32:17.044Z"
 }
