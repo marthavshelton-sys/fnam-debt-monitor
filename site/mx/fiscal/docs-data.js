@@ -9,7 +9,7 @@
 // table; the page shows them with "~". The daily refresh cross-checks the values below against the
 // mirrored documents on every run.
 window.MX_DOCS = {
-  "updatedAt": "2026-10-21",
+  "updatedAt": "2026-10-30",
   "cgpe": {
     "title": "Criterios Generales de Política Económica 2027",
     "url": "https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/cgpe/cgpe_2027.pdf",
@@ -73,15 +73,15 @@ window.MX_DOCS = {
     ]
   },
   "pemex": {
-    "title": "Pemex, reporte trimestral 2T26",
-    "url": "https://www.pemex.com/ri/finanzas/Reporte%20de%20Resultados%20no%20Dictaminados/Reporte%202T26.pdf",
-    "asOf": "2026-07-31",
-    "debtUsdBn": { "labels": ["2018", "2020", "2022", "2024", "2025", "jun '26"], "values": [105.8, 110.3, 107.7, 97.6, 84.5, 77.5], "est": [false, true, true, false, false, false] },
+    "title": "Pemex, reporte trimestral 3T26",
+    "url": "https://www.pemex.com/ri/finanzas/Reporte%20de%20Resultados%20no%20Dictaminados/Reporte%203T26.pdf",
+    "asOf": "2026-10-30",
+    "debtUsdBn": { "labels": ["2018", "2020", "2022", "2024", "2025", "sep '26"], "values": [105.8, 110.3, 107.7, 97.6, 85.2, 77.6], "est": [false, true, true, false, false, false] },
     "supportBn": { "2025": 396 },
-    "capitalContributionsBn": { "period": { "es": "1er semestre de 2026", "en": "H1 2026" }, "value": 100, "cap2026": 177 },
+    "capitalContributionsBn": { "period": { "es": "enero-septiembre de 2026", "en": "January-September 2026" }, "value": 136.5, "cap2026": 177 },
     "pcapsUsdBn": 12,
     "maturities2026UsdBn": 18.7,
-    "suppliersBn": { "value": 374.3, "asOf": "2026-06-30" }
+    "suppliersBn": { "value": 414.2, "asOf": "2026-09-30" }
   },
   "survey": {
     "title": { "es": "Encuesta Citi México de expectativas", "en": "Citi Mexico expectations survey" },
