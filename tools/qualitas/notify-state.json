@@ -8,7 +8,7 @@
   "lastReferenceSha": "15c07848f9305661de61aa439e58e6e682e9c870",
   "lastCommentsUpdatedAt": "2026-10-22",
   "lastSummaryUpdatedAt": "2026-10-22",
-  "lastMarketDate": "2026-10-27",
+  "lastMarketDate": "2026-10-29",
   "lastAlertKeys": [
     "share1d:2026-10-13",
     "share5d:2026-10-13",
@@ -19,9 +19,9 @@
     "share5d:2026-10-27"
   ],
   "lastNotifiedAt": "2026-10-28T15:52:15Z",
-  "lastFailureNote": null,
-  "lastCheckedAt": "2026-10-29T16:04:05Z",
-  "lastCheckResult": "quiet",
+  "lastFailureNote": "FactSet closes stale: Q.MX and peers through 2026-10-22 (8 days)",
+  "lastCheckedAt": "2026-10-30T15:52:04Z",
+  "lastCheckResult": "pipeline",
   "pendingFromOwner": [
     "earnings-call transcript for 3Q26 once available",
     "password decision (QUALITAS_PASSWORD)"
