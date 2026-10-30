@@ -18,12 +18,12 @@
       "source_name": "Nasdaq"
     },
     "sp500": {
-      "close": 7720.39013671875,
+      "close": 7720.39,
       "close_date": "2026-10-29",
       "one_day_change_pct": -0.3,
       "one_year_change_pct": 12.04,
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
-      "source_name": "FRED SP500 + Yahoo Finance (2026-10-29)",
+      "source_name": "FRED SP500",
       "accessed": "2026-10-30"
     }
   },
@@ -574,13 +574,13 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-30"
   },
-  "refreshed_at": "2026-10-30T14:11:22.461Z",
+  "refreshed_at": "2026-10-30T18:42:14.151Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
     "unit": "percent",
-    "value_pct": 1.07,
-    "as_of_date": "2026-10-28",
+    "value_pct": 1.1,
+    "as_of_date": "2026-10-29",
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",

@@ -4,34 +4,6 @@
   {
    "at": "2026-10-27T15:19:54.359Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[10]",
-   "old": "Data Center Dynamics",
-   "new": "Albuquerque Journal"
-  },
-  {
-   "at": "2026-10-27T15:19:54.359Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[11]",
-   "old": "The Register",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-27T15:19:54.359Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[12]",
-   "old": "Albuquerque Journal",
-   "new": "Wisconsin Watch"
-  },
-  {
-   "at": "2026-10-27T15:19:54.359Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[13]",
-   "old": "KRWG",
-   "new": "BizTimes"
-  },
-  {
-   "at": "2026-10-27T15:19:54.359Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[14]",
    "old": "Wisconsin Public Radio",
    "new": "Michigan Public"
@@ -4200,7 +4172,35 @@
    "path": "(more)",
    "old": null,
    "new": "1354 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-30T18:42:21.890Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "FRED SP500 + Yahoo Finance (2026-10-29)",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-30T18:42:21.890Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-28",
+   "new": "2026-10-29"
+  },
+  {
+   "at": "2026-10-30T18:42:21.890Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.07,
+   "new": 1.1
+  },
+  {
+   "at": "2026-10-30T18:42:21.890Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 805,
+   "new": 806
   }
  ],
- "generated": "2026-10-30T15:40:12.668Z"
+ "generated": "2026-10-30T18:42:21.890Z"
 }
