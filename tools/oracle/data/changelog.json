@@ -4,55 +4,6 @@
   {
    "at": "2026-10-26T14:57:32.327Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[9]",
-   "old": "Investing.com",
-   "new": "NPR"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[10]",
-   "old": "GuruFocus",
-   "new": "Data Center Dynamics"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[11]",
-   "old": "KRWG",
-   "new": "The Register"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[13]",
-   "old": "Wisconsin Public Radio",
-   "new": "KRWG"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[14]",
-   "old": "Data Center Dynamics",
-   "new": "Wisconsin Public Radio"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[18]",
-   "old": "American Transmission Co.",
-   "new": "WEC Energy"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[19]",
-   "old": "Wisconsin Public Service Commission",
-   "new": "American Transmission Co."
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
    "path": "sweepLog[1].checked[20]",
    "old": "DTE Energy",
    "new": "Wisconsin Public Service Commission"
@@ -4200,7 +4151,56 @@
    "path": "basis.marketDate",
    "old": "2026-10-28",
    "new": "2026-10-29"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-29",
+   "new": "2026-10-30"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.name",
+   "old": "Nasdaq + Yahoo Finance (2026-10-29)",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.latestName",
+   "old": "Yahoo Finance",
+   "new": "Nasdaq"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "prices.ORCL.provenance.fill.url",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-29&todate=2026-10-29&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-30&todate=2026-10-30&limit=10000"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-29",
+   "new": "2026-10-30"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-29",
+   "new": "2026-10-30"
+  },
+  {
+   "at": "2026-10-30T00:16:35.881Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-29",
+   "new": "2026-10-30"
   }
  ],
- "generated": "2026-10-29T22:31:21.047Z"
+ "generated": "2026-10-30T00:16:35.881Z"
 }
