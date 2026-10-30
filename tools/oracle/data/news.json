@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-29",
+  "as_of": "2026-10-30",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,25 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-29-orcl-drop-hyperscaler-capex",
+      "date": "2026-10-29",
+      "theme": "oci",
+      "basis": "press",
+      "title_en": "ORCL −3.4% to US$139.56 on Oct 29 as the AI cloud group falls on lighter Alphabet and Microsoft capex (press)",
+      "title_es": "ORCL −3.4% a US$139.56 el 29 oct; el grupo de nube de IA cae por un capex menor al esperado de Alphabet y Microsoft (prensa)",
+      "summary_en": "ORCL closed at US$139.56 on Thursday Oct 29 (−3.4% from US$144.54; Yahoo/Nasdaq close, FactSet had not posted the session; intraday low US$136.59). 24/7 Wall St. (Oct 29, 12:10 pm ET) put Oracle at US$140.57, \"down 3%\", as AI cloud stocks fell after Alphabet reported capex of US$51.36 billion against a US$55.09 billion consensus and Microsoft US$45.2 billion against US$50.7 billion: \"The decline gives back part of that rally as the rest of the AI cloud group sells off.\" Press-reported reason.",
+      "summary_es": "ORCL cerró en US$139.56 el jueves 29 oct (−3.4% desde US$144.54; cierre de Yahoo/Nasdaq, FactSet aún no publicaba la sesión; mínimo intradía US$136.59). 24/7 Wall St. (29 oct, 12:10 pm ET) situó a Oracle en US$140.57, \"abajo 3%\", al caer las acciones de nube de IA después de que Alphabet reportara un capex de US$51.36 mil millones frente a un consenso de US$55.09 mil millones y Microsoft de US$45.2 mil millones frente a US$50.7 mil millones: \"la caída devuelve parte de ese repunte mientras el resto del grupo de nube de IA se vende\". Razón reportada por la prensa.",
+      "why_en": "A price move, not a data change: it enters only the price series and the market-cap figures at the next close. The cited cause is hyperscaler capex below consensus, read as slower demand for AI cloud capacity ({{sec:rpo}}).",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios y en las capitalizaciones al siguiente cierre. La causa citada es un capex de los hiperescaladores menor al consenso, leído como menor demanda de capacidad de nube de IA ({{sec:rpo}}).",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "24/7 Wall St., Oct 29, 2026: AI Cloud Stocks Fall as Big Tech Capex Comes in Light: Fastly Sinks 6%, Oracle and Nebius Drop 3%",
+          "url": "https://247wallst.com/investing/2026/10/29/ai-cloud-stocks-fall-as-big-tech-capex-comes-in-light-fastly-sinks-6-oracle-and-nebius-drop-3/"
+        }
+      ]
+    },
     {
       "id": "2026-10-28-investor-day-fy30-targets",
       "date": "2026-10-28",
@@ -97,6 +116,30 @@
           "tier": "press",
           "title": "TipRanks, Oct 29, 2026: Oracle Stock (ORCL) Surged 11% as Investor Day Eased Spending Fears and Set Solid FY30 Outlook",
           "url": "https://www.tipranks.com/news/oracle-stock-orcl-surged-11-as-investor-day-eased-spending-fears-and-set-solid-fy30-outlook"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-27-openai-enterprise-suite",
+      "date": "2026-10-27",
+      "theme": "customers",
+      "basis": "company",
+      "title_en": "Oracle and OpenAI at Oracle AI World: OpenAI models, ChatGPT and Codex built into Oracle AI Workspace, AI Security Mesh and an SMB bundle; no contract value or compute disclosed",
+      "title_es": "Oracle y OpenAI en Oracle AI World: modelos de OpenAI, ChatGPT y Codex integrados en Oracle AI Workspace, AI Security Mesh y un paquete para pymes; sin valor de contrato ni capacidad de cómputo",
+      "summary_en": "Oracle release (Las Vegas, Oct 27): a collaboration combining OpenAI's models, ChatGPT and Codex with Oracle's applications, data and cloud infrastructure; products named: Oracle AI Workspace (with ChatGPT plugins), Oracle AI Security Mesh (OpenAI cyber models), Oracle App Composer, APEXlang and the Oracle AI SMB Bundle, \"free-to-start\" with \"$12,000 in Oracle cloud credits each year\". Oracle's statement: \"OpenAI is transforming how enterprises solve business problems, from chat, to coding, to analytics, to autonomous agents\" (Clay Magouyrk; company statement, not audited). No contract value, compute commitment or payment terms.",
+      "summary_es": "Comunicado de Oracle (Las Vegas, 27 oct): una colaboración que combina los modelos de OpenAI, ChatGPT y Codex con las aplicaciones, los datos y la infraestructura de nube de Oracle; productos: Oracle AI Workspace (con plugins de ChatGPT), Oracle AI Security Mesh (modelos de ciberseguridad de OpenAI), Oracle App Composer, APEXlang y Oracle AI SMB Bundle, \"gratuito para empezar\" con \"US$12,000 en créditos de nube de Oracle cada año\". Declaración de Oracle: \"OpenAI está transformando la forma en que las empresas resuelven problemas de negocio, del chat a la programación, la analítica y los agentes autónomos\" (Clay Magouyrk; declaración de la empresa, no auditada). Sin valor de contrato, compromiso de cómputo ni condiciones de pago.",
+      "why_en": "Widens OpenAI's role from Oracle's largest infrastructure customer to a product partner in applications; with no figures disclosed it changes no RPO, revenue or capex figure on the page ({{sec:rpo}}).",
+      "why_es": "Amplía el papel de OpenAI de mayor cliente de infraestructura de Oracle a socio de producto en aplicaciones; sin cifras divulgadas no cambia ningún dato de RPO, ingresos o capex en la página ({{sec:rpo}}).",
+      "sources": [
+        {
+          "tier": "company",
+          "title": "Oracle release, Oct 27, 2026: Oracle Reinvents Enterprise Computing for the AI Era with OpenAI",
+          "url": "https://www.oracle.com/news/announcement/ai-world-oracle-reinvents-enterprise-computing-for-the-ai-era-with-openai-2026-10-27/"
+        },
+        {
+          "tier": "wire",
+          "title": "PR Newswire copy via Finviz, Oct 27, 2026: Oracle Reinvents Enterprise Computing for the AI Era with OpenAI",
+          "url": "https://finviz.com/news/408987/oracle-reinvents-enterprise-computing-for-the-ai-era-with-openai"
         }
       ]
     },
@@ -1216,6 +1259,46 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-30",
+      "by": "routine",
+      "searches": 28,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "PR Newswire",
+        "Reuters",
+        "Bloomberg",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "Benzinga",
+        "Investing.com",
+        "24/7 Wall St.",
+        "Data Center Dynamics",
+        "Albuquerque Journal",
+        "Wisconsin Public Radio",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Michigan EGLE",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-29-orcl-drop-hyperscaler-capex",
+        "2026-10-27-openai-enterprise-suite"
+      ],
+      "note": "Oct 29 close US$139.56 (Yahoo/Nasdaq fallback; FactSet through Oct 23), −3.4% from US$144.54: recorded with the reason 24/7 Wall St. gave (Alphabet and Microsoft capex below consensus). Oracle's Oct 27 OpenAI release, unread on the last two runs (oracle.com 403), read through its PR Newswire copy and added. No new EDGAR accession since the Oct 28 8-K; no Moody's, S&P or Fitch action; no Project Jupiter, Port Washington, Saline or Shackelford regulatory decision found. Oct 30 intraday drop (Investing.com: Amazon results, Microsoft CEO remarks) not recorded until the session closes."
+    },
     {
       "date": "2026-10-29",
       "by": "routine",
