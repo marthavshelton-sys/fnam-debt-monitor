@@ -785,6 +785,12 @@
  "errors": [],
  "runs": [
   {
+   "at": "2026-10-30T01:58:06Z",
+   "ok": true,
+   "newFilings": 0,
+   "errors": 0
+  },
+  {
    "at": "2026-10-29T23:01:16Z",
    "ok": true,
    "newFilings": 2,
@@ -957,37 +963,12 @@
    "ok": true,
    "newFilings": 0,
    "errors": 0
-  },
-  {
-   "at": "2026-10-22T18:01:14Z",
-   "ok": true,
-   "newFilings": 0,
-   "errors": 0
   }
  ],
  "consecutiveFailures": 0,
- "newFilings": [
-  {
-   "ticker": "AMZN",
-   "accn": "0001018724-26-000038",
-   "form": "8-K",
-   "filed": "2026-10-29",
-   "report": "2026-10-29",
-   "doc": "amzn-20261029.htm",
-   "items": "2.02,9.01"
-  },
-  {
-   "ticker": "META",
-   "accn": "0001193125-26-438017",
-   "form": "8-K",
-   "filed": "2026-10-29",
-   "report": "2026-10-26",
-   "doc": "d183592d8k.htm",
-   "items": "1.01,3.03,5.03,9.01"
-  }
- ],
- "lastRun": "2026-10-29T23:01:16Z",
- "lastSuccess": "2026-10-29T23:01:16Z",
+ "newFilings": [],
+ "lastRun": "2026-10-30T01:58:06Z",
+ "lastSuccess": "2026-10-30T01:58:06Z",
  "notes": {
   "0001193125-26-323660": {
    "ticker": "MSFT",
