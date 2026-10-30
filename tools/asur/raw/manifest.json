@@ -2,12 +2,12 @@
  "entity": "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-10-30T02:10:35.979Z",
+ "updatedAt": "2026-10-30T15:21:35.219Z",
  "kept": {
   "traffic": 140,
   "results-pdf": 30,
   "results": 27,
-  "transcript": 14,
+  "transcript": 15,
   "other": 20
  },
  "filings": [
@@ -3449,6 +3449,15 @@
    "title": "ASUR 3Q26 earnings release (full report, PDF)",
    "class": "results-pdf",
    "path": "tools/asur/raw/releases/2026-10-22_ir3Q26_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "3Q26",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2026/3/ASUR-Airports-Investor-Relations-Transcript-3Q26.pdf",
+   "date": "2026-10-22",
+   "title": "ASUR 3Q26 earnings-call transcript (PDF)",
+   "class": "transcript",
+   "path": "tools/asur/raw/releases/2026-10-22_ir3Q26tx_en.txt"
   }
  ]
 }
