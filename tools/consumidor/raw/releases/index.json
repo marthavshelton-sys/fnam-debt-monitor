@@ -1409,19 +1409,19 @@
      ]
     },
     {
-     "accn": "0001792789-26-000050",
-     "filed": "2026-08-05",
-     "report": "2026-06-30",
+     "accn": "0001792789-26-000070",
+     "filed": "2026-10-30",
+     "report": "2026-09-30",
      "form": "10-Q",
      "pattern": "^(United States|International|Total revenue)[^|]{0,60}\\|.*\\d|U\\.S\\.[^.]{0,220}(Total Orders|Marketplace GOV|MAUs|DashPass)[^.]{0,160}(%|million|billion)",
-     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000050/0001792789-26-000050-index.htm",
+     "indexUrl": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000070/0001792789-26-000070-index.htm",
      "exhibits": [
       {
        "type": "10-Q",
        "description": "Quarterly report (passages)",
-       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000050/dash-20260630.htm",
-       "file": "tools/consumidor/raw/releases/DASH/2026-08-05_0001792789-26-000050_10-q.txt",
-       "chars": 123
+       "url": "https://www.sec.gov/Archives/edgar/data/1792789/000179278926000070/dash-20260930.htm",
+       "file": "tools/consumidor/raw/releases/DASH/2026-10-30_0001792789-26-000070_10-q.txt",
+       "chars": 125
       }
      ]
     },
@@ -2133,5 +2133,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-30T14:52:42.861Z"
+ "checkedAt": "2026-10-30T22:22:45.253Z"
 }
