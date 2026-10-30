@@ -133,6 +133,12 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
    "listing": [
     {
+     "date": "2026-10-30",
+     "title": "Soriana anuncia los resultados del tercer trimestre 2026",
+     "id": "1600315",
+     "kind": "results"
+    },
+    {
      "date": "2026-09-15",
      "title": "Soriana Informa",
      "id": "1589132",
@@ -209,15 +215,25 @@
      "title": "Soriana anuncia los resultados del primer trimestre 2024",
      "id": "1366854",
      "kind": "results"
-    },
-    {
-     "date": "2024-02-23",
-     "title": "Soriana anuncia los resultados del cuatro trimestre y año completo 2023",
-     "id": "1349581",
-     "kind": "results"
     }
    ],
    "filings": [
+    {
+     "accn": "bmv1600315",
+     "filed": "2026-10-30",
+     "kind": "results",
+     "title": "Soriana anuncia los resultados del tercer trimestre 2026",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "PDF",
+       "description": "Soriana anuncia los resultados del tercer trimestre 2026",
+       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1600315_1.pdf",
+       "file": "tools/mx-consumidor/raw/releases/SORIANA/2026-10-30_bmv1600315.txt",
+       "chars": 16193
+      }
+     ]
+    },
     {
      "accn": "bmv1578826",
      "filed": "2026-07-31",
@@ -231,22 +247,6 @@
        "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1578826_1.pdf",
        "file": "tools/mx-consumidor/raw/releases/SORIANA/2026-07-31_bmv1578826.txt",
        "chars": 17211
-      }
-     ]
-    },
-    {
-     "accn": "bmv1551221",
-     "filed": "2026-04-24",
-     "kind": "results",
-     "title": "Soriana anuncia los resultados del primer trimestre 2026",
-     "indexUrl": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/SORIANA-5693-CGEN_CAPIT",
-     "exhibits": [
-      {
-       "type": "PDF",
-       "description": "Soriana anuncia los resultados del primer trimestre 2026",
-       "url": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1551221_1.pdf",
-       "file": "tools/mx-consumidor/raw/releases/SORIANA/2026-04-24_bmv1551221.txt",
-       "chars": 12741
       }
      ]
     }
@@ -1238,5 +1238,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-30T16:02:45.968Z"
+ "checkedAt": "2026-10-30T18:04:03.738Z"
 }
