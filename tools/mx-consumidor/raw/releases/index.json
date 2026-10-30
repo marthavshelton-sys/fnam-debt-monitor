@@ -876,6 +876,23 @@
    "listUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
    "filings": [
     {
+     "accn": "xbrl1600144",
+     "filed": "2026-10-29",
+     "kind": "results",
+     "quarter": "2026-Q3",
+     "title": "Reporte trimestral 2026-Q3",
+     "indexUrl": "https://www.bmv.com.mx/es/emisoras/informacionfinanciera/AC-6081-CGEN_CAPIT",
+     "exhibits": [
+      {
+       "type": "XBRL",
+       "description": "Reporte trimestral 2026-Q3, comentarios de la administración",
+       "url": "https://www.bmv.com.mx/docs-pub/visor/visorXbrl.html?docins=../ifrsxbrl/ifrsxbrl_1600144_2026-03_1.zip",
+       "file": "tools/mx-consumidor/raw/releases/AC/2026-10-29_xbrl1600144.txt",
+       "chars": 139417
+      }
+     ]
+    },
+    {
      "accn": "xbrl1576200",
      "filed": "2026-07-22",
      "kind": "results",
@@ -1221,5 +1238,5 @@
   }
  },
  "errors": [],
- "checkedAt": "2026-10-29T18:32:17.044Z"
+ "checkedAt": "2026-10-30T16:02:45.968Z"
 }
