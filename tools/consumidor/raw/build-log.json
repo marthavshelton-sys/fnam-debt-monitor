@@ -9,7 +9,7 @@
  "stale": [],
  "sourceStatus": {
   "census": {
-   "failures": 5,
+   "failures": 6,
    "error": "ACS 2025 label check failed: B15003_017E: label \"Total:!!Some college, less than 1 year\" does not match /Regular high school diploma$/ | B15003_018E: label \"Total:!!Some college, 1 or more years, no degree\" does not match /GED or alternative credential$/ | B15003_021E: label \"Total:!!Master's degree\" does not match /Associate's degree$/ | B15003_022E: label \"Total:!!Professional school degree\" does not match /Bachelor's degree$/ | B15003_023E: label \"Total:!!Doctorate degree\" does not match /Mas",
    "since": "2026-10-29"
   },
