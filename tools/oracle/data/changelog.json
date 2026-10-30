@@ -4,104 +4,6 @@
   {
    "at": "2026-10-26T14:57:32.327Z",
    "file": "news.js",
-   "path": "sweepLog[1].checked[20]",
-   "old": "DTE Energy",
-   "new": "Wisconsin Public Service Commission"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[21]",
-   "old": "Michigan EGLE",
-   "new": "DTE Energy"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[22]",
-   "old": "Vantage",
-   "new": "Michigan EGLE"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[23]",
-   "old": "Crusoe",
-   "new": "Vantage"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[24]",
-   "old": "Stargate",
-   "new": "Crusoe"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[25]",
-   "old": "OpenAI",
-   "new": "Stargate"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[26]",
-   "old": "Apollo",
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].checked[27]",
-   "old": "Goldman Sachs",
-   "new": "AstraZeneca"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[1].added[0]",
-   "old": "2026-10-23-partner-commitment",
-   "new": null
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[2].date",
-   "old": "2026-10-23",
-   "new": "2026-10-24"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[2].searches",
-   "old": 30,
-   "new": 29
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[3]",
-   "old": "Bloomberg",
-   "new": "PR Newswire"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[4]",
-   "old": "Reuters",
-   "new": "Bloomberg"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
-   "path": "sweepLog[2].checked[5]",
-   "old": "Financial Times",
-   "new": "Reuters"
-  },
-  {
-   "at": "2026-10-26T14:57:32.327Z",
-   "file": "news.js",
    "path": "sweepLog[2].checked[6]",
    "old": "Wall Street Journal",
    "new": "Financial Times"
@@ -4200,7 +4102,105 @@
    "path": "spreads.BBB_OAS.fetchedAt",
    "old": "2026-10-29",
    "new": "2026-10-30"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].entity",
+   "old": "INTEL CORP",
+   "new": "Intel Corporation"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet_date",
+   "old": "2026-06-27",
+   "new": "2026-09-26"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_noncurrent.usd_m",
+   "old": 48549,
+   "new": 46317
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_noncurrent.end",
+   "old": "2026-06-27",
+   "new": "2026-09-26"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_noncurrent.accession",
+   "old": "0000050863-26-000157",
+   "new": "0000050863-26-000191"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_current.usd_m",
+   "old": 1988,
+   "new": 3817
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_current.end",
+   "old": "2026-06-27",
+   "new": "2026-09-26"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.debt_current.accession",
+   "old": "0000050863-26-000157",
+   "new": "0000050863-26-000191"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.cash.usd_m",
+   "old": 12874,
+   "new": 21846
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.cash.end",
+   "old": "2026-06-27",
+   "new": "2026-09-26"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.cash.accession",
+   "old": "0000050863-26-000157",
+   "new": "0000050863-26-000191"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.short_term_investments.usd_m",
+   "old": 16853,
+   "new": 32159
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.short_term_investments.end",
+   "old": "2026-06-27",
+   "new": "2026-09-26"
+  },
+  {
+   "at": "2026-10-30T14:11:29.280Z",
+   "file": "peer_leverage.js",
+   "path": "peers[2].balance_sheet.short_term_investments.accession",
+   "old": "0000050863-26-000157",
+   "new": "0000050863-26-000191"
   }
  ],
- "generated": "2026-10-30T01:21:10.426Z"
+ "generated": "2026-10-30T14:11:29.280Z"
 }
