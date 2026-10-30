@@ -4,7 +4,7 @@
   "lastMonthlySbs": "202609",
   "lastGuidanceDate": "2026-07-22",
   "lastReferenceSha": "c12f47c9720269fb499e81beaf9570724fc7c1a3c7e35cc0fb73a9f17322d204",
-  "lastMarketDate": "2026-10-28",
+  "lastMarketDate": "2026-10-29",
   "lastNotifiedAt": "2026-10-29",
   "lastFailureNote": null,
   "thresholds": {
@@ -14,6 +14,6 @@
     "note": "The reviewing routine emails only when a threshold is crossed or a new quarter, monthly table, guidance vintage or reference event lands (see tools/gentera/README.md)."
   },
   "note": "Updated by the Gentera reviewing routine on every weekday run (lastCheckedAt) and when it notifies (see tools/gentera/README.md).",
-  "lastCheckedAt": "2026-10-29",
+  "lastCheckedAt": "2026-10-30",
   "lastBmvFile": "2026-10-28_bmv1599540_es.txt"
 }
