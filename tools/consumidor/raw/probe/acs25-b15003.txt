@@ -1,0 +1,121 @@
+GET https://api.census.gov/data/2025/acs/acs1/groups/B15003.json
+-> HTTP 200 application/json;charset=utf-8 265992 bytes
+
+(117 matching lines)
+      "label": "Geographic Area Name",
+      "label": "Annotation of Estimate!!Total:!!Less than grade 1",
+      "label": "Annotation of Margin of Error!!Total:!!Less than grade 1",
+      "label": "Annotation of Estimate!!Total:",
+      "label": "Annotation of Margin of Error!!Total:",
+      "label": "Annotation of Estimate!!Total:!!2nd grade",
+      "label": "Annotation of Margin of Error!!Total:!!2nd grade",
+      "label": "Annotation of Estimate!!Total:!!1st grade",
+      "label": "Annotation of Margin of Error!!Total:!!1st grade",
+      "label": "Annotation of Estimate!!Total:!!4th grade",
+      "label": "Annotation of Margin of Error!!Total:!!4th grade",
+      "label": "Annotation of Estimate!!Total:!!3rd grade",
+      "label": "Annotation of Margin of Error!!Total:!!3rd grade",
+      "label": "Annotation of Estimate!!Total:!!6th grade",
+      "label": "Annotation of Margin of Error!!Total:!!6th grade",
+      "label": "Annotation of Estimate!!Total:!!5th grade",
+      "label": "Annotation of Margin of Error!!Total:!!5th grade",
+      "label": "Annotation of Estimate!!Total:!!7th grade",
+      "label": "Annotation of Margin of Error!!Total:!!7th grade",
+      "label": "Geography",
+      "label": "Annotation of Estimate!!Total:!!Bachelor's degree",
+      "label": "Annotation of Margin of Error!!Total:!!Master's degree",
+      "label": "Annotation of Estimate!!Total:!!Professional school degree",
+      "label": "Annotation of Margin of Error!!Total:!!Professional school degree",
+      "label": "Annotation of Margin of Error!!Total:!!Bachelor's degree",
+      "label": "Annotation of Estimate!!Total:!!Master's degree",
+      "label": "Annotation of Estimate!!Total:!!Doctorate degree",
+      "label": "Annotation of Margin of Error!!Total:!!Doctorate degree",
+      "label": "Annotation of Estimate!!Total:!!9th grade",
+      "label": "Annotation of Margin of Error!!Total:!!9th grade",
+      "label": "Annotation of Estimate!!Total:!!8th grade",
+      "label": "Annotation of Margin of Error!!Total:!!8th grade",
+      "label": "Annotation of Estimate!!Total:!!11th grade",
+      "label": "Annotation of Margin of Error!!Total:!!11th grade",
+      "label": "Annotation of Estimate!!Total:!!10th grade",
+      "label": "Annotation of Margin of Error!!Total:!!10th grade",
+      "label": "Annotation of Estimate!!Total:!!Regular high school diploma",
+      "label": "Annotation of Margin of Error!!Total:!!Regular high school diploma",
+      "label": "Annotation of Estimate!!Total:!!12th grade, no diploma",
+      "label": "Annotation of Margin of Error!!Total:!!12th grade, no diploma",
+      "label": "Annotation of Estimate!!Total:!!Some college, less than 1 year",
+      "label": "Annotation of Margin of Error!!Total:!!Some college, less than 1 year",
+      "label": "Annotation of Estimate!!Total:!!GED or alternative credential",
+      "label": "Annotation of Margin of Error!!Total:!!GED or alternative credential",
+      "label": "Annotation of Estimate!!Total:!!Associate's degree",
+      "label": "Annotation of Margin of Error!!Total:!!Associate's degree",
+      "label": "Annotation of Margin of Error!!Total:!!Some college, 1 or more years, no degree",
+      "label": "Annotation of Estimate!!Total:!!Some college, 1 or more years, no degree",
+      "label": "Margin of Error!!Total:!!Doctorate degree",
+    "B15003_023E": {
+      "label": "Estimate!!Total:!!Doctorate degree",
+      "label": "Margin of Error!!Total:!!Professional school degree",
+    "B15003_022E": {
+      "label": "Estimate!!Total:!!Professional school degree",
+    "B15003_021E": {
+      "label": "Estimate!!Total:!!Master's degree",
+      "label": "Margin of Error!!Total:!!Master's degree",
+    "B15003_020E": {
+      "label": "Estimate!!Total:!!Bachelor's degree",
+      "label": "Margin of Error!!Total:!!Bachelor's degree",
+      "label": "Margin of Error!!Total:!!1st grade",
+    "B15003_003E": {
+      "label": "Estimate!!Total:!!1st grade",
+      "label": "Margin of Error!!Total:!!Less than grade 1",
+    "B15003_002E": {
+      "label": "Estimate!!Total:!!Less than grade 1",
+      "label": "Margin of Error!!Total:",
+    "B15003_001E": {
+      "label": "Estimate!!Total:",
+      "label": "Margin of Error!!Total:!!7th grade",
+      "label": "Margin of Error!!Total:!!6th grade",
+    "B15003_009E": {
+      "label": "Estimate!!Total:!!7th grade",
+      "label": "Margin of Error!!Total:!!5th grade",
+    "B15003_007E": {
+      "label": "Estimate!!Total:!!5th grade",
+    "B15003_008E": {
+      "label": "Estimate!!Total:!!6th grade",
+      "label": "Margin of Error!!Total:!!4th grade",
+    "B15003_006E": {
+      "label": "Estimate!!Total:!!4th grade",
+      "label": "Margin of Error!!Total:!!3rd grade",
+    "B15003_005E": {
+      "label": "Estimate!!Total:!!3rd grade",
+      "label": "Margin of Error!!Total:!!2nd grade",
+    "B15003_004E": {
+      "label": "Estimate!!Total:!!2nd grade",
+      "label": "Margin of Error!!Total:!!Regular high school diploma",
+    "B15003_015E": {
+      "label": "Estimate!!Total:!!Regular high school diploma",
+      "label": "Margin of Error!!Total:!!12th grade, no diploma",
+    "B15003_014E": {
+      "label": "Estimate!!Total:!!12th grade, no diploma",
+      "label": "Margin of Error!!Total:!!11th grade",
+    "B15003_013E": {
+      "label": "Estimate!!Total:!!11th grade",
+      "label": "Margin of Error!!Total:!!10th grade",
+    "B15003_012E": {
+      "label": "Estimate!!Total:!!10th grade",
+      "label": "Margin of Error!!Total:!!9th grade",
+    "B15003_011E": {
+      "label": "Estimate!!Total:!!9th grade",
+    "B15003_010E": {
+      "label": "Estimate!!Total:!!8th grade",
+      "label": "Margin of Error!!Total:!!8th grade",
+      "label": "Margin of Error!!Total:!!Associate's degree",
+      "label": "Margin of Error!!Total:!!Some college, 1 or more years, no degree",
+    "B15003_018E": {
+      "label": "Estimate!!Total:!!Some college, 1 or more years, no degree",
+    "B15003_019E": {
+      "label": "Estimate!!Total:!!Associate's degree",
+      "label": "Margin of Error!!Total:!!Some college, less than 1 year",
+    "B15003_017E": {
+      "label": "Estimate!!Total:!!Some college, less than 1 year",
+      "label": "Margin of Error!!Total:!!GED or alternative credential",
+    "B15003_016E": {
+      "label": "Estimate!!Total:!!GED or alternative credential",
