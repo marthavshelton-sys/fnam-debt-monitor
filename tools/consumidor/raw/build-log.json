@@ -27,7 +27,10 @@
    "failures": 0
   },
   "fred": {
-   "failures": 0
+   "failures": 0,
+   "notes": [
+    "FRED: 7 problem(s): DTRSRC1Q027SBEA: FRED https://api.stlouisfed.org/fred/series?series_id=DTRSRC1Q027SBEA&api_key=…&file_type=json: direct: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"}; proxy: HTTP 429 {\"error_code\":429,\"error_message\":\"Too Many Requests. Exceeded Rate Limit\"} | DRCARC1Q027SBEA: FRED https://api.stlouisfed.org/fred/series?series_id=DRCARC1Q"
+   ]
   },
   "edgar": {
    "failures": 0
