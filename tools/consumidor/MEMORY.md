@@ -95,3 +95,6 @@ Read with `README.md` (the runbook) before touching `site/consumidor/` or `scrip
 - Credit Access Survey: the October 2026 wave is due in November 2026.
 - U.S. Courts Table F-2 for 30 September 2026: due about the end of October 2026.
 - No board presentation (PDF) for this page; none was asked for.
+
+- 2026-10-31: ACS 2025 renumbered table B15003 (two grade lines merged; ids from 015 on shifted by two). The education variables are now found by label in each vintage (`ACS_EDU` in fetch.mjs); never add a typed B15003 id to the label table.
+- PayPal: the stored 10-Q of 2026-10-27 had no matching passages; the quarterly pattern was widened 2026-10-31. Its three 10-Q figures stay on the Q2 2026 filing until the next harvest stores the new passages.
