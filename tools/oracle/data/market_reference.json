@@ -2,7 +2,7 @@
   "as_of": "2026-10-31",
   "price_snapshot": {
     "orcl": {
-      "close": 130.6699981689453,
+      "close": 130.67,
       "close_date": "2026-10-30",
       "week52_high": 262.61,
       "week52_high_date": "2025-10-31",
@@ -574,7 +574,7 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-31"
   },
-  "refreshed_at": "2026-10-31T00:01:35.248Z",
+  "refreshed_at": "2026-10-31T01:03:16.897Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
