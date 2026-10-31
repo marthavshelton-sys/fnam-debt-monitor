@@ -1,6 +1,6 @@
 {
   "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
-  "as_of": "2026-10-30",
+  "as_of": "2026-10-31",
   "window_days": 120,
   "themes": [
     {
@@ -35,6 +35,49 @@
     }
   ],
   "items": [
+    {
+      "id": "2026-10-30-orcl-drop-amazon-nadella",
+      "date": "2026-10-30",
+      "theme": "customers",
+      "basis": "press",
+      "title_en": "ORCL −6.4% to US$130.67 on Oct 30 as Amazon's results and Nadella's remarks on customer concentration weigh on AI cloud stocks (press)",
+      "title_es": "ORCL −6.4% a US$130.67 el 30 oct; los resultados de Amazon y los comentarios de Nadella sobre la concentración de clientes pesan sobre la nube de IA (prensa)",
+      "summary_en": "ORCL closed at US$130.67 on Friday Oct 30 (−6.4% from US$139.56; Yahoo/Nasdaq close, FactSet had not posted the session; intraday low US$129.00). Investing.com (Oct 30) had Oracle down 4.7% in morning trading after Amazon's third-quarter results missed revenue and earnings estimates while it kept a capex plan of about US$220 billion for 2026, and said Microsoft CEO Satya Nadella's criticism of AI cloud models that rely on a few large customers was widely read as a challenge to Oracle and neocloud rivals; Scotiabank cut its target to US$205 from US$215 and Morgan Stanley kept a neutral rating. 24/7 Wall St. (Oct 30) quotes Nadella on Microsoft's Oct 28 call: \"like 4 customers who buy a lot of capacity from you and you can show a few quarters of growth\", \"not a business\"; he named no company. Press-reported reasons.",
+      "summary_es": "ORCL cerró en US$130.67 el viernes 30 oct (−6.4% desde US$139.56; cierre de Yahoo/Nasdaq, FactSet aún no publicaba la sesión; mínimo intradía US$129.00). Investing.com (30 oct) reportó a Oracle 4.7% abajo en la mañana después de que los resultados del tercer trimestre de Amazon quedaran por debajo de lo esperado en ingresos y utilidades mientras mantuvo un plan de capex de unos US$220 mil millones para 2026, y dijo que la crítica del CEO de Microsoft, Satya Nadella, a los modelos de nube de IA que dependen de pocos clientes grandes se leyó ampliamente como un reto a Oracle y a las neoclouds; Scotiabank bajó su precio objetivo a US$205 desde US$215 y Morgan Stanley mantuvo su recomendación neutral. 24/7 Wall St. (30 oct) cita a Nadella en la llamada de Microsoft del 28 oct: \"como 4 clientes que te compran mucha capacidad y puedes mostrar unos trimestres de crecimiento\", \"no es un negocio\"; no nombró a ninguna empresa. Razones reportadas por la prensa.",
+      "why_en": "A price move, not a data change: it enters only the price series and the market-cap figures at the next close. The cited cause is customer concentration in AI cloud backlog, the risk behind Oracle's RPO ({{sec:rpo}}).",
+      "why_es": "Un movimiento de precio, no un cambio de datos: solo entra en la serie de precios y en las capitalizaciones al siguiente cierre. La causa citada es la concentración de clientes en la cartera de nube de IA, el riesgo detrás de las RPO de Oracle ({{sec:rpo}}).",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Investing.com, Oct 30, 2026: Why is Oracle stock sliding today?",
+          "url": "https://in.investing.com/news/stock-market-news/why-is-oracle-stock-sliding-today-93CH-5668712"
+        },
+        {
+          "tier": "press",
+          "title": "24/7 Wall St., Oct 30, 2026: Satya Nadella Just Took a Shot at Oracle and CoreWeave",
+          "url": "https://247wallst.com/investing/2026/10/30/satya-nadella-just-took-a-shot-at-oracle-and-coreweave/"
+        }
+      ]
+    },
+    {
+      "id": "2026-10-26-jupiter-dismissal-denied",
+      "date": "2026-10-26",
+      "theme": "power",
+      "basis": "press",
+      "title_en": "Project Jupiter air permit: hearing officer denies New Energy Economy's motion to dismiss; Dec 7 hearing stands (press)",
+      "title_es": "Permiso de aire del Proyecto Júpiter: el oficial de audiencia rechaza la moción de New Energy Economy para desecharlo; la audiencia del 7 dic se mantiene (prensa)",
+      "summary_en": "Albuquerque Journal (Justin Horwath, Oct 28): hearing officer James Browning denied New Energy Economy's Oct 14 motion to dismiss Yucca Growth Infrastructure's revised air permit application (the group sought a 45-day technical review) and kept the Dec 7 public hearing; NMED opposed the motion and said it does not know how long its technical review will take and is still awaiting information from YGI. The revised application lists a stack height of 45 feet (from 30) and a 1,600 MW operating cap, about 65% of full capacity. NMED Deputy Secretary John Rhoderick will decide on the permit. Oracle and YGI did not comment. Press-reported.",
+      "summary_es": "Albuquerque Journal (Justin Horwath, 28 oct): el oficial de audiencia James Browning rechazó la moción de New Energy Economy del 14 oct para desechar la solicitud revisada del permiso de aire de Yucca Growth Infrastructure (el grupo pedía una revisión técnica de 45 días) y mantuvo la audiencia pública del 7 dic; el NMED se opuso a la moción y dijo que no sabe cuánto tardará su revisión técnica y que aún espera información de YGI. La solicitud revisada indica chimeneas de 45 pies (antes 30) y un tope de operación de 1,600 MW, cerca de 65% de la capacidad total. El subsecretario del NMED, John Rhoderick, decidirá sobre el permiso. Oracle y YGI no comentaron. Reportado por la prensa.",
+      "why_en": "The air permit gates the microgrid that is the campus's primary power; the ruling keeps the Dec 7 date but sets no decision date, so the period of capex before cash at Project Jupiter is unchanged ({{sec:sites}}). No figure on the page changes.",
+      "why_es": "El permiso de aire condiciona la microrred que es la fuente principal de energía del campus; el fallo mantiene la fecha del 7 dic pero no fija fecha de decisión, así que el periodo de capex sin flujo en el Proyecto Júpiter no cambia ({{sec:sites}}). Ninguna cifra de la página cambia.",
+      "sources": [
+        {
+          "tier": "press",
+          "title": "Albuquerque Journal (via Yahoo News), Oct 28, 2026: Hearing officer rejects bid to toss revised Project Jupiter air permit",
+          "url": "https://www.yahoo.com/news/science/articles/hearing-officer-rejects-bid-toss-030100183.html"
+        }
+      ]
+    },
     {
       "id": "2026-10-29-orcl-drop-hyperscaler-capex",
       "date": "2026-10-29",
@@ -1259,6 +1302,47 @@
   "sweep_note_date": "2026-10-13",
   "sweep_log_note": "One entry per sweep, newest first, written by the routine or a manual sweep: the date, who ran it, the number of web searches, the outlets and sources checked (proper nouns, so both languages can print them), and the ids added. The page prints the latest entry so a 'found nothing' day shows what was actually searched.",
   "sweep_log": [
+    {
+      "date": "2026-10-31",
+      "by": "routine",
+      "searches": 29,
+      "checked": [
+        "SEC EDGAR",
+        "Oracle Investor Relations",
+        "Oracle Newsroom",
+        "Reuters",
+        "Bloomberg",
+        "Financial Times",
+        "Wall Street Journal",
+        "CNBC",
+        "CNN",
+        "Investing.com",
+        "24/7 Wall St.",
+        "TradingKey",
+        "Albuquerque Journal",
+        "Source New Mexico",
+        "Wisconsin Public Radio",
+        "El Paso Electric",
+        "New Mexico Public Regulation Commission",
+        "We Energies",
+        "American Transmission Co.",
+        "Wisconsin Public Service Commission",
+        "DTE Energy",
+        "Vantage",
+        "Crusoe",
+        "Stargate",
+        "OpenAI",
+        "Microsoft",
+        "Moody's",
+        "S&P Global Ratings",
+        "Fitch Ratings"
+      ],
+      "added": [
+        "2026-10-30-orcl-drop-amazon-nadella",
+        "2026-10-26-jupiter-dismissal-denied"
+      ],
+      "note": "Oct 30 close US$130.67 (Yahoo/Nasdaq fallback; FactSet through Oct 23), −6.4% from US$139.56: recorded with the reasons Investing.com and 24/7 Wall St. gave (Amazon's results and capex, Nadella's remarks on customer concentration). Project Jupiter: the Oct 26 ruling denying the motion to dismiss the air permit (Albuquerque Journal) added; no report of the Oct 29 discovery hearing found. No new EDGAR accession since the Oct 28 8-K; no new investor-relations release; no Moody's, S&P or Fitch action; no Port Washington, Saline, Shackelford or Abilene regulatory decision found."
+    },
     {
       "date": "2026-10-30",
       "by": "routine",

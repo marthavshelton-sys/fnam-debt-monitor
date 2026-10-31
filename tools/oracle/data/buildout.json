@@ -233,7 +233,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-30",
+   "issues_checked": "2026-10-31",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -351,7 +351,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-30",
+   "issues_checked": "2026-10-31",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
    "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
    "tenant_openai": true,
@@ -487,6 +487,19 @@
    "status_date": "2026-10-13",
    "issues": [
     {
+     "date": "2026-10-26",
+     "kind": "permit",
+     "status": "open",
+     "basis": "press",
+     "due": "2026-12-07",
+     "en": "Hearing officer James Browning denied New Energy Economy's motion to dismiss the revised air permit application and kept the Dec 7 public hearing; NMED says its technical review has no set length and it still awaits information from YGI (Albuquerque Journal).",
+     "es": "El oficial de audiencia James Browning rechazó la moción de New Energy Economy para desechar la solicitud revisada del permiso de aire y mantuvo la audiencia pública del 7 dic; el NMED dice que su revisión técnica no tiene duración definida y aún espera información de YGI (Albuquerque Journal).",
+     "source": {
+      "title": "Albuquerque Journal (via Yahoo News), Oct 28, 2026: Hearing officer rejects bid to toss revised Project Jupiter air permit",
+      "url": "https://www.yahoo.com/news/science/articles/hearing-officer-rejects-bid-toss-030100183.html"
+     }
+    },
+    {
      "date": "2026-10-15",
      "kind": "permit",
      "status": "open",
@@ -613,7 +626,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-30",
+   "issues_checked": "2026-10-31",
    "tenant_openai": true,
    "tenant_basis": "press",
    "mw_series": [
@@ -728,7 +741,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-30",
+   "issues_checked": "2026-10-31",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -895,7 +908,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-30",
+   "issues_checked": "2026-10-31",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
