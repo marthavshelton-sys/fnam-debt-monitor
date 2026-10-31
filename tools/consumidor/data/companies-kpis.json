@@ -1,6 +1,6 @@
 {
  "_comment": "Curated figures and short quotes for the 'What Companies Report' section of the American Consumer page. Every value and quote is taken from the company's own results release (Form 8-K, Item 2.02, exhibits stored under raw/releases/) and carries the text it was read from (`find`): the builder refuses a record whose text is not in the stored exhibit of the filing dated `filed`. Updated in a session after each earnings season; `reviewed` is the date of the last pass. `ex` names the exhibit when it is not the first one. trafficSign / ticketSign: the release says the direction without a figure. Gig platforms: `us` lists what the company reports for the United States (scope `us`) or for the narrowest geography that contains it (`usca` = United States and Canada), each entry citing its own report through `filed` and `form` (10-Q, 10-K, or `page:<id>` for a company page kept by the harvester); `of` / `ofFind` give the company total of the same line; `scope.find` is the sentence that states the geography.",
- "reviewed": "2026-10-24",
+ "reviewed": "2026-10-31",
  "companies": {
   "WMT": {
    "period": {
@@ -122,21 +122,21 @@
   },
   "AMZN": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-30",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-29",
    "segment": {
     "en": "North America segment",
     "es": "Segmento Norteamérica"
    },
    "sales": {
-    "v": 16,
-    "find": "North America segment sales increased 16% year-over-year"
+    "v": 6,
+    "find": "North America segment sales increased 6% year-over-year"
    },
    "quote": {
-    "text": "Grocery and Everyday Essentials growing meaningfully faster than the rest of the business",
+    "text": "Our broader selection and speedier delivery are helping us capture more retail market segment share with improving margins",
     "by": "Andy Jassy",
     "role": {
      "en": "President and CEO",
@@ -473,50 +473,58 @@
   },
   "SBUX": {
    "period": {
-    "en": "Q3 FY2026",
-    "es": "3T AF2026"
+    "en": "Q4 FY2026",
+    "es": "4T AF2026"
    },
-   "periodEnd": "2026-06-28",
-   "filed": "2026-07-29",
+   "periodEnd": "2026-09-27",
+   "filed": "2026-10-29",
    "segment": {
     "en": "U.S. company-operated stores",
     "es": "Tiendas propias en EE. UU."
    },
    "comp": {
-    "v": 7.9,
-    "find": "U.S. comparable store sales increased 7.9%, primarily driven by a 4.2% increase in comparable transactions and a 3.6% increase in average ticket"
+    "v": 7.7,
+    "find": "U.S. comparable coffeehouse sales increased 7.7%, primarily driven by a 5.2% increase in average ticket and a 2.4% increase in comparable transactions"
    },
    "traffic": {
-    "v": 4.2,
-    "find": "a 4.2% increase in comparable transactions and a 3.6% increase in average ticket"
+    "v": 2.4,
+    "find": "a 2.4% increase in comparable transactions"
    },
    "ticket": {
-    "v": 3.6,
-    "find": "a 4.2% increase in comparable transactions and a 3.6% increase in average ticket"
+    "v": 5.2,
+    "find": "a 5.2% increase in average ticket"
    }
   },
   "CMG": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-29",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-28",
    "segment": {
     "en": "Comparable restaurant sales",
     "es": "Ventas de restaurantes comparables"
    },
    "comp": {
-    "v": 2.2,
-    "find": "Comparable restaurant sales increased 2.2%, consisting of a 1.2% increase in average check and a 1.0% increase in transactions"
+    "v": 2.1,
+    "find": "Comparable restaurant sales increased 2.1%, including a 1.3% increase in average check and a 0.8% increase in transactions"
    },
    "traffic": {
-    "v": 1,
-    "find": "a 1.0% increase in transactions"
+    "v": 0.8,
+    "find": "a 0.8% increase in transactions"
    },
    "ticket": {
-    "v": 1.2,
-    "find": "a 1.2% increase in average check"
+    "v": 1.3,
+    "find": "a 1.3% increase in average check"
+   },
+   "quote": {
+    "text": "Three consecutive quarters of positive comparable transaction growth demonstrates that our Recipe for Growth strategy is working",
+    "by": "Scott Boatwright",
+    "role": {
+     "en": "CEO",
+     "es": "Director General"
+    }
    }
   },
   "DPZ": {
@@ -596,22 +604,22 @@
   },
   "EAT": {
    "period": {
-    "en": "Q4 FY2026",
-    "es": "4T AF2026"
+    "en": "Q1 FY2027",
+    "es": "1T AF2027"
    },
-   "periodEnd": "2026-06-24",
-   "filed": "2026-08-12",
+   "periodEnd": "2026-09-23",
+   "filed": "2026-10-28",
    "segment": {
     "en": "Chili's, company restaurants",
     "es": "Chili's, restaurantes propios"
    },
    "comp": {
-    "v": 5.6,
-    "find": "Chili’s | 5.6 | %"
+    "v": 10.1,
+    "find": "Chili’s | 10.1 | %"
    },
    "trafficSign": 1,
    "quote": {
-    "text": "including 5.6% for Chili’s, as the brand drove positive traffic and continued outperformance against the casual dining industry",
+    "text": "including 10.1% for Chili’s, as the brand drove positive traffic and continued outperformance against the casual dining industry",
     "by": null,
     "role": {
      "en": "Results release",
@@ -1007,32 +1015,32 @@
   },
   "DASH": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-08-05",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-29",
    "segment": {
     "en": "Orders and gross order value are worldwide (they include Deliveroo); DoorDash publishes revenue, not orders, for the United States",
     "es": "Pedidos y valor bruto de pedidos son mundiales (incluyen Deliveroo); DoorDash publica para Estados Unidos los ingresos, no los pedidos"
    },
    "tasks": {
-    "v": 970,
-    "prev": 761,
-    "yoy": 27,
-    "find": "Total Orders | 761 | 776 | 903 | 933 | 970",
-    "yoyFind": "Total Orders increased 27% year-over-year (Y/Y) to 970 million",
+    "v": 993,
+    "prev": 776,
+    "yoy": 28,
+    "find": "Total Orders | 776 | 903 | 933 | 970 | 993",
+    "yoyFind": "Total Orders increased 28% year-over-year (Y/Y) to 993 million",
     "unit": {
      "en": "orders",
      "es": "pedidos"
     }
    },
    "bookings": {
-    "v": 33078,
-    "prev": 24244,
+    "v": 33941,
+    "prev": 25015,
     "yoy": 36,
-    "find": "Marketplace GOV | $ | 24,244 | $ | 25,015 | $ | 29,683 | $ | 31,604 | $ | 33,078",
-    "yoyFind": "Marketplace GOV increased 36% Y/Y to $33.1 billion"
+    "find": "Marketplace GOV | $ | 25,015 | $ | 29,683 | $ | 31,604 | $ | 33,078 | $ | 33,941",
+    "yoyFind": "Marketplace GOV increased 36% Y/Y to $33.9 billion"
    },
    "extra": [
     {
@@ -1041,7 +1049,7 @@
       "es": "Pedidos sin Deliveroo"
      },
      "v": 17,
-     "find": "Excluding the acquisition of Deliveroo, Total Orders increased 17% Y/Y in Q2 2026"
+     "find": "Excluding the acquisition of Deliveroo, Total Orders increased 17% Y/Y in Q3 2026"
     },
     {
      "label": {
@@ -1049,7 +1057,7 @@
       "es": "Valor bruto de pedidos sin Deliveroo"
      },
      "v": 23,
-     "find": "Excluding the acquisition of Deliveroo, Marketplace GOV increased 23% Y/Y in Q2 2026"
+     "find": "Excluding the acquisition of Deliveroo, Marketplace GOV increased 23% Y/Y in Q3 2026"
     }
    ],
    "workers": {
@@ -1076,7 +1084,7 @@
     "form": "10-K"
    },
    "quote": {
-    "text": "In the 12 months through Q2 2026, we increased the number of U.S. paid DashPass members by more than we did over the previous 24 months combined",
+    "text": "In our U.S. grocery and retail categories, Y/Y growth in Marketplace GOV in Q3 2026 remained strong, growing at more than double the pace of Y/Y growth in our U.S. restaurant category",
     "by": null,
     "role": {
      "en": "Results release",
@@ -1091,16 +1099,16 @@
      },
      "scope": "us",
      "unit": "usdM",
-     "v": 3457,
-     "prev": 2829,
+     "v": 3619,
+     "prev": 2926,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
-     "find": "United States | $ | 2,829 | $ | 3,457 | $ | 5,485 | $ | 6,561",
-     "of": 4454,
-     "ofFind": "Total revenue | $ | 3,284 | $ | 4,454 | $ | 6,316 | $ | 8,490",
-     "filed": "2026-08-05",
+     "find": "United States | $ | 2,926 | $ | 3,619 | $ | 8,411 | $ | 10,180",
+     "of": 4616,
+     "ofFind": "Total revenue | $ | 3,446 | $ | 4,616 | $ | 9,762 | $ | 13,106",
+     "filed": "2026-10-30",
      "form": "10-Q"
     },
     {
@@ -1216,30 +1224,30 @@
   },
   "CART": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-08-06",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-29",
    "segment": {
     "en": "Whole company; it operates largely in the United States and Canada and does not split the two",
     "es": "Toda la empresa; opera sobre todo en Estados Unidos y Canadá y no separa los dos países"
    },
    "tasks": {
-    "v": 90.3,
-    "prev": 82.7,
-    "yoy": 9,
-    "find": "Orders | 82.7 | 90.3 | 9",
+    "v": 91.4,
+    "prev": 83.4,
+    "yoy": 10,
+    "find": "Orders 83.4 91.4 10 %",
     "unit": {
      "en": "orders",
      "es": "pedidos"
     }
    },
    "bookings": {
-    "v": 10351,
-    "prev": 9081,
-    "yoy": 14,
-    "find": "GTV | $ | 9,081 | $ | 10,351 | 14"
+    "v": 10528,
+    "prev": 9170,
+    "yoy": 15,
+    "find": "GTV $ 9,170 $ 10,528 15 %"
    },
    "workers": {
     "v": 600000,
@@ -1254,7 +1262,7 @@
     "form": "10-K"
    },
    "quote": {
-    "text": "We’ve meaningfully accelerated our growth over the past three quarters, including a strong Q2 where we grew GTV 14% year-over-year",
+    "text": "fundamentals keep getting stronger, with solid consumer demand, deepening customer engagement, and expanding profitability",
     "by": "Chris Rogers",
     "role": {
      "en": "CEO",
@@ -1274,15 +1282,15 @@
      },
      "scope": "usca",
      "unit": "M",
-     "v": 90.3,
-     "prev": 82.7,
-     "yoy": 9,
+     "v": 91.4,
+     "prev": 83.4,
+     "yoy": 10,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "tasks",
-     "find": "Orders | 82.7 | 90.3 | 9"
+     "find": "Orders 83.4 91.4 10 %"
     },
     {
      "label": {
@@ -1291,15 +1299,15 @@
      },
      "scope": "usca",
      "unit": "usdM",
-     "v": 10351,
-     "prev": 9081,
-     "yoy": 14,
+     "v": 10528,
+     "prev": 9170,
+     "yoy": 15,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "bookings",
-     "find": "GTV | $ | 9,081 | $ | 10,351 | 14"
+     "find": "GTV $ 9,170 $ 10,528 15 %"
     },
     {
      "label": {
@@ -1759,11 +1767,11 @@
   },
   "CACC": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-08-04",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-29",
    "segment": {
     "en": "Subprime auto loans through dealers, United States",
     "es": "Crédito automotriz de alto riesgo por medio de concesionarios, Estados Unidos"
@@ -1776,14 +1784,14 @@
      },
      "scope": "us",
      "unit": "n",
-     "v": 84615,
-     "yoy": -1.0,
+     "v": 110010,
+     "yoy": 37.7,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "orig",
-     "find": "Consumer Loan assignment unit volume declined 1.0% to 84,615"
+     "find": "Consumer Loan unit volume | 110,010 | 79,916 | 37.7 | %"
     },
     {
      "label": {
@@ -1792,18 +1800,18 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 65.1,
+     "v": 63.6,
      "prev": 67.2,
      "prevPeriod": {
       "en": "the forecast when the loans were made",
       "es": "el pronóstico al otorgar los créditos"
      },
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
      "key": "dq",
-     "find": "2024 | 65.1 | % | 65.3 | % | 67.2 | %"
+     "find": "2024 | 63.6 | % | 65.1 | % | 67.2 | %"
     },
     {
      "label": {
@@ -1812,17 +1820,17 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 62.9,
+     "v": 62.4,
      "prev": 67.5,
      "prevPeriod": {
       "en": "the forecast when the loans were made",
       "es": "el pronóstico al otorgar los créditos"
      },
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
-     "find": "2023 | 62.9 | % | 63.1 | % | 67.5 | %"
+     "find": "2023 | 62.4 | % | 62.9 | % | 67.5 | %"
     },
     {
      "label": {
@@ -1831,21 +1839,21 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 59.3,
+     "v": 59.2,
      "prev": 67.5,
      "prevPeriod": {
       "en": "the forecast when the loans were made",
       "es": "el pronóstico al otorgar los créditos"
      },
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
-     "find": "2022 | 59.3 | % | 59.3 | % | 67.5 | %"
+     "find": "2022 | 59.2 | % | 59.3 | % | 67.5 | %"
     }
    ],
    "quote": {
-    "text": "forecasted collection rates declined for Consumer Loans assigned in 2023 through 2025",
+    "text": "forecasted collection rates declined for Consumer Loans assigned in 2023 through 2026",
     "by": null,
     "role": {
      "en": "Results release",
@@ -1855,11 +1863,11 @@
   },
   "OMF": {
    "period": {
-    "en": "Q2 2026",
-    "es": "2T 2026"
+    "en": "Q3 2026",
+    "es": "3T 2026"
    },
-   "periodEnd": "2026-06-30",
-   "filed": "2026-07-29",
+   "periodEnd": "2026-09-30",
+   "filed": "2026-10-30",
    "segment": {
     "en": "Personal installment loans to non-prime borrowers (Consumer and Insurance segment), United States",
     "es": "Préstamos personales a plazos para acreditados de menor calidad crediticia (segmento Consumer and Insurance), Estados Unidos"
@@ -1872,14 +1880,14 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 7.77,
-     "prev": 7.19,
+     "v": 6.89,
+     "prev": 6.67,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "nco",
-     "find": "Net charge-offs 7.77 | % | 8.02 | % | 7.19 | %"
+     "find": "6.89 | % | 7.77 | % | 6.67 | %"
     },
     {
      "label": {
@@ -1888,14 +1896,14 @@
      },
      "scope": "us",
      "unit": "pct",
-     "v": 5.17,
-     "prev": 5.17,
+     "v": 5.34,
+     "prev": 5.55,
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
      "key": "dq",
-     "find": "30+ delinquency ratio | 5.17 | % | 5.37 | % | 5.17 | %"
+     "find": "30+ delinquency ratio | 5.34 | % | 5.17 | % | 5.55 | %"
     },
     {
      "label": {
@@ -1904,15 +1912,15 @@
      },
      "scope": "us",
      "unit": "usdB",
-     "v": 4.3,
+     "v": 4.5,
      "prev": 3.9,
-     "yoy": 10,
+     "yoy": 17,
      "period": {
-      "en": "Q2 2026",
-      "es": "2T 2026"
+      "en": "Q3 2026",
+      "es": "3T 2026"
      },
      "key": "orig",
-     "find": "Consumer loan originations totaled $4.3 billion in the second quarter of 2026, up 10% from $3.9 billion in the prior year quarter"
+     "find": "Consumer loan originations totaled $4.5 billion in the third quarter of 2026, up 17% from $3.9 billion in the prior year quarter"
     },
     {
      "label": {
@@ -1921,14 +1929,14 @@
      },
      "scope": "us",
      "unit": "usdB",
-     "v": 26.9,
-     "prev": 25.2,
-     "yoy": 7,
+     "v": 28.1,
+     "prev": 25.9,
+     "yoy": 9,
      "period": {
-      "en": "June 30, 2026",
-      "es": "30 de junio de 2026"
+      "en": "September 30, 2026",
+      "es": "30 de septiembre de 2026"
      },
-     "find": "were $26.9 billion at June 30, 2026, up 7% from $25.2 billion at June 30, 2025"
+     "find": "were $28.1 billion at September 30, 2026, up 9% from $25.9 billion at September 30, 2025"
     }
    ]
   },

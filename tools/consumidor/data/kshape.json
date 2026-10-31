@@ -1,6 +1,6 @@
 {
  "_comment": "Measurements and estimates of the K-shaped economy published by others, for section 08 of the American Consumer page. Curated in a session; every figure was read in the document its `url` opens (or, when `via` names an intermediary, in that intermediary's text) and carries its period and publication date. `kind`: private = a third-party estimate (badged as such, never mixed into an official series); fed = research by the Federal Reserve Board or a Reserve Bank; official = a statistic or prototype of a federal statistical agency. `measure: spendTop10` puts the figure in the chart that compares the top 10%'s share of spending across measurements (`measureLabel` is its bar label, `rank` says how households are ranked); `superseded: true` marks a figure its publisher later revised. `headline: true` marks the one estimate quoted in the section's stat row and summary. Quotes are short and shown in their original language. `reviewed` is the date of the last pass.",
- "reviewed": "2026-10-24",
+ "reviewed": "2026-10-31",
  "estimates": [
   {
    "id": "moodys-top10-2025",

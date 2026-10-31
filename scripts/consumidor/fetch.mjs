@@ -71,7 +71,6 @@ const ACS_LABELS = {
   B25010_001E: /^Average household size --!!Total:?$/, B25003_002E: /Owner occupied$/, B25003_003E: /Renter occupied$/,
   B25007_002E: /^Total:!!Owner occupied:?$/, B25007_003E: /Owner occupied:!!Householder 15 to 24 years$/, B25007_011E: /Owner occupied:!!Householder 85 years and over$/,
   B25007_012E: /^Total:!!Renter occupied:?$/, B25007_013E: /Renter occupied:!!Householder 15 to 24 years$/, B25007_021E: /Renter occupied:!!Householder 85 years and over$/,
-  B15003_017E: /Regular high school diploma$/, B15003_018E: /GED or alternative credential$/, B15003_021E: /Associate's degree$/, B15003_022E: /Bachelor's degree$/, B15003_023E: /Master's degree$/, B15003_024E: /Professional school degree$/, B15003_025E: /Doctorate degree$/,
   B17001_002E: /Income in the past 12 months below poverty level:?$/,
   B19013_001E: /^Median household income in the past 12 months/, B19025_001E: /^Aggregate household income in the past 12 months/, B19301_001E: /^Per capita income in the past 12 months/, B19083_001E: /^Gini Index$/,
   B19080_001E: /Quintile Upper Limits:!!Lowest Quintile$/, B19080_004E: /Quintile Upper Limits:!!Fourth Quintile$/, B19080_005E: /^Lower Limit of Top 5 Percent$/,
@@ -88,6 +87,14 @@ const ACS_LABELS = {
   B19065_001E: /^Aggregate Social Security income/, B19066_001E: /^Aggregate Supplemental Security Income/, B19067_001E: /^Aggregate public assistance income/, B19069_001E: /^Aggregate retirement income/, B19070_001E: /^Aggregate other types of income/,
   B25064_001E: /^Median gross rent$/, B25071_001E: /^Median gross rent as a percentage of household income$/, B25077_001E: /^Median value \(dollars\)$/,
   B25070_007E: /30\.0 to 34\.9 percent$/, B25070_008E: /35\.0 to 39\.9 percent$/, B25070_009E: /40\.0 to 49\.9 percent$/, B25070_010E: /50\.0 percent or more$/, B25070_011E: /Not computed$/,
+};
+// Educational attainment (B15003): the Census Bureau renumbered the table in the 2025 vintage (two grade lines merged), so the
+// variables are found by their labels in each vintage's own group file and read back under the canonical ids the builder uses.
+const ACS_EDU = {
+  B15003_017E: /Estimate!!Total:!!Regular high school diploma$/, B15003_018E: /Estimate!!Total:!!GED or alternative credential$/,
+  B15003_019E: /Estimate!!Total:!!Some college, less than 1 year$/, B15003_020E: /Estimate!!Total:!!Some college, 1 or more years/,
+  B15003_021E: /Estimate!!Total:!!Associate's degree$/, B15003_022E: /Estimate!!Total:!!Bachelor's degree$/, B15003_023E: /Estimate!!Total:!!Master's degree$/,
+  B15003_024E: /Estimate!!Total:!!Professional school degree$/, B15003_025E: /Estimate!!Total:!!Doctorate degree$/,
 };
 // median household income by race and Hispanic origin of the householder: table iterations, checked on the table's concept
 const ACS_RACE = { A: /White Alone Householder/i, B: /Black or African American Alone Householder/i, C: /American Indian and Alaska Native Alone Householder/i, D: /Asian Alone Householder/i, E: /Native Hawaiian and Other Pacific Islander Alone Householder/i, F: /Some Other Race Alone Householder/i, G: /Two or More Races Householder/i, H: /White Alone, Not Hispanic or Latino Householder/i, I: /Hispanic or Latino Householder/i };
@@ -126,11 +133,17 @@ async function fetchCensus(prev) {
   const labels = {};
   for (const g of groups) {
     const j = await getJson(`${base(year)}/groups/${g}.json`);
-    for (const [id, v] of Object.entries(j.variables || {})) if (/E$/.test(id)) labels[id] = { label: String(v.label || '').replace(/^Estimate!!/, ''), concept: String(v.concept || '') };
+    for (const [id, v] of Object.entries(j.variables || {})) if (/E$/.test(id)) labels[id] = { label: String(v.label || '').replace(/^Estimate!!/, ''), concept: String(v.concept || ''), raw: String(v.label || '') };
     await sleep(120);
   }
   const problems = [];
+  const idMap = {};   // canonical education id -> the vintage's own id (found by label, each label exactly once)
+  for (const [canon, re] of Object.entries(ACS_EDU)) {
+    const hit = Object.keys(labels).filter((id) => id.startsWith('B15003_') && re.test(labels[id].raw));
+    if (hit.length !== 1) problems.push(`${canon}: ${hit.length} variables match ${re} in the ${year} group file`); else idMap[canon] = hit[0];
+  }
   for (const id of new Set([...ACS_NAT, ...ACS_STATE])) {
+    if (idMap[id]) continue;
     if (!labels[id]) { problems.push(`${id}: not in the ${year} group file`); continue; }
     if (ACS_LABELS[id] && !ACS_LABELS[id].test(labels[id].label)) problems.push(`${id}: label "${labels[id].label}" does not match ${ACS_LABELS[id]}`);
   }
@@ -138,7 +151,9 @@ async function fetchCensus(prev) {
   if (problems.length) throw new Error(`ACS ${year} label check failed: ${problems.slice(0, 6).join(' | ')}${problems.length > 6 ? ` (+${problems.length - 6})` : ''}`);
 
   // 2. the nation and the states
-  async function pull(vars, geo, ds = '') {
+  const back = Object.fromEntries(Object.entries(idMap).map(([c, a]) => [a, c]));
+  async function pull(vars0, geo, ds = '') {
+    const vars = vars0.map((v) => idMap[v] || v);
     const out = {};
     for (let i = 0; i < vars.length; i += 45) {
       const rows = await getJson(`${base(year, ds)}?get=NAME,${vars.slice(i, i + 45).join(',')}&for=${geo}&key=${key}`);
@@ -147,7 +162,7 @@ async function fetchCensus(prev) {
         const geoId = geo.startsWith('us') ? 'US' : (BY_FIPS[r[head.indexOf('state')]] || {}).code;
         if (!geoId) continue;   // Puerto Rico
         out[geoId] = out[geoId] || {};
-        head.forEach((h, c) => { if (/_\d+E$/.test(h)) out[geoId][h] = censusNum(r[c]); });
+        head.forEach((h, c) => { if (/_\d+E$/.test(h)) out[geoId][back[h] || h] = censusNum(r[c]); });
       }
       await sleep(150);
     }
